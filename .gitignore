@@ -16,10 +16,4 @@ static/main.css
 static/main.min.css
 static/normalize.css
 static/normalize.min.css
-infra/tracker-exports/*
-!infra/tracker-exports/.gitkeep
-infra/tracker-imports/*
-!infra/tracker-imports/.gitkeep
-infra/list-imports/*
-!infra/list-imports/.gitkeep
 tsconfig.tsbuildinfo
