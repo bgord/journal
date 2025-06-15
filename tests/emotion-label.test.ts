@@ -37,10 +37,10 @@ describe("EmotionLabel", () => {
   });
 
   test("toString", () => {
-    expect(new EmotionLabel(GenevaWheelEmotion.fear).toString()).toEqual("fear");
+    expect(new EmotionLabel(GenevaWheelEmotion.fear).toString()).toEqual(GenevaWheelEmotion.fear);
   });
 
   test("toJSON", () => {
-    expect(new EmotionLabel(GenevaWheelEmotion.fear).toJSON()).toEqual("fear");
+    expect(new EmotionLabel(GenevaWheelEmotion.fear).toJSON()).toEqual(GenevaWheelEmotion.fear);
   });
 });

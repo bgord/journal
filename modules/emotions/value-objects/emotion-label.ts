@@ -2,7 +2,6 @@ import { z } from "zod/v4";
 
 const EmotionLabelErrors = { invalid: "emotion.label.invalid" };
 
-// Geneva Emotion Wheel
 export enum GenevaWheelEmotion {
   joy = "joy",
   pleasure = "pleasure",
