@@ -1,9 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import {
-  EmotionLabel,
-  GenevaWheelEmotion,
-} from "../modules/emotions/value-objects/emotion-label";
+import { EmotionLabel, GenevaWheelEmotion } from "../modules/emotions/value-objects/emotion-label";
 
 describe("EmotionLabel", () => {
   test("constructor - creates all correct emotion labels", () => {
@@ -17,9 +14,7 @@ describe("EmotionLabel", () => {
 
   test("constructor - throws on unknown emotion", () => {
     // @ts-expect-error
-    expect(() => new EmotionLabel("something_else")).toThrow(
-      EmotionLabel.Errors.invalid,
-    );
+    expect(() => new EmotionLabel("something_else")).toThrow(EmotionLabel.Errors.invalid);
   });
 
   test("compare - true", () => {
@@ -42,9 +37,7 @@ describe("EmotionLabel", () => {
   });
 
   test("toString", () => {
-    expect(new EmotionLabel(GenevaWheelEmotion.fear).toString()).toEqual(
-      "fear",
-    );
+    expect(new EmotionLabel(GenevaWheelEmotion.fear).toString()).toEqual("fear");
   });
 
   test("toJSON", () => {
