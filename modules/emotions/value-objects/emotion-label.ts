@@ -2,6 +2,7 @@ import { z } from "zod/v4";
 
 const EmotionLabelErrors = { invalid: "emotion.label.invalid" };
 
+// https://en.wikipedia.org/wiki/Geneva_drive
 export enum GenevaWheelEmotion {
   joy = "joy",
   pleasure = "pleasure",

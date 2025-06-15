@@ -2,6 +2,7 @@ import { z } from "zod/v4";
 
 const ReactionTypeErrors = { invalid: "reaction.type.invalid" };
 
+// https://psu.pb.unizin.org/psych425/chapter/process-model-of-emotion-regulation/
 export enum GrossEmotionRegulationStrategy {
   avoidance = "avoidance",
   confrontation = "confrontation",
