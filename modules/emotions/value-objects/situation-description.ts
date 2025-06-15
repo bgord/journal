@@ -15,9 +15,7 @@ type SituationDescriptionType = z.infer<typeof SituationDescriptionSchema>;
 
 export class SituationDescription {
   static readonly Errors = SituationDescriptionErrors;
-
   static readonly MinimumLength = SituationDescriptionMin;
-
   static readonly MaximumLength = SituationDescriptionMax;
 
   private readonly value: SituationDescriptionType;

@@ -14,9 +14,7 @@ type EmotionIntensityType = z.infer<typeof EmotionIntensitySchema>;
 
 export class EmotionIntensity {
   static readonly Errors = EmotionIntensityErrors;
-
   static readonly Minimum = EmotionIntensityMin;
-
   static readonly Maximum = EmotionIntensityMax;
 
   private readonly value: EmotionIntensityType;
