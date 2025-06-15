@@ -53,9 +53,10 @@ export class ReactionType {
   }
 
   isContextual(): boolean {
-    return [GrossEmotionRegulationStrategy.distraction, GrossEmotionRegulationStrategy.confrontation].includes(
-      this.value,
-    );
+    return [
+      GrossEmotionRegulationStrategy.distraction,
+      GrossEmotionRegulationStrategy.confrontation,
+    ].includes(this.value);
   }
 
   equals(another: ReactionType): boolean {

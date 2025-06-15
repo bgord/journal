@@ -17,9 +17,7 @@ describe("ReactionType", () => {
 
   test("constructor - throws on unknown emotion regulation strategy", () => {
     // @ts-expect-error
-    expect(() => new ReactionType("something_else")).toThrow(
-      ReactionType.Errors.invalid,
-    );
+    expect(() => new ReactionType("something_else")).toThrow(ReactionType.Errors.invalid);
   });
 
   test("isAdaptive - true", () => {
@@ -29,9 +27,7 @@ describe("ReactionType", () => {
       GrossEmotionRegulationStrategy.acceptance,
       GrossEmotionRegulationStrategy.problem_solving,
       GrossEmotionRegulationStrategy.humor,
-    ].forEach((strategy) =>
-      expect(new ReactionType(strategy).isAdaptive()).toEqual(true),
-    );
+    ].forEach((strategy) => expect(new ReactionType(strategy).isAdaptive()).toEqual(true));
   });
 
   test("isAdaptive - false", () => {
@@ -41,9 +37,7 @@ describe("ReactionType", () => {
       GrossEmotionRegulationStrategy.distraction,
       GrossEmotionRegulationStrategy.rumination,
       GrossEmotionRegulationStrategy.suppression,
-    ].forEach((strategy) =>
-      expect(new ReactionType(strategy).isAdaptive()).toEqual(false),
-    );
+    ].forEach((strategy) => expect(new ReactionType(strategy).isAdaptive()).toEqual(false));
   });
 
   test("isMaladaptive - true", () => {
@@ -51,9 +45,7 @@ describe("ReactionType", () => {
       GrossEmotionRegulationStrategy.avoidance,
       GrossEmotionRegulationStrategy.rumination,
       GrossEmotionRegulationStrategy.suppression,
-    ].forEach((strategy) =>
-      expect(new ReactionType(strategy).isMaladaptive()).toEqual(true),
-    );
+    ].forEach((strategy) => expect(new ReactionType(strategy).isMaladaptive()).toEqual(true));
   });
 
   test("isMaladaptive - false", () => {
@@ -65,17 +57,12 @@ describe("ReactionType", () => {
       GrossEmotionRegulationStrategy.acceptance,
       GrossEmotionRegulationStrategy.humor,
       GrossEmotionRegulationStrategy.problem_solving,
-    ].forEach((strategy) =>
-      expect(new ReactionType(strategy).isMaladaptive()).toEqual(false),
-    );
+    ].forEach((strategy) => expect(new ReactionType(strategy).isMaladaptive()).toEqual(false));
   });
 
   test("isContextual - true", () => {
-    [
-      GrossEmotionRegulationStrategy.confrontation,
-      GrossEmotionRegulationStrategy.distraction,
-    ].forEach((strategy) =>
-      expect(new ReactionType(strategy).isContextual()).toEqual(true),
+    [GrossEmotionRegulationStrategy.confrontation, GrossEmotionRegulationStrategy.distraction].forEach(
+      (strategy) => expect(new ReactionType(strategy).isContextual()).toEqual(true),
     );
   });
 
@@ -89,49 +76,37 @@ describe("ReactionType", () => {
       GrossEmotionRegulationStrategy.acceptance,
       GrossEmotionRegulationStrategy.humor,
       GrossEmotionRegulationStrategy.problem_solving,
-    ].forEach((strategy) =>
-      expect(new ReactionType(strategy).isContextual()).toEqual(false),
-    );
+    ].forEach((strategy) => expect(new ReactionType(strategy).isContextual()).toEqual(false));
   });
 
   test("compare - true", () => {
-    const acceptance = new ReactionType(
-      GrossEmotionRegulationStrategy.acceptance,
-    );
-    const anotherAcceptance = new ReactionType(
-      GrossEmotionRegulationStrategy.acceptance,
-    );
+    const acceptance = new ReactionType(GrossEmotionRegulationStrategy.acceptance);
+    const anotherAcceptance = new ReactionType(GrossEmotionRegulationStrategy.acceptance);
 
     expect(acceptance.equals(anotherAcceptance)).toEqual(true);
   });
 
   test("compare - false", () => {
-    const acceptance = new ReactionType(
-      GrossEmotionRegulationStrategy.acceptance,
-    );
-    const avoidance = new ReactionType(
-      GrossEmotionRegulationStrategy.avoidance,
-    );
+    const acceptance = new ReactionType(GrossEmotionRegulationStrategy.acceptance);
+    const avoidance = new ReactionType(GrossEmotionRegulationStrategy.avoidance);
 
     expect(acceptance.equals(avoidance)).toEqual(false);
   });
 
   test("all - returns all options", () => {
     // @ts-expect-error
-    expect(ReactionType.all()).toEqual(
-      Object.keys(GrossEmotionRegulationStrategy),
-    );
+    expect(ReactionType.all()).toEqual(Object.keys(GrossEmotionRegulationStrategy));
   });
 
   test("toString", () => {
-    expect(
-      new ReactionType(GrossEmotionRegulationStrategy.acceptance).toString(),
-    ).toEqual(GrossEmotionRegulationStrategy.acceptance);
+    expect(new ReactionType(GrossEmotionRegulationStrategy.acceptance).toString()).toEqual(
+      GrossEmotionRegulationStrategy.acceptance,
+    );
   });
 
   test("toJSON", () => {
-    expect(
-      new ReactionType(GrossEmotionRegulationStrategy.acceptance).toJSON(),
-    ).toEqual(GrossEmotionRegulationStrategy.acceptance);
+    expect(new ReactionType(GrossEmotionRegulationStrategy.acceptance).toJSON()).toEqual(
+      GrossEmotionRegulationStrategy.acceptance,
+    );
   });
 });
