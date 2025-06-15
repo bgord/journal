@@ -16,22 +16,16 @@ describe("EmotionIntensity", () => {
   });
 
   test("constructor - rejects less than minimum emotion intensity", () => {
-    expect(() => new EmotionIntensity(0)).toThrow(
-      EmotionIntensity.Errors.min_max,
-    );
+    expect(() => new EmotionIntensity(0)).toThrow(EmotionIntensity.Errors.min_max);
   });
 
   test("constructor - rejects more than minimum emotion intensity", () => {
-    expect(() => new EmotionIntensity(6)).toThrow(
-      EmotionIntensity.Errors.min_max,
-    );
+    expect(() => new EmotionIntensity(6)).toThrow(EmotionIntensity.Errors.min_max);
   });
 
   test("constructor - rejects non-integer emotion intensity", () => {
     // @ts-expect-error
-    expect(() => new EmotionIntensity("123")).toThrow(
-      EmotionIntensity.Errors.min_max,
-    );
+    expect(() => new EmotionIntensity("123")).toThrow(EmotionIntensity.Errors.min_max);
   });
 
   test("isIntensive - false", () => {

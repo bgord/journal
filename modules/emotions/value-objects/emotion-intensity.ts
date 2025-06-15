@@ -46,9 +46,7 @@ export class EmotionIntensity {
   }
 
   static range(): EmotionIntensityType[] {
-    return Array.from({ length: EmotionIntensityMax }).map(
-      (_, index) => index + 1,
-    );
+    return Array.from({ length: EmotionIntensityMax }).map((_, index) => index + 1);
   }
 
   toString(): number {
