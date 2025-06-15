@@ -1,0 +1,71 @@
+name: Deploy
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+concurrency:
+  group: ci-deploy-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Clone repositories
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Bun environment
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.15
+
+      - name: Bun install
+        run: bun install --exact --frozen-lockfile --no-summary
+
+      - name: Create .env.test file
+        run: echo "${{ secrets.ENV_TEST }}" > .env.test
+
+      - name: Create .env.production file
+        run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
+
+      - name: Run build prechecks
+        run: ./bgord-scripts/bun-build-prechecks.sh
+
+      - name: Build the app
+        run: ./scripts/production-server-build.sh
+
+      - name: Inspect the app size
+        run: ./bgord-scripts/production-server-inspect.sh ${{ secrets.PROJECT_NAME }}
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/production.key
+          chmod 600 ~/.ssh/production.key
+          cat >>~/.ssh/config <<END
+          Host production
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/production.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.USER }}
+          SSH_KEY: ${{ secrets.PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.HOSTNAME }}
+
+      - name: Sync source code
+        run: rsync -azP build/ production:/var/www/${{ secrets.PROJECT_NAME }}
+
+      - name: Remove package.json
+        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && rm -rf package.json"
+
+      - name: Install sharp
+        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install --platform=linux --arch=x64 sharp"
+
+      - name: Sync package.json
+        run: rsync -azP package.json production:/var/www/${{ secrets.PROJECT_NAME }}
+
+      - name: Restart server
+        run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}.service
