@@ -17,3 +17,4 @@ static/main.min.css
 static/normalize.css
 static/normalize.min.css
 tsconfig.tsbuildinfo
+tmp/
