@@ -80,7 +80,7 @@ describe("EmotionIntensity", () => {
   });
 
   test("toString", () => {
-    expect(new EmotionIntensity(1).toString()).toEqual(1);
+    expect(new EmotionIntensity(1).toString()).toEqual("1");
   });
 
   test("toJSON", () => {

@@ -47,8 +47,8 @@ export class EmotionIntensity {
     return Array.from({ length: EmotionIntensityMax }).map((_, index) => index + 1);
   }
 
-  toString(): number {
-    return this.value;
+  toString(): string {
+    return this.value.toString();
   }
 
   toJSON(): number {
