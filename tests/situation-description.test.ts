@@ -20,24 +20,17 @@ describe("SituationDescription", () => {
   });
 
   test("constructor - rejects under the limit", () => {
-    expect(() => new SituationDescription("")).toThrow(
-      SituationDescription.Errors.invalid,
-    );
+    expect(() => new SituationDescription("")).toThrow(SituationDescription.Errors.invalid);
   });
 
   test("constructor - rejects over the limit", () => {
-    expect(
-      () =>
-        new SituationDescription(
-          "a".repeat(SituationDescription.MaximumLength + 1),
-        ),
-    ).toThrow(SituationDescription.Errors.invalid);
+    expect(() => new SituationDescription("a".repeat(SituationDescription.MaximumLength + 1))).toThrow(
+      SituationDescription.Errors.invalid,
+    );
   });
 
   test("constructor - rejects empty input", () => {
-    expect(() => new SituationDescription("    ")).toThrow(
-      SituationDescription.Errors.invalid,
-    );
+    expect(() => new SituationDescription("    ")).toThrow(SituationDescription.Errors.invalid);
   });
 
   test("equals - true", () => {
