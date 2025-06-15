@@ -1,5 +1,7 @@
 export * from "./emotion-intensity";
+export * from "./emotion-journal-entry-created-at";
 export * from "./emotion-journal-entry-id";
+export * from "./emotion-journal-entry-updated-at";
 export * from "./emotion-label";
 export * from "./reaction-description";
 export * from "./reaction-effectiveness";
