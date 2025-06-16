@@ -65,6 +65,11 @@ export class EmotionJournalEntry {
       emotion: this.emotion,
     });
 
+    await Policies.EmotionCorrespondsToSituation.perform({
+      situation: this.situation,
+      emotion: this.emotion,
+    });
+
     const EmotionLoggedEvent: EmotionLoggedEvent = {
       type: "emotion.logged",
       id: this.id,
