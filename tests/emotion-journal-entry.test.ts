@@ -79,11 +79,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logSituation - Policies.OneSituationPerEmotionJournalEntry", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
-
-    await emotionJournalEntry.logSituation(situation);
-
-    expect(emotionJournalEntry.pullEvents()).toEqual([SituationLoggedEvent]);
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [SituationLoggedEvent]);
 
     expect(async () => emotionJournalEntry.logSituation(situation)).toThrow(
       Emotions.Policies.OneSituationPerEmotionJournalEntry.error,
@@ -103,13 +99,10 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logEmotion - Policies.OneEmotionPerEmotionJournalEntry", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
-
-    await emotionJournalEntry.logSituation(situation);
-
-    await emotionJournalEntry.logEmotion(emotion);
-
-    expect(emotionJournalEntry.pullEvents()).toEqual([SituationLoggedEvent, EmotionLoggedEvent]);
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
+      SituationLoggedEvent,
+      EmotionLoggedEvent,
+    ]);
 
     expect(async () => emotionJournalEntry.logEmotion(emotion)).toThrow(
       Emotions.Policies.OneEmotionPerEmotionJournalEntry.error,
@@ -143,13 +136,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logReaction - Policies.OneReactionPerEmotionJournalEntry", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
-
-    await emotionJournalEntry.logSituation(situation);
-    await emotionJournalEntry.logEmotion(emotion);
-    await emotionJournalEntry.logReaction(reaction);
-
-    expect(emotionJournalEntry.pullEvents()).toEqual([
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
       SituationLoggedEvent,
       EmotionLoggedEvent,
       ReactionLoggedEvent,
@@ -173,11 +160,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logReaction - Policies.ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
-
-    await emotionJournalEntry.logSituation(situation);
-
-    expect(emotionJournalEntry.pullEvents()).toEqual([SituationLoggedEvent]);
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [SituationLoggedEvent]);
 
     expect(async () => emotionJournalEntry.logReaction(reaction)).toThrow(
       Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.error,
