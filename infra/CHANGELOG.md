@@ -1,0 +1,42 @@
+# Changelog
+- 2025-06-16 23:53 c6bafd9 **step: update lefthook**
+## 2025-06-16 23:53 
+- 2025-06-16 23:36 1847773 **feature: add logReaction method**
+- 2025-06-16 23:35 73ff4ad **refactor: export reaction vo types**
+- 2025-06-16 23:28 896b30d **step: improve tests**
+- 2025-06-16 23:14 1696d03 **step: add emotion corresponds to situation policy**
+- 2025-06-16 23:08 e5e491c **feature: add logEmotion method**
+- 2025-06-16 22:24 da9cce5 **step: define OneSituationPerEmotionJournalEntry**
+- 2025-06-16 22:06 7f7376a **step: add emotion journal entry aggregate tests**
+- 2025-06-16 21:58 b17441f **feature: setup emotion journal entry aggregate**
+- 2025-06-16 21:55 9abc228 **fix: situation kind**
+- 2025-06-16 21:55 4c6101e **refactor: export vo value types**
+- 2025-06-15 23:09 7c7d6fd **step: add sources**
+- 2025-06-15 22:42 d27d860 **step: add docs**
+- 2025-06-15 22:21 7596caf **step: define emotions module exports**
+- 2025-06-15 22:17 8b6eff2 **step: add tmp/ to gitignore**
+- 2025-06-15 22:12 e394d02 **feature: define situation, emotion, reaction entities**
+- 2025-06-15 22:08 710e3ba **feature: add journal entry created and updated at**
+- 2025-06-15 22:05 3bfe0de **feature: add journal entry id**
+- 2025-06-15 21:58 d8cbdf8 **feature: add situation kind  vo**
+- 2025-06-15 21:03 9d71d4c **feature: add reaction type vo**
+- 2025-06-15 20:32 faef098 **feature: add reaction effectiveness vo**
+- 2025-06-15 20:25 e278511 **feature: add reaction description vo**
+- 2025-06-15 20:20 2d0029f **feature: add situation location vo**
+- 2025-06-15 20:13 ad9c0e5 **feature: add situation description vo**
+- 2025-06-15 19:47 c3f8e59 **step: improve emotion intensity serializing**
+- 2025-06-15 19:38 f6281bd **feature: add emotion label vo**
+- 2025-06-15 16:16 8cfdb9c **feature: add emotion intensity vo**
+- 2025-06-15 15:33 fef6d7f **step: setup scripts/**
+- 2025-06-15 15:32 03a4980 **step: setup app/**
+- 2025-06-15 15:31 bd5b3ac **step: setup infra/**
+- 2025-06-15 15:30 bee88dd **step: setup server.ts**
+- 2025-06-15 15:29 63aab4b **step: setup index.ts**
+- 2025-06-15 15:27 641728e **step: setup packages**
+- 2025-06-15 15:26 fbce5aa **step: setup readme**
+- 2025-06-15 15:26 8df7ebe **step: setup lefthook**
+- 2025-06-15 15:26 8ba629a **step: setup workflows**
+- 2025-06-15 15:26 439cc63 **step: setup tsconfig**
+- 2025-06-15 15:25 e8c3455 **step: setup envs**
+- 2025-06-15 15:22 de895e0 **step: setup bgord-scripts**
+- 2025-06-15 15:21 0bedf17 **step: add gitignore**
