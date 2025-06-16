@@ -7,7 +7,7 @@ const ReactionDescriptionErrors = {
 const ReactionDescriptionMin = 1;
 const ReactionDescriptionMax = 256;
 
-const ReactionDescriptionSchema = z
+export const ReactionDescriptionSchema = z
   .string({ message: ReactionDescriptionErrors.invalid })
   .trim()
   .min(ReactionDescriptionMin, { message: ReactionDescriptionErrors.invalid })

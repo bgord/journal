@@ -16,7 +16,7 @@ export enum GrossEmotionRegulationStrategy {
   problem_solving = "problem_solving",
 }
 
-const ReactionTypeSchema = z.enum(GrossEmotionRegulationStrategy, {
+export const ReactionTypeSchema = z.enum(GrossEmotionRegulationStrategy, {
   message: ReactionTypeErrors.invalid,
 });
 

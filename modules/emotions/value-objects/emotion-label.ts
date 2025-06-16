@@ -26,7 +26,7 @@ export enum GenevaWheelEmotion {
   surprise_negative = "surprise_negative",
 }
 
-const EmotionLabelSchema = z.enum(GenevaWheelEmotion, {
+export const EmotionLabelSchema = z.enum(GenevaWheelEmotion, {
   error: EmotionLabelErrors.invalid,
 });
 

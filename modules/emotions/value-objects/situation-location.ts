@@ -7,7 +7,7 @@ const SituationLocationErrors = {
 const SituationLocationMin = 1;
 const SituationLocationMax = 128;
 
-const SituationLocationSchema = z
+export const SituationLocationSchema = z
   .string({ message: SituationLocationErrors.invalid })
   .trim()
   .min(SituationLocationMin, { message: SituationLocationErrors.invalid })

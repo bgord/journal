@@ -7,7 +7,7 @@ const ReactionEffectivenessErrors = {
 const ReactionEffectivenessMin = 1;
 const ReactionEffectivenessMax = 5;
 
-const ReactionEffectivenessSchema = z
+export const ReactionEffectivenessSchema = z
   .int({ message: ReactionEffectivenessErrors.min_max })
   .gte(ReactionEffectivenessMin, {
     message: ReactionEffectivenessErrors.min_max,

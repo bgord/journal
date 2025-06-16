@@ -5,7 +5,7 @@ const EmotionIntensityErrors = { min_max: "emotion.intensity.min.max" };
 const EmotionIntensityMin = 1;
 const EmotionIntensityMax = 5;
 
-const EmotionIntensitySchema = z
+export const EmotionIntensitySchema = z
   .int({ message: EmotionIntensityErrors.min_max })
   .gte(EmotionIntensityMin, { message: EmotionIntensityErrors.min_max })
   .lte(EmotionIntensityMax, { message: EmotionIntensityErrors.min_max });

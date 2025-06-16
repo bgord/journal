@@ -5,7 +5,7 @@ const SituationDescriptionErrors = { invalid: "situation.description.invalid" };
 const SituationDescriptionMin = 1;
 const SituationDescriptionMax = 256;
 
-const SituationDescriptionSchema = z
+export const SituationDescriptionSchema = z
   .string({ error: SituationDescriptionErrors.invalid })
   .trim()
   .min(SituationDescriptionMin, { error: SituationDescriptionErrors.invalid })

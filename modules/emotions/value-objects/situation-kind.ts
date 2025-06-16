@@ -25,7 +25,7 @@ export enum SituationKindOptions {
   memory_or_thought = "memory_or_thought",
 }
 
-const SituationKindSchema = z.enum(SituationKindOptions, {
+export const SituationKindSchema = z.enum(SituationKindOptions, {
   message: SituationKindErrors.invalid,
 });
 
