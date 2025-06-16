@@ -2,8 +2,12 @@ import * as Entities from "../entities";
 import * as Policies from "../policies";
 import * as VO from "../value-objects";
 
+export const SITUATION_LOGGED_EVENT = "SITUATION_LOGGED_EVENT";
+export const EMOTION_LOGGED_EVENT = "EMOTION_LOGGED_EVENT";
+export const REACTION_LOGGED_EVENT = "REACTION_LOGGED_EVENT";
+
 export type SituationLoggedEvent = {
-  type: "situation.logged";
+  type: "SITUATION_LOGGED_EVENT";
   id: VO.EmotionJournalEntryIdType;
   situation: {
     description: VO.SituationDescriptionType;
@@ -13,7 +17,7 @@ export type SituationLoggedEvent = {
 };
 
 export type EmotionLoggedEvent = {
-  type: "emotion.logged";
+  type: "EMOTION_LOGGED_EVENT";
   id: VO.EmotionJournalEntryIdType;
   emotion: {
     label: VO.EmotionLabelType;
@@ -22,7 +26,7 @@ export type EmotionLoggedEvent = {
 };
 
 export type ReactionLoggedEvent = {
-  type: "reaction.logged";
+  type: "REACTION_LOGGED_EVENT";
   id: VO.EmotionJournalEntryIdType;
   reaction: {
     type: VO.ReactionTypeType;
@@ -59,7 +63,7 @@ export class EmotionJournalEntry {
     });
 
     const SituationLoggedEvent: SituationLoggedEvent = {
-      type: "situation.logged",
+      type: SITUATION_LOGGED_EVENT,
       id: this.id,
       situation: {
         description: situation.description.get(),
@@ -82,7 +86,7 @@ export class EmotionJournalEntry {
     });
 
     const EmotionLoggedEvent: EmotionLoggedEvent = {
-      type: "emotion.logged",
+      type: EMOTION_LOGGED_EVENT,
       id: this.id,
       emotion: {
         label: emotion.label.get(),
@@ -104,7 +108,7 @@ export class EmotionJournalEntry {
     });
 
     const ReactionLoggedEvent: ReactionLoggedEvent = {
-      type: "reaction.logged",
+      type: REACTION_LOGGED_EVENT,
       id: this.id,
       reaction: {
         description: reaction.description.get(),
@@ -131,7 +135,7 @@ export class EmotionJournalEntry {
 
   private apply(event: JournalEntryEventType): void {
     switch (event.type) {
-      case "situation.logged": {
+      case SITUATION_LOGGED_EVENT: {
         this.situation = new Entities.Situation(
           new VO.SituationDescription(event.situation.description),
           new VO.SituationLocation(event.situation.location),
@@ -140,7 +144,7 @@ export class EmotionJournalEntry {
         break;
       }
 
-      case "emotion.logged": {
+      case EMOTION_LOGGED_EVENT: {
         this.emotion = new Entities.Emotion(
           new VO.EmotionLabel(event.emotion.label),
           new VO.EmotionIntensity(event.emotion.intensity),
@@ -148,7 +152,7 @@ export class EmotionJournalEntry {
         break;
       }
 
-      case "reaction.logged": {
+      case REACTION_LOGGED_EVENT: {
         this.reaction = new Entities.Reaction(
           new VO.ReactionDescription(event.reaction.description),
           new VO.ReactionType(event.reaction.type),

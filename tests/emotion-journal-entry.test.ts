@@ -23,7 +23,7 @@ const reaction = new Emotions.Entities.Reaction(
 const id = bg.NewUUID.generate();
 
 const SituationLoggedEvent = {
-  type: "situation.logged",
+  type: Emotions.Aggregates.SITUATION_LOGGED_EVENT,
   id,
   situation: {
     description: "I finished a project",
@@ -33,7 +33,7 @@ const SituationLoggedEvent = {
 } as const;
 
 const EmotionLoggedEvent = {
-  type: "emotion.logged",
+  type: Emotions.Aggregates.EMOTION_LOGGED_EVENT,
   id,
   emotion: {
     label: Emotions.VO.GenevaWheelEmotion.gratitude,
@@ -42,7 +42,7 @@ const EmotionLoggedEvent = {
 } as const;
 
 const ReactionLoggedEvent = {
-  type: "reaction.logged",
+  type: Emotions.Aggregates.REACTION_LOGGED_EVENT,
   id,
   reaction: {
     description: "Got drunk",
