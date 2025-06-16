@@ -21,12 +21,26 @@ export type EmotionLoggedEvent = {
   };
 };
 
-type JournalEntryEventType = SituationLoggedEvent | EmotionLoggedEvent;
+export type ReactionLoggedEvent = {
+  type: "reaction.logged";
+  id: VO.EmotionJournalEntryIdType;
+  reaction: {
+    type: VO.ReactionTypeType;
+    effectiveness: VO.ReactionEffectivenessType;
+    description: VO.ReactionDescriptionType;
+  };
+};
+
+type JournalEntryEventType =
+  | SituationLoggedEvent
+  | EmotionLoggedEvent
+  | ReactionLoggedEvent;
 
 export class EmotionJournalEntry {
   private readonly id: VO.EmotionJournalEntryIdType;
   private situation?: Entities.Situation;
   private emotion?: Entities.Emotion;
+  private reaction?: Entities.Reaction;
 
   private readonly pending: JournalEntryEventType[] = [];
 
@@ -34,7 +48,10 @@ export class EmotionJournalEntry {
     this.id = id;
   }
 
-  static build(id: VO.EmotionJournalEntryIdType, events: JournalEntryEventType[]): EmotionJournalEntry {
+  static build(
+    id: VO.EmotionJournalEntryIdType,
+    events: JournalEntryEventType[],
+  ): EmotionJournalEntry {
     const entry = new EmotionJournalEntry(id);
 
     events.forEach((event) => entry.apply(event));
@@ -82,6 +99,29 @@ export class EmotionJournalEntry {
     this.record(EmotionLoggedEvent);
   }
 
+  async logReaction(reaction: Entities.Reaction) {
+    await Policies.OneReactionPerEmotionJournalEntry.perform({
+      reaction: this.reaction,
+    });
+
+    await Policies.ReactionCorrespondsToSituationAndEmotion.perform({
+      situation: this.situation,
+      emotion: this.emotion,
+    });
+
+    const ReactionLoggedEvent: ReactionLoggedEvent = {
+      type: "reaction.logged",
+      id: this.id,
+      reaction: {
+        description: reaction.description.get(),
+        type: reaction.type.get(),
+        effectiveness: reaction.effectiveness.get(),
+      },
+    };
+
+    this.record(ReactionLoggedEvent);
+  }
+
   pullEvents(): JournalEntryEventType[] {
     const events = [...this.pending];
 
@@ -110,6 +150,15 @@ export class EmotionJournalEntry {
         this.emotion = new Entities.Emotion(
           new VO.EmotionLabel(event.emotion.label),
           new VO.EmotionIntensity(event.emotion.intensity),
+        );
+        break;
+      }
+
+      case "reaction.logged": {
+        this.reaction = new Entities.Reaction(
+          new VO.ReactionDescription(event.reaction.description),
+          new VO.ReactionType(event.reaction.type),
+          new VO.ReactionEffectiveness(event.reaction.effectiveness),
         );
         break;
       }
