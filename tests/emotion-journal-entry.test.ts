@@ -15,7 +15,7 @@ describe("EmotionJournalEntry", () => {
     expect(emotionJournalEntry.pullEvents()).toEqual([]);
   });
 
-  test("logSituation - correct path", () => {
+  test("logSituation - correct path", async () => {
     const id = bg.NewUUID.generate();
 
     const situation = new Emotions.Entities.Situation(
@@ -31,14 +31,14 @@ describe("EmotionJournalEntry", () => {
       [],
     );
 
-    emotionJournalEntry.logSituation(situation);
+    await emotionJournalEntry.logSituation(situation);
 
     expect(emotionJournalEntry.pullEvents()).toEqual([
       {
         type: "situation.logged",
+        id,
         situation: {
           description: "I finished a project",
-          id,
           kind: Emotions.VO.SituationKindOptions.achievement,
           location: "work",
         },
@@ -46,7 +46,7 @@ describe("EmotionJournalEntry", () => {
     ]);
   });
 
-  test("logSituation - applied only once", () => {
+  test("logSituation - applied only once", async () => {
     const id = bg.NewUUID.generate();
 
     const situation = new Emotions.Entities.Situation(
@@ -62,22 +62,22 @@ describe("EmotionJournalEntry", () => {
       [],
     );
 
-    emotionJournalEntry.logSituation(situation);
+    await emotionJournalEntry.logSituation(situation);
 
     expect(emotionJournalEntry.pullEvents()).toEqual([
       {
         type: "situation.logged",
+        id,
         situation: {
           description: "I finished a project",
-          id,
           kind: Emotions.VO.SituationKindOptions.achievement,
           location: "work",
         },
       },
     ]);
 
-    expect(() => emotionJournalEntry.logSituation(situation)).toThrow(
-      "Situation already logged for this entry.",
+    expect(async () => emotionJournalEntry.logSituation(situation)).toThrow(
+      Emotions.Policies.OneSituationPerEmotionJournalEntry.error,
     );
   });
 });

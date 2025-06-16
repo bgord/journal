@@ -1,10 +1,11 @@
 import * as Entities from "../entities";
+import * as Policies from "../policies";
 import * as VO from "../value-objects";
 
 export type SituationLoggedEvent = {
   type: "situation.logged";
+  id: VO.EmotionJournalEntryIdType;
   situation: {
-    id: VO.EmotionJournalEntryIdType;
     description: VO.SituationDescriptionType;
     location: VO.SituationLocationType;
     kind: VO.SituationKindType;
@@ -23,7 +24,10 @@ export class EmotionJournalEntry {
     this.id = id;
   }
 
-  static build(id: VO.EmotionJournalEntryIdType, events: JournalEntryEventType[]): EmotionJournalEntry {
+  static build(
+    id: VO.EmotionJournalEntryIdType,
+    events: JournalEntryEventType[],
+  ): EmotionJournalEntry {
     const entry = new EmotionJournalEntry(id);
 
     events.forEach((event) => entry.apply(event));
@@ -31,15 +35,15 @@ export class EmotionJournalEntry {
     return entry;
   }
 
-  logSituation(situation: Entities.Situation) {
-    if (this.situation) {
-      throw new Error("Situation already logged for this entry.");
-    }
+  async logSituation(situation: Entities.Situation) {
+    await Policies.OneSituationPerEmotionJournalEntry.perform({
+      situation: this.situation,
+    });
 
     const SituationLoggedEvent: SituationLoggedEvent = {
       type: "situation.logged",
+      id: this.id,
       situation: {
-        id: this.id,
         description: situation.description.get(),
         location: situation.location.get(),
         kind: situation.kind.get(),
@@ -58,8 +62,8 @@ export class EmotionJournalEntry {
   }
 
   private record(event: JournalEntryEventType): void {
-    this.pending.push(event);
     this.apply(event);
+    this.pending.push(event);
   }
 
   private apply(event: JournalEntryEventType): void {
