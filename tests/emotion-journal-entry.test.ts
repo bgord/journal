@@ -23,33 +23,45 @@ const reaction = new Emotions.Entities.Reaction(
 const id = bg.NewUUID.generate();
 
 const SituationLoggedEvent = {
-  type: Emotions.Aggregates.SITUATION_LOGGED_EVENT,
-  id,
-  situation: {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.SITUATION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
     description: "I finished a project",
     kind: Emotions.VO.SituationKindOptions.achievement,
     location: "work",
   },
-} as const;
+} satisfies Emotions.Aggregates.SituationLoggedEventType;
 
 const EmotionLoggedEvent = {
-  type: Emotions.Aggregates.EMOTION_LOGGED_EVENT,
-  id,
-  emotion: {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.EMOTION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
     label: Emotions.VO.GenevaWheelEmotion.gratitude,
     intensity: 3,
   },
-} as const;
+} satisfies Emotions.Aggregates.EmotionLoggedEventType;
 
 const ReactionLoggedEvent = {
-  type: Emotions.Aggregates.REACTION_LOGGED_EVENT,
-  id,
-  reaction: {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.REACTION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
     description: "Got drunk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
     effectiveness: 1,
   },
-} as const;
+} satisfies Emotions.Aggregates.ReactionLoggedEventType;
 
 describe("EmotionJournalEntry", () => {
   test("build new aggregate", () => {
