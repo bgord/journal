@@ -6,6 +6,6 @@ export class Situation {
   constructor(
     public readonly description: SituationDescription,
     public readonly location: SituationLocation,
-    public readonly type: SituationKind,
+    public readonly kind: SituationKind,
   ) {}
 }
