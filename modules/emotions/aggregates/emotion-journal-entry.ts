@@ -1,7 +1,7 @@
 import * as Entities from "../entities";
 import * as VO from "../value-objects";
 
-type SituationLogged = {
+export type SituationLoggedEvent = {
   type: "situation.logged";
   situation: {
     id: VO.EmotionJournalEntryIdType;
@@ -11,7 +11,7 @@ type SituationLogged = {
   };
 };
 
-type JournalEntryEventType = SituationLogged;
+type JournalEntryEventType = SituationLoggedEvent;
 
 export class EmotionJournalEntry {
   private readonly id: VO.EmotionJournalEntryIdType;
@@ -23,10 +23,7 @@ export class EmotionJournalEntry {
     this.id = id;
   }
 
-  static build(
-    id: VO.EmotionJournalEntryIdType,
-    events: JournalEntryEventType[],
-  ): EmotionJournalEntry {
+  static build(id: VO.EmotionJournalEntryIdType, events: JournalEntryEventType[]): EmotionJournalEntry {
     const entry = new EmotionJournalEntry(id);
 
     events.forEach((event) => entry.apply(event));
@@ -39,7 +36,7 @@ export class EmotionJournalEntry {
       throw new Error("Situation already logged for this entry.");
     }
 
-    const SituationLoggedEvent: SituationLogged = {
+    const SituationLoggedEvent: SituationLoggedEvent = {
       type: "situation.logged",
       situation: {
         id: this.id,
