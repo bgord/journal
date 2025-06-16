@@ -5,10 +5,7 @@ import * as Entities from "../entities";
 class ReactionCorrespondsToSituationAndEmotionError extends Error {
   constructor() {
     super();
-    Object.setPrototypeOf(
-      this,
-      ReactionCorrespondsToSituationAndEmotionError.prototype,
-    );
+    Object.setPrototypeOf(this, ReactionCorrespondsToSituationAndEmotionError.prototype);
   }
 }
 
@@ -27,5 +24,4 @@ class ReactionCorrespondsToSituationAndEmotionFactory extends bg.Policy<Reaction
   error = ReactionCorrespondsToSituationAndEmotionError;
 }
 
-export const ReactionCorrespondsToSituationAndEmotion =
-  new ReactionCorrespondsToSituationAndEmotionFactory();
+export const ReactionCorrespondsToSituationAndEmotion = new ReactionCorrespondsToSituationAndEmotionFactory();

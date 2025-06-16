@@ -31,10 +31,7 @@ export type ReactionLoggedEvent = {
   };
 };
 
-type JournalEntryEventType =
-  | SituationLoggedEvent
-  | EmotionLoggedEvent
-  | ReactionLoggedEvent;
+type JournalEntryEventType = SituationLoggedEvent | EmotionLoggedEvent | ReactionLoggedEvent;
 
 export class EmotionJournalEntry {
   private readonly id: VO.EmotionJournalEntryIdType;
@@ -48,10 +45,7 @@ export class EmotionJournalEntry {
     this.id = id;
   }
 
-  static build(
-    id: VO.EmotionJournalEntryIdType,
-    events: JournalEntryEventType[],
-  ): EmotionJournalEntry {
+  static build(id: VO.EmotionJournalEntryIdType, events: JournalEntryEventType[]): EmotionJournalEntry {
     const entry = new EmotionJournalEntry(id);
 
     events.forEach((event) => entry.apply(event));
