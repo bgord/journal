@@ -7,10 +7,7 @@ describe("EmotionJournalEntry", () => {
   test("build new aggregate", () => {
     const id = bg.NewUUID.generate();
 
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      id,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
 
     expect(emotionJournalEntry.pullEvents()).toEqual([]);
   });
@@ -21,15 +18,10 @@ describe("EmotionJournalEntry", () => {
     const situation = new Emotions.Entities.Situation(
       new Emotions.VO.SituationDescription("I finished a project"),
       new Emotions.VO.SituationLocation("work"),
-      new Emotions.VO.SituationKind(
-        Emotions.VO.SituationKindOptions.achievement,
-      ),
+      new Emotions.VO.SituationKind(Emotions.VO.SituationKindOptions.achievement),
     );
 
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      id,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
 
     await emotionJournalEntry.logSituation(situation);
 
@@ -52,15 +44,10 @@ describe("EmotionJournalEntry", () => {
     const situation = new Emotions.Entities.Situation(
       new Emotions.VO.SituationDescription("I finished a project"),
       new Emotions.VO.SituationLocation("work"),
-      new Emotions.VO.SituationKind(
-        Emotions.VO.SituationKindOptions.achievement,
-      ),
+      new Emotions.VO.SituationKind(Emotions.VO.SituationKindOptions.achievement),
     );
 
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      id,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
 
     await emotionJournalEntry.logSituation(situation);
 

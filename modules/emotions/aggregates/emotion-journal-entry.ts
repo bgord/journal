@@ -12,11 +12,21 @@ export type SituationLoggedEvent = {
   };
 };
 
-type JournalEntryEventType = SituationLoggedEvent;
+export type EmotionLoggedEvent = {
+  type: "emotion.logged";
+  id: VO.EmotionJournalEntryIdType;
+  emotion: {
+    label: VO.EmotionLabelType;
+    intensity: VO.EmotionIntensityType;
+  };
+};
+
+type JournalEntryEventType = SituationLoggedEvent | EmotionLoggedEvent;
 
 export class EmotionJournalEntry {
   private readonly id: VO.EmotionJournalEntryIdType;
   private situation?: Entities.Situation;
+  private emotion?: Entities.Emotion;
 
   private readonly pending: JournalEntryEventType[] = [];
 
@@ -24,10 +34,7 @@ export class EmotionJournalEntry {
     this.id = id;
   }
 
-  static build(
-    id: VO.EmotionJournalEntryIdType,
-    events: JournalEntryEventType[],
-  ): EmotionJournalEntry {
+  static build(id: VO.EmotionJournalEntryIdType, events: JournalEntryEventType[]): EmotionJournalEntry {
     const entry = new EmotionJournalEntry(id);
 
     events.forEach((event) => entry.apply(event));
@@ -53,6 +60,23 @@ export class EmotionJournalEntry {
     this.record(SituationLoggedEvent);
   }
 
+  async logEmotion(emotion: Entities.Emotion) {
+    await Policies.OneEmotionPerEmotionJournalEntry.perform({
+      emotion: this.emotion,
+    });
+
+    const EmotionLoggedEvent: EmotionLoggedEvent = {
+      type: "emotion.logged",
+      id: this.id,
+      emotion: {
+        label: emotion.label.get(),
+        intensity: emotion.intensity.get(),
+      },
+    };
+
+    this.record(EmotionLoggedEvent);
+  }
+
   pullEvents(): JournalEntryEventType[] {
     const events = [...this.pending];
 
@@ -74,6 +98,15 @@ export class EmotionJournalEntry {
           new VO.SituationLocation(event.situation.location),
           new VO.SituationKind(event.situation.kind),
         );
+        break;
+      }
+
+      case "emotion.logged": {
+        this.emotion = new Entities.Emotion(
+          new VO.EmotionLabel(event.emotion.label),
+          new VO.EmotionIntensity(event.emotion.intensity),
+        );
+        break;
       }
     }
   }

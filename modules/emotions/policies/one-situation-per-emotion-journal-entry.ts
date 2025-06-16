@@ -18,7 +18,7 @@ class OneSituationPerEmotionJournalEntryFactory extends bg.Policy<OneSituationPe
     return config.situation !== undefined;
   }
 
-  message = "article.exists.error";
+  message = "emotion.journal.entry.one_situation.error";
 
   error = OneSituationPerEmotionJournalEntryError;
 }
