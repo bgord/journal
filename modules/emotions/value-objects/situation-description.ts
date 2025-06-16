@@ -11,7 +11,7 @@ const SituationDescriptionSchema = z
   .min(SituationDescriptionMin, { error: SituationDescriptionErrors.invalid })
   .max(SituationDescriptionMax, { error: SituationDescriptionErrors.invalid });
 
-type SituationDescriptionType = z.infer<typeof SituationDescriptionSchema>;
+export type SituationDescriptionType = z.infer<typeof SituationDescriptionSchema>;
 
 export class SituationDescription {
   static readonly Errors = SituationDescriptionErrors;
