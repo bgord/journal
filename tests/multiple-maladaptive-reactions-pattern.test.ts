@@ -13,13 +13,13 @@ describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
   test("true", () => {
     const result = Emotions.Services.PatternDetector.detect(
       [maladaptiveJournalEntry, maladaptiveJournalEntry, maladaptiveJournalEntry],
-      [new Emotions.Services.Patterns.MultipleMaladaptiveReactionsInWeekPattern()],
+      [new Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern()],
     );
 
     expect(result).toEqual([
       {
         detected: true,
-        name: Emotions.Services.Patterns.MultipleMaladaptiveReactionsInWeekPattern.name,
+        name: Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern.name,
       },
     ]);
   });
@@ -27,7 +27,7 @@ describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
   test("false", () => {
     const result = Emotions.Services.PatternDetector.detect(
       [maladaptiveJournalEntry, maladaptiveJournalEntry],
-      [new Emotions.Services.Patterns.MultipleMaladaptiveReactionsInWeekPattern()],
+      [new Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern()],
     );
 
     expect(result).toEqual([]);

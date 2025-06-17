@@ -1,8 +1,8 @@
 import { EmotionJournalEntry } from "../../aggregates/emotion-journal-entry";
 import { Pattern, PatternDetectionResult } from "./pattern";
 
-export class MultipleMaladaptiveReactionsInWeekPattern extends Pattern {
-  name = "MultipleMaladaptiveReactionsInWeekPattern";
+export class MultipleMaladaptiveReactionsPattern extends Pattern {
+  name = "MultipleMaladaptiveReactionsPattern";
 
   check(entries: EmotionJournalEntry[]): PatternDetectionResult {
     const matches = entries
