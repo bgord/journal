@@ -16,9 +16,9 @@ export class MultipleMaladaptiveReactionsInWeekPattern extends Pattern {
   name = "MultipleMaladaptiveReactionsInWeekPattern";
 
   check(entries: EmotionJournalEntry[]): DetectedResult | UndetectedResult {
-    const detected =
-      entries.map((entry) => entry.summarize()).filter((entry) => entry.reaction?.type.isMaladaptive())
-        .length >= 3;
+    const matches = entries
+      .map((entry) => entry.summarize())
+      .filter((entry) => entry.reaction?.type.isMaladaptive());
 
     return { detected, name: this.name };
   }
