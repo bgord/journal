@@ -68,11 +68,28 @@ export const EmotionReappraisedEvent = z.object({
 });
 export type EmotionReappraisedEventType = z.infer<typeof EmotionReappraisedEvent>;
 
+export const REACTION_EVALUATED_EVENT = "REACTION_EVALUATED_EVENT";
+export const ReactionEvaluatedEvent = z.object({
+  id: bg.UUID,
+  createdAt: tools.Timestamp,
+  stream: z.string().min(1),
+  name: z.literal(REACTION_EVALUATED_EVENT),
+  version: z.literal(1),
+  payload: z.object({
+    id: VO.EmotionJournalEntryId,
+    type: VO.ReactionTypeSchema,
+    effectiveness: VO.ReactionEffectivenessSchema,
+    description: VO.ReactionDescriptionSchema,
+  }),
+});
+export type ReactionEvaluatedEventType = z.infer<typeof ReactionEvaluatedEvent>;
+
 type JournalEntryEventType =
   | SituationLoggedEventType
   | EmotionLoggedEventType
   | ReactionLoggedEventType
-  | EmotionReappraisedEventType;
+  | EmotionReappraisedEventType
+  | ReactionEvaluatedEventType;
 
 export class EmotionJournalEntry {
   private readonly id: VO.EmotionJournalEntryIdType;
@@ -193,6 +210,24 @@ export class EmotionJournalEntry {
     this.record(event);
   }
 
+  async evaluateReaction(newReaction: Entities.Reaction) {
+    const event = ReactionEvaluatedEvent.parse({
+      id: bg.NewUUID.generate(),
+      createdAt: tools.Timestamp.parse(Date.now()),
+      name: REACTION_EVALUATED_EVENT,
+      stream: EmotionJournalEntry.getStream(this.id),
+      version: 1,
+      payload: {
+        id: this.id,
+        description: newReaction.description.get(),
+        type: newReaction.type.get(),
+        effectiveness: newReaction.effectiveness.get(),
+      },
+    } satisfies ReactionEvaluatedEventType);
+
+    this.record(event);
+  }
+
   pullEvents(): JournalEntryEventType[] {
     const events = [...this.pending];
 
@@ -238,6 +273,15 @@ export class EmotionJournalEntry {
         this.emotion = new Entities.Emotion(
           new VO.EmotionLabel(event.payload.newLabel),
           new VO.EmotionIntensity(event.payload.newIntensity),
+        );
+        break;
+      }
+
+      case REACTION_EVALUATED_EVENT: {
+        this.reaction = new Entities.Reaction(
+          new VO.ReactionDescription(event.payload.description),
+          new VO.ReactionType(event.payload.type),
+          new VO.ReactionEffectiveness(event.payload.effectiveness),
         );
         break;
       }
