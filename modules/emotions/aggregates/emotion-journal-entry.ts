@@ -239,6 +239,17 @@ export class EmotionJournalEntry {
     this.record(event);
   }
 
+  summarize() {
+    return {
+      id: this.id,
+      startedAt: this.startedAt,
+      finishedAt: this.finishedAt,
+      situation: this.situation,
+      emotion: this.emotion,
+      reaction: this.reaction,
+    };
+  }
+
   pullEvents(): JournalEntryEventType[] {
     const events = [...this.pending];
 

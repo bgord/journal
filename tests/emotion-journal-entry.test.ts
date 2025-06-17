@@ -277,4 +277,23 @@ describe("EmotionJournalEntry", () => {
 
     expect(emotionJournalEntry.pullEvents()).toEqual([]);
   });
+
+  test("summarize - full entry", () => {
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
+      SituationLoggedEvent,
+      EmotionLoggedEvent,
+      ReactionLoggedEvent,
+    ]);
+
+    const summary = emotionJournalEntry.summarize();
+
+    expect(Object.keys(summary)).toEqual([
+      "id",
+      "startedAt",
+      "finishedAt",
+      "situation",
+      "emotion",
+      "reaction",
+    ]);
+  });
 });
