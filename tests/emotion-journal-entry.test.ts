@@ -127,12 +127,11 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logEmotion - correct path", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [SituationLoggedEvent]);
 
-    await emotionJournalEntry.logSituation(situation);
     await emotionJournalEntry.logEmotion(emotion);
 
-    expect(emotionJournalEntry.pullEvents()).toEqual([SituationLoggedEvent, EmotionLoggedEvent]);
+    expect(emotionJournalEntry.pullEvents()).toEqual([EmotionLoggedEvent]);
   });
 
   test("logEmotion - Policies.OneEmotionPerEmotionJournalEntry", async () => {
@@ -159,17 +158,14 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logReaction - correct path", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
-
-    await emotionJournalEntry.logSituation(situation);
-    await emotionJournalEntry.logEmotion(emotion);
-    await emotionJournalEntry.logReaction(reaction);
-
-    expect(emotionJournalEntry.pullEvents()).toEqual([
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
       SituationLoggedEvent,
       EmotionLoggedEvent,
-      ReactionLoggedEvent,
     ]);
+
+    await emotionJournalEntry.logReaction(reaction);
+
+    expect(emotionJournalEntry.pullEvents()).toEqual([ReactionLoggedEvent]);
   });
 
   test("logReaction - Policies.OneReactionPerEmotionJournalEntry", async () => {
@@ -207,17 +203,14 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("reappraiseEmotion - correct path", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
-
-    await emotionJournalEntry.logSituation(situation);
-    await emotionJournalEntry.logEmotion(emotion);
-    await emotionJournalEntry.reappraiseEmotion(newEmotion);
-
-    expect(emotionJournalEntry.pullEvents()).toEqual([
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
       SituationLoggedEvent,
       EmotionLoggedEvent,
-      EmotionReappraisedEvent,
     ]);
+
+    await emotionJournalEntry.reappraiseEmotion(newEmotion);
+
+    expect(emotionJournalEntry.pullEvents()).toEqual([EmotionReappraisedEvent]);
   });
 
   test("reappraiseEmotion - Policies.EmotionCorrespondsToSituation", async () => {
@@ -241,19 +234,15 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("evaluateReaction - correct path", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, []);
-
-    await emotionJournalEntry.logSituation(situation);
-    await emotionJournalEntry.logEmotion(emotion);
-    await emotionJournalEntry.logReaction(reaction);
-    await emotionJournalEntry.evaluateReaction(newReaction);
-
-    expect(emotionJournalEntry.pullEvents()).toEqual([
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
       SituationLoggedEvent,
       EmotionLoggedEvent,
       ReactionLoggedEvent,
-      ReactionEvaluatedEvent,
     ]);
+
+    await emotionJournalEntry.evaluateReaction(newReaction);
+
+    expect(emotionJournalEntry.pullEvents()).toEqual([ReactionEvaluatedEvent]);
   });
 
   test("evaluateReaction - Policies.ReactionCorrespondsToSituationAndEmotion - missing situation and emotion", async () => {
@@ -271,6 +260,19 @@ describe("EmotionJournalEntry", () => {
 
     expect(async () => emotionJournalEntry.evaluateReaction(newReaction)).toThrow(
       Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.error,
+    );
+
+    expect(emotionJournalEntry.pullEvents()).toEqual([]);
+  });
+
+  test("evaluateReaction - Policies.ReactionForEvaluationExists - missing emotion", async () => {
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
+      SituationLoggedEvent,
+      EmotionLoggedEvent,
+    ]);
+
+    expect(async () => emotionJournalEntry.evaluateReaction(newReaction)).toThrow(
+      Emotions.Policies.ReactionForEvaluationExists.error,
     );
 
     expect(emotionJournalEntry.pullEvents()).toEqual([]);

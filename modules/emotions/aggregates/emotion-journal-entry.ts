@@ -216,6 +216,10 @@ export class EmotionJournalEntry {
       emotion: this.emotion,
     });
 
+    await Policies.ReactionForEvaluationExists.perform({
+      reaction: this.reaction,
+    });
+
     const event = ReactionEvaluatedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
