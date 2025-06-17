@@ -1,0 +1,128 @@
+import { expect } from "bun:test";
+import * as bg from "@bgord/bun";
+
+import * as Emotions from "../modules/emotions";
+
+export const id = bg.NewUUID.generate();
+
+export const GenericSituationLoggedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.SITUATION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    description: "I finished a project",
+    kind: Emotions.VO.SituationKindOptions.achievement,
+    location: "work",
+  },
+} satisfies Emotions.Aggregates.SituationLoggedEventType;
+
+export const GenericEmotionLoggedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.EMOTION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    label: Emotions.VO.GenevaWheelEmotion.gratitude,
+    intensity: 3,
+  },
+} satisfies Emotions.Aggregates.EmotionLoggedEventType;
+
+export const GenericReactionLoggedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.REACTION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    description: "Got drunk",
+    type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
+    effectiveness: 1,
+  },
+} satisfies Emotions.Aggregates.ReactionLoggedEventType;
+
+export const GenericEmotionReappraisedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.EMOTION_REAPPRAISED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    newLabel: Emotions.VO.GenevaWheelEmotion.joy,
+    newIntensity: 3,
+  },
+} satisfies Emotions.Aggregates.EmotionReappraisedEventType;
+
+export const GenericReactionEvaluatedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.REACTION_EVALUATED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    description: "Went to bed",
+    type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
+    effectiveness: 2,
+  },
+} satisfies Emotions.Aggregates.ReactionEvaluatedEventType;
+
+export const PositiveEmotionLoggedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.EMOTION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    label: Emotions.VO.GenevaWheelEmotion.joy,
+    intensity: 4,
+  },
+} satisfies Emotions.Aggregates.EmotionLoggedEventType;
+
+export const NegativeEmotionLoggedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.EMOTION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    label: Emotions.VO.GenevaWheelEmotion.anger,
+    intensity: 4,
+  },
+} satisfies Emotions.Aggregates.EmotionLoggedEventType;
+
+export const MaladaptiveReactionLoggedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.REACTION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    description: "Got drunk",
+    type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
+    effectiveness: 1,
+  },
+} satisfies Emotions.Aggregates.ReactionLoggedEventType;
+
+export const AdaptiveReactionLoggedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Aggregates.REACTION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    description: "Went for a walk",
+    type: Emotions.VO.GrossEmotionRegulationStrategy.reappraisal,
+    effectiveness: 4,
+  },
+} satisfies Emotions.Aggregates.ReactionLoggedEventType;

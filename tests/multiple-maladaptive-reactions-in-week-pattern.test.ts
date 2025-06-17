@@ -1,55 +1,12 @@
 import { describe, expect, test } from "bun:test";
-import * as bg from "@bgord/bun";
 
 import * as Emotions from "../modules/emotions";
+import * as mocks from "./mocks";
 
-const id = bg.NewUUID.generate();
-
-const MaladaptiveSituationLoggedEvent = {
-  id: expect.any(String),
-  createdAt: expect.any(Number),
-  name: Emotions.Aggregates.SITUATION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
-  version: 1,
-  payload: {
-    id,
-    description: "I lost a game",
-    kind: Emotions.VO.SituationKindOptions.failure,
-    location: "pitch",
-  },
-} satisfies Emotions.Aggregates.SituationLoggedEventType;
-
-const MaladaptiveEmotionLoggedEvent = {
-  id: expect.any(String),
-  createdAt: expect.any(Number),
-  name: Emotions.Aggregates.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
-  version: 1,
-  payload: {
-    id,
-    label: Emotions.VO.GenevaWheelEmotion.anger,
-    intensity: 4,
-  },
-} satisfies Emotions.Aggregates.EmotionLoggedEventType;
-
-const MaladaptiveReactionLoggedEvent = {
-  id: expect.any(String),
-  createdAt: expect.any(Number),
-  name: Emotions.Aggregates.REACTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
-  version: 1,
-  payload: {
-    id,
-    description: "Got drunk",
-    type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
-    effectiveness: 1,
-  },
-} satisfies Emotions.Aggregates.ReactionLoggedEventType;
-
-const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
-  MaladaptiveSituationLoggedEvent,
-  MaladaptiveEmotionLoggedEvent,
-  MaladaptiveReactionLoggedEvent,
+const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+  mocks.GenericSituationLoggedEvent,
+  mocks.GenericEmotionLoggedEvent,
+  mocks.MaladaptiveReactionLoggedEvent,
 ]);
 
 describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
