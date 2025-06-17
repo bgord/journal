@@ -66,9 +66,7 @@ export const EmotionReappraisedEvent = z.object({
     newIntensity: VO.EmotionIntensitySchema,
   }),
 });
-export type EmotionReappraisedEventType = z.infer<
-  typeof EmotionReappraisedEvent
->;
+export type EmotionReappraisedEventType = z.infer<typeof EmotionReappraisedEvent>;
 
 type JournalEntryEventType =
   | SituationLoggedEventType
@@ -88,10 +86,7 @@ export class EmotionJournalEntry {
     this.id = id;
   }
 
-  static build(
-    id: VO.EmotionJournalEntryIdType,
-    events: JournalEntryEventType[],
-  ): EmotionJournalEntry {
+  static build(id: VO.EmotionJournalEntryIdType, events: JournalEntryEventType[]): EmotionJournalEntry {
     const entry = new EmotionJournalEntry(id);
 
     events.forEach((event) => entry.apply(event));
@@ -176,6 +171,10 @@ export class EmotionJournalEntry {
   async reappraiseEmotion(newEmotion: Entities.Emotion) {
     await Policies.EmotionCorrespondsToSituation.perform({
       situation: this.situation,
+    });
+
+    await Policies.EmotionForReappraisalExists.perform({
+      emotion: this.emotion,
     });
 
     const event = EmotionReappraisedEvent.parse({
