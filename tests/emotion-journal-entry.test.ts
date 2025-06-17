@@ -32,6 +32,10 @@ const newReaction = new Emotions.Entities.Reaction(
 );
 
 describe("EmotionJournalEntry", () => {
+  test("create new aggregate", () => {
+    expect(() => Emotions.Aggregates.EmotionJournalEntry.create(mocks.id)).not.toThrow();
+  });
+
   test("build new aggregate", () => {
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, []);
 
