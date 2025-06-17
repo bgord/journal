@@ -20,7 +20,20 @@ export class MultipleMaladaptiveReactionsInWeekPattern extends Pattern {
       .map((entry) => entry.summarize())
       .filter((entry) => entry.reaction?.type.isMaladaptive());
 
-    return { detected, name: this.name };
+    return { detected: matches.length >= 3, name: this.name };
+  }
+}
+
+export class PositiveEmotionWithMaladaptiveReactionPattern extends Pattern {
+  name = "PositiveEmotionWithMaladaptiveReactionPattern";
+
+  check(entries: EmotionJournalEntry[]): DetectedResult | UndetectedResult {
+    const matches = entries
+      .map((entry) => entry.summarize())
+      .filter((entry) => entry.emotion?.label.isPositive())
+      .filter((entry) => entry.reaction?.type.isMaladaptive());
+
+    return { detected: matches.length >= 3, name: this.name };
   }
 }
 
