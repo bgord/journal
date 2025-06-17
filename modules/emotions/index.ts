@@ -3,3 +3,4 @@ export * as Entities from "./entities";
 export * as Aggregates from "./aggregates";
 export * as Policies from "./policies";
 export * as Services from "./services";
+export * as Routes from "./routes";

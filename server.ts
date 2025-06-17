@@ -5,6 +5,8 @@ import { timeout } from "hono/timeout";
 import * as App from "./app";
 import * as infra from "./infra";
 
+import * as Emotions from "./modules/emotions";
+
 type Env = { Variables: infra.Variables; startup: tools.Stopwatch };
 
 const server = new Hono<Env>();
@@ -26,17 +28,12 @@ server.get(
 );
 // =============================
 
-// Mailer =================
-// server.post(
-//   "/notification-send",
-//   bg.rateLimitShield({
-//     time: tools.Time.Seconds(5),
-//     enabled: infra.Env.type === bg.NodeEnvironmentEnum.production,
-//   }),
-//   timeout(tools.Time.Seconds(15).ms, infra.requestTimeoutError),
-//   infra.ApiKeyShield.verify,
-//   // Mailer.Routes.NotificationSend,
-// );
+// Emotions =================
+server.post(
+  "/emotions/log-situation",
+  timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
+  Emotions.Routes.LogSituation,
+);
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);
