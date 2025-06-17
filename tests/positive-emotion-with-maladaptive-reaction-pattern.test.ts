@@ -22,12 +22,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
       [new Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern()],
     );
 
-    expect(result).toEqual([
-      {
-        detected: true,
-        name: Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern.name,
-      },
-    ]);
+    expect(result).toEqual([mocks.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent]);
   });
 
   test("false", () => {

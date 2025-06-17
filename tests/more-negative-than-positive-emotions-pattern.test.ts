@@ -22,12 +22,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
       [new Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern()],
     );
 
-    expect(result).toEqual([
-      {
-        detected: true,
-        name: Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern.name,
-      },
-    ]);
+    expect(result).toEqual([mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent]);
   });
 
   test("false", () => {

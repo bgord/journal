@@ -1,9 +1,9 @@
 import { EmotionJournalEntry } from "../aggregates/emotion-journal-entry";
 
-import { Pattern, PatternDetectedResult } from "./patterns/pattern";
+import { Pattern, PatternDetectionResult } from "./patterns/pattern";
 
 export class PatternDetector {
-  static detect(entries: EmotionJournalEntry[], patterns: Pattern[]): PatternDetectedResult[] {
-    return patterns.map((rule) => rule.check(entries)).filter((result) => result.detected);
+  static detect(entries: EmotionJournalEntry[], patterns: Pattern[]): PatternDetectionResult[] {
+    return patterns.map((rule) => rule.check(entries)).filter((result) => result !== null);
   }
 }

@@ -126,3 +126,30 @@ export const AdaptiveReactionLoggedEvent = {
     effectiveness: 4,
   },
 } satisfies Emotions.Aggregates.ReactionLoggedEventType;
+
+export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  stream: "weekly_pattern_detection",
+  name: Emotions.Services.Patterns.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
+  version: 1,
+  payload: {},
+} satisfies Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
+
+export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  stream: "weekly_pattern_detection",
+  name: Emotions.Services.Patterns.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
+  version: 1,
+  payload: {},
+} satisfies Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
+
+export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  stream: "weekly_pattern_detection",
+  name: Emotions.Services.Patterns.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
+  version: 1,
+  payload: {},
+} satisfies Emotions.Services.Patterns.MultipleMaladaptiveReactionsPatternDetectedEventType;

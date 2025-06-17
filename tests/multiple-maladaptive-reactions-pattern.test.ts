@@ -16,12 +16,7 @@ describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
       [new Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern()],
     );
 
-    expect(result).toEqual([
-      {
-        detected: true,
-        name: Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern.name,
-      },
-    ]);
+    expect(result).toEqual([mocks.MultipleMaladaptiveReactionsPatternDetectedEvent]);
   });
 
   test("false", () => {
