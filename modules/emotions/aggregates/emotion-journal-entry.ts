@@ -211,6 +211,11 @@ export class EmotionJournalEntry {
   }
 
   async evaluateReaction(newReaction: Entities.Reaction) {
+    await Policies.ReactionCorrespondsToSituationAndEmotion.perform({
+      situation: this.situation,
+      emotion: this.emotion,
+    });
+
     const event = ReactionEvaluatedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
