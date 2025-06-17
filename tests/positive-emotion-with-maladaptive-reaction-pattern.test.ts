@@ -85,7 +85,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
       version: 1,
       payload: {
         id,
-        label: Emotions.VO.GenevaWheelEmotion.boredom, // not positive
+        label: Emotions.VO.GenevaWheelEmotion.boredom,
         intensity: 3,
       },
     } satisfies Emotions.Aggregates.EmotionLoggedEventType;
@@ -99,7 +99,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
       payload: {
         id,
         description: "Went for a walk",
-        type: Emotions.VO.GrossEmotionRegulationStrategy.reappraisal, // adaptive
+        type: Emotions.VO.GrossEmotionRegulationStrategy.reappraisal,
         effectiveness: 4,
       },
     } satisfies Emotions.Aggregates.ReactionLoggedEventType;
