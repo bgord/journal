@@ -46,23 +46,16 @@ const MaladaptiveReactionLoggedEvent = {
   },
 } satisfies Emotions.Aggregates.ReactionLoggedEventType;
 
-const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-  id,
-  [
-    MaladaptiveSituationLoggedEvent,
-    MaladaptiveEmotionLoggedEvent,
-    MaladaptiveReactionLoggedEvent,
-  ],
-);
+const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
+  MaladaptiveSituationLoggedEvent,
+  MaladaptiveEmotionLoggedEvent,
+  MaladaptiveReactionLoggedEvent,
+]);
 
 describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
   test("true", () => {
     const result = Emotions.Services.PatternDetector.detect(
-      [
-        maladaptiveJournalEntry,
-        maladaptiveJournalEntry,
-        maladaptiveJournalEntry,
-      ],
+      [maladaptiveJournalEntry, maladaptiveJournalEntry, maladaptiveJournalEntry],
       [new Emotions.Services.MultipleMaladaptiveReactionsInWeekPattern()],
     );
 

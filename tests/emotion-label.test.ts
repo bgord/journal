@@ -31,6 +31,66 @@ describe("EmotionLabel", () => {
     expect(anger.equals(fear)).toEqual(false);
   });
 
+  test("isPositive - true", () => {
+    [
+      GenevaWheelEmotion.joy,
+      GenevaWheelEmotion.pleasure,
+      GenevaWheelEmotion.pride,
+      GenevaWheelEmotion.gratitude,
+      GenevaWheelEmotion.admiration,
+      GenevaWheelEmotion.love,
+      GenevaWheelEmotion.relief,
+      GenevaWheelEmotion.interest,
+      GenevaWheelEmotion.hope,
+      GenevaWheelEmotion.surprise_positive,
+    ].forEach((label) => expect(new EmotionLabel(label).isPositive()).toEqual(true));
+  });
+
+  test("isPositive - false", () => {
+    [
+      GenevaWheelEmotion.anger,
+      GenevaWheelEmotion.disgust,
+      GenevaWheelEmotion.contempt,
+      GenevaWheelEmotion.hate,
+      GenevaWheelEmotion.sadness,
+      GenevaWheelEmotion.fear,
+      GenevaWheelEmotion.shame,
+      GenevaWheelEmotion.guilt,
+      GenevaWheelEmotion.boredom,
+      GenevaWheelEmotion.surprise_negative,
+    ].forEach((label) => expect(new EmotionLabel(label).isPositive()).toEqual(false));
+  });
+
+  test("isNegative - true", () => {
+    [
+      GenevaWheelEmotion.anger,
+      GenevaWheelEmotion.disgust,
+      GenevaWheelEmotion.contempt,
+      GenevaWheelEmotion.hate,
+      GenevaWheelEmotion.sadness,
+      GenevaWheelEmotion.fear,
+      GenevaWheelEmotion.shame,
+      GenevaWheelEmotion.guilt,
+      GenevaWheelEmotion.boredom,
+      GenevaWheelEmotion.surprise_negative,
+    ].forEach((label) => expect(new EmotionLabel(label).isNegative()).toEqual(true));
+  });
+
+  test("isNegative - false", () => {
+    [
+      GenevaWheelEmotion.joy,
+      GenevaWheelEmotion.pleasure,
+      GenevaWheelEmotion.pride,
+      GenevaWheelEmotion.gratitude,
+      GenevaWheelEmotion.admiration,
+      GenevaWheelEmotion.love,
+      GenevaWheelEmotion.relief,
+      GenevaWheelEmotion.interest,
+      GenevaWheelEmotion.hope,
+      GenevaWheelEmotion.surprise_positive,
+    ].forEach((label) => expect(new EmotionLabel(label).isNegative()).toEqual(false));
+  });
+
   test("all - returns all options", () => {
     // @ts-expect-error
     expect(EmotionLabel.all()).toEqual(Object.keys(GenevaWheelEmotion));
