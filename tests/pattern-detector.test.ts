@@ -17,8 +17,8 @@ const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mo
 
 describe("PatternDetector", () => {
   test("detects multiple patterns", () => {
-    const result = Emotions.Services.PatternDetector.detect(
-      [
+    const result = Emotions.Services.PatternDetector.detect({
+      entries: [
         maladaptiveJournalEntry,
         maladaptiveJournalEntry,
         maladaptiveJournalEntry,
@@ -26,11 +26,12 @@ describe("PatternDetector", () => {
         positiveMaladaptiveEntry,
         positiveMaladaptiveEntry,
       ],
-      [
-        new Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern(),
-        new Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern(),
+      patterns: [
+        Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern,
+        Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern,
       ],
-    );
+      dateRange: mocks.dateRange,
+    });
 
     expect(result).toEqual([
       mocks.MultipleMaladaptiveReactionsPatternDetectedEvent,

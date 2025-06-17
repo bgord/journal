@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
 import { EmotionJournalEntry } from "../../aggregates/emotion-journal-entry";
-import { Pattern, PatternDetectionResult } from "./pattern";
+import { Pattern, PatternDateRange, PatternDetectionResult } from "./pattern";
 
 export const MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT =
   "MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT";
@@ -24,6 +24,10 @@ export type MultipleMaladaptiveReactionsPatternDetectedEventType = z.infer<
 export class MultipleMaladaptiveReactionsPattern extends Pattern {
   name = "MultipleMaladaptiveReactionsPattern";
 
+  constructor(public dateRange: PatternDateRange) {
+    super();
+  }
+
   check(entries: EmotionJournalEntry[]): PatternDetectionResult | null {
     const matches = entries
       .map((entry) => entry.summarize())
@@ -34,7 +38,7 @@ export class MultipleMaladaptiveReactionsPattern extends Pattern {
         id: bg.NewUUID.generate(),
         createdAt: tools.Timestamp.parse(Date.now()),
         name: MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
-        stream: "weekly_pattern_detection",
+        stream: this.getStream(),
         version: 1,
         payload: {},
       });

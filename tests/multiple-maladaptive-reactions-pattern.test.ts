@@ -11,19 +11,21 @@ const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mo
 
 describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
   test("true", () => {
-    const result = Emotions.Services.PatternDetector.detect(
-      [maladaptiveJournalEntry, maladaptiveJournalEntry, maladaptiveJournalEntry],
-      [new Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern()],
-    );
+    const result = Emotions.Services.PatternDetector.detect({
+      entries: [maladaptiveJournalEntry, maladaptiveJournalEntry, maladaptiveJournalEntry],
+      patterns: [Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern],
+      dateRange: mocks.dateRange,
+    });
 
     expect(result).toEqual([mocks.MultipleMaladaptiveReactionsPatternDetectedEvent]);
   });
 
   test("false", () => {
-    const result = Emotions.Services.PatternDetector.detect(
-      [maladaptiveJournalEntry, maladaptiveJournalEntry],
-      [new Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern()],
-    );
+    const result = Emotions.Services.PatternDetector.detect({
+      entries: [maladaptiveJournalEntry, maladaptiveJournalEntry],
+      patterns: [Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern],
+      dateRange: mocks.dateRange,
+    });
 
     expect(result).toEqual([]);
   });

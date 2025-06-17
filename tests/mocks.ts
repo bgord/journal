@@ -127,10 +127,12 @@ export const AdaptiveReactionLoggedEvent = {
   },
 } satisfies Emotions.Aggregates.ReactionLoggedEventType;
 
+export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
+
 export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   id: expect.any(String),
   createdAt: expect.any(Number),
-  stream: "weekly_pattern_detection",
+  stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Services.Patterns.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   version: 1,
   payload: {},
@@ -139,7 +141,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   id: expect.any(String),
   createdAt: expect.any(Number),
-  stream: "weekly_pattern_detection",
+  stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Services.Patterns.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
   payload: {},
@@ -148,7 +150,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
 export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
   id: expect.any(String),
   createdAt: expect.any(Number),
-  stream: "weekly_pattern_detection",
+  stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Services.Patterns.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
   payload: {},

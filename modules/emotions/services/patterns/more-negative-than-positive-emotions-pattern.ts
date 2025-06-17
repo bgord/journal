@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
 import { EmotionJournalEntry } from "../../aggregates/emotion-journal-entry";
-import { Pattern, PatternDetectionResult } from "./pattern";
+import { Pattern, PatternDateRange, PatternDetectionResult } from "./pattern";
 
 export const MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT =
   "MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT";
@@ -24,6 +24,10 @@ export type MoreNegativeThanPositiveEmotionsPatternDetectedEventType = z.infer<
 export class MoreNegativeThanPositiveEmotionsPattern extends Pattern {
   name = "MoreNegativeThanPositiveEmotionsPattern";
 
+  constructor(public dateRange: PatternDateRange) {
+    super();
+  }
+
   check(entries: EmotionJournalEntry[]): PatternDetectionResult | null {
     const summaries = entries.map((entry) => entry.summarize());
 
@@ -36,7 +40,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Pattern {
         id: bg.NewUUID.generate(),
         createdAt: tools.Timestamp.parse(Date.now()),
         name: MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
-        stream: "weekly_pattern_detection",
+        stream: this.getStream(),
         version: 1,
         payload: {},
       });

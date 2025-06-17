@@ -17,28 +17,31 @@ const negativeEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks
 
 describe("MoreNegativeThanPositiveEmotionsPattern", () => {
   test("true", () => {
-    const result = Emotions.Services.PatternDetector.detect(
-      [negativeEmotionEntry, negativeEmotionEntry, positiveEmotionEntry],
-      [new Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern()],
-    );
+    const result = Emotions.Services.PatternDetector.detect({
+      entries: [negativeEmotionEntry, negativeEmotionEntry, positiveEmotionEntry],
+      patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
+      dateRange: mocks.dateRange,
+    });
 
     expect(result).toEqual([mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent]);
   });
 
   test("false", () => {
-    const result = Emotions.Services.PatternDetector.detect(
-      [negativeEmotionEntry, positiveEmotionEntry, positiveEmotionEntry],
-      [new Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern()],
-    );
+    const result = Emotions.Services.PatternDetector.detect({
+      entries: [negativeEmotionEntry, positiveEmotionEntry, positiveEmotionEntry],
+      patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
+      dateRange: mocks.dateRange,
+    });
 
     expect(result).toEqual([]);
   });
 
   test("false - equal amount", () => {
-    const result = Emotions.Services.PatternDetector.detect(
-      [negativeEmotionEntry, positiveEmotionEntry],
-      [new Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern()],
-    );
+    const result = Emotions.Services.PatternDetector.detect({
+      entries: [negativeEmotionEntry, positiveEmotionEntry],
+      patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
+      dateRange: mocks.dateRange,
+    });
 
     expect(result).toEqual([]);
   });

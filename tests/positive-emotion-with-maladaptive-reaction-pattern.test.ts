@@ -17,28 +17,31 @@ const positiveAdaptiveEntry = Emotions.Aggregates.EmotionJournalEntry.build(mock
 
 describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
   test("true", () => {
-    const result = Emotions.Services.PatternDetector.detect(
-      [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveMaladaptiveEntry],
-      [new Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern()],
-    );
+    const result = Emotions.Services.PatternDetector.detect({
+      entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveMaladaptiveEntry],
+      patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
+      dateRange: mocks.dateRange,
+    });
 
     expect(result).toEqual([mocks.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent]);
   });
 
   test("false", () => {
-    const result = Emotions.Services.PatternDetector.detect(
-      [positiveMaladaptiveEntry, positiveMaladaptiveEntry],
-      [new Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern()],
-    );
+    const result = Emotions.Services.PatternDetector.detect({
+      entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry],
+      patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
+      dateRange: mocks.dateRange,
+    });
 
     expect(result).toEqual([]);
   });
 
   test("mixed (still false)", () => {
-    const result = Emotions.Services.PatternDetector.detect(
-      [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveAdaptiveEntry],
-      [new Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern()],
-    );
+    const result = Emotions.Services.PatternDetector.detect({
+      entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveAdaptiveEntry],
+      patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
+      dateRange: mocks.dateRange,
+    });
 
     expect(result).toEqual([]);
   });

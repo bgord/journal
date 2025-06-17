@@ -1,9 +1,18 @@
+import * as tools from "@bgord/tools";
 import { EmotionJournalEntry } from "../aggregates/emotion-journal-entry";
 
-import { Pattern, PatternDetectionResult } from "./patterns/pattern";
+import { Pattern, PatternDateRange, PatternDetectionResult } from "./patterns/pattern";
+
+type PatternDetectorConfigType = {
+  entries: EmotionJournalEntry[];
+  patterns: tools.Constructor<Pattern>[];
+  dateRange: PatternDateRange;
+};
 
 export class PatternDetector {
-  static detect(entries: EmotionJournalEntry[], patterns: Pattern[]): PatternDetectionResult[] {
-    return patterns.map((rule) => rule.check(entries)).filter((result) => result !== null);
+  static detect(config: PatternDetectorConfigType): PatternDetectionResult[] {
+    return config.patterns
+      .map((Pattern) => new Pattern(config.dateRange).check(config.entries))
+      .filter((result) => result !== null);
   }
 }

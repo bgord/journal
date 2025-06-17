@@ -6,6 +6,8 @@ import { PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType } from "
 
 type PatternName = string;
 
+export type PatternDateRange = [string, string];
+
 export type PatternDetectionResult =
   | MoreNegativeThanPositiveEmotionsPatternDetectedEventType
   | MultipleMaladaptiveReactionsPatternDetectedEventType
@@ -14,5 +16,11 @@ export type PatternDetectionResult =
 export abstract class Pattern {
   abstract name: PatternName;
 
+  abstract dateRange: PatternDateRange;
+
   abstract check(entries: EmotionJournalEntry[]): PatternDetectionResult | null;
+
+  getStream(): string {
+    return `weekly_pattern_detection_${this.dateRange[0]}_${this.dateRange[1]}`;
+  }
 }
