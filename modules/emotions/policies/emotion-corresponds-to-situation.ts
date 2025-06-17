@@ -11,7 +11,6 @@ class EmotionCorrespondsToSituationError extends Error {
 
 type EmotionCorrespondsToSituationConfigType = {
   situation?: Entities.Situation;
-  emotion?: Entities.Emotion;
 };
 
 class EmotionCorrespondsToSituationFactory extends bg.Policy<EmotionCorrespondsToSituationConfigType> {
