@@ -71,17 +71,17 @@ const negativeEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(id, [
   ReactionLoggedEvent,
 ]);
 
-describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
+describe("MoreNegativeThanPositiveEmotionsPattern", () => {
   test("true", () => {
     const result = Emotions.Services.PatternDetector.detect(
       [negativeEmotionEntry, negativeEmotionEntry, positiveEmotionEntry],
-      [new Emotions.Services.MoreNegativeThanPositiveEmotionsPattern()],
+      [new Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern()],
     );
 
     expect(result).toEqual([
       {
         detected: true,
-        name: Emotions.Services.MoreNegativeThanPositiveEmotionsPattern.name,
+        name: Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern.name,
       },
     ]);
   });
@@ -89,7 +89,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
   test("false", () => {
     const result = Emotions.Services.PatternDetector.detect(
       [negativeEmotionEntry, positiveEmotionEntry, positiveEmotionEntry],
-      [new Emotions.Services.MoreNegativeThanPositiveEmotionsPattern()],
+      [new Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern()],
     );
 
     expect(result).toEqual([]);
@@ -98,7 +98,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
   test("false - equal amount", () => {
     const result = Emotions.Services.PatternDetector.detect(
       [negativeEmotionEntry, positiveEmotionEntry],
-      [new Emotions.Services.MoreNegativeThanPositiveEmotionsPattern()],
+      [new Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern()],
     );
 
     expect(result).toEqual([]);

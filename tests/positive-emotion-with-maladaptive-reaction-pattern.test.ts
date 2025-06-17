@@ -56,13 +56,13 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
   test("true", () => {
     const result = Emotions.Services.PatternDetector.detect(
       [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveMaladaptiveEntry],
-      [new Emotions.Services.PositiveEmotionWithMaladaptiveReactionPattern()],
+      [new Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern()],
     );
 
     expect(result).toEqual([
       {
         detected: true,
-        name: Emotions.Services.PositiveEmotionWithMaladaptiveReactionPattern.name,
+        name: Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern.name,
       },
     ]);
   });
@@ -70,7 +70,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
   test("false", () => {
     const result = Emotions.Services.PatternDetector.detect(
       [positiveMaladaptiveEntry, positiveMaladaptiveEntry],
-      [new Emotions.Services.PositiveEmotionWithMaladaptiveReactionPattern()],
+      [new Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern()],
     );
 
     expect(result).toEqual([]);
@@ -112,7 +112,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
 
     const result = Emotions.Services.PatternDetector.detect(
       [positiveMaladaptiveEntry, positiveMaladaptiveEntry, nonMatchingEntry],
-      [new Emotions.Services.PositiveEmotionWithMaladaptiveReactionPattern()],
+      [new Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern()],
     );
 
     expect(result).toEqual([]);
