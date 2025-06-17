@@ -93,6 +93,8 @@ type JournalEntryEventType =
 
 export class EmotionJournalEntry {
   private readonly id: VO.EmotionJournalEntryIdType;
+  private startedAt?: VO.EmotionJournalEntryStartedAtType;
+  private finishedAt?: VO.EmotionJournalEntryFinishedAtType;
   private situation?: Entities.Situation;
   private emotion?: Entities.Emotion;
   private reaction?: Entities.Reaction;
@@ -253,6 +255,7 @@ export class EmotionJournalEntry {
   private apply(event: JournalEntryEventType): void {
     switch (event.name) {
       case SITUATION_LOGGED_EVENT: {
+        this.startedAt = event.createdAt;
         this.situation = new Entities.Situation(
           new VO.SituationDescription(event.payload.description),
           new VO.SituationLocation(event.payload.location),
@@ -270,6 +273,7 @@ export class EmotionJournalEntry {
       }
 
       case REACTION_LOGGED_EVENT: {
+        this.finishedAt = event.createdAt;
         this.reaction = new Entities.Reaction(
           new VO.ReactionDescription(event.payload.description),
           new VO.ReactionType(event.payload.type),
@@ -279,6 +283,7 @@ export class EmotionJournalEntry {
       }
 
       case EMOTION_REAPPRAISED_EVENT: {
+        this.finishedAt = event.createdAt;
         this.emotion = new Entities.Emotion(
           new VO.EmotionLabel(event.payload.newLabel),
           new VO.EmotionIntensity(event.payload.newIntensity),
@@ -287,6 +292,7 @@ export class EmotionJournalEntry {
       }
 
       case REACTION_EVALUATED_EVENT: {
+        this.finishedAt = event.createdAt;
         this.reaction = new Entities.Reaction(
           new VO.ReactionDescription(event.payload.description),
           new VO.ReactionType(event.payload.type),
