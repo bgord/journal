@@ -3,6 +3,10 @@ import * as bg from "@bgord/bun";
 
 import * as Emotions from "../modules/emotions";
 
+export const expectAnyId = expect.stringMatching(
+  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
+);
+
 export const ip = {
   server: {
     requestIP: () => ({ address: "127.0.0.1", family: "foo", port: "123" }),

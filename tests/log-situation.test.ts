@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -55,5 +55,39 @@ describe("POST /log-situation", () => {
       message: Emotions.VO.SituationKind.Errors.invalid,
       _known: true,
     });
+  });
+
+  test("happy path", async () => {
+    const emotionJournalEntryCreate = spyOn(Emotions.Aggregates.EmotionJournalEntry, "create");
+
+    const emotionJournalEntryLogSituation = spyOn(
+      Emotions.Aggregates.EmotionJournalEntry.prototype,
+      "logSituation",
+    );
+
+    const payload = {
+      description: "Something happened",
+      location: "work",
+      kind: Emotions.VO.SituationKindOptions.conflict,
+    };
+
+    const situation = new Emotions.Entities.Situation(
+      new Emotions.VO.SituationDescription(payload.description),
+      new Emotions.VO.SituationLocation(payload.location),
+      new Emotions.VO.SituationKind(payload.kind),
+    );
+
+    const response = await server.request(
+      "/emotions/log-situation",
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      },
+      mocks.ip,
+    );
+
+    expect(response.status).toEqual(200);
+    expect(emotionJournalEntryCreate).toHaveBeenCalledWith(mocks.expectAnyId);
+    expect(emotionJournalEntryLogSituation).toHaveBeenCalledWith(situation);
   });
 });

@@ -33,35 +33,27 @@ export class ErrorHandler {
     }
 
     if (error instanceof z.ZodError) {
-      // TODO: Unify zod errors
-      if (error.issues.find((issue) => issue.message === Emotions.VO.SituationDescription.Errors.invalid)) {
-        return c.json(
-          {
-            message: Emotions.VO.SituationDescription.Errors.invalid,
-            _known: true,
-          },
-          400,
-        );
-      }
+      const expectedValidationErrors = [
+        Emotions.VO.SituationDescription.Errors.invalid,
+        Emotions.VO.SituationLocation.Errors.invalid,
+        Emotions.VO.SituationKind.Errors.invalid,
+      ];
 
-      if (error.issues.find((issue) => issue.message === Emotions.VO.SituationLocation.Errors.invalid)) {
-        return c.json(
-          {
-            message: Emotions.VO.SituationLocation.Errors.invalid,
-            _known: true,
-          },
-          400,
-        );
-      }
+      const validationError = error.issues.find((issue) => expectedValidationErrors.includes(issue.message));
 
-      if (error.issues.find((issue) => issue.message === Emotions.VO.SituationKind.Errors.invalid)) {
-        return c.json(
-          {
-            message: Emotions.VO.SituationKind.Errors.invalid,
-            _known: true,
+      if (validationError) {
+        infra.logger.error({
+          message: "Expected validation error",
+          operation: "validation",
+          correlationId,
+          metadata: {
+            url,
+            body: await bg.safeParseBody(c),
+            error: validationError,
           },
-          400,
-        );
+        });
+
+        return c.json({ message: validationError.message, _known: true }, 400);
       }
 
       infra.logger.error({
