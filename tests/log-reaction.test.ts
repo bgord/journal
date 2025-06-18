@@ -69,7 +69,7 @@ describe("POST /log-reaction", () => {
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
 
-  test("validation - OneReactionPerEmotionJournalEntry", async () => {
+  test("validation - OneReactionPerEntry", async () => {
     const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
 
     const emotionJournalEntryLogReaction = spyOn(

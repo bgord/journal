@@ -4,9 +4,13 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-describe("POST /log-emotion", () => {
+describe("POST /reappraise-emotion", () => {
   test("validation - empty payload", async () => {
-    const response = await server.request(`/emotions/${mocks.id}/log-emotion`, { method: "POST" }, mocks.ip);
+    const response = await server.request(
+      `/emotions/${mocks.id}/reappraise-emotion`,
+      { method: "POST" },
+      mocks.ip,
+    );
 
     const json = await response.json();
 
@@ -19,7 +23,7 @@ describe("POST /log-emotion", () => {
 
   test("validation - missing intensity", async () => {
     const response = await server.request(
-      `/emotions/${mocks.id}/log-emotion`,
+      `/emotions/${mocks.id}/reappraise-emotion`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -40,7 +44,7 @@ describe("POST /log-emotion", () => {
 
   test("validation - incorrect id", async () => {
     const response = await server.request(
-      "/emotions/id/log-emotion",
+      "/emotions/id/reappraise-emotion",
       {
         method: "POST",
       },
@@ -61,7 +65,7 @@ describe("POST /log-emotion", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.id}/log-emotion`,
+      `/emotions/${mocks.id}/reappraise-emotion`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -83,15 +87,15 @@ describe("POST /log-emotion", () => {
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
   });
 
-  test("validation - OneEmotionPerEntry", async () => {
+  test("validation - EmotionForReappraisalExists", async () => {
     const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
 
-    const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
+    const history = [mocks.GenericSituationLoggedEvent];
 
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.id}/log-emotion`,
+      `/emotions/${mocks.id}/reappraise-emotion`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -106,7 +110,7 @@ describe("POST /log-emotion", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({
-      message: Emotions.Policies.OneEmotionPerEntry.message,
+      message: Emotions.Policies.EmotionForReappraisalExists.message,
       _known: true,
     });
     expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
@@ -116,12 +120,12 @@ describe("POST /log-emotion", () => {
   test("happy path", async () => {
     const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
 
-    const emotionJournalEntryLogEmotion = spyOn(
+    const emotionJournalEntryReappraiseEmotion = spyOn(
       Emotions.Aggregates.EmotionJournalEntry.prototype,
-      "logEmotion",
+      "reappraiseEmotion",
     );
 
-    const history = [mocks.GenericSituationLoggedEvent];
+    const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
 
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
@@ -136,7 +140,7 @@ describe("POST /log-emotion", () => {
     );
 
     const response = await server.request(
-      `/emotions/${mocks.id}/log-emotion`,
+      `/emotions/${mocks.id}/reappraise-emotion`,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -147,6 +151,6 @@ describe("POST /log-emotion", () => {
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
-    expect(emotionJournalEntryLogEmotion).toHaveBeenCalledWith(emotion);
+    expect(emotionJournalEntryReappraiseEmotion).toHaveBeenCalledWith(emotion);
   });
 });

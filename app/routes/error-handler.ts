@@ -136,6 +136,22 @@ export class ErrorHandler {
       );
     }
 
+    if (error instanceof Emotions.Policies.EmotionForReappraisalExists.error) {
+      infra.logger.error({
+        message: "EmotionForReappraisalExists",
+        operation: Emotions.Policies.EmotionForReappraisalExists.message,
+        correlationId,
+      });
+
+      return c.json(
+        {
+          message: Emotions.Policies.EmotionForReappraisalExists.message,
+          _known: true,
+        },
+        400,
+      );
+    }
+
     infra.logger.error({
       message: "Unknown error",
       operation: "unknown_error",
