@@ -152,6 +152,22 @@ export class ErrorHandler {
       );
     }
 
+    if (error instanceof Emotions.Policies.ReactionForEvaluationExists.error) {
+      infra.logger.error({
+        message: "ReactionForEvaluationExists",
+        operation: Emotions.Policies.ReactionForEvaluationExists.message,
+        correlationId,
+      });
+
+      return c.json(
+        {
+          message: Emotions.Policies.ReactionForEvaluationExists.message,
+          _known: true,
+        },
+        400,
+      );
+    }
+
     infra.logger.error({
       message: "Unknown error",
       operation: "unknown_error",

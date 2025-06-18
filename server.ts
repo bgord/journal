@@ -49,6 +49,11 @@ server.post(
   timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
   Emotions.Routes.ReappraiseEmotion,
 );
+server.post(
+  "/emotions/:id/evaluate-reaction",
+  timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
+  Emotions.Routes.EvaluateReaction,
+);
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);
