@@ -35,7 +35,7 @@ server.post(
   Emotions.Routes.LogSituation,
 );
 server.post(
-  "/emotions/log-emotion",
+  "/emotions/:id/log-emotion",
   timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
   Emotions.Routes.LogEmotion,
 );
