@@ -39,6 +39,9 @@ export class ErrorHandler {
         Emotions.VO.SituationKind.Errors.invalid,
         Emotions.VO.EmotionLabel.Errors.invalid,
         Emotions.VO.EmotionIntensity.Errors.min_max,
+        Emotions.VO.ReactionDescription.Errors.invalid,
+        Emotions.VO.ReactionType.Errors.invalid,
+        Emotions.VO.ReactionEffectiveness.Errors.min_max,
       ];
 
       const validationError = error.issues.find((issue) => expectedValidationErrors.includes(issue.message));
@@ -95,6 +98,38 @@ export class ErrorHandler {
       return c.json(
         {
           message: Emotions.Policies.OneEmotionPerEmotionJournalEntry.message,
+          _known: true,
+        },
+        400,
+      );
+    }
+
+    if (error instanceof Emotions.Policies.OneReactionPerEmotionJournalEntry.error) {
+      infra.logger.error({
+        message: "OneReactionPerEmotionJournalEntry",
+        operation: Emotions.Policies.OneReactionPerEmotionJournalEntry.message,
+        correlationId,
+      });
+
+      return c.json(
+        {
+          message: Emotions.Policies.OneReactionPerEmotionJournalEntry.message,
+          _known: true,
+        },
+        400,
+      );
+    }
+
+    if (error instanceof Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.error) {
+      infra.logger.error({
+        message: "ReactionCorrespondsToSituationAndEmotion",
+        operation: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
+        correlationId,
+      });
+
+      return c.json(
+        {
+          message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
           _known: true,
         },
         400,
