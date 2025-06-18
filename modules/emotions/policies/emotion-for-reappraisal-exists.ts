@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 import * as Entities from "../entities";
 
@@ -21,6 +22,8 @@ class EmotionForReappraisalExistsFactory extends bg.Policy<EmotionForReappraisal
   message = "emotion.for.reappraisal.exists.error";
 
   error = EmotionForReappraisalExistsError;
+
+  code = 400 as ContentfulStatusCode;
 }
 
 export const EmotionForReappraisalExists = new EmotionForReappraisalExistsFactory();

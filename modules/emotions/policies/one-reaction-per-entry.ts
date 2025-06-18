@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 import * as Entities from "../entities";
 
@@ -21,6 +22,8 @@ class OneReactionPerEntryFactory extends bg.Policy<OneReactionPerEntryConfigType
   message = "one.reaction.per.entry";
 
   error = OneReactionPerEmotionError;
+
+  code = 400 as ContentfulStatusCode;
 }
 
 export const OneReactionPerEntry = new OneReactionPerEntryFactory();

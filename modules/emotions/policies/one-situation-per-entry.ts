@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 import * as Entities from "../entities";
 
@@ -21,6 +22,8 @@ class OneSituationPerEntryFactory extends bg.Policy<OneSituationPerEntryConfigTy
   message = "one.reaction.per.entry";
 
   error = OneSituationPerEntryError;
+
+  code = 400 as ContentfulStatusCode;
 }
 
 export const OneSituationPerEntry = new OneSituationPerEntryFactory();

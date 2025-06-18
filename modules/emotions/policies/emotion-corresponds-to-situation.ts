@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 import * as Entities from "../entities";
 
@@ -21,6 +22,8 @@ class EmotionCorrespondsToSituationFactory extends bg.Policy<EmotionCorrespondsT
   message = "emotion-corresponds.to.situation.error";
 
   error = EmotionCorrespondsToSituationError;
+
+  code = 400 as ContentfulStatusCode;
 }
 
 export const EmotionCorrespondsToSituation = new EmotionCorrespondsToSituationFactory();
