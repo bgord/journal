@@ -12,6 +12,7 @@ export * from "./env";
 export * from "./mailer";
 export * from "./logger";
 export * from "./supported-languages";
+export * from "./event-store";
 
 export const I18nConfig: bg.I18nConfigType = {
   supportedLanguages: SupportedLanguages,

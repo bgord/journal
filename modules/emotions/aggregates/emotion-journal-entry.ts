@@ -84,7 +84,7 @@ export const ReactionEvaluatedEvent = z.object({
 });
 export type ReactionEvaluatedEventType = z.infer<typeof ReactionEvaluatedEvent>;
 
-type JournalEntryEventType =
+export type JournalEntryEventType =
   | SituationLoggedEventType
   | EmotionLoggedEventType
   | ReactionLoggedEventType
