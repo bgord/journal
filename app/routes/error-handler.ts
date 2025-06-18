@@ -37,6 +37,8 @@ export class ErrorHandler {
         Emotions.VO.SituationDescription.Errors.invalid,
         Emotions.VO.SituationLocation.Errors.invalid,
         Emotions.VO.SituationKind.Errors.invalid,
+        Emotions.VO.EmotionLabel.Errors.invalid,
+        Emotions.VO.EmotionIntensity.Errors.min_max,
       ];
 
       const validationError = error.issues.find((issue) => expectedValidationErrors.includes(issue.message));
@@ -64,6 +66,39 @@ export class ErrorHandler {
       });
 
       return c.json({ message: "payload.invalid.error", _known: true }, 400);
+    }
+
+    // TODO unify policy errors
+    if (error instanceof Emotions.Policies.EmotionCorrespondsToSituation.error) {
+      infra.logger.error({
+        message: "EmotionCorrespondsToSituation",
+        operation: Emotions.Policies.EmotionCorrespondsToSituation.message,
+        correlationId,
+      });
+
+      return c.json(
+        {
+          message: Emotions.Policies.EmotionCorrespondsToSituation.message,
+          _known: true,
+        },
+        400,
+      );
+    }
+
+    if (error instanceof Emotions.Policies.OneEmotionPerEmotionJournalEntry.error) {
+      infra.logger.error({
+        message: "OneEmotionPerEmotionJournalEntry",
+        operation: Emotions.Policies.OneEmotionPerEmotionJournalEntry.message,
+        correlationId,
+      });
+
+      return c.json(
+        {
+          message: Emotions.Policies.OneEmotionPerEmotionJournalEntry.message,
+          _known: true,
+        },
+        400,
+      );
     }
 
     infra.logger.error({

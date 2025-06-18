@@ -7,6 +7,8 @@ import * as infra from "../../../infra";
 export async function LogEmotion(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
 
+  const id = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
+
   const emotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(body.label),
     new Emotions.VO.EmotionIntensity(body.intensity),
@@ -18,8 +20,9 @@ export async function LogEmotion(c: hono.Context, _next: hono.Next) {
     metadata: { emotion },
   });
 
-  const id = bg.NewUUID.generate();
-  const entry = Emotions.Aggregates.EmotionJournalEntry.create(id);
+  const history = await infra.EventStore.find(Emotions.Aggregates.EmotionJournalEntry.getStream(id));
+
+  const entry = Emotions.Aggregates.EmotionJournalEntry.build(id, history);
 
   await entry.logEmotion(emotion);
 
