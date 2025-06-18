@@ -71,101 +71,24 @@ export class ErrorHandler {
       return c.json({ message: "payload.invalid.error", _known: true }, 400);
     }
 
-    // TODO unify policy errors
-    if (error instanceof Emotions.Policies.EmotionCorrespondsToSituation.error) {
+    const expectedPolicies = [
+      Emotions.Policies.EmotionCorrespondsToSituation,
+      Emotions.Policies.OneEmotionPerEntry,
+      Emotions.Policies.OneReactionPerEntry,
+      Emotions.Policies.ReactionCorrespondsToSituationAndEmotion,
+      Emotions.Policies.EmotionForReappraisalExists,
+      Emotions.Policies.ReactionForEvaluationExists,
+    ];
+
+    const policyError = expectedPolicies.find((policy) => error instanceof policy.error);
+
+    if (policyError) {
       infra.logger.error({
-        message: "EmotionCorrespondsToSituation",
-        operation: Emotions.Policies.EmotionCorrespondsToSituation.message,
+        message: "Domain error",
+        operation: policyError.message,
         correlationId,
       });
-
-      return c.json(
-        {
-          message: Emotions.Policies.EmotionCorrespondsToSituation.message,
-          _known: true,
-        },
-        400,
-      );
-    }
-
-    if (error instanceof Emotions.Policies.OneEmotionPerEntry.error) {
-      infra.logger.error({
-        message: "OneEmotionPerEntry",
-        operation: Emotions.Policies.OneEmotionPerEntry.message,
-        correlationId,
-      });
-
-      return c.json(
-        {
-          message: Emotions.Policies.OneEmotionPerEntry.message,
-          _known: true,
-        },
-        400,
-      );
-    }
-
-    if (error instanceof Emotions.Policies.OneReactionPerEntry.error) {
-      infra.logger.error({
-        message: "OneReactionPerEmotionJournalEntry",
-        operation: Emotions.Policies.OneReactionPerEntry.message,
-        correlationId,
-      });
-
-      return c.json(
-        {
-          message: Emotions.Policies.OneReactionPerEntry.message,
-          _known: true,
-        },
-        400,
-      );
-    }
-
-    if (error instanceof Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.error) {
-      infra.logger.error({
-        message: "ReactionCorrespondsToSituationAndEmotion",
-        operation: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
-        correlationId,
-      });
-
-      return c.json(
-        {
-          message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
-          _known: true,
-        },
-        400,
-      );
-    }
-
-    if (error instanceof Emotions.Policies.EmotionForReappraisalExists.error) {
-      infra.logger.error({
-        message: "EmotionForReappraisalExists",
-        operation: Emotions.Policies.EmotionForReappraisalExists.message,
-        correlationId,
-      });
-
-      return c.json(
-        {
-          message: Emotions.Policies.EmotionForReappraisalExists.message,
-          _known: true,
-        },
-        400,
-      );
-    }
-
-    if (error instanceof Emotions.Policies.ReactionForEvaluationExists.error) {
-      infra.logger.error({
-        message: "ReactionForEvaluationExists",
-        operation: Emotions.Policies.ReactionForEvaluationExists.message,
-        correlationId,
-      });
-
-      return c.json(
-        {
-          message: Emotions.Policies.ReactionForEvaluationExists.message,
-          _known: true,
-        },
-        400,
-      );
+      return c.json({ message: policyError.message, _known: true }, 400);
     }
 
     infra.logger.error({
