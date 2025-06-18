@@ -14,7 +14,7 @@ export async function LogSituation(c: hono.Context, _next: hono.Next) {
   );
 
   infra.logger.info({
-    message: "Situation payload",
+    message: "Log situation payload",
     operation: "read",
     metadata: { situation },
   });

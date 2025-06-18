@@ -110,7 +110,7 @@ describe("POST /log-reaction", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({
-      message: Emotions.Policies.OneReactionPerEmotionJournalEntry.message,
+      message: Emotions.Policies.OneReactionPerEntry.message,
       _known: true,
     });
     expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));

@@ -56,7 +56,7 @@ describe("EmotionJournalEntry", () => {
     ]);
 
     expect(async () => emotionJournalEntry.logSituation(situation)).toThrow(
-      Emotions.Policies.OneSituationPerEmotionJournalEntry.error,
+      Emotions.Policies.OneSituationPerEntry.error,
     );
 
     expect(emotionJournalEntry.pullEvents()).toEqual([]);
@@ -79,7 +79,7 @@ describe("EmotionJournalEntry", () => {
     ]);
 
     expect(async () => emotionJournalEntry.logEmotion(emotion)).toThrow(
-      Emotions.Policies.OneEmotionPerEmotionJournalEntry.error,
+      Emotions.Policies.OneEmotionPerEntry.error,
     );
 
     expect(emotionJournalEntry.pullEvents()).toEqual([]);
@@ -114,7 +114,7 @@ describe("EmotionJournalEntry", () => {
     ]);
 
     expect(async () => emotionJournalEntry.logReaction(reaction)).toThrow(
-      Emotions.Policies.OneReactionPerEmotionJournalEntry.error,
+      Emotions.Policies.OneReactionPerEntry.error,
     );
 
     expect(emotionJournalEntry.pullEvents()).toEqual([]);

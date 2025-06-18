@@ -16,7 +16,7 @@ export async function LogReaction(c: hono.Context, _next: hono.Next) {
   );
 
   infra.logger.info({
-    message: "Reaction payload",
+    message: "Log reaction payload",
     operation: "read",
     metadata: { reaction },
   });

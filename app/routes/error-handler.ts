@@ -88,32 +88,32 @@ export class ErrorHandler {
       );
     }
 
-    if (error instanceof Emotions.Policies.OneEmotionPerEmotionJournalEntry.error) {
+    if (error instanceof Emotions.Policies.OneEmotionPerEntry.error) {
       infra.logger.error({
-        message: "OneEmotionPerEmotionJournalEntry",
-        operation: Emotions.Policies.OneEmotionPerEmotionJournalEntry.message,
+        message: "OneEmotionPerEntry",
+        operation: Emotions.Policies.OneEmotionPerEntry.message,
         correlationId,
       });
 
       return c.json(
         {
-          message: Emotions.Policies.OneEmotionPerEmotionJournalEntry.message,
+          message: Emotions.Policies.OneEmotionPerEntry.message,
           _known: true,
         },
         400,
       );
     }
 
-    if (error instanceof Emotions.Policies.OneReactionPerEmotionJournalEntry.error) {
+    if (error instanceof Emotions.Policies.OneReactionPerEntry.error) {
       infra.logger.error({
         message: "OneReactionPerEmotionJournalEntry",
-        operation: Emotions.Policies.OneReactionPerEmotionJournalEntry.message,
+        operation: Emotions.Policies.OneReactionPerEntry.message,
         correlationId,
       });
 
       return c.json(
         {
-          message: Emotions.Policies.OneReactionPerEmotionJournalEntry.message,
+          message: Emotions.Policies.OneReactionPerEntry.message,
           _known: true,
         },
         400,
