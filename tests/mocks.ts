@@ -3,6 +3,12 @@ import * as bg from "@bgord/bun";
 
 import * as Emotions from "../modules/emotions";
 
+export const ip = {
+  server: {
+    requestIP: () => ({ address: "127.0.0.1", family: "foo", port: "123" }),
+  },
+};
+
 export const id = bg.NewUUID.generate();
 
 export const GenericSituationLoggedEvent = {

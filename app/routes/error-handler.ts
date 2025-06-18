@@ -3,6 +3,7 @@ import hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
 import * as infra from "../../infra";
+import * as Emotions from "../../modules/emotions";
 
 export class ErrorHandler {
   static handle: hono.ErrorHandler = async (error, c) => {
@@ -32,6 +33,37 @@ export class ErrorHandler {
     }
 
     if (error instanceof z.ZodError) {
+      // TODO: Unify zod errors
+      if (error.issues.find((issue) => issue.message === Emotions.VO.SituationDescription.Errors.invalid)) {
+        return c.json(
+          {
+            message: Emotions.VO.SituationDescription.Errors.invalid,
+            _known: true,
+          },
+          400,
+        );
+      }
+
+      if (error.issues.find((issue) => issue.message === Emotions.VO.SituationLocation.Errors.invalid)) {
+        return c.json(
+          {
+            message: Emotions.VO.SituationLocation.Errors.invalid,
+            _known: true,
+          },
+          400,
+        );
+      }
+
+      if (error.issues.find((issue) => issue.message === Emotions.VO.SituationKind.Errors.invalid)) {
+        return c.json(
+          {
+            message: Emotions.VO.SituationKind.Errors.invalid,
+            _known: true,
+          },
+          400,
+        );
+      }
+
       infra.logger.error({
         message: "Invalid payload",
         operation: "invalid_payload",

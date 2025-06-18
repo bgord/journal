@@ -1,6 +1,6 @@
 import { z } from "zod/v4";
 
-const SituationKindErrors = { invalid: "situation.type.invalid" };
+const SituationKindErrors = { invalid: "situation.kind.invalid" };
 
 export enum SituationKindOptions {
   conflict = "conflict",
