@@ -39,6 +39,11 @@ server.post(
   timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
   Emotions.Routes.LogEmotion,
 );
+server.post(
+  "/emotions/:id/log-reaction",
+  timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
+  Emotions.Routes.LogReaction,
+);
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);

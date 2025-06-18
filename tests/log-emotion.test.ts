@@ -43,10 +43,6 @@ describe("POST /log-emotion", () => {
       "/emotions/id/log-emotion",
       {
         method: "POST",
-        body: JSON.stringify({
-          label: Emotions.VO.GenevaWheelEmotion.admiration,
-          intensity: 4,
-        }),
       },
       mocks.ip,
     );
@@ -120,24 +116,37 @@ describe("POST /log-emotion", () => {
   test("happy path", async () => {
     const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
 
+    const emotionJournalEntryLogEmotion = spyOn(
+      Emotions.Aggregates.EmotionJournalEntry.prototype,
+      "logEmotion",
+    );
+
     const history = [mocks.GenericSituationLoggedEvent];
 
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
+
+    const payload = {
+      label: Emotions.VO.GenevaWheelEmotion.admiration,
+      intensity: 4,
+    };
+
+    const emotion = new Emotions.Entities.Emotion(
+      new Emotions.VO.EmotionLabel(payload.label),
+      new Emotions.VO.EmotionIntensity(payload.intensity),
+    );
 
     const response = await server.request(
       `/emotions/${mocks.id}/log-emotion`,
       {
         method: "POST",
-        body: JSON.stringify({
-          label: Emotions.VO.GenevaWheelEmotion.admiration,
-          intensity: 4,
-        }),
+        body: JSON.stringify(payload),
       },
       mocks.ip,
     );
 
+    expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
-    expect(response.status).toBe(200);
+    expect(emotionJournalEntryLogEmotion).toHaveBeenCalledWith(emotion);
   });
 });
