@@ -1,31 +1,53 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "92198890-b52b-41ed-b795-8a11c6a76c43",
+  "id": "e6259e49-41fd-4307-b159-0bdfa8dc294b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "movies": {
-      "name": "movies",
+    "events": {
+      "name": "events",
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "text(36)",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
         },
         "name": {
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
-        "release_year": {
-          "name": "release_year",
+        "stream": {
+          "name": "stream",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "version": {
+          "name": "version",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "payload": {
+          "name": "payload",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false
         }
       },
