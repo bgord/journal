@@ -16,7 +16,7 @@ type GenericEventSchema = z.ZodObject<{
 
 type InferEvents<T extends readonly GenericEventSchema[]> = z.infer<T[number]>;
 
-export class EventStoreV2<AllEvents extends readonly GenericEventSchema[]> {
+export class EventStore<AllEvents extends readonly GenericEventSchema[]> {
   constructor() {}
 
   async find<Subset extends readonly AllEvents[number][]>(

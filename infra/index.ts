@@ -6,7 +6,7 @@ import type { TimingVariables } from "hono/timing";
 import { JournalEntryEvent } from "../modules/emotions/aggregates/emotion-journal-entry";
 import { PatternDetectionEvent } from "../modules/emotions/services/patterns/pattern";
 import { Env } from "./env";
-import { EventStoreV2 } from "./event-store-v2";
+import { EventStore as EventStoreConstructor } from "./event-store";
 import { logger } from "./logger";
 import { Mailer } from "./mailer";
 import { SupportedLanguages } from "./supported-languages";
@@ -20,7 +20,7 @@ export * from "./supported-languages";
 type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
 
 // TODO: remove the array
-export const EventStore = new EventStoreV2<AcceptedEvent[]>();
+export const EventStore = new EventStoreConstructor<AcceptedEvent[]>();
 
 export const I18nConfig: bg.I18nConfigType = {
   supportedLanguages: SupportedLanguages,
