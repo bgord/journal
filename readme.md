@@ -1,28 +1,46 @@
 # journal
 
-## Modules:
+## Domain:
 
-### Emotions
-
-Entities:
-
-- modules/emotions/entities/emotion.ts
-- modules/emotions/entities/reaction.ts
-- modules/emotions/entities/situation.ts
-
-Value Objects:
-
-- modules/emotions/value-objects/emotion-journal-entry-created-at.ts
-- modules/emotions/value-objects/emotion-journal-entry-id.ts
-- modules/emotions/value-objects/emotion-journal-entry-updated-at.ts
-
-- modules/emotions/value-objects/emotion-intensity.ts
-- modules/emotions/value-objects/emotion-label.ts
-
-- modules/emotions/value-objects/reaction-description.ts
-- modules/emotions/value-objects/reaction-effectiveness.ts
-- modules/emotions/value-objects/reaction-type.ts
-
-- modules/emotions/value-objects/situation-description.ts
-- modules/emotions/value-objects/situation-kind.ts
-- modules/emotions/value-objects/situation-location.ts
+modules/
+└── emotions
+    ├── aggregates
+    │   ├── emotion-journal-entry.ts
+    ├── entities
+    │   ├── emotion.ts
+    │   ├── reaction.ts
+    │   └── situation.ts
+    ├── events.ts
+    ├── policies
+    │   ├── emotion-corresponds-to-situation.ts
+    │   ├── emotion-for-reappraisal-exists.ts
+    │   ├── one-emotion-per-entry.ts
+    │   ├── one-reaction-per-entry.ts
+    │   ├── one-situation-per-entry.ts
+    │   ├── reaction-corresponds-to-situation-and-emotion.ts
+    │   └── reaction-for-evaluation-exists.ts
+    ├── routes
+    │   ├── evaluate-reaction.ts
+    │   ├── log-emotion.ts
+    │   ├── log-reaction.ts
+    │   ├── log-situation.ts
+    │   └── reappraise-emotion.ts
+    ├── services
+    │   ├── pattern-detector.ts
+    │   └── patterns
+    │       ├── more-negative-than-positive-emotions-pattern.ts
+    │       ├── multiple-maladaptive-reactions-pattern.ts
+    │       ├── pattern.ts
+    │       └── positive-emotion-with-maladaptive-reaction-pattern.ts
+    └── value-objects
+        ├── emotion-intensity.ts
+        ├── emotion-journal-entry-finished-at.ts
+        ├── emotion-journal-entry-id.ts
+        ├── emotion-journal-entry-started-at.ts
+        ├── emotion-label.ts
+        ├── reaction-description.ts
+        ├── reaction-effectiveness.ts
+        ├── reaction-type.ts
+        ├── situation-description.ts
+        ├── situation-kind.ts
+        └── situation-location.ts
