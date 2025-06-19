@@ -10,14 +10,11 @@ type GenericEventSchema = z.ZodObject<{
   payload: z.ZodType<any>;
 }>;
 
-type GenericParsedEventSchema = z.ZodObject<{
-  id: z.ZodType<string>;
-  createdAt: z.ZodType<number>;
-  stream: z.ZodString;
-  name: z.ZodLiteral<string>;
-  version: z.ZodLiteral<number>;
-  payload: z.ZodType<string>;
-}>;
+export type GenericParsedEventSchema = z.ZodObject<
+  Omit<GenericEventSchema["shape"], "payload"> & {
+    payload: z.ZodString;
+  }
+>;
 
 type FindEventsHandler = (
   stream: bg.EventType["stream"],

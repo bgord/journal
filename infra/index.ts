@@ -7,7 +7,7 @@ import { z } from "zod/v4";
 import { JournalEntryEvent } from "../modules/emotions/aggregates/emotion-journal-entry";
 import { PatternDetectionEvent } from "../modules/emotions/services/patterns/pattern";
 import { Env } from "./env";
-import { EventStore as EventStoreConstructor } from "./event-store";
+import { EventStore as EventStoreConstructor, GenericParsedEventSchema } from "./event-store";
 import { logger } from "./logger";
 import { Mailer } from "./mailer";
 import { SupportedLanguages } from "./supported-languages";
@@ -23,15 +23,6 @@ import { db } from "./db";
 import * as schema from "./schema";
 
 type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
-
-type GenericParsedEventSchema = z.ZodObject<{
-  id: z.ZodType<string>;
-  createdAt: z.ZodType<number>;
-  stream: z.ZodString;
-  name: z.ZodLiteral<string>;
-  version: z.ZodLiteral<number>;
-  payload: z.ZodType<string>;
-}>;
 
 export const EventStore = new EventStoreConstructor<AcceptedEvent>({
   finder: (stream: string, acceptedEventsNames: string[]) =>
