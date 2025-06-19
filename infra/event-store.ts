@@ -16,9 +16,7 @@ export class EventStore {
     acceptedEvents: T,
     stream: bg.EventType["stream"],
   ): Promise<z.infer<T[number]>[]> {
-    const acceptedEventNames = acceptedEvents.flatMap((acceptedEvent) =>
-      acceptedEvent.def.shape.name.def.values.flat(),
-    );
+    const acceptedEventNames = acceptedEvents.map((event) => event.shape.name.value);
 
     const events = await db
       .select()
