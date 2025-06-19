@@ -26,11 +26,9 @@ export async function LogReaction(c: hono.Context, _next: hono.Next) {
   );
 
   const entry = Emotions.Aggregates.EmotionJournalEntry.build(id, history);
-
   await entry.logReaction(reaction);
 
-  const events = entry.pullEvents();
-  await infra.EventStore.save(events);
+  await infra.EventStore.save(entry.pullEvents());
 
   return new Response();
 }

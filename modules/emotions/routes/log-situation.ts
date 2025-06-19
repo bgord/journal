@@ -12,19 +12,18 @@ export async function LogSituation(c: hono.Context, _next: hono.Next) {
     new Emotions.VO.SituationKind(body.kind),
   );
 
+  const id = bg.NewUUID.generate();
+
   infra.logger.info({
     message: "Log situation payload",
     operation: "read",
-    metadata: { situation },
+    metadata: { situation, id },
   });
 
-  const id = bg.NewUUID.generate();
   const entry = Emotions.Aggregates.EmotionJournalEntry.create(id);
-
   await entry.logSituation(situation);
 
-  const events = entry.pullEvents();
-  await infra.EventStore.save(events);
+  await infra.EventStore.save(entry.pullEvents());
 
   return new Response();
 }
