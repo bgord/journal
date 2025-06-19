@@ -19,7 +19,10 @@ export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
     metadata: { emotion },
   });
 
-  const history = await infra.EventStore.find(Emotions.Aggregates.EmotionJournalEntry.getStream(id));
+  const history = await infra.EventStore.find(
+    Emotions.Aggregates.EmotionJournalEntry.events,
+    Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  );
 
   const entry = Emotions.Aggregates.EmotionJournalEntry.build(id, history);
 

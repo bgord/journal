@@ -94,6 +94,14 @@ export type JournalEntryEvent =
 export type JournalEntryEventType = z.infer<JournalEntryEvent>;
 
 export class EmotionJournalEntry {
+  static events: JournalEntryEvent[] = [
+    SituationLoggedEvent,
+    EmotionLoggedEvent,
+    ReactionLoggedEvent,
+    EmotionReappraisedEvent,
+    ReactionEvaluatedEvent,
+  ];
+
   private readonly id: VO.EmotionJournalEntryIdType;
   private startedAt?: VO.EmotionJournalEntryStartedAtType;
   private finishedAt?: VO.EmotionJournalEntryFinishedAtType;
