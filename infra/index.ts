@@ -19,6 +19,7 @@ export * from "./supported-languages";
 
 type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
 
+// TODO: remove the array
 export const EventStore = new EventStoreV2<AcceptedEvent[]>();
 
 export const I18nConfig: bg.I18nConfigType = {
