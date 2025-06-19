@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 
 import * as Aggregates from "../../aggregates/emotion-journal-entry";
 import * as Events from "../../events";
-import { Pattern, PatternDateRange, PatternDetectionResult } from "./pattern";
+import { Pattern, PatternDateRange, PatternDetectionEventType } from "./pattern";
 
 export class MultipleMaladaptiveReactionsPattern extends Pattern {
   name = "MultipleMaladaptiveReactionsPattern";
@@ -12,7 +12,7 @@ export class MultipleMaladaptiveReactionsPattern extends Pattern {
     super();
   }
 
-  check(entries: Aggregates.EmotionJournalEntry[]): PatternDetectionResult | null {
+  check(entries: Aggregates.EmotionJournalEntry[]): PatternDetectionEventType | null {
     const matches = entries
       .map((entry) => entry.summarize())
       .filter((entry) => entry.reaction?.type.isMaladaptive());

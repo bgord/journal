@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 
 import * as Aggregates from "../../aggregates/emotion-journal-entry";
 import * as Events from "../../events";
-import { Pattern, PatternDateRange, PatternDetectionResult } from "./pattern";
+import { Pattern, PatternDateRange, PatternDetectionEventType } from "./pattern";
 
 export class MoreNegativeThanPositiveEmotionsPattern extends Pattern {
   name = "MoreNegativeThanPositiveEmotionsPattern";
@@ -12,7 +12,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Pattern {
     super();
   }
 
-  check(entries: Aggregates.EmotionJournalEntry[]): PatternDetectionResult | null {
+  check(entries: Aggregates.EmotionJournalEntry[]): PatternDetectionEventType | null {
     const summaries = entries.map((entry) => entry.summarize());
 
     const positiveEmotionsCounter = summaries.filter((entry) => entry.emotion?.label.isPositive()).length;
