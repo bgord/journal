@@ -1,6 +1,47 @@
 # Changelog
+- 2025-06-19 11:56 5f3dfa8 **step: update knip**
+## 2025-06-19 11:56 
+- 2025-06-19 01:28 298140f **step: define policy codes**
+- 2025-06-19 01:14 11b54d3 **step: install local bgord-bun**
+- 2025-06-19 01:05 83a3c68 **refactor: simplify domain errors**
+- 2025-06-19 00:40 7e632ad **feature: add evaluate reaction route**
+- 2025-06-19 00:30 aaa4e1e **feature: add reappraise emotion route**
+- 2025-06-19 00:21 6c36e33 **refactor: simplify policies**
+- 2025-06-18 18:13 0b6ba64 **step: add log reaction tests**
+- 2025-06-18 18:01 efbb640 **feature: setup log reaction route**
+- 2025-06-18 17:54 fddb498 **step: test log-emotion route**
+- 2025-06-18 17:32 b089414 **step: define event store**
+- 2025-06-18 17:30 b027113 **step: define id param for log emotion**
+- 2025-06-18 15:48 cdf0455 **feature: setup log emotion endpoint**
+- 2025-06-18 15:22 9da5581 **refactor: unify validation error handling**
+- 2025-06-18 15:14 ef1898a **step: add log situation validation tests**
+- 2025-06-18 01:00 ac52c50 **feature: add log situation route**
+- 2025-06-18 00:56 a588ebe **step: add emotion journal entry create method**
+- 2025-06-18 00:42 305f7ec **feature: add date range for pattern detector**
+- 2025-06-18 00:28 bb5be16 **step: test multiple patterns detected case**
+- 2025-06-18 00:09 29d8b02 **refactor: make pattern detector return events**
+- 2025-06-17 23:55 d3c36d0 **refactor: rename multiple maladaptive reactions pattern**
+- 2025-06-17 23:37 008bb69 **refactor: extract mocks**
+- 2025-06-17 23:20 c3a1ccd **refactor: extract patterns**
+- 2025-06-17 23:13 e0dbe0b **step: add MoreNegativiteThanPositiveEmotionsPattern tests**
+- 2025-06-17 22:59 0d2e154 **feature: implement MoreNegativiteThanPositiveEmotionsPattern**
+- 2025-06-17 20:03 4567129 **feature: add PositiveEmotionWithMaladaptiveReaction**
+- 2025-06-17 19:59 0983ee1 **step: adjust pattern detector rule**
+- 2025-06-17 19:53 b3e03f2 **step: implement emotion label isPositive and isNegative**
+- 2025-06-17 19:37 ff20a33 **feature: implement MultipleMaladaptiveReactionsInWeekPattern-n**
+- 2025-06-17 19:30 00859c9 **step: add summarize method**
+- 2025-06-17 18:30 9672b72 **step: setup pattern detector**
+- 2025-06-17 17:32 07b3e9f **feature: handle started and finished at**
+- 2025-06-17 17:22 4582542 **step: implement Policies.ReactionForEvaluationExists**
+- 2025-06-17 17:14 bdd71c4 **step: add evaluate reaction tests**
+- 2025-06-17 17:09 ccbe328 **feature: implement evaluateReaction**
+- 2025-06-17 17:02 21d823a **step: implement Policies.EmotionCorrespondsToSituation**
+- 2025-06-17 13:39 5d05161 **feature: implement reappraiseEmotion**
+- 2025-06-17 00:55 65f461c **refactor: simplify tests**
+- 2025-06-17 00:47 1da0891 **refactor: rewrite events to match event-store schema**
+- 2025-06-17 00:45 908e5f6 **refactor: export vo schemas**
+- 2025-06-17 00:27 7555991 **refactor: extract event names**
 - 2025-06-16 23:53 c6bafd9 **step: update lefthook**
-## 2025-06-16 23:53 
 - 2025-06-16 23:36 1847773 **feature: add logReaction method**
 - 2025-06-16 23:35 73ff4ad **refactor: export reaction vo types**
 - 2025-06-16 23:28 896b30d **step: improve tests**
@@ -11,6 +52,7 @@
 - 2025-06-16 21:58 b17441f **feature: setup emotion journal entry aggregate**
 - 2025-06-16 21:55 9abc228 **fix: situation kind**
 - 2025-06-16 21:55 4c6101e **refactor: export vo value types**
+- 2025-06-16 21:53 0ff5d0e **docs: generate CHANGELOG**
 - 2025-06-15 23:09 7c7d6fd **step: add sources**
 - 2025-06-15 22:42 d27d860 **step: add docs**
 - 2025-06-15 22:21 7596caf **step: define emotions module exports**
