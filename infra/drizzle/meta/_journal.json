@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1750330945041,
+      "tag": "0000_opposite_serpent_society",
+      "breakpoints": true
+    }
+  ]
+}
