@@ -1,8 +1,7 @@
 import * as bg from "@bgord/bun";
 import hono from "hono";
-
-import * as Emotions from "../";
 import * as infra from "../../../infra";
+import * as Emotions from "../";
 
 export async function LogReaction(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
