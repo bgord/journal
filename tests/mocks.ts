@@ -143,25 +143,25 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   id: expect.any(String),
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
-  name: Emotions.Services.Patterns.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
+  name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   version: 1,
   payload: {},
-} satisfies Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
+} satisfies Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
 
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   id: expect.any(String),
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
-  name: Emotions.Services.Patterns.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
+  name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
   payload: {},
-} satisfies Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
+} satisfies Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
 export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
   id: expect.any(String),
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
-  name: Emotions.Services.Patterns.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
+  name: Emotions.Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
   payload: {},
-} satisfies Emotions.Services.Patterns.MultipleMaladaptiveReactionsPatternDetectedEventType;
+} satisfies Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType;

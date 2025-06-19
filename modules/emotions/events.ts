@@ -81,3 +81,45 @@ export const ReactionEvaluatedEvent = z.object({
   }),
 });
 export type ReactionEvaluatedEventType = z.infer<typeof ReactionEvaluatedEvent>;
+
+export const MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT =
+  "MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT";
+export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = z.object({
+  id: bg.UUID,
+  createdAt: tools.Timestamp,
+  stream: z.string().min(1),
+  name: z.literal(MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT),
+  version: z.literal(1),
+  payload: z.object({}),
+});
+export type MoreNegativeThanPositiveEmotionsPatternDetectedEventType = z.infer<
+  typeof MoreNegativeThanPositiveEmotionsPatternDetectedEvent
+>;
+
+export const MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT =
+  "MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT";
+export const MultipleMaladaptiveReactionsPatternDetectedEvent = z.object({
+  id: bg.UUID,
+  createdAt: tools.Timestamp,
+  stream: z.string().min(1),
+  name: z.literal(MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT),
+  version: z.literal(1),
+  payload: z.object({}),
+});
+export type MultipleMaladaptiveReactionsPatternDetectedEventType = z.infer<
+  typeof MultipleMaladaptiveReactionsPatternDetectedEvent
+>;
+
+export const POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT =
+  "POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT";
+export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = z.object({
+  id: bg.UUID,
+  createdAt: tools.Timestamp,
+  stream: z.string().min(1),
+  name: z.literal(POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT),
+  version: z.literal(1),
+  payload: z.object({}),
+});
+export type PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType = z.infer<
+  typeof PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent
+>;
