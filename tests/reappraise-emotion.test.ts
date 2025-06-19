@@ -1,4 +1,4 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
@@ -83,7 +83,10 @@ describe("POST /reappraise-emotion", () => {
       message: Emotions.Policies.EmotionCorrespondsToSituation.message,
       _known: true,
     });
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
   });
 
@@ -113,11 +116,15 @@ describe("POST /reappraise-emotion", () => {
       message: Emotions.Policies.EmotionForReappraisalExists.message,
       _known: true,
     });
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
   });
 
   test("happy path", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
 
     const emotionJournalEntryReappraiseEmotion = spyOn(
@@ -130,8 +137,8 @@ describe("POST /reappraise-emotion", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const payload = {
-      label: Emotions.VO.GenevaWheelEmotion.admiration,
-      intensity: 4,
+      label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,
+      intensity: mocks.GenericEmotionReappraisedEvent.payload.newIntensity,
     };
 
     const emotion = new Emotions.Entities.Emotion(
@@ -149,8 +156,14 @@ describe("POST /reappraise-emotion", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
     expect(emotionJournalEntryReappraiseEmotion).toHaveBeenCalledWith(emotion);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionReappraisedEvent]);
+    eventStoreSave.mockRestore();
   });
 });

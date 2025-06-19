@@ -1,24 +1,24 @@
-import { EmotionJournalEntry } from "../../aggregates/emotion-journal-entry";
-
-import { MoreNegativeThanPositiveEmotionsPatternDetectedEventType } from "./more-negative-than-positive-emotions-pattern";
-import { MultipleMaladaptiveReactionsPatternDetectedEventType } from "./multiple-maladaptive-reactions-pattern";
-import { PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType } from "./positive-emotion-with-maladaptive-reaction-pattern";
+import { z } from "zod/v4";
+import * as Aggregates from "../../aggregates/emotion-journal-entry";
+import * as Events from "../../events";
 
 type PatternName = string;
 
 export type PatternDateRange = [string, string];
 
-export type PatternDetectionResult =
-  | MoreNegativeThanPositiveEmotionsPatternDetectedEventType
-  | MultipleMaladaptiveReactionsPatternDetectedEventType
-  | PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
+export type PatternDetectionEvent =
+  | typeof Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent
+  | typeof Events.MultipleMaladaptiveReactionsPatternDetectedEvent
+  | typeof Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent;
+
+export type PatternDetectionEventType = z.infer<PatternDetectionEvent>;
 
 export abstract class Pattern {
   abstract name: PatternName;
 
   abstract dateRange: PatternDateRange;
 
-  abstract check(entries: EmotionJournalEntry[]): PatternDetectionResult | null;
+  abstract check(entries: Aggregates.EmotionJournalEntry[]): PatternDetectionEventType | null;
 
   getStream(): string {
     return `weekly_pattern_detection_${this.dateRange[0]}_${this.dateRange[1]}`;

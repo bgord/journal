@@ -2,6 +2,7 @@ import { z } from "zod/v4";
 
 const SituationKindErrors = { invalid: "situation.kind.invalid" };
 
+/** @public */
 export enum SituationKindOptions {
   conflict = "conflict",
   achievement = "achievement",
@@ -29,7 +30,7 @@ export const SituationKindSchema = z.enum(SituationKindOptions, {
   message: SituationKindErrors.invalid,
 });
 
-export type SituationKindType = z.infer<typeof SituationKindSchema>;
+type SituationKindType = z.infer<typeof SituationKindSchema>;
 
 export class SituationKind {
   static readonly Errors = SituationKindErrors;

@@ -8,11 +8,12 @@ import { logger } from "./logger";
 import { Mailer } from "./mailer";
 import { SupportedLanguages } from "./supported-languages";
 
+export * from "./db";
 export * from "./env";
-export * from "./mailer";
-export * from "./logger";
-export * from "./supported-languages";
 export * from "./event-store";
+export * from "./logger";
+export * from "./mailer";
+export * from "./supported-languages";
 
 export const I18nConfig: bg.I18nConfigType = {
   supportedLanguages: SupportedLanguages,
@@ -35,6 +36,7 @@ export const BasicAuthShield = basicAuth({
   password: Env.BASIC_AUTH_PASSWORD,
 });
 
+/** @public */
 export const ApiKeyShield = new bg.ApiKeyShield({ API_KEY: Env.API_KEY });
 
 export const prerequisites = [

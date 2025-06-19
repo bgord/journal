@@ -18,3 +18,4 @@ static/normalize.css
 static/normalize.min.css
 tsconfig.tsbuildinfo
 tmp/
+sqlite.db

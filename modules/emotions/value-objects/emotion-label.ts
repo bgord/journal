@@ -3,6 +3,7 @@ import { z } from "zod/v4";
 const EmotionLabelErrors = { invalid: "emotion.label.invalid" };
 
 // https://en.wikipedia.org/wiki/Geneva_drive
+/** @public */
 export enum GenevaWheelEmotion {
   joy = "joy",
   pleasure = "pleasure",
@@ -30,7 +31,7 @@ export const EmotionLabelSchema = z.enum(GenevaWheelEmotion, {
   error: EmotionLabelErrors.invalid,
 });
 
-export type EmotionLabelType = z.infer<typeof EmotionLabelSchema>;
+type EmotionLabelType = z.infer<typeof EmotionLabelSchema>;
 
 export class EmotionLabel {
   static readonly Errors = EmotionLabelErrors;

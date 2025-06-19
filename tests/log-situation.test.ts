@@ -1,4 +1,6 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
+import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -58,6 +60,9 @@ describe("POST /log-situation", () => {
   });
 
   test("happy path", async () => {
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.id);
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+
     const emotionJournalEntryCreate = spyOn(Emotions.Aggregates.EmotionJournalEntry, "create");
 
     const emotionJournalEntryLogSituation = spyOn(
@@ -66,9 +71,9 @@ describe("POST /log-situation", () => {
     );
 
     const payload = {
-      description: "Something happened",
-      location: "work",
-      kind: Emotions.VO.SituationKindOptions.conflict,
+      description: mocks.GenericSituationLoggedEvent.payload.description,
+      location: mocks.GenericSituationLoggedEvent.payload.location,
+      kind: mocks.GenericSituationLoggedEvent.payload.kind,
     };
 
     const situation = new Emotions.Entities.Situation(
@@ -89,5 +94,8 @@ describe("POST /log-situation", () => {
     expect(response.status).toEqual(200);
     expect(emotionJournalEntryCreate).toHaveBeenCalledWith(mocks.expectAnyId);
     expect(emotionJournalEntryLogSituation).toHaveBeenCalledWith(situation);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericSituationLoggedEvent]);
+    eventStoreSave.mockRestore();
   });
 });

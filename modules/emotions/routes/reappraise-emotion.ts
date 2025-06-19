@@ -1,8 +1,7 @@
 import * as bg from "@bgord/bun";
 import hono from "hono";
-
-import * as Emotions from "../";
 import * as infra from "../../../infra";
+import * as Emotions from "../";
 
 export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
@@ -20,11 +19,15 @@ export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
     metadata: { emotion },
   });
 
-  const history = await infra.EventStore.find(Emotions.Aggregates.EmotionJournalEntry.getStream(id));
+  const history = await infra.EventStore.find(
+    Emotions.Aggregates.EmotionJournalEntry.events,
+    Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  );
 
   const entry = Emotions.Aggregates.EmotionJournalEntry.build(id, history);
-
   await entry.reappraiseEmotion(emotion);
+
+  await infra.EventStore.save(entry.pullEvents());
 
   return new Response();
 }
