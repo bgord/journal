@@ -2,6 +2,7 @@
 
 ## Domain:
 
+```
 modules/
 └── emotions
     ├── aggregates
@@ -44,3 +45,4 @@ modules/
         ├── situation-description.ts
         ├── situation-kind.ts
         └── situation-location.ts
+```
