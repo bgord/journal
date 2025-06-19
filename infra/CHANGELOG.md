@@ -1,6 +1,8 @@
 # Changelog
+- 2025-06-19 22:40 8aa18f1 **Merge pull request #2 from bgord/drizzle**
+## 2025-06-19 22:40 
+- 2025-06-19 22:38 6b7fcaf **feature: add readme generator**
 - 2025-06-19 21:21 148968c **Merge pull request #1 from bgord/drizzle**
-## 2025-06-19 21:21 
 - 2025-06-19 21:16 0903e35 **refactor: simplify event store save calls**
 - 2025-06-19 21:12 fb13d31 **step: update bgord bun**
 - 2025-06-19 21:06 7f0ca52 **step: bump bgord/scripts**
@@ -18,6 +20,7 @@
 - 2025-06-19 19:52 acd7173 **refactor: rename new event store**
 - 2025-06-19 19:49 8efddfc **feature: add event store v2**
 - 2025-06-19 19:49 2958882 **step: remove old event store**
+- 2025-06-19 19:21 c26cfe2 **docs: generate CHANGELOG**
 - 2025-06-19 18:06 77894f2 **refactor: simplify accepted event type**
 - 2025-06-19 18:04 b71aa0b **step: define all accepted events**
 - 2025-06-19 18:02 d18f1f9 **refactor: rename pattern detection event and event types**
