@@ -6,6 +6,7 @@ const id = text("id", { length: 36 })
   .primaryKey()
   .$defaultFn(() => randomUUID());
 
+// TODO: add index
 export const events = sqliteTable("events", {
   id,
   createdAt: integer("createdAt").default(sql`now`),

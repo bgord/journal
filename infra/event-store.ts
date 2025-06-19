@@ -5,6 +5,7 @@ import * as schema from "./schema";
 type AcceptedEventType = JournalEntryEventType;
 
 export class EventStore {
+  // TODO: implement find stream events in a non-breaking way
   static async find(_stream: string): Promise<JournalEntryEventType[]> {
     return [];
   }

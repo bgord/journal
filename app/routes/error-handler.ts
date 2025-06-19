@@ -5,8 +5,7 @@ import z from "zod/v4";
 import * as infra from "../../infra";
 import * as Emotions from "../../modules/emotions";
 
-// TODO: try extracting the logic for them
-
+// TODO: try extracting the logic for errors
 const validationErrors = [
   Emotions.VO.SituationDescription.Errors.invalid,
   Emotions.VO.SituationLocation.Errors.invalid,
