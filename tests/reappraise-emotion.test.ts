@@ -83,7 +83,10 @@ describe("POST /reappraise-emotion", () => {
       message: Emotions.Policies.EmotionCorrespondsToSituation.message,
       _known: true,
     });
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
   });
 
@@ -113,7 +116,10 @@ describe("POST /reappraise-emotion", () => {
       message: Emotions.Policies.EmotionForReappraisalExists.message,
       _known: true,
     });
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
   });
 
@@ -150,7 +156,10 @@ describe("POST /reappraise-emotion", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
     expect(emotionJournalEntryReappraiseEmotion).toHaveBeenCalledWith(emotion);
 

@@ -79,7 +79,10 @@ describe("POST /log-emotion", () => {
       message: Emotions.Policies.EmotionCorrespondsToSituation.message,
       _known: true,
     });
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
   });
 
@@ -109,7 +112,10 @@ describe("POST /log-emotion", () => {
       message: Emotions.Policies.OneEmotionPerEntry.message,
       _known: true,
     });
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
   });
 
@@ -146,7 +152,10 @@ describe("POST /log-emotion", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
     expect(emotionJournalEntryLogEmotion).toHaveBeenCalledWith(emotion);
 

@@ -113,7 +113,10 @@ describe("POST /log-reaction", () => {
       message: Emotions.Policies.OneReactionPerEntry.message,
       _known: true,
     });
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
     expect(emotionJournalEntryLogReaction).toHaveBeenCalledWith(reaction);
   });
@@ -158,7 +161,10 @@ describe("POST /log-reaction", () => {
       message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
       _known: true,
     });
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
     expect(emotionJournalEntryLogReaction).toHaveBeenCalledWith(reaction);
   });
@@ -203,7 +209,10 @@ describe("POST /log-reaction", () => {
       message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
       _known: true,
     });
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
     expect(emotionJournalEntryLogReaction).toHaveBeenCalledWith(reaction);
   });
@@ -243,7 +252,10 @@ describe("POST /log-reaction", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.EmotionJournalEntry.events,
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+    );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
     expect(emotionJournalEntryLogReaction).toHaveBeenCalledWith(reaction);
 
