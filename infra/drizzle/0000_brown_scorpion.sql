@@ -6,3 +6,5 @@ CREATE TABLE `events` (
 	`version` integer NOT NULL,
 	`payload` text NOT NULL
 );
+--> statement-breakpoint
+CREATE INDEX `stream_idx` ON `events` (`stream`);

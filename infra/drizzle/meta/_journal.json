@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1750333786254,
-      "tag": "0000_wealthy_maestro",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1750341174386,
-      "tag": "0001_sleepy_bullseye",
+      "when": 1750341272816,
+      "tag": "0000_brown_scorpion",
       "breakpoints": true
     }
   ]

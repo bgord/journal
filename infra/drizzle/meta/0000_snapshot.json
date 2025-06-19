@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "6df78753-8752-41ce-a114-d0a33c708e19",
+  "id": "15c4b23f-8034-486e-bd71-80e2821cbf53",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "events": {
@@ -51,7 +51,13 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "stream_idx": {
+          "name": "stream_idx",
+          "columns": ["stream"],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
