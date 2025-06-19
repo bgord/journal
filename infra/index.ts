@@ -8,6 +8,7 @@ import { logger } from "./logger";
 import { Mailer } from "./mailer";
 import { SupportedLanguages } from "./supported-languages";
 
+export * from "./db";
 export * from "./env";
 export * from "./event-store";
 export * from "./logger";

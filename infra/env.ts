@@ -16,6 +16,7 @@ const EnvironmentSchema = z
     BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
     API_KEY: tools.ApiKey,
+    SQLITE_DATABASE_FILE_PATH: bg.Path,
   })
   .strip();
 
