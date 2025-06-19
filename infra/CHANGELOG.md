@@ -1,9 +1,71 @@
 # Changelog
+- 2025-06-19 21:21 148968c **Merge pull request #1 from bgord/drizzle**
+## 2025-06-19 21:21 
+- 2025-06-19 21:16 0903e35 **refactor: simplify event store save calls**
+- 2025-06-19 21:12 fb13d31 **step: update bgord bun**
+- 2025-06-19 21:06 7f0ca52 **step: bump bgord/scripts**
+- 2025-06-19 21:05 26c6156 **step: bump bgord/scripts**
+- 2025-06-19 21:04 280beba **step: bump bgord/scripts**
+- 2025-06-19 20:54 be84cb6 **refactor: remove unused exports**
+- 2025-06-19 20:52 884fe69 **step: bump bgord/scripts**
+- 2025-06-19 20:45 c07d05d **refactor: used external event store**
+- 2025-06-19 20:41 9c86103 **refactor: use generic event schemas from bgord bun**
+- 2025-06-19 20:38 c587689 **step: switch to local bgord bun**
+- 2025-06-19 20:30 2bd5799 **refactor: simplify GenericParsedEventSchema**
+- 2025-06-19 20:27 9bce1ff **feature: extract db calls out of event store**
+- 2025-06-19 20:09 dee7dbb **fix: make events.createdAt not null**
+- 2025-06-19 19:58 0671e75 **refactor: simplify event store**
+- 2025-06-19 19:52 acd7173 **refactor: rename new event store**
+- 2025-06-19 19:49 8efddfc **feature: add event store v2**
+- 2025-06-19 19:49 2958882 **step: remove old event store**
+- 2025-06-19 18:06 77894f2 **refactor: simplify accepted event type**
+- 2025-06-19 18:04 b71aa0b **step: define all accepted events**
+- 2025-06-19 18:02 d18f1f9 **refactor: rename pattern detection event and event types**
+- 2025-06-19 17:48 43bf36c **refactor: simplify JournalEntryEvent**
+- 2025-06-19 17:43 6f5b6cf **refactor: extract pattern detector events to events file**
+- 2025-06-19 17:30 b0016b1 **refactor: extract events to a separate file**
+- 2025-06-19 17:22 07d98a2 **step: adjust tests**
+- 2025-06-19 17:18 724dfd7 **step: simplify accepted event names**
+- 2025-06-19 17:15 98fd722 **step: use proper event store find method**
+- 2025-06-19 17:10 7b14646 **feature: implement type-safe event store**
+- 2025-06-19 16:41 fe201a6 **step: define JournalEntryEvent**
+- 2025-06-19 15:54 ab79cf8 **refactor: regenerate migrations**
+- 2025-06-19 15:53 3d6ffae **step: define event.stream index**
+- 2025-06-19 15:44 e2a63bd **step: add todos**
+- 2025-06-19 15:41 fb574e0 **step: delete helper files**
+- 2025-06-19 15:41 154b7d5 **refactor: remove local bun drizzle scripts**
+- 2025-06-19 15:39 147ebad **step: pin drizzle package versions**
+- 2025-06-19 15:20 0e6dbce **step: test event store**
+- 2025-06-19 14:55 e5e8251 **step: save log-situation event**
+- 2025-06-19 14:55 1386ebc **refactor: remove local drizzle config**
+- 2025-06-19 14:47 eee96c6 **feature: implement EventStore.save**
+- 2025-06-19 14:23 4c2caee **refactor: remove manual migrate script**
+- 2025-06-19 14:23 3567441 **step: bump bgord/scripts**
+- 2025-06-19 14:19 9a8b7c7 **step: install better-sqlite3**
+- 2025-06-19 14:10 2a23aff **step: add bun-drizzle-migrate script**
+- 2025-06-19 14:09 694ee51 **feature: define drizzle.config.ts**
+- 2025-06-19 13:51 34be2f1 **step: add seed**
+- 2025-06-19 13:50 abbb4cf **refactor: regenerate infra/drizzle**
+- 2025-06-19 13:48 1e07a85 **fix: events.createdAt schema**
+- 2025-06-19 13:41 33057c4 **feature: setup events schema**
+- 2025-06-19 13:17 9b0ccdc **step: make a working example**
+- 2025-06-19 13:13 458910f **refactor: regenerate drizzle migrations**
+- 2025-06-19 13:13 12d2aa9 **refactor: remove env SQLITE_DATABASE_FILE_PATH**
+- 2025-06-19 13:12 fab7181 **step: add test file**
+- 2025-06-19 13:12 599fd6d **refactor: remove drizzle migrations**
+- 2025-06-19 13:09 734121b **refactor: revert sqlite env path**
+- 2025-06-19 13:06 3c1ffaa **step: define drizzle migrations**
+- 2025-06-19 13:06 3abf4da **step: bump bgord/scripts**
+- 2025-06-19 13:04 972d428 **step: define bun drizzle generate script**
+- 2025-06-19 13:03 5e7824f **step: define drizzle schema**
+- 2025-06-19 12:56 bda1afa **step: setup infra/db**
+- 2025-06-19 12:49 aa783d6 **step: install drizzle**
+- 2025-06-19 12:49 9e9cc50 **fix: formatting**
 - 2025-06-19 12:38 f329ba5 **step: bump bgord/scripts**
 - 2025-06-19 12:38 574bee9 **step: update biome**
-## 2025-06-19 12:38 
 - 2025-06-19 12:37 7c1f9a1 **step: update bgord packages**
 - 2025-06-19 11:56 5f3dfa8 **step: update knip**
+- 2025-06-19 10:47 892b3fc **docs: generate CHANGELOG**
 - 2025-06-19 09:57 d63463b **docs: generate CHANGELOG**
 - 2025-06-19 01:28 298140f **step: define policy codes**
 - 2025-06-19 01:14 11b54d3 **step: install local bgord-bun**
