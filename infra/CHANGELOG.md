@@ -1,6 +1,10 @@
 # Changelog
+- 2025-06-19 12:38 f329ba5 **step: bump bgord/scripts**
+- 2025-06-19 12:38 574bee9 **step: update biome**
+## 2025-06-19 12:38 
+- 2025-06-19 12:37 7c1f9a1 **step: update bgord packages**
 - 2025-06-19 11:56 5f3dfa8 **step: update knip**
-## 2025-06-19 11:56 
+- 2025-06-19 09:57 d63463b **docs: generate CHANGELOG**
 - 2025-06-19 01:28 298140f **step: define policy codes**
 - 2025-06-19 01:14 11b54d3 **step: install local bgord-bun**
 - 2025-06-19 01:05 83a3c68 **refactor: simplify domain errors**
