@@ -16,11 +16,12 @@ const EnvironmentSchema = z
     BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
     API_KEY: tools.ApiKey,
-    SQLITE_DATABASE_FILE_PATH: bg.Path,
   })
   .strip();
 
-export const Env = new bg.EnvironmentValidator<z.infer<typeof EnvironmentSchema>>({
+export const Env = new bg.EnvironmentValidator<
+  z.infer<typeof EnvironmentSchema>
+>({
   type: process.env.NODE_ENV,
   schema: EnvironmentSchema,
 }).load();
