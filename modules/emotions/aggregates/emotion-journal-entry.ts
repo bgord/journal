@@ -84,12 +84,14 @@ export const ReactionEvaluatedEvent = z.object({
 });
 export type ReactionEvaluatedEventType = z.infer<typeof ReactionEvaluatedEvent>;
 
-export type JournalEntryEventType =
-  | SituationLoggedEventType
-  | EmotionLoggedEventType
-  | ReactionLoggedEventType
-  | EmotionReappraisedEventType
-  | ReactionEvaluatedEventType;
+export type JournalEntryEvent =
+  | typeof SituationLoggedEvent
+  | typeof EmotionLoggedEvent
+  | typeof ReactionLoggedEvent
+  | typeof EmotionReappraisedEvent
+  | typeof ReactionEvaluatedEvent;
+
+export type JournalEntryEventType = z.infer<JournalEntryEvent>;
 
 export class EmotionJournalEntry {
   private readonly id: VO.EmotionJournalEntryIdType;
