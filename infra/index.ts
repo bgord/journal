@@ -7,7 +7,7 @@ import { z } from "zod/v4";
 import { JournalEntryEvent } from "../modules/emotions/aggregates/emotion-journal-entry";
 import { PatternDetectionEvent } from "../modules/emotions/services/patterns/pattern";
 import { Env } from "./env";
-import { EventStore as EventStoreConstructor, GenericParsedEventSchema } from "./event-store";
+import { EventStore as EventStoreConstructor } from "./event-store";
 import { logger } from "./logger";
 import { Mailer } from "./mailer";
 import { SupportedLanguages } from "./supported-languages";
@@ -25,13 +25,13 @@ import * as schema from "./schema";
 type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
 
 export const EventStore = new EventStoreConstructor<AcceptedEvent>({
-  finder: (stream: string, acceptedEventsNames: string[]) =>
+  finder: (stream: bg.EventStreamType, acceptedEventsNames: string[]) =>
     db
       .select()
       .from(schema.events)
       .orderBy(asc(schema.events.createdAt))
       .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
-  inserter: (events: z.infer<GenericParsedEventSchema>[]) => db.insert(schema.events).values(events),
+  inserter: (events: z.infer<bg.GenericParsedEventSchema>[]) => db.insert(schema.events).values(events),
 });
 
 export const I18nConfig: bg.I18nConfigType = {

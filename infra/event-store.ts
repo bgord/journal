@@ -1,39 +1,24 @@
 import * as bg from "@bgord/bun";
 import { z } from "zod/v4";
 
-type GenericEventSchema = z.ZodObject<{
-  id: z.ZodType<string>;
-  createdAt: z.ZodType<number>;
-  stream: z.ZodString;
-  name: z.ZodLiteral<string>;
-  version: z.ZodLiteral<number>;
-  payload: z.ZodType<any>;
-}>;
-
-export type GenericParsedEventSchema = z.ZodObject<
-  Omit<GenericEventSchema["shape"], "payload"> & {
-    payload: z.ZodString;
-  }
->;
-
 type FindEventsHandler = (
-  stream: bg.EventType["stream"],
+  stream: bg.EventStreamType,
   acceptedEventsNames: string[],
-) => Promise<z.infer<GenericEventSchema>[]>;
+) => Promise<z.infer<bg.GenericEventSchema>[]>;
 
-type InserterEventsHandler = (events: z.infer<GenericParsedEventSchema>[]) => Promise<void>;
+type InserterEventsHandler = (events: z.infer<bg.GenericParsedEventSchema>[]) => Promise<void>;
 
 type EventStoreConfigType = {
   finder: FindEventsHandler;
   inserter: InserterEventsHandler;
 };
 
-export class EventStore<AllEvents extends GenericEventSchema> {
+export class EventStore<AllEvents extends bg.GenericEventSchema> {
   constructor(private readonly config: EventStoreConfigType) {}
 
   async find<AcceptedEvents extends readonly AllEvents[]>(
     acceptedEvents: AcceptedEvents,
-    stream: bg.EventType["stream"],
+    stream: bg.EventStreamType,
   ): Promise<z.infer<AcceptedEvents[number]>[]> {
     const acceptedEventsNames = acceptedEvents.map((event) => event.shape.name.value);
 
