@@ -1,6 +1,7 @@
 # Changelog
+- 2025-06-19 22:43 35efd54 **fix: concurrency groups**
+## 2025-06-19 22:43 
 - 2025-06-19 22:40 8aa18f1 **Merge pull request #2 from bgord/drizzle**
-## 2025-06-19 22:40 
 - 2025-06-19 22:38 6b7fcaf **feature: add readme generator**
 - 2025-06-19 21:21 148968c **Merge pull request #1 from bgord/drizzle**
 - 2025-06-19 21:16 0903e35 **refactor: simplify event store save calls**
@@ -12,6 +13,7 @@
 - 2025-06-19 20:52 884fe69 **step: bump bgord/scripts**
 - 2025-06-19 20:45 c07d05d **refactor: used external event store**
 - 2025-06-19 20:41 9c86103 **refactor: use generic event schemas from bgord bun**
+- 2025-06-19 20:40 227a35e **docs: generate CHANGELOG**
 - 2025-06-19 20:38 c587689 **step: switch to local bgord bun**
 - 2025-06-19 20:30 2bd5799 **refactor: simplify GenericParsedEventSchema**
 - 2025-06-19 20:27 9bce1ff **feature: extract db calls out of event store**
