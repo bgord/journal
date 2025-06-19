@@ -14,16 +14,14 @@ type GenericEventSchema = z.ZodObject<{
   payload: z.ZodType<any>;
 }>;
 
-type InferEvents<T extends readonly GenericEventSchema[]> = z.infer<T[number]>;
-
-export class EventStore<AllEvents extends readonly GenericEventSchema[]> {
+export class EventStore<AllEvents extends GenericEventSchema> {
   constructor() {}
 
-  async find<Subset extends readonly AllEvents[number][]>(
-    acceptedEvents: Subset,
+  async find<AcceptedEvents extends readonly AllEvents[]>(
+    acceptedEvents: AcceptedEvents,
     stream: bg.EventType["stream"],
-  ): Promise<z.infer<Subset[number]>[]> {
-    const acceptedEventsNames = acceptedEvents.map((s) => s.shape.name.value as string);
+  ): Promise<z.infer<AcceptedEvents[number]>[]> {
+    const acceptedEventsNames = acceptedEvents.map((event) => event.shape.name.value);
 
     const rows = await db
       .select()
@@ -33,11 +31,11 @@ export class EventStore<AllEvents extends readonly GenericEventSchema[]> {
 
     return rows
       .map((row) => ({ ...row, payload: JSON.parse(row.payload) }))
-      .map((row) => acceptedEvents.find((s) => s.shape.name.value === row.name)?.parse(row))
-      .filter((e): e is z.infer<Subset[number]> => e !== undefined);
+      .map((row) => acceptedEvents.find((event) => event.shape.name.value === row.name)?.parse(row))
+      .filter((event): event is z.infer<AcceptedEvents[number]> => event !== undefined);
   }
 
-  async save(events: InferEvents<AllEvents>[]) {
+  async save(events: z.infer<AllEvents>[]) {
     await db.insert(schema.events).values(
       events.map((event) => ({
         ...event,
