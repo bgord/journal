@@ -5,11 +5,15 @@ import {
   JournalEntryEvent,
   JournalEntryEventType,
 } from "../modules/emotions/aggregates/emotion-journal-entry";
+import {
+  PatternDetectionEvent,
+  PatternDetectionEventType,
+} from "../modules/emotions/services/patterns/pattern";
 import { db } from "./db";
 import * as schema from "./schema";
 
-type AcceptedEvent = JournalEntryEvent;
-type AcceptedEventType = JournalEntryEventType;
+type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
+type AcceptedEventType = JournalEntryEventType | PatternDetectionEventType;
 
 export class EventStore {
   static async find<T extends AcceptedEvent[]>(
