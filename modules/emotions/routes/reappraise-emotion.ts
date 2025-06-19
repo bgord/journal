@@ -16,7 +16,7 @@ export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
   infra.logger.info({
     message: "Reappraise emotion payload",
     operation: "read",
-    metadata: { emotion },
+    metadata: { emotion, id },
   });
 
   const history = await infra.EventStore.find(

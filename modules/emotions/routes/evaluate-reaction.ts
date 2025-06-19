@@ -17,7 +17,7 @@ export async function EvaluateReaction(c: hono.Context, _next: hono.Next) {
   infra.logger.info({
     message: "Evaluate reaction payload",
     operation: "read",
-    metadata: { reaction },
+    metadata: { reaction, id },
   });
 
   const history = await infra.EventStore.find(

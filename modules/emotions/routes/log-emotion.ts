@@ -16,7 +16,7 @@ export async function LogEmotion(c: hono.Context, _next: hono.Next) {
   infra.logger.info({
     message: "Log emotion payload",
     operation: "read",
-    metadata: { emotion },
+    metadata: { emotion, id },
   });
 
   const history = await infra.EventStore.find(
