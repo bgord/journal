@@ -26,5 +26,8 @@ export async function LogReaction(c: hono.Context, _next: hono.Next) {
 
   await entry.logReaction(reaction);
 
+  const events = entry.pullEvents();
+  await infra.EventStore.save(events);
+
   return new Response();
 }

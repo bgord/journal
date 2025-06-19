@@ -25,5 +25,8 @@ export async function LogEmotion(c: hono.Context, _next: hono.Next) {
 
   await entry.logEmotion(emotion);
 
+  const events = entry.pullEvents();
+  await infra.EventStore.save(events);
+
   return new Response();
 }

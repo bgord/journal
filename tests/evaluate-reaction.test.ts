@@ -1,4 +1,4 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
@@ -209,6 +209,7 @@ describe("POST /evaluate-reaction", () => {
   });
 
   test("happy path", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
 
     const emotionJournalEntryEvaluateReaction = spyOn(
@@ -225,9 +226,9 @@ describe("POST /evaluate-reaction", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const payload = {
-      description: "I got drunk",
-      type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
-      effectiveness: 1,
+      description: mocks.GenericReactionEvaluatedEvent.payload.description,
+      type: mocks.GenericReactionEvaluatedEvent.payload.type,
+      effectiveness: mocks.GenericReactionEvaluatedEvent.payload.effectiveness,
     };
 
     const reaction = new Emotions.Entities.Reaction(
@@ -249,5 +250,8 @@ describe("POST /evaluate-reaction", () => {
     expect(eventStoreFind).toHaveBeenCalledWith(Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id));
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
     expect(emotionJournalEntryEvaluateReaction).toHaveBeenCalledWith(reaction);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericReactionEvaluatedEvent]);
+    eventStoreSave.mockRestore();
   });
 });
