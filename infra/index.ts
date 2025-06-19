@@ -3,6 +3,7 @@ import * as tools from "@bgord/tools";
 import { basicAuth } from "hono/basic-auth";
 import { HTTPException } from "hono/http-exception";
 import type { TimingVariables } from "hono/timing";
+import { z } from "zod/v4";
 import { JournalEntryEvent } from "../modules/emotions/aggregates/emotion-journal-entry";
 import { PatternDetectionEvent } from "../modules/emotions/services/patterns/pattern";
 import { Env } from "./env";
@@ -17,9 +18,30 @@ export * from "./logger";
 export * from "./mailer";
 export * from "./supported-languages";
 
+import { and, asc, eq, inArray } from "drizzle-orm";
+import { db } from "./db";
+import * as schema from "./schema";
+
 type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
 
-export const EventStore = new EventStoreConstructor<AcceptedEvent>();
+type GenericParsedEventSchema = z.ZodObject<{
+  id: z.ZodType<string>;
+  createdAt: z.ZodType<number>;
+  stream: z.ZodString;
+  name: z.ZodLiteral<string>;
+  version: z.ZodLiteral<number>;
+  payload: z.ZodType<string>;
+}>;
+
+export const EventStore = new EventStoreConstructor<AcceptedEvent>({
+  finder: (stream: string, acceptedEventsNames: string[]) =>
+    db
+      .select()
+      .from(schema.events)
+      .orderBy(asc(schema.events.createdAt))
+      .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
+  inserter: (events: z.infer<GenericParsedEventSchema>[]) => db.insert(schema.events).values(events),
+});
 
 export const I18nConfig: bg.I18nConfigType = {
   supportedLanguages: SupportedLanguages,

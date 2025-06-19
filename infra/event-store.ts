@@ -1,9 +1,5 @@
 import * as bg from "@bgord/bun";
-import { and, asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod/v4";
-
-import { db } from "../infra";
-import * as schema from "./schema";
 
 type GenericEventSchema = z.ZodObject<{
   id: z.ZodType<string>;
@@ -14,8 +10,29 @@ type GenericEventSchema = z.ZodObject<{
   payload: z.ZodType<any>;
 }>;
 
+type GenericParsedEventSchema = z.ZodObject<{
+  id: z.ZodType<string>;
+  createdAt: z.ZodType<number>;
+  stream: z.ZodString;
+  name: z.ZodLiteral<string>;
+  version: z.ZodLiteral<number>;
+  payload: z.ZodType<string>;
+}>;
+
+type FindEventsHandler = (
+  stream: bg.EventType["stream"],
+  acceptedEventsNames: string[],
+) => Promise<z.infer<GenericEventSchema>[]>;
+
+type InserterEventsHandler = (events: z.infer<GenericParsedEventSchema>[]) => Promise<void>;
+
+type EventStoreConfigType = {
+  finder: FindEventsHandler;
+  inserter: InserterEventsHandler;
+};
+
 export class EventStore<AllEvents extends GenericEventSchema> {
-  constructor() {}
+  constructor(private readonly config: EventStoreConfigType) {}
 
   async find<AcceptedEvents extends readonly AllEvents[]>(
     acceptedEvents: AcceptedEvents,
@@ -23,11 +40,7 @@ export class EventStore<AllEvents extends GenericEventSchema> {
   ): Promise<z.infer<AcceptedEvents[number]>[]> {
     const acceptedEventsNames = acceptedEvents.map((event) => event.shape.name.value);
 
-    const rows = await db
-      .select()
-      .from(schema.events)
-      .orderBy(asc(schema.events.createdAt))
-      .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames)));
+    const rows = await this.config.finder(stream, acceptedEventsNames);
 
     return rows
       .map((row) => ({ ...row, payload: JSON.parse(row.payload) }))
@@ -36,7 +49,7 @@ export class EventStore<AllEvents extends GenericEventSchema> {
   }
 
   async save(events: z.infer<AllEvents>[]) {
-    await db.insert(schema.events).values(
+    await this.config.inserter(
       events.map((event) => ({
         ...event,
         payload: JSON.stringify(event.payload),
