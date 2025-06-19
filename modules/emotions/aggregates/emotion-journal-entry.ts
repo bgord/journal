@@ -3,103 +3,26 @@ import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
 import * as Entities from "../entities";
+import * as Events from "../events";
 import * as Policies from "../policies";
 import * as VO from "../value-objects";
 
-export const SITUATION_LOGGED_EVENT = "SITUATION_LOGGED_EVENT";
-export const SituationLoggedEvent = z.object({
-  id: bg.UUID,
-  createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(SITUATION_LOGGED_EVENT),
-  version: z.literal(1),
-  payload: z.object({
-    id: VO.EmotionJournalEntryId,
-    description: VO.SituationDescriptionSchema,
-    location: VO.SituationLocationSchema,
-    kind: VO.SituationKindSchema,
-  }),
-});
-export type SituationLoggedEventType = z.infer<typeof SituationLoggedEvent>;
-
-export const EMOTION_LOGGED_EVENT = "EMOTION_LOGGED_EVENT";
-export const EmotionLoggedEvent = z.object({
-  id: bg.UUID,
-  createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(EMOTION_LOGGED_EVENT),
-  version: z.literal(1),
-  payload: z.object({
-    id: VO.EmotionJournalEntryId,
-    label: VO.EmotionLabelSchema,
-    intensity: VO.EmotionIntensitySchema,
-  }),
-});
-export type EmotionLoggedEventType = z.infer<typeof EmotionLoggedEvent>;
-
-export const REACTION_LOGGED_EVENT = "REACTION_LOGGED_EVENT";
-export const ReactionLoggedEvent = z.object({
-  id: bg.UUID,
-  createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(REACTION_LOGGED_EVENT),
-  version: z.literal(1),
-  payload: z.object({
-    id: VO.EmotionJournalEntryId,
-    type: VO.ReactionTypeSchema,
-    effectiveness: VO.ReactionEffectivenessSchema,
-    description: VO.ReactionDescriptionSchema,
-  }),
-});
-export type ReactionLoggedEventType = z.infer<typeof ReactionLoggedEvent>;
-
-export const EMOTION_REAPPRAISED_EVENT = "EMOTION_REAPPRAISED_EVENT";
-export const EmotionReappraisedEvent = z.object({
-  id: bg.UUID,
-  createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(EMOTION_REAPPRAISED_EVENT),
-  version: z.literal(1),
-  payload: z.object({
-    id: VO.EmotionJournalEntryId,
-    newLabel: VO.EmotionLabelSchema,
-    newIntensity: VO.EmotionIntensitySchema,
-  }),
-});
-export type EmotionReappraisedEventType = z.infer<typeof EmotionReappraisedEvent>;
-
-export const REACTION_EVALUATED_EVENT = "REACTION_EVALUATED_EVENT";
-export const ReactionEvaluatedEvent = z.object({
-  id: bg.UUID,
-  createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(REACTION_EVALUATED_EVENT),
-  version: z.literal(1),
-  payload: z.object({
-    id: VO.EmotionJournalEntryId,
-    type: VO.ReactionTypeSchema,
-    effectiveness: VO.ReactionEffectivenessSchema,
-    description: VO.ReactionDescriptionSchema,
-  }),
-});
-export type ReactionEvaluatedEventType = z.infer<typeof ReactionEvaluatedEvent>;
-
 export type JournalEntryEvent =
-  | typeof SituationLoggedEvent
-  | typeof EmotionLoggedEvent
-  | typeof ReactionLoggedEvent
-  | typeof EmotionReappraisedEvent
-  | typeof ReactionEvaluatedEvent;
+  | typeof Events.SituationLoggedEvent
+  | typeof Events.EmotionLoggedEvent
+  | typeof Events.ReactionLoggedEvent
+  | typeof Events.EmotionReappraisedEvent
+  | typeof Events.ReactionEvaluatedEvent;
 
 export type JournalEntryEventType = z.infer<JournalEntryEvent>;
 
 export class EmotionJournalEntry {
   static events: JournalEntryEvent[] = [
-    SituationLoggedEvent,
-    EmotionLoggedEvent,
-    ReactionLoggedEvent,
-    EmotionReappraisedEvent,
-    ReactionEvaluatedEvent,
+    Events.SituationLoggedEvent,
+    Events.EmotionLoggedEvent,
+    Events.ReactionLoggedEvent,
+    Events.EmotionReappraisedEvent,
+    Events.ReactionEvaluatedEvent,
   ];
 
   private readonly id: VO.EmotionJournalEntryIdType;
@@ -132,10 +55,10 @@ export class EmotionJournalEntry {
       situation: this.situation,
     });
 
-    const event = SituationLoggedEvent.parse({
+    const event = Events.SituationLoggedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: SITUATION_LOGGED_EVENT,
+      name: Events.SITUATION_LOGGED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
@@ -144,7 +67,7 @@ export class EmotionJournalEntry {
         location: situation.location.get(),
         kind: situation.kind.get(),
       },
-    } satisfies SituationLoggedEventType);
+    } satisfies Events.SituationLoggedEventType);
 
     this.record(event);
   }
@@ -158,10 +81,10 @@ export class EmotionJournalEntry {
       situation: this.situation,
     });
 
-    const event = EmotionLoggedEvent.parse({
+    const event = Events.EmotionLoggedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: EMOTION_LOGGED_EVENT,
+      name: Events.EMOTION_LOGGED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
@@ -169,7 +92,7 @@ export class EmotionJournalEntry {
         label: emotion.label.get(),
         intensity: emotion.intensity.get(),
       },
-    } satisfies EmotionLoggedEventType);
+    } satisfies Events.EmotionLoggedEventType);
 
     this.record(event);
   }
@@ -184,10 +107,10 @@ export class EmotionJournalEntry {
       emotion: this.emotion,
     });
 
-    const event = ReactionLoggedEvent.parse({
+    const event = Events.ReactionLoggedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: REACTION_LOGGED_EVENT,
+      name: Events.REACTION_LOGGED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
@@ -196,7 +119,7 @@ export class EmotionJournalEntry {
         type: reaction.type.get(),
         effectiveness: reaction.effectiveness.get(),
       },
-    } satisfies ReactionLoggedEventType);
+    } satisfies Events.ReactionLoggedEventType);
 
     this.record(event);
   }
@@ -210,10 +133,10 @@ export class EmotionJournalEntry {
       emotion: this.emotion,
     });
 
-    const event = EmotionReappraisedEvent.parse({
+    const event = Events.EmotionReappraisedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: EMOTION_REAPPRAISED_EVENT,
+      name: Events.EMOTION_REAPPRAISED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
@@ -221,7 +144,7 @@ export class EmotionJournalEntry {
         newLabel: newEmotion.label.get(),
         newIntensity: newEmotion.intensity.get(),
       },
-    } satisfies EmotionReappraisedEventType);
+    } satisfies Events.EmotionReappraisedEventType);
 
     this.record(event);
   }
@@ -236,10 +159,10 @@ export class EmotionJournalEntry {
       reaction: this.reaction,
     });
 
-    const event = ReactionEvaluatedEvent.parse({
+    const event = Events.ReactionEvaluatedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: REACTION_EVALUATED_EVENT,
+      name: Events.REACTION_EVALUATED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
@@ -248,7 +171,7 @@ export class EmotionJournalEntry {
         type: newReaction.type.get(),
         effectiveness: newReaction.effectiveness.get(),
       },
-    } satisfies ReactionEvaluatedEventType);
+    } satisfies Events.ReactionEvaluatedEventType);
 
     this.record(event);
   }
@@ -279,7 +202,7 @@ export class EmotionJournalEntry {
 
   private apply(event: JournalEntryEventType): void {
     switch (event.name) {
-      case SITUATION_LOGGED_EVENT: {
+      case Events.SITUATION_LOGGED_EVENT: {
         this.startedAt = event.createdAt;
         this.situation = new Entities.Situation(
           new VO.SituationDescription(event.payload.description),
@@ -289,7 +212,7 @@ export class EmotionJournalEntry {
         break;
       }
 
-      case EMOTION_LOGGED_EVENT: {
+      case Events.EMOTION_LOGGED_EVENT: {
         this.emotion = new Entities.Emotion(
           new VO.EmotionLabel(event.payload.label),
           new VO.EmotionIntensity(event.payload.intensity),
@@ -297,7 +220,7 @@ export class EmotionJournalEntry {
         break;
       }
 
-      case REACTION_LOGGED_EVENT: {
+      case Events.REACTION_LOGGED_EVENT: {
         this.finishedAt = event.createdAt;
         this.reaction = new Entities.Reaction(
           new VO.ReactionDescription(event.payload.description),
@@ -307,7 +230,7 @@ export class EmotionJournalEntry {
         break;
       }
 
-      case EMOTION_REAPPRAISED_EVENT: {
+      case Events.EMOTION_REAPPRAISED_EVENT: {
         this.finishedAt = event.createdAt;
         this.emotion = new Entities.Emotion(
           new VO.EmotionLabel(event.payload.newLabel),
@@ -316,7 +239,7 @@ export class EmotionJournalEntry {
         break;
       }
 
-      case REACTION_EVALUATED_EVENT: {
+      case Events.REACTION_EVALUATED_EVENT: {
         this.finishedAt = event.createdAt;
         this.reaction = new Entities.Reaction(
           new VO.ReactionDescription(event.payload.description),
