@@ -1,0 +1,1 @@
+CREATE INDEX `stream_idx` ON `events` (`stream`);
