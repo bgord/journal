@@ -1,19 +1,12 @@
 import * as bg from "@bgord/bun";
 import { and, asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod/v4";
-import {
-  JournalEntryEvent,
-  JournalEntryEventType,
-} from "../modules/emotions/aggregates/emotion-journal-entry";
-import {
-  PatternDetectionEvent,
-  PatternDetectionEventType,
-} from "../modules/emotions/services/patterns/pattern";
+import { JournalEntryEvent } from "../modules/emotions/aggregates/emotion-journal-entry";
+import { PatternDetectionEvent } from "../modules/emotions/services/patterns/pattern";
 import { db } from "./db";
 import * as schema from "./schema";
 
 type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
-type AcceptedEventType = JournalEntryEventType | PatternDetectionEventType;
 
 export class EventStore {
   static async find<T extends AcceptedEvent[]>(
@@ -38,7 +31,7 @@ export class EventStore {
       .filter((event): event is z.infer<T[number]> => event !== undefined);
   }
 
-  static async save(events: AcceptedEventType[]) {
+  static async save(events: z.infer<AcceptedEvent>[]) {
     await db.insert(schema.events).values(
       events.map((event) => ({
         ...event,
