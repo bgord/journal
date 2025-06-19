@@ -9,6 +9,7 @@ type PatternDetectorConfigType = {
   dateRange: PatternDateRange;
 };
 
+/** @public */
 export class PatternDetector {
   static detect(config: PatternDetectorConfigType): PatternDetectionEventType[] {
     return config.patterns

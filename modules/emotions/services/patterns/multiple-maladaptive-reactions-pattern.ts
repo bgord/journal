@@ -5,6 +5,7 @@ import * as Aggregates from "../../aggregates/emotion-journal-entry";
 import * as Events from "../../events";
 import { Pattern, PatternDateRange, PatternDetectionEventType } from "./pattern";
 
+/** @public */
 export class MultipleMaladaptiveReactionsPattern extends Pattern {
   name = "MultipleMaladaptiveReactionsPattern";
 

@@ -8,7 +8,7 @@ import * as Policies from "../policies";
 import * as VO from "../value-objects";
 
 export type JournalEntryEvent = (typeof EmotionJournalEntry)["events"][number];
-export type JournalEntryEventType = z.infer<JournalEntryEvent>;
+type JournalEntryEventType = z.infer<JournalEntryEvent>;
 
 export class EmotionJournalEntry {
   static events = [

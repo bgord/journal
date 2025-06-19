@@ -36,6 +36,7 @@ export const BasicAuthShield = basicAuth({
   password: Env.BASIC_AUTH_PASSWORD,
 });
 
+/** @public */
 export const ApiKeyShield = new bg.ApiKeyShield({ API_KEY: Env.API_KEY });
 
 export const prerequisites = [

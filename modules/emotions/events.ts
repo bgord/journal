@@ -92,6 +92,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = z.object({
   version: z.literal(1),
   payload: z.object({}),
 });
+/** @public */
 export type MoreNegativeThanPositiveEmotionsPatternDetectedEventType = z.infer<
   typeof MoreNegativeThanPositiveEmotionsPatternDetectedEvent
 >;
@@ -106,6 +107,7 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = z.object({
   version: z.literal(1),
   payload: z.object({}),
 });
+/** @public */
 export type MultipleMaladaptiveReactionsPatternDetectedEventType = z.infer<
   typeof MultipleMaladaptiveReactionsPatternDetectedEvent
 >;
@@ -120,6 +122,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = z.obje
   version: z.literal(1),
   payload: z.object({}),
 });
+/** @public */
 export type PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType = z.infer<
   typeof PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent
 >;

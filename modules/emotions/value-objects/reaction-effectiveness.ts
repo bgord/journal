@@ -16,7 +16,7 @@ export const ReactionEffectivenessSchema = z
     message: ReactionEffectivenessErrors.min_max,
   });
 
-export type ReactionEffectivenessType = z.infer<typeof ReactionEffectivenessSchema>;
+type ReactionEffectivenessType = z.infer<typeof ReactionEffectivenessSchema>;
 
 export class ReactionEffectiveness {
   static readonly Errors = ReactionEffectivenessErrors;
