@@ -3,17 +3,23 @@ import * as tools from "@bgord/tools";
 import { basicAuth } from "hono/basic-auth";
 import { HTTPException } from "hono/http-exception";
 import type { TimingVariables } from "hono/timing";
+import { JournalEntryEvent } from "../modules/emotions/aggregates/emotion-journal-entry";
+import { PatternDetectionEvent } from "../modules/emotions/services/patterns/pattern";
 import { Env } from "./env";
+import { EventStoreV2 } from "./event-store-v2";
 import { logger } from "./logger";
 import { Mailer } from "./mailer";
 import { SupportedLanguages } from "./supported-languages";
 
 export * from "./db";
 export * from "./env";
-export * from "./event-store";
 export * from "./logger";
 export * from "./mailer";
 export * from "./supported-languages";
+
+type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
+
+export const EventStore = new EventStoreV2<AcceptedEvent[]>();
 
 export const I18nConfig: bg.I18nConfigType = {
   supportedLanguages: SupportedLanguages,
