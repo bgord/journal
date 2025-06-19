@@ -6,7 +6,7 @@ const id = text("id", { length: 36 })
   .primaryKey()
   .$defaultFn(() => randomUUID());
 
-const createdAt = integer("createdAt").default(sql`now`);
+const createdAt = integer("createdAt").default(sql`now`).notNull();
 
 export const events = sqliteTable(
   "events",
