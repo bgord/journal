@@ -7,17 +7,11 @@ import * as Events from "../events";
 import * as Policies from "../policies";
 import * as VO from "../value-objects";
 
-export type JournalEntryEvent =
-  | typeof Events.SituationLoggedEvent
-  | typeof Events.EmotionLoggedEvent
-  | typeof Events.ReactionLoggedEvent
-  | typeof Events.EmotionReappraisedEvent
-  | typeof Events.ReactionEvaluatedEvent;
-
+export type JournalEntryEvent = (typeof EmotionJournalEntry)["events"][number];
 export type JournalEntryEventType = z.infer<JournalEntryEvent>;
 
 export class EmotionJournalEntry {
-  static events: JournalEntryEvent[] = [
+  static events = [
     Events.SituationLoggedEvent,
     Events.EmotionLoggedEvent,
     Events.ReactionLoggedEvent,
@@ -42,7 +36,10 @@ export class EmotionJournalEntry {
     return new EmotionJournalEntry(id);
   }
 
-  static build(id: VO.EmotionJournalEntryIdType, events: JournalEntryEventType[]): EmotionJournalEntry {
+  static build(
+    id: VO.EmotionJournalEntryIdType,
+    events: JournalEntryEventType[],
+  ): EmotionJournalEntry {
     const entry = new EmotionJournalEntry(id);
 
     events.forEach((event) => entry.apply(event));
