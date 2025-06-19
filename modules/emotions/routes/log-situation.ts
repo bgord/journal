@@ -23,5 +23,8 @@ export async function LogSituation(c: hono.Context, _next: hono.Next) {
 
   await entry.logSituation(situation);
 
+  const events = entry.pullEvents();
+  await infra.EventStore.save(events);
+
   return new Response();
 }
