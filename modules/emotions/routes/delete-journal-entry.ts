@@ -1,10 +1,9 @@
-import * as bg from "@bgord/bun";
 import hono from "hono";
 import * as infra from "../../../infra";
 import * as Emotions from "../";
 
-export async function DeleteJournalEntry(_c: hono.Context, _next: hono.Next) {
-  const id = bg.NewUUID.generate();
+export async function DeleteJournalEntry(c: hono.Context, _next: hono.Next) {
+  const id = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
 
   infra.logger.info({
     message: "Delete journal entry payload",
@@ -12,7 +11,12 @@ export async function DeleteJournalEntry(_c: hono.Context, _next: hono.Next) {
     metadata: { id },
   });
 
-  const entry = Emotions.Aggregates.EmotionJournalEntry.create(id);
+  const history = await infra.EventStore.find(
+    Emotions.Aggregates.EmotionJournalEntry.events,
+    Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  );
+
+  const entry = Emotions.Aggregates.EmotionJournalEntry.build(id, history);
   await entry.delete();
 
   await infra.EventStore.save(entry.pullEvents());
