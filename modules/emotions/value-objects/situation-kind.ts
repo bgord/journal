@@ -24,6 +24,7 @@ export enum SituationKindOptions {
   decision_making = "decision_making",
   transition = "transition",
   memory_or_thought = "memory_or_thought",
+  other = "other",
 }
 
 export const SituationKindSchema = z.enum(SituationKindOptions, {
