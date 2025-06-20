@@ -1,6 +1,8 @@
 # Changelog
+- 2025-06-20 11:27 9740bb0 **step: bump bgord/scripts**
+## 2025-06-20 11:27 
 - 2025-06-20 11:26 cd8eb76 **refactor: rename docs docs-app**
-## 2025-06-20 11:26 
+- 2025-06-20 09:26 96a358f **docs: generate CHANGELOG**
 - 2025-06-20 00:56 5d8323c **step: improve logs**
 - 2025-06-20 00:25 eafc5a5 **step: switch to local bgord bun**
 - 2025-06-19 22:50 1755670 **step: bump bgord/scripts**
