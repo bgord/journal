@@ -13,9 +13,7 @@ export const events = sqliteTable(
   "events",
   {
     id,
-    createdAt: integer("createdAt")
-      .default(sql`now`)
-      .notNull(),
+    createdAt: integer("createdAt").default(sql`now`).notNull(),
     name: text("name").notNull(),
     stream: text("stream").notNull(),
     version: integer("version").notNull(),
@@ -38,10 +36,7 @@ export const emotionJournalEntries = sqliteTable("emotionJournalEntries", {
   emotionLabel: text("emotionLabel"),
   emotionIntensity: integer("emotionIntensity"),
   reactionDescription: text("reactionDescription"),
-  reactionType: text(
-    "reactionType",
-    toEnumList(GrossEmotionRegulationStrategy),
-  ),
+  reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
   reactionEffectiveness: text("reactionEffectiveness"),
   status: text("status", toEnumList(EmotionJournalEntryStatusEnum)).notNull(),
 });
