@@ -46,7 +46,16 @@ modules/
     │   ├── emotion.ts
     │   ├── reaction.ts
     │   └── situation.ts
-    ├── events.ts
+    ├── events
+    │   ├── EMOTION_JOURNAL_ENTRY_DELETED.ts
+    │   ├── EMOTION_LOGGED_EVENT.ts
+    │   ├── EMOTION_REAPPRAISED_EVENT.ts
+    │   ├── MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT.ts
+    │   ├── MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT.ts
+    │   ├── POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT.ts
+    │   ├── REACTION_EVALUATED_EVENT.ts
+    │   ├── REACTION_LOGGED_EVENT.ts
+    │   ├── SITUATION_LOGGED_EVENT.ts
     ├── policies
     │   ├── emotion-corresponds-to-situation.ts
     │   ├── emotion-for-reappraisal-exists.ts
