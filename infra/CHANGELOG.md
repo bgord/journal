@@ -1,6 +1,21 @@
 # Changelog
+- 2025-06-20 17:57 6e79fd6 **Merge pull request #3 from bgord/emotion-journal-entry-deleted**
+## 2025-06-20 17:57 
+- 2025-06-20 17:38 b629162 **step: apply entry is actionable policy**
+- 2025-06-20 17:28 d2cd631 **step: set deleted status on EMOTION_JOURNAL_ENTRY_DELETED**
+- 2025-06-20 17:25 6a33502 **step: define entry is actionable**
+- 2025-06-20 17:08 65b1f08 **step: define EmotionJournalEntry.status**
+- 2025-06-20 16:56 1a651de **step: define EmotionJournalEntryStatusEnum-n**
+- 2025-06-20 12:48 ba5ced7 **fix: route test descriptions**
+- 2025-06-20 12:46 be5ffc8 **step: test delete journal entry route**
+- 2025-06-20 12:40 6422835 **step: test delete method**
+- 2025-06-20 12:35 3fca949 **step: add delete journal entry route**
+- 2025-06-20 12:32 be28d46 **step: add EntryHasBenStarted policy**
+- 2025-06-20 12:31 6663b5d **step: add delete method**
+- 2025-06-20 12:27 8fa40b9 **step: apply EMOTION_JOURNAL_ENTRY_DELETED**
+- 2025-06-20 12:22 59629a1 **step: define EMOTION_JOURNAL_ENTRY_DELETED**
+- 2025-06-20 12:14 c3855bf **step: bump bgord/scripts**
 - 2025-06-20 12:00 6c94686 **refactor: restore correct bgord-bun**
-## 2025-06-20 12:00 
 - 2025-06-20 11:56 2f3f67c **refactor: prepare correct .env.example**
 - 2025-06-20 11:52 54b7fd3 **step: bump bgord/scripts**
 - 2025-06-20 11:40 d4c1003 **refactor: extract healthcheck and prerequisites**
@@ -9,6 +24,7 @@
 - 2025-06-20 11:36 7f29326 **step: bump bgord/scripts**
 - 2025-06-20 11:27 9740bb0 **step: bump bgord/scripts**
 - 2025-06-20 11:26 cd8eb76 **refactor: rename docs docs-app**
+- 2025-06-20 10:00 897d7c5 **docs: generate CHANGELOG**
 - 2025-06-20 09:56 bfc7c66 **docs: generate CHANGELOG**
 - 2025-06-20 09:52 65b7929 **docs: generate readme**
 - 2025-06-20 09:52 5ca6758 **docs: generate CHANGELOG**
