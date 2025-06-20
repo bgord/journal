@@ -25,9 +25,6 @@ export const BODY_LIMIT_MAX_SIZE = new tools.Size({
   unit: tools.SizeUnit.kB,
 }).toBytes();
 
-/** @public */
-export const ApiKeyShield = new bg.ApiKeyShield({ API_KEY: Env.API_KEY });
-
 export const prerequisites = [
   new bg.PrerequisitePort({ label: "port", port: Env.PORT }),
   new bg.PrerequisiteTimezoneUTC({
