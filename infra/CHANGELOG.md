@@ -1,11 +1,16 @@
 # Changelog
+- 2025-06-20 18:10 2b8e904 **refactor: extract events to separate files**
+## 2025-06-20 18:10 
+- 2025-06-20 18:02 1cddcb7 **step: define situation kind**
+- 2025-06-20 18:01 c6c8b34 **step: define reaction type other**
 - 2025-06-20 17:57 6e79fd6 **Merge pull request #3 from bgord/emotion-journal-entry-deleted**
-## 2025-06-20 17:57 
 - 2025-06-20 17:38 b629162 **step: apply entry is actionable policy**
 - 2025-06-20 17:28 d2cd631 **step: set deleted status on EMOTION_JOURNAL_ENTRY_DELETED**
 - 2025-06-20 17:25 6a33502 **step: define entry is actionable**
 - 2025-06-20 17:08 65b1f08 **step: define EmotionJournalEntry.status**
 - 2025-06-20 16:56 1a651de **step: define EmotionJournalEntryStatusEnum-n**
+- 2025-06-20 15:57 dd8eced **docs: generate CHANGELOG**
+- 2025-06-20 15:57 836018c **docs: generate readme**
 - 2025-06-20 12:48 ba5ced7 **fix: route test descriptions**
 - 2025-06-20 12:46 be5ffc8 **step: test delete journal entry route**
 - 2025-06-20 12:40 6422835 **step: test delete method**
