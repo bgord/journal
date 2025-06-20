@@ -1,24 +1,18 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { basicAuth } from "hono/basic-auth";
 import { HTTPException } from "hono/http-exception";
 import type { TimingVariables } from "hono/timing";
 import { Env } from "./env";
 import { logger } from "./logger";
 import { Mailer } from "./mailer";
-import { SupportedLanguages } from "./supported-languages";
 
+export * from "./basic-auth-shield";
 export * from "./db";
 export * from "./env";
 export * from "./event-store";
+export * from "./i18n";
 export * from "./logger";
 export * from "./mailer";
-export * from "./supported-languages";
-
-export const I18nConfig: bg.I18nConfigType = {
-  supportedLanguages: SupportedLanguages,
-  defaultLanguage: SupportedLanguages.en,
-};
 
 export const requestTimeoutError = new HTTPException(408, {
   message: "request_timeout_error",
@@ -30,11 +24,6 @@ export const BODY_LIMIT_MAX_SIZE = new tools.Size({
   value: 128,
   unit: tools.SizeUnit.kB,
 }).toBytes();
-
-export const BasicAuthShield = basicAuth({
-  username: Env.BASIC_AUTH_USERNAME,
-  password: Env.BASIC_AUTH_PASSWORD,
-});
 
 /** @public */
 export const ApiKeyShield = new bg.ApiKeyShield({ API_KEY: Env.API_KEY });
