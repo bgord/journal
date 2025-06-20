@@ -4,7 +4,7 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-describe("POST /evaluate-reaction", () => {
+describe("POST /emotions/:id/evaluate-reaction", () => {
   test("validation - empty payload", async () => {
     const response = await server.request(
       `/emotions/${mocks.id}/evaluate-reaction`,
