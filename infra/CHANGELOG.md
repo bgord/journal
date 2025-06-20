@@ -1,11 +1,14 @@
 # Changelog
+- 2025-06-20 11:52 54b7fd3 **step: bump bgord/scripts**
+## 2025-06-20 11:52 
 - 2025-06-20 11:40 d4c1003 **refactor: extract healthcheck and prerequisites**
-## 2025-06-20 11:40 
 - 2025-06-20 11:38 028273e **refactor: remove api key shield**
 - 2025-06-20 11:37 e1132dd **refactor: extract tnfra to separate files**
 - 2025-06-20 11:36 7f29326 **step: bump bgord/scripts**
 - 2025-06-20 11:27 9740bb0 **step: bump bgord/scripts**
 - 2025-06-20 11:26 cd8eb76 **refactor: rename docs docs-app**
+- 2025-06-20 09:41 bd181b4 **docs: generate readme**
+- 2025-06-20 09:41 a9e7d31 **docs: generate CHANGELOG**
 - 2025-06-20 09:28 4e6fa36 **docs: generate CHANGELOG**
 - 2025-06-20 09:26 96a358f **docs: generate CHANGELOG**
 - 2025-06-20 00:56 5d8323c **step: improve logs**
