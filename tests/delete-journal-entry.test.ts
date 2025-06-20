@@ -27,7 +27,7 @@ describe("DELETE /emotions/:id/delete", () => {
 
     const json = await response.json();
 
-    expect(response.status).toBe(403);
+    expect(response.status).toBe(Emotions.Policies.EntryHasBenStarted.code);
     expect(json).toEqual({
       message: Emotions.Policies.EntryHasBenStarted.message,
       _known: true,

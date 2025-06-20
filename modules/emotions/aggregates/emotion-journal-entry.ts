@@ -70,6 +70,10 @@ export class EmotionJournalEntry {
   }
 
   async logEmotion(emotion: Entities.Emotion) {
+    await Policies.EntryIsActionable.perform({
+      status: this.status,
+    });
+
     await Policies.OneEmotionPerEntry.perform({
       emotion: this.emotion,
     });
@@ -95,6 +99,10 @@ export class EmotionJournalEntry {
   }
 
   async logReaction(reaction: Entities.Reaction) {
+    await Policies.EntryIsActionable.perform({
+      status: this.status,
+    });
+
     await Policies.OneReactionPerEntry.perform({
       reaction: this.reaction,
     });
@@ -122,6 +130,10 @@ export class EmotionJournalEntry {
   }
 
   async reappraiseEmotion(newEmotion: Entities.Emotion) {
+    await Policies.EntryIsActionable.perform({
+      status: this.status,
+    });
+
     await Policies.EmotionCorrespondsToSituation.perform({
       situation: this.situation,
     });
@@ -147,6 +159,10 @@ export class EmotionJournalEntry {
   }
 
   async evaluateReaction(newReaction: Entities.Reaction) {
+    await Policies.EntryIsActionable.perform({
+      status: this.status,
+    });
+
     await Policies.ReactionCorrespondsToSituationAndEmotion.perform({
       situation: this.situation,
       emotion: this.emotion,
