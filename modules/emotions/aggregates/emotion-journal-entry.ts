@@ -196,6 +196,7 @@ export class EmotionJournalEntry {
       situation: this.situation,
       emotion: this.emotion,
       reaction: this.reaction,
+      status: this.status,
     };
   }
 
@@ -262,6 +263,8 @@ export class EmotionJournalEntry {
       }
 
       case Events.EMOTION_JOURNAL_ENTRY_DELETED: {
+        this.status = VO.EmotionJournalEntryStatusEnum.deleted;
+
         this.finishedAt = event.createdAt;
         this.situation = undefined;
         this.emotion = undefined;

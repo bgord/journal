@@ -279,6 +279,7 @@ describe("EmotionJournalEntry", () => {
       "situation",
       "emotion",
       "reaction",
+      "status",
     ]);
   });
 });
