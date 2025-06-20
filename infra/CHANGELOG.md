@@ -1,6 +1,9 @@
 # Changelog
+- 2025-06-20 11:26 cd8eb76 **refactor: rename docs docs-app**
+## 2025-06-20 11:26 
+- 2025-06-20 00:56 5d8323c **step: improve logs**
+- 2025-06-20 00:25 eafc5a5 **step: switch to local bgord bun**
 - 2025-06-19 22:50 1755670 **step: bump bgord/scripts**
-## 2025-06-19 22:50 
 - 2025-06-19 22:47 c54e76b **refactor: merge changelog and readme**
 - 2025-06-19 22:45 54ebdd0 **fix: add missing readme generate project name arg**
 - 2025-06-19 22:44 3f6a385 **step: bump bgord/scripts**
@@ -15,6 +18,8 @@
 - 2025-06-19 21:04 280beba **step: bump bgord/scripts**
 - 2025-06-19 20:54 be84cb6 **refactor: remove unused exports**
 - 2025-06-19 20:52 884fe69 **step: bump bgord/scripts**
+- 2025-06-19 20:50 5a89fac **docs: generate CHANGELOG**
+- 2025-06-19 20:50 01d7404 **docs: generate readme**
 - 2025-06-19 20:47 7ee36cc **docs: generate CHANGELOG**
 - 2025-06-19 20:45 c07d05d **refactor: used external event store**
 - 2025-06-19 20:45 1b60354 **docs: generate readme**
