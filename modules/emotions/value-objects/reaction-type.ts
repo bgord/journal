@@ -15,6 +15,7 @@ export enum GrossEmotionRegulationStrategy {
   acceptance = "acceptance",
   humor = "humor",
   problem_solving = "problem_solving",
+  other = "other",
 }
 
 export const ReactionTypeSchema = z.enum(GrossEmotionRegulationStrategy, {
@@ -58,6 +59,7 @@ export class ReactionType {
     return [
       GrossEmotionRegulationStrategy.distraction,
       GrossEmotionRegulationStrategy.confrontation,
+      GrossEmotionRegulationStrategy.other,
     ].includes(this.value);
   }
 

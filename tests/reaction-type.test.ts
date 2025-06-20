@@ -37,6 +37,7 @@ describe("ReactionType", () => {
       GrossEmotionRegulationStrategy.distraction,
       GrossEmotionRegulationStrategy.rumination,
       GrossEmotionRegulationStrategy.suppression,
+      GrossEmotionRegulationStrategy.other,
     ].forEach((strategy) => expect(new ReactionType(strategy).isAdaptive()).toEqual(false));
   });
 
@@ -57,13 +58,16 @@ describe("ReactionType", () => {
       GrossEmotionRegulationStrategy.acceptance,
       GrossEmotionRegulationStrategy.humor,
       GrossEmotionRegulationStrategy.problem_solving,
+      GrossEmotionRegulationStrategy.other,
     ].forEach((strategy) => expect(new ReactionType(strategy).isMaladaptive()).toEqual(false));
   });
 
   test("isContextual - true", () => {
-    [GrossEmotionRegulationStrategy.confrontation, GrossEmotionRegulationStrategy.distraction].forEach(
-      (strategy) => expect(new ReactionType(strategy).isContextual()).toEqual(true),
-    );
+    [
+      GrossEmotionRegulationStrategy.confrontation,
+      GrossEmotionRegulationStrategy.distraction,
+      GrossEmotionRegulationStrategy.other,
+    ].forEach((strategy) => expect(new ReactionType(strategy).isContextual()).toEqual(true));
   });
 
   test("isContextual - false", () => {
