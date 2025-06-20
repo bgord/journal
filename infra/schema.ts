@@ -23,6 +23,10 @@ export const events = sqliteTable(
   (table) => [index("stream_idx").on(table.stream)],
 );
 
+const toEnumList = (value: Record<string, string>) => ({
+  enum: Object.keys(value) as [string, ...string[]],
+});
+
 export const emotionJournalEntries = sqliteTable("emotionJournalEntries", {
   id,
   startedAt: integer("startedAt").notNull(),
@@ -33,11 +37,7 @@ export const emotionJournalEntries = sqliteTable("emotionJournalEntries", {
   emotionLabel: text("emotionLabel"),
   emotionIntensity: integer("emotionIntensity"),
   reactionDescription: text("reactionDescription"),
-  reactionType: text("reactionType", {
-    enum: Object.keys(Emotions.VO.GrossEmotionRegulationStrategy) as [string, ...string[]],
-  }),
+  reactionType: text("reactionType", toEnumList(Emotions.VO.GrossEmotionRegulationStrategy)),
   reaction: text("reaction"),
-  status: text("status", {
-    enum: Object.keys(Emotions.VO.EmotionJournalEntryStatusEnum) as [string, ...string[]],
-  }).notNull(),
+  status: text("status", toEnumList(Emotions.VO.EmotionJournalEntryStatusEnum)).notNull(),
 });
