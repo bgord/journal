@@ -46,3 +46,18 @@ modules/
         ├── situation-kind.ts
         └── situation-location.ts
 ```
+## Infra:
+
+```
+infra/
+├── basic-auth-shield.ts
+├── db.ts
+├── env.ts
+├── event-store.ts
+├── healthcheck.ts
+├── i18n.ts
+├── logger.ts
+├── mailer.ts
+├── prerequisites.ts
+└── schema.ts
+```
