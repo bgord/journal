@@ -7,20 +7,17 @@ export * from "./basic-auth-shield";
 export * from "./db";
 export * from "./env";
 export * from "./event-store";
+export * from "./healthcheck";
 export * from "./i18n";
 export * from "./logger";
 export * from "./mailer";
 export * from "./prerequisites";
-export * from "./healthcheck";
 
 export const requestTimeoutError = new HTTPException(408, {
   message: "request_timeout_error",
 });
 
-export type Variables = TimingVariables &
-  bg.TimeZoneOffsetVariables &
-  bg.ContextVariables &
-  bg.EtagVariables;
+export type Variables = TimingVariables & bg.TimeZoneOffsetVariables & bg.ContextVariables & bg.EtagVariables;
 
 export const BODY_LIMIT_MAX_SIZE = new tools.Size({
   value: 128,

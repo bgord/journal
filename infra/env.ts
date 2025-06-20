@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
 const EnvironmentSchema = z
@@ -15,7 +14,6 @@ const EnvironmentSchema = z
     TZ: bg.TimezoneUtc,
     BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
-    API_KEY: tools.ApiKey,
   })
   .strip();
 
