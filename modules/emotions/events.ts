@@ -82,6 +82,17 @@ export const ReactionEvaluatedEvent = z.object({
 });
 export type ReactionEvaluatedEventType = z.infer<typeof ReactionEvaluatedEvent>;
 
+export const EMOTION_JOURNAL_ENTRY_DELETED = "EMOTION_JOURNAL_ENTRY_DELETED";
+export const EmotionJournalEntryDeletedEvent = z.object({
+  id: bg.UUID,
+  createdAt: tools.Timestamp,
+  stream: z.string().min(1),
+  name: z.literal(EMOTION_JOURNAL_ENTRY_DELETED),
+  version: z.literal(1),
+  payload: z.object({ id: VO.EmotionJournalEntryId }),
+});
+export type EmotionJournalEntryDeletedEventType = z.infer<typeof EmotionJournalEntryDeletedEvent>;
+
 export const MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT =
   "MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT";
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = z.object({

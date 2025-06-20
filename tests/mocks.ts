@@ -137,6 +137,15 @@ export const AdaptiveReactionLoggedEvent = {
   },
 } satisfies Emotions.Events.ReactionLoggedEventType;
 
+export const GenericEmotionJournalEntryDeletedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: { id },
+} satisfies Emotions.Events.EmotionJournalEntryDeletedEventType;
+
 export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
 
 export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {

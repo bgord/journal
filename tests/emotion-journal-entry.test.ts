@@ -222,6 +222,47 @@ describe("EmotionJournalEntry", () => {
     expect(emotionJournalEntry.pullEvents()).toEqual([]);
   });
 
+  test("delete - correct path - after situation", async () => {
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+      mocks.GenericSituationLoggedEvent,
+    ]);
+
+    await emotionJournalEntry.delete();
+
+    expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericEmotionJournalEntryDeletedEvent]);
+  });
+
+  test("delete - correct path - after emotion", async () => {
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+    ]);
+
+    await emotionJournalEntry.delete();
+
+    expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericEmotionJournalEntryDeletedEvent]);
+  });
+
+  test("delete - correct path - after reaction", async () => {
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+      mocks.GenericReactionLoggedEvent,
+    ]);
+
+    await emotionJournalEntry.delete();
+
+    expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericEmotionJournalEntryDeletedEvent]);
+  });
+
+  test("delete - EntryHasBenStarted", async () => {
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, []);
+
+    expect(async () => emotionJournalEntry.delete()).toThrow(Emotions.Policies.EntryHasBenStarted.error);
+
+    expect(emotionJournalEntry.pullEvents()).toEqual([]);
+  });
+
   test("summarize - full entry", () => {
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
       mocks.GenericSituationLoggedEvent,
@@ -238,6 +279,7 @@ describe("EmotionJournalEntry", () => {
       "situation",
       "emotion",
       "reaction",
+      "status",
     ]);
   });
 });

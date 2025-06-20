@@ -17,6 +17,7 @@ export class EmotionJournalEntry {
     Events.ReactionLoggedEvent,
     Events.EmotionReappraisedEvent,
     Events.ReactionEvaluatedEvent,
+    Events.EmotionJournalEntryDeletedEvent,
   ];
 
   private readonly id: VO.EmotionJournalEntryIdType;
@@ -25,6 +26,8 @@ export class EmotionJournalEntry {
   private situation?: Entities.Situation;
   private emotion?: Entities.Emotion;
   private reaction?: Entities.Reaction;
+
+  private status: VO.EmotionJournalEntryStatusEnum = VO.EmotionJournalEntryStatusEnum.actionable;
 
   private readonly pending: JournalEntryEventType[] = [];
 
@@ -67,6 +70,10 @@ export class EmotionJournalEntry {
   }
 
   async logEmotion(emotion: Entities.Emotion) {
+    await Policies.EntryIsActionable.perform({
+      status: this.status,
+    });
+
     await Policies.OneEmotionPerEntry.perform({
       emotion: this.emotion,
     });
@@ -92,6 +99,10 @@ export class EmotionJournalEntry {
   }
 
   async logReaction(reaction: Entities.Reaction) {
+    await Policies.EntryIsActionable.perform({
+      status: this.status,
+    });
+
     await Policies.OneReactionPerEntry.perform({
       reaction: this.reaction,
     });
@@ -119,6 +130,10 @@ export class EmotionJournalEntry {
   }
 
   async reappraiseEmotion(newEmotion: Entities.Emotion) {
+    await Policies.EntryIsActionable.perform({
+      status: this.status,
+    });
+
     await Policies.EmotionCorrespondsToSituation.perform({
       situation: this.situation,
     });
@@ -144,6 +159,10 @@ export class EmotionJournalEntry {
   }
 
   async evaluateReaction(newReaction: Entities.Reaction) {
+    await Policies.EntryIsActionable.perform({
+      status: this.status,
+    });
+
     await Policies.ReactionCorrespondsToSituationAndEmotion.perform({
       situation: this.situation,
       emotion: this.emotion,
@@ -170,6 +189,21 @@ export class EmotionJournalEntry {
     this.record(event);
   }
 
+  async delete() {
+    await Policies.EntryHasBenStarted.perform({ situation: this.situation });
+
+    const event = Events.EmotionJournalEntryDeletedEvent.parse({
+      id: bg.NewUUID.generate(),
+      createdAt: tools.Timestamp.parse(Date.now()),
+      name: Events.EMOTION_JOURNAL_ENTRY_DELETED,
+      stream: EmotionJournalEntry.getStream(this.id),
+      version: 1,
+      payload: { id: this.id },
+    } satisfies Events.EmotionJournalEntryDeletedEventType);
+
+    this.record(event);
+  }
+
   summarize() {
     return {
       id: this.id,
@@ -178,6 +212,7 @@ export class EmotionJournalEntry {
       situation: this.situation,
       emotion: this.emotion,
       reaction: this.reaction,
+      status: this.status,
     };
   }
 
@@ -240,6 +275,18 @@ export class EmotionJournalEntry {
           new VO.ReactionType(event.payload.type),
           new VO.ReactionEffectiveness(event.payload.effectiveness),
         );
+        break;
+      }
+
+      case Events.EMOTION_JOURNAL_ENTRY_DELETED: {
+        this.status = VO.EmotionJournalEntryStatusEnum.deleted;
+
+        this.finishedAt = event.createdAt;
+        this.situation = undefined;
+        this.emotion = undefined;
+        this.reaction = undefined;
+        this.startedAt = undefined;
+        this.finishedAt = undefined;
         break;
       }
     }
