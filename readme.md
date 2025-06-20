@@ -1,5 +1,7 @@
 # journal
 
+[Check status](https://bgord.github.io/statuses/history/journal)
+
 ## Configuration:
 
 Clone the repository
@@ -48,12 +50,15 @@ modules/
     ├── policies
     │   ├── emotion-corresponds-to-situation.ts
     │   ├── emotion-for-reappraisal-exists.ts
+    │   ├── entry-has-been-started.ts
+    │   ├── entry-is-actionable.ts
     │   ├── one-emotion-per-entry.ts
     │   ├── one-reaction-per-entry.ts
     │   ├── one-situation-per-entry.ts
     │   ├── reaction-corresponds-to-situation-and-emotion.ts
     │   └── reaction-for-evaluation-exists.ts
     ├── routes
+    │   ├── delete-journal-entry.ts
     │   ├── evaluate-reaction.ts
     │   ├── log-emotion.ts
     │   ├── log-reaction.ts
@@ -71,6 +76,7 @@ modules/
         ├── emotion-journal-entry-finished-at.ts
         ├── emotion-journal-entry-id.ts
         ├── emotion-journal-entry-started-at.ts
+        ├── emotion-journal-entry-status.ts
         ├── emotion-label.ts
         ├── reaction-description.ts
         ├── reaction-effectiveness.ts
