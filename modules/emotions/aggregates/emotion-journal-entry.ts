@@ -171,6 +171,19 @@ export class EmotionJournalEntry {
     this.record(event);
   }
 
+  async delete() {
+    const event = Events.EmotionJournalEntryDeletedEvent.parse({
+      id: bg.NewUUID.generate(),
+      createdAt: tools.Timestamp.parse(Date.now()),
+      name: Events.EMOTION_JOURNAL_ENTRY_DELETED,
+      stream: EmotionJournalEntry.getStream(this.id),
+      version: 1,
+      payload: { id: this.id },
+    } satisfies Events.EmotionJournalEntryDeletedEventType);
+
+    this.record(event);
+  }
+
   summarize() {
     return {
       id: this.id,
