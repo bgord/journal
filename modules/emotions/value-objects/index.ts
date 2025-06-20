@@ -2,6 +2,7 @@ export * from "./emotion-intensity";
 export * from "./emotion-journal-entry-finished-at";
 export * from "./emotion-journal-entry-id";
 export * from "./emotion-journal-entry-started-at";
+export * from "./emotion-journal-entry-status";
 export * from "./emotion-label";
 export * from "./reaction-description";
 export * from "./reaction-effectiveness";
