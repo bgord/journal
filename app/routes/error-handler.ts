@@ -24,6 +24,7 @@ const policies = [
   Emotions.Policies.ReactionCorrespondsToSituationAndEmotion,
   Emotions.Policies.EmotionForReappraisalExists,
   Emotions.Policies.ReactionForEvaluationExists,
+  Emotions.Policies.EntryHasBenStarted,
 ];
 
 export class ErrorHandler {
