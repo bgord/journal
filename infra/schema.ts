@@ -1,20 +1,19 @@
 import { randomUUID } from "node:crypto";
 import { sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-
-import * as Emotions from "../modules/emotions";
+import { EmotionJournalEntryStatusEnum } from "../modules/emotions/value-objects/emotion-journal-entry-status";
+import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
+import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
 
 const id = text("id", { length: 36 })
   .primaryKey()
   .$defaultFn(() => randomUUID());
 
-const createdAt = integer("createdAt").default(sql`now`).notNull();
-
 export const events = sqliteTable(
   "events",
   {
     id,
-    createdAt,
+    createdAt: integer("createdAt").default(sql`now`).notNull(),
     name: text("name").notNull(),
     stream: text("stream").notNull(),
     version: integer("version").notNull(),
@@ -33,11 +32,11 @@ export const emotionJournalEntries = sqliteTable("emotionJournalEntries", {
   finishedAt: integer("finishedAt"),
   situationDescription: text("situationDescription"),
   situationLocation: text("situationLocation"),
-  situationKind: text("situationKind"),
+  situationKind: text("situationKind", toEnumList(GenevaWheelEmotion)),
   emotionLabel: text("emotionLabel"),
   emotionIntensity: integer("emotionIntensity"),
   reactionDescription: text("reactionDescription"),
-  reactionType: text("reactionType", toEnumList(Emotions.VO.GrossEmotionRegulationStrategy)),
+  reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
   reaction: text("reaction"),
-  status: text("status", toEnumList(Emotions.VO.EmotionJournalEntryStatusEnum)).notNull(),
+  status: text("status", toEnumList(EmotionJournalEntryStatusEnum)).notNull(),
 });
