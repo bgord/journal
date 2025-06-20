@@ -27,6 +27,8 @@ export class EmotionJournalEntry {
   private emotion?: Entities.Emotion;
   private reaction?: Entities.Reaction;
 
+  private status: VO.EmotionJournalEntryStatusEnum = VO.EmotionJournalEntryStatusEnum.actionable;
+
   private readonly pending: JournalEntryEventType[] = [];
 
   private constructor(id: VO.EmotionJournalEntryIdType) {
