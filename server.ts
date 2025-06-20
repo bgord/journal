@@ -29,31 +29,12 @@ server.get(
 // =============================
 
 // Emotions =================
-server.post(
-  "/emotions/log-situation",
-  timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
-  Emotions.Routes.LogSituation,
-);
-server.post(
-  "/emotions/:id/log-emotion",
-  timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
-  Emotions.Routes.LogEmotion,
-);
-server.post(
-  "/emotions/:id/log-reaction",
-  timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
-  Emotions.Routes.LogReaction,
-);
-server.post(
-  "/emotions/:id/reappraise-emotion",
-  timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
-  Emotions.Routes.ReappraiseEmotion,
-);
-server.post(
-  "/emotions/:id/evaluate-reaction",
-  timeout(tools.Time.Seconds(5).ms, infra.requestTimeoutError),
-  Emotions.Routes.EvaluateReaction,
-);
+server.post("/emotions/log-situation", Emotions.Routes.LogSituation);
+server.post("/emotions/:id/log-emotion", Emotions.Routes.LogEmotion);
+server.post("/emotions/:id/log-reaction", Emotions.Routes.LogReaction);
+server.post("/emotions/:id/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
+server.post("/emotions/:id/evaluate-reaction", Emotions.Routes.EvaluateReaction);
+server.delete("/emotions/:id/delete", Emotions.Routes.DeleteJournalEntry);
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);

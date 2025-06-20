@@ -1,3 +1,4 @@
+export * from "./delete-journal-entry";
 export * from "./evaluate-reaction";
 export * from "./log-emotion";
 export * from "./log-reaction";
