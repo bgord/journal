@@ -1,5 +1,6 @@
 export * from "./emotion-corresponds-to-situation";
 export * from "./emotion-for-reappraisal-exists";
+export * from "./entry-has-been-started";
 export * from "./one-emotion-per-entry";
 export * from "./one-reaction-per-entry";
 export * from "./one-situation-per-entry";

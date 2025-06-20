@@ -172,6 +172,8 @@ export class EmotionJournalEntry {
   }
 
   async delete() {
+    await Policies.EntryHasBenStarted.perform({ situation: this.situation });
+
     const event = Events.EmotionJournalEntryDeletedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
