@@ -17,6 +17,7 @@ export class EmotionJournalEntry {
     Events.ReactionLoggedEvent,
     Events.EmotionReappraisedEvent,
     Events.ReactionEvaluatedEvent,
+    Events.EmotionJournalEntryDeletedEvent,
   ];
 
   private readonly id: VO.EmotionJournalEntryIdType;
@@ -240,6 +241,16 @@ export class EmotionJournalEntry {
           new VO.ReactionType(event.payload.type),
           new VO.ReactionEffectiveness(event.payload.effectiveness),
         );
+        break;
+      }
+
+      case Events.EMOTION_JOURNAL_ENTRY_DELETED: {
+        this.finishedAt = event.createdAt;
+        this.situation = undefined;
+        this.emotion = undefined;
+        this.reaction = undefined;
+        this.startedAt = undefined;
+        this.finishedAt = undefined;
         break;
       }
     }
