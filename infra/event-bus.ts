@@ -25,20 +25,14 @@ EventBus.on(
   EventHandler.handle(EmotionHandlers.onEmotionReappraisedEvent),
 );
 
-EventBus.on(
-  EmotionEvents.EMOTION_LOGGED_EVENT,
-  EventHandler.handle(EmotionHandlers.onEmotionLoggedEvent),
-);
+EventBus.on(EmotionEvents.EMOTION_LOGGED_EVENT, EventHandler.handle(EmotionHandlers.onEmotionLoggedEvent));
 
 EventBus.on(
   EmotionEvents.REACTION_EVALUATED_EVENT,
   EventHandler.handle(EmotionHandlers.onReactionEvaluatedEvent),
 );
 
-EventBus.on(
-  EmotionEvents.REACTION_LOGGED_EVENT,
-  EventHandler.handle(EmotionHandlers.onReactionLoggedEvent),
-);
+EventBus.on(EmotionEvents.REACTION_LOGGED_EVENT, EventHandler.handle(EmotionHandlers.onReactionLoggedEvent));
 
 EventBus.on(
   EmotionEvents.SITUATION_LOGGED_EVENT,
@@ -49,21 +43,15 @@ EventBus.on(
 
 EventBus.on(
   EmotionEvents.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(
-    EmotionHandlers.onMoreNegativeThanPositiveEmotionsPatternDetectedEvent,
-  ),
+  EventHandler.handle(EmotionHandlers.onMoreNegativeThanPositiveEmotionsPatternDetectedEvent),
 );
 
 EventBus.on(
   EmotionEvents.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(
-    EmotionHandlers.onMultipleMaladaptiveReactionsPatternDetectedEvent,
-  ),
+  EventHandler.handle(EmotionHandlers.onMultipleMaladaptiveReactionsPatternDetectedEvent),
 );
 
 EventBus.on(
   EmotionEvents.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(
-    EmotionHandlers.onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent,
-  ),
+  EventHandler.handle(EmotionHandlers.onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent),
 );

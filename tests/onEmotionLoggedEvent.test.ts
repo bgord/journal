@@ -1,45 +1,17 @@
-import { beforeEach, describe, expect, it, mock } from "bun:test";
-import * as Emotions from "../modules/emotions";
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import { onEmotionLoggedEvent } from "../modules/emotions/handlers/onEmotionLoggedEvent";
+import { EmotionJournalEntryRepository } from "../modules/emotions/repositories/";
 import { GenericEmotionLoggedEvent } from "./mocks";
 
-// Mock the repository
-const mockLogEmotion = mock(() => Promise.resolve());
-
-mock.module("../modules/emotions/repositories", () => ({
-  EmotionJournalEntryRepository: {
-    logEmotion: mockLogEmotion,
-  },
-}));
-
 describe("onEmotionLoggedEvent", () => {
-  beforeEach(() => {
-    mockLogEmotion.mockClear();
-  });
+  test("should call repository logEmotion method with the event", async () => {
+    const logEmotion = spyOn(EmotionJournalEntryRepository, "logEmotion").mockImplementation(jest.fn());
 
-  it("should call repository logEmotion method with the event", async () => {
     await onEmotionLoggedEvent(GenericEmotionLoggedEvent);
 
-    expect(mockLogEmotion).toHaveBeenCalledTimes(1);
-    expect(mockLogEmotion).toHaveBeenCalledWith(GenericEmotionLoggedEvent);
-  });
+    expect(logEmotion).toHaveBeenCalledTimes(1);
+    expect(logEmotion).toHaveBeenCalledWith(GenericEmotionLoggedEvent);
 
-  it("should handle emotion logged event with valid payload", async () => {
-    const event = {
-      id: "test-event-id",
-      createdAt: 1234567890,
-      name: Emotions.Events.EMOTION_LOGGED_EVENT,
-      stream: "test-stream",
-      version: 1,
-      payload: {
-        id: "test-entry-id",
-        label: Emotions.VO.GenevaWheelEmotion.joy,
-        intensity: 5,
-      },
-    } as Emotions.Events.EmotionLoggedEventType;
-
-    await onEmotionLoggedEvent(event);
-
-    expect(mockLogEmotion).toHaveBeenCalledWith(event);
+    logEmotion.mockRestore();
   });
 });
