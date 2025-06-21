@@ -56,6 +56,16 @@ modules/
     │   ├── REACTION_EVALUATED_EVENT.ts
     │   ├── REACTION_LOGGED_EVENT.ts
     │   ├── SITUATION_LOGGED_EVENT.ts
+    ├── handlers
+    │   ├── onEmotionJournalEntryDeleted.ts
+    │   ├── onEmotionReappraisedEvent.ts
+    │   ├── onEmotionloggedevent.ts
+    │   ├── onMoreNegativeThanPositiveEmotionsPatternDetectedEvent.ts
+    │   ├── onMultipleMaladaptiveReactionsPatternDetectedEvent.ts
+    │   ├── onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent.ts
+    │   ├── onReactionEvaluatedEvent.ts
+    │   ├── onReactionLoggedEvent.ts
+    │   └── onSituationLoggedEvent.ts
     ├── policies
     │   ├── emotion-corresponds-to-situation.ts
     │   ├── emotion-for-reappraisal-exists.ts
@@ -66,6 +76,8 @@ modules/
     │   ├── one-situation-per-entry.ts
     │   ├── reaction-corresponds-to-situation-and-emotion.ts
     │   └── reaction-for-evaluation-exists.ts
+    ├── repositories
+    │   ├── emotion-journal-entry-repository.ts
     ├── routes
     │   ├── delete-journal-entry.ts
     │   ├── evaluate-reaction.ts
@@ -87,6 +99,8 @@ modules/
         ├── emotion-journal-entry-started-at.ts
         ├── emotion-journal-entry-status.ts
         ├── emotion-label.ts
+        ├── geneva-wheel-emotion.enum.ts
+        ├── gross-emotion-regulation-strategy.enum.ts
         ├── reaction-description.ts
         ├── reaction-effectiveness.ts
         ├── reaction-type.ts
@@ -102,6 +116,7 @@ infra/
 ├── basic-auth-shield.ts
 ├── db.ts
 ├── env.ts
+├── event-bus.ts
 ├── event-store.ts
 ├── healthcheck.ts
 ├── i18n.ts
