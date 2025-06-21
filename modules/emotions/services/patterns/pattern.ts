@@ -9,7 +9,8 @@ export type PatternDateRange = [string, string];
 export type PatternDetectionEvent =
   | typeof Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent
   | typeof Events.MultipleMaladaptiveReactionsPatternDetectedEvent
-  | typeof Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent;
+  | typeof Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent
+  | typeof Events.LowCopingEffectivenessPatternDetectedEvent;
 
 export type PatternDetectionEventType = z.infer<PatternDetectionEvent>;
 
