@@ -6,6 +6,7 @@ import type { TimingVariables } from "hono/timing";
 export * from "./basic-auth-shield";
 export * from "./db";
 export * from "./env";
+export * from "./event-bus";
 export * from "./event-store";
 export * from "./healthcheck";
 export * from "./i18n";

@@ -4,6 +4,8 @@ export * from "./emotion-journal-entry-id";
 export * from "./emotion-journal-entry-started-at";
 export * from "./emotion-journal-entry-status";
 export * from "./emotion-label";
+export * from "./geneva-wheel-emotion.enum";
+export * from "./gross-emotion-regulation-strategy.enum";
 export * from "./reaction-description";
 export * from "./reaction-effectiveness";
 export * from "./reaction-type";

@@ -1,22 +1,7 @@
 import { z } from "zod/v4";
+import { GrossEmotionRegulationStrategy } from "./gross-emotion-regulation-strategy.enum";
 
 const ReactionTypeErrors = { invalid: "reaction.type.invalid" };
-
-// https://psu.pb.unizin.org/psych425/chapter/process-model-of-emotion-regulation/
-/** @public */
-export enum GrossEmotionRegulationStrategy {
-  avoidance = "avoidance",
-  confrontation = "confrontation",
-  distraction = "distraction",
-  rumination = "rumination",
-  reappraisal = "reappraisal",
-  suppression = "suppression",
-  expression = "expression",
-  acceptance = "acceptance",
-  humor = "humor",
-  problem_solving = "problem_solving",
-  other = "other",
-}
 
 export const ReactionTypeSchema = z.enum(GrossEmotionRegulationStrategy, {
   message: ReactionTypeErrors.invalid,
