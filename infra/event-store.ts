@@ -8,7 +8,7 @@ import { db } from "./db";
 import { EventBus } from "./event-bus";
 import * as schema from "./schema";
 
-type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
+export type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
 
 class DispatchingEventStore extends bg.EventStore<AcceptedEvent> {
   async save(events: z.infer<AcceptedEvent>[]) {
