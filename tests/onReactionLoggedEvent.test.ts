@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, mock } from "bun:test";
+import { beforeEach, describe, expect, it, mock } from "bun:test";
 import * as Emotions from "../modules/emotions";
 import { onReactionLoggedEvent } from "../modules/emotions/handlers/onReactionLoggedEvent";
 import { GenericReactionLoggedEvent } from "./mocks";
@@ -43,4 +43,4 @@ describe("onReactionLoggedEvent", () => {
 
     expect(mockLogReaction).toHaveBeenCalledWith(event);
   });
-}); 
+});

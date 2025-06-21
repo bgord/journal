@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, mock } from "bun:test";
+import { beforeEach, describe, expect, it, mock } from "bun:test";
 import * as Emotions from "../modules/emotions";
 import { onEmotionJournalEntryDeletedEvent } from "../modules/emotions/handlers/onEmotionJournalEntryDeleted";
 import { GenericEmotionJournalEntryDeletedEvent } from "./mocks";
@@ -40,4 +40,4 @@ describe("onEmotionJournalEntryDeletedEvent", () => {
 
     expect(mockDeleteEntry).toHaveBeenCalledWith(event);
   });
-}); 
+});
