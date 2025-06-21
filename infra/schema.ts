@@ -37,6 +37,6 @@ export const emotionJournalEntries = sqliteTable("emotionJournalEntries", {
   emotionIntensity: integer("emotionIntensity"),
   reactionDescription: text("reactionDescription"),
   reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
-  reactionEffectiveness: text("reactionEffectiveness"),
+  reactionEffectiveness: integer("reactionEffectiveness"),
   status: text("status", toEnumList(EmotionJournalEntryStatusEnum)).notNull(),
 });

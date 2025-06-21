@@ -26,8 +26,6 @@ EventBus.on(EmotionEvents.REACTION_LOGGED_EVENT, EmotionHandlers.onReactionLogge
 
 EventBus.on(EmotionEvents.SITUATION_LOGGED_EVENT, EmotionHandlers.onSituationLoggedEvent);
 
-EventBus.on(EmotionEvents.SITUATION_LOGGED_EVENT, EmotionHandlers.onSituationLoggedEvent);
-
 // Pattern detection
 
 EventBus.on(
