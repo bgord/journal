@@ -1,20 +1,18 @@
 import * as bg from "@bgord/bun";
 import Emittery from "emittery";
-import * as Events from "../modules/emotions/events";
+import z from "zod/v4";
+import { JournalEntryEvent } from "../modules/emotions/aggregates/emotion-journal-entry";
+import { PatternDetectionEvent } from "../modules/emotions/services/patterns";
 import { logger } from "./logger";
 
 const EventLogger = new bg.EventLogger(logger);
 
-export const EventBus = new Emittery<{
-  EMOTION_JOURNAL_ENTRY_DELETED: Events.EmotionJournalEntryDeletedEventType;
-  EMOTION_LOGGED_EVENT: Events.EmotionJournalEntryDeletedEventType;
-  EMOTION_REAPPRAISED_EVENT: Events.EmotionReappraisedEventType;
-  MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT: Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
-  MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT: Events.MultipleMaladaptiveReactionsPatternDetectedEventType;
-  POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT: Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
-  REACTION_EVALUATED_EVENT: Events.ReactionEvaluatedEventType;
-  REACTION_LOGGED_EVENT: Events.ReactionLoggedEventType;
-  SITUATION_LOGGED_EVENT: Events.SituationLoggedEventType;
-}>({
+export type Events = z.infer<JournalEntryEvent> | z.infer<PatternDetectionEvent>;
+
+export type EventMap = {
+  [Event in Events as Event["name"]]: Event;
+};
+
+export const EventBus = new Emittery<EventMap>({
   debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
 });
