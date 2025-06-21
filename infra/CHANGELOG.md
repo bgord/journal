@@ -1,6 +1,34 @@
 # Changelog
+- 2025-06-22 00:15 f541df3 **Merge pull request #4 from bgord/emotion_journal_read_model**
+## 2025-06-22 00:15 
+- 2025-06-22 00:13 cc361ec **step: update bun**
+- 2025-06-22 00:05 06cc6d9 **step: update better-sqlite3**
+- 2025-06-22 00:03 24418b2 **refactor: regenerate migrations**
+- 2025-06-22 00:02 4013c2e **refactor: rewrite tests**
+- 2025-06-21 23:51 3a65056 **refactor: remove circular deps**
+- 2025-06-21 23:43 819e7fa **step: switch to type only imports wherever possible**
+- 2025-06-21 20:02 fd68f25 **step: setup event handler tests**
+- 2025-06-21 19:50 6d78458 **step: implement other emotion journal entry event handlers**
+- 2025-06-21 19:37 8ee06a0 **step: implement on situation logged event handler**
+- 2025-06-21 19:30 009c69d **step: setup emotion journal entry repository**
+- 2025-06-21 19:15 3b9de27 **feature: define event handlers**
+- 2025-06-21 17:15 dae3c22 **refactor: use to-event-map helper**
+- 2025-06-21 17:01 d19ed5d **step: use imported dispatching event store**
+- 2025-06-21 16:54 2ce5013 **step: switch to local bgord bun**
+- 2025-06-21 16:49 d6d633d **refactor: improve event map**
+- 2025-06-21 16:45 5db9675 **step: create dispatching event store**
+- 2025-06-21 16:45 5d2970d **refactor: simplify event map**
+- 2025-06-21 16:17 f7f4c37 **step: define event bus**
+- 2025-06-21 15:50 c64415a **step: install emittery**
+- 2025-06-21 15:50 7b847e3 **step: update packages**
+- 2025-06-20 19:11 7ec1d16 **refactor: regenerate migrations from scratch**
+- 2025-06-20 19:10 efe7578 **fix: reactionEffectiveness column name**
+- 2025-06-20 19:03 b161697 **step: generate migrations**
+- 2025-06-20 19:03 742455d **step: bump bgord/scripts**
+- 2025-06-20 18:58 50aff3b **refactor: extract enums to be applicable in db schema file**
+- 2025-06-20 18:53 9be36b9 **step: add toEnum helper**
+- 2025-06-20 18:52 46c36b1 **step: define schema**
 - 2025-06-20 18:10 2b8e904 **refactor: extract events to separate files**
-## 2025-06-20 18:10 
 - 2025-06-20 18:02 1cddcb7 **step: define situation kind**
 - 2025-06-20 18:01 c6c8b34 **step: define reaction type other**
 - 2025-06-20 17:57 6e79fd6 **Merge pull request #3 from bgord/emotion-journal-entry-deleted**
@@ -9,6 +37,8 @@
 - 2025-06-20 17:25 6a33502 **step: define entry is actionable**
 - 2025-06-20 17:08 65b1f08 **step: define EmotionJournalEntry.status**
 - 2025-06-20 16:56 1a651de **step: define EmotionJournalEntryStatusEnum-n**
+- 2025-06-20 16:10 de33f86 **docs: generate CHANGELOG**
+- 2025-06-20 16:10 ad7e68a **docs: generate readme**
 - 2025-06-20 15:57 dd8eced **docs: generate CHANGELOG**
 - 2025-06-20 15:57 836018c **docs: generate readme**
 - 2025-06-20 12:48 ba5ced7 **fix: route test descriptions**
