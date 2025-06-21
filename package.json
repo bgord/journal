@@ -25,6 +25,7 @@
     "@bgord/bun": "0.12.0",
     "@bgord/tools": "0.9.3",
     "better-sqlite3": "11.10.0",
-    "drizzle-orm": "0.44.2"
+    "drizzle-orm": "0.44.2",
+    "emittery": "1.2.0"
   }
 }
