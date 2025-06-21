@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "c399379f-ef8a-411a-828e-ab4801f8fcb2",
+  "id": "7acfa847-ce3e-4bed-8d63-e231c1b5ffed",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "emotionJournalEntries": {
@@ -79,7 +79,7 @@
         },
         "reactionEffectiveness": {
           "name": "reactionEffectiveness",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -148,7 +148,9 @@
       "indexes": {
         "stream_idx": {
           "name": "stream_idx",
-          "columns": ["stream"],
+          "columns": [
+            "stream"
+          ],
           "isUnique": false
         }
       },

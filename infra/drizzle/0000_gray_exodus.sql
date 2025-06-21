@@ -9,7 +9,7 @@ CREATE TABLE `emotionJournalEntries` (
 	`emotionIntensity` integer,
 	`reactionDescription` text,
 	`reactionType` text,
-	`reactionEffectiveness` text,
+	`reactionEffectiveness` integer,
 	`status` text NOT NULL
 );
 --> statement-breakpoint
