@@ -5,11 +5,22 @@ import { z } from "zod/v4";
 import { JournalEntryEvent } from "../modules/emotions/aggregates/emotion-journal-entry";
 import { PatternDetectionEvent } from "../modules/emotions/services/patterns/pattern";
 import { db } from "./db";
+import { EventBus } from "./event-bus";
 import * as schema from "./schema";
 
 type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent;
 
-export const EventStore = new bg.EventStore<AcceptedEvent>({
+class DispatchingEventStore extends bg.EventStore<AcceptedEvent> {
+  async save(events: z.infer<AcceptedEvent>[]) {
+    await super.save(events);
+
+    for (const event of events) {
+      EventBus.emit(event.name, event);
+    }
+  }
+}
+
+export const EventStore = new DispatchingEventStore({
   finder: (stream: bg.EventStreamType, acceptedEventsNames: bg.EventNameType[]) =>
     db
       .select()
