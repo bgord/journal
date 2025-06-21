@@ -6,12 +6,14 @@ import type { TimingVariables } from "hono/timing";
 export * from "./basic-auth-shield";
 export * from "./db";
 export * from "./env";
+export * from "./event-bus";
 export * from "./event-store";
 export * from "./healthcheck";
 export * from "./i18n";
 export * from "./logger";
 export * from "./mailer";
 export * from "./prerequisites";
+export * as Schema from "./schema";
 
 export const requestTimeoutError = new HTTPException(408, {
   message: "request_timeout_error",
