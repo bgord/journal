@@ -13,8 +13,15 @@ export type PatternDetectionEvent =
 
 export type PatternDetectionEventType = z.infer<PatternDetectionEvent>;
 
+export enum PatternKindOptions {
+  positive = "positive",
+  negative = "negative",
+}
+
 export abstract class Pattern {
   abstract name: PatternName;
+
+  abstract kind: PatternKindOptions;
 
   abstract dateRange: PatternDateRange;
 
