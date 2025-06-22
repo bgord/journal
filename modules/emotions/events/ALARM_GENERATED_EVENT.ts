@@ -13,8 +13,8 @@ export const AlarmGeneratedEvent = z.object({
   name: z.literal(ALARM_GENERATED_EVENT),
   version: z.literal(1),
   payload: z.object({
-    entryId: VO.EmotionJournalEntryId,
-    alarmName: VO.AlarmNameOption,
+    emotionJournalEntryId: VO.EmotionJournalEntryId,
+    alarmName: VO.AlarmName,
   }),
 });
 
