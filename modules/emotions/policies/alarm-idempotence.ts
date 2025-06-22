@@ -15,7 +15,7 @@ type AlarmIdempotenceConfigType = {
 
 class AlarmIdempotenceFactory extends bg.Policy<AlarmIdempotenceConfigType> {
   fails(config: AlarmIdempotenceConfigType) {
-    return config.status !== VO.AlarmStatusEnum.generated;
+    return config.status !== VO.AlarmStatusEnum.started;
   }
 
   message = "alarm.idempotence";
