@@ -12,7 +12,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
 
     expect(result).toEqual({
       applicable: true,
-      name: Emotions.VO.AlarmName.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+      name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     });
   });
 
@@ -24,7 +24,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
 
     expect(result).toEqual({
       applicable: true,
-      name: Emotions.VO.AlarmName.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+      name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     });
   });
 

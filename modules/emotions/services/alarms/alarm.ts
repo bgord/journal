@@ -3,11 +3,11 @@ import type * as VO from "../../value-objects";
 
 export type AlarmApplicableCheckOutputType = {
   applicable: true;
-  name: VO.AlarmName;
+  name: VO.AlarmNameOption;
 };
 export type AlarmNotApplicableCheckOutputType = {
   applicable: false;
-  name: VO.AlarmName;
+  name: VO.AlarmNameOption;
 };
 
 export type AlarmCheckOutputType = AlarmApplicableCheckOutputType | AlarmNotApplicableCheckOutputType;
@@ -15,7 +15,7 @@ export type AlarmCheckOutputType = AlarmApplicableCheckOutputType | AlarmNotAppl
 export type AlarmEventToBeChecked = Events.EmotionLoggedEventType | Events.EmotionReappraisedEventType;
 
 export abstract class Alarm {
-  abstract name: VO.AlarmName;
+  abstract name: VO.AlarmNameOption;
 
   abstract check(event: AlarmEventToBeChecked): AlarmCheckOutputType;
 }

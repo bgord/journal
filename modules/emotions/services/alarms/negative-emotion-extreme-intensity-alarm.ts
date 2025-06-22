@@ -4,7 +4,7 @@ import * as Alarms from "./alarm";
 
 /** @public */
 export class NegativeEmotionExtremeIntensityAlarm extends Alarms.Alarm {
-  name = VO.AlarmName.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
+  name = VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
 
   check(event: Alarms.AlarmEventToBeChecked): Alarms.AlarmCheckOutputType {
     switch (event.name) {
