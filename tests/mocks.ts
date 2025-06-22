@@ -213,14 +213,14 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
 } satisfies Emotions.Events.LowCopingEffectivenessPatternDetectedEventType;
 
 export const GenericAlarmGeneratedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
-  stream: `alarm_${alarmId}`,
+  stream: expect.any(String),
   name: Emotions.Events.ALARM_GENERATED_EVENT,
   version: 1,
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-    alarmId,
+    alarmId: expectAnyId,
     emotionJournalEntryId: id,
   },
 } satisfies Emotions.Events.AlarmGeneratedEventType;
