@@ -13,7 +13,7 @@ export * from "./i18n";
 export * from "./logger";
 export * from "./mailer";
 export * from "./prerequisites";
-export * from "./register-events";
+export * from "./register-event-handlers";
 export * as Schema from "./schema";
 
 export const requestTimeoutError = new HTTPException(408, {
