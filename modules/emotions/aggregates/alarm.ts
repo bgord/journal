@@ -72,6 +72,7 @@ export class Alarm {
       case Events.ALARM_GENERATED_EVENT: {
         this.emotionJournalEntryId = event.payload.emotionJournalEntryId;
         this.name = event.payload.alarmName;
+        this.status = VO.AlarmStatusEnum.generated;
         break;
       }
 

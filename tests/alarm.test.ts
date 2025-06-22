@@ -21,4 +21,14 @@ describe("Alarm", () => {
 
     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmGeneratedEvent]);
   });
+
+  test("generate - AlarmGeneratedOnce", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
+
+    expect(async () =>
+      alarm.generate(mocks.id, Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM),
+    ).toThrow(Emotions.Policies.AlarmGeneratedOnce.error);
+
+    expect(alarm.pullEvents()).toEqual([]);
+  });
 });
