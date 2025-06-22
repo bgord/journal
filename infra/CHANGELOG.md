@@ -1,12 +1,19 @@
 # Changelog
+- 2025-06-22 15:58 9b5c0b3 **Merge pull request #5 from bgord/more_patterns**
+## 2025-06-22 15:58 
+- 2025-06-22 00:55 cb84cf7 **feature: add LowCopingEffectivenessPattern**
+- 2025-06-22 00:52 bcde047 **step: define LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT**
+- 2025-06-22 00:34 cb627b0 **step: define pattern kind**
+- 2025-06-22 00:34 56a1c43 **refactor: restore onEmotionLoggedEvent**
 - 2025-06-22 00:15 f541df3 **Merge pull request #4 from bgord/emotion_journal_read_model**
-## 2025-06-22 00:15 
 - 2025-06-22 00:13 cc361ec **step: update bun**
 - 2025-06-22 00:05 06cc6d9 **step: update better-sqlite3**
 - 2025-06-22 00:03 24418b2 **refactor: regenerate migrations**
 - 2025-06-22 00:02 4013c2e **refactor: rewrite tests**
 - 2025-06-21 23:51 3a65056 **refactor: remove circular deps**
 - 2025-06-21 23:43 819e7fa **step: switch to type only imports wherever possible**
+- 2025-06-21 22:15 bb7649f **docs: generate CHANGELOG**
+- 2025-06-21 22:15 607403b **docs: generate readme**
 - 2025-06-21 20:02 fd68f25 **step: setup event handler tests**
 - 2025-06-21 19:50 6d78458 **step: implement other emotion journal entry event handlers**
 - 2025-06-21 19:37 8ee06a0 **step: implement on situation logged event handler**
