@@ -36,7 +36,7 @@ export class Alarm {
   }
 
   async generate(emotionJournalEntryId: VO.EmotionJournalEntryIdType, alarmName: VO.AlarmNameType) {
-    await Policies.AlarmIdempotence.perform({ status: this.status });
+    await Policies.AlarmGeneratedOnce.perform({ status: this.status });
 
     const event = Events.AlarmGeneratedEvent.parse({
       id: bg.NewUUID.generate(),
