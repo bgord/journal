@@ -3,11 +3,13 @@ import * as tools from "@bgord/tools";
 
 import * as Aggregates from "../../aggregates/emotion-journal-entry";
 import * as Events from "../../events";
-import { Pattern, PatternDateRange, PatternDetectionEventType } from "./pattern";
+import { Pattern, PatternDateRange, PatternDetectionEventType, PatternKindOptions } from "./pattern";
 
 /** @public */
 export class MoreNegativeThanPositiveEmotionsPattern extends Pattern {
   name = "MoreNegativeThanPositiveEmotionsPattern";
+
+  kind = PatternKindOptions.negative;
 
   constructor(public dateRange: PatternDateRange) {
     super();

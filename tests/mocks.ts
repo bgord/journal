@@ -174,3 +174,12 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
   version: 1,
   payload: {},
 } satisfies Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType;
+
+export const LowCopingEffectivenessPatternDetectedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
+  name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
+  version: 1,
+  payload: {},
+} satisfies Emotions.Events.LowCopingEffectivenessPatternDetectedEventType;
