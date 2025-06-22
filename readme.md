@@ -50,6 +50,7 @@ modules/
     │   ├── EMOTION_JOURNAL_ENTRY_DELETED.ts
     │   ├── EMOTION_LOGGED_EVENT.ts
     │   ├── EMOTION_REAPPRAISED_EVENT.ts
+    │   ├── LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT.ts
     │   ├── MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT.ts
     │   ├── MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT.ts
     │   ├── POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT.ts
@@ -58,8 +59,9 @@ modules/
     │   ├── SITUATION_LOGGED_EVENT.ts
     ├── handlers
     │   ├── onEmotionJournalEntryDeleted.ts
+    │   ├── onEmotionLoggedEvent.ts
     │   ├── onEmotionReappraisedEvent.ts
-    │   ├── onEmotionloggedevent.ts
+    │   ├── onLowCopingEffectivenessPatternDetectedEvent.ts
     │   ├── onMoreNegativeThanPositiveEmotionsPatternDetectedEvent.ts
     │   ├── onMultipleMaladaptiveReactionsPatternDetectedEvent.ts
     │   ├── onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent.ts
@@ -88,6 +90,7 @@ modules/
     ├── services
     │   ├── pattern-detector.ts
     │   └── patterns
+    │       ├── low-coping-effectiveness-pattern.ts
     │       ├── more-negative-than-positive-emotions-pattern.ts
     │       ├── multiple-maladaptive-reactions-pattern.ts
     │       ├── pattern.ts
