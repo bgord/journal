@@ -1,18 +1,23 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
-import * as Emotions from "../modules/emotions";
+import { EventStore } from "../infra/event-store";
+import { onEmotionLoggedEvent } from "../modules/emotions/handlers/onEmotionLoggedEvent";
+import { EmotionJournalEntryRepository } from "../modules/emotions/repositories";
 import * as mocks from "./mocks";
 
 describe("onEmotionLoggedEvent", () => {
   test("should call repository logEmotion method with the event", async () => {
-    const logEmotion = spyOn(Emotions.Repos.EmotionJournalEntryRepository, "logEmotion").mockImplementation(
-      jest.fn(),
-    );
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await Emotions.Handlers.onEmotionLoggedEvent(mocks.GenericEmotionLoggedEvent);
+    const logEmotion = spyOn(EmotionJournalEntryRepository, "logEmotion").mockImplementation(jest.fn());
+
+    await onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
 
     expect(logEmotion).toHaveBeenCalledTimes(1);
-    expect(logEmotion).toHaveBeenCalledWith(mocks.GenericEmotionLoggedEvent);
+    expect(logEmotion).toHaveBeenCalledWith(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
     logEmotion.mockRestore();
+    eventStoreSave.mockRestore();
   });
 });
