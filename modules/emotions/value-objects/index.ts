@@ -1,3 +1,4 @@
+export * from "./alarm-name";
 export * from "./emotion-intensity";
 export * from "./emotion-journal-entry-finished-at";
 export * from "./emotion-journal-entry-id";
