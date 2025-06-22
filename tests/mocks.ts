@@ -15,6 +15,8 @@ export const ip = {
 
 export const id = bg.NewUUID.generate();
 
+export const alarmId = bg.NewUUID.generate();
+
 export const GenericSituationLoggedEvent = {
   id: expect.any(String),
   createdAt: expect.any(Number),
@@ -209,3 +211,16 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
   version: 1,
   payload: {},
 } satisfies Emotions.Events.LowCopingEffectivenessPatternDetectedEventType;
+
+export const GenericAlarmGeneratedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  stream: `alarm_${alarmId}`,
+  name: Emotions.Events.ALARM_GENERATED_EVENT,
+  version: 1,
+  payload: {
+    alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+    alarmId,
+    emotionJournalEntryId: id,
+  },
+} satisfies Emotions.Events.AlarmGeneratedEventType;
