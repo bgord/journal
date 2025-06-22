@@ -12,6 +12,7 @@ export class Alarm {
   static events = [Events.AlarmGeneratedEvent];
 
   private readonly id: VO.AlarmIdType;
+  private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
 
   private emotionJournalEntryId?: VO.EmotionJournalEntryIdType;
   private name?: VO.AlarmNameOption;

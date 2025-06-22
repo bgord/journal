@@ -1,3 +1,4 @@
+export * from "./alarm-idempotence";
 export * from "./emotion-corresponds-to-situation";
 export * from "./emotion-for-reappraisal-exists";
 export * from "./entry-has-been-started";
