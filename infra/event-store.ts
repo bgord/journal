@@ -1,10 +1,9 @@
 import * as bg from "@bgord/bun";
 import { and, asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod/v4";
-
+import type { AlarmEvent } from "../modules/emotions/aggregates/alarm";
 import type { JournalEntryEvent } from "../modules/emotions/aggregates/emotion-journal-entry";
 import type { PatternDetectionEvent } from "../modules/emotions/services/patterns/pattern";
-import type {AlarmEvent} from "../modules/emotions/aggregates/alarm"
 import { db } from "./db";
 import { EventBus } from "./event-bus";
 import * as schema from "./schema";
