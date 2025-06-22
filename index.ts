@@ -19,5 +19,7 @@ import { server, startup } from "./server";
     },
   });
 
+  await import("./infra/register-events");
+
   bg.GracefulShutdown.applyTo(app);
 })();

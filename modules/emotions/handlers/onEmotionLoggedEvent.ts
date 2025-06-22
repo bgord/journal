@@ -6,9 +6,7 @@ import * as Repos from "../repositories";
 import { AlarmGenerator } from "../services/alarm-generator";
 import { NegativeEmotionExtremeIntensityAlarm } from "../services/alarms";
 
-export const onEmotionLoggedEvent = async (
-  event: Events.EmotionLoggedEventType,
-) => {
+export const onEmotionLoggedEvent = async (event: Events.EmotionLoggedEventType) => {
   await Repos.EmotionJournalEntryRepository.logEmotion(event);
 
   const detection = AlarmGenerator.detect({
