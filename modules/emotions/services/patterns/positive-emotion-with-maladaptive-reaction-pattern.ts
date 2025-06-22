@@ -29,7 +29,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
         stream: this.getStream(),
         version: 1,
         payload: {},
-      });
+      } satisfies Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType);
     }
 
     return null;

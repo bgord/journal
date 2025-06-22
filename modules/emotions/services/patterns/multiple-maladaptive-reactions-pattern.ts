@@ -28,7 +28,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
         stream: this.getStream(),
         version: 1,
         payload: {},
-      });
+      } satisfies Events.MultipleMaladaptiveReactionsPatternDetectedEventType);
     }
     return null;
   }

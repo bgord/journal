@@ -30,7 +30,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
         stream: this.getStream(),
         version: 1,
         payload: {},
-      });
+      } satisfies Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType);
     }
     return null;
   }
