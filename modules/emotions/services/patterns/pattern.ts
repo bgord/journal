@@ -1,6 +1,6 @@
 import { z } from "zod/v4";
-import * as Aggregates from "../../aggregates/emotion-journal-entry";
-import * as Events from "../../events";
+import type * as Aggregates from "../../aggregates/emotion-journal-entry";
+import type * as Events from "../../events";
 
 type PatternName = string;
 

@@ -1,5 +1,5 @@
 import type * as Events from "../../events";
-import * as VO from "../../value-objects";
+import type * as VO from "../../value-objects";
 
 export type AlarmApplicableCheckOutputType = {
   applicable: true;

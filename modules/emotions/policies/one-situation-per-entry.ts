@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
-import * as Entities from "../entities";
+import type * as Entities from "../entities";
 
 class OneSituationPerEntryError extends Error {
   constructor() {

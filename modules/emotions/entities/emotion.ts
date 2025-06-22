@@ -1,5 +1,5 @@
-import { EmotionIntensity } from "../value-objects/emotion-intensity";
-import { EmotionLabel } from "../value-objects/emotion-label";
+import type { EmotionIntensity } from "../value-objects/emotion-intensity";
+import type { EmotionLabel } from "../value-objects/emotion-label";
 
 export class Emotion {
   constructor(
