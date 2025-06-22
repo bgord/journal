@@ -109,6 +109,32 @@ export const NegativeEmotionLoggedEvent = {
   },
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
+export const NegativeEmotionExtremeIntensityLoggedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Events.EMOTION_LOGGED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    label: Emotions.VO.GenevaWheelEmotion.anger,
+    intensity: 5,
+  },
+} satisfies Emotions.Events.EmotionLoggedEventType;
+
+export const NegativeEmotionExtremeIntensityReappraisedEvent = {
+  id: expect.any(String),
+  createdAt: expect.any(Number),
+  name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  version: 1,
+  payload: {
+    id,
+    newLabel: Emotions.VO.GenevaWheelEmotion.anger,
+    newIntensity: 5,
+  },
+} satisfies Emotions.Events.EmotionReappraisedEventType;
+
 export const MaladaptiveReactionLoggedEvent = {
   id: expect.any(String),
   createdAt: expect.any(Number),
