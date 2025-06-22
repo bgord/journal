@@ -18,7 +18,7 @@ export const id = bg.NewUUID.generate();
 export const alarmId = bg.NewUUID.generate();
 
 export const GenericSituationLoggedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.SITUATION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -32,7 +32,7 @@ export const GenericSituationLoggedEvent = {
 } satisfies Emotions.Events.SituationLoggedEventType;
 
 export const GenericEmotionLoggedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -45,7 +45,7 @@ export const GenericEmotionLoggedEvent = {
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
 export const GenericReactionLoggedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -59,7 +59,7 @@ export const GenericReactionLoggedEvent = {
 } satisfies Emotions.Events.ReactionLoggedEventType;
 
 export const GenericEmotionReappraisedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -72,7 +72,7 @@ export const GenericEmotionReappraisedEvent = {
 } satisfies Emotions.Events.EmotionReappraisedEventType;
 
 export const GenericReactionEvaluatedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_EVALUATED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -86,7 +86,7 @@ export const GenericReactionEvaluatedEvent = {
 } satisfies Emotions.Events.ReactionEvaluatedEventType;
 
 export const PositiveEmotionLoggedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -99,7 +99,7 @@ export const PositiveEmotionLoggedEvent = {
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
 export const NegativeEmotionLoggedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -112,7 +112,7 @@ export const NegativeEmotionLoggedEvent = {
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
 export const NegativeEmotionExtremeIntensityLoggedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -125,7 +125,7 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
 export const NegativeEmotionExtremeIntensityReappraisedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -138,7 +138,7 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
 } satisfies Emotions.Events.EmotionReappraisedEventType;
 
 export const MaladaptiveReactionLoggedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -152,7 +152,7 @@ export const MaladaptiveReactionLoggedEvent = {
 } satisfies Emotions.Events.ReactionLoggedEventType;
 
 export const AdaptiveReactionLoggedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -166,7 +166,7 @@ export const AdaptiveReactionLoggedEvent = {
 } satisfies Emotions.Events.ReactionLoggedEventType;
 
 export const GenericEmotionJournalEntryDeletedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
@@ -177,7 +177,7 @@ export const GenericEmotionJournalEntryDeletedEvent = {
 export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
 
 export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
@@ -186,7 +186,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
 } satisfies Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
 
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
@@ -195,7 +195,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
 } satisfies Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
 export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
@@ -204,7 +204,7 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
 } satisfies Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType;
 
 export const LowCopingEffectivenessPatternDetectedEvent = {
-  id: expect.any(String),
+  id: expectAnyId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
