@@ -8,13 +8,15 @@ type AlarmGeneratorConfigType = {
 
 /** @public */
 export class AlarmGenerator {
-  static detect(config: AlarmGeneratorConfigType): Alarms.AlarmCheckOutputType {
+  static detect(config: AlarmGeneratorConfigType): Alarms.AlarmApplicableCheckOutputType | null {
     const result = config.alarms
       .map((Alarm) => new Alarm().check(config.event))
-      .filter((result) => result !== null);
+      .filter((result) => result.applicable);
 
     if (!result.length) return null;
 
-    return result[0] ?? null;
+    if (!result[0]) return null;
+
+    return result[0];
   }
 }

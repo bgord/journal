@@ -1,7 +1,7 @@
 import { z } from "zod/v4";
 
 export enum AlarmName {
-  HIGH_EMOTIONAL_INTENSITY = "HIGH_EMOTIONAL_INTENSITY",
+  NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM = "NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM",
 }
 
 export type AlarmNameType = z.infer<typeof AlarmName>;
