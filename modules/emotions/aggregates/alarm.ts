@@ -1,3 +1,5 @@
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
 import * as Events from "../events";
@@ -32,7 +34,22 @@ export class Alarm {
     return entry;
   }
 
-  async generate() {}
+  async generate(emotionJournalEntryId: VO.EmotionJournalEntryIdType, alarmName: VO.AlarmNameType) {
+    const event = Events.AlarmGeneratedEvent.parse({
+      id: bg.NewUUID.generate(),
+      createdAt: tools.Timestamp.parse(Date.now()),
+      name: Events.ALARM_GENERATED_EVENT,
+      stream: Alarm.getStream(this.id),
+      version: 1,
+      payload: {
+        alarmId: this.id,
+        alarmName,
+        emotionJournalEntryId,
+      },
+    } satisfies Events.AlarmGeneratedEventType);
+
+    this.record(event);
+  }
 
   pullEvents(): AlarmEventType[] {
     const events = [...this.pending];

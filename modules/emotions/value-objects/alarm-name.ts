@@ -6,4 +6,4 @@ export enum AlarmNameOption {
 
 export const AlarmName = z.enum(AlarmNameOption);
 
-export type AlarmNameType = z.infer<typeof AlarmNameOption>;
+export type AlarmNameType = z.infer<typeof AlarmName>;
