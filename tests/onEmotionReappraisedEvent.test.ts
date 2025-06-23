@@ -1,18 +1,18 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
-import { onEmotionReappraisedEvent } from "../modules/emotions/handlers/onEmotionReappraisedEvent";
-import { EmotionJournalEntryRepository } from "../modules/emotions/repositories/";
-import { GenericEmotionReappraisedEvent } from "./mocks";
+import * as Emotions from "../modules/emotions";
+import * as mocks from "./mocks";
 
 describe("onEmotionReappraisedEvent", () => {
   test("should call repository reappraiseEmotion method with the event", async () => {
-    const reappraiseEmotion = spyOn(EmotionJournalEntryRepository, "reappraiseEmotion").mockImplementation(
-      jest.fn(),
-    );
+    const reappraiseEmotion = spyOn(
+      Emotions.Repos.EmotionJournalEntryRepository,
+      "reappraiseEmotion",
+    ).mockImplementation(jest.fn());
 
-    await onEmotionReappraisedEvent(GenericEmotionReappraisedEvent);
+    await Emotions.Handlers.onEmotionReappraisedEvent(mocks.GenericEmotionReappraisedEvent);
 
     expect(reappraiseEmotion).toHaveBeenCalledTimes(1);
-    expect(reappraiseEmotion).toHaveBeenCalledWith(GenericEmotionReappraisedEvent);
+    expect(reappraiseEmotion).toHaveBeenCalledWith(mocks.GenericEmotionReappraisedEvent);
 
     reappraiseEmotion.mockRestore();
   });

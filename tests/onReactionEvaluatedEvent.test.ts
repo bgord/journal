@@ -1,18 +1,18 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
-import { onReactionEvaluatedEvent } from "../modules/emotions/handlers/onReactionEvaluatedEvent";
-import { EmotionJournalEntryRepository } from "../modules/emotions/repositories/";
-import { GenericReactionEvaluatedEvent } from "./mocks";
+import * as Emotions from "../modules/emotions";
+import * as mocks from "./mocks";
 
 describe("onReactionEvaluatedEvent", () => {
   test("should call repository evaluateReaction method with the event", async () => {
-    const evaluateReaction = spyOn(EmotionJournalEntryRepository, "evaluateReaction").mockImplementation(
-      jest.fn(),
-    );
+    const evaluateReaction = spyOn(
+      Emotions.Repos.EmotionJournalEntryRepository,
+      "evaluateReaction",
+    ).mockImplementation(jest.fn());
 
-    await onReactionEvaluatedEvent(GenericReactionEvaluatedEvent);
+    await Emotions.Handlers.onReactionEvaluatedEvent(mocks.GenericReactionEvaluatedEvent);
 
     expect(evaluateReaction).toHaveBeenCalledTimes(1);
-    expect(evaluateReaction).toHaveBeenCalledWith(GenericReactionEvaluatedEvent);
+    expect(evaluateReaction).toHaveBeenCalledWith(mocks.GenericReactionEvaluatedEvent);
 
     evaluateReaction.mockRestore();
   });

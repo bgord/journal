@@ -1,6 +1,6 @@
-import { ReactionDescription } from "../value-objects/reaction-description";
-import { ReactionEffectiveness } from "../value-objects/reaction-effectiveness";
-import { ReactionType } from "../value-objects/reaction-type";
+import type { ReactionDescription } from "../value-objects/reaction-description";
+import type { ReactionEffectiveness } from "../value-objects/reaction-effectiveness";
+import type { ReactionType } from "../value-objects/reaction-type";
 
 export class Reaction {
   constructor(

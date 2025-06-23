@@ -1,6 +1,6 @@
-import { SituationDescription } from "../value-objects/situation-description";
-import { SituationKind } from "../value-objects/situation-kind";
-import { SituationLocation } from "../value-objects/situation-location";
+import type { SituationDescription } from "../value-objects/situation-description";
+import type { SituationKind } from "../value-objects/situation-kind";
+import type { SituationLocation } from "../value-objects/situation-location";
 
 export class Situation {
   constructor(

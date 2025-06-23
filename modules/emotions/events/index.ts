@@ -1,3 +1,4 @@
+export * from "./ALARM_GENERATED_EVENT";
 export * from "./EMOTION_JOURNAL_ENTRY_DELETED";
 export * from "./EMOTION_LOGGED_EVENT";
 export * from "./EMOTION_REAPPRAISED_EVENT";
