@@ -1,13 +1,13 @@
-import OpenAi from "openai";
+import OAI from "openai";
 import { AiClient, AiClientResponseType } from "../modules/emotions/services/ai-client";
 import { EmotionalAdvicePromptType } from "../modules/emotions/services/emotional-advice-prompt";
 import { Env } from "./env";
 
-const ai = new OpenAi({ apiKey: Env.OPEN_AI_API_KEY });
+export const OpenAI = new OAI({ apiKey: Env.OPEN_AI_API_KEY });
 
 export class OpenAiClient implements AiClient {
   async request(prompt: EmotionalAdvicePromptType): Promise<AiClientResponseType> {
-    const response = await ai.responses.create({
+    const response = await OpenAI.responses.create({
       model: "gpt-4o",
       instructions: prompt[0].content,
       input: prompt[1].content,
