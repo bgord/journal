@@ -3,10 +3,17 @@ import { AiClient, AiClientResponseType } from "../modules/emotions/services/ai-
 import { EmotionalAdvicePromptType } from "../modules/emotions/services/emotional-advice-prompt";
 import { Env } from "./env";
 
-export class AnthropicAiClient implements AiClient {
-  async request(_prompt: EmotionalAdvicePromptType): Promise<AiClientResponseType> {
-    new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
+const ai = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
 
-    return "";
+export class AnthropicAiClient implements AiClient {
+  async request(prompt: EmotionalAdvicePromptType): Promise<AiClientResponseType> {
+    const message = await ai.messages.create({
+      max_tokens: 1024,
+      messages: [prompt[1]],
+      system: prompt[0].content,
+      model: "claude-3-5-sonnet-latest",
+    });
+
+    return message.content.toString();
   }
 }
