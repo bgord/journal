@@ -1,6 +1,59 @@
 # Changelog
+- 2025-06-23 23:14 a9a08ec **Merge pull request #6 from bgord/alarms**
+## 2025-06-23 23:14 
+- 2025-06-23 23:08 e8e9cd9 **step: update dependencies**
+- 2025-06-23 23:01 29f7480 **step: test emotional-advice**
+- 2025-06-23 22:55 dd37c73 **step: test open-ai-client**
+- 2025-06-23 22:50 37f3218 **step: test anthropic ai client**
+- 2025-06-23 21:54 183e747 **fix: open ai client**
+- 2025-06-23 21:53 c9f4093 **fix: exports**
+- 2025-06-23 21:48 419309d **step: implement ai clients**
+- 2025-06-23 16:42 d8182b0 **refactor: move ai clients to infra**
+- 2025-06-23 16:22 2475fbe **step: implement basic emotional advice service**
+- 2025-06-23 16:17 f7f0d99 **step: implement open ai and anthropic clients**
+- 2025-06-23 16:14 d8facf7 **step: define ai client abstract class**
+- 2025-06-23 16:10 8a5bf08 **step: create AnthropicAI in infra**
+- 2025-06-23 16:09 354ff56 **step: add ANTHROPIC_AI_API_KEY env**
+- 2025-06-23 16:07 bca0903 **step: change ai client to open ai client**
+- 2025-06-23 16:07 77bf2a5 **step: install anthropic ai**
+- 2025-06-23 16:00 360a55c **step: add ai-client**
+- 2025-06-23 15:59 f51dcd7 **step: add open ai api key env**
+- 2025-06-23 15:56 ec624ca **step: install openai**
+- 2025-06-23 15:53 ca99e60 **step: test emotional advice prompt**
+- 2025-06-23 15:38 3ff3cfb **feature: implement EmotionalAdvicePrompt**
+- 2025-06-22 23:01 d55a20e **step: test AlarmGeneratedOnce-n**
+- 2025-06-22 22:56 b5e621b **refactor: rename register event handlers**
+- 2025-06-22 22:55 97940b2 **refactor: autoregister events**
+- 2025-06-22 22:49 da72c8c **refactor: rename alarm idempotence error**
+- 2025-06-22 22:47 9dc5f74 **fix: alarm tests**
+- 2025-06-22 22:46 3806f1e **step: add satifies checks for pattern evets**
+- 2025-06-22 22:44 e5ee21b **step: add alarm status**
+- 2025-06-22 22:44 2c81925 **step: add AlarmIdempotence policy**
+- 2025-06-22 22:26 aaa2c9e **feature: extract event bus handlers wiring to a separate file**
+- 2025-06-22 22:25 f4635c6 **step: adjust onEmotionLoggedEvent**
+- 2025-06-22 22:24 792a3ee **step: update GenericAlarmGeneratedEvent**
+- 2025-06-22 22:24 11092dc **step: add alarm to onEmotionLoggedEvent**
+- 2025-06-22 22:23 d570df8 **refactor: update mocks**
+- 2025-06-22 22:03 02f48cb **step: test basic alarm aggregate**
+- 2025-06-22 21:43 484192a **step: export alarm aggregate**
+- 2025-06-22 21:43 43055fd **step: add alarm event to event store**
+- 2025-06-22 19:56 054406a **step: implement alarm generate method**
+- 2025-06-22 19:34 4ca43e1 **feature: setup alarm aggregate**
+- 2025-06-22 19:32 0b8aae2 **refactor: use z.enum for alarm name**
+- 2025-06-22 19:18 218dcdd **refactor: improve imports**
+- 2025-06-22 19:01 ad8b102 **step: test NegativeEmotionExtremeIntensityAlarm**
+- 2025-06-22 18:52 1358cd6 **feature: implement first NegativeEmotionExtremeIntensityAlarm**
+- 2025-06-22 18:09 af74782 **step: implement alarm generator**
+- 2025-06-22 17:55 4ca6cb9 **step: define alarm check output**
+- 2025-06-22 16:51 1f63c5f **step: define ALARM_GENERATED_EVENT**
+- 2025-06-22 16:41 fe741a5 **refactor: make alarm name an enum**
+- 2025-06-22 16:41 bea5c17 **step: define an alarm abstract class**
+- 2025-06-22 16:38 84e6d64 **step: define alarm-id vo**
+- 2025-06-22 16:29 31a1571 **step: add alarm name vo**
+- 2025-06-22 16:07 6155ebc **step: define alarm generator**
 - 2025-06-22 15:58 9b5c0b3 **Merge pull request #5 from bgord/more_patterns**
-## 2025-06-22 15:58 
+- 2025-06-22 13:59 b169965 **docs: generate readme**
+- 2025-06-22 13:59 090a2f0 **docs: generate CHANGELOG**
 - 2025-06-22 00:55 cb84cf7 **feature: add LowCopingEffectivenessPattern**
 - 2025-06-22 00:52 bcde047 **step: define LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT**
 - 2025-06-22 00:34 cb627b0 **step: define pattern kind**
