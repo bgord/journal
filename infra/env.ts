@@ -14,6 +14,7 @@ const EnvironmentSchema = z
     TZ: bg.TimezoneUtc,
     BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
+    OPEN_AI_API_KEY: z.string().min(1).max(256).trim(),
   })
   .strip();
 
