@@ -3,6 +3,7 @@ import * as tools from "@bgord/tools";
 import { HTTPException } from "hono/http-exception";
 import type { TimingVariables } from "hono/timing";
 
+export * from "./ai-client";
 export * from "./basic-auth-shield";
 export * from "./db";
 export * from "./env";
