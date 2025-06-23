@@ -12,10 +12,7 @@ export class EmotionalAdvice {
   async ask() {
     const summary = this.entry.summarize();
 
-    const prompt = new Services.EmotionalAdvicePrompt(
-      summary,
-      this.alarmName,
-    ).generate();
+    const prompt = new Services.EmotionalAdvicePrompt(summary, this.alarmName).generate();
 
     return await this.AiClient.request(prompt);
   }
