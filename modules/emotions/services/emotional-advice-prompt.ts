@@ -1,7 +1,10 @@
 import type * as Aggregates from "../aggregates";
 import * as VO from "../value-objects";
 
-type EmotionalAdvicePromptType = [{ role: "system"; content: string }, { role: "user"; content: string }];
+export type EmotionalAdvicePromptType = [
+  { role: "system"; content: string },
+  { role: "user"; content: string },
+];
 
 export class EmotionalAdvicePrompt {
   constructor(
