@@ -3,11 +3,11 @@ import { AiClient, AiClientResponseType } from "../modules/emotions/services/ai-
 import { EmotionalAdvicePromptType } from "../modules/emotions/services/emotional-advice-prompt";
 import { Env } from "./env";
 
-const ai = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
+export const AnthropicAi = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
 
 export class AnthropicAiClient implements AiClient {
   async request(prompt: EmotionalAdvicePromptType): Promise<AiClientResponseType> {
-    const message = await ai.messages.create({
+    const message = await AnthropicAi.messages.create({
       max_tokens: 1024,
       messages: [prompt[1]],
       system: prompt[0].content,
