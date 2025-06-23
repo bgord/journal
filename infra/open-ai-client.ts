@@ -6,11 +6,11 @@ import { Env } from "./env";
 const ai = new OpenAi({ apiKey: Env.OPEN_AI_API_KEY });
 
 export class OpenAiClient implements AiClient {
-  async request(_prompt: EmotionalAdvicePromptType): Promise<AiClientResponseType> {
+  async request(prompt: EmotionalAdvicePromptType): Promise<AiClientResponseType> {
     const response = await ai.responses.create({
       model: "gpt-4o",
-      instructions: _prompt[0].content,
-      input: _prompt[1].content,
+      instructions: prompt[0].content,
+      input: prompt[1].content,
       max_output_tokens: 500,
     });
 
