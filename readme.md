@@ -41,12 +41,14 @@ Run the tests
 modules/
 └── emotions
     ├── aggregates
+    │   ├── alarm.ts
     │   ├── emotion-journal-entry.ts
     ├── entities
     │   ├── emotion.ts
     │   ├── reaction.ts
     │   └── situation.ts
     ├── events
+    │   ├── ALARM_GENERATED_EVENT.ts
     │   ├── EMOTION_JOURNAL_ENTRY_DELETED.ts
     │   ├── EMOTION_LOGGED_EVENT.ts
     │   ├── EMOTION_REAPPRAISED_EVENT.ts
@@ -69,6 +71,7 @@ modules/
     │   ├── onReactionLoggedEvent.ts
     │   └── onSituationLoggedEvent.ts
     ├── policies
+    │   ├── alarm-generated-once.ts
     │   ├── emotion-corresponds-to-situation.ts
     │   ├── emotion-for-reappraisal-exists.ts
     │   ├── entry-has-been-started.ts
@@ -88,6 +91,13 @@ modules/
     │   ├── log-situation.ts
     │   └── reappraise-emotion.ts
     ├── services
+    │   ├── ai-client.ts
+    │   ├── alarm-generator.ts
+    │   ├── alarms
+    │   │   ├── alarm.ts
+    │   │   └── negative-emotion-extreme-intensity-alarm.ts
+    │   ├── emotional-advice-prompt.ts
+    │   ├── emotional-advice.ts
     │   ├── pattern-detector.ts
     │   └── patterns
     │       ├── low-coping-effectiveness-pattern.ts
@@ -96,6 +106,9 @@ modules/
     │       ├── pattern.ts
     │       └── positive-emotion-with-maladaptive-reaction-pattern.ts
     └── value-objects
+        ├── alarm-id.ts
+        ├── alarm-name.ts
+        ├── alarm-status.ts
         ├── emotion-intensity.ts
         ├── emotion-journal-entry-finished-at.ts
         ├── emotion-journal-entry-id.ts
@@ -116,6 +129,7 @@ modules/
 
 ```
 infra/
+├── anthropic-ai-client.ts
 ├── basic-auth-shield.ts
 ├── db.ts
 ├── env.ts
@@ -125,6 +139,8 @@ infra/
 ├── i18n.ts
 ├── logger.ts
 ├── mailer.ts
+├── open-ai-client.ts
 ├── prerequisites.ts
+├── register-event-handlers.ts
 └── schema.ts
 ```
