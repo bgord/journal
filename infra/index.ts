@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { HTTPException } from "hono/http-exception";
 import type { TimingVariables } from "hono/timing";
 
-export * from "./ai-client";
+export * from "./anthropic-ai";
 export * from "./basic-auth-shield";
 export * from "./db";
 export * from "./env";
@@ -13,6 +13,7 @@ export * from "./healthcheck";
 export * from "./i18n";
 export * from "./logger";
 export * from "./mailer";
+export * from "./open-ai";
 export * from "./prerequisites";
 export * from "./register-event-handlers";
 export * as Schema from "./schema";
