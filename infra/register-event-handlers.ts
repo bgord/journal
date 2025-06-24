@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as EmotionEvents from "../modules/emotions/events";
 import * as EmotionHandlers from "../modules/emotions/handlers";
+import * as Sagas from "../modules/emotions/sagas";
 import { EventBus } from "./event-bus";
 import { logger } from "./logger";
 
@@ -48,3 +49,7 @@ EventBus.on(
   EmotionEvents.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   EventHandler.handle(EmotionHandlers.onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent),
 );
+
+// Alarms
+
+Sagas.AlarmProcessing.register(EventBus);
