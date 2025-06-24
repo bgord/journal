@@ -224,3 +224,15 @@ export const GenericAlarmGeneratedEvent = {
     emotionJournalEntryId: id,
   },
 } satisfies Emotions.Events.AlarmGeneratedEventType;
+
+export const GenericAlarmAdviceSavedEvent = {
+  id: expectAnyId,
+  createdAt: expect.any(Number),
+  stream: expect.any(String),
+  name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
+  version: 1,
+  payload: {
+    advice: "You should do something",
+    alarmId: expectAnyId,
+  },
+} satisfies Emotions.Events.AlarmAdviceSavedEventType;

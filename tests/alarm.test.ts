@@ -31,4 +31,14 @@ describe("Alarm", () => {
 
     expect(alarm.pullEvents()).toEqual([]);
   });
+
+  test("generate - correct path", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
+
+    const advice = new Emotions.VO.EmotionalAdvice("You should do something");
+
+    await alarm.saveAdvice(advice);
+
+    expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmAdviceSavedEvent]);
+  });
 });
