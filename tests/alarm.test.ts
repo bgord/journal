@@ -54,4 +54,15 @@ describe("Alarm", () => {
 
     expect(alarm.pullEvents()).toEqual([]);
   });
+
+  test("notify - correct path", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+    ]);
+
+    await alarm.notify();
+
+    expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationSentEvent]);
+  });
 });
