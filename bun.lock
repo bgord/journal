@@ -4,7 +4,7 @@
     "": {
       "name": "journal",
       "dependencies": {
-        "@anthropic-ai/sdk": "0.54.0",
+        "@anthropic-ai/sdk": "0.55.0",
         "@bgord/bun": "0.12.1",
         "@bgord/tools": "0.9.3",
         "better-sqlite3": "12.1.0",
@@ -27,7 +27,7 @@
     },
   },
   "packages": {
-    "@anthropic-ai/sdk": ["@anthropic-ai/sdk@0.54.0", "", { "bin": { "anthropic-ai-sdk": "bin/cli" } }, "sha512-xyoCtHJnt/qg5GG6IgK+UJEndz8h8ljzt/caKXmq3LfBF81nC/BW6E4x2rOWCZcvsLyVW+e8U5mtIr6UCE/kJw=="],
+    "@anthropic-ai/sdk": ["@anthropic-ai/sdk@0.55.0", "", { "bin": { "anthropic-ai-sdk": "bin/cli" } }, "sha512-VdxPRWPoeeVQt0XUZ3cXfeLB65Skkoo1FS7JAkr8/C7Q8+wjV7k2RsVGmFXBq12VeHxua7MUtNqXx6k8hgoIVg=="],
 
     "@babel/code-frame": ["@babel/code-frame@7.27.1", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.27.1", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg=="],
 
