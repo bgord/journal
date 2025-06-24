@@ -1,9 +1,26 @@
 # Changelog
+- 2025-06-25 00:44 f0c73cc **step: update anthropic sdk**
+- 2025-06-25 00:44 3d5e10b **step: test onAlarmNotificationSentEvent**
+## 2025-06-25 00:44 
+- 2025-06-25 00:39 d2bfe18 **step: implement onAlarmNotificationSentEvent**
+- 2025-06-25 00:37 f02554b **step: add alarm.getAdvice**
+- 2025-06-25 00:31 3c213b0 **step: add EmotionalAdviceNotificationComposer**
+- 2025-06-25 00:16 4ce7d2a **step: add emotionJournalEntryId to alarm notification sent evnet**
+- 2025-06-25 00:03 e763d68 **refactor: use jest.restoreAllMocks**
+- 2025-06-24 23:59 c0aa66d **step: add onAlarmAdviceSavedEvent**
+- 2025-06-24 23:37 140c726 **step: add emotionJournalEntryId to alarm advice saved**
+- 2025-06-24 23:26 e2fb5f6 **refactor: rename EMOTION_JOURNAL_ENTRY_DELETED_EVENT**
+- 2025-06-24 23:24 9cbded4 **step: test Alarm.notify**
+- 2025-06-24 23:12 0589ff8 **step: define AlarmAdviceAvailable**
+- 2025-06-24 23:06 6d84979 **step: test alarm.notify**
+- 2025-06-24 23:04 075ae51 **refactor: rename ALARM_NOTIFICATION_SENT_EVENT**
+- 2025-06-24 22:59 d615e5b **step: define Alarm.notify**
+- 2025-06-24 22:47 9adbef4 **step: define ALARM_NOTIFICATION_SENT_EVENT**
 - 2025-06-24 21:57 0e6b82a **fix: unused exports**
-## 2025-06-24 21:57 
 - 2025-06-24 21:53 e221377 **fix: missing event handler**
 - 2025-06-24 21:49 0f8dbf1 **step: update packages**
 - 2025-06-24 21:46 9908131 **fix: restore mocks**
+- 2025-06-24 20:01 6a8cdfb **docs: generate CHANGELOG**
 - 2025-06-24 19:47 ef99dcf **docs: generate readme**
 - 2025-06-24 19:47 26b1dd9 **docs: generate CHANGELOG**
 - 2025-06-24 19:13 8c73e2b **step: setup onAlarmAdviceSavedEvent-n**
