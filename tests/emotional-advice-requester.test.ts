@@ -9,7 +9,7 @@ const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalE
   mocks.MaladaptiveReactionLoggedEvent,
 ]);
 
-describe("EmotionalAdvice", () => {
+describe("EmotionalAdviceRequester", () => {
   test("openai - ask", async () => {
     const openAiCreate = spyOn(
       infra.OpenAI.responses,
@@ -19,13 +19,13 @@ describe("EmotionalAdvice", () => {
 
     const client = new infra.OpenAiClient();
 
-    const EmotionalAdvice = new Emotions.Services.EmotionalAdvice(
+    const EmotionalAdviceRequester = new Emotions.Services.EmotionalAdviceRequester(
       client,
       negativeEmotionExtremeIntensityEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     );
 
-    const advice = await EmotionalAdvice.ask();
+    const advice = await EmotionalAdviceRequester.ask();
 
     expect(advice).toEqual("anything");
 
@@ -41,13 +41,13 @@ describe("EmotionalAdvice", () => {
 
     const client = new infra.AnthropicAiClient();
 
-    const EmotionalAdvice = new Emotions.Services.EmotionalAdvice(
+    const EmotionalAdviceRequester = new Emotions.Services.EmotionalAdviceRequester(
       client,
       negativeEmotionExtremeIntensityEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     );
 
-    const advice = await EmotionalAdvice.ask();
+    const advice = await EmotionalAdviceRequester.ask();
 
     expect(advice).toEqual("anything");
 

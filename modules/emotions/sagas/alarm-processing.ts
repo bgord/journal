@@ -11,7 +11,7 @@ export class AlarmProcessing {
     eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent);
   }
 
-  static async onAlarmGeneratedEvent(_event: Events.AlarmGeneratedEventType) {
+  async onAlarmGeneratedEvent(_event: Events.AlarmGeneratedEventType) {
     console.log("processing alarm generated event");
   }
 }

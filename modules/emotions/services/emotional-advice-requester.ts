@@ -6,7 +6,7 @@ import * as VO from "../value-objects";
 // extract the type below to a VO.
 export type EmotionalAdviceType = string;
 
-export class EmotionalAdvice {
+export class EmotionalAdviceRequester {
   constructor(
     private readonly AiClient: Services.AiClient,
     private readonly entry: Aggregates.EmotionJournalEntry,
