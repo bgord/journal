@@ -41,4 +41,17 @@ describe("Alarm", () => {
 
     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmAdviceSavedEvent]);
   });
+
+  test("generate - AlarmAlreadyGenerated", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+    ]);
+
+    const advice = new Emotions.VO.EmotionalAdvice("You should do something");
+
+    expect(async () => alarm.saveAdvice(advice)).toThrow(Emotions.Policies.AlarmAlreadyGenerated.error);
+
+    expect(alarm.pullEvents()).toEqual([]);
+  });
 });
