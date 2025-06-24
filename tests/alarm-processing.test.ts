@@ -34,5 +34,6 @@ describe("AlarmProcessing", () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
 
     eventStoreSave.mockRestore();
+    jest.restoreAllMocks();
   });
 });
