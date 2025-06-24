@@ -9,7 +9,11 @@ export type AlarmEvent = (typeof Alarm)["events"][number];
 type AlarmEventType = z.infer<AlarmEvent>;
 
 export class Alarm {
-  static events = [Events.AlarmGeneratedEvent, Events.AlarmAdviceSavedEvent];
+  static events = [
+    Events.AlarmGeneratedEvent,
+    Events.AlarmAdviceSavedEvent,
+    Events.AlarmNotificationSentEvent,
+  ];
 
   private readonly id: VO.AlarmIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
@@ -72,6 +76,19 @@ export class Alarm {
         advice: advice.get(),
       },
     } satisfies Events.AlarmAdviceSavedEventType);
+
+    this.record(event);
+  }
+
+  async notify() {
+    const event = Events.AlarmNotificationSentEvent.parse({
+      id: bg.NewUUID.generate(),
+      createdAt: tools.Timestamp.parse(Date.now()),
+      name: Events.ALARM_NOTIFICATION_SENT_EVENT,
+      stream: Alarm.getStream(this.id),
+      version: 1,
+      payload: { alarmId: this.id },
+    } satisfies Events.AlarmNotificationSentEventType);
 
     this.record(event);
   }
