@@ -22,7 +22,6 @@ export class Alarm {
   private emotionJournalEntryId?: VO.EmotionJournalEntryIdType;
   // @ts-expect-error
   private name?: VO.AlarmNameOption;
-  // @ts-expect-error
   private advice?: VO.EmotionalAdvice;
 
   private readonly pending: AlarmEventType[] = [];
@@ -81,6 +80,8 @@ export class Alarm {
   }
 
   async notify() {
+    await Policies.AlarmAdviceAvailable.perform({ advice: this.advice });
+
     const event = Events.AlarmNotificationSentEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),

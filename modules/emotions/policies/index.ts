@@ -1,3 +1,4 @@
+export * from "./alarm-advice-available";
 export * from "./alarm-already-generated";
 export * from "./alarm-generated-once";
 export * from "./emotion-corresponds-to-situation";
