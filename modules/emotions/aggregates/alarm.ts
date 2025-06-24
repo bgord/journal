@@ -14,8 +14,12 @@ export class Alarm {
   private readonly id: VO.AlarmIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
 
+  // @ts-expect-error
   private emotionJournalEntryId?: VO.EmotionJournalEntryIdType;
+  // @ts-expect-error
   private name?: VO.AlarmNameOption;
+  // @ts-expect-error
+  private advice?: VO.EmotionalAdvice;
 
   private readonly pending: AlarmEventType[] = [];
 
@@ -89,6 +93,12 @@ export class Alarm {
         this.emotionJournalEntryId = event.payload.emotionJournalEntryId;
         this.name = event.payload.alarmName;
         this.status = VO.AlarmStatusEnum.generated;
+        break;
+      }
+
+      case Events.ALARM_ADVICE_SAVED_EVENT: {
+        this.advice = new VO.EmotionalAdvice(event.payload.advice);
+        this.status = VO.AlarmStatusEnum.advice_saved;
         break;
       }
 
