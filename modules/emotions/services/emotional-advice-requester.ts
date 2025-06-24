@@ -2,10 +2,6 @@ import type * as Aggregates from "../aggregates";
 import * as Services from "../services";
 import * as VO from "../value-objects";
 
-// TODO: Make this class EmotionalAdviceRequester,
-// extract the type below to a VO.
-export type EmotionalAdviceType = string;
-
 export class EmotionalAdviceRequester {
   constructor(
     private readonly AiClient: Services.AiClient,
@@ -13,11 +9,13 @@ export class EmotionalAdviceRequester {
     private readonly alarmName: VO.AlarmNameOption,
   ) {}
 
-  async ask(): Promise<EmotionalAdviceType> {
+  async ask(): Promise<VO.EmotionalAdvice> {
     const summary = this.entry.summarize();
 
     const prompt = new Services.EmotionalAdvicePrompt(summary, this.alarmName).generate();
 
-    return await this.AiClient.request(prompt);
+    const advice = await this.AiClient.request(prompt);
+
+    return new VO.EmotionalAdvice(advice);
   }
 }

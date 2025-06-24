@@ -27,7 +27,7 @@ describe("EmotionalAdviceRequester", () => {
 
     const advice = await EmotionalAdviceRequester.ask();
 
-    expect(advice).toEqual("anything");
+    expect(advice.get()).toEqual("anything");
 
     openAiCreate.mockRestore();
   });
@@ -49,7 +49,7 @@ describe("EmotionalAdviceRequester", () => {
 
     const advice = await EmotionalAdviceRequester.ask();
 
-    expect(advice).toEqual("anything");
+    expect(advice.get()).toEqual("anything");
 
     anthropicCreate.mockRestore();
   });
