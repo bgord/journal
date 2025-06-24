@@ -4,8 +4,10 @@ import * as EmotionHandlers from "../modules/emotions/handlers";
 import * as Sagas from "../modules/emotions/sagas";
 import { EventBus } from "./event-bus";
 import { logger } from "./logger";
+import { OpenAiClient } from "./open-ai-client";
 
 const EventHandler = new bg.EventHandler(logger);
+const OpenAI = new OpenAiClient();
 
 // Emotion journal entry
 
@@ -52,4 +54,4 @@ EventBus.on(
 
 // Alarms
 
-Sagas.AlarmProcessing.register(EventBus);
+new Sagas.AlarmProcessing(OpenAI).register(EventBus);

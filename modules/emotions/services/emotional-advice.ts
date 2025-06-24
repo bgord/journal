@@ -4,7 +4,7 @@ import * as VO from "../value-objects";
 
 // TODO: Make this class EmotionalAdviceRequester,
 // extract the type below to a VO.
-type EmotionalAdviceType = string;
+export type EmotionalAdviceType = string;
 
 export class EmotionalAdvice {
   constructor(
