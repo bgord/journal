@@ -234,6 +234,7 @@ export const GenericAlarmAdviceSavedEvent = {
   payload: {
     advice: "You should do something",
     alarmId: expectAnyId,
+    emotionJournalEntryId: id,
   },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
 

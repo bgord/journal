@@ -18,7 +18,6 @@ export class Alarm {
   private readonly id: VO.AlarmIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
 
-  // @ts-expect-error
   private emotionJournalEntryId?: VO.EmotionJournalEntryIdType;
   // @ts-expect-error
   private name?: VO.AlarmNameOption;
@@ -73,6 +72,7 @@ export class Alarm {
       payload: {
         alarmId: this.id,
         advice: advice.get(),
+        emotionJournalEntryId: this.emotionJournalEntryId as VO.EmotionJournalEntryIdType,
       },
     } satisfies Events.AlarmAdviceSavedEventType);
 
