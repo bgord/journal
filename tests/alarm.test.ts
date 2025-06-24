@@ -85,4 +85,16 @@ describe("Alarm", () => {
 
     expect(alarm.pullEvents()).toEqual([]);
   });
+
+  test("getAdvice", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+      mocks.GenericAlarmNotificationSentEvent,
+    ]);
+
+    const advice = alarm.getAdvice();
+
+    expect(advice?.get()).toEqual("You should do something");
+  });
 });

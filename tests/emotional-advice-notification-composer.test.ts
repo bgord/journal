@@ -5,18 +5,16 @@ import * as mocks from "./mocks";
 
 describe("EmotionalAdviceNotificationComposer", () => {
   test("compose", () => {
-    const negativeEmotionExtremeIntensityEntry =
-      Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
-        mocks.GenericSituationLoggedEvent,
-        mocks.NegativeEmotionExtremeIntensityLoggedEvent,
-      ]);
+    const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+      mocks.GenericSituationLoggedEvent,
+      mocks.NegativeEmotionExtremeIntensityLoggedEvent,
+    ]);
 
     const advice = new Emotions.VO.EmotionalAdvice("Do something");
 
-    const emotionalAdviceNotificationComposer =
-      new Emotions.Services.EmotionalAdviceNotificationComposer(
-        negativeEmotionExtremeIntensityEntry.summarize(),
-      );
+    const emotionalAdviceNotificationComposer = new Emotions.Services.EmotionalAdviceNotificationComposer(
+      negativeEmotionExtremeIntensityEntry.summarize(),
+    );
 
     const notification = emotionalAdviceNotificationComposer.compose(advice);
 

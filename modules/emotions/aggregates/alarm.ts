@@ -100,6 +100,10 @@ export class Alarm {
     this.record(event);
   }
 
+  getAdvice(): VO.EmotionalAdvice | undefined {
+    return this.advice;
+  }
+
   pullEvents(): AlarmEventType[] {
     const events = [...this.pending];
 

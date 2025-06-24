@@ -1,12 +1,8 @@
-import * as VO from "../value-objects";
 import * as Aggregates from "../aggregates";
+import * as VO from "../value-objects";
 
 export class EmotionalAdviceNotificationComposer {
-  constructor(
-    private readonly entrySummary: ReturnType<
-      Aggregates.EmotionJournalEntry["summarize"]
-    >,
-  ) {}
+  constructor(private readonly entrySummary: ReturnType<Aggregates.EmotionJournalEntry["summarize"]>) {}
 
   compose(advice: VO.EmotionalAdvice) {
     return `Advice for emotion entry: ${this.entrySummary.emotion?.label}: ${advice.get()}`;
