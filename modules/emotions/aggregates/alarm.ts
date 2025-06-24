@@ -80,7 +80,10 @@ export class Alarm {
   }
 
   async notify() {
-    await Policies.AlarmAdviceAvailable.perform({ advice: this.advice });
+    await Policies.AlarmAdviceAvailable.perform({
+      advice: this.advice,
+      status: this.status,
+    });
 
     const event = Events.AlarmNotificationSentEvent.parse({
       id: bg.NewUUID.generate(),
@@ -119,6 +122,11 @@ export class Alarm {
       case Events.ALARM_ADVICE_SAVED_EVENT: {
         this.advice = new VO.EmotionalAdvice(event.payload.advice);
         this.status = VO.AlarmStatusEnum.advice_saved;
+        break;
+      }
+
+      case Events.ALARM_NOTIFICATION_SENT_EVENT: {
+        this.status = VO.AlarmStatusEnum.notification_sent;
         break;
       }
 

@@ -2,25 +2,26 @@ import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as VO from "../value-objects";
 
-class AlarmAlreadyGeneratedError extends Error {
+class AlarmAdviceAvailableError extends Error {
   constructor() {
     super();
-    Object.setPrototypeOf(this, AlarmAlreadyGeneratedError.prototype);
+    Object.setPrototypeOf(this, AlarmAdviceAvailableError.prototype);
   }
 }
 
 type AlarmAdviceAvailableConfigType = {
   advice?: VO.EmotionalAdvice;
+  status: VO.AlarmStatusEnum;
 };
 
 class AlarmAdviceAvailableFactory extends bg.Policy<AlarmAdviceAvailableConfigType> {
   fails(config: AlarmAdviceAvailableConfigType) {
-    return !config.advice?.get();
+    return !config.advice?.get() || config.status !== VO.AlarmStatusEnum.advice_saved;
   }
 
   message = "alarm.advice.available";
 
-  error = AlarmAlreadyGeneratedError;
+  error = AlarmAdviceAvailableError;
 
   code = 403 as ContentfulStatusCode;
 }

@@ -65,4 +65,24 @@ describe("Alarm", () => {
 
     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationSentEvent]);
   });
+
+  test("notify - AlarmAdviceAvailable", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
+
+    expect(async () => alarm.notify()).toThrow(Emotions.Policies.AlarmAdviceAvailable.error);
+
+    expect(alarm.pullEvents()).toEqual([]);
+  });
+
+  test("notify - AlarmAdviceAvailable", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+      mocks.GenericAlarmNotificationSentEvent,
+    ]);
+
+    expect(async () => alarm.notify()).toThrow(Emotions.Policies.AlarmAdviceAvailable.error);
+
+    expect(alarm.pullEvents()).toEqual([]);
+  });
 });
