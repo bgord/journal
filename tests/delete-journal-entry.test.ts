@@ -67,7 +67,7 @@ describe("DELETE /emotions/:id/delete", () => {
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionJournalEntryDeletedEvent]);
-    eventStoreSave.mockRestore();
+    jest.restoreAllMocks();
   });
 
   test("happy path - after emotion", async () => {
@@ -97,7 +97,7 @@ describe("DELETE /emotions/:id/delete", () => {
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionJournalEntryDeletedEvent]);
-    eventStoreSave.mockRestore();
+    jest.restoreAllMocks();
   });
 
   test("happy path - after reaction", async () => {
@@ -131,6 +131,6 @@ describe("DELETE /emotions/:id/delete", () => {
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionJournalEntryDeletedEvent]);
-    eventStoreSave.mockRestore();
+    jest.restoreAllMocks();
   });
 });

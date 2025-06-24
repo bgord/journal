@@ -17,7 +17,6 @@ describe("onEmotionLoggedEvent", () => {
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
-    logEmotion.mockRestore();
-    eventStoreSave.mockRestore();
+    jest.restoreAllMocks();
   });
 });

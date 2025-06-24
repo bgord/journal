@@ -13,6 +13,6 @@ describe("onEmotionJournalEntryDeletedEvent", () => {
     expect(deleteEntry).toHaveBeenCalledTimes(1);
     expect(deleteEntry).toHaveBeenCalledWith(mocks.GenericEmotionJournalEntryDeletedEvent);
 
-    deleteEntry.mockRestore();
+    jest.restoreAllMocks();
   });
 });

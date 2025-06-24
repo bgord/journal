@@ -14,6 +14,6 @@ describe("onSituationLoggedEvent", () => {
     expect(logSituation).toHaveBeenCalledTimes(1);
     expect(logSituation).toHaveBeenCalledWith(mocks.GenericSituationLoggedEvent);
 
-    logSituation.mockRestore();
+    jest.restoreAllMocks();
   });
 });

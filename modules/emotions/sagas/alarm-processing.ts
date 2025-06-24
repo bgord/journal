@@ -17,9 +17,7 @@ export class AlarmProcessing {
       event.payload.emotionJournalEntryId,
       await EventStore.find(
         Aggregates.EmotionJournalEntry.events,
-        Aggregates.EmotionJournalEntry.getStream(
-          event.payload.emotionJournalEntryId,
-        ),
+        Aggregates.EmotionJournalEntry.getStream(event.payload.emotionJournalEntryId),
       ),
     );
 
@@ -33,10 +31,7 @@ export class AlarmProcessing {
 
     const alarm = Aggregates.Alarm.build(
       event.payload.emotionJournalEntryId,
-      await EventStore.find(
-        Aggregates.Alarm.events,
-        Aggregates.Alarm.getStream(event.payload.alarmId),
-      ),
+      await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(event.payload.alarmId)),
     );
 
     await alarm.saveAdvice(advice);
@@ -47,10 +42,7 @@ export class AlarmProcessing {
   async onAlarmAdviceSavedEvent(event: Events.AlarmAdviceSavedEventType) {
     const alarm = Aggregates.Alarm.build(
       event.payload.emotionJournalEntryId,
-      await EventStore.find(
-        Aggregates.Alarm.events,
-        Aggregates.Alarm.getStream(event.payload.alarmId),
-      ),
+      await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(event.payload.alarmId)),
     );
 
     await alarm.notify();

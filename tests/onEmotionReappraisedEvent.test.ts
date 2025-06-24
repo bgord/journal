@@ -19,7 +19,6 @@ describe("onEmotionReappraisedEvent", () => {
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
-    reappraiseEmotion.mockRestore();
-    eventStoreSave.mockRestore();
+    jest.restoreAllMocks();
   });
 });

@@ -269,6 +269,6 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
     expect(emotionJournalEntryEvaluateReaction).toHaveBeenCalledWith(reaction);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericReactionEvaluatedEvent]);
-    eventStoreSave.mockRestore();
+    jest.restoreAllMocks();
   });
 });

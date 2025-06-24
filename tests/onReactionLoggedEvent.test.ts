@@ -13,6 +13,6 @@ describe("onReactionLoggedEvent", () => {
     expect(logReaction).toHaveBeenCalledTimes(1);
     expect(logReaction).toHaveBeenCalledWith(mocks.GenericReactionLoggedEvent);
 
-    logReaction.mockRestore();
+    jest.restoreAllMocks();
   });
 });

@@ -318,6 +318,6 @@ describe("POST /emotions/:id/log-reaction", () => {
     expect(emotionJournalEntryLogReaction).toHaveBeenCalledWith(reaction);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericReactionLoggedEvent]);
-    eventStoreSave.mockRestore();
+    jest.restoreAllMocks();
   });
 });

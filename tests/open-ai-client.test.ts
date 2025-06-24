@@ -1,4 +1,4 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
@@ -33,6 +33,6 @@ describe("OpenAiClient", () => {
     });
     expect(result).toEqual("anything");
 
-    openAiCreate.mockRestore();
+    jest.restoreAllMocks();
   });
 });

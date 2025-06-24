@@ -96,6 +96,6 @@ describe("POST /emotions/log-situation", () => {
     expect(emotionJournalEntryLogSituation).toHaveBeenCalledWith(situation);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericSituationLoggedEvent]);
-    eventStoreSave.mockRestore();
+    jest.restoreAllMocks();
   });
 });

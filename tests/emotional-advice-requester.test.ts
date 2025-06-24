@@ -1,4 +1,4 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
@@ -11,7 +11,7 @@ const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalE
 
 describe("EmotionalAdviceRequester", () => {
   test("openai - ask", async () => {
-    const openAiCreate = spyOn(
+    spyOn(
       infra.OpenAI.responses,
       "create",
       // @ts-expect-error
@@ -29,11 +29,11 @@ describe("EmotionalAdviceRequester", () => {
 
     expect(advice.get()).toEqual("anything");
 
-    openAiCreate.mockRestore();
+    jest.restoreAllMocks();
   });
 
   test("openai - ask", async () => {
-    const anthropicCreate = spyOn(
+    spyOn(
       infra.AnthropicAi.messages,
       "create",
       // @ts-expect-error
@@ -51,6 +51,6 @@ describe("EmotionalAdviceRequester", () => {
 
     expect(advice.get()).toEqual("anything");
 
-    anthropicCreate.mockRestore();
+    jest.restoreAllMocks();
   });
 });
