@@ -11,7 +11,30 @@ export class AlarmProcessing {
     eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent);
   }
 
-  async onAlarmGeneratedEvent(_event: Events.AlarmGeneratedEventType) {
-    console.log("processing alarm generated event");
+  async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
+    const entry = Aggregates.EmotionJournalEntry.build(
+      event.payload.emotionJournalEntryId,
+      await EventStore.find(
+        Aggregates.EmotionJournalEntry.events,
+        Aggregates.EmotionJournalEntry.getStream(event.payload.emotionJournalEntryId),
+      ),
+    );
+
+    const emotionalAdviceRequester = new Services.EmotionalAdviceRequester(
+      this.AiClient,
+      entry,
+      event.payload.alarmName,
+    );
+
+    const advice = await emotionalAdviceRequester.ask();
+
+    const alarm = Aggregates.Alarm.build(
+      event.payload.emotionJournalEntryId,
+      await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(event.payload.alarmId)),
+    );
+
+    await alarm.saveAdvice(advice);
+
+    await EventStore.save(alarm.pullEvents());
   }
 }
