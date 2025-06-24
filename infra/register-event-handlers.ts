@@ -12,7 +12,7 @@ const OpenAI = new OpenAiClient();
 // Emotion journal entry
 
 EventBus.on(
-  EmotionEvents.EMOTION_JOURNAL_ENTRY_DELETED,
+  EmotionEvents.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
   EventHandler.handle(EmotionHandlers.onEmotionJournalEntryDeletedEvent),
 );
 

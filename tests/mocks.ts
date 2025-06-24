@@ -168,7 +168,7 @@ export const AdaptiveReactionLoggedEvent = {
 export const GenericEmotionJournalEntryDeletedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED,
+  name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
   version: 1,
   payload: { id },

@@ -194,7 +194,7 @@ export class EmotionJournalEntry {
     const event = Events.EmotionJournalEntryDeletedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: Events.EMOTION_JOURNAL_ENTRY_DELETED,
+      name: Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: { id: this.id },
@@ -277,7 +277,7 @@ export class EmotionJournalEntry {
         break;
       }
 
-      case Events.EMOTION_JOURNAL_ENTRY_DELETED: {
+      case Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT: {
         this.status = VO.EmotionJournalEntryStatusEnum.deleted;
 
         this.finishedAt = event.createdAt;
