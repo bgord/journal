@@ -9,7 +9,7 @@ export type AlarmEvent = (typeof Alarm)["events"][number];
 type AlarmEventType = z.infer<AlarmEvent>;
 
 export class Alarm {
-  static events = [Events.AlarmGeneratedEvent];
+  static events = [Events.AlarmGeneratedEvent, Events.AlarmAdviceSavedEvent];
 
   private readonly id: VO.AlarmIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
