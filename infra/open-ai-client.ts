@@ -3,6 +3,7 @@ import { AiClient, AiClientResponseType } from "../modules/emotions/services/ai-
 import { EmotionalAdvicePromptType } from "../modules/emotions/services/emotional-advice-prompt";
 import { Env } from "./env";
 
+/** @public */
 export const OpenAI = new OAI({ apiKey: Env.OPEN_AI_API_KEY });
 
 export class OpenAiClient implements AiClient {

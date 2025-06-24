@@ -15,6 +15,7 @@ export type PatternDetectionEvent =
 export type PatternDetectionEventType = z.infer<PatternDetectionEvent>;
 
 export enum PatternKindOptions {
+  /** @public */
   positive = "positive",
   negative = "negative",
 }

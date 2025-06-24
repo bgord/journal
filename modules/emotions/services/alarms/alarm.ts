@@ -5,7 +5,8 @@ export type AlarmApplicableCheckOutputType = {
   applicable: true;
   name: VO.AlarmNameOption;
 };
-export type AlarmNotApplicableCheckOutputType = {
+
+type AlarmNotApplicableCheckOutputType = {
   applicable: false;
   name: VO.AlarmNameOption;
 };
