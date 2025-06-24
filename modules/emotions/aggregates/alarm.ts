@@ -54,6 +54,22 @@ export class Alarm {
     this.record(event);
   }
 
+  async saveAdvice(advice: VO.EmotionalAdvice) {
+    const event = Events.AlarmAdviceSavedEvent.parse({
+      id: bg.NewUUID.generate(),
+      createdAt: tools.Timestamp.parse(Date.now()),
+      name: Events.ALARM_ADVICE_SAVED_EVENT,
+      stream: Alarm.getStream(this.id),
+      version: 1,
+      payload: {
+        alarmId: this.id,
+        advice: advice.get(),
+      },
+    } satisfies Events.AlarmAdviceSavedEventType);
+
+    this.record(event);
+  }
+
   pullEvents(): AlarmEventType[] {
     const events = [...this.pending];
 
