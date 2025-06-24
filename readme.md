@@ -50,7 +50,8 @@ modules/
     ├── events
     │   ├── ALARM_ADVICE_SAVED_EVENT.ts
     │   ├── ALARM_GENERATED_EVENT.ts
-    │   ├── EMOTION_JOURNAL_ENTRY_DELETED.ts
+    │   ├── ALARM_NOTIFICATION_SENT_EVENT.ts
+    │   ├── EMOTION_JOURNAL_ENTRY_DELETED_EVENT.ts
     │   ├── EMOTION_LOGGED_EVENT.ts
     │   ├── EMOTION_REAPPRAISED_EVENT.ts
     │   ├── LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT.ts
@@ -72,6 +73,7 @@ modules/
     │   ├── onReactionLoggedEvent.ts
     │   └── onSituationLoggedEvent.ts
     ├── policies
+    │   ├── alarm-advice-available.ts
     │   ├── alarm-already-generated.ts
     │   ├── alarm-generated-once.ts
     │   ├── emotion-corresponds-to-situation.ts
@@ -100,6 +102,7 @@ modules/
     │   ├── alarms
     │   │   ├── alarm.ts
     │   │   └── negative-emotion-extreme-intensity-alarm.ts
+    │   ├── emotional-advice-notification-composer.ts
     │   ├── emotional-advice-prompt.ts
     │   ├── emotional-advice-requester.ts
     │   ├── pattern-detector.ts
