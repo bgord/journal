@@ -9,6 +9,7 @@ export class AlarmProcessing {
 
   register(eventBus: typeof EventBus) {
     eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent);
+    eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent);
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
@@ -37,4 +38,6 @@ export class AlarmProcessing {
 
     await EventStore.save(alarm.pullEvents());
   }
+
+  async onAlarmAdviceSavedEvent(_event: Events.AlarmAdviceSavedEventType) {}
 }
