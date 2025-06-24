@@ -1,6 +1,11 @@
 # Changelog
+- 2025-06-24 21:57 0e6b82a **fix: unused exports**
+## 2025-06-24 21:57 
+- 2025-06-24 21:53 e221377 **fix: missing event handler**
+- 2025-06-24 21:49 0f8dbf1 **step: update packages**
 - 2025-06-24 21:46 9908131 **fix: restore mocks**
-## 2025-06-24 21:46 
+- 2025-06-24 19:47 ef99dcf **docs: generate readme**
+- 2025-06-24 19:47 26b1dd9 **docs: generate CHANGELOG**
 - 2025-06-24 19:13 8c73e2b **step: setup onAlarmAdviceSavedEvent-n**
 - 2025-06-24 19:13 2c7b33e **step: test alarm processing first event**
 - 2025-06-24 16:10 d94a7e3 **step: test alarm already generated policy**
