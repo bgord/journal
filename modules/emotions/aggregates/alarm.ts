@@ -59,6 +59,8 @@ export class Alarm {
   }
 
   async saveAdvice(advice: VO.EmotionalAdvice) {
+    await Policies.AlarmAlreadyGenerated.perform({ status: this.status });
+
     const event = Events.AlarmAdviceSavedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
