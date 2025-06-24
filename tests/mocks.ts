@@ -244,5 +244,5 @@ export const GenericAlarmNotificationSentEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
   version: 1,
-  payload: { alarmId: expectAnyId },
+  payload: { alarmId: expectAnyId, emotionJournalEntryId: id },
 } satisfies Emotions.Events.AlarmNotificationSentEventType;

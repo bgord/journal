@@ -91,7 +91,10 @@ export class Alarm {
       name: Events.ALARM_NOTIFICATION_SENT_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
-      payload: { alarmId: this.id },
+      payload: {
+        alarmId: this.id,
+        emotionJournalEntryId: this.emotionJournalEntryId as VO.EmotionJournalEntryIdType,
+      },
     } satisfies Events.AlarmNotificationSentEventType);
 
     this.record(event);
