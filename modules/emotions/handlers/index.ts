@@ -1,6 +1,7 @@
 export * from "./onEmotionJournalEntryDeleted";
 export * from "./onEmotionLoggedEvent";
 export * from "./onEmotionReappraisedEvent";
+export * from "./onLowCopingEffectivenessPatternDetectedEvent";
 export * from "./onMoreNegativeThanPositiveEmotionsPatternDetectedEvent";
 export * from "./onMultipleMaladaptiveReactionsPatternDetectedEvent";
 export * from "./onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent";

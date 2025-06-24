@@ -52,6 +52,11 @@ EventBus.on(
   EventHandler.handle(EmotionHandlers.onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent),
 );
 
+EventBus.on(
+  EmotionEvents.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
+  EventHandler.handle(EmotionHandlers.onLowCopingEffectivenessPatternDetectedEvent),
+);
+
 // Alarms
 
 new Sagas.AlarmProcessing(OpenAI).register(EventBus);
