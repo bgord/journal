@@ -1,6 +1,25 @@
 # Changelog
+- 2025-06-24 21:46 9908131 **fix: restore mocks**
+## 2025-06-24 21:46 
+- 2025-06-24 19:13 8c73e2b **step: setup onAlarmAdviceSavedEvent-n**
+- 2025-06-24 19:13 2c7b33e **step: test alarm processing first event**
+- 2025-06-24 16:10 d94a7e3 **step: test alarm already generated policy**
+- 2025-06-24 16:08 18749aa **step: use alarm already generated policy**
+- 2025-06-24 16:07 793ee73 **step: add alarm already generated policy**
+- 2025-06-24 16:03 49853a4 **refactor: wire up emotional advice maximum length to ai client**
+- 2025-06-24 15:57 7b4ceaf **step: handle alarm alarm advice saved event internally**
+- 2025-06-24 15:55 aed1ff9 **step: test alarm.generate**
+- 2025-06-24 15:52 134f7dd **step: define alarm.saveAdvice**
+- 2025-06-24 15:50 d9deb36 **step: setup ALARM_ADVICE_SAVED_EVENT**
+- 2025-06-24 15:43 46f8f20 **refactor: wire up emotional advice requester to use emotional advice vo**
+- 2025-06-24 15:42 9a84ec8 **step: define emotional advice vo**
+- 2025-06-24 15:36 f50a602 **refactor: rename emotional advice requester**
+- 2025-06-24 15:27 a74e5c7 **refactor: inject Ai Client into Alarm Processing saga**
+- 2025-06-24 15:26 698f4b6 **step: define EmotionalAdviceType-n**
+- 2025-06-24 10:24 6107aee **step: add AlarmProcessing.onAlarmGeneratedEvent**
+- 2025-06-24 10:20 9023129 **step: setup alarm processing saga**
+- 2025-06-23 23:27 f3e9744 **step: test alarm generator in on emotion reappraised event**
 - 2025-06-23 23:14 a9a08ec **Merge pull request #6 from bgord/alarms**
-## 2025-06-23 23:14 
 - 2025-06-23 23:08 e8e9cd9 **step: update dependencies**
 - 2025-06-23 23:01 29f7480 **step: test emotional-advice**
 - 2025-06-23 22:55 dd37c73 **step: test open-ai-client**
@@ -8,6 +27,8 @@
 - 2025-06-23 21:54 183e747 **fix: open ai client**
 - 2025-06-23 21:53 c9f4093 **fix: exports**
 - 2025-06-23 21:48 419309d **step: implement ai clients**
+- 2025-06-23 21:14 7752952 **docs: generate CHANGELOG**
+- 2025-06-23 21:14 57678b4 **docs: generate readme**
 - 2025-06-23 16:42 d8182b0 **refactor: move ai clients to infra**
 - 2025-06-23 16:22 2475fbe **step: implement basic emotional advice service**
 - 2025-06-23 16:17 f7f0d99 **step: implement open ai and anthropic clients**
