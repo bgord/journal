@@ -3,7 +3,6 @@ import { z } from "zod/v4";
 const EmotionalAdviceErrors = { invalid: "emotional.advice.invalid" };
 
 const EmotionalAdviceMin = 1;
-// TODO: max tokens
 const EmotionalAdviceMax = 1024;
 
 export const EmotionalAdviceSchema = z

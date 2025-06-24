@@ -29,7 +29,7 @@ describe("OpenAiClient", () => {
       model: "gpt-4o",
       instructions: prompt.generate()[0].content,
       input: prompt.generate()[1].content,
-      max_output_tokens: 500,
+      max_output_tokens: Emotions.VO.EmotionalAdvice.MaximumLength,
     });
     expect(result).toEqual("anything");
 

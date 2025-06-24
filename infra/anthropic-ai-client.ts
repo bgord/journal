@@ -8,7 +8,7 @@ export const AnthropicAi = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
 export class AnthropicAiClient implements AiClient {
   async request(prompt: EmotionalAdvicePromptType): Promise<AiClientResponseType> {
     const message = await AnthropicAi.messages.create({
-      max_tokens: 1024,
+      max_tokens: AiClient.maxLength,
       messages: [prompt[1]],
       system: prompt[0].content,
       model: "claude-3-5-sonnet-latest",

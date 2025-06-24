@@ -11,7 +11,7 @@ export class OpenAiClient implements AiClient {
       model: "gpt-4o",
       instructions: prompt[0].content,
       input: prompt[1].content,
-      max_output_tokens: 500,
+      max_output_tokens: AiClient.maxLength,
     });
 
     return response.output_text;
