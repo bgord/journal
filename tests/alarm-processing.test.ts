@@ -1,4 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
+import { Mailer } from "../infra";
 import { EventStore } from "../infra/event-store";
 import { OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
@@ -49,6 +50,34 @@ describe("AlarmProcessing", () => {
     await saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);
+
+    jest.restoreAllMocks();
+  });
+
+  test("onAlarmNotificationSentEvent", async () => {
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
+
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
+      negativeEmotionExtremeIntensityEntry,
+    );
+
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+      mocks.GenericAlarmNotificationSentEvent,
+    ]);
+
+    spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
+
+    const saga = new AlarmProcessing(openAiClient);
+    await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent);
+
+    expect(mailerSend).toHaveBeenCalledWith({
+      from: "journal@example.com",
+      to: "example@abc.com",
+      subject: "Emotional advice",
+      content: "Advice for emotion entry: anger: You should do something",
+    });
 
     jest.restoreAllMocks();
   });
