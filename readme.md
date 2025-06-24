@@ -48,6 +48,7 @@ modules/
     │   ├── reaction.ts
     │   └── situation.ts
     ├── events
+    │   ├── ALARM_ADVICE_SAVED_EVENT.ts
     │   ├── ALARM_GENERATED_EVENT.ts
     │   ├── EMOTION_JOURNAL_ENTRY_DELETED.ts
     │   ├── EMOTION_LOGGED_EVENT.ts
@@ -71,6 +72,7 @@ modules/
     │   ├── onReactionLoggedEvent.ts
     │   └── onSituationLoggedEvent.ts
     ├── policies
+    │   ├── alarm-already-generated.ts
     │   ├── alarm-generated-once.ts
     │   ├── emotion-corresponds-to-situation.ts
     │   ├── emotion-for-reappraisal-exists.ts
@@ -90,6 +92,8 @@ modules/
     │   ├── log-reaction.ts
     │   ├── log-situation.ts
     │   └── reappraise-emotion.ts
+    ├── sagas
+    │   ├── alarm-processing.ts
     ├── services
     │   ├── ai-client.ts
     │   ├── alarm-generator.ts
@@ -97,7 +101,7 @@ modules/
     │   │   ├── alarm.ts
     │   │   └── negative-emotion-extreme-intensity-alarm.ts
     │   ├── emotional-advice-prompt.ts
-    │   ├── emotional-advice.ts
+    │   ├── emotional-advice-requester.ts
     │   ├── pattern-detector.ts
     │   └── patterns
     │       ├── low-coping-effectiveness-pattern.ts
@@ -115,6 +119,7 @@ modules/
         ├── emotion-journal-entry-started-at.ts
         ├── emotion-journal-entry-status.ts
         ├── emotion-label.ts
+        ├── emotional-advice.ts
         ├── geneva-wheel-emotion.enum.ts
         ├── gross-emotion-regulation-strategy.enum.ts
         ├── reaction-description.ts
