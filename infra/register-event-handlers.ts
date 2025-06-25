@@ -59,4 +59,16 @@ EventBus.on(
 
 // Alarms
 
+EventBus.on(EmotionEvents.ALARM_GENERATED_EVENT, EventHandler.handle(EmotionHandlers.onAlarmGeneratedEvent));
+
+EventBus.on(
+  EmotionEvents.ALARM_ADVICE_SAVED_EVENT,
+  EventHandler.handle(EmotionHandlers.onAlarmAdviceSavedEvent),
+);
+
+EventBus.on(
+  EmotionEvents.ALARM_NOTIFICATION_SENT_EVENT,
+  EventHandler.handle(EmotionHandlers.onAlarmNotificationSentEvent),
+);
+
 new Sagas.AlarmProcessing(OpenAI).register(EventBus);
