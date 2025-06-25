@@ -49,6 +49,7 @@ modules/
     │   └── situation.ts
     ├── events
     │   ├── ALARM_ADVICE_SAVED_EVENT.ts
+    │   ├── ALARM_CANCELLED_EVENT.ts
     │   ├── ALARM_GENERATED_EVENT.ts
     │   ├── ALARM_NOTIFICATION_SENT_EVENT.ts
     │   ├── EMOTION_JOURNAL_ENTRY_DELETED_EVENT.ts
@@ -63,6 +64,7 @@ modules/
     │   ├── SITUATION_LOGGED_EVENT.ts
     ├── handlers
     │   ├── onAlarmAdviceSavedEvent.ts
+    │   ├── onAlarmCancelledEvent.ts
     │   ├── onAlarmGeneratedEvent.ts
     │   ├── onAlarmNotificationSentEvent.ts
     │   ├── onEmotionJournalEntryDeleted.ts
@@ -79,6 +81,7 @@ modules/
     │   ├── alarm-advice-available.ts
     │   ├── alarm-already-generated.ts
     │   ├── alarm-generated-once.ts
+    │   ├── alarm-is-cancellable.ts
     │   ├── emotion-corresponds-to-situation.ts
     │   ├── emotion-for-reappraisal-exists.ts
     │   ├── entry-has-been-started.ts
