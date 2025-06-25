@@ -1,12 +1,28 @@
 # Changelog
+- 2025-06-26 00:55 954d7aa **refactor: remove get alarms for now**
+## 2025-06-26 00:55 
+- 2025-06-26 00:49 4d6df32 **step: test entry deletion in alarm processing saga**
+- 2025-06-26 00:44 928a8ea **step: handle onEmotionJournalEntryDeletedEvent in alarm processing saga**
+- 2025-06-26 00:43 8748e3c **step: implement Alarm repository getCancellableByEmotionJournalEntryId**
+- 2025-06-26 00:07 8e70159 **step: test alarm.cancel**
+- 2025-06-26 00:06 22c6bcb **step: test onAlarmCancelledEvent**
+- 2025-06-26 00:04 9252ca0 **step: define on alarm cancelled event handler**
+- 2025-06-25 23:58 c4b7cab **step: define alarm is cancellable policy**
+- 2025-06-25 23:58 600ac7a **step: add alarm.cancel method**
+- 2025-06-25 23:57 8500c92 **step: define alarm cancelled event**
+- 2025-06-25 23:37 38476f7 **step: install bun**
+- 2025-06-25 23:14 1bac7ba **step: update node to 24.3.0**
+- 2025-06-25 23:13 2e8eafe **step: update bun to 1.2.17**
+- 2025-06-25 22:53 704de72 **step: setup GET /alarms/get tests**
+- 2025-06-25 17:48 18fa2a1 **step: setup get alarms route**
 - 2025-06-25 17:23 14ff8e8 **step: bump bgord/scripts**
-## 2025-06-25 17:23 
 - 2025-06-25 17:13 e7aea68 **step: bump bgord/scripts**
 - 2025-06-25 16:42 c4eb795 **refactor: fix deploy script paths**
 - 2025-06-25 16:40 b0dc1a8 **step: update packages**
 - 2025-06-25 16:39 670fbae **refactor: remove bun_ from validate_environment_file**
 - 2025-06-25 16:39 16f79c3 **step: bump bgord/scripts**
 - 2025-06-25 16:37 64c90f4 **refactor: pinpoint codeql-analysis ubuntu version**
+- 2025-06-25 15:23 aef27ea **docs: generate CHANGELOG**
 - 2025-06-25 14:42 bb408e9 **docs: generate CHANGELOG**
 - 2025-06-25 14:40 d171e28 **docs: generate CHANGELOG**
 - 2025-06-25 14:40 5500048 **docs: generate readme**
