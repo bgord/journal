@@ -8,7 +8,7 @@ export type EmotionalAdvicePromptType = [
 
 export class EmotionalAdvicePrompt {
   constructor(
-    private readonly summary: ReturnType<Aggregates.EmotionJournalEntry["summarize"]>,
+    private readonly summary: Aggregates.EmotionJournalEntrySummary,
     private readonly alarmName: VO.AlarmNameOption,
   ) {}
 

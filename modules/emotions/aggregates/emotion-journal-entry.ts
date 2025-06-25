@@ -10,6 +10,16 @@ import * as VO from "../value-objects";
 export type JournalEntryEvent = (typeof EmotionJournalEntry)["events"][number];
 type JournalEntryEventType = z.infer<JournalEntryEvent>;
 
+export type EmotionJournalEntrySummary = {
+  id: EmotionJournalEntry["id"];
+  startedAt: EmotionJournalEntry["startedAt"];
+  finishedAt: EmotionJournalEntry["finishedAt"];
+  situation: EmotionJournalEntry["situation"];
+  emotion: EmotionJournalEntry["emotion"];
+  reaction: EmotionJournalEntry["reaction"];
+  status: EmotionJournalEntry["status"];
+};
+
 export class EmotionJournalEntry {
   static events = [
     Events.SituationLoggedEvent,
@@ -203,7 +213,7 @@ export class EmotionJournalEntry {
     this.record(event);
   }
 
-  summarize() {
+  summarize(): EmotionJournalEntrySummary {
     return {
       id: this.id,
       startedAt: this.startedAt,
