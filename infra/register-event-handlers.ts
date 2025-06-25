@@ -71,9 +71,6 @@ EventBus.on(
   EventHandler.handle(EmotionHandlers.onAlarmNotificationSentEvent),
 );
 
-EventBus.on(
-  EmotionEvents.ALARM_CANCELLED_EVENT,
-  EventHandler.handle(EmotionHandlers.onAlarmCancelledEvent),
-);
+EventBus.on(EmotionEvents.ALARM_CANCELLED_EVENT, EventHandler.handle(EmotionHandlers.onAlarmCancelledEvent));
 
 new Sagas.AlarmProcessing(OpenAI).register(EventBus);

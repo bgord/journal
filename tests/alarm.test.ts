@@ -97,4 +97,27 @@ describe("Alarm", () => {
 
     expect(advice?.get()).toEqual("You should do something");
   });
+
+  test("cancel - correct path", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+    ]);
+
+    await alarm.cancel();
+
+    expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmCancelledEvent]);
+  });
+
+  test("cancel - AlarmIsCancellable", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+      mocks.GenericAlarmNotificationSentEvent,
+    ]);
+
+    expect(async () => alarm.cancel()).toThrow(Emotions.Policies.AlarmIsCancellable.error);
+
+    expect(alarm.pullEvents()).toEqual([]);
+  });
 });
