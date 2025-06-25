@@ -29,7 +29,6 @@ server.get(
 // =============================
 
 // Emotions =================
-server.get("/alarms/get", Emotions.Routes.GetAlarms);
 server.delete("/emotions/:id/delete", Emotions.Routes.DeleteJournalEntry);
 server.post("/emotions/:id/evaluate-reaction", Emotions.Routes.EvaluateReaction);
 server.post("/emotions/:id/log-emotion", Emotions.Routes.LogEmotion);
