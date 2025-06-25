@@ -25,7 +25,7 @@
     "@anthropic-ai/sdk": "0.55.0",
     "@bgord/bun": "0.12.1",
     "@bgord/tools": "0.9.3",
-    "better-sqlite3": "12.1.0",
+    "better-sqlite3": "12.1.1",
     "drizzle-orm": "0.44.2",
     "emittery": "1.2.0",
     "openai": "5.7.0"
