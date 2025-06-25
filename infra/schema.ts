@@ -46,7 +46,9 @@ export const emotionJournalEntries = sqliteTable("emotionJournalEntries", {
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
-  emotionJournalEntryId: text("id", { length: 36 }).references(() => emotionJournalEntries.id),
+  emotionJournalEntryId: text("emotionJournalEntryId", {
+    length: 36,
+  }).references(() => emotionJournalEntries.id),
   status: text("status", toEnumList(AlarmStatusEnum)).notNull(),
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),
