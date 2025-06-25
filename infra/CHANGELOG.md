@@ -1,7 +1,22 @@
 # Changelog
+- 2025-06-25 16:40 b0dc1a8 **step: update packages**
+## 2025-06-25 16:40 
+- 2025-06-25 16:39 670fbae **refactor: remove bun_ from validate_environment_file**
+- 2025-06-25 16:39 16f79c3 **step: bump bgord/scripts**
+- 2025-06-25 16:37 64c90f4 **refactor: pinpoint codeql-analysis ubuntu version**
+- 2025-06-25 14:27 7bd6945 **step: test alarm read model event handlers**
+- 2025-06-25 14:19 90e4be1 **step: implemet onAlarmNotificationSentEvent**
+- 2025-06-25 14:18 25bc657 **step: implement onAlarmAdviceSavedEvent**
+- 2025-06-25 14:14 f196919 **step: implement onAlarmGeneratedEvent**
+- 2025-06-25 14:14 36e60a1 **step: create alarm repository**
+- 2025-06-25 14:13 c5c2f0a **refactor: adjust alarm schema naming**
+- 2025-06-25 14:02 440cfd2 **step: setup alarm read model event handlers**
+- 2025-06-25 13:56 d9b4fa7 **step: generate alarms migrations**
+- 2025-06-25 13:55 756e97d **step: define alarms schema**
+- 2025-06-25 13:54 a6813cf **step: add alarm generated at vo**
+- 2025-06-25 13:46 e070205 **refactor: extract EmotionJournalEntrySummary**
 - 2025-06-25 00:44 f0c73cc **step: update anthropic sdk**
 - 2025-06-25 00:44 3d5e10b **step: test onAlarmNotificationSentEvent**
-## 2025-06-25 00:44 
 - 2025-06-25 00:39 d2bfe18 **step: implement onAlarmNotificationSentEvent**
 - 2025-06-25 00:37 f02554b **step: add alarm.getAdvice**
 - 2025-06-25 00:31 3c213b0 **step: add EmotionalAdviceNotificationComposer**
@@ -16,6 +31,8 @@
 - 2025-06-24 23:04 075ae51 **refactor: rename ALARM_NOTIFICATION_SENT_EVENT**
 - 2025-06-24 22:59 d615e5b **step: define Alarm.notify**
 - 2025-06-24 22:47 9adbef4 **step: define ALARM_NOTIFICATION_SENT_EVENT**
+- 2025-06-24 22:44 e13bf4e **docs: generate readme**
+- 2025-06-24 22:44 c9c7f17 **docs: generate CHANGELOG**
 - 2025-06-24 21:57 0e6b82a **fix: unused exports**
 - 2025-06-24 21:53 e221377 **fix: missing event handler**
 - 2025-06-24 21:49 0f8dbf1 **step: update packages**
