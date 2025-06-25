@@ -1,9 +1,12 @@
 # Changelog
+- 2025-06-25 16:42 c4eb795 **refactor: fix deploy script paths**
+## 2025-06-25 16:42 
 - 2025-06-25 16:40 b0dc1a8 **step: update packages**
-## 2025-06-25 16:40 
 - 2025-06-25 16:39 670fbae **refactor: remove bun_ from validate_environment_file**
 - 2025-06-25 16:39 16f79c3 **step: bump bgord/scripts**
 - 2025-06-25 16:37 64c90f4 **refactor: pinpoint codeql-analysis ubuntu version**
+- 2025-06-25 14:40 d171e28 **docs: generate CHANGELOG**
+- 2025-06-25 14:40 5500048 **docs: generate readme**
 - 2025-06-25 14:27 7bd6945 **step: test alarm read model event handlers**
 - 2025-06-25 14:19 90e4be1 **step: implemet onAlarmNotificationSentEvent**
 - 2025-06-25 14:18 25bc657 **step: implement onAlarmAdviceSavedEvent**
