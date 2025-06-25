@@ -24,4 +24,11 @@ export class AlarmRepository {
       })
       .where(eq(Schema.alarms.id, event.payload.alarmId));
   }
+
+  static async notify(event: Events.AlarmNotificationSentEventType) {
+    await db
+      .update(Schema.alarms)
+      .set({ status: VO.AlarmStatusEnum.notification_sent })
+      .where(eq(Schema.alarms.id, event.payload.alarmId));
+  }
 }
