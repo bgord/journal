@@ -26,13 +26,13 @@ cp .env.example .env.test
 Start the app
 
 ```
-./bgord-scripts/bun-local-server-start.sh
+./bgord-scripts/local-server-start.sh
 ```
 
 Run the tests
 
 ```
-./bgord-scripts/bun-test-run.sh
+./bgord-scripts/test-run.sh
 ```
 
 ## Domain:
@@ -62,6 +62,9 @@ modules/
     │   ├── REACTION_LOGGED_EVENT.ts
     │   ├── SITUATION_LOGGED_EVENT.ts
     ├── handlers
+    │   ├── onAlarmAdviceSavedEvent.ts
+    │   ├── onAlarmGeneratedEvent.ts
+    │   ├── onAlarmNotificationSentEvent.ts
     │   ├── onEmotionJournalEntryDeleted.ts
     │   ├── onEmotionLoggedEvent.ts
     │   ├── onEmotionReappraisedEvent.ts
@@ -86,6 +89,7 @@ modules/
     │   ├── reaction-corresponds-to-situation-and-emotion.ts
     │   └── reaction-for-evaluation-exists.ts
     ├── repositories
+    │   ├── alarm-repository.ts
     │   ├── emotion-journal-entry-repository.ts
     ├── routes
     │   ├── delete-journal-entry.ts
@@ -113,6 +117,7 @@ modules/
     │       ├── pattern.ts
     │       └── positive-emotion-with-maladaptive-reaction-pattern.ts
     └── value-objects
+        ├── alarm-generated-at.ts
         ├── alarm-id.ts
         ├── alarm-name.ts
         ├── alarm-status.ts
