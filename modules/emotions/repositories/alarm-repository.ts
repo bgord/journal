@@ -1,4 +1,4 @@
-import { asc, eq } from "drizzle-orm";
+import { and, asc, eq, notInArray } from "drizzle-orm";
 import { db } from "../../../infra/db";
 import * as Schema from "../../../infra/schema";
 import type * as Events from "../events";
@@ -34,6 +34,21 @@ export class AlarmRepository {
 
   static async getAlarms() {
     return db.select().from(Schema.alarms).orderBy(asc(Schema.alarms.generatedAt));
+  }
+
+  static async getCancellableByEmotionJournalEntryId(emotionJournalEntryId: VO.EmotionJournalEntryIdType) {
+    return db
+      .select({ id: Schema.alarms.id })
+      .from(Schema.alarms)
+      .where(
+        and(
+          eq(Schema.alarms.emotionJournalEntryId, emotionJournalEntryId),
+          notInArray(Schema.alarms.status, [
+            VO.AlarmStatusEnum.cancelled,
+            VO.AlarmStatusEnum.notification_sent,
+          ]),
+        ),
+      );
   }
 
   static async cancel(event: Events.AlarmCancelledEventType) {
