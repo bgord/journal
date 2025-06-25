@@ -10,6 +10,7 @@
         "better-sqlite3": "12.1.1",
         "drizzle-orm": "0.44.2",
         "emittery": "1.2.0",
+        "node-cache": "^5.1.2",
         "openai": "5.7.0",
       },
       "devDependencies": {
