@@ -3,6 +3,7 @@ import { EventStore } from "../../../infra/event-store";
 import { Mailer } from "../../../infra/mailer";
 import * as Aggregates from "../aggregates";
 import * as Events from "../events";
+import * as Repositories from "../repositories";
 import * as Services from "../services";
 import * as VO from "../value-objects";
 
@@ -13,6 +14,7 @@ export class AlarmProcessing {
     eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent);
     eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent);
     eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent);
+    eventBus.on(Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT, this.onEmotionJournalEntryDeletedEvent);
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
@@ -77,5 +79,22 @@ export class AlarmProcessing {
       subject: "Emotional advice",
       content: notification,
     });
+  }
+
+  async onEmotionJournalEntryDeletedEvent(event: Events.EmotionJournalEntryDeletedEventType) {
+    const cancellableAlarms = await Repositories.AlarmRepository.getCancellableByEmotionJournalEntryId(
+      event.payload.id,
+    );
+
+    for (const id of cancellableAlarms.map((result) => result.id)) {
+      const alarm = Aggregates.Alarm.build(
+        id,
+        await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(id)),
+      );
+
+      await alarm.cancel();
+
+      await EventStore.save(alarm.pullEvents());
+    }
   }
 }
