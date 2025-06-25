@@ -1,4 +1,5 @@
 export * from "./onAlarmAdviceSavedEvent";
+export * from "./onAlarmCancelledEvent";
 export * from "./onAlarmGeneratedEvent";
 export * from "./onAlarmNotificationSentEvent";
 export * from "./onEmotionJournalEntryDeleted";

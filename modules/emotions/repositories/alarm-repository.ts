@@ -35,4 +35,11 @@ export class AlarmRepository {
   static async getAlarms() {
     return db.select().from(Schema.alarms).orderBy(asc(Schema.alarms.generatedAt));
   }
+
+  static async cancel(event: Events.AlarmCancelledEventType) {
+    await db
+      .update(Schema.alarms)
+      .set({ status: VO.AlarmStatusEnum.cancelled })
+      .where(eq(Schema.alarms.id, event.payload.alarmId));
+  }
 }
