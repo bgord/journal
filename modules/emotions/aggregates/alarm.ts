@@ -17,6 +17,8 @@ export class Alarm {
 
   private readonly id: VO.AlarmIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
+  // @ts-expect-error
+  private generatedAt?: VO.AlarmGeneratedAtType;
 
   private emotionJournalEntryId?: VO.EmotionJournalEntryIdType;
   // @ts-expect-error
@@ -123,6 +125,7 @@ export class Alarm {
         this.emotionJournalEntryId = event.payload.emotionJournalEntryId;
         this.name = event.payload.alarmName;
         this.status = VO.AlarmStatusEnum.generated;
+        this.generatedAt = event.createdAt;
         break;
       }
 

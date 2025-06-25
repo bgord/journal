@@ -1,3 +1,4 @@
+export * from "./alarm-generated-at";
 export * from "./alarm-id";
 export * from "./alarm-name";
 export * from "./alarm-status";
