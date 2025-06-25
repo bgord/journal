@@ -13,6 +13,7 @@ export class Alarm {
     Events.AlarmGeneratedEvent,
     Events.AlarmAdviceSavedEvent,
     Events.AlarmNotificationSentEvent,
+    Events.AlarmCancelledEvent,
   ];
 
   private readonly id: VO.AlarmIdType;
@@ -102,6 +103,21 @@ export class Alarm {
     this.record(event);
   }
 
+  async cancel() {
+    await Policies.AlarmIsCancellable.perform({ status: this.status });
+
+    const event = Events.AlarmCancelledEvent.parse({
+      id: bg.NewUUID.generate(),
+      createdAt: tools.Timestamp.parse(Date.now()),
+      name: Events.ALARM_CANCELLED_EVENT,
+      stream: Alarm.getStream(this.id),
+      version: 1,
+      payload: { alarmId: this.id },
+    } satisfies Events.AlarmCancelledEventType);
+
+    this.record(event);
+  }
+
   getAdvice(): VO.EmotionalAdvice | undefined {
     return this.advice;
   }
@@ -137,6 +153,11 @@ export class Alarm {
 
       case Events.ALARM_NOTIFICATION_SENT_EVENT: {
         this.status = VO.AlarmStatusEnum.notification_sent;
+        break;
+      }
+
+      case Events.ALARM_CANCELLED_EVENT: {
+        this.status = VO.AlarmStatusEnum.cancelled;
         break;
       }
 
