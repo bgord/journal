@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { db } from "../../../infra/db";
 import * as Schema from "../../../infra/schema";
 import type * as Events from "../events";
@@ -30,5 +30,9 @@ export class AlarmRepository {
       .update(Schema.alarms)
       .set({ status: VO.AlarmStatusEnum.notification_sent })
       .where(eq(Schema.alarms.id, event.payload.alarmId));
+  }
+
+  static async getAlarms() {
+    return db.select().from(Schema.alarms).orderBy(asc(Schema.alarms.generatedAt));
   }
 }
