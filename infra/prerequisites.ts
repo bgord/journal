@@ -21,7 +21,7 @@ export const prerequisites = [
   }),
   new bg.PrerequisiteNode({
     label: "node",
-    version: tools.PackageVersion.fromStringWithV("v24.1.0"),
+    version: tools.PackageVersion.fromStringWithV("v24.3.0"),
   }),
   new bg.PrerequisiteBun({
     label: "bun",
