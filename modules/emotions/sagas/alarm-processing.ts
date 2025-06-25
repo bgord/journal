@@ -82,9 +82,7 @@ export class AlarmProcessing {
   }
 
   async onEmotionJournalEntryDeletedEvent(event: Events.EmotionJournalEntryDeletedEventType) {
-    const cancellableAlarms = await Repositories.AlarmRepository.getCancellableByEmotionJournalEntryId(
-      event.payload.id,
-    );
+    const cancellableAlarms = await Repositories.AlarmRepository.findCancellableByEntryId(event.payload.id);
 
     for (const id of cancellableAlarms.map((result) => result.id)) {
       const alarm = Aggregates.Alarm.build(

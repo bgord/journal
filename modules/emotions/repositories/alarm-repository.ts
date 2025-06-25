@@ -36,7 +36,7 @@ export class AlarmRepository {
     return db.select().from(Schema.alarms).orderBy(asc(Schema.alarms.generatedAt));
   }
 
-  static async getCancellableByEmotionJournalEntryId(emotionJournalEntryId: VO.EmotionJournalEntryIdType) {
+  static async findCancellableByEntryId(emotionJournalEntryId: VO.EmotionJournalEntryIdType) {
     return db
       .select({ id: Schema.alarms.id })
       .from(Schema.alarms)

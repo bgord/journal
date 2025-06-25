@@ -81,4 +81,69 @@ describe("AlarmProcessing", () => {
 
     jest.restoreAllMocks();
   });
+
+  test("onEmotionJournalEntryDeletedEvent - cancels pending alarm", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+    ]);
+
+    spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([
+      // @ts-expect-error
+      { id: alarm.id },
+    ]);
+
+    spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
+
+    const saga = new AlarmProcessing(openAiClient);
+    await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
+
+    jest.restoreAllMocks();
+  });
+
+  test("onEmotionJournalEntryDeletedEvent - does not cancel handled alarms", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+      mocks.GenericAlarmNotificationSentEvent,
+    ]);
+
+    spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([]);
+
+    spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
+
+    const saga = new AlarmProcessing(openAiClient);
+    await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
+  test("onEmotionJournalEntryDeletedEvent - does not cancel cancelled", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+      mocks.GenericAlarmCancelledEvent,
+    ]);
+
+    spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([]);
+
+    spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
+
+    const saga = new AlarmProcessing(openAiClient);
+    await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
 });
