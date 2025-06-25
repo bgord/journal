@@ -12,7 +12,7 @@ export NODE_ENV="production"
 check_if_file_exists .env.production
 check_if_directory_exists node_modules
 check_if_file_exists scripts/production-server-start.sh
-bun_validate_environment_file
+validate_environment_file
 
 # ==========================================================
 
