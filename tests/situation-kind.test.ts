@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-
 import { SituationKind, SituationKindOptions } from "../modules/emotions/value-objects/situation-kind";
 
 describe("SituationKind", () => {

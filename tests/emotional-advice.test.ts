@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-
 import { EmotionalAdvice } from "../modules/emotions/value-objects/emotional-advice";
 
 describe("EmotionalAdvice", () => {

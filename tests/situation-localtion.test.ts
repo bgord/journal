@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-
 import { SituationLocation } from "../modules/emotions/value-objects/situation-location";
 
 describe("SituationLocation", () => {

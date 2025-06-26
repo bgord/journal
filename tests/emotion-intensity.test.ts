@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-
 import { EmotionIntensity } from "../modules/emotions/value-objects/emotion-intensity";
 
 describe("EmotionIntensity", () => {

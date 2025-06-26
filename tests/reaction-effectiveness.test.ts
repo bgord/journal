@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-
 import { ReactionEffectiveness } from "../modules/emotions/value-objects/reaction-effectiveness";
 
 describe("ReactionEffectiveness", () => {

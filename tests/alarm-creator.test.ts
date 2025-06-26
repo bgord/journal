@@ -1,8 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
-import { AlarmRepository } from "../modules/emotions/repositories";
-import * as Services from "../modules/emotions/services";
 import * as mocks from "./mocks";
 
 const detection: Emotions.Services.Alarms.AlarmApplicableCheckOutputType = {
@@ -12,10 +10,10 @@ const detection: Emotions.Services.Alarms.AlarmApplicableCheckOutputType = {
 
 describe("AlarmCreator", () => {
   test("correct path", async () => {
-    spyOn(AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await Services.AlarmCreator.create(detection, mocks.id);
+    await Emotions.Services.AlarmCreator.create(detection, mocks.id);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
@@ -23,10 +21,10 @@ describe("AlarmCreator", () => {
   });
 
   test("correct path - at the limit", async () => {
-    spyOn(AlarmRepository, "getCreatedTodayCount").mockResolvedValue(4);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(4);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await Services.AlarmCreator.create(detection, mocks.id);
+    await Emotions.Services.AlarmCreator.create(detection, mocks.id);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
@@ -34,10 +32,10 @@ describe("AlarmCreator", () => {
   });
 
   test("DailyAlarmLimit - at the limit", async () => {
-    spyOn(AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    expect(async () => Services.AlarmCreator.create(detection, mocks.id)).toThrow(
+    expect(async () => Emotions.Services.AlarmCreator.create(detection, mocks.id)).toThrow(
       Emotions.Policies.DailyAlarmLimit.error,
     );
 

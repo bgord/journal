@@ -3,7 +3,6 @@ import { Mailer } from "../infra";
 import { EventStore } from "../infra/event-store";
 import { OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
-import { AlarmProcessing } from "../modules/emotions/sagas/alarm-processing";
 import * as mocks from "./mocks";
 
 const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
@@ -28,7 +27,7 @@ describe("AlarmProcessing", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
@@ -50,7 +49,7 @@ describe("AlarmProcessing", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
@@ -68,7 +67,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);
@@ -91,7 +90,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent);
 
     expect(mailerSend).toHaveBeenCalledWith({
@@ -119,7 +118,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
@@ -140,7 +139,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -161,7 +160,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
 
     expect(eventStoreSave).not.toHaveBeenCalled();

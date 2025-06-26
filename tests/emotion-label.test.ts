@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-
 import { EmotionLabel } from "../modules/emotions/value-objects/emotion-label";
 import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
 
