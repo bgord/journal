@@ -21,4 +21,25 @@ describe("onEmotionReappraisedEvent", () => {
 
     jest.restoreAllMocks();
   });
+
+  test("respects DailyAlarmLimit policy", async () => {
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const reappraiseEmotion = spyOn(
+      Emotions.Repos.EmotionJournalEntryRepository,
+      "reappraiseEmotion",
+    ).mockImplementation(jest.fn());
+
+    expect(async () =>
+      Emotions.Handlers.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
+    ).toThrow(Emotions.Policies.DailyAlarmLimit.error);
+
+    expect(reappraiseEmotion).toHaveBeenCalledTimes(1);
+    expect(reappraiseEmotion).toHaveBeenCalledWith(mocks.NegativeEmotionExtremeIntensityReappraisedEvent);
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
 });
