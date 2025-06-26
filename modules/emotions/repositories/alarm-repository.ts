@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { and, eq, gte, notInArray, sql } from "drizzle-orm";
+import { and, eq, gte, notInArray } from "drizzle-orm";
 import { db } from "../../../infra/db";
 import * as Schema from "../../../infra/schema";
 import type * as Events from "../events";

@@ -22,7 +22,6 @@ export class AlarmCreator {
 
     await alarm._generate(emotionJournalEntryId, detection.name);
 
-    const events = alarm.pullEvents();
-    await EventStore.save(events);
+    await EventStore.save(alarm.pullEvents());
   }
 }
