@@ -1,6 +1,10 @@
 # Changelog
+- 2025-06-27 00:26 3eccdea **refactor: test onEmotionReappraisedEvent**
+## 2025-06-27 00:26 
+- 2025-06-27 00:21 39606e1 **refactor: simplify handler tests**
+- 2025-06-27 00:19 46896e6 **refactor: rename alarm generator to alarm detector**
+- 2025-06-27 00:19 3c133a4 **refactor: use alarm creator in onEmotionReappraisedEvent**
 - 2025-06-27 00:13 d5ca171 **step: update packages**
-## 2025-06-27 00:13 
 - 2025-06-27 00:12 ce97ad1 **refactor: remove gemini**
 - 2025-06-27 00:12 9d60234 **step: test alarm creator**
 - 2025-06-27 00:01 c949183 **step: test DailyAlarmLimit in onEmotionLoggedEvent**
@@ -12,6 +16,8 @@
 - 2025-06-26 23:33 76dcfec **refactor: improve gemini.md**
 - 2025-06-26 22:52 e0f88e4 **step: setup gemini.md**
 - 2025-06-26 22:51 9479084 **step: cancel the alarm if the emotional advice requester fails**
+- 2025-06-26 22:13 b8cb892 **docs: generate readme**
+- 2025-06-26 22:13 3c34aeb **docs: generate CHANGELOG**
 - 2025-06-26 00:55 954d7aa **refactor: remove get alarms for now**
 - 2025-06-26 00:49 4d6df32 **step: test entry deletion in alarm processing saga**
 - 2025-06-26 00:44 928a8ea **step: handle onEmotionJournalEntryDeletedEvent in alarm processing saga**
