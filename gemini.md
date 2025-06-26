@@ -6,6 +6,9 @@
 - Design Patterns
 
 # Workflow
-- Always test the introduced changes, following the existing testing structure
-- Prefer running single tests, and not the whole test suite, for performance using `bun test <file path>`
-- Be sure to typecheck when you’re done making a series of code changes using bgord-scripts/typecheck.sh
+- @bgord/bun is used for Hono/Bun services and middlewares
+- @bgord/tools is a set of reusable Value Objects and Services with no runtime dependencies
+- Always respect the project structure, follow established patterns for all DDD building blocks
+- When you encounter an existing file when asked to create something, update the file without breaking the rest of the module
+- Always test the introduced changes, following the existing testing structure bgord-scripts/test-run.sh
+- Always typecheck the introduced changes using bgord-scripts/typecheck.sh
