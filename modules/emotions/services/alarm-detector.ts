@@ -7,7 +7,7 @@ type AlarmGeneratorConfigType = {
 };
 
 /** @public */
-export class AlarmGenerator {
+export class AlarmDetector {
   static detect(config: AlarmGeneratorConfigType): Alarms.AlarmApplicableCheckOutputType | null {
     const result = config.alarms
       .map((Alarm) => new Alarm().check(config.event))
