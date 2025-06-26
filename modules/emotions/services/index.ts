@@ -1,5 +1,6 @@
 export * from "./ai-client";
 export * from "./ai-client";
+export * from "./alarm-creator";
 export * from "./alarm-generator";
 export * as Alarms from "./alarms";
 export * from "./emotional-advice-notification-composer";
