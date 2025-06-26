@@ -1,6 +1,18 @@
 # Changelog
+- 2025-06-27 00:13 d5ca171 **step: update packages**
+## 2025-06-27 00:13 
+- 2025-06-27 00:12 ce97ad1 **refactor: remove gemini**
+- 2025-06-27 00:12 9d60234 **step: test alarm creator**
+- 2025-06-27 00:01 c949183 **step: test DailyAlarmLimit in onEmotionLoggedEvent**
+- 2025-06-26 23:56 c0863ce **refactor: use AlarmCreator in onEmotionLoggedEvent event handler**
+- 2025-06-26 23:55 c500aa7 **refactor: make Alarm.generate method internal**
+- 2025-06-26 23:55 167586c **step: setup alarm creator**
+- 2025-06-26 23:48 ad8295f **step: add AlarmRepository.getCreatedTodayCount**
+- 2025-06-26 23:44 22debe0 **step: create daily alarm limit policy**
+- 2025-06-26 23:33 76dcfec **refactor: improve gemini.md**
+- 2025-06-26 22:52 e0f88e4 **step: setup gemini.md**
+- 2025-06-26 22:51 9479084 **step: cancel the alarm if the emotional advice requester fails**
 - 2025-06-26 00:55 954d7aa **refactor: remove get alarms for now**
-## 2025-06-26 00:55 
 - 2025-06-26 00:49 4d6df32 **step: test entry deletion in alarm processing saga**
 - 2025-06-26 00:44 928a8ea **step: handle onEmotionJournalEntryDeletedEvent in alarm processing saga**
 - 2025-06-26 00:43 8748e3c **step: implement Alarm repository getCancellableByEmotionJournalEntryId**
@@ -13,6 +25,8 @@
 - 2025-06-25 23:37 38476f7 **step: install bun**
 - 2025-06-25 23:14 1bac7ba **step: update node to 24.3.0**
 - 2025-06-25 23:13 2e8eafe **step: update bun to 1.2.17**
+- 2025-06-25 22:57 ef1834e **docs: generate readme**
+- 2025-06-25 22:57 2441afa **docs: generate CHANGELOG**
 - 2025-06-25 22:53 704de72 **step: setup GET /alarms/get tests**
 - 2025-06-25 17:48 18fa2a1 **step: setup get alarms route**
 - 2025-06-25 17:23 14ff8e8 **step: bump bgord/scripts**
