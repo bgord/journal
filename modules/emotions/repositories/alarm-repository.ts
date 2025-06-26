@@ -1,4 +1,5 @@
-import { and, eq, notInArray } from "drizzle-orm";
+import * as tools from "@bgord/tools";
+import { and, eq, gte, notInArray, sql } from "drizzle-orm";
 import { db } from "../../../infra/db";
 import * as Schema from "../../../infra/schema";
 import type * as Events from "../events";
@@ -52,5 +53,14 @@ export class AlarmRepository {
       .update(Schema.alarms)
       .set({ status: VO.AlarmStatusEnum.cancelled })
       .where(eq(Schema.alarms.id, event.payload.alarmId));
+  }
+
+  static async getCreatedTodayCount(): Promise<number> {
+    const startOfDay = tools.DateCalculator.getStartOfDayTsInTz({
+      now: tools.Timestamp.parse(Date.now()),
+      timeZoneOffsetMs: 0,
+    });
+
+    return db.$count(Schema.alarms, gte(Schema.alarms.generatedAt, startOfDay));
   }
 }
