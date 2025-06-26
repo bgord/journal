@@ -21,7 +21,7 @@ export const onEmotionReappraisedEvent = async (event: Events.EmotionReappraised
 
   const alarm = Alarm.create(alarmId);
 
-  await alarm.generate(emotionJournalEntryId, detection.name);
+  await alarm._generate(emotionJournalEntryId, detection.name);
 
   const events = alarm.pullEvents();
   await EventStore.save(events);
