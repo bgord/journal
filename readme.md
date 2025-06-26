@@ -82,6 +82,7 @@ modules/
     │   ├── alarm-already-generated.ts
     │   ├── alarm-generated-once.ts
     │   ├── alarm-is-cancellable.ts
+    │   ├── daily-alarm-limit.ts
     │   ├── emotion-corresponds-to-situation.ts
     │   ├── emotion-for-reappraisal-exists.ts
     │   ├── entry-has-been-started.ts
@@ -105,6 +106,7 @@ modules/
     │   ├── alarm-processing.ts
     ├── services
     │   ├── ai-client.ts
+    │   ├── alarm-creator.ts
     │   ├── alarm-generator.ts
     │   ├── alarms
     │   │   ├── alarm.ts
