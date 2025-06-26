@@ -32,14 +32,17 @@ export class AlarmProcessing {
       event.payload.alarmName,
     );
 
-    const advice = await emotionalAdviceRequester.ask();
-
     const alarm = Aggregates.Alarm.build(
       event.payload.alarmId,
       await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(event.payload.alarmId)),
     );
 
-    await alarm.saveAdvice(advice);
+    try {
+      const advice = await emotionalAdviceRequester.ask();
+      await alarm.saveAdvice(advice);
+    } catch (error) {
+      await alarm.cancel();
+    }
 
     await EventStore.save(alarm.pullEvents());
   }

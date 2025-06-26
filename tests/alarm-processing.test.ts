@@ -36,6 +36,28 @@ describe("AlarmProcessing", () => {
     jest.restoreAllMocks();
   });
 
+  test("onAlarmGeneratedEvent - cancels alarm when advice requester fails", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
+      negativeEmotionExtremeIntensityEntry,
+    );
+
+    spyOn(Emotions.Services.EmotionalAdviceRequester.prototype, "ask").mockImplementation(() => {
+      throw new Error();
+    });
+
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
+    spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
+
+    const saga = new AlarmProcessing(openAiClient);
+    await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
+
+    jest.restoreAllMocks();
+  });
+
   test("onAlarmAdviceSavedEvent", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
