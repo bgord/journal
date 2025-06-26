@@ -107,7 +107,7 @@ modules/
     ├── services
     │   ├── ai-client.ts
     │   ├── alarm-creator.ts
-    │   ├── alarm-generator.ts
+    │   ├── alarm-detector.ts
     │   ├── alarms
     │   │   ├── alarm.ts
     │   │   └── negative-emotion-extreme-intensity-alarm.ts
