@@ -2,6 +2,7 @@ export * from "./alarm-advice-available";
 export * from "./alarm-already-generated";
 export * from "./alarm-generated-once";
 export * from "./alarm-is-cancellable";
+export * from "./daily-alarm-limit";
 export * from "./emotion-corresponds-to-situation";
 export * from "./emotion-for-reappraisal-exists";
 export * from "./entry-has-been-started";
