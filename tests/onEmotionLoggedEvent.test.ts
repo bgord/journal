@@ -1,8 +1,8 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import { EventStore } from "../infra/event-store";
 import { onEmotionLoggedEvent } from "../modules/emotions/handlers/onEmotionLoggedEvent";
-import { EmotionJournalEntryRepository, AlarmRepository } from "../modules/emotions/repositories";
 import * as Policies from "../modules/emotions/policies";
+import { AlarmRepository, EmotionJournalEntryRepository } from "../modules/emotions/repositories";
 import * as mocks from "./mocks";
 
 describe("onEmotionLoggedEvent", () => {
@@ -27,14 +27,14 @@ describe("onEmotionLoggedEvent", () => {
 
     const logEmotion = spyOn(EmotionJournalEntryRepository, "logEmotion").mockImplementation(jest.fn());
 
-    expect(
-      async () => onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
-    ).toThrow(Policies.DailyAlarmLimit.error);
+    expect(async () => onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
+      Policies.DailyAlarmLimit.error,
+    );
 
     expect(logEmotion).toHaveBeenCalledTimes(1);
     expect(logEmotion).toHaveBeenCalledWith(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
 
-    expect(eventStoreSave).not.toHaveBeenCalled()
+    expect(eventStoreSave).not.toHaveBeenCalled();
 
     jest.restoreAllMocks();
   });

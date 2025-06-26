@@ -14,7 +14,7 @@ type DailyAlarmLimitConfigType = {
 
 class DailyAlarmLimitFactory extends bg.Policy<DailyAlarmLimitConfigType> {
   fails(config: DailyAlarmLimitConfigType) {
-    return config.count >= 4;
+    return config.count >= 5;
   }
 
   message = "daily.alarm.limit";
