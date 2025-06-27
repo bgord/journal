@@ -1,11 +1,9 @@
-import type { SituationDescription } from "../value-objects/situation-description";
-import type { SituationKind } from "../value-objects/situation-kind";
-import type { SituationLocation } from "../value-objects/situation-location";
+import * as Emotions from "../";
 
 export class Situation {
   constructor(
-    public readonly description: SituationDescription,
-    public readonly location: SituationLocation,
-    public readonly kind: SituationKind,
+    public readonly description: Emotions.VO.SituationDescription,
+    public readonly location: Emotions.VO.SituationLocation,
+    public readonly kind: Emotions.VO.SituationKind,
   ) {}
 }

@@ -1,11 +1,9 @@
-import type { ReactionDescription } from "../value-objects/reaction-description";
-import type { ReactionEffectiveness } from "../value-objects/reaction-effectiveness";
-import type { ReactionType } from "../value-objects/reaction-type";
+import * as Emotions from "../";
 
 export class Reaction {
   constructor(
-    public readonly description: ReactionDescription,
-    public readonly type: ReactionType,
-    public readonly effectiveness: ReactionEffectiveness,
+    public readonly description: Emotions.VO.ReactionDescription,
+    public readonly type: Emotions.VO.ReactionType,
+    public readonly effectiveness: Emotions.VO.ReactionEffectiveness,
   ) {}
 }
