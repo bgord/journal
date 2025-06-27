@@ -1,4 +1,4 @@
-import type * as Aggregates from "../aggregates";
+import type * as Schema from "../../../infra/schema";
 import * as VO from "../value-objects";
 
 export type EmotionalAdvicePromptType = [
@@ -8,19 +8,28 @@ export type EmotionalAdvicePromptType = [
 
 export class EmotionalAdvicePrompt {
   constructor(
-    private readonly summary: Aggregates.EmotionJournalEntrySummary,
+    private readonly entry: Schema.SelectEmotionJournalEntries,
     private readonly alarmName: VO.AlarmNameOption,
   ) {}
 
   generate(): EmotionalAdvicePromptType {
-    const { situation, emotion, reaction } = this.summary;
+    const {
+      situationKind,
+      situationDescription,
+      situationLocation,
+      emotionLabel,
+      emotionIntensity,
+      reactionType,
+      reactionDescription,
+      reactionEffectiveness,
+    } = this.entry;
 
     let content = `Here is a summary of a journal entry from my AI journal app, it triggered an ${this.alarmName} alarm. `;
 
-    content += `Situation (${situation?.kind}): ${situation?.description}, at ${situation?.location}. `;
-    content += `Emotion: ${emotion?.label}, intensity ${emotion?.intensity}/5. `;
-    if (reaction) {
-      content += `Reaction (${reaction.type}): ${reaction.description}, intensity ${reaction.effectiveness}/5. `;
+    content += `Situation (${situationKind}): ${situationDescription}, at ${situationLocation}. `;
+    content += `Emotion: ${emotionLabel}, intensity ${emotionIntensity}/5. `;
+    if (reactionType) {
+      content += `Reaction (${reactionType}): ${reactionDescription}, intensity ${reactionEffectiveness}/5. `;
     }
 
     content +=

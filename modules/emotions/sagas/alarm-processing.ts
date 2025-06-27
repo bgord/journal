@@ -65,12 +65,8 @@ export class AlarmProcessing {
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
-    const entry = Aggregates.EmotionJournalEntry.build(
+    const entry = await Repositories.EmotionJournalEntryRepository.getById(
       event.payload.emotionJournalEntryId,
-      await EventStore.find(
-        Aggregates.EmotionJournalEntry.events,
-        Aggregates.EmotionJournalEntry.getStream(event.payload.emotionJournalEntryId),
-      ),
     );
 
     const emotionalAdviceRequester = new Services.EmotionalAdviceRequester(
@@ -121,12 +117,8 @@ export class AlarmProcessing {
   }
 
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
-    const entry = Aggregates.EmotionJournalEntry.build(
+    const entry = await Repositories.EmotionJournalEntryRepository.getById(
       event.payload.emotionJournalEntryId,
-      await EventStore.find(
-        Aggregates.EmotionJournalEntry.events,
-        Aggregates.EmotionJournalEntry.getStream(event.payload.emotionJournalEntryId),
-      ),
     );
 
     const alarm = Aggregates.Alarm.build(
@@ -134,7 +126,7 @@ export class AlarmProcessing {
       await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(event.payload.alarmId)),
     );
 
-    const composer = new Services.EmotionalAdviceNotificationComposer(entry.summarize());
+    const composer = new Services.EmotionalAdviceNotificationComposer(entry);
 
     const notification = composer.compose(alarm.getAdvice() as VO.EmotionalAdvice);
 
