@@ -15,6 +15,74 @@ const advice = new Emotions.VO.EmotionalAdvice("You should do something");
 const openAiClient = new OpenAiClient();
 
 describe("AlarmProcessing", () => {
+  test("onEmotionLoggedEvent", async () => {
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
+      negativeEmotionExtremeIntensityEntry,
+    );
+
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    await saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
+
+    jest.restoreAllMocks();
+  });
+
+  test("onEmotionLoggedEvent - respects", async () => {
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
+      negativeEmotionExtremeIntensityEntry,
+    );
+
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+
+    expect(async () => saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
+      Emotions.Policies.DailyAlarmLimit.error,
+    );
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
+  test("onEmotionReappraisedEvent", async () => {
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
+      negativeEmotionExtremeIntensityEntry,
+    );
+
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    await saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
+
+    jest.restoreAllMocks();
+  });
+
+  test("onEmotionReappraisedEvent - respects", async () => {
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
+      negativeEmotionExtremeIntensityEntry,
+    );
+
+    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+
+    expect(async () =>
+      saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
+    ).toThrow(Emotions.Policies.DailyAlarmLimit.error);
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
   test("onAlarmGeneratedEvent", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

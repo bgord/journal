@@ -24,7 +24,6 @@ export class AlarmProcessing {
       alarms: [Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
     });
 
-    // TODO check detection in the alarm creator?
     if (!detection) return;
 
     await Services.AlarmCreator.create(detection, event.payload.id);
@@ -36,7 +35,6 @@ export class AlarmProcessing {
       alarms: [Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
     });
 
-    // TODO check detection in the alarm creator?
     if (!detection) return;
 
     await Services.AlarmCreator.create(detection, event.payload.id);
