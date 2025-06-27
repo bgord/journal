@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import hono from "hono";
 import * as infra from "../../../infra";
 import * as Emotions from "../";
@@ -8,7 +9,7 @@ export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
 
   const id = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
 
-  const emotion = new Emotions.Entities.Emotion(
+  const newEmotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(body.label),
     new Emotions.VO.EmotionIntensity(body.intensity),
   );
@@ -16,18 +17,17 @@ export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
   infra.logger.info({
     message: "Reappraise emotion payload",
     operation: "read",
-    metadata: { emotion, id },
+    metadata: { newEmotion, id },
   });
 
-  const history = await infra.EventStore.find(
-    Emotions.Aggregates.EmotionJournalEntry.events,
-    Emotions.Aggregates.EmotionJournalEntry.getStream(id),
-  );
+  const command = Emotions.Commands.ReappraiseEmotionCommand.parse({
+    id: bg.NewUUID.generate(),
+    name: Emotions.Commands.REAPPRAISE_EMOTION_COMMAND,
+    createdAt: tools.Timestamp.parse(Date.now()),
+    payload: { id, newEmotion },
+  } satisfies Emotions.Commands.ReappraiseEmotionCommandType);
 
-  const entry = Emotions.Aggregates.EmotionJournalEntry.build(id, history);
-  await entry.reappraiseEmotion(emotion);
-
-  await infra.EventStore.save(entry.pullEvents());
+  await infra.CommandBus.emit(command.name, command);
 
   return new Response();
 }
