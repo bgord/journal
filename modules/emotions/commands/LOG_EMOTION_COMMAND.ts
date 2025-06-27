@@ -3,6 +3,7 @@ import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
 import * as VO from "../value-objects";
+import * as Entities from "../entities";
 
 export const LOG_EMOTION_COMMAND = "LOG_EMOTION_COMMAND";
 
@@ -12,8 +13,7 @@ export const LogEmotionCommand = z.object({
   name: z.literal(LOG_EMOTION_COMMAND),
   payload: z.object({
     id: VO.EmotionJournalEntryId,
-    label: VO.EmotionLabelSchema,
-    intensity: VO.EmotionIntensitySchema,
+    emotion: z.instanceof(Entities.Emotion),
   }),
 });
 
