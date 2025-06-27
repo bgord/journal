@@ -4,7 +4,7 @@ export * from "./handleEvaluateReactionCommand";
 export * from "./handleGenerateAlarmCommand";
 export * from "./handleLogEmotionCommand";
 export * from "./handleLogReactionCommand";
-export * from "./handleLogSituation_command";
+export * from "./handleLogSituationCommand";
 export * from "./handleReappraiseEmotionCommand";
 export * from "./handleSaveAlarmAdviceCommand";
 export * from "./handleSendAlarmNotificationCommand";
