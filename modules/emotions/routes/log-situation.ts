@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import hono from "hono";
 import * as infra from "../../../infra";
 import * as Emotions from "../";
@@ -20,10 +21,14 @@ export async function LogSituation(c: hono.Context, _next: hono.Next) {
     metadata: { situation, id },
   });
 
-  const entry = Emotions.Aggregates.EmotionJournalEntry.create(id);
-  await entry.logSituation(situation);
+  const command = Emotions.Commands.LogSituationCommand.parse({
+    id: bg.NewUUID.generate(),
+    name: Emotions.Commands.LOG_SITUATION_COMMAND,
+    createdAt: tools.Timestamp.parse(Date.now()),
+    payload: { id, situation },
+  } satisfies Emotions.Commands.LogSituationCommandType);
 
-  await infra.EventStore.save(entry.pullEvents());
+  await infra.CommandBus.emit(command.name, command);
 
   return new Response();
 }
