@@ -9,7 +9,7 @@ describe("onReactionEvaluatedEvent", () => {
       "evaluateReaction",
     ).mockImplementation(jest.fn());
 
-    await Emotions.Handlers.onReactionEvaluatedEvent(mocks.GenericReactionEvaluatedEvent);
+    await Emotions.EventHandlers.onReactionEvaluatedEvent(mocks.GenericReactionEvaluatedEvent);
 
     expect(evaluateReaction).toHaveBeenCalledTimes(1);
     expect(evaluateReaction).toHaveBeenCalledWith(mocks.GenericReactionEvaluatedEvent);

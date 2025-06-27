@@ -6,7 +6,7 @@ describe("onAlarmCancelledEvent", () => {
   it("should call repository updateStatus method with the event", async () => {
     const updateStatus = spyOn(Emotions.Repos.AlarmRepository, "cancel").mockImplementation(jest.fn());
 
-    await Emotions.Handlers.onAlarmCancelledEvent(mocks.GenericAlarmCancelledEvent);
+    await Emotions.EventHandlers.onAlarmCancelledEvent(mocks.GenericAlarmCancelledEvent);
 
     expect(updateStatus).toHaveBeenCalledTimes(1);
     expect(updateStatus).toHaveBeenCalledWith(mocks.GenericAlarmCancelledEvent);

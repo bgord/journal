@@ -8,7 +8,7 @@ describe("onEmotionLoggedEvent", () => {
       jest.fn(),
     );
 
-    await Emotions.Handlers.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
+    await Emotions.EventHandlers.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
 
     expect(logEmotion).toHaveBeenCalledTimes(1);
     expect(logEmotion).toHaveBeenCalledWith(mocks.NegativeEmotionExtremeIntensityLoggedEvent);

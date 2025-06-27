@@ -9,7 +9,7 @@ describe("onSituationLoggedEvent", () => {
       "logSituation",
     ).mockImplementation(jest.fn());
 
-    await Emotions.Handlers.onSituationLoggedEvent(mocks.GenericSituationLoggedEvent);
+    await Emotions.EventHandlers.onSituationLoggedEvent(mocks.GenericSituationLoggedEvent);
 
     expect(logSituation).toHaveBeenCalledTimes(1);
     expect(logSituation).toHaveBeenCalledWith(mocks.GenericSituationLoggedEvent);

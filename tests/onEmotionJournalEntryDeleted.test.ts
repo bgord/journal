@@ -8,7 +8,9 @@ describe("onEmotionJournalEntryDeletedEvent", () => {
       jest.fn(),
     );
 
-    await Emotions.Handlers.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
+    await Emotions.EventHandlers.onEmotionJournalEntryDeletedEvent(
+      mocks.GenericEmotionJournalEntryDeletedEvent,
+    );
 
     expect(deleteEntry).toHaveBeenCalledTimes(1);
     expect(deleteEntry).toHaveBeenCalledWith(mocks.GenericEmotionJournalEntryDeletedEvent);

@@ -6,7 +6,7 @@ describe("onAlarmNotificationSentEvent", () => {
   it("should call repository notify method with the event", async () => {
     const notify = spyOn(Emotions.Repos.AlarmRepository, "notify").mockImplementation(jest.fn());
 
-    await Emotions.Handlers.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent);
+    await Emotions.EventHandlers.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent);
 
     expect(notify).toHaveBeenCalledTimes(1);
     expect(notify).toHaveBeenCalledWith(mocks.GenericAlarmNotificationSentEvent);

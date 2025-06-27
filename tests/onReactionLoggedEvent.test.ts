@@ -8,7 +8,7 @@ describe("onReactionLoggedEvent", () => {
       jest.fn(),
     );
 
-    await Emotions.Handlers.onReactionLoggedEvent(mocks.GenericReactionLoggedEvent);
+    await Emotions.EventHandlers.onReactionLoggedEvent(mocks.GenericReactionLoggedEvent);
 
     expect(logReaction).toHaveBeenCalledTimes(1);
     expect(logReaction).toHaveBeenCalledWith(mocks.GenericReactionLoggedEvent);

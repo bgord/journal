@@ -1,8 +1,8 @@
 export * as Aggregates from "./aggregates";
 export * as Commands from "./commands";
 export * as Entities from "./entities";
+export * as EventHandlers from "./event-handlers";
 export * as Events from "./events";
-export * as Handlers from "./handlers";
 export * as Policies from "./policies";
 export * as Repos from "./repositories";
 export * as Routes from "./routes";

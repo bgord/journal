@@ -9,7 +9,9 @@ describe("onEmotionReappraisedEvent", () => {
       "reappraiseEmotion",
     ).mockImplementation(jest.fn());
 
-    await Emotions.Handlers.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent);
+    await Emotions.EventHandlers.onEmotionReappraisedEvent(
+      mocks.NegativeEmotionExtremeIntensityReappraisedEvent,
+    );
 
     expect(reappraiseEmotion).toHaveBeenCalledTimes(1);
     expect(reappraiseEmotion).toHaveBeenCalledWith(mocks.NegativeEmotionExtremeIntensityReappraisedEvent);
