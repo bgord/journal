@@ -55,3 +55,4 @@ export const alarms = sqliteTable("alarms", {
 });
 
 export type SelectEmotionJournalEntries = typeof emotionJournalEntries.$inferSelect;
+export type SelectAlarms = typeof alarms.$inferSelect;
