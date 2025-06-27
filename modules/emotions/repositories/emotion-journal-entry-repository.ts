@@ -1,10 +1,20 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../../infra/db";
 import * as Schema from "../../../infra/schema";
+import { SelectEmotionJournalEntries } from "../../../infra/schema";
 import type * as Events from "../events";
 import * as VO from "../value-objects";
 
 export class EmotionJournalEntryRepository {
+  static async getById(id: VO.EmotionJournalEntryIdType): Promise<SelectEmotionJournalEntries> {
+    const result = await db
+      .select()
+      .from(Schema.emotionJournalEntries)
+      .where(eq(Schema.emotionJournalEntries.id, id));
+
+    return result[0] as SelectEmotionJournalEntries;
+  }
+
   static async logSituation(event: Events.SituationLoggedEventType) {
     await db.insert(Schema.emotionJournalEntries).values({
       id: event.payload.id,

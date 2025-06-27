@@ -53,3 +53,5 @@ export const alarms = sqliteTable("alarms", {
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),
 });
+
+export type SelectEmotionJournalEntries = typeof emotionJournalEntries.$inferSelect;
