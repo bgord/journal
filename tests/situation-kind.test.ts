@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { SituationKind, SituationKindOptions } from "../modules/emotions/value-objects/situation-kind";
 
-describe.skip("SituationKind", () => {
+describe("SituationKind", () => {
   test("constructor - creates all correct emotion labels", () => {
     const options = Object.keys(SituationKindOptions);
 

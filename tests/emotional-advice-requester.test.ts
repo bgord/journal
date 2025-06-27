@@ -3,7 +3,7 @@ import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-describe.skip("EmotionalAdviceRequester", () => {
+describe("EmotionalAdviceRequester", () => {
   test("openai - ask", async () => {
     spyOn(
       infra.OpenAI.responses,

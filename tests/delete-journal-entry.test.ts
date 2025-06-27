@@ -4,7 +4,7 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-describe.skip("DELETE /emotions/:id/delete", () => {
+describe("DELETE /emotions/:id/delete", () => {
   test("validation - incorrect id", async () => {
     const response = await server.request("/emotions/id/delete", { method: "DELETE" }, mocks.ip);
 

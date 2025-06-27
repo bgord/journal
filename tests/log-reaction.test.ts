@@ -4,7 +4,7 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-describe.skip("POST /emotions/:id/log-reaction", () => {
+describe("POST /emotions/:id/log-reaction", () => {
   test("validation - empty payload", async () => {
     const response = await server.request(`/emotions/${mocks.id}/log-reaction`, { method: "POST" }, mocks.ip);
 

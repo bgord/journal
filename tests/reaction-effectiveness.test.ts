@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { ReactionEffectiveness } from "../modules/emotions/value-objects/reaction-effectiveness";
 
-describe.skip("ReactionEffectiveness", () => {
+describe("ReactionEffectiveness", () => {
   test("constructor - creates correct minimum emotion intensity", () => {
     expect(new ReactionEffectiveness(1).get()).toEqual(1);
   });

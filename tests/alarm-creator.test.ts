@@ -9,7 +9,7 @@ const detection: Emotions.Services.Alarms.AlarmApplicableCheckOutputType = {
   applicable: true,
 };
 
-describe.skip("AlarmCreator", () => {
+describe("AlarmCreator", () => {
   test("correct path", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);

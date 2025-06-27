@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { ReactionDescription } from "../modules/emotions/value-objects/reaction-description";
 
-describe.skip("ReactionDescription", () => {
+describe("ReactionDescription", () => {
   test("constructor - creates with minimum length", () => {
     const reactionDescription = new ReactionDescription("a".repeat(ReactionDescription.MinimumLength)).get();
 

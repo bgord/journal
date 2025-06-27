@@ -14,7 +14,7 @@ const negativeEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks
   mocks.GenericReactionLoggedEvent,
 ]);
 
-describe.skip("MoreNegativeThanPositiveEmotionsPattern", () => {
+describe("MoreNegativeThanPositiveEmotionsPattern", () => {
   test("true", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [negativeEmotionEntry, negativeEmotionEntry, positiveEmotionEntry],

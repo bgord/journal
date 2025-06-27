@@ -14,7 +14,7 @@ const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mo
   mocks.MaladaptiveReactionLoggedEvent,
 ]);
 
-describe.skip("PatternDetector", () => {
+describe("PatternDetector", () => {
   test("detects multiple patterns", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [

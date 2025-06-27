@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { EmotionalAdvice } from "../modules/emotions/value-objects/emotional-advice";
 
-describe.skip("EmotionalAdvice", () => {
+describe("EmotionalAdvice", () => {
   test("constructor - creates with minimum length", () => {
     const emotionalAdvice = new EmotionalAdvice("a".repeat(EmotionalAdvice.MinimumLength)).get();
 

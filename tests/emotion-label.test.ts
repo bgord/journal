@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { EmotionLabel } from "../modules/emotions/value-objects/emotion-label";
 import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
 
-describe.skip("EmotionLabel", () => {
+describe("EmotionLabel", () => {
   test("constructor - creates all correct emotion labels", () => {
     const options = Object.keys(GenevaWheelEmotion);
 
