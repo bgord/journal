@@ -6,24 +6,15 @@ import { OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
-  mocks.GenericSituationLoggedEvent,
-  mocks.NegativeEmotionExtremeIntensityLoggedEvent,
-]);
-
 const advice = new Emotions.VO.EmotionalAdvice("You should do something");
 
 const openAiClient = new OpenAiClient();
 
-describe.skip("AlarmProcessing", () => {
+describe("AlarmProcessing", () => {
   test("onEmotionLoggedEvent", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-
-    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
-      negativeEmotionExtremeIntensityEntry,
-    );
 
     const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
@@ -37,10 +28,6 @@ describe.skip("AlarmProcessing", () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-
-    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
-      negativeEmotionExtremeIntensityEntry,
-    );
 
     const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
 
@@ -57,10 +44,6 @@ describe.skip("AlarmProcessing", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
-      negativeEmotionExtremeIntensityEntry,
-    );
-
     const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent);
 
@@ -74,10 +57,6 @@ describe.skip("AlarmProcessing", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
-      negativeEmotionExtremeIntensityEntry,
-    );
-
     const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
 
     expect(async () =>
@@ -90,10 +69,6 @@ describe.skip("AlarmProcessing", () => {
 
   test("onAlarmGeneratedEvent", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-
-    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
-      negativeEmotionExtremeIntensityEntry,
-    );
 
     spyOn(Emotions.Services.EmotionalAdviceRequester.prototype, "ask").mockResolvedValue(advice);
 
@@ -110,10 +85,6 @@ describe.skip("AlarmProcessing", () => {
 
   test("onAlarmGeneratedEvent - cancels alarm when advice requester fails", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-
-    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
-      negativeEmotionExtremeIntensityEntry,
-    );
 
     spyOn(Emotions.Services.EmotionalAdviceRequester.prototype, "ask").mockImplementation(() => {
       throw new Error();
@@ -151,9 +122,7 @@ describe.skip("AlarmProcessing", () => {
   test("onAlarmNotificationSentEvent", async () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
-    spyOn(Emotions.Aggregates.EmotionJournalEntry, "build").mockReturnValue(
-      negativeEmotionExtremeIntensityEntry,
-    );
+    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
       mocks.GenericAlarmGeneratedEvent,

@@ -3,12 +3,6 @@ import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
-  mocks.GenericSituationLoggedEvent,
-  mocks.NegativeEmotionExtremeIntensityLoggedEvent,
-  mocks.MaladaptiveReactionLoggedEvent,
-]);
-
 describe.skip("EmotionalAdviceRequester", () => {
   test("openai - ask", async () => {
     spyOn(
@@ -21,7 +15,7 @@ describe.skip("EmotionalAdviceRequester", () => {
 
     const EmotionalAdviceRequester = new Emotions.Services.EmotionalAdviceRequester(
       client,
-      negativeEmotionExtremeIntensityEntry,
+      mocks.fullEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     );
 
@@ -43,7 +37,7 @@ describe.skip("EmotionalAdviceRequester", () => {
 
     const EmotionalAdviceRequester = new Emotions.Services.EmotionalAdviceRequester(
       client,
-      negativeEmotionExtremeIntensityEntry,
+      mocks.fullEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     );
 
