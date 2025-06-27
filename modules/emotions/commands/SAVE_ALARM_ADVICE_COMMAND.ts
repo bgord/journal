@@ -12,7 +12,7 @@ export const SaveAlarmAdviceCommand = z.object({
   name: z.literal(SAVE_ALARM_ADVICE_COMMAND),
   payload: z.object({
     alarmId: VO.AlarmId,
-    advice: VO.EmotionalAdviceSchema,
+    advice: z.instanceof(VO.EmotionalAdvice),
     emotionJournalEntryId: VO.EmotionJournalEntryId,
   }),
 });

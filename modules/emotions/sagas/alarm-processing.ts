@@ -79,14 +79,21 @@ export class AlarmProcessing {
       event.payload.alarmName,
     );
 
-    const alarm = Aggregates.Alarm.build(
-      event.payload.alarmId,
-      await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(event.payload.alarmId)),
-    );
-
     try {
       const advice = await emotionalAdviceRequester.ask();
-      await alarm.saveAdvice(advice);
+
+      const command = Commands.SaveAlarmAdviceCommand.parse({
+        id: bg.NewUUID.generate(),
+        name: Commands.SAVE_ALARM_ADVICE_COMMAND,
+        createdAt: tools.Timestamp.parse(Date.now()),
+        payload: {
+          alarmId: event.payload.alarmId,
+          advice,
+          emotionJournalEntryId: event.payload.emotionJournalEntryId,
+        },
+      } satisfies Commands.SaveAlarmAdviceCommandType);
+
+      await CommandBus.emit(command.name, command);
     } catch (error) {
       const command = Commands.CancelAlarmCommand.parse({
         id: bg.NewUUID.generate(),
@@ -97,8 +104,6 @@ export class AlarmProcessing {
 
       await CommandBus.emit(command.name, command);
     }
-
-    await EventStore.save(alarm.pullEvents());
   }
 
   async onAlarmAdviceSavedEvent(event: Events.AlarmAdviceSavedEventType) {
