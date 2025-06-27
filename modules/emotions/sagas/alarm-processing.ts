@@ -15,6 +15,31 @@ export class AlarmProcessing {
     eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent);
     eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent);
     eventBus.on(Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT, this.onEmotionJournalEntryDeletedEvent);
+    eventBus.on(Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent);
+  }
+
+  async onEmotionLoggedEvent(event: Events.EmotionLoggedEventType) {
+    const detection = Services.AlarmDetector.detect({
+      event,
+      alarms: [Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
+    });
+
+    // TODO check detection in the alarm creator?
+    if (!detection) return;
+
+    await Services.AlarmCreator.create(detection, event.payload.id);
+  }
+
+  async onEmotionReappraisedEvent(event: Events.EmotionReappraisedEventType) {
+    const detection = Services.AlarmDetector.detect({
+      event,
+      alarms: [Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
+    });
+
+    // TODO check detection in the alarm creator?
+    if (!detection) return;
+
+    await Services.AlarmCreator.create(detection, event.payload.id);
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
