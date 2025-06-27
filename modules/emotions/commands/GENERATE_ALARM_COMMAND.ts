@@ -11,7 +11,6 @@ export const GenerateAlarmCommand = z.object({
   createdAt: tools.Timestamp,
   name: z.literal(GENERATE_ALARM_COMMAND),
   payload: z.object({
-    alarmId: VO.AlarmId,
     alarmName: VO.AlarmName,
     emotionJournalEntryId: VO.EmotionJournalEntryId,
   }),

@@ -13,7 +13,7 @@ describe("AlarmCreator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await Emotions.Services.AlarmCreator.create(detection, mocks.id);
+    await Emotions.Services.AlarmCreator.create(detection.name, mocks.id);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
@@ -24,7 +24,7 @@ describe("AlarmCreator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(4);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await Emotions.Services.AlarmCreator.create(detection, mocks.id);
+    await Emotions.Services.AlarmCreator.create(detection.name, mocks.id);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
@@ -35,7 +35,7 @@ describe("AlarmCreator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    expect(async () => Emotions.Services.AlarmCreator.create(detection, mocks.id)).toThrow(
+    expect(async () => Emotions.Services.AlarmCreator.create(detection.name, mocks.id)).toThrow(
       Emotions.Policies.DailyAlarmLimit.error,
     );
 

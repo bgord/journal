@@ -1,7 +1,11 @@
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
+import { CommandBus } from "../../../infra/command-bus";
 import type { EventBus } from "../../../infra/event-bus";
 import { EventStore } from "../../../infra/event-store";
 import { Mailer } from "../../../infra/mailer";
 import * as Aggregates from "../aggregates";
+import * as Commands from "../commands";
 import * as Events from "../events";
 import * as Repositories from "../repositories";
 import * as Services from "../services";
@@ -26,7 +30,17 @@ export class AlarmProcessing {
 
     if (!detection) return;
 
-    await Services.AlarmCreator.create(detection, event.payload.id);
+    const command = Commands.GenerateAlarmCommand.parse({
+      id: bg.NewUUID.generate(),
+      name: Commands.GENERATE_ALARM_COMMAND,
+      createdAt: tools.Timestamp.parse(Date.now()),
+      payload: {
+        alarmName: detection.name,
+        emotionJournalEntryId: event.payload.id,
+      },
+    } satisfies Commands.GenerateAlarmCommandType);
+
+    await CommandBus.emit(command.name, command);
   }
 
   async onEmotionReappraisedEvent(event: Events.EmotionReappraisedEventType) {
@@ -37,7 +51,17 @@ export class AlarmProcessing {
 
     if (!detection) return;
 
-    await Services.AlarmCreator.create(detection, event.payload.id);
+    const command = Commands.GenerateAlarmCommand.parse({
+      id: bg.NewUUID.generate(),
+      name: Commands.GENERATE_ALARM_COMMAND,
+      createdAt: tools.Timestamp.parse(Date.now()),
+      payload: {
+        alarmName: detection.name,
+        emotionJournalEntryId: event.payload.id,
+      },
+    } satisfies Commands.GenerateAlarmCommandType);
+
+    await CommandBus.emit(command.name, command);
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {

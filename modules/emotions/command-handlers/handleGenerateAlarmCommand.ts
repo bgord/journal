@@ -1,3 +1,8 @@
 import * as Emotions from "../";
 
-export const handleGenerateAlarmCommand = async (_command: Emotions.Commands.GenerateAlarmCommandType) => {};
+export const handleGenerateAlarmCommand = async (command: Emotions.Commands.GenerateAlarmCommandType) => {
+  await Emotions.Services.AlarmCreator.create(
+    command.payload.alarmName,
+    command.payload.emotionJournalEntryId,
+  );
+};
