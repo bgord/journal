@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import * as VO from "../value-objects";
+import * as Emotions from "../";
 
 class AlarmGeneratedOnceError extends Error {
   constructor() {
@@ -10,12 +10,12 @@ class AlarmGeneratedOnceError extends Error {
 }
 
 type AlarmGeneratedOnceConfigType = {
-  status: VO.AlarmStatusEnum;
+  status: Emotions.VO.AlarmStatusEnum;
 };
 
 class AlarmGeneratedOnceFactory extends bg.Policy<AlarmGeneratedOnceConfigType> {
   fails(config: AlarmGeneratedOnceConfigType) {
-    return config.status !== VO.AlarmStatusEnum.started;
+    return config.status !== Emotions.VO.AlarmStatusEnum.started;
   }
 
   message = "alarm.generated.once";

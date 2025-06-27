@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-
-import type * as Entities from "../entities";
+import * as Emotions from "../";
 
 class OneReactionPerEmotionError extends Error {
   constructor() {
@@ -11,7 +10,7 @@ class OneReactionPerEmotionError extends Error {
 }
 
 type OneReactionPerEntryConfigType = {
-  reaction?: Entities.Reaction;
+  reaction?: Emotions.Entities.Reaction;
 };
 
 class OneReactionPerEntryFactory extends bg.Policy<OneReactionPerEntryConfigType> {

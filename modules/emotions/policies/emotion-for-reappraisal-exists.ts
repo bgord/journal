@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-
-import type * as Entities from "../entities";
+import * as Emotions from "../";
 
 class EmotionForReappraisalExistsError extends Error {
   constructor() {
@@ -11,7 +10,7 @@ class EmotionForReappraisalExistsError extends Error {
 }
 
 type EmotionForReappraisalExistsConfigType = {
-  emotion?: Entities.Emotion;
+  emotion?: Emotions.Entities.Emotion;
 };
 
 class EmotionForReappraisalExistsFactory extends bg.Policy<EmotionForReappraisalExistsConfigType> {

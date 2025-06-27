@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-
-import type * as Entities from "../entities";
+import * as Emotions from "../";
 
 class EntryHasBenStartedError extends Error {
   constructor() {
@@ -10,7 +9,7 @@ class EntryHasBenStartedError extends Error {
   }
 }
 
-type EntryHasBenStartedConfigType = { situation?: Entities.Situation };
+type EntryHasBenStartedConfigType = { situation?: Emotions.Entities.Situation };
 
 class EntryHasBenStartedFactory extends bg.Policy<EntryHasBenStartedConfigType> {
   fails(config: EntryHasBenStartedConfigType) {

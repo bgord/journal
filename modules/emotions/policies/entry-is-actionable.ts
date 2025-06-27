@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-
-import * as VO from "../value-objects";
+import * as Emotions from "../";
 
 class EntryIsActionableError extends Error {
   constructor() {
@@ -10,11 +9,11 @@ class EntryIsActionableError extends Error {
   }
 }
 
-type EntryIsActionableConfigType = { status: VO.EmotionJournalEntryStatusEnum };
+type EntryIsActionableConfigType = { status: Emotions.VO.EmotionJournalEntryStatusEnum };
 
 class EntryIsActionableFactory extends bg.Policy<EntryIsActionableConfigType> {
   fails(config: EntryIsActionableConfigType) {
-    return config.status !== VO.EmotionJournalEntryStatusEnum.actionable;
+    return config.status !== Emotions.VO.EmotionJournalEntryStatusEnum.actionable;
   }
 
   message = "entry.is.actionable";

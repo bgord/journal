@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-
-import type * as Entities from "../entities";
+import * as Emotions from "../";
 
 class OneSituationPerEntryError extends Error {
   constructor() {
@@ -11,7 +10,7 @@ class OneSituationPerEntryError extends Error {
 }
 
 type OneSituationPerEntryConfigType = {
-  situation?: Entities.Situation;
+  situation?: Emotions.Entities.Situation;
 };
 
 class OneSituationPerEntryFactory extends bg.Policy<OneSituationPerEntryConfigType> {
