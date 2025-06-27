@@ -13,11 +13,14 @@ export class AlarmProcessing {
   constructor(private readonly AiClient: Services.AiClient) {}
 
   register(eventBus: typeof EventBus) {
-    eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent);
-    eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent);
-    eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent);
-    eventBus.on(Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT, this.onEmotionJournalEntryDeletedEvent);
-    eventBus.on(Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent);
+    eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
+    eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
+    eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent.bind(this));
+    eventBus.on(
+      Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
+      this.onEmotionJournalEntryDeletedEvent.bind(this),
+    );
+    eventBus.on(Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent.bind(this));
   }
 
   async onEmotionLoggedEvent(event: Events.EmotionLoggedEventType) {
