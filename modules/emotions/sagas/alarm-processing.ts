@@ -10,13 +10,16 @@ import * as Services from "../services";
 import * as VO from "../value-objects";
 
 export class AlarmProcessing {
-  constructor(private readonly AiClient: Services.AiClient) {}
+  constructor(
+    private readonly eventBus: typeof EventBus,
+    private readonly AiClient: Services.AiClient,
+  ) {}
 
-  register(eventBus: typeof EventBus) {
-    eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
-    eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
-    eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent.bind(this));
-    eventBus.on(
+  register() {
+    this.eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
+    this.eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
+    this.eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent.bind(this));
+    this.eventBus.on(
       Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
       this.onEmotionJournalEntryDeletedEvent.bind(this),
     );

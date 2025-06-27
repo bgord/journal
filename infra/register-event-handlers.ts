@@ -61,4 +61,4 @@ EventBus.on(
 
 EventBus.on(Events.ALARM_CANCELLED_EVENT, EventHandler.handle(EventHandlers.onAlarmCancelledEvent));
 
-new Sagas.AlarmProcessing(OpenAI).register(EventBus);
+new Sagas.AlarmProcessing(EventBus, OpenAI).register();
