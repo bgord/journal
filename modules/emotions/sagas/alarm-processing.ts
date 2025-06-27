@@ -88,7 +88,14 @@ export class AlarmProcessing {
       const advice = await emotionalAdviceRequester.ask();
       await alarm.saveAdvice(advice);
     } catch (error) {
-      await alarm.cancel();
+      const command = Commands.CancelAlarmCommand.parse({
+        id: bg.NewUUID.generate(),
+        name: Commands.CANCEL_ALARM_COMMAND,
+        createdAt: tools.Timestamp.parse(Date.now()),
+        payload: { alarmId: event.payload.alarmId },
+      } satisfies Commands.CancelAlarmCommandType);
+
+      await CommandBus.emit(command.name, command);
     }
 
     await EventStore.save(alarm.pullEvents());
@@ -135,17 +142,17 @@ export class AlarmProcessing {
   }
 
   async onEmotionJournalEntryDeletedEvent(event: Events.EmotionJournalEntryDeletedEventType) {
-    const cancellableAlarms = await Repositories.AlarmRepository.findCancellableByEntryId(event.payload.id);
+    const cancellableAlarmIds = await Repositories.AlarmRepository.findCancellableByEntryId(event.payload.id);
 
-    for (const id of cancellableAlarms.map((result) => result.id)) {
-      const alarm = Aggregates.Alarm.build(
-        id,
-        await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(id)),
-      );
+    for (const alarmId of cancellableAlarmIds.map((result) => result.id)) {
+      const command = Commands.CancelAlarmCommand.parse({
+        id: bg.NewUUID.generate(),
+        name: Commands.CANCEL_ALARM_COMMAND,
+        createdAt: tools.Timestamp.parse(Date.now()),
+        payload: { alarmId },
+      } satisfies Commands.CancelAlarmCommandType);
 
-      await alarm.cancel();
-
-      await EventStore.save(alarm.pullEvents());
+      await CommandBus.emit(command.name, command);
     }
   }
 }
