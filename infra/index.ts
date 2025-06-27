@@ -16,6 +16,7 @@ export * from "./logger";
 export * from "./mailer";
 export * from "./open-ai-client";
 export * from "./prerequisites";
+export * from "./register-command-handlers";
 export * from "./register-event-handlers";
 export * as Schema from "./schema";
 
