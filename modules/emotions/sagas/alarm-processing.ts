@@ -95,14 +95,17 @@ export class AlarmProcessing {
   }
 
   async onAlarmAdviceSavedEvent(event: Events.AlarmAdviceSavedEventType) {
-    const alarm = Aggregates.Alarm.build(
-      event.payload.alarmId,
-      await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(event.payload.alarmId)),
-    );
+    const command = Commands.SendAlarmNotificationCommand.parse({
+      id: bg.NewUUID.generate(),
+      name: Commands.SEND_ALARM_NOTIFICATION_COMMAND,
+      createdAt: tools.Timestamp.parse(Date.now()),
+      payload: {
+        alarmId: event.payload.alarmId,
+        emotionJournalEntryId: event.payload.emotionJournalEntryId,
+      },
+    } satisfies Commands.SendAlarmNotificationCommandType);
 
-    await alarm.notify();
-
-    await EventStore.save(alarm.pullEvents());
+    await CommandBus.emit(command.name, command);
   }
 
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {

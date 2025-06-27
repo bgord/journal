@@ -1,5 +1,5 @@
-import * as bg from "@bgord/bun";
 import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
@@ -11,7 +11,7 @@ const detection: Emotions.Services.Alarms.AlarmApplicableCheckOutputType = {
 
 describe("AlarmCreator", () => {
   test("correct path", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId)
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
 
@@ -23,7 +23,7 @@ describe("AlarmCreator", () => {
   });
 
   test("correct path - at the limit", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId)
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(4);
     const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
 
