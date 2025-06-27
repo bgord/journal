@@ -1,6 +1,5 @@
-import type * as Events from "../events";
-import * as Repos from "../repositories";
+import * as Emotions from "../";
 
-export const onReactionEvaluatedEvent = async (event: Events.ReactionEvaluatedEventType) => {
-  await Repos.EmotionJournalEntryRepository.evaluateReaction(event);
+export const onReactionEvaluatedEvent = async (event: Emotions.Events.ReactionEvaluatedEventType) => {
+  await Emotions.Repos.EmotionJournalEntryRepository.evaluateReaction(event);
 };

@@ -1,8 +1,7 @@
-import type * as Events from "../events";
-import * as Repos from "../repositories";
+import * as Emotions from "../";
 
 export const onEmotionJournalEntryDeletedEvent = async (
-  event: Events.EmotionJournalEntryDeletedEventType,
+  event: Emotions.Events.EmotionJournalEntryDeletedEventType,
 ) => {
-  await Repos.EmotionJournalEntryRepository.deleteEntry(event);
+  await Emotions.Repos.EmotionJournalEntryRepository.deleteEntry(event);
 };

@@ -1,7 +1,7 @@
-import * as Events from "../events";
+import * as Emotions from "../";
 
 export const onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = async (
-  event: Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType,
+  event: Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType,
 ) => {
   console.log("event to be done");
   console.log(event);

@@ -1,7 +1,7 @@
-import type * as Events from "../events";
+import * as Emotions from "../";
 
 export const onMultipleMaladaptiveReactionsPatternDetectedEvent = async (
-  event: Events.MultipleMaladaptiveReactionsPatternDetectedEventType,
+  event: Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType,
 ) => {
   console.log("event to be done");
   console.log(event);

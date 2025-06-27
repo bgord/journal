@@ -1,6 +1,5 @@
-import type * as Events from "../events";
-import * as Repos from "../repositories";
+import * as Emotions from "../";
 
-export const onAlarmGeneratedEvent = async (event: Events.AlarmGeneratedEventType) => {
-  await Repos.AlarmRepository.generate(event);
+export const onAlarmGeneratedEvent = async (event: Emotions.Events.AlarmGeneratedEventType) => {
+  await Emotions.Repos.AlarmRepository.generate(event);
 };
