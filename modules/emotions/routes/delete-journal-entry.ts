@@ -1,4 +1,6 @@
 import hono from "hono";
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import * as infra from "../../../infra";
 import * as Emotions from "../";
 
@@ -11,15 +13,14 @@ export async function DeleteJournalEntry(c: hono.Context, _next: hono.Next) {
     metadata: { id },
   });
 
-  const history = await infra.EventStore.find(
-    Emotions.Aggregates.EmotionJournalEntry.events,
-    Emotions.Aggregates.EmotionJournalEntry.getStream(id),
-  );
+  const command = Emotions.Commands.DeleteEmotionJournalEntryCommand.parse({
+    id: bg.NewUUID.generate(),
+    name: Emotions.Commands.DELETE_EMOTION_JOURNAL_ENTRY_COMMAND,
+    createdAt: tools.Timestamp.parse(Date.now()),
+    payload: { id },
+  } satisfies Emotions.Commands.DeleteEmotionJournalEntryCommandType);
 
-  const entry = Emotions.Aggregates.EmotionJournalEntry.build(id, history);
-  await entry.delete();
-
-  await infra.EventStore.save(entry.pullEvents());
+  await infra.CommandBus.emit(command.name, command);
 
   return new Response();
 }
