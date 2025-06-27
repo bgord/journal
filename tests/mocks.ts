@@ -1,5 +1,6 @@
 import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
+import type * as Schema from "../infra/schema";
 
 import * as Emotions from "../modules/emotions";
 
@@ -255,3 +256,33 @@ export const GenericAlarmCancelledEvent = {
   version: 1,
   payload: { alarmId },
 } satisfies Emotions.Events.AlarmCancelledEventType;
+
+export const partialEntry: Schema.SelectEmotionJournalEntries = {
+  finishedAt: Date.now(),
+  startedAt: Date.now(),
+  status: Emotions.VO.AlarmStatusEnum.generated,
+  id,
+  situationDescription: "I finished a project",
+  situationKind: Emotions.VO.SituationKindOptions.achievement,
+  situationLocation: "work",
+  emotionLabel: Emotions.VO.GenevaWheelEmotion.anger,
+  emotionIntensity: 5,
+  reactionDescription: null,
+  reactionEffectiveness: null,
+  reactionType: null,
+};
+
+export const fullEntry: Schema.SelectEmotionJournalEntries = {
+  finishedAt: Date.now(),
+  startedAt: Date.now(),
+  status: Emotions.VO.AlarmStatusEnum.generated,
+  id,
+  situationDescription: "I finished a project",
+  situationKind: Emotions.VO.SituationKindOptions.achievement,
+  situationLocation: "work",
+  emotionLabel: Emotions.VO.GenevaWheelEmotion.anger,
+  emotionIntensity: 5,
+  reactionDescription: "Got drunk",
+  reactionType: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
+  reactionEffectiveness: 1,
+};

@@ -4,13 +4,8 @@ import * as mocks from "./mocks";
 
 describe("EmotionalAdvicePrompt", () => {
   test("situation + emotion", () => {
-    const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
-      mocks.GenericSituationLoggedEvent,
-      mocks.NegativeEmotionExtremeIntensityLoggedEvent,
-    ]);
-
     const prompt = new Emotions.Services.EmotionalAdvicePrompt(
-      negativeEmotionExtremeIntensityEntry.summarize(),
+      mocks.partialEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     );
 
@@ -28,14 +23,8 @@ describe("EmotionalAdvicePrompt", () => {
   });
 
   test("situation + emotion + reaction", () => {
-    const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
-      mocks.GenericSituationLoggedEvent,
-      mocks.NegativeEmotionExtremeIntensityLoggedEvent,
-      mocks.MaladaptiveReactionLoggedEvent,
-    ]);
-
     const prompt = new Emotions.Services.EmotionalAdvicePrompt(
-      negativeEmotionExtremeIntensityEntry.summarize(),
+      mocks.fullEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     );
 
