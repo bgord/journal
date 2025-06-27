@@ -4,14 +4,12 @@ import { z } from "zod/v4";
 
 import * as VO from "../value-objects";
 
-export const REACTION_EVALUATED_EVENT = "REACTION_EVALUATED_EVENT";
+export const EVALUATE_REACTION_COMMAND = "EVALUATE_REACTION_COMMAND";
 
-export const ReactionEvaluatedEvent = z.object({
+export const EvaluateReactionCommand = z.object({
   id: bg.UUID,
   createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(REACTION_EVALUATED_EVENT),
-  version: z.literal(1),
+  name: z.literal(EVALUATE_REACTION_COMMAND),
   payload: z.object({
     id: VO.EmotionJournalEntryId,
     type: VO.ReactionTypeSchema,
@@ -20,4 +18,4 @@ export const ReactionEvaluatedEvent = z.object({
   }),
 });
 
-export type ReactionEvaluatedEventType = z.infer<typeof ReactionEvaluatedEvent>;
+export type EvaluateReactionCommandType = z.infer<typeof EvaluateReactionCommand>;

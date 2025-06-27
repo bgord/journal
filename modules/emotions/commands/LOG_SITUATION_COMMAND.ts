@@ -4,14 +4,12 @@ import { z } from "zod/v4";
 
 import * as VO from "../value-objects";
 
-export const SITUATION_LOGGED_EVENT = "SITUATION_LOGGED_EVENT";
+export const LOG_SITUATION_COMMAND = "LOG_SITUATION_COMMAND";
 
-export const SituationLoggedEvent = z.object({
+export const LogSituationCommand = z.object({
   id: bg.UUID,
   createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(SITUATION_LOGGED_EVENT),
-  version: z.literal(1),
+  name: z.literal(LOG_SITUATION_COMMAND),
   payload: z.object({
     id: VO.EmotionJournalEntryId,
     description: VO.SituationDescriptionSchema,
@@ -20,4 +18,4 @@ export const SituationLoggedEvent = z.object({
   }),
 });
 
-export type SituationLoggedEventType = z.infer<typeof SituationLoggedEvent>;
+export type LogSituationCommandType = z.infer<typeof LogSituationCommand>;

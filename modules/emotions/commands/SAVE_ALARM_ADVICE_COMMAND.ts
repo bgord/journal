@@ -4,14 +4,12 @@ import { z } from "zod/v4";
 
 import * as VO from "../value-objects";
 
-export const ALARM_ADVICE_SAVED_EVENT = "ALARM_ADVICE_SAVED_EVENT";
+export const SAVE_ALARM_ADVICE_COMMAND = "SAVE_ALARM_ADVICE_COMMAND";
 
-export const AlarmAdviceSavedEvent = z.object({
+export const SaveAlarmAdviceCommand = z.object({
   id: bg.UUID,
   createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(ALARM_ADVICE_SAVED_EVENT),
-  version: z.literal(1),
+  name: z.literal(SAVE_ALARM_ADVICE_COMMAND),
   payload: z.object({
     alarmId: VO.AlarmId,
     advice: VO.EmotionalAdviceSchema,
@@ -19,4 +17,4 @@ export const AlarmAdviceSavedEvent = z.object({
   }),
 });
 
-export type AlarmAdviceSavedEventType = z.infer<typeof AlarmAdviceSavedEvent>;
+export type SaveAlarmAdviceCommandType = z.infer<typeof SaveAlarmAdviceCommand>;

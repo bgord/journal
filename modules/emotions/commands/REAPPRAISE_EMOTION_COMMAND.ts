@@ -4,14 +4,12 @@ import { z } from "zod/v4";
 
 import * as VO from "../value-objects";
 
-export const EMOTION_REAPPRAISED_EVENT = "EMOTION_REAPPRAISED_EVENT";
+export const REAPPRAISE_EMOTION_COMMAND = "REAPPRAISE_EMOTION_COMMAND";
 
-export const EmotionReappraisedEvent = z.object({
+export const ReappraiseEmotionCommand = z.object({
   id: bg.UUID,
   createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(EMOTION_REAPPRAISED_EVENT),
-  version: z.literal(1),
+  name: z.literal(REAPPRAISE_EMOTION_COMMAND),
   payload: z.object({
     id: VO.EmotionJournalEntryId,
     newLabel: VO.EmotionLabelSchema,
@@ -19,4 +17,4 @@ export const EmotionReappraisedEvent = z.object({
   }),
 });
 
-export type EmotionReappraisedEventType = z.infer<typeof EmotionReappraisedEvent>;
+export type ReappraiseEmotionCommandType = z.infer<typeof ReappraiseEmotionCommand>;

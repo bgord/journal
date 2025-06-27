@@ -4,14 +4,12 @@ import { z } from "zod/v4";
 
 import * as VO from "../value-objects";
 
-export const ALARM_GENERATED_EVENT = "ALARM_GENERATED_EVENT";
+export const GENERATE_ALARM_COMMAND = "GENERATE_ALARM_COMMAND";
 
-export const AlarmGeneratedEvent = z.object({
+export const GenerateAlarmCommand = z.object({
   id: bg.UUID,
   createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(ALARM_GENERATED_EVENT),
-  version: z.literal(1),
+  name: z.literal(GENERATE_ALARM_COMMAND),
   payload: z.object({
     alarmId: VO.AlarmId,
     alarmName: VO.AlarmName,
@@ -19,4 +17,4 @@ export const AlarmGeneratedEvent = z.object({
   }),
 });
 
-export type AlarmGeneratedEventType = z.infer<typeof AlarmGeneratedEvent>;
+export type GenerateAlarmCommandType = z.infer<typeof GenerateAlarmCommand>;

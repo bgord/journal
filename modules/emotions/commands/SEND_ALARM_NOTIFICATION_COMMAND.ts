@@ -4,18 +4,16 @@ import { z } from "zod/v4";
 
 import * as VO from "../value-objects";
 
-export const ALARM_NOTIFICATION_SENT_EVENT = "ALARM_NOTIFICATION_SENT_EVENT";
+export const SEND_ALARM_NOTIFICATION_COMMAND = "SEND_ALARM_NOTIFICATION_COMMAND";
 
-export const AlarmNotificationSentEvent = z.object({
+export const SendAlarmNotificationCommand = z.object({
   id: bg.UUID,
   createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  name: z.literal(ALARM_NOTIFICATION_SENT_EVENT),
-  version: z.literal(1),
+  name: z.literal(SEND_ALARM_NOTIFICATION_COMMAND),
   payload: z.object({
     alarmId: VO.AlarmId,
     emotionJournalEntryId: VO.EmotionJournalEntryId,
   }),
 });
 
-export type AlarmNotificationSentEventType = z.infer<typeof AlarmNotificationSentEvent>;
+export type SendAlarmNotificationCommandType = z.infer<typeof SendAlarmNotificationCommand>;
