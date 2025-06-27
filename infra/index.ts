@@ -5,6 +5,7 @@ import type { TimingVariables } from "hono/timing";
 
 export * from "./anthropic-ai-client";
 export * from "./basic-auth-shield";
+export * from "./command-bus";
 export * from "./db";
 export * from "./env";
 export * from "./event-bus";
