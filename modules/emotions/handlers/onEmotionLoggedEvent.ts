@@ -6,6 +6,7 @@ import { NegativeEmotionExtremeIntensityAlarm } from "../services/alarms";
 export const onEmotionLoggedEvent = async (event: Events.EmotionLoggedEventType) => {
   await Repos.EmotionJournalEntryRepository.logEmotion(event);
 
+  // TODO: should it be moved to a saga?
   const detection = AlarmDetector.detect({
     event,
     alarms: [NegativeEmotionExtremeIntensityAlarm],
