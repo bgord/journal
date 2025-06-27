@@ -1,42 +1,41 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
-import * as Events from "../events";
-import * as Policies from "../policies";
-import * as VO from "../value-objects";
+
+import * as Emotions from "../";
 
 export type AlarmEvent = (typeof Alarm)["events"][number];
 type AlarmEventType = z.infer<AlarmEvent>;
 
 export class Alarm {
   static events = [
-    Events.AlarmGeneratedEvent,
-    Events.AlarmAdviceSavedEvent,
-    Events.AlarmNotificationSentEvent,
-    Events.AlarmCancelledEvent,
+    Emotions.Events.AlarmGeneratedEvent,
+    Emotions.Events.AlarmAdviceSavedEvent,
+    Emotions.Events.AlarmNotificationSentEvent,
+    Emotions.Events.AlarmCancelledEvent,
   ];
 
-  private readonly id: VO.AlarmIdType;
-  private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
+  private readonly id: Emotions.VO.AlarmIdType;
+  private status: Emotions.VO.AlarmStatusEnum = Emotions.VO.AlarmStatusEnum.started;
   // @ts-expect-error
-  private generatedAt?: VO.AlarmGeneratedAtType;
+  private generatedAt?: Emotions.VO.AlarmGeneratedAtType;
 
-  private emotionJournalEntryId?: VO.EmotionJournalEntryIdType;
+  private emotionJournalEntryId?: Emotions.VO.EmotionJournalEntryIdType;
   // @ts-expect-error
-  private name?: VO.AlarmNameOption;
-  private advice?: VO.EmotionalAdvice;
+  private name?: Emotions.VO.AlarmNameOption;
+  private advice?: Emotions.VO.EmotionalAdvice;
 
   private readonly pending: AlarmEventType[] = [];
 
-  private constructor(id: VO.AlarmIdType) {
+  private constructor(id: Emotions.VO.AlarmIdType) {
     this.id = id;
   }
 
-  static create(id: VO.AlarmIdType): Alarm {
+  static create(id: Emotions.VO.AlarmIdType): Alarm {
     return new Alarm(id);
   }
 
-  static build(id: VO.AlarmIdType, events: AlarmEventType[]): Alarm {
+  static build(id: Emotions.VO.AlarmIdType, events: AlarmEventType[]): Alarm {
     const entry = new Alarm(id);
 
     events.forEach((event) => entry.apply(event));
@@ -44,13 +43,16 @@ export class Alarm {
     return entry;
   }
 
-  async _generate(emotionJournalEntryId: VO.EmotionJournalEntryIdType, alarmName: VO.AlarmNameType) {
-    await Policies.AlarmGeneratedOnce.perform({ status: this.status });
+  async _generate(
+    emotionJournalEntryId: Emotions.VO.EmotionJournalEntryIdType,
+    alarmName: Emotions.VO.AlarmNameType,
+  ) {
+    await Emotions.Policies.AlarmGeneratedOnce.perform({ status: this.status });
 
-    const event = Events.AlarmGeneratedEvent.parse({
+    const event = Emotions.Events.AlarmGeneratedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: Events.ALARM_GENERATED_EVENT,
+      name: Emotions.Events.ALARM_GENERATED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
       payload: {
@@ -58,67 +60,67 @@ export class Alarm {
         alarmName,
         emotionJournalEntryId,
       },
-    } satisfies Events.AlarmGeneratedEventType);
+    } satisfies Emotions.Events.AlarmGeneratedEventType);
 
     this.record(event);
   }
 
-  async saveAdvice(advice: VO.EmotionalAdvice) {
-    await Policies.AlarmAlreadyGenerated.perform({ status: this.status });
+  async saveAdvice(advice: Emotions.VO.EmotionalAdvice) {
+    await Emotions.Policies.AlarmAlreadyGenerated.perform({ status: this.status });
 
-    const event = Events.AlarmAdviceSavedEvent.parse({
+    const event = Emotions.Events.AlarmAdviceSavedEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: Events.ALARM_ADVICE_SAVED_EVENT,
+      name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
       payload: {
         alarmId: this.id,
         advice: advice.get(),
-        emotionJournalEntryId: this.emotionJournalEntryId as VO.EmotionJournalEntryIdType,
+        emotionJournalEntryId: this.emotionJournalEntryId as Emotions.VO.EmotionJournalEntryIdType,
       },
-    } satisfies Events.AlarmAdviceSavedEventType);
+    } satisfies Emotions.Events.AlarmAdviceSavedEventType);
 
     this.record(event);
   }
 
   async notify() {
-    await Policies.AlarmAdviceAvailable.perform({
+    await Emotions.Policies.AlarmAdviceAvailable.perform({
       advice: this.advice,
       status: this.status,
     });
 
-    const event = Events.AlarmNotificationSentEvent.parse({
+    const event = Emotions.Events.AlarmNotificationSentEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: Events.ALARM_NOTIFICATION_SENT_EVENT,
+      name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
       payload: {
         alarmId: this.id,
-        emotionJournalEntryId: this.emotionJournalEntryId as VO.EmotionJournalEntryIdType,
+        emotionJournalEntryId: this.emotionJournalEntryId as Emotions.VO.EmotionJournalEntryIdType,
       },
-    } satisfies Events.AlarmNotificationSentEventType);
+    } satisfies Emotions.Events.AlarmNotificationSentEventType);
 
     this.record(event);
   }
 
   async cancel() {
-    await Policies.AlarmIsCancellable.perform({ status: this.status });
+    await Emotions.Policies.AlarmIsCancellable.perform({ status: this.status });
 
-    const event = Events.AlarmCancelledEvent.parse({
+    const event = Emotions.Events.AlarmCancelledEvent.parse({
       id: bg.NewUUID.generate(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: Events.ALARM_CANCELLED_EVENT,
+      name: Emotions.Events.ALARM_CANCELLED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
       payload: { alarmId: this.id },
-    } satisfies Events.AlarmCancelledEventType);
+    } satisfies Emotions.Events.AlarmCancelledEventType);
 
     this.record(event);
   }
 
-  getAdvice(): VO.EmotionalAdvice | undefined {
+  getAdvice(): Emotions.VO.EmotionalAdvice | undefined {
     return this.advice;
   }
 
@@ -137,27 +139,27 @@ export class Alarm {
 
   private apply(event: AlarmEventType): void {
     switch (event.name) {
-      case Events.ALARM_GENERATED_EVENT: {
+      case Emotions.Events.ALARM_GENERATED_EVENT: {
         this.emotionJournalEntryId = event.payload.emotionJournalEntryId;
         this.name = event.payload.alarmName;
-        this.status = VO.AlarmStatusEnum.generated;
+        this.status = Emotions.VO.AlarmStatusEnum.generated;
         this.generatedAt = event.createdAt;
         break;
       }
 
-      case Events.ALARM_ADVICE_SAVED_EVENT: {
-        this.advice = new VO.EmotionalAdvice(event.payload.advice);
-        this.status = VO.AlarmStatusEnum.advice_saved;
+      case Emotions.Events.ALARM_ADVICE_SAVED_EVENT: {
+        this.advice = new Emotions.VO.EmotionalAdvice(event.payload.advice);
+        this.status = Emotions.VO.AlarmStatusEnum.advice_saved;
         break;
       }
 
-      case Events.ALARM_NOTIFICATION_SENT_EVENT: {
-        this.status = VO.AlarmStatusEnum.notification_sent;
+      case Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT: {
+        this.status = Emotions.VO.AlarmStatusEnum.notification_sent;
         break;
       }
 
-      case Events.ALARM_CANCELLED_EVENT: {
-        this.status = VO.AlarmStatusEnum.cancelled;
+      case Emotions.Events.ALARM_CANCELLED_EVENT: {
+        this.status = Emotions.VO.AlarmStatusEnum.cancelled;
         break;
       }
 
@@ -166,7 +168,7 @@ export class Alarm {
     }
   }
 
-  static getStream(id: VO.AlarmIdType) {
+  static getStream(id: Emotions.VO.AlarmIdType) {
     return `alarm_${id}`;
   }
 }
