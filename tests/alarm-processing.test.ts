@@ -1,6 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { Mailer } from "../infra";
+import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import { OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
@@ -16,7 +17,7 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
@@ -29,7 +30,7 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
 
     expect(async () => saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
       Emotions.Policies.DailyAlarmLimit.error,
@@ -44,7 +45,7 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
@@ -57,7 +58,7 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
 
     expect(async () =>
       saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
@@ -75,7 +76,7 @@ describe("AlarmProcessing", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
@@ -93,7 +94,7 @@ describe("AlarmProcessing", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
@@ -111,7 +112,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);
@@ -126,7 +127,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent);
 
     expect(mailerSend).toHaveBeenCalledWith({
@@ -154,7 +155,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
@@ -175,7 +176,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -196,7 +197,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
-    const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
 
     expect(eventStoreSave).not.toHaveBeenCalled();

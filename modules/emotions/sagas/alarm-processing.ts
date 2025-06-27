@@ -23,7 +23,8 @@ export class AlarmProcessing {
       Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
       this.onEmotionJournalEntryDeletedEvent.bind(this),
     );
-    eventBus.on(Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent.bind(this));
+    this.eventBus.on(Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent.bind(this));
+    this.eventBus.on(Events.EMOTION_REAPPRAISED_EVENT, this.onEmotionReappraisedEvent.bind(this));
   }
 
   async onEmotionLoggedEvent(event: Events.EmotionLoggedEventType) {

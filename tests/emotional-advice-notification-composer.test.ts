@@ -12,8 +12,6 @@ describe("EmotionalAdviceNotificationComposer", () => {
 
     const notification = emotionalAdviceNotificationComposer.compose(advice);
 
-    expect(notification).toEqual(
-      `Advice for emotion entry: ${mocks.partialEntry.emotionLabel}: ${advice}`,
-    );
+    expect(notification).toEqual(`Advice for emotion entry: ${mocks.partialEntry.emotionLabel}: ${advice}`);
   });
 });
