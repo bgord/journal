@@ -165,7 +165,7 @@ describe("AlarmProcessing", () => {
       from: "journal@example.com",
       to: "example@abc.com",
       subject: "Emotional advice",
-      content: "Advice for emotion entry: anger: You should do something",
+      html: "Advice for emotion entry: anger: You should do something",
     });
 
     jest.restoreAllMocks();

@@ -103,7 +103,7 @@ export class AlarmProcessing {
       from: "journal@example.com",
       to: "example@abc.com",
       subject: "Emotional advice",
-      content: notification,
+      html: notification,
     });
   }
 
