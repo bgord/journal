@@ -220,7 +220,7 @@ export const GenericAlarmGeneratedEvent = {
   version: 1,
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-    alarmId: expectAnyId,
+    alarmId,
     emotionJournalEntryId: id,
   },
 } satisfies Emotions.Events.AlarmGeneratedEventType;
@@ -233,7 +233,7 @@ export const GenericAlarmAdviceSavedEvent = {
   version: 1,
   payload: {
     advice: "You should do something",
-    alarmId: expectAnyId,
+    alarmId,
     emotionJournalEntryId: id,
   },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
@@ -244,7 +244,7 @@ export const GenericAlarmNotificationSentEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
   version: 1,
-  payload: { alarmId: expectAnyId, emotionJournalEntryId: id },
+  payload: { alarmId, emotionJournalEntryId: id },
 } satisfies Emotions.Events.AlarmNotificationSentEventType;
 
 export const GenericAlarmCancelledEvent = {
@@ -253,5 +253,5 @@ export const GenericAlarmCancelledEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_CANCELLED_EVENT,
   version: 1,
-  payload: { alarmId: expectAnyId },
+  payload: { alarmId },
 } satisfies Emotions.Events.AlarmCancelledEventType;

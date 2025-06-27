@@ -1,3 +1,4 @@
+import * as bg from "@bgord/bun";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import { Mailer } from "../infra";
 import { EventStore } from "../infra/event-store";
@@ -16,6 +17,7 @@ const openAiClient = new OpenAiClient();
 
 describe("AlarmProcessing", () => {
   test("onEmotionLoggedEvent", async () => {
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId)
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -31,7 +33,8 @@ describe("AlarmProcessing", () => {
     jest.restoreAllMocks();
   });
 
-  test("onEmotionLoggedEvent - respects", async () => {
+  test("onEmotionLoggedEvent - respects DailyAlarmLimit", async () => {
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId)
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -50,6 +53,7 @@ describe("AlarmProcessing", () => {
   });
 
   test("onEmotionReappraisedEvent", async () => {
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId)
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -65,7 +69,8 @@ describe("AlarmProcessing", () => {
     jest.restoreAllMocks();
   });
 
-  test("onEmotionReappraisedEvent - respects", async () => {
+  test("onEmotionReappraisedEvent - respects DailyAlarmLimit", async () => {
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId)
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
