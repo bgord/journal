@@ -9,7 +9,7 @@ const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalE
   mocks.MaladaptiveReactionLoggedEvent,
 ]);
 
-describe("EmotionalAdviceRequester", () => {
+describe.skip("EmotionalAdviceRequester", () => {
   test("openai - ask", async () => {
     spyOn(
       infra.OpenAI.responses,

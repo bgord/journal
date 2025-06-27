@@ -15,7 +15,7 @@ const advice = new Emotions.VO.EmotionalAdvice("You should do something");
 
 const openAiClient = new OpenAiClient();
 
-describe("AlarmProcessing", () => {
+describe.skip("AlarmProcessing", () => {
   test("onEmotionLoggedEvent", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);

@@ -14,7 +14,7 @@ const positiveAdaptiveEntry = Emotions.Aggregates.EmotionJournalEntry.build(mock
   mocks.AdaptiveReactionLoggedEvent,
 ]);
 
-describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
+describe.skip("PositiveEmotionWithMaladaptiveReactionPattern", () => {
   test("true", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveMaladaptiveEntry],

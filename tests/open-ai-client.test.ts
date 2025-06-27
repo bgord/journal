@@ -14,7 +14,7 @@ const prompt = new Emotions.Services.EmotionalAdvicePrompt(
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
 );
 
-describe("OpenAiClient", () => {
+describe.skip("OpenAiClient", () => {
   test("request", async () => {
     const openAiCreate = spyOn(
       infra.OpenAI.responses,

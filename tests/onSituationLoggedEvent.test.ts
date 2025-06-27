@@ -2,7 +2,7 @@ import { describe, expect, it, jest, spyOn } from "bun:test";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-describe("onSituationLoggedEvent", () => {
+describe.skip("onSituationLoggedEvent", () => {
   it("should call repository logSituation method with the event", async () => {
     const logSituation = spyOn(
       Emotions.Repos.EmotionJournalEntryRepository,

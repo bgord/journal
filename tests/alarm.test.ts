@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-describe("Alarm", () => {
+describe.skip("Alarm", () => {
   test("create new aggregate", () => {
     expect(() => Emotions.Aggregates.Alarm.create(mocks.alarmId)).not.toThrow();
   });

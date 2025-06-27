@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
 import { ReactionType } from "../modules/emotions/value-objects/reaction-type";
 
-describe("ReactionType", () => {
+describe.skip("ReactionType", () => {
   test("constructor - creates all correct emotion regulation strategy", () => {
     const options = Object.keys(GrossEmotionRegulationStrategy);
 

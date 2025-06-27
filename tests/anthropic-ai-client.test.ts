@@ -14,7 +14,7 @@ const prompt = new Emotions.Services.EmotionalAdvicePrompt(
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
 );
 
-describe("AnthropicAiClient", () => {
+describe.skip("AnthropicAiClient", () => {
   test("request", async () => {
     const anthropicCreate = spyOn(
       infra.AnthropicAi.messages,

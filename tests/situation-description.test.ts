@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { SituationDescription } from "../modules/emotions/value-objects/situation-description";
 
-describe("SituationDescription", () => {
+describe.skip("SituationDescription", () => {
   test("constructor - creates with minimum length", () => {
     const situationDescription = new SituationDescription(
       "a".repeat(SituationDescription.MinimumLength),

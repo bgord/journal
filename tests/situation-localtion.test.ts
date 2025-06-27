@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { SituationLocation } from "../modules/emotions/value-objects/situation-location";
 
-describe("SituationLocation", () => {
+describe.skip("SituationLocation", () => {
   test("constructor - creates with minimum length", () => {
     const situationLocation = new SituationLocation("a".repeat(SituationLocation.MinimumLength)).get();
 

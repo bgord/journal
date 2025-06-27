@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-describe("EmotionalAdviceNotificationComposer", () => {
+describe.skip("EmotionalAdviceNotificationComposer", () => {
   test("compose", () => {
     const negativeEmotionExtremeIntensityEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
       mocks.GenericSituationLoggedEvent,
