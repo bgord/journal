@@ -11,7 +11,7 @@ export const EmotionalAdviceSchema = z
   .min(EmotionalAdviceMin, { error: EmotionalAdviceErrors.invalid })
   .max(EmotionalAdviceMax, { error: EmotionalAdviceErrors.invalid });
 
-type EmotionalAdviceType = z.infer<typeof EmotionalAdviceSchema>;
+export type EmotionalAdviceType = z.infer<typeof EmotionalAdviceSchema>;
 
 export class EmotionalAdvice {
   static readonly Errors = EmotionalAdviceErrors;

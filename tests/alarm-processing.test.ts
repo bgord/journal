@@ -124,13 +124,7 @@ describe("AlarmProcessing", () => {
 
     spyOn(Emotions.Repos.EmotionJournalEntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
 
-    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
-      mocks.GenericAlarmGeneratedEvent,
-      mocks.GenericAlarmAdviceSavedEvent,
-      mocks.GenericAlarmNotificationSentEvent,
-    ]);
-
-    spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
+    spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
 
     const saga = new Emotions.Sagas.AlarmProcessing(openAiClient);
     await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent);

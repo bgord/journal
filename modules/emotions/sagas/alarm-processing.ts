@@ -2,9 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { CommandBus } from "../../../infra/command-bus";
 import type { EventBus } from "../../../infra/event-bus";
-import { EventStore } from "../../../infra/event-store";
 import { Mailer } from "../../../infra/mailer";
-import * as Aggregates from "../aggregates";
 import * as Commands from "../commands";
 import * as Events from "../events";
 import * as Repositories from "../repositories";
@@ -121,14 +119,11 @@ export class AlarmProcessing {
       event.payload.emotionJournalEntryId,
     );
 
-    const alarm = Aggregates.Alarm.build(
-      event.payload.alarmId,
-      await EventStore.find(Aggregates.Alarm.events, Aggregates.Alarm.getStream(event.payload.alarmId)),
-    );
+    const alarm = await Repositories.AlarmRepository.getById(event.payload.alarmId);
 
     const composer = new Services.EmotionalAdviceNotificationComposer(entry);
 
-    const notification = composer.compose(alarm.getAdvice() as VO.EmotionalAdvice);
+    const notification = composer.compose(alarm.advice as VO.EmotionalAdviceType);
 
     await Mailer.send({
       from: "journal@example.com",

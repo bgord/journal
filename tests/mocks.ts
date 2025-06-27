@@ -286,3 +286,12 @@ export const fullEntry: Schema.SelectEmotionJournalEntries = {
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
   reactionEffectiveness: 1,
 };
+
+export const alarm: Schema.SelectAlarms = {
+  id: alarmId,
+  generatedAt: Date.now(),
+  emotionJournalEntryId: id,
+  status: Emotions.VO.AlarmStatusEnum.notification_sent,
+  name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+  advice: "You should do something",
+};
