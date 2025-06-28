@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "2d4f46e8-fe2d-457b-abd5-8517f8a8648f",
+  "id": "32e93cd1-80b6-4638-a022-4c8faf5e374e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alarms": {
@@ -56,8 +56,12 @@
           "name": "alarms_emotionJournalEntryId_emotionJournalEntries_id_fk",
           "tableFrom": "alarms",
           "tableTo": "emotionJournalEntries",
-          "columnsFrom": ["emotionJournalEntryId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "emotionJournalEntryId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -217,7 +221,9 @@
       "indexes": {
         "stream_idx": {
           "name": "stream_idx",
-          "columns": ["stream"],
+          "columns": [
+            "stream"
+          ],
           "isUnique": false
         }
       },
