@@ -23,6 +23,7 @@ export async function EvaluateReaction(c: hono.Context, _next: hono.Next) {
 
   const command = Emotions.Commands.EvaluateReactionCommand.parse({
     id: bg.NewUUID.generate(),
+    correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.EVALUATE_REACTION_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
     payload: { emotionJournalEntryId, newReaction },

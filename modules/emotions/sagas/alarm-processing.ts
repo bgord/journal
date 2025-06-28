@@ -37,6 +37,7 @@ export class AlarmProcessing {
 
     const command = Commands.GenerateAlarmCommand.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       name: Commands.GENERATE_ALARM_COMMAND,
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
@@ -58,6 +59,7 @@ export class AlarmProcessing {
 
     const command = Commands.GenerateAlarmCommand.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       name: Commands.GENERATE_ALARM_COMMAND,
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
@@ -85,6 +87,7 @@ export class AlarmProcessing {
 
       const command = Commands.SaveAlarmAdviceCommand.parse({
         id: bg.NewUUID.generate(),
+        correlationId: bg.CorrelationStorage.get(),
         name: Commands.SAVE_ALARM_ADVICE_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),
         payload: {
@@ -98,6 +101,7 @@ export class AlarmProcessing {
     } catch (error) {
       const command = Commands.CancelAlarmCommand.parse({
         id: bg.NewUUID.generate(),
+        correlationId: bg.CorrelationStorage.get(),
         name: Commands.CANCEL_ALARM_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),
         payload: { alarmId: event.payload.alarmId },
@@ -110,6 +114,7 @@ export class AlarmProcessing {
   async onAlarmAdviceSavedEvent(event: Events.AlarmAdviceSavedEventType) {
     const command = Commands.SendAlarmNotificationCommand.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       name: Commands.SEND_ALARM_NOTIFICATION_COMMAND,
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
@@ -148,6 +153,7 @@ export class AlarmProcessing {
     for (const alarmId of cancellableAlarmIds.map((result) => result.id)) {
       const command = Commands.CancelAlarmCommand.parse({
         id: bg.NewUUID.generate(),
+        correlationId: bg.CorrelationStorage.get(),
         name: Commands.CANCEL_ALARM_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),
         payload: { alarmId },
