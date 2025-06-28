@@ -55,7 +55,19 @@ export class WeeklyReview {
     this.record(event);
   }
 
-  async complete(_insights: VO.EmotionalAdvice) {}
+  async complete(insights: VO.EmotionalAdvice) {
+    const event = Events.WeeklyReviewCompletedEvent.parse({
+      id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
+      createdAt: tools.Timestamp.parse(Date.now()),
+      name: Events.WEEKLY_REVIEW_COMPLETED_EVENT,
+      stream: WeeklyReview.getStream(this.id),
+      version: 1,
+      payload: { weeklyReviewId: this.id, insights: insights.get() },
+    } satisfies Events.WeeklyReviewCompletedEventType);
+
+    this.record(event);
+  }
 
   pullEvents(): WeeklyReviewEventType[] {
     const events = [...this.pending];
