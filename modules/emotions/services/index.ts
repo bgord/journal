@@ -9,6 +9,6 @@ export * from "./emotional-advice-requester";
 export * from "./pattern-detector";
 export * as Patterns from "./patterns/";
 export * from "./weekly-review-insights-prompt";
+export * from "./weekly-review-insights-requester";
 export * from "./weekly-review-scheduler";
 export * from "./weekly-review-skipped-notification-composer";
-export * from "./weekly-review-insights-requester";

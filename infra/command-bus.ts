@@ -14,7 +14,8 @@ type AcceptedCommand =
   | Commands.ReappraiseEmotionCommandType
   | Commands.SaveAlarmAdviceCommandType
   | Commands.SendAlarmNotificationCommandType
-  | Commands.RequestWeeklyReviewCommandType;
+  | Commands.RequestWeeklyReviewCommandType
+  | Commands.CompleteWeeklyReviewCommandType;
 
 const CommandLogger = new bg.CommandLogger(logger);
 

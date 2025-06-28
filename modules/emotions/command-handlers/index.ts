@@ -1,4 +1,5 @@
 export * from "./handleCancelAlarmCommand";
+export * from "./handleCompleteWeeklyReviewCommand";
 export * from "./handleDeleteEmotionJournalEntryCommand";
 export * from "./handleEvaluateReactionCommand";
 export * from "./handleGenerateAlarmCommand";
