@@ -7,7 +7,7 @@ import * as Emotions from "../";
 export async function EvaluateReaction(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
 
-  const id = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
+  const emotionJournalEntryId = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
 
   const newReaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(body.description),
@@ -18,14 +18,14 @@ export async function EvaluateReaction(c: hono.Context, _next: hono.Next) {
   infra.logger.info({
     message: "Evaluate reaction payload",
     operation: "read",
-    metadata: { newReaction, id },
+    metadata: { newReaction, emotionJournalEntryId },
   });
 
   const command = Emotions.Commands.EvaluateReactionCommand.parse({
     id: bg.NewUUID.generate(),
     name: Emotions.Commands.EVALUATE_REACTION_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
-    payload: { id, newReaction },
+    payload: { emotionJournalEntryId, newReaction },
   } satisfies Emotions.Commands.EvaluateReactionCommandType);
 
   await infra.CommandBus.emit(command.name, command);

@@ -7,7 +7,7 @@ import * as Emotions from "../";
 export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
 
-  const id = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
+  const emotionJournalEntryId = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
 
   const newEmotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(body.label),
@@ -17,14 +17,14 @@ export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
   infra.logger.info({
     message: "Reappraise emotion payload",
     operation: "read",
-    metadata: { newEmotion, id },
+    metadata: { newEmotion, emotionJournalEntryId },
   });
 
   const command = Emotions.Commands.ReappraiseEmotionCommand.parse({
     id: bg.NewUUID.generate(),
     name: Emotions.Commands.REAPPRAISE_EMOTION_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
-    payload: { id, newEmotion },
+    payload: { emotionJournalEntryId, newEmotion },
   } satisfies Emotions.Commands.ReappraiseEmotionCommandType);
 
   await infra.CommandBus.emit(command.name, command);

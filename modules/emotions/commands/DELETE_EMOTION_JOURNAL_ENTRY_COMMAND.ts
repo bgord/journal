@@ -10,7 +10,7 @@ export const DeleteEmotionJournalEntryCommand = z.object({
   id: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(DELETE_EMOTION_JOURNAL_ENTRY_COMMAND),
-  payload: z.object({ id: VO.EmotionJournalEntryId }),
+  payload: z.object({ emotionJournalEntryId: VO.EmotionJournalEntryId }),
 });
 
 export type DeleteEmotionJournalEntryCommandType = z.infer<typeof DeleteEmotionJournalEntryCommand>;

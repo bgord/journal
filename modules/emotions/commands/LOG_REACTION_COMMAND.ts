@@ -11,7 +11,7 @@ export const LogReactionCommand = z.object({
   createdAt: tools.Timestamp,
   name: z.literal(LOG_REACTION_COMMAND),
   payload: z.object({
-    id: VO.EmotionJournalEntryId,
+    emotionJournalEntryId: VO.EmotionJournalEntryId,
     reaction: z.instanceof(Entities.Reaction),
   }),
 });
