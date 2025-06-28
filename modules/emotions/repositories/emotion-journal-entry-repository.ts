@@ -27,6 +27,20 @@ export class EmotionJournalEntryRepository {
     );
   }
 
+  static async findInWeek(weekStartedAt: number): Promise<Schema.SelectEmotionJournalEntries[]> {
+    const weekEndedAt = weekStartedAt + tools.Time.Days(7).ms;
+
+    return db
+      .select()
+      .from(Schema.emotionJournalEntries)
+      .where(
+        and(
+          gte(Schema.emotionJournalEntries.startedAt, weekStartedAt),
+          lte(Schema.emotionJournalEntries.startedAt, weekEndedAt),
+        ),
+      );
+  }
+
   static async logSituation(event: Events.SituationLoggedEventType) {
     await db.insert(Schema.emotionJournalEntries).values({
       id: event.payload.emotionJournalEntryId,

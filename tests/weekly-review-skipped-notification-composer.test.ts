@@ -5,7 +5,7 @@ import * as mocks from "./mocks";
 describe("WeeklyReviewSkippedNotificationComposer", () => {
   test("compose", () => {
     const composer = new Emotions.Services.WeeklyReviewSkippedNotificationComposer();
-    const weekStart = new Emotions.VO.WeekStart(mocks.weekStartedAt)
+    const weekStart = new Emotions.VO.WeekStart(mocks.weekStartedAt);
 
     const notification = composer.compose(weekStart);
 
