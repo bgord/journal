@@ -8,3 +8,4 @@ export * from "./emotional-advice-prompt";
 export * from "./emotional-advice-requester";
 export * from "./pattern-detector";
 export * as Patterns from "./patterns/";
+export * from "./weekly-review-scheduler";
