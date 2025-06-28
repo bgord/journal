@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as Events from "../events";
+import * as Policies from "../policies";
 import * as VO from "../value-objects";
 
 export type WeeklyReviewEvent = (typeof WeeklyReview)["events"][number];
@@ -14,7 +15,6 @@ export class WeeklyReview {
 
   // @ts-expect-error
   private weekStartedAt?: tools.TimestampType;
-  // @ts-expect-error
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
 
   private readonly pending: WeeklyReviewEventType[] = [];
@@ -36,6 +36,8 @@ export class WeeklyReview {
   }
 
   async request(weekStart: VO.WeekStart) {
+    await Policies.WeeklyReviewRequestedOnce.perform({ status: this.status });
+
     const event = Events.WeeklyReviewRequestedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
