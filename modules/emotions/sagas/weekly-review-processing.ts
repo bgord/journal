@@ -1,5 +1,9 @@
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
+import { CommandBus } from "../../../infra/command-bus";
 import type { EventBus } from "../../../infra/event-bus";
 import { Mailer } from "../../../infra/mailer";
+import * as Commands from "../commands";
 import * as Events from "../events";
 import * as Repos from "../repositories";
 import * as Services from "../services";
@@ -33,5 +37,21 @@ export class WeeklyReviewProcessing {
     const entries = await Repos.EmotionJournalEntryRepository.findInWeek(event.payload.weekStartedAt);
 
     const weeklyReviewInsights = new Services.WeeklyReviewInsightsRequester(this.AiClient, entries);
+
+    // TODO compensatory action
+    const insights = await weeklyReviewInsights.ask();
+
+    const command = Commands.CompleteWeeklyReviewCommand.parse({
+      id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
+      name: Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
+      createdAt: tools.Timestamp.parse(Date.now()),
+      payload: {
+        weeklyReviewId: event.payload.weeklyReviewId,
+        insights: insights,
+      },
+    } satisfies Commands.CompleteWeeklyReviewCommandType);
+
+    await CommandBus.emit(command.name, command);
   }
 }

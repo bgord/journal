@@ -13,7 +13,7 @@ export const CompleteWeeklyReviewCommand = z.object({
   name: z.literal(COMPLETE_WEEKLY_REVIEW_COMMAND),
   payload: z.object({
     weeklyReviewId: VO.WeeklyReviewId,
-    insights: VO.EmotionalAdvice,
+    insights: z.instanceof(VO.EmotionalAdvice),
   }),
 });
 
