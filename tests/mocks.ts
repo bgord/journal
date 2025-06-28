@@ -1,5 +1,6 @@
 import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import type * as Schema from "../infra/schema";
 
 import * as Emotions from "../modules/emotions";
@@ -17,6 +18,9 @@ export const ip = {
 export const emotionJournalEntryId = bg.NewUUID.generate();
 
 export const alarmId = bg.NewUUID.generate();
+
+export const weeklyReviewId = bg.NewUUID.generate();
+export const weekStartedAt = 1750636800000 as tools.TimestampType;
 
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
@@ -278,6 +282,16 @@ export const GenericAlarmCancelledEvent = {
   version: 1,
   payload: { alarmId },
 } satisfies Emotions.Events.AlarmCancelledEventType;
+
+export const GenericWeeklyReviewRequested = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: expect.any(String),
+  name: Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
+  version: 1,
+  payload: { weekStartedAt, weeklyReviewId },
+} satisfies Emotions.Events.WeeklyReviewRequestedEventType;
 
 export const partialEntry: Schema.SelectEmotionJournalEntries = {
   finishedAt: Date.now(),
