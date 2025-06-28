@@ -1,4 +1,5 @@
 # Changelog
+- 2025-06-28 19:19 c11a52d **step: resolve conflicts**
 - 2025-06-28 19:19 41af986 **Merge pull request #9 from bgord/correlations**
 ## 2025-06-28 19:19 
 - 2025-06-28 19:17 81c2477 **step: update packages**
@@ -11,6 +12,7 @@
 - 2025-06-28 18:18 15aee3c **refactor: adjust tests**
 - 2025-06-28 18:11 3afb588 **step: add correlation id to all commands**
 - 2025-06-28 18:09 cbea251 **step: define correlationId in all commands**
+- 2025-06-28 17:19 8e8f903 **docs: generate CHANGELOG**
 - 2025-06-28 16:36 4328ac2 **step: restore migrations**
 - 2025-06-28 13:32 abf2be9 **step: update packages**
 - 2025-06-28 12:30 eef11ac **refactor: rename ids to be more specific in commands**
