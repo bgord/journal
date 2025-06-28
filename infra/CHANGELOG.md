@@ -1,6 +1,57 @@
 # Changelog
+- 2025-06-28 13:32 abf2be9 **step: update packages**
+## 2025-06-28 13:32 
+- 2025-06-28 12:30 eef11ac **refactor: rename ids to be more specific in commands**
+- 2025-06-28 12:25 df21366 **refactor: rename ids to be more specific**
+- 2025-06-28 01:21 cb07e2e **fix: missing event in the saga registration**
+- 2025-06-28 01:20 b86b3cd **refactor: inject event bus in the saga**
+- 2025-06-28 01:15 9cf5c06 **fix: binding issue in the saga**
+- 2025-06-28 01:10 eca7cf8 **refactor: remove aggregate calls from the saga**
+- 2025-06-28 01:00 e253bf4 **refactor: simplify journal repo**
+- 2025-06-28 01:00 d7d56ac **step: create alarm repo type**
+- 2025-06-28 01:00 5a02275 **step: add alarms repo get by id**
+- 2025-06-28 00:56 af1271d **step: restore all tests**
+- 2025-06-28 00:53 624a4c4 **fix: all tests**
+- 2025-06-28 00:48 8201878 **fix: composer tests**
+- 2025-06-28 00:47 e74ebce **fix: prompt tests**
+- 2025-06-28 00:39 48e18ba **step: skip some tests**
+- 2025-06-28 00:37 281e443 **step: do not use summary**
+- 2025-06-28 00:25 e70c456 **step: define EmotionJournalEntryRepository.getById**
+- 2025-06-28 00:25 7b36448 **step: remove entry aggregate summary type**
+- 2025-06-28 00:02 ac0d05a **step: implement handleSaveAlarmAdviceCommand**
+- 2025-06-27 23:54 2838bef **step: implement handleCancelAlarmCommand**
+- 2025-06-27 23:48 4d8401f **step: implement handleSendAlarmNotificationCommand**
+- 2025-06-27 23:43 1bfccdd **refactor: switch to hardcoded alarm id**
+- 2025-06-27 22:26 a562bd4 **fix: isloated testcase**
+- 2025-06-27 22:02 0ea7d34 **refactor: implement handle generate alarm command**
+- 2025-06-27 20:57 b205570 **step: implement handleDeleteEmotionJournalEntryCommand**
+- 2025-06-27 20:53 5d5f06d **step: implement handleEvaluateReactionCommand**
+- 2025-06-27 20:51 2072f1a **step: implement handleReappraiseEmotionHandler**
+- 2025-06-27 20:42 b990ee6 **step: implement handleLogReactionCommand**
+- 2025-06-27 20:38 c946973 **step: implement handleLogEmotionCommand**
+- 2025-06-27 20:26 5f6af03 **step: implement handleLogSituationCommand-n**
+- 2025-06-27 20:22 e9e2b96 **step: change content to html in alarm processing**
+- 2025-06-27 16:10 9a5c61a **refactor: use generic command handler**
+- 2025-06-27 16:05 cdbdc21 **step: connect command handlers to command bus**
+- 2025-06-27 16:00 eccdaeb **step: define command handlers**
+- 2025-06-27 15:52 0737ceb **step: setup command handlers**
+- 2025-06-27 15:36 e86b9e7 **refactor: rename register-event-handlers**
+- 2025-06-27 15:34 72c14c4 **step: define command bus**
+- 2025-06-27 14:52 1669faa **step: switch to local bgord bun**
+- 2025-06-27 14:48 4cfdd91 **refactor: rename handlers to event handlers**
+- 2025-06-27 14:39 ca8ec41 **step: define all commands**
+- 2025-06-27 13:48 e670560 **step: setup command files**
+- 2025-06-27 13:40 703b71a **Revert "refactor: simplify imports"**
+- 2025-06-27 13:35 47704fc **refactor: simplify imports in policies**
+- 2025-06-27 13:32 f2f7a3a **refactor: simplify imports in handlers**
+- 2025-06-27 13:31 8d01533 **refactor: simplify imports in entities**
+- 2025-06-27 13:04 5c6340d **refactor: simplify imports in alarm aggr**
+- 2025-06-27 12:59 e25e8e7 **refactor: simplify imports**
+- 2025-06-27 12:44 4195942 **refactor: move tests to alarm processing**
+- 2025-06-27 12:35 d268d5d **refactor: move alarm creator to alarm processing saga**
+- 2025-06-27 12:35 3ed86d6 **refactor: remove alarm creation from read model event handlers**
+- 2025-06-27 08:58 9f32ece **step: add todos**
 - 2025-06-27 00:26 3eccdea **refactor: test onEmotionReappraisedEvent**
-## 2025-06-27 00:26 
 - 2025-06-27 00:21 39606e1 **refactor: simplify handler tests**
 - 2025-06-27 00:19 46896e6 **refactor: rename alarm generator to alarm detector**
 - 2025-06-27 00:19 3c133a4 **refactor: use alarm creator in onEmotionReappraisedEvent**
@@ -16,6 +67,8 @@
 - 2025-06-26 23:33 76dcfec **refactor: improve gemini.md**
 - 2025-06-26 22:52 e0f88e4 **step: setup gemini.md**
 - 2025-06-26 22:51 9479084 **step: cancel the alarm if the emotional advice requester fails**
+- 2025-06-26 22:26 e976e5e **docs: generate CHANGELOG**
+- 2025-06-26 22:26 6ff3070 **docs: generate readme**
 - 2025-06-26 22:13 b8cb892 **docs: generate readme**
 - 2025-06-26 22:13 3c34aeb **docs: generate CHANGELOG**
 - 2025-06-26 00:55 954d7aa **refactor: remove get alarms for now**
