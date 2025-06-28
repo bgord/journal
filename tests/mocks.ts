@@ -18,6 +18,8 @@ export const emotionJournalEntryId = bg.NewUUID.generate();
 
 export const alarmId = bg.NewUUID.generate();
 
+export const correlationId = "00000000-0000-0000-0000-000000000000";
+
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
