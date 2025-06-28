@@ -15,7 +15,7 @@ describe("WeeklyReviewScheduler", () => {
       await Emotions.Services.WeeklyReviewScheduler.process();
     });
 
-    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewRequested]);
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewRequestedEvent]);
 
     jest.restoreAllMocks();
   });
@@ -27,12 +27,10 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      expect(async () => await Emotions.Services.WeeklyReviewScheduler.process()).toThrow(
-        Emotions.Policies.JournalEntriesForWeekExist.error,
-      );
+      await Emotions.Services.WeeklyReviewScheduler.process();
     });
 
-    expect(eventStoreSave).not.toHaveBeenCalled();
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewSkippedEvent]);
 
     jest.restoreAllMocks();
   });

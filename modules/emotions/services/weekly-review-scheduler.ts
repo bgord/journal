@@ -6,7 +6,7 @@ import * as VO from "../value-objects";
 
 export class WeeklyReviewScheduler {
   // Sunday at 18:00 UTC
-  static cron = "0 18 * * 0";
+  static cron = `0 18 * * ${bg.UTC_DAY_OF_THE_WEEK.Monday}`;
 
   /** @public */
   static label = "WeeklyReviewScheduler";
