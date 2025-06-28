@@ -22,7 +22,7 @@ export const correlationId = "00000000-0000-0000-0000-000000000000";
 
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.SITUATION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -37,7 +37,7 @@ export const GenericSituationLoggedEvent = {
 
 export const GenericEmotionLoggedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -51,7 +51,7 @@ export const GenericEmotionLoggedEvent = {
 
 export const GenericReactionLoggedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -66,7 +66,7 @@ export const GenericReactionLoggedEvent = {
 
 export const GenericEmotionReappraisedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -80,7 +80,7 @@ export const GenericEmotionReappraisedEvent = {
 
 export const GenericReactionEvaluatedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_EVALUATED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -95,7 +95,7 @@ export const GenericReactionEvaluatedEvent = {
 
 export const PositiveEmotionLoggedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -109,7 +109,7 @@ export const PositiveEmotionLoggedEvent = {
 
 export const NegativeEmotionLoggedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -123,7 +123,7 @@ export const NegativeEmotionLoggedEvent = {
 
 export const NegativeEmotionExtremeIntensityLoggedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -137,7 +137,7 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
 
 export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -151,7 +151,7 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
 
 export const MaladaptiveReactionLoggedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -166,7 +166,7 @@ export const MaladaptiveReactionLoggedEvent = {
 
 export const AdaptiveReactionLoggedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -181,7 +181,7 @@ export const AdaptiveReactionLoggedEvent = {
 
 export const GenericEmotionJournalEntryDeletedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
   stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
@@ -193,7 +193,7 @@ export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-
 
 export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
@@ -203,7 +203,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
 
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
@@ -213,7 +213,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
 
 export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
@@ -223,7 +223,7 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
 
 export const LowCopingEffectivenessPatternDetectedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
@@ -233,7 +233,7 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
 
 export const GenericAlarmGeneratedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
   name: Emotions.Events.ALARM_GENERATED_EVENT,
@@ -247,7 +247,7 @@ export const GenericAlarmGeneratedEvent = {
 
 export const GenericAlarmAdviceSavedEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
   name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
@@ -261,7 +261,7 @@ export const GenericAlarmAdviceSavedEvent = {
 
 export const GenericAlarmNotificationSentEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
   name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
@@ -271,7 +271,7 @@ export const GenericAlarmNotificationSentEvent = {
 
 export const GenericAlarmCancelledEvent = {
   id: expectAnyId,
-  correlationId: expectAnyId,
+  correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
   name: Emotions.Events.ALARM_CANCELLED_EVENT,
