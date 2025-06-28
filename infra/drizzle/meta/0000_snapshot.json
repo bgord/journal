@@ -1,9 +1,71 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "7acfa847-ce3e-4bed-8d63-e231c1b5ffed",
+  "id": "b5024a15-b45d-4115-aa51-53ccbd55be68",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "alarms": {
+      "name": "alarms",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text(36)",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "generatedAt": {
+          "name": "generatedAt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "emotionJournalEntryId": {
+          "name": "emotionJournalEntryId",
+          "type": "text(36)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "advice": {
+          "name": "advice",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "alarms_emotionJournalEntryId_emotionJournalEntries_id_fk": {
+          "name": "alarms_emotionJournalEntryId_emotionJournalEntries_id_fk",
+          "tableFrom": "alarms",
+          "tableTo": "emotionJournalEntries",
+          "columnsFrom": ["emotionJournalEntryId"],
+          "columnsTo": ["id"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "emotionJournalEntries": {
       "name": "emotionJournalEntries",
       "columns": {
