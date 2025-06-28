@@ -54,6 +54,7 @@ export class EmotionJournalEntry {
 
     const event = Emotions.Events.SituationLoggedEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.SITUATION_LOGGED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
@@ -84,6 +85,7 @@ export class EmotionJournalEntry {
 
     const event = Emotions.Events.EmotionLoggedEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
@@ -114,6 +116,7 @@ export class EmotionJournalEntry {
 
     const event = Emotions.Events.ReactionLoggedEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.REACTION_LOGGED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
@@ -144,6 +147,7 @@ export class EmotionJournalEntry {
 
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
@@ -174,6 +178,7 @@ export class EmotionJournalEntry {
 
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.REACTION_EVALUATED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
@@ -194,6 +199,7 @@ export class EmotionJournalEntry {
 
     const event = Emotions.Events.EmotionJournalEntryDeletedEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
