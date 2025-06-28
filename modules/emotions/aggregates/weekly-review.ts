@@ -20,6 +20,8 @@ export class WeeklyReview {
   // @ts-expect-error
   private weekStartedAt?: tools.TimestampType;
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
+  // @ts-expect-error
+  private insights?: VO.EmotionalAdvice;
 
   private readonly pending: WeeklyReviewEventType[] = [];
 
@@ -56,6 +58,8 @@ export class WeeklyReview {
   }
 
   async complete(insights: VO.EmotionalAdvice) {
+    await Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
+
     const event = Events.WeeklyReviewCompletedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
@@ -87,6 +91,12 @@ export class WeeklyReview {
       case Events.WEEKLY_REVIEW_REQUESTED_EVENT: {
         this.weekStartedAt = event.payload.weekStartedAt;
         this.status = VO.WeeklyReviewStatusEnum.requested;
+        break;
+      }
+
+      case Events.WEEKLY_REVIEW_COMPLETED_EVENT: {
+        this.status = VO.WeeklyReviewStatusEnum.completed;
+        this.insights = new VO.EmotionalAdvice(event.payload.insights);
         break;
       }
 

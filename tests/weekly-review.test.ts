@@ -5,6 +5,8 @@ import * as mocks from "./mocks";
 
 const weekStart = Emotions.VO.WeekStart.fromTimestamp(mocks.weekStartedAt);
 
+const insights = new Emotions.VO.EmotionalAdvice("Good job");
+
 describe("WeeklyReview", () => {
   test("create new aggregate", () => {
     expect(() => Emotions.Aggregates.WeeklyReview.create(mocks.weeklyReviewId)).not.toThrow();
@@ -43,12 +45,25 @@ describe("WeeklyReview", () => {
       mocks.GenericWeeklyReviewRequestedEvent,
     ]);
 
-    const insights = new Emotions.VO.EmotionalAdvice("Good job");
-
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await weeklyReview.complete(insights);
     });
 
     expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewCompletedEvent]);
+  });
+
+  test("complete - WeeklyReviewCompletedOnce", async () => {
+    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
+      mocks.GenericWeeklyReviewRequestedEvent,
+      mocks.GenericWeeklyReviewCompletedEvent,
+    ]);
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      expect(async () => weeklyReview.complete(insights)).toThrow(
+        Emotions.Policies.WeeklyReviewCompletedOnce.error,
+      );
+    });
+
+    expect(weeklyReview.pullEvents()).toEqual([]);
   });
 });
