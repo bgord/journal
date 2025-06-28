@@ -13,3 +13,4 @@ export * from "./REACTION_EVALUATED_EVENT";
 export * from "./REACTION_LOGGED_EVENT";
 export * from "./SITUATION_LOGGED_EVENT";
 export * from "./WEEKLY_REVIEW_REQUESTED_EVENT";
+export * from "./WEEKLY_REVIEW_SKIPPED_EVENT";

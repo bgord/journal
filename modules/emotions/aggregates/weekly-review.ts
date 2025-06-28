@@ -9,7 +9,7 @@ export type WeeklyReviewEvent = (typeof WeeklyReview)["events"][number];
 type WeeklyReviewEventType = z.infer<WeeklyReviewEvent>;
 
 export class WeeklyReview {
-  static events = [Events.WeeklyReviewRequestedEvent];
+  static events = [Events.WeeklyReviewRequestedEvent, Events.WeeklyReviewSkippedEvent];
 
   private readonly id: VO.WeeklyReviewIdType;
 
