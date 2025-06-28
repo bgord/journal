@@ -1,8 +1,22 @@
 # Changelog
+- 2025-06-28 19:19 41af986 **Merge pull request #9 from bgord/correlations**
+## 2025-06-28 19:19 
+- 2025-06-28 19:17 81c2477 **step: update packages**
+- 2025-06-28 18:40 eadb638 **refactor: adjust tests**
+- 2025-06-28 18:36 46f5c65 **fix: event correlation id in mocks**
+- 2025-06-28 18:30 e482c7a **step: make correlation id not nullable**
+- 2025-06-28 18:29 5459e7d **step: pass correlation id to events**
+- 2025-06-28 18:26 52b6358 **step: define correlationId field for all events**
+- 2025-06-28 18:24 6f1b998 **step: define event.correlationId column**
+- 2025-06-28 18:18 15aee3c **refactor: adjust tests**
+- 2025-06-28 18:11 3afb588 **step: add correlation id to all commands**
+- 2025-06-28 18:09 cbea251 **step: define correlationId in all commands**
+- 2025-06-28 16:36 4328ac2 **step: restore migrations**
 - 2025-06-28 13:32 abf2be9 **step: update packages**
-## 2025-06-28 13:32 
 - 2025-06-28 12:30 eef11ac **refactor: rename ids to be more specific in commands**
 - 2025-06-28 12:25 df21366 **refactor: rename ids to be more specific**
+- 2025-06-28 11:32 fb74a13 **docs: generate CHANGELOG**
+- 2025-06-28 11:32 eb98f60 **docs: generate readme**
 - 2025-06-28 01:21 cb07e2e **fix: missing event in the saga registration**
 - 2025-06-28 01:20 b86b3cd **refactor: inject event bus in the saga**
 - 2025-06-28 01:15 9cf5c06 **fix: binding issue in the saga**
