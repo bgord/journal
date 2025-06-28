@@ -11,3 +11,4 @@ export * as Patterns from "./patterns/";
 export * from "./weekly-review-insights-prompt";
 export * from "./weekly-review-scheduler";
 export * from "./weekly-review-skipped-notification-composer";
+export * from "./weekly-review-insights-requester";

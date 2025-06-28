@@ -31,5 +31,7 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
     const entries = await Repos.EmotionJournalEntryRepository.findInWeek(event.payload.weekStartedAt);
+
+    const weeklyReviewInsights = new Services.WeeklyReviewInsightsRequester(this.AiClient, entries);
   }
 }
