@@ -8,6 +8,7 @@ export const EMOTION_JOURNAL_ENTRY_DELETED_EVENT = "EMOTION_JOURNAL_ENTRY_DELETE
 
 export const EmotionJournalEntryDeletedEvent = z.object({
   id: bg.UUID,
+  correlationId: z.uuid().or(z.null()),
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(EMOTION_JOURNAL_ENTRY_DELETED_EVENT),

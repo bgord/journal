@@ -8,6 +8,7 @@ export const ALARM_CANCELLED_EVENT = "ALARM_CANCELLED_EVENT";
 
 export const AlarmCancelledEvent = z.object({
   id: bg.UUID,
+  correlationId: z.uuid().or(z.null()),
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(ALARM_CANCELLED_EVENT),

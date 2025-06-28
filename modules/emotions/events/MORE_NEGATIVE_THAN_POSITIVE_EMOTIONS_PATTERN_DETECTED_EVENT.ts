@@ -7,6 +7,7 @@ export const MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT =
 
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = z.object({
   id: bg.UUID,
+  correlationId: z.uuid().or(z.null()),
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT),

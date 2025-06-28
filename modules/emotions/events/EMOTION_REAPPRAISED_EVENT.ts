@@ -8,6 +8,7 @@ export const EMOTION_REAPPRAISED_EVENT = "EMOTION_REAPPRAISED_EVENT";
 
 export const EmotionReappraisedEvent = z.object({
   id: bg.UUID,
+  correlationId: z.uuid().or(z.null()),
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(EMOTION_REAPPRAISED_EVENT),

@@ -7,6 +7,7 @@ export const POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT =
 
 export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = z.object({
   id: bg.UUID,
+  correlationId: z.uuid().or(z.null()),
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT),
