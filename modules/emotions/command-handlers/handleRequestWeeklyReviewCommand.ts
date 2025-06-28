@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
-import * as Emotions from "../";
 import { EventStore } from "../../../infra/event-store";
+import * as Emotions from "../";
 
 export const handleRequestWeeklyReviewCommand = async (
   command: Emotions.Commands.RequestWeeklyReviewCommandType,
