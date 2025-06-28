@@ -12,6 +12,9 @@ export class WeeklyReview {
 
   private readonly id: VO.WeeklyReviewIdType;
 
+  // @ts-expect-error
+  private weekStartedAt?: tools.TimestampType;
+
   private readonly pending: WeeklyReviewEventType[] = [];
 
   private constructor(id: VO.WeeklyReviewIdType) {
@@ -60,6 +63,7 @@ export class WeeklyReview {
   private apply(event: WeeklyReviewEventType): void {
     switch (event.name) {
       case Events.WEEKLY_REVIEW_REQUESTED_EVENT: {
+        this.weekStartedAt = event.payload.weekStartedAt;
         break;
       }
 
