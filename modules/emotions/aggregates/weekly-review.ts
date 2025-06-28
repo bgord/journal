@@ -35,7 +35,7 @@ export class WeeklyReview {
     return entry;
   }
 
-  async request(weekStartedAt: tools.TimestampType) {
+  async request(weekStart: VO.WeekStart) {
     const event = Events.WeeklyReviewRequestedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
@@ -43,7 +43,7 @@ export class WeeklyReview {
       name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
       stream: WeeklyReview.getStream(this.id),
       version: 1,
-      payload: { weeklyReviewId: this.id, weekStartedAt },
+      payload: { weeklyReviewId: this.id, weekStartedAt: weekStart.get() },
     } satisfies Events.WeeklyReviewRequestedEventType);
 
     this.record(event);

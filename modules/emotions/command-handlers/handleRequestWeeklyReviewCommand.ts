@@ -8,7 +8,7 @@ export const handleRequestWeeklyReviewCommand = async (
   const weeklyReviewId = bg.NewUUID.generate();
   const weeklyReview = Emotions.Aggregates.WeeklyReview.create(weeklyReviewId);
 
-  await weeklyReview.request(command.payload.weekStartedAt);
+  await weeklyReview.request(command.payload.weekStart);
 
   await EventStore.save(weeklyReview.pullEvents());
 };
