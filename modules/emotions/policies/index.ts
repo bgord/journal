@@ -12,3 +12,4 @@ export * from "./one-reaction-per-entry";
 export * from "./one-situation-per-entry";
 export * from "./reaction-corresponds-to-situation-and-emotion";
 export * from "./reaction-for-evaluation-exists";
+export * from "./weekly-review-requested-once";
