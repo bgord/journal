@@ -303,6 +303,19 @@ export const GenericWeeklyReviewSkippedEvent = {
   payload: { weekStartedAt },
 } satisfies Emotions.Events.WeeklyReviewSkippedEventType;
 
+export const GenericWeeklyReviewCompletedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: expect.any(String),
+  name: "WEEKLY_REVIEW_COMPLETED_EVENT",
+  version: 1,
+  payload: {
+    insights: "Good job",
+    weeklyReviewId,
+  },
+} satisfies Emotions.Events.WeeklyReviewCompletedEventType;
+
 export const partialEntry: Schema.SelectEmotionJournalEntries = {
   finishedAt: Date.now(),
   startedAt: Date.now(),

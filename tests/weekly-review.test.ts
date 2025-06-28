@@ -37,4 +37,18 @@ describe("WeeklyReview", () => {
 
     expect(weeklyReview.pullEvents()).toEqual([]);
   });
+
+  test("complete - correct path", async () => {
+    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
+      mocks.GenericWeeklyReviewRequestedEvent,
+    ]);
+
+    const insights = new Emotions.VO.EmotionalAdvice("Good job");
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      await weeklyReview.complete(insights);
+    });
+
+    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewCompletedEvent]);
+  });
 });
