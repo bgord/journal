@@ -8,6 +8,7 @@ export const LOG_REACTION_COMMAND = "LOG_REACTION_COMMAND";
 
 export const LogReactionCommand = z.object({
   id: bg.UUID,
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(LOG_REACTION_COMMAND),
   payload: z.object({

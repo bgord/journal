@@ -8,6 +8,7 @@ export const SAVE_ALARM_ADVICE_COMMAND = "SAVE_ALARM_ADVICE_COMMAND";
 
 export const SaveAlarmAdviceCommand = z.object({
   id: bg.UUID,
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(SAVE_ALARM_ADVICE_COMMAND),
   payload: z.object({

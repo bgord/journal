@@ -8,6 +8,7 @@ export const LOG_SITUATION_COMMAND = "LOG_SITUATION_COMMAND";
 
 export const LogSituationCommand = z.object({
   id: bg.UUID,
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(LOG_SITUATION_COMMAND),
   payload: z.object({
