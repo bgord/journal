@@ -17,7 +17,6 @@ export class WeeklyReview {
 
   private readonly id: VO.WeeklyReviewIdType;
 
-  // @ts-expect-error
   private weekStartedAt?: tools.TimestampType;
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
   // @ts-expect-error
@@ -67,7 +66,11 @@ export class WeeklyReview {
       name: Events.WEEKLY_REVIEW_COMPLETED_EVENT,
       stream: WeeklyReview.getStream(this.id),
       version: 1,
-      payload: { weeklyReviewId: this.id, insights: insights.get() },
+      payload: {
+        weeklyReviewId: this.id,
+        weekStartedAt: this.weekStartedAt as tools.TimestampType,
+        insights: insights.get(),
+      },
     } satisfies Events.WeeklyReviewCompletedEventType);
 
     this.record(event);

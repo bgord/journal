@@ -313,6 +313,7 @@ export const GenericWeeklyReviewCompletedEvent = {
   payload: {
     insights: "Good job",
     weeklyReviewId,
+    weekStartedAt,
   },
 } satisfies Emotions.Events.WeeklyReviewCompletedEventType;
 

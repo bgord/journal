@@ -54,4 +54,6 @@ export class WeeklyReviewProcessing {
 
     await CommandBus.emit(command.name, command);
   }
+
+  async onWeeklyReviewCompletedEvent(_event: Events.WeeklyReviewCompletedEventType) {}
 }
