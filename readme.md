@@ -43,10 +43,47 @@ modules/
     ├── aggregates
     │   ├── alarm.ts
     │   ├── emotion-journal-entry.ts
+    ├── command-handlers
+    │   ├── handleCancelAlarmCommand.ts
+    │   ├── handleDeleteEmotionJournalEntryCommand.ts
+    │   ├── handleEvaluateReactionCommand.ts
+    │   ├── handleGenerateAlarmCommand.ts
+    │   ├── handleLogEmotionCommand.ts
+    │   ├── handleLogReactionCommand.ts
+    │   ├── handleLogSituationCommand.ts
+    │   ├── handleReappraiseEmotionCommand.ts
+    │   ├── handleSaveAlarmAdviceCommand.ts
+    │   ├── handleSendAlarmNotificationCommand.ts
+    ├── commands
+    │   ├── CANCEL_ALARM_COMMAND.ts
+    │   ├── DELETE_EMOTION_JOURNAL_ENTRY_COMMAND.ts
+    │   ├── EVALUATE_REACTION_COMMAND.ts
+    │   ├── GENERATE_ALARM_COMMAND.ts
+    │   ├── LOG_EMOTION_COMMAND.ts
+    │   ├── LOG_REACTION_COMMAND.ts
+    │   ├── LOG_SITUATION_COMMAND.ts
+    │   ├── REAPPRAISE_EMOTION_COMMAND.ts
+    │   ├── SAVE_ALARM_ADVICE_COMMAND.ts
+    │   ├── SEND_ALARM_NOTIFICATION_COMMAND.ts
     ├── entities
     │   ├── emotion.ts
     │   ├── reaction.ts
     │   └── situation.ts
+    ├── event-handlers
+    │   ├── onAlarmAdviceSavedEvent.ts
+    │   ├── onAlarmCancelledEvent.ts
+    │   ├── onAlarmGeneratedEvent.ts
+    │   ├── onAlarmNotificationSentEvent.ts
+    │   ├── onEmotionJournalEntryDeleted.ts
+    │   ├── onEmotionLoggedEvent.ts
+    │   ├── onEmotionReappraisedEvent.ts
+    │   ├── onLowCopingEffectivenessPatternDetectedEvent.ts
+    │   ├── onMoreNegativeThanPositiveEmotionsPatternDetectedEvent.ts
+    │   ├── onMultipleMaladaptiveReactionsPatternDetectedEvent.ts
+    │   ├── onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent.ts
+    │   ├── onReactionEvaluatedEvent.ts
+    │   ├── onReactionLoggedEvent.ts
+    │   └── onSituationLoggedEvent.ts
     ├── events
     │   ├── ALARM_ADVICE_SAVED_EVENT.ts
     │   ├── ALARM_CANCELLED_EVENT.ts
@@ -62,21 +99,6 @@ modules/
     │   ├── REACTION_EVALUATED_EVENT.ts
     │   ├── REACTION_LOGGED_EVENT.ts
     │   ├── SITUATION_LOGGED_EVENT.ts
-    ├── handlers
-    │   ├── onAlarmAdviceSavedEvent.ts
-    │   ├── onAlarmCancelledEvent.ts
-    │   ├── onAlarmGeneratedEvent.ts
-    │   ├── onAlarmNotificationSentEvent.ts
-    │   ├── onEmotionJournalEntryDeleted.ts
-    │   ├── onEmotionLoggedEvent.ts
-    │   ├── onEmotionReappraisedEvent.ts
-    │   ├── onLowCopingEffectivenessPatternDetectedEvent.ts
-    │   ├── onMoreNegativeThanPositiveEmotionsPatternDetectedEvent.ts
-    │   ├── onMultipleMaladaptiveReactionsPatternDetectedEvent.ts
-    │   ├── onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent.ts
-    │   ├── onReactionEvaluatedEvent.ts
-    │   ├── onReactionLoggedEvent.ts
-    │   └── onSituationLoggedEvent.ts
     ├── policies
     │   ├── alarm-advice-available.ts
     │   ├── alarm-already-generated.ts
@@ -149,6 +171,7 @@ modules/
 infra/
 ├── anthropic-ai-client.ts
 ├── basic-auth-shield.ts
+├── command-bus.ts
 ├── db.ts
 ├── env.ts
 ├── event-bus.ts
@@ -159,6 +182,7 @@ infra/
 ├── mailer.ts
 ├── open-ai-client.ts
 ├── prerequisites.ts
+├── register-command-handlers.ts
 ├── register-event-handlers.ts
 └── schema.ts
 ```
