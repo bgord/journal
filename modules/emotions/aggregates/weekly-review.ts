@@ -51,6 +51,8 @@ export class WeeklyReview {
     this.record(event);
   }
 
+  async complete(_insights: VO.EmotionalAdvice) {}
+
   pullEvents(): WeeklyReviewEventType[] {
     const events = [...this.pending];
 
