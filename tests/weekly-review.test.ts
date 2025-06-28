@@ -23,12 +23,12 @@ describe("WeeklyReview", () => {
       await weeklyReview.request(weekStart);
     });
 
-    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewRequested]);
+    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewRequestedEvent]);
   });
 
   test("generate - WeeklyReviewRequestedOnce", async () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
-      mocks.GenericWeeklyReviewRequested,
+      mocks.GenericWeeklyReviewRequestedEvent,
     ]);
 
     expect(async () => weeklyReview.request(weekStart)).toThrow(

@@ -283,7 +283,7 @@ export const GenericAlarmCancelledEvent = {
   payload: { alarmId },
 } satisfies Emotions.Events.AlarmCancelledEventType;
 
-export const GenericWeeklyReviewRequested = {
+export const GenericWeeklyReviewRequestedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
