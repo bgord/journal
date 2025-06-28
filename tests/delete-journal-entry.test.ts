@@ -58,6 +58,7 @@ describe("DELETE /emotions/:id/delete", () => {
       `/emotions/${mocks.emotionJournalEntryId}/delete`,
       {
         method: "DELETE",
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
     );
@@ -88,6 +89,7 @@ describe("DELETE /emotions/:id/delete", () => {
       `/emotions/${mocks.emotionJournalEntryId}/delete`,
       {
         method: "DELETE",
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
     );
@@ -122,6 +124,7 @@ describe("DELETE /emotions/:id/delete", () => {
       `/emotions/${mocks.emotionJournalEntryId}/delete`,
       {
         method: "DELETE",
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
     );

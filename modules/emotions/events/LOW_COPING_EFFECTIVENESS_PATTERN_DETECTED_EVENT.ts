@@ -7,6 +7,7 @@ export const LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT =
 
 export const LowCopingEffectivenessPatternDetectedEvent = z.object({
   id: bg.UUID,
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT),

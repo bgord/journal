@@ -15,7 +15,9 @@ describe("AlarmCreator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
     const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
 
-    await Emotions.Services.AlarmCreator.create(detection.name, mocks.emotionJournalEntryId);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      await Emotions.Services.AlarmCreator.create(detection.name, mocks.emotionJournalEntryId);
+    });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
@@ -27,7 +29,9 @@ describe("AlarmCreator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(4);
     const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
 
-    await Emotions.Services.AlarmCreator.create(detection.name, mocks.emotionJournalEntryId);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      await Emotions.Services.AlarmCreator.create(detection.name, mocks.emotionJournalEntryId);
+    });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 

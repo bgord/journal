@@ -18,7 +18,10 @@ describe("AlarmProcessing", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
-    await saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
+    );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
@@ -32,8 +35,10 @@ describe("AlarmProcessing", () => {
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
 
-    expect(async () => saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
-      Emotions.Policies.DailyAlarmLimit.error,
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      expect(async () => saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
+        Emotions.Policies.DailyAlarmLimit.error,
+      ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
 
@@ -46,7 +51,11 @@ describe("AlarmProcessing", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
-    await saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent);
+
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
+    );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
 
@@ -60,9 +69,11 @@ describe("AlarmProcessing", () => {
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
 
-    expect(async () =>
-      saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
-    ).toThrow(Emotions.Policies.DailyAlarmLimit.error);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      expect(async () =>
+        saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
+      ).toThrow(Emotions.Policies.DailyAlarmLimit.error),
+    );
     expect(eventStoreSave).not.toHaveBeenCalled();
 
     jest.restoreAllMocks();
@@ -77,7 +88,11 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
-    await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent);
+
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
+    );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
 
@@ -95,7 +110,10 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
-    await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
+    );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
 
@@ -113,7 +131,10 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
-    await saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent),
+    );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);
 
@@ -128,7 +149,10 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
-    await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent),
+    );
 
     expect(mailerSend).toHaveBeenCalledWith({
       from: "journal@example.com",
@@ -156,7 +180,10 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
-    await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent),
+    );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
 
@@ -177,7 +204,10 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
-    await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent),
+    );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
 
@@ -198,7 +228,10 @@ describe("AlarmProcessing", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
-    await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent),
+    );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
 

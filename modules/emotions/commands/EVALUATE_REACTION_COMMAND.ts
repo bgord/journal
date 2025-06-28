@@ -8,6 +8,7 @@ export const EVALUATE_REACTION_COMMAND = "EVALUATE_REACTION_COMMAND";
 
 export const EvaluateReactionCommand = z.object({
   id: bg.UUID,
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(EVALUATE_REACTION_COMMAND),
   payload: z.object({

@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -16,10 +17,12 @@ describe("Alarm", () => {
   test("generate - correct path", async () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, []);
 
-    await alarm._generate(
-      mocks.emotionJournalEntryId,
-      Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-    );
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      await alarm._generate(
+        mocks.emotionJournalEntryId,
+        Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+      );
+    });
 
     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmGeneratedEvent]);
   });
@@ -42,7 +45,9 @@ describe("Alarm", () => {
 
     const advice = new Emotions.VO.EmotionalAdvice("You should do something");
 
-    await alarm.saveAdvice(advice);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      await alarm.saveAdvice(advice);
+    });
 
     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmAdviceSavedEvent]);
   });
@@ -66,7 +71,9 @@ describe("Alarm", () => {
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
 
-    await alarm.notify();
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      await alarm.notify();
+    });
 
     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationSentEvent]);
   });
@@ -109,7 +116,9 @@ describe("Alarm", () => {
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
 
-    await alarm.cancel();
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      await alarm.cancel();
+    });
 
     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmCancelledEvent]);
   });

@@ -1,8 +1,9 @@
 import { describe, expect, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
   mocks.GenericSituationLoggedEvent,
   mocks.GenericEmotionLoggedEvent,
   mocks.MaladaptiveReactionLoggedEvent,
@@ -10,13 +11,15 @@ const maladaptiveJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mo
 
 describe("LowCopingEffectivenessPattern", () => {
   test("true", () => {
-    const result = Emotions.Services.PatternDetector.detect({
-      entries: [maladaptiveJournalEntry, maladaptiveJournalEntry, maladaptiveJournalEntry],
-      patterns: [Emotions.Services.Patterns.LowCopingEffectivenessPattern],
-      dateRange: mocks.dateRange,
-    });
+    bg.CorrelationStorage.run(mocks.correlationId, () => {
+      const result = Emotions.Services.PatternDetector.detect({
+        entries: [maladaptiveJournalEntry, maladaptiveJournalEntry, maladaptiveJournalEntry],
+        patterns: [Emotions.Services.Patterns.LowCopingEffectivenessPattern],
+        dateRange: mocks.dateRange,
+      });
 
-    expect(result).toEqual([mocks.LowCopingEffectivenessPatternDetectedEvent]);
+      expect(result).toEqual([mocks.LowCopingEffectivenessPatternDetectedEvent]);
+    });
   });
 
   test("false", () => {

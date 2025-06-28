@@ -8,6 +8,7 @@ export const CANCEL_ALARM_COMMAND = "CANCEL_ALARM_COMMAND";
 
 export const CancelAlarmCommand = z.object({
   id: bg.UUID,
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(CANCEL_ALARM_COMMAND),
   payload: z.object({ alarmId: VO.AlarmId }),

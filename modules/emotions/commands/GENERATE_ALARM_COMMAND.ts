@@ -8,6 +8,7 @@ export const GENERATE_ALARM_COMMAND = "GENERATE_ALARM_COMMAND";
 
 export const GenerateAlarmCommand = z.object({
   id: bg.UUID,
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(GENERATE_ALARM_COMMAND),
   payload: z.object({

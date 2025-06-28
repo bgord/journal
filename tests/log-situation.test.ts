@@ -87,6 +87,7 @@ describe("POST /emotions/log-situation", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
     );

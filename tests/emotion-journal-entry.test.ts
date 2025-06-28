@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -50,7 +51,9 @@ describe("EmotionJournalEntry", () => {
       [],
     );
 
-    await emotionJournalEntry.logSituation(situation);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      emotionJournalEntry.logSituation(situation),
+    );
 
     expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericSituationLoggedEvent]);
   });
@@ -72,7 +75,7 @@ describe("EmotionJournalEntry", () => {
       mocks.GenericSituationLoggedEvent,
     ]);
 
-    await emotionJournalEntry.logEmotion(emotion);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => emotionJournalEntry.logEmotion(emotion));
 
     expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericEmotionLoggedEvent]);
   });
@@ -109,7 +112,9 @@ describe("EmotionJournalEntry", () => {
       mocks.GenericEmotionLoggedEvent,
     ]);
 
-    await emotionJournalEntry.logReaction(reaction);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      emotionJournalEntry.logReaction(reaction),
+    );
 
     expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericReactionLoggedEvent]);
   });
@@ -159,7 +164,9 @@ describe("EmotionJournalEntry", () => {
       mocks.GenericEmotionLoggedEvent,
     ]);
 
-    await emotionJournalEntry.reappraiseEmotion(newEmotion);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      emotionJournalEntry.reappraiseEmotion(newEmotion),
+    );
 
     expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericEmotionReappraisedEvent]);
   });
@@ -196,7 +203,9 @@ describe("EmotionJournalEntry", () => {
       mocks.GenericReactionLoggedEvent,
     ]);
 
-    await emotionJournalEntry.evaluateReaction(newReaction);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      emotionJournalEntry.evaluateReaction(newReaction),
+    );
 
     expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericReactionEvaluatedEvent]);
   });
@@ -244,7 +253,7 @@ describe("EmotionJournalEntry", () => {
       mocks.GenericSituationLoggedEvent,
     ]);
 
-    await emotionJournalEntry.delete();
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => emotionJournalEntry.delete());
 
     expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericEmotionJournalEntryDeletedEvent]);
   });
@@ -255,7 +264,7 @@ describe("EmotionJournalEntry", () => {
       mocks.GenericEmotionLoggedEvent,
     ]);
 
-    await emotionJournalEntry.delete();
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => emotionJournalEntry.delete());
 
     expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericEmotionJournalEntryDeletedEvent]);
   });
@@ -267,7 +276,7 @@ describe("EmotionJournalEntry", () => {
       mocks.GenericReactionLoggedEvent,
     ]);
 
-    await emotionJournalEntry.delete();
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => emotionJournalEntry.delete());
 
     expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericEmotionJournalEntryDeletedEvent]);
   });

@@ -49,6 +49,7 @@ export class Alarm {
 
     const event = Events.AlarmGeneratedEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.ALARM_GENERATED_EVENT,
       stream: Alarm.getStream(this.id),
@@ -68,6 +69,7 @@ export class Alarm {
 
     const event = Events.AlarmAdviceSavedEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.ALARM_ADVICE_SAVED_EVENT,
       stream: Alarm.getStream(this.id),
@@ -90,6 +92,7 @@ export class Alarm {
 
     const event = Events.AlarmNotificationSentEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.ALARM_NOTIFICATION_SENT_EVENT,
       stream: Alarm.getStream(this.id),
@@ -108,6 +111,7 @@ export class Alarm {
 
     const event = Events.AlarmCancelledEvent.parse({
       id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.ALARM_CANCELLED_EVENT,
       stream: Alarm.getStream(this.id),

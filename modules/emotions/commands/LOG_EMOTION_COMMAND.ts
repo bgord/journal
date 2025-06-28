@@ -8,6 +8,7 @@ export const LOG_EMOTION_COMMAND = "LOG_EMOTION_COMMAND";
 
 export const LogEmotionCommand = z.object({
   id: bg.UUID,
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(LOG_EMOTION_COMMAND),
   payload: z.object({

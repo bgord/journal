@@ -15,6 +15,7 @@ export async function DeleteJournalEntry(c: hono.Context, _next: hono.Next) {
 
   const command = Emotions.Commands.DeleteEmotionJournalEntryCommand.parse({
     id: bg.NewUUID.generate(),
+    correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.DELETE_EMOTION_JOURNAL_ENTRY_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
     payload: { emotionJournalEntryId },

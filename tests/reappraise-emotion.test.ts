@@ -188,6 +188,7 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
     );
@@ -201,6 +202,7 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
     expect(emotionJournalEntryReappraiseEmotion).toHaveBeenCalledWith(emotion);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionReappraisedEvent]);
+
     jest.restoreAllMocks();
   });
 });

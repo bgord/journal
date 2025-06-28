@@ -8,6 +8,7 @@ export const ALARM_ADVICE_SAVED_EVENT = "ALARM_ADVICE_SAVED_EVENT";
 
 export const AlarmAdviceSavedEvent = z.object({
   id: bg.UUID,
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(ALARM_ADVICE_SAVED_EVENT),
