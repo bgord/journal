@@ -14,6 +14,8 @@ export class WeeklyReview {
 
   // @ts-expect-error
   private weekStartedAt?: tools.TimestampType;
+  // @ts-expect-error
+  private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
 
   private readonly pending: WeeklyReviewEventType[] = [];
 
@@ -64,6 +66,7 @@ export class WeeklyReview {
     switch (event.name) {
       case Events.WEEKLY_REVIEW_REQUESTED_EVENT: {
         this.weekStartedAt = event.payload.weekStartedAt;
+        this.status = VO.WeeklyReviewStatusEnum.requested;
         break;
       }
 
