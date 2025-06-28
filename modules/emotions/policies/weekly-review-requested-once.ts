@@ -18,7 +18,7 @@ class WeeklyReviewRequestedOnceFactory extends bg.Policy<WeeklyReviewRequestedOn
     return config.status !== Emotions.VO.WeeklyReviewStatusEnum.initial;
   }
 
-  message = "alarm.generated.once";
+  message = "weekly-review.requested.once";
 
   error = WeeklyReviewRequestedOnceError;
 
