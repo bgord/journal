@@ -9,3 +9,4 @@ export * from "./emotional-advice-requester";
 export * from "./pattern-detector";
 export * as Patterns from "./patterns/";
 export * from "./weekly-review-scheduler";
+export * from "./weekly-review-skipped-notification-composer";
