@@ -6,6 +6,7 @@ import * as mocks from "./mocks";
 
 describe("WeeklyReviewScheduler", () => {
   test("correct path", async () => {
+    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "countInWeek").mockResolvedValue(1);
     spyOn(Date, "now").mockReturnValue(mocks.weekStartedAt);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
     const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
@@ -15,6 +16,23 @@ describe("WeeklyReviewScheduler", () => {
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewRequested]);
+
+    jest.restoreAllMocks();
+  });
+
+  test("JournalEntriesForWeekExist", async () => {
+    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "countInWeek").mockResolvedValue(0);
+    spyOn(Date, "now").mockReturnValue(mocks.weekStartedAt);
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      expect(async () => await Emotions.Services.WeeklyReviewScheduler.process()).toThrow(
+        Emotions.Policies.JournalEntriesForWeekExist.error,
+      );
+    });
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
 
     jest.restoreAllMocks();
   });
