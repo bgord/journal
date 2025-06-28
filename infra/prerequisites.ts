@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
 import { Env } from "./env";
+import { jobs } from "./jobs";
 import { logger } from "./logger";
 
 export const prerequisites = [
@@ -35,6 +36,11 @@ export const prerequisites = [
   new bg.PrerequisiteLogFile({
     label: "log-file",
     logger,
+    enabled: Env.type === bg.NodeEnvironmentEnum.production,
+  }),
+  new bg.PrerequisiteJobs({
+    label: "jobs",
+    jobs,
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
   }),
 ];

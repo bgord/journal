@@ -56,12 +56,8 @@
           "name": "alarms_emotionJournalEntryId_emotionJournalEntries_id_fk",
           "tableFrom": "alarms",
           "tableTo": "emotionJournalEntries",
-          "columnsFrom": [
-            "emotionJournalEntryId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["emotionJournalEntryId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -221,9 +217,7 @@
       "indexes": {
         "stream_idx": {
           "name": "stream_idx",
-          "columns": [
-            "stream"
-          ],
+          "columns": ["stream"],
           "isUnique": false
         }
       },
