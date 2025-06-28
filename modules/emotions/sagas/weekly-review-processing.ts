@@ -1,11 +1,15 @@
 import type { EventBus } from "../../../infra/event-bus";
 import { Mailer } from "../../../infra/mailer";
 import * as Events from "../events";
+import * as Repos from "../repositories";
 import * as Services from "../services";
 import * as VO from "../value-objects";
 
 export class WeeklyReviewProcessing {
-  constructor(private readonly eventBus: typeof EventBus) {}
+  constructor(
+    private readonly eventBus: typeof EventBus,
+    private readonly AiClient: Services.AiClient,
+  ) {}
 
   register() {
     this.eventBus.on(Events.WEEKLY_REVIEW_SKIPPED_EVENT, this.onWeeklyReviewSkippedEvent.bind(this));
@@ -25,5 +29,7 @@ export class WeeklyReviewProcessing {
     });
   }
 
-  async onWeeklyReviewRequestedEvent(_event: Events.WeeklyReviewRequestedEventType) {}
+  async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
+    const entries = await Repos.EmotionJournalEntryRepository.findInWeek(event.payload.weekStartedAt);
+  }
 }
