@@ -38,7 +38,7 @@ export class WeeklyReviewProcessing {
 
     const weeklyReviewInsights = new Services.WeeklyReviewInsightsRequester(this.AiClient, entries);
 
-    // TODO compensatory action
+    // TODO: add compensatory action
     const insights = await weeklyReviewInsights.ask();
 
     const command = Commands.CompleteWeeklyReviewCommand.parse({
