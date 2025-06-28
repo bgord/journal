@@ -6,5 +6,6 @@ export * from "./LOG_EMOTION_COMMAND";
 export * from "./LOG_REACTION_COMMAND";
 export * from "./LOG_SITUATION_COMMAND";
 export * from "./REAPPRAISE_EMOTION_COMMAND";
+export * from "./REQUEST_WEEKLY_REVIEW_COMMAND";
 export * from "./SAVE_ALARM_ADVICE_COMMAND";
 export * from "./SEND_ALARM_NOTIFICATION_COMMAND";
