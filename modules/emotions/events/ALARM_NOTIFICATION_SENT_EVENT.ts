@@ -8,7 +8,7 @@ export const ALARM_NOTIFICATION_SENT_EVENT = "ALARM_NOTIFICATION_SENT_EVENT";
 
 export const AlarmNotificationSentEvent = z.object({
   id: bg.UUID,
-  correlationId: z.uuid().or(z.null()),
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(ALARM_NOTIFICATION_SENT_EVENT),

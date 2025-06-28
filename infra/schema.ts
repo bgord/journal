@@ -19,7 +19,7 @@ export const events = sqliteTable(
   "events",
   {
     id,
-    correlationId: text("correlationId"),
+    correlationId: text("correlationId").notNull(),
     createdAt: integer("createdAt").default(sql`now`).notNull(),
     name: text("name").notNull(),
     stream: text("stream").notNull(),

@@ -8,7 +8,7 @@ export const ALARM_GENERATED_EVENT = "ALARM_GENERATED_EVENT";
 
 export const AlarmGeneratedEvent = z.object({
   id: bg.UUID,
-  correlationId: z.uuid().or(z.null()),
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(ALARM_GENERATED_EVENT),

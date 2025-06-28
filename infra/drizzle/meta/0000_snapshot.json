@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "b5024a15-b45d-4115-aa51-53ccbd55be68",
+  "id": "2d4f46e8-fe2d-457b-abd5-8517f8a8648f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alarms": {
@@ -167,6 +167,13 @@
           "name": "id",
           "type": "text(36)",
           "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "correlationId": {
+          "name": "correlationId",
+          "type": "text",
+          "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },

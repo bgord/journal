@@ -8,7 +8,7 @@ export const EMOTION_LOGGED_EVENT = "EMOTION_LOGGED_EVENT";
 
 export const EmotionLoggedEvent = z.object({
   id: bg.UUID,
-  correlationId: z.uuid().or(z.null()),
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(EMOTION_LOGGED_EVENT),

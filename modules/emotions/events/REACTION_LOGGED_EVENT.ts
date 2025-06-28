@@ -8,7 +8,7 @@ export const REACTION_LOGGED_EVENT = "REACTION_LOGGED_EVENT";
 
 export const ReactionLoggedEvent = z.object({
   id: bg.UUID,
-  correlationId: z.uuid().or(z.null()),
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(REACTION_LOGGED_EVENT),

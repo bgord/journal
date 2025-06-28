@@ -7,7 +7,7 @@ export const MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT =
 
 export const MultipleMaladaptiveReactionsPatternDetectedEvent = z.object({
   id: bg.UUID,
-  correlationId: z.uuid().or(z.null()),
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT),

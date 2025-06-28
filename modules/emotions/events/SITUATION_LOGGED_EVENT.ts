@@ -8,7 +8,7 @@ export const SITUATION_LOGGED_EVENT = "SITUATION_LOGGED_EVENT";
 
 export const SituationLoggedEvent = z.object({
   id: bg.UUID,
-  correlationId: z.uuid().or(z.null()),
+  correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
   name: z.literal(SITUATION_LOGGED_EVENT),

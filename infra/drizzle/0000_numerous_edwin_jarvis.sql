@@ -25,6 +25,7 @@ CREATE TABLE `emotionJournalEntries` (
 --> statement-breakpoint
 CREATE TABLE `events` (
 	`id` text(36) PRIMARY KEY NOT NULL,
+	`correlationId` text NOT NULL,
 	`createdAt` integer DEFAULT now NOT NULL,
 	`name` text NOT NULL,
 	`stream` text NOT NULL,
