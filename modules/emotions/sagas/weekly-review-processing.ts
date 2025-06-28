@@ -1,8 +1,8 @@
 import type { EventBus } from "../../../infra/event-bus";
 import { Mailer } from "../../../infra/mailer";
+import * as Events from "../events";
 import * as Services from "../services";
 import * as VO from "../value-objects";
-import * as Events from "../events";
 
 export class WeeklyReviewProcessing {
   constructor(private readonly eventBus: typeof EventBus) {}
@@ -17,7 +17,6 @@ export class WeeklyReviewProcessing {
 
     const notification = composer.compose(weekStart);
 
-    // TODO: Use real mailer here, mocked for now
     await Mailer.send({
       from: "journal@example.com",
       to: "example@abc.com",
@@ -25,4 +24,6 @@ export class WeeklyReviewProcessing {
       html: notification,
     });
   }
+
+  async onWeeklyReviewRequestedEvent(_event: Events.WeeklyReviewRequestedEventType) {}
 }
