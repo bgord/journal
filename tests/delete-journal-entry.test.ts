@@ -23,7 +23,11 @@ describe("DELETE /emotions/:id/delete", () => {
 
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
-    const response = await server.request(`/emotions/${mocks.id}/delete`, { method: "DELETE" }, mocks.ip);
+    const response = await server.request(
+      `/emotions/${mocks.emotionJournalEntryId}/delete`,
+      { method: "DELETE" },
+      mocks.ip,
+    );
 
     const json = await response.json();
 
@@ -34,9 +38,9 @@ describe("DELETE /emotions/:id/delete", () => {
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
   });
 
@@ -51,7 +55,7 @@ describe("DELETE /emotions/:id/delete", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.id}/delete`,
+      `/emotions/${mocks.emotionJournalEntryId}/delete`,
       {
         method: "DELETE",
       },
@@ -61,9 +65,9 @@ describe("DELETE /emotions/:id/delete", () => {
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionJournalEntryDeletedEvent]);
@@ -81,7 +85,7 @@ describe("DELETE /emotions/:id/delete", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.id}/delete`,
+      `/emotions/${mocks.emotionJournalEntryId}/delete`,
       {
         method: "DELETE",
       },
@@ -91,9 +95,9 @@ describe("DELETE /emotions/:id/delete", () => {
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionJournalEntryDeletedEvent]);
@@ -115,7 +119,7 @@ describe("DELETE /emotions/:id/delete", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.id}/delete`,
+      `/emotions/${mocks.emotionJournalEntryId}/delete`,
       {
         method: "DELETE",
       },
@@ -125,9 +129,9 @@ describe("DELETE /emotions/:id/delete", () => {
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionJournalEntryDeletedEvent]);

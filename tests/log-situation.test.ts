@@ -60,7 +60,7 @@ describe("POST /emotions/log-situation", () => {
   });
 
   test("happy path", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.id);
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
     const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
 
     const emotionJournalEntryCreate = spyOn(Emotions.Aggregates.EmotionJournalEntry, "create");

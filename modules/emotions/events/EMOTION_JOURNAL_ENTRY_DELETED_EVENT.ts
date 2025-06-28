@@ -12,7 +12,7 @@ export const EmotionJournalEntryDeletedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(EMOTION_JOURNAL_ENTRY_DELETED_EVENT),
   version: z.literal(1),
-  payload: z.object({ id: VO.EmotionJournalEntryId }),
+  payload: z.object({ emotionJournalEntryId: VO.EmotionJournalEntryId }),
 });
 
 export type EmotionJournalEntryDeletedEventType = z.infer<typeof EmotionJournalEntryDeletedEvent>;

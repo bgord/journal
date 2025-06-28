@@ -14,7 +14,7 @@ export const ip = {
   },
 };
 
-export const id = bg.NewUUID.generate();
+export const emotionJournalEntryId = bg.NewUUID.generate();
 
 export const alarmId = bg.NewUUID.generate();
 
@@ -22,10 +22,10 @@ export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.SITUATION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     description: "I finished a project",
     kind: Emotions.VO.SituationKindOptions.achievement,
     location: "work",
@@ -36,10 +36,10 @@ export const GenericEmotionLoggedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     label: Emotions.VO.GenevaWheelEmotion.gratitude,
     intensity: 3,
   },
@@ -49,10 +49,10 @@ export const GenericReactionLoggedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     description: "Got drunk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
     effectiveness: 1,
@@ -63,10 +63,10 @@ export const GenericEmotionReappraisedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.joy,
     newIntensity: 3,
   },
@@ -76,10 +76,10 @@ export const GenericReactionEvaluatedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_EVALUATED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     description: "Went to bed",
     type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
     effectiveness: 2,
@@ -90,10 +90,10 @@ export const PositiveEmotionLoggedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     label: Emotions.VO.GenevaWheelEmotion.joy,
     intensity: 4,
   },
@@ -103,10 +103,10 @@ export const NegativeEmotionLoggedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
     intensity: 4,
   },
@@ -116,10 +116,10 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
     intensity: 5,
   },
@@ -129,10 +129,10 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.anger,
     newIntensity: 5,
   },
@@ -142,10 +142,10 @@ export const MaladaptiveReactionLoggedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     description: "Got drunk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
     effectiveness: 1,
@@ -156,10 +156,10 @@ export const AdaptiveReactionLoggedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
-    id,
+    emotionJournalEntryId,
     description: "Went for a walk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.reappraisal,
     effectiveness: 4,
@@ -170,9 +170,9 @@ export const GenericEmotionJournalEntryDeletedEvent = {
   id: expectAnyId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(id),
+  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
   version: 1,
-  payload: { id },
+  payload: { emotionJournalEntryId },
 } satisfies Emotions.Events.EmotionJournalEntryDeletedEventType;
 
 export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
@@ -222,7 +222,7 @@ export const GenericAlarmGeneratedEvent = {
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     alarmId,
-    emotionJournalEntryId: id,
+    emotionJournalEntryId,
   },
 } satisfies Emotions.Events.AlarmGeneratedEventType;
 
@@ -235,7 +235,7 @@ export const GenericAlarmAdviceSavedEvent = {
   payload: {
     advice: "You should do something",
     alarmId,
-    emotionJournalEntryId: id,
+    emotionJournalEntryId,
   },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
 
@@ -245,7 +245,7 @@ export const GenericAlarmNotificationSentEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
   version: 1,
-  payload: { alarmId, emotionJournalEntryId: id },
+  payload: { alarmId, emotionJournalEntryId },
 } satisfies Emotions.Events.AlarmNotificationSentEventType;
 
 export const GenericAlarmCancelledEvent = {
@@ -261,7 +261,7 @@ export const partialEntry: Schema.SelectEmotionJournalEntries = {
   finishedAt: Date.now(),
   startedAt: Date.now(),
   status: Emotions.VO.AlarmStatusEnum.generated,
-  id,
+  id: emotionJournalEntryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
   situationLocation: "work",
@@ -276,7 +276,7 @@ export const fullEntry: Schema.SelectEmotionJournalEntries = {
   finishedAt: Date.now(),
   startedAt: Date.now(),
   status: Emotions.VO.AlarmStatusEnum.generated,
-  id,
+  id: emotionJournalEntryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
   situationLocation: "work",
@@ -290,7 +290,7 @@ export const fullEntry: Schema.SelectEmotionJournalEntries = {
 export const alarm: Schema.SelectAlarms = {
   id: alarmId,
   generatedAt: Date.now(),
-  emotionJournalEntryId: id,
+  emotionJournalEntryId: emotionJournalEntryId,
   status: Emotions.VO.AlarmStatusEnum.notification_sent,
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
   advice: "You should do something",

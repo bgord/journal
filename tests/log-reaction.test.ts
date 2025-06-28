@@ -6,7 +6,11 @@ import * as mocks from "./mocks";
 
 describe("POST /emotions/:id/log-reaction", () => {
   test("validation - empty payload", async () => {
-    const response = await server.request(`/emotions/${mocks.id}/log-reaction`, { method: "POST" }, mocks.ip);
+    const response = await server.request(
+      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
+      { method: "POST" },
+      mocks.ip,
+    );
 
     const json = await response.json();
 
@@ -19,7 +23,7 @@ describe("POST /emotions/:id/log-reaction", () => {
 
   test("validation - missing type", async () => {
     const response = await server.request(
-      `/emotions/${mocks.id}/log-reaction`,
+      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -40,7 +44,7 @@ describe("POST /emotions/:id/log-reaction", () => {
 
   test("validation - missing effectiveness", async () => {
     const response = await server.request(
-      `/emotions/${mocks.id}/log-reaction`,
+      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -99,7 +103,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     );
 
     const response = await server.request(
-      `/emotions/${mocks.id}/log-reaction`,
+      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -116,9 +120,9 @@ describe("POST /emotions/:id/log-reaction", () => {
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryLogReaction).toHaveBeenCalledWith(reaction);
   });
 
@@ -141,7 +145,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     };
 
     const response = await server.request(
-      `/emotions/${mocks.id}/log-reaction`,
+      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -158,9 +162,9 @@ describe("POST /emotions/:id/log-reaction", () => {
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("validation - OneReactionPerEntry", async () => {
@@ -181,7 +185,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     };
 
     const response = await server.request(
-      `/emotions/${mocks.id}/log-reaction`,
+      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -198,9 +202,9 @@ describe("POST /emotions/:id/log-reaction", () => {
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
@@ -217,7 +221,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     };
 
     const response = await server.request(
-      `/emotions/${mocks.id}/log-reaction`,
+      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -234,9 +238,9 @@ describe("POST /emotions/:id/log-reaction", () => {
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
@@ -253,7 +257,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     };
 
     const response = await server.request(
-      `/emotions/${mocks.id}/log-reaction`,
+      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -270,9 +274,9 @@ describe("POST /emotions/:id/log-reaction", () => {
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("happy path", async () => {
@@ -301,7 +305,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     );
 
     const response = await server.request(
-      `/emotions/${mocks.id}/log-reaction`,
+      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -312,9 +316,9 @@ describe("POST /emotions/:id/log-reaction", () => {
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryLogReaction).toHaveBeenCalledWith(reaction);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericReactionLoggedEvent]);

@@ -7,7 +7,7 @@ import * as mocks from "./mocks";
 describe("POST /emotions/:id/reappraise-emotion", () => {
   test("validation - empty payload", async () => {
     const response = await server.request(
-      `/emotions/${mocks.id}/reappraise-emotion`,
+      `/emotions/${mocks.emotionJournalEntryId}/reappraise-emotion`,
       { method: "POST" },
       mocks.ip,
     );
@@ -23,7 +23,7 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
 
   test("validation - missing intensity", async () => {
     const response = await server.request(
-      `/emotions/${mocks.id}/reappraise-emotion`,
+      `/emotions/${mocks.emotionJournalEntryId}/reappraise-emotion`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -69,7 +69,7 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.id}/reappraise-emotion`,
+      `/emotions/${mocks.emotionJournalEntryId}/reappraise-emotion`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -89,9 +89,9 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("validation - EmotionCorrespondsToSituation", async () => {
@@ -102,7 +102,7 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.id}/reappraise-emotion`,
+      `/emotions/${mocks.emotionJournalEntryId}/reappraise-emotion`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -122,9 +122,9 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("validation - EmotionForReappraisalExists", async () => {
@@ -135,7 +135,7 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.id}/reappraise-emotion`,
+      `/emotions/${mocks.emotionJournalEntryId}/reappraise-emotion`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -155,9 +155,9 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("happy path", async () => {
@@ -184,7 +184,7 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
     );
 
     const response = await server.request(
-      `/emotions/${mocks.id}/reappraise-emotion`,
+      `/emotions/${mocks.emotionJournalEntryId}/reappraise-emotion`,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -195,9 +195,9 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.id),
+      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.id, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryReappraiseEmotion).toHaveBeenCalledWith(emotion);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionReappraisedEvent]);

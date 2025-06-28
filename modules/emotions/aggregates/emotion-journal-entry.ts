@@ -59,7 +59,7 @@ export class EmotionJournalEntry {
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
-        id: this.id,
+        emotionJournalEntryId: this.id,
         description: situation.description.get(),
         location: situation.location.get(),
         kind: situation.kind.get(),
@@ -89,7 +89,7 @@ export class EmotionJournalEntry {
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
-        id: this.id,
+        emotionJournalEntryId: this.id,
         label: emotion.label.get(),
         intensity: emotion.intensity.get(),
       },
@@ -119,7 +119,7 @@ export class EmotionJournalEntry {
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
-        id: this.id,
+        emotionJournalEntryId: this.id,
         description: reaction.description.get(),
         type: reaction.type.get(),
         effectiveness: reaction.effectiveness.get(),
@@ -149,7 +149,7 @@ export class EmotionJournalEntry {
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
-        id: this.id,
+        emotionJournalEntryId: this.id,
         newLabel: newEmotion.label.get(),
         newIntensity: newEmotion.intensity.get(),
       },
@@ -179,7 +179,7 @@ export class EmotionJournalEntry {
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
       payload: {
-        id: this.id,
+        emotionJournalEntryId: this.id,
         description: newReaction.description.get(),
         type: newReaction.type.get(),
         effectiveness: newReaction.effectiveness.get(),
@@ -198,7 +198,7 @@ export class EmotionJournalEntry {
       name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
       stream: EmotionJournalEntry.getStream(this.id),
       version: 1,
-      payload: { id: this.id },
+      payload: { emotionJournalEntryId: this.id },
     } satisfies Emotions.Events.EmotionJournalEntryDeletedEventType);
 
     this.record(event);

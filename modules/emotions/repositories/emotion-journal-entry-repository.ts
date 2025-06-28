@@ -16,7 +16,7 @@ export class EmotionJournalEntryRepository {
 
   static async logSituation(event: Events.SituationLoggedEventType) {
     await db.insert(Schema.emotionJournalEntries).values({
-      id: event.payload.id,
+      id: event.payload.emotionJournalEntryId,
       status: VO.EmotionJournalEntryStatusEnum.actionable,
       startedAt: event.createdAt,
       situationKind: event.payload.kind,
@@ -32,7 +32,7 @@ export class EmotionJournalEntryRepository {
         emotionLabel: event.payload.label,
         emotionIntensity: event.payload.intensity as number,
       })
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.id));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
   }
 
   static async logReaction(event: Events.ReactionLoggedEventType) {
@@ -44,7 +44,7 @@ export class EmotionJournalEntryRepository {
         reactionEffectiveness: event.payload.effectiveness,
         finishedAt: event.createdAt,
       })
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.id));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
   }
 
   static async reappraiseEmotion(event: Events.EmotionReappraisedEventType) {
@@ -55,7 +55,7 @@ export class EmotionJournalEntryRepository {
         emotionIntensity: event.payload.newIntensity as number,
         finishedAt: event.createdAt,
       })
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.id));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
   }
 
   static async evaluateReaction(event: Events.ReactionEvaluatedEventType) {
@@ -67,12 +67,12 @@ export class EmotionJournalEntryRepository {
         reactionEffectiveness: event.payload.effectiveness,
         finishedAt: event.createdAt,
       })
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.id));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
   }
 
   static async deleteEntry(event: Events.EmotionJournalEntryDeletedEventType) {
     await db
       .delete(Schema.emotionJournalEntries)
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.id));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
   }
 }

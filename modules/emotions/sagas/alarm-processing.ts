@@ -41,7 +41,7 @@ export class AlarmProcessing {
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
         alarmName: detection.name,
-        emotionJournalEntryId: event.payload.id,
+        emotionJournalEntryId: event.payload.emotionJournalEntryId,
       },
     } satisfies Commands.GenerateAlarmCommandType);
 
@@ -62,7 +62,7 @@ export class AlarmProcessing {
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
         alarmName: detection.name,
-        emotionJournalEntryId: event.payload.id,
+        emotionJournalEntryId: event.payload.emotionJournalEntryId,
       },
     } satisfies Commands.GenerateAlarmCommandType);
 
@@ -141,7 +141,9 @@ export class AlarmProcessing {
   }
 
   async onEmotionJournalEntryDeletedEvent(event: Events.EmotionJournalEntryDeletedEventType) {
-    const cancellableAlarmIds = await Repositories.AlarmRepository.findCancellableByEntryId(event.payload.id);
+    const cancellableAlarmIds = await Repositories.AlarmRepository.findCancellableByEntryId(
+      event.payload.emotionJournalEntryId,
+    );
 
     for (const alarmId of cancellableAlarmIds.map((result) => result.id)) {
       const command = Commands.CancelAlarmCommand.parse({
