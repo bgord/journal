@@ -1,14 +1,15 @@
 import { describe, expect, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const positiveEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+const positiveEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
   mocks.GenericSituationLoggedEvent,
   mocks.PositiveEmotionLoggedEvent,
   mocks.GenericReactionLoggedEvent,
 ]);
 
-const negativeEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+const negativeEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
   mocks.GenericSituationLoggedEvent,
   mocks.NegativeEmotionLoggedEvent,
   mocks.GenericReactionLoggedEvent,
@@ -16,13 +17,15 @@ const negativeEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks
 
 describe("MoreNegativeThanPositiveEmotionsPattern", () => {
   test("true", () => {
-    const result = Emotions.Services.PatternDetector.detect({
-      entries: [negativeEmotionEntry, negativeEmotionEntry, positiveEmotionEntry],
-      patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
-      dateRange: mocks.dateRange,
-    });
+    bg.CorrelationStorage.run(mocks.correlationId, () => {
+      const result = Emotions.Services.PatternDetector.detect({
+        entries: [negativeEmotionEntry, negativeEmotionEntry, positiveEmotionEntry],
+        patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
+        dateRange: mocks.dateRange,
+      });
 
-    expect(result).toEqual([mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent]);
+      expect(result).toEqual([mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent]);
+    });
   });
 
   test("false", () => {

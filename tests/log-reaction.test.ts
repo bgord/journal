@@ -309,6 +309,7 @@ describe("POST /emotions/:id/log-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
     );

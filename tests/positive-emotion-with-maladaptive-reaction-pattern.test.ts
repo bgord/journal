@@ -1,14 +1,15 @@
 import { describe, expect, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const positiveMaladaptiveEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+const positiveMaladaptiveEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
   mocks.GenericSituationLoggedEvent,
   mocks.PositiveEmotionLoggedEvent,
   mocks.MaladaptiveReactionLoggedEvent,
 ]);
 
-const positiveAdaptiveEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.id, [
+const positiveAdaptiveEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
   mocks.GenericSituationLoggedEvent,
   mocks.PositiveEmotionLoggedEvent,
   mocks.AdaptiveReactionLoggedEvent,
@@ -16,13 +17,15 @@ const positiveAdaptiveEntry = Emotions.Aggregates.EmotionJournalEntry.build(mock
 
 describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
   test("true", () => {
-    const result = Emotions.Services.PatternDetector.detect({
-      entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveMaladaptiveEntry],
-      patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
-      dateRange: mocks.dateRange,
-    });
+    bg.CorrelationStorage.run(mocks.correlationId, () => {
+      const result = Emotions.Services.PatternDetector.detect({
+        entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveMaladaptiveEntry],
+        patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
+        dateRange: mocks.dateRange,
+      });
 
-    expect(result).toEqual([mocks.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent]);
+      expect(result).toEqual([mocks.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent]);
+    });
   });
 
   test("false", () => {
