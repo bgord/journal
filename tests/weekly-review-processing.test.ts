@@ -9,8 +9,6 @@ import * as mocks from "./mocks";
 
 const openAiClient = new OpenAiClient();
 
-const insights = new Emotions.VO.EmotionalAdvice("Good job");
-
 describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent", async () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
@@ -35,7 +33,7 @@ describe("WeeklyReviewProcessing", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     spyOn(Emotions.Repos.EmotionJournalEntryRepository, "findInWeek").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Emotions.Services.WeeklyReviewInsightsRequester.prototype, "ask").mockResolvedValue(insights);
+    spyOn(openAiClient, "request").mockResolvedValue("Good job");
 
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
       mocks.GenericWeeklyReviewRequestedEvent,

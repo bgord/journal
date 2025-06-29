@@ -36,10 +36,10 @@ export class WeeklyReviewProcessing {
   async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
     const entries = await Repos.EmotionJournalEntryRepository.findInWeek(event.payload.weekStartedAt);
 
-    const weeklyReviewInsights = new Services.WeeklyReviewInsightsRequester(this.AiClient, entries);
+    const prompt = new Services.WeeklyReviewInsightsPrompt(entries).generate();
 
     // TODO: add compensatory action
-    const insights = await weeklyReviewInsights.ask();
+    const insights = await this.AiClient.request(prompt);
 
     const command = Commands.CompleteWeeklyReviewCommand.parse({
       id: bg.NewUUID.generate(),
@@ -48,7 +48,7 @@ export class WeeklyReviewProcessing {
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
         weeklyReviewId: event.payload.weeklyReviewId,
-        insights: insights,
+        insights: new VO.EmotionalAdvice(insights),
       },
     } satisfies Commands.CompleteWeeklyReviewCommandType);
 

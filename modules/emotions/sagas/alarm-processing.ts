@@ -74,14 +74,10 @@ export class AlarmProcessing {
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
     const entry = await Repos.EmotionJournalEntryRepository.getById(event.payload.emotionJournalEntryId);
 
-    const emotionalAdviceRequester = new Services.EmotionalAdviceRequester(
-      this.AiClient,
-      entry,
-      event.payload.alarmName,
-    );
+    const prompt = new Services.EmotionalAdvicePrompt(entry, event.payload.alarmName).generate();
 
     try {
-      const advice = await emotionalAdviceRequester.ask();
+      const advice = await this.AiClient.request(prompt);
 
       const command = Commands.SaveAlarmAdviceCommand.parse({
         id: bg.NewUUID.generate(),
@@ -90,7 +86,7 @@ export class AlarmProcessing {
         createdAt: tools.Timestamp.parse(Date.now()),
         payload: {
           alarmId: event.payload.alarmId,
-          advice,
+          advice: new VO.EmotionalAdvice(advice),
           emotionJournalEntryId: event.payload.emotionJournalEntryId,
         },
       } satisfies Commands.SaveAlarmAdviceCommandType);

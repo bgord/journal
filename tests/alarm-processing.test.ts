@@ -7,8 +7,6 @@ import { OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const advice = new Emotions.VO.EmotionalAdvice("You should do something");
-
 const openAiClient = new OpenAiClient();
 
 describe("AlarmProcessing", () => {
@@ -81,8 +79,8 @@ describe("AlarmProcessing", () => {
 
   test("onAlarmGeneratedEvent", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-
-    spyOn(Emotions.Services.EmotionalAdviceRequester.prototype, "ask").mockResolvedValue(advice);
+    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(openAiClient, "request").mockResolvedValue("You should do something");
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
@@ -101,8 +99,8 @@ describe("AlarmProcessing", () => {
 
   test("onAlarmGeneratedEvent - cancels alarm when advice requester fails", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-
-    spyOn(Emotions.Services.EmotionalAdviceRequester.prototype, "ask").mockImplementation(() => {
+    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(openAiClient, "request").mockImplementation(() => {
       throw new Error();
     });
 
