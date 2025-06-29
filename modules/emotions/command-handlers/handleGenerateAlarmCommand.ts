@@ -1,7 +1,7 @@
 import * as Emotions from "../";
 
 export const handleGenerateAlarmCommand = async (command: Emotions.Commands.GenerateAlarmCommandType) => {
-  await Emotions.Services.AlarmCreator.create(
+  await Emotions.Services.AlarmFactory.create(
     command.payload.alarmName,
     command.payload.emotionJournalEntryId,
   );

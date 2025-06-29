@@ -15,12 +15,6 @@ export async function EvaluateReaction(c: hono.Context, _next: hono.Next) {
     new Emotions.VO.ReactionEffectiveness(body.effectiveness),
   );
 
-  infra.logger.info({
-    message: "Evaluate reaction payload",
-    operation: "read",
-    metadata: { newReaction, emotionJournalEntryId },
-  });
-
   const command = Emotions.Commands.EvaluateReactionCommand.parse({
     id: bg.NewUUID.generate(),
     correlationId: bg.CorrelationStorage.get(),

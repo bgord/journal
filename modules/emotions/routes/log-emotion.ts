@@ -14,12 +14,6 @@ export async function LogEmotion(c: hono.Context, _next: hono.Next) {
     new Emotions.VO.EmotionIntensity(body.intensity),
   );
 
-  infra.logger.info({
-    message: "Log emotion payload",
-    operation: "read",
-    metadata: { emotion, emotionJournalEntryId },
-  });
-
   const command = Emotions.Commands.LogEmotionCommand.parse({
     id: bg.NewUUID.generate(),
     correlationId: bg.CorrelationStorage.get(),

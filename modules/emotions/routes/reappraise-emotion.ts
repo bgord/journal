@@ -14,12 +14,6 @@ export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
     new Emotions.VO.EmotionIntensity(body.intensity),
   );
 
-  infra.logger.info({
-    message: "Reappraise emotion payload",
-    operation: "read",
-    metadata: { newEmotion, emotionJournalEntryId },
-  });
-
   const command = Emotions.Commands.ReappraiseEmotionCommand.parse({
     id: bg.NewUUID.generate(),
     correlationId: bg.CorrelationStorage.get(),

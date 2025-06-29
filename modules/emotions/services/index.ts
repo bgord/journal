@@ -1,10 +1,13 @@
 export * from "./ai-client";
-export * from "./ai-client";
-export * from "./alarm-creator";
 export * from "./alarm-detector";
+export * from "./alarm-factory";
 export * as Alarms from "./alarms";
 export * from "./emotional-advice-notification-composer";
 export * from "./emotional-advice-prompt";
 export * from "./emotional-advice-requester";
 export * from "./pattern-detector";
 export * as Patterns from "./patterns/";
+export * from "./weekly-review-insights-prompt";
+export * from "./weekly-review-insights-requester";
+export * from "./weekly-review-scheduler";
+export * from "./weekly-review-skipped-notification-composer";

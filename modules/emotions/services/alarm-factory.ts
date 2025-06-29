@@ -7,7 +7,7 @@ import * as Policies from "../policies";
 import * as Repos from "../repositories";
 import * as VO from "../value-objects";
 
-export class AlarmCreator {
+export class AlarmFactory {
   static async create(alarmName: VO.AlarmNameType, emotionJournalEntryId: VO.EmotionJournalEntryIdType) {
     const count = await Repos.AlarmRepository.getCreatedTodayCount();
 

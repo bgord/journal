@@ -1,4 +1,5 @@
-import { eq } from "drizzle-orm";
+import * as tools from "@bgord/tools";
+import { and, eq, gte, lte } from "drizzle-orm";
 import { db } from "../../../infra/db";
 import * as Schema from "../../../infra/schema";
 import type * as Events from "../events";
@@ -12,6 +13,32 @@ export class EmotionJournalEntryRepository {
       .where(eq(Schema.emotionJournalEntries.id, id));
 
     return result[0] as Schema.SelectEmotionJournalEntries;
+  }
+
+  static async countInWeek(weekStartedAt: number): Promise<number> {
+    const weekEndedAt = weekStartedAt + tools.Time.Days(7).ms;
+
+    return db.$count(
+      Schema.emotionJournalEntries,
+      and(
+        gte(Schema.emotionJournalEntries.startedAt, weekStartedAt),
+        lte(Schema.emotionJournalEntries.startedAt, weekEndedAt),
+      ),
+    );
+  }
+
+  static async findInWeek(weekStartedAt: number): Promise<Schema.SelectEmotionJournalEntries[]> {
+    const weekEndedAt = weekStartedAt + tools.Time.Days(7).ms;
+
+    return db
+      .select()
+      .from(Schema.emotionJournalEntries)
+      .where(
+        and(
+          gte(Schema.emotionJournalEntries.startedAt, weekStartedAt),
+          lte(Schema.emotionJournalEntries.startedAt, weekEndedAt),
+        ),
+      );
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {
