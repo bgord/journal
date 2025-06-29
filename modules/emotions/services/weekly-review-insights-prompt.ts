@@ -1,6 +1,6 @@
 import type * as Schema from "../../../infra/schema";
 
-export type WeeklyReviewInsightsPromptType = [
+type WeeklyReviewInsightsPromptType = [
   { role: "system"; content: string },
   { role: "user"; content: string },
 ];
