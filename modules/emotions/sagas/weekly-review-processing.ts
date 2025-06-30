@@ -55,5 +55,20 @@ export class WeeklyReviewProcessing {
     await CommandBus.emit(command.name, command);
   }
 
-  async onWeeklyReviewCompletedEvent(_event: Events.WeeklyReviewCompletedEventType) {}
+  async onWeeklyReviewCompletedEvent(event: Events.WeeklyReviewCompletedEventType) {
+    const entries = await Repos.EmotionJournalEntryRepository.findInWeek(event.payload.weekStartedAt);
+    const insights = new VO.EmotionalAdvice(event.payload.insights);
+    const weekStart = VO.WeekStart.fromTimestamp(event.payload.weekStartedAt);
+
+    const composer = new Services.WeeklyReviewNotificationComposer();
+
+    const notification = composer.compose(weekStart, entries, insights);
+
+    await Mailer.send({
+      from: "journal@example.com",
+      to: "example@abc.com",
+      subject: `Weekly Review - ${weekStart.get()}`,
+      html: notification,
+    });
+  }
 }
