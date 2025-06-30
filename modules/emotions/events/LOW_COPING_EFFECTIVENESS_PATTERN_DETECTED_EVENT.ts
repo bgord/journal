@@ -15,7 +15,6 @@ export const LowCopingEffectivenessPatternDetectedEvent = z.object({
   payload: z.object({}),
 });
 
-/** @public */
 export type LowCopingEffectivenessPatternDetectedEventType = z.infer<
   typeof LowCopingEffectivenessPatternDetectedEvent
 >;

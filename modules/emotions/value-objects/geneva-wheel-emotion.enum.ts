@@ -1,5 +1,4 @@
 // https://en.wikipedia.org/wiki/Geneva_drive
-/** @public */
 export enum GenevaWheelEmotion {
   joy = "joy",
   pleasure = "pleasure",

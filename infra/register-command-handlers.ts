@@ -15,3 +15,9 @@ CommandBus.on(Commands.LOG_SITUATION_COMMAND, CommandHandlers.handleLogSituation
 CommandBus.on(Commands.REAPPRAISE_EMOTION_COMMAND, CommandHandlers.handleReappraiseEmotionCommand);
 CommandBus.on(Commands.SAVE_ALARM_ADVICE_COMMAND, CommandHandlers.handleSaveAlarmAdviceCommand);
 CommandBus.on(Commands.SEND_ALARM_NOTIFICATION_COMMAND, CommandHandlers.handleSendAlarmNotificationCommand);
+CommandBus.on(Commands.REQUEST_WEEKLY_REVIEW_COMMAND, CommandHandlers.handleRequestWeeklyReviewCommand);
+CommandBus.on(Commands.COMPLETE_WEEKLY_REVIEW_COMMAND, CommandHandlers.handleCompleteWeeklyReviewCommand);
+CommandBus.on(
+  Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
+  CommandHandlers.handleMarkWeeklyReviewAsFailedCommand,
+);

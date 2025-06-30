@@ -13,7 +13,10 @@ type AcceptedCommand =
   | Commands.LogSituationCommandType
   | Commands.ReappraiseEmotionCommandType
   | Commands.SaveAlarmAdviceCommandType
-  | Commands.SendAlarmNotificationCommandType;
+  | Commands.SendAlarmNotificationCommandType
+  | Commands.RequestWeeklyReviewCommandType
+  | Commands.CompleteWeeklyReviewCommandType
+  | Commands.MarkWeeklyReviewAsFailedCommandType;
 
 const CommandLogger = new bg.CommandLogger(logger);
 

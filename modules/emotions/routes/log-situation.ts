@@ -15,12 +15,6 @@ export async function LogSituation(c: hono.Context, _next: hono.Next) {
     new Emotions.VO.SituationKind(body.kind),
   );
 
-  infra.logger.info({
-    message: "Log situation payload",
-    operation: "read",
-    metadata: { situation, emotionJournalEntryId },
-  });
-
   const command = Emotions.Commands.LogSituationCommand.parse({
     id: bg.NewUUID.generate(),
     correlationId: bg.CorrelationStorage.get(),

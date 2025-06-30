@@ -5,7 +5,7 @@ import type { EventBus } from "../../../infra/event-bus";
 import { Mailer } from "../../../infra/mailer";
 import * as Commands from "../commands";
 import * as Events from "../events";
-import * as Repositories from "../repositories";
+import * as Repos from "../repositories";
 import * as Services from "../services";
 import * as VO from "../value-objects";
 
@@ -72,18 +72,12 @@ export class AlarmProcessing {
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
-    const entry = await Repositories.EmotionJournalEntryRepository.getById(
-      event.payload.emotionJournalEntryId,
-    );
+    const entry = await Repos.EmotionJournalEntryRepository.getById(event.payload.emotionJournalEntryId);
 
-    const emotionalAdviceRequester = new Services.EmotionalAdviceRequester(
-      this.AiClient,
-      entry,
-      event.payload.alarmName,
-    );
+    const prompt = new Services.EmotionalAdvicePrompt(entry, event.payload.alarmName).generate();
 
     try {
-      const advice = await emotionalAdviceRequester.ask();
+      const advice = await this.AiClient.request(prompt);
 
       const command = Commands.SaveAlarmAdviceCommand.parse({
         id: bg.NewUUID.generate(),
@@ -92,7 +86,7 @@ export class AlarmProcessing {
         createdAt: tools.Timestamp.parse(Date.now()),
         payload: {
           alarmId: event.payload.alarmId,
-          advice,
+          advice: new VO.EmotionalAdvice(advice),
           emotionJournalEntryId: event.payload.emotionJournalEntryId,
         },
       } satisfies Commands.SaveAlarmAdviceCommandType);
@@ -127,11 +121,9 @@ export class AlarmProcessing {
   }
 
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
-    const entry = await Repositories.EmotionJournalEntryRepository.getById(
-      event.payload.emotionJournalEntryId,
-    );
+    const entry = await Repos.EmotionJournalEntryRepository.getById(event.payload.emotionJournalEntryId);
 
-    const alarm = await Repositories.AlarmRepository.getById(event.payload.alarmId);
+    const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
 
     const composer = new Services.EmotionalAdviceNotificationComposer(entry);
 
@@ -146,7 +138,7 @@ export class AlarmProcessing {
   }
 
   async onEmotionJournalEntryDeletedEvent(event: Events.EmotionJournalEntryDeletedEventType) {
-    const cancellableAlarmIds = await Repositories.AlarmRepository.findCancellableByEntryId(
+    const cancellableAlarmIds = await Repos.AlarmRepository.findCancellableByEntryId(
       event.payload.emotionJournalEntryId,
     );
 

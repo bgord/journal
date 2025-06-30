@@ -6,7 +6,6 @@ type AlarmGeneratorConfigType = {
   alarms: tools.Constructor<Alarms.Alarm>[];
 };
 
-/** @public */
 export class AlarmDetector {
   static detect(config: AlarmGeneratorConfigType): Alarms.AlarmApplicableCheckOutputType | null {
     const result = config.alarms

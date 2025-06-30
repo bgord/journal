@@ -15,7 +15,6 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = z.obje
   payload: z.object({}),
 });
 
-/** @public */
 export type PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType = z.infer<
   typeof PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent
 >;
