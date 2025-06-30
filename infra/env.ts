@@ -16,6 +16,8 @@ const EnvironmentSchema = z
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
     OPEN_AI_API_KEY: z.string().min(1).max(256).trim(),
     ANTHROPIC_AI_API_KEY: z.string().min(1).max(256).trim(),
+    AXIOM_API_TOKEN: z.string().length(41),
+    AXIOM_DATASET_NAME: z.string().min(1).max(256).trim(),
   })
   .strip();
 
