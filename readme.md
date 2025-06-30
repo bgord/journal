@@ -43,26 +43,33 @@ modules/
     ├── aggregates
     │   ├── alarm.ts
     │   ├── emotion-journal-entry.ts
+    │   └── weekly-review.ts
     ├── command-handlers
     │   ├── handleCancelAlarmCommand.ts
+    │   ├── handleCompleteWeeklyReviewCommand.ts
     │   ├── handleDeleteEmotionJournalEntryCommand.ts
     │   ├── handleEvaluateReactionCommand.ts
     │   ├── handleGenerateAlarmCommand.ts
     │   ├── handleLogEmotionCommand.ts
     │   ├── handleLogReactionCommand.ts
     │   ├── handleLogSituationCommand.ts
+    │   ├── handleMarkWeeklyReviewAsFailedCommand.ts
     │   ├── handleReappraiseEmotionCommand.ts
+    │   ├── handleRequestWeeklyReviewCommand.ts
     │   ├── handleSaveAlarmAdviceCommand.ts
     │   ├── handleSendAlarmNotificationCommand.ts
     ├── commands
     │   ├── CANCEL_ALARM_COMMAND.ts
+    │   ├── COMPLETE_WEEKLY_REVIEW_COMMAND.ts
     │   ├── DELETE_EMOTION_JOURNAL_ENTRY_COMMAND.ts
     │   ├── EVALUATE_REACTION_COMMAND.ts
     │   ├── GENERATE_ALARM_COMMAND.ts
     │   ├── LOG_EMOTION_COMMAND.ts
     │   ├── LOG_REACTION_COMMAND.ts
     │   ├── LOG_SITUATION_COMMAND.ts
+    │   ├── MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND.ts
     │   ├── REAPPRAISE_EMOTION_COMMAND.ts
+    │   ├── REQUEST_WEEKLY_REVIEW_COMMAND.ts
     │   ├── SAVE_ALARM_ADVICE_COMMAND.ts
     │   ├── SEND_ALARM_NOTIFICATION_COMMAND.ts
     ├── entities
@@ -99,6 +106,10 @@ modules/
     │   ├── REACTION_EVALUATED_EVENT.ts
     │   ├── REACTION_LOGGED_EVENT.ts
     │   ├── SITUATION_LOGGED_EVENT.ts
+    │   ├── WEEKLY_REVIEW_COMPLETED_EVENT.ts
+    │   ├── WEEKLY_REVIEW_FAILED_EVENT.ts
+    │   ├── WEEKLY_REVIEW_REQUESTED_EVENT.ts
+    │   ├── WEEKLY_REVIEW_SKIPPED_EVENT.ts
     ├── policies
     │   ├── alarm-advice-available.ts
     │   ├── alarm-already-generated.ts
@@ -107,13 +118,16 @@ modules/
     │   ├── daily-alarm-limit.ts
     │   ├── emotion-corresponds-to-situation.ts
     │   ├── emotion-for-reappraisal-exists.ts
+    │   ├── entries-for-week-exist.ts
     │   ├── entry-has-been-started.ts
     │   ├── entry-is-actionable.ts
     │   ├── one-emotion-per-entry.ts
     │   ├── one-reaction-per-entry.ts
     │   ├── one-situation-per-entry.ts
     │   ├── reaction-corresponds-to-situation-and-emotion.ts
-    │   └── reaction-for-evaluation-exists.ts
+    │   ├── reaction-for-evaluation-exists.ts
+    │   ├── weekly-review-completed-once.ts
+    │   └── weekly-review-requested-once.ts
     ├── repositories
     │   ├── alarm-repository.ts
     │   ├── emotion-journal-entry-repository.ts
@@ -126,23 +140,27 @@ modules/
     │   └── reappraise-emotion.ts
     ├── sagas
     │   ├── alarm-processing.ts
+    │   └── weekly-review-processing.ts
     ├── services
     │   ├── ai-client.ts
-    │   ├── alarm-creator.ts
     │   ├── alarm-detector.ts
+    │   ├── alarm-factory.ts
     │   ├── alarms
     │   │   ├── alarm.ts
     │   │   └── negative-emotion-extreme-intensity-alarm.ts
     │   ├── emotional-advice-notification-composer.ts
     │   ├── emotional-advice-prompt.ts
-    │   ├── emotional-advice-requester.ts
     │   ├── pattern-detector.ts
-    │   └── patterns
-    │       ├── low-coping-effectiveness-pattern.ts
-    │       ├── more-negative-than-positive-emotions-pattern.ts
-    │       ├── multiple-maladaptive-reactions-pattern.ts
-    │       ├── pattern.ts
-    │       └── positive-emotion-with-maladaptive-reaction-pattern.ts
+    │   ├── patterns
+    │   │   ├── low-coping-effectiveness-pattern.ts
+    │   │   ├── more-negative-than-positive-emotions-pattern.ts
+    │   │   ├── multiple-maladaptive-reactions-pattern.ts
+    │   │   ├── pattern.ts
+    │   │   └── positive-emotion-with-maladaptive-reaction-pattern.ts
+    │   ├── weekly-review-insights-prompt.ts
+    │   ├── weekly-review-notification-composer.ts
+    │   ├── weekly-review-scheduler.ts
+    │   └── weekly-review-skipped-notification-composer.ts
     └── value-objects
         ├── alarm-generated-at.ts
         ├── alarm-id.ts
@@ -162,7 +180,10 @@ modules/
         ├── reaction-type.ts
         ├── situation-description.ts
         ├── situation-kind.ts
-        └── situation-location.ts
+        ├── situation-location.ts
+        ├── week-start.ts
+        ├── weekly-review-id.ts
+        └── weekly-review-status.ts
 ```
 
 ## Infra:
@@ -178,6 +199,7 @@ infra/
 ├── event-store.ts
 ├── healthcheck.ts
 ├── i18n.ts
+├── jobs.ts
 ├── logger.ts
 ├── mailer.ts
 ├── open-ai-client.ts
