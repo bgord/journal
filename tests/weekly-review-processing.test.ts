@@ -50,4 +50,25 @@ describe("WeeklyReviewProcessing", () => {
 
     jest.restoreAllMocks();
   });
+
+  test("onWeeklyReviewCompletedEvent", async () => {
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
+
+    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "findInWeek").mockResolvedValue([mocks.fullEntry]);
+
+    const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onWeeklyReviewCompletedEvent(mocks.GenericWeeklyReviewCompletedEvent),
+    );
+
+    expect(mailerSend).toHaveBeenCalledWith({
+      from: "journal@example.com",
+      to: "example@abc.com",
+      subject: `Weekly Review - ${mocks.GenericWeeklyReviewCompletedEvent.payload.weekStartedAt}`,
+      html: `Weekly review: ${mocks.GenericWeeklyReviewCompletedEvent.payload.weekStartedAt}`,
+    });
+
+    jest.restoreAllMocks();
+  });
 });
