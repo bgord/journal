@@ -51,6 +51,30 @@ describe("WeeklyReviewProcessing", () => {
     jest.restoreAllMocks();
   });
 
+  test("onWeeklyReviewRequestedEvent - failed", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "findInWeek").mockResolvedValue([mocks.fullEntry]);
+    spyOn(openAiClient, "request").mockImplementation(() => {
+      throw new Error("Failure");
+    });
+
+    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
+      mocks.GenericWeeklyReviewRequestedEvent,
+    ]);
+    spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
+
+    const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
+    );
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewFailedEvent]);
+
+    jest.restoreAllMocks();
+  });
+
   test("onWeeklyReviewCompletedEvent", async () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 

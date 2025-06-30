@@ -66,4 +66,31 @@ describe("WeeklyReview", () => {
 
     expect(weeklyReview.pullEvents()).toEqual([]);
   });
+
+  test("fail - correct path", async () => {
+    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
+      mocks.GenericWeeklyReviewRequestedEvent,
+    ]);
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      await weeklyReview.fail();
+    });
+
+    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewFailedEvent]);
+  });
+
+  test("fail - WeeklyReviewCompletedOnce", async () => {
+    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
+      mocks.GenericWeeklyReviewRequestedEvent,
+      mocks.GenericWeeklyReviewFailedEvent,
+    ]);
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      expect(async () => weeklyReview.complete(insights)).toThrow(
+        Emotions.Policies.WeeklyReviewCompletedOnce.error,
+      );
+    });
+
+    expect(weeklyReview.pullEvents()).toEqual([]);
+  });
 });

@@ -317,6 +317,16 @@ export const GenericWeeklyReviewCompletedEvent = {
   },
 } satisfies Emotions.Events.WeeklyReviewCompletedEventType;
 
+export const GenericWeeklyReviewFailedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: expect.any(String),
+  name: "WEEKLY_REVIEW_FAILED_EVENT",
+  version: 1,
+  payload: { weekStartedAt, weeklyReviewId },
+} satisfies Emotions.Events.WeeklyReviewFailedEventType;
+
 export const partialEntry: Schema.SelectEmotionJournalEntries = {
   finishedAt: Date.now(),
   startedAt: Date.now(),
