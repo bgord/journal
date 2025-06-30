@@ -1,6 +1,13 @@
 # Changelog
+- 2025-06-30 20:03 14ee8e1 **step: bump bgord/scripts**
+## 2025-06-30 20:03 
+- 2025-06-30 19:45 a6953a1 **step: define axiom transport**
+- 2025-06-30 19:42 04ff74b **step: add axiom envs**
+- 2025-06-30 19:35 ec7d4f2 **step: install axiom**
+- 2025-06-30 19:35 3b7ad21 **step: switch to local bun**
 - 2025-06-30 19:12 c32a38d **Merge pull request #10 from bgord/weekly_report**
-## 2025-06-30 19:12 
+- 2025-06-30 17:12 835d3d3 **docs: generate CHANGELOG**
+- 2025-06-30 17:12 4bb2c11 **docs: generate readme**
 - 2025-06-30 16:01 154b9a5 **step: add tests**
 - 2025-06-30 15:25 0bc6a00 **step: add handleMarkWeeklyReviewAsFailedCommand**
 - 2025-06-30 15:24 c058558 **step: add WeeklyReview.fail method**
