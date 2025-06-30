@@ -77,6 +77,23 @@ export class WeeklyReview {
     this.record(event);
   }
 
+  async fail() {
+    const event = Events.WeeklyReviewFailedEvent.parse({
+      id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
+      createdAt: tools.Timestamp.parse(Date.now()),
+      name: Events.WEEKLY_REVIEW_FAILED_EVENT,
+      stream: WeeklyReview.getStream(this.id),
+      version: 1,
+      payload: {
+        weeklyReviewId: this.id,
+        weekStartedAt: this.weekStartedAt as tools.TimestampType,
+      },
+    } satisfies Events.WeeklyReviewFailedEventType);
+
+    this.record(event);
+  }
+
   pullEvents(): WeeklyReviewEventType[] {
     const events = [...this.pending];
 
@@ -101,6 +118,11 @@ export class WeeklyReview {
       case Events.WEEKLY_REVIEW_COMPLETED_EVENT: {
         this.status = VO.WeeklyReviewStatusEnum.completed;
         this.insights = new VO.EmotionalAdvice(event.payload.insights);
+        break;
+      }
+
+      case Events.WEEKLY_REVIEW_FAILED_EVENT: {
+        this.status = VO.WeeklyReviewStatusEnum.failed;
         break;
       }
 
