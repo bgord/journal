@@ -1,7 +1,74 @@
 # Changelog
+- 2025-06-30 19:12 c32a38d **Merge pull request #10 from bgord/weekly_report**
+## 2025-06-30 19:12 
+- 2025-06-30 16:01 154b9a5 **step: add tests**
+- 2025-06-30 15:25 0bc6a00 **step: add handleMarkWeeklyReviewAsFailedCommand**
+- 2025-06-30 15:24 c058558 **step: add WeeklyReview.fail method**
+- 2025-06-30 15:22 b38096f **step: add MARK_WEEKLY_REVIEW_AS_FIELD_COMMAND**
+- 2025-06-30 15:20 863937f **step: add WEEKLY_REVIEW_FAILED_EVENT**
+- 2025-06-30 15:16 dc4f896 **step: prepare for compensatory saga action**
+- 2025-06-30 15:15 1d0f8ed **step: add missing saga event handlers**
+- 2025-06-30 15:09 5df1163 **refactor: cleanup @public declarations**
+- 2025-06-30 13:56 b68dbf4 **step: bump bgord/scripts**
+- 2025-06-30 13:56 3f66288 **step: bump bgord/scripts**
+- 2025-06-30 13:55 2c5fd62 **step: bump bgord/scripts**
+- 2025-06-30 13:53 045f0b5 **refactor: rename deploy workflow**
+- 2025-06-30 13:52 5080438 **step: bump bgord/scripts**
+- 2025-06-30 13:36 27ed481 **step: bump bgord/scripts**
+- 2025-06-30 13:13 1b62b09 **step: test onWeeklyReviewCompletedEvent**
+- 2025-06-30 13:05 10581dc **step: implement onWeeklyReviewCompletedEvent**
+- 2025-06-30 12:57 2646ddf **step: add weekly review notification composer**
+- 2025-06-30 12:47 440b3d3 **step: rename tests setup file**
+- 2025-06-30 12:47 40f2bb9 **step: bump bgord/scripts**
+- 2025-06-29 23:03 cefa076 **refactor: simplify ai advice requester**
+- 2025-06-29 23:03 297bdd5 **fix: deps in tests**
+- 2025-06-29 19:27 84f8054 **step: update packages**
+- 2025-06-29 01:16 91bbb02 **refactor: remove alarm.getAdvice**
+- 2025-06-29 01:16 320f5ff **refactor: rename alarm factory**
+- 2025-06-29 01:14 9f36bb1 **refactor: add weekStartedAt to WEEKLY_REVIEW_COMPLETED_EVENT**
+- 2025-06-29 01:11 4e44a4a **step: test onWeeklyReviewRequestedEvent in saga**
+- 2025-06-29 00:58 46e5f70 **step: add WeeklyReviewCompletedOnce**
+- 2025-06-29 00:57 9c31fdd **step: implement weekly review complete**
+- 2025-06-29 00:53 11d19f1 **step: implement weekly review complete**
+- 2025-06-29 00:49 39614c8 **step: add WEEKLY_REVIEW_COMPLETED_EVENT**
+- 2025-06-29 00:46 5e6dfe9 **step: implement handleCompleteWeeklyReviewCommand**
+- 2025-06-29 00:44 319f61f **step: dispatch complete command**
+- 2025-06-29 00:39 b4afe29 **step: setup complete weekly review command**
+- 2025-06-29 00:31 f7b2c69 **step: add WeeklyReviewInsightsRequester**
+- 2025-06-29 00:26 4ad1c8b **step: inject deps for the saga**
+- 2025-06-29 00:24 8b7cdd2 **step: add weekly review insights prompt**
+- 2025-06-29 00:19 e8b0aa9 **step: setup onWeeklyReviewRequestedEvent on weekly processing**
+- 2025-06-29 00:18 c2f3ac0 **step: remove unnecessary logs**
+- 2025-06-29 00:18 868c0b4 **step: add findInWeek in entries repo**
+- 2025-06-28 23:59 75244ff **step: setup WeeklyReviewProcessing saga**
+- 2025-06-28 23:37 47da979 **step: implement WeeklyReviewSkippedNotificationComposer**
+- 2025-06-28 23:27 235bf23 **step: test weekly review skipped case**
+- 2025-06-28 23:26 088f33c **fix: naming GenericWeeklyReviewRequested**
+- 2025-06-28 23:25 c0e0fd1 **step: define WEEKLY_REVIEW_SKIPPED_EVENT**
+- 2025-06-28 23:08 ccdc2ec **step: test JournalEntriesForWeekExist**
+- 2025-06-28 23:00 298d820 **step: define entries for week exist**
+- 2025-06-28 22:58 672b9a0 **step: test weekly review scheduler**
+- 2025-06-28 22:46 8a32920 **step: use the policy**
+- 2025-06-28 22:45 8a29f67 **step: define weekly review requested once policy**
+- 2025-06-28 22:43 09b4e8f **step: setup aggregate tests**
+- 2025-06-28 22:31 edac5fc **step: use week start in the scheduler**
+- 2025-06-28 22:31 4e22a8f **step: use week start in the aggregate**
+- 2025-06-28 22:29 e14e418 **step: test week start**
+- 2025-06-28 22:27 7c0a64d **step: add week start vo**
+- 2025-06-28 22:09 7bb3339 **step: define weekly review status vo**
+- 2025-06-28 22:05 3226cbe **step: implement handleRequestWeeklyReviewCommand**
+- 2025-06-28 22:03 0e26240 **step: update event store events**
+- 2025-06-28 22:01 dbc0972 **step: setup weekly-review aggregate**
+- 2025-06-28 21:55 8427a79 **step: define WEEKLY_REVIEW_REQUESTED_EVENT**
+- 2025-06-28 21:54 58a9201 **step: add weekly review id**
+- 2025-06-28 21:51 fa242be **step: setup handleRequestWeeklyReviewCommand**
+- 2025-06-28 21:44 9bfa211 **step: implement weekly review scheduler**
+- 2025-06-28 21:43 26b4d47 **step: add REQUEST_WEEKLY_REVIEW_COMMAND**
+- 2025-06-28 21:31 e8b4ffd **step: define WeeklyReviewScheduler**
+- 2025-06-28 21:31 d4066ce **step: wire up the job**
+- 2025-06-28 21:31 70b8d55 **step: add jobs in the prereqs**
 - 2025-06-28 19:19 c11a52d **step: resolve conflicts**
 - 2025-06-28 19:19 41af986 **Merge pull request #9 from bgord/correlations**
-## 2025-06-28 19:19 
 - 2025-06-28 19:17 81c2477 **step: update packages**
 - 2025-06-28 18:40 eadb638 **refactor: adjust tests**
 - 2025-06-28 18:36 46f5c65 **fix: event correlation id in mocks**
@@ -12,6 +79,7 @@
 - 2025-06-28 18:18 15aee3c **refactor: adjust tests**
 - 2025-06-28 18:11 3afb588 **step: add correlation id to all commands**
 - 2025-06-28 18:09 cbea251 **step: define correlationId in all commands**
+- 2025-06-28 17:20 73f93d3 **docs: generate CHANGELOG**
 - 2025-06-28 17:19 8e8f903 **docs: generate CHANGELOG**
 - 2025-06-28 16:36 4328ac2 **step: restore migrations**
 - 2025-06-28 13:32 abf2be9 **step: update packages**
