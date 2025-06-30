@@ -15,7 +15,8 @@ type AcceptedCommand =
   | Commands.SaveAlarmAdviceCommandType
   | Commands.SendAlarmNotificationCommandType
   | Commands.RequestWeeklyReviewCommandType
-  | Commands.CompleteWeeklyReviewCommandType;
+  | Commands.CompleteWeeklyReviewCommandType
+  | Commands.MarkWeeklyReviewAsFailedCommandType;
 
 const CommandLogger = new bg.CommandLogger(logger);
 

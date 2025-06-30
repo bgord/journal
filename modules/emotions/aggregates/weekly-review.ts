@@ -78,6 +78,8 @@ export class WeeklyReview {
   }
 
   async fail() {
+    await Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
+
     const event = Events.WeeklyReviewFailedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),

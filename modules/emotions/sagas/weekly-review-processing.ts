@@ -56,7 +56,17 @@ export class WeeklyReviewProcessing {
 
       await CommandBus.emit(command.name, command);
     } catch (error) {
-      // TODO: add compensatory action
+      const command = Commands.MarkWeeklyReviewAsFailedCommand.parse({
+        id: bg.NewUUID.generate(),
+        correlationId: bg.CorrelationStorage.get(),
+        name: Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
+        createdAt: tools.Timestamp.parse(Date.now()),
+        payload: {
+          weeklyReviewId: event.payload.weeklyReviewId,
+        },
+      } satisfies Commands.MarkWeeklyReviewAsFailedCommandType);
+
+      await CommandBus.emit(command.name, command);
     }
   }
 
