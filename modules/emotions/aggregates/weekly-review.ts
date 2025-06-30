@@ -13,6 +13,7 @@ export class WeeklyReview {
     Events.WeeklyReviewRequestedEvent,
     Events.WeeklyReviewSkippedEvent,
     Events.WeeklyReviewCompletedEvent,
+    Events.WeeklyReviewFailedEvent,
   ];
 
   private readonly id: VO.WeeklyReviewIdType;
