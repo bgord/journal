@@ -40,21 +40,24 @@ export class WeeklyReviewProcessing {
 
     const prompt = new Services.WeeklyReviewInsightsPrompt(entries).generate();
 
-    // TODO: add compensatory action
-    const insights = await this.AiClient.request(prompt);
+    try {
+      const insights = await this.AiClient.request(prompt);
 
-    const command = Commands.CompleteWeeklyReviewCommand.parse({
-      id: bg.NewUUID.generate(),
-      correlationId: bg.CorrelationStorage.get(),
-      name: Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
-      createdAt: tools.Timestamp.parse(Date.now()),
-      payload: {
-        weeklyReviewId: event.payload.weeklyReviewId,
-        insights: new VO.EmotionalAdvice(insights),
-      },
-    } satisfies Commands.CompleteWeeklyReviewCommandType);
+      const command = Commands.CompleteWeeklyReviewCommand.parse({
+        id: bg.NewUUID.generate(),
+        correlationId: bg.CorrelationStorage.get(),
+        name: Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
+        createdAt: tools.Timestamp.parse(Date.now()),
+        payload: {
+          weeklyReviewId: event.payload.weeklyReviewId,
+          insights: new VO.EmotionalAdvice(insights),
+        },
+      } satisfies Commands.CompleteWeeklyReviewCommandType);
 
-    await CommandBus.emit(command.name, command);
+      await CommandBus.emit(command.name, command);
+    } catch (error) {
+      // TODO: add compensatory action
+    }
   }
 
   async onWeeklyReviewCompletedEvent(event: Events.WeeklyReviewCompletedEventType) {
