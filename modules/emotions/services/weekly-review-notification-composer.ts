@@ -1,5 +1,5 @@
-import * as VO from "../value-objects";
 import * as Schema from "../../../infra/schema";
+import * as VO from "../value-objects";
 
 export class WeeklyReviewNotificationComposer {
   constructor() {}
