@@ -1,5 +1,4 @@
 // https://psu.pb.unizin.org/psych425/chapter/process-model-of-emotion-regulation/
-/** @public */
 export enum GrossEmotionRegulationStrategy {
   avoidance = "avoidance",
   confrontation = "confrontation",

@@ -15,7 +15,6 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = z.object({
   payload: z.object({}),
 });
 
-/** @public */
 export type MoreNegativeThanPositiveEmotionsPatternDetectedEventType = z.infer<
   typeof MoreNegativeThanPositiveEmotionsPatternDetectedEvent
 >;

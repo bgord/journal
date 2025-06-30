@@ -8,13 +8,9 @@ export class WeeklyReviewScheduler {
   // Sunday at 18:00 UTC
   static cron = `0 18 * * ${bg.UTC_DAY_OF_THE_WEEK.Monday}`;
 
-  /** @public */
   static label = "WeeklyReviewScheduler";
 
-  /** @public */
   static async process() {
-    // TODO: figure out the correlationId
-
     const weekStart = VO.WeekStart.fromTimestamp(Date.now());
 
     const command = Commands.RequestWeeklyReviewCommand.parse({

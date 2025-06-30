@@ -15,7 +15,6 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = z.object({
   payload: z.object({}),
 });
 
-/** @public */
 export type MultipleMaladaptiveReactionsPatternDetectedEventType = z.infer<
   typeof MultipleMaladaptiveReactionsPatternDetectedEvent
 >;
