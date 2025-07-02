@@ -1,3 +1,4 @@
+// cspell:disable
 import { useEffect } from "react";
 import { useRevalidator } from "react-router";
 
