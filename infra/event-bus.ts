@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
-import type { AcceptedEvent } from "@infra/event-store";
-import { logger } from "@infra/logger";
+import type { AcceptedEvent } from "+infra";
+import { logger } from "+infra";
 import Emittery from "emittery";
 import z from "zod/v4";
 

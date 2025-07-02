@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import * as VO from "@emotions/value-objects";
+import * as VO from "+emotions/value-objects";
 import { sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 

@@ -1,10 +1,10 @@
 import * as bg from "@bgord/bun";
-import type { AlarmEvent, JournalEntryEvent, WeeklyReviewEvent } from "@emotions/aggregates";
-import { db, EventBus } from "@infra";
-import * as schema from "@infra/schema";
+import type { AlarmEvent, JournalEntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
+import { db, EventBus } from "+infra";
+import * as schema from "+infra/schema";
 import { and, asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod/v4";
-import type { PatternDetectionEvent } from "../modules/emotions/services/patterns/pattern";
+import type { PatternDetectionEvent } from "+emotions/services/patterns";
 
 export type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent | AlarmEvent | WeeklyReviewEvent;
 
@@ -18,5 +18,5 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
         .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
     inserter: (events: z.infer<bg.GenericParsedEventSchema>[]) => db.insert(schema.events).values(events),
   },
-  EventBus,
+  EventBus
 );

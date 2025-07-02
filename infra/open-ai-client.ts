@@ -1,6 +1,6 @@
-import { AiClient, AiClientResponseType } from "@emotions/services/ai-client";
-import { EmotionalAdvicePromptType } from "@emotions/services/emotional-advice-prompt";
-import { Env } from "@infra/env";
+import { AiClient, AiClientResponseType } from "+emotions/services/ai-client";
+import { EmotionalAdvicePromptType } from "+emotions/services/emotional-advice-prompt";
+import { Env } from "+infra/env";
 import OAI from "openai";
 
 /** @public */

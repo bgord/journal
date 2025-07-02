@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as infra from "@infra";
+import * as infra from "+infra";
 import hono from "hono";
 import * as Emotions from "../";
 

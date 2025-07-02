@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
-import * as Emotions from "@emotions";
-import { logger } from "@infra/logger";
+import * as Emotions from "+emotions";
+import { logger } from "+infra";
 import { Cron } from "croner";
 
 const JobHandler = new bg.JobHandler(logger);

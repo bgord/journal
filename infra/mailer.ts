@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { Env } from "@infra/env";
+import { Env } from "+infra";
 
 export const Mailer = new bg.Mailer({
   SMTP_HOST: Env.SMTP_HOST,

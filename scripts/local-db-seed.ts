@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
-import * as infra from "@infra";
+import * as infra from "+infra";
 import _ from "lodash";
-import * as Emotions from "../modules/emotions";
+import * as Emotions from "+emotions";
 
 const situationDescriptions = [
   "Chat with a friend about a difficult situation",

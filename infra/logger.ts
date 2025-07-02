@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { Env } from "@infra/env";
+import { Env } from "+infra";
 
 const app = "lobbygow";
 
