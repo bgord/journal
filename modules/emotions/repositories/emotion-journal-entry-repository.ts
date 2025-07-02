@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { and, eq, gte, lte } from "drizzle-orm";
+import { and, desc, eq, gte, lte } from "drizzle-orm";
 import { db } from "../../../infra/db";
 import * as Schema from "../../../infra/schema";
 import type * as Events from "../events";
@@ -42,7 +42,10 @@ export class EmotionJournalEntryRepository {
   }
 
   static async list(): Promise<Schema.SelectEmotionJournalEntries[]> {
-    return db.select().from(Schema.emotionJournalEntries);
+    return db
+      .select()
+      .from(Schema.emotionJournalEntries)
+      .orderBy(desc(Schema.emotionJournalEntries.startedAt));
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {
