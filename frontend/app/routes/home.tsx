@@ -29,6 +29,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             data-fs="14"
             data-bc="gray-200"
             data-bw="1"
+            data-br="4"
             key={entry.id}
           >
             <header data-fw="700">{new Date(entry.startedAt).toLocaleString()}</header>
