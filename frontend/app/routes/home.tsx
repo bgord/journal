@@ -1,6 +1,6 @@
-import { RatingPills } from ".../../components/rating-pills";
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import { API } from "../../api";
+import { RatingPills } from "../../components/rating-pills";
 import type { Route } from "./+types/home";
 
 export function meta() {

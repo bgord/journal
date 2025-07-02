@@ -29,7 +29,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body style={{ background: "var(--surface-page)" }}>
         {children}
         <ScrollRestoration />
         <RevalidateOnFocus />
