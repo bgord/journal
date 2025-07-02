@@ -56,6 +56,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
                 <div data-display="flex" data-cross="center" data-gap="12">
                   <div className="c-badge">{entry.emotionLabel}</div>
+
                   <RatingPills rating={entry.emotionIntensity as number} total={5} />
                 </div>
               </div>
