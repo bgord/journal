@@ -36,8 +36,11 @@ const entries: SelectEmotionJournalEntries[] = Array.from({ length: 10 }).map(()
 });
 
 (async function main() {
+  await infra.db.delete(infra.Schema.emotionJournalEntries);
+  console.log("[x] Cleared emotion‐journal entries");
+
   await infra.db.insert(infra.Schema.emotionJournalEntries).values(entries);
-  console.log(`✅ ${entries.length} emotion‐journal entries inserted`);
+  console.log(`[✓] ${entries.length} emotion‐journal entries inserted`);
 
   process.exit(0);
 })();
