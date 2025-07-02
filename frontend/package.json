@@ -17,6 +17,7 @@
     "react-router": "7.6.3"
   },
   "devDependencies": {
+    "@julr/vite-plugin-validate-env": "^2.1.0",
     "@react-router/dev": "7.6.3",
     "@types/node": "24.0.10",
     "@types/react": "19.1.8",
