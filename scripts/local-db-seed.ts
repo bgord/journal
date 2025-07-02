@@ -1,46 +1,73 @@
-import * as tools from "@bgord/tools";
+import * as bg from "@bgord/bun";
 import _ from "lodash";
 import * as infra from "../infra";
-import type { SelectEmotionJournalEntries } from "../infra/schema";
 import * as Emotions from "../modules/emotions";
 
-const entries: SelectEmotionJournalEntries[] = Array.from({ length: 10 }).map(() => {
-  return {
-    id: crypto.randomUUID(),
-    startedAt: _.random(Date.now() - tools.Time.Days(7).ms, Date.now()),
-    finishedAt: Date.now(),
-    situationDescription: _.sample([
-      "Chat with a friend about a difficult situation",
-      "Work presentation about a boring topic",
-      "Morning jog with a knee pain",
-      "Family dinner with people I do not like",
-      "Caught in traffic swearing about other drivers",
-    ]),
-    situationLocation: _.sample(["Home", "Office", "Park", "Restaurant", "Car"]),
-    situationKind: _.sample(Object.values(Emotions.VO.SituationKindOptions)) as Emotions.VO.SituationKindType,
-    emotionLabel: _.sample(Object.values(Emotions.VO.GenevaWheelEmotion)) as Emotions.VO.GenevaWheelEmotion,
-    emotionIntensity: _.random(1, 5),
-    reactionDescription: _.sample([
-      "Deep breathing",
-      "Counted to ten",
-      "Talked it out",
-      "Took a short walk",
-      "Wrote in journal",
-    ]),
-    reactionType: _.sample(
-      Emotions.VO.GrossEmotionRegulationStrategy,
-    ) as Emotions.VO.GrossEmotionRegulationStrategy,
-    reactionEffectiveness: _.random(1, 5),
-    status: _.sample(Emotions.VO.EmotionJournalEntryStatusEnum) as Emotions.VO.EmotionJournalEntryStatusEnum,
-  };
-});
+const situationDescriptions = [
+  "Chat with a friend about a difficult situation",
+  "Work presentation about a boring topic",
+  "Morning jog with a knee pain",
+  "Family dinner with people I do not like",
+  "Caught in traffic swearing about other drivers",
+];
+const situationKinds = Object.keys(Emotions.VO.SituationKindOptions);
+const situationLocations = ["Home", "Office", "Park", "Restaurant", "Car"];
+
+const emotionLabels = Object.keys(Emotions.VO.GenevaWheelEmotion);
+
+const reactionDescriptions = [
+  "Deep breathing",
+  "Counted to ten",
+  "Talked it out",
+  "Took a short walk",
+  "Wrote in journal",
+];
+
+const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
 (async function main() {
-  await infra.db.delete(infra.Schema.emotionJournalEntries);
-  console.log("[x] Cleared emotion‐journal entries");
+  const correlationId = bg.NewUUID.generate();
 
-  await infra.db.insert(infra.Schema.emotionJournalEntries).values(entries);
-  console.log(`[✓] ${entries.length} emotion‐journal entries inserted`);
+  await bg.CorrelationStorage.run(correlationId, async () => {
+    await infra.db.delete(infra.Schema.events);
+    console.log("[x] Cleared events");
 
-  process.exit(0);
+    await infra.db.delete(infra.Schema.alarms);
+    console.log("[x] Cleared alarms");
+
+    await infra.db.delete(infra.Schema.emotionJournalEntries);
+    console.log("[x] Cleared emotion‐journal entries");
+
+    for (const _counter of _.range(1, 10)) {
+      const situation = new Emotions.Entities.Situation(
+        new Emotions.VO.SituationDescription(_.sample(situationDescriptions) as string),
+        new Emotions.VO.SituationLocation(_.sample(situationLocations) as string),
+        new Emotions.VO.SituationKind(_.sample(situationKinds) as Emotions.VO.SituationKindOptions)
+      );
+
+      const entry = Emotions.Aggregates.EmotionJournalEntry.create(bg.NewUUID.generate());
+      await entry.logSituation(situation);
+
+      const emotion = new Emotions.Entities.Emotion(
+        new Emotions.VO.EmotionLabel(_.sample(emotionLabels) as Emotions.VO.GenevaWheelEmotion),
+        new Emotions.VO.EmotionIntensity(_.random(1, 5))
+      );
+
+      await entry.logEmotion(emotion);
+
+      const reaction = new Emotions.Entities.Reaction(
+        new Emotions.VO.ReactionDescription(_.sample(reactionDescriptions) as string),
+        new Emotions.VO.ReactionType(_.sample(reactionTypes) as Emotions.VO.GrossEmotionRegulationStrategy),
+        new Emotions.VO.ReactionEffectiveness(_.random(1, 5))
+      );
+
+      await entry.logReaction(reaction);
+
+      await infra.EventStore.save(entry.pullEvents());
+
+      console.log(`[✓] Entry ${_counter} created`);
+    }
+
+    process.exit(0);
+  });
 })();

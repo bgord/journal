@@ -13,8 +13,8 @@ export async function loader(): Promise<SelectEmotionJournalEntries[]> {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   return (
-    <main>
-      <header data-my="24" data-fs="20" data-color="gray-600" data-transform="center">
+    <main data-py="36">
+      <header data-mb="36" data-fs="20" data-color="gray-600" data-transform="center">
         Journal entries
       </header>
 
