@@ -41,7 +41,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             data-shadow="sm"
             key={entry.id}
           >
-            <header data-fw="700">{new Date(entry.startedAt).toLocaleString()}</header>
+            <header data-fs="16" data-fw="700" data-color="gray-700">
+              {new Date(entry.startedAt).toLocaleString()}
+            </header>
 
             <section
               data-display="flex"
