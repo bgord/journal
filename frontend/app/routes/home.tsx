@@ -22,7 +22,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         {loaderData.map((entry) => (
           <li
             data-display="flex"
-            data-py="24"
+            data-pt="24"
             data-px="48"
             data-direction="column"
             data-fs="14"
@@ -36,7 +36,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               data-display="flex"
               data-direction="column"
               data-gap="12"
-              data-py="12"
+              data-py="24"
               data-bcb="gray-200"
               data-bwb="1"
             >
@@ -49,26 +49,28 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
                 <div className="c-badge">{entry.situationKind}</div>
               </div>
-              <div>{entry.situationDescription}</div>
+
+              <div data-display="flex" data-main="between" data-cross="center" data-gap="12">
+                <div>{entry.situationDescription}</div>
+
+                <div data-display="flex" data-cross="center" data-gap="12">
+                  <div className="c-badge">{entry.emotionLabel}</div>
+                  <RatingPills rating={entry.emotionIntensity as number} total={5} />
+                </div>
+              </div>
             </section>
 
-            <section data-display="flex" data-direction="column" data-gap="12" data-py="12">
+            <section data-display="flex" data-direction="column" data-gap="12" data-py="24">
               <div data-display="flex" data-cross="center" data-gap="12">
                 <div data-color="gray-600" data-mr="auto">
                   What was your reaction?
                 </div>
 
-                <div className="c-badge">{entry.emotionLabel}</div>
-
-                <RatingPills rating={entry.emotionIntensity as number} total={5} />
-              </div>
-
-              <div>{entry.reactionDescription}</div>
-
-              <div data-display="flex" data-cross="center" data-gap="12">
                 <div className="c-badge">{entry.reactionType}</div>
                 <RatingPills rating={entry.reactionEffectiveness as number} total={5} />
               </div>
+
+              <div>{entry.reactionDescription}</div>
             </section>
           </li>
         ))}
