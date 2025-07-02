@@ -6,3 +6,5 @@
 /build/
 public/main.min.css
 public/normalize.min.css
+.env.local
+.env.production

@@ -7,7 +7,7 @@ export function meta() {
 }
 
 export async function loader(): Promise<SelectEmotionJournalEntries[]> {
-  const res = await fetch("http://localhost:3001/emotions/entries");
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/emotions/entries`);
   return (await res.json()) as SelectEmotionJournalEntries[];
 }
 
