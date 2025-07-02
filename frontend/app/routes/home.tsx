@@ -7,9 +7,11 @@ export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
 }
 
-export async function loader(): Promise<SelectEmotionJournalEntries[]> {
-  const res = await API("/emotions/entries");
-  return (await res.json()) as SelectEmotionJournalEntries[];
+export async function loader() {
+  const response = await API("/emotions/entries");
+  const entries = (await response.json()) as SelectEmotionJournalEntries[];
+
+  return entries.map((entry) => ({ ...entry, startedAt: new Date(entry.startedAt).toLocaleString() }));
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
@@ -21,7 +23,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         data-fw="700"
         data-transform="center"
         data-ls="1"
-        style={{ color: "var(--brand-900)" }}
+        style={{ color: "var(--brand-800)" }}
       >
         Journal
       </header>
@@ -42,7 +44,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             key={entry.id}
           >
             <header data-fs="16" data-fw="700" data-color="gray-700">
-              {new Date(entry.startedAt).toLocaleString()}
+              {entry.startedAt}
             </header>
 
             <section
