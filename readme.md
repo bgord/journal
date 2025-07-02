@@ -134,6 +134,7 @@ modules/
     ├── routes
     │   ├── delete-journal-entry.ts
     │   ├── evaluate-reaction.ts
+    │   ├── list-entries.ts
     │   ├── log-emotion.ts
     │   ├── log-reaction.ts
     │   ├── log-situation.ts
