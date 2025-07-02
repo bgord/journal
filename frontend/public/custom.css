@@ -20,3 +20,8 @@
   --surface-card: #ffffff;
   --surface-muted: #f0f2f5;
 }
+
+.c-badge[data-variant="solid"] {
+  background-color: var(--brand-700);
+  color: #fff;
+}

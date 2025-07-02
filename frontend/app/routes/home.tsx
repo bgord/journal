@@ -62,7 +62,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   @{entry.situationLocation}
                 </div>
 
-                <div className="c-badge">{entry.situationKind}</div>
+                <div className="c-badge" data-variant="solid">
+                  {entry.situationKind}
+                </div>
               </div>
 
               <div data-display="flex" data-main="between" data-cross="center" data-gap="12">
