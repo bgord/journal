@@ -21,8 +21,8 @@ export function RatingPills(props: RatingPillsProps) {
             width={size}
             height={size}
             rx="2"
-            fill={filled ? "var(--lt-color-gray-400)" : "none"}
-            stroke={filled ? "none" : "var(--lt-color-gray-300)"}
+            fill={filled ? "var(--brand-400)" : "none"}
+            stroke={filled ? "none" : "var(--brand-200)"}
           />
         );
       })}

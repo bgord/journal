@@ -21,9 +21,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         data-mb="48"
         data-fs="32"
         data-fw="700"
-        data-transform="center"
-        data-ls="1"
-        style={{ color: "var(--brand-800)" }}
+        data-transform="center uppercase"
+        data-ls="1.5"
+        className="logo"
       >
         Journal
       </header>
@@ -62,9 +62,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   @{entry.situationLocation}
                 </div>
 
-                <div className="c-badge" data-variant="solid">
-                  {entry.situationKind}
-                </div>
+                <div className="c-badge">{entry.situationKind}</div>
               </div>
 
               <div data-display="flex" data-main="between" data-cross="center" data-gap="12">

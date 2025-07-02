@@ -25,3 +25,8 @@
   background-color: var(--brand-700);
   color: #fff;
 }
+
+.logo {
+  color: var(--brand-700);
+  text-shadow: -10px -8px var(--brand-100);
+}
