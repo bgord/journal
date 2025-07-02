@@ -1,7 +1,7 @@
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import type { Route } from "./+types/home";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [{ title: "New React Router App" }, { name: "description", content: "Welcome to React Router!" }];
 }
 
