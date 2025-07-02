@@ -16,9 +16,9 @@ export async function loader() {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   return (
-    <main data-py="36">
+    <main data-pb="36">
       <header
-        data-mb="48"
+        data-my="48"
         data-fs="32"
         data-fw="700"
         data-transform="center uppercase"
