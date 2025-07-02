@@ -4,8 +4,6 @@
   "type": "module",
   "scripts": {
     "preinstall": "npx only-allow bun",
-    "build": "react-router build",
-    "dev": "cp node_modules/@bgord/design/dist/main.min.css public/ && cp node_modules/@bgord/design/dist/normalize.min.css public/ && react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
