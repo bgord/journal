@@ -1,4 +1,4 @@
-import * as Emotions from "../";
+import * as Emotions from "+emotions";
 
 export class Situation {
   constructor(

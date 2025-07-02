@@ -1,9 +1,9 @@
+import type * as Events from "+emotions/events";
+import * as VO from "+emotions/value-objects";
+import { db } from "+infra/db";
+import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
-import { and, eq, gte, lte } from "drizzle-orm";
-import { db } from "../../../infra/db";
-import * as Schema from "../../../infra/schema";
-import type * as Events from "../events";
-import * as VO from "../value-objects";
+import { and, desc, eq, gte, lte } from "drizzle-orm";
 
 export class EmotionJournalEntryRepository {
   static async getById(id: VO.EmotionJournalEntryIdType): Promise<Schema.SelectEmotionJournalEntries> {
@@ -39,6 +39,13 @@ export class EmotionJournalEntryRepository {
           lte(Schema.emotionJournalEntries.startedAt, weekEndedAt),
         ),
       );
+  }
+
+  static async list(): Promise<Schema.SelectEmotionJournalEntries[]> {
+    return db
+      .select()
+      .from(Schema.emotionJournalEntries)
+      .orderBy(desc(Schema.emotionJournalEntries.startedAt));
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {

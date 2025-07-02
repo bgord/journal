@@ -1,10 +1,8 @@
+import * as EventHandlers from "+emotions/event-handlers";
+import * as Events from "+emotions/events";
+import * as Sagas from "+emotions/sagas";
+import { EventBus, logger, OpenAiClient } from "+infra";
 import * as bg from "@bgord/bun";
-import * as EventHandlers from "../modules/emotions/event-handlers";
-import * as Events from "../modules/emotions/events";
-import * as Sagas from "../modules/emotions/sagas";
-import { EventBus } from "./event-bus";
-import { logger } from "./logger";
-import { OpenAiClient } from "./open-ai-client";
 
 const EventHandler = new bg.EventHandler(logger);
 const OpenAI = new OpenAiClient();

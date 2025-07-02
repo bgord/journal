@@ -1,6 +1,6 @@
+import * as Emotions from "+emotions";
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import * as Emotions from "../";
 
 class WeeklyReviewCompletedOnceError extends Error {
   constructor() {

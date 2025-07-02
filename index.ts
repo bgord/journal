@@ -1,5 +1,5 @@
+import * as infra from "+infra";
 import * as bg from "@bgord/bun";
-import * as infra from "./infra";
 import { server, startup } from "./server";
 
 (async function main() {

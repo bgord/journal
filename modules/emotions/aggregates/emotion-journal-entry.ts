@@ -1,8 +1,7 @@
+import * as Emotions from "+emotions";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
-
-import * as Emotions from "../";
 
 export type JournalEntryEvent = (typeof EmotionJournalEntry)["events"][number];
 type JournalEntryEventType = z.infer<JournalEntryEvent>;

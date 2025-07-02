@@ -1,4 +1,4 @@
-import type * as Schema from "../../../infra/schema";
+import type * as Schema from "+infra/schema";
 
 type WeeklyReviewInsightsPromptType = [
   { role: "system"; content: string },

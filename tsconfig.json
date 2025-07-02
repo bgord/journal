@@ -9,7 +9,13 @@
     "noUnusedParameters": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "+infra": ["./infra/index"],
+      "+infra/*": ["./infra/*"],
+      "+emotions": ["./modules/emotions/index"],
+      "+emotions/*": ["./modules/emotions/*"]
+    }
   },
-  "exclude": ["bgord-scripts", "**/*.test.ts"]
+  "exclude": ["bgord-scripts", "**/*.test.ts", "frontend"]
 }

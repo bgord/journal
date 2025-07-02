@@ -1,7 +1,6 @@
+import type * as Aggregates from "+emotions/aggregates";
+import * as Patterns from "+emotions/services/patterns";
 import * as tools from "@bgord/tools";
-import type * as Aggregates from "../aggregates/emotion-journal-entry";
-
-import * as Patterns from "./patterns/pattern";
 
 type PatternDetectorConfigType = {
   entries: Aggregates.EmotionJournalEntry[];

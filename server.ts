@@ -1,9 +1,9 @@
+import * as infra from "+infra";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import * as App from "./app";
-import * as infra from "./infra";
 
 import * as Emotions from "./modules/emotions";
 
@@ -35,6 +35,7 @@ server.post("/emotions/:id/log-emotion", Emotions.Routes.LogEmotion);
 server.post("/emotions/:id/log-reaction", Emotions.Routes.LogReaction);
 server.post("/emotions/:id/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 server.post("/emotions/log-situation", Emotions.Routes.LogSituation);
+server.get("/emotions/entries", Emotions.Routes.ListEntries);
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);

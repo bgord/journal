@@ -1,6 +1,6 @@
-import * as Events from "../../events";
-import * as VO from "../../value-objects";
-import * as Alarms from "./alarm";
+import * as Events from "+emotions/events";
+import * as Alarms from "+emotions/services/alarms";
+import * as VO from "+emotions/value-objects";
 
 /** @public */
 export class NegativeEmotionExtremeIntensityAlarm extends Alarms.Alarm {

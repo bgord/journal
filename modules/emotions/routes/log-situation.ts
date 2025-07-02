@@ -1,8 +1,8 @@
+import * as Emotions from "+emotions";
+import * as infra from "+infra";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
-import * as infra from "../../../infra";
-import * as Emotions from "../";
 
 export async function LogSituation(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);

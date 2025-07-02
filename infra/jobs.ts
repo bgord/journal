@@ -1,7 +1,7 @@
+import * as Emotions from "+emotions";
+import { logger } from "+infra";
 import * as bg from "@bgord/bun";
 import { Cron } from "croner";
-import * as Emotions from "../modules/emotions";
-import { logger } from "./logger";
 
 const JobHandler = new bg.JobHandler(logger);
 
