@@ -24,7 +24,7 @@ server.get(
   }),
   timeout(tools.Time.Seconds(15).ms, infra.requestTimeoutError),
   infra.BasicAuthShield,
-  ...bg.Healthcheck.build(infra.healthcheck),
+  ...bg.Healthcheck.build(infra.healthcheck)
 );
 // =============================
 
@@ -35,6 +35,7 @@ server.post("/emotions/:id/log-emotion", Emotions.Routes.LogEmotion);
 server.post("/emotions/:id/log-reaction", Emotions.Routes.LogReaction);
 server.post("/emotions/:id/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 server.post("/emotions/log-situation", Emotions.Routes.LogSituation);
+server.get("/emotions/entries", Emotions.Routes.ListEntries);
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);

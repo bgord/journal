@@ -41,6 +41,10 @@ export class EmotionJournalEntryRepository {
       );
   }
 
+  static async list(): Promise<Schema.SelectEmotionJournalEntries[]> {
+    return db.select().from(Schema.emotionJournalEntries);
+  }
+
   static async logSituation(event: Events.SituationLoggedEventType) {
     await db.insert(Schema.emotionJournalEntries).values({
       id: event.payload.emotionJournalEntryId,
