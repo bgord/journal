@@ -92,7 +92,7 @@ export class AlarmProcessing {
       } satisfies Commands.SaveAlarmAdviceCommandType);
 
       await CommandBus.emit(command.name, command);
-    } catch (error) {
+    } catch (_error) {
       const command = Commands.CancelAlarmCommand.parse({
         id: bg.NewUUID.generate(),
         correlationId: bg.CorrelationStorage.get(),

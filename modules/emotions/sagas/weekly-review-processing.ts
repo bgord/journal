@@ -55,7 +55,7 @@ export class WeeklyReviewProcessing {
       } satisfies Commands.CompleteWeeklyReviewCommandType);
 
       await CommandBus.emit(command.name, command);
-    } catch (error) {
+    } catch (_error) {
       const command = Commands.MarkWeeklyReviewAsFailedCommand.parse({
         id: bg.NewUUID.generate(),
         correlationId: bg.CorrelationStorage.get(),
