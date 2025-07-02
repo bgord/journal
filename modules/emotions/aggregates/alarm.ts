@@ -1,9 +1,9 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
-import * as Events from "../events";
-import * as Policies from "../policies";
-import * as VO from "../value-objects";
+import * as Events from "+emotions/events";
+import * as Policies from "+emotions/policies";
+import * as VO from "+emotions/value-objects";
 
 export type AlarmEvent = (typeof Alarm)["events"][number];
 type AlarmEventType = z.infer<AlarmEvent>;

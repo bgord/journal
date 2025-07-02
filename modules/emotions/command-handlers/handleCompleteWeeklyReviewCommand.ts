@@ -1,5 +1,5 @@
-import { EventStore } from "../../../infra";
-import * as Emotions from "../";
+import { EventStore } from "+infra";
+import * as Emotions from "+emotions";
 
 export const handleCompleteWeeklyReviewCommand = async (
   command: Emotions.Commands.CompleteWeeklyReviewCommandType,

@@ -1,9 +1,9 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
-import * as Events from "../events";
-import * as Policies from "../policies";
-import * as VO from "../value-objects";
+import * as Events from "+emotions/events";
+import * as Policies from "+emotions/policies";
+import * as VO from "+emotions/value-objects";
 
 export type WeeklyReviewEvent = (typeof WeeklyReview)["events"][number];
 type WeeklyReviewEventType = z.infer<WeeklyReviewEvent>;
