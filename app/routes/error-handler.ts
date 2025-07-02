@@ -1,8 +1,8 @@
 import * as bg from "@bgord/bun";
+import * as infra from "@infra";
 import hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
-import * as infra from "../../infra";
 import * as Emotions from "../../modules/emotions";
 
 // TODO: try extracting the logic for errors

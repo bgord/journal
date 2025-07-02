@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as infra from "@infra";
 import hono from "hono";
-import * as infra from "../../../infra";
 import * as Emotions from "../";
 
 export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {

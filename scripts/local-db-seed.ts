@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
+import * as infra from "@infra";
 import _ from "lodash";
-import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 
 const situationDescriptions = [
