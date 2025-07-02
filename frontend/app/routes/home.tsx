@@ -1,5 +1,6 @@
 import { RatingPills } from ".../../components/rating-pills";
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
+import { API } from "../../api";
 import type { Route } from "./+types/home";
 
 export function meta() {
@@ -7,7 +8,7 @@ export function meta() {
 }
 
 export async function loader(): Promise<SelectEmotionJournalEntries[]> {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/emotions/entries`);
+  const res = await API("/emotions/entries");
   return (await res.json()) as SelectEmotionJournalEntries[];
 }
 
