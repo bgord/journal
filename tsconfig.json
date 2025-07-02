@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "exclude": ["bgord-scripts", "**/*.test.ts"]
+  "exclude": ["bgord-scripts", "**/*.test.ts", "frontend"]
 }
