@@ -3,7 +3,7 @@ import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import type { Route } from "./+types/home";
 
 export function meta() {
-  return [{ title: "New React Router App" }, { name: "description", content: "Welcome to React Router!" }];
+  return [{ title: "Journal" }, { name: "description", content: "Welcome to React Router!" }];
 }
 
 export async function loader(): Promise<SelectEmotionJournalEntries[]> {
@@ -35,7 +35,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             <section
               data-display="flex"
               data-direction="column"
-              data-gap="6"
+              data-gap="12"
               data-py="12"
               data-bcb="gray-200"
               data-bwb="1"
@@ -52,7 +52,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <div>{entry.situationDescription}</div>
             </section>
 
-            <section data-display="flex" data-direction="column" data-gap="6" data-py="12">
+            <section data-display="flex" data-direction="column" data-gap="12" data-py="12">
               <div data-display="flex" data-cross="center" data-gap="12">
                 <div data-color="gray-600" data-mr="auto">
                   What was your reaction?
@@ -62,14 +62,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
                 <RatingPills rating={entry.emotionIntensity as number} total={5} />
               </div>
+
+              <div>{entry.reactionDescription}</div>
             </section>
 
             {/* <div data-display="flex" data-gap="6"> */}
             {/*   <div data-fw="700">Reacted with</div> */}
             {/*   <div className="c-badge">{entry.reactionType}</div> */}
             {/* </div> */}
-
-            {/* <div>{entry.reactionDescription}</div> */}
 
             {/* <div data-display="flex" data-gap="6"> */}
             {/*   <div data-fw="700">Effectiveness:</div> */}
