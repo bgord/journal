@@ -41,7 +41,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               data-bwb="1"
             >
               <div data-display="flex" data-gap="6">
-                <div data-color="gray-600">What happened?</div>
+                <div data-color="gray-500">What happened?</div>
 
                 <div data-ml="auto" data-color="gray-700">
                   @{entry.situationLocation}
@@ -62,7 +62,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
             <section data-display="flex" data-direction="column" data-gap="12" data-py="24">
               <div data-display="flex" data-cross="center" data-gap="12">
-                <div data-color="gray-600" data-mr="auto">
+                <div data-color="gray-500" data-mr="auto">
                   What was your reaction?
                 </div>
 
