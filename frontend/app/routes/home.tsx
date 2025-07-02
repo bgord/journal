@@ -13,17 +13,48 @@ export async function loader(): Promise<SelectEmotionJournalEntries[]> {
 export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <main>
-      <header data-mb="24">Entries</header>
-      <ul>
+      <header data-my="24" data-transform="center">
+        Journal entries
+      </header>
+
+      <ul data-display="flex" data-direction="column" data-gap="24" data-max-width="768" data-mx="auto">
         {loaderData.map((entry) => (
-          <li key={entry.id}>
-            <div>
-              Situation - {entry.situationKind} at {entry.situationLocation}
+          <li
+            data-display="flex"
+            data-p="3"
+            data-direction="column"
+            data-fs="14"
+            data-bc="gray-200"
+            data-bw="1"
+            key={entry.id}
+          >
+            <div data-display="flex" data-gap="6">
+              <div className="c-badge">{entry.situationKind}</div>
+              <div>Situation at {entry.situationLocation}</div>
             </div>
+
             <div>{entry.situationDescription}</div>
 
-            <div>
-              {entry.emotionLabel} {entry.emotionIntensity}/5
+            <div data-display="flex" data-gap="6">
+              <div data-fw="700">Emotion</div>
+              <div className="c-badge">{entry.emotionLabel}</div>
+            </div>
+
+            <div data-display="flex" data-gap="6">
+              <div data-fw="700">Intensity:</div>
+              {entry.emotionIntensity}/5
+            </div>
+
+            <div data-display="flex" data-gap="6">
+              <div data-fw="700">Reacted with</div>
+              <div className="c-badge">{entry.reactionType}</div>
+            </div>
+
+            <div>{entry.reactionDescription}</div>
+
+            <div data-display="flex" data-gap="6">
+              <div data-fw="700">Effectiveness:</div>
+              {entry.reactionEffectiveness}/5
             </div>
           </li>
         ))}
