@@ -1,5 +1,5 @@
-import { EventStore } from "../../../infra/event-store";
-import * as Emotions from "../";
+import * as Emotions from "+emotions";
+import { EventStore } from "+infra";
 
 export const handleSendAlarmNotificationCommand = async (
   command: Emotions.Commands.SendAlarmNotificationCommandType,

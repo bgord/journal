@@ -1,6 +1,6 @@
+import * as infra from "+infra";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as infra from "+infra";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import * as App from "./app";

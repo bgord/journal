@@ -1,5 +1,5 @@
-import { EmotionalAdvice } from "../value-objects/emotional-advice";
-import type { EmotionalAdvicePromptType } from "./emotional-advice-prompt";
+import type { EmotionalAdvicePromptType } from "+emotions/services";
+import { EmotionalAdvice } from "+emotions/value-objects";
 
 export type AiClientResponseType = string;
 

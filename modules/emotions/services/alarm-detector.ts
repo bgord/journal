@@ -1,5 +1,5 @@
+import type * as Alarms from "+emotions/services/alarms";
 import * as tools from "@bgord/tools";
-import type * as Alarms from "./alarms";
 
 type AlarmGeneratorConfigType = {
   event: Alarms.AlarmEventToBeChecked;

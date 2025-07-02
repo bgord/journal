@@ -1,6 +1,6 @@
-import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import * as infra from "+infra";
+import * as bg from "@bgord/bun";
 import hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";

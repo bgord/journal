@@ -1,4 +1,4 @@
-import * as Emotions from "../";
+import * as Emotions from "+emotions";
 
 export const onEmotionJournalEntryDeletedEvent = async (
   event: Emotions.Events.EmotionJournalEntryDeletedEventType,

@@ -1,5 +1,5 @@
-import { EventStore } from "../../../infra";
-import * as Emotions from "../";
+import * as Emotions from "+emotions";
+import { EventStore } from "+infra";
 
 export const handleLogReactionCommand = async (command: Emotions.Commands.LogReactionCommandType) => {
   const history = await EventStore.find(

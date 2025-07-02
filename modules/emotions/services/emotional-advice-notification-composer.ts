@@ -1,5 +1,5 @@
-import type * as Schema from "../../../infra/schema";
-import * as VO from "../value-objects";
+import * as VO from "+emotions/value-objects";
+import type * as Schema from "+infra/schema";
 
 export class EmotionalAdviceNotificationComposer {
   constructor(private readonly entry: Schema.SelectEmotionJournalEntries) {}

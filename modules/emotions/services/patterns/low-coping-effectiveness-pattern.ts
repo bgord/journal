@@ -1,9 +1,8 @@
+import * as Aggregates from "+emotions/aggregates";
+import * as Events from "+emotions/events";
+import * as Patterns from "+emotions/services/patterns/pattern";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-
-import * as Aggregates from "../../aggregates/emotion-journal-entry";
-import * as Events from "../../events";
-import * as Patterns from "./pattern";
 
 /** @public */
 export class LowCopingEffectivenessPattern extends Patterns.Pattern {

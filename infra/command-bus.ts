@@ -1,6 +1,6 @@
-import * as bg from "@bgord/bun";
 import * as Commands from "+emotions/commands";
 import { logger } from "+infra/logger";
+import * as bg from "@bgord/bun";
 import Emittery from "emittery";
 
 type AcceptedCommand =

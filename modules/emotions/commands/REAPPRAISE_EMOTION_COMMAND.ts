@@ -1,8 +1,8 @@
+import * as Entities from "+emotions/entities";
+import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
-import * as Entities from "../entities";
-import * as VO from "../value-objects";
 
 export const REAPPRAISE_EMOTION_COMMAND = "REAPPRAISE_EMOTION_COMMAND";
 

@@ -1,8 +1,8 @@
-import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
-import * as infra from "+infra";
 import * as Commands from "+emotions/commands";
 import * as VO from "+emotions/value-objects";
+import * as infra from "+infra";
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 
 export class WeeklyReviewScheduler {
   // Sunday at 18:00 UTC
