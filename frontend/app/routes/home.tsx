@@ -29,6 +29,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <ul data-display="flex" data-direction="column" data-gap="24" data-max-width="768" data-mx="auto">
         {loaderData.map((entry) => (
           <li
+            style={{ background: "var(--surface-card)" }}
             data-display="flex"
             data-pt="24"
             data-px="48"
@@ -37,6 +38,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             data-bc="gray-200"
             data-bw="1"
             data-br="4"
+            data-shadow="sm"
             key={entry.id}
           >
             <header data-fw="700">{new Date(entry.startedAt).toLocaleString()}</header>
