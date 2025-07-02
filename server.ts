@@ -24,7 +24,7 @@ server.get(
   }),
   timeout(tools.Time.Seconds(15).ms, infra.requestTimeoutError),
   infra.BasicAuthShield,
-  ...bg.Healthcheck.build(infra.healthcheck)
+  ...bg.Healthcheck.build(infra.healthcheck),
 );
 // =============================
 
