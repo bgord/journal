@@ -1,6 +1,6 @@
-import * as CommandHandlers from "../modules/emotions/command-handlers";
-import * as Commands from "../modules/emotions/commands";
-import { CommandBus } from "./command-bus";
+import * as CommandHandlers from "@emotions/command-handlers";
+import * as Commands from "@emotions/commands";
+import { CommandBus } from "@infra/command-bus";
 
 CommandBus.on(Commands.CANCEL_ALARM_COMMAND, CommandHandlers.handleCancelAlarmCommand);
 CommandBus.on(

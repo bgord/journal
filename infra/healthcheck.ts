@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 
-import { Mailer } from "./mailer";
-import { prerequisites } from "./prerequisites";
+import { Mailer } from "@infra/mailer";
+import { prerequisites } from "@infra/prerequisites";
 
 export const healthcheck = [
   new bg.PrerequisiteSelf({ label: "self" }),

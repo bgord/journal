@@ -12,7 +12,9 @@
     "strict": true,
     "paths": {
       "@infra": ["./infra/index"],
-      "@infra/*": ["./infra/*"]
+      "@infra/*": ["./infra/*"],
+      "@emotions": ["./modules/emotions/index"],
+      "@emotions/*": ["./modules/emotions/*"]
     }
   },
   "exclude": ["bgord-scripts", "**/*.test.ts", "frontend"]

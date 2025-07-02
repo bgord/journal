@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { AiClient, AiClientResponseType } from "../modules/emotions/services/ai-client";
-import { EmotionalAdvicePromptType } from "../modules/emotions/services/emotional-advice-prompt";
-import { Env } from "./env";
+import { AiClient, AiClientResponseType } from "@emotions/services/ai-client";
+import { EmotionalAdvicePromptType } from "@emotions/services/emotional-advice-prompt";
+import { Env } from "@infra/env";
 
 /** @public */
 export const AnthropicAi = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
