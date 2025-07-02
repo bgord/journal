@@ -1,6 +1,82 @@
 # Changelog
+- 2025-07-02 23:28 f09627c **Merge pull request #12 from bgord/fe**
+## 2025-07-02 23:28 
+- 2025-07-02 23:06 a879834 **step: replace favicon**
+- 2025-07-02 22:36 c7b39fb **step: add schema validator to VITE**
+- 2025-07-02 22:32 ac011c1 **refactor: simplify imports**
+- 2025-07-02 22:09 3f53699 **step: wip**
+- 2025-07-02 21:25 061f6ea **step: improve path aliases**
+- 2025-07-02 21:19 e20cd8d **refactor: simplify emotion imports in infra**
+- 2025-07-02 21:11 abc0806 **feature: add infra path alias**
+- 2025-07-02 20:45 9540b36 **step: compress the logo file**
+- 2025-07-02 20:35 5cbf0eb **step: setup logo image**
+- 2025-07-02 20:18 7a130c1 **step: improve pills color**
+- 2025-07-02 20:16 7056fe3 **step: apply solid badge for situation kind**
+- 2025-07-02 20:12 6146575 **refactor: improve startedat**
+- 2025-07-02 20:10 3326ee2 **step: add surface card bg**
+- 2025-07-02 20:10 2dbc527 **step: style entry date**
+- 2025-07-02 20:09 018602d **step: set body bg**
+- 2025-07-02 20:08 ce95848 **step: improve logo**
+- 2025-07-02 20:08 a894272 **step: add custom css**
+- 2025-07-02 19:46 20e6577 **step: add list item border radius**
+- 2025-07-02 19:28 df7fe02 **step: bump bgord/scripts**
+- 2025-07-02 19:21 0ffb77b **step: improve formatting**
+- 2025-07-02 19:17 6b08c8a **step: bump bgord/scripts**
+- 2025-07-02 19:08 04ab300 **step: bump bgord/scripts**
+- 2025-07-02 19:05 dcd9565 **step: bump bgord/scripts**
+- 2025-07-02 19:04 607b416 **step: bump bgord/scripts**
+- 2025-07-02 19:03 bfa5a94 **refactor: remove unused export**
+- 2025-07-02 18:59 e6816e6 **step: setup api fe service**
+- 2025-07-02 18:54 12ef3eb **step: add VITE_API_URL**
+- 2025-07-02 18:49 e07cb6d **step: restore isbot**
+- 2025-07-02 18:43 74bbaab **refactor: adjust colors**
+- 2025-07-02 18:41 00cda9c **step: update vite to v7**
+- 2025-07-02 18:38 c402c68 **step: remove unused isbot package in fe**
+- 2025-07-02 16:39 c5779c4 **fix: exclude frontend from the main tsconfig.json**
+- 2025-07-02 16:37 dce02b6 **step: update node types**
+- 2025-07-02 16:37 8ae5732 **step: update react types**
+- 2025-07-02 16:36 4c834e5 **refactor: remove unused scripts**
+- 2025-07-02 16:36 3181ef8 **step: update packages**
+- 2025-07-02 16:35 a7c39e8 **refactor: update react-router packages**
+- 2025-07-02 16:32 b2598c6 **refactor: pinpoint fe package versions**
+- 2025-07-02 16:31 f0f1063 **step: bump bgord/scripts**
+- 2025-07-02 16:31 ccc4946 **step: bump bgord/scripts**
+- 2025-07-02 16:31 59d818a **step: bump bgord/scripts**
+- 2025-07-02 16:29 468491d **refactor: migrate to bun in frontend**
+- 2025-07-02 16:27 6343bef **step: update packages**
+- 2025-07-02 16:24 713f63d **step: bump bgord/scripts**
+- 2025-07-02 16:01 cad9f85 **feature: add proper seeder**
+- 2025-07-02 15:38 f5759fe **step: bump bgord/scripts**
+- 2025-07-02 15:37 b606d37 **step: bump bgord/scripts**
+- 2025-07-02 15:34 b3150cb **step: clear the database before seeding**
+- 2025-07-02 15:32 f61ccd8 **step: improve scripts/local-db-seed**
+- 2025-07-02 15:17 0aca654 **refactor: rearrange the rating pills**
+- 2025-07-02 15:13 96951d7 **step: display reaction effectiveness**
+- 2025-07-02 15:04 e750edd **step: display reaction description**
+- 2025-07-02 15:00 e766286 **step: display emotions**
+- 2025-07-02 14:59 c2ad659 **step: add rating pills component**
+- 2025-07-02 14:21 c706d83 **step: order by startedAt desc**
+- 2025-07-02 14:19 19ec63c **step: display the situation**
+- 2025-07-02 13:53 7b39d34 **step: display all entries**
+- 2025-07-02 13:30 bbf7d58 **step: bump bgord/scripts**
+- 2025-07-02 13:29 9453281 **refactor: remove about route**
+- 2025-07-02 13:21 7ad0f73 **fix: linting tests**
+- 2025-07-02 13:20 bc8fa06 **feature: add local db seed script**
+- 2025-07-02 13:19 2459fdc **refactor: export situation kind type**
+- 2025-07-02 13:17 c2f8e17 **step: install lodash types**
+- 2025-07-02 12:09 8002697 **step: load entries**
+- 2025-07-02 12:09 74faa93 **step: use revalidate on focus**
+- 2025-07-02 12:08 fd7a194 **step: add list entries route**
+- 2025-07-02 12:05 6dd0b6f **step: add revalidate on focus**
+- 2025-06-30 23:17 3442400 **step: add example route**
+- 2025-06-30 23:15 f34e226 **step: ignore bgord-design styles**
+- 2025-06-30 23:14 4f84f6c **step: use bgord-design**
+- 2025-06-30 23:06 5164275 **refactor: remove tailwind**
+- 2025-06-30 23:01 1facf3d **refactor: cleanup frontend**
+- 2025-06-30 23:00 4c419bd **step: setup frontend**
+- 2025-06-30 22:47 2117aa9 **step: wip remove**
+- 2025-06-30 22:18 2109ddd **step: setup frontend**
 - 2025-06-30 20:11 9279370 **step: use axioms from bgord/bun**
-## 2025-06-30 20:11 
 - 2025-06-30 20:10 ffbf060 **step: update bun**
 - 2025-06-30 20:03 14ee8e1 **step: bump bgord/scripts**
 - 2025-06-30 19:45 a6953a1 **step: define axiom transport**
@@ -8,6 +84,7 @@
 - 2025-06-30 19:35 ec7d4f2 **step: install axiom**
 - 2025-06-30 19:35 3b7ad21 **step: switch to local bun**
 - 2025-06-30 19:12 c32a38d **Merge pull request #10 from bgord/weekly_report**
+- 2025-06-30 18:12 6277b6a **docs: generate CHANGELOG**
 - 2025-06-30 18:04 549a2e5 **docs: generate CHANGELOG**
 - 2025-06-30 17:12 835d3d3 **docs: generate CHANGELOG**
 - 2025-06-30 17:12 4bb2c11 **docs: generate readme**
