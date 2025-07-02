@@ -1,3 +1,4 @@
+import { RatingPills } from ".../../components/rating-pills";
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import type { Route } from "./+types/home";
 
@@ -13,7 +14,7 @@ export async function loader(): Promise<SelectEmotionJournalEntries[]> {
 export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <main>
-      <header data-my="24" data-transform="center">
+      <header data-my="24" data-fs="20" data-color="gray-600" data-transform="center">
         Journal entries
       </header>
 
@@ -21,7 +22,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         {loaderData.map((entry) => (
           <li
             data-display="flex"
-            data-py="12"
+            data-py="24"
             data-px="48"
             data-direction="column"
             data-fs="14"
@@ -35,29 +36,33 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               data-display="flex"
               data-direction="column"
               data-gap="6"
-              data-py="3"
+              data-py="12"
               data-bcb="gray-200"
               data-bwb="1"
             >
               <div data-display="flex" data-gap="6">
                 <div data-color="gray-600">What happened?</div>
-                <div data-ml="auto" data-color="gray-800">
+
+                <div data-ml="auto" data-color="gray-700">
                   @{entry.situationLocation}
                 </div>
+
                 <div className="c-badge">{entry.situationKind}</div>
               </div>
               <div>{entry.situationDescription}</div>
             </section>
 
-            {/* <div data-display="flex" data-gap="6"> */}
-            {/*   <div data-fw="700">Emotion</div> */}
-            {/*   <div className="c-badge">{entry.emotionLabel}</div> */}
-            {/* </div> */}
+            <section data-display="flex" data-direction="column" data-gap="6" data-py="12">
+              <div data-display="flex" data-cross="center" data-gap="12">
+                <div data-color="gray-600" data-mr="auto">
+                  What was your reaction?
+                </div>
 
-            {/* <div data-display="flex" data-gap="6"> */}
-            {/*   <div data-fw="700">Intensity:</div> */}
-            {/*   {entry.emotionIntensity}/5 */}
-            {/* </div> */}
+                <div className="c-badge">{entry.emotionLabel}</div>
+
+                <RatingPills rating={entry.emotionIntensity as number} total={5} />
+              </div>
+            </section>
 
             {/* <div data-display="flex" data-gap="6"> */}
             {/*   <div data-fw="700">Reacted with</div> */}
