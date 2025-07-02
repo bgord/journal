@@ -42,7 +42,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       const situation = new Emotions.Entities.Situation(
         new Emotions.VO.SituationDescription(_.sample(situationDescriptions) as string),
         new Emotions.VO.SituationLocation(_.sample(situationLocations) as string),
-        new Emotions.VO.SituationKind(_.sample(situationKinds) as Emotions.VO.SituationKindOptions)
+        new Emotions.VO.SituationKind(_.sample(situationKinds) as Emotions.VO.SituationKindOptions),
       );
 
       const entry = Emotions.Aggregates.EmotionJournalEntry.create(bg.NewUUID.generate());
@@ -50,7 +50,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
       const emotion = new Emotions.Entities.Emotion(
         new Emotions.VO.EmotionLabel(_.sample(emotionLabels) as Emotions.VO.GenevaWheelEmotion),
-        new Emotions.VO.EmotionIntensity(_.random(1, 5))
+        new Emotions.VO.EmotionIntensity(_.random(1, 5)),
       );
 
       await entry.logEmotion(emotion);
@@ -58,7 +58,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       const reaction = new Emotions.Entities.Reaction(
         new Emotions.VO.ReactionDescription(_.sample(reactionDescriptions) as string),
         new Emotions.VO.ReactionType(_.sample(reactionTypes) as Emotions.VO.GrossEmotionRegulationStrategy),
-        new Emotions.VO.ReactionEffectiveness(_.random(1, 5))
+        new Emotions.VO.ReactionEffectiveness(_.random(1, 5)),
       );
 
       await entry.logReaction(reaction);

@@ -23,7 +23,7 @@
     "typescript": "5.8.3"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.55.0",
+    "@anthropic-ai/sdk": "0.55.1",
     "@bgord/bun": "0.14.0",
     "@bgord/tools": "0.9.3",
     "better-sqlite3": "12.2.0",
