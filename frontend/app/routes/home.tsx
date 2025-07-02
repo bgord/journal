@@ -3,7 +3,7 @@ import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import type { Route } from "./+types/home";
 
 export function meta() {
-  return [{ title: "Journal" }, { name: "description", content: "Welcome to React Router!" }];
+  return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
 }
 
 export async function loader(): Promise<SelectEmotionJournalEntries[]> {
@@ -64,17 +64,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               </div>
 
               <div>{entry.reactionDescription}</div>
+
+              <div data-display="flex" data-cross="center" data-gap="12">
+                <div className="c-badge">{entry.reactionType}</div>
+                <RatingPills rating={entry.reactionEffectiveness as number} total={5} />
+              </div>
             </section>
-
-            {/* <div data-display="flex" data-gap="6"> */}
-            {/*   <div data-fw="700">Reacted with</div> */}
-            {/*   <div className="c-badge">{entry.reactionType}</div> */}
-            {/* </div> */}
-
-            {/* <div data-display="flex" data-gap="6"> */}
-            {/*   <div data-fw="700">Effectiveness:</div> */}
-            {/*   {entry.reactionEffectiveness}/5 */}
-            {/* </div> */}
           </li>
         ))}
       </ul>
