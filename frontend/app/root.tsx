@@ -13,6 +13,11 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet preload",
     href: "/main.min.css",
   },
+  {
+    as: "style",
+    rel: "stylesheet preload",
+    href: "/custom.css",
+  },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
