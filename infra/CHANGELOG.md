@@ -1,10 +1,18 @@
 # Changelog
+- 2025-07-03 20:07 7ce70d1 **Merge pull request #13 from bgord/bgord-ui**
+## 2025-07-03 20:07 
+- 2025-07-03 20:06 f563760 **step: update packages**
+- 2025-07-03 19:59 23674ed **refactor: restore bgord-ui**
+- 2025-07-03 19:57 3402ce6 **step: dedupe react**
+- 2025-07-03 19:50 7e1a15f **step: install local bgord-ui**
+- 2025-07-03 19:27 4fb4c6f **step: install bgord-ui**
 - 2025-07-02 23:28 f09627c **Merge pull request #12 from bgord/fe**
-## 2025-07-02 23:28 
 - 2025-07-02 23:06 a879834 **step: replace favicon**
 - 2025-07-02 22:36 c7b39fb **step: add schema validator to VITE**
 - 2025-07-02 22:32 ac011c1 **refactor: simplify imports**
 - 2025-07-02 22:09 3f53699 **step: wip**
+- 2025-07-02 21:28 bbc3c9b **docs: generate CHANGELOG**
+- 2025-07-02 21:28 aeba99c **docs: generate readme**
 - 2025-07-02 21:25 061f6ea **step: improve path aliases**
 - 2025-07-02 21:19 e20cd8d **refactor: simplify emotion imports in infra**
 - 2025-07-02 21:11 abc0806 **feature: add infra path alias**
