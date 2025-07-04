@@ -1,5 +1,7 @@
 import * as UI from "@bgord/ui";
+import { SituationDescription } from "../../../modules/emotions/value-objects/situation-description";
 import { SituationKind } from "../../../modules/emotions/value-objects/situation-kind";
+import { SituationLocation } from "../../../modules/emotions/value-objects/situation-location";
 import { Select } from "../../components/select";
 import type { Route } from "./+types/add-journal-entry";
 
@@ -8,7 +10,17 @@ export function meta() {
 }
 
 export function loader() {
-  return { situationKinds: SituationKind.all() };
+  return {
+    situationDescription: {
+      min: SituationDescription.MinimumLength,
+      max: SituationDescription.MaximumLength,
+    },
+    situationLocation: {
+      min: SituationLocation.MinimumLength,
+      max: SituationLocation.MaximumLength,
+    },
+    situationKinds: SituationKind.all(),
+  };
 }
 
 export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
@@ -42,10 +54,10 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
             <input
               id="situationDescription"
               name="situationDescription"
-              required
               className="c-input"
               type="text"
               placeholder="I failed on my butt"
+              {...UI.Services.Form.pattern(loaderData.situationDescription)}
             />
           </div>
 
@@ -56,10 +68,10 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
             <input
               id="situationLocation"
               name="situationLocation"
-              required
               className="c-input"
               type="text"
               placeholder="Kitchen"
+              {...UI.Services.Form.pattern(loaderData.situationLocation)}
             />
           </div>
 
