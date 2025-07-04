@@ -1,3 +1,4 @@
+import { DesignPencil } from "iconoir-react";
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import { API } from "../../api";
 import { RatingPills } from "../../components/rating-pills";
@@ -27,6 +28,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       >
         Journal
       </header>
+
+      <div data-display="flex" data-main="end" data-max-width="768" data-mx="auto" data-mb="12">
+        <button type="button" className="c-button" data-variant="with-icon" title="Add journal entry">
+          <DesignPencil height="24" width="24" />
+        </button>
+      </div>
 
       <ul data-display="flex" data-direction="column" data-gap="24" data-max-width="768" data-mx="auto">
         {loaderData.map((entry) => (
