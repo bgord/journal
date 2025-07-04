@@ -17,17 +17,7 @@ const validationErrors = [
   Emotions.VO.ReactionEffectiveness.Errors.min_max,
 ];
 
-const policies = [
-  Emotions.Policies.EmotionCorrespondsToSituation,
-  Emotions.Policies.OneSituationPerEntry,
-  Emotions.Policies.OneEmotionPerEntry,
-  Emotions.Policies.OneReactionPerEntry,
-  Emotions.Policies.ReactionCorrespondsToSituationAndEmotion,
-  Emotions.Policies.EmotionForReappraisalExists,
-  Emotions.Policies.ReactionForEvaluationExists,
-  Emotions.Policies.EntryHasBenStarted,
-  Emotions.Policies.EntryIsActionable,
-];
+const policies = Object.values(Emotions.Policies);
 
 export class ErrorHandler {
   static handle: hono.ErrorHandler = async (error, c) => {
@@ -42,14 +32,14 @@ export class ErrorHandler {
       if (error.message === bg.AccessDeniedApiKeyError.message) {
         return c.json(
           { message: bg.AccessDeniedApiKeyError.message, _known: true },
-          bg.AccessDeniedApiKeyError.status,
+          bg.AccessDeniedApiKeyError.status
         );
       }
 
       if (error.message === bg.TooManyRequestsError.message) {
         return c.json(
           { message: bg.TooManyRequestsError.message, _known: true },
-          bg.TooManyRequestsError.status,
+          bg.TooManyRequestsError.status
         );
       }
 
@@ -87,12 +77,7 @@ export class ErrorHandler {
     const policyError = policies.find((policy) => error instanceof policy.error);
 
     if (policyError) {
-      infra.logger.error({
-        message: "Domain error",
-        operation: policyError.message,
-        correlationId,
-      });
-
+      infra.logger.error({ message: "Domain error", operation: policyError.message, correlationId });
       return c.json({ message: policyError.message, _known: true }, policyError.code);
     }
 
