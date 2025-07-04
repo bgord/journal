@@ -1,14 +1,7 @@
 import * as UI from "@bgord/ui";
 import { SituationKind } from "../../../modules/emotions/value-objects/situation-kind";
+import { Select } from "../../components/select";
 import type { Route } from "./+types/add-journal-entry";
-
-export function Select(props: React.JSX.IntrinsicElements["select"]) {
-  return (
-    <div className="c-select-wrapper" data-mr="auto">
-      <select className="c-select" {...props} />
-    </div>
-  );
-}
 
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
