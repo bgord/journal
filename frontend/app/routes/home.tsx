@@ -1,5 +1,5 @@
-import * as UI from "@bgord/ui";
 import { DesignPencil } from "iconoir-react";
+import { Link } from "react-router";
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import { API } from "../../api";
 import { RatingPills } from "../../components/rating-pills";
@@ -17,13 +17,11 @@ export async function loader() {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const addJournalEntryToggle = UI.hooks.useToggle({ name: "add-journal-entry" });
-
   return (
     <main data-pb="36">
       <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mb="12">
-        <button
-          onClick={addJournalEntryToggle.toggle}
+        <Link
+          to="/add-journal-entry"
           type="button"
           className="c-button"
           data-variant="with-icon"
@@ -31,69 +29,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           data-self="end"
         >
           <DesignPencil height="24" width="24" />
-        </button>
-
-        {addJournalEntryToggle.on && (
-          <form
-            data-display="flex"
-            data-direction="column"
-            data-shadow="sm"
-            data-p="12"
-            data-gap="12"
-            data-bc="gray-200"
-            data-bw="1"
-            data-br="4"
-            style={{ background: "var(--surface-card)" }}
-          >
-            <legend data-fs="16" data-fw="700" data-transform="center uppercase" data-ls="1.5">
-              Add journal entry
-            </legend>
-
-            <div data-display="flex" data-direction="column">
-              <label className="c-label" htmlFor="situationDescription">
-                Situation description
-              </label>
-              <input
-                id="situationDescription"
-                name="situationDescription"
-                required
-                className="c-input"
-                type="text"
-              />
-            </div>
-
-            <div data-display="flex" data-direction="column">
-              <label className="c-label" htmlFor="situationLocation">
-                Situation location
-              </label>
-              <input
-                id="situationLocation"
-                name="situationLocation"
-                required
-                className="c-input"
-                type="text"
-              />
-            </div>
-
-            <div data-display="flex" data-direction="column">
-              <label className="c-label" htmlFor="situationKind">
-                Situation kind
-              </label>
-
-              <input id="situationKind" name="situationKind" required className="c-input" type="text" />
-            </div>
-
-            <button
-              type="submit"
-              className="c-button"
-              data-variant="primary"
-              data-ml="auto"
-              style={{ width: "72px" }}
-            >
-              Add
-            </button>
-          </form>
-        )}
+        </Link>
       </div>
 
       <ul data-display="flex" data-direction="column" data-gap="24" data-max-width="768" data-mx="auto">
