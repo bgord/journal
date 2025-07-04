@@ -1,4 +1,5 @@
 import * as UI from "@bgord/ui";
+import { Book } from "iconoir-react";
 import { SituationDescription } from "../../../modules/emotions/value-objects/situation-description";
 import { SituationKind } from "../../../modules/emotions/value-objects/situation-kind";
 import { SituationLocation } from "../../../modules/emotions/value-objects/situation-location";
@@ -46,7 +47,10 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
           data-br="4"
           style={{ background: "var(--surface-card)" }}
         >
-          <legend data-transform="center">Add journal entry</legend>
+          <legend data-display="flex" data-gap="6" data-mb="24">
+            <Book height="24px" />
+            <div>New entry</div>
+          </legend>
 
           <div data-display="flex" data-direction="column">
             <label className="c-label" htmlFor="situationDescription">
