@@ -1,4 +1,6 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
+import * as infra from "../infra";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -14,6 +16,12 @@ const situation = {
 const emotion = {
   label: mocks.GenericEmotionLoggedEvent.payload.label,
   intensity: mocks.GenericEmotionLoggedEvent.payload.intensity,
+};
+
+const reaction = {
+  description: mocks.GenericReactionLoggedEvent.payload.description,
+  type: mocks.GenericReactionLoggedEvent.payload.type,
+  effectiveness: mocks.GenericReactionLoggedEvent.payload.effectiveness,
 };
 
 describe("POST /emotions/log-entry", () => {
@@ -140,5 +148,32 @@ describe("POST /emotions/log-entry", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.min_max, _known: true });
+  });
+
+  test("happy path", async () => {
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+
+    const payload = { situation, emotion, reaction };
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+
+    expect(response.status).toBe(200);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+      mocks.GenericReactionLoggedEvent,
+    ]);
+
+    jest.restoreAllMocks();
   });
 });
