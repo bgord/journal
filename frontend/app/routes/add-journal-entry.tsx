@@ -1,11 +1,33 @@
+import { SituationKind } from "../../../modules/emotions/value-objects/situation-kind";
+import type { Route } from "./+types/add-journal-entry";
+
+export function Select(props: React.JSX.IntrinsicElements["select"]) {
+  return (
+    <div className="c-select-wrapper" data-mr="auto">
+      <select className="c-select" {...props} />
+    </div>
+  );
+}
+
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
 }
 
-export default function AddJournalEntry() {
+export function loader() {
+  return { situationKinds: SituationKind.all() };
+}
+
+export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   return (
     <main data-pb="36">
-      <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mb="12">
+      <div
+        data-display="flex"
+        data-direction="column"
+        data-max-width="768"
+        data-mx="auto"
+        data-mt="72"
+        data-pt="24"
+      >
         <form
           data-display="flex"
           data-direction="column"
@@ -29,6 +51,7 @@ export default function AddJournalEntry() {
               required
               className="c-input"
               type="text"
+              placeholder="I failed on my butt"
             />
           </div>
 
@@ -36,7 +59,14 @@ export default function AddJournalEntry() {
             <label className="c-label" htmlFor="situationLocation">
               Situation location
             </label>
-            <input id="situationLocation" name="situationLocation" required className="c-input" type="text" />
+            <input
+              id="situationLocation"
+              name="situationLocation"
+              required
+              className="c-input"
+              type="text"
+              placeholder="Kitchen"
+            />
           </div>
 
           <div data-display="flex" data-direction="column">
@@ -44,7 +74,13 @@ export default function AddJournalEntry() {
               Situation kind
             </label>
 
-            <input id="situationKind" name="situationKind" required className="c-input" type="text" />
+            <Select id="situationKind" name="situationKind" required className="c-select">
+              {loaderData.situationKinds.map((kind) => (
+                <option key={kind} value={kind}>
+                  {kind}
+                </option>
+              ))}
+            </Select>
           </div>
 
           <button
