@@ -1,3 +1,4 @@
+import * as UI from "@bgord/ui";
 import { SituationKind } from "../../../modules/emotions/value-objects/situation-kind";
 import type { Route } from "./+types/add-journal-entry";
 
@@ -88,7 +89,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
             className="c-button"
             data-variant="primary"
             data-ml="auto"
-            style={{ width: "72px" }}
+            {...UI.Services.Rhythm().times(6).style.width}
           >
             Add
           </button>
