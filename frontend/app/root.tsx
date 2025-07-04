@@ -38,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           data-ls="1.5"
           className="logo"
         >
-          Journal
+          <RR.Link to="/">Journal</RR.Link>
         </header>
         {children}
         <RR.ScrollRestoration />
