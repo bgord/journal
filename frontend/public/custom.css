@@ -27,6 +27,10 @@
 }
 
 .logo {
-  color: var(--brand-700);
+  color: var(--brand-700) !important;
   text-shadow: -10px -8px var(--brand-100);
+}
+
+.logo a {
+  text-decoration: none;
 }
