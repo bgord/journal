@@ -28,7 +28,6 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   return (
     <main data-pb="36">
       <div
-        className="entries-list"
         data-display="flex"
         data-direction="column"
         data-max-width="768"
@@ -37,10 +36,12 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
         data-pt="24"
       >
         <form
+          className="add-entry-form"
           data-display="flex"
           data-direction="column"
           data-shadow="sm"
-          data-p="12"
+          data-py="24"
+          data-px="48"
           data-gap="12"
           data-bc="gray-200"
           data-bw="1"
