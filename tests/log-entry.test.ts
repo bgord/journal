@@ -177,6 +177,220 @@ describe("POST /emotions/log-entry", () => {
     jest.restoreAllMocks();
   });
 
+  test("emotion - EntryIsActionable", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionJournalEntryDeletedEvent,
+    ]);
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "create").mockReturnValue(emotionJournalEntry);
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situation, emotion, reaction }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.EntryIsActionable.code);
+    expect(json).toEqual({ message: Emotions.Policies.EntryIsActionable.message, _known: true });
+
+    expect(eventStoreSave).not.toHaveBeenCalledWith();
+
+    jest.restoreAllMocks();
+  });
+
+  test("emotion - EmotionCorrespondsToSituation", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
+      mocks.emotionJournalEntryId,
+      [],
+    );
+    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "create").mockReturnValue(emotionJournalEntry);
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situation, emotion, reaction }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.EmotionCorrespondsToSituation.code);
+    expect(json).toEqual({ message: Emotions.Policies.EmotionCorrespondsToSituation.message, _known: true });
+
+    expect(eventStoreSave).not.toHaveBeenCalledWith();
+
+    jest.restoreAllMocks();
+  });
+
+  test("emotion - OneEmotionPerEntry", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+    ]);
+    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "create").mockReturnValue(emotionJournalEntry);
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situation, emotion, reaction }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.OneEmotionPerEntry.code);
+    expect(json).toEqual({ message: Emotions.Policies.OneEmotionPerEntry.message, _known: true });
+
+    expect(eventStoreSave).not.toHaveBeenCalledWith();
+
+    jest.restoreAllMocks();
+  });
+
+  test("reaction - EntryIsActionable", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+      mocks.GenericReactionLoggedEvent,
+      mocks.GenericEmotionJournalEntryDeletedEvent,
+    ]);
+    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
+    spyOn(emotionJournalEntry, "logEmotion").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "create").mockReturnValue(emotionJournalEntry);
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situation, emotion, reaction }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.EntryIsActionable.code);
+    expect(json).toEqual({ message: Emotions.Policies.EntryIsActionable.message, _known: true });
+
+    expect(eventStoreSave).not.toHaveBeenCalledWith();
+
+    jest.restoreAllMocks();
+  });
+
+  test("reaction - OneReactionPerEntry", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+      mocks.GenericReactionLoggedEvent,
+    ]);
+    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
+    spyOn(emotionJournalEntry, "logEmotion").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "create").mockReturnValue(emotionJournalEntry);
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situation, emotion, reaction }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.OneReactionPerEntry.code);
+    expect(json).toEqual({ message: Emotions.Policies.OneReactionPerEntry.message, _known: true });
+
+    expect(eventStoreSave).not.toHaveBeenCalledWith();
+
+    jest.restoreAllMocks();
+  });
+
+  test("reaction - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
+      mocks.emotionJournalEntryId,
+      [],
+    );
+    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
+    spyOn(emotionJournalEntry, "logEmotion").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "create").mockReturnValue(emotionJournalEntry);
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situation, emotion, reaction }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.code);
+    expect(json).toEqual({
+      message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
+      _known: true,
+    });
+
+    expect(eventStoreSave).not.toHaveBeenCalledWith();
+
+    jest.restoreAllMocks();
+  });
+
+  test("reaction - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+      mocks.GenericSituationLoggedEvent,
+    ]);
+    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
+    spyOn(emotionJournalEntry, "logEmotion").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "create").mockReturnValue(emotionJournalEntry);
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situation, emotion, reaction }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.code);
+    expect(json).toEqual({
+      message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
+      _known: true,
+    });
+
+    expect(eventStoreSave).not.toHaveBeenCalledWith();
+
+    jest.restoreAllMocks();
+  });
+
   test("happy path", async () => {
     const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
