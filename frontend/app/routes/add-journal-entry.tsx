@@ -1,5 +1,9 @@
 import * as UI from "@bgord/ui";
-import { Book } from "iconoir-react";
+import { EmotionIntensity } from "../../../modules/emotions/value-objects/emotion-intensity";
+import { EmotionLabel } from "../../../modules/emotions/value-objects/emotion-label";
+import { ReactionDescription } from "../../../modules/emotions/value-objects/reaction-description";
+import { ReactionEffectiveness } from "../../../modules/emotions/value-objects/reaction-effectiveness";
+import { ReactionType } from "../../../modules/emotions/value-objects/reaction-type";
 import { SituationDescription } from "../../../modules/emotions/value-objects/situation-description";
 import { SituationKind } from "../../../modules/emotions/value-objects/situation-kind";
 import { SituationLocation } from "../../../modules/emotions/value-objects/situation-location";
@@ -21,6 +25,20 @@ export function loader() {
       max: SituationLocation.MaximumLength,
     },
     situationKinds: SituationKind.all(),
+    emotionLabels: EmotionLabel.all(),
+    emotionIntensity: {
+      min: EmotionIntensity.Minimum,
+      max: EmotionIntensity.Maximum,
+    },
+    reactionDescription: {
+      min: ReactionDescription.MinimumLength,
+      max: ReactionDescription.MaximumLength,
+    },
+    reactionTypes: ReactionType.all(),
+    reactionEffectiveness: {
+      min: ReactionEffectiveness.Minimum,
+      max: ReactionEffectiveness.Maximum,
+    },
   };
 }
 
@@ -48,51 +66,130 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
           data-br="4"
           style={{ background: "var(--surface-card)" }}
         >
-          <legend data-display="flex" data-gap="6" data-mb="24">
-            <Book height="24px" />
-            <div>New entry</div>
-          </legend>
+          <div>Situation</div>
 
-          <div data-display="flex" data-direction="column">
-            <label className="c-label" htmlFor="situationDescription">
-              Situation description
-            </label>
-            <input
-              id="situationDescription"
-              name="situationDescription"
-              className="c-input"
-              type="text"
-              placeholder="I failed on my butt"
-              {...UI.Services.Form.pattern(loaderData.situationDescription)}
-            />
+          <div data-display="flex" data-gap="12">
+            <div data-display="flex" data-direction="column" data-grow="1">
+              <label className="c-label" htmlFor="situationDescription">
+                Description
+              </label>
+              <textarea
+                id="situationDescription"
+                name="situationDescription"
+                className="c-textarea"
+                type="text"
+                placeholder="I failed on my butt"
+                rows={3}
+                {...UI.Services.Form.pattern(loaderData.situationDescription)}
+              />
+            </div>
+
+            <div data-display="flex" data-direction="column">
+              <label className="c-label" htmlFor="situationKind">
+                Kind
+              </label>
+
+              <Select id="situationKind" name="situationKind" required className="c-select">
+                {loaderData.situationKinds.map((kind) => (
+                  <option key={kind} value={kind}>
+                    {kind}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            <div data-display="flex" data-direction="column" {...UI.Services.Rhythm().times(15).style.width}>
+              <label className="c-label" htmlFor="situationLocation">
+                Location
+              </label>
+              <input
+                id="situationLocation"
+                name="situationLocation"
+                className="c-input"
+                type="text"
+                placeholder="Kitchen"
+                {...UI.Services.Form.pattern(loaderData.situationLocation)}
+              />
+            </div>
           </div>
 
-          <div data-display="flex" data-direction="column">
-            <label className="c-label" htmlFor="situationLocation">
-              Situation location
-            </label>
-            <input
-              id="situationLocation"
-              name="situationLocation"
-              className="c-input"
-              type="text"
-              placeholder="Kitchen"
-              {...UI.Services.Form.pattern(loaderData.situationLocation)}
-            />
+          <div data-mt="12">Emotion</div>
+
+          <div data-display="flex" data-gap="12">
+            <div data-display="flex" data-direction="column">
+              <label className="c-label" htmlFor="emotionLabel">
+                Label
+              </label>
+
+              <Select id="emotionLabel" name="emotionLabel" required className="c-select">
+                {loaderData.emotionLabels.map((emotion) => (
+                  <option key={emotion} value={emotion}>
+                    {emotion}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            <div data-display="flex" data-direction="column">
+              <label className="c-label" htmlFor="emotionIntensity">
+                Intensity
+              </label>
+              <input
+                id="emotionIntensity"
+                name="emotionIntensity"
+                className="c-input"
+                type="number"
+                min={loaderData.emotionIntensity.min}
+                max={loaderData.emotionIntensity.max}
+              />
+            </div>
           </div>
 
-          <div data-display="flex" data-direction="column">
-            <label className="c-label" htmlFor="situationKind">
-              Situation kind
-            </label>
+          <div data-mt="12">Reaction</div>
 
-            <Select id="situationKind" name="situationKind" required className="c-select">
-              {loaderData.situationKinds.map((kind) => (
-                <option key={kind} value={kind}>
-                  {kind}
-                </option>
-              ))}
-            </Select>
+          <div data-display="flex" data-gap="12">
+            <div data-display="flex" data-direction="column" data-grow="1">
+              <label className="c-label" htmlFor="reactionDescription">
+                Description
+              </label>
+              <textarea
+                id="reactionDescription"
+                name="reactionDescription"
+                className="c-textarea"
+                type="text"
+                placeholder="I failed on my butt"
+                rows={3}
+                {...UI.Services.Form.pattern(loaderData.reactionDescription)}
+              />
+            </div>
+
+            <div data-display="flex" data-direction="column">
+              <label className="c-label" htmlFor="reactionType">
+                Type
+              </label>
+
+              <Select id="reactionType" name="reactionType" required className="c-select">
+                {loaderData.reactionTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            <div data-display="flex" data-direction="column">
+              <label className="c-label" htmlFor="reactionEffectiveness">
+                Effectiveness
+              </label>
+              <input
+                id="reactionEffectiveness"
+                name="reactionEffectiveness"
+                className="c-input"
+                type="number"
+                min={loaderData.reactionEffectiveness.min}
+                max={loaderData.reactionEffectiveness.max}
+              />
+            </div>
           </div>
 
           <button
