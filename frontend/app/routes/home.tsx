@@ -27,6 +27,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           data-variant="with-icon"
           title="Add journal entry"
           data-self="end"
+          viewTransition
         >
           <DesignPencil height="24" width="24" />
         </Link>
