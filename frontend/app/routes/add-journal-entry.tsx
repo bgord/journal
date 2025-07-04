@@ -27,6 +27,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   return (
     <main data-pb="36">
       <div
+        className="entries-list"
         data-display="flex"
         data-direction="column"
         data-max-width="768"

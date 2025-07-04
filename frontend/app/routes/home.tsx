@@ -33,7 +33,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </Link>
       </div>
 
-      <ul data-display="flex" data-direction="column" data-gap="24" data-max-width="768" data-mx="auto">
+      <ul
+        className="entries-list"
+        data-display="flex"
+        data-direction="column"
+        data-gap="24"
+        data-max-width="768"
+        data-mx="auto"
+      >
         {loaderData.map((entry) => (
           <li
             style={{ background: "var(--surface-card)" }}
