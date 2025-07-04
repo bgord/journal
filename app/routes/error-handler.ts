@@ -32,14 +32,14 @@ export class ErrorHandler {
       if (error.message === bg.AccessDeniedApiKeyError.message) {
         return c.json(
           { message: bg.AccessDeniedApiKeyError.message, _known: true },
-          bg.AccessDeniedApiKeyError.status
+          bg.AccessDeniedApiKeyError.status,
         );
       }
 
       if (error.message === bg.TooManyRequestsError.message) {
         return c.json(
           { message: bg.TooManyRequestsError.message, _known: true },
-          bg.TooManyRequestsError.status
+          bg.TooManyRequestsError.status,
         );
       }
 

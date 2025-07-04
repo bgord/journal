@@ -32,10 +32,7 @@ server.get(
 server.delete("/emotions/:id/delete", Emotions.Routes.DeleteJournalEntry);
 server.post("/emotions/:id/evaluate-reaction", Emotions.Routes.EvaluateReaction);
 server.post("/emotions/log-entry", Emotions.Routes.LogEntry);
-server.post("/emotions/:id/log-emotion", Emotions.Routes.LogEmotion);
-server.post("/emotions/:id/log-reaction", Emotions.Routes.LogReaction);
 server.post("/emotions/:id/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
-server.post("/emotions/log-situation", Emotions.Routes.LogSituation);
 server.get("/emotions/entries", Emotions.Routes.ListEntries);
 // =============================
 
