@@ -4,6 +4,8 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
+const url = `/emotions/${mocks.emotionJournalEntryId}/delete`;
+
 describe("DELETE /emotions/:id/delete", () => {
   test("validation - incorrect id", async () => {
     const response = await server.request("/emotions/id/delete", { method: "DELETE" }, mocks.ip);
@@ -23,11 +25,7 @@ describe("DELETE /emotions/:id/delete", () => {
 
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
-    const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/delete`,
-      { method: "DELETE" },
-      mocks.ip,
-    );
+    const response = await server.request(url, { method: "DELETE" }, mocks.ip);
 
     const json = await response.json();
 
@@ -55,7 +53,7 @@ describe("DELETE /emotions/:id/delete", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/delete`,
+      url,
       {
         method: "DELETE",
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
@@ -86,7 +84,7 @@ describe("DELETE /emotions/:id/delete", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/delete`,
+      url,
       {
         method: "DELETE",
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
@@ -121,7 +119,7 @@ describe("DELETE /emotions/:id/delete", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/delete`,
+      url,
       {
         method: "DELETE",
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),

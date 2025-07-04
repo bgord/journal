@@ -4,13 +4,11 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
+const url = `/emotions/${mocks.emotionJournalEntryId}/log-reaction`;
+
 describe("POST /emotions/:id/log-reaction", () => {
   test("validation - empty payload", async () => {
-    const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
-      { method: "POST" },
-      mocks.ip,
-    );
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
 
     const json = await response.json();
 
@@ -23,7 +21,7 @@ describe("POST /emotions/:id/log-reaction", () => {
 
   test("validation - missing type", async () => {
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
+      url,
       {
         method: "POST",
         body: JSON.stringify({
@@ -44,7 +42,7 @@ describe("POST /emotions/:id/log-reaction", () => {
 
   test("validation - missing effectiveness", async () => {
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
+      url,
       {
         method: "POST",
         body: JSON.stringify({
@@ -103,7 +101,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     );
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
+      url,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -145,7 +143,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     };
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
+      url,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -185,7 +183,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     };
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
+      url,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -221,7 +219,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     };
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
+      url,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -257,7 +255,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     };
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
+      url,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -305,7 +303,7 @@ describe("POST /emotions/:id/log-reaction", () => {
     );
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-reaction`,
+      url,
       {
         method: "POST",
         body: JSON.stringify(payload),

@@ -4,13 +4,11 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
+const url = `/emotions/${mocks.emotionJournalEntryId}/log-emotion`;
+
 describe("POST /emotions/:id/log-emotion", () => {
   test("validation - empty payload", async () => {
-    const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-emotion`,
-      { method: "POST" },
-      mocks.ip,
-    );
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
 
     const json = await response.json();
 
@@ -23,7 +21,7 @@ describe("POST /emotions/:id/log-emotion", () => {
 
   test("validation - missing intensity", async () => {
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-emotion`,
+      url,
       {
         method: "POST",
         body: JSON.stringify({
@@ -65,7 +63,7 @@ describe("POST /emotions/:id/log-emotion", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-emotion`,
+      url,
       {
         method: "POST",
         body: JSON.stringify({
@@ -98,7 +96,7 @@ describe("POST /emotions/:id/log-emotion", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-emotion`,
+      url,
       {
         method: "POST",
         body: JSON.stringify({
@@ -131,7 +129,7 @@ describe("POST /emotions/:id/log-emotion", () => {
     const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-emotion`,
+      url,
       {
         method: "POST",
         body: JSON.stringify({
@@ -180,7 +178,7 @@ describe("POST /emotions/:id/log-emotion", () => {
     );
 
     const response = await server.request(
-      `/emotions/${mocks.emotionJournalEntryId}/log-emotion`,
+      url,
       {
         method: "POST",
         body: JSON.stringify(payload),

@@ -5,9 +5,11 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
+const url = "/emotions/log-situation";
+
 describe("POST /emotions/log-situation", () => {
   test("validation - empty payload", async () => {
-    const response = await server.request("/emotions/log-situation", { method: "POST" }, mocks.ip);
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
 
     const json = await response.json();
 
@@ -20,7 +22,7 @@ describe("POST /emotions/log-situation", () => {
 
   test("validation - missing kind and location", async () => {
     const response = await server.request(
-      "/emotions/log-situation",
+      url,
       {
         method: "POST",
         body: JSON.stringify({ description: "Something happened" }),
@@ -39,7 +41,7 @@ describe("POST /emotions/log-situation", () => {
 
   test("validation - missing kind", async () => {
     const response = await server.request(
-      "/emotions/log-situation",
+      url,
       {
         method: "POST",
         body: JSON.stringify({
@@ -83,7 +85,7 @@ describe("POST /emotions/log-situation", () => {
     );
 
     const response = await server.request(
-      "/emotions/log-situation",
+      url,
       {
         method: "POST",
         body: JSON.stringify(payload),
