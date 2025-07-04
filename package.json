@@ -26,7 +26,6 @@
     "@anthropic-ai/sdk": "0.56.0",
     "@bgord/bun": "file:../bgord-bun",
     "@bgord/tools": "0.9.3",
-    "@bgord/ui": "0.1.2",
     "better-sqlite3": "12.2.0",
     "drizzle-orm": "0.44.2",
     "emittery": "1.2.0",
