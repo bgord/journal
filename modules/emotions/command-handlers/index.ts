@@ -4,6 +4,7 @@ export * from "./handleDeleteEmotionJournalEntryCommand";
 export * from "./handleEvaluateReactionCommand";
 export * from "./handleGenerateAlarmCommand";
 export * from "./handleLogEmotionCommand";
+export * from "./handleLogEntryCommand";
 export * from "./handleLogReactionCommand";
 export * from "./handleLogSituationCommand";
 export * from "./handleMarkWeeklyReviewAsFailedCommand";

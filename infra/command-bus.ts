@@ -11,6 +11,7 @@ type AcceptedCommand =
   | Commands.LogEmotionCommandType
   | Commands.LogReactionCommandType
   | Commands.LogSituationCommandType
+  | Commands.LogEntryCommandType
   | Commands.ReappraiseEmotionCommandType
   | Commands.SaveAlarmAdviceCommandType
   | Commands.SendAlarmNotificationCommandType

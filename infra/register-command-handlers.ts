@@ -9,6 +9,7 @@ CommandBus.on(
 );
 CommandBus.on(Commands.EVALUATE_REACTION_COMMAND, CommandHandlers.handleEvaluateReactionCommand);
 CommandBus.on(Commands.GENERATE_ALARM_COMMAND, CommandHandlers.handleGenerateAlarmCommand);
+CommandBus.on(Commands.LOG_ENTRY_COMMAND, CommandHandlers.handleLogEntryCommand);
 CommandBus.on(Commands.LOG_EMOTION_COMMAND, CommandHandlers.handleLogEmotionCommand);
 CommandBus.on(Commands.LOG_REACTION_COMMAND, CommandHandlers.handleLogReactionCommand);
 CommandBus.on(Commands.LOG_SITUATION_COMMAND, CommandHandlers.handleLogSituationCommand);
