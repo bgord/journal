@@ -150,17 +150,42 @@ describe("POST /emotions/log-entry", () => {
     expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.min_max, _known: true });
   });
 
-  test("happy path", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+  test("situation - OneSituationPerEntry", async () => {
     const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
-
-    const payload = { situation, emotion, reaction };
+    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+      mocks.GenericSituationLoggedEvent,
+    ]);
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    spyOn(Emotions.Aggregates.EmotionJournalEntry, "create").mockReturnValue(emotionJournalEntry);
 
     const response = await server.request(
       url,
       {
         method: "POST",
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ situation, emotion, reaction }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.OneSituationPerEntry.code);
+    expect(json).toEqual({ message: Emotions.Policies.OneSituationPerEntry.message, _known: true });
+
+    expect(eventStoreSave).not.toHaveBeenCalledWith();
+
+    jest.restoreAllMocks();
+  });
+
+  test("happy path", async () => {
+    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situation, emotion, reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,

@@ -47,9 +47,7 @@ export class EmotionJournalEntry {
   }
 
   async logSituation(situation: Emotions.Entities.Situation) {
-    await Emotions.Policies.OneSituationPerEntry.perform({
-      situation: this.situation,
-    });
+    await Emotions.Policies.OneSituationPerEntry.perform({ situation: this.situation });
 
     const event = Emotions.Events.SituationLoggedEvent.parse({
       id: bg.NewUUID.generate(),

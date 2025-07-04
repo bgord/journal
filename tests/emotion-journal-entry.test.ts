@@ -58,7 +58,7 @@ describe("EmotionJournalEntry", () => {
     expect(emotionJournalEntry.pullEvents()).toEqual([mocks.GenericSituationLoggedEvent]);
   });
 
-  test("logSituation - Policies.OneSituationPerEmotionJournalEntry", async () => {
+  test("logSituation - Policies.OneSituationPerEntry", async () => {
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
     ]);

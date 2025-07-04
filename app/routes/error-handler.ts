@@ -19,6 +19,7 @@ const validationErrors = [
 
 const policies = [
   Emotions.Policies.EmotionCorrespondsToSituation,
+  Emotions.Policies.OneSituationPerEntry,
   Emotions.Policies.OneEmotionPerEntry,
   Emotions.Policies.OneReactionPerEntry,
   Emotions.Policies.ReactionCorrespondsToSituationAndEmotion,
