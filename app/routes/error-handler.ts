@@ -5,23 +5,6 @@ import hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
 
-class PolicyErrorHandler {
-  error: bg.Policy<any> | undefined = undefined;
-
-  constructor(private readonly policies: bg.Policy<any>[]) {}
-
-  detect(error: unknown) {
-    this.error = this.policies.find((policy) => error instanceof policy.error);
-    return this;
-  }
-
-  static respond(
-    error: bg.Policy<any>,
-  ): [{ message: bg.Policy<any>["message"]; _known: true }, bg.Policy<any>["code"]] {
-    return [{ message: error.message, _known: true }, error.code];
-  }
-}
-
 // TODO: try extracting the logic for errors
 const validationErrors = [
   Emotions.VO.SituationDescription.Errors.invalid,
@@ -91,7 +74,7 @@ export class ErrorHandler {
       return c.json({ message: "payload.invalid.error", _known: true }, 400);
     }
 
-    const policyErrorHandler = new PolicyErrorHandler(policies).detect(error);
+    const policyErrorHandler = new bg.PolicyErrorHandler(policies).detect(error);
 
     if (policyErrorHandler.error) {
       infra.logger.error({
@@ -100,7 +83,7 @@ export class ErrorHandler {
         correlationId,
       });
 
-      return c.json(...PolicyErrorHandler.respond(policyErrorHandler.error));
+      return c.json(...bg.PolicyErrorHandler.respond(policyErrorHandler.error));
     }
 
     infra.logger.error({
