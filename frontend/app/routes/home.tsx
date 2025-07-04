@@ -17,21 +17,10 @@ export async function loader() {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const addJournalEntryToggle = UI.hooks.useToggle({ name: "add-journal-entry", defaultValue: true });
+  const addJournalEntryToggle = UI.hooks.useToggle({ name: "add-journal-entry" });
 
   return (
     <main data-pb="36">
-      <header
-        data-my="48"
-        data-fs="32"
-        data-fw="700"
-        data-transform="center uppercase"
-        data-ls="1.5"
-        className="logo"
-      >
-        Journal
-      </header>
-
       <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mb="12">
         <button
           onClick={addJournalEntryToggle.toggle}

@@ -1,4 +1,4 @@
-import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import * as RR from "react-router";
 import { RevalidateOnFocus } from "../components/revalidate-on-focus";
 import type { Route } from "./+types/root";
 
@@ -26,21 +26,31 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
+        <RR.Meta />
+        <RR.Links />
       </head>
       <body style={{ background: "var(--surface-page)" }}>
+        <header
+          data-my="48"
+          data-fs="32"
+          data-fw="700"
+          data-transform="center uppercase"
+          data-ls="1.5"
+          className="logo"
+        >
+          Journal
+        </header>
         {children}
-        <ScrollRestoration />
+        <RR.ScrollRestoration />
         <RevalidateOnFocus />
-        <Scripts />
+        <RR.Scripts />
       </body>
     </html>
   );
 }
 
 export default function App() {
-  return <Outlet />;
+  return <RR.Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -48,7 +58,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let details = "An unexpected error occurred.";
   let stack: string | undefined;
 
-  if (isRouteErrorResponse(error)) {
+  if (RR.isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error";
     details = error.status === 404 ? "The requested page could not be found." : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
