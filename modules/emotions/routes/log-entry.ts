@@ -10,20 +10,20 @@ export async function LogEntry(c: hono.Context, _next: hono.Next) {
   const emotionJournalEntryId = bg.NewUUID.generate();
 
   const situation = new Emotions.Entities.Situation(
-    new Emotions.VO.SituationDescription(body.situation.description),
-    new Emotions.VO.SituationLocation(body.situation.location),
-    new Emotions.VO.SituationKind(body.situation.kind),
+    new Emotions.VO.SituationDescription(body.situation?.description),
+    new Emotions.VO.SituationLocation(body.situation?.location),
+    new Emotions.VO.SituationKind(body.situation?.kind),
   );
 
   const emotion = new Emotions.Entities.Emotion(
-    new Emotions.VO.EmotionLabel(body.emotion.label),
-    new Emotions.VO.EmotionIntensity(body.emotion.intensity),
+    new Emotions.VO.EmotionLabel(body.emotion?.label),
+    new Emotions.VO.EmotionIntensity(body.emotion?.intensity),
   );
 
   const reaction = new Emotions.Entities.Reaction(
-    new Emotions.VO.ReactionDescription(body.description),
-    new Emotions.VO.ReactionType(body.type),
-    new Emotions.VO.ReactionEffectiveness(body.effectiveness),
+    new Emotions.VO.ReactionDescription(body.reaction?.description),
+    new Emotions.VO.ReactionType(body.reaction?.type),
+    new Emotions.VO.ReactionEffectiveness(body.reaction?.effectiveness),
   );
 
   const command = Emotions.Commands.LogEntryCommand.parse({
