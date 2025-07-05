@@ -1,12 +1,20 @@
 import * as UI from "@bgord/ui";
 import React from "react";
+import type { EmotionIntensityType } from "../../../modules/emotions/value-objects/emotion-intensity";
 import { EmotionIntensity } from "../../../modules/emotions/value-objects/emotion-intensity";
+import type { EmotionLabelType } from "../../../modules/emotions/value-objects/emotion-label";
 import { EmotionLabel } from "../../../modules/emotions/value-objects/emotion-label";
+import type { ReactionDescriptionType } from "../../../modules/emotions/value-objects/reaction-description";
 import { ReactionDescription } from "../../../modules/emotions/value-objects/reaction-description";
+import type { ReactionEffectivenessType } from "../../../modules/emotions/value-objects/reaction-effectiveness";
 import { ReactionEffectiveness } from "../../../modules/emotions/value-objects/reaction-effectiveness";
+import type { ReactionTypeType } from "../../../modules/emotions/value-objects/reaction-type";
 import { ReactionType } from "../../../modules/emotions/value-objects/reaction-type";
+import type { SituationDescriptionType } from "../../../modules/emotions/value-objects/situation-description";
 import { SituationDescription } from "../../../modules/emotions/value-objects/situation-description";
+import type { SituationKindType } from "../../../modules/emotions/value-objects/situation-kind";
 import { SituationKind } from "../../../modules/emotions/value-objects/situation-kind";
+import type { SituationLocationType } from "../../../modules/emotions/value-objects/situation-location";
 import { SituationLocation } from "../../../modules/emotions/value-objects/situation-location";
 import { Select } from "../../components/select";
 import type { Route } from "./+types/add-journal-entry";
@@ -47,18 +55,17 @@ export function loader() {
 export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   const [step, setStep] = React.useState<"situation" | "emotion" | "reaction">("situation");
 
-  // TODO add types
-  const situationDescription = UI.useField({ name: "situation-description" });
-  const situationLocation = UI.useField({ name: "situation-location" });
-  const situationKind = UI.useField({ name: "situation-kind" });
-  const emotionLabel = UI.useField({ name: "emotion-label" });
-  const emotionIntensity = UI.useField<number>({
+  const situationDescription = UI.useField<SituationDescriptionType>({ name: "situation-description" });
+  const situationLocation = UI.useField<SituationLocationType>({ name: "situation-location" });
+  const situationKind = UI.useField<SituationKindType>({ name: "situation-kind" });
+  const emotionLabel = UI.useField<EmotionLabelType>({ name: "emotion-label" });
+  const emotionIntensity = UI.useField<EmotionIntensityType>({
     name: "emotion-intensity",
     defaultValue: loaderData.emotionIntensity.min,
   });
-  const reactionDescription = UI.useField({ name: "reaction-description" });
-  const reactionType = UI.useField({ name: "reaction-type" });
-  const reactionEffectiveness = UI.useField<number>({
+  const reactionDescription = UI.useField<ReactionDescriptionType>({ name: "reaction-description" });
+  const reactionType = UI.useField<ReactionTypeType>({ name: "reaction-type" });
+  const reactionEffectiveness = UI.useField<ReactionEffectivenessType>({
     name: "reaction-effectiveness",
     defaultValue: loaderData.reactionEffectiveness.min,
   });
