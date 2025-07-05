@@ -67,7 +67,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
           data-bc="gray-200"
           data-bw="1"
           data-br="4"
-          style={{ background: "var(--surface-card)", ...UI.Services.Rhythm().times(24).minHeight }}
+          style={{ background: "var(--surface-card)", ...UI.Rhythm().times(24).minHeight }}
         >
           {step === "situation" && (
             <>
@@ -83,6 +83,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     className="c-textarea"
                     placeholder="I failed on my butt"
                     rows={3}
+                    {...UI.Form.textareaPattern(loaderData.situationDescription)}
                   />
                 </div>
 
@@ -101,11 +102,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     </Select>
                   </div>
 
-                  <div
-                    data-display="flex"
-                    data-direction="column"
-                    {...UI.Services.Rhythm().times(15).style.width}
-                  >
+                  <div data-display="flex" data-direction="column" {...UI.Rhythm().times(15).style.width}>
                     <label className="c-label" htmlFor="situationLocation">
                       Location
                     </label>
@@ -115,7 +112,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                       className="c-input"
                       type="text"
                       placeholder="Kitchen"
-                      {...UI.Services.Form.pattern(loaderData.situationLocation)}
+                      {...UI.Form.inputPattern(loaderData.situationLocation)}
                     />
                   </div>
                 </div>
@@ -152,8 +149,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     className="c-input"
                     type="number"
                     defaultValue={loaderData.emotionIntensity.min}
-                    min={loaderData.emotionIntensity.min}
-                    max={loaderData.emotionIntensity.max}
+                    {...loaderData.emotionIntensity}
                   />
                 </div>
               </div>
@@ -173,10 +169,9 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     id="reactionDescription"
                     name="reactionDescription"
                     className="c-textarea"
-                    type="text"
                     placeholder="I failed on my butt"
                     rows={3}
-                    {...UI.Services.Form.pattern(loaderData.reactionDescription)}
+                    {...UI.Form.textareaPattern(loaderData.reactionDescription)}
                   />
                 </div>
 
@@ -205,8 +200,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                       className="c-input"
                       type="number"
                       defaultValue={loaderData.emotionIntensity.min}
-                      min={loaderData.reactionEffectiveness.min}
-                      max={loaderData.reactionEffectiveness.max}
+                      {...loaderData.reactionEffectiveness}
                     />
                   </div>
                 </div>
@@ -221,7 +215,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               className="c-button"
               data-variant="secondary"
               data-ml="auto"
-              {...UI.Services.Rhythm().times(10).style.minWidth}
+              {...UI.Rhythm().times(10).style.minWidth}
             >
               Add emotion
             </button>
@@ -242,7 +236,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 type="button"
                 className="c-button"
                 data-variant="secondary"
-                {...UI.Services.Rhythm().times(10).style.minWidth}
+                {...UI.Rhythm().times(10).style.minWidth}
               >
                 Add reaction
               </button>
@@ -263,7 +257,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 type="submit"
                 className="c-button"
                 data-variant="primary"
-                {...UI.Services.Rhythm().times(10).style.minWidth}
+                {...UI.Rhythm().times(10).style.minWidth}
               >
                 Add
               </button>
