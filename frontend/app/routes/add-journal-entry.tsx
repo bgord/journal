@@ -16,6 +16,7 @@ export function meta() {
 }
 
 export function loader() {
+  // TODO extract to a service
   return {
     situationDescription: {
       min: SituationDescription.MinimumLength,
@@ -46,6 +47,15 @@ export function loader() {
 export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   const [step, setStep] = React.useState<"situation" | "emotion" | "reaction">("situation");
 
+  const situationDescription = UI.useField({ name: "situation-description" });
+  const situationLocation = UI.useField({ name: "situation-location" });
+  // const situationKind = UI.useField({ name: "situation-kind" });
+  // const emotionLabel = UI.useField({ name: "emotion-label" });
+  // const emotionIntensity = UI.useField({ name: "emotion-intensity" });
+  const reactionDescription = UI.useField({ name: "reaction-description" });
+  // const reactionType = UI.useField({ name: "reaction-type" });
+  // const reactionEffectiveness = UI.useField({ name: "reaction-effectiveness" });
+
   return (
     <main data-pb="36">
       <div
@@ -74,15 +84,16 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               <div>Situation</div>
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column">
-                  <label className="c-label" htmlFor="situationDescription">
+                  <label className="c-label" {...situationDescription.label.props}>
                     Description
                   </label>
                   <textarea
-                    id="situationDescription"
-                    name="situationDescription"
                     className="c-textarea"
                     placeholder="I failed on my butt"
                     rows={3}
+                    value={situationDescription.value}
+                    onChange={situationDescription.handleChange}
+                    {...situationDescription.input.props}
                     {...UI.Form.textareaPattern(loaderData.situationDescription)}
                   />
                 </div>
@@ -103,15 +114,15 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                   </div>
 
                   <div data-display="flex" data-direction="column" {...UI.Rhythm().times(15).style.width}>
-                    <label className="c-label" htmlFor="situationLocation">
+                    <label className="c-label" {...situationLocation.label.props}>
                       Location
                     </label>
                     <input
-                      id="situationLocation"
-                      name="situationLocation"
                       className="c-input"
-                      type="text"
                       placeholder="Kitchen"
+                      value={situationLocation.value}
+                      onChange={situationLocation.handleChange}
+                      {...situationLocation.input.props}
                       {...UI.Form.inputPattern(loaderData.situationLocation)}
                     />
                   </div>
@@ -162,15 +173,16 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column" data-grow="1">
-                  <label className="c-label" htmlFor="reactionDescription">
+                  <label className="c-label" {...reactionDescription.label.props}>
                     Description
                   </label>
                   <textarea
-                    id="reactionDescription"
-                    name="reactionDescription"
                     className="c-textarea"
                     placeholder="I failed on my butt"
                     rows={3}
+                    value={reactionDescription.value}
+                    onChange={reactionDescription.handleChange}
+                    {...reactionDescription.input.props}
                     {...UI.Form.textareaPattern(loaderData.reactionDescription)}
                   />
                 </div>
@@ -215,6 +227,11 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               className="c-button"
               data-variant="secondary"
               data-ml="auto"
+              disabled={UI.Fields.anyUnchanged([
+                situationDescription,
+                // TODO situationKind,
+                situationLocation,
+              ])}
               {...UI.Rhythm().times(10).style.minWidth}
             >
               Add emotion
@@ -236,6 +253,10 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 type="button"
                 className="c-button"
                 data-variant="secondary"
+                disabled={UI.Fields.anyUnchanged([
+                  // TODO emotionLabel,
+                  // TODO emotionIntensity,
+                ])}
                 {...UI.Rhythm().times(10).style.minWidth}
               >
                 Add reaction
@@ -257,6 +278,11 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 type="submit"
                 className="c-button"
                 data-variant="primary"
+                disabled={UI.Fields.anyUnchanged([
+                  reactionDescription,
+                  // TODO reactionType,
+                  // TODO reactionEffectiveness,
+                ])}
                 {...UI.Rhythm().times(10).style.minWidth}
               >
                 Add
