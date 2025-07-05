@@ -47,14 +47,21 @@ export function loader() {
 export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   const [step, setStep] = React.useState<"situation" | "emotion" | "reaction">("situation");
 
+  // TODO add types
   const situationDescription = UI.useField({ name: "situation-description" });
   const situationLocation = UI.useField({ name: "situation-location" });
   const situationKind = UI.useField({ name: "situation-kind" });
   const emotionLabel = UI.useField({ name: "emotion-label" });
-  // const emotionIntensity = UI.useField({ name: "emotion-intensity" });
+  const emotionIntensity = UI.useField<number>({
+    name: "emotion-intensity",
+    defaultValue: loaderData.emotionIntensity.min,
+  });
   const reactionDescription = UI.useField({ name: "reaction-description" });
   const reactionType = UI.useField({ name: "reaction-type" });
-  // const reactionEffectiveness = UI.useField({ name: "reaction-effectiveness" });
+  const reactionEffectiveness = UI.useField<number>({
+    name: "reaction-effectiveness",
+    defaultValue: loaderData.reactionEffectiveness.min,
+  });
 
   return (
     <main data-pb="36">
@@ -161,15 +168,15 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 </div>
 
                 <div data-display="flex" data-direction="column">
-                  <label className="c-label" htmlFor="emotionIntensity">
+                  <label className="c-label" {...emotionIntensity.label.props}>
                     Intensity
                   </label>
                   <input
-                    id="emotionIntensity"
-                    name="emotionIntensity"
                     className="c-input"
                     type="number"
-                    defaultValue={loaderData.emotionIntensity.min}
+                    value={emotionIntensity.value}
+                    onChange={emotionIntensity.handleChange}
+                    {...emotionIntensity.input.props}
                     {...loaderData.emotionIntensity}
                   />
                 </div>
@@ -218,15 +225,15 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                   </div>
 
                   <div data-display="flex" data-direction="column">
-                    <label className="c-label" htmlFor="reactionEffectiveness">
+                    <label className="c-label" {...reactionEffectiveness.label.props}>
                       Effectiveness
                     </label>
                     <input
-                      id="reactionEffectiveness"
-                      name="reactionEffectiveness"
                       className="c-input"
                       type="number"
-                      defaultValue={loaderData.emotionIntensity.min}
+                      value={reactionEffectiveness.value}
+                      onChange={reactionEffectiveness.handleChange}
+                      {...reactionEffectiveness.input.props}
                       {...loaderData.reactionEffectiveness}
                     />
                   </div>
@@ -264,10 +271,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 type="button"
                 className="c-button"
                 data-variant="secondary"
-                disabled={UI.Fields.anyUnchanged([
-                  emotionLabel,
-                  // TODO emotionIntensity,
-                ])}
+                disabled={UI.Fields.anyUnchanged([emotionLabel, emotionIntensity])}
                 {...UI.Rhythm().times(10).style.minWidth}
               >
                 Add reaction
@@ -289,11 +293,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 type="submit"
                 className="c-button"
                 data-variant="primary"
-                disabled={UI.Fields.anyUnchanged([
-                  reactionDescription,
-                  reactionType,
-                  // TODO reactionEffectiveness,
-                ])}
+                disabled={UI.Fields.anyUnchanged([reactionDescription, reactionType, reactionEffectiveness])}
                 {...UI.Rhythm().times(10).style.minWidth}
               >
                 Add
