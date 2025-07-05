@@ -49,11 +49,11 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
   const situationDescription = UI.useField({ name: "situation-description" });
   const situationLocation = UI.useField({ name: "situation-location" });
-  // const situationKind = UI.useField({ name: "situation-kind" });
-  // const emotionLabel = UI.useField({ name: "emotion-label" });
+  const situationKind = UI.useField({ name: "situation-kind" });
+  const emotionLabel = UI.useField({ name: "emotion-label" });
   // const emotionIntensity = UI.useField({ name: "emotion-intensity" });
   const reactionDescription = UI.useField({ name: "reaction-description" });
-  // const reactionType = UI.useField({ name: "reaction-type" });
+  const reactionType = UI.useField({ name: "reaction-type" });
   // const reactionEffectiveness = UI.useField({ name: "reaction-effectiveness" });
 
   return (
@@ -100,11 +100,16 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
                 <div data-display="flex" data-gap="12">
                   <div data-display="flex" data-direction="column">
-                    <label className="c-label" htmlFor="situationKind">
+                    <label className="c-label" {...situationKind.label.props}>
                       Kind
                     </label>
 
-                    <Select id="situationKind" name="situationKind" required className="c-select">
+                    <Select
+                      className="c-select"
+                      value={situationKind.value}
+                      onChange={situationKind.handleChange}
+                      {...situationKind.input.props}
+                    >
                       {loaderData.situationKinds.map((kind) => (
                         <option key={kind} value={kind}>
                           {kind}
@@ -137,11 +142,16 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
               <div data-display="flex" data-gap="12">
                 <div data-display="flex" data-direction="column">
-                  <label className="c-label" htmlFor="emotionLabel">
+                  <label className="c-label" {...emotionLabel.label.props}>
                     Label
                   </label>
 
-                  <Select id="emotionLabel" name="emotionLabel" required className="c-select">
+                  <Select
+                    className="c-select"
+                    value={emotionLabel.value}
+                    onChange={emotionLabel.handleChange}
+                    {...emotionLabel.input.props}
+                  >
                     {loaderData.emotionLabels.map((emotion) => (
                       <option key={emotion} value={emotion}>
                         {emotion}
@@ -189,11 +199,16 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
                 <div data-display="flex" data-gap="12">
                   <div data-display="flex" data-direction="column">
-                    <label className="c-label" htmlFor="reactionType">
+                    <label className="c-label" {...reactionType.label.props}>
                       Type
                     </label>
 
-                    <Select id="reactionType" name="reactionType" required className="c-select">
+                    <Select
+                      className="c-select"
+                      value={reactionType.value}
+                      onChange={reactionType.handleChange}
+                      {...reactionType.input.props}
+                    >
                       {loaderData.reactionTypes.map((type) => (
                         <option key={type} value={type}>
                           {type}
@@ -227,11 +242,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               className="c-button"
               data-variant="secondary"
               data-ml="auto"
-              disabled={UI.Fields.anyUnchanged([
-                situationDescription,
-                // TODO situationKind,
-                situationLocation,
-              ])}
+              disabled={UI.Fields.anyUnchanged([situationDescription, situationKind, situationLocation])}
               {...UI.Rhythm().times(10).style.minWidth}
             >
               Add emotion
@@ -254,7 +265,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 className="c-button"
                 data-variant="secondary"
                 disabled={UI.Fields.anyUnchanged([
-                  // TODO emotionLabel,
+                  emotionLabel,
                   // TODO emotionIntensity,
                 ])}
                 {...UI.Rhythm().times(10).style.minWidth}
@@ -280,7 +291,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 data-variant="primary"
                 disabled={UI.Fields.anyUnchanged([
                   reactionDescription,
-                  // TODO reactionType,
+                  reactionType,
                   // TODO reactionEffectiveness,
                 ])}
                 {...UI.Rhythm().times(10).style.minWidth}
