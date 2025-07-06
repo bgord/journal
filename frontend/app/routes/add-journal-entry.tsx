@@ -1,5 +1,6 @@
 import * as UI from "@bgord/ui";
 import React from "react";
+import { redirect } from "react-router";
 import type { EmotionIntensityType } from "../../../modules/emotions/value-objects/emotion-intensity";
 import { EmotionIntensity } from "../../../modules/emotions/value-objects/emotion-intensity";
 import type { EmotionLabelType } from "../../../modules/emotions/value-objects/emotion-label";
@@ -23,7 +24,7 @@ export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
 }
 
-export function loader() {
+export async function loader() {
   // TODO extract to a service
   return {
     situationDescription: {
@@ -50,6 +51,12 @@ export function loader() {
       max: ReactionEffectiveness.Maximum,
     },
   };
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  const data = await request.formData();
+  console.log(data);
+  return redirect("/");
 }
 
 export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
