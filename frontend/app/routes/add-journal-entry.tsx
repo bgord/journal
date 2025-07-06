@@ -1,22 +1,15 @@
 import * as UI from "@bgord/ui";
 import React from "react";
 import { redirect, useFetcher } from "react-router";
+import { AddJournalEntryForm } from "../../../app/services/add-journal-entry-form";
 import type { EmotionIntensityType } from "../../../modules/emotions/value-objects/emotion-intensity";
-import { EmotionIntensity } from "../../../modules/emotions/value-objects/emotion-intensity";
 import type { EmotionLabelType } from "../../../modules/emotions/value-objects/emotion-label";
-import { EmotionLabel } from "../../../modules/emotions/value-objects/emotion-label";
 import type { ReactionDescriptionType } from "../../../modules/emotions/value-objects/reaction-description";
-import { ReactionDescription } from "../../../modules/emotions/value-objects/reaction-description";
 import type { ReactionEffectivenessType } from "../../../modules/emotions/value-objects/reaction-effectiveness";
-import { ReactionEffectiveness } from "../../../modules/emotions/value-objects/reaction-effectiveness";
 import type { ReactionTypeType } from "../../../modules/emotions/value-objects/reaction-type";
-import { ReactionType } from "../../../modules/emotions/value-objects/reaction-type";
 import type { SituationDescriptionType } from "../../../modules/emotions/value-objects/situation-description";
-import { SituationDescription } from "../../../modules/emotions/value-objects/situation-description";
 import type { SituationKindType } from "../../../modules/emotions/value-objects/situation-kind";
-import { SituationKind } from "../../../modules/emotions/value-objects/situation-kind";
 import type { SituationLocationType } from "../../../modules/emotions/value-objects/situation-location";
-import { SituationLocation } from "../../../modules/emotions/value-objects/situation-location";
 import { API } from "../../api";
 import { Select } from "../../components/select";
 import type { Route } from "./+types/add-journal-entry";
@@ -26,32 +19,7 @@ export function meta() {
 }
 
 export async function loader() {
-  // TODO extract to a service
-  return {
-    situationDescription: {
-      min: SituationDescription.MinimumLength,
-      max: SituationDescription.MaximumLength,
-    },
-    situationLocation: {
-      min: SituationLocation.MinimumLength,
-      max: SituationLocation.MaximumLength,
-    },
-    situationKinds: SituationKind.all(),
-    emotionLabels: EmotionLabel.all(),
-    emotionIntensity: {
-      min: EmotionIntensity.Minimum,
-      max: EmotionIntensity.Maximum,
-    },
-    reactionDescription: {
-      min: ReactionDescription.MinimumLength,
-      max: ReactionDescription.MaximumLength,
-    },
-    reactionTypes: ReactionType.all(),
-    reactionEffectiveness: {
-      min: ReactionEffectiveness.Minimum,
-      max: ReactionEffectiveness.Maximum,
-    },
-  };
+  return AddJournalEntryForm.get();
 }
 
 export async function action({ request }: Route.ActionArgs) {

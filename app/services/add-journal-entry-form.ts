@@ -1,3 +1,38 @@
+import { EmotionIntensity } from "../../modules/emotions/value-objects/emotion-intensity";
+import { EmotionLabel } from "../../modules/emotions/value-objects/emotion-label";
+import { ReactionDescription } from "../../modules/emotions/value-objects/reaction-description";
+import { ReactionEffectiveness } from "../../modules/emotions/value-objects/reaction-effectiveness";
+import { ReactionType } from "../../modules/emotions/value-objects/reaction-type";
+import { SituationDescription } from "../../modules/emotions/value-objects/situation-description";
+import { SituationKind } from "../../modules/emotions/value-objects/situation-kind";
+import { SituationLocation } from "../../modules/emotions/value-objects/situation-location";
+
 export class AddJournalEntryForm {
-  static get() {}
+  static get() {
+    return {
+      situationDescription: {
+        min: SituationDescription.MinimumLength,
+        max: SituationDescription.MaximumLength,
+      },
+      situationLocation: {
+        min: SituationLocation.MinimumLength,
+        max: SituationLocation.MaximumLength,
+      },
+      situationKinds: SituationKind.all(),
+      emotionLabels: EmotionLabel.all(),
+      emotionIntensity: {
+        min: EmotionIntensity.Minimum,
+        max: EmotionIntensity.Maximum,
+      },
+      reactionDescription: {
+        min: ReactionDescription.MinimumLength,
+        max: ReactionDescription.MaximumLength,
+      },
+      reactionTypes: ReactionType.all(),
+      reactionEffectiveness: {
+        min: ReactionEffectiveness.Minimum,
+        max: ReactionEffectiveness.Maximum,
+      },
+    };
+  }
 }
