@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
 import React from "react";
-import { redirect } from "react-router";
+import { redirect, useFetcher } from "react-router";
 import type { EmotionIntensityType } from "../../../modules/emotions/value-objects/emotion-intensity";
 import { EmotionIntensity } from "../../../modules/emotions/value-objects/emotion-intensity";
 import type { EmotionLabelType } from "../../../modules/emotions/value-objects/emotion-label";
@@ -60,6 +60,8 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
+  const fetcher = useFetcher();
+
   const [step, setStep] = React.useState<"situation" | "emotion" | "reaction">("situation");
 
   const situationDescription = UI.useField<SituationDescriptionType>({ name: "situation-description" });
@@ -87,7 +89,8 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
         data-mt="72"
         data-pt="24"
       >
-        <form
+        <fetcher.Form
+          method="POST"
           className="add-entry-form"
           data-display="flex"
           data-direction="column"
@@ -314,7 +317,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               </button>
             </div>
           )}
-        </form>
+        </fetcher.Form>
       </div>
     </main>
   );
