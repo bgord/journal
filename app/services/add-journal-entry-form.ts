@@ -7,6 +7,8 @@ import { SituationDescription } from "../../modules/emotions/value-objects/situa
 import { SituationKind } from "../../modules/emotions/value-objects/situation-kind";
 import { SituationLocation } from "../../modules/emotions/value-objects/situation-location";
 
+export type * as types from "../../modules/emotions/value-objects";
+
 export class AddJournalEntryForm {
   static get() {
     return {

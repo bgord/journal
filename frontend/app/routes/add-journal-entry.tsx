@@ -1,15 +1,8 @@
 import * as UI from "@bgord/ui";
 import React from "react";
 import { redirect, useFetcher } from "react-router";
+import type { types } from "../../../app/services/add-journal-entry-form";
 import { AddJournalEntryForm } from "../../../app/services/add-journal-entry-form";
-import type { EmotionIntensityType } from "../../../modules/emotions/value-objects/emotion-intensity";
-import type { EmotionLabelType } from "../../../modules/emotions/value-objects/emotion-label";
-import type { ReactionDescriptionType } from "../../../modules/emotions/value-objects/reaction-description";
-import type { ReactionEffectivenessType } from "../../../modules/emotions/value-objects/reaction-effectiveness";
-import type { ReactionTypeType } from "../../../modules/emotions/value-objects/reaction-type";
-import type { SituationDescriptionType } from "../../../modules/emotions/value-objects/situation-description";
-import type { SituationKindType } from "../../../modules/emotions/value-objects/situation-kind";
-import type { SituationLocationType } from "../../../modules/emotions/value-objects/situation-location";
 import { API } from "../../api";
 import { Select } from "../../components/select";
 import type { Route } from "./+types/add-journal-entry";
@@ -36,17 +29,17 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
   const [step, setStep] = React.useState<"situation" | "emotion" | "reaction">("situation");
 
-  const situationDescription = UI.useField<SituationDescriptionType>({ name: "situation-description" });
-  const situationLocation = UI.useField<SituationLocationType>({ name: "situation-location" });
-  const situationKind = UI.useField<SituationKindType>({ name: "situation-kind" });
-  const emotionLabel = UI.useField<EmotionLabelType>({ name: "emotion-label" });
-  const emotionIntensity = UI.useField<EmotionIntensityType>({
+  const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situation-description" });
+  const situationLocation = UI.useField<types.SituationLocationType>({ name: "situation-location" });
+  const situationKind = UI.useField<types.SituationKindType>({ name: "situation-kind" });
+  const emotionLabel = UI.useField<types.EmotionLabelType>({ name: "emotion-label" });
+  const emotionIntensity = UI.useField<types.EmotionIntensityType>({
     name: "emotion-intensity",
     defaultValue: loaderData.emotionIntensity.min,
   });
-  const reactionDescription = UI.useField<ReactionDescriptionType>({ name: "reaction-description" });
-  const reactionType = UI.useField<ReactionTypeType>({ name: "reaction-type" });
-  const reactionEffectiveness = UI.useField<ReactionEffectivenessType>({
+  const reactionDescription = UI.useField<types.ReactionDescriptionType>({ name: "reaction-description" });
+  const reactionType = UI.useField<types.ReactionTypeType>({ name: "reaction-type" });
+  const reactionEffectiveness = UI.useField<types.ReactionEffectivenessType>({
     name: "reaction-effectiveness",
     defaultValue: loaderData.reactionEffectiveness.min,
   });
