@@ -17,13 +17,13 @@ export async function LogEntry(c: hono.Context, _next: hono.Next) {
 
   const emotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(body.emotion?.label),
-    new Emotions.VO.EmotionIntensity(body.emotion?.intensity),
+    new Emotions.VO.EmotionIntensity(Number(body.emotion?.intensity)),
   );
 
   const reaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(body.reaction?.description),
     new Emotions.VO.ReactionType(body.reaction?.type),
-    new Emotions.VO.ReactionEffectiveness(body.reaction?.effectiveness),
+    new Emotions.VO.ReactionEffectiveness(Number(body.reaction?.effectiveness)),
   );
 
   const command = Emotions.Commands.LogEntryCommand.parse({

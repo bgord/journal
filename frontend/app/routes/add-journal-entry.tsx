@@ -17,6 +17,7 @@ import type { SituationKindType } from "../../../modules/emotions/value-objects/
 import { SituationKind } from "../../../modules/emotions/value-objects/situation-kind";
 import type { SituationLocationType } from "../../../modules/emotions/value-objects/situation-location";
 import { SituationLocation } from "../../../modules/emotions/value-objects/situation-location";
+import { API } from "../../api";
 import { Select } from "../../components/select";
 import type { Route } from "./+types/add-journal-entry";
 
@@ -54,8 +55,11 @@ export async function loader() {
 }
 
 export async function action({ request }: Route.ActionArgs) {
-  const data = await request.formData();
-  console.log(data);
+  await API("/emotions/log-entry", {
+    method: "POST",
+    body: JSON.stringify(await request.json()),
+  });
+
   return redirect("/");
 }
 
@@ -91,6 +95,26 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
       >
         <fetcher.Form
           method="POST"
+          onSubmit={(event) => {
+            event.preventDefault();
+
+            fetcher.submit(
+              {
+                situation: {
+                  description: situationDescription.value,
+                  location: situationLocation.value,
+                  kind: situationKind.value,
+                },
+                emotion: { label: emotionLabel.value, intensity: emotionIntensity.value },
+                reaction: {
+                  description: reactionDescription.value,
+                  type: reactionType.value,
+                  effectiveness: reactionEffectiveness.value,
+                },
+              },
+              { action: "/add-journal-entry", method: "post", encType: "application/json" },
+            );
+          }}
           className="add-entry-form"
           data-display="flex"
           data-direction="column"
