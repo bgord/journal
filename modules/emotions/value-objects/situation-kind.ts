@@ -31,6 +31,7 @@ export const SituationKindSchema = z.enum(SituationKindOptions, {
   message: SituationKindErrors.invalid,
 });
 
+/** @public */
 export type SituationKindType = z.infer<typeof SituationKindSchema>;
 
 export class SituationKind {

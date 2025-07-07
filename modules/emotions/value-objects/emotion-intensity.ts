@@ -10,6 +10,7 @@ export const EmotionIntensitySchema = z
   .gte(EmotionIntensityMin, { message: EmotionIntensityErrors.min_max })
   .lte(EmotionIntensityMax, { message: EmotionIntensityErrors.min_max });
 
+/** @public */
 export type EmotionIntensityType = z.infer<typeof EmotionIntensitySchema>;
 
 export class EmotionIntensity {

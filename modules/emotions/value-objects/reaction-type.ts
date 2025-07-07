@@ -7,6 +7,7 @@ export const ReactionTypeSchema = z.enum(GrossEmotionRegulationStrategy, {
   message: ReactionTypeErrors.invalid,
 });
 
+/** @public */
 export type ReactionTypeType = z.infer<typeof ReactionTypeSchema>;
 
 export class ReactionType {

@@ -16,6 +16,7 @@ export const ReactionEffectivenessSchema = z
     message: ReactionEffectivenessErrors.min_max,
   });
 
+/** @public */
 export type ReactionEffectivenessType = z.infer<typeof ReactionEffectivenessSchema>;
 
 export class ReactionEffectiveness {

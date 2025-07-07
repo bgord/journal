@@ -13,6 +13,7 @@ export const SituationLocationSchema = z
   .min(SituationLocationMin, { message: SituationLocationErrors.invalid })
   .max(SituationLocationMax, { message: SituationLocationErrors.invalid });
 
+/** @public */
 export type SituationLocationType = z.infer<typeof SituationLocationSchema>;
 
 export class SituationLocation {

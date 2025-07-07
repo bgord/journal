@@ -13,6 +13,7 @@ export const ReactionDescriptionSchema = z
   .min(ReactionDescriptionMin, { message: ReactionDescriptionErrors.invalid })
   .max(ReactionDescriptionMax, { message: ReactionDescriptionErrors.invalid });
 
+/** @public */
 export type ReactionDescriptionType = z.infer<typeof ReactionDescriptionSchema>;
 
 export class ReactionDescription {

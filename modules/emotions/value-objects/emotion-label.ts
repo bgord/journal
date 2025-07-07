@@ -7,6 +7,7 @@ export const EmotionLabelSchema = z.enum(GenevaWheelEmotion, {
   error: EmotionLabelErrors.invalid,
 });
 
+/** @public */
 export type EmotionLabelType = z.infer<typeof EmotionLabelSchema>;
 
 export class EmotionLabel {
