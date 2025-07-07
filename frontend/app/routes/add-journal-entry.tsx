@@ -100,8 +100,6 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     className="c-textarea"
                     placeholder="I failed on my butt"
                     rows={3}
-                    value={situationDescription.value}
-                    onChange={situationDescription.handleChange}
                     {...situationDescription.input.props}
                     {...UI.Form.textareaPattern(loaderData.situationDescription)}
                   />
@@ -113,12 +111,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                       Kind
                     </label>
 
-                    <Select
-                      className="c-select"
-                      value={situationKind.value}
-                      onChange={situationKind.handleChange}
-                      {...situationKind.input.props}
-                    >
+                    <Select className="c-select" {...situationKind.input.props}>
                       {loaderData.situationKinds.map((kind) => (
                         <option key={kind} value={kind}>
                           {kind}
@@ -134,8 +127,6 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     <input
                       className="c-input"
                       placeholder="Kitchen"
-                      value={situationLocation.value}
-                      onChange={situationLocation.handleChange}
                       {...situationLocation.input.props}
                       {...UI.Form.inputPattern(loaderData.situationLocation)}
                     />
@@ -155,12 +146,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     Label
                   </label>
 
-                  <Select
-                    className="c-select"
-                    value={emotionLabel.value}
-                    onChange={emotionLabel.handleChange}
-                    {...emotionLabel.input.props}
-                  >
+                  <Select className="c-select" {...emotionLabel.input.props}>
                     {loaderData.emotionLabels.map((emotion) => (
                       <option key={emotion} value={emotion}>
                         {emotion}
@@ -176,8 +162,6 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                   <input
                     className="c-input"
                     type="number"
-                    value={emotionIntensity.value}
-                    onChange={emotionIntensity.handleChange}
                     {...emotionIntensity.input.props}
                     {...loaderData.emotionIntensity}
                   />
@@ -199,8 +183,6 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     className="c-textarea"
                     placeholder="I failed on my butt"
                     rows={3}
-                    value={reactionDescription.value}
-                    onChange={reactionDescription.handleChange}
                     {...reactionDescription.input.props}
                     {...UI.Form.textareaPattern(loaderData.reactionDescription)}
                   />
@@ -212,12 +194,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                       Type
                     </label>
 
-                    <Select
-                      className="c-select"
-                      value={reactionType.value}
-                      onChange={reactionType.handleChange}
-                      {...reactionType.input.props}
-                    >
+                    <Select className="c-select" {...reactionType.input.props}>
                       {loaderData.reactionTypes.map((type) => (
                         <option key={type} value={type}>
                           {type}
@@ -233,8 +210,6 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     <input
                       className="c-input"
                       type="number"
-                      value={reactionEffectiveness.value}
-                      onChange={reactionEffectiveness.handleChange}
                       {...reactionEffectiveness.input.props}
                       {...loaderData.reactionEffectiveness}
                     />
