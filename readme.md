@@ -50,9 +50,7 @@ modules/
     │   ├── handleDeleteEmotionJournalEntryCommand.ts
     │   ├── handleEvaluateReactionCommand.ts
     │   ├── handleGenerateAlarmCommand.ts
-    │   ├── handleLogEmotionCommand.ts
-    │   ├── handleLogReactionCommand.ts
-    │   ├── handleLogSituationCommand.ts
+    │   ├── handleLogEntryCommand.ts
     │   ├── handleMarkWeeklyReviewAsFailedCommand.ts
     │   ├── handleReappraiseEmotionCommand.ts
     │   ├── handleRequestWeeklyReviewCommand.ts
@@ -64,9 +62,7 @@ modules/
     │   ├── DELETE_EMOTION_JOURNAL_ENTRY_COMMAND.ts
     │   ├── EVALUATE_REACTION_COMMAND.ts
     │   ├── GENERATE_ALARM_COMMAND.ts
-    │   ├── LOG_EMOTION_COMMAND.ts
-    │   ├── LOG_REACTION_COMMAND.ts
-    │   ├── LOG_SITUATION_COMMAND.ts
+    │   ├── LOG_ENTRY_COMMAND.ts
     │   ├── MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND.ts
     │   ├── REAPPRAISE_EMOTION_COMMAND.ts
     │   ├── REQUEST_WEEKLY_REVIEW_COMMAND.ts
@@ -135,9 +131,7 @@ modules/
     │   ├── delete-journal-entry.ts
     │   ├── evaluate-reaction.ts
     │   ├── list-entries.ts
-    │   ├── log-emotion.ts
-    │   ├── log-reaction.ts
-    │   ├── log-situation.ts
+    │   ├── log-entry.ts
     │   └── reappraise-emotion.ts
     ├── sagas
     │   ├── alarm-processing.ts
