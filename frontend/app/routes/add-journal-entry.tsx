@@ -112,6 +112,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     </label>
 
                     <Select className="c-select" {...situationKind.input.props}>
+                      <option value="">Choose an option</option>
                       {loaderData.situationKinds.map((kind) => (
                         <option key={kind} value={kind}>
                           {kind}
@@ -147,6 +148,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                   </label>
 
                   <Select className="c-select" {...emotionLabel.input.props}>
+                    <option value="">Choose an option</option>
                     {loaderData.emotionLabels.map((emotion) => (
                       <option key={emotion} value={emotion}>
                         {emotion}
@@ -195,6 +197,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     </label>
 
                     <Select className="c-select" {...reactionType.input.props}>
+                      <option value="">Choose an option</option>
                       {loaderData.reactionTypes.map((type) => (
                         <option key={type} value={type}>
                           {type}
