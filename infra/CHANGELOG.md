@@ -1,10 +1,16 @@
 # Changelog
+- 2025-07-07 17:28 c8c7144 **refactor: extract back button**
+## 2025-07-07 17:28 
+- 2025-07-07 17:13 f52a33e **fix: select empty values**
+- 2025-07-07 17:05 f497628 **refactor: used improved input.props returned by useField**
+- 2025-07-07 17:03 41a4980 **refactor: switch to real bgord-bun**
 - 2025-07-07 16:53 9a8be27 **fix: typecheck-prune**
-## 2025-07-07 16:53 
 - 2025-07-07 16:50 965d60c **fix: typecheck-prune**
 - 2025-07-07 16:50 0179cff **refactor: remove unused commands**
 - 2025-07-07 16:47 250fc44 **step: update packageS**
 - 2025-07-07 16:44 c336a3f **step: update packages**
+- 2025-07-07 14:54 acc2723 **docs: generate CHANGELOG**
+- 2025-07-07 14:54 53750da **docs: generate readme**
 - 2025-07-07 14:40 489b3f8 **step: bump bgord/scripts**
 - 2025-07-07 14:38 1c7c099 **refactor: simplify the verify dependencies script**
 - 2025-07-07 14:25 f4148b7 **step: wip**
