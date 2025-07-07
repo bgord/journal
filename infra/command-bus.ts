@@ -8,9 +8,6 @@ type AcceptedCommand =
   | Commands.DeleteEmotionJournalEntryCommandType
   | Commands.EvaluateReactionCommandType
   | Commands.GenerateAlarmCommandType
-  | Commands.LogEmotionCommandType
-  | Commands.LogReactionCommandType
-  | Commands.LogSituationCommandType
   | Commands.LogEntryCommandType
   | Commands.ReappraiseEmotionCommandType
   | Commands.SaveAlarmAdviceCommandType
