@@ -4,6 +4,7 @@ import { redirect, useFetcher } from "react-router";
 import type { types } from "../../../app/services/add-journal-entry-form";
 import { AddJournalEntryForm } from "../../../app/services/add-journal-entry-form";
 import { API } from "../../api";
+import { BackButton } from "../../components/back-button";
 import { Select } from "../../components/select";
 import type { Route } from "./+types/add-journal-entry";
 
@@ -229,7 +230,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               className="c-button"
               data-variant="secondary"
               data-ml="auto"
-              disabled={UI.Fields.anyUnchanged([situationDescription, situationKind, situationLocation])}
+              disabled={UI.Fields.anyEmpty([situationDescription, situationKind, situationLocation])}
               {...UI.Rhythm().times(10).style.minWidth}
             >
               Add emotion
@@ -238,20 +239,13 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
           {step === "emotion" && (
             <div data-display="flex" data-gap="12" data-ml="auto" data-mt="auto">
-              <button
-                onClick={() => setStep("situation")}
-                type="button"
-                className="c-button"
-                data-variant="bare"
-              >
-                Back
-              </button>
+              <BackButton onClick={() => setStep("situation")} />
               <button
                 onClick={() => setStep("reaction")}
                 type="button"
                 className="c-button"
                 data-variant="secondary"
-                disabled={UI.Fields.anyUnchanged([emotionLabel, emotionIntensity])}
+                disabled={UI.Fields.anyEmpty([emotionLabel, emotionIntensity])}
                 {...UI.Rhythm().times(10).style.minWidth}
               >
                 Add reaction
@@ -261,19 +255,12 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
           {step === "reaction" && (
             <div data-display="flex" data-gap="12" data-ml="auto" data-mt="auto">
-              <button
-                onClick={() => setStep("emotion")}
-                type="button"
-                className="c-button"
-                data-variant="bare"
-              >
-                Back
-              </button>
+              <BackButton onClick={() => setStep("emotion")} />
               <button
                 type="submit"
                 className="c-button"
                 data-variant="primary"
-                disabled={UI.Fields.anyUnchanged([reactionDescription, reactionType, reactionEffectiveness])}
+                disabled={UI.Fields.anyEmpty([reactionDescription, reactionType, reactionEffectiveness])}
                 {...UI.Rhythm().times(10).style.minWidth}
               >
                 Add
