@@ -1,11 +1,67 @@
 # Changelog
+- 2025-07-07 16:53 9a8be27 **fix: typecheck-prune**
+## 2025-07-07 16:53 
+- 2025-07-07 16:50 965d60c **fix: typecheck-prune**
+- 2025-07-07 16:50 0179cff **refactor: remove unused commands**
+- 2025-07-07 16:47 250fc44 **step: update packageS**
+- 2025-07-07 16:44 c336a3f **step: update packages**
+- 2025-07-07 14:40 489b3f8 **step: bump bgord/scripts**
+- 2025-07-07 14:38 1c7c099 **refactor: simplify the verify dependencies script**
+- 2025-07-07 14:25 f4148b7 **step: wip**
+- 2025-07-07 14:25 3f4670a **refactor: switch to real bgord-bun**
+- 2025-07-07 14:25 1374e37 **refactor: fix lodash version**
+- 2025-07-07 14:19 c3de08a **step: bump bgord/scripts**
+- 2025-07-06 18:18 0e6a115 **refactor: simplify types**
+- 2025-07-06 18:11 af1f928 **refactor: extract form fields to a service**
+- 2025-07-06 12:29 f4bc18f **feature: implement the first server action**
+- 2025-07-06 12:03 d22228e **step: setup fetcher**
+- 2025-07-06 12:01 9099b65 **step: setup mock server action**
+- 2025-07-05 17:57 20eb58e **step: setup add journal entry form**
+- 2025-07-05 17:56 e58cecd **step: make fields type safe**
+- 2025-07-05 17:50 c9c4502 **step: apply useField for numeric fields**
+- 2025-07-05 17:44 1663e94 **step: apply useField for select fields**
+- 2025-07-05 17:33 cdf1d86 **step: apply useField for text fields**
+- 2025-07-05 16:03 d8edae9 **refactor: adjust form validations**
+- 2025-07-05 15:29 d1b3af1 **feature: implement the stepper**
+- 2025-07-05 00:23 7cadee6 **step: setup rough form**
+- 2025-07-04 23:04 e95e8ca **feature: add view transition**
+- 2025-07-04 23:00 4699498 **fix: form class**
+- 2025-07-04 22:58 578f1bf **step: add journal entry legend**
+- 2025-07-04 19:37 29b9e44 **step: add stable classes**
+- 2025-07-04 19:32 8200495 **step: setup view transition**
+- 2025-07-04 18:25 a46e94e **step: automate validations**
+- 2025-07-04 18:24 9ee9591 **step: extract select component**
+- 2025-07-04 18:16 2bb2f85 **refactor: use rhythm from ui**
+- 2025-07-04 18:12 e98ce9b **fix: remove bgord ui from the api**
+- 2025-07-04 18:09 a3d7cc7 **refactor: improve add journal entry form**
+- 2025-07-04 18:08 97acf90 **step: fix logo underline**
+- 2025-07-04 17:58 19cc7a2 **feature: extract add journal entry route**
+- 2025-07-04 17:54 6b31111 **step: add link to journal**
+- 2025-07-04 17:51 cc28889 **refactor: extract header**
+- 2025-07-04 17:49 1b7f072 **feature: setup add journal entry form**
+- 2025-07-04 17:22 75acc08 **step: add journal entry button**
+- 2025-07-04 17:17 b9dad36 **step: install iconoir**
+- 2025-07-04 17:02 142884f **step: update packages**
+- 2025-07-04 17:01 dc683cd **refactor: use policy error handler from bgord-bun**
+- 2025-07-04 16:56 a539413 **refactor: simplify policy error handling**
+- 2025-07-04 16:01 bb755ec **refactor: remove separate log situation/emotion/reaction routes**
+- 2025-07-04 15:55 799859a **refactor: simplify policy error handling**
+- 2025-07-04 15:51 79622b5 **step: add all log entry tests**
+- 2025-07-04 15:39 7d88ee3 **step: add policy tests to log-entry**
+- 2025-07-04 15:28 612215e **step: add happy path test**
+- 2025-07-04 13:36 fe44f5a **fix: log entry route path**
+- 2025-07-04 13:36 3c0c2e1 **fix: use optional chaining in log-entry**
+- 2025-07-04 13:35 90b5911 **refactor: extract urls in tests**
+- 2025-07-04 13:25 2c34ea6 **step: implement handleLogEntryCommand**
+- 2025-07-04 13:24 9c80696 **step: add log-entry route**
+- 2025-07-04 13:22 9d558b0 **step: setup log entry command**
 - 2025-07-03 20:07 7ce70d1 **Merge pull request #13 from bgord/bgord-ui**
-## 2025-07-03 20:07 
 - 2025-07-03 20:06 f563760 **step: update packages**
 - 2025-07-03 19:59 23674ed **refactor: restore bgord-ui**
 - 2025-07-03 19:57 3402ce6 **step: dedupe react**
 - 2025-07-03 19:50 7e1a15f **step: install local bgord-ui**
 - 2025-07-03 19:27 4fb4c6f **step: install bgord-ui**
+- 2025-07-03 18:07 e3337b2 **docs: generate CHANGELOG**
 - 2025-07-02 23:28 f09627c **Merge pull request #12 from bgord/fe**
 - 2025-07-02 23:06 a879834 **step: replace favicon**
 - 2025-07-02 22:36 c7b39fb **step: add schema validator to VITE**
