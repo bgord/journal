@@ -12,10 +12,17 @@ export default defineConfig({
     { name: "firefox", use: { ...devices["Desktop Firefox"] } },
     { name: "edge", use: { ...devices["Desktop Edge"] } },
   ],
-  webServer: {
-    command: "bash test-app-start.sh",
-    url: "http://127.0.0.1:3000",
-    stdout: "pipe",
-    stderr: "pipe",
-  },
+  webServer: [
+    {
+      command: "bash test-server-start.sh",
+      url: "http://127.0.0.1:3333",
+      stdout: "pipe",
+      stderr: "pipe",
+      port: 3333,
+      name: "bun-backend",
+      timeout: 10_000, // 10s
+      gracefulShutdown: { signal: "SIGTERM", timeout: 1_000 },
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
 });
