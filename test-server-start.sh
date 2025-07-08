@@ -18,6 +18,8 @@ export NODE_ENV="test"
 
 info "Environment: test"
 
+./bgord-scripts/drizzle-reset.sh
+
 info "Starting project..."
 
 bun run \
