@@ -15,14 +15,21 @@ export default defineConfig({
   webServer: [
     {
       command: "bash test-server-start.sh",
-      url: "http://127.0.0.1:3333",
       stdout: "pipe",
       stderr: "pipe",
       port: 3333,
       name: "bun-backend",
       timeout: 10_000, // 10s
       gracefulShutdown: { signal: "SIGTERM", timeout: 1_000 },
-      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: "bash bgord-scripts/test-frontend-serve.sh",
+      stdout: "pipe",
+      stderr: "pipe",
+      port: 3000,
+      name: "vite-frontend",
+      timeout: 10_000, // 10s
+      gracefulShutdown: { signal: "SIGTERM", timeout: 1_000 },
     },
   ],
 });
