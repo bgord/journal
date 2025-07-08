@@ -9,8 +9,10 @@ import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import * as App from "./app";
-
 import * as Emotions from "./modules/emotions";
+
+import "+infra/register-event-handlers";
+import "+infra/register-command-handlers";
 
 type Config = { Variables: infra.Variables; startup: tools.Stopwatch };
 

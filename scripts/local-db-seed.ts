@@ -5,6 +5,9 @@ import * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import _ from "lodash";
 
+import "+infra/register-event-handlers";
+import "+infra/register-command-handlers";
+
 const situationDescriptions = [
   "Chat with a friend about a difficult situation",
   "Work presentation about a boring topic",

@@ -1,5 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
-import * as infra from "../infra";
+import { OpenAI, OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -11,12 +11,12 @@ const prompt = new Emotions.Services.EmotionalAdvicePrompt(
 describe("OpenAiClient", () => {
   test("request", async () => {
     const openAiCreate = spyOn(
-      infra.OpenAI.responses,
+      OpenAI.responses,
       "create",
       // @ts-expect-error
     ).mockResolvedValue({ output_text: "anything" });
 
-    const client = new infra.OpenAiClient();
+    const client = new OpenAiClient();
     const result = await client.request(prompt.generate());
 
     expect(openAiCreate).toHaveBeenCalledWith({
