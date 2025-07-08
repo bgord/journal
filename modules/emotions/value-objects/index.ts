@@ -1,6 +1,7 @@
 export * from "./alarm-generated-at";
 export * from "./alarm-id";
 export * from "./alarm-name";
+export * from "./alarm-name-option";
 export * from "./alarm-status";
 export * from "./emotion-intensity";
 export * from "./emotion-journal-entry-finished-at";

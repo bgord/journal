@@ -1,7 +1,12 @@
 import { randomUUID } from "node:crypto";
 import { sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import * as VO from "../modules/emotions/value-objects";
+import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
+import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status";
+import { EmotionJournalEntryStatusEnum } from "../modules/emotions/value-objects/emotion-journal-entry-status";
+// Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
+import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
+import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
 
 const toEnumList = (value: Record<string, string>) => ({
   enum: Object.keys(value) as [string, ...string[]],
@@ -31,13 +36,13 @@ export const emotionJournalEntries = sqliteTable("emotionJournalEntries", {
   finishedAt: integer("finishedAt"),
   situationDescription: text("situationDescription"),
   situationLocation: text("situationLocation"),
-  situationKind: text("situationKind", toEnumList(VO.GenevaWheelEmotion)),
+  situationKind: text("situationKind", toEnumList(GenevaWheelEmotion)),
   emotionLabel: text("emotionLabel"),
   emotionIntensity: integer("emotionIntensity"),
   reactionDescription: text("reactionDescription"),
-  reactionType: text("reactionType", toEnumList(VO.GrossEmotionRegulationStrategy)),
+  reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
   reactionEffectiveness: integer("reactionEffectiveness"),
-  status: text("status", toEnumList(VO.EmotionJournalEntryStatusEnum)).notNull(),
+  status: text("status", toEnumList(EmotionJournalEntryStatusEnum)).notNull(),
 });
 
 export const alarms = sqliteTable("alarms", {
@@ -46,8 +51,8 @@ export const alarms = sqliteTable("alarms", {
   emotionJournalEntryId: text("emotionJournalEntryId", {
     length: 36,
   }).references(() => emotionJournalEntries.id),
-  status: text("status", toEnumList(VO.AlarmStatusEnum)).notNull(),
-  name: text("name", toEnumList(VO.AlarmNameOption)).notNull(),
+  status: text("status", toEnumList(AlarmStatusEnum)).notNull(),
+  name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),
 });
 
