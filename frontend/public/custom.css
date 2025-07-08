@@ -26,12 +26,12 @@
   color: #fff;
 }
 
-.logo {
-  color: var(--brand-700) !important;
+.logo a,
+.logo a:visited,
+.logo a:hover,
+.logo a:active {
   text-shadow: -10px -8px var(--brand-100);
-}
-
-.logo a {
+  color: var(--brand-700);
   text-decoration: none;
 }
 
