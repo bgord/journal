@@ -6,15 +6,15 @@ export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   retries: 0,
   workers: 1,
-  use: { baseURL: "http://127.0.0.1:3333", trace: "on-first-retry" },
+  use: { baseURL: "http://127.0.0.1:3000", trace: "on-first-retry" },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
     { name: "firefox", use: { ...devices["Desktop Firefox"] } },
     { name: "edge", use: { ...devices["Desktop Edge"] } },
   ],
   webServer: {
-    command: "bash bgord-scripts/test-server-start.sh",
-    url: "http://127.0.0.1:3333",
+    command: "bash test-app-start.sh",
+    url: "http://127.0.0.1:3000",
     stdout: "pipe",
     stderr: "pipe",
   },
