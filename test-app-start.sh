@@ -5,11 +5,11 @@ setup_base_config
 
 if test -f "scripts/local-server-start.sh"
 then
-  info "Local server start script exists"
-  bash scripts/local-server-start.sh
+  info "Test server start script exists"
+  bash scripts/test-server-start.sh
   exit
 else
-  info "Local server start script does not exist"
+  info "Test server start script does not exist"
 fi
 
 # ==========================================================
@@ -27,4 +27,4 @@ bun run \
   --env-file=".env.$NODE_ENV" \
   index.ts
 
-./bgord-scripts/frontend-serve.sh
+./bgord-scripts/test-frontend-serve.sh
