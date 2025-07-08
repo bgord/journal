@@ -20,6 +20,8 @@ info "Environment: test"
 
 ./bgord-scripts/drizzle-reset.sh
 
+./bgord-scripts/drizzle-seed.sh
+
 info "Starting project..."
 
 bun run \
