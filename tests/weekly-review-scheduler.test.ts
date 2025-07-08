@@ -1,6 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import * as infra from "../infra";
+import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -9,7 +9,7 @@ describe("WeeklyReviewScheduler", () => {
     spyOn(Emotions.Repos.EmotionJournalEntryRepository, "countInWeek").mockResolvedValue(1);
     spyOn(Date, "now").mockReturnValue(mocks.weekStartedAt);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await Emotions.Services.WeeklyReviewScheduler.process();
@@ -24,7 +24,7 @@ describe("WeeklyReviewScheduler", () => {
     spyOn(Emotions.Repos.EmotionJournalEntryRepository, "countInWeek").mockResolvedValue(0);
     spyOn(Date, "now").mockReturnValue(mocks.weekStartedAt);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await Emotions.Services.WeeklyReviewScheduler.process();

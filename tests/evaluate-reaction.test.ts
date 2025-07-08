@@ -1,5 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
-import * as infra from "../infra";
+import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -81,7 +81,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
       mocks.GenericEmotionJournalEntryDeletedEvent,
     ];
 
-    const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
       description: "I got drunk",
@@ -117,7 +117,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
 
     const history = [];
 
-    const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
       description: "I got drunk",
@@ -153,7 +153,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
 
     const history = [mocks.GenericSituationLoggedEvent];
 
-    const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
       description: "I got drunk",
@@ -189,7 +189,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
 
     const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
 
-    const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
       description: "I got drunk",
@@ -221,7 +221,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
   });
 
   test("happy path", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
 
     const emotionJournalEntryEvaluateReaction = spyOn(
@@ -235,7 +235,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
       mocks.GenericReactionLoggedEvent,
     ];
 
-    const eventStoreFind = spyOn(infra.EventStore, "find").mockResolvedValue(history);
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
       description: mocks.GenericReactionEvaluatedEvent.payload.description,

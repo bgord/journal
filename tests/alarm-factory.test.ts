@@ -1,6 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import * as infra from "../infra";
+import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -13,7 +13,7 @@ describe("AlarmFactory", () => {
   test("correct path", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await Emotions.Services.AlarmFactory.create(detection.name, mocks.emotionJournalEntryId);
@@ -27,7 +27,7 @@ describe("AlarmFactory", () => {
   test("correct path - at the limit", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(4);
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await Emotions.Services.AlarmFactory.create(detection.name, mocks.emotionJournalEntryId);
@@ -40,7 +40,7 @@ describe("AlarmFactory", () => {
 
   test("DailyAlarmLimit - at the limit", async () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     expect(async () =>
       Emotions.Services.AlarmFactory.create(detection.name, mocks.emotionJournalEntryId),

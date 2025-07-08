@@ -1,5 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
-import * as infra from "../infra";
+import { AnthropicAi, AnthropicAiClient } from "../infra/anthropic-ai-client";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -11,12 +11,12 @@ const prompt = new Emotions.Services.EmotionalAdvicePrompt(
 describe("AnthropicAiClient", () => {
   test("request", async () => {
     const anthropicCreate = spyOn(
-      infra.AnthropicAi.messages,
+      AnthropicAi.messages,
       "create",
       // @ts-expect-error
     ).mockResolvedValue({ content: "anything" });
 
-    const client = new infra.AnthropicAiClient();
+    const client = new AnthropicAiClient();
     const result = await client.request(prompt.generate());
 
     expect(anthropicCreate).toHaveBeenCalledWith({

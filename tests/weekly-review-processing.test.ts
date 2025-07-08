@@ -1,8 +1,8 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { Mailer } from "../infra";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
+import { Mailer } from "../infra/mailer";
 import { OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";

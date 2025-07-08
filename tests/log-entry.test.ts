@@ -1,6 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import * as infra from "../infra";
+import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -151,7 +151,7 @@ describe("POST /emotions/log-entry", () => {
   });
 
   test("situation - OneSituationPerEntry", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
     ]);
@@ -178,7 +178,7 @@ describe("POST /emotions/log-entry", () => {
   });
 
   test("emotion - EntryIsActionable", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionJournalEntryDeletedEvent,
@@ -206,7 +206,7 @@ describe("POST /emotions/log-entry", () => {
   });
 
   test("emotion - EmotionCorrespondsToSituation", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
       mocks.emotionJournalEntryId,
       [],
@@ -235,7 +235,7 @@ describe("POST /emotions/log-entry", () => {
   });
 
   test("emotion - OneEmotionPerEntry", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
@@ -264,7 +264,7 @@ describe("POST /emotions/log-entry", () => {
   });
 
   test("reaction - EntryIsActionable", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
@@ -296,7 +296,7 @@ describe("POST /emotions/log-entry", () => {
   });
 
   test("reaction - OneReactionPerEntry", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
@@ -327,7 +327,7 @@ describe("POST /emotions/log-entry", () => {
   });
 
   test("reaction - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
       mocks.emotionJournalEntryId,
       [],
@@ -360,7 +360,7 @@ describe("POST /emotions/log-entry", () => {
   });
 
   test("reaction - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
     ]);
@@ -392,7 +392,7 @@ describe("POST /emotions/log-entry", () => {
   });
 
   test("happy path", async () => {
-    const eventStoreSave = spyOn(infra.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
 
     const response = await server.request(
