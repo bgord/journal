@@ -19,3 +19,4 @@ static/normalize.min.css
 tsconfig.tsbuildinfo
 tmp/
 sqlite.db
+test-results/
