@@ -29,7 +29,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           data-self="end"
           viewTransition
         >
-          <DesignPencil height="24" width="24" />
+          <DesignPencil data-testid="design-pencil" height="24" width="24" />
         </Link>
       </div>
 
@@ -43,6 +43,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       >
         {loaderData.map((entry) => (
           <li
+            data-testid="entry"
             style={{ background: "var(--surface-card)" }}
             data-display="flex"
             data-pt="24"

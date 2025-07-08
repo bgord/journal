@@ -43,7 +43,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.emotionJournalEntries);
     console.log("[x] Cleared emotion‐journal entries");
 
-    for (const _counter of _.range(1, 10)) {
+    for (const _counter of _.range(1, 11)) {
       const situation = new Emotions.Entities.Situation(
         new Emotions.VO.SituationDescription(_.sample(situationDescriptions) as string),
         new Emotions.VO.SituationLocation(_.sample(situationLocations) as string),
