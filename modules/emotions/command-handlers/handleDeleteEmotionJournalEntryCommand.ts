@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import { EventStore } from "+infra";
+import { EventStore } from "+infra/event-store";
 
 export const handleDeleteEmotionJournalEntryCommand = async (
   command: Emotions.Commands.DeleteEmotionJournalEntryCommandType,

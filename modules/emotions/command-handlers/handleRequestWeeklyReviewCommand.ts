@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import { EventStore } from "+infra";
+import { EventStore } from "+infra/event-store";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 

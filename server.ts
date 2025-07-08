@@ -1,4 +1,9 @@
 import * as infra from "+infra";
+import { BasicAuthShield } from "+infra/basic-auth-shield";
+import { Env } from "+infra/env";
+import { healthcheck } from "+infra/healthcheck";
+import { I18nConfig } from "+infra/i18n";
+import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
@@ -7,11 +12,11 @@ import * as App from "./app";
 
 import * as Emotions from "./modules/emotions";
 
-type Env = { Variables: infra.Variables; startup: tools.Stopwatch };
+type Config = { Variables: infra.Variables; startup: tools.Stopwatch };
 
-const server = new Hono<Env>();
+const server = new Hono<Config>();
 
-server.use(...bg.Setup.essentials(infra.logger, infra.I18nConfig));
+server.use(...bg.Setup.essentials(logger, I18nConfig));
 
 const startup = new tools.Stopwatch();
 
@@ -20,11 +25,11 @@ server.get(
   "/healthcheck",
   bg.rateLimitShield({
     time: tools.Time.Seconds(5),
-    enabled: infra.Env.type === bg.NodeEnvironmentEnum.production,
+    enabled: Env.type === bg.NodeEnvironmentEnum.production,
   }),
   timeout(tools.Time.Seconds(15).ms, infra.requestTimeoutError),
-  infra.BasicAuthShield,
-  ...bg.Healthcheck.build(infra.healthcheck),
+  BasicAuthShield,
+  ...bg.Healthcheck.build(healthcheck),
 );
 // =============================
 

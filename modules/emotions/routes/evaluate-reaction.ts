@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import * as infra from "+infra";
+import { CommandBus } from "+infra/command-bus";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
@@ -23,7 +23,7 @@ export async function EvaluateReaction(c: hono.Context, _next: hono.Next) {
     payload: { emotionJournalEntryId, newReaction },
   } satisfies Emotions.Commands.EvaluateReactionCommandType);
 
-  await infra.CommandBus.emit(command.name, command);
+  await CommandBus.emit(command.name, command);
 
   return new Response();
 }

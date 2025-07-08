@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import * as infra from "+infra";
+import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
 import hono from "hono";
 import { HTTPException } from "hono/http-exception";
@@ -50,7 +50,7 @@ export class ErrorHandler {
       const validationError = error.issues.find((issue) => validationErrors.includes(issue.message));
 
       if (validationError) {
-        infra.logger.error({
+        logger.error({
           message: "Expected validation error",
           operation: "validation",
           correlationId,
@@ -64,7 +64,7 @@ export class ErrorHandler {
         return c.json({ message: validationError.message, _known: true }, 400);
       }
 
-      infra.logger.error({
+      logger.error({
         message: "Invalid payload",
         operation: "invalid_payload",
         correlationId,
@@ -77,7 +77,7 @@ export class ErrorHandler {
     const policyErrorHandler = new bg.PolicyErrorHandler(policies).detect(error);
 
     if (policyErrorHandler.error) {
-      infra.logger.error({
+      logger.error({
         message: "Domain error",
         operation: policyErrorHandler.error.message,
         correlationId,
@@ -86,11 +86,11 @@ export class ErrorHandler {
       return c.json(...bg.PolicyErrorHandler.respond(policyErrorHandler.error));
     }
 
-    infra.logger.error({
+    logger.error({
       message: "Unknown error",
       operation: "unknown_error",
       correlationId,
-      metadata: infra.logger.formatError(error),
+      metadata: logger.formatError(error),
     });
 
     return c.json({ message: "general.unknown" }, 500);

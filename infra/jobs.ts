@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import { logger } from "+infra";
+import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
 import { Cron } from "croner";
 

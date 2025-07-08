@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import { EventStore } from "+infra";
+import { EventStore } from "+infra/event-store";
 
 export const handleLogEntryCommand = async (command: Emotions.Commands.LogEntryCommandType) => {
   const entry = Emotions.Aggregates.EmotionJournalEntry.create(command.payload.emotionJournalEntryId);

@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import * as infra from "+infra";
+import { CommandBus } from "+infra/command-bus";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
@@ -34,7 +34,7 @@ export async function LogEntry(c: hono.Context, _next: hono.Next) {
     payload: { emotionJournalEntryId, situation, emotion, reaction },
   } satisfies Emotions.Commands.LogEntryCommandType);
 
-  await infra.CommandBus.emit(command.name, command);
+  await CommandBus.emit(command.name, command);
 
   return new Response();
 }

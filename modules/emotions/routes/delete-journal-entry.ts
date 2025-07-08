@@ -1,5 +1,6 @@
 import * as Emotions from "+emotions";
-import * as infra from "+infra";
+import { CommandBus } from "+infra/command-bus";
+import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
@@ -7,7 +8,7 @@ import hono from "hono";
 export async function DeleteJournalEntry(c: hono.Context, _next: hono.Next) {
   const emotionJournalEntryId = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
 
-  infra.logger.info({
+  logger.info({
     message: "Delete journal entry payload",
     operation: "read",
     metadata: { emotionJournalEntryId },
@@ -21,7 +22,7 @@ export async function DeleteJournalEntry(c: hono.Context, _next: hono.Next) {
     payload: { emotionJournalEntryId },
   } satisfies Emotions.Commands.DeleteEmotionJournalEntryCommandType);
 
-  await infra.CommandBus.emit(command.name, command);
+  await CommandBus.emit(command.name, command);
 
   return new Response();
 }

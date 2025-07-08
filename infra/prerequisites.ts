@@ -1,5 +1,6 @@
-import { Env, logger } from "+infra";
+import { Env } from "+infra/env";
 import { jobs } from "+infra/jobs";
+import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 

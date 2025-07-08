@@ -1,7 +1,9 @@
 import * as EventHandlers from "+emotions/event-handlers";
 import * as Events from "+emotions/events";
 import * as Sagas from "+emotions/sagas";
-import { EventBus, logger, OpenAiClient } from "+infra";
+import { EventBus } from "+infra/event-bus";
+import { logger } from "+infra/logger";
+import { OpenAiClient } from "+infra/open-ai-client";
 import * as bg from "@bgord/bun";
 
 const EventHandler = new bg.EventHandler(logger);

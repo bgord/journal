@@ -1,6 +1,6 @@
 import * as Commands from "+emotions/commands";
 import * as VO from "+emotions/value-objects";
-import * as infra from "+infra";
+import { CommandBus } from "+infra/command-bus";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
@@ -21,6 +21,6 @@ export class WeeklyReviewScheduler {
       payload: { weekStart },
     } satisfies Commands.RequestWeeklyReviewCommandType);
 
-    await infra.CommandBus.emit(command.name, command);
+    await CommandBus.emit(command.name, command);
   }
 }

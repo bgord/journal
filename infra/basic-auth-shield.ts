@@ -1,4 +1,4 @@
-import { Env } from "+infra";
+import { Env } from "+infra/env";
 import { basicAuth } from "hono/basic-auth";
 
 export const BasicAuthShield = basicAuth({

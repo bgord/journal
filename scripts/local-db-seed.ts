@@ -1,5 +1,7 @@
 import * as Emotions from "+emotions";
-import * as infra from "+infra";
+import { db } from "+infra/db";
+import { EventStore } from "+infra/event-store";
+import * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import _ from "lodash";
 
@@ -29,13 +31,13 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
   const correlationId = bg.NewUUID.generate();
 
   await bg.CorrelationStorage.run(correlationId, async () => {
-    await infra.db.delete(infra.Schema.events);
+    await db.delete(Schema.events);
     console.log("[x] Cleared events");
 
-    await infra.db.delete(infra.Schema.alarms);
+    await db.delete(Schema.alarms);
     console.log("[x] Cleared alarms");
 
-    await infra.db.delete(infra.Schema.emotionJournalEntries);
+    await db.delete(Schema.emotionJournalEntries);
     console.log("[x] Cleared emotion‐journal entries");
 
     for (const _counter of _.range(1, 10)) {
@@ -63,7 +65,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
       await entry.logReaction(reaction);
 
-      await infra.EventStore.save(entry.pullEvents());
+      await EventStore.save(entry.pullEvents());
 
       console.log(`[✓] Entry ${_counter} created`);
     }

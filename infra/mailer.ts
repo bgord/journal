@@ -1,4 +1,4 @@
-import { Env } from "+infra";
+import { Env } from "+infra/env";
 import * as bg from "@bgord/bun";
 
 export const Mailer = new bg.Mailer({

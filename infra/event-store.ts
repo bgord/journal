@@ -1,6 +1,7 @@
 import type { AlarmEvent, JournalEntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
-import { db, EventBus } from "+infra";
+import { db } from "+infra/db";
+import { EventBus } from "+infra/event-bus";
 import * as schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import { and, asc, eq, inArray } from "drizzle-orm";

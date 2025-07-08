@@ -1,4 +1,4 @@
-import { Mailer } from "+infra";
+import { Mailer } from "+infra/mailer";
 import { prerequisites } from "+infra/prerequisites";
 import * as bg from "@bgord/bun";
 
