@@ -143,7 +143,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
             <>
               <div>Emotion</div>
 
-              <div data-display="flex" data-gap="12">
+              <div data-display="flex" data-gap="24">
                 <div data-display="flex" data-direction="column">
                   <label className="c-label" {...emotionLabel.label.props}>
                     Label
@@ -189,7 +189,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                   />
                 </div>
 
-                <div data-display="flex" data-gap="12">
+                <div data-display="flex" data-gap="24">
                   <div data-display="flex" data-direction="column">
                     <label className="c-label" {...reactionType.label.props}>
                       Type
@@ -209,12 +209,9 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     <label className="c-label" {...reactionEffectiveness.label.props}>
                       Effectiveness
                     </label>
-                    <input
-                      className="c-input"
-                      type="number"
-                      {...reactionEffectiveness.input.props}
-                      {...loaderData.reactionEffectiveness}
-                    />
+                    <div data-my="auto">
+                      <ClickableRatingPills {...reactionEffectiveness} />
+                    </div>
                   </div>
                 </div>
               </div>
