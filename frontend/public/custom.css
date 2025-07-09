@@ -92,6 +92,8 @@
   }
 }
 
+/* ========== */
+
 [data-interaction="rotate-into-focus"] {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
@@ -111,4 +113,14 @@
 
 [data-interaction="rotate-into-focus"]:hover > * {
   transform: rotate(90deg);
+}
+
+/* ========== */
+
+[data-interaction="subtle-scale"] {
+  transition: transform 0.3s ease-in-out;
+}
+
+[data-interaction="subtle-scale"]:hover {
+  transform: scale(1.25);
 }

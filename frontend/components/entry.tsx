@@ -1,9 +1,14 @@
+import * as UI from "@bgord/ui";
+import { Xmark } from "iconoir-react";
 import type { SelectEmotionJournalEntries } from "../../infra/schema";
 import { RatingPills } from "./rating-pills";
 
 export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { startedAt: string }) {
+  const hover = UI.useHover();
+
   return (
     <li
+      {...hover.attach}
       data-testid="entry"
       style={{ background: "var(--surface-card)" }}
       data-display="flex"
@@ -15,10 +20,28 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
       data-bw="1"
       data-br="4"
       data-shadow="sm"
-      key={props.id}
     >
-      <header data-fs="16" data-fw="700" data-color="gray-700">
-        {props.startedAt}
+      <header
+        data-display="flex"
+        data-main="between"
+        data-cross="center"
+        {...UI.Rhythm().times(3).style.height}
+      >
+        <div data-fs="16" data-fw="700" data-color="gray-700">
+          {props.startedAt}
+        </div>
+
+        {hover.isHovering && (
+          <button
+            className="c-button"
+            data-variant="with-icon"
+            type="button"
+            title="Delete entry"
+            data-interaction="subtle-scale"
+          >
+            <Xmark width={20} height={20} />
+          </button>
+        )}
       </header>
 
       <section
