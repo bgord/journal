@@ -18,6 +18,38 @@ test("Home - layout", async ({ page }) => {
   await expect(entries).toHaveCount(10);
 
   const entry = entries.first();
-
   await expect(entry).toBeVisible();
+
+  const whatHappened = entry.getByText("What happened?");
+  await expect(whatHappened).toBeVisible();
+
+  const situationLocation = entry.getByText("@Car");
+  await expect(situationLocation).toBeVisible();
+
+  const situationKind = entry.getByText("work");
+  await expect(situationKind).toBeVisible();
+
+  const situationDescription = entry.getByText("Caught in traffic swearing about other drivers");
+  await expect(situationDescription).toBeVisible();
+
+  const emotionLabel = entry.getByText("surprise_positive");
+  await expect(emotionLabel).toBeVisible();
+
+  const emotionIntensity = entry.locator("section").filter({ hasText: "What happened?" }).locator("svg");
+  await expect(emotionIntensity.locator('rect[fill="var(--brand-400)"]')).toHaveCount(5);
+
+  const whatWasYourReaction = entry.getByText("What was your reaction?");
+  await expect(whatWasYourReaction).toBeVisible();
+
+  const reactionType = entry.getByText("problem_solving");
+  await expect(reactionType).toBeVisible();
+
+  const reactionEffectiveness = entry
+    .locator("section")
+    .filter({ hasText: "What was your reaction?" })
+    .locator("svg");
+  await expect(reactionEffectiveness.locator('rect[fill="var(--brand-400)"]')).toHaveCount(5);
+
+  const reactionDescription = entry.getByText("Wrote in journal");
+  await expect(reactionDescription).toBeVisible();
 });
