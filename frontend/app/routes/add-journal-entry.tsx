@@ -5,6 +5,7 @@ import type { types } from "../../../app/services/add-journal-entry-form";
 import { AddJournalEntryForm } from "../../../app/services/add-journal-entry-form";
 import { API } from "../../api";
 import { BackButton } from "../../components/back-button";
+import { ClickableRatingPills } from "../../components/clickable-rating-pills";
 import { Select } from "../../components/select";
 import type { Route } from "./+types/add-journal-entry";
 
@@ -162,12 +163,9 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                   <label className="c-label" {...emotionIntensity.label.props}>
                     Intensity
                   </label>
-                  <input
-                    className="c-input"
-                    type="number"
-                    {...emotionIntensity.input.props}
-                    {...loaderData.emotionIntensity}
-                  />
+                  <div data-my="auto">
+                    <ClickableRatingPills {...emotionIntensity} />
+                  </div>
                 </div>
               </div>
             </>
