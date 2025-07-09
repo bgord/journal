@@ -9,6 +9,15 @@ import type { Route } from "./+types/home";
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
 }
+export async function action({ request }: Route.ActionArgs) {
+  const form = await request.formData();
+
+  const id = form.get("id");
+
+  await API(`/emotions/${id}/delete`, { method: "DELETE" });
+
+  return { ok: true };
+}
 
 export async function loader() {
   const response = await API("/emotions/entries");

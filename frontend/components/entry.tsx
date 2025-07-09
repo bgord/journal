@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
-import { Xmark } from "iconoir-react";
 import type { SelectEmotionJournalEntries } from "../../infra/schema";
+import { EntryDelete } from "./entry-delete";
 import { RatingPills } from "./rating-pills";
 
 export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { startedAt: string }) {
@@ -31,17 +31,7 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
           {props.startedAt}
         </div>
 
-        {hover.isHovering && (
-          <button
-            className="c-button"
-            data-variant="with-icon"
-            type="button"
-            title="Delete entry"
-            data-interaction="subtle-scale"
-          >
-            <Xmark width={20} height={20} />
-          </button>
-        )}
+        {hover.isHovering && <EntryDelete id={props.id} />}
       </header>
 
       <section
