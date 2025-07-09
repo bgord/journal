@@ -43,34 +43,40 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.emotionJournalEntries);
     console.log("[x] Cleared emotion‐journal entries");
 
-    for (const _counter of _.range(1, 11)) {
+    for (const _counter of _.range(0, 10)) {
       const situation = new Emotions.Entities.Situation(
-        new Emotions.VO.SituationDescription(_.sample(situationDescriptions) as string),
-        new Emotions.VO.SituationLocation(_.sample(situationLocations) as string),
-        new Emotions.VO.SituationKind(_.sample(situationKinds) as Emotions.VO.SituationKindOptions),
+        new Emotions.VO.SituationDescription(situationDescriptions[_counter % situationDescriptions.length]),
+        new Emotions.VO.SituationLocation(situationLocations[_counter % situationLocations.length]),
+        new Emotions.VO.SituationKind(
+          situationKinds[_counter % situationKinds.length] as Emotions.VO.SituationKindOptions,
+        ),
       );
 
       const entry = Emotions.Aggregates.EmotionJournalEntry.create(bg.NewUUID.generate());
       await entry.logSituation(situation);
 
       const emotion = new Emotions.Entities.Emotion(
-        new Emotions.VO.EmotionLabel(_.sample(emotionLabels) as Emotions.VO.GenevaWheelEmotion),
-        new Emotions.VO.EmotionIntensity(_.random(1, 5)),
+        new Emotions.VO.EmotionLabel(
+          emotionLabels[_counter % emotionLabels.length] as Emotions.VO.GenevaWheelEmotion,
+        ),
+        new Emotions.VO.EmotionIntensity((_counter % 5) + 1),
       );
 
       await entry.logEmotion(emotion);
 
       const reaction = new Emotions.Entities.Reaction(
-        new Emotions.VO.ReactionDescription(_.sample(reactionDescriptions) as string),
-        new Emotions.VO.ReactionType(_.sample(reactionTypes) as Emotions.VO.GrossEmotionRegulationStrategy),
-        new Emotions.VO.ReactionEffectiveness(_.random(1, 5)),
+        new Emotions.VO.ReactionDescription(reactionDescriptions[_counter % reactionDescriptions.length]),
+        new Emotions.VO.ReactionType(
+          reactionTypes[_counter % reactionTypes.length] as Emotions.VO.GrossEmotionRegulationStrategy,
+        ),
+        new Emotions.VO.ReactionEffectiveness((_counter % 5) + 1),
       );
 
       await entry.logReaction(reaction);
 
       await EventStore.save(entry.pullEvents());
 
-      console.log(`[✓] Entry ${_counter} created`);
+      console.log(`[✓] Entry ${_counter + 1} created`);
     }
 
     process.exit(0);
