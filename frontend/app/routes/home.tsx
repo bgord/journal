@@ -97,14 +97,18 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         type="button"
         className="c-button"
         data-variant="with-icon"
-        data-shadow="sm"
         data-position="fixed"
         data-bottom="24"
         data-right="24"
-        data-fab
+        data-shadow="sm"
+        data-interaction="rotate-into-focus"
         viewTransition
         title="Add journal entry"
-        {...UI.Rhythm(16).times(4).style.square}
+        style={{
+          background: "var(--brand-200)",
+          color: "var(--brand-500)",
+          ...UI.Rhythm(16).times(4).square,
+        }}
       >
         <Plus height="36" width="36" />
       </Link>
