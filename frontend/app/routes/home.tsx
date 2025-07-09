@@ -1,4 +1,4 @@
-import { DesignPencil } from "iconoir-react";
+import { Plus } from "iconoir-react";
 import { Link } from "react-router";
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import { API } from "../../api";
@@ -19,20 +19,6 @@ export async function loader() {
 export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <main data-pb="36">
-      <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mb="12">
-        <Link
-          to="/add-journal-entry"
-          type="button"
-          className="c-button"
-          data-variant="with-icon"
-          title="Add journal entry"
-          data-self="end"
-          viewTransition
-        >
-          <DesignPencil data-testid="design-pencil" height="24" width="24" />
-        </Link>
-      </div>
-
       <ul
         className="entries-list"
         data-display="flex"
@@ -104,6 +90,18 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </li>
         ))}
       </ul>
+
+      <Link
+        to="/add-journal-entry"
+        type="button"
+        className="c-button"
+        data-variant="with-icon"
+        title="Add journal entry"
+        data-fab
+        viewTransition
+      >
+        <Plus height="36" width="36" />
+      </Link>
     </main>
   );
 }

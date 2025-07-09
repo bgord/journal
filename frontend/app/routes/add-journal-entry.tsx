@@ -48,14 +48,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-pb="36">
-      <div
-        data-display="flex"
-        data-direction="column"
-        data-max-width="768"
-        data-mx="auto"
-        data-mt="72"
-        data-pt="24"
-      >
+      <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mt="48">
         <fetcher.Form
           method="POST"
           onSubmit={(event) => {
