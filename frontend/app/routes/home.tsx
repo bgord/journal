@@ -1,3 +1,4 @@
+import * as UI from "@bgord/ui";
 import { Plus } from "iconoir-react";
 import { Link } from "react-router";
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
@@ -96,9 +97,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         type="button"
         className="c-button"
         data-variant="with-icon"
-        title="Add journal entry"
+        data-shadow="sm"
+        data-position="fixed"
+        data-bottom="24"
+        data-right="24"
         data-fab
         viewTransition
+        title="Add journal entry"
+        {...UI.Rhythm(16).times(4).style.square}
       >
         <Plus height="36" width="36" />
       </Link>

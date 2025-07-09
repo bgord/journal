@@ -93,27 +93,15 @@
 }
 
 [data-fab] {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s;
-  background: hsl(24, 94%, 51%);
-  color: white;
-  border: none;
-  z-index: 1000;
+  background: var(--brand-200) !important;
+  color: var(--brand-500) !important;
 }
 
 [data-fab]:hover {
   transform: scale(1.1);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  background: hsl(24, 94%, 55%);
+  background: var(--brand-700);
 }
 
 [data-fab]:active {
