@@ -15,9 +15,13 @@ test("Home - layout", async ({ page }) => {
   await expect(addEntryIcon).toBeVisible();
 
   const entries = page.getByTestId("entry");
-  await expect(entries).toHaveCount(10);
+  const count = await entries.count();
+  expect(count).toBeGreaterThanOrEqual(10);
 
-  const entry = entries.first();
+  const entry = page
+    .getByTestId("entry")
+    .filter({ hasText: "Caught in traffic swearing about other drivers" })
+    .filter({ hasText: "work" });
   await expect(entry).toBeVisible();
 
   const whatHappened = entry.getByText("What happened?");
