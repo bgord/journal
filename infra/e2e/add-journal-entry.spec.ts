@@ -16,15 +16,15 @@ test("Add journal entry - happy path", async ({ page }) => {
   const situationLocation = page.getByLabel("Location");
   await expect(situationLocation).toBeVisible();
 
-  const addEmotionButton = page.getByRole("button", { name: "Add emotion" });
-  await expect(addEmotionButton).toBeDisabled();
+  const nextButton = page.getByRole("button", { name: "Next" });
+  await expect(nextButton).toBeDisabled();
 
   await situationDescription.fill("I went for a walk in the park");
   await situationKind.selectOption("social_event");
   await situationLocation.fill("Park");
 
-  await expect(addEmotionButton).toBeEnabled();
-  await addEmotionButton.click();
+  await expect(nextButton).toBeEnabled();
+  await nextButton.click();
 
   // Step 2: Emotion
   const emotionHeader = page.getByText("Emotion");
@@ -33,17 +33,17 @@ test("Add journal entry - happy path", async ({ page }) => {
   const emotionLabel = page.getByLabel("Label");
   await expect(emotionLabel).toBeVisible();
 
-  const emotionIntensity = page.getByLabel("Intensity");
+  const emotionIntensity = page.getByTestId("rating-4");
   await expect(emotionIntensity).toBeVisible();
 
   const backButtonToSituation = page.getByRole("button", { name: "Back" });
   await expect(backButtonToSituation).toBeVisible();
 
-  const addReactionButton = page.getByRole("button", { name: "Add reaction" });
+  const addReactionButton = page.getByRole("button", { name: "Next" });
   await expect(addReactionButton).toBeDisabled();
 
   await emotionLabel.selectOption("joy");
-  await emotionIntensity.fill("4");
+  await emotionIntensity.click();
 
   await expect(addReactionButton).toBeEnabled();
   await addReactionButton.click();
@@ -58,7 +58,7 @@ test("Add journal entry - happy path", async ({ page }) => {
   const reactionType = page.getByLabel("Type");
   await expect(reactionType).toBeVisible();
 
-  const reactionEffectiveness = page.getByLabel("Effectiveness");
+  const reactionEffectiveness = page.getByTestId("rating-5");
   await expect(reactionEffectiveness).toBeVisible();
 
   const backButtonToEmotion = page.getByRole("button", { name: "Back" });
@@ -69,7 +69,7 @@ test("Add journal entry - happy path", async ({ page }) => {
 
   await reactionDescription.fill("I smiled");
   await reactionType.selectOption("expression");
-  await reactionEffectiveness.fill("5");
+  await reactionEffectiveness.click();
 
   await expect(addButton).toBeEnabled();
   await addButton.click();

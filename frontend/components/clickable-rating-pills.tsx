@@ -35,6 +35,7 @@ export function ClickableRatingPills(props: ClickableRatingPillsProps) {
               ...UI.Rhythm(size).times(1).square,
             }}
             aria-label={`Rating ${rating}`}
+            data-testid={`rating-${rating}`}
           />
         );
       })}
