@@ -3,6 +3,7 @@ import { Plus } from "iconoir-react";
 import { Link } from "react-router";
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import { API } from "../../api";
+import NotebookSvg from "../../assets/notebook.svg";
 import { Entry } from "../../components/entry";
 import type { Route } from "./+types/home";
 
@@ -44,7 +45,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
       {loaderData.length === 0 && (
         <div data-display="flex" data-direction="column" data-cross="center">
-          <img src="/notebook.svg" height="300px" alt="No entries empty notebook" />
+          <img src={NotebookSvg} height="300px" alt="No entries empty notebook" />
           <div style={{ color: "var(--brand-600)" }}>The new entries will appear here</div>
         </div>
       )}
