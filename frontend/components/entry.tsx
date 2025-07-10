@@ -1,10 +1,14 @@
 import * as UI from "@bgord/ui";
+import { Xmark } from "iconoir-react";
+import { useFetcher } from "react-router";
 import type { SelectEmotionJournalEntries } from "../../infra/schema";
-import { EntryDelete } from "./entry-delete";
 import { RatingPills } from "./rating-pills";
 
 export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { startedAt: string }) {
   const hover = UI.useHover();
+  const fetcher = useFetcher();
+
+  const isDeleting = fetcher.state !== "idle";
 
   return (
     <li
@@ -31,7 +35,21 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
           {props.startedAt}
         </div>
 
-        {hover.isHovering && <EntryDelete id={props.id} />}
+        {hover.isHovering && (
+          <fetcher.Form method="delete">
+            <input type="hidden" name="id" value={props.id} />
+            <button
+              className="c-button"
+              data-variant="with-icon"
+              type="submit"
+              title="Delete entry"
+              disabled={isDeleting}
+              data-interaction="subtle-scale"
+            >
+              <Xmark width={20} height={20} />
+            </button>
+          </fetcher.Form>
+        )}
       </header>
 
       <section
