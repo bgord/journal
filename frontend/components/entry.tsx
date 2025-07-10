@@ -1,32 +1,8 @@
 import * as UI from "@bgord/ui";
 import { Xmark } from "iconoir-react";
-import React from "react";
 import { useFetcher, useSubmit } from "react-router";
 import type { SelectEmotionJournalEntries } from "../../infra/schema";
 import { RatingPills } from "./rating-pills";
-
-type UseExitActionOptionsType = { actionFn: () => void; animation: string };
-
-type UseExitActionPhaseType = "idle" | "exiting" | "gone";
-
-function useExitAction(options: UseExitActionOptionsType) {
-  const [phase, setPhase] = React.useState<UseExitActionPhaseType>("idle");
-
-  const trigger = (event: React.MouseEvent) => {
-    event.preventDefault();
-    if (phase === "idle") setPhase("exiting");
-  };
-
-  const onAnimationEnd = (event: React.AnimationEvent) => {
-    if (event.animationName !== options.animation) return;
-    options.actionFn();
-    setPhase("gone");
-  };
-
-  const attach = phase === "exiting" ? { "data-exit": options.animation, onAnimationEnd } : undefined;
-
-  return { visible: phase !== "gone", attach, trigger };
-}
 
 export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { startedAt: string }) {
   const hover = UI.useHover();
@@ -34,13 +10,7 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
   const submit = useSubmit();
 
   const deleteEntry = () => submit({ id: props.id }, { method: "delete", action: "." });
-
-  const exit = useExitAction({
-    actionFn: deleteEntry,
-    animation: "shrink-fade-out",
-  });
-
-  const isDeleting = fetcher.state !== "idle";
+  const exit = UI.useExitAction({ actionFn: deleteEntry, animation: "shrink-fade-out" });
 
   if (!exit.visible) return null;
 
@@ -78,7 +48,7 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
               data-variant="with-icon"
               type="submit"
               title="Delete entry"
-              disabled={isDeleting}
+              disabled={fetcher.state !== "idle"}
               data-interaction="subtle-scale"
               onClick={exit.trigger}
             >
