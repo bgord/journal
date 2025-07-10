@@ -11,18 +11,18 @@ function useExitAction(options: UseExitActionOptionsType) {
   const [exiting, setExiting] = React.useState(false);
   const [visible, setVisible] = React.useState(true);
 
-  const trigger = (event?: React.MouseEvent) => {
-    event?.preventDefault();
+  const trigger = (event: React.MouseEvent) => {
+    event.preventDefault();
     if (!exiting) setExiting(true);
   };
 
-  const handleEnd = (event: React.AnimationEvent) => {
+  const onAnimationEnd = (event: React.AnimationEvent) => {
     if (event.animationName !== options.animation) return;
     options.actionFn();
     setVisible(false);
   };
 
-  const attach = exiting ? { "data-exit": options.animation, onAnimationEnd: handleEnd } : undefined;
+  const attach = exiting ? { "data-exit": options.animation, onAnimationEnd: onAnimationEnd } : undefined;
 
   return { visible, attach, trigger };
 }
@@ -32,13 +32,14 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
   const fetcher = useFetcher();
   const submit = useSubmit();
 
-  const isDeleting = fetcher.state !== "idle";
+  const deleteEntry = () => submit({ id: props.id }, { method: "delete", action: "." });
 
-  const del = () => submit({ id: props.id }, { method: "delete", action: "." });
   const exit = useExitAction({
-    actionFn: del,
+    actionFn: deleteEntry,
     animation: "shrink-fade-out",
   });
+
+  const isDeleting = fetcher.state !== "idle";
 
   if (!exit.visible) return null;
 
