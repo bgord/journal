@@ -5,25 +5,22 @@ import { useFetcher, useSubmit } from "react-router";
 import type { SelectEmotionJournalEntries } from "../../infra/schema";
 import { RatingPills } from "./rating-pills";
 
-function useExitAction(
-  deleteFn: () => void, // what to run after animation
-  animationName: string, // key-frame to listen for
-) {
+function useExitAction(deleteFn: () => void, animationName: string) {
   const [exiting, setExiting] = React.useState(false);
   const [visible, setVisible] = React.useState(true);
 
   const trigger = (event?: React.MouseEvent) => {
     event?.preventDefault();
-    if (!exiting) setExiting(true); // start animation
+    if (!exiting) setExiting(true);
   };
 
   const handleEnd = (event: React.AnimationEvent) => {
     if (event.animationName !== animationName) return;
-    deleteFn(); // fire real DELETE
-    setVisible(false); // unmount
+    deleteFn();
+    setVisible(false);
   };
 
-  const rootProps = exiting ? { "data-exit": "shrink", onAnimationEnd: handleEnd } : undefined;
+  const rootProps = exiting ? { "data-exit": animationName, onAnimationEnd: handleEnd } : undefined;
 
   return { visible, exiting, rootProps, trigger };
 }
@@ -36,7 +33,7 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
   const isDeleting = fetcher.state !== "idle";
 
   const del = () => submit({ id: props.id }, { method: "delete", action: "." });
-  const { visible, rootProps, trigger } = useExitAction(del, "shrinkFadeOut");
+  const { visible, rootProps, trigger } = useExitAction(del, "shrink-fade-out");
 
   if (!visible) return null;
 
