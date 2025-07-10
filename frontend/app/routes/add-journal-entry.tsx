@@ -4,6 +4,8 @@ import { redirect, useFetcher } from "react-router";
 import type { types } from "../../../app/services/add-journal-entry-form";
 import { AddJournalEntryForm } from "../../../app/services/add-journal-entry-form";
 import { API } from "../../api";
+import type { AddJournalNavigationStep } from "../../components/add-journal-navigation";
+import { AddJournalNavigation } from "../../components/add-journal-navigation";
 import { BackButton } from "../../components/back-button";
 import { ClickableRatingPills } from "../../components/clickable-rating-pills";
 import { Select } from "../../components/select";
@@ -29,7 +31,7 @@ export async function action({ request }: Route.ActionArgs) {
 export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   const fetcher = useFetcher();
 
-  const [step, setStep] = React.useState<"situation" | "emotion" | "reaction">("situation");
+  const [step, setStep] = React.useState<AddJournalNavigationStep>("situation");
 
   const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situation-description" });
   const situationLocation = UI.useField<types.SituationLocationType>({ name: "situation-location" });
@@ -81,11 +83,12 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
           data-bc="gray-200"
           data-bw="1"
           data-br="4"
-          style={{ background: "var(--surface-card)", ...UI.Rhythm().times(24).minHeight }}
+          style={{ background: "var(--surface-card)", ...UI.Rhythm().times(25).minHeight }}
         >
           {step === "situation" && (
             <>
-              <div>Situation</div>
+              <AddJournalNavigation step={step} />
+
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column">
                   <label className="c-label" {...situationDescription.label.props}>
@@ -134,7 +137,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
           {step === "emotion" && (
             <>
-              <div>Emotion</div>
+              <AddJournalNavigation step={step} />
 
               <div data-display="flex" data-gap="24">
                 <div data-display="flex" data-direction="column">
@@ -166,7 +169,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
           {step === "reaction" && (
             <>
-              <div>Reaction</div>
+              <AddJournalNavigation step={step} />
 
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column" data-grow="1">
@@ -221,7 +224,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               disabled={UI.Fields.anyEmpty([situationDescription, situationKind, situationLocation])}
               {...UI.Rhythm().times(10).style.minWidth}
             >
-              Add emotion
+              Next
             </button>
           )}
 
@@ -236,7 +239,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 disabled={UI.Fields.anyEmpty([emotionLabel, emotionIntensity])}
                 {...UI.Rhythm().times(10).style.minWidth}
               >
-                Add reaction
+                Next
               </button>
             </div>
           )}
