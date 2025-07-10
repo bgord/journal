@@ -7,24 +7,25 @@ import { RatingPills } from "./rating-pills";
 
 type UseExitActionOptionsType = { actionFn: () => void; animation: string };
 
+type UseExitActionPhaseType = "idle" | "exiting" | "gone";
+
 function useExitAction(options: UseExitActionOptionsType) {
-  const [exiting, setExiting] = React.useState(false);
-  const [visible, setVisible] = React.useState(true);
+  const [phase, setPhase] = React.useState<UseExitActionPhaseType>("idle");
 
   const trigger = (event: React.MouseEvent) => {
     event.preventDefault();
-    if (!exiting) setExiting(true);
+    if (phase === "idle") setPhase("exiting");
   };
 
   const onAnimationEnd = (event: React.AnimationEvent) => {
     if (event.animationName !== options.animation) return;
     options.actionFn();
-    setVisible(false);
+    setPhase("gone");
   };
 
-  const attach = exiting ? { "data-exit": options.animation, onAnimationEnd: onAnimationEnd } : undefined;
+  const attach = phase === "exiting" ? { "data-exit": options.animation, onAnimationEnd } : undefined;
 
-  return { visible, attach, trigger };
+  return { visible: phase !== "gone", attach, trigger };
 }
 
 export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { startedAt: string }) {

@@ -129,7 +129,7 @@
   /* 140 ms → fade + scale */
   to {
     opacity: 0;
-    scale: 0.85;
+    scale: 0.9;
   }
 }
 
