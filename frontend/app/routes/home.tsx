@@ -42,6 +42,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         ))}
       </ul>
 
+      {loaderData.length === 0 && (
+        <div data-display="flex" data-direction="column" data-cross="center">
+          <img src="/notebook.svg" height="300px" alt="No entries empty notebook" />
+          <div style={{ color: "var(--brand-600)" }}>The new entries will appear here</div>
+        </div>
+      )}
+
       <Link
         to="/add-journal-entry"
         type="button"
