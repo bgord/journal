@@ -124,3 +124,15 @@
 [data-interaction="subtle-scale"]:hover {
   transform: scale(1.25);
 }
+
+@keyframes shrinkFadeOut {
+  /* 140 ms → fade + scale */
+  to {
+    opacity: 0;
+    scale: 0.85;
+  }
+}
+
+[data-exit="shrink"] {
+  animation: shrinkFadeOut 140ms ease forwards;
+}

@@ -1,18 +1,51 @@
 import * as UI from "@bgord/ui";
 import { Xmark } from "iconoir-react";
-import { useFetcher } from "react-router";
+import React from "react";
+import { useFetcher, useSubmit } from "react-router";
 import type { SelectEmotionJournalEntries } from "../../infra/schema";
 import { RatingPills } from "./rating-pills";
+
+function useExitAction(
+  deleteFn: () => void, // what to run after animation
+  animationName: string, // key-frame to listen for
+) {
+  const [exiting, setExiting] = React.useState(false);
+  const [visible, setVisible] = React.useState(true);
+
+  const trigger = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    console.log("trigger");
+    if (!exiting) setExiting(true); // start animation
+  };
+
+  const handleEnd = (e: React.AnimationEvent) => {
+    console.log("handleEnd");
+    if (e.animationName !== animationName) return;
+    deleteFn(); // fire real DELETE
+    setVisible(false); // unmount
+  };
+
+  const rootProps = exiting ? { "data-exit": "shrink", onAnimationEnd: handleEnd } : undefined;
+
+  return { visible, exiting, rootProps, trigger };
+}
 
 export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { startedAt: string }) {
   const hover = UI.useHover();
   const fetcher = useFetcher();
+  const submit = useSubmit();
 
   const isDeleting = fetcher.state !== "idle";
+
+  const del = () => submit({ id: props.id }, { method: "delete", action: "." });
+  const { visible, rootProps, trigger } = useExitAction(del, "shrinkFadeOut");
+
+  if (!visible) return null;
 
   return (
     <li
       {...hover.attach}
+      {...rootProps}
       data-testid="entry"
       style={{ background: "var(--surface-card)" }}
       data-display="flex"
@@ -45,6 +78,7 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
               title="Delete entry"
               disabled={isDeleting}
               data-interaction="subtle-scale"
+              onClick={trigger} /* ← starts exit */
             >
               <Xmark width={20} height={20} />
             </button>
