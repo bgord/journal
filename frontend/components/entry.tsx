@@ -22,9 +22,9 @@ function useExitAction(options: UseExitActionOptionsType) {
     setVisible(false);
   };
 
-  const rootProps = exiting ? { "data-exit": options.animation, onAnimationEnd: handleEnd } : undefined;
+  const attach = exiting ? { "data-exit": options.animation, onAnimationEnd: handleEnd } : undefined;
 
-  return { visible, exiting, rootProps, trigger };
+  return { visible, attach, trigger };
 }
 
 export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { startedAt: string }) {
@@ -35,17 +35,17 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
   const isDeleting = fetcher.state !== "idle";
 
   const del = () => submit({ id: props.id }, { method: "delete", action: "." });
-  const { visible, rootProps, trigger } = useExitAction({
+  const exit = useExitAction({
     actionFn: del,
     animation: "shrink-fade-out",
   });
 
-  if (!visible) return null;
+  if (!exit.visible) return null;
 
   return (
     <li
       {...hover.attach}
-      {...rootProps}
+      {...exit.attach}
       data-testid="entry"
       style={{ background: "var(--surface-card)" }}
       data-display="flex"
@@ -78,7 +78,7 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
               title="Delete entry"
               disabled={isDeleting}
               data-interaction="subtle-scale"
-              onClick={trigger} /* ← starts exit */
+              onClick={exit.trigger}
             >
               <Xmark width={20} height={20} />
             </button>
