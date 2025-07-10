@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: "bash test-server-start.sh",
+      command: "bash bgord-scripts/test-server-start.sh",
       stdout: "pipe",
       stderr: "pipe",
       port: 3333,
