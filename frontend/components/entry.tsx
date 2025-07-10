@@ -12,15 +12,13 @@ function useExitAction(
   const [exiting, setExiting] = React.useState(false);
   const [visible, setVisible] = React.useState(true);
 
-  const trigger = (e?: React.MouseEvent) => {
-    e?.preventDefault();
-    console.log("trigger");
+  const trigger = (event?: React.MouseEvent) => {
+    event?.preventDefault();
     if (!exiting) setExiting(true); // start animation
   };
 
-  const handleEnd = (e: React.AnimationEvent) => {
-    console.log("handleEnd");
-    if (e.animationName !== animationName) return;
+  const handleEnd = (event: React.AnimationEvent) => {
+    if (event.animationName !== animationName) return;
     deleteFn(); // fire real DELETE
     setVisible(false); // unmount
   };
