@@ -159,6 +159,7 @@ modules/
     └── value-objects
         ├── alarm-generated-at.ts
         ├── alarm-id.ts
+        ├── alarm-name-option.ts
         ├── alarm-name.ts
         ├── alarm-status.ts
         ├── emotion-intensity.ts
@@ -189,6 +190,9 @@ infra/
 ├── basic-auth-shield.ts
 ├── command-bus.ts
 ├── db.ts
+├── e2e
+│   ├── add-journal-entry.spec.ts
+│   └── home.spec.ts
 ├── env.ts
 ├── event-bus.ts
 ├── event-store.ts
