@@ -1,6 +1,41 @@
 # Changelog
+- 2025-07-09 16:37 97ef3f5 **feature: add delete entry form**
+## 2025-07-09 16:37 
+- 2025-07-09 16:10 a3d428c **step: setup delete entry button**
+- 2025-07-09 15:11 e9369a2 **refactor: extract entry**
+- 2025-07-09 15:05 4c9b1a6 **refactor: extract rotate-into-focus interaction**
+- 2025-07-09 12:54 e8db344 **refactor: improve fab styles**
+- 2025-07-09 12:44 e365a57 **step: add fab for add new entry**
+- 2025-07-09 12:34 ec3f9e4 **refactor: use clickable rating pills**
+- 2025-07-09 12:24 12e3f0c **refactor: use clickable rating pills for emotion intensity**
+- 2025-07-09 12:01 c9331fa **step: test add-journal-entry tests**
+- 2025-07-09 11:41 6c82465 **step: test homepage**
+- 2025-07-09 11:28 fd25bb5 **step: make seeder stable**
+- 2025-07-08 14:19 8a3c34a **step: test basic home layout**
+- 2025-07-08 13:55 6ab7660 **fix: import register-{event,command}-handlers in server**
+- 2025-07-08 13:47 4b81078 **fix: test imports**
+- 2025-07-08 13:39 3dd7afe **refactor: adjust to barrel file free infra exports**
+- 2025-07-08 13:34 136e795 **refactor: remove infra barrel export**
+- 2025-07-08 13:24 741a355 **step: add drizzle-seed to test-server-start**
+- 2025-07-08 13:23 d252b07 **step: bump bgord/scripts**
+- 2025-07-08 13:23 473f0af **step: add drizzle reset to test-server-start**
+- 2025-07-08 13:20 c8a1722 **fix: drizzle schema**
+- 2025-07-08 13:14 d606259 **feature: setup e2e tests**
+- 2025-07-08 13:12 3f1481b **step: bump bgord/scripts**
+- 2025-07-08 13:09 54e64ae **step: bump bgord/scripts**
+- 2025-07-08 13:07 fa83c64 **refactor: cleanup test-server-start**
+- 2025-07-08 13:02 25dc985 **refactor: adjust test-app-start**
+- 2025-07-08 12:59 437dfaf **step: bump bgord/scripts**
+- 2025-07-08 12:56 4e62a07 **step: add frontend-serve to test-app-start**
+- 2025-07-08 12:56 3ebcf7b **step: bump bgord/scripts**
+- 2025-07-08 12:54 1945ba7 **refactor: adjust playwright config**
+- 2025-07-08 12:44 8a2f262 **step: add test-results to gitignore**
+- 2025-07-08 12:40 ce8433f **step: setup home test**
+- 2025-07-08 12:39 edb4813 **step: bump bgord/scripts**
+- 2025-07-08 12:34 167ce97 **step: add playwright config**
+- 2025-07-08 12:33 ecd1af3 **step: install playwright**
+- 2025-07-08 12:31 f25d91a **fix: logo link color**
 - 2025-07-07 17:28 c8c7144 **refactor: extract back button**
-## 2025-07-07 17:28 
 - 2025-07-07 17:13 f52a33e **fix: select empty values**
 - 2025-07-07 17:05 f497628 **refactor: used improved input.props returned by useField**
 - 2025-07-07 17:03 41a4980 **refactor: switch to real bgord-bun**
@@ -9,6 +44,7 @@
 - 2025-07-07 16:50 0179cff **refactor: remove unused commands**
 - 2025-07-07 16:47 250fc44 **step: update packageS**
 - 2025-07-07 16:44 c336a3f **step: update packages**
+- 2025-07-07 15:30 93938a0 **docs: generate CHANGELOG**
 - 2025-07-07 14:54 acc2723 **docs: generate CHANGELOG**
 - 2025-07-07 14:54 53750da **docs: generate readme**
 - 2025-07-07 14:40 489b3f8 **step: bump bgord/scripts**
