@@ -35,12 +35,17 @@ server.get(
 );
 // =============================
 
-// Emotions =================
+// Emotions ====================
 server.delete("/emotions/:id/delete", Emotions.Routes.DeleteJournalEntry);
 server.post("/emotions/:id/evaluate-reaction", Emotions.Routes.EvaluateReaction);
 server.post("/emotions/log-entry", Emotions.Routes.LogEntry);
 server.post("/emotions/:id/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 server.get("/emotions/entries", Emotions.Routes.ListEntries);
+// =============================
+
+//Translations =================
+// TODO: Extract to @bgord/bun
+server.get("/translations", App.Routes.GetTranslations);
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);

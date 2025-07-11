@@ -1,3 +1,4 @@
 {
-  "app.name": "Journal"
+  "app.name": "Journal",
+  "entry.list.empty": "The new entries will appear here"
 }
