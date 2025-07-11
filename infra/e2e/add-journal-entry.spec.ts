@@ -7,7 +7,7 @@ test("Add journal entry - happy path", async ({ page }) => {
   const situationHeader = page.getByText("Situation");
   await expect(situationHeader).toBeVisible();
 
-  const situationDescription = page.getByLabel("Description");
+  const situationDescription = page.getByLabel("What happened?");
   await expect(situationDescription).toBeVisible();
 
   const situationKind = page.getByLabel("Kind");
@@ -52,7 +52,7 @@ test("Add journal entry - happy path", async ({ page }) => {
   const reactionHeader = page.getByText("Reaction");
   await expect(reactionHeader).toBeVisible();
 
-  const reactionDescription = page.getByLabel("Description");
+  const reactionDescription = page.getByLabel("How did you react?");
   await expect(reactionDescription).toBeVisible();
 
   const reactionType = page.getByLabel("Type");
