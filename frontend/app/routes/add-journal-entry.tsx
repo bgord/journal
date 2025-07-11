@@ -94,7 +94,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column">
                   <label className="c-label" {...situationDescription.label.props}>
-                    Description
+                    What happened?
                   </label>
                   <textarea
                     className="c-textarea"
@@ -176,7 +176,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column" data-grow="1">
                   <label className="c-label" {...reactionDescription.label.props}>
-                    Description
+                    How did you react?
                   </label>
                   <textarea
                     className="c-textarea"
