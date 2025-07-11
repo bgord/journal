@@ -85,138 +85,127 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
           data-br="4"
           style={{ ...UI.Colorful("surface-card").style.background, ...UI.Rhythm().times(25).minHeight }}
         >
+          <Components.AddJournalNavigation step={step} />
           {step === "situation" && (
-            <>
-              <Components.AddJournalNavigation step={step} />
+            <div data-display="flex" data-direction="column" data-gap="12">
+              <div data-display="flex" data-direction="column">
+                <label className="c-label" {...situationDescription.label.props}>
+                  {t("entry.situation.description.label")}
+                </label>
 
-              <div data-display="flex" data-direction="column" data-gap="12">
+                <textarea
+                  className="c-textarea"
+                  placeholder={t("entry.situation.description.placeholder")}
+                  rows={3}
+                  {...situationDescription.input.props}
+                  {...UI.Form.textareaPattern(loaderData.situationDescription)}
+                />
+              </div>
+
+              <div data-display="flex" data-gap="12">
                 <div data-display="flex" data-direction="column">
-                  <label className="c-label" {...situationDescription.label.props}>
-                    {t("entry.situation.description.label")}
+                  <label className="c-label" {...situationKind.label.props}>
+                    {t("entry.situation.kind.label")}
                   </label>
 
-                  <textarea
-                    className="c-textarea"
-                    placeholder={t("entry.situation.description.placeholder")}
-                    rows={3}
-                    {...situationDescription.input.props}
-                    {...UI.Form.textareaPattern(loaderData.situationDescription)}
+                  <Select className="c-select" {...situationKind.input.props}>
+                    <option value="">{t("entry.situation.kind.value.default")}</option>
+                    {loaderData.situationKinds.map((kind) => (
+                      <option key={kind} value={kind}>
+                        {t(`entry.situation.kind.value.${kind}`)}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+
+                <div data-display="flex" data-direction="column" {...UI.Rhythm().times(20).style.width}>
+                  <label className="c-label" {...situationLocation.label.props}>
+                    {t("entry.situation.location.label")}
+                  </label>
+
+                  <input
+                    className="c-input"
+                    placeholder={t("entry.situation.location.placeholder")}
+                    {...situationLocation.input.props}
+                    {...UI.Form.inputPattern(loaderData.situationLocation)}
                   />
                 </div>
-
-                <div data-display="flex" data-gap="12">
-                  <div data-display="flex" data-direction="column">
-                    <label className="c-label" {...situationKind.label.props}>
-                      {t("entry.situation.kind.label")}
-                    </label>
-
-                    <Select className="c-select" {...situationKind.input.props}>
-                      <option value="">{t("entry.situation.kind.value.default")}</option>
-                      {loaderData.situationKinds.map((kind) => (
-                        <option key={kind} value={kind}>
-                          {t(`entry.situation.kind.value.${kind}`)}
-                        </option>
-                      ))}
-                    </Select>
-                  </div>
-
-                  <div data-display="flex" data-direction="column" {...UI.Rhythm().times(20).style.width}>
-                    <label className="c-label" {...situationLocation.label.props}>
-                      {t("entry.situation.location.label")}
-                    </label>
-
-                    <input
-                      className="c-input"
-                      placeholder={t("entry.situation.location.placeholder")}
-                      {...situationLocation.input.props}
-                      {...UI.Form.inputPattern(loaderData.situationLocation)}
-                    />
-                  </div>
-                </div>
               </div>
-            </>
+            </div>
           )}
 
           {step === "emotion" && (
-            <>
-              <Components.AddJournalNavigation step={step} />
+            <div data-display="flex" data-gap="24">
+              <div data-display="flex" data-direction="column">
+                <label className="c-label" {...emotionLabel.label.props}>
+                  {t("entry.emotion.label.label")}
+                </label>
+
+                <Select className="c-select" {...emotionLabel.input.props}>
+                  <option value="">{t("entry.emotion.location.default.value")}</option>
+                  {loaderData.emotionLabels.map((emotion) => (
+                    <option key={emotion} value={emotion}>
+                      {t(`entry.emotion.label.value.${emotion}`)}
+                    </option>
+                  ))}
+                </Select>
+              </div>
+
+              <div data-display="flex" data-direction="column">
+                <label className="c-label" {...emotionIntensity.label.props}>
+                  {t("entry.emotion.intensity.label")}
+                </label>
+
+                <div data-my="auto">
+                  <Components.ClickableRatingPills {...emotionIntensity} />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {step === "reaction" && (
+            <div data-display="flex" data-direction="column" data-gap="12">
+              <div data-display="flex" data-direction="column" data-grow="1">
+                <label className="c-label" {...reactionDescription.label.props}>
+                  {t("entry.reaction.description.label")}
+                </label>
+
+                <textarea
+                  className="c-textarea"
+                  placeholder={t("entry.reaction.description.placeholder")}
+                  rows={3}
+                  {...reactionDescription.input.props}
+                  {...UI.Form.textareaPattern(loaderData.reactionDescription)}
+                />
+              </div>
 
               <div data-display="flex" data-gap="24">
                 <div data-display="flex" data-direction="column">
-                  <label className="c-label" {...emotionLabel.label.props}>
-                    {t("entry.emotion.label.label")}
+                  <label className="c-label" {...reactionType.label.props}>
+                    {t("entry.reaction.type.label")}
                   </label>
 
-                  <Select className="c-select" {...emotionLabel.input.props}>
-                    <option value="">{t("entry.emotion.location.default.value")}</option>
-                    {loaderData.emotionLabels.map((emotion) => (
-                      <option key={emotion} value={emotion}>
-                        {t(`entry.emotion.label.value.${emotion}`)}
+                  <Select className="c-select" {...reactionType.input.props}>
+                    <option value="">{t("entry.reaction.type.default.value")}</option>
+                    {loaderData.reactionTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {t(`entry.reaction.type.value.${type}`)}
                       </option>
                     ))}
                   </Select>
                 </div>
 
                 <div data-display="flex" data-direction="column">
-                  <label className="c-label" {...emotionIntensity.label.props}>
-                    {t("entry.emotion.intensity.label")}
+                  <label className="c-label" {...reactionEffectiveness.label.props}>
+                    {t("entry.reaction.effectiveness.label")}
                   </label>
 
                   <div data-my="auto">
-                    <Components.ClickableRatingPills {...emotionIntensity} />
+                    <Components.ClickableRatingPills {...reactionEffectiveness} />
                   </div>
                 </div>
               </div>
-            </>
-          )}
-
-          {step === "reaction" && (
-            <>
-              <Components.AddJournalNavigation step={step} />
-
-              <div data-display="flex" data-direction="column" data-gap="12">
-                <div data-display="flex" data-direction="column" data-grow="1">
-                  <label className="c-label" {...reactionDescription.label.props}>
-                    {t("entry.reaction.description.label")}
-                  </label>
-
-                  <textarea
-                    className="c-textarea"
-                    placeholder={t("entry.reaction.description.placeholder")}
-                    rows={3}
-                    {...reactionDescription.input.props}
-                    {...UI.Form.textareaPattern(loaderData.reactionDescription)}
-                  />
-                </div>
-
-                <div data-display="flex" data-gap="24">
-                  <div data-display="flex" data-direction="column">
-                    <label className="c-label" {...reactionType.label.props}>
-                      {t("entry.reaction.type.label")}
-                    </label>
-
-                    <Select className="c-select" {...reactionType.input.props}>
-                      <option value="">{t("entry.reaction.type.default.value")}</option>
-                      {loaderData.reactionTypes.map((type) => (
-                        <option key={type} value={type}>
-                          {t(`entry.reaction.type.value.${type}`)}
-                        </option>
-                      ))}
-                    </Select>
-                  </div>
-
-                  <div data-display="flex" data-direction="column">
-                    <label className="c-label" {...reactionEffectiveness.label.props}>
-                      {t("entry.reaction.effectiveness.label")}
-                    </label>
-
-                    <div data-my="auto">
-                      <Components.ClickableRatingPills {...reactionEffectiveness} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </>
+            </div>
           )}
 
           {step === "situation" && (
