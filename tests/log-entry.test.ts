@@ -8,20 +8,20 @@ import * as mocks from "./mocks";
 const url = "/emotions/log-entry";
 
 const situation = {
-  description: mocks.GenericSituationLoggedEvent.payload.description,
-  location: mocks.GenericSituationLoggedEvent.payload.location,
-  kind: mocks.GenericSituationLoggedEvent.payload.kind,
+  situationDescription: mocks.GenericSituationLoggedEvent.payload.description,
+  situationLocation: mocks.GenericSituationLoggedEvent.payload.location,
+  situationKind: mocks.GenericSituationLoggedEvent.payload.kind,
 };
 
 const emotion = {
-  label: mocks.GenericEmotionLoggedEvent.payload.label,
-  intensity: mocks.GenericEmotionLoggedEvent.payload.intensity,
+  emotionLabel: mocks.GenericEmotionLoggedEvent.payload.label,
+  emotionIntensity: mocks.GenericEmotionLoggedEvent.payload.intensity,
 };
 
 const reaction = {
-  description: mocks.GenericReactionLoggedEvent.payload.description,
-  type: mocks.GenericReactionLoggedEvent.payload.type,
-  effectiveness: mocks.GenericReactionLoggedEvent.payload.effectiveness,
+  reactionDescription: mocks.GenericReactionLoggedEvent.payload.description,
+  reactionType: mocks.GenericReactionLoggedEvent.payload.type,
+  reactionEffectiveness: mocks.GenericReactionLoggedEvent.payload.effectiveness,
 };
 
 describe("POST /emotions/log-entry", () => {
@@ -42,7 +42,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation: { description: "Something happened" } }),
+        body: JSON.stringify({ situationDescription: "Something happened" }),
       },
       mocks.ip,
     );
@@ -58,7 +58,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation: { description: "Something happened", location: "work" } }),
+        body: JSON.stringify({ situationDescription: "Something happened", situationLocation: "work" }),
       },
       mocks.ip,
     );
@@ -72,7 +72,7 @@ describe("POST /emotions/log-entry", () => {
   test("emotion - validation - empty payload", async () => {
     const response = await server.request(
       url,
-      { method: "POST", body: JSON.stringify({ situation }) },
+      { method: "POST", body: JSON.stringify({ ...situation }) },
       mocks.ip,
     );
 
@@ -87,7 +87,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion: { label: Emotions.VO.GenevaWheelEmotion.admiration } }),
+        body: JSON.stringify({ ...situation, emotionLabel: Emotions.VO.GenevaWheelEmotion.admiration }),
       },
       mocks.ip,
     );
@@ -101,7 +101,7 @@ describe("POST /emotions/log-entry", () => {
   test("reaction - validation - empty payload", async () => {
     const response = await server.request(
       url,
-      { method: "POST", body: JSON.stringify({ situation, emotion }) },
+      { method: "POST", body: JSON.stringify({ ...situation, ...emotion }) },
       mocks.ip,
     );
 
@@ -116,7 +116,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction: { description: "I got drunk" } }),
+        body: JSON.stringify({ ...situation, ...emotion, reactionDescription: "I got drunk" }),
       },
       mocks.ip,
     );
@@ -133,12 +133,10 @@ describe("POST /emotions/log-entry", () => {
       {
         method: "POST",
         body: JSON.stringify({
-          situation,
-          emotion,
-          reaction: {
-            description: "I got drunk",
-            type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
-          },
+          ...situation,
+          ...emotion,
+          reactionDescription: "I got drunk",
+          reactionType: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
         }),
       },
       mocks.ip,
@@ -162,7 +160,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction }),
+        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
@@ -190,7 +188,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction }),
+        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
@@ -219,7 +217,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction }),
+        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
@@ -248,7 +246,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction }),
+        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
@@ -280,7 +278,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction }),
+        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
@@ -311,7 +309,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction }),
+        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
@@ -341,7 +339,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction }),
+        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
@@ -373,7 +371,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction }),
+        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,
@@ -399,7 +397,7 @@ describe("POST /emotions/log-entry", () => {
       url,
       {
         method: "POST",
-        body: JSON.stringify({ situation, emotion, reaction }),
+        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
       mocks.ip,

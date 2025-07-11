@@ -46,6 +46,17 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
     defaultValue: loaderData.reactionEffectiveness.min,
   });
 
+  const payload = {
+    situationDescription: situationDescription.value,
+    situationLocation: situationLocation.value,
+    situationKind: situationKind.value,
+    emotionLabel: emotionLabel.value,
+    emotionIntensity: emotionIntensity.value,
+    reactionDescription: reactionDescription.value,
+    reactionType: reactionType.value,
+    reactionEffectiveness: reactionEffectiveness.value,
+  };
+
   return (
     <main data-pb="36">
       <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mt="48">
@@ -56,22 +67,11 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
           onSubmit={(event) => {
             event.preventDefault();
 
-            fetcher.submit(
-              {
-                situation: {
-                  description: situationDescription.value,
-                  location: situationLocation.value,
-                  kind: situationKind.value,
-                },
-                emotion: { label: emotionLabel.value, intensity: emotionIntensity.value },
-                reaction: {
-                  description: reactionDescription.value,
-                  type: reactionType.value,
-                  effectiveness: reactionEffectiveness.value,
-                },
-              },
-              { action: "/add-journal-entry", method: "post", encType: "application/json" },
-            );
+            fetcher.submit(payload, {
+              action: "/add-journal-entry",
+              method: "post",
+              encType: "application/json",
+            });
           }}
           className="add-entry-form"
           data-display="flex"
