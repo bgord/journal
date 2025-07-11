@@ -1,4 +1,5 @@
 import { Env } from "+infra/env";
+import { SupportedLanguages } from "+infra/i18n";
 import { jobs } from "+infra/jobs";
 import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
@@ -41,5 +42,9 @@ export const prerequisites = [
     label: "jobs",
     jobs,
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
+  }),
+  new bg.PrerequisiteTranslations({
+    label: "translations",
+    supportedLanguages: SupportedLanguages,
   }),
 ];
