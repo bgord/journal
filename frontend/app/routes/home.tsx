@@ -28,6 +28,8 @@ export async function loader() {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
+  const t = UI.useTranslations();
+
   return (
     <main data-pb="36">
       <ul
@@ -46,7 +48,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       {loaderData.length === 0 && (
         <div data-display="flex" data-direction="column" data-cross="center">
           <img src={NotebookSvg} height="300px" alt="No entries empty notebook" />
-          <div style={{ color: "var(--brand-600)" }}>The new entries will appear here</div>
+          <div style={{ color: "var(--brand-600)" }}>{t("entry.list.empty")}</div>
         </div>
       )}
 

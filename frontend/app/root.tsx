@@ -1,3 +1,4 @@
+import * as UI from "@bgord/ui";
 import * as RR from "react-router";
 import { API } from "../api";
 import { RevalidateOnFocus } from "../components/revalidate-on-focus";
@@ -31,8 +32,6 @@ export async function loader() {
 export function Layout({ children }: { children: React.ReactNode }) {
   const data = RR.useRouteLoaderData("root");
 
-  console.log(data.translations, data.language);
-
   return (
     <html lang="en">
       <head>
@@ -52,7 +51,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         >
           <RR.Link to="/">Journal</RR.Link>
         </header>
-        {children}
+
+        <UI.TranslationsContext.Provider value={{ translations: data.translations, language: data.language }}>
+          {children}
+        </UI.TranslationsContext.Provider>
         <RR.ScrollRestoration />
         <RevalidateOnFocus />
         <RR.Scripts />
