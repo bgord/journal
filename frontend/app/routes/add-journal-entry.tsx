@@ -6,6 +6,7 @@ import { AddJournalEntryForm } from "../../../app/services/add-journal-entry-for
 import { API } from "../../api";
 import type { AddJournalNavigationStep } from "../../components/add-journal-navigation";
 import { AddJournalNavigation } from "../../components/add-journal-navigation";
+import { AddJournalNavigationProgress } from "../../components/add-journal-navigation-progress";
 import { BackButton } from "../../components/back-button";
 import { ClickableRatingPills } from "../../components/clickable-rating-pills";
 import { Select } from "../../components/select";
@@ -51,6 +52,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   return (
     <main data-pb="36">
       <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mt="48">
+        <AddJournalNavigationProgress step={step} />
         <fetcher.Form
           method="POST"
           onSubmit={(event) => {
@@ -119,7 +121,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     </Select>
                   </div>
 
-                  <div data-display="flex" data-direction="column" {...UI.Rhythm().times(15).style.width}>
+                  <div data-display="flex" data-direction="column" {...UI.Rhythm().times(20).style.width}>
                     <label className="c-label" {...situationLocation.label.props}>
                       Location
                     </label>

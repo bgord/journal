@@ -125,6 +125,14 @@
   transform: scale(1.25);
 }
 
+/* ========== */
+
+[data-interaction="grow"] {
+  transition: width 300ms ease-in-out;
+}
+
+/* ========== */
+
 @keyframes shrink-fade-out {
   /* 140 ms → fade + scale */
   to {
