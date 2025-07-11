@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
 
-export type AddJournalNavigationStep = "situation" | "emotion" | "reaction";
+type AddJournalNavigationStep = "situation" | "emotion" | "reaction";
 
 export function AddJournalNavigationProgress(props: { step: AddJournalNavigationStep }) {
   const progress = props.step === "situation" ? "33%" : props.step === "emotion" ? "66%" : "100%";

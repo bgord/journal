@@ -4,11 +4,7 @@ import { redirect, useFetcher } from "react-router";
 import type { types } from "../../../app/services/add-journal-entry-form";
 import { AddJournalEntryForm } from "../../../app/services/add-journal-entry-form";
 import { API } from "../../api";
-import type { AddJournalNavigationStep } from "../../components/add-journal-navigation";
-import { AddJournalNavigation } from "../../components/add-journal-navigation";
-import { AddJournalNavigationProgress } from "../../components/add-journal-navigation-progress";
-import { BackButton } from "../../components/back-button";
-import { ClickableRatingPills } from "../../components/clickable-rating-pills";
+import * as Components from "../../components";
 import { Select } from "../../components/select";
 import type { Route } from "./+types/add-journal-entry";
 
@@ -33,7 +29,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   const fetcher = useFetcher();
   const t = UI.useTranslations();
 
-  const [step, setStep] = React.useState<AddJournalNavigationStep>("situation");
+  const [step, setStep] = React.useState<Components.AddJournalNavigationStep>("situation");
 
   const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situation-description" });
   const situationLocation = UI.useField<types.SituationLocationType>({ name: "situation-location" });
@@ -53,7 +49,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   return (
     <main data-pb="36">
       <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mt="48">
-        <AddJournalNavigationProgress step={step} />
+        <Components.AddJournalNavigationProgress step={step} />
 
         <fetcher.Form
           method="POST"
@@ -91,7 +87,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
         >
           {step === "situation" && (
             <>
-              <AddJournalNavigation step={step} />
+              <Components.AddJournalNavigation step={step} />
 
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column">
@@ -143,7 +139,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
           {step === "emotion" && (
             <>
-              <AddJournalNavigation step={step} />
+              <Components.AddJournalNavigation step={step} />
 
               <div data-display="flex" data-gap="24">
                 <div data-display="flex" data-direction="column">
@@ -167,7 +163,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                   </label>
 
                   <div data-my="auto">
-                    <ClickableRatingPills {...emotionIntensity} />
+                    <Components.ClickableRatingPills {...emotionIntensity} />
                   </div>
                 </div>
               </div>
@@ -176,7 +172,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
           {step === "reaction" && (
             <>
-              <AddJournalNavigation step={step} />
+              <Components.AddJournalNavigation step={step} />
 
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column" data-grow="1">
@@ -215,7 +211,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                     </label>
 
                     <div data-my="auto">
-                      <ClickableRatingPills {...reactionEffectiveness} />
+                      <Components.ClickableRatingPills {...reactionEffectiveness} />
                     </div>
                   </div>
                 </div>
@@ -239,7 +235,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
           {step === "emotion" && (
             <div data-display="flex" data-gap="12" data-ml="auto" data-mt="auto">
-              <BackButton onClick={() => setStep("situation")} />
+              <Components.BackButton onClick={() => setStep("situation")} />
 
               <button
                 onClick={() => setStep("reaction")}
@@ -256,7 +252,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
           {step === "reaction" && (
             <div data-display="flex" data-gap="12" data-ml="auto" data-mt="auto">
-              <BackButton onClick={() => setStep("emotion")} />
+              <Components.BackButton onClick={() => setStep("emotion")} />
 
               <button
                 type="submit"

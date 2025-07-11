@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import type { SelectEmotionJournalEntries } from "../../../infra/schema";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
-import { Entry } from "../../components/entry";
+import * as Components from "../../components";
 import type { Route } from "./+types/home";
 
 export function meta() {
@@ -41,7 +41,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         data-mx="auto"
       >
         {loaderData.map((entry) => (
-          <Entry key={entry.id} {...entry} />
+          <Components.Entry key={entry.id} {...entry} />
         ))}
       </ul>
 
