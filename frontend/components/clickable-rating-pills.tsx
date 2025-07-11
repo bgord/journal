@@ -1,9 +1,7 @@
 import * as UI from "@bgord/ui";
 import type { types } from "../../app/services/add-journal-entry-form";
 
-type ClickableRatingPillsProps = {
-  total?: number;
-} & UI.useFieldReturnType<types.EmotionIntensityType>;
+type ClickableRatingPillsProps = { total: number } & UI.useFieldReturnType<types.EmotionIntensityType>;
 
 export function ClickableRatingPills(props: ClickableRatingPillsProps) {
   const { value, total = 5 } = props;
@@ -34,7 +32,6 @@ export function ClickableRatingPills(props: ClickableRatingPillsProps) {
               backgroundColor: filled ? "var(--brand-400)" : "transparent",
               ...UI.Rhythm(size).times(1).square,
             }}
-            aria-label={`Rating ${rating}`}
             data-testid={`rating-${rating}`}
           />
         );

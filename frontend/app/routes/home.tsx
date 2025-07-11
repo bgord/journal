@@ -47,7 +47,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
       {loaderData.length === 0 && (
         <div data-display="flex" data-direction="column" data-cross="center">
-          <img src={NotebookSvg} height="300px" alt="No entries empty notebook" />
+          <img src={NotebookSvg} height="300px" alt={t("entry.list.empty.alt")} />
           <div style={{ color: "var(--brand-600)" }}>{t("entry.list.empty")}</div>
         </div>
       )}
@@ -63,7 +63,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         data-shadow="sm"
         data-interaction="rotate-into-focus"
         viewTransition
-        title="Add journal entry"
+        title={t("entry.add.title")}
         style={{
           background: "var(--brand-200)",
           color: "var(--brand-500)",

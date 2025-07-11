@@ -31,6 +31,7 @@ export async function action({ request }: Route.ActionArgs) {
 
 export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   const fetcher = useFetcher();
+  const t = UI.useTranslations();
 
   const [step, setStep] = React.useState<AddJournalNavigationStep>("situation");
 
@@ -53,6 +54,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
     <main data-pb="36">
       <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mt="48">
         <AddJournalNavigationProgress step={step} />
+
         <fetcher.Form
           method="POST"
           onSubmit={(event) => {
@@ -94,11 +96,12 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column">
                   <label className="c-label" {...situationDescription.label.props}>
-                    What happened?
+                    {t("entry.situation.description.label")}
                   </label>
+
                   <textarea
                     className="c-textarea"
-                    placeholder="I failed on my butt"
+                    placeholder={t("entry.situation.description.placeholder")}
                     rows={3}
                     {...situationDescription.input.props}
                     {...UI.Form.textareaPattern(loaderData.situationDescription)}
@@ -108,14 +111,14 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 <div data-display="flex" data-gap="12">
                   <div data-display="flex" data-direction="column">
                     <label className="c-label" {...situationKind.label.props}>
-                      Kind
+                      {t("entry.situation.kind.label")}
                     </label>
 
                     <Select className="c-select" {...situationKind.input.props}>
-                      <option value="">Choose an option</option>
+                      <option value="">{t("entry.situation.kind.value.default")}</option>
                       {loaderData.situationKinds.map((kind) => (
                         <option key={kind} value={kind}>
-                          {kind}
+                          {t(`entry.situation.kind.value.${kind}`)}
                         </option>
                       ))}
                     </Select>
@@ -123,11 +126,12 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
                   <div data-display="flex" data-direction="column" {...UI.Rhythm().times(20).style.width}>
                     <label className="c-label" {...situationLocation.label.props}>
-                      Location
+                      {t("entry.situation.location.label")}
                     </label>
+
                     <input
                       className="c-input"
-                      placeholder="Kitchen"
+                      placeholder={t("entry.situation.location.placeholder")}
                       {...situationLocation.input.props}
                       {...UI.Form.inputPattern(loaderData.situationLocation)}
                     />
@@ -144,14 +148,14 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               <div data-display="flex" data-gap="24">
                 <div data-display="flex" data-direction="column">
                   <label className="c-label" {...emotionLabel.label.props}>
-                    Label
+                    {t("entry.emotion.label.label")}
                   </label>
 
                   <Select className="c-select" {...emotionLabel.input.props}>
-                    <option value="">Choose an option</option>
+                    <option value="">{t("entry.emotion.location.default.value")}</option>
                     {loaderData.emotionLabels.map((emotion) => (
                       <option key={emotion} value={emotion}>
-                        {emotion}
+                        {t(`entry.emotion.label.value.${emotion}`)}
                       </option>
                     ))}
                   </Select>
@@ -159,8 +163,9 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
                 <div data-display="flex" data-direction="column">
                   <label className="c-label" {...emotionIntensity.label.props}>
-                    Intensity
+                    {t("entry.emotion.intensity.label")}
                   </label>
+
                   <div data-my="auto">
                     <ClickableRatingPills {...emotionIntensity} />
                   </div>
@@ -176,11 +181,12 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               <div data-display="flex" data-direction="column" data-gap="12">
                 <div data-display="flex" data-direction="column" data-grow="1">
                   <label className="c-label" {...reactionDescription.label.props}>
-                    How did you react?
+                    {t("entry.reaction.description.label")}
                   </label>
+
                   <textarea
                     className="c-textarea"
-                    placeholder="I failed on my butt"
+                    placeholder={t("entry.reaction.description.placeholder")}
                     rows={3}
                     {...reactionDescription.input.props}
                     {...UI.Form.textareaPattern(loaderData.reactionDescription)}
@@ -190,14 +196,14 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 <div data-display="flex" data-gap="24">
                   <div data-display="flex" data-direction="column">
                     <label className="c-label" {...reactionType.label.props}>
-                      Type
+                      {t("entry.reaction.type.label")}
                     </label>
 
                     <Select className="c-select" {...reactionType.input.props}>
-                      <option value="">Choose an option</option>
+                      <option value="">{t("entry.reaction.type.default.value")}</option>
                       {loaderData.reactionTypes.map((type) => (
                         <option key={type} value={type}>
-                          {type}
+                          {t(`entry.reaction.type.value.${type}`)}
                         </option>
                       ))}
                     </Select>
@@ -205,8 +211,9 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
 
                   <div data-display="flex" data-direction="column">
                     <label className="c-label" {...reactionEffectiveness.label.props}>
-                      Effectiveness
+                      {t("entry.reaction.effectiveness.label")}
                     </label>
+
                     <div data-my="auto">
                       <ClickableRatingPills {...reactionEffectiveness} />
                     </div>
@@ -226,13 +233,14 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
               disabled={UI.Fields.anyEmpty([situationDescription, situationKind, situationLocation])}
               {...UI.Rhythm().times(10).style.minWidth}
             >
-              Next
+              {t("app.next")}
             </button>
           )}
 
           {step === "emotion" && (
             <div data-display="flex" data-gap="12" data-ml="auto" data-mt="auto">
               <BackButton onClick={() => setStep("situation")} />
+
               <button
                 onClick={() => setStep("reaction")}
                 type="button"
@@ -241,7 +249,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 disabled={UI.Fields.anyEmpty([emotionLabel, emotionIntensity])}
                 {...UI.Rhythm().times(10).style.minWidth}
               >
-                Next
+                {t("app.next")}
               </button>
             </div>
           )}
@@ -249,6 +257,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
           {step === "reaction" && (
             <div data-display="flex" data-gap="12" data-ml="auto" data-mt="auto">
               <BackButton onClick={() => setStep("emotion")} />
+
               <button
                 type="submit"
                 className="c-button"
@@ -256,7 +265,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
                 disabled={UI.Fields.anyEmpty([reactionDescription, reactionType, reactionEffectiveness])}
                 {...UI.Rhythm().times(10).style.minWidth}
               >
-                Add
+                {t("app.add")}
               </button>
             </div>
           )}

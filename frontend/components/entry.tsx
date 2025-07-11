@@ -5,6 +5,7 @@ import type { SelectEmotionJournalEntries } from "../../infra/schema";
 import { RatingPills } from "./rating-pills";
 
 export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { startedAt: string }) {
+  const t = UI.useTranslations();
   const hover = UI.useHover();
   const fetcher = useFetcher();
   const submit = useSubmit();
@@ -67,7 +68,7 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
         data-bwb="1"
       >
         <div data-display="flex" data-gap="6">
-          <div data-color="gray-500">What happened?</div>
+          <div data-color="gray-500">{t("entry.situation.description.label")}</div>
 
           <div data-ml="auto" data-color="gray-700">
             @{props.situationLocation}
@@ -90,7 +91,7 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
       <section data-display="flex" data-direction="column" data-gap="12" data-py="24">
         <div data-display="flex" data-cross="center" data-gap="12">
           <div data-color="gray-500" data-mr="auto">
-            What was your reaction?
+            {t("entry.reaction.description.label")}
           </div>
 
           <div className="c-badge">{props.reactionType}</div>
