@@ -1,4 +1,5 @@
 import * as RR from "react-router";
+import { API } from "../api";
 import { RevalidateOnFocus } from "../components/revalidate-on-focus";
 import type { Route } from "./+types/root";
 
@@ -20,7 +21,18 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export async function loader() {
+  const response = await API("/translations");
+  const translations = await response.json();
+
+  return { translations };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = RR.useRouteLoaderData("root");
+
+  console.log(data.translations);
+
   return (
     <html lang="en">
       <head>
