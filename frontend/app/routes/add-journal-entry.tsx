@@ -83,7 +83,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
           data-bc="gray-200"
           data-bw="1"
           data-br="4"
-          style={{ background: "var(--surface-card)", ...UI.Rhythm().times(25).minHeight }}
+          style={{ ...UI.Colorful("surface-card").style.background, ...UI.Rhythm().times(25).minHeight }}
         >
           {step === "situation" && (
             <>

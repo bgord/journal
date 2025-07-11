@@ -40,7 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <RR.Meta />
         <RR.Links />
       </head>
-      <body style={{ background: "var(--surface-page)" }}>
+      <body {...UI.Colorful("surface-page").style.background}>
         <header
           data-my="48"
           data-fs="32"

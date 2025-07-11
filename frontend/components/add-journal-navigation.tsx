@@ -6,7 +6,7 @@ export type AddJournalNavigationStep = "situation" | "emotion" | "reaction";
 export function AddJournalNavigation(props: { step: AddJournalNavigationStep }) {
   const t = UI.useTranslations();
 
-  const style = { style: { color: "var(--brand-700)" } };
+  const style = UI.Colorful("brand-700").style.color;
 
   return (
     <div data-display="flex" data-cross="center" data-mx="auto" data-gap="6" data-ls="0.5" data-mb="12">

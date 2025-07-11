@@ -9,7 +9,7 @@ export function AddJournalNavigationProgress(props: { step: AddJournalNavigation
     <div
       data-my="6"
       data-interaction="grow"
-      style={{ background: "var(--brand-500)", width: progress, ...UI.Rhythm(8).times(1).height }}
+      style={{ width: progress, ...UI.Rhythm(8).times(1).height, ...UI.Colorful("brand-500").background }}
     />
   );
 }

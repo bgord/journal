@@ -19,8 +19,8 @@ export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { 
     <li
       {...hover.attach}
       {...exit.attach}
+      {...UI.Colorful("surface-card").style.background}
       data-testid="entry"
-      style={{ background: "var(--surface-card)" }}
       data-display="flex"
       data-pt="24"
       data-px="48"

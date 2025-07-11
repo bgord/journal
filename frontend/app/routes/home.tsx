@@ -48,7 +48,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       {loaderData.length === 0 && (
         <div data-display="flex" data-direction="column" data-cross="center">
           <img src={NotebookSvg} height="300px" alt={t("entry.list.empty.alt")} />
-          <div style={{ color: "var(--brand-600)" }}>{t("entry.list.empty")}</div>
+          <div {...UI.Colorful("brand-600").style.color}>{t("entry.list.empty")}</div>
         </div>
       )}
 
@@ -65,8 +65,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         viewTransition
         title={t("entry.add.title")}
         style={{
-          background: "var(--brand-200)",
-          color: "var(--brand-500)",
+          ...UI.Colorful("brand-200").background,
+          ...UI.Colorful("brand-500").color,
           ...UI.Rhythm(16).times(4).square,
         }}
       >
