@@ -14,7 +14,7 @@ describe("GET /translations", () => {
 
     expect(response.status).toBe(200);
     const json = await response.json();
-    expect(json).toEqual(await en.json());
+    expect(json).toEqual({ translations: await en.json(), language: "en" });
 
     jest.restoreAllMocks();
   });
@@ -28,7 +28,7 @@ describe("GET /translations", () => {
 
     expect(response.status).toBe(200);
     const json = await response.json();
-    expect(json).toEqual(await en.json());
+    expect(json).toEqual({ translations: await en.json(), language: "en" });
 
     jest.restoreAllMocks();
   });
@@ -42,7 +42,7 @@ describe("GET /translations", () => {
 
     expect(response.status).toBe(200);
     const json = await response.json();
-    expect(json).toEqual(await pl.json());
+    expect(json).toEqual({ translations: await pl.json(), language: "pl" });
 
     jest.restoreAllMocks();
   });
@@ -56,7 +56,7 @@ describe("GET /translations", () => {
 
     expect(response.status).toBe(200);
     const json = await response.json();
-    expect(json).toEqual(await en.json());
+    expect(json).toEqual({ translations: await en.json(), language: "en" });
 
     jest.restoreAllMocks();
   });

@@ -23,15 +23,15 @@ export const links: Route.LinksFunction = () => [
 
 export async function loader() {
   const response = await API("/translations");
-  const translations = await response.json();
+  const { translations, language } = await response.json();
 
-  return { translations };
+  return { translations, language };
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const data = RR.useRouteLoaderData("root");
 
-  console.log(data.translations);
+  console.log(data.translations, data.language);
 
   return (
     <html lang="en">
