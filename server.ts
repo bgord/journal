@@ -44,8 +44,7 @@ server.delete("/entry/:id/delete", Emotions.Routes.DeleteEntry);
 // =============================
 
 //Translations =================
-// TODO: Extract to @bgord/bun
-server.get("/translations", App.Routes.GetTranslations);
+server.get("/translations", ...bg.Translations.build());
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);
