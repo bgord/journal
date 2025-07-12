@@ -1,6 +1,57 @@
 # Changelog
+- 2025-07-12 18:11 3e8bf1b **refactor: use data-shadow**
+## 2025-07-12 18:11 
+- 2025-07-12 17:56 3d01aca **feature: add ai client env**
+- 2025-07-12 17:47 9dca44e **step: update packages**
+- 2025-07-12 17:45 cc2501d **step: update packages**
+- 2025-07-12 15:09 407447a **fix: entryId in schema**
+- 2025-07-12 14:41 e993b12 **refactor: use bg Translations.build to serve translations**
+- 2025-07-12 14:28 2d394aa **refactor: rename all files**
+- 2025-07-12 14:07 56f5de8 **refactor: rename repo**
+- 2025-07-12 14:06 500fcf4 **refactor: rename entries schema**
+- 2025-07-12 13:48 a757e87 **refactor: rename entryId in events**
+- 2025-07-12 13:46 a2dcedc **refactor: rename entry id vo**
+- 2025-07-12 13:44 15b07d3 **refactor: rename entry event**
+- 2025-07-12 13:42 4c35b61 **fix: rename onEntryDeletedEvent**
+- 2025-07-12 13:41 043ab76 **refactor: rename entry deleted event**
+- 2025-07-12 13:38 ef09c91 **fix: test types**
+- 2025-07-12 13:36 1a8c9b8 **refactor: rename entry aggregate**
+- 2025-07-12 13:01 b5d4b4e **fix: types**
+- 2025-07-11 18:32 cd8573c **refactor: render add journal navigation once**
+- 2025-07-11 18:24 4f0bcf4 **refactor: flatten log entry payload**
+- 2025-07-11 18:18 aebdd8d **refactor: use UI.Colorful**
+- 2025-07-11 18:06 1def8e8 **refactor: simplify components**
+- 2025-07-11 16:42 3a3e878 **step: add all translations**
+- 2025-07-11 16:38 35755a5 **refactor: plug-in the translations provider**
+- 2025-07-11 16:25 0dfe115 **refactor: return language from get translations**
+- 2025-07-11 16:20 882f08a **step: install local bgord-ui**
+- 2025-07-11 15:53 5756584 **step: add Layout.loader for translations**
+- 2025-07-11 15:45 f13df1d **feature: add get translations route**
+- 2025-07-11 15:32 f320e09 **step: setup translations**
+- 2025-07-11 09:47 0219b0e **step: adjust e2e tests**
+- 2025-07-11 09:46 bf0e3f4 **step: improve labels**
+- 2025-07-11 09:42 f236633 **feature: extract navigation progress**
+- 2025-07-11 00:00 60353b1 **fix: e2e tests**
+- 2025-07-10 23:49 a166fad **refactor: move test-server-start to bgord-scripts**
+- 2025-07-10 23:48 f35b1a4 **step: bump bgord/scripts**
+- 2025-07-10 23:47 2376992 **refactor: vite svg handling**
+- 2025-07-10 23:38 6e5f423 **step: improve add entry navigation**
+- 2025-07-10 23:27 1ebd7ba **step: add journal navigation**
+- 2025-07-10 23:11 47058e5 **step: optimise svg**
+- 2025-07-10 23:10 e46c5b4 **step: handle empty entries page**
+- 2025-07-10 22:57 d2ff7a4 **refactor: use use exit action from bgord/ui**
+- 2025-07-10 22:56 4be4cf8 **step: update bgord/ui**
+- 2025-07-10 22:20 c458e41 **refactor: improve state handling**
+- 2025-07-10 22:16 fde680d **refactor: rename onAnimationEnd**
+- 2025-07-10 22:16 dc407b6 **refactor: improve returned values**
+- 2025-07-10 22:15 3397ce4 **refactor: use object options**
+- 2025-07-10 22:14 0bba2cf **refactor: rename animation**
+- 2025-07-10 22:11 75c4303 **refactor: improve event naming**
+- 2025-07-10 22:05 b81e6cb **feature: exit action**
+- 2025-07-10 21:56 16ffd4b **refactor: bring entry delete back into entry**
+- 2025-07-10 19:30 df5a342 **docs: generate readme**
+- 2025-07-10 19:30 5cf6beb **docs: generate CHANGELOG**
 - 2025-07-09 16:37 97ef3f5 **feature: add delete entry form**
-## 2025-07-09 16:37 
 - 2025-07-09 16:10 a3d428c **step: setup delete entry button**
 - 2025-07-09 15:11 e9369a2 **refactor: extract entry**
 - 2025-07-09 15:05 4c9b1a6 **refactor: extract rotate-into-focus interaction**
