@@ -9,11 +9,11 @@ class EntryIsActionableError extends Error {
   }
 }
 
-type EntryIsActionableConfigType = { status: Emotions.VO.EmotionJournalEntryStatusEnum };
+type EntryIsActionableConfigType = { status: Emotions.VO.EntryStatusEnum };
 
 class EntryIsActionableFactory extends bg.Policy<EntryIsActionableConfigType> {
   fails(config: EntryIsActionableConfigType) {
-    return config.status !== Emotions.VO.EmotionJournalEntryStatusEnum.actionable;
+    return config.status !== Emotions.VO.EntryStatusEnum.actionable;
   }
 
   message = "entry.is.actionable";

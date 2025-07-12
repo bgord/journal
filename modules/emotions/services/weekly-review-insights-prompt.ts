@@ -6,7 +6,7 @@ type WeeklyReviewInsightsPromptType = [
 ];
 
 export class WeeklyReviewInsightsPrompt {
-  constructor(private readonly entries: Schema.SelectEmotionJournalEntries[]) {}
+  constructor(private readonly entries: Schema.SelectEntries[]) {}
 
   generate(): WeeklyReviewInsightsPromptType {
     const content = `Generate insights for these ${this.entries.length} journal entries.`;

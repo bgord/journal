@@ -40,7 +40,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.alarms);
     console.log("[x] Cleared alarms");
 
-    await db.delete(Schema.emotionJournalEntries);
+    await db.delete(Schema.entries);
     console.log("[x] Cleared emotion‐journal entries");
 
     for (const _counter of _.range(0, 10)) {

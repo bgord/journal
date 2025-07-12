@@ -1,14 +1,14 @@
 CREATE TABLE `alarms` (
 	`id` text(36) PRIMARY KEY NOT NULL,
 	`generatedAt` integer NOT NULL,
-	`emotionJournalEntryId` text(36),
+	`EntryId` text(36),
 	`status` text NOT NULL,
 	`name` text NOT NULL,
 	`advice` text,
-	FOREIGN KEY (`emotionJournalEntryId`) REFERENCES `emotionJournalEntries`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`EntryId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
-CREATE TABLE `emotionJournalEntries` (
+CREATE TABLE `entries` (
 	`id` text(36) PRIMARY KEY NOT NULL,
 	`startedAt` integer NOT NULL,
 	`finishedAt` integer,

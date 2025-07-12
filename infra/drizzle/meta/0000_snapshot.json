@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "32e93cd1-80b6-4638-a022-4c8faf5e374e",
+  "id": "4d74c13f-f3ca-4e0e-af95-059a6368174d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alarms": {
@@ -21,8 +21,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "emotionJournalEntryId": {
-          "name": "emotionJournalEntryId",
+        "EntryId": {
+          "name": "EntryId",
           "type": "text(36)",
           "primaryKey": false,
           "notNull": false,
@@ -52,11 +52,11 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "alarms_emotionJournalEntryId_emotionJournalEntries_id_fk": {
-          "name": "alarms_emotionJournalEntryId_emotionJournalEntries_id_fk",
+        "alarms_EntryId_entries_id_fk": {
+          "name": "alarms_EntryId_entries_id_fk",
           "tableFrom": "alarms",
-          "tableTo": "emotionJournalEntries",
-          "columnsFrom": ["emotionJournalEntryId"],
+          "tableTo": "entries",
+          "columnsFrom": ["EntryId"],
           "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -66,8 +66,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "emotionJournalEntries": {
-      "name": "emotionJournalEntries",
+    "entries": {
+      "name": "entries",
       "columns": {
         "id": {
           "name": "id",

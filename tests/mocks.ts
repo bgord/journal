@@ -327,7 +327,7 @@ export const GenericWeeklyReviewFailedEvent = {
   payload: { weekStartedAt, weeklyReviewId },
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
 
-export const partialEntry: Schema.SelectEmotionJournalEntries = {
+export const partialEntry: Schema.SelectEntries = {
   finishedAt: Date.now(),
   startedAt: Date.now(),
   status: Emotions.VO.AlarmStatusEnum.generated,
@@ -342,7 +342,7 @@ export const partialEntry: Schema.SelectEmotionJournalEntries = {
   reactionType: null,
 };
 
-export const fullEntry: Schema.SelectEmotionJournalEntries = {
+export const fullEntry: Schema.SelectEntries = {
   finishedAt: Date.now(),
   startedAt: Date.now(),
   status: Emotions.VO.AlarmStatusEnum.generated,
@@ -360,7 +360,7 @@ export const fullEntry: Schema.SelectEmotionJournalEntries = {
 export const alarm: Schema.SelectAlarms = {
   id: alarmId,
   generatedAt: Date.now(),
-  emotionJournalEntryId: entryId,
+  entryId,
   status: Emotions.VO.AlarmStatusEnum.notification_sent,
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
   advice: "You should do something",

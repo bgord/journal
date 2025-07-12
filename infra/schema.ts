@@ -3,7 +3,7 @@ import { sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
 import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status";
-import { EmotionJournalEntryStatusEnum } from "../modules/emotions/value-objects/emotion-journal-entry-status";
+import { EntryStatusEnum } from "../modules/emotions/value-objects/entry-status";
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
 import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
@@ -30,7 +30,7 @@ export const events = sqliteTable(
   (table) => [index("stream_idx").on(table.stream)],
 );
 
-export const emotionJournalEntries = sqliteTable("emotionJournalEntries", {
+export const entries = sqliteTable("entries", {
   id,
   startedAt: integer("startedAt").notNull(),
   finishedAt: integer("finishedAt"),
@@ -42,19 +42,17 @@ export const emotionJournalEntries = sqliteTable("emotionJournalEntries", {
   reactionDescription: text("reactionDescription"),
   reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
   reactionEffectiveness: integer("reactionEffectiveness"),
-  status: text("status", toEnumList(EmotionJournalEntryStatusEnum)).notNull(),
+  status: text("status", toEnumList(EntryStatusEnum)).notNull(),
 });
 
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
-  emotionJournalEntryId: text("emotionJournalEntryId", {
-    length: 36,
-  }).references(() => emotionJournalEntries.id),
+  entryId: text("EntryId", { length: 36 }).references(() => entries.id),
   status: text("status", toEnumList(AlarmStatusEnum)).notNull(),
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),
 });
 
-export type SelectEmotionJournalEntries = typeof emotionJournalEntries.$inferSelect;
+export type SelectEntries = typeof entries.$inferSelect;
 export type SelectAlarms = typeof alarms.$inferSelect;

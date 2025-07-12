@@ -16,7 +16,7 @@ export class AlarmRepository {
     await db.insert(Schema.alarms).values({
       id: event.payload.alarmId,
       name: event.payload.alarmName,
-      emotionJournalEntryId: event.payload.entryId,
+      entryId: event.payload.entryId,
       status: VO.AlarmStatusEnum.generated,
       generatedAt: event.createdAt,
     });
@@ -45,7 +45,7 @@ export class AlarmRepository {
       .from(Schema.alarms)
       .where(
         and(
-          eq(Schema.alarms.emotionJournalEntryId, entryId),
+          eq(Schema.alarms.entryId, entryId),
           notInArray(Schema.alarms.status, [
             VO.AlarmStatusEnum.cancelled,
             VO.AlarmStatusEnum.notification_sent,

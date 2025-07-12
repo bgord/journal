@@ -22,8 +22,7 @@ export class Entry {
   private situation?: Emotions.Entities.Situation;
   private emotion?: Emotions.Entities.Emotion;
   private reaction?: Emotions.Entities.Reaction;
-  private status: Emotions.VO.EmotionJournalEntryStatusEnum =
-    Emotions.VO.EmotionJournalEntryStatusEnum.actionable;
+  private status: Emotions.VO.EntryStatusEnum = Emotions.VO.EntryStatusEnum.actionable;
 
   private readonly pending: EntryEventType[] = [];
 
@@ -279,7 +278,7 @@ export class Entry {
       }
 
       case Emotions.Events.ENTRY_DELETED_EVENT: {
-        this.status = Emotions.VO.EmotionJournalEntryStatusEnum.deleted;
+        this.status = Emotions.VO.EntryStatusEnum.deleted;
 
         this.finishedAt = event.createdAt;
         this.situation = undefined;

@@ -8,7 +8,7 @@ export type EmotionalAdvicePromptType = [
 
 export class EmotionalAdvicePrompt {
   constructor(
-    private readonly entry: Schema.SelectEmotionJournalEntries,
+    private readonly entry: Schema.SelectEntries,
     private readonly alarmName: VO.AlarmNameOption,
   ) {}
 
