@@ -1,9 +1,9 @@
 import * as UI from "@bgord/ui";
 import PencilSvg from "../assets/pencil.svg";
 
-export type AddJournalNavigationStep = "situation" | "emotion" | "reaction";
+export type AddEntryNavigationStep = "situation" | "emotion" | "reaction";
 
-export function AddJournalNavigation(props: { step: AddJournalNavigationStep }) {
+export function AddEntryNavigation(props: { step: AddEntryNavigationStep }) {
   const t = UI.useTranslations();
 
   const style = UI.Colorful("brand-700").style.color;

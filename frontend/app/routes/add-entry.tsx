@@ -1,35 +1,31 @@
 import * as UI from "@bgord/ui";
 import React from "react";
 import { redirect, useFetcher } from "react-router";
-import type { types } from "../../../app/services/add-journal-entry-form";
-import { AddJournalEntryForm } from "../../../app/services/add-journal-entry-form";
+import type { types } from "../../../app/services/add-entry-form";
+import { AddEntryForm } from "../../../app/services/add-entry-form";
 import { API } from "../../api";
 import * as Components from "../../components";
 import { Select } from "../../components/select";
-import type { Route } from "./+types/add-journal-entry";
+import type { Route } from "./+types/add-entry";
 
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
 }
 
 export async function loader() {
-  return AddJournalEntryForm.get();
+  return AddEntryForm.get();
 }
 
 export async function action({ request }: Route.ActionArgs) {
-  await API("/emotions/log-entry", {
-    method: "POST",
-    body: JSON.stringify(await request.json()),
-  });
-
+  await API("/entry/log", { method: "POST", body: JSON.stringify(await request.json()) });
   return redirect("/");
 }
 
-export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
+export default function AddEntry({ loaderData }: Route.ComponentProps) {
   const fetcher = useFetcher();
   const t = UI.useTranslations();
 
-  const [step, setStep] = React.useState<Components.AddJournalNavigationStep>("situation");
+  const [step, setStep] = React.useState<Components.AddEntryNavigationStep>("situation");
 
   const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situation-description" });
   const situationLocation = UI.useField<types.SituationLocationType>({ name: "situation-location" });
@@ -60,7 +56,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
   return (
     <main data-pb="36">
       <div data-display="flex" data-direction="column" data-max-width="768" data-mx="auto" data-mt="48">
-        <Components.AddJournalNavigationProgress step={step} />
+        <Components.AddEntryNavigationProgress step={step} />
 
         <fetcher.Form
           method="POST"
@@ -68,7 +64,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
             event.preventDefault();
 
             fetcher.submit(payload, {
-              action: "/add-journal-entry",
+              action: "/add-entry",
               method: "post",
               encType: "application/json",
             });
@@ -85,7 +81,7 @@ export default function AddJournalEntry({ loaderData }: Route.ComponentProps) {
           data-br="4"
           style={{ ...UI.Colorful("surface-card").style.background, ...UI.Rhythm().times(25).minHeight }}
         >
-          <Components.AddJournalNavigation step={step} />
+          <Components.AddEntryNavigation step={step} />
           {step === "situation" && (
             <div data-display="flex" data-direction="column" data-gap="12">
               <div data-display="flex" data-direction="column">

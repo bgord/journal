@@ -10,18 +10,15 @@ import type { Route } from "./+types/home";
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
 }
+
 export async function action({ request }: Route.ActionArgs) {
   const form = await request.formData();
-
-  const id = form.get("id");
-
-  await API(`/emotions/${id}/delete`, { method: "DELETE" });
-
+  await API(`/entry/${form.get("id")}/delete`, { method: "DELETE" });
   return { ok: true };
 }
 
 export async function loader() {
-  const response = await API("/emotions/entries");
+  const response = await API("/entry/list");
   const entries = (await response.json()) as SelectEntries[];
 
   return entries.map((entry) => ({ ...entry, startedAt: new Date(entry.startedAt).toLocaleString() }));
@@ -53,7 +50,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       )}
 
       <Link
-        to="/add-journal-entry"
+        to="/add-entry"
         type="button"
         className="c-button"
         data-variant="with-icon"

@@ -24,7 +24,7 @@ export class EmotionalAdvicePrompt {
       reactionEffectiveness,
     } = this.entry;
 
-    let content = `Here is a summary of a journal entry from my AI journal app, it triggered an ${this.alarmName} alarm. `;
+    let content = `Here is a summary of an entry from my AI journal app, it triggered an ${this.alarmName} alarm. `;
 
     content += `Situation (${situationKind}): ${situationDescription}, at ${situationLocation}. `;
     content += `Emotion: ${emotionLabel}, intensity ${emotionIntensity}/5. `;

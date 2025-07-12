@@ -5,7 +5,7 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = "/emotions/log-entry";
+const url = "/entry/log";
 
 const situation = {
   situationDescription: mocks.GenericSituationLoggedEvent.payload.description,
@@ -24,7 +24,7 @@ const reaction = {
   reactionEffectiveness: mocks.GenericReactionLoggedEvent.payload.effectiveness,
 };
 
-describe("POST /emotions/log-entry", () => {
+describe("POST /entry/log", () => {
   test("situation - validation - empty payload", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 

@@ -1,27 +1,27 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
-class JournalEntriesForWeekExistError extends Error {
+class EntriesForWeekExistError extends Error {
   constructor() {
     super();
-    Object.setPrototypeOf(this, JournalEntriesForWeekExistError.prototype);
+    Object.setPrototypeOf(this, EntriesForWeekExistError.prototype);
   }
 }
 
-type JournalEntriesForWeekExistConfigType = {
+type EntriesForWeekExistConfigType = {
   count: number;
 };
 
-class JournalEntriesForWeekExistFactory extends bg.Policy<JournalEntriesForWeekExistConfigType> {
-  fails(config: JournalEntriesForWeekExistConfigType) {
+class EntriesForWeekExistFactory extends bg.Policy<EntriesForWeekExistConfigType> {
+  fails(config: EntriesForWeekExistConfigType) {
     return config.count === 0;
   }
 
   message = "entries.for.week.exist";
 
-  error = JournalEntriesForWeekExistError;
+  error = EntriesForWeekExistError;
 
   code = 403 as ContentfulStatusCode;
 }
 
-export const JournalEntriesForWeekExist = new JournalEntriesForWeekExistFactory();
+export const EntriesForWeekExist = new EntriesForWeekExistFactory();

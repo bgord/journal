@@ -10,7 +10,7 @@ import { SituationLocation } from "../../modules/emotions/value-objects/situatio
 export type * as types from "../../modules/emotions/value-objects";
 
 /** @public */
-export class AddJournalEntryForm {
+export class AddEntryForm {
   static get() {
     return {
       situationDescription: {

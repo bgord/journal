@@ -9,7 +9,7 @@ const positiveMaladaptiveEntry = Emotions.Aggregates.Entry.build(mocks.entryId, 
   mocks.MaladaptiveReactionLoggedEvent,
 ]);
 
-const maladaptiveJournalEntry = Emotions.Aggregates.Entry.build(mocks.entryId, [
+const maladaptiveEntry = Emotions.Aggregates.Entry.build(mocks.entryId, [
   mocks.GenericSituationLoggedEvent,
   mocks.GenericEmotionLoggedEvent,
   mocks.MaladaptiveReactionLoggedEvent,
@@ -20,9 +20,9 @@ describe("PatternDetector", () => {
     bg.CorrelationStorage.run(mocks.correlationId, () => {
       const result = Emotions.Services.PatternDetector.detect({
         entries: [
-          maladaptiveJournalEntry,
-          maladaptiveJournalEntry,
-          maladaptiveJournalEntry,
+          maladaptiveEntry,
+          maladaptiveEntry,
+          maladaptiveEntry,
           positiveMaladaptiveEntry,
           positiveMaladaptiveEntry,
           positiveMaladaptiveEntry,

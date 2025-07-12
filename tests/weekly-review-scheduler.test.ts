@@ -20,7 +20,7 @@ describe("WeeklyReviewScheduler", () => {
     jest.restoreAllMocks();
   });
 
-  test("JournalEntriesForWeekExist", async () => {
+  test("EntriesForWeekExist", async () => {
     spyOn(Emotions.Repos.EntryRepository, "countInWeek").mockResolvedValue(0);
     spyOn(Date, "now").mockReturnValue(mocks.weekStartedAt);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);

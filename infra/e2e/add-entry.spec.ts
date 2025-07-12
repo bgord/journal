@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-test("Add journal entry - happy path", async ({ page }) => {
-  await page.goto("/add-journal-entry");
+test("Add entry - happy path", async ({ page }) => {
+  await page.goto("/add-entry");
 
   // Step 1: Situation
   const situationHeader = page.getByText("Situation");

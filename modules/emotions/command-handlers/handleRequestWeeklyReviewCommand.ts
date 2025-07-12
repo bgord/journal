@@ -12,7 +12,7 @@ export const handleRequestWeeklyReviewCommand = async (
   const weeklyReviewId = bg.NewUUID.generate();
   const weeklyReview = Emotions.Aggregates.WeeklyReview.create(weeklyReviewId);
 
-  if (Emotions.Policies.JournalEntriesForWeekExist.fails({ count: entriesFromTheWeekCount })) {
+  if (Emotions.Policies.EntriesForWeekExist.fails({ count: entriesFromTheWeekCount })) {
     return EventStore.save([
       Emotions.Events.WeeklyReviewSkippedEvent.parse({
         id: bg.NewUUID.generate(),

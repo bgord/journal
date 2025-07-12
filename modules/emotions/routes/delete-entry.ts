@@ -5,11 +5,11 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
 
-export async function DeleteJournalEntry(c: hono.Context, _next: hono.Next) {
+export async function DeleteEntry(c: hono.Context, _next: hono.Next) {
   const entryId = Emotions.VO.EntryId.parse(c.req.param("id"));
 
   logger.info({
-    message: "Delete journal entry payload",
+    message: "Delete entry payload",
     operation: "read",
     metadata: { entryId },
   });

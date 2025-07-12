@@ -13,7 +13,7 @@ describe("WeeklyReviewInsightsPrompt", () => {
       },
       {
         role: "user",
-        content: "Generate insights for these 1 journal entries.",
+        content: "Generate insights for these 1 entries.",
       },
     ]);
   });

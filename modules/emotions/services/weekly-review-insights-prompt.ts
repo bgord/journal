@@ -9,7 +9,7 @@ export class WeeklyReviewInsightsPrompt {
   constructor(private readonly entries: Schema.SelectEntries[]) {}
 
   generate(): WeeklyReviewInsightsPromptType {
-    const content = `Generate insights for these ${this.entries.length} journal entries.`;
+    const content = `Generate insights for these ${this.entries.length} entries.`;
 
     return [
       {

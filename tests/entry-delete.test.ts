@@ -4,11 +4,11 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = `/emotions/${mocks.entryId}/delete`;
+const url = `/entry/${mocks.entryId}/delete`;
 
-describe("DELETE /emotions/:id/delete", () => {
+describe("DELETE /entry/:id/delete", () => {
   test("validation - incorrect id", async () => {
-    const response = await server.request("/emotions/id/delete", { method: "DELETE" }, mocks.ip);
+    const response = await server.request("/entry/id/delete", { method: "DELETE" }, mocks.ip);
 
     const json = await response.json();
 

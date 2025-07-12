@@ -4,9 +4,9 @@ import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = `/emotions/${mocks.entryId}/evaluate-reaction`;
+const url = `/entry/${mocks.entryId}/reappraise-emotion`;
 
-describe("POST /emotions/:id/evaluate-reaction", () => {
+describe("POST /entry/:id/reappraise-emotion", () => {
   test("validation - empty payload", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
@@ -14,18 +14,18 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({
-      message: Emotions.VO.ReactionDescription.Errors.invalid,
+      message: Emotions.VO.EmotionLabel.Errors.invalid,
       _known: true,
     });
   });
 
-  test("validation - missing type", async () => {
+  test("validation - missing intensity", async () => {
     const response = await server.request(
       url,
       {
         method: "POST",
         body: JSON.stringify({
-          description: "I got drunk",
+          label: Emotions.VO.GenevaWheelEmotion.admiration,
         }),
       },
       mocks.ip,
@@ -35,35 +35,19 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({
-      message: Emotions.VO.ReactionType.Errors.invalid,
-      _known: true,
-    });
-  });
-
-  test("validation - missing effectiveness", async () => {
-    const response = await server.request(
-      url,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          description: "I got drunk",
-          type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
-        }),
-      },
-      mocks.ip,
-    );
-
-    const json = await response.json();
-
-    expect(response.status).toBe(400);
-    expect(json).toEqual({
-      message: Emotions.VO.ReactionEffectiveness.Errors.min_max,
+      message: Emotions.VO.EmotionIntensity.Errors.min_max,
       _known: true,
     });
   });
 
   test("validation - incorrect id", async () => {
-    const response = await server.request("/emotions/id/evaluate-reaction", { method: "POST" }, mocks.ip);
+    const response = await server.request(
+      "/entry/id/reappraise-emotion",
+      {
+        method: "POST",
+      },
+      mocks.ip,
+    );
 
     const json = await response.json();
 
@@ -77,23 +61,19 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
     const history = [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
-      mocks.GenericReactionLoggedEvent,
       mocks.GenericEntryDeletedEvent,
     ];
 
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
-    const payload = {
-      description: "I got drunk",
-      type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
-      effectiveness: 1,
-    };
-
     const response = await server.request(
       url,
       {
         method: "POST",
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          label: Emotions.VO.GenevaWheelEmotion.admiration,
+          intensity: 4,
+        }),
       },
       mocks.ip,
     );
@@ -112,31 +92,28 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
   });
 
-  test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
+  test("validation - EmotionCorrespondsToSituation", async () => {
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
-
-    const payload = {
-      description: "I got drunk",
-      type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
-      effectiveness: 1,
-    };
 
     const response = await server.request(
       url,
       {
         method: "POST",
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          label: Emotions.VO.GenevaWheelEmotion.admiration,
+          intensity: 4,
+        }),
       },
       mocks.ip,
     );
 
     const json = await response.json();
 
-    expect(response.status).toBe(Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.code);
+    expect(response.status).toBe(Emotions.Policies.EmotionCorrespondsToSituation.code);
     expect(json).toEqual({
-      message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
+      message: Emotions.Policies.EmotionCorrespondsToSituation.message,
       _known: true,
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
@@ -146,69 +123,30 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
   });
 
-  test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
+  test("validation - EmotionForReappraisalExists", async () => {
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [mocks.GenericSituationLoggedEvent];
 
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
-    const payload = {
-      description: "I got drunk",
-      type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
-      effectiveness: 1,
-    };
-
     const response = await server.request(
       url,
       {
         method: "POST",
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          label: Emotions.VO.GenevaWheelEmotion.admiration,
+          intensity: 4,
+        }),
       },
       mocks.ip,
     );
 
     const json = await response.json();
 
-    expect(response.status).toBe(Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.code);
+    expect(response.status).toBe(Emotions.Policies.EmotionForReappraisalExists.code);
     expect(json).toEqual({
-      message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
-      _known: true,
-    });
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-  });
-
-  test("validation - ReactionForEvaluationExists", async () => {
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
-    const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
-
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
-
-    const payload = {
-      description: "I got drunk",
-      type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
-      effectiveness: 1,
-    };
-
-    const response = await server.request(
-      url,
-      {
-        method: "POST",
-        body: JSON.stringify(payload),
-      },
-      mocks.ip,
-    );
-
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.ReactionForEvaluationExists.code);
-    expect(json).toEqual({
-      message: Emotions.Policies.ReactionForEvaluationExists.message,
+      message: Emotions.Policies.EmotionForReappraisalExists.message,
       _known: true,
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
@@ -222,26 +160,20 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
-    const entryEvaluateReaction = spyOn(Emotions.Aggregates.Entry.prototype, "evaluateReaction");
+    const entryReappraiseEmotion = spyOn(Emotions.Aggregates.Entry.prototype, "reappraiseEmotion");
 
-    const history = [
-      mocks.GenericSituationLoggedEvent,
-      mocks.GenericEmotionLoggedEvent,
-      mocks.GenericReactionLoggedEvent,
-    ];
+    const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
 
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
-      description: mocks.GenericReactionEvaluatedEvent.payload.description,
-      type: mocks.GenericReactionEvaluatedEvent.payload.type,
-      effectiveness: mocks.GenericReactionEvaluatedEvent.payload.effectiveness,
+      label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,
+      intensity: mocks.GenericEmotionReappraisedEvent.payload.newIntensity,
     };
 
-    const reaction = new Emotions.Entities.Reaction(
-      new Emotions.VO.ReactionDescription(payload.description),
-      new Emotions.VO.ReactionType(payload.type),
-      new Emotions.VO.ReactionEffectiveness(payload.effectiveness),
+    const emotion = new Emotions.Entities.Emotion(
+      new Emotions.VO.EmotionLabel(payload.label),
+      new Emotions.VO.EmotionIntensity(payload.intensity),
     );
 
     const response = await server.request(
@@ -260,9 +192,10 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryEvaluateReaction).toHaveBeenCalledWith(reaction);
+    expect(entryReappraiseEmotion).toHaveBeenCalledWith(emotion);
 
-    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericReactionEvaluatedEvent]);
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionReappraisedEvent]);
+
     jest.restoreAllMocks();
   });
 });

@@ -36,11 +36,11 @@ server.get(
 // =============================
 
 // Emotions ====================
-server.delete("/emotions/:id/delete", Emotions.Routes.DeleteJournalEntry);
-server.post("/emotions/:id/evaluate-reaction", Emotions.Routes.EvaluateReaction);
-server.post("/emotions/log-entry", Emotions.Routes.LogEntry);
-server.post("/emotions/:id/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
-server.get("/emotions/entries", Emotions.Routes.ListEntries);
+server.get("/entry/list", Emotions.Routes.ListEntries);
+server.post("/entry/log", Emotions.Routes.LogEntry);
+server.post("/entry/:id/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
+server.post("/entry/:id/evaluate-reaction", Emotions.Routes.EvaluateReaction);
+server.delete("/entry/:id/delete", Emotions.Routes.DeleteEntry);
 // =============================
 
 //Translations =================

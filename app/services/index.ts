@@ -1,1 +1,1 @@
-export * from "./add-journal-entry-form";
+export * from "./add-entry-form";

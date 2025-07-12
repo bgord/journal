@@ -35,7 +35,7 @@
   text-decoration: none;
 }
 
-/* View transition Home -> Add journal entry */
+/* View transition Home -> Add entry */
 
 .entries-list {
   view-transition-name: entries;

@@ -292,6 +292,6 @@ export class Entry {
   }
 
   static getStream(id: Emotions.VO.EntryIdType) {
-    return `emotion_journal_entry_${id}`;
+    return `entry_${id}`;
   }
 }
