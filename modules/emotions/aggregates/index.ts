@@ -1,3 +1,3 @@
 export * from "./alarm";
-export * from "./emotion-journal-entry";
+export * from "./entry";
 export * from "./weekly-review";

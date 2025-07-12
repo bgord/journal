@@ -1,4 +1,4 @@
-import type { AlarmEvent, JournalEntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
+import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
@@ -7,7 +7,7 @@ import * as bg from "@bgord/bun";
 import { and, asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod/v4";
 
-export type AcceptedEvent = JournalEntryEvent | PatternDetectionEvent | AlarmEvent | WeeklyReviewEvent;
+export type AcceptedEvent = EntryEvent | PatternDetectionEvent | AlarmEvent | WeeklyReviewEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {

@@ -3,8 +3,8 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
-export type JournalEntryEvent = (typeof Entry)["events"][number];
-type JournalEntryEventType = z.infer<JournalEntryEvent>;
+export type EntryEvent = (typeof Entry)["events"][number];
+type EntryEventType = z.infer<EntryEvent>;
 
 export class Entry {
   static events = [
@@ -25,7 +25,7 @@ export class Entry {
   private status: Emotions.VO.EmotionJournalEntryStatusEnum =
     Emotions.VO.EmotionJournalEntryStatusEnum.actionable;
 
-  private readonly pending: JournalEntryEventType[] = [];
+  private readonly pending: EntryEventType[] = [];
 
   private constructor(id: Emotions.VO.EmotionJournalEntryIdType) {
     this.id = id;
@@ -35,7 +35,7 @@ export class Entry {
     return new Entry(id);
   }
 
-  static build(id: Emotions.VO.EmotionJournalEntryIdType, events: JournalEntryEventType[]): Entry {
+  static build(id: Emotions.VO.EmotionJournalEntryIdType, events: EntryEventType[]): Entry {
     const entry = new Entry(id);
 
     events.forEach((event) => entry.apply(event));
@@ -216,7 +216,7 @@ export class Entry {
     };
   }
 
-  pullEvents(): JournalEntryEventType[] {
+  pullEvents(): EntryEventType[] {
     const events = [...this.pending];
 
     this.pending.length = 0;
@@ -224,12 +224,12 @@ export class Entry {
     return events;
   }
 
-  private record(event: JournalEntryEventType): void {
+  private record(event: EntryEventType): void {
     this.apply(event);
     this.pending.push(event);
   }
 
-  private apply(event: JournalEntryEventType): void {
+  private apply(event: EntryEventType): void {
     switch (event.name) {
       case Emotions.Events.SITUATION_LOGGED_EVENT: {
         this.startedAt = event.createdAt;
