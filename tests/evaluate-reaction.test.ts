@@ -115,9 +115,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
     const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
-    const history = [];
-
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
 
     const payload = {
       description: "I got drunk",
@@ -145,7 +143,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, []);
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {

@@ -21,9 +21,7 @@ describe("DELETE /emotions/:id/delete", () => {
 
     const emotionJournalEntryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
 
-    const history = [];
-
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
 
     const response = await server.request(url, { method: "DELETE" }, mocks.ip);
 
@@ -38,7 +36,7 @@ describe("DELETE /emotions/:id/delete", () => {
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, []);
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
   });
 

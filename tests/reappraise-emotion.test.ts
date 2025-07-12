@@ -95,9 +95,7 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
   test("validation - EmotionCorrespondsToSituation", async () => {
     const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
-    const history = [];
-
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
 
     const response = await server.request(
       url,
@@ -122,7 +120,7 @@ describe("POST /emotions/:id/reappraise-emotion", () => {
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
-    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
+    expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, []);
   });
 
   test("validation - EmotionForReappraisalExists", async () => {
