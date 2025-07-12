@@ -328,6 +328,7 @@ export const GenericWeeklyReviewFailedEvent = {
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
 
 export const partialEntry: Schema.SelectEntries = {
+  revision: 0,
   finishedAt: Date.now(),
   startedAt: Date.now(),
   status: Emotions.VO.AlarmStatusEnum.generated,
@@ -343,6 +344,7 @@ export const partialEntry: Schema.SelectEntries = {
 };
 
 export const fullEntry: Schema.SelectEntries = {
+  revision: 0,
   finishedAt: Date.now(),
   startedAt: Date.now(),
   status: Emotions.VO.AlarmStatusEnum.generated,

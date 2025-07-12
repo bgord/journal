@@ -32,6 +32,7 @@ export const events = sqliteTable(
 
 export const entries = sqliteTable("entries", {
   id,
+  revision: integer("revision").notNull().default(0),
   startedAt: integer("startedAt").notNull(),
   finishedAt: integer("finishedAt"),
   situationDescription: text("situationDescription"),
