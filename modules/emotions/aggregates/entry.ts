@@ -16,7 +16,7 @@ export class Entry {
     Emotions.Events.EntryDeletedEvent,
   ];
 
-  private readonly id: Emotions.VO.EmotionJournalEntryIdType;
+  private readonly id: Emotions.VO.EntryIdType;
   private startedAt?: Emotions.VO.EmotionJournalEntryStartedAtType;
   private finishedAt?: Emotions.VO.EmotionJournalEntryFinishedAtType;
   private situation?: Emotions.Entities.Situation;
@@ -27,15 +27,15 @@ export class Entry {
 
   private readonly pending: EntryEventType[] = [];
 
-  private constructor(id: Emotions.VO.EmotionJournalEntryIdType) {
+  private constructor(id: Emotions.VO.EntryIdType) {
     this.id = id;
   }
 
-  static create(id: Emotions.VO.EmotionJournalEntryIdType): Entry {
+  static create(id: Emotions.VO.EntryIdType): Entry {
     return new Entry(id);
   }
 
-  static build(id: Emotions.VO.EmotionJournalEntryIdType, events: EntryEventType[]): Entry {
+  static build(id: Emotions.VO.EntryIdType, events: EntryEventType[]): Entry {
     const entry = new Entry(id);
 
     events.forEach((event) => entry.apply(event));
@@ -292,7 +292,7 @@ export class Entry {
     }
   }
 
-  static getStream(id: Emotions.VO.EmotionJournalEntryIdType) {
+  static getStream(id: Emotions.VO.EntryIdType) {
     return `emotion_journal_entry_${id}`;
   }
 }

@@ -7,7 +7,7 @@ import hono from "hono";
 export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
 
-  const emotionJournalEntryId = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
+  const emotionJournalEntryId = Emotions.VO.EntryId.parse(c.req.param("id"));
 
   const newEmotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(body.label),

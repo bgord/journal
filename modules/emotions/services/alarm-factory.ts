@@ -6,7 +6,7 @@ import { EventStore } from "+infra/event-store";
 import * as bg from "@bgord/bun";
 
 export class AlarmFactory {
-  static async create(alarmName: VO.AlarmNameType, emotionJournalEntryId: VO.EmotionJournalEntryIdType) {
+  static async create(alarmName: VO.AlarmNameType, emotionJournalEntryId: VO.EntryIdType) {
     const count = await Repos.AlarmRepository.getCreatedTodayCount();
 
     await Policies.DailyAlarmLimit.perform({ count });

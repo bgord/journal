@@ -12,7 +12,7 @@ export const SendAlarmNotificationCommand = z.object({
   name: z.literal(SEND_ALARM_NOTIFICATION_COMMAND),
   payload: z.object({
     alarmId: VO.AlarmId,
-    emotionJournalEntryId: VO.EmotionJournalEntryId,
+    emotionJournalEntryId: VO.EntryId,
   }),
 });
 

@@ -13,7 +13,7 @@ export const ReactionEvaluatedEvent = z.object({
   name: z.literal(REACTION_EVALUATED_EVENT),
   version: z.literal(1),
   payload: z.object({
-    emotionJournalEntryId: VO.EmotionJournalEntryId,
+    emotionJournalEntryId: VO.EntryId,
     type: VO.ReactionTypeSchema,
     effectiveness: VO.ReactionEffectivenessSchema,
     description: VO.ReactionDescriptionSchema,

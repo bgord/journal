@@ -7,7 +7,7 @@ import hono from "hono";
 export async function EvaluateReaction(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
 
-  const emotionJournalEntryId = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
+  const emotionJournalEntryId = Emotions.VO.EntryId.parse(c.req.param("id"));
 
   const newReaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(body.description),

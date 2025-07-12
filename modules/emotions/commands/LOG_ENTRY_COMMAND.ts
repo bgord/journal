@@ -12,7 +12,7 @@ export const LogEntryCommand = z.object({
   createdAt: tools.Timestamp,
   name: z.literal(LOG_ENTRY_COMMAND),
   payload: z.object({
-    emotionJournalEntryId: VO.EmotionJournalEntryId,
+    emotionJournalEntryId: VO.EntryId,
     situation: z.instanceof(Entities.Situation),
     emotion: z.instanceof(Entities.Emotion),
     reaction: z.instanceof(Entities.Reaction),

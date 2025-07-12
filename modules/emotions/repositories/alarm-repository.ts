@@ -39,7 +39,7 @@ export class AlarmRepository {
       .where(eq(Schema.alarms.id, event.payload.alarmId));
   }
 
-  static async findCancellableByEntryId(emotionJournalEntryId: VO.EmotionJournalEntryIdType) {
+  static async findCancellableByEntryId(emotionJournalEntryId: VO.EntryIdType) {
     return db
       .select({ id: Schema.alarms.id })
       .from(Schema.alarms)

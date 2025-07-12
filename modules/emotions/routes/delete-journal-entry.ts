@@ -6,7 +6,7 @@ import * as tools from "@bgord/tools";
 import hono from "hono";
 
 export async function DeleteJournalEntry(c: hono.Context, _next: hono.Next) {
-  const emotionJournalEntryId = Emotions.VO.EmotionJournalEntryId.parse(c.req.param("id"));
+  const emotionJournalEntryId = Emotions.VO.EntryId.parse(c.req.param("id"));
 
   logger.info({
     message: "Delete journal entry payload",

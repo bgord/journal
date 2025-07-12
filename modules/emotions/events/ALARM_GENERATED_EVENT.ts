@@ -15,7 +15,7 @@ export const AlarmGeneratedEvent = z.object({
   payload: z.object({
     alarmId: VO.AlarmId,
     alarmName: VO.AlarmName,
-    emotionJournalEntryId: VO.EmotionJournalEntryId,
+    emotionJournalEntryId: VO.EntryId,
   }),
 });
 

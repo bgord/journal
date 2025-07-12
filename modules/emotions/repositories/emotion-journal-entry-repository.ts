@@ -6,7 +6,7 @@ import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 
 export class EmotionJournalEntryRepository {
-  static async getById(id: VO.EmotionJournalEntryIdType): Promise<Schema.SelectEmotionJournalEntries> {
+  static async getById(id: VO.EntryIdType): Promise<Schema.SelectEmotionJournalEntries> {
     const result = await db
       .select()
       .from(Schema.emotionJournalEntries)

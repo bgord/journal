@@ -14,7 +14,7 @@ export const AlarmNotificationSentEvent = z.object({
   version: z.literal(1),
   payload: z.object({
     alarmId: VO.AlarmId,
-    emotionJournalEntryId: VO.EmotionJournalEntryId,
+    emotionJournalEntryId: VO.EntryId,
   }),
 });
 
