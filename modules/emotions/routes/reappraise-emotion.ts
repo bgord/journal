@@ -7,7 +7,7 @@ import hono from "hono";
 export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
 
-  const emotionJournalEntryId = Emotions.VO.EntryId.parse(c.req.param("id"));
+  const entryId = Emotions.VO.EntryId.parse(c.req.param("id"));
 
   const newEmotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(body.label),
@@ -19,7 +19,7 @@ export async function ReappraiseEmotion(c: hono.Context, _next: hono.Next) {
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.REAPPRAISE_EMOTION_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
-    payload: { emotionJournalEntryId, newEmotion },
+    payload: { entryId, newEmotion },
   } satisfies Emotions.Commands.ReappraiseEmotionCommandType);
 
   await CommandBus.emit(command.name, command);

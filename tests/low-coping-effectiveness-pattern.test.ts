@@ -3,7 +3,7 @@ import * as bg from "@bgord/bun";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const maladaptiveJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
+const maladaptiveJournalEntry = Emotions.Aggregates.Entry.build(mocks.entryId, [
   mocks.GenericSituationLoggedEvent,
   mocks.GenericEmotionLoggedEvent,
   mocks.MaladaptiveReactionLoggedEvent,

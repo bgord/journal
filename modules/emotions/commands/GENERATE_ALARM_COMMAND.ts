@@ -12,7 +12,7 @@ export const GenerateAlarmCommand = z.object({
   name: z.literal(GENERATE_ALARM_COMMAND),
   payload: z.object({
     alarmName: VO.AlarmName,
-    emotionJournalEntryId: VO.EntryId,
+    entryId: VO.EntryId,
   }),
 });
 

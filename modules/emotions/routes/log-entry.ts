@@ -7,7 +7,7 @@ import hono from "hono";
 export async function LogEntry(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
 
-  const emotionJournalEntryId = bg.NewUUID.generate();
+  const entryId = bg.NewUUID.generate();
 
   const situation = new Emotions.Entities.Situation(
     new Emotions.VO.SituationDescription(body.situationDescription),
@@ -31,7 +31,7 @@ export async function LogEntry(c: hono.Context, _next: hono.Next) {
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
-    payload: { emotionJournalEntryId, situation, emotion, reaction },
+    payload: { entryId, situation, emotion, reaction },
   } satisfies Emotions.Commands.LogEntryCommandType);
 
   await CommandBus.emit(command.name, command);

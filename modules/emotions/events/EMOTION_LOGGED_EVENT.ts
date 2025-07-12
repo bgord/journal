@@ -13,7 +13,7 @@ export const EmotionLoggedEvent = z.object({
   name: z.literal(EMOTION_LOGGED_EVENT),
   version: z.literal(1),
   payload: z.object({
-    emotionJournalEntryId: VO.EntryId,
+    entryId: VO.EntryId,
     label: VO.EmotionLabelSchema,
     intensity: VO.EmotionIntensitySchema,
   }),

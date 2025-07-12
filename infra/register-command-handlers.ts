@@ -3,10 +3,7 @@ import * as Commands from "+emotions/commands";
 import { CommandBus } from "+infra/command-bus";
 
 CommandBus.on(Commands.CANCEL_ALARM_COMMAND, CommandHandlers.handleCancelAlarmCommand);
-CommandBus.on(
-  Commands.DELETE_EMOTION_JOURNAL_ENTRY_COMMAND,
-  CommandHandlers.handleDeleteEmotionJournalEntryCommand,
-);
+CommandBus.on(Commands.DELETE_ENTRY_COMMAND, CommandHandlers.handleDeleteEntryCommand);
 CommandBus.on(Commands.EVALUATE_REACTION_COMMAND, CommandHandlers.handleEvaluateReactionCommand);
 CommandBus.on(Commands.GENERATE_ALARM_COMMAND, CommandHandlers.handleGenerateAlarmCommand);
 CommandBus.on(Commands.LOG_ENTRY_COMMAND, CommandHandlers.handleLogEntryCommand);

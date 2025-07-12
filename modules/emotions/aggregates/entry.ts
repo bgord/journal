@@ -54,7 +54,7 @@ export class Entry {
       stream: Entry.getStream(this.id),
       version: 1,
       payload: {
-        emotionJournalEntryId: this.id,
+        entryId: this.id,
         description: situation.description.get(),
         location: situation.location.get(),
         kind: situation.kind.get(),
@@ -85,7 +85,7 @@ export class Entry {
       stream: Entry.getStream(this.id),
       version: 1,
       payload: {
-        emotionJournalEntryId: this.id,
+        entryId: this.id,
         label: emotion.label.get(),
         intensity: emotion.intensity.get(),
       },
@@ -116,7 +116,7 @@ export class Entry {
       stream: Entry.getStream(this.id),
       version: 1,
       payload: {
-        emotionJournalEntryId: this.id,
+        entryId: this.id,
         description: reaction.description.get(),
         type: reaction.type.get(),
         effectiveness: reaction.effectiveness.get(),
@@ -147,7 +147,7 @@ export class Entry {
       stream: Entry.getStream(this.id),
       version: 1,
       payload: {
-        emotionJournalEntryId: this.id,
+        entryId: this.id,
         newLabel: newEmotion.label.get(),
         newIntensity: newEmotion.intensity.get(),
       },
@@ -178,7 +178,7 @@ export class Entry {
       stream: Entry.getStream(this.id),
       version: 1,
       payload: {
-        emotionJournalEntryId: this.id,
+        entryId: this.id,
         description: newReaction.description.get(),
         type: newReaction.type.get(),
         effectiveness: newReaction.effectiveness.get(),

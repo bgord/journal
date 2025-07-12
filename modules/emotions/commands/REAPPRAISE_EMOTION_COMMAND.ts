@@ -12,7 +12,7 @@ export const ReappraiseEmotionCommand = z.object({
   createdAt: tools.Timestamp,
   name: z.literal(REAPPRAISE_EMOTION_COMMAND),
   payload: z.object({
-    emotionJournalEntryId: VO.EntryId,
+    entryId: VO.EntryId,
     newEmotion: z.instanceof(Entities.Emotion),
   }),
 });

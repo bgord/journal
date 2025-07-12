@@ -5,7 +5,7 @@ import Emittery from "emittery";
 
 type AcceptedCommand =
   | Commands.CancelAlarmCommandType
-  | Commands.DeleteEmotionJournalEntryCommandType
+  | Commands.DeleteEntryCommandType
   | Commands.EvaluateReactionCommandType
   | Commands.GenerateAlarmCommandType
   | Commands.LogEntryCommandType

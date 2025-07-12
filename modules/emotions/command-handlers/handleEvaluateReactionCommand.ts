@@ -6,10 +6,10 @@ export const handleEvaluateReactionCommand = async (
 ) => {
   const history = await EventStore.find(
     Emotions.Aggregates.Entry.events,
-    Emotions.Aggregates.Entry.getStream(command.payload.emotionJournalEntryId),
+    Emotions.Aggregates.Entry.getStream(command.payload.entryId),
   );
 
-  const entry = Emotions.Aggregates.Entry.build(command.payload.emotionJournalEntryId, history);
+  const entry = Emotions.Aggregates.Entry.build(command.payload.entryId, history);
   await entry.evaluateReaction(command.payload.newReaction);
 
   await EventStore.save(entry.pullEvents());

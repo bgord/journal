@@ -39,7 +39,7 @@ export class AlarmProcessing {
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
         alarmName: detection.name,
-        emotionJournalEntryId: event.payload.emotionJournalEntryId,
+        entryId: event.payload.entryId,
       },
     } satisfies Commands.GenerateAlarmCommandType);
 
@@ -61,7 +61,7 @@ export class AlarmProcessing {
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
         alarmName: detection.name,
-        emotionJournalEntryId: event.payload.emotionJournalEntryId,
+        entryId: event.payload.entryId,
       },
     } satisfies Commands.GenerateAlarmCommandType);
 
@@ -69,7 +69,7 @@ export class AlarmProcessing {
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
-    const entry = await Repos.EmotionJournalEntryRepository.getById(event.payload.emotionJournalEntryId);
+    const entry = await Repos.EmotionJournalEntryRepository.getById(event.payload.entryId);
 
     const prompt = new Services.EmotionalAdvicePrompt(entry, event.payload.alarmName).generate();
 
@@ -84,7 +84,7 @@ export class AlarmProcessing {
         payload: {
           alarmId: event.payload.alarmId,
           advice: new VO.EmotionalAdvice(advice),
-          emotionJournalEntryId: event.payload.emotionJournalEntryId,
+          entryId: event.payload.entryId,
         },
       } satisfies Commands.SaveAlarmAdviceCommandType);
 
@@ -110,7 +110,7 @@ export class AlarmProcessing {
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
         alarmId: event.payload.alarmId,
-        emotionJournalEntryId: event.payload.emotionJournalEntryId,
+        entryId: event.payload.entryId,
       },
     } satisfies Commands.SendAlarmNotificationCommandType);
 
@@ -118,7 +118,7 @@ export class AlarmProcessing {
   }
 
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
-    const entry = await Repos.EmotionJournalEntryRepository.getById(event.payload.emotionJournalEntryId);
+    const entry = await Repos.EmotionJournalEntryRepository.getById(event.payload.entryId);
 
     const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
 

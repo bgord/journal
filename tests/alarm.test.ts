@@ -9,9 +9,9 @@ describe("Alarm", () => {
   });
 
   test("build new aggregate", () => {
-    const emotionJournalEntry = Emotions.Aggregates.Alarm.build(mocks.alarmId, []);
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, []);
 
-    expect(emotionJournalEntry.pullEvents()).toEqual([]);
+    expect(alarm.pullEvents()).toEqual([]);
   });
 
   test("generate - correct path", async () => {
@@ -19,7 +19,7 @@ describe("Alarm", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await alarm._generate(
-        mocks.emotionJournalEntryId,
+        mocks.entryId,
         Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
       );
     });
@@ -31,10 +31,7 @@ describe("Alarm", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
 
     expect(async () =>
-      alarm._generate(
-        mocks.emotionJournalEntryId,
-        Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-      ),
+      alarm._generate(mocks.entryId, Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM),
     ).toThrow(Emotions.Policies.AlarmGeneratedOnce.error);
 
     expect(alarm.pullEvents()).toEqual([]);

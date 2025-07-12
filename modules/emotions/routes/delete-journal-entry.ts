@@ -6,21 +6,21 @@ import * as tools from "@bgord/tools";
 import hono from "hono";
 
 export async function DeleteJournalEntry(c: hono.Context, _next: hono.Next) {
-  const emotionJournalEntryId = Emotions.VO.EntryId.parse(c.req.param("id"));
+  const entryId = Emotions.VO.EntryId.parse(c.req.param("id"));
 
   logger.info({
     message: "Delete journal entry payload",
     operation: "read",
-    metadata: { emotionJournalEntryId },
+    metadata: { entryId },
   });
 
-  const command = Emotions.Commands.DeleteEmotionJournalEntryCommand.parse({
+  const command = Emotions.Commands.DeleteEntryCommand.parse({
     id: bg.NewUUID.generate(),
     correlationId: bg.CorrelationStorage.get(),
-    name: Emotions.Commands.DELETE_EMOTION_JOURNAL_ENTRY_COMMAND,
+    name: Emotions.Commands.DELETE_ENTRY_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
-    payload: { emotionJournalEntryId },
-  } satisfies Emotions.Commands.DeleteEmotionJournalEntryCommandType);
+    payload: { entryId },
+  } satisfies Emotions.Commands.DeleteEntryCommandType);
 
   await CommandBus.emit(command.name, command);
 

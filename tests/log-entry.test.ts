@@ -150,11 +150,9 @@ describe("POST /emotions/log-entry", () => {
 
   test("situation - OneSituationPerEntry", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
-      mocks.GenericSituationLoggedEvent,
-    ]);
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
-    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(emotionJournalEntry);
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent]);
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
 
     const response = await server.request(
       url,
@@ -177,12 +175,12 @@ describe("POST /emotions/log-entry", () => {
 
   test("emotion - EntryIsActionable", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionJournalEntryDeletedEvent,
     ]);
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
-    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(emotionJournalEntry);
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
 
     const response = await server.request(
       url,
@@ -205,10 +203,10 @@ describe("POST /emotions/log-entry", () => {
 
   test("emotion - EmotionCorrespondsToSituation", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, []);
-    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
-    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(emotionJournalEntry);
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, []);
+    spyOn(entry, "logSituation").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
 
     const response = await server.request(
       url,
@@ -231,13 +229,13 @@ describe("POST /emotions/log-entry", () => {
 
   test("emotion - OneEmotionPerEntry", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
-    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
-    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(emotionJournalEntry);
+    spyOn(entry, "logSituation").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
 
     const response = await server.request(
       url,
@@ -260,16 +258,16 @@ describe("POST /emotions/log-entry", () => {
 
   test("reaction - EntryIsActionable", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
       mocks.GenericEmotionJournalEntryDeletedEvent,
     ]);
-    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
-    spyOn(emotionJournalEntry, "logEmotion").mockImplementation(jest.fn());
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
-    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(emotionJournalEntry);
+    spyOn(entry, "logSituation").mockImplementation(jest.fn());
+    spyOn(entry, "logEmotion").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
 
     const response = await server.request(
       url,
@@ -292,15 +290,15 @@ describe("POST /emotions/log-entry", () => {
 
   test("reaction - OneReactionPerEntry", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
     ]);
-    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
-    spyOn(emotionJournalEntry, "logEmotion").mockImplementation(jest.fn());
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
-    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(emotionJournalEntry);
+    spyOn(entry, "logSituation").mockImplementation(jest.fn());
+    spyOn(entry, "logEmotion").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
 
     const response = await server.request(
       url,
@@ -323,11 +321,11 @@ describe("POST /emotions/log-entry", () => {
 
   test("reaction - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, []);
-    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
-    spyOn(emotionJournalEntry, "logEmotion").mockImplementation(jest.fn());
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
-    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(emotionJournalEntry);
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, []);
+    spyOn(entry, "logSituation").mockImplementation(jest.fn());
+    spyOn(entry, "logEmotion").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
 
     const response = await server.request(
       url,
@@ -353,13 +351,11 @@ describe("POST /emotions/log-entry", () => {
 
   test("reaction - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
-      mocks.GenericSituationLoggedEvent,
-    ]);
-    spyOn(emotionJournalEntry, "logSituation").mockImplementation(jest.fn());
-    spyOn(emotionJournalEntry, "logEmotion").mockImplementation(jest.fn());
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
-    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(emotionJournalEntry);
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent]);
+    spyOn(entry, "logSituation").mockImplementation(jest.fn());
+    spyOn(entry, "logEmotion").mockImplementation(jest.fn());
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
 
     const response = await server.request(
       url,
@@ -385,7 +381,7 @@ describe("POST /emotions/log-entry", () => {
 
   test("happy path", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.emotionJournalEntryId);
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
 
     const response = await server.request(
       url,

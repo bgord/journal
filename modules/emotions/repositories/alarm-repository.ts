@@ -16,7 +16,7 @@ export class AlarmRepository {
     await db.insert(Schema.alarms).values({
       id: event.payload.alarmId,
       name: event.payload.alarmName,
-      emotionJournalEntryId: event.payload.emotionJournalEntryId,
+      emotionJournalEntryId: event.payload.entryId,
       status: VO.AlarmStatusEnum.generated,
       generatedAt: event.createdAt,
     });
@@ -39,13 +39,13 @@ export class AlarmRepository {
       .where(eq(Schema.alarms.id, event.payload.alarmId));
   }
 
-  static async findCancellableByEntryId(emotionJournalEntryId: VO.EntryIdType) {
+  static async findCancellableByEntryId(entryId: VO.EntryIdType) {
     return db
       .select({ id: Schema.alarms.id })
       .from(Schema.alarms)
       .where(
         and(
-          eq(Schema.alarms.emotionJournalEntryId, emotionJournalEntryId),
+          eq(Schema.alarms.emotionJournalEntryId, entryId),
           notInArray(Schema.alarms.status, [
             VO.AlarmStatusEnum.cancelled,
             VO.AlarmStatusEnum.notification_sent,

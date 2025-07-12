@@ -7,7 +7,7 @@ import hono from "hono";
 export async function EvaluateReaction(c: hono.Context, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
 
-  const emotionJournalEntryId = Emotions.VO.EntryId.parse(c.req.param("id"));
+  const entryId = Emotions.VO.EntryId.parse(c.req.param("id"));
 
   const newReaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(body.description),
@@ -20,7 +20,7 @@ export async function EvaluateReaction(c: hono.Context, _next: hono.Next) {
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.EVALUATE_REACTION_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
-    payload: { emotionJournalEntryId, newReaction },
+    payload: { entryId, newReaction },
   } satisfies Emotions.Commands.EvaluateReactionCommandType);
 
   await CommandBus.emit(command.name, command);

@@ -13,7 +13,7 @@ export const SituationLoggedEvent = z.object({
   name: z.literal(SITUATION_LOGGED_EVENT),
   version: z.literal(1),
   payload: z.object({
-    emotionJournalEntryId: VO.EntryId,
+    entryId: VO.EntryId,
     description: VO.SituationDescriptionSchema,
     location: VO.SituationLocationSchema,
     kind: VO.SituationKindSchema,

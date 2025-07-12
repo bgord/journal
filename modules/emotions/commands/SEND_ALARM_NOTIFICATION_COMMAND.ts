@@ -10,10 +10,7 @@ export const SendAlarmNotificationCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(SEND_ALARM_NOTIFICATION_COMMAND),
-  payload: z.object({
-    alarmId: VO.AlarmId,
-    emotionJournalEntryId: VO.EntryId,
-  }),
+  payload: z.object({ alarmId: VO.AlarmId, entryId: VO.EntryId }),
 });
 
 export type SendAlarmNotificationCommandType = z.infer<typeof SendAlarmNotificationCommand>;

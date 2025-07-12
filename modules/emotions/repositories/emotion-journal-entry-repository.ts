@@ -50,7 +50,7 @@ export class EmotionJournalEntryRepository {
 
   static async logSituation(event: Events.SituationLoggedEventType) {
     await db.insert(Schema.emotionJournalEntries).values({
-      id: event.payload.emotionJournalEntryId,
+      id: event.payload.entryId,
       status: VO.EmotionJournalEntryStatusEnum.actionable,
       startedAt: event.createdAt,
       situationKind: event.payload.kind,
@@ -66,7 +66,7 @@ export class EmotionJournalEntryRepository {
         emotionLabel: event.payload.label,
         emotionIntensity: event.payload.intensity as number,
       })
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.entryId));
   }
 
   static async logReaction(event: Events.ReactionLoggedEventType) {
@@ -78,7 +78,7 @@ export class EmotionJournalEntryRepository {
         reactionEffectiveness: event.payload.effectiveness,
         finishedAt: event.createdAt,
       })
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.entryId));
   }
 
   static async reappraiseEmotion(event: Events.EmotionReappraisedEventType) {
@@ -89,7 +89,7 @@ export class EmotionJournalEntryRepository {
         emotionIntensity: event.payload.newIntensity as number,
         finishedAt: event.createdAt,
       })
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.entryId));
   }
 
   static async evaluateReaction(event: Events.ReactionEvaluatedEventType) {
@@ -101,7 +101,7 @@ export class EmotionJournalEntryRepository {
         reactionEffectiveness: event.payload.effectiveness,
         finishedAt: event.createdAt,
       })
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.entryId));
   }
 
   static async deleteEntry(event: Events.EntryDeletedEventType) {

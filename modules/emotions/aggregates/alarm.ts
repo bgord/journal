@@ -21,7 +21,7 @@ export class Alarm {
   // @ts-expect-error
   private generatedAt?: VO.AlarmGeneratedAtType;
 
-  private emotionJournalEntryId?: VO.EntryIdType;
+  private entryId?: VO.EntryIdType;
   // @ts-expect-error
   private name?: VO.AlarmNameOption;
   private advice?: VO.EmotionalAdvice;
@@ -44,7 +44,7 @@ export class Alarm {
     return entry;
   }
 
-  async _generate(emotionJournalEntryId: VO.EntryIdType, alarmName: VO.AlarmNameType) {
+  async _generate(entryId: VO.EntryIdType, alarmName: VO.AlarmNameType) {
     await Policies.AlarmGeneratedOnce.perform({ status: this.status });
 
     const event = Events.AlarmGeneratedEvent.parse({
@@ -57,7 +57,7 @@ export class Alarm {
       payload: {
         alarmId: this.id,
         alarmName,
-        emotionJournalEntryId,
+        entryId,
       },
     } satisfies Events.AlarmGeneratedEventType);
 
@@ -77,7 +77,7 @@ export class Alarm {
       payload: {
         alarmId: this.id,
         advice: advice.get(),
-        emotionJournalEntryId: this.emotionJournalEntryId as VO.EntryIdType,
+        entryId: this.entryId as VO.EntryIdType,
       },
     } satisfies Events.AlarmAdviceSavedEventType);
 
@@ -99,7 +99,7 @@ export class Alarm {
       version: 1,
       payload: {
         alarmId: this.id,
-        emotionJournalEntryId: this.emotionJournalEntryId as VO.EntryIdType,
+        entryId: this.entryId as VO.EntryIdType,
       },
     } satisfies Events.AlarmNotificationSentEventType);
 
@@ -138,7 +138,7 @@ export class Alarm {
   private apply(event: AlarmEventType): void {
     switch (event.name) {
       case Events.ALARM_GENERATED_EVENT: {
-        this.emotionJournalEntryId = event.payload.emotionJournalEntryId;
+        this.entryId = event.payload.entryId;
         this.name = event.payload.alarmName;
         this.status = VO.AlarmStatusEnum.generated;
         this.generatedAt = event.createdAt;
