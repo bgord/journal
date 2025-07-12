@@ -42,12 +42,12 @@ modules/
 └── emotions
     ├── aggregates
     │   ├── alarm.ts
-    │   ├── emotion-journal-entry.ts
+    │   ├── entry.ts
     │   └── weekly-review.ts
     ├── command-handlers
     │   ├── handleCancelAlarmCommand.ts
     │   ├── handleCompleteWeeklyReviewCommand.ts
-    │   ├── handleDeleteEmotionJournalEntryCommand.ts
+    │   ├── handleDeleteEntryCommand.ts
     │   ├── handleEvaluateReactionCommand.ts
     │   ├── handleGenerateAlarmCommand.ts
     │   ├── handleLogEntryCommand.ts
@@ -59,7 +59,7 @@ modules/
     ├── commands
     │   ├── CANCEL_ALARM_COMMAND.ts
     │   ├── COMPLETE_WEEKLY_REVIEW_COMMAND.ts
-    │   ├── DELETE_EMOTION_JOURNAL_ENTRY_COMMAND.ts
+    │   ├── DELETE_ENTRY_COMMAND.ts
     │   ├── EVALUATE_REACTION_COMMAND.ts
     │   ├── GENERATE_ALARM_COMMAND.ts
     │   ├── LOG_ENTRY_COMMAND.ts
@@ -77,9 +77,9 @@ modules/
     │   ├── onAlarmCancelledEvent.ts
     │   ├── onAlarmGeneratedEvent.ts
     │   ├── onAlarmNotificationSentEvent.ts
-    │   ├── onEmotionJournalEntryDeleted.ts
     │   ├── onEmotionLoggedEvent.ts
     │   ├── onEmotionReappraisedEvent.ts
+    │   ├── onEntryDeletedEvent.ts
     │   ├── onLowCopingEffectivenessPatternDetectedEvent.ts
     │   ├── onMoreNegativeThanPositiveEmotionsPatternDetectedEvent.ts
     │   ├── onMultipleMaladaptiveReactionsPatternDetectedEvent.ts
@@ -92,9 +92,9 @@ modules/
     │   ├── ALARM_CANCELLED_EVENT.ts
     │   ├── ALARM_GENERATED_EVENT.ts
     │   ├── ALARM_NOTIFICATION_SENT_EVENT.ts
-    │   ├── EMOTION_JOURNAL_ENTRY_DELETED_EVENT.ts
     │   ├── EMOTION_LOGGED_EVENT.ts
     │   ├── EMOTION_REAPPRAISED_EVENT.ts
+    │   ├── ENTRY_DELETED_EVENT.ts
     │   ├── LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT.ts
     │   ├── MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT.ts
     │   ├── MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT.ts
@@ -126,9 +126,9 @@ modules/
     │   └── weekly-review-requested-once.ts
     ├── repositories
     │   ├── alarm-repository.ts
-    │   ├── emotion-journal-entry-repository.ts
+    │   ├── entry-repository.ts
     ├── routes
-    │   ├── delete-journal-entry.ts
+    │   ├── delete-entry.ts
     │   ├── evaluate-reaction.ts
     │   ├── list-entries.ts
     │   ├── log-entry.ts
@@ -163,12 +163,12 @@ modules/
         ├── alarm-name.ts
         ├── alarm-status.ts
         ├── emotion-intensity.ts
-        ├── emotion-journal-entry-finished-at.ts
-        ├── emotion-journal-entry-id.ts
-        ├── emotion-journal-entry-started-at.ts
-        ├── emotion-journal-entry-status.ts
         ├── emotion-label.ts
         ├── emotional-advice.ts
+        ├── entry-finished-at.ts
+        ├── entry-id.ts
+        ├── entry-started-at.ts
+        ├── entry-status.ts
         ├── geneva-wheel-emotion.enum.ts
         ├── gross-emotion-regulation-strategy.enum.ts
         ├── reaction-description.ts
@@ -191,7 +191,7 @@ infra/
 ├── command-bus.ts
 ├── db.ts
 ├── e2e
-│   ├── add-journal-entry.spec.ts
+│   ├── add-entry.spec.ts
 │   └── home.spec.ts
 ├── env.ts
 ├── event-bus.ts
@@ -205,5 +205,8 @@ infra/
 ├── prerequisites.ts
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
-└── schema.ts
+├── schema.ts
+└── translations
+    ├── en.json
+    └── pl.json
 ```
