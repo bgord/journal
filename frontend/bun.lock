@@ -4,7 +4,7 @@
     "": {
       "name": "frontend",
       "dependencies": {
-        "@bgord/design": "0.28.0",
+        "@bgord/design": "0.29.1",
         "@bgord/ui": "file:../../bgord-ui",
         "@react-router/node": "7.6.3",
         "@react-router/serve": "7.6.3",
@@ -91,7 +91,7 @@
 
     "@babel/types": ["@babel/types@7.28.0", "", { "dependencies": { "@babel/helper-string-parser": "^7.27.1", "@babel/helper-validator-identifier": "^7.27.1" } }, "sha512-jYnje+JyZG5YThjHiF28oT4SIZLnYOcSBb6+SDaFIyzDVSkXQmQQYclJ2R+YxcdmK0AX6x1E5OQNtuh3jHDrUg=="],
 
-    "@bgord/design": ["@bgord/design@0.28.0", "", { "dependencies": { "lodash.pick": "4.4.0" }, "peerDependencies": { "react": ">=16" } }, "sha512-3V6d/RFM9yfHxP8VQOR6pxy4Qo8qZ8uqjBJAMNUkWmLf+YrWARdk5M7ZtK92TE3hW+RQnvxubgucRAs/pzcS4w=="],
+    "@bgord/design": ["@bgord/design@0.29.1", "", { "dependencies": { "lodash": "4.17.21" } }, "sha512-5UQfyrg9k98BfLXa1yzFZuDMGAGWT6Nrz9wbs/mqQ0lljjYjJVyBBaC0wPDJep4mJnQlxqkHIbSGZhferIc76A=="],
 
     "@bgord/ui": ["@bgord/ui@file:../../bgord-ui", { "dependencies": { "polish-plurals": "^1.1.0" }, "devDependencies": { "@biomejs/biome": "2.0.6", "@commitlint/cli": "19.8.1", "@commitlint/config-conventional": "19.8.1", "@happy-dom/global-registrator": "18.0.1", "@testing-library/dom": "10.4.0", "@testing-library/jest-dom": "6.6.3", "@testing-library/react": "16.3.0", "@testing-library/user-event": "14.6.1", "@types/bun": "1.2.18", "@types/react": "19.1.8", "@types/react-dom": "19.1.6", "cspell": "9.1.3", "knip": "5.61.3", "lefthook": "1.12.1", "only-allow": "1.2.1", "shellcheck": "3.1.0" }, "peerDependencies": { "react": "19.1.0", "react-dom": "19.1.0", "react-router": "7.6.3" } }],
 
@@ -946,8 +946,6 @@
     "lodash.merge": ["lodash.merge@4.6.2", "", {}, "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ=="],
 
     "lodash.mergewith": ["lodash.mergewith@4.6.2", "", {}, "sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ=="],
-
-    "lodash.pick": ["lodash.pick@4.4.0", "", {}, "sha512-hXt6Ul/5yWjfklSGvLQl8vM//l3FtyHZeuelpzK6mm99pNvN9yTDruNZPEJZD1oWrqo+izBmB7oUfWgcCX7s4Q=="],
 
     "lodash.snakecase": ["lodash.snakecase@4.1.1", "", {}, "sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw=="],
 
