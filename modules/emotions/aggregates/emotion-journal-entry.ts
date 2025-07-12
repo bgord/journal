@@ -13,7 +13,7 @@ export class Entry {
     Emotions.Events.ReactionLoggedEvent,
     Emotions.Events.EmotionReappraisedEvent,
     Emotions.Events.ReactionEvaluatedEvent,
-    Emotions.Events.EmotionJournalEntryDeletedEvent,
+    Emotions.Events.EntryDeletedEvent,
   ];
 
   private readonly id: Emotions.VO.EmotionJournalEntryIdType;
@@ -191,15 +191,15 @@ export class Entry {
   async delete() {
     await Emotions.Policies.EntryHasBenStarted.perform({ situation: this.situation });
 
-    const event = Emotions.Events.EmotionJournalEntryDeletedEvent.parse({
+    const event = Emotions.Events.EntryDeletedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
-      name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
+      name: Emotions.Events.ENTRY_DELETED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
-      payload: { emotionJournalEntryId: this.id },
-    } satisfies Emotions.Events.EmotionJournalEntryDeletedEventType);
+      payload: { entryId: this.id },
+    } satisfies Emotions.Events.EntryDeletedEventType);
 
     this.record(event);
   }
@@ -278,7 +278,7 @@ export class Entry {
         break;
       }
 
-      case Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT: {
+      case Emotions.Events.ENTRY_DELETED_EVENT: {
         this.status = Emotions.VO.EmotionJournalEntryStatusEnum.deleted;
 
         this.finishedAt = event.createdAt;

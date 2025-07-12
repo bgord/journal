@@ -17,5 +17,5 @@
       "+emotions/*": ["./modules/emotions/*"]
     }
   },
-  "exclude": ["bgord-scripts", "**/*.test.ts", "frontend"]
+  "exclude": ["bgord-scripts", "frontend"]
 }

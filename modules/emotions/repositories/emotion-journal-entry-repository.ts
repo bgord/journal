@@ -104,9 +104,9 @@ export class EmotionJournalEntryRepository {
       .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
   }
 
-  static async deleteEntry(event: Events.EmotionJournalEntryDeletedEventType) {
+  static async deleteEntry(event: Events.EntryDeletedEventType) {
     await db
       .delete(Schema.emotionJournalEntries)
-      .where(eq(Schema.emotionJournalEntries.id, event.payload.emotionJournalEntryId));
+      .where(eq(Schema.emotionJournalEntries.id, event.payload.entryId));
   }
 }

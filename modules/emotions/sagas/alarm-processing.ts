@@ -19,10 +19,7 @@ export class AlarmProcessing {
     this.eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
     this.eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
     this.eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent.bind(this));
-    this.eventBus.on(
-      Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
-      this.onEmotionJournalEntryDeletedEvent.bind(this),
-    );
+    this.eventBus.on(Events.ENTRY_DELETED_EVENT, this.onEmotionJournalEntryDeletedEvent.bind(this));
     this.eventBus.on(Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent.bind(this));
     this.eventBus.on(Events.EMOTION_REAPPRAISED_EVENT, this.onEmotionReappraisedEvent.bind(this));
   }
@@ -137,10 +134,8 @@ export class AlarmProcessing {
     });
   }
 
-  async onEmotionJournalEntryDeletedEvent(event: Events.EmotionJournalEntryDeletedEventType) {
-    const cancellableAlarmIds = await Repos.AlarmRepository.findCancellableByEntryId(
-      event.payload.emotionJournalEntryId,
-    );
+  async onEmotionJournalEntryDeletedEvent(event: Events.EntryDeletedEventType) {
+    const cancellableAlarmIds = await Repos.AlarmRepository.findCancellableByEntryId(event.payload.entryId);
 
     for (const alarmId of cancellableAlarmIds.map((result) => result.id)) {
       const command = Commands.CancelAlarmCommand.parse({

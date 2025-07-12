@@ -187,11 +187,11 @@ export const GenericEmotionJournalEntryDeletedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
+  name: Emotions.Events.ENTRY_DELETED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
-  payload: { emotionJournalEntryId },
-} satisfies Emotions.Events.EmotionJournalEntryDeletedEventType;
+  payload: { entryId: emotionJournalEntryId },
+} satisfies Emotions.Events.EntryDeletedEventType;
 
 export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
 
