@@ -27,7 +27,7 @@ export abstract class Pattern {
 
   abstract dateRange: PatternDateRange;
 
-  abstract check(entries: Aggregates.EmotionJournalEntry[]): PatternDetectionEventType | null;
+  abstract check(entries: Aggregates.Entry[]): PatternDetectionEventType | null;
 
   getStream(): string {
     return `weekly_pattern_detection_${this.dateRange[0]}_${this.dateRange[1]}`;

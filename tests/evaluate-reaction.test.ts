@@ -72,7 +72,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
   });
 
   test("validation - EntryIsActionable", async () => {
-    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
+    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [
       mocks.GenericSituationLoggedEvent,
@@ -106,14 +106,14 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
       _known: true,
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
-    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
+    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [];
 
@@ -142,14 +142,14 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
       _known: true,
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
-    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
+    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [mocks.GenericSituationLoggedEvent];
 
@@ -178,14 +178,14 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
       _known: true,
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("validation - ReactionForEvaluationExists", async () => {
-    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
+    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
 
@@ -214,18 +214,18 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
       _known: true,
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
   });
 
   test("happy path", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
+    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const emotionJournalEntryEvaluateReaction = spyOn(
-      Emotions.Aggregates.EmotionJournalEntry.prototype,
+      Emotions.Aggregates.Entry.prototype,
       "evaluateReaction",
     );
 
@@ -261,8 +261,8 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
 
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryEvaluateReaction).toHaveBeenCalledWith(reaction);

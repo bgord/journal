@@ -2,7 +2,7 @@ import * as Emotions from "+emotions";
 import { EventStore } from "+infra/event-store";
 
 export const handleLogEntryCommand = async (command: Emotions.Commands.LogEntryCommandType) => {
-  const entry = Emotions.Aggregates.EmotionJournalEntry.create(command.payload.emotionJournalEntryId);
+  const entry = Emotions.Aggregates.Entry.create(command.payload.emotionJournalEntryId);
 
   await entry.logSituation(command.payload.situation);
   await entry.logEmotion(command.payload.emotion);

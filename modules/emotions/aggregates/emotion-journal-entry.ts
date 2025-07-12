@@ -3,10 +3,10 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
-export type JournalEntryEvent = (typeof EmotionJournalEntry)["events"][number];
+export type JournalEntryEvent = (typeof Entry)["events"][number];
 type JournalEntryEventType = z.infer<JournalEntryEvent>;
 
-export class EmotionJournalEntry {
+export class Entry {
   static events = [
     Emotions.Events.SituationLoggedEvent,
     Emotions.Events.EmotionLoggedEvent,
@@ -31,15 +31,12 @@ export class EmotionJournalEntry {
     this.id = id;
   }
 
-  static create(id: Emotions.VO.EmotionJournalEntryIdType): EmotionJournalEntry {
-    return new EmotionJournalEntry(id);
+  static create(id: Emotions.VO.EmotionJournalEntryIdType): Entry {
+    return new Entry(id);
   }
 
-  static build(
-    id: Emotions.VO.EmotionJournalEntryIdType,
-    events: JournalEntryEventType[],
-  ): EmotionJournalEntry {
-    const entry = new EmotionJournalEntry(id);
+  static build(id: Emotions.VO.EmotionJournalEntryIdType, events: JournalEntryEventType[]): Entry {
+    const entry = new Entry(id);
 
     events.forEach((event) => entry.apply(event));
 
@@ -54,7 +51,7 @@ export class EmotionJournalEntry {
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.SITUATION_LOGGED_EVENT,
-      stream: EmotionJournalEntry.getStream(this.id),
+      stream: Entry.getStream(this.id),
       version: 1,
       payload: {
         emotionJournalEntryId: this.id,
@@ -85,7 +82,7 @@ export class EmotionJournalEntry {
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
-      stream: EmotionJournalEntry.getStream(this.id),
+      stream: Entry.getStream(this.id),
       version: 1,
       payload: {
         emotionJournalEntryId: this.id,
@@ -116,7 +113,7 @@ export class EmotionJournalEntry {
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.REACTION_LOGGED_EVENT,
-      stream: EmotionJournalEntry.getStream(this.id),
+      stream: Entry.getStream(this.id),
       version: 1,
       payload: {
         emotionJournalEntryId: this.id,
@@ -147,7 +144,7 @@ export class EmotionJournalEntry {
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
-      stream: EmotionJournalEntry.getStream(this.id),
+      stream: Entry.getStream(this.id),
       version: 1,
       payload: {
         emotionJournalEntryId: this.id,
@@ -178,7 +175,7 @@ export class EmotionJournalEntry {
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.REACTION_EVALUATED_EVENT,
-      stream: EmotionJournalEntry.getStream(this.id),
+      stream: Entry.getStream(this.id),
       version: 1,
       payload: {
         emotionJournalEntryId: this.id,
@@ -199,7 +196,7 @@ export class EmotionJournalEntry {
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
-      stream: EmotionJournalEntry.getStream(this.id),
+      stream: Entry.getStream(this.id),
       version: 1,
       payload: { emotionJournalEntryId: this.id },
     } satisfies Emotions.Events.EmotionJournalEntryDeletedEventType);

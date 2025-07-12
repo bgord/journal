@@ -14,7 +14,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Aggregates.EmotionJournalEntry[]): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
     const effectivenessScores = entries
       .map((entry) => entry.summarize())
       .flatMap((e) => (e.reaction ? [e.reaction.effectiveness.get()] : []));

@@ -14,7 +14,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
     super();
   }
 
-  check(entries: Aggregates.EmotionJournalEntry[]): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
     const matches = entries
       .map((entry) => entry.summarize())
       .filter((entry) => entry.emotion?.label.isPositive())

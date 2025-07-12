@@ -3,7 +3,7 @@ import * as Patterns from "+emotions/services/patterns";
 import * as tools from "@bgord/tools";
 
 type PatternDetectorConfigType = {
-  entries: Aggregates.EmotionJournalEntry[];
+  entries: Aggregates.Entry[];
   patterns: tools.Constructor<Patterns.Pattern>[];
   dateRange: Patterns.PatternDateRange;
 };

@@ -14,7 +14,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Aggregates.EmotionJournalEntry[]): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
     const matches = entries
       .map((entry) => entry.summarize())
       .filter((entry) => entry.reaction?.type.isMaladaptive());

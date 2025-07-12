@@ -5,11 +5,11 @@ export const handleDeleteEmotionJournalEntryCommand = async (
   command: Emotions.Commands.DeleteEmotionJournalEntryCommandType,
 ) => {
   const history = await EventStore.find(
-    Emotions.Aggregates.EmotionJournalEntry.events,
-    Emotions.Aggregates.EmotionJournalEntry.getStream(command.payload.emotionJournalEntryId),
+    Emotions.Aggregates.Entry.events,
+    Emotions.Aggregates.Entry.getStream(command.payload.emotionJournalEntryId),
   );
 
-  const entry = Emotions.Aggregates.EmotionJournalEntry.build(command.payload.emotionJournalEntryId, history);
+  const entry = Emotions.Aggregates.Entry.build(command.payload.emotionJournalEntryId, history);
   await entry.delete();
 
   await EventStore.save(entry.pullEvents());

@@ -29,7 +29,7 @@ export const GenericSituationLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.SITUATION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -44,7 +44,7 @@ export const GenericEmotionLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -58,7 +58,7 @@ export const GenericReactionLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -73,7 +73,7 @@ export const GenericEmotionReappraisedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -87,7 +87,7 @@ export const GenericReactionEvaluatedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_EVALUATED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -102,7 +102,7 @@ export const PositiveEmotionLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -116,7 +116,7 @@ export const NegativeEmotionLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -130,7 +130,7 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -144,7 +144,7 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -158,7 +158,7 @@ export const MaladaptiveReactionLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -173,7 +173,7 @@ export const AdaptiveReactionLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.REACTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: {
     emotionJournalEntryId,
@@ -188,7 +188,7 @@ export const GenericEmotionJournalEntryDeletedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   name: Emotions.Events.EMOTION_JOURNAL_ENTRY_DELETED_EVENT,
-  stream: Emotions.Aggregates.EmotionJournalEntry.getStream(emotionJournalEntryId),
+  stream: Emotions.Aggregates.Entry.getStream(emotionJournalEntryId),
   version: 1,
   payload: { emotionJournalEntryId },
 } satisfies Emotions.Events.EmotionJournalEntryDeletedEventType;

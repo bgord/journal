@@ -14,7 +14,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Aggregates.EmotionJournalEntry[]): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
     const summaries = entries.map((entry) => entry.summarize());
 
     const positiveEmotionsCounter = summaries.filter((entry) => entry.emotion?.label.isPositive()).length;

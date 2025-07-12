@@ -54,7 +54,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         ),
       );
 
-      const entry = Emotions.Aggregates.EmotionJournalEntry.create(bg.NewUUID.generate());
+      const entry = Emotions.Aggregates.Entry.create(bg.NewUUID.generate());
       await entry.logSituation(situation);
 
       const emotion = new Emotions.Entities.Emotion(

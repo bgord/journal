@@ -33,23 +33,17 @@ const newReaction = new Emotions.Entities.Reaction(
 
 describe("EmotionJournalEntry", () => {
   test("create new aggregate", () => {
-    expect(() => Emotions.Aggregates.EmotionJournalEntry.create(mocks.emotionJournalEntryId)).not.toThrow();
+    expect(() => Emotions.Aggregates.Entry.create(mocks.emotionJournalEntryId)).not.toThrow();
   });
 
   test("build new aggregate", () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      mocks.emotionJournalEntryId,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, []);
 
     expect(emotionJournalEntry.pullEvents()).toEqual([]);
   });
 
   test("logSituation - correct path", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      mocks.emotionJournalEntryId,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, []);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       emotionJournalEntry.logSituation(situation),
@@ -59,7 +53,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logSituation - Policies.OneSituationPerEntry", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
     ]);
 
@@ -71,7 +65,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logEmotion - correct path", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
     ]);
 
@@ -81,7 +75,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logEmotion - Policies.OneEmotionPerEmotionJournalEntry", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
@@ -94,10 +88,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logEmotion - Policies.EmotionCorrespondsToSituation", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      mocks.emotionJournalEntryId,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, []);
 
     expect(async () => emotionJournalEntry.logEmotion(emotion)).toThrow(
       Emotions.Policies.EmotionCorrespondsToSituation.error,
@@ -107,7 +98,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logReaction - correct path", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
@@ -120,7 +111,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logReaction - Policies.OneReactionPerEmotionJournalEntry", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
@@ -134,10 +125,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logReaction - Policies.ReactionCorrespondsToSituationAndEmotion - missing situation and emotion", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      mocks.emotionJournalEntryId,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, []);
 
     expect(async () => emotionJournalEntry.logReaction(reaction)).toThrow(
       Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.error,
@@ -147,7 +135,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("logReaction - Policies.ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
     ]);
 
@@ -159,7 +147,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("reappraiseEmotion - correct path", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
@@ -172,10 +160,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("reappraiseEmotion - Policies.EmotionCorrespondsToSituation", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      mocks.emotionJournalEntryId,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, []);
 
     expect(async () => emotionJournalEntry.reappraiseEmotion(newEmotion)).toThrow(
       Emotions.Policies.EmotionCorrespondsToSituation.error,
@@ -185,7 +170,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("reappraiseEmotion - Policies.EmotionForReappraisalExists", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
     ]);
 
@@ -197,7 +182,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("evaluateReaction - correct path", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
@@ -211,10 +196,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("evaluateReaction - Policies.ReactionCorrespondsToSituationAndEmotion - missing situation and emotion", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      mocks.emotionJournalEntryId,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, []);
 
     expect(async () => emotionJournalEntry.evaluateReaction(newReaction)).toThrow(
       Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.error,
@@ -224,7 +206,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("evaluateReaction - Policies.ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
     ]);
 
@@ -236,7 +218,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("evaluateReaction - Policies.ReactionForEvaluationExists - missing emotion", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
@@ -249,7 +231,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("delete - correct path - after situation", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
     ]);
 
@@ -259,7 +241,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("delete - correct path - after emotion", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
@@ -270,7 +252,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("delete - correct path - after reaction", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
@@ -282,10 +264,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("delete - EntryHasBenStarted", async () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(
-      mocks.emotionJournalEntryId,
-      [],
-    );
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, []);
 
     expect(async () => emotionJournalEntry.delete()).toThrow(Emotions.Policies.EntryHasBenStarted.error);
 
@@ -293,7 +272,7 @@ describe("EmotionJournalEntry", () => {
   });
 
   test("summarize - full entry", () => {
-    const emotionJournalEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+    const emotionJournalEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,

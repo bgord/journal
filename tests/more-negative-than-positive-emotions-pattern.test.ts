@@ -3,13 +3,13 @@ import * as bg from "@bgord/bun";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const positiveEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+const positiveEmotionEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
   mocks.GenericSituationLoggedEvent,
   mocks.PositiveEmotionLoggedEvent,
   mocks.GenericReactionLoggedEvent,
 ]);
 
-const negativeEmotionEntry = Emotions.Aggregates.EmotionJournalEntry.build(mocks.emotionJournalEntryId, [
+const negativeEmotionEntry = Emotions.Aggregates.Entry.build(mocks.emotionJournalEntryId, [
   mocks.GenericSituationLoggedEvent,
   mocks.NegativeEmotionLoggedEvent,
   mocks.GenericReactionLoggedEvent,

@@ -17,9 +17,9 @@ describe("DELETE /emotions/:id/delete", () => {
   });
 
   test("validation - EntryHasBeenStarted", async () => {
-    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
+    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
-    const emotionJournalEntryDelete = spyOn(Emotions.Aggregates.EmotionJournalEntry.prototype, "delete");
+    const emotionJournalEntryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
 
     const history = [];
 
@@ -35,8 +35,8 @@ describe("DELETE /emotions/:id/delete", () => {
       _known: true,
     });
     expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
@@ -44,9 +44,9 @@ describe("DELETE /emotions/:id/delete", () => {
 
   test("happy path - after situation", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
+    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
-    const emotionJournalEntryDelete = spyOn(Emotions.Aggregates.EmotionJournalEntry.prototype, "delete");
+    const emotionJournalEntryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
 
     const history = [mocks.GenericSituationLoggedEvent];
 
@@ -63,8 +63,8 @@ describe("DELETE /emotions/:id/delete", () => {
 
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
@@ -75,9 +75,9 @@ describe("DELETE /emotions/:id/delete", () => {
 
   test("happy path - after emotion", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
+    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
-    const emotionJournalEntryDelete = spyOn(Emotions.Aggregates.EmotionJournalEntry.prototype, "delete");
+    const emotionJournalEntryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
 
     const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
 
@@ -94,8 +94,8 @@ describe("DELETE /emotions/:id/delete", () => {
 
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
@@ -106,9 +106,9 @@ describe("DELETE /emotions/:id/delete", () => {
 
   test("happy path - after reaction", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.EmotionJournalEntry, "build");
+    const emotionJournalEntryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
-    const emotionJournalEntryDelete = spyOn(Emotions.Aggregates.EmotionJournalEntry.prototype, "delete");
+    const emotionJournalEntryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
 
     const history = [
       mocks.GenericSituationLoggedEvent,
@@ -129,8 +129,8 @@ describe("DELETE /emotions/:id/delete", () => {
 
     expect(response.status).toBe(200);
     expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.EmotionJournalEntry.events,
-      Emotions.Aggregates.EmotionJournalEntry.getStream(mocks.emotionJournalEntryId),
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.emotionJournalEntryId),
     );
     expect(emotionJournalEntryBuild).toHaveBeenCalledWith(mocks.emotionJournalEntryId, history);
     expect(emotionJournalEntryDelete).toHaveBeenCalledWith();
