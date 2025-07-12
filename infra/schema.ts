@@ -48,7 +48,7 @@ export const entries = sqliteTable("entries", {
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
-  entryId: text("EntryId", { length: 36 }).references(() => entries.id),
+  entryId: text("entryId", { length: 36 }).references(() => entries.id),
   status: text("status", toEnumList(AlarmStatusEnum)).notNull(),
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),

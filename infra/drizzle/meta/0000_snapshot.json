@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "4d74c13f-f3ca-4e0e-af95-059a6368174d",
+  "id": "101e0096-7b9b-4c51-9c58-33a2850a1fd3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alarms": {
@@ -21,8 +21,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "EntryId": {
-          "name": "EntryId",
+        "entryId": {
+          "name": "entryId",
           "type": "text(36)",
           "primaryKey": false,
           "notNull": false,
@@ -52,11 +52,11 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "alarms_EntryId_entries_id_fk": {
-          "name": "alarms_EntryId_entries_id_fk",
+        "alarms_entryId_entries_id_fk": {
+          "name": "alarms_entryId_entries_id_fk",
           "tableFrom": "alarms",
           "tableTo": "entries",
-          "columnsFrom": ["EntryId"],
+          "columnsFrom": ["entryId"],
           "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"

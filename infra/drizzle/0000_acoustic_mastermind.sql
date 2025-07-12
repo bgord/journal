@@ -1,11 +1,11 @@
 CREATE TABLE `alarms` (
 	`id` text(36) PRIMARY KEY NOT NULL,
 	`generatedAt` integer NOT NULL,
-	`EntryId` text(36),
+	`entryId` text(36),
 	`status` text NOT NULL,
 	`name` text NOT NULL,
 	`advice` text,
-	FOREIGN KEY (`EntryId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`entryId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `entries` (
