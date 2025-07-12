@@ -74,14 +74,14 @@ export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: str
             @{props.situationLocation}
           </div>
 
-          <div className="c-badge">{props.situationKind}</div>
+          <div className="c-badge">{t(`entry.situation.kind.value.${props.situationKind}`)}</div>
         </div>
 
         <div data-display="flex" data-main="between" data-cross="center" data-gap="12">
           <div>{props.situationDescription}</div>
 
           <div data-display="flex" data-cross="center" data-gap="12">
-            <div className="c-badge">{props.emotionLabel}</div>
+            <div className="c-badge">{t(`entry.emotion.label.value.${props.emotionLabel}`)}</div>
 
             <RatingPills rating={props.emotionIntensity as number} total={5} />
           </div>
@@ -94,7 +94,7 @@ export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: str
             {t("entry.reaction.description.label")}
           </div>
 
-          <div className="c-badge">{props.reactionType}</div>
+          <div className="c-badge">{t(`entry.reaction.type.value.${props.reactionType}`)}</div>
           <RatingPills rating={props.reactionEffectiveness as number} total={5} />
         </div>
 
