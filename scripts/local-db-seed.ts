@@ -45,8 +45,10 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     for (const _counter of _.range(0, 10)) {
       const situation = new Emotions.Entities.Situation(
-        new Emotions.VO.SituationDescription(situationDescriptions[_counter % situationDescriptions.length]),
-        new Emotions.VO.SituationLocation(situationLocations[_counter % situationLocations.length]),
+        new Emotions.VO.SituationDescription(
+          situationDescriptions[_counter % situationDescriptions.length] as string,
+        ),
+        new Emotions.VO.SituationLocation(situationLocations[_counter % situationLocations.length] as string),
         new Emotions.VO.SituationKind(
           situationKinds[_counter % situationKinds.length] as Emotions.VO.SituationKindOptions,
         ),
@@ -65,7 +67,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       await entry.logEmotion(emotion);
 
       const reaction = new Emotions.Entities.Reaction(
-        new Emotions.VO.ReactionDescription(reactionDescriptions[_counter % reactionDescriptions.length]),
+        new Emotions.VO.ReactionDescription(
+          reactionDescriptions[_counter % reactionDescriptions.length] as string,
+        ),
         new Emotions.VO.ReactionType(
           reactionTypes[_counter % reactionTypes.length] as Emotions.VO.GrossEmotionRegulationStrategy,
         ),
