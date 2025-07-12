@@ -1,13 +1,20 @@
 import * as EventHandlers from "+emotions/event-handlers";
 import * as Events from "+emotions/events";
 import * as Sagas from "+emotions/sagas";
+import { AiClientEnum } from "+emotions/services/ai-client";
+import { AnthropicAiClient } from "+infra/anthropic-ai-client";
+import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
 import { OpenAiClient } from "+infra/open-ai-client";
 import * as bg from "@bgord/bun";
 
 const EventHandler = new bg.EventHandler(logger);
-const OpenAI = new OpenAiClient();
+
+const AiClient = {
+  [AiClientEnum.anthropic]: new AnthropicAiClient(),
+  [AiClientEnum.open_ai]: new OpenAiClient(),
+};
 
 // Entry
 EventBus.on(Events.ENTRY_DELETED_EVENT, EventHandler.handle(EventHandlers.onEntryDeletedEvent));
@@ -55,5 +62,5 @@ EventBus.on(
 
 EventBus.on(Events.ALARM_CANCELLED_EVENT, EventHandler.handle(EventHandlers.onAlarmCancelledEvent));
 
-new Sagas.AlarmProcessing(EventBus, OpenAI).register();
-new Sagas.WeeklyReviewProcessing(EventBus, OpenAI).register();
+new Sagas.AlarmProcessing(EventBus, AiClient[Env.AI_CLIENT]).register();
+new Sagas.WeeklyReviewProcessing(EventBus, AiClient[Env.AI_CLIENT]).register();

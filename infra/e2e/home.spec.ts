@@ -42,7 +42,7 @@ test("Home - layout", async ({ page }) => {
   const emotionIntensity = entry.locator("section").filter({ hasText: "What happened?" }).locator("svg");
   await expect(emotionIntensity.locator('rect[fill="var(--brand-400)"]')).toHaveCount(5);
 
-  const whatWasYourReaction = entry.getByText("What was your reaction?");
+  const whatWasYourReaction = entry.getByText("How did you react?");
   await expect(whatWasYourReaction).toBeVisible();
 
   const reactionType = entry.getByText("problem_solving");
