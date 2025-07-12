@@ -183,7 +183,7 @@ export const AdaptiveReactionLoggedEvent = {
   },
 } satisfies Emotions.Events.ReactionLoggedEventType;
 
-export const GenericEmotionJournalEntryDeletedEvent = {
+export const GenericEntryDeletedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),

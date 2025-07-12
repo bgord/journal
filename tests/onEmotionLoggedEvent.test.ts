@@ -4,9 +4,7 @@ import * as mocks from "./mocks";
 
 describe("onEmotionLoggedEvent", () => {
   test("should call repository logEmotion method with the event", async () => {
-    const logEmotion = spyOn(Emotions.Repos.EmotionJournalEntryRepository, "logEmotion").mockImplementation(
-      jest.fn(),
-    );
+    const logEmotion = spyOn(Emotions.Repos.EntryRepository, "logEmotion").mockImplementation(jest.fn());
 
     await Emotions.EventHandlers.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
 

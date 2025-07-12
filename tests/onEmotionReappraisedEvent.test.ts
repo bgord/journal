@@ -4,10 +4,9 @@ import * as mocks from "./mocks";
 
 describe("onEmotionReappraisedEvent", () => {
   test("should call repository reappraiseEmotion method with the event", async () => {
-    const reappraiseEmotion = spyOn(
-      Emotions.Repos.EmotionJournalEntryRepository,
-      "reappraiseEmotion",
-    ).mockImplementation(jest.fn());
+    const reappraiseEmotion = spyOn(Emotions.Repos.EntryRepository, "reappraiseEmotion").mockImplementation(
+      jest.fn(),
+    );
 
     await Emotions.EventHandlers.onEmotionReappraisedEvent(
       mocks.NegativeEmotionExtremeIntensityReappraisedEvent,

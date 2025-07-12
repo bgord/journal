@@ -36,7 +36,7 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
-    const entries = await Repos.EmotionJournalEntryRepository.findInWeek(event.payload.weekStartedAt);
+    const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
 
     const prompt = new Services.WeeklyReviewInsightsPrompt(entries).generate();
 
@@ -71,7 +71,7 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewCompletedEvent(event: Events.WeeklyReviewCompletedEventType) {
-    const entries = await Repos.EmotionJournalEntryRepository.findInWeek(event.payload.weekStartedAt);
+    const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
     const insights = new VO.EmotionalAdvice(event.payload.insights);
     const weekStart = VO.WeekStart.fromTimestamp(event.payload.weekStartedAt);
 

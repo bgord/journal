@@ -4,9 +4,7 @@ import * as mocks from "./mocks";
 
 describe("onReactionLoggedEvent", () => {
   test("should call repository logReaction method with the event", async () => {
-    const logReaction = spyOn(Emotions.Repos.EmotionJournalEntryRepository, "logReaction").mockImplementation(
-      jest.fn(),
-    );
+    const logReaction = spyOn(Emotions.Repos.EntryRepository, "logReaction").mockImplementation(jest.fn());
 
     await Emotions.EventHandlers.onReactionLoggedEvent(mocks.GenericReactionLoggedEvent);
 

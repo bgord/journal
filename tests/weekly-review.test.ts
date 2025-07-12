@@ -13,9 +13,9 @@ describe("WeeklyReview", () => {
   });
 
   test("build new aggregate", () => {
-    const emotionJournalEntry = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, []);
+    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, []);
 
-    expect(emotionJournalEntry.pullEvents()).toEqual([]);
+    expect(weeklyReview.pullEvents()).toEqual([]);
   });
 
   test("generate - correct path", async () => {

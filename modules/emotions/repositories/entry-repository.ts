@@ -5,7 +5,7 @@ import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 
-export class EmotionJournalEntryRepository {
+export class EntryRepository {
   static async getById(id: VO.EntryIdType): Promise<Schema.SelectEntries> {
     const result = await db.select().from(Schema.entries).where(eq(Schema.entries.id, id));
 

@@ -1,10 +1,10 @@
 import * as UI from "@bgord/ui";
 import { Xmark } from "iconoir-react";
 import { useFetcher, useSubmit } from "react-router";
-import type { SelectEmotionJournalEntries } from "../../infra/schema";
+import type { SelectEntries } from "../../infra/schema";
 import { RatingPills } from "./rating-pills";
 
-export function Entry(props: Omit<SelectEmotionJournalEntries, "startedAt"> & { startedAt: string }) {
+export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: string }) {
   const t = UI.useTranslations();
   const hover = UI.useHover();
   const fetcher = useFetcher();

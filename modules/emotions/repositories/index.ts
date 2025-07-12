@@ -1,2 +1,2 @@
 export * from "./alarm-repository";
-export * from "./emotion-journal-entry-repository";
+export * from "./entry-repository";

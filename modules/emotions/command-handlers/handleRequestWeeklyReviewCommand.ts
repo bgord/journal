@@ -6,7 +6,7 @@ import * as tools from "@bgord/tools";
 export const handleRequestWeeklyReviewCommand = async (
   command: Emotions.Commands.RequestWeeklyReviewCommandType,
 ) => {
-  const entriesFromTheWeekCount = await Emotions.Repos.EmotionJournalEntryRepository.countInWeek(
+  const entriesFromTheWeekCount = await Emotions.Repos.EntryRepository.countInWeek(
     command.payload.weekStart.get(),
   );
   const weeklyReviewId = bg.NewUUID.generate();

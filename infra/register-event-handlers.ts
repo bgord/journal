@@ -9,8 +9,7 @@ import * as bg from "@bgord/bun";
 const EventHandler = new bg.EventHandler(logger);
 const OpenAI = new OpenAiClient();
 
-// Emotion journal entry
-
+// Entry
 EventBus.on(Events.ENTRY_DELETED_EVENT, EventHandler.handle(EventHandlers.onEntryDeletedEvent));
 
 EventBus.on(Events.EMOTION_REAPPRAISED_EVENT, EventHandler.handle(EventHandlers.onEmotionReappraisedEvent));
@@ -24,7 +23,6 @@ EventBus.on(Events.REACTION_LOGGED_EVENT, EventHandler.handle(EventHandlers.onRe
 EventBus.on(Events.SITUATION_LOGGED_EVENT, EventHandler.handle(EventHandlers.onSituationLoggedEvent));
 
 // Pattern detection
-
 EventBus.on(
   Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   EventHandler.handle(EventHandlers.onMoreNegativeThanPositiveEmotionsPatternDetectedEvent),
@@ -46,7 +44,6 @@ EventBus.on(
 );
 
 // Alarms
-
 EventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(EventHandlers.onAlarmGeneratedEvent));
 
 EventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, EventHandler.handle(EventHandlers.onAlarmAdviceSavedEvent));

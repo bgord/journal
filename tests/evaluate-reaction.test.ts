@@ -78,7 +78,7 @@ describe("POST /emotions/:id/evaluate-reaction", () => {
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
-      mocks.GenericEmotionJournalEntryDeletedEvent,
+      mocks.GenericEntryDeletedEvent,
     ];
 
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);

@@ -4,14 +4,12 @@ import * as mocks from "./mocks";
 
 describe("onEntryDeletedEvent", () => {
   test("should call repository deleteEntry method with the event", async () => {
-    const deleteEntry = spyOn(Emotions.Repos.EmotionJournalEntryRepository, "deleteEntry").mockImplementation(
-      jest.fn(),
-    );
+    const deleteEntry = spyOn(Emotions.Repos.EntryRepository, "deleteEntry").mockImplementation(jest.fn());
 
-    await Emotions.EventHandlers.onEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent);
+    await Emotions.EventHandlers.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent);
 
     expect(deleteEntry).toHaveBeenCalledTimes(1);
-    expect(deleteEntry).toHaveBeenCalledWith(mocks.GenericEmotionJournalEntryDeletedEvent);
+    expect(deleteEntry).toHaveBeenCalledWith(mocks.GenericEntryDeletedEvent);
 
     jest.restoreAllMocks();
   });

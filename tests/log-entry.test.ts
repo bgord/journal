@@ -177,7 +177,7 @@ describe("POST /emotions/log-entry", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [
       mocks.GenericSituationLoggedEvent,
-      mocks.GenericEmotionJournalEntryDeletedEvent,
+      mocks.GenericEntryDeletedEvent,
     ]);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
     spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
@@ -262,7 +262,7 @@ describe("POST /emotions/log-entry", () => {
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
-      mocks.GenericEmotionJournalEntryDeletedEvent,
+      mocks.GenericEntryDeletedEvent,
     ]);
     spyOn(entry, "logSituation").mockImplementation(jest.fn());
     spyOn(entry, "logEmotion").mockImplementation(jest.fn());

@@ -17,8 +17,8 @@ export class Entry {
   ];
 
   private readonly id: Emotions.VO.EntryIdType;
-  private startedAt?: Emotions.VO.EmotionJournalEntryStartedAtType;
-  private finishedAt?: Emotions.VO.EmotionJournalEntryFinishedAtType;
+  private startedAt?: Emotions.VO.EntryStartedAtType;
+  private finishedAt?: Emotions.VO.EntryFinishedAtType;
   private situation?: Emotions.Entities.Situation;
   private emotion?: Emotions.Entities.Emotion;
   private reaction?: Emotions.Entities.Reaction;

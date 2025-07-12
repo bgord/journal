@@ -79,7 +79,7 @@ describe("AlarmProcessing", () => {
 
   test("onAlarmGeneratedEvent", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(openAiClient, "request").mockResolvedValue("You should do something");
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
@@ -99,7 +99,7 @@ describe("AlarmProcessing", () => {
 
   test("onAlarmGeneratedEvent - cancels alarm when advice requester fails", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(openAiClient, "request").mockImplementation(() => {
       throw new Error();
     });
@@ -142,7 +142,7 @@ describe("AlarmProcessing", () => {
   test("onAlarmNotificationSentEvent", async () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
-    spyOn(Emotions.Repos.EmotionJournalEntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
 
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
 
@@ -162,7 +162,7 @@ describe("AlarmProcessing", () => {
     jest.restoreAllMocks();
   });
 
-  test("onEmotionJournalEntryDeletedEvent - cancels pending alarm", async () => {
+  test("onEntryDeletedEvent - cancels pending alarm", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
@@ -180,7 +180,7 @@ describe("AlarmProcessing", () => {
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
-      async () => await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent),
+      async () => await saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
@@ -188,7 +188,7 @@ describe("AlarmProcessing", () => {
     jest.restoreAllMocks();
   });
 
-  test("onEmotionJournalEntryDeletedEvent - does not cancel handled alarms", async () => {
+  test("onEntryDeletedEvent - does not cancel handled alarms", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
@@ -204,7 +204,7 @@ describe("AlarmProcessing", () => {
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
-      async () => await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent),
+      async () => await saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -212,7 +212,7 @@ describe("AlarmProcessing", () => {
     jest.restoreAllMocks();
   });
 
-  test("onEmotionJournalEntryDeletedEvent - does not cancel cancelled", async () => {
+  test("onEntryDeletedEvent - does not cancel cancelled", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
@@ -228,7 +228,7 @@ describe("AlarmProcessing", () => {
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
-      async () => await saga.onEmotionJournalEntryDeletedEvent(mocks.GenericEmotionJournalEntryDeletedEvent),
+      async () => await saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();

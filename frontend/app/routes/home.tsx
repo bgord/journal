@@ -1,7 +1,7 @@
 import * as UI from "@bgord/ui";
 import { Plus } from "iconoir-react";
 import { Link } from "react-router";
-import type { SelectEmotionJournalEntries } from "../../../infra/schema";
+import type { SelectEntries } from "../../../infra/schema";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import * as Components from "../../components";
@@ -22,7 +22,7 @@ export async function action({ request }: Route.ActionArgs) {
 
 export async function loader() {
   const response = await API("/emotions/entries");
-  const entries = (await response.json()) as SelectEmotionJournalEntries[];
+  const entries = (await response.json()) as SelectEntries[];
 
   return entries.map((entry) => ({ ...entry, startedAt: new Date(entry.startedAt).toLocaleString() }));
 }
