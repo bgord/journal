@@ -30,6 +30,8 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
   const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situation-description" });
   const situationLocation = UI.useField<types.SituationLocationType>({ name: "situation-location" });
   const situationKind = UI.useField<types.SituationKindType>({ name: "situation-kind" });
+
+  const [emotionType, setEmotionType] = React.useState<"positive" | "negative">();
   const emotionLabel = UI.useField<types.EmotionLabelType>({ name: "emotion-label" });
   const emotionIntensity = UI.useField<types.EmotionIntensityType>({
     name: "emotion-intensity",
@@ -131,20 +133,57 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
           )}
 
           {step === "emotion" && (
-            <div data-display="flex" data-gap="24">
-              <div data-display="flex" data-direction="column">
-                <label className="c-label" {...emotionLabel.label.props}>
-                  {t("entry.emotion.label.label")}
-                </label>
+            <div data-display="flex" data-gap="12" data-direction="column">
+              <div data-fs="14" {...UI.Colorful("brand-700").style.color}>
+                What kind of emotion did you feel?
+              </div>
 
-                <Select className="c-select" {...emotionLabel.input.props}>
-                  <option value="">{t("entry.emotion.location.default.value")}</option>
-                  {loaderData.emotionLabels.map((emotion) => (
-                    <option key={emotion} value={emotion}>
-                      {t(`entry.emotion.label.value.${emotion}`)}
-                    </option>
-                  ))}
-                </Select>
+              <div
+                data-display="flex"
+                data-cross="center"
+                data-gap="24"
+                {...UI.Rhythm().times(5).style.height}
+              >
+                <button
+                  type="button"
+                  className="c-button"
+                  data-variant={emotionType === "positive" ? "secondary" : "bare"}
+                  data-mt="12"
+                  onClick={() => setEmotionType("positive")}
+                  {...UI.Rhythm().times(7).style.width}
+                >
+                  Positive
+                </button>
+
+                <button
+                  type="button"
+                  className="c-button"
+                  data-variant={emotionType === "negative" ? "secondary" : "bare"}
+                  data-mt="12"
+                  onClick={() => setEmotionType("negative")}
+                  {...UI.Rhythm().times(7).style.width}
+                >
+                  Negative
+                </button>
+
+                {emotionType && (
+                  <div data-display="flex" data-direction="column" data-animation="grow-fade-in">
+                    <label className="c-label" {...emotionLabel.label.props}>
+                      {t("entry.emotion.label.label")}
+                    </label>
+
+                    <Select className="c-select" {...emotionLabel.input.props}>
+                      <option value="">{t("entry.emotion.location.default.value")}</option>
+                      {loaderData.emotionLabels
+                        .filter((label) => (emotionType === "positive" ? label.positive : !label.positive))
+                        .map((emotion) => (
+                          <option key={emotion.option} value={emotion.option}>
+                            {t(`entry.emotion.label.value.${emotion.option}`)}
+                          </option>
+                        ))}
+                    </Select>
+                  </div>
+                )}
               </div>
 
               <div data-display="flex" data-direction="column">

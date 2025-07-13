@@ -57,8 +57,11 @@ export class EmotionLabel {
     ].includes(this.get());
   }
 
-  static all(): EmotionLabelType[] {
-    return EmotionLabelSchema.options;
+  static all(): { positive: boolean; option: EmotionLabelType }[] {
+    return EmotionLabelSchema.options.map((option) => ({
+      positive: new EmotionLabel(option).isPositive(),
+      option,
+    }));
   }
 
   toString(): string {
