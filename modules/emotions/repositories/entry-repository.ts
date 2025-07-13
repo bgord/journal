@@ -31,7 +31,7 @@ export class EntryRepository {
   }
 
   static async list(): Promise<Schema.SelectEntries[]> {
-    return db.select().from(Schema.entries).orderBy(desc(Schema.entries.startedAt));
+    return db.select().from(Schema.entries).orderBy(desc(Schema.entries.startedAt)) ?? [];
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {
