@@ -18,8 +18,9 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
         .from(schema.events)
         .orderBy(asc(schema.events.revision))
         .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
-    inserter: async (_events: z.infer<bg.GenericParsedEventSchema>[]) => {
-      const stream = _events?.[0]?.stream as bg.EventStreamType;
+
+    inserter: async (incoming: z.infer<bg.GenericParsedEventSchema>[]) => {
+      const { stream } = incoming[0] as { stream: bg.EventStreamType };
 
       // Events need to be resurfaced with the correct `revision` field.
       let events: z.infer<bg.GenericParsedEventSchema>[] = [];
@@ -32,7 +33,7 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
           .where(eq(schema.events.stream, stream));
 
         let next = current + 1;
-        events = _events.map((ev) => ({ ...ev, revision: next++ }));
+        events = incoming.map((ev) => ({ ...ev, revision: next++ }));
 
         try {
           await tx.insert(schema.events).values(events);
