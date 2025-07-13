@@ -19,8 +19,11 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
         // TODO: .orderBy(asc(schema.events.createdAt), asc(schema.events.revision))?
         .orderBy(asc(schema.events.createdAt))
         .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
-    inserter: async (events: z.infer<bg.GenericParsedEventSchema>[]) => {
-      const stream = events?.[0]?.stream as bg.EventStreamType;
+    inserter: async (_events: z.infer<bg.GenericParsedEventSchema>[]) => {
+      const stream = _events?.[0]?.stream as bg.EventStreamType;
+
+      // Events need to be resurfaced with the correct `revision` field.
+      let events: z.infer<bg.GenericParsedEventSchema>[] = [];
 
       await db.transaction(async (tx) => {
         // @ts-expect-error
@@ -30,10 +33,10 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
           .where(eq(schema.events.stream, stream));
 
         let next = current + 1;
-        const rows = events.map((event) => ({ ...event, revision: next++ }));
+        events = _events.map((ev) => ({ ...ev, revision: next++ }));
 
         try {
-          await tx.insert(schema.events).values(rows);
+          await tx.insert(schema.events).values(events);
         } catch (error: any) {
           if (error.code === "SQLITE_CONSTRAINT") {
             throw new tools.RevisionMismatchError();
@@ -42,6 +45,8 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
           throw error;
         }
       });
+
+      return events;
     },
   },
   EventBus,
