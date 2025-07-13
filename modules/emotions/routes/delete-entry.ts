@@ -1,11 +1,13 @@
 import * as Emotions from "+emotions";
+import type * as infra from "+infra";
 import { CommandBus } from "+infra/command-bus";
 import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
 
-export async function DeleteEntry(c: hono.Context, _next: hono.Next) {
+export async function DeleteEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+  const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("id"));
 
   logger.info({
@@ -19,6 +21,7 @@ export async function DeleteEntry(c: hono.Context, _next: hono.Next) {
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.DELETE_ENTRY_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
+    revision,
     payload: { entryId },
   } satisfies Emotions.Commands.DeleteEntryCommandType);
 

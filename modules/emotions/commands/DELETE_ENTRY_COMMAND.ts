@@ -10,6 +10,7 @@ export const DeleteEntryCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(DELETE_ENTRY_COMMAND),
+  revision: tools.Revision,
   payload: z.object({ entryId: VO.EntryId }),
 });
 

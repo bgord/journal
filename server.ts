@@ -14,9 +14,7 @@ import * as Emotions from "./modules/emotions";
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
-type Config = { Variables: infra.Variables; startup: tools.Stopwatch };
-
-const server = new Hono<Config>();
+const server = new Hono<infra.HonoConfig>();
 
 server.use(...bg.Setup.essentials(logger, I18nConfig));
 

@@ -11,6 +11,7 @@ export const EvaluateReactionCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(EVALUATE_REACTION_COMMAND),
+  revision: tools.Revision,
   payload: z.object({
     entryId: VO.EntryId,
     newReaction: z.instanceof(Entities.Reaction),
