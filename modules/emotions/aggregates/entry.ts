@@ -66,17 +66,9 @@ export class Entry {
   }
 
   async logEmotion(emotion: Emotions.Entities.Emotion) {
-    await Emotions.Policies.EntryIsActionable.perform({
-      status: this.status,
-    });
-
-    await Emotions.Policies.OneEmotionPerEntry.perform({
-      emotion: this.emotion,
-    });
-
-    await Emotions.Policies.EmotionCorrespondsToSituation.perform({
-      situation: this.situation,
-    });
+    await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
+    await Emotions.Policies.OneEmotionPerEntry.perform({ emotion: this.emotion });
+    await Emotions.Policies.EmotionCorrespondsToSituation.perform({ situation: this.situation });
 
     const event = Emotions.Events.EmotionLoggedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -97,14 +89,8 @@ export class Entry {
   }
 
   async logReaction(reaction: Emotions.Entities.Reaction) {
-    await Emotions.Policies.EntryIsActionable.perform({
-      status: this.status,
-    });
-
-    await Emotions.Policies.OneReactionPerEntry.perform({
-      reaction: this.reaction,
-    });
-
+    await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
+    await Emotions.Policies.OneReactionPerEntry.perform({ reaction: this.reaction });
     await Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.perform({
       situation: this.situation,
       emotion: this.emotion,
@@ -130,17 +116,9 @@ export class Entry {
   }
 
   async reappraiseEmotion(newEmotion: Emotions.Entities.Emotion) {
-    await Emotions.Policies.EntryIsActionable.perform({
-      status: this.status,
-    });
-
-    await Emotions.Policies.EmotionCorrespondsToSituation.perform({
-      situation: this.situation,
-    });
-
-    await Emotions.Policies.EmotionForReappraisalExists.perform({
-      emotion: this.emotion,
-    });
+    await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
+    await Emotions.Policies.EmotionCorrespondsToSituation.perform({ situation: this.situation });
+    await Emotions.Policies.EmotionForReappraisalExists.perform({ emotion: this.emotion });
 
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -161,18 +139,12 @@ export class Entry {
   }
 
   async evaluateReaction(newReaction: Emotions.Entities.Reaction) {
-    await Emotions.Policies.EntryIsActionable.perform({
-      status: this.status,
-    });
-
+    await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
     await Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.perform({
       situation: this.situation,
       emotion: this.emotion,
     });
-
-    await Emotions.Policies.ReactionForEvaluationExists.perform({
-      reaction: this.reaction,
-    });
+    await Emotions.Policies.ReactionForEvaluationExists.perform({ reaction: this.reaction });
 
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
       id: bg.NewUUID.generate(),
