@@ -1,6 +1,7 @@
 # Changelog
+- 2025-07-13 17:33 0a64930 **step: setup revision mismatch error handler**
+## 2025-07-13 17:33 
 - 2025-07-13 17:17 5d7a134 **refactor: remove empty file**
-## 2025-07-13 17:17 
 - 2025-07-13 17:15 f054f22 **step: update bgord-bun**
 - 2025-07-13 17:12 58ca278 **fix: data-exit**
 - 2025-07-13 17:11 42da12b **step: update bgord ui**
@@ -20,6 +21,8 @@
 - 2025-07-13 15:29 90e5b81 **step: validate revisions in 3 command handlers**
 - 2025-07-13 15:29 37e9757 **step: update cspell**
 - 2025-07-13 15:25 36e727a **fix: revision in route tests**
+- 2025-07-13 15:17 d6ea76f **docs: generate readme**
+- 2025-07-13 15:17 42dbdce **docs: generate CHANGELOG**
 - 2025-07-13 15:09 c28d47f **step: extract revisions in routes**
 - 2025-07-13 15:02 4a19abc **fix: tests**
 - 2025-07-13 13:57 a297eec **refactor: move EventStoreSaveUniqueStream to bgord-bun**
