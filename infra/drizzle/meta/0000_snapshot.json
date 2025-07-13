@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "101e0096-7b9b-4c51-9c58-33a2850a1fd3",
+  "id": "1a76fe08-d2cc-4843-a45f-1d342eefc58e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alarms": {
@@ -75,6 +75,14 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
         "startedAt": {
           "name": "startedAt",
@@ -205,6 +213,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
         "payload": {
           "name": "payload",

@@ -10,6 +10,7 @@ CREATE TABLE `alarms` (
 --> statement-breakpoint
 CREATE TABLE `entries` (
 	`id` text(36) PRIMARY KEY NOT NULL,
+	`revision` integer DEFAULT 0 NOT NULL,
 	`startedAt` integer NOT NULL,
 	`finishedAt` integer,
 	`situationDescription` text,
@@ -30,6 +31,7 @@ CREATE TABLE `events` (
 	`name` text NOT NULL,
 	`stream` text NOT NULL,
 	`version` integer NOT NULL,
+	`revision` integer DEFAULT 0 NOT NULL,
 	`payload` text NOT NULL
 );
 --> statement-breakpoint

@@ -25,6 +25,7 @@ export const events = sqliteTable(
     name: text("name").notNull(),
     stream: text("stream").notNull(),
     version: integer("version").notNull(),
+    revision: integer("revision").notNull().default(0),
     payload: text("payload").notNull(),
   },
   (table) => [index("stream_idx").on(table.stream)],
