@@ -30,8 +30,10 @@ export class EntryRepository {
       .where(and(gte(Schema.entries.startedAt, weekStartedAt), lte(Schema.entries.startedAt, weekEndedAt)));
   }
 
-  static async list(): Promise<Schema.SelectEntries[]> {
-    return db.select().from(Schema.entries).orderBy(desc(Schema.entries.startedAt)) ?? [];
+  static async list(): Promise<Schema.SelectEntriesFormatted[]> {
+    const entries = (await db.select().from(Schema.entries).orderBy(desc(Schema.entries.startedAt))) ?? [];
+
+    return entries.map((entry) => ({ ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) }));
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {

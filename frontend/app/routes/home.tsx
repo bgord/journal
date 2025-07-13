@@ -1,7 +1,7 @@
 import * as UI from "@bgord/ui";
 import { Plus } from "iconoir-react";
 import { Link } from "react-router";
-import type { SelectEntries } from "../../../infra/schema";
+import type { SelectEntriesFormatted } from "../../../infra/schema";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import * as Components from "../../components";
@@ -22,9 +22,9 @@ export async function action({ request }: Route.ActionArgs) {
 
 export async function loader() {
   const response = await API("/entry/list");
-  const entries = (await response.json()) as SelectEntries[];
+  const entries = (await response.json()) as SelectEntriesFormatted[];
 
-  return entries.map((entry) => ({ ...entry, startedAt: new Date(entry.startedAt).toLocaleString() }));
+  return entries;
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {

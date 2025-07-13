@@ -61,4 +61,5 @@ export const alarms = sqliteTable("alarms", {
 });
 
 export type SelectEntries = typeof entries.$inferSelect;
+export type SelectEntriesFormatted = Omit<SelectEntries, "startedAt"> & { startedAt: string };
 export type SelectAlarms = typeof alarms.$inferSelect;
