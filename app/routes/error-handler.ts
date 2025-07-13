@@ -1,6 +1,7 @@
 import * as Emotions from "+emotions";
 import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
@@ -44,6 +45,10 @@ export class ErrorHandler {
       }
 
       return error.getResponse();
+    }
+
+    if (error instanceof tools.RevisionMismatchError) {
+      return c.json({ message: "revision.mismatch", _known: true }, 412);
     }
 
     if (error instanceof z.ZodError) {
