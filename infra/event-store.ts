@@ -16,17 +16,11 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
       db
         .select()
         .from(schema.events)
+        // TODO: .orderBy(asc(schema.events.createdAt), asc(schema.events.revision))?
         .orderBy(asc(schema.events.createdAt))
         .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
     inserter: async (events: z.infer<bg.GenericParsedEventSchema>[]) => {
-      if (!events[0]) return;
-
-      const stream = events[0].stream;
-
-      // 1. Sanity: all events must belong to the same stream
-      if (!events.every((event) => event.stream === stream)) {
-        throw new Error("EventStore.save must be called per-stream");
-      }
+      const stream = events?.[0]?.stream as bg.EventStreamType;
 
       await db.transaction(async (tx) => {
         // @ts-expect-error
