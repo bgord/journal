@@ -13,7 +13,10 @@ export function meta() {
 
 export async function action({ request }: Route.ActionArgs) {
   const form = await request.formData();
-  await API(`/entry/${form.get("id")}/delete`, { method: "DELETE" });
+  await API(`/entry/${form.get("id")}/delete`, {
+    method: "DELETE",
+    headers: UI.WeakETag.fromRevision(Number(form.get("revision"))),
+  });
   return { ok: true };
 }
 

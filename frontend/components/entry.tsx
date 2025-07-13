@@ -44,6 +44,7 @@ export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: str
         {hover.isHovering && (
           <fetcher.Form method="delete">
             <input type="hidden" name="id" value={props.id} />
+            <input type="hidden" name="revision" value={props.revision} />
             <button
               className="c-button"
               data-variant="with-icon"
