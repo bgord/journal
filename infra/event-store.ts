@@ -22,31 +22,29 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
     inserter: async (incoming: z.infer<bg.GenericParsedEventSchema>[]) => {
       const { stream } = incoming[0] as { stream: bg.EventStreamType };
 
-      // Events need to be resurfaced with the correct `revision` field.
-      let events: z.infer<bg.GenericParsedEventSchema>[] = [];
-
-      await db.transaction(async (tx) => {
-        // @ts-expect-error
-        const [{ current }] = await tx
-          .select({ current: sql<number>`coalesce(max(${schema.events.revision}), -1)` })
+      return db.transaction(async (tx) => {
+        const current = await tx
+          .select({ max: sql<number>`max(${schema.events.revision})` })
           .from(schema.events)
           .where(eq(schema.events.stream, stream));
 
-        let next = current + 1;
-        events = incoming.map((ev) => ({ ...ev, revision: next++ }));
+        const max = current[0]?.max ?? bg.DispatchingEventStore.EMPTY_STREAM_REVISION;
+
+        const rows: z.infer<bg.GenericParsedEventSchema>[] = incoming.map((event, order) => ({
+          ...event,
+          revision: max + order + 1,
+        }));
 
         try {
-          await tx.insert(schema.events).values(events);
-        } catch (error: any) {
-          if (error.code === "SQLITE_CONSTRAINT") {
+          await tx.insert(schema.events).values(rows);
+          return rows;
+        } catch (e: any) {
+          if (e.code === "SQLITE_CONSTRAINT") {
             throw new tools.RevisionMismatchError();
           }
-
-          throw error;
+          throw e;
         }
       });
-
-      return events;
     },
   },
   EventBus,
