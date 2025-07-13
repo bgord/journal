@@ -27,6 +27,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
         name: Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
+        revision: tools.Revision.initial,
         payload: {},
       } satisfies Events.MultipleMaladaptiveReactionsPatternDetectedEventType);
     }

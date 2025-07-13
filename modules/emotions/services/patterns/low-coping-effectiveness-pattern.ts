@@ -33,6 +33,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
         stream: this.getStream(),
         name: Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
         version: 1,
+        revision: tools.Revision.initial,
         payload: {},
       } satisfies Events.LowCopingEffectivenessPatternDetectedEventType);
     }
