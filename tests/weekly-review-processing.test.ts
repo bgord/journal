@@ -1,5 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import { Mailer } from "../infra/mailer";
@@ -30,6 +31,7 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewRequestedEvent", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     spyOn(Emotions.Repos.EntryRepository, "findInWeek").mockResolvedValue([mocks.fullEntry]);
@@ -52,6 +54,7 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewRequestedEvent - failed", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     spyOn(Emotions.Repos.EntryRepository, "findInWeek").mockResolvedValue([mocks.fullEntry]);

@@ -1,4 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as tools from "@bgord/tools";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
@@ -40,6 +41,7 @@ describe("DELETE /entry/:id/delete", () => {
   });
 
   test("happy path - after situation", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
@@ -71,6 +73,7 @@ describe("DELETE /entry/:id/delete", () => {
   });
 
   test("happy path - after emotion", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
@@ -102,6 +105,7 @@ describe("DELETE /entry/:id/delete", () => {
   });
 
   test("happy path - after reaction", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 

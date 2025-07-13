@@ -1,5 +1,6 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -131,6 +132,7 @@ describe("entry", () => {
   });
 
   test("reappraiseEmotion - correct path", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
@@ -162,6 +164,7 @@ describe("entry", () => {
   });
 
   test("evaluateReaction - correct path", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,

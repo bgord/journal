@@ -24,6 +24,8 @@ export const weekStartedAt = 1750636800000 as tools.TimestampType;
 
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
+export const revision = new tools.Revision(0);
+
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,

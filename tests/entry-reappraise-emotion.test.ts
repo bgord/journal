@@ -1,4 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as tools from "@bgord/tools";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
@@ -157,6 +158,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   });
 
   test("happy path", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 

@@ -1,5 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import { Mailer } from "../infra/mailer";
@@ -79,6 +80,7 @@ describe("AlarmProcessing", () => {
 
   test("onAlarmGeneratedEvent", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(openAiClient, "request").mockResolvedValue("You should do something");
 
@@ -98,6 +100,7 @@ describe("AlarmProcessing", () => {
   });
 
   test("onAlarmGeneratedEvent - cancels alarm when advice requester fails", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(openAiClient, "request").mockImplementation(() => {
@@ -119,6 +122,7 @@ describe("AlarmProcessing", () => {
   });
 
   test("onAlarmAdviceSavedEvent", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
@@ -163,6 +167,7 @@ describe("AlarmProcessing", () => {
   });
 
   test("onEntryDeletedEvent - cancels pending alarm", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [

@@ -1,5 +1,6 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -15,6 +16,7 @@ describe("Alarm", () => {
   });
 
   test("generate - correct path", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, []);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -38,6 +40,7 @@ describe("Alarm", () => {
   });
 
   test("generate - correct path", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
 
     const advice = new Emotions.VO.EmotionalAdvice("You should do something");
@@ -63,6 +66,7 @@ describe("Alarm", () => {
   });
 
   test("notify - correct path", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
