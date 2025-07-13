@@ -17,7 +17,7 @@ export class Entry {
   ];
 
   private readonly id: Emotions.VO.EntryIdType;
-  private revision: tools.Revision = new tools.Revision(tools.Revision.initial);
+  public revision: tools.Revision = new tools.Revision(tools.Revision.initial);
   private startedAt?: Emotions.VO.EntryStartedAtType;
   private finishedAt?: Emotions.VO.EntryFinishedAtType;
   private situation?: Emotions.Entities.Situation;

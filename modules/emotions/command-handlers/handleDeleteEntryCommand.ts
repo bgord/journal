@@ -8,6 +8,7 @@ export const handleDeleteEntryCommand = async (command: Emotions.Commands.Delete
   );
 
   const entry = Emotions.Aggregates.Entry.build(command.payload.entryId, history);
+  command.revision.validate(entry.revision.value);
   await entry.delete();
 
   await EventStore.save(entry.pullEvents());
