@@ -117,8 +117,6 @@ modules/
     │   ├── entries-for-week-exist.ts
     │   ├── entry-has-been-started.ts
     │   ├── entry-is-actionable.ts
-    │   ├── one-emotion-per-entry.ts
-    │   ├── one-reaction-per-entry.ts
     │   ├── one-situation-per-entry.ts
     │   ├── reaction-corresponds-to-situation-and-emotion.ts
     │   ├── reaction-for-evaluation-exists.ts
