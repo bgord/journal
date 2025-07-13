@@ -10,7 +10,8 @@ export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: str
   const fetcher = useFetcher();
   const submit = useSubmit();
 
-  const deleteEntry = () => submit({ id: props.id }, { method: "delete", action: "." });
+  const deleteEntry = () =>
+    submit({ id: props.id, revision: props.revision }, { method: "delete", action: "." });
   const exit = UI.useExitAction({ actionFn: deleteEntry, animation: "shrink-fade-out" });
 
   if (!exit.visible) return null;
@@ -43,8 +44,6 @@ export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: str
 
         {hover.isHovering && (
           <fetcher.Form method="delete">
-            <input type="hidden" name="id" value={props.id} />
-            <input type="hidden" name="revision" value={props.revision} />
             <button
               className="c-button"
               data-variant="with-icon"
