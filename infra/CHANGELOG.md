@@ -1,9 +1,56 @@
 # Changelog
+- 2025-07-13 17:17 5d7a134 **refactor: remove empty file**
+## 2025-07-13 17:17 
+- 2025-07-13 17:15 f054f22 **step: update bgord-bun**
+- 2025-07-13 17:12 58ca278 **fix: data-exit**
+- 2025-07-13 17:11 42da12b **step: update bgord ui**
+- 2025-07-13 17:08 91776d8 **step: update bgord desi**
+- 2025-07-13 17:07 06e23c4 **refactor: clean up animations**
+- 2025-07-13 16:54 3009269 **refactor: remove hover for delete entry**
+- 2025-07-13 16:49 a01e276 **refactor: simplify event-store inserter**
+- 2025-07-13 16:40 42b8b3e **refactor: rename incoming events**
+- 2025-07-13 16:35 40b8a0c **fix: order events by revision**
+- 2025-07-13 16:29 7328b76 **fix: handleRequestWeeklyReviewCommand**
+- 2025-07-13 16:27 10894c3 **feature: resurface processed events in the inserter**
+- 2025-07-13 16:22 11cf693 **fix: revision in delete entry action**
+- 2025-07-13 15:53 a36a0c0 **fix: save revision in read model**
+- 2025-07-13 15:50 df2b112 **step: add revision to API requests**
+- 2025-07-13 15:44 364b429 **step: switch to local bgord ui**
+- 2025-07-13 15:39 9023c87 **fix: tests**
+- 2025-07-13 15:29 90e5b81 **step: validate revisions in 3 command handlers**
+- 2025-07-13 15:29 37e9757 **step: update cspell**
+- 2025-07-13 15:25 36e727a **fix: revision in route tests**
+- 2025-07-13 15:09 c28d47f **step: extract revisions in routes**
+- 2025-07-13 15:02 4a19abc **fix: tests**
+- 2025-07-13 13:57 a297eec **refactor: move EventStoreSaveUniqueStream to bgord-bun**
+- 2025-07-13 13:53 add0e94 **feature: add revisions to inserter**
+- 2025-07-13 13:51 28c5a94 **fix: entry repo list**
+- 2025-07-13 13:37 c973a79 **refactor: merge log* commands into one**
+- 2025-07-13 13:11 a23c3fb **feature: add stream_revision_uidx**
+- 2025-07-13 12:14 e691ce1 **fix: revision in tests**
+- 2025-07-13 12:09 024a85b **step: use inital revision in all event mocks**
+- 2025-07-13 11:58 18f0355 **step: add missing revisions to events**
+- 2025-07-13 11:57 ff5dfd8 **step: add event revision to mocks**
+- 2025-07-13 11:57 689990b **step: add event.revision schema**
+- 2025-07-13 11:46 b778f5b **step: add revision to all aggregates**
+- 2025-07-13 11:44 4c959eb **step: add revision for entry**
+- 2025-07-13 11:43 6b4dc39 **step: define revision for events**
+- 2025-07-13 11:22 b5feb08 **step: switch to local bgord bun**
+- 2025-07-13 11:22 8454d0f **fix: entry revision**
+- 2025-07-12 19:39 1494ca4 **step: add revision to entry schema**
+- 2025-07-12 19:35 fe78644 **step: update packages**
+- 2025-07-12 19:28 d89aaa5 **step: update packages**
+- 2025-07-12 19:22 7d7a92c **step: setup entry-revision**
+- 2025-07-12 18:29 2d0a906 **refactor: fix entry translations**
+- 2025-07-12 18:25 4c5062c **step: update bgord ui**
+- 2025-07-12 18:23 1399e61 **step: update bgord-design**
+- 2025-07-12 18:13 2019ed9 **fix: bg**
 - 2025-07-12 18:11 3e8bf1b **refactor: use data-shadow**
-## 2025-07-12 18:11 
 - 2025-07-12 17:56 3d01aca **feature: add ai client env**
 - 2025-07-12 17:47 9dca44e **step: update packages**
 - 2025-07-12 17:45 cc2501d **step: update packages**
+- 2025-07-12 16:12 e6776d3 **docs: generate CHANGELOG**
+- 2025-07-12 16:12 66e82d3 **docs: generate readme**
 - 2025-07-12 15:09 407447a **fix: entryId in schema**
 - 2025-07-12 14:41 e993b12 **refactor: use bg Translations.build to serve translations**
 - 2025-07-12 14:28 2d394aa **refactor: rename all files**
