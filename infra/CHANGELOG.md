@@ -1,12 +1,16 @@
 # Changelog
+- 2025-07-13 23:44 28571e7 **feature: change color palette**
+## 2025-07-13 23:44 
+- 2025-07-13 22:56 dc96c10 **step: add missing translations**
+- 2025-07-13 22:45 2720049 **step: add language icon**
 - 2025-07-13 22:14 e7026db **refactor: use ui language selector**
-## 2025-07-13 22:14 
 - 2025-07-13 22:12 a5d0ac5 **Revert "step: install js-cookie"**
 - 2025-07-13 22:10 7920aa9 **step: add language selector**
 - 2025-07-13 22:07 f1da190 **step: pass cookie to app/root**
 - 2025-07-13 22:07 318e822 **step: add credentials include**
 - 2025-07-13 22:07 2b5c353 **step: install js-cookie**
 - 2025-07-13 20:39 f5e6103 **step: improve emotion label selection**
+- 2025-07-13 20:33 b11e5ca **docs: generate CHANGELOG**
 - 2025-07-13 17:33 0a64930 **step: setup revision mismatch error handler**
 - 2025-07-13 17:17 5d7a134 **refactor: remove empty file**
 - 2025-07-13 17:15 f054f22 **step: update bgord-bun**
