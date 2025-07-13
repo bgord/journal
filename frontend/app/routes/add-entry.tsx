@@ -134,13 +134,13 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
           {step === "emotion" && (
             <div data-display="flex" data-gap="12" data-direction="column">
               <div data-fs="14" {...UI.Colorful("brand-700").style.color}>
-                What kind of emotion did you feel?
+                {t("entry.emotion.label.description")}
               </div>
 
               <div
                 data-display="flex"
                 data-cross="center"
-                data-gap="24"
+                data-gap="12"
                 {...UI.Rhythm().times(5).style.height}
               >
                 <button
@@ -149,9 +149,9 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                   data-variant={emotionType === "positive" ? "secondary" : "bare"}
                   data-mt="12"
                   onClick={() => setEmotionType("positive")}
-                  {...UI.Rhythm().times(7).style.width}
+                  {...UI.Rhythm().times(9).style.width}
                 >
-                  Positive
+                  {t("entry.emotion.label.type.positive")}
                 </button>
 
                 <button
@@ -160,9 +160,9 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                   data-variant={emotionType === "negative" ? "secondary" : "bare"}
                   data-mt="12"
                   onClick={() => setEmotionType("negative")}
-                  {...UI.Rhythm().times(7).style.width}
+                  {...UI.Rhythm().times(9).style.width}
                 >
-                  Negative
+                  {t("entry.emotion.label.type.negative")}
                 </button>
 
                 {emotionType && (
