@@ -13,7 +13,7 @@ export const handleRequestWeeklyReviewCommand = async (
   const weeklyReview = Emotions.Aggregates.WeeklyReview.create(weeklyReviewId);
 
   if (Emotions.Policies.EntriesForWeekExist.fails({ count: entriesFromTheWeekCount })) {
-    return EventStore.save([
+    await EventStore.save([
       Emotions.Events.WeeklyReviewSkippedEvent.parse({
         id: bg.NewUUID.generate(),
         correlationId: bg.CorrelationStorage.get(),
@@ -24,6 +24,8 @@ export const handleRequestWeeklyReviewCommand = async (
         payload: { weekStartedAt: command.payload.weekStart.get() },
       } satisfies Emotions.Events.WeeklyReviewSkippedEventType),
     ]);
+
+    return;
   }
 
   await weeklyReview.request(command.payload.weekStart);
