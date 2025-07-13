@@ -4,7 +4,7 @@
     "": {
       "name": "frontend",
       "dependencies": {
-        "@bgord/design": "0.29.1",
+        "@bgord/design": "0.29.3",
         "@bgord/ui": "file:../../bgord-ui",
         "@react-router/node": "7.6.3",
         "@react-router/serve": "7.6.3",
@@ -91,7 +91,7 @@
 
     "@babel/types": ["@babel/types@7.28.0", "", { "dependencies": { "@babel/helper-string-parser": "^7.27.1", "@babel/helper-validator-identifier": "^7.27.1" } }, "sha512-jYnje+JyZG5YThjHiF28oT4SIZLnYOcSBb6+SDaFIyzDVSkXQmQQYclJ2R+YxcdmK0AX6x1E5OQNtuh3jHDrUg=="],
 
-    "@bgord/design": ["@bgord/design@0.29.1", "", { "dependencies": { "lodash": "4.17.21" } }, "sha512-5UQfyrg9k98BfLXa1yzFZuDMGAGWT6Nrz9wbs/mqQ0lljjYjJVyBBaC0wPDJep4mJnQlxqkHIbSGZhferIc76A=="],
+    "@bgord/design": ["@bgord/design@0.29.3", "", { "dependencies": { "lodash": "4.17.21" } }, "sha512-G70q2Du5YH+XGjYsuWUuAFSMxT68ZlllDF4rlgg1d18ak7u6egZi1+Or3GcSYdez0YQoWTJvFS+1NfeHETB6qw=="],
 
     "@bgord/ui": ["@bgord/ui@file:../../bgord-ui", { "dependencies": { "polish-plurals": "^1.1.0" }, "devDependencies": { "@biomejs/biome": "2.0.6", "@commitlint/cli": "19.8.1", "@commitlint/config-conventional": "19.8.1", "@happy-dom/global-registrator": "18.0.1", "@testing-library/dom": "10.4.0", "@testing-library/jest-dom": "6.6.3", "@testing-library/react": "16.3.0", "@testing-library/user-event": "14.6.1", "@types/bun": "1.2.18", "@types/react": "19.1.8", "@types/react-dom": "19.1.6", "cspell": "9.1.3", "knip": "5.61.3", "lefthook": "1.12.2", "only-allow": "1.2.1", "shellcheck": "3.1.0" }, "peerDependencies": { "react": "19.1.0", "react-dom": "19.1.0", "react-router": "7.6.3" } }],
 
