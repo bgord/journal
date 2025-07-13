@@ -33,7 +33,6 @@ export const GenericSituationLoggedEvent = {
   name: Emotions.Events.SITUATION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     description: "I finished a project",
@@ -49,7 +48,6 @@ export const GenericEmotionLoggedEvent = {
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     label: Emotions.VO.GenevaWheelEmotion.gratitude,
@@ -64,7 +62,6 @@ export const GenericReactionLoggedEvent = {
   name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     description: "Got drunk",
@@ -80,7 +77,6 @@ export const GenericEmotionReappraisedEvent = {
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.joy,
@@ -95,7 +91,6 @@ export const GenericReactionEvaluatedEvent = {
   name: Emotions.Events.REACTION_EVALUATED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     description: "Went to bed",
@@ -111,7 +106,6 @@ export const PositiveEmotionLoggedEvent = {
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     label: Emotions.VO.GenevaWheelEmotion.joy,
@@ -126,7 +120,6 @@ export const NegativeEmotionLoggedEvent = {
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
@@ -141,7 +134,6 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
@@ -156,7 +148,6 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.anger,
@@ -171,7 +162,6 @@ export const MaladaptiveReactionLoggedEvent = {
   name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     description: "Got drunk",
@@ -187,7 +177,6 @@ export const AdaptiveReactionLoggedEvent = {
   name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: {
     entryId: entryId,
     description: "Went for a walk",
@@ -203,7 +192,6 @@ export const GenericEntryDeletedEvent = {
   name: Emotions.Events.ENTRY_DELETED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  revision: 0,
   payload: { entryId: entryId },
 } satisfies Emotions.Events.EntryDeletedEventType;
 
@@ -216,7 +204,6 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   version: 1,
-  revision: 0,
   payload: {},
 } satisfies Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
 
@@ -227,7 +214,6 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  revision: 0,
   payload: {},
 } satisfies Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
@@ -238,7 +224,6 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  revision: 0,
   payload: {},
 } satisfies Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType;
 
@@ -249,7 +234,6 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
   version: 1,
-  revision: 0,
   payload: {},
 } satisfies Emotions.Events.LowCopingEffectivenessPatternDetectedEventType;
 
@@ -260,7 +244,6 @@ export const GenericAlarmGeneratedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_GENERATED_EVENT,
   version: 1,
-  revision: 0,
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     alarmId,
@@ -275,7 +258,6 @@ export const GenericAlarmAdviceSavedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
   version: 1,
-  revision: 0,
   payload: {
     advice: "You should do something",
     alarmId,
@@ -290,7 +272,6 @@ export const GenericAlarmNotificationSentEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
   version: 1,
-  revision: 0,
   payload: { alarmId, entryId: entryId },
 } satisfies Emotions.Events.AlarmNotificationSentEventType;
 
@@ -301,7 +282,6 @@ export const GenericAlarmCancelledEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_CANCELLED_EVENT,
   version: 1,
-  revision: 0,
   payload: { alarmId },
 } satisfies Emotions.Events.AlarmCancelledEventType;
 
@@ -312,7 +292,6 @@ export const GenericWeeklyReviewRequestedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
   version: 1,
-  revision: 0,
   payload: { weekStartedAt, weeklyReviewId },
 } satisfies Emotions.Events.WeeklyReviewRequestedEventType;
 
@@ -323,7 +302,6 @@ export const GenericWeeklyReviewSkippedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
   version: 1,
-  revision: 0,
   payload: { weekStartedAt },
 } satisfies Emotions.Events.WeeklyReviewSkippedEventType;
 
@@ -334,7 +312,6 @@ export const GenericWeeklyReviewCompletedEvent = {
   stream: expect.any(String),
   name: "WEEKLY_REVIEW_COMPLETED_EVENT",
   version: 1,
-  revision: 0,
   payload: {
     insights: "Good job",
     weeklyReviewId,
@@ -349,7 +326,6 @@ export const GenericWeeklyReviewFailedEvent = {
   stream: expect.any(String),
   name: "WEEKLY_REVIEW_FAILED_EVENT",
   version: 1,
-  revision: 0,
   payload: { weekStartedAt, weeklyReviewId },
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
 

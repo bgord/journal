@@ -12,7 +12,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT),
   version: z.literal(1),
-  revision: tools.RevisionValue,
+  revision: tools.RevisionValue.optional(),
   payload: z.object({}),
 });
 

@@ -12,7 +12,7 @@ export const WeeklyReviewFailedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(WEEKLY_REVIEW_FAILED_EVENT),
   version: z.literal(1),
-  revision: tools.RevisionValue,
+  revision: tools.RevisionValue.optional(),
   payload: z.object({ weeklyReviewId: VO.WeeklyReviewId, weekStartedAt: tools.Timestamp }),
 });
 

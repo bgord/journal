@@ -12,7 +12,7 @@ export const EmotionLoggedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(EMOTION_LOGGED_EVENT),
   version: z.literal(1),
-  revision: tools.RevisionValue,
+  revision: tools.RevisionValue.optional(),
   payload: z.object({
     entryId: VO.EntryId,
     label: VO.EmotionLabelSchema,

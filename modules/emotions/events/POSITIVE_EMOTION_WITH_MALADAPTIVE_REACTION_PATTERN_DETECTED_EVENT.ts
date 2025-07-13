@@ -12,7 +12,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = z.obje
   stream: z.string().min(1),
   name: z.literal(POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT),
   version: z.literal(1),
-  revision: tools.RevisionValue,
+  revision: tools.RevisionValue.optional(),
   payload: z.object({}),
 });
 

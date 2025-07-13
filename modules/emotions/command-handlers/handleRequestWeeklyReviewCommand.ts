@@ -21,7 +21,6 @@ export const handleRequestWeeklyReviewCommand = async (
         name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
         stream: "weekly_review_skipped",
         version: 1,
-        revision: tools.Revision.initial,
         payload: { weekStartedAt: command.payload.weekStart.get() },
       } satisfies Emotions.Events.WeeklyReviewSkippedEventType),
     ]);

@@ -28,7 +28,6 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
         name: Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        revision: tools.Revision.initial,
         payload: {},
       } satisfies Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType);
     }

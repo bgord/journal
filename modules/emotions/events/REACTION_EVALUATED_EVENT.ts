@@ -12,7 +12,7 @@ export const ReactionEvaluatedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(REACTION_EVALUATED_EVENT),
   version: z.literal(1),
-  revision: tools.RevisionValue,
+  revision: tools.RevisionValue.optional(),
   payload: z.object({
     entryId: VO.EntryId,
     type: VO.ReactionTypeSchema,
