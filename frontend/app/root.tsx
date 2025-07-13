@@ -44,19 +44,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <RR.Links />
       </head>
       <body {...UI.Colorful("surface-page").style.background}>
-        <header
-          data-my="48"
-          data-fs="32"
-          data-fw="700"
-          data-transform="center uppercase"
-          data-ls="1.5"
-          className="logo"
-        >
-          <RR.Link to="/">Journal</RR.Link>
-          <LanguageSelector />
-        </header>
-
         <UI.TranslationsContext.Provider value={{ translations: data.translations, language: data.language }}>
+          <header
+            data-my="48"
+            data-fs="32"
+            data-fw="700"
+            data-transform="center uppercase"
+            data-ls="1.5"
+            className="logo"
+          >
+            <RR.Link to="/">Journal</RR.Link>
+            <LanguageSelector />
+          </header>
+
           {children}
         </UI.TranslationsContext.Provider>
         <RR.ScrollRestoration />
