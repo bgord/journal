@@ -1,6 +1,7 @@
 import * as UI from "@bgord/ui";
 import * as RR from "react-router";
 import { API } from "../api";
+import { LanguageSelector } from "../components/language-selector";
 import { RevalidateOnFocus } from "../components/revalidate-on-focus";
 import type { Route } from "./+types/root";
 
@@ -22,8 +23,10 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export async function loader() {
-  const response = await API("/translations");
+export async function loader({ request }: Route.LoaderArgs) {
+  const cookie = request.headers.get("cookie") as string;
+
+  const response = await API("/translations", { headers: { cookie } });
   const { translations, language } = await response.json();
 
   return { translations, language };
