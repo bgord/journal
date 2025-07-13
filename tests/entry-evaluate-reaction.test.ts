@@ -8,7 +8,11 @@ const url = `/entry/${mocks.entryId}/evaluate-reaction`;
 
 describe("POST /entry/:id/evaluate-reaction", () => {
   test("validation - empty payload", async () => {
-    const response = await server.request(url, { method: "POST", headers: mocks.revisionHeaders }, mocks.ip);
+    const response = await server.request(
+      url,
+      { method: "POST", headers: mocks.revisionHeaders() },
+      mocks.ip,
+    );
 
     const json = await response.json();
 
@@ -25,7 +29,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify({ description: "I got drunk" }),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(),
       },
       mocks.ip,
     );
@@ -48,7 +52,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
           description: "I got drunk",
           type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
         }),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(),
       },
       mocks.ip,
     );
@@ -65,7 +69,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   test("validation - incorrect id", async () => {
     const response = await server.request(
       "/entry/id/evaluate-reaction",
-      { method: "POST", headers: mocks.revisionHeaders },
+      { method: "POST", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
 
@@ -98,7 +102,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(),
       },
       mocks.ip,
     );
@@ -133,7 +137,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(),
       },
       mocks.ip,
     );
@@ -170,7 +174,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(),
       },
       mocks.ip,
     );
@@ -207,7 +211,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(),
       },
       mocks.ip,
     );
@@ -257,7 +261,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
       },
       mocks.ip,
     );

@@ -11,7 +11,7 @@ describe("DELETE /entry/:id/delete", () => {
   test("validation - incorrect id", async () => {
     const response = await server.request(
       "/entry/id/delete",
-      { method: "DELETE", headers: mocks.revisionHeaders },
+      { method: "DELETE", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
 
@@ -29,7 +29,7 @@ describe("DELETE /entry/:id/delete", () => {
 
     const response = await server.request(
       url,
-      { method: "DELETE", headers: mocks.revisionHeaders },
+      { method: "DELETE", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
 
@@ -63,7 +63,7 @@ describe("DELETE /entry/:id/delete", () => {
       url,
       {
         method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
       },
       mocks.ip,
     );
@@ -95,7 +95,7 @@ describe("DELETE /entry/:id/delete", () => {
       url,
       {
         method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
       },
       mocks.ip,
     );
@@ -131,7 +131,7 @@ describe("DELETE /entry/:id/delete", () => {
       url,
       {
         method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
       },
       mocks.ip,
     );

@@ -9,7 +9,11 @@ const url = `/entry/${mocks.entryId}/reappraise-emotion`;
 
 describe("POST /entry/:id/reappraise-emotion", () => {
   test("validation - empty payload", async () => {
-    const response = await server.request(url, { method: "POST", headers: mocks.revisionHeaders }, mocks.ip);
+    const response = await server.request(
+      url,
+      { method: "POST", headers: mocks.revisionHeaders() },
+      mocks.ip,
+    );
 
     const json = await response.json();
 
@@ -26,7 +30,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       {
         method: "POST",
         body: JSON.stringify({ label: Emotions.VO.GenevaWheelEmotion.admiration }),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(),
       },
       mocks.ip,
     );
@@ -45,7 +49,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       "/entry/id/reappraise-emotion",
       {
         method: "POST",
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(),
       },
       mocks.ip,
     );
@@ -75,7 +79,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
           label: Emotions.VO.GenevaWheelEmotion.admiration,
           intensity: 4,
         }),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(3),
       },
       mocks.ip,
     );
@@ -107,7 +111,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
           label: Emotions.VO.GenevaWheelEmotion.admiration,
           intensity: 4,
         }),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(),
       },
       mocks.ip,
     );
@@ -141,7 +145,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
           label: Emotions.VO.GenevaWheelEmotion.admiration,
           intensity: 4,
         }),
-        headers: mocks.revisionHeaders,
+        headers: mocks.revisionHeaders(1),
       },
       mocks.ip,
     );
@@ -186,7 +190,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
       },
       mocks.ip,
     );
