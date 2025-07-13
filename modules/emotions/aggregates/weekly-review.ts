@@ -17,7 +17,7 @@ export class WeeklyReview {
   ];
 
   private readonly id: VO.WeeklyReviewIdType;
-
+  private revision: tools.Revision = new tools.Revision(tools.Revision.initial);
   private weekStartedAt?: tools.TimestampType;
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
   // @ts-expect-error
@@ -51,6 +51,7 @@ export class WeeklyReview {
       name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
       stream: WeeklyReview.getStream(this.id),
       version: 1,
+      revision: this.revision.value,
       payload: { weeklyReviewId: this.id, weekStartedAt: weekStart.get() },
     } satisfies Events.WeeklyReviewRequestedEventType);
 
@@ -67,6 +68,7 @@ export class WeeklyReview {
       name: Events.WEEKLY_REVIEW_COMPLETED_EVENT,
       stream: WeeklyReview.getStream(this.id),
       version: 1,
+      revision: this.revision.next().value,
       payload: {
         weeklyReviewId: this.id,
         weekStartedAt: this.weekStartedAt as tools.TimestampType,
@@ -87,6 +89,7 @@ export class WeeklyReview {
       name: Events.WEEKLY_REVIEW_FAILED_EVENT,
       stream: WeeklyReview.getStream(this.id),
       version: 1,
+      revision: this.revision.next().value,
       payload: {
         weeklyReviewId: this.id,
         weekStartedAt: this.weekStartedAt as tools.TimestampType,
@@ -112,24 +115,24 @@ export class WeeklyReview {
   private apply(event: WeeklyReviewEventType): void {
     switch (event.name) {
       case Events.WEEKLY_REVIEW_REQUESTED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.weekStartedAt = event.payload.weekStartedAt;
         this.status = VO.WeeklyReviewStatusEnum.requested;
         break;
       }
 
       case Events.WEEKLY_REVIEW_COMPLETED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.status = VO.WeeklyReviewStatusEnum.completed;
         this.insights = new VO.EmotionalAdvice(event.payload.insights);
         break;
       }
 
       case Events.WEEKLY_REVIEW_FAILED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.status = VO.WeeklyReviewStatusEnum.failed;
         break;
       }
-
-      default:
-        break;
     }
   }
 

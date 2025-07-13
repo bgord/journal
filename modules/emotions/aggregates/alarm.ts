@@ -17,6 +17,7 @@ export class Alarm {
   ];
 
   private readonly id: VO.AlarmIdType;
+  private revision: tools.Revision = new tools.Revision(tools.Revision.initial);
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
   // @ts-expect-error
   private generatedAt?: VO.AlarmGeneratedAtType;
@@ -54,6 +55,7 @@ export class Alarm {
       name: Events.ALARM_GENERATED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
+      revision: this.revision.value,
       payload: {
         alarmId: this.id,
         alarmName,
@@ -74,6 +76,7 @@ export class Alarm {
       name: Events.ALARM_ADVICE_SAVED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
+      revision: this.revision.next().value,
       payload: {
         alarmId: this.id,
         advice: advice.get(),
@@ -97,6 +100,7 @@ export class Alarm {
       name: Events.ALARM_NOTIFICATION_SENT_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
+      revision: this.revision.next().value,
       payload: {
         alarmId: this.id,
         entryId: this.entryId as VO.EntryIdType,
@@ -116,6 +120,7 @@ export class Alarm {
       name: Events.ALARM_CANCELLED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
+      revision: this.revision.next().value,
       payload: { alarmId: this.id },
     } satisfies Events.AlarmCancelledEventType);
 
@@ -138,6 +143,7 @@ export class Alarm {
   private apply(event: AlarmEventType): void {
     switch (event.name) {
       case Events.ALARM_GENERATED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.entryId = event.payload.entryId;
         this.name = event.payload.alarmName;
         this.status = VO.AlarmStatusEnum.generated;
@@ -146,23 +152,23 @@ export class Alarm {
       }
 
       case Events.ALARM_ADVICE_SAVED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.advice = new VO.EmotionalAdvice(event.payload.advice);
         this.status = VO.AlarmStatusEnum.advice_saved;
         break;
       }
 
       case Events.ALARM_NOTIFICATION_SENT_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.status = VO.AlarmStatusEnum.notification_sent;
         break;
       }
 
       case Events.ALARM_CANCELLED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.status = VO.AlarmStatusEnum.cancelled;
         break;
       }
-
-      default:
-        break;
     }
   }
 
