@@ -12,6 +12,7 @@ export const EntryDeletedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(ENTRY_DELETED_EVENT),
   version: z.literal(1),
+  revision: tools.RevisionValue,
   payload: z.object({ entryId: VO.EntryId }),
 });
 

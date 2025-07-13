@@ -12,6 +12,7 @@ export const ReactionLoggedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(REACTION_LOGGED_EVENT),
   version: z.literal(1),
+  revision: tools.RevisionValue,
   payload: z.object({
     entryId: VO.EntryId,
     type: VO.ReactionTypeSchema,

@@ -12,11 +12,8 @@ export const AlarmGeneratedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(ALARM_GENERATED_EVENT),
   version: z.literal(1),
-  payload: z.object({
-    alarmId: VO.AlarmId,
-    alarmName: VO.AlarmName,
-    entryId: VO.EntryId,
-  }),
+  revision: tools.RevisionValue,
+  payload: z.object({ alarmId: VO.AlarmId, alarmName: VO.AlarmName, entryId: VO.EntryId }),
 });
 
 export type AlarmGeneratedEventType = z.infer<typeof AlarmGeneratedEvent>;

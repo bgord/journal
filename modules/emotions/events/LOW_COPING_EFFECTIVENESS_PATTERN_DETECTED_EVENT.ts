@@ -12,6 +12,7 @@ export const LowCopingEffectivenessPatternDetectedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT),
   version: z.literal(1),
+  revision: tools.RevisionValue,
   payload: z.object({}),
 });
 

@@ -12,6 +12,7 @@ export const WeeklyReviewCompletedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(WEEKLY_REVIEW_COMPLETED_EVENT),
   version: z.literal(1),
+  revision: tools.RevisionValue,
   payload: z.object({
     weeklyReviewId: VO.WeeklyReviewId,
     weekStartedAt: tools.Timestamp,

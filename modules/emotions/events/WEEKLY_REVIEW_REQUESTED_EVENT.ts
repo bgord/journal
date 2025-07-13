@@ -12,10 +12,8 @@ export const WeeklyReviewRequestedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(WEEKLY_REVIEW_REQUESTED_EVENT),
   version: z.literal(1),
-  payload: z.object({
-    weeklyReviewId: VO.WeeklyReviewId,
-    weekStartedAt: tools.Timestamp,
-  }),
+  revision: tools.RevisionValue,
+  payload: z.object({ weeklyReviewId: VO.WeeklyReviewId, weekStartedAt: tools.Timestamp }),
 });
 
 export type WeeklyReviewRequestedEventType = z.infer<typeof WeeklyReviewRequestedEvent>;

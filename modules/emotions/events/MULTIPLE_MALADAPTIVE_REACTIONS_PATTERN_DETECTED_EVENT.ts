@@ -12,6 +12,7 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT),
   version: z.literal(1),
+  revision: tools.RevisionValue,
   payload: z.object({}),
 });
 

@@ -11,9 +11,8 @@ export const WeeklyReviewSkippedEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(WEEKLY_REVIEW_SKIPPED_EVENT),
   version: z.literal(1),
-  payload: z.object({
-    weekStartedAt: tools.Timestamp,
-  }),
+  revision: tools.RevisionValue,
+  payload: z.object({ weekStartedAt: tools.Timestamp }),
 });
 
 export type WeeklyReviewSkippedEventType = z.infer<typeof WeeklyReviewSkippedEvent>;

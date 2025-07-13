@@ -12,10 +12,8 @@ export const AlarmNotificationSentEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(ALARM_NOTIFICATION_SENT_EVENT),
   version: z.literal(1),
-  payload: z.object({
-    alarmId: VO.AlarmId,
-    entryId: VO.EntryId,
-  }),
+  revision: tools.RevisionValue,
+  payload: z.object({ alarmId: VO.AlarmId, entryId: VO.EntryId }),
 });
 
 export type AlarmNotificationSentEventType = z.infer<typeof AlarmNotificationSentEvent>;

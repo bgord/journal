@@ -12,9 +12,8 @@ export const AlarmCancelledEvent = z.object({
   stream: z.string().min(1),
   name: z.literal(ALARM_CANCELLED_EVENT),
   version: z.literal(1),
-  payload: z.object({
-    alarmId: VO.AlarmId,
-  }),
+  revision: tools.RevisionValue,
+  payload: z.object({ alarmId: VO.AlarmId }),
 });
 
 export type AlarmCancelledEventType = z.infer<typeof AlarmCancelledEvent>;
