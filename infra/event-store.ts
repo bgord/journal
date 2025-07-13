@@ -4,7 +4,8 @@ import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import * as schema from "+infra/schema";
 import * as bg from "@bgord/bun";
-import { and, asc, eq, inArray } from "drizzle-orm";
+import * as tools from "@bgord/tools";
+import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { z } from "zod/v4";
 
 export type AcceptedEvent = EntryEvent | PatternDetectionEvent | AlarmEvent | WeeklyReviewEvent;
@@ -17,7 +18,37 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
         .from(schema.events)
         .orderBy(asc(schema.events.createdAt))
         .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
-    inserter: (events: z.infer<bg.GenericParsedEventSchema>[]) => db.insert(schema.events).values(events),
+    inserter: async (events: z.infer<bg.GenericParsedEventSchema>[]) => {
+      if (!events[0]) return;
+
+      const stream = events[0].stream;
+
+      // 1. Sanity: all events must belong to the same stream
+      if (!events.every((event) => event.stream === stream)) {
+        throw new Error("EventStore.save must be called per-stream");
+      }
+
+      await db.transaction(async (tx) => {
+        // @ts-expect-error
+        const [{ current }] = await tx
+          .select({ current: sql<number>`coalesce(max(${schema.events.revision}), -1)` })
+          .from(schema.events)
+          .where(eq(schema.events.stream, stream));
+
+        let next = current + 1;
+        const rows = events.map((event) => ({ ...event, revision: next++ }));
+
+        try {
+          await tx.insert(schema.events).values(rows);
+        } catch (error: any) {
+          if (error.code === "SQLITE_CONSTRAINT") {
+            throw new tools.RevisionMismatchError();
+          }
+
+          throw error;
+        }
+      });
+    },
   },
   EventBus,
 );
