@@ -35,4 +35,5 @@ CREATE TABLE `events` (
 	`payload` text NOT NULL
 );
 --> statement-breakpoint
-CREATE INDEX `stream_idx` ON `events` (`stream`);
+CREATE INDEX `stream_idx` ON `events` (`stream`);--> statement-breakpoint
+CREATE UNIQUE INDEX `stream_revision_uidx` ON `events` (`stream`,`revision`);

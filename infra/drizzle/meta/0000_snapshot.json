@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "1a76fe08-d2cc-4843-a45f-1d342eefc58e",
+  "id": "43c98fde-762b-4593-9533-0402a535ec1c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alarms": {
@@ -235,6 +235,11 @@
           "name": "stream_idx",
           "columns": ["stream"],
           "isUnique": false
+        },
+        "stream_revision_uidx": {
+          "name": "stream_revision_uidx",
+          "columns": ["stream", "revision"],
+          "isUnique": true
         }
       },
       "foreignKeys": {},

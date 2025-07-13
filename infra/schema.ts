@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { sql } from "drizzle-orm";
-import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
 import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status";
 import { EntryStatusEnum } from "../modules/emotions/value-objects/entry-status";
@@ -28,7 +28,11 @@ export const events = sqliteTable(
     revision: integer("revision").notNull().default(0),
     payload: text("payload").notNull(),
   },
-  (table) => [index("stream_idx").on(table.stream)],
+  (table) => [
+    index("stream_idx").on(table.stream),
+    // cspell:disable-next-line
+    uniqueIndex("stream_revision_uidx").on(table.stream, table.revision),
+  ],
 );
 
 export const entries = sqliteTable("entries", {
