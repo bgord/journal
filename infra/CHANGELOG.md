@@ -1,6 +1,8 @@
 # Changelog
+- 2025-07-14 00:03 0a00b5b **step: improve entry started at formatting**
+## 2025-07-14 00:03 
+- 2025-07-14 00:00 6fc4a6a **refactor: switch to local bgord-ui**
 - 2025-07-13 23:44 28571e7 **feature: change color palette**
-## 2025-07-13 23:44 
 - 2025-07-13 22:56 dc96c10 **step: add missing translations**
 - 2025-07-13 22:45 2720049 **step: add language icon**
 - 2025-07-13 22:14 e7026db **refactor: use ui language selector**
@@ -9,6 +11,7 @@
 - 2025-07-13 22:07 f1da190 **step: pass cookie to app/root**
 - 2025-07-13 22:07 318e822 **step: add credentials include**
 - 2025-07-13 22:07 2b5c353 **step: install js-cookie**
+- 2025-07-13 21:45 36658b1 **docs: generate CHANGELOG**
 - 2025-07-13 20:39 f5e6103 **step: improve emotion label selection**
 - 2025-07-13 20:33 b11e5ca **docs: generate CHANGELOG**
 - 2025-07-13 17:33 0a64930 **step: setup revision mismatch error handler**
