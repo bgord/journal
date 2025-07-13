@@ -9,7 +9,11 @@ const url = `/entry/${mocks.entryId}/delete`;
 
 describe("DELETE /entry/:id/delete", () => {
   test("validation - incorrect id", async () => {
-    const response = await server.request("/entry/id/delete", { method: "DELETE" }, mocks.ip);
+    const response = await server.request(
+      "/entry/id/delete",
+      { method: "DELETE", headers: mocks.revisionHeaders },
+      mocks.ip,
+    );
 
     const json = await response.json();
 
@@ -23,7 +27,11 @@ describe("DELETE /entry/:id/delete", () => {
 
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
 
-    const response = await server.request(url, { method: "DELETE" }, mocks.ip);
+    const response = await server.request(
+      url,
+      { method: "DELETE", headers: mocks.revisionHeaders },
+      mocks.ip,
+    );
 
     const json = await response.json();
 
@@ -55,7 +63,7 @@ describe("DELETE /entry/:id/delete", () => {
       url,
       {
         method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders }),
       },
       mocks.ip,
     );
@@ -87,7 +95,7 @@ describe("DELETE /entry/:id/delete", () => {
       url,
       {
         method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders }),
       },
       mocks.ip,
     );
@@ -123,7 +131,7 @@ describe("DELETE /entry/:id/delete", () => {
       url,
       {
         method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders }),
       },
       mocks.ip,
     );

@@ -11,7 +11,7 @@ export const ReappraiseEmotionCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(REAPPRAISE_EMOTION_COMMAND),
-  revision: tools.Revision,
+  revision: z.instanceof(tools.Revision),
   payload: z.object({
     entryId: VO.EntryId,
     newEmotion: z.instanceof(Entities.Emotion),
