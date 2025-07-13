@@ -16,8 +16,7 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
       db
         .select()
         .from(schema.events)
-        // TODO: .orderBy(asc(schema.events.createdAt), asc(schema.events.revision))?
-        .orderBy(asc(schema.events.createdAt))
+        .orderBy(asc(schema.events.revision))
         .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
     inserter: async (_events: z.infer<bg.GenericParsedEventSchema>[]) => {
       const stream = _events?.[0]?.stream as bg.EventStreamType;
