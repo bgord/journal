@@ -5,7 +5,6 @@ import type { types } from "../../../app/services/add-entry-form";
 import { AddEntryForm } from "../../../app/services/add-entry-form";
 import { API } from "../../api";
 import * as Components from "../../components";
-import { Select } from "../../components/select";
 import type { Route } from "./+types/add-entry";
 
 export function meta() {
@@ -106,14 +105,14 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                     {t("entry.situation.kind.label")}
                   </label>
 
-                  <Select className="c-select" {...situationKind.input.props}>
+                  <Components.Select {...situationKind.input.props}>
                     <option value="">{t("entry.situation.kind.value.default")}</option>
                     {loaderData.situationKinds.map((kind) => (
                       <option key={kind} value={kind}>
                         {t(`entry.situation.kind.value.${kind}`)}
                       </option>
                     ))}
-                  </Select>
+                  </Components.Select>
                 </div>
 
                 <div data-display="flex" data-direction="column" {...UI.Rhythm().times(20).style.width}>
@@ -172,7 +171,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                       {t("entry.emotion.label.label")}
                     </label>
 
-                    <Select className="c-select" {...emotionLabel.input.props}>
+                    <Components.Select {...emotionLabel.input.props}>
                       <option value="">{t("entry.emotion.location.default.value")}</option>
                       {loaderData.emotionLabels
                         .filter((label) => (emotionType === "positive" ? label.positive : !label.positive))
@@ -181,7 +180,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                             {t(`entry.emotion.label.value.${emotion.option}`)}
                           </option>
                         ))}
-                    </Select>
+                    </Components.Select>
                   </div>
                 )}
               </div>
@@ -220,14 +219,14 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                     {t("entry.reaction.type.label")}
                   </label>
 
-                  <Select className="c-select" {...reactionType.input.props}>
+                  <Components.Select {...reactionType.input.props}>
                     <option value="">{t("entry.reaction.type.default.value")}</option>
                     {loaderData.reactionTypes.map((type) => (
                       <option key={type} value={type}>
                         {t(`entry.reaction.type.value.${type}`)}
                       </option>
                     ))}
-                  </Select>
+                  </Components.Select>
                 </div>
 
                 <div data-display="flex" data-direction="column">
