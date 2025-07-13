@@ -6,7 +6,7 @@ export type AddEntryNavigationStep = "situation" | "emotion" | "reaction";
 export function AddEntryNavigation(props: { step: AddEntryNavigationStep }) {
   const t = UI.useTranslations();
 
-  const style = UI.Colorful("brand-700").style.color;
+  const style = UI.Colorful("brand-600").style.color;
 
   return (
     <div data-display="flex" data-cross="center" data-mx="auto" data-gap="6" data-ls="0.5" data-mb="12">

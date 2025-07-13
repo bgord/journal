@@ -137,17 +137,11 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                 {t("entry.emotion.label.description")}
               </div>
 
-              <div
-                data-display="flex"
-                data-cross="center"
-                data-gap="12"
-                {...UI.Rhythm().times(5).style.height}
-              >
+              <div data-display="flex" data-cross="end" data-gap="12" {...UI.Rhythm().times(5).style.height}>
                 <button
                   type="button"
                   className="c-button"
                   data-variant={emotionType === "positive" ? "secondary" : "bare"}
-                  data-mt="12"
                   onClick={() => setEmotionType("positive")}
                   {...UI.Rhythm().times(9).style.width}
                 >
@@ -158,7 +152,6 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                   type="button"
                   className="c-button"
                   data-variant={emotionType === "negative" ? "secondary" : "bare"}
-                  data-mt="12"
                   onClick={() => setEmotionType("negative")}
                   {...UI.Rhythm().times(9).style.width}
                 >

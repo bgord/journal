@@ -21,7 +21,7 @@ export function RatingPills(props: RatingPillsProps) {
             width={size}
             height={size}
             rx="2"
-            fill={filled ? "var(--brand-400)" : "none"}
+            fill={filled ? "var(--brand-500)" : "none"}
             stroke={filled ? "none" : "var(--brand-200)"}
           />
         );

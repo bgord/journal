@@ -29,7 +29,7 @@ export function ClickableRatingPills(props: ClickableRatingPillsProps) {
             onClick={() => handleClick(rating)}
             style={{
               border: filled ? "none" : "1px solid var(--brand-200)",
-              backgroundColor: filled ? "var(--brand-400)" : "transparent",
+              backgroundColor: filled ? "var(--brand-500)" : "transparent",
               ...UI.Rhythm(size).times(1).square,
             }}
             data-testid={`rating-${rating}`}

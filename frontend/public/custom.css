@@ -1,15 +1,16 @@
 :root {
   /* brand scale */
-  --brand-50: #eef2ff;
-  --brand-100: #e0e7ff;
-  --brand-200: #c7d2fe;
-  --brand-300: #a5b4fc;
-  --brand-400: #818cf8;
-  --brand-500: #4f46e5; /* primary */
-  --brand-600: #4338ca;
-  --brand-700: #3730a3;
-  --brand-800: #312e81;
-  --brand-900: #1e1b4b;
+  --brand-50: #e5ecff;
+  --brand-100: #ccdafe;
+  --brand-150: #99b5ff;
+  --brand-200: #7fa3ff;
+  --brand-300: #4cc7ff;
+  --brand-400: #195aff;
+  --brand-500: #0041e5;
+  --brand-600: #0032b2;
+  --brand-700: #00247f;
+  --brand-800: #00154c;
+  --brand-900: #000719;
 
   /* example surfaces that reference the scale */
   --surface-page: #f7f8fa;
@@ -29,6 +30,20 @@
   text-shadow: -10px -8px var(--brand-100);
   color: var(--brand-700);
   text-decoration: none;
+}
+
+.c-button[data-variant="primary"] {
+  color: var(--brand-100) !important;
+  background: var(--brand-600) !important;
+}
+
+.c-button[data-variant="secondary"] {
+  color: var(--brand-600) !important;
+  background: var(--brand-150) !important;
+}
+
+.c-button[data-variant="bare"] {
+  color: var(--brand-600) !important;
 }
 
 /* View transition Home -> Add entry */

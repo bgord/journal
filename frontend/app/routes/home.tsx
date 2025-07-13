@@ -70,8 +70,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         viewTransition
         title={t("entry.add.title")}
         style={{
-          ...UI.Colorful("brand-200").background,
-          ...UI.Colorful("brand-500").color,
+          ...UI.Colorful("brand-150").background,
+          ...UI.Colorful("brand-700").color,
           ...UI.Rhythm(16).times(4).square,
         }}
       >
