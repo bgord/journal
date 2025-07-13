@@ -42,6 +42,7 @@ export class EntryRepository {
       situationKind: event.payload.kind,
       situationDescription: event.payload.description,
       situationLocation: event.payload.location,
+      revision: event.revision,
     });
   }
 
@@ -51,6 +52,7 @@ export class EntryRepository {
       .set({
         emotionLabel: event.payload.label,
         emotionIntensity: event.payload.intensity as number,
+        revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
   }
@@ -63,6 +65,7 @@ export class EntryRepository {
         reactionType: event.payload.type,
         reactionEffectiveness: event.payload.effectiveness,
         finishedAt: event.createdAt,
+        revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
   }
@@ -74,6 +77,7 @@ export class EntryRepository {
         emotionLabel: event.payload.newLabel,
         emotionIntensity: event.payload.newIntensity as number,
         finishedAt: event.createdAt,
+        revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
   }
@@ -86,6 +90,7 @@ export class EntryRepository {
         reactionType: event.payload.type,
         reactionEffectiveness: event.payload.effectiveness,
         finishedAt: event.createdAt,
+        revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
   }
