@@ -8,8 +8,6 @@ export * from "./emotion-for-reappraisal-exists";
 export * from "./entries-for-week-exist";
 export * from "./entry-has-been-started";
 export * from "./entry-is-actionable";
-export * from "./one-emotion-per-entry";
-export * from "./one-reaction-per-entry";
 export * from "./one-situation-per-entry";
 export * from "./reaction-corresponds-to-situation-and-emotion";
 export * from "./reaction-for-evaluation-exists";

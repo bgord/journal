@@ -43,10 +43,14 @@ export class Entry {
     return entry;
   }
 
-  async logSituation(situation: Emotions.Entities.Situation) {
+  async log(
+    situation: Emotions.Entities.Situation,
+    emotion: Emotions.Entities.Emotion,
+    reaction: Emotions.Entities.Reaction,
+  ) {
     await Emotions.Policies.OneSituationPerEntry.perform({ situation: this.situation });
 
-    const event = Emotions.Events.SituationLoggedEvent.parse({
+    const SituationLoggedEvent = Emotions.Events.SituationLoggedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
@@ -62,22 +66,16 @@ export class Entry {
       },
     } satisfies Emotions.Events.SituationLoggedEventType);
 
-    this.record(event);
-  }
+    this.record(SituationLoggedEvent);
 
-  async logEmotion(emotion: Emotions.Entities.Emotion) {
-    await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
-    await Emotions.Policies.OneEmotionPerEntry.perform({ emotion: this.emotion });
-    await Emotions.Policies.EmotionCorrespondsToSituation.perform({ situation: this.situation });
-
-    const event = Emotions.Events.EmotionLoggedEvent.parse({
+    const EmotionLoggedEvent = Emotions.Events.EmotionLoggedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
-      revision: this.revision.value,
+      revision: this.revision.next().value,
       payload: {
         entryId: this.id,
         label: emotion.label.get(),
@@ -85,25 +83,16 @@ export class Entry {
       },
     } satisfies Emotions.Events.EmotionLoggedEventType);
 
-    this.record(event);
-  }
+    this.record(EmotionLoggedEvent);
 
-  async logReaction(reaction: Emotions.Entities.Reaction) {
-    await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
-    await Emotions.Policies.OneReactionPerEntry.perform({ reaction: this.reaction });
-    await Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.perform({
-      situation: this.situation,
-      emotion: this.emotion,
-    });
-
-    const event = Emotions.Events.ReactionLoggedEvent.parse({
+    const ReactionLoggedEvent = Emotions.Events.ReactionLoggedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.REACTION_LOGGED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
-      revision: this.revision.value,
+      revision: this.revision.next().next().value,
       payload: {
         entryId: this.id,
         description: reaction.description.get(),
@@ -112,7 +101,7 @@ export class Entry {
       },
     } satisfies Emotions.Events.ReactionLoggedEventType);
 
-    this.record(event);
+    this.record(ReactionLoggedEvent);
   }
 
   async reappraiseEmotion(newEmotion: Emotions.Entities.Emotion) {

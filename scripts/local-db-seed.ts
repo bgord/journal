@@ -54,17 +54,12 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         ),
       );
 
-      const entry = Emotions.Aggregates.Entry.create(bg.NewUUID.generate());
-      await entry.logSituation(situation);
-
       const emotion = new Emotions.Entities.Emotion(
         new Emotions.VO.EmotionLabel(
           emotionLabels[_counter % emotionLabels.length] as Emotions.VO.GenevaWheelEmotion,
         ),
         new Emotions.VO.EmotionIntensity((_counter % 5) + 1),
       );
-
-      await entry.logEmotion(emotion);
 
       const reaction = new Emotions.Entities.Reaction(
         new Emotions.VO.ReactionDescription(
@@ -76,7 +71,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         new Emotions.VO.ReactionEffectiveness((_counter % 5) + 1),
       );
 
-      await entry.logReaction(reaction);
+      const entry = Emotions.Aggregates.Entry.create(bg.NewUUID.generate());
+      await entry.log(situation, emotion, reaction);
 
       await EventStore.save(entry.pullEvents());
 
