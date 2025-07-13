@@ -17,6 +17,7 @@ export class Entry {
   ];
 
   private readonly id: Emotions.VO.EntryIdType;
+  private revision: tools.Revision = new tools.Revision(tools.Revision.initial);
   private startedAt?: Emotions.VO.EntryStartedAtType;
   private finishedAt?: Emotions.VO.EntryFinishedAtType;
   private situation?: Emotions.Entities.Situation;
@@ -52,6 +53,7 @@ export class Entry {
       name: Emotions.Events.SITUATION_LOGGED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
+      revision: this.revision.value,
       payload: {
         entryId: this.id,
         description: situation.description.get(),
@@ -83,6 +85,7 @@ export class Entry {
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
+      revision: this.revision.value,
       payload: {
         entryId: this.id,
         label: emotion.label.get(),
@@ -114,6 +117,7 @@ export class Entry {
       name: Emotions.Events.REACTION_LOGGED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
+      revision: this.revision.value,
       payload: {
         entryId: this.id,
         description: reaction.description.get(),
@@ -145,6 +149,7 @@ export class Entry {
       name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
+      revision: this.revision.next().value,
       payload: {
         entryId: this.id,
         newLabel: newEmotion.label.get(),
@@ -176,6 +181,7 @@ export class Entry {
       name: Emotions.Events.REACTION_EVALUATED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
+      revision: this.revision.next().value,
       payload: {
         entryId: this.id,
         description: newReaction.description.get(),
@@ -197,6 +203,7 @@ export class Entry {
       name: Emotions.Events.ENTRY_DELETED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
+      revision: this.revision.next().value,
       payload: { entryId: this.id },
     } satisfies Emotions.Events.EntryDeletedEventType);
 
@@ -231,6 +238,7 @@ export class Entry {
   private apply(event: EntryEventType): void {
     switch (event.name) {
       case Emotions.Events.SITUATION_LOGGED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.startedAt = event.createdAt;
         this.situation = new Emotions.Entities.Situation(
           new Emotions.VO.SituationDescription(event.payload.description),
@@ -241,6 +249,7 @@ export class Entry {
       }
 
       case Emotions.Events.EMOTION_LOGGED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.emotion = new Emotions.Entities.Emotion(
           new Emotions.VO.EmotionLabel(event.payload.label),
           new Emotions.VO.EmotionIntensity(event.payload.intensity),
@@ -249,6 +258,7 @@ export class Entry {
       }
 
       case Emotions.Events.REACTION_LOGGED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.finishedAt = event.createdAt;
         this.reaction = new Emotions.Entities.Reaction(
           new Emotions.VO.ReactionDescription(event.payload.description),
@@ -259,6 +269,7 @@ export class Entry {
       }
 
       case Emotions.Events.EMOTION_REAPPRAISED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.finishedAt = event.createdAt;
         this.emotion = new Emotions.Entities.Emotion(
           new Emotions.VO.EmotionLabel(event.payload.newLabel),
@@ -268,6 +279,7 @@ export class Entry {
       }
 
       case Emotions.Events.REACTION_EVALUATED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.finishedAt = event.createdAt;
         this.reaction = new Emotions.Entities.Reaction(
           new Emotions.VO.ReactionDescription(event.payload.description),
@@ -278,6 +290,7 @@ export class Entry {
       }
 
       case Emotions.Events.ENTRY_DELETED_EVENT: {
+        this.revision = new tools.Revision(event.revision);
         this.status = Emotions.VO.EntryStatusEnum.deleted;
 
         this.finishedAt = event.createdAt;

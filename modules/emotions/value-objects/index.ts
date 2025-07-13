@@ -8,7 +8,6 @@ export * from "./emotion-label";
 export * from "./emotional-advice";
 export * from "./entry-finished-at";
 export * from "./entry-id";
-export * from "./entry-revision";
 export * from "./entry-started-at";
 export * from "./entry-status";
 export * from "./geneva-wheel-emotion.enum";
