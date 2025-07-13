@@ -47,7 +47,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
       {loaderData.length === 0 && (
         <div data-display="flex" data-direction="column" data-cross="center">
-          <img src={NotebookSvg} data-exit="grow-fade-in" height="300px" alt={t("entry.list.empty.alt")} />
+          <img
+            src={NotebookSvg}
+            data-animation="grow-fade-in"
+            height="300px"
+            alt={t("entry.list.empty.alt")}
+          />
           <div {...UI.Colorful("brand-600").style.color}>{t("entry.list.empty")}</div>
         </div>
       )}
