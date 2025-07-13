@@ -1,6 +1,13 @@
 # Changelog
+- 2025-07-13 22:14 e7026db **refactor: use ui language selector**
+## 2025-07-13 22:14 
+- 2025-07-13 22:12 a5d0ac5 **Revert "step: install js-cookie"**
+- 2025-07-13 22:10 7920aa9 **step: add language selector**
+- 2025-07-13 22:07 f1da190 **step: pass cookie to app/root**
+- 2025-07-13 22:07 318e822 **step: add credentials include**
+- 2025-07-13 22:07 2b5c353 **step: install js-cookie**
+- 2025-07-13 20:39 f5e6103 **step: improve emotion label selection**
 - 2025-07-13 17:33 0a64930 **step: setup revision mismatch error handler**
-## 2025-07-13 17:33 
 - 2025-07-13 17:17 5d7a134 **refactor: remove empty file**
 - 2025-07-13 17:15 f054f22 **step: update bgord-bun**
 - 2025-07-13 17:12 58ca278 **fix: data-exit**
@@ -18,6 +25,7 @@
 - 2025-07-13 15:50 df2b112 **step: add revision to API requests**
 - 2025-07-13 15:44 364b429 **step: switch to local bgord ui**
 - 2025-07-13 15:39 9023c87 **fix: tests**
+- 2025-07-13 15:33 a3b9995 **docs: generate CHANGELOG**
 - 2025-07-13 15:29 90e5b81 **step: validate revisions in 3 command handlers**
 - 2025-07-13 15:29 37e9757 **step: update cspell**
 - 2025-07-13 15:25 36e727a **fix: revision in route tests**
