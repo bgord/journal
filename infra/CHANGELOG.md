@@ -1,12 +1,15 @@
 # Changelog
+- 2025-07-14 00:19 c580dab **step: setup single entry route**
+## 2025-07-14 00:19 
+- 2025-07-14 00:11 0b151a7 **refactor: rename home entry**
 - 2025-07-14 00:03 0a00b5b **step: improve entry started at formatting**
-## 2025-07-14 00:03 
 - 2025-07-14 00:00 6fc4a6a **refactor: switch to local bgord-ui**
 - 2025-07-13 23:44 28571e7 **feature: change color palette**
 - 2025-07-13 22:56 dc96c10 **step: add missing translations**
 - 2025-07-13 22:45 2720049 **step: add language icon**
 - 2025-07-13 22:14 e7026db **refactor: use ui language selector**
 - 2025-07-13 22:12 a5d0ac5 **Revert "step: install js-cookie"**
+- 2025-07-13 22:10 7e82995 **docs: generate CHANGELOG**
 - 2025-07-13 22:10 7920aa9 **step: add language selector**
 - 2025-07-13 22:07 f1da190 **step: pass cookie to app/root**
 - 2025-07-13 22:07 318e822 **step: add credentials include**
