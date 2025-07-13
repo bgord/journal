@@ -6,7 +6,6 @@ import { RatingPills } from "./rating-pills";
 
 export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: string }) {
   const t = UI.useTranslations();
-  const hover = UI.useHover();
   const fetcher = useFetcher();
   const submit = useSubmit();
 
@@ -18,7 +17,6 @@ export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: str
 
   return (
     <li
-      {...hover.attach}
       {...exit.attach}
       {...UI.Colorful("surface-card").style.background}
       data-testid="entry"
@@ -42,21 +40,19 @@ export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: str
           {props.startedAt}
         </div>
 
-        {hover.isHovering && (
-          <fetcher.Form method="delete">
-            <button
-              className="c-button"
-              data-variant="with-icon"
-              type="submit"
-              title="Delete entry"
-              disabled={fetcher.state !== "idle"}
-              data-interaction="subtle-scale"
-              onClick={exit.trigger}
-            >
-              <Xmark width={20} height={20} />
-            </button>
-          </fetcher.Form>
-        )}
+        <fetcher.Form method="delete">
+          <button
+            className="c-button"
+            data-variant="with-icon"
+            type="submit"
+            title="Delete entry"
+            disabled={fetcher.state !== "idle"}
+            data-interaction="subtle-scale"
+            onClick={exit.trigger}
+          >
+            <Xmark width={20} height={20} />
+          </button>
+        </fetcher.Form>
       </header>
 
       <section
