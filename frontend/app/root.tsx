@@ -46,6 +46,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body {...UI.Colorful("surface-page").style.background}>
         <UI.TranslationsContext.Provider value={{ translations: data.translations, language: data.language }}>
           <header
+            data-display="flex"
+            data-direction="column"
+            data-gap="12"
             data-my="48"
             data-fs="32"
             data-fw="700"
@@ -54,7 +57,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             className="logo"
           >
             <RR.Link to="/">Journal</RR.Link>
-            <LanguageSelector />
+
+            <div data-display="flex" data-main="end" data-mx="48">
+              <LanguageSelector />
+            </div>
           </header>
 
           {children}
