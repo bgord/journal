@@ -1,10 +1,11 @@
 import * as UI from "@bgord/ui";
 import { Xmark } from "iconoir-react";
 import { useFetcher, useSubmit } from "react-router";
-import type { SelectEntries } from "../../infra/schema";
+import type { SelectEntriesFormatted } from "../../infra/schema";
+import { EntryReaction } from "./entry-reaction";
 import { RatingPills } from "./rating-pills";
 
-export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: string }) {
+export function Entry(props: SelectEntriesFormatted) {
   const t = UI.useTranslations();
   const fetcher = useFetcher();
   const submit = useSubmit();
@@ -84,18 +85,7 @@ export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: str
         </div>
       </section>
 
-      <section data-display="flex" data-direction="column" data-gap="12" data-py="24">
-        <div data-display="flex" data-cross="center" data-gap="12">
-          <div data-color="gray-500" data-mr="auto">
-            {t("entry.reaction.description.label")}
-          </div>
-
-          <div className="c-badge">{t(`entry.reaction.type.value.${props.reactionType}`)}</div>
-          <RatingPills rating={props.reactionEffectiveness as number} total={5} />
-        </div>
-
-        <div>{props.reactionDescription}</div>
-      </section>
+      <EntryReaction {...props} />
     </li>
   );
 }

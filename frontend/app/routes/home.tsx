@@ -1,6 +1,7 @@
 import * as UI from "@bgord/ui";
 import { Plus } from "iconoir-react";
 import { Link } from "react-router";
+import { AddEntryForm } from "../../../app/services/add-entry-form";
 import type { SelectEntriesFormatted } from "../../../infra/schema";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
@@ -24,7 +25,7 @@ export async function loader() {
   const response = await API("/entry/list");
   const entries = (await response.json()) as SelectEntriesFormatted[];
 
-  return entries;
+  return { entries, form: AddEntryForm.get() };
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
@@ -40,12 +41,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         data-max-width="768"
         data-mx="auto"
       >
-        {loaderData.map((entry) => (
+        {loaderData.entries.map((entry) => (
           <Components.Entry key={entry.id} {...entry} />
         ))}
       </ul>
 
-      {loaderData.length === 0 && (
+      {loaderData.entries.length === 0 && (
         <div data-display="flex" data-direction="column" data-cross="center">
           <img
             src={NotebookSvg}
