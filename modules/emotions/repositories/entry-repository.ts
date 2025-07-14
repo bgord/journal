@@ -6,6 +6,10 @@ import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 
 export class EntryRepository {
+  static async getByIdRaw(id: VO.EntryIdType) {
+    return db.select().from(Schema.entries).where(eq(Schema.entries.id, id));
+  }
+
   static async getById(id: VO.EntryIdType): Promise<Schema.SelectEntriesFormatted | null> {
     const result = await db.select().from(Schema.entries).where(eq(Schema.entries.id, id));
 
