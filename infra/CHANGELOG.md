@@ -1,12 +1,38 @@
 # Changelog
+- 2025-07-14 22:18 303e3ae **step: bump bgord/scripts**
+## 2025-07-14 22:18 
+- 2025-07-14 22:17 ae29fcc **step: bump bgord/scripts**
+- 2025-07-14 22:15 4b96d9f **fix: types**
+- 2025-07-14 22:12 413b72b **step: add getByIdRaw**
+- 2025-07-14 22:08 6da8f01 **refactor: change id to entryId in routes**
+- 2025-07-14 22:06 6f529ed **step: handle emotion label update**
+- 2025-07-14 21:49 d90b580 **step: handle entry emotion intensity change**
+- 2025-07-14 21:49 011cce1 **fix: update entry reaction only when changed**
+- 2025-07-14 21:23 42cd99b **step: add meta enter submit**
+- 2025-07-14 21:17 d10c88f **step: add autofocus to add entry**
+- 2025-07-14 21:17 36fc1f4 **step: add global shortcuts**
+- 2025-07-14 20:50 bae56be **refactor: extract cancel button**
+- 2025-07-14 20:46 f1cf990 **refactor: extract entry emotion**
+- 2025-07-14 20:30 bed9aca **fix: loader types**
+- 2025-07-14 20:25 455572e **feature: implement evaluate reaction for reaction type**
+- 2025-07-14 20:07 032d078 **feature: implement evaluate reaction for reaction effectiveness**
+- 2025-07-14 19:52 afa3bc9 **feature: implement evaluate reaction for reaction description**
+- 2025-07-14 19:35 9c43af9 **step: add entry delete intent**
+- 2025-07-14 19:30 f8a5071 **refactor: extract reaction**
+- 2025-07-14 14:48 958a9c0 **refactor: rename entry component**
+- 2025-07-14 14:44 68a40c9 **refactor: resign from single entry view**
+- 2025-07-14 14:28 d75a585 **step: add list entry tests**
+- 2025-07-14 14:26 cd1074e **step: add entry list tests**
+- 2025-07-14 14:20 efad4ab **step: add list-entry route**
+- 2025-07-14 14:17 b0fac7a **step: improve entry repository**
 - 2025-07-14 00:19 c580dab **step: setup single entry route**
-## 2025-07-14 00:19 
 - 2025-07-14 00:11 0b151a7 **refactor: rename home entry**
 - 2025-07-14 00:03 0a00b5b **step: improve entry started at formatting**
 - 2025-07-14 00:00 6fc4a6a **refactor: switch to local bgord-ui**
 - 2025-07-13 23:44 28571e7 **feature: change color palette**
 - 2025-07-13 22:56 dc96c10 **step: add missing translations**
 - 2025-07-13 22:45 2720049 **step: add language icon**
+- 2025-07-13 22:29 02493fe **docs: generate CHANGELOG**
 - 2025-07-13 22:14 e7026db **refactor: use ui language selector**
 - 2025-07-13 22:12 a5d0ac5 **Revert "step: install js-cookie"**
 - 2025-07-13 22:10 7e82995 **docs: generate CHANGELOG**
