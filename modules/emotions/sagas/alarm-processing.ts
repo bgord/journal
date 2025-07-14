@@ -69,7 +69,7 @@ export class AlarmProcessing {
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
-    const entry = await Repos.EntryRepository.getById(event.payload.entryId);
+    const entry = await Repos.EntryRepository.getByIdRaw(event.payload.entryId);
 
     const prompt = new Services.EmotionalAdvicePrompt(entry, event.payload.alarmName).generate();
 
@@ -118,7 +118,7 @@ export class AlarmProcessing {
   }
 
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
-    const entry = await Repos.EntryRepository.getById(event.payload.entryId);
+    const entry = await Repos.EntryRepository.getByIdRaw(event.payload.entryId);
 
     const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
 

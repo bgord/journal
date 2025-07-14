@@ -331,7 +331,6 @@ export const GenericWeeklyReviewFailedEvent = {
   payload: { weekStartedAt, weeklyReviewId },
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
 
-// TODO: Is it needed to test it?
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,
   finishedAt: Date.now(),
