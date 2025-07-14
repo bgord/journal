@@ -6,10 +6,12 @@ import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 
 export class EntryRepository {
-  static async getById(id: VO.EntryIdType): Promise<Schema.SelectEntries> {
+  static async getById(id: VO.EntryIdType): Promise<Schema.SelectEntriesFormatted | null> {
     const result = await db.select().from(Schema.entries).where(eq(Schema.entries.id, id));
 
-    return result[0] as Schema.SelectEntries;
+    if (!result[0]) return null;
+
+    return EntryRepository.format(result[0]);
   }
 
   static async countInWeek(weekStartedAt: number): Promise<number> {
@@ -33,7 +35,7 @@ export class EntryRepository {
   static async list(): Promise<Schema.SelectEntriesFormatted[]> {
     const entries = (await db.select().from(Schema.entries).orderBy(desc(Schema.entries.startedAt))) ?? [];
 
-    return entries.map((entry) => ({ ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) }));
+    return entries.map(EntryRepository.format);
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {
@@ -99,5 +101,9 @@ export class EntryRepository {
 
   static async deleteEntry(event: Events.EntryDeletedEventType) {
     await db.delete(Schema.entries).where(eq(Schema.entries.id, event.payload.entryId));
+  }
+
+  private static format(entry: Schema.SelectEntries): Schema.SelectEntriesFormatted {
+    return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
   }
 }
