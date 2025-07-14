@@ -15,6 +15,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
   const loader = RR.useLoaderData<LoaderData>();
   const fetcher = RR.useFetcher();
   const submit = RR.useSubmit();
+  const metaEnterSubmit = UI.useMetaEnterSubmit();
 
   const editingReactionDescription = UI.useToggle({ name: "reaction-description" });
   const editingReactionType = UI.useToggle({ name: "reaction-type" });
@@ -108,6 +109,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
             rows={3}
             {...reactionDescription.input.props}
             {...UI.Form.textareaPattern(loader.form.reactionDescription)}
+            {...metaEnterSubmit}
           />
 
           <div data-display="flex" data-main="end" data-gap="12">
