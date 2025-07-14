@@ -4,6 +4,7 @@ import * as RR from "react-router";
 import type { types } from "../../app/services/add-entry-form";
 import type { SelectEntriesFormatted } from "../../infra/schema";
 import type { loader } from "../app/routes/home";
+import { Select } from "./select";
 import { ClickableRatingPills } from "./clickable-rating-pills";
 
 type LoaderData = Awaited<ReturnType<typeof loader>>;
@@ -14,7 +15,8 @@ export function EntryReaction(props: SelectEntriesFormatted) {
   const fetcher = RR.useFetcher();
   const submit = RR.useSubmit();
 
-  const editingReactionDescription = UI.useToggle({ name: "reaction-description-description" });
+  const editingReactionDescription = UI.useToggle({ name: "reaction-description" });
+  const editingReactionType = UI.useToggle({ name: "reaction-type" });
 
   const reactionDescription = UI.useField<types.ReactionDescriptionType>({
     name: "description",
@@ -46,6 +48,10 @@ export function EntryReaction(props: SelectEntriesFormatted) {
     evaluateReaction();
   }, [reactionEffectiveness.value]);
 
+  React.useEffect(() => {
+    evaluateReaction();
+  }, [reactionType.value]);
+
   return (
     <section data-display="flex" data-direction="column" data-gap="12" data-py="24">
       <div data-display="flex" data-cross="center" data-gap="12" {...UI.Rhythm().times(3).style.minHeight}>
@@ -53,9 +59,28 @@ export function EntryReaction(props: SelectEntriesFormatted) {
           {t("entry.reaction.description.label")}
         </div>
 
-        <div className="c-badge" data-ml="auto">
-          {t(`entry.reaction.type.value.${props.reactionType}`)}
-        </div>
+        {editingReactionType.off && (
+          <div className="c-badge" data-ml="auto" onClick={editingReactionType.enable} data-cursor="pointer">
+            {t(`entry.reaction.type.value.${reactionType.value}`)}
+          </div>
+        )}
+
+        {editingReactionType.on && (
+          <Select
+            {...reactionType.input.props}
+            data-ml="auto"
+            onChange={(event) => {
+              reactionType.input.props.onChange(event);
+              editingReactionType.disable();
+            }}
+          >
+            {loader.form.reactionTypes.map((type: types.ReactionTypeType) => (
+              <option key={type} value={type}>
+                {t(`entry.reaction.type.value.${type}`)}
+              </option>
+            ))}
+          </Select>
+        )}
 
         <ClickableRatingPills {...reactionEffectiveness} />
       </div>
@@ -69,7 +94,6 @@ export function EntryReaction(props: SelectEntriesFormatted) {
           method="post"
           data-display="flex"
           data-direction="column"
-          data-grow="1"
           data-gap="12"
           onSubmit={(event) => {
             event.preventDefault();
