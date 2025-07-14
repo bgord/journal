@@ -331,6 +331,7 @@ export const GenericWeeklyReviewFailedEvent = {
   payload: { weekStartedAt, weeklyReviewId },
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
 
+// TODO: Is it needed to test it?
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,
   finishedAt: Date.now(),
@@ -347,6 +348,9 @@ export const partialEntry: Schema.SelectEntries = {
   reactionType: null,
 };
 
+export const partialEntryFormatted: Schema.SelectEntriesFormatted =
+  Emotions.Repos.EntryRepository.format(partialEntry);
+
 export const fullEntry: Schema.SelectEntries = {
   revision: 0,
   finishedAt: Date.now(),
@@ -362,6 +366,9 @@ export const fullEntry: Schema.SelectEntries = {
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
   reactionEffectiveness: 1,
 };
+
+export const fullEntryFormatted: Schema.SelectEntriesFormatted =
+  Emotions.Repos.EntryRepository.format(fullEntry);
 
 export const alarm: Schema.SelectAlarms = {
   id: alarmId,

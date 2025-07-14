@@ -103,7 +103,7 @@ export class EntryRepository {
     await db.delete(Schema.entries).where(eq(Schema.entries.id, event.payload.entryId));
   }
 
-  private static format(entry: Schema.SelectEntries): Schema.SelectEntriesFormatted {
+  static format(entry: Schema.SelectEntries): Schema.SelectEntriesFormatted {
     return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
   }
 }
