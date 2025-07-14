@@ -4,6 +4,7 @@ import * as RR from "react-router";
 import type { types } from "../../app/services/add-entry-form";
 import type { SelectEntriesFormatted } from "../../infra/schema";
 import type { loader } from "../app/routes/home";
+import { CancelButton } from "./cancel-button";
 import { ClickableRatingPills } from "./clickable-rating-pills";
 import { Select } from "./select";
 
@@ -109,17 +110,12 @@ export function EntryReaction(props: SelectEntriesFormatted) {
           />
 
           <div data-display="flex" data-main="end" data-gap="12">
-            <button
-              className="c-button"
-              type="button"
-              data-variant="bare"
+            <CancelButton
               onClick={() => {
                 reactionDescription.clear();
                 editingReactionDescription.disable();
               }}
-            >
-              {t("app.cancel")}
-            </button>
+            />
 
             <button
               className="c-button"
