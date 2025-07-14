@@ -1,9 +1,10 @@
 import * as UI from "@bgord/ui";
+import React from "react";
 import * as RR from "react-router";
 import type { types } from "../../app/services/add-entry-form";
 import type { SelectEntriesFormatted } from "../../infra/schema";
 import type { loader } from "../app/routes/home";
-import { RatingPills } from "./rating-pills";
+import { ClickableRatingPills } from "./clickable-rating-pills";
 
 type LoaderData = Awaited<ReturnType<typeof loader>>;
 
@@ -41,6 +42,10 @@ export function EntryReaction(props: SelectEntriesFormatted) {
       { method: "post", action: "." }
     );
 
+  React.useEffect(() => {
+    evaluateReaction();
+  }, [reactionEffectiveness.value]);
+
   return (
     <section data-display="flex" data-direction="column" data-gap="12" data-py="24">
       <div data-display="flex" data-cross="center" data-gap="12" {...UI.Rhythm().times(3).style.minHeight}>
@@ -52,7 +57,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
           {t(`entry.reaction.type.value.${props.reactionType}`)}
         </div>
 
-        <RatingPills rating={props.reactionEffectiveness as number} total={5} />
+        <ClickableRatingPills {...reactionEffectiveness} />
       </div>
 
       {editingReactionDescription.off && (
