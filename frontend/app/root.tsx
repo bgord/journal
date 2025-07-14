@@ -1,6 +1,7 @@
 import * as UI from "@bgord/ui";
 import * as RR from "react-router";
 import { API } from "../api";
+import { GlobalShortcuts } from "../components/global-shortcuts";
 import { LanguageSelector } from "../components/language-selector";
 import { RevalidateOnFocus } from "../components/revalidate-on-focus";
 import type { Route } from "./+types/root";
@@ -67,6 +68,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </UI.TranslationsContext.Provider>
         <RR.ScrollRestoration />
         <RevalidateOnFocus />
+        <GlobalShortcuts />
         <RR.Scripts />
       </body>
     </html>
