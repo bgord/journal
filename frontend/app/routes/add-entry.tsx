@@ -91,6 +91,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                 </label>
 
                 <textarea
+                  autoFocus
                   className="c-textarea"
                   placeholder={t("entry.situation.description.placeholder")}
                   rows={3}
@@ -198,6 +199,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                 </label>
 
                 <textarea
+                  autoFocus
                   className="c-textarea"
                   placeholder={t("entry.reaction.description.placeholder")}
                   rows={3}

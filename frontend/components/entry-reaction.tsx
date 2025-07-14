@@ -102,6 +102,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
           }}
         >
           <textarea
+            autoFocus
             className="c-textarea"
             placeholder={t("entry.reaction.description.placeholder")}
             rows={3}
