@@ -47,11 +47,15 @@ export function EntryReaction(props: SelectEntriesFormatted) {
     );
 
   React.useEffect(() => {
-    evaluateReaction();
+    if (reactionEffectiveness.changed) {
+      evaluateReaction();
+    }
   }, [reactionEffectiveness.value]);
 
   React.useEffect(() => {
-    evaluateReaction();
+    if (reactionType.changed) {
+      evaluateReaction();
+    }
   }, [reactionType.value]);
 
   return (
