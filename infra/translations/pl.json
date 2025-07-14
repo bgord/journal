@@ -3,6 +3,8 @@
   "app.back": "Powrót",
   "app.name": "Journal",
   "app.next": "Dalej",
+  "app.cancel": "Anuluj",
+  "app.save": "Zapisz",
   "entry.add.title": "Dodaj wpis",
   "entry.emotion.value": "EMOCJA",
   "entry.emotion.call_to_action": "Uzupełnij emocję",

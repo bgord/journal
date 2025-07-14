@@ -25,6 +25,16 @@ export async function action({ request }: Route.ActionArgs) {
     return { ok: true };
   }
 
+  if (intent === "evaluate_reaction") {
+    await API(`/entry/${form.get("id")}/evaluate-reaction`, {
+      method: "POST",
+      headers: UI.WeakETag.fromRevision(Number(form.get("revision"))),
+      body: JSON.stringify(Object.fromEntries(form.entries())),
+    });
+
+    return { ok: true };
+  }
+
   throw new Error("Intent unknown");
 }
 

@@ -14,7 +14,7 @@ export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next:
   const newReaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(body.description),
     new Emotions.VO.ReactionType(body.type),
-    new Emotions.VO.ReactionEffectiveness(body.effectiveness),
+    new Emotions.VO.ReactionEffectiveness(Number(body.effectiveness)),
   );
 
   const command = Emotions.Commands.EvaluateReactionCommand.parse({

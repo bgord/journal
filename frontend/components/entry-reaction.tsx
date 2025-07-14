@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import { useLoaderData } from "react-router";
+import * as RR from "react-router";
 import type { types } from "../../app/services/add-entry-form";
 import type { SelectEntriesFormatted } from "../../infra/schema";
 import type { loader } from "../app/routes/home";
@@ -9,14 +9,37 @@ type LoaderData = Awaited<ReturnType<typeof loader>>;
 
 export function EntryReaction(props: SelectEntriesFormatted) {
   const t = UI.useTranslations();
-  const loader = useLoaderData() as LoaderData;
+  const loader = RR.useLoaderData() as LoaderData;
+  const fetcher = RR.useFetcher();
+  const submit = RR.useSubmit();
 
   const editingReactionDescription = UI.useToggle({ name: "reaction-description-description" });
 
   const reactionDescription = UI.useField<types.ReactionDescriptionType>({
-    name: "reaction-description",
+    name: "description",
     defaultValue: props.reactionDescription as types.ReactionDescriptionType,
   });
+  const reactionType = UI.useField<types.ReactionTypeType>({
+    name: "type",
+    defaultValue: props.reactionType as types.ReactionTypeType,
+  });
+  const reactionEffectiveness = UI.useField<types.ReactionEffectivenessType>({
+    name: "effectiveness",
+    defaultValue: props.reactionEffectiveness as types.ReactionEffectivenessType,
+  });
+
+  const evaluateReaction = () =>
+    submit(
+      {
+        id: props.id,
+        revision: props.revision,
+        intent: "evaluate_reaction",
+        description: reactionDescription.value,
+        type: reactionType.value,
+        effectiveness: reactionEffectiveness.value,
+      },
+      { method: "post", action: "." }
+    );
 
   return (
     <section data-display="flex" data-direction="column" data-gap="12" data-py="24">
@@ -33,11 +56,22 @@ export function EntryReaction(props: SelectEntriesFormatted) {
       </div>
 
       {editingReactionDescription.off && (
-        <div onClick={editingReactionDescription.enable}>{props.reactionDescription}</div>
+        <div onClick={editingReactionDescription.enable}>{reactionDescription.value}</div>
       )}
 
       {editingReactionDescription.on && (
-        <div data-display="flex" data-direction="column" data-grow="1" data-gap="12">
+        <fetcher.Form
+          method="post"
+          data-display="flex"
+          data-direction="column"
+          data-grow="1"
+          data-gap="12"
+          onSubmit={(event) => {
+            event.preventDefault();
+            evaluateReaction();
+            editingReactionDescription.disable();
+          }}
+        >
           <textarea
             className="c-textarea"
             placeholder={t("entry.reaction.description.placeholder")}
@@ -45,6 +79,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
             {...reactionDescription.input.props}
             {...UI.Form.textareaPattern(loader.form.reactionDescription)}
           />
+
           <div data-display="flex" data-main="end" data-gap="12">
             <button
               className="c-button"
@@ -55,13 +90,19 @@ export function EntryReaction(props: SelectEntriesFormatted) {
                 editingReactionDescription.disable();
               }}
             >
-              cancel
+              {t("app.cancel")}
             </button>
-            <button className="c-button" data-variant="primary">
-              save
+
+            <button
+              className="c-button"
+              type="submit"
+              data-variant="primary"
+              disabled={reactionDescription.unchanged}
+            >
+              {t("app.save")}
             </button>
           </div>
-        </div>
+        </fetcher.Form>
       )}
     </section>
   );
