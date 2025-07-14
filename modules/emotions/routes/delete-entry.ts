@@ -1,20 +1,13 @@
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { CommandBus } from "+infra/command-bus";
-import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
 
 export async function DeleteEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
-  const entryId = Emotions.VO.EntryId.parse(c.req.param("id"));
-
-  logger.info({
-    message: "Delete entry payload",
-    operation: "read",
-    metadata: { entryId },
-  });
+  const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
 
   const command = Emotions.Commands.DeleteEntryCommand.parse({
     id: bg.NewUUID.generate(),

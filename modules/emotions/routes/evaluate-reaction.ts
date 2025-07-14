@@ -8,8 +8,7 @@ import hono from "hono";
 export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
-
-  const entryId = Emotions.VO.EntryId.parse(c.req.param("id"));
+  const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
 
   const newReaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(body.description),

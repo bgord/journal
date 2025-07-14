@@ -36,10 +36,9 @@ server.get(
 // Emotions ====================
 server.get("/entry/list", Emotions.Routes.ListEntries);
 server.post("/entry/log", Emotions.Routes.LogEntry);
-// TODO: id -> entryId
-server.post("/entry/:id/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
-server.post("/entry/:id/evaluate-reaction", Emotions.Routes.EvaluateReaction);
-server.delete("/entry/:id/delete", Emotions.Routes.DeleteEntry);
+server.post("/entry/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
+server.post("/entry/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
+server.delete("/entry/:entryId/delete", Emotions.Routes.DeleteEntry);
 // =============================
 
 //Translations =================
