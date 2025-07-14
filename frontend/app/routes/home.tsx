@@ -35,6 +35,16 @@ export async function action({ request }: Route.ActionArgs) {
     return { ok: true };
   }
 
+  if (intent === "reappraise_emotion") {
+    await API(`/entry/${form.get("id")}/reappraise-emotion`, {
+      method: "POST",
+      headers: UI.WeakETag.fromRevision(Number(form.get("revision"))),
+      body: JSON.stringify(Object.fromEntries(form.entries())),
+    });
+
+    return { ok: true };
+  }
+
   throw new Error("Intent unknown");
 }
 

@@ -2,8 +2,8 @@ import * as UI from "@bgord/ui";
 import { Xmark } from "iconoir-react";
 import { useFetcher, useSubmit } from "react-router";
 import type { SelectEntriesFormatted } from "../../infra/schema";
+import { EntryEmotion } from "./entry-emotion";
 import { EntryReaction } from "./entry-reaction";
-import { RatingPills } from "./rating-pills";
 
 export function Entry(props: SelectEntriesFormatted) {
   const t = UI.useTranslations();
@@ -49,7 +49,7 @@ export function Entry(props: SelectEntriesFormatted) {
             className="c-button"
             data-variant="with-icon"
             type="submit"
-            title="Delete entry"
+            title={t("entry.delete.title")}
             disabled={fetcher.state !== "idle"}
             data-interaction="subtle-scale"
             onClick={exit.trigger}
@@ -80,11 +80,7 @@ export function Entry(props: SelectEntriesFormatted) {
         <div data-display="flex" data-main="between" data-cross="center" data-gap="12">
           <div>{props.situationDescription}</div>
 
-          <div data-display="flex" data-cross="center" data-gap="12">
-            <div className="c-badge">{t(`entry.emotion.label.value.${props.emotionLabel}`)}</div>
-
-            <RatingPills rating={props.emotionIntensity as number} total={5} />
-          </div>
+          <EntryEmotion {...props} />
         </div>
       </section>
 

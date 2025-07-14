@@ -6,6 +6,7 @@
   "app.cancel": "Cancel",
   "app.save": "Save",
   "entry.add.title": "Add entry",
+  "entry.delete.title": "Delete entry",
   "entry.emotion.value": "EMOTION",
   "entry.emotion.call_to_action": "Fill up emotion",
   "entry.reaction.value": "REACTION",
