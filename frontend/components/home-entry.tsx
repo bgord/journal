@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
 import { Xmark } from "iconoir-react";
-import { Link, useFetcher, useSubmit } from "react-router";
+import { useFetcher, useSubmit } from "react-router";
 import type { SelectEntries } from "../../infra/schema";
 import { RatingPills } from "./rating-pills";
 
@@ -36,9 +36,9 @@ export function HomeEntry(props: Omit<SelectEntries, "startedAt"> & { startedAt:
         data-cross="center"
         {...UI.Rhythm().times(3).style.height}
       >
-        <Link to={`/entry/${props.id}`} type="div" data-fs="16" data-fw="700" data-color="gray-700">
+        <div data-fs="16" data-fw="700" data-color="gray-700">
           {props.startedAt}
-        </Link>
+        </div>
 
         <fetcher.Form method="delete">
           <button

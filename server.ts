@@ -35,7 +35,6 @@ server.get(
 
 // Emotions ====================
 server.get("/entry/list", Emotions.Routes.ListEntries);
-server.get("/entry/:entryId/list", Emotions.Routes.ListEntry);
 server.post("/entry/log", Emotions.Routes.LogEntry);
 // TODO: id -> entryId
 server.post("/entry/:id/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
