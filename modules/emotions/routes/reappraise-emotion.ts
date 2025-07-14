@@ -13,7 +13,7 @@ export async function ReappraiseEmotion(c: hono.Context<infra.HonoConfig>, _next
 
   const newEmotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(body.label),
-    new Emotions.VO.EmotionIntensity(body.intensity),
+    new Emotions.VO.EmotionIntensity(Number(body.intensity)),
   );
 
   const command = Emotions.Commands.ReappraiseEmotionCommand.parse({
