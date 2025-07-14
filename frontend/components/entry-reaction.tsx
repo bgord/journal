@@ -4,14 +4,14 @@ import * as RR from "react-router";
 import type { types } from "../../app/services/add-entry-form";
 import type { SelectEntriesFormatted } from "../../infra/schema";
 import type { loader } from "../app/routes/home";
-import { Select } from "./select";
 import { ClickableRatingPills } from "./clickable-rating-pills";
+import { Select } from "./select";
 
 type LoaderData = Awaited<ReturnType<typeof loader>>;
 
 export function EntryReaction(props: SelectEntriesFormatted) {
   const t = UI.useTranslations();
-  const loader = RR.useLoaderData() as LoaderData;
+  const loader = RR.useLoaderData<LoaderData>();
   const fetcher = RR.useFetcher();
   const submit = RR.useSubmit();
 
@@ -41,7 +41,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
         type: reactionType.value,
         effectiveness: reactionEffectiveness.value,
       },
-      { method: "post", action: "." }
+      { method: "post", action: "." },
     );
 
   React.useEffect(() => {
@@ -55,12 +55,12 @@ export function EntryReaction(props: SelectEntriesFormatted) {
   return (
     <section data-display="flex" data-direction="column" data-gap="12" data-py="24">
       <div data-display="flex" data-cross="center" data-gap="12" {...UI.Rhythm().times(3).style.minHeight}>
-        <div data-display="flex" data-cross="center" data-gap="6" data-color="gray-500">
+        <div data-display="flex" data-cross="center" data-gap="6" data-color="gray-500" data-mr="auto">
           {t("entry.reaction.description.label")}
         </div>
 
         {editingReactionType.off && (
-          <div className="c-badge" data-ml="auto" onClick={editingReactionType.enable} data-cursor="pointer">
+          <div className="c-badge" onClick={editingReactionType.enable} data-cursor="pointer">
             {t(`entry.reaction.type.value.${reactionType.value}`)}
           </div>
         )}
@@ -68,7 +68,6 @@ export function EntryReaction(props: SelectEntriesFormatted) {
         {editingReactionType.on && (
           <Select
             {...reactionType.input.props}
-            data-ml="auto"
             onChange={(event) => {
               reactionType.input.props.onChange(event);
               editingReactionType.disable();
