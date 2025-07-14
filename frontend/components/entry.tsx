@@ -11,7 +11,10 @@ export function Entry(props: SelectEntriesFormatted) {
   const submit = useSubmit();
 
   const deleteEntry = () =>
-    submit({ id: props.id, revision: props.revision }, { method: "delete", action: "." });
+    submit(
+      { id: props.id, revision: props.revision, intent: "entry_delete" },
+      { method: "delete", action: "." },
+    );
   const exit = UI.useExitAction({ actionFn: deleteEntry, animation: "shrink-fade-out" });
 
   if (!exit.visible) return null;

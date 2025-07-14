@@ -14,11 +14,18 @@ export function meta() {
 
 export async function action({ request }: Route.ActionArgs) {
   const form = await request.formData();
-  await API(`/entry/${form.get("id")}/delete`, {
-    method: "DELETE",
-    headers: UI.WeakETag.fromRevision(Number(form.get("revision"))),
-  });
-  return { ok: true };
+  const intent = form.get("intent");
+
+  if (intent === "entry_delete") {
+    await API(`/entry/${form.get("id")}/delete`, {
+      method: "DELETE",
+      headers: UI.WeakETag.fromRevision(Number(form.get("revision"))),
+    });
+
+    return { ok: true };
+  }
+
+  throw new Error("Intent unknown");
 }
 
 export async function loader() {

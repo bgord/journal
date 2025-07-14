@@ -11,7 +11,8 @@ export function EntryReaction(props: SelectEntriesFormatted) {
   const t = UI.useTranslations();
   const loader = useLoaderData() as LoaderData;
 
-  const edittingReactionDescription = UI.useToggle({ name: "reaction-description-description" });
+  const editingReactionDescription = UI.useToggle({ name: "reaction-description-description" });
+
   const reactionDescription = UI.useField<types.ReactionDescriptionType>({
     name: "reaction-description",
     defaultValue: props.reactionDescription as types.ReactionDescriptionType,
@@ -31,11 +32,11 @@ export function EntryReaction(props: SelectEntriesFormatted) {
         <RatingPills rating={props.reactionEffectiveness as number} total={5} />
       </div>
 
-      {edittingReactionDescription.off && (
-        <div onClick={edittingReactionDescription.enable}>{props.reactionDescription}</div>
+      {editingReactionDescription.off && (
+        <div onClick={editingReactionDescription.enable}>{props.reactionDescription}</div>
       )}
 
-      {edittingReactionDescription.on && (
+      {editingReactionDescription.on && (
         <div data-display="flex" data-direction="column" data-grow="1" data-gap="12">
           <textarea
             className="c-textarea"
@@ -51,7 +52,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
               data-variant="bare"
               onClick={() => {
                 reactionDescription.clear();
-                edittingReactionDescription.disable();
+                editingReactionDescription.disable();
               }}
             >
               cancel
