@@ -41,7 +41,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         data-mx="auto"
       >
         {loaderData.map((entry) => (
-          <Components.HomeEntry key={entry.id} {...entry} />
+          <Components.Entry key={entry.id} {...entry} />
         ))}
       </ul>
 

@@ -4,7 +4,7 @@ import { useFetcher, useSubmit } from "react-router";
 import type { SelectEntries } from "../../infra/schema";
 import { RatingPills } from "./rating-pills";
 
-export function HomeEntry(props: Omit<SelectEntries, "startedAt"> & { startedAt: string }) {
+export function Entry(props: Omit<SelectEntries, "startedAt"> & { startedAt: string }) {
   const t = UI.useTranslations();
   const fetcher = useFetcher();
   const submit = useSubmit();
