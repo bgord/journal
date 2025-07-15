@@ -20,7 +20,7 @@ const EnvironmentSchema = z
     ANTHROPIC_AI_API_KEY: z.string().min(1).max(256).trim(),
     AXIOM_API_TOKEN: z.string().length(41),
     AI_CLIENT: z.enum(AiClientEnum),
-    AI_CLIENT_REAL_RESPONSE: tools.FeatureFlagValue,
+    FF_AI_CLIENT_REAL_RESPONSE: tools.FeatureFlagValue,
   })
   .strip();
 
