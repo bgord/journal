@@ -12,13 +12,21 @@ export class AlarmRepository {
     return result[0] as Schema.SelectAlarms;
   }
 
-  static async generate(event: Events.AlarmGeneratedEventType) {
+  static async generate(
+    event: Events.AlarmGeneratedEventType,
+    emotion: {
+      label: Schema.SelectEntries["emotionLabel"];
+      intensity: Schema.SelectEntries["emotionIntensity"];
+    },
+  ) {
     await db.insert(Schema.alarms).values({
       id: event.payload.alarmId,
       name: event.payload.alarmName,
       entryId: event.payload.entryId,
       status: VO.AlarmStatusEnum.generated,
       generatedAt: event.createdAt,
+      emotionLabel: emotion.label,
+      emotionIntensity: emotion.intensity,
     });
   }
 

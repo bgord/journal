@@ -14,7 +14,7 @@ export function Entry(props: SelectEntriesFull) {
   const deleteEntry = () =>
     submit(
       { id: props.id, revision: props.revision, intent: "entry_delete" },
-      { method: "delete", action: "." }
+      { method: "delete", action: "." },
     );
   const exit = UI.useExitAction({ actionFn: deleteEntry, animation: "shrink-fade-out" });
 
