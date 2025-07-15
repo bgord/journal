@@ -26,7 +26,7 @@ describe("AlarmFactory", () => {
 
   test("correct path - at the limit", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
-    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(4);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(9);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -39,7 +39,7 @@ describe("AlarmFactory", () => {
   });
 
   test("DailyAlarmLimit - at the limit", async () => {
-    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(10);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     expect(async () => Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId)).toThrow(

@@ -29,7 +29,7 @@ describe("AlarmProcessing", () => {
 
   test("onEmotionLoggedEvent - respects DailyAlarmLimit", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
-    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(10);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
@@ -63,7 +63,7 @@ describe("AlarmProcessing", () => {
 
   test("onEmotionReappraisedEvent - respects DailyAlarmLimit", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
-    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(5);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(10);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
