@@ -69,4 +69,8 @@ export class AlarmRepository {
 
     return db.$count(Schema.alarms, gte(Schema.alarms.generatedAt, startOfDay));
   }
+
+  static async getCreatedPerEntryId(entryId: VO.EntryIdType): Promise<number> {
+    return db.$count(Schema.alarms, eq(Schema.alarms.entryId, entryId));
+  }
 }

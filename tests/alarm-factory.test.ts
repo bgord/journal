@@ -13,6 +13,7 @@ describe("AlarmFactory", () => {
   test("correct path", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -27,6 +28,7 @@ describe("AlarmFactory", () => {
   test("correct path - at the limit", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(9);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(1);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -38,12 +40,27 @@ describe("AlarmFactory", () => {
     jest.restoreAllMocks();
   });
 
-  test("DailyAlarmLimit - at the limit", async () => {
+  test("DailyAlarmLimit - above the limit", async () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(10);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     expect(async () => Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId)).toThrow(
       Emotions.Policies.DailyAlarmLimit.error,
+    );
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
+  test("EntryAlarmLimit - above the limit", async () => {
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(2);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    expect(async () => Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId)).toThrow(
+      Emotions.Policies.EntryAlarmLimit.error,
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();

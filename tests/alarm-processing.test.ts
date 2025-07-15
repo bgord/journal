@@ -14,6 +14,7 @@ describe("AlarmProcessing", () => {
   test("onEmotionLoggedEvent", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
@@ -30,6 +31,7 @@ describe("AlarmProcessing", () => {
   test("onEmotionLoggedEvent - respects DailyAlarmLimit", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(10);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
@@ -44,9 +46,28 @@ describe("AlarmProcessing", () => {
     jest.restoreAllMocks();
   });
 
+  test("onEmotionLoggedEvent - respects EntryAlarmLimit", async () => {
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(2);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      expect(async () => saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
+        Emotions.Policies.EntryAlarmLimit.error,
+      ),
+    );
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
   test("onEmotionReappraisedEvent", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
@@ -64,6 +85,7 @@ describe("AlarmProcessing", () => {
   test("onEmotionReappraisedEvent - respects DailyAlarmLimit", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(10);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
@@ -72,6 +94,24 @@ describe("AlarmProcessing", () => {
       expect(async () =>
         saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
       ).toThrow(Emotions.Policies.DailyAlarmLimit.error),
+    );
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
+  test("onEmotionReappraisedEvent - respects EntryAlarmLimit", async () => {
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCount").mockResolvedValue(0);
+    spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(2);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      expect(async () =>
+        saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
+      ).toThrow(Emotions.Policies.EntryAlarmLimit.error),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
 
