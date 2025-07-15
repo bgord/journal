@@ -53,8 +53,9 @@ export const entries = sqliteTable("entries", {
   language: text("language").notNull(),
 });
 
+/** @public */
 export const entriesRelations = relations(entries, ({ many }) => ({ alarms: many(alarms) }));
-
+/** @public */
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
