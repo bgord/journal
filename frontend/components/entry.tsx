@@ -1,11 +1,11 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import { useFetcher, useSubmit } from "react-router";
-import type { SelectEntriesFormatted } from "../../infra/schema";
+import type { SelectEntriesFull } from "../../infra/schema";
 import { EntryEmotion } from "./entry-emotion";
 import { EntryReaction } from "./entry-reaction";
 
-export function Entry(props: SelectEntriesFormatted) {
+export function Entry(props: SelectEntriesFull) {
   const t = UI.useTranslations();
   const fetcher = useFetcher();
   const submit = useSubmit();
@@ -87,9 +87,19 @@ export function Entry(props: SelectEntriesFormatted) {
 
       <EntryReaction {...props} />
 
-      <div data-display="flex" data-mb="24">
-        <Icons.Alarm height={20} width={20} data-color="red-500" />
-      </div>
+      <ul data-display="flex" data-direction="column" data-mb="24">
+        {props.alarms.map((alarm) => (
+          <li key={alarm.id} data-display="flex" data-gap="6">
+            <div data-display="flex" data-gap="12">
+              <Icons.Alarm height={20} width={20} data-color="red-500" />
+              {alarm.name}
+            </div>
+            <div data-fs="14" {...UI.Colorful("brand-500").style.color}>
+              {alarm.advice}
+            </div>
+          </li>
+        ))}
+      </ul>
     </li>
   );
 }

@@ -347,8 +347,10 @@ export const partialEntry: Schema.SelectEntries = {
   reactionType: null,
 };
 
-export const partialEntryFormatted: Schema.SelectEntriesFormatted =
-  Emotions.Repos.EntryRepository.format(partialEntry);
+export const partialEntryFormatted: Schema.SelectEntriesFull = {
+  ...Emotions.Repos.EntryRepository.format(partialEntry),
+  alarms: [],
+};
 
 export const fullEntry: Schema.SelectEntries = {
   revision: 0,
@@ -366,8 +368,10 @@ export const fullEntry: Schema.SelectEntries = {
   reactionEffectiveness: 1,
 };
 
-export const fullEntryFormatted: Schema.SelectEntriesFormatted =
-  Emotions.Repos.EntryRepository.format(fullEntry);
+export const fullEntryFormatted: Schema.SelectEntriesFull = {
+  ...Emotions.Repos.EntryRepository.format(fullEntry),
+  alarms: [],
+};
 
 export const alarm: Schema.SelectAlarms = {
   id: alarmId,

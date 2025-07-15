@@ -68,4 +68,6 @@ export const alarmsRelations = relations(alarms, ({ one }) => ({
 
 export type SelectEntries = typeof entries.$inferSelect;
 export type SelectEntriesFormatted = Omit<SelectEntries, "startedAt"> & { startedAt: string };
+export type SelectEntriesWithAlarms = SelectEntries & { alarms: SelectAlarms[] };
+export type SelectEntriesFull = Omit<SelectEntriesWithAlarms, "startedAt"> & { startedAt: string };
 export type SelectAlarms = typeof alarms.$inferSelect;

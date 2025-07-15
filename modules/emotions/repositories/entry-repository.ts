@@ -37,13 +37,13 @@ export class EntryRepository {
       .where(and(gte(Schema.entries.startedAt, weekStartedAt), lte(Schema.entries.startedAt, weekEndedAt)));
   }
 
-  static async list(): Promise<Schema.SelectEntriesFormatted[]> {
+  static async list(): Promise<Schema.SelectEntriesFull[]> {
     const entries = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
       with: { alarms: true },
     });
 
-    return entries.map(EntryRepository.format);
+    return entries.map(EntryRepository.formatFull);
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {
@@ -112,6 +112,10 @@ export class EntryRepository {
   }
 
   static format(entry: Schema.SelectEntries): Schema.SelectEntriesFormatted {
+    return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
+  }
+
+  static formatFull(entry: Schema.SelectEntriesWithAlarms): Schema.SelectEntriesFull {
     return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
   }
 }
