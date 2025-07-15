@@ -55,7 +55,7 @@ export const entries = sqliteTable("entries", {
 
 /** @public */
 export const entriesRelations = relations(entries, ({ many }) => ({ alarms: many(alarms) }));
-/** @public */
+
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
@@ -68,6 +68,7 @@ export const alarms = sqliteTable("alarms", {
   emotionIntensity: integer("emotionIntensity"),
 });
 
+/** @public */
 export const alarmsRelations = relations(alarms, ({ one }) => ({
   entry: one(entries, { fields: [alarms.entryId], references: [entries.id] }),
 }));
