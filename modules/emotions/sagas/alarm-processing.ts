@@ -4,7 +4,9 @@ import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
+import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
+import { logger } from "+infra/logger";
 import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -126,12 +128,27 @@ export class AlarmProcessing {
 
     const notification = composer.compose(alarm.advice as VO.EmotionalAdviceType);
 
-    await Mailer.send({
-      from: "journal@example.com",
-      to: "example@abc.com",
-      subject: "Emotional advice",
-      html: notification,
-    });
+    // TODO: Cancel alarm on Mailer.send error
+    if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_ENABLED)) {
+      await Mailer.send({
+        from: "journal@example.com",
+        to: "example@abc.com",
+        subject: "Emotional advice",
+        html: notification,
+      });
+    } else {
+      logger.info({
+        message: "[FF_MAILER_ENABLED] disabled - email message",
+        correlationId: bg.CorrelationStorage.get(),
+        operation: "email_send",
+        metadata: {
+          from: "journal@example.com",
+          to: "example@abc.com",
+          subject: "Emotional advice",
+          html: notification,
+        },
+      });
+    }
   }
 
   async onEntryDeletedEvent(event: Events.EntryDeletedEventType) {
