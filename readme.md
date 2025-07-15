@@ -115,6 +115,7 @@ modules/
     │   ├── emotion-corresponds-to-situation.ts
     │   ├── emotion-for-reappraisal-exists.ts
     │   ├── entries-for-week-exist.ts
+    │   ├── entry-alarm-limit.ts
     │   ├── entry-has-been-started.ts
     │   ├── entry-is-actionable.ts
     │   ├── one-situation-per-entry.ts
@@ -173,6 +174,7 @@ modules/
         ├── reaction-effectiveness.ts
         ├── reaction-type.ts
         ├── situation-description.ts
+        ├── situation-kind-options.ts
         ├── situation-kind.ts
         ├── situation-location.ts
         ├── week-start.ts
