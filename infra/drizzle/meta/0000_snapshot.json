@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "5be11bf7-9893-4e9f-aae1-bf4be7cabbab",
+  "id": "8d82a2f6-0b97-417d-a42e-5cebd4fbf666",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alarms": {
@@ -70,8 +70,12 @@
           "name": "alarms_entryId_entries_id_fk",
           "tableFrom": "alarms",
           "tableTo": "entries",
-          "columnsFrom": ["entryId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "entryId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -174,6 +178,13 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "language": {
+          "name": "language",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -247,12 +258,17 @@
       "indexes": {
         "stream_idx": {
           "name": "stream_idx",
-          "columns": ["stream"],
+          "columns": [
+            "stream"
+          ],
           "isUnique": false
         },
         "stream_revision_uidx": {
           "name": "stream_revision_uidx",
-          "columns": ["stream", "revision"],
+          "columns": [
+            "stream",
+            "revision"
+          ],
           "isUnique": true
         }
       },

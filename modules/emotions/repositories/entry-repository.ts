@@ -55,6 +55,7 @@ export class EntryRepository {
       situationDescription: event.payload.description,
       situationLocation: event.payload.location,
       revision: event.revision,
+      language: event.payload.language,
     });
   }
 

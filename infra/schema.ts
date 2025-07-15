@@ -50,6 +50,7 @@ export const entries = sqliteTable("entries", {
   reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
   reactionEffectiveness: integer("reactionEffectiveness"),
   status: text("status", toEnumList(EntryStatusEnum)).notNull(),
+  language: text("language").notNull(),
 });
 
 export const entriesRelations = relations(entries, ({ many }) => ({ alarms: many(alarms) }));

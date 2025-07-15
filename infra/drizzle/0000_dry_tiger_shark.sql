@@ -23,7 +23,8 @@ CREATE TABLE `entries` (
 	`reactionDescription` text,
 	`reactionType` text,
 	`reactionEffectiveness` integer,
-	`status` text NOT NULL
+	`status` text NOT NULL,
+	`language` text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `events` (
