@@ -61,6 +61,9 @@ export const alarms = sqliteTable("alarms", {
   status: text("status", toEnumList(AlarmStatusEnum)).notNull(),
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),
+
+  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)),
+  emotionIntensity: integer("emotionIntensity"),
 });
 
 export const alarmsRelations = relations(alarms, ({ one }) => ({

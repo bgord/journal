@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "a199d26e-4c23-47f9-a1a3-4aaa539790b6",
+  "id": "5be11bf7-9893-4e9f-aae1-bf4be7cabbab",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alarms": {
@@ -45,6 +45,20 @@
         "advice": {
           "name": "advice",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "emotionLabel": {
+          "name": "emotionLabel",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "emotionIntensity": {
+          "name": "emotionIntensity",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
