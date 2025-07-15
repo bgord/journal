@@ -1,31 +1,7 @@
 import { z } from "zod/v4";
+import { SituationKindOptions } from "./situation-kind-options";
 
 const SituationKindErrors = { invalid: "situation.kind.invalid" };
-
-/** @public */
-export enum SituationKindOptions {
-  conflict = "conflict",
-  achievement = "achievement",
-  failure = "failure",
-  rejection = "rejection",
-  praise = "praise",
-  routine = "routine",
-  unexpected_change = "unexpected_change",
-  social_event = "social_event",
-  alone_time = "alone_time",
-  work = "work",
-  school = "school",
-  health = "health",
-  relationship = "relationship",
-  money = "money",
-  environment = "environment",
-  technology = "technology",
-  waiting = "waiting",
-  decision_making = "decision_making",
-  transition = "transition",
-  memory_or_thought = "memory_or_thought",
-  other = "other",
-}
 
 export const SituationKindSchema = z.enum(SituationKindOptions, {
   message: SituationKindErrors.invalid,

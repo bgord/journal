@@ -17,6 +17,7 @@ export * from "./reaction-effectiveness";
 export * from "./reaction-type";
 export * from "./situation-description";
 export * from "./situation-kind";
+export * from "./situation-kind-options";
 export * from "./situation-location";
 export * from "./week-start";
 export * from "./weekly-review-id";

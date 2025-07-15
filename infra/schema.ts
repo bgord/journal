@@ -4,9 +4,10 @@ import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqli
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
 import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status";
 import { EntryStatusEnum } from "../modules/emotions/value-objects/entry-status";
-// Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
 import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
+// Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
+import { SituationKindOptions } from "../modules/emotions/value-objects/situation-kind-options";
 
 const toEnumList = (value: Record<string, string>) => ({
   enum: Object.keys(value) as [string, ...string[]],
@@ -42,8 +43,8 @@ export const entries = sqliteTable("entries", {
   finishedAt: integer("finishedAt"),
   situationDescription: text("situationDescription"),
   situationLocation: text("situationLocation"),
-  situationKind: text("situationKind", toEnumList(GenevaWheelEmotion)),
-  emotionLabel: text("emotionLabel"),
+  situationKind: text("situationKind", toEnumList(SituationKindOptions)),
+  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)),
   emotionIntensity: integer("emotionIntensity"),
   reactionDescription: text("reactionDescription"),
   reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
