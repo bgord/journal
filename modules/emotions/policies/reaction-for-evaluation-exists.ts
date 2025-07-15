@@ -9,9 +9,7 @@ class ReactionForEvaluationExistsError extends Error {
   }
 }
 
-type ReactionForEvaluationExistsConfigType = {
-  reaction?: Emotions.Entities.Reaction;
-};
+type ReactionForEvaluationExistsConfigType = { reaction?: Emotions.Entities.Reaction };
 
 class ReactionForEvaluationExistsFactory extends bg.Policy<ReactionForEvaluationExistsConfigType> {
   fails(config: ReactionForEvaluationExistsConfigType) {

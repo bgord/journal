@@ -9,9 +9,7 @@ class WeeklyReviewRequestedOnceError extends Error {
   }
 }
 
-type WeeklyReviewRequestedOnceConfigType = {
-  status: Emotions.VO.WeeklyReviewStatusEnum;
-};
+type WeeklyReviewRequestedOnceConfigType = { status: Emotions.VO.WeeklyReviewStatusEnum };
 
 class WeeklyReviewRequestedOnceFactory extends bg.Policy<WeeklyReviewRequestedOnceConfigType> {
   fails(config: WeeklyReviewRequestedOnceConfigType) {

@@ -9,9 +9,7 @@ class EmotionForReappraisalExistsError extends Error {
   }
 }
 
-type EmotionForReappraisalExistsConfigType = {
-  emotion?: Emotions.Entities.Emotion;
-};
+type EmotionForReappraisalExistsConfigType = { emotion?: Emotions.Entities.Emotion };
 
 class EmotionForReappraisalExistsFactory extends bg.Policy<EmotionForReappraisalExistsConfigType> {
   fails(config: EmotionForReappraisalExistsConfigType) {

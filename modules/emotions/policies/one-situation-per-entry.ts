@@ -9,9 +9,7 @@ class OneSituationPerEntryError extends Error {
   }
 }
 
-type OneSituationPerEntryConfigType = {
-  situation?: Emotions.Entities.Situation;
-};
+type OneSituationPerEntryConfigType = { situation?: Emotions.Entities.Situation };
 
 class OneSituationPerEntryFactory extends bg.Policy<OneSituationPerEntryConfigType> {
   fails(config: OneSituationPerEntryConfigType) {

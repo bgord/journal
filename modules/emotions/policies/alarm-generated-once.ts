@@ -9,9 +9,7 @@ class AlarmGeneratedOnceError extends Error {
   }
 }
 
-type AlarmGeneratedOnceConfigType = {
-  status: Emotions.VO.AlarmStatusEnum;
-};
+type AlarmGeneratedOnceConfigType = { status: Emotions.VO.AlarmStatusEnum };
 
 class AlarmGeneratedOnceFactory extends bg.Policy<AlarmGeneratedOnceConfigType> {
   fails(config: AlarmGeneratedOnceConfigType) {

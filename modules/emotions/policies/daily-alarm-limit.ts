@@ -8,9 +8,7 @@ class DailyAlarmLimitError extends Error {
   }
 }
 
-type DailyAlarmLimitConfigType = {
-  count: number;
-};
+type DailyAlarmLimitConfigType = { count: number };
 
 class DailyAlarmLimitFactory extends bg.Policy<DailyAlarmLimitConfigType> {
   fails(config: DailyAlarmLimitConfigType) {

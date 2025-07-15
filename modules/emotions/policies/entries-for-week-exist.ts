@@ -8,9 +8,7 @@ class EntriesForWeekExistError extends Error {
   }
 }
 
-type EntriesForWeekExistConfigType = {
-  count: number;
-};
+type EntriesForWeekExistConfigType = { count: number };
 
 class EntriesForWeekExistFactory extends bg.Policy<EntriesForWeekExistConfigType> {
   fails(config: EntriesForWeekExistConfigType) {

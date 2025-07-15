@@ -9,9 +9,7 @@ class AlarmIsCancellableError extends Error {
   }
 }
 
-type AlarmIsCancellableConfigType = {
-  status: Emotions.VO.AlarmStatusEnum;
-};
+type AlarmIsCancellableConfigType = { status: Emotions.VO.AlarmStatusEnum };
 
 class AlarmIsCancellableFactory extends bg.Policy<AlarmIsCancellableConfigType> {
   fails(config: AlarmIsCancellableConfigType) {
