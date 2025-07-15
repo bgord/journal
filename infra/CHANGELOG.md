@@ -1,6 +1,31 @@
 # Changelog
+- 2025-07-15 17:57 a40b847 **step: udpate packages**
+## 2025-07-15 17:57 
+- 2025-07-15 17:56 ba63208 **step: update ui**
+- 2025-07-15 17:28 dd6ecaa **step: change it to test**
+- 2025-07-15 17:24 f9a97c3 **step: translate the pl prompt**
+- 2025-07-15 17:21 810f51f **feature: make emotional advice prompt multilang**
+- 2025-07-15 16:59 daae537 **step: add language to entries schema**
+- 2025-07-15 16:57 b99afca **fix: tests**
+- 2025-07-15 16:29 10bf699 **feature: save entry language**
+- 2025-07-15 15:50 06afc7d **step: display emotion label for an alarm**
+- 2025-07-15 15:46 207205b **step: save emotion label and intensity for alarms**
+- 2025-07-15 15:32 1207953 **step: add alarm component**
+- 2025-07-15 15:28 804ef66 **fix: types**
+- 2025-07-15 15:26 774ca7a **step: add emotion label and intensity db schema**
+- 2025-07-15 15:25 417ab6b **fix: migration types**
+- 2025-07-15 15:05 111b6c7 **feature: implement entry alarm limit policy**
+- 2025-07-15 14:59 9d83285 **step: add entry alarm limit policy**
+- 2025-07-15 14:59 391df8a **step: reformat policies**
+- 2025-07-15 14:52 59ffd38 **step: bump daily alarm limit to 10**
+- 2025-07-15 14:50 6cb9003 **feature: display alarms for entries**
+- 2025-07-15 14:30 621f62e **refactor: rewrite entry repo list to include alarms**
+- 2025-07-15 14:26 a9530e4 **step: add relations to schema**
+- 2025-07-15 14:09 5451188 **refactor: switch to drizzle orm**
+- 2025-07-15 13:50 a2bb799 **step: add FF_MAILER_ENABLED ff**
+- 2025-07-15 13:37 66e91ff **step: add mock responses from ai clients**
+- 2025-07-15 13:35 b043305 **step: add AI_CLIENT_REAL_RESPONSE ff**
 - 2025-07-14 22:18 303e3ae **step: bump bgord/scripts**
-## 2025-07-14 22:18 
 - 2025-07-14 22:17 ae29fcc **step: bump bgord/scripts**
 - 2025-07-14 22:15 4b96d9f **fix: types**
 - 2025-07-14 22:12 413b72b **step: add getByIdRaw**
@@ -15,6 +40,7 @@
 - 2025-07-14 20:46 f1cf990 **refactor: extract entry emotion**
 - 2025-07-14 20:30 bed9aca **fix: loader types**
 - 2025-07-14 20:25 455572e **feature: implement evaluate reaction for reaction type**
+- 2025-07-14 20:19 d50875f **docs: generate CHANGELOG**
 - 2025-07-14 20:07 032d078 **feature: implement evaluate reaction for reaction effectiveness**
 - 2025-07-14 19:52 afa3bc9 **feature: implement evaluate reaction for reaction description**
 - 2025-07-14 19:35 9c43af9 **step: add entry delete intent**
