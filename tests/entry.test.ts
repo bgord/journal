@@ -1,3 +1,4 @@
+import { SupportedLanguages } from "+infra/i18n";
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -32,6 +33,8 @@ const newReaction = new Emotions.Entities.Reaction(
   new Emotions.VO.ReactionEffectiveness(2),
 );
 
+const language = SupportedLanguages.en;
+
 describe("entry", () => {
   test("create new aggregate", () => {
     expect(() => Emotions.Aggregates.Entry.create(mocks.entryId)).not.toThrow();
@@ -47,7 +50,9 @@ describe("entry", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, []);
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => entry.log(situation, emotion, reaction));
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      entry.log(situation, emotion, reaction, language),
+    );
 
     expect(entry.pullEvents()).toEqual([
       mocks.GenericSituationLoggedEvent,
@@ -59,7 +64,7 @@ describe("entry", () => {
   test("logSituation - Policies.OneSituationPerEntry", async () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent]);
 
-    expect(async () => entry.log(situation, emotion, reaction)).toThrow(
+    expect(async () => entry.log(situation, emotion, reaction, language)).toThrow(
       Emotions.Policies.OneSituationPerEntry.error,
     );
 

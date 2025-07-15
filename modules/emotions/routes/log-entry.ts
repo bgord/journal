@@ -1,11 +1,13 @@
 import * as Emotions from "+emotions";
+import type * as infra from "+infra";
 import { CommandBus } from "+infra/command-bus";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
 
-export async function LogEntry(c: hono.Context, _next: hono.Next) {
+export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const body = await bg.safeParseBody(c);
+  const language = c.get("language");
 
   const entryId = bg.NewUUID.generate();
 
@@ -31,7 +33,7 @@ export async function LogEntry(c: hono.Context, _next: hono.Next) {
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
-    payload: { entryId, situation, emotion, reaction },
+    payload: { entryId, situation, emotion, reaction, language },
   } satisfies Emotions.Commands.LogEntryCommandType);
 
   await CommandBus.emit(command.name, command);

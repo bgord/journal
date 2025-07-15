@@ -1,6 +1,7 @@
 import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { SupportedLanguages } from "../infra/i18n";
 import type * as Schema from "../infra/schema";
 
 import * as Emotions from "../modules/emotions";
@@ -40,6 +41,7 @@ export const GenericSituationLoggedEvent = {
     description: "I finished a project",
     kind: Emotions.VO.SituationKindOptions.achievement,
     location: "work",
+    language: SupportedLanguages.en,
   },
 } satisfies Emotions.Events.SituationLoggedEventType;
 

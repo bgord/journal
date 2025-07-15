@@ -1,6 +1,7 @@
 import * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import { EventStore } from "+infra/event-store";
+import { SupportedLanguages } from "+infra/i18n";
 import * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import _ from "lodash";
@@ -72,7 +73,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       );
 
       const entry = Emotions.Aggregates.Entry.create(bg.NewUUID.generate());
-      await entry.log(situation, emotion, reaction);
+      await entry.log(situation, emotion, reaction, SupportedLanguages.en);
 
       await EventStore.save(entry.pullEvents());
 

@@ -1,4 +1,5 @@
 import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+infra/i18n";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
@@ -47,6 +48,7 @@ export class Entry {
     situation: Emotions.Entities.Situation,
     emotion: Emotions.Entities.Emotion,
     reaction: Emotions.Entities.Reaction,
+    language: SupportedLanguages,
   ) {
     await Emotions.Policies.OneSituationPerEntry.perform({ situation: this.situation });
 
@@ -62,6 +64,7 @@ export class Entry {
         description: situation.description.get(),
         location: situation.location.get(),
         kind: situation.kind.get(),
+        language,
       },
     } satisfies Emotions.Events.SituationLoggedEventType);
 

@@ -1,4 +1,5 @@
 import * as VO from "+emotions/value-objects";
+import { SupportedLanguages } from "+infra/i18n";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
@@ -18,6 +19,7 @@ export const SituationLoggedEvent = z.object({
     description: VO.SituationDescriptionSchema,
     location: VO.SituationLocationSchema,
     kind: VO.SituationKindSchema,
+    language: z.enum(SupportedLanguages),
   }),
 });
 
