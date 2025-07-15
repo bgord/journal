@@ -6,6 +6,7 @@ export * from "./daily-alarm-limit";
 export * from "./emotion-corresponds-to-situation";
 export * from "./emotion-for-reappraisal-exists";
 export * from "./entries-for-week-exist";
+export * from "./entry-alarm-limit";
 export * from "./entry-has-been-started";
 export * from "./entry-is-actionable";
 export * from "./one-situation-per-entry";
