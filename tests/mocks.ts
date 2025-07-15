@@ -380,4 +380,6 @@ export const alarm: Schema.SelectAlarms = {
   status: Emotions.VO.AlarmStatusEnum.notification_sent,
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
   advice: "You should do something",
+  emotionLabel: null,
+  emotionIntensity: null,
 };
