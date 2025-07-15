@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import { Xmark } from "iconoir-react";
+import * as Icons from "iconoir-react";
 import { useFetcher, useSubmit } from "react-router";
 import type { SelectEntriesFormatted } from "../../infra/schema";
 import { EntryEmotion } from "./entry-emotion";
@@ -19,6 +19,7 @@ export function Entry(props: SelectEntriesFormatted) {
 
   if (!exit.visible) return null;
 
+  // TODO tidy-up gaps
   return (
     <li
       {...exit.attach}
@@ -54,7 +55,7 @@ export function Entry(props: SelectEntriesFormatted) {
             data-interaction="subtle-scale"
             onClick={exit.trigger}
           >
-            <Xmark width={20} height={20} />
+            <Icons.Xmark width={20} height={20} />
           </button>
         </fetcher.Form>
       </header>
@@ -85,6 +86,10 @@ export function Entry(props: SelectEntriesFormatted) {
       </section>
 
       <EntryReaction {...props} />
+
+      <div data-display="flex" data-mb="24">
+        <Icons.Alarm height={20} width={20} data-color="red-500" />
+      </div>
     </li>
   );
 }
