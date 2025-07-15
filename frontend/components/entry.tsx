@@ -2,6 +2,7 @@ import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import { useFetcher, useSubmit } from "react-router";
 import type { SelectEntriesFull } from "../../infra/schema";
+import { Alarm } from "./alarm";
 import { EntryEmotion } from "./entry-emotion";
 import { EntryReaction } from "./entry-reaction";
 
@@ -13,7 +14,7 @@ export function Entry(props: SelectEntriesFull) {
   const deleteEntry = () =>
     submit(
       { id: props.id, revision: props.revision, intent: "entry_delete" },
-      { method: "delete", action: "." },
+      { method: "delete", action: "." }
     );
   const exit = UI.useExitAction({ actionFn: deleteEntry, animation: "shrink-fade-out" });
 
@@ -87,19 +88,13 @@ export function Entry(props: SelectEntriesFull) {
 
       <EntryReaction {...props} />
 
-      <ul data-display="flex" data-direction="column" data-mb="24">
-        {props.alarms.map((alarm) => (
-          <li key={alarm.id} data-display="flex" data-gap="6">
-            <div data-display="flex" data-gap="12">
-              <Icons.Alarm height={20} width={20} data-color="red-500" />
-              {alarm.name}
-            </div>
-            <div data-fs="14" {...UI.Colorful("brand-500").style.color}>
-              {alarm.advice}
-            </div>
-          </li>
-        ))}
-      </ul>
+      {props.alarms[0] && (
+        <ul data-display="flex" data-direction="column" data-gap="24" data-mb="24">
+          {props.alarms.map((alarm) => (
+            <Alarm key={alarm.id} {...alarm} />
+          ))}
+        </ul>
+      )}
     </li>
   );
 }

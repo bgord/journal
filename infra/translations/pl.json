@@ -5,6 +5,7 @@
   "app.next": "Dalej",
   "app.cancel": "Anuluj",
   "app.save": "Zapisz",
+  "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negatywna emocja z ekstremalną intensywnością",
   "entry.add.title": "Dodaj wpis",
   "entry.delete.title": "Usuń wpis",
   "entry.emotion.value": "EMOCJA",
