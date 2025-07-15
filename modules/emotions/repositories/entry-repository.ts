@@ -38,7 +38,10 @@ export class EntryRepository {
   }
 
   static async list(): Promise<Schema.SelectEntriesFormatted[]> {
-    const entries = (await db.select().from(Schema.entries).orderBy(desc(Schema.entries.startedAt))) ?? [];
+    const entries = await db.query.entries.findMany({
+      orderBy: desc(Schema.entries.startedAt),
+      with: { alarms: true },
+    });
 
     return entries.map(EntryRepository.format);
   }
