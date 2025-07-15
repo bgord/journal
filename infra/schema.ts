@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
 import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status";
@@ -51,6 +51,8 @@ export const entries = sqliteTable("entries", {
   status: text("status", toEnumList(EntryStatusEnum)).notNull(),
 });
 
+export const entriesRelations = relations(entries, ({ many }) => ({ alarms: many(alarms) }));
+
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
@@ -59,6 +61,10 @@ export const alarms = sqliteTable("alarms", {
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),
 });
+
+export const alarmsRelations = relations(alarms, ({ one }) => ({
+  entry: one(entries, { fields: [alarms.entryId], references: [entries.id] }),
+}));
 
 export type SelectEntries = typeof entries.$inferSelect;
 export type SelectEntriesFormatted = Omit<SelectEntries, "startedAt"> & { startedAt: string };
