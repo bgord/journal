@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { SupportedLanguages } from "../infra/i18n";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -7,6 +8,7 @@ describe("EmotionalAdvicePrompt", () => {
     const prompt = new Emotions.Services.EmotionalAdvicePrompt(
       mocks.partialEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+      SupportedLanguages.en,
     );
 
     expect(prompt.generate()).toEqual([
@@ -26,6 +28,7 @@ describe("EmotionalAdvicePrompt", () => {
     const prompt = new Emotions.Services.EmotionalAdvicePrompt(
       mocks.fullEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+      SupportedLanguages.en,
     );
 
     expect(prompt.generate()).toEqual([

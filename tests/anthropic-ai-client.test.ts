@@ -1,11 +1,13 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import { AnthropicAi, AnthropicAiClient } from "../infra/anthropic-ai-client";
+import { SupportedLanguages } from "../infra/i18n";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 const prompt = new Emotions.Services.EmotionalAdvicePrompt(
   mocks.partialEntry,
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+  SupportedLanguages.en,
 );
 
 describe("AnthropicAiClient", () => {

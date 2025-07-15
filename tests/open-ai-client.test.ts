@@ -1,4 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
+import { SupportedLanguages } from "../infra/i18n";
 import { OpenAI, OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
@@ -6,6 +7,7 @@ import * as mocks from "./mocks";
 const prompt = new Emotions.Services.EmotionalAdvicePrompt(
   mocks.partialEntry,
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+  SupportedLanguages.en,
 );
 
 describe("OpenAiClient", () => {

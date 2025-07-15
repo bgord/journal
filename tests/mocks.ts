@@ -347,6 +347,7 @@ export const partialEntry: Schema.SelectEntries = {
   reactionDescription: null,
   reactionEffectiveness: null,
   reactionType: null,
+  language: SupportedLanguages.en,
 };
 
 export const partialEntryFormatted: Schema.SelectEntriesFull = {
@@ -368,6 +369,7 @@ export const fullEntry: Schema.SelectEntries = {
   reactionDescription: "Got drunk",
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
   reactionEffectiveness: 1,
+  language: SupportedLanguages.en,
 };
 
 export const fullEntryFormatted: Schema.SelectEntriesFull = {

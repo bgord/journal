@@ -6,6 +6,7 @@ import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
+import { SupportedLanguages } from "+infra/i18n";
 import { logger } from "+infra/logger";
 import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
@@ -73,7 +74,11 @@ export class AlarmProcessing {
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
     const entry = await Repos.EntryRepository.getByIdRaw(event.payload.entryId);
 
-    const prompt = new Services.EmotionalAdvicePrompt(entry, event.payload.alarmName).generate();
+    const prompt = new Services.EmotionalAdvicePrompt(
+      entry,
+      event.payload.alarmName,
+      entry.language as SupportedLanguages,
+    ).generate();
 
     try {
       const advice = await this.AiClient.request(prompt);

@@ -70,12 +70,8 @@
           "name": "alarms_entryId_entries_id_fk",
           "tableFrom": "alarms",
           "tableTo": "entries",
-          "columnsFrom": [
-            "entryId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["entryId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -258,17 +254,12 @@
       "indexes": {
         "stream_idx": {
           "name": "stream_idx",
-          "columns": [
-            "stream"
-          ],
+          "columns": ["stream"],
           "isUnique": false
         },
         "stream_revision_uidx": {
           "name": "stream_revision_uidx",
-          "columns": [
-            "stream",
-            "revision"
-          ],
+          "columns": ["stream", "revision"],
           "isUnique": true
         }
       },

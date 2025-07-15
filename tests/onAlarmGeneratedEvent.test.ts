@@ -4,10 +4,10 @@ import * as mocks from "./mocks";
 
 describe("onAlarmGeneratedEvent", () => {
   it("should call repository generated method with the event", async () => {
-    const generate = spyOn(Emotions.Repos.AlarmRepository, "generate").mockImplementation(jest.fn());
-    const getByIdRaw = spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockImplementation(
+    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockImplementation(
       jest.fn().mockResolvedValue(mocks.fullEntry),
     );
+    const generate = spyOn(Emotions.Repos.AlarmRepository, "generate").mockImplementation(jest.fn());
 
     await Emotions.EventHandlers.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent);
 
