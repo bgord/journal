@@ -2,20 +2,28 @@ import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import React from "react";
 import { Form, Link } from "react-router";
+import type { types } from "../../../app/services/register-form";
+import { RegisterForm } from "../../../app/services/register-form";
 import { authClient } from "../../auth";
+import type { Route } from "./+types/register";
 
-enum SignUpState {
+enum RegisterState {
   idle = "idle",
+  loading = "loading",
   success = "success",
   error = "error",
 }
 
+export async function loader() {
+  return RegisterForm.get();
+}
+
 // TODO: translations
-export default function SignUp() {
-  const [state, setState] = React.useState<SignUpState>(SignUpState.idle);
+export default function Register({ loaderData }: Route.ComponentProps) {
+  const [state, setState] = React.useState<RegisterState>(RegisterState.idle);
 
   const email = UI.useField({ name: "email", defaultValue: "" });
-  const password = UI.useField({ name: "password", defaultValue: "" });
+  const password = UI.useField<types.PasswordType>({ name: "password", defaultValue: "" });
 
   const signUp = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -23,9 +31,9 @@ export default function SignUp() {
     await authClient.signUp.email(
       { email: email.value, password: password.value, name: email.value },
       {
-        onSuccess: () => setState(SignUpState.success),
-        onError: () => setState(SignUpState.error),
-      },
+        onSuccess: () => setState(RegisterState.success),
+        onError: () => setState(RegisterState.error),
+      }
     );
   };
 
@@ -58,7 +66,7 @@ export default function SignUp() {
             className="c-input"
             type="email"
             placeholder="admin@example.com"
-            disabled={state === SignUpState.success}
+            disabled={state === RegisterState.success}
             {...email.input.props}
           />
         </div>
@@ -72,8 +80,9 @@ export default function SignUp() {
             className="c-input"
             type="password"
             placeholder="**********"
-            disabled={state === SignUpState.success}
+            disabled={state === RegisterState.success}
             {...password.input.props}
+            {...UI.Form.inputPattern(loaderData.password)}
           />
         </div>
 
@@ -82,12 +91,12 @@ export default function SignUp() {
           data-variant="primary"
           data-mt="24"
           type="submit"
-          disabled={UI.Fields.allUnchanged([email, password]) || state === SignUpState.success}
+          disabled={UI.Fields.allUnchanged([email, password]) || state === RegisterState.success}
         >
-          Sign Up
+          {state === RegisterState.loading ? "Loading…" : "Sign up"}
         </button>
 
-        {state === SignUpState.success && (
+        {state === RegisterState.success && (
           <div
             data-display="flex"
             data-main="baseline"
@@ -111,7 +120,7 @@ export default function SignUp() {
           </div>
         )}
 
-        {state === SignUpState.error && (
+        {state === RegisterState.error && (
           <div
             data-display="flex"
             data-gap="12"
@@ -125,6 +134,13 @@ export default function SignUp() {
             Error while creating an account
           </div>
         )}
+
+        <p data-transform="center" data-mt="12">
+          Already have an account?{" "}
+          <Link to="/login" data-decoration="underline">
+            Login
+          </Link>
+        </p>
       </Form>
     </main>
   );

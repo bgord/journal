@@ -9,6 +9,7 @@ export const auth = betterAuth({
   autoSignIn: false,
   trustedOrigins: ["http://localhost:5173"],
   plugins: [openAPI()],
+  // TODO: wire up logger
 });
 
 export type AuthVariables = {

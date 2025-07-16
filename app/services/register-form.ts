@@ -6,7 +6,7 @@ export type * as types from "../../modules/auth/value-objects";
 export class RegisterForm {
   static get() {
     return {
-      password: { min: Password.MaximumLength, max: Password.MaximumLength },
+      password: { min: Password.MinimumLength, max: Password.MaximumLength },
     };
   }
 }
