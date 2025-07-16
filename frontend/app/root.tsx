@@ -4,6 +4,7 @@ import { API } from "../api";
 import { GlobalShortcuts } from "../components/global-shortcuts";
 import { LanguageSelector } from "../components/language-selector";
 import { RevalidateOnFocus } from "../components/revalidate-on-focus";
+import { Logout } from "../components/logout";
 import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
@@ -59,8 +60,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           >
             <RR.Link to="/">Journal</RR.Link>
 
-            <div data-display="flex" data-main="end" data-mx="48">
+            <div data-display="flex" data-gap="12" data-main="end" data-mx="48">
               <LanguageSelector />
+              <Logout />
             </div>
           </header>
 
