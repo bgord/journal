@@ -6,7 +6,7 @@ import { auth } from "./auth";
 
 export class Shield {
   cors = {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://localhost:3000"],
     credentials: true,
     allowHeaders: ["Content-Type"],
     exposeHeaders: ["Set-Cookie"],
