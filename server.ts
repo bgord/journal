@@ -1,5 +1,6 @@
 import * as infra from "+infra";
 import { auth } from "+infra/auth";
+import { AuthShield } from "+infra/auth-shield";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";
@@ -17,7 +18,7 @@ import "+infra/register-command-handlers";
 
 const server = new Hono<infra.HonoConfig>();
 
-server.use(...bg.Setup.essentials(logger, I18nConfig));
+server.use(...bg.Setup.essentials(logger, I18nConfig, { cors: AuthShield.cors }));
 
 const startup = new tools.Stopwatch();
 
