@@ -3,7 +3,6 @@ import * as RR from "react-router";
 import { API } from "../api";
 import { GlobalShortcuts } from "../components/global-shortcuts";
 import { LanguageSelector } from "../components/language-selector";
-import { Logout } from "../components/logout";
 import { RevalidateOnFocus } from "../components/revalidate-on-focus";
 import type { Route } from "./+types/root";
 
@@ -62,7 +61,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
             <div data-display="flex" data-gap="12" data-main="end" data-mx="48">
               <LanguageSelector />
-              <Logout />
             </div>
           </header>
 
