@@ -2,8 +2,8 @@ import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import React from "react";
 import { Form, Link } from "react-router";
-import type { types } from "../../../app/services/register-form";
-import { RegisterForm } from "../../../app/services/register-form";
+import type { types } from "../../../app/services/auth-form";
+import { AuthForm } from "../../../app/services/auth-form";
 import { authClient } from "../../auth";
 import type { Route } from "./+types/register";
 
@@ -15,7 +15,7 @@ enum RegisterState {
 }
 
 export async function loader() {
-  return RegisterForm.get();
+  return AuthForm.get();
 }
 
 // TODO: translations
@@ -33,7 +33,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
       {
         onSuccess: () => setState(RegisterState.success),
         onError: () => setState(RegisterState.error),
-      }
+      },
     );
   };
 
