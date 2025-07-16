@@ -56,32 +56,32 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.verifications);
     console.log("[x] Cleared verifications");
 
-    for (const _counter of _.range(0, 10)) {
+    for (const counter of _.range(0, 10)) {
       const situation = new Emotions.Entities.Situation(
         new Emotions.VO.SituationDescription(
-          situationDescriptions[_counter % situationDescriptions.length] as string,
+          situationDescriptions[counter % situationDescriptions.length] as string,
         ),
-        new Emotions.VO.SituationLocation(situationLocations[_counter % situationLocations.length] as string),
+        new Emotions.VO.SituationLocation(situationLocations[counter % situationLocations.length] as string),
         new Emotions.VO.SituationKind(
-          situationKinds[_counter % situationKinds.length] as Emotions.VO.SituationKindOptions,
+          situationKinds[counter % situationKinds.length] as Emotions.VO.SituationKindOptions,
         ),
       );
 
       const emotion = new Emotions.Entities.Emotion(
         new Emotions.VO.EmotionLabel(
-          emotionLabels[_counter % emotionLabels.length] as Emotions.VO.GenevaWheelEmotion,
+          emotionLabels[counter % emotionLabels.length] as Emotions.VO.GenevaWheelEmotion,
         ),
-        new Emotions.VO.EmotionIntensity((_counter % 5) + 1),
+        new Emotions.VO.EmotionIntensity((counter % 5) + 1),
       );
 
       const reaction = new Emotions.Entities.Reaction(
         new Emotions.VO.ReactionDescription(
-          reactionDescriptions[_counter % reactionDescriptions.length] as string,
+          reactionDescriptions[counter % reactionDescriptions.length] as string,
         ),
         new Emotions.VO.ReactionType(
-          reactionTypes[_counter % reactionTypes.length] as Emotions.VO.GrossEmotionRegulationStrategy,
+          reactionTypes[counter % reactionTypes.length] as Emotions.VO.GrossEmotionRegulationStrategy,
         ),
-        new Emotions.VO.ReactionEffectiveness((_counter % 5) + 1),
+        new Emotions.VO.ReactionEffectiveness((counter % 5) + 1),
       );
 
       const entry = Emotions.Aggregates.Entry.create(bg.NewUUID.generate());
