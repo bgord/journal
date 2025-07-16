@@ -5,6 +5,7 @@ import { AddEntryForm } from "../../../app/services/add-entry-form";
 import type { SelectEntriesFull } from "../../../infra/schema";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
+import { requireSession } from "../../auth-guard";
 import * as Components from "../../components";
 import type { Route } from "./+types/home";
 
@@ -49,6 +50,8 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
+  await requireSession(request);
+
   const cookie = request.headers.get("cookie") ?? "";
   const response = await API("/entry/list", {
     headers: { cookie },
