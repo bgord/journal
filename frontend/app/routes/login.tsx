@@ -1,7 +1,7 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import React from "react";
-import { Form, Link, useNavigate } from "react-router";
+import * as RR from "react-router";
 import type { types } from "../../../app/services/auth-form";
 import { AuthForm } from "../../../app/services/auth-form";
 import { authClient } from "../../auth";
@@ -13,13 +13,25 @@ enum LoginState {
   error = "error",
 }
 
-export async function loader() {
+export async function loader({ request }: Route.LoaderArgs) {
+  const cookie = request.headers.get("cookie") ?? "";
+
+  const result = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/get-session`, {
+    headers: { cookie },
+  });
+
+  if (result.ok) {
+    const json = await result.json();
+
+    if (json) throw RR.redirect("/");
+  }
+
   return AuthForm.get();
 }
 
 // TODO: translations
 export default function Login({ loaderData }: Route.ComponentProps) {
-  const navigate = useNavigate();
+  const navigate = RR.useNavigate();
   const [state, setState] = React.useState<LoginState>(LoginState.idle);
 
   const email = UI.useField({ name: "email", defaultValue: "" });
@@ -40,7 +52,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-display="flex" data-direction="column" data-gap="24">
-      <Form
+      <RR.Form
         data-display="flex"
         data-direction="column"
         data-gap="12"
@@ -114,11 +126,11 @@ export default function Login({ loaderData }: Route.ComponentProps) {
 
         <p data-transform="center" data-mt="12">
           Don’t have an account?{" "}
-          <Link to="/register" data-decoration="underline">
+          <RR.Link to="/register" data-decoration="underline">
             Register
-          </Link>
+          </RR.Link>
         </p>
-      </Form>
+      </RR.Form>
     </main>
   );
 }
