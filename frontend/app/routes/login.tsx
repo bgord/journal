@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import * as Icons from "iconoir-react";
+import { WarningCircle } from "iconoir-react";
 import React from "react";
 import * as RR from "react-router";
 import type { types } from "../../../app/services/auth-form";
@@ -119,7 +119,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
             data-color="red-600"
             data-p="12"
           >
-            <Icons.WarningCircle height={20} width={20} />
+            <WarningCircle height={20} width={20} />
             Invalid credentials
           </div>
         )}

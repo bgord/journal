@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import * as Icons from "iconoir-react";
+import { CheckCircle, WarningCircle } from "iconoir-react";
 import React from "react";
 import { Form, Link } from "react-router";
 import type { types } from "../../../app/services/auth-form";
@@ -108,7 +108,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
             data-py="12"
             data-px="24"
           >
-            <Icons.CheckCircle height={20} width={20} />
+            <CheckCircle height={20} width={20} />
             Account created successfully!
             <br />
             <span>
@@ -130,7 +130,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
             data-color="red-600"
             data-p="12"
           >
-            <Icons.WarningCircle height={20} width={20} />
+            <WarningCircle height={20} width={20} />
             Error while creating an account
           </div>
         )}
