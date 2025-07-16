@@ -1,4 +1,5 @@
 import * as Emotions from "+emotions";
+import { auth } from "+infra/auth";
 import { db } from "+infra/db";
 import { EventStore } from "+infra/event-store";
 import { SupportedLanguages } from "+infra/i18n";
@@ -89,7 +90,20 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
       await EventStore.save(entry.pullEvents());
 
-      console.log(`[✓] Entry ${_counter + 1} created`);
+      console.log(`[✓] Entry ${counter + 1} created`);
+    }
+
+    const users = [
+      { email: "admin@example.com", password: "1234567890" },
+      { email: "user@example.com", password: "1234567890" },
+    ];
+
+    for (const [counter, user] of Object.entries(users)) {
+      await auth.api.signUpEmail({
+        body: { email: user.email, name: user.email, password: user.password },
+      });
+
+      console.log(`[✓] User ${Number(counter) + 1} created`);
     }
 
     process.exit(0);
