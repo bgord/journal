@@ -5,6 +5,7 @@ import * as RR from "react-router";
 import type { types } from "../../../app/services/auth-form";
 import { AuthForm } from "../../../app/services/auth-form";
 import { authClient } from "../../auth";
+import { requireNoSession } from "../../auth-guard";
 import type { Route } from "./+types/login";
 
 enum LoginState {
@@ -14,17 +15,7 @@ enum LoginState {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const cookie = request.headers.get("cookie") ?? "";
-
-  const result = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/get-session`, {
-    headers: { cookie },
-  });
-
-  if (result.ok) {
-    const json = await result.json();
-
-    if (json) throw RR.redirect("/");
-  }
+  await requireNoSession(request);
 
   return AuthForm.get();
 }

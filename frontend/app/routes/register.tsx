@@ -5,6 +5,7 @@ import { Form, Link } from "react-router";
 import type { types } from "../../../app/services/auth-form";
 import { AuthForm } from "../../../app/services/auth-form";
 import { authClient } from "../../auth";
+import { requireNoSession } from "../../auth-guard";
 import type { Route } from "./+types/register";
 
 enum RegisterState {
@@ -14,7 +15,9 @@ enum RegisterState {
   error = "error",
 }
 
-export async function loader() {
+export async function loader({ request }: Route.LoaderArgs) {
+  await requireNoSession(request);
+
   return AuthForm.get();
 }
 
