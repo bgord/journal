@@ -14,7 +14,9 @@
       "+infra": ["./infra/index"],
       "+infra/*": ["./infra/*"],
       "+emotions": ["./modules/emotions/index"],
-      "+emotions/*": ["./modules/emotions/*"]
+      "+emotions/*": ["./modules/emotions/*"],
+      "+auth": ["./modules/auth/index"],
+      "+auth/*": ["./modules/auth/*"]
     }
   },
   "exclude": ["bgord-scripts", "frontend"]
