@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { HTTPException } from "hono/http-exception";
 import type { TimingVariables } from "hono/timing";
+import type { AuthVariables } from "./auth";
 import type { I18nVariables } from "./i18n";
 
 export const requestTimeoutError = new HTTPException(408, {
@@ -12,7 +13,8 @@ type Variables = TimingVariables &
   bg.TimeZoneOffsetVariables &
   bg.ContextVariables &
   bg.EtagVariables &
-  I18nVariables;
+  I18nVariables &
+  AuthVariables;
 
 export type HonoConfig = { Variables: Variables; startup: tools.Stopwatch };
 
