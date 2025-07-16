@@ -1,4 +1,5 @@
 import * as infra from "+infra";
+import { auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";
@@ -43,6 +44,10 @@ server.delete("/entry/:entryId/delete", Emotions.Routes.DeleteEntry);
 
 //Translations =================
 server.get("/translations", ...bg.Translations.build());
+// =============================
+
+// Auth ========================
+server.on(["POST", "GET"], "/api/auth/**", (c) => auth.handler(c.req.raw));
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);
