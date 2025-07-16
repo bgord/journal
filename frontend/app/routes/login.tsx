@@ -34,8 +34,8 @@ export default function Login({ loaderData }: Route.ComponentProps) {
   const navigate = RR.useNavigate();
   const [state, setState] = React.useState<LoginState>(LoginState.idle);
 
-  const email = UI.useField({ name: "email", defaultValue: "" });
-  const password = UI.useField<types.PasswordType>({ name: "password", defaultValue: "" });
+  const email = UI.useField({ name: "email", defaultValue: "admin@example.com" });
+  const password = UI.useField<types.PasswordType>({ name: "password", defaultValue: "1234567890" });
 
   const signIn = async (event: React.FormEvent) => {
     event.preventDefault();
