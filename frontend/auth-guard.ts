@@ -20,7 +20,7 @@ export async function getServerSession(request: Request): Promise<Session> {
 export async function requireSession(request: Request): Promise<Session> {
   const session = await getServerSession(request);
   if (session?.user) return session;
-  throw redirect("/login");
+  throw redirect("/");
 }
 
 export async function requireNoSession(request: Request, target = "/home"): Promise<void> {
