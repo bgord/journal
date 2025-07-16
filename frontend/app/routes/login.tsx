@@ -34,7 +34,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
       {
         onSuccess: () => navigate("/", { replace: true }),
         onError: () => setState(LoginState.error),
-      },
+      }
     );
   };
 
@@ -92,7 +92,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
           data-variant="primary"
           data-mt="24"
           type="submit"
-          disabled={UI.Fields.allUnchanged([email, password]) || state === LoginState.loading}
+          disabled={UI.Fields.allEmpty([email, password]) || state === LoginState.loading}
         >
           {state === LoginState.loading ? "Signing in…" : "Login"}
         </button>
