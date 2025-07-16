@@ -12,10 +12,12 @@ export const auth = betterAuth({
     maxPasswordLength: Password.MaximumLength,
   },
   autoSignIn: false,
-  trustedOrigins: ["http://localhost:5173"],
+  trustedOrigins: ["http://localhost:5173", "http://localhost:3000"],
   plugins: [openAPI()],
   // TODO: wire up logger
 });
+
+export type SessionType = typeof auth.$Infer.Session;
 
 export type AuthVariables = {
   user: typeof auth.$Infer.Session.user | null;
