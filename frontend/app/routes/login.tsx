@@ -34,7 +34,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
       {
         onSuccess: () => navigate("/", { replace: true }),
         onError: () => setState(LoginState.error),
-      }
+      },
     );
   };
 

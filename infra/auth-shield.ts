@@ -1,10 +1,11 @@
+import * as bg from "@bgord/bun";
 import hono from "hono";
 import { createMiddleware } from "hono/factory";
 
 import { auth } from "./auth";
 
-export class AuthShield {
-  static cors = {
+export class Shield {
+  cors = {
     origin: "http://localhost:5173",
     credentials: true,
     allowHeaders: ["Content-Type"],
@@ -28,16 +29,24 @@ export class AuthShield {
   });
 
   verify = createMiddleware(async (c: hono.Context, next: hono.Next) => {
-    const session = await this.Auth.api.getSession({ headers: c.req.raw.headers });
+    const user = c.get("user");
 
-    if (!session) {
-      c.set("user", null);
-      c.set("session", null);
-      return next();
+    if (!user) {
+      throw bg.AccessDeniedAuthShieldError;
     }
 
-    c.set("user", session.user);
-    c.set("session", session.session);
+    return next();
+  });
+
+  reverse = createMiddleware(async (c: hono.Context, next: hono.Next) => {
+    const user = c.get("user");
+
+    if (user) {
+      throw bg.AccessDeniedAuthShieldError;
+    }
+
     return next();
   });
 }
+
+export const AuthShield = new Shield(auth);
