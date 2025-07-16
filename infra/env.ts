@@ -3,6 +3,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
+// TODO: Extract known API keys to bgord/bun schema
 const EnvironmentSchema = z
   .object({
     PORT: bg.Port,
@@ -22,6 +23,7 @@ const EnvironmentSchema = z
     AI_CLIENT: z.enum(AiClientEnum),
     FF_AI_CLIENT_REAL_RESPONSE: tools.FeatureFlagValue,
     FF_MAILER_ENABLED: tools.FeatureFlagValue,
+    BETTER_AUTH_SECRET: z.string().length(32).trim(),
   })
   .strip();
 
