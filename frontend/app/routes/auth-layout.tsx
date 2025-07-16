@@ -8,5 +8,5 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export default function AuthLayout({ loaderData }: Route.ComponentProps) {
-  return <Outlet context={{ session: loaderData.session }} />;
+  return <Outlet context={{ ...loaderData.session }} />;
 }

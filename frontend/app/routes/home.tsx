@@ -5,7 +5,6 @@ import { AddEntryForm } from "../../../app/services/add-entry-form";
 import type { SelectEntriesFull } from "../../../infra/schema";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
-import { requireSession } from "../../auth-guard";
 import * as Components from "../../components";
 import type { Route } from "./+types/home";
 
