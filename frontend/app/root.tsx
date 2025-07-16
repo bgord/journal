@@ -3,8 +3,8 @@ import * as RR from "react-router";
 import { API } from "../api";
 import { GlobalShortcuts } from "../components/global-shortcuts";
 import { LanguageSelector } from "../components/language-selector";
-import { RevalidateOnFocus } from "../components/revalidate-on-focus";
 import { Logout } from "../components/logout";
+import { RevalidateOnFocus } from "../components/revalidate-on-focus";
 import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
