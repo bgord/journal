@@ -47,7 +47,7 @@ server.get("/translations", ...bg.Translations.build());
 // =============================
 
 // Auth ========================
-server.on(["POST", "GET"], "/api/auth/**", (c) => auth.handler(c.req.raw));
+server.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);
