@@ -44,6 +44,18 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.entries);
     console.log("[x] Cleared entries");
 
+    await db.delete(Schema.accounts);
+    console.log("[x] Cleared accounts");
+
+    await db.delete(Schema.users);
+    console.log("[x] Cleared users");
+
+    await db.delete(Schema.sessions);
+    console.log("[x] Cleared sessions");
+
+    await db.delete(Schema.verifications);
+    console.log("[x] Cleared verifications");
+
     for (const _counter of _.range(0, 10)) {
       const situation = new Emotions.Entities.Situation(
         new Emotions.VO.SituationDescription(
