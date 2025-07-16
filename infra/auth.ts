@@ -6,6 +6,7 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
   emailAndPassword: { enabled: true },
   autoSignIn: false,
+  trustedOrigins: ["http://localhost:5173"],
 });
 
 export type AuthVariables = {
