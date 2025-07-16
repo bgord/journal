@@ -36,7 +36,7 @@ server.get(
 // =============================
 
 // Emotions ====================
-server.get("/entry/list", Emotions.Routes.ListEntries);
+server.get("/entry/list", AuthShield.read, AuthShield.verify, Emotions.Routes.ListEntries);
 server.post("/entry/log", Emotions.Routes.LogEntry);
 server.post("/entry/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 server.post("/entry/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
