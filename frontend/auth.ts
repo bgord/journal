@@ -4,3 +4,8 @@ export const authClient = createAuthClient({
   /** The base URL of the server (optional if you're using the same domain) */
   baseURL: import.meta.env.VITE_API_URL,
 });
+
+export const { useSession, signIn, signUp, signOut, forgetPassword, resetPassword } = authClient;
+
+export type Session = typeof authClient.$Infer.Session;
+export type User = typeof authClient.$Infer.Session.user;
