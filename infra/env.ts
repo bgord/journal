@@ -24,6 +24,7 @@ const EnvironmentSchema = z
     FF_AI_CLIENT_REAL_RESPONSE: tools.FeatureFlagValue,
     FF_MAILER_ENABLED: tools.FeatureFlagValue,
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
+    BETTER_AUTH_URL: z.url().trim(),
   })
   .strip();
 
