@@ -48,8 +48,11 @@ export async function action({ request }: Route.ActionArgs) {
   throw new Error("Intent unknown");
 }
 
-export async function loader() {
-  const response = await API("/entry/list");
+export async function loader({ request }: Route.LoaderArgs) {
+  const cookie = request.headers.get("cookie") ?? "";
+  const response = await API("/entry/list", {
+    headers: { cookie },
+  });
   const entries = (await response.json()) as SelectEntriesFull[];
 
   return { entries, form: AddEntryForm.get() };

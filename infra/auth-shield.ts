@@ -14,7 +14,7 @@ export class Shield {
 
   constructor(private readonly Auth: typeof auth) {}
 
-  apply = createMiddleware(async (c: hono.Context, next: hono.Next) => {
+  read = createMiddleware(async (c: hono.Context, next: hono.Next) => {
     const session = await this.Auth.api.getSession({ headers: c.req.raw.headers });
 
     if (!session) {
