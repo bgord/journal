@@ -1,7 +1,7 @@
 import { redirect } from "react-router";
 import type { SessionType } from "../infra/auth";
 
-type Session = SessionType | null;
+export type Session = SessionType | null;
 
 const API = `${import.meta.env.VITE_API_URL}/api/auth`;
 
@@ -23,7 +23,7 @@ export async function requireSession(request: Request): Promise<Session> {
   throw redirect("/login");
 }
 
-export async function requireNoSession(request: Request, target = "/"): Promise<void> {
+export async function requireNoSession(request: Request, target = "/home"): Promise<void> {
   const session = await getServerSession(request);
   if (session?.user) throw redirect(target);
 }

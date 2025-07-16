@@ -35,7 +35,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
     await authClient.signIn.email(
       { email: email.value, password: password.value },
       {
-        onSuccess: () => navigate("/", { replace: true }),
+        onSuccess: () => navigate("/home", { replace: true }),
         onError: () => setState(LoginState.error),
       },
     );
