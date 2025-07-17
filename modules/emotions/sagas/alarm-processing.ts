@@ -147,29 +147,9 @@ export class AlarmProcessing {
       return await CommandBus.emit(command.name, command);
     }
 
-    // TODO: Cancel alarm on Mailer.send error
-    if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_ENABLED)) {
-      try {
-        await Mailer.send({
-          from: "journal@example.com",
-          to: contact.email,
-          subject: "Emotional advice",
-          html: notification,
-        });
-      } catch (_error) {
-        const command = Commands.CancelAlarmCommand.parse({
-          id: bg.NewUUID.generate(),
-          correlationId: bg.CorrelationStorage.get(),
-          name: Commands.CANCEL_ALARM_COMMAND,
-          createdAt: tools.Timestamp.parse(Date.now()),
-          payload: { alarmId: event.payload.alarmId },
-        } satisfies Commands.CancelAlarmCommandType);
-
-        return await CommandBus.emit(command.name, command);
-      }
-    } else {
-      logger.info({
-        message: "[FF_MAILER_ENABLED] disabled - email message",
+    if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_DISABLED)) {
+      return logger.info({
+        message: "[FF_MAILER_DISABLED] - email message",
         correlationId: bg.CorrelationStorage.get(),
         operation: "email_send",
         metadata: {
@@ -179,6 +159,25 @@ export class AlarmProcessing {
           html: notification,
         },
       });
+    }
+
+    try {
+      await Mailer.send({
+        from: "journal@example.com",
+        to: contact.email,
+        subject: "Emotional advice",
+        html: notification,
+      });
+    } catch (_error) {
+      const command = Commands.CancelAlarmCommand.parse({
+        id: bg.NewUUID.generate(),
+        correlationId: bg.CorrelationStorage.get(),
+        name: Commands.CANCEL_ALARM_COMMAND,
+        createdAt: tools.Timestamp.parse(Date.now()),
+        payload: { alarmId: event.payload.alarmId },
+      } satisfies Commands.CancelAlarmCommandType);
+
+      return await CommandBus.emit(command.name, command);
     }
   }
 

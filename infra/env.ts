@@ -22,7 +22,7 @@ const EnvironmentSchema = z
     AXIOM_API_TOKEN: z.string().length(41),
     AI_CLIENT: z.enum(AiClientEnum),
     FF_AI_CLIENT_REAL_RESPONSE: tools.FeatureFlagValue,
-    FF_MAILER_ENABLED: tools.FeatureFlagValue,
+    FF_MAILER_DISABLED: tools.FeatureFlagValue,
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
     BETTER_AUTH_URL: z.url().trim(),
   })
