@@ -36,11 +36,15 @@ server.get(
 // =============================
 
 // Emotions ====================
-server.get("/entry/list", AuthShield.read, AuthShield.verify, Emotions.Routes.ListEntries);
-server.post("/entry/log", Emotions.Routes.LogEntry);
-server.post("/entry/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
-server.post("/entry/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
-server.delete("/entry/:entryId/delete", Emotions.Routes.DeleteEntry);
+const entry = new Hono();
+
+// entry.use("*", AuthShield.attach, AuthShield.verify);
+entry.get("/list", Emotions.Routes.ListEntries);
+entry.post("/log", Emotions.Routes.LogEntry);
+entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
+entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
+entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
+server.route("/entry", entry);
 // =============================
 
 //Translations =================
