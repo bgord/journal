@@ -6,6 +6,7 @@ import * as tools from "@bgord/tools";
 import hono from "hono";
 
 export async function DeleteEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+  const user = c.get("user");
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
 
@@ -15,7 +16,7 @@ export async function DeleteEntry(c: hono.Context<infra.HonoConfig>, _next: hono
     name: Emotions.Commands.DELETE_ENTRY_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
     revision,
-    payload: { entryId },
+    payload: { entryId, userId: user.id },
   } satisfies Emotions.Commands.DeleteEntryCommandType);
 
   await CommandBus.emit(command.name, command);

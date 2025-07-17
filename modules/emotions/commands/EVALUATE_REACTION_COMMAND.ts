@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as Entities from "+emotions/entities";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
@@ -15,6 +16,7 @@ export const EvaluateReactionCommand = z.object({
   payload: z.object({
     entryId: VO.EntryId,
     newReaction: z.instanceof(Entities.Reaction),
+    userId: Auth.VO.UserId,
   }),
 });
 

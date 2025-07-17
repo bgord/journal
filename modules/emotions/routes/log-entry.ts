@@ -6,6 +6,7 @@ import * as tools from "@bgord/tools";
 import hono from "hono";
 
 export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+  const user = c.get("user");
   const body = await bg.safeParseBody(c);
   const language = c.get("language");
 
@@ -33,7 +34,7 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
-    payload: { entryId, situation, emotion, reaction, language },
+    payload: { entryId, situation, emotion, reaction, language, userId: user.id },
   } satisfies Emotions.Commands.LogEntryCommandType);
 
   await CommandBus.emit(command.name, command);

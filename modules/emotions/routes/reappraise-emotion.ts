@@ -6,6 +6,7 @@ import * as tools from "@bgord/tools";
 import hono from "hono";
 
 export async function ReappraiseEmotion(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+  const user = c.get("user");
   const body = await bg.safeParseBody(c);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
@@ -21,7 +22,7 @@ export async function ReappraiseEmotion(c: hono.Context<infra.HonoConfig>, _next
     name: Emotions.Commands.REAPPRAISE_EMOTION_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
     revision,
-    payload: { entryId, newEmotion },
+    payload: { entryId, newEmotion, userId: user.id },
   } satisfies Emotions.Commands.ReappraiseEmotionCommandType);
 
   await CommandBus.emit(command.name, command);

@@ -21,8 +21,8 @@ export const auth = betterAuth({
 export type SessionType = typeof auth.$Infer.Session;
 
 export type AuthVariables = {
-  user: typeof auth.$Infer.Session.user | null;
-  session: typeof auth.$Infer.Session.session | null;
+  user: typeof auth.$Infer.Session.user;
+  session: typeof auth.$Infer.Session.session;
 };
 
 export const AuthShield = new bg.AuthShield(auth);

@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -11,7 +12,7 @@ export const DeleteEntryCommand = z.object({
   createdAt: tools.Timestamp,
   name: z.literal(DELETE_ENTRY_COMMAND),
   revision: z.instanceof(tools.Revision),
-  payload: z.object({ entryId: VO.EntryId }),
+  payload: z.object({ entryId: VO.EntryId, userId: Auth.VO.UserId }),
 });
 
 export type DeleteEntryCommandType = z.infer<typeof DeleteEntryCommand>;

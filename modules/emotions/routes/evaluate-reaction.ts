@@ -6,6 +6,7 @@ import * as tools from "@bgord/tools";
 import hono from "hono";
 
 export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+  const user = c.get("user");
   const body = await bg.safeParseBody(c);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
@@ -22,7 +23,7 @@ export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next:
     name: Emotions.Commands.EVALUATE_REACTION_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
     revision,
-    payload: { entryId, newReaction },
+    payload: { entryId, newReaction, userId: user.id },
   } satisfies Emotions.Commands.EvaluateReactionCommandType);
 
   await CommandBus.emit(command.name, command);
