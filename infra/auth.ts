@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import * as bg from "@bgord/bun";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -7,6 +8,7 @@ import { db } from "./db";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
+  advanced: { database: { generateId: () => randomUUID() } },
   emailAndPassword: {
     enabled: true,
     minPasswordLength: Password.MinimumLength,
