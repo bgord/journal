@@ -122,7 +122,7 @@ describe("Alarm", () => {
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
       mocks.GenericAlarmNotificationSentEvent,
-      mocks.GenericAlarmCancelledEvent
+      mocks.GenericAlarmCancelledEvent,
     ]);
 
     expect(async () => alarm.cancel()).toThrow(Emotions.Policies.AlarmIsCancellable.error);

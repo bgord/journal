@@ -213,6 +213,41 @@ describe("AlarmProcessing", () => {
     jest.restoreAllMocks();
   });
 
+  test("onAlarmNotificationSentEvent - mailer failed", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
+    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
+
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
+      throw new Error("MAILER_FAILED");
+    });
+
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+    ]);
+
+    spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
+
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent),
+    );
+
+    expect(mailerSend).toHaveBeenCalledWith({
+      from: "journal@example.com",
+      to: mocks.email,
+      subject: "Emotional advice",
+      html: "Advice for emotion entry: anger: You should do something",
+    });
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
+
+    jest.restoreAllMocks();
+  });
+
   test("onAlarmNotificationSentEvent", async () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
