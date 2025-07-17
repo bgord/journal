@@ -1,6 +1,14 @@
 # Changelog
+- 2025-07-17 21:32 f62b516 **refactor: rename FF_MAILER_DISABLED**
+## 2025-07-17 21:32 
+- 2025-07-17 21:28 5e66ce9 **step: handle onAlarmNotificationSentEvent - mailer failed**
+- 2025-07-17 21:21 857f063 **step: test onAlarmNotificationSentEvent - missing contact**
+- 2025-07-17 21:17 ee764ed **step: send an alarm to a correct recipient**
+- 2025-07-17 21:12 ebc5cb2 **step: add user repo**
+- 2025-07-17 20:52 29f07c9 **step: add userId to all alarm events**
+- 2025-07-17 20:49 ea55357 **step: add userId to alarm generated event**
+- 2025-07-17 20:43 7f3237e **step: add userId to generate alarm command**
 - 2025-07-17 19:46 4a919b5 **fix: typecheck errors**
-## 2025-07-17 19:46 
 - 2025-07-17 19:42 bf6d9ea **step: update packages**
 - 2025-07-17 19:41 0a4ec71 **fix: entry repo list query**
 - 2025-07-17 19:34 6e17776 **fix: generate uuids in better auth**
@@ -19,6 +27,8 @@
 - 2025-07-17 18:15 00a974f **step: define a userId for all entry events**
 - 2025-07-17 18:12 7ae21c3 **step: add userId to entry commands**
 - 2025-07-17 18:02 37dab29 **step: define user-id vo**
+- 2025-07-17 17:47 486f93d **docs: generate readme**
+- 2025-07-17 17:47 320f2c0 **docs: generate CHANGELOG**
 - 2025-07-17 16:51 d560079 **Merge pull request #16 from bgord/better-auth**
 - 2025-07-17 16:47 e10bb33 **step: add translations**
 - 2025-07-17 16:11 e0de2bf **step: add auth shield error error handler**
