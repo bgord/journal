@@ -20,7 +20,6 @@ export class Entry {
 
   private readonly id: Emotions.VO.EntryIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.initial);
-  // @ts-expect-error
   private userId?: Auth.VO.UserIdType;
   private startedAt?: Emotions.VO.EntryStartedAtType;
   private finishedAt?: Emotions.VO.EntryFinishedAtType;
@@ -115,6 +114,7 @@ export class Entry {
     await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
     await Emotions.Policies.EmotionCorrespondsToSituation.perform({ situation: this.situation });
     await Emotions.Policies.EmotionForReappraisalExists.perform({ emotion: this.emotion });
+    await Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -141,6 +141,7 @@ export class Entry {
       emotion: this.emotion,
     });
     await Emotions.Policies.ReactionForEvaluationExists.perform({ reaction: this.reaction });
+    await Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -163,6 +164,7 @@ export class Entry {
 
   async delete(requesterId: Auth.VO.UserIdType) {
     await Emotions.Policies.EntryHasBenStarted.perform({ situation: this.situation });
+    await Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EntryDeletedEvent.parse({
       id: bg.NewUUID.generate(),

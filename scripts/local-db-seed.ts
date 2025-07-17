@@ -86,6 +86,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       );
 
       const entry = Emotions.Aggregates.Entry.create(bg.NewUUID.generate());
+      // @ts-expect-error
       await entry.log(situation, emotion, reaction, SupportedLanguages.en);
 
       await EventStore.save(entry.pullEvents());
