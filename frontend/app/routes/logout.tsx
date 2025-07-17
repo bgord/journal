@@ -1,7 +1,8 @@
+import * as UI from "@bgord/ui";
 import { type ActionFunctionArgs, redirect } from "react-router";
 
 export async function action({ request }: ActionFunctionArgs) {
-  const cookie = request.headers.get("cookie") ?? "";
+  const cookie = UI.Cookies.extractFrom(request);
 
   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/sign-out`, {
     method: "POST",
@@ -10,18 +11,13 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const headers = new Headers();
 
-  res.headers.forEach((v, k) => {
-    if (k.toLowerCase() === "set-cookie") headers.append("set-cookie", v);
+  res.headers.forEach((value, key) => {
+    if (key.toLowerCase() === "set-cookie") headers.append("set-cookie", value);
   });
 
-  /** after logout land on /login (or "/") */
   return redirect("/login", { headers });
 }
 
-/**
- * A component is still required, but it never renders because
- * <Form method="post"> triggers the action immediately.
- */
 export default function Logout() {
   return null;
 }

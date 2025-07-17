@@ -13,7 +13,7 @@ export function meta() {
 }
 
 export async function action({ request }: Route.ActionArgs) {
-  const cookie = request.headers.get("cookie") ?? "";
+  const cookie = UI.Cookies.extractFrom(request);
   const form = await request.formData();
   const intent = form.get("intent");
 
@@ -50,7 +50,8 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const cookie = request.headers.get("cookie") ?? "";
+  const cookie = UI.Cookies.extractFrom(request);
+
   const response = await API("/entry/list", {
     headers: { cookie },
   });

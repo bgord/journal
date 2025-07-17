@@ -1,3 +1,4 @@
+import * as UI from "@bgord/ui";
 import { createAuthClient } from "better-auth/react";
 import { redirect } from "react-router";
 
@@ -16,7 +17,7 @@ export class AuthGuard<T extends ReturnType<typeof createAuthClient>["$Infer"]["
   }
 
   async getServerSession(request: Request): Promise<T | null> {
-    const cookie = request.headers.get("cookie") ?? "";
+    const cookie = UI.Cookies.extractFrom(request);
 
     const res = await fetch(`${this.API_URL}/get-session`, {
       headers: { cookie, accept: "application/json" },
