@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import { SupportedLanguages } from "+infra/i18n";
 import * as bg from "@bgord/bun";
@@ -20,6 +21,7 @@ export const SituationLoggedEvent = z.object({
     location: VO.SituationLocationSchema,
     kind: VO.SituationKindSchema,
     language: z.enum(SupportedLanguages),
+    userId: Auth.VO.UserId,
   }),
 });
 

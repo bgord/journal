@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -17,6 +18,7 @@ export const EmotionLoggedEvent = z.object({
     entryId: VO.EntryId,
     label: VO.EmotionLabelSchema,
     intensity: VO.EmotionIntensitySchema,
+    userId: Auth.VO.UserId,
   }),
 });
 

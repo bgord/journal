@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -18,6 +19,7 @@ export const ReactionLoggedEvent = z.object({
     type: VO.ReactionTypeSchema,
     effectiveness: VO.ReactionEffectivenessSchema,
     description: VO.ReactionDescriptionSchema,
+    userId: Auth.VO.UserId,
   }),
 });
 

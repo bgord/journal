@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -17,6 +18,7 @@ export const EmotionReappraisedEvent = z.object({
     entryId: VO.EntryId,
     newLabel: VO.EmotionLabelSchema,
     newIntensity: VO.EmotionIntensitySchema,
+    userId: Auth.VO.UserId,
   }),
 });
 

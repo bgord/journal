@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -13,7 +14,7 @@ export const EntryDeletedEvent = z.object({
   name: z.literal(ENTRY_DELETED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ entryId: VO.EntryId }),
+  payload: z.object({ entryId: VO.EntryId, userId: Auth.VO.UserId }),
 });
 
 export type EntryDeletedEventType = z.infer<typeof EntryDeletedEvent>;
