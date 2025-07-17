@@ -1,4 +1,5 @@
 import * as Emotions from "+emotions";
+import { auth } from "+infra/auth";
 import { db } from "+infra/db";
 import { EventStore } from "+infra/event-store";
 import { SupportedLanguages } from "+infra/i18n";
@@ -44,32 +45,44 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.entries);
     console.log("[x] Cleared entries");
 
-    for (const _counter of _.range(0, 10)) {
+    await db.delete(Schema.accounts);
+    console.log("[x] Cleared accounts");
+
+    await db.delete(Schema.users);
+    console.log("[x] Cleared users");
+
+    await db.delete(Schema.sessions);
+    console.log("[x] Cleared sessions");
+
+    await db.delete(Schema.verifications);
+    console.log("[x] Cleared verifications");
+
+    for (const counter of _.range(0, 10)) {
       const situation = new Emotions.Entities.Situation(
         new Emotions.VO.SituationDescription(
-          situationDescriptions[_counter % situationDescriptions.length] as string,
+          situationDescriptions[counter % situationDescriptions.length] as string,
         ),
-        new Emotions.VO.SituationLocation(situationLocations[_counter % situationLocations.length] as string),
+        new Emotions.VO.SituationLocation(situationLocations[counter % situationLocations.length] as string),
         new Emotions.VO.SituationKind(
-          situationKinds[_counter % situationKinds.length] as Emotions.VO.SituationKindOptions,
+          situationKinds[counter % situationKinds.length] as Emotions.VO.SituationKindOptions,
         ),
       );
 
       const emotion = new Emotions.Entities.Emotion(
         new Emotions.VO.EmotionLabel(
-          emotionLabels[_counter % emotionLabels.length] as Emotions.VO.GenevaWheelEmotion,
+          emotionLabels[counter % emotionLabels.length] as Emotions.VO.GenevaWheelEmotion,
         ),
-        new Emotions.VO.EmotionIntensity((_counter % 5) + 1),
+        new Emotions.VO.EmotionIntensity((counter % 5) + 1),
       );
 
       const reaction = new Emotions.Entities.Reaction(
         new Emotions.VO.ReactionDescription(
-          reactionDescriptions[_counter % reactionDescriptions.length] as string,
+          reactionDescriptions[counter % reactionDescriptions.length] as string,
         ),
         new Emotions.VO.ReactionType(
-          reactionTypes[_counter % reactionTypes.length] as Emotions.VO.GrossEmotionRegulationStrategy,
+          reactionTypes[counter % reactionTypes.length] as Emotions.VO.GrossEmotionRegulationStrategy,
         ),
-        new Emotions.VO.ReactionEffectiveness((_counter % 5) + 1),
+        new Emotions.VO.ReactionEffectiveness((counter % 5) + 1),
       );
 
       const entry = Emotions.Aggregates.Entry.create(bg.NewUUID.generate());
@@ -77,7 +90,20 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
       await EventStore.save(entry.pullEvents());
 
-      console.log(`[✓] Entry ${_counter + 1} created`);
+      console.log(`[✓] Entry ${counter + 1} created`);
+    }
+
+    const users = [
+      { email: "admin@example.com", password: "1234567890" },
+      { email: "user@example.com", password: "1234567890" },
+    ];
+
+    for (const [counter, user] of Object.entries(users)) {
+      await auth.api.signUpEmail({
+        body: { email: user.email, name: user.email, password: user.password },
+      });
+
+      console.log(`[✓] User ${Number(counter) + 1} created`);
     }
 
     process.exit(0);

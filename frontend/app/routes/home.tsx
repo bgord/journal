@@ -13,13 +13,14 @@ export function meta() {
 }
 
 export async function action({ request }: Route.ActionArgs) {
+  const cookie = UI.Cookies.extractFrom(request);
   const form = await request.formData();
   const intent = form.get("intent");
 
   if (intent === "entry_delete") {
     await API(`/entry/${form.get("id")}/delete`, {
       method: "DELETE",
-      headers: UI.WeakETag.fromRevision(Number(form.get("revision"))),
+      headers: { cookie, ...UI.WeakETag.fromRevision(Number(form.get("revision"))) },
     });
 
     return { ok: true };
@@ -28,7 +29,7 @@ export async function action({ request }: Route.ActionArgs) {
   if (intent === "evaluate_reaction") {
     await API(`/entry/${form.get("id")}/evaluate-reaction`, {
       method: "POST",
-      headers: UI.WeakETag.fromRevision(Number(form.get("revision"))),
+      headers: { cookie, ...UI.WeakETag.fromRevision(Number(form.get("revision"))) },
       body: JSON.stringify(Object.fromEntries(form.entries())),
     });
 
@@ -38,7 +39,7 @@ export async function action({ request }: Route.ActionArgs) {
   if (intent === "reappraise_emotion") {
     await API(`/entry/${form.get("id")}/reappraise-emotion`, {
       method: "POST",
-      headers: UI.WeakETag.fromRevision(Number(form.get("revision"))),
+      headers: { cookie, ...UI.WeakETag.fromRevision(Number(form.get("revision"))) },
       body: JSON.stringify(Object.fromEntries(form.entries())),
     });
 
@@ -48,8 +49,12 @@ export async function action({ request }: Route.ActionArgs) {
   throw new Error("Intent unknown");
 }
 
-export async function loader() {
-  const response = await API("/entry/list");
+export async function loader({ request }: Route.LoaderArgs) {
+  const cookie = UI.Cookies.extractFrom(request);
+
+  const response = await API("/entry/list", {
+    headers: { cookie },
+  });
   const entries = (await response.json()) as SelectEntriesFull[];
 
   return { entries, form: AddEntryForm.get() };

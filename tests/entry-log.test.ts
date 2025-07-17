@@ -1,6 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { auth } from "../infra/auth";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
@@ -27,6 +28,7 @@ const reaction = {
 
 describe("POST /entry/log", () => {
   test("situation - validation - empty payload", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
     const json = await response.json();
@@ -39,6 +41,7 @@ describe("POST /entry/log", () => {
   });
 
   test("situation - validation - missing kind and location", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -55,6 +58,7 @@ describe("POST /entry/log", () => {
   });
 
   test("situation - validation - missing kind", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -71,6 +75,7 @@ describe("POST /entry/log", () => {
   });
 
   test("emotion - validation - empty payload", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       { method: "POST", body: JSON.stringify({ ...situation }) },
@@ -84,6 +89,7 @@ describe("POST /entry/log", () => {
   });
 
   test("emotion - validation - missing intensity", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -100,6 +106,7 @@ describe("POST /entry/log", () => {
   });
 
   test("reaction - validation - empty payload", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       { method: "POST", body: JSON.stringify({ ...situation, ...emotion }) },
@@ -113,6 +120,7 @@ describe("POST /entry/log", () => {
   });
 
   test("reaction - validation - missing type", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -129,6 +137,7 @@ describe("POST /entry/log", () => {
   });
 
   test("reaction - validation - missing effectiveness", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -150,6 +159,7 @@ describe("POST /entry/log", () => {
   });
 
   test("situation - OneSituationPerEntry", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent]);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
@@ -175,6 +185,7 @@ describe("POST /entry/log", () => {
   });
 
   test("happy path", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);

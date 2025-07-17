@@ -1,4 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
+import { auth } from "../infra/auth";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
@@ -7,7 +9,15 @@ import * as mocks from "./mocks";
 const url = `/entry/${mocks.entryId}/evaluate-reaction`;
 
 describe("POST /entry/:id/evaluate-reaction", () => {
+  test("validation - AccessDeniedAuthShieldError", async () => {
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const json = await response.json();
+    expect(response.status).toBe(403);
+    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+  });
+
   test("validation - empty payload", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       { method: "POST", headers: mocks.revisionHeaders() },
@@ -24,6 +34,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   });
 
   test("validation - missing type", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -44,6 +55,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   });
 
   test("validation - missing effectiveness", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -67,6 +79,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   });
 
   test("validation - incorrect id", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       "/entry/id/evaluate-reaction",
       { method: "POST", headers: mocks.revisionHeaders() },
@@ -80,6 +93,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   });
 
   test("validation - EntryIsActionable", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [
@@ -122,6 +136,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
@@ -157,6 +172,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [mocks.GenericSituationLoggedEvent];
@@ -194,6 +210,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   });
 
   test("validation - ReactionForEvaluationExists", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
@@ -231,6 +248,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   });
 
   test("happy path", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 

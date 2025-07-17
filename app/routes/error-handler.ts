@@ -47,6 +47,10 @@ export class ErrorHandler {
       return error.getResponse();
     }
 
+    if (error.message === bg.AccessDeniedAuthShieldError.message) {
+      return c.json({ message: bg.AccessDeniedAuthShieldError.message, _known: true }, 403);
+    }
+
     if (error instanceof tools.RevisionMismatchError) {
       return c.json({ message: "revision.mismatch", _known: true }, 412);
     }

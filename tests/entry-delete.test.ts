@@ -1,5 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { auth } from "../infra/auth";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
@@ -8,7 +10,15 @@ import * as mocks from "./mocks";
 const url = `/entry/${mocks.entryId}/delete`;
 
 describe("DELETE /entry/:id/delete", () => {
+  test("validation - AccessDeniedAuthShieldError", async () => {
+    const response = await server.request(url, { method: "DELETE" }, mocks.ip);
+    const json = await response.json();
+    expect(response.status).toBe(403);
+    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+  });
+
   test("validation - incorrect id", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       "/entry/id/delete",
       { method: "DELETE", headers: mocks.revisionHeaders() },
@@ -22,6 +32,7 @@ describe("DELETE /entry/:id/delete", () => {
   });
 
   test("validation - EntryHasBeenStarted", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
     const entryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
 
@@ -49,6 +60,7 @@ describe("DELETE /entry/:id/delete", () => {
   });
 
   test("happy path - after situation", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
@@ -81,6 +93,7 @@ describe("DELETE /entry/:id/delete", () => {
   });
 
   test("happy path - after emotion", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
@@ -113,6 +126,7 @@ describe("DELETE /entry/:id/delete", () => {
   });
 
   test("happy path - after reaction", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");

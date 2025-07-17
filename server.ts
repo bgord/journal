@@ -1,4 +1,5 @@
 import * as infra from "+infra";
+import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";
@@ -16,7 +17,7 @@ import "+infra/register-command-handlers";
 
 const server = new Hono<infra.HonoConfig>();
 
-server.use(...bg.Setup.essentials(logger, I18nConfig));
+server.use(...bg.Setup.essentials(logger, I18nConfig, { cors: AuthShield.cors }));
 
 const startup = new tools.Stopwatch();
 
@@ -34,15 +35,23 @@ server.get(
 // =============================
 
 // Emotions ====================
-server.get("/entry/list", Emotions.Routes.ListEntries);
-server.post("/entry/log", Emotions.Routes.LogEntry);
-server.post("/entry/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
-server.post("/entry/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
-server.delete("/entry/:entryId/delete", Emotions.Routes.DeleteEntry);
+const entry = new Hono();
+
+entry.use("*", AuthShield.attach, AuthShield.verify);
+entry.get("/list", Emotions.Routes.ListEntries);
+entry.post("/log", Emotions.Routes.LogEntry);
+entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
+entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
+entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
+server.route("/entry", entry);
 // =============================
 
 //Translations =================
 server.get("/translations", ...bg.Translations.build());
+// =============================
+
+// Auth ========================
+server.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 // =============================
 
 server.onError(App.Routes.ErrorHandler.handle);

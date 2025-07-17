@@ -48,9 +48,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <UI.TranslationsContext.Provider value={{ translations: data.translations, language: data.language }}>
           <header
             data-display="flex"
-            data-direction="column"
+            data-main="center"
+            data-cross="baseline"
+            data-mt="48"
             data-gap="12"
-            data-my="48"
             data-fs="32"
             data-fw="700"
             data-transform="center uppercase"
@@ -59,9 +60,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           >
             <RR.Link to="/">Journal</RR.Link>
 
-            <div data-display="flex" data-main="end" data-mx="48">
-              <LanguageSelector />
-            </div>
+            <LanguageSelector />
           </header>
 
           {children}

@@ -1,5 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { auth } from "../infra/auth";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
@@ -8,7 +10,15 @@ import * as mocks from "./mocks";
 const url = `/entry/${mocks.entryId}/reappraise-emotion`;
 
 describe("POST /entry/:id/reappraise-emotion", () => {
+  test("validation - AccessDeniedAuthShieldError", async () => {
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const json = await response.json();
+    expect(response.status).toBe(403);
+    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+  });
+
   test("validation - empty payload", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       { method: "POST", headers: mocks.revisionHeaders() },
@@ -25,6 +35,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   });
 
   test("validation - missing intensity", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -45,6 +56,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   });
 
   test("validation - incorrect id", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       "/entry/id/reappraise-emotion",
       {
@@ -61,6 +73,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   });
 
   test("validation - EntryIsActionable", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [
@@ -99,6 +112,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   });
 
   test("validation - EmotionCorrespondsToSituation", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
@@ -131,6 +145,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   });
 
   test("validation - EmotionForReappraisalExists", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
 
     const history = [mocks.GenericSituationLoggedEvent];
@@ -165,6 +180,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   });
 
   test("happy path", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");

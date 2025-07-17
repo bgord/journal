@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import * as Icons from "iconoir-react";
+import { Xmark } from "iconoir-react";
 import { useFetcher, useSubmit } from "react-router";
 import type { SelectEntriesFull } from "../../infra/schema";
 import { Alarm } from "./alarm";
@@ -56,7 +56,7 @@ export function Entry(props: SelectEntriesFull) {
             data-interaction="subtle-scale"
             onClick={exit.trigger}
           >
-            <Icons.Xmark width={20} height={20} />
+            <Xmark width={20} height={20} />
           </button>
         </fetcher.Form>
       </header>
