@@ -65,8 +65,12 @@ export const entriesRelations = relations(entries, ({ one, many }) => ({
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
-  entryId: text("entryId", { length: 36 }).references(() => entries.id).notNull(),
-  userId: text("userId", { length: 36 }).references(() => entries.id).notNull(),
+  entryId: text("entryId", { length: 36 })
+    .references(() => entries.id)
+    .notNull(),
+  userId: text("userId", { length: 36 })
+    .references(() => entries.id)
+    .notNull(),
   status: text("status", toEnumList(AlarmStatusEnum)).notNull(),
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),

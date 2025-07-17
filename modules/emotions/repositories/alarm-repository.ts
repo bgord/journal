@@ -27,6 +27,7 @@ export class AlarmRepository {
       generatedAt: event.createdAt,
       emotionLabel: emotion.label,
       emotionIntensity: emotion.intensity,
+      userId: event.payload.userId,
     });
   }
 
