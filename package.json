@@ -32,6 +32,6 @@
     "drizzle-orm": "0.44.3",
     "emittery": "1.2.0",
     "node-cache": "5.1.2",
-    "openai": "5.9.0"
+    "openai": "5.10.1"
   }
 }
