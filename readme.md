@@ -41,7 +41,8 @@ Run the tests
 modules/
 ├── auth
 │   └── value-objects
-│       └── password.ts
+│       ├── password.ts
+│       └── user-id.ts
 └── emotions
     ├── aggregates
     │   ├── alarm.ts
@@ -124,6 +125,7 @@ modules/
     │   ├── one-situation-per-entry.ts
     │   ├── reaction-corresponds-to-situation-and-emotion.ts
     │   ├── reaction-for-evaluation-exists.ts
+    │   ├── requester-owns-entry.ts
     │   ├── weekly-review-completed-once.ts
     │   └── weekly-review-requested-once.ts
     ├── repositories
