@@ -1,8 +1,9 @@
+import * as UI from "@bgord/ui";
 import { useFetcher, useNavigate } from "react-router";
 import { signOut } from "../auth";
 
-// TODO: translations
 export function LogoutButton() {
+  const t = UI.useTranslations();
   const fetcher = useFetcher();
   const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ export function LogoutButton() {
         disabled={fetcher.state === "submitting"}
         onClick={() => signOut({ fetchOptions: { onSuccess: () => navigate("/") } })}
       >
-        {fetcher.state === "submitting" ? "Logging out…" : "Logout"}
+        {fetcher.state === "submitting" ? t("auth.logout.in_progress") : t("auth.logout.cta")}
       </button>
     </fetcher.Form>
   );

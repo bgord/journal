@@ -1,6 +1,6 @@
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { auth } from "../infra/auth";
-import { describe, expect, jest, spyOn, test } from "bun:test";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";

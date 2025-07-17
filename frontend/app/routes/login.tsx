@@ -19,8 +19,8 @@ export async function loader({ request }: Route.LoaderArgs) {
   return AuthForm.get();
 }
 
-// TODO: translations
 export default function Login({ loaderData }: Route.ComponentProps) {
+  const t = UI.useTranslations();
   const navigate = RR.useNavigate();
   const [state, setState] = React.useState<LoginState>(LoginState.idle);
 
@@ -57,18 +57,18 @@ export default function Login({ loaderData }: Route.ComponentProps) {
         style={{ ...UI.Rhythm(400).times(1).width, ...UI.Colorful("surface-card").background }}
       >
         <legend data-fs="24" data-transform="center">
-          Login
+          {t("app.login")}
         </legend>
 
         <div data-display="flex" data-direction="column">
           <label className="c-label" {...email.label.props}>
-            Email
+            {t("auth.email.label")}
           </label>
 
           <input
             className="c-input"
             type="email"
-            placeholder="admin@example.com"
+            placeholder={t("auth.email.placeholder")}
             disabled={state === LoginState.loading}
             {...email.input.props}
           />
@@ -76,13 +76,13 @@ export default function Login({ loaderData }: Route.ComponentProps) {
 
         <div data-display="flex" data-direction="column">
           <label className="c-label" {...password.label.props}>
-            Password
+            {t("auth.password.label")}
           </label>
 
           <input
             className="c-input"
             type="password"
-            placeholder="**********"
+            placeholder={t("auth.password.placeholder")}
             disabled={state === LoginState.loading}
             {...password.input.props}
             {...UI.Form.inputPattern(loaderData.password)}
@@ -96,7 +96,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
           type="submit"
           disabled={UI.Fields.allEmpty([email, password]) || state === LoginState.loading}
         >
-          {state === LoginState.loading ? "Signing in…" : "Login"}
+          {state === LoginState.loading ? t("auth.login.in_progress") : t("auth.login.cta")}
         </button>
 
         {state === LoginState.error && (
@@ -110,14 +110,14 @@ export default function Login({ loaderData }: Route.ComponentProps) {
             data-p="12"
           >
             <WarningCircle height={20} width={20} />
-            Invalid credentials
+            {t("auth.login.error.invalid_credentials")}
           </div>
         )}
 
         <p data-transform="center" data-mt="12">
-          Don’t have an account?{" "}
+          {t("auth.login.no_account.cta")}{" "}
           <RR.Link to="/register" data-decoration="underline">
-            Register
+            {t("auth.register.label")}
           </RR.Link>
         </p>
       </RR.Form>

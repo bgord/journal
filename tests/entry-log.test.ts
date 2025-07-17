@@ -1,7 +1,7 @@
-import { auth } from "../infra/auth";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { auth } from "../infra/auth";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";

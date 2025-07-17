@@ -20,8 +20,8 @@ export async function loader({ request }: Route.LoaderArgs) {
   return AuthForm.get();
 }
 
-// TODO: translations
 export default function Register({ loaderData }: Route.ComponentProps) {
+  const t = UI.useTranslations();
   const [state, setState] = React.useState<RegisterState>(RegisterState.idle);
 
   const email = UI.useField({ name: "email", defaultValue: "" });
@@ -56,18 +56,18 @@ export default function Register({ loaderData }: Route.ComponentProps) {
         style={{ ...UI.Rhythm(400).times(1).width, ...UI.Colorful("surface-card").background }}
       >
         <legend data-fs="24" data-transform="center">
-          Register
+          {t("app.register")}
         </legend>
 
         <div data-display="flex" data-direction="column">
           <label className="c-label" {...email.label.props}>
-            Email
+            {t("auth.email.label")}
           </label>
 
           <input
             className="c-input"
             type="email"
-            placeholder="admin@example.com"
+            placeholder={t("auth.email.placeholder")}
             disabled={state === RegisterState.success}
             {...email.input.props}
           />
@@ -75,13 +75,13 @@ export default function Register({ loaderData }: Route.ComponentProps) {
 
         <div data-display="flex" data-direction="column">
           <label className="c-label" {...password.label.props}>
-            Password
+            {t("auth.password.label")}
           </label>
 
           <input
             className="c-input"
             type="password"
-            placeholder="**********"
+            placeholder={t("auth.password.placeholder")}
             disabled={state === RegisterState.success}
             {...password.input.props}
             {...UI.Form.inputPattern(loaderData.password)}
@@ -95,7 +95,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
           type="submit"
           disabled={UI.Fields.allUnchanged([email, password]) || state === RegisterState.success}
         >
-          {state === RegisterState.loading ? "Loading…" : "Sign up"}
+          {state === RegisterState.loading ? t("auth.register.in_progress") : t("auth.register.cta")}
         </button>
 
         {state === RegisterState.success && (
@@ -111,12 +111,12 @@ export default function Register({ loaderData }: Route.ComponentProps) {
             data-px="24"
           >
             <CheckCircle height={20} width={20} />
-            Account created successfully!
+            {t("auth.register.success")}
             <br />
             <span>
-              Check your inbox and{" "}
+              {t("auth.register.success")}{" "}
               <Link data-transform="center" to="/">
-                login
+                {t("auth.login.label")}
               </Link>
             </span>
           </div>
@@ -133,14 +133,14 @@ export default function Register({ loaderData }: Route.ComponentProps) {
             data-p="12"
           >
             <WarningCircle height={20} width={20} />
-            Error while creating an account
+            {t("auth.register.error")}
           </div>
         )}
 
         <p data-transform="center" data-mt="12">
-          Already have an account?{" "}
+          {t("auth.register.have_an_account.cta")}{" "}
           <Link to="/" data-decoration="underline">
-            Login
+            {t("auth.login.label")}
           </Link>
         </p>
       </Form>
