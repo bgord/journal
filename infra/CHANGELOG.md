@@ -1,6 +1,13 @@
 # Changelog
+- 2025-07-17 22:07 327fc6b **step: bump bgord/scripts**
+## 2025-07-17 22:07 
+- 2025-07-17 22:03 77c8985 **step: bump bgord/scripts**
+- 2025-07-17 22:02 ebb713e **step: bump bgord/scripts**
+- 2025-07-17 21:56 2e1d5f0 **step: bump bgord/scripts**
+- 2025-07-17 21:50 4191acc **refactor: tighten daily alarms count per user**
+- 2025-07-17 21:45 3fd6cd0 **step: adjust alarm repository read model to include userId**
+- 2025-07-17 21:43 e5725ba **step: connect alarms to users**
 - 2025-07-17 21:32 f62b516 **refactor: rename FF_MAILER_DISABLED**
-## 2025-07-17 21:32 
 - 2025-07-17 21:28 5e66ce9 **step: handle onAlarmNotificationSentEvent - mailer failed**
 - 2025-07-17 21:21 857f063 **step: test onAlarmNotificationSentEvent - missing contact**
 - 2025-07-17 21:17 ee764ed **step: send an alarm to a correct recipient**
@@ -13,6 +20,8 @@
 - 2025-07-17 19:41 0a4ec71 **fix: entry repo list query**
 - 2025-07-17 19:34 6e17776 **fix: generate uuids in better auth**
 - 2025-07-17 19:34 06dd754 **fix: seeding**
+- 2025-07-17 19:33 ebed844 **docs: generate readme**
+- 2025-07-17 19:33 7fe777b **docs: generate CHANGELOG**
 - 2025-07-17 19:24 f3e80b6 **fix: missing userId in repo and mocks**
 - 2025-07-17 19:24 682ca1b **step: change list for user entry repo method**
 - 2025-07-17 19:21 244e625 **step: add userId to journal**
