@@ -1,6 +1,25 @@
 # Changelog
+- 2025-07-17 19:46 4a919b5 **fix: typecheck errors**
+## 2025-07-17 19:46 
+- 2025-07-17 19:42 bf6d9ea **step: update packages**
+- 2025-07-17 19:41 0a4ec71 **fix: entry repo list query**
+- 2025-07-17 19:34 6e17776 **fix: generate uuids in better auth**
+- 2025-07-17 19:34 06dd754 **fix: seeding**
+- 2025-07-17 19:24 f3e80b6 **fix: missing userId in repo and mocks**
+- 2025-07-17 19:24 682ca1b **step: change list for user entry repo method**
+- 2025-07-17 19:21 244e625 **step: add userId to journal**
+- 2025-07-17 19:02 90d98f5 **fix: tests**
+- 2025-07-17 18:41 21838c0 **step: add more auth mocks**
+- 2025-07-17 18:38 180ab3a **step: adjust tests**
+- 2025-07-17 18:30 4335624 **step: apply requester owns entry policy**
+- 2025-07-17 18:26 2621970 **step: add requester owns entry policy**
+- 2025-07-17 18:20 bde08f2 **step: add requesterId to all Entry methods**
+- 2025-07-17 18:17 5b2715b **step: add userId Entry field**
+- 2025-07-17 18:16 04009cd **step: pass userId to all entry events**
+- 2025-07-17 18:15 00a974f **step: define a userId for all entry events**
+- 2025-07-17 18:12 7ae21c3 **step: add userId to entry commands**
+- 2025-07-17 18:02 37dab29 **step: define user-id vo**
 - 2025-07-17 16:51 d560079 **Merge pull request #16 from bgord/better-auth**
-## 2025-07-17 16:51 
 - 2025-07-17 16:47 e10bb33 **step: add translations**
 - 2025-07-17 16:11 e0de2bf **step: add auth shield error error handler**
 - 2025-07-17 16:11 77f8df3 **step: handle auth in tests**
@@ -15,6 +34,8 @@
 - 2025-07-17 15:01 3d4a629 **step: simplify auth layout**
 - 2025-07-17 14:58 12a2d01 **step: add missing cookies to the BFF calls**
 - 2025-07-17 14:51 f1a6270 **fix: links in auth fe**
+- 2025-07-17 14:51 b4520cd **docs: generate CHANGELOG**
+- 2025-07-17 14:51 ab501db **docs: generate readme**
 - 2025-07-17 14:51 91947db **step: improve auth layout**
 - 2025-07-17 14:41 901a759 **step: enable auth for entries**
 - 2025-07-17 14:41 8aa0a6b **step: update packages**
