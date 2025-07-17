@@ -48,6 +48,7 @@ export const GenericSituationLoggedEvent = {
     kind: Emotions.VO.SituationKindOptions.achievement,
     location: "work",
     language: SupportedLanguages.en,
+    userId,
   },
 } satisfies Emotions.Events.SituationLoggedEventType;
 
@@ -62,6 +63,7 @@ export const GenericEmotionLoggedEvent = {
     entryId: entryId,
     label: Emotions.VO.GenevaWheelEmotion.gratitude,
     intensity: 3,
+    userId,
   },
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
@@ -77,6 +79,7 @@ export const GenericReactionLoggedEvent = {
     description: "Got drunk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
     effectiveness: 1,
+    userId,
   },
 } satisfies Emotions.Events.ReactionLoggedEventType;
 
@@ -91,6 +94,7 @@ export const GenericEmotionReappraisedEvent = {
     entryId: entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.joy,
     newIntensity: 3,
+    userId,
   },
 } satisfies Emotions.Events.EmotionReappraisedEventType;
 
@@ -106,6 +110,7 @@ export const GenericReactionEvaluatedEvent = {
     description: "Went to bed",
     type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
     effectiveness: 2,
+    userId,
   },
 } satisfies Emotions.Events.ReactionEvaluatedEventType;
 
@@ -120,6 +125,7 @@ export const PositiveEmotionLoggedEvent = {
     entryId: entryId,
     label: Emotions.VO.GenevaWheelEmotion.joy,
     intensity: 4,
+    userId,
   },
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
@@ -134,6 +140,7 @@ export const NegativeEmotionLoggedEvent = {
     entryId: entryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
     intensity: 4,
+    userId,
   },
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
@@ -148,6 +155,7 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
     entryId: entryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
     intensity: 5,
+    userId,
   },
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
@@ -162,6 +170,7 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
     entryId: entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.anger,
     newIntensity: 5,
+    userId,
   },
 } satisfies Emotions.Events.EmotionReappraisedEventType;
 
@@ -177,6 +186,7 @@ export const MaladaptiveReactionLoggedEvent = {
     description: "Got drunk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
     effectiveness: 1,
+    userId,
   },
 } satisfies Emotions.Events.ReactionLoggedEventType;
 
@@ -192,6 +202,7 @@ export const AdaptiveReactionLoggedEvent = {
     description: "Went for a walk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.reappraisal,
     effectiveness: 4,
+    userId,
   },
 } satisfies Emotions.Events.ReactionLoggedEventType;
 
@@ -202,7 +213,7 @@ export const GenericEntryDeletedEvent = {
   name: Emotions.Events.ENTRY_DELETED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  payload: { entryId: entryId },
+  payload: { entryId: entryId, userId },
 } satisfies Emotions.Events.EntryDeletedEventType;
 
 export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
