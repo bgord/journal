@@ -4,8 +4,7 @@ import React from "react";
 import * as RR from "react-router";
 import type { types } from "../../../app/services/auth-form";
 import { AuthForm } from "../../../app/services/auth-form";
-import { client } from "../../auth";
-import { requireNoSession } from "../../auth-guard";
+import * as Auth from "../../auth";
 import type { Route } from "./+types/login";
 
 enum LoginState {
@@ -15,7 +14,7 @@ enum LoginState {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  await requireNoSession(request);
+  await Auth.guard.requireNoSession(request);
 
   return AuthForm.get();
 }
@@ -32,7 +31,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
     event.preventDefault();
     setState(LoginState.loading);
 
-    await client.signIn.email(
+    await Auth.client.signIn.email(
       { email: email.value, password: password.value },
       {
         onSuccess: () => navigate("/home", { replace: true }),

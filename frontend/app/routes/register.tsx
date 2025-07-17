@@ -4,8 +4,7 @@ import React from "react";
 import { Form, Link } from "react-router";
 import type { types } from "../../../app/services/auth-form";
 import { AuthForm } from "../../../app/services/auth-form";
-import { client } from "../../auth";
-import { requireNoSession } from "../../auth-guard";
+import * as Auth from "../../auth";
 import type { Route } from "./+types/register";
 
 enum RegisterState {
@@ -16,7 +15,7 @@ enum RegisterState {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  await requireNoSession(request);
+  await Auth.guard.requireNoSession(request);
 
   return AuthForm.get();
 }
@@ -31,7 +30,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
   const signUp = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    await client.signUp.email(
+    await Auth.client.signUp.email(
       { email: email.value, password: password.value, name: email.value },
       {
         onSuccess: () => setState(RegisterState.success),
