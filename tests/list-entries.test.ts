@@ -17,7 +17,7 @@ describe("GET /entry/list", () => {
 
   test("happy path ", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Emotions.Repos.EntryRepository, "list").mockResolvedValue([mocks.fullEntryFormatted]);
+    spyOn(Emotions.Repos.EntryRepository, "listForUser").mockResolvedValue([mocks.fullEntryFormatted]);
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     const json = await response.json();
@@ -28,7 +28,7 @@ describe("GET /entry/list", () => {
 
   test("happy path - empty list", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Emotions.Repos.EntryRepository, "list").mockResolvedValue([]);
+    spyOn(Emotions.Repos.EntryRepository, "listForUser").mockResolvedValue([]);
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     const json = await response.json();

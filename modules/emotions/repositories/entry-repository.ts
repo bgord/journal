@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import type * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
@@ -37,9 +38,10 @@ export class EntryRepository {
       .where(and(gte(Schema.entries.startedAt, weekStartedAt), lte(Schema.entries.startedAt, weekEndedAt)));
   }
 
-  static async list(): Promise<Schema.SelectEntriesFull[]> {
+  static async listForUser(userId: Auth.VO.UserIdType): Promise<Schema.SelectEntriesFull[]> {
     const entries = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
+      where: eq(Schema.users.id, userId),
       with: { alarms: true },
     });
 
