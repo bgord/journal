@@ -41,7 +41,7 @@ export class EntryRepository {
   static async listForUser(userId: Auth.VO.UserIdType): Promise<Schema.SelectEntriesFull[]> {
     const entries = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
-      where: eq(Schema.users.id, userId),
+      where: eq(Schema.entries.userId, userId),
       with: { alarms: true },
     });
 

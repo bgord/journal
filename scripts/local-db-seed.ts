@@ -59,8 +59,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     const users = await Promise.all(
       [
-        { email: "user@example.com", password: "1234567890" },
         { email: "admin@example.com", password: "1234567890" },
+        { email: "user@example.com", password: "1234567890" },
       ].map(async (user, index) => {
         const result = await auth.api.signUpEmail({
           body: { email: user.email, name: user.email, password: user.password },
