@@ -51,7 +51,7 @@ export const entries = sqliteTable("entries", {
   reactionEffectiveness: integer("reactionEffectiveness"),
   status: text("status", toEnumList(EntryStatusEnum)).notNull(),
   language: text("language").notNull(),
-  userId: text("user_id")
+  userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
 });
@@ -65,7 +65,8 @@ export const entriesRelations = relations(entries, ({ one, many }) => ({
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
-  entryId: text("entryId", { length: 36 }).references(() => entries.id),
+  entryId: text("entryId", { length: 36 }).references(() => entries.id).notNull(),
+  userId: text("userId", { length: 36 }).references(() => entries.id).notNull(),
   status: text("status", toEnumList(AlarmStatusEnum)).notNull(),
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),
@@ -77,6 +78,7 @@ export const alarms = sqliteTable("alarms", {
 /** @public */
 export const alarmsRelations = relations(alarms, ({ one }) => ({
   entry: one(entries, { fields: [alarms.entryId], references: [entries.id] }),
+  user: one(users, { fields: [alarms.userId], references: [users.id] }),
 }));
 
 /** @public */
@@ -99,6 +101,7 @@ export const users = sqliteTable("users", {
 /** @public */
 export const usersRelations = relations(users, ({ many }) => ({
   entries: many(entries),
+  alarms: many(alarms),
 }));
 
 /** @public */

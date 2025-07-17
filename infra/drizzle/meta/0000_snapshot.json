@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "cfbca945-867a-42b5-9645-6aa3cbc8f930",
+  "id": "34665e1b-5225-48c2-964c-2ce4101d5271",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -105,8 +105,12 @@
           "name": "accounts_user_id_users_id_fk",
           "tableFrom": "accounts",
           "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -136,7 +140,14 @@
           "name": "entryId",
           "type": "text(36)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text(36)",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false
         },
         "status": {
@@ -181,8 +192,25 @@
           "name": "alarms_entryId_entries_id_fk",
           "tableFrom": "alarms",
           "tableTo": "entries",
-          "columnsFrom": ["entryId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "entryId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "alarms_userId_entries_id_fk": {
+          "name": "alarms_userId_entries_id_fk",
+          "tableFrom": "alarms",
+          "tableTo": "entries",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -293,8 +321,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -303,12 +331,16 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "entries_user_id_users_id_fk": {
-          "name": "entries_user_id_users_id_fk",
+        "entries_userId_users_id_fk": {
+          "name": "entries_userId_users_id_fk",
           "tableFrom": "entries",
           "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -382,12 +414,17 @@
       "indexes": {
         "stream_idx": {
           "name": "stream_idx",
-          "columns": ["stream"],
+          "columns": [
+            "stream"
+          ],
           "isUnique": false
         },
         "stream_revision_uidx": {
           "name": "stream_revision_uidx",
-          "columns": ["stream", "revision"],
+          "columns": [
+            "stream",
+            "revision"
+          ],
           "isUnique": true
         }
       },
@@ -459,7 +496,9 @@
       "indexes": {
         "sessions_token_unique": {
           "name": "sessions_token_unique",
-          "columns": ["token"],
+          "columns": [
+            "token"
+          ],
           "isUnique": true
         }
       },
@@ -468,8 +507,12 @@
           "name": "sessions_user_id_users_id_fk",
           "tableFrom": "sessions",
           "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -534,7 +577,9 @@
       "indexes": {
         "users_email_unique": {
           "name": "users_email_unique",
-          "columns": ["email"],
+          "columns": [
+            "email"
+          ],
           "isUnique": true
         }
       },

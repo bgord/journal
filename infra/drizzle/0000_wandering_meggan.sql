@@ -18,13 +18,15 @@ CREATE TABLE `accounts` (
 CREATE TABLE `alarms` (
 	`id` text(36) PRIMARY KEY NOT NULL,
 	`generatedAt` integer NOT NULL,
-	`entryId` text(36),
+	`entryId` text(36) NOT NULL,
+	`userId` text(36) NOT NULL,
 	`status` text NOT NULL,
 	`name` text NOT NULL,
 	`advice` text,
 	`emotionLabel` text,
 	`emotionIntensity` integer,
-	FOREIGN KEY (`entryId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`entryId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`userId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `entries` (
@@ -42,8 +44,8 @@ CREATE TABLE `entries` (
 	`reactionEffectiveness` integer,
 	`status` text NOT NULL,
 	`language` text NOT NULL,
-	`user_id` text NOT NULL,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
+	`userId` text NOT NULL,
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `events` (

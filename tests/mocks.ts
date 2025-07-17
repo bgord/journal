@@ -409,6 +409,7 @@ export const alarm: Schema.SelectAlarms = {
   advice: "You should do something",
   emotionLabel: null,
   emotionIntensity: null,
+  userId,
 };
 
 export const user = {
