@@ -1,3 +1,4 @@
+import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Policies from "+emotions/policies";
 import * as VO from "+emotions/value-objects";
@@ -17,6 +18,8 @@ export class Alarm {
   ];
 
   private readonly id: VO.AlarmIdType;
+  // @ts-expect-error
+  private userId?: Auth.VO.UserIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
   // @ts-expect-error
   private generatedAt?: VO.AlarmGeneratedAtType;

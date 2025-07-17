@@ -43,6 +43,7 @@ export class AlarmProcessing {
       payload: {
         alarmName: detection.name,
         entryId: event.payload.entryId,
+        userId: event.payload.userId,
       },
     } satisfies Commands.GenerateAlarmCommandType);
 
@@ -65,6 +66,7 @@ export class AlarmProcessing {
       payload: {
         alarmName: detection.name,
         entryId: event.payload.entryId,
+        userId: event.payload.userId,
       },
     } satisfies Commands.GenerateAlarmCommandType);
 
