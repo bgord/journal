@@ -1,6 +1,7 @@
 import { useFetcher } from "react-router";
 import { signOut } from "../auth";
 
+// TODO: translations
 export function LogoutButton() {
   const fetcher = useFetcher();
 
