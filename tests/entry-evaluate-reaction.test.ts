@@ -290,7 +290,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryEvaluateReaction).toHaveBeenCalledWith(reaction);
+    expect(entryEvaluateReaction).toHaveBeenCalledWith(reaction, mocks.userId);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericReactionEvaluatedEvent]);
     jest.restoreAllMocks();

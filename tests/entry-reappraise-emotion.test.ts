@@ -217,7 +217,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryReappraiseEmotion).toHaveBeenCalledWith(emotion);
+    expect(entryReappraiseEmotion).toHaveBeenCalledWith(emotion, mocks.userId);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionReappraisedEvent]);
 

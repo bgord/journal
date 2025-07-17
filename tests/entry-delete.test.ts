@@ -56,7 +56,7 @@ describe("DELETE /entry/:id/delete", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
-    expect(entryDelete).toHaveBeenCalledWith();
+    expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
   });
 
   test("happy path - after situation", async () => {
@@ -86,7 +86,7 @@ describe("DELETE /entry/:id/delete", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryDelete).toHaveBeenCalledWith();
+    expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
     jest.restoreAllMocks();
@@ -119,7 +119,7 @@ describe("DELETE /entry/:id/delete", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryDelete).toHaveBeenCalledWith();
+    expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
     jest.restoreAllMocks();
@@ -156,7 +156,7 @@ describe("DELETE /entry/:id/delete", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryDelete).toHaveBeenCalledWith();
+    expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
     jest.restoreAllMocks();
