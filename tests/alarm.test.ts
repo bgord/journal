@@ -23,6 +23,7 @@ describe("Alarm", () => {
       await alarm._generate(
         mocks.entryId,
         Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+        mocks.userId,
       );
     });
 
@@ -33,7 +34,11 @@ describe("Alarm", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
 
     expect(async () =>
-      alarm._generate(mocks.entryId, Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM),
+      alarm._generate(
+        mocks.entryId,
+        Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+        mocks.userId,
+      ),
     ).toThrow(Emotions.Policies.AlarmGeneratedOnce.error);
 
     expect(alarm.pullEvents()).toEqual([]);

@@ -47,7 +47,7 @@ export class Alarm {
     return entry;
   }
 
-  async _generate(entryId: VO.EntryIdType, alarmName: VO.AlarmNameType) {
+  async _generate(entryId: VO.EntryIdType, alarmName: VO.AlarmNameType, requesterId: Auth.VO.UserIdType) {
     await Policies.AlarmGeneratedOnce.perform({ status: this.status });
 
     const event = Events.AlarmGeneratedEvent.parse({
@@ -61,6 +61,7 @@ export class Alarm {
         alarmId: this.id,
         alarmName,
         entryId,
+        userId: requesterId,
       },
     } satisfies Events.AlarmGeneratedEventType);
 
@@ -142,6 +143,7 @@ export class Alarm {
     switch (event.name) {
       case Events.ALARM_GENERATED_EVENT: {
         this.entryId = event.payload.entryId;
+        this.userId = event.payload.userId;
         this.name = event.payload.alarmName;
         this.status = VO.AlarmStatusEnum.generated;
         this.generatedAt = event.createdAt;

@@ -271,6 +271,7 @@ export const GenericAlarmGeneratedEvent = {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     alarmId,
     entryId: entryId,
+    userId,
   },
 } satisfies Emotions.Events.AlarmGeneratedEventType;
 

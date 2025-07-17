@@ -1,3 +1,4 @@
+import type * as Auth from "+auth";
 import * as Aggregates from "+emotions/aggregates";
 import * as Policies from "+emotions/policies";
 import * as Repos from "+emotions/repositories";
@@ -6,7 +7,7 @@ import { EventStore } from "+infra/event-store";
 import * as bg from "@bgord/bun";
 
 export class AlarmFactory {
-  static async create(alarmName: VO.AlarmNameType, entryId: VO.EntryIdType) {
+  static async create(alarmName: VO.AlarmNameType, entryId: VO.EntryIdType, requesterId: Auth.VO.UserIdType) {
     const dailyAlarmsCount = await Repos.AlarmRepository.getCreatedTodayCount();
     const entryAlarmsCount = await Repos.AlarmRepository.getCreatedPerEntryId(entryId);
 
@@ -16,7 +17,7 @@ export class AlarmFactory {
     const alarmId = bg.NewUUID.generate();
     const alarm = Aggregates.Alarm.create(alarmId);
 
-    await alarm._generate(entryId, alarmName);
+    await alarm._generate(entryId, alarmName, requesterId);
 
     await EventStore.save(alarm.pullEvents());
   }

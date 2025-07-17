@@ -17,7 +17,7 @@ describe("AlarmFactory", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId);
+      await Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId, mocks.userId);
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
@@ -32,7 +32,7 @@ describe("AlarmFactory", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId);
+      await Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId, mocks.userId);
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
@@ -45,9 +45,9 @@ describe("AlarmFactory", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    expect(async () => Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId)).toThrow(
-      Emotions.Policies.DailyAlarmLimit.error,
-    );
+    expect(async () =>
+      Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId, mocks.userId),
+    ).toThrow(Emotions.Policies.DailyAlarmLimit.error);
 
     expect(eventStoreSave).not.toHaveBeenCalled();
 
@@ -59,9 +59,9 @@ describe("AlarmFactory", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(2);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    expect(async () => Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId)).toThrow(
-      Emotions.Policies.EntryAlarmLimit.error,
-    );
+    expect(async () =>
+      Emotions.Services.AlarmFactory.create(detection.name, mocks.entryId, mocks.userId),
+    ).toThrow(Emotions.Policies.EntryAlarmLimit.error);
 
     expect(eventStoreSave).not.toHaveBeenCalled();
 
