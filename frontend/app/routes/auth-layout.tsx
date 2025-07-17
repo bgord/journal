@@ -6,8 +6,7 @@ import { LogoutButton } from "../../components/logout-button";
 import type { Route } from "./+types/auth-layout";
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const session = await requireSession(request);
-  return { session };
+  return requireSession(request);
 }
 
 export default function AuthLayout({ loaderData }: Route.ComponentProps) {
@@ -15,12 +14,12 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
     <div data-display="flex" data-direction="column">
       <div data-display="flex" data-main="end" data-cross="center" data-gap="24" data-mb="24">
         <div data-display="flex" data-cross="center" data-gap="6" {...UI.Colorful("brand-600").style.color}>
-          <ProfileCircle height={20} width={20} /> {loaderData.session?.user.email}
+          <ProfileCircle height={20} width={20} /> {loaderData?.user.email}
         </div>
 
         <LogoutButton />
       </div>
-      <Outlet context={{ ...loaderData.session }} />;
+      <Outlet context={loaderData} />;
     </div>
   );
 }
