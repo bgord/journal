@@ -1,6 +1,5 @@
 import * as infra from "+infra";
-import { auth } from "+infra/auth";
-import { AuthShield } from "+infra/auth-shield";
+import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";

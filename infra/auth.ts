@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI } from "better-auth/plugins";
 import { Password } from "../modules/auth/value-objects/password";
+import * as bg from "./auth-shield";
 import { db } from "./db";
 
 export const auth = betterAuth({
@@ -23,3 +24,5 @@ export type AuthVariables = {
   user: typeof auth.$Infer.Session.user | null;
   session: typeof auth.$Infer.Session.session | null;
 };
+
+export const AuthShield = new bg.AuthShield(auth);
