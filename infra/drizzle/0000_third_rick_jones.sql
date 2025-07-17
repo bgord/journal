@@ -41,7 +41,9 @@ CREATE TABLE `entries` (
 	`reactionType` text,
 	`reactionEffectiveness` integer,
 	`status` text NOT NULL,
-	`language` text NOT NULL
+	`language` text NOT NULL,
+	`user_id` text NOT NULL,
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `events` (

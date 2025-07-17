@@ -29,7 +29,7 @@ describe("DELETE /entry/:id/delete", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("validation - EntryHasBeenStarted", async () => {
@@ -58,7 +58,7 @@ describe("DELETE /entry/:id/delete", () => {
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
     expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("validation -  RequesterOwnsEntry", async () => {

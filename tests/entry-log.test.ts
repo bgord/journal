@@ -38,7 +38,7 @@ describe("POST /entry/log", () => {
       message: Emotions.VO.SituationDescription.Errors.invalid,
       _known: true,
     });
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("situation - validation - missing kind and location", async () => {
@@ -56,7 +56,7 @@ describe("POST /entry/log", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.SituationLocation.Errors.invalid, _known: true });
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("situation - validation - missing kind", async () => {
@@ -74,7 +74,7 @@ describe("POST /entry/log", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.SituationKind.Errors.invalid, _known: true });
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("emotion - validation - empty payload", async () => {
@@ -89,7 +89,7 @@ describe("POST /entry/log", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionLabel.Errors.invalid, _known: true });
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("emotion - validation - missing intensity", async () => {
@@ -107,7 +107,7 @@ describe("POST /entry/log", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionIntensity.Errors.min_max, _known: true });
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("reaction - validation - empty payload", async () => {
@@ -122,7 +122,7 @@ describe("POST /entry/log", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionDescription.Errors.invalid, _known: true });
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("reaction - validation - missing type", async () => {
@@ -140,7 +140,7 @@ describe("POST /entry/log", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionType.Errors.invalid, _known: true });
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("reaction - validation - missing effectiveness", async () => {
@@ -163,7 +163,7 @@ describe("POST /entry/log", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.min_max, _known: true });
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("situation - OneSituationPerEntry", async () => {

@@ -51,10 +51,16 @@ export const entries = sqliteTable("entries", {
   reactionEffectiveness: integer("reactionEffectiveness"),
   status: text("status", toEnumList(EntryStatusEnum)).notNull(),
   language: text("language").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
 });
 
 /** @public */
-export const entriesRelations = relations(entries, ({ many }) => ({ alarms: many(alarms) }));
+export const entriesRelations = relations(entries, ({ one, many }) => ({
+  alarms: many(alarms),
+  user: one(users, { fields: [entries.userId], references: [users.id] }),
+}));
 
 export const alarms = sqliteTable("alarms", {
   id,
@@ -88,6 +94,11 @@ export const users = sqliteTable("users", {
     .$defaultFn(() => new Date())
     .notNull(),
 });
+
+/** @public */
+export const usersRelations = relations(users, ({ many }) => ({
+  entries: many(entries),
+}));
 
 export const sessions = sqliteTable("sessions", {
   id: text("id").primaryKey(),

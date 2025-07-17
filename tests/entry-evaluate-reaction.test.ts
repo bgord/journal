@@ -252,7 +252,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
