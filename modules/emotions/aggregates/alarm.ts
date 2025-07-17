@@ -18,7 +18,6 @@ export class Alarm {
   ];
 
   private readonly id: VO.AlarmIdType;
-  // @ts-expect-error
   private userId?: Auth.VO.UserIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
   // @ts-expect-error
@@ -82,6 +81,7 @@ export class Alarm {
         alarmId: this.id,
         advice: advice.get(),
         entryId: this.entryId as VO.EntryIdType,
+        userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.AlarmAdviceSavedEventType);
 
@@ -104,6 +104,7 @@ export class Alarm {
       payload: {
         alarmId: this.id,
         entryId: this.entryId as VO.EntryIdType,
+        userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.AlarmNotificationSentEventType);
 
@@ -120,7 +121,7 @@ export class Alarm {
       name: Events.ALARM_CANCELLED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
-      payload: { alarmId: this.id },
+      payload: { alarmId: this.id, userId: this.userId as Auth.VO.UserIdType },
     } satisfies Events.AlarmCancelledEventType);
 
     this.record(event);

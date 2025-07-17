@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -13,7 +14,12 @@ export const AlarmAdviceSavedEvent = z.object({
   name: z.literal(ALARM_ADVICE_SAVED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ alarmId: VO.AlarmId, advice: VO.EmotionalAdviceSchema, entryId: VO.EntryId }),
+  payload: z.object({
+    alarmId: VO.AlarmId,
+    advice: VO.EmotionalAdviceSchema,
+    entryId: VO.EntryId,
+    userId: Auth.VO.UserId,
+  }),
 });
 
 export type AlarmAdviceSavedEventType = z.infer<typeof AlarmAdviceSavedEvent>;

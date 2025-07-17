@@ -285,7 +285,8 @@ export const GenericAlarmAdviceSavedEvent = {
   payload: {
     advice: "You should do something",
     alarmId,
-    entryId: entryId,
+    entryId,
+    userId,
   },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
 
@@ -296,7 +297,7 @@ export const GenericAlarmNotificationSentEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
   version: 1,
-  payload: { alarmId, entryId: entryId },
+  payload: { alarmId, entryId, userId },
 } satisfies Emotions.Events.AlarmNotificationSentEventType;
 
 export const GenericAlarmCancelledEvent = {
@@ -306,7 +307,7 @@ export const GenericAlarmCancelledEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_CANCELLED_EVENT,
   version: 1,
-  payload: { alarmId },
+  payload: { alarmId, userId },
 } satisfies Emotions.Events.AlarmCancelledEventType;
 
 export const GenericWeeklyReviewRequestedEvent = {

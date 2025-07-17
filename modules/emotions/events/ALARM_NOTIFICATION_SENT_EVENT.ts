@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -13,7 +14,11 @@ export const AlarmNotificationSentEvent = z.object({
   name: z.literal(ALARM_NOTIFICATION_SENT_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ alarmId: VO.AlarmId, entryId: VO.EntryId }),
+  payload: z.object({
+    alarmId: VO.AlarmId,
+    entryId: VO.EntryId,
+    userId: Auth.VO.UserId,
+  }),
 });
 
 export type AlarmNotificationSentEventType = z.infer<typeof AlarmNotificationSentEvent>;
