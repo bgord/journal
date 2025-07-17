@@ -1,3 +1,4 @@
+import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+infra/i18n";
 import * as bg from "@bgord/bun";
@@ -19,6 +20,7 @@ export class Entry {
 
   private readonly id: Emotions.VO.EntryIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.initial);
+  private userId?: Auth.VO.UserIdType;
   private startedAt?: Emotions.VO.EntryStartedAtType;
   private finishedAt?: Emotions.VO.EntryFinishedAtType;
   private situation?: Emotions.Entities.Situation;
@@ -196,6 +198,7 @@ export class Entry {
   private apply(event: EntryEventType): void {
     switch (event.name) {
       case Emotions.Events.SITUATION_LOGGED_EVENT: {
+        this.userId = event.payload.userId;
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.startedAt = event.createdAt;
         this.situation = new Emotions.Entities.Situation(
