@@ -50,7 +50,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             data-display="flex"
             data-main="center"
             data-cross="baseline"
-            data-my="48"
+            data-mt="48"
             data-gap="12"
             data-fs="32"
             data-fw="700"

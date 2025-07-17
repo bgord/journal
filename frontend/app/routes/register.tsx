@@ -41,7 +41,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <main data-display="flex" data-direction="column" data-gap="24">
+    <main data-display="flex" data-direction="column" data-gap="24" data-mt="72">
       <Form
         data-display="flex"
         data-direction="column"
@@ -116,7 +116,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
             <br />
             <span>
               Check your inbox and{" "}
-              <Link data-transform="center" to="/login">
+              <Link data-transform="center" to="/">
                 login
               </Link>
             </span>
@@ -140,7 +140,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
 
         <p data-transform="center" data-mt="12">
           Already have an account?{" "}
-          <Link to="/login" data-decoration="underline">
+          <Link to="/" data-decoration="underline">
             Login
           </Link>
         </p>
