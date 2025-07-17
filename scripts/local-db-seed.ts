@@ -57,6 +57,21 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.verifications);
     console.log("[x] Cleared verifications");
 
+    const users = await Promise.all(
+      [
+        { email: "user@example.com", password: "1234567890" },
+        { email: "admin@example.com", password: "1234567890" },
+      ].map(async (user, index) => {
+        const result = await auth.api.signUpEmail({
+          body: { email: user.email, name: user.email, password: user.password },
+        });
+
+        console.log(`[✓] User ${index + 1} created`);
+
+        return result;
+      }),
+    );
+
     for (const counter of _.range(0, 10)) {
       const situation = new Emotions.Entities.Situation(
         new Emotions.VO.SituationDescription(
@@ -86,25 +101,11 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       );
 
       const entry = Emotions.Aggregates.Entry.create(bg.NewUUID.generate());
-      // @ts-expect-error
-      await entry.log(situation, emotion, reaction, SupportedLanguages.en);
+      await entry.log(situation, emotion, reaction, SupportedLanguages.en, users[0]!.user.id);
 
       await EventStore.save(entry.pullEvents());
 
       console.log(`[✓] Entry ${counter + 1} created`);
-    }
-
-    const users = [
-      { email: "admin@example.com", password: "1234567890" },
-      { email: "user@example.com", password: "1234567890" },
-    ];
-
-    for (const [counter, user] of Object.entries(users)) {
-      await auth.api.signUpEmail({
-        body: { email: user.email, name: user.email, password: user.password },
-      });
-
-      console.log(`[✓] User ${Number(counter) + 1} created`);
     }
 
     process.exit(0);
