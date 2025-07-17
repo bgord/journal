@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
 import * as Repos from "+emotions/repositories";
@@ -128,18 +129,22 @@ export class AlarmProcessing {
 
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
     const entry = await Repos.EntryRepository.getByIdRaw(event.payload.entryId);
-
     const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
+    const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 
     const composer = new Services.EmotionalAdviceNotificationComposer(entry);
-
     const notification = composer.compose(alarm.advice as VO.EmotionalAdviceType);
+
+    if (!contact?.email) {
+      // TODO: Cancel alarm on contact info missing
+      return;
+    }
 
     // TODO: Cancel alarm on Mailer.send error
     if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_ENABLED)) {
       await Mailer.send({
         from: "journal@example.com",
-        to: "example@abc.com",
+        to: contact.email,
         subject: "Emotional advice",
         html: notification,
       });
@@ -150,7 +155,7 @@ export class AlarmProcessing {
         operation: "email_send",
         metadata: {
           from: "journal@example.com",
-          to: "example@abc.com",
+          to: contact.email,
           subject: "Emotional advice",
           html: notification,
         },

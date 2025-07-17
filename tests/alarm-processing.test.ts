@@ -5,6 +5,7 @@ import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import { Mailer } from "../infra/mailer";
 import { OpenAiClient } from "../infra/open-ai-client";
+import * as Auth from "../modules/auth";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -183,12 +184,30 @@ describe("AlarmProcessing", () => {
     jest.restoreAllMocks();
   });
 
-  test("onAlarmNotificationSentEvent", async () => {
+  test("onAlarmNotificationSentEvent - missing contact", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
+    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
+
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
-    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
+    const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent),
+    );
 
+    expect(mailerSend).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
+  test("onAlarmNotificationSentEvent", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
+    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
+
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await bg.CorrelationStorage.run(
@@ -198,7 +217,7 @@ describe("AlarmProcessing", () => {
 
     expect(mailerSend).toHaveBeenCalledWith({
       from: "journal@example.com",
-      to: "example@abc.com",
+      to: mocks.email,
       subject: "Emotional advice",
       html: "Advice for emotion entry: anger: You should do something",
     });
