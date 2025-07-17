@@ -1,6 +1,83 @@
 # Changelog
+- 2025-07-17 16:51 d560079 **Merge pull request #16 from bgord/better-auth**
+## 2025-07-17 16:51 
+- 2025-07-17 16:47 e10bb33 **step: add translations**
+- 2025-07-17 16:11 e0de2bf **step: add auth shield error error handler**
+- 2025-07-17 16:11 77f8df3 **step: handle auth in tests**
+- 2025-07-17 15:49 9eb9412 **step: add user and session mocks**
+- 2025-07-17 15:27 a72168c **refactor: use auth guard from bgord-ui**
+- 2025-07-17 15:27 226aef1 **refactor: use auth guard from bgord-ui**
+- 2025-07-17 15:25 f513a2a **step: move removeSession to auth guard**
+- 2025-07-17 15:23 bc19746 **refactor: use cookies.extract from**
+- 2025-07-17 15:19 2153e68 **refactor: extract auth guard**
+- 2025-07-17 15:16 bd443b2 **refactor: rename auth client to client**
+- 2025-07-17 15:03 32b153d **step: switch to local bgord ui**
+- 2025-07-17 15:01 3d4a629 **step: simplify auth layout**
+- 2025-07-17 14:58 12a2d01 **step: add missing cookies to the BFF calls**
+- 2025-07-17 14:51 f1a6270 **fix: links in auth fe**
+- 2025-07-17 14:51 91947db **step: improve auth layout**
+- 2025-07-17 14:41 901a759 **step: enable auth for entries**
+- 2025-07-17 14:41 8aa0a6b **step: update packages**
+- 2025-07-17 14:38 ecc4ba3 **refactor: use bg.auth shield**
+- 2025-07-17 14:32 0162757 **refactor: extract auth shield to an independent class**
+- 2025-07-17 14:29 dea2a50 **refactor: rename read to attach**
+- 2025-07-17 14:29 d8dcfd2 **refactor: group entry routes**
+- 2025-07-16 20:45 0c0d742 **step: improve auth layout**
+- 2025-07-16 20:37 aa55cfe **fix: home**
+- 2025-07-16 20:35 1c9826f **feature: add auth-layout**
+- 2025-07-16 20:31 7ca7279 **refactor: improve routes**
+- 2025-07-16 20:06 d99048e **step: require no session at login and register**
+- 2025-07-16 20:05 950e838 **step: require session at home**
+- 2025-07-16 20:04 2d3e6ca **step: add test url to trusted origins**
+- 2025-07-16 20:03 bfe393d **step: add auth guard**
+- 2025-07-16 20:02 aa0abe0 **step: use only needed icons**
+- 2025-07-16 19:44 2bafbf2 **step: add logout route**
+- 2025-07-16 19:40 2712936 **step: setup logout page**
+- 2025-07-16 19:39 0dd470e **step: add default login credentials prefilled**
+- 2025-07-16 19:01 e1aa74b **step: add logout button**
+- 2025-07-16 18:52 d8c7530 **step: pass cookie to homepage loader**
+- 2025-07-16 18:52 9868e89 **step: navigate to homepage from login if already logged in**
+- 2025-07-16 18:51 b242a36 **step: attach auth shield to entry list**
+- 2025-07-16 18:34 407c49f **step: add auth shield**
+- 2025-07-16 17:18 5100fca **step: wire up auth password lengths**
+- 2025-07-16 17:16 f4aa01b **refactor: change auth form name**
+- 2025-07-16 16:49 b9cca28 **step: write up register form into register route fields**
+- 2025-07-16 16:47 a624d83 **refactor: remove app/services/index**
+- 2025-07-16 16:47 9ffed2e **step: add auth alias**
+- 2025-07-16 16:47 738fd32 **step: add register form service**
+- 2025-07-16 16:44 3a76b1e **step: setup auth module**
+- 2025-07-16 16:37 222aef9 **step: add register info boxes**
+- 2025-07-16 16:17 4487caf **step: style register form**
+- 2025-07-16 16:02 ce046cc **step: add two users to seeder**
+- 2025-07-16 16:01 db95bd5 **step: improve seeder**
+- 2025-07-16 15:57 06249bf **fix: auth cors**
+- 2025-07-16 15:54 eafb9b5 **step: switch to local bun**
+- 2025-07-16 15:39 a1b6721 **step: simplify register form**
+- 2025-07-16 15:17 e9bbdc0 **step: add register route implementation**
+- 2025-07-16 15:12 6669911 **step: add open api to better auth**
+- 2025-07-16 15:11 86dc3bc **fix: api/auth routes path**
+- 2025-07-16 14:37 d89647f **step: setup register route**
+- 2025-07-16 14:04 beb7906 **step: setup login page**
+- 2025-07-16 13:55 0e68214 **step: add frontend/auth exports**
+- 2025-07-16 13:51 308a068 **step: add FE to trusted origings to auth**
+- 2025-07-16 13:48 e29d93b **step: clear auth tables in seed**
+- 2025-07-16 13:47 c143e26 **refactor: use plurals for drizzle table names**
+- 2025-07-16 13:44 da9b809 **step: add auth shield verify**
+- 2025-07-16 13:38 e348492 **step: add auth sheild apply**
+- 2025-07-16 13:38 2b00a9f **step: add auth variables**
+- 2025-07-16 13:10 4775c86 **step: disable auto sign in**
+- 2025-07-16 13:10 2394225 **step: setup better/auth for fe**
+- 2025-07-16 13:07 8b975e9 **step: add better-auth**
+- 2025-07-16 13:05 d073bf1 **step: wire up auth handlers**
+- 2025-07-16 12:56 daa1fa6 **step: defien email and password handler**
+- 2025-07-16 12:56 083e6bc **step: define email and password handler**
+- 2025-07-16 12:55 367ce93 **step: define auth schema**
+- 2025-07-16 12:48 723ab6a **step: setup auth file**
+- 2025-07-16 12:45 ec80dfc **step: add BETTER_AUTH_URL**
+- 2025-07-16 12:44 36b4001 **step: add BETTER_AUTH_SECRET env**
+- 2025-07-16 12:41 79da56a **step: install better-auth**
+- 2025-07-15 18:01 33d9322 **step: update packages**
 - 2025-07-15 17:57 a40b847 **step: udpate packages**
-## 2025-07-15 17:57 
 - 2025-07-15 17:56 ba63208 **step: update ui**
 - 2025-07-15 17:28 dd6ecaa **step: change it to test**
 - 2025-07-15 17:24 f9a97c3 **step: translate the pl prompt**
@@ -8,6 +85,8 @@
 - 2025-07-15 16:59 daae537 **step: add language to entries schema**
 - 2025-07-15 16:57 b99afca **fix: tests**
 - 2025-07-15 16:29 10bf699 **feature: save entry language**
+- 2025-07-15 15:58 8e6e922 **docs: generate readme**
+- 2025-07-15 15:58 03bd3e7 **docs: generate CHANGELOG**
 - 2025-07-15 15:50 06afc7d **step: display emotion label for an alarm**
 - 2025-07-15 15:46 207205b **step: save emotion label and intensity for alarms**
 - 2025-07-15 15:32 1207953 **step: add alarm component**
