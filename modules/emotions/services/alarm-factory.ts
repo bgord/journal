@@ -8,7 +8,7 @@ import * as bg from "@bgord/bun";
 
 export class AlarmFactory {
   static async create(alarmName: VO.AlarmNameType, entryId: VO.EntryIdType, requesterId: Auth.VO.UserIdType) {
-    const dailyAlarmsCount = await Repos.AlarmRepository.getCreatedTodayCount();
+    const dailyAlarmsCount = await Repos.AlarmRepository.getCreatedTodayCountFor(requesterId);
     const entryAlarmsCount = await Repos.AlarmRepository.getCreatedPerEntryId(entryId);
 
     await Policies.DailyAlarmLimit.perform({ count: dailyAlarmsCount });

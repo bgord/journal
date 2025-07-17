@@ -1,3 +1,4 @@
+import type * as Auth from "+auth";
 import type * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
@@ -70,13 +71,16 @@ export class AlarmRepository {
       .where(eq(Schema.alarms.id, event.payload.alarmId));
   }
 
-  static async getCreatedTodayCount(): Promise<number> {
+  static async getCreatedTodayCountFor(userId: Auth.VO.UserIdType): Promise<number> {
     const startOfDay = tools.DateCalculator.getStartOfDayTsInTz({
       now: tools.Timestamp.parse(Date.now()),
       timeZoneOffsetMs: 0,
     });
 
-    return db.$count(Schema.alarms, gte(Schema.alarms.generatedAt, startOfDay));
+    return db.$count(
+      Schema.alarms,
+      and(gte(Schema.alarms.generatedAt, startOfDay), eq(Schema.alarms.userId, userId)),
+    );
   }
 
   static async getCreatedPerEntryId(entryId: VO.EntryIdType): Promise<number> {
