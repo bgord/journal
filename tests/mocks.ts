@@ -1,3 +1,4 @@
+// cspell:disable
 import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -20,7 +21,12 @@ export const entryId = bg.NewUUID.generate();
 
 export const alarmId = bg.NewUUID.generate();
 
+export const email = "admin@example.com";
+
+export const userId = bg.NewUUID.generate();
+
 export const weeklyReviewId = bg.NewUUID.generate();
+
 export const weekStartedAt = 1750636800000 as tools.TimestampType;
 
 export const correlationId = "00000000-0000-0000-0000-000000000000";
@@ -387,3 +393,26 @@ export const alarm: Schema.SelectAlarms = {
   emotionLabel: null,
   emotionIntensity: null,
 };
+
+export const user = {
+  name: email,
+  email: email,
+  emailVerified: false,
+  image: null,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  id: userId,
+};
+
+export const session = {
+  expiresAt: new Date(),
+  token: "wyNm82TTSvBtxXSh1mb7lZJ4WF557tv4",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  ipAddress: "",
+  userAgent: "Mozilla/5.0",
+  userId,
+  id: "JUFCrqCBwFT3MCJV0mAVYSXtLJOkNBVN",
+};
+
+export const auth = { user, session };
