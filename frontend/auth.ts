@@ -39,6 +39,23 @@ export class AuthGuard<T extends ReturnType<typeof createAuthClient>["$Infer"]["
     const session = await this.getServerSession(request);
     if (session?.user) throw redirect(target);
   }
+
+  async removeSession(request: Request, target = "/login"): Promise<void> {
+    const cookie = UI.Cookies.extractFrom(request);
+
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/sign-out`, {
+      method: "POST",
+      headers: { cookie },
+    });
+
+    const headers = new Headers();
+
+    res.headers.forEach((value, key) => {
+      if (key.toLowerCase() === "set-cookie") headers.append("set-cookie", value);
+    });
+
+    throw redirect(target, { headers });
+  }
 }
 
 export const guard = new AuthGuard<Session>(import.meta.env.VITE_API_URL);
