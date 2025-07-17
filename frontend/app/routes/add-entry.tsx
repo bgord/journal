@@ -16,7 +16,13 @@ export async function loader() {
 }
 
 export async function action({ request }: Route.ActionArgs) {
-  await API("/entry/log", { method: "POST", body: JSON.stringify(await request.json()) });
+  const cookie = request.headers.get("cookie") ?? "";
+
+  await API("/entry/log", {
+    method: "POST",
+    body: JSON.stringify(await request.json()),
+    headers: { cookie },
+  });
   return redirect("/");
 }
 
