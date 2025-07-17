@@ -79,6 +79,7 @@ export const alarmsRelations = relations(alarms, ({ one }) => ({
   entry: one(entries, { fields: [alarms.entryId], references: [entries.id] }),
 }));
 
+/** @public */
 export const users = sqliteTable("users", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -100,6 +101,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   entries: many(entries),
 }));
 
+/** @public */
 export const sessions = sqliteTable("sessions", {
   id: text("id").primaryKey(),
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
@@ -113,6 +115,7 @@ export const sessions = sqliteTable("sessions", {
     .references(() => users.id, { onDelete: "cascade" }),
 });
 
+/** @public */
 export const accounts = sqliteTable("accounts", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
@@ -131,6 +134,7 @@ export const accounts = sqliteTable("accounts", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });
 
+/** @public */
 export const verifications = sqliteTable("verifications", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),

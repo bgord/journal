@@ -20,8 +20,6 @@ export const auth = betterAuth({
   // TODO: wire up logger
 });
 
-export type SessionType = typeof auth.$Infer.Session;
-
 export type AuthVariables = {
   user: typeof auth.$Infer.Session.user;
   session: typeof auth.$Infer.Session.session;
