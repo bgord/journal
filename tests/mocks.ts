@@ -21,9 +21,11 @@ export const entryId = bg.NewUUID.generate();
 
 export const alarmId = bg.NewUUID.generate();
 
-export const email = "admin@example.com";
+export const email = "user@example.com";
+export const anotherEmail = "another@example.com";
 
 export const userId = bg.NewUUID.generate();
+export const anotherUserId = bg.NewUUID.generate();
 
 export const weeklyReviewId = bg.NewUUID.generate();
 
@@ -415,6 +417,16 @@ export const user = {
   id: userId,
 };
 
+export const anotherUser = {
+  name: anotherEmail,
+  email: anotherEmail,
+  emailVerified: false,
+  image: null,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  id: anotherUserId,
+};
+
 export const session = {
   expiresAt: new Date(),
   token: "wyNm82TTSvBtxXSh1mb7lZJ4WF557tv4",
@@ -426,4 +438,17 @@ export const session = {
   id: "JUFCrqCBwFT3MCJV0mAVYSXtLJOkNBVN",
 };
 
+export const anotherSession = {
+  expiresAt: new Date(),
+  token: "XFgejTtN28QI8cDEmE9Yb09yxRwQuGj0",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  ipAddress: "",
+  userAgent: "Mozilla/5.0",
+  userId,
+  id: "xXHd0LUChE6NiYnQXc8mwij7jjp5kUhs",
+};
+
 export const auth = { user, session };
+
+export const anotherAuth = { user: anotherUser, session: anotherSession };
