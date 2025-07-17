@@ -20,6 +20,7 @@ export class Entry {
 
   private readonly id: Emotions.VO.EntryIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.initial);
+  // @ts-expect-error
   private userId?: Auth.VO.UserIdType;
   private startedAt?: Emotions.VO.EntryStartedAtType;
   private finishedAt?: Emotions.VO.EntryFinishedAtType;
@@ -51,6 +52,7 @@ export class Entry {
     emotion: Emotions.Entities.Emotion,
     reaction: Emotions.Entities.Reaction,
     language: SupportedLanguages,
+    requesterId: Auth.VO.UserIdType,
   ) {
     await Emotions.Policies.OneSituationPerEntry.perform({ situation: this.situation });
 
@@ -67,6 +69,7 @@ export class Entry {
         location: situation.location.get(),
         kind: situation.kind.get(),
         language,
+        userId: requesterId,
       },
     } satisfies Emotions.Events.SituationLoggedEventType);
 
@@ -83,6 +86,7 @@ export class Entry {
         entryId: this.id,
         label: emotion.label.get(),
         intensity: emotion.intensity.get(),
+        userId: requesterId,
       },
     } satisfies Emotions.Events.EmotionLoggedEventType);
 
@@ -100,13 +104,14 @@ export class Entry {
         description: reaction.description.get(),
         type: reaction.type.get(),
         effectiveness: reaction.effectiveness.get(),
+        userId: requesterId,
       },
     } satisfies Emotions.Events.ReactionLoggedEventType);
 
     this.record(ReactionLoggedEvent);
   }
 
-  async reappraiseEmotion(newEmotion: Emotions.Entities.Emotion) {
+  async reappraiseEmotion(newEmotion: Emotions.Entities.Emotion, requesterId: Auth.VO.UserIdType) {
     await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
     await Emotions.Policies.EmotionCorrespondsToSituation.perform({ situation: this.situation });
     await Emotions.Policies.EmotionForReappraisalExists.perform({ emotion: this.emotion });
@@ -122,13 +127,14 @@ export class Entry {
         entryId: this.id,
         newLabel: newEmotion.label.get(),
         newIntensity: newEmotion.intensity.get(),
+        userId: requesterId,
       },
     } satisfies Emotions.Events.EmotionReappraisedEventType);
 
     this.record(event);
   }
 
-  async evaluateReaction(newReaction: Emotions.Entities.Reaction) {
+  async evaluateReaction(newReaction: Emotions.Entities.Reaction, requesterId: Auth.VO.UserIdType) {
     await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
     await Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.perform({
       situation: this.situation,
@@ -148,13 +154,14 @@ export class Entry {
         description: newReaction.description.get(),
         type: newReaction.type.get(),
         effectiveness: newReaction.effectiveness.get(),
+        userId: requesterId,
       },
     } satisfies Emotions.Events.ReactionEvaluatedEventType);
 
     this.record(event);
   }
 
-  async delete() {
+  async delete(requesterId: Auth.VO.UserIdType) {
     await Emotions.Policies.EntryHasBenStarted.perform({ situation: this.situation });
 
     const event = Emotions.Events.EntryDeletedEvent.parse({
@@ -164,7 +171,7 @@ export class Entry {
       name: Emotions.Events.ENTRY_DELETED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
-      payload: { entryId: this.id },
+      payload: { entryId: this.id, userId: requesterId },
     } satisfies Emotions.Events.EntryDeletedEventType);
 
     this.record(event);

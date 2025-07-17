@@ -9,6 +9,7 @@ export const handleLogEntryCommand = async (command: Emotions.Commands.LogEntryC
     command.payload.emotion,
     command.payload.reaction,
     command.payload.language,
+    command.payload.userId,
   );
 
   await EventStore.save(entry.pullEvents());
