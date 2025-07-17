@@ -56,6 +56,7 @@ export class EntryRepository {
       situationLocation: event.payload.location,
       revision: event.revision,
       language: event.payload.language,
+      userId: event.payload.userId,
     });
   }
 

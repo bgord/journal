@@ -367,6 +367,7 @@ export const partialEntry: Schema.SelectEntries = {
   reactionEffectiveness: null,
   reactionType: null,
   language: SupportedLanguages.en,
+  userId,
 };
 
 export const partialEntryFormatted: Schema.SelectEntriesFull = {
@@ -389,6 +390,7 @@ export const fullEntry: Schema.SelectEntries = {
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
   reactionEffectiveness: 1,
   language: SupportedLanguages.en,
+  userId,
 };
 
 export const fullEntryFormatted: Schema.SelectEntriesFull = {
