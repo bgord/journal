@@ -29,6 +29,7 @@ describe("DELETE /entry/:id/delete", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
+    jest.restoreAllMocks()
   });
 
   test("validation - EntryHasBeenStarted", async () => {
@@ -57,6 +58,37 @@ describe("DELETE /entry/:id/delete", () => {
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
     expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
+    jest.restoreAllMocks()
+  });
+
+  test("validation -  RequesterOwnsEntry", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
+
+    const entryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
+
+    const history = [mocks.GenericSituationLoggedEvent];
+
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+
+    const response = await server.request(
+      url,
+      { method: "DELETE", headers: mocks.revisionHeaders() },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.RequesterOwnsEntry.code);
+    expect(json).toEqual({ message: Emotions.Policies.RequesterOwnsEntry.message, _known: true });
+
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.entryId),
+    );
+    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
+    expect(entryDelete).toHaveBeenCalledWith(mocks.anotherUserId);
+    jest.restoreAllMocks();
   });
 
   test("happy path - after situation", async () => {

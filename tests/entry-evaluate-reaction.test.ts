@@ -31,6 +31,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       message: Emotions.VO.ReactionDescription.Errors.invalid,
       _known: true,
     });
+    jest.restoreAllMocks();
   });
 
   test("validation - missing type", async () => {
@@ -52,6 +53,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       message: Emotions.VO.ReactionType.Errors.invalid,
       _known: true,
     });
+    jest.restoreAllMocks();
   });
 
   test("validation - missing effectiveness", async () => {
@@ -76,6 +78,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       message: Emotions.VO.ReactionEffectiveness.Errors.min_max,
       _known: true,
     });
+    jest.restoreAllMocks();
   });
 
   test("validation - incorrect id", async () => {
@@ -90,6 +93,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
+    jest.restoreAllMocks();
   });
 
   test("validation - EntryIsActionable", async () => {
@@ -116,7 +120,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: mocks.revisionHeaders(),
+        headers: mocks.revisionHeaders(4),
       },
       mocks.ip,
     );
@@ -133,6 +137,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
+    jest.restoreAllMocks();
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
@@ -169,6 +174,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
+    jest.restoreAllMocks();
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
@@ -190,7 +196,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: mocks.revisionHeaders(),
+        headers: mocks.revisionHeaders(1),
       },
       mocks.ip,
     );
@@ -207,6 +213,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
+    jest.restoreAllMocks();
   });
 
   test("validation - ReactionForEvaluationExists", async () => {
@@ -228,7 +235,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: mocks.revisionHeaders(),
+        headers: mocks.revisionHeaders(2),
       },
       mocks.ip,
     );
@@ -245,6 +252,58 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
+    jest.restoreAllMocks()
+  });
+
+  test("validation -  RequesterOwnsEntry", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
+
+    const entryEvaluateReaction = spyOn(Emotions.Aggregates.Entry.prototype, "evaluateReaction");
+
+    const history = [
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+      mocks.GenericReactionLoggedEvent,
+    ];
+
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+
+    const payload = {
+      description: mocks.GenericReactionEvaluatedEvent.payload.description,
+      type: mocks.GenericReactionEvaluatedEvent.payload.type,
+      effectiveness: mocks.GenericReactionEvaluatedEvent.payload.effectiveness,
+    };
+
+    const reaction = new Emotions.Entities.Reaction(
+      new Emotions.VO.ReactionDescription(payload.description),
+      new Emotions.VO.ReactionType(payload.type),
+      new Emotions.VO.ReactionEffectiveness(payload.effectiveness),
+    );
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: mocks.revisionHeaders(3),
+      },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.RequesterOwnsEntry.code);
+    expect(json).toEqual({ message: Emotions.Policies.RequesterOwnsEntry.message, _known: true });
+
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.entryId),
+    );
+    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
+    expect(entryEvaluateReaction).toHaveBeenCalledWith(reaction, mocks.anotherUserId);
+
+    jest.restoreAllMocks();
   });
 
   test("happy path", async () => {
@@ -279,7 +338,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders(3) }),
       },
       mocks.ip,
     );

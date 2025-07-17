@@ -32,6 +32,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       message: Emotions.VO.EmotionLabel.Errors.invalid,
       _known: true,
     });
+    jest.restoreAllMocks();
   });
 
   test("validation - missing intensity", async () => {
@@ -53,6 +54,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       message: Emotions.VO.EmotionIntensity.Errors.min_max,
       _known: true,
     });
+    jest.restoreAllMocks();
   });
 
   test("validation - incorrect id", async () => {
@@ -70,6 +72,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
+    jest.restoreAllMocks();
   });
 
   test("validation - EntryIsActionable", async () => {
@@ -109,6 +112,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
+    jest.restoreAllMocks();
   });
 
   test("validation - EmotionCorrespondsToSituation", async () => {
@@ -142,6 +146,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
+    jest.restoreAllMocks();
   });
 
   test("validation - EmotionForReappraisalExists", async () => {
@@ -177,6 +182,53 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
+    jest.restoreAllMocks();
+  });
+
+  test("validation -  RequesterOwnsEntry", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
+
+    const entryReappraiseEmotion = spyOn(Emotions.Aggregates.Entry.prototype, "reappraiseEmotion");
+
+    const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
+
+    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+
+    const payload = {
+      label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,
+      intensity: mocks.GenericEmotionReappraisedEvent.payload.newIntensity,
+    };
+
+    const emotion = new Emotions.Entities.Emotion(
+      new Emotions.VO.EmotionLabel(payload.label),
+      new Emotions.VO.EmotionIntensity(payload.intensity),
+    );
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+      },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.RequesterOwnsEntry.code);
+    expect(json).toEqual({ message: Emotions.Policies.RequesterOwnsEntry.message, _known: true });
+
+    expect(eventStoreFind).toHaveBeenCalledWith(
+      Emotions.Aggregates.Entry.events,
+      Emotions.Aggregates.Entry.getStream(mocks.entryId),
+    );
+    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
+    expect(entryReappraiseEmotion).toHaveBeenCalledWith(emotion, mocks.anotherUserId);
+
+    jest.restoreAllMocks();
   });
 
   test("happy path", async () => {
