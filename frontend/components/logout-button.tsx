@@ -11,7 +11,7 @@ export function LogoutButton() {
       <button
         type="submit"
         className="c-button"
-        data-variant="secondary"
+        data-variant="bare"
         disabled={fetcher.state === "submitting"}
         onClick={() => signOut({ fetchOptions: { onSuccess: () => navigate("/") } })}
       >
