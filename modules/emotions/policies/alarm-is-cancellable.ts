@@ -13,7 +13,7 @@ type AlarmIsCancellableConfigType = { status: Emotions.VO.AlarmStatusEnum };
 
 class AlarmIsCancellableFactory extends bg.Policy<AlarmIsCancellableConfigType> {
   fails(config: AlarmIsCancellableConfigType) {
-    return config.status === Emotions.VO.AlarmStatusEnum.notification_sent;
+    return config.status === Emotions.VO.AlarmStatusEnum.cancelled;
   }
 
   message = "alarm.is.cancellable";

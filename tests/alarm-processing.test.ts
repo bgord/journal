@@ -191,6 +191,16 @@ describe("AlarmProcessing", () => {
 
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+      mocks.GenericAlarmNotificationSentEvent,
+    ]);
+
+    spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
+
     const saga = new Emotions.Sagas.AlarmProcessing(EventBus, openAiClient);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
@@ -198,6 +208,7 @@ describe("AlarmProcessing", () => {
     );
 
     expect(mailerSend).not.toHaveBeenCalled();
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
 
     jest.restoreAllMocks();
   });

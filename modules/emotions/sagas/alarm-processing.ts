@@ -136,8 +136,15 @@ export class AlarmProcessing {
     const notification = composer.compose(alarm.advice as VO.EmotionalAdviceType);
 
     if (!contact?.email) {
-      // TODO: Cancel alarm on contact info missing
-      return;
+      const command = Commands.CancelAlarmCommand.parse({
+        id: bg.NewUUID.generate(),
+        correlationId: bg.CorrelationStorage.get(),
+        name: Commands.CANCEL_ALARM_COMMAND,
+        createdAt: tools.Timestamp.parse(Date.now()),
+        payload: { alarmId: event.payload.alarmId },
+      } satisfies Commands.CancelAlarmCommandType);
+
+      return await CommandBus.emit(command.name, command);
     }
 
     // TODO: Cancel alarm on Mailer.send error
