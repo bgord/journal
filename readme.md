@@ -40,6 +40,8 @@ Run the tests
 ```
 modules/
 ├── auth
+│   ├── repositories
+│   │   └── user-repository.ts
 │   └── value-objects
 │       ├── password.ts
 │       └── user-id.ts
