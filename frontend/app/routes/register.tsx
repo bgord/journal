@@ -4,7 +4,7 @@ import React from "react";
 import { Form, Link } from "react-router";
 import type { types } from "../../../app/services/auth-form";
 import { AuthForm } from "../../../app/services/auth-form";
-import { authClient } from "../../auth";
+import { client } from "../../auth";
 import { requireNoSession } from "../../auth-guard";
 import type { Route } from "./+types/register";
 
@@ -31,7 +31,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
   const signUp = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    await authClient.signUp.email(
+    await client.signUp.email(
       { email: email.value, password: password.value, name: email.value },
       {
         onSuccess: () => setState(RegisterState.success),

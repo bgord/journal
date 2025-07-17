@@ -4,7 +4,7 @@ import React from "react";
 import * as RR from "react-router";
 import type { types } from "../../../app/services/auth-form";
 import { AuthForm } from "../../../app/services/auth-form";
-import { authClient } from "../../auth";
+import { client } from "../../auth";
 import { requireNoSession } from "../../auth-guard";
 import type { Route } from "./+types/login";
 
@@ -32,7 +32,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
     event.preventDefault();
     setState(LoginState.loading);
 
-    await authClient.signIn.email(
+    await client.signIn.email(
       { email: email.value, password: password.value },
       {
         onSuccess: () => navigate("/home", { replace: true }),
