@@ -39,6 +39,9 @@ Run the tests
 
 ```
 modules/
+├── auth
+│   └── value-objects
+│       └── password.ts
 └── emotions
     ├── aggregates
     │   ├── alarm.ts
@@ -187,6 +190,7 @@ modules/
 ```
 infra/
 ├── anthropic-ai-client.ts
+├── auth.ts
 ├── basic-auth-shield.ts
 ├── command-bus.ts
 ├── db.ts
