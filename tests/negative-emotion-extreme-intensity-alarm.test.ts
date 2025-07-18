@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
+// TODO: replace wth mocks.
 const trigger = Emotions.Services.Alarms.EntryAlarmTrigger.parse({
   type: Emotions.Services.Alarms.AlarmTriggerEnum.entry,
   entryId: mocks.NegativeEmotionExtremeIntensityLoggedEvent.payload.entryId,
