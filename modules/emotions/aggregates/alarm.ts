@@ -24,9 +24,7 @@ export class Alarm {
   // @ts-expect-error
   private generatedAt?: VO.AlarmGeneratedAtType;
 
-  private trigger?: VO.AlarmTriggerType;
-  // @ts-expect-error
-  private name?: VO.AlarmNameOption;
+  private detection?: Alarms.AlarmDetection;
   private advice?: VO.EmotionalAdvice;
 
   private readonly pending: AlarmEventType[] = [];
@@ -81,7 +79,7 @@ export class Alarm {
       payload: {
         alarmId: this.id,
         advice: advice.get(),
-        trigger: this.trigger as VO.AlarmTriggerType,
+        trigger: this.detection?.trigger as VO.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.AlarmAdviceSavedEventType);
@@ -104,7 +102,7 @@ export class Alarm {
       version: 1,
       payload: {
         alarmId: this.id,
-        trigger: this.trigger as VO.AlarmTriggerType,
+        trigger: this.detection?.trigger as VO.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.AlarmNotificationSentEventType);
@@ -144,9 +142,8 @@ export class Alarm {
   private apply(event: AlarmEventType): void {
     switch (event.name) {
       case Events.ALARM_GENERATED_EVENT: {
-        this.trigger = event.payload.trigger;
+        this.detection = new Alarms.AlarmDetection(event.payload.trigger, event.payload.alarmName);
         this.userId = event.payload.userId;
-        this.name = event.payload.alarmName;
         this.status = VO.AlarmStatusEnum.generated;
         this.generatedAt = event.createdAt;
         break;
