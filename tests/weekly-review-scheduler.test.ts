@@ -8,7 +8,7 @@ import * as mocks from "./mocks";
 describe("WeeklyReviewScheduler", () => {
   test("correct path - single user", async () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
-    spyOn(Emotions.Repos.EntryRepository, "countInWeekFor").mockResolvedValue(1);
+    spyOn(Emotions.Queries.CountEntriesPerWeekForUser, "execute").mockResolvedValue(1);
     spyOn(Date, "now").mockReturnValue(mocks.weekStartedAt);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -24,7 +24,7 @@ describe("WeeklyReviewScheduler", () => {
 
   test("EntriesForWeekExist", async () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
-    spyOn(Emotions.Repos.EntryRepository, "countInWeekFor").mockResolvedValue(0);
+    spyOn(Emotions.Queries.CountEntriesPerWeekForUser, "execute").mockResolvedValue(0);
     spyOn(Date, "now").mockReturnValue(mocks.weekStartedAt);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());

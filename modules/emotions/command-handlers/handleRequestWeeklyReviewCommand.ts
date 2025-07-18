@@ -6,14 +6,14 @@ import * as tools from "@bgord/tools";
 export const handleRequestWeeklyReviewCommand = async (
   command: Emotions.Commands.RequestWeeklyReviewCommandType,
 ) => {
-  const entriesFromTheWeekCount = await Emotions.Repos.EntryRepository.countInWeekFor(
+  const entriesPerWeekForUserCount = await Emotions.Queries.CountEntriesPerWeekForUser.execute(
     command.payload.userId,
     command.payload.weekStart.get(),
   );
 
   if (
     Emotions.Policies.EntriesForWeekExist.fails({
-      count: entriesFromTheWeekCount,
+      count: entriesPerWeekForUserCount,
       userId: command.payload.userId,
     })
   ) {
