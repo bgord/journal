@@ -23,7 +23,7 @@ describe("WeeklyReview", () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, []);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await weeklyReview.request(weekStart);
+      await weeklyReview.request(weekStart, mocks.userId);
     });
 
     expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewRequestedEvent]);
@@ -34,7 +34,7 @@ describe("WeeklyReview", () => {
       mocks.GenericWeeklyReviewRequestedEvent,
     ]);
 
-    expect(async () => weeklyReview.request(weekStart)).toThrow(
+    expect(async () => weeklyReview.request(weekStart, mocks.userId)).toThrow(
       Emotions.Policies.WeeklyReviewRequestedOnce.error,
     );
 

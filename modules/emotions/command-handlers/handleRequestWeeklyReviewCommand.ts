@@ -21,14 +21,14 @@ export const handleRequestWeeklyReviewCommand = async (
         name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
         stream: "weekly_review_skipped",
         version: 1,
-        payload: { weekStartedAt: command.payload.weekStart.get() },
+        payload: { weekStartedAt: command.payload.weekStart.get(), userId: command.payload.userId },
       } satisfies Emotions.Events.WeeklyReviewSkippedEventType),
     ]);
 
     return;
   }
 
-  await weeklyReview.request(command.payload.weekStart);
+  await weeklyReview.request(command.payload.weekStart, command.payload.userId);
 
   await EventStore.save(weeklyReview.pullEvents());
 };

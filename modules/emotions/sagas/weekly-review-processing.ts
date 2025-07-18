@@ -29,7 +29,7 @@ export class WeeklyReviewProcessing {
 
     await Mailer.send({
       from: "journal@example.com",
-      to: "example@abc.com",
+      to: event.payload.userId,
       subject: "Weekly Review - come back and journal",
       html: notification,
     });

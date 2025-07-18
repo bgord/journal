@@ -1,3 +1,4 @@
+import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Policies from "+emotions/policies";
 import * as VO from "+emotions/value-objects";
@@ -17,6 +18,7 @@ export class WeeklyReview {
   ];
 
   private readonly id: VO.WeeklyReviewIdType;
+  private userId?: Auth.VO.UserIdType;
   private weekStartedAt?: tools.TimestampType;
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
   // @ts-expect-error
@@ -40,7 +42,7 @@ export class WeeklyReview {
     return entry;
   }
 
-  async request(weekStart: VO.WeekStart) {
+  async request(weekStart: VO.WeekStart, requesterId: Auth.VO.UserIdType) {
     await Policies.WeeklyReviewRequestedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewRequestedEvent.parse({
@@ -50,7 +52,7 @@ export class WeeklyReview {
       name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
       stream: WeeklyReview.getStream(this.id),
       version: 1,
-      payload: { weeklyReviewId: this.id, weekStartedAt: weekStart.get() },
+      payload: { weeklyReviewId: this.id, weekStartedAt: weekStart.get(), userId: requesterId },
     } satisfies Events.WeeklyReviewRequestedEventType);
 
     this.record(event);
@@ -70,6 +72,7 @@ export class WeeklyReview {
         weeklyReviewId: this.id,
         weekStartedAt: this.weekStartedAt as tools.TimestampType,
         insights: insights.get(),
+        userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.WeeklyReviewCompletedEventType);
 
@@ -89,6 +92,7 @@ export class WeeklyReview {
       payload: {
         weeklyReviewId: this.id,
         weekStartedAt: this.weekStartedAt as tools.TimestampType,
+        userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.WeeklyReviewFailedEventType);
 

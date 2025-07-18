@@ -10,6 +10,7 @@ class EntriesForWeekExistError extends Error {
 
 type EntriesForWeekExistConfigType = { count: number };
 
+// TODO: per user
 class EntriesForWeekExistFactory extends bg.Policy<EntriesForWeekExistConfigType> {
   fails(config: EntriesForWeekExistConfigType) {
     return config.count === 0;
