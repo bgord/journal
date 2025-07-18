@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -10,7 +11,10 @@ export const RequestWeeklyReviewCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(REQUEST_WEEKLY_REVIEW_COMMAND),
-  payload: z.object({ weekStart: z.instanceof(VO.WeekStart) }),
+  payload: z.object({
+    weekStart: z.instanceof(VO.WeekStart),
+    userId: Auth.VO.UserId,
+  }),
 });
 
 export type RequestWeeklyReviewCommandType = z.infer<typeof RequestWeeklyReviewCommand>;
