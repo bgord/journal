@@ -8,6 +8,7 @@ import { z } from "zod/v4";
 export type EntryEvent = (typeof Entry)["events"][number];
 type EntryEventType = z.infer<EntryEvent>;
 
+// TODO: Tighten-up types
 export class Entry {
   static events = [
     Emotions.Events.SituationLoggedEvent,

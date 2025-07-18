@@ -43,7 +43,7 @@ export class AlarmProcessing {
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
         alarmName: detection.name,
-        entryId: event.payload.entryId,
+        trigger: detection.trigger,
         userId: event.payload.userId,
       },
     } satisfies Commands.GenerateAlarmCommandType);
@@ -51,6 +51,7 @@ export class AlarmProcessing {
     await CommandBus.emit(command.name, command);
   }
 
+  // TODO: Bundle with onEmotionLoggedEvent
   async onEmotionReappraisedEvent(event: Events.EmotionReappraisedEventType) {
     const detection = Services.AlarmDetector.detect({
       event,
@@ -66,7 +67,7 @@ export class AlarmProcessing {
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
         alarmName: detection.name,
-        entryId: event.payload.entryId,
+        trigger: detection.trigger,
         userId: event.payload.userId,
       },
     } satisfies Commands.GenerateAlarmCommandType);
