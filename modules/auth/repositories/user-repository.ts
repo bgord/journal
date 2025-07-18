@@ -10,4 +10,12 @@ export class UserRepository {
       columns: { email: true },
     });
   }
+
+  static async listIds(): Promise<UserIdType[]> {
+    const result = await db.query.users.findMany({
+      columns: { id: true },
+    });
+
+    return result.map((user) => user.id);
+  }
 }
