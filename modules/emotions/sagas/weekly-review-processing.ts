@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
 import * as Repos from "+emotions/repositories";
@@ -22,17 +23,23 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewSkippedEvent(event: Events.WeeklyReviewSkippedEventType) {
+    const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
+
     const weekStart = VO.WeekStart.fromTimestamp(event.payload.weekStartedAt);
     const composer = new Services.WeeklyReviewSkippedNotificationComposer();
 
     const notification = composer.compose(weekStart);
 
-    await Mailer.send({
-      from: "journal@example.com",
-      to: event.payload.userId,
-      subject: "Weekly Review - come back and journal",
-      html: notification,
-    });
+    if (!contact?.email) return;
+
+    try {
+      await Mailer.send({
+        from: "journal@example.com",
+        to: contact?.email,
+        subject: "Weekly Review - come back and journal",
+        html: notification,
+      });
+    } catch (error) {}
   }
 
   async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {

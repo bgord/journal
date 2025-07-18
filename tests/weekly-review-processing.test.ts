@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -12,6 +13,7 @@ const openAiClient = new OpenAiClient();
 
 describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
@@ -22,10 +24,42 @@ describe("WeeklyReviewProcessing", () => {
 
     expect(mailerSend).toHaveBeenCalledWith({
       from: "journal@example.com",
-      to: "example@abc.com",
+      to: mocks.email,
       subject: "Weekly Review - come back and journal",
       html: `Week you missed ${mocks.weekStartedAt}`,
     });
+
+    jest.restoreAllMocks();
+  });
+
+  test("onWeeklyReviewSkippedEvent - no email", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
+
+    const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
+    );
+
+    expect(mailerSend).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
+  test("onWeeklyReviewSkippedEvent - mailer failed", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
+      throw new Error("MAILER_FAILED");
+    });
+
+    const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
+    );
+
+    expect(mailerSend).not.toHaveBeenCalled();
 
     jest.restoreAllMocks();
   });
