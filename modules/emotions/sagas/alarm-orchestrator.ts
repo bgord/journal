@@ -3,6 +3,7 @@ import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
+import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
@@ -27,13 +28,15 @@ export class AlarmOrchestrator {
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
+    const detection = new Alarms.AlarmDetection(event.payload.trigger, event.payload.alarmName);
+
     // TODO: handle other types
-    if (event.payload.trigger.type === VO.AlarmTriggerEnum.entry) {
-      const entry = await Repos.EntryRepository.getByIdRaw(event.payload.trigger.entryId);
+    if (detection.trigger.type === VO.AlarmTriggerEnum.entry) {
+      const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
 
       const prompt = new Services.EmotionalAdvicePrompt(
         entry,
-        event.payload.alarmName,
+        detection.name,
         entry.language as SupportedLanguages,
       ).generate();
 
@@ -45,11 +48,7 @@ export class AlarmOrchestrator {
           correlationId: bg.CorrelationStorage.get(),
           name: Commands.SAVE_ALARM_ADVICE_COMMAND,
           createdAt: tools.Timestamp.parse(Date.now()),
-          payload: {
-            alarmId: event.payload.alarmId,
-            advice: new VO.EmotionalAdvice(advice),
-            trigger: event.payload.trigger,
-          },
+          payload: { alarmId: event.payload.alarmId, advice: new VO.EmotionalAdvice(advice) },
         } satisfies Commands.SaveAlarmAdviceCommandType);
 
         await CommandBus.emit(command.name, command);
@@ -73,10 +72,7 @@ export class AlarmOrchestrator {
       correlationId: bg.CorrelationStorage.get(),
       name: Commands.SEND_ALARM_NOTIFICATION_COMMAND,
       createdAt: tools.Timestamp.parse(Date.now()),
-      payload: {
-        alarmId: event.payload.alarmId,
-        trigger: event.payload.trigger,
-      },
+      payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.SendAlarmNotificationCommandType);
 
     await CommandBus.emit(command.name, command);
@@ -84,8 +80,10 @@ export class AlarmOrchestrator {
 
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
     // TODO: handle other types
-    if (event.payload.trigger.type === VO.AlarmTriggerEnum.entry) {
-      const entry = await Repos.EntryRepository.getByIdRaw(event.payload.trigger.entryId);
+    const detection = new Alarms.AlarmDetection(event.payload.trigger, event.payload.alarmName);
+
+    if (detection.trigger.type === VO.AlarmTriggerEnum.entry) {
+      const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
       const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
       const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 

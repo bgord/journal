@@ -313,13 +313,7 @@ export const GenericAlarmAdviceSavedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
   version: 1,
-  payload: {
-    advice: "You should do something",
-    alarmId,
-    trigger: entryDetection.trigger,
-    alarmName: entryDetection.name,
-    userId,
-  },
+  payload: { advice: "You should do something", alarmId, userId },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
 
 export const GenericAlarmNotificationSentEvent = {

@@ -19,6 +19,7 @@ export class EntryAlarmDetector {
       event,
       alarms: [Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
     });
+
     if (!detection) return;
 
     const command = Commands.GenerateAlarmCommand.parse({

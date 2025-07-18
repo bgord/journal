@@ -14,13 +14,7 @@ export const AlarmAdviceSavedEvent = z.object({
   name: z.literal(ALARM_ADVICE_SAVED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({
-    alarmId: VO.AlarmId,
-    advice: VO.EmotionalAdviceSchema,
-    alarmName: VO.AlarmName,
-    trigger: VO.AlarmTrigger,
-    userId: Auth.VO.UserId,
-  }),
+  payload: z.object({ alarmId: VO.AlarmId, advice: VO.EmotionalAdviceSchema, userId: Auth.VO.UserId }),
 });
 
 export type AlarmAdviceSavedEventType = z.infer<typeof AlarmAdviceSavedEvent>;
