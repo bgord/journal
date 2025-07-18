@@ -4,11 +4,6 @@ import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const detection = new Emotions.Services.Alarms.AlarmDetection(
-  mocks.entryTrigger,
-  Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-);
-
 describe("AlarmFactory", () => {
   test("correct path", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
@@ -17,7 +12,7 @@ describe("AlarmFactory", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Emotions.Services.AlarmFactory.create(detection, mocks.userId);
+      await Emotions.Services.AlarmFactory.create(mocks.entryDetection, mocks.userId);
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
@@ -32,7 +27,7 @@ describe("AlarmFactory", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Emotions.Services.AlarmFactory.create(detection, mocks.userId);
+      await Emotions.Services.AlarmFactory.create(mocks.entryDetection, mocks.userId);
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
@@ -45,7 +40,7 @@ describe("AlarmFactory", () => {
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    expect(async () => Emotions.Services.AlarmFactory.create(detection, mocks.userId)).toThrow(
+    expect(async () => Emotions.Services.AlarmFactory.create(mocks.entryDetection, mocks.userId)).toThrow(
       Emotions.Policies.DailyAlarmLimit.error,
     );
 
@@ -59,7 +54,7 @@ describe("AlarmFactory", () => {
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(2);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    expect(async () => Emotions.Services.AlarmFactory.create(detection, mocks.userId)).toThrow(
+    expect(async () => Emotions.Services.AlarmFactory.create(mocks.entryDetection, mocks.userId)).toThrow(
       Emotions.Policies.EntryAlarmLimit.error,
     );
 

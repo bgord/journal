@@ -42,6 +42,11 @@ export const entryTrigger = {
   entryId,
 } as const;
 
+export const entryDetection = new Emotions.Services.Alarms.AlarmDetection(
+  entryTrigger,
+  Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+);
+
 export const inactivityTrigger = {
   type: Emotions.VO.AlarmTriggerEnum.inactivity,
   inactivityDays: 7,
