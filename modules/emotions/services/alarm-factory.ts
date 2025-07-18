@@ -13,14 +13,12 @@ export class AlarmFactory {
     trigger: Alarms.AlarmTriggerType,
     requesterId: Auth.VO.UserIdType,
   ) {
-    await Policies.DailyAlarmLimit.perform({
-      count: await Queries.CountTodaysAlarmsForUser.execute(requesterId),
-    });
-
     // TODO: Clean up policies per trigger type
     if (trigger.type === Alarms.AlarmTriggerEnum.entry) {
-      const entryAlarmsCount = await Queries.CountAlarmsForEntry.execute(trigger.entryId);
+      const alarmsTodayForUserCount = await Queries.CountTodaysAlarmsForUser.execute(requesterId);
+      await Policies.DailyAlarmLimit.perform({ count: alarmsTodayForUserCount });
 
+      const entryAlarmsCount = await Queries.CountAlarmsForEntry.execute(trigger.entryId);
       await Policies.EntryAlarmLimit.perform({ count: entryAlarmsCount });
     }
 

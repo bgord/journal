@@ -42,6 +42,12 @@ export const entryTrigger = {
   entryId,
 } as const;
 
+export const inactivityTrigger = {
+  type: Emotions.Services.Alarms.AlarmTriggerEnum.inactivity,
+  inactivityDays: 7,
+  lastEntryTimestamp: tools.Timestamp.parse(Date.now()),
+} as const;
+
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
@@ -276,6 +282,21 @@ export const GenericAlarmGeneratedEvent = {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     alarmId,
     trigger: entryTrigger,
+    userId,
+  },
+} satisfies Emotions.Events.AlarmGeneratedEventType;
+
+export const GenericInactivityAlarmGeneratedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: expect.any(String),
+  name: Emotions.Events.ALARM_GENERATED_EVENT,
+  version: 1,
+  payload: {
+    alarmName: Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
+    alarmId,
+    trigger: inactivityTrigger,
     userId,
   },
 } satisfies Emotions.Events.AlarmGeneratedEventType;
