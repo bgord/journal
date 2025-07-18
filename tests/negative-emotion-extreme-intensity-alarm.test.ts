@@ -9,7 +9,7 @@ const detection = new Emotions.Services.Alarms.AlarmDetection(
 
 describe("NegativeEmotionExtremeIntensityAlarm", () => {
   test("true - EMOTION_LOGGED_EVENT", () => {
-    const result = Emotions.Services.AlarmDetector.detect({
+    const result = Emotions.Services.EmotionAlarmDetector.detect({
       event: mocks.NegativeEmotionExtremeIntensityLoggedEvent,
       alarms: [Emotions.Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
     });
@@ -18,7 +18,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
   });
 
   test("true - EMOTION_REAPPRAISED_EVENT", () => {
-    const result = Emotions.Services.AlarmDetector.detect({
+    const result = Emotions.Services.EmotionAlarmDetector.detect({
       event: mocks.NegativeEmotionExtremeIntensityReappraisedEvent,
       alarms: [Emotions.Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
     });
@@ -27,7 +27,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
   });
 
   test("false", () => {
-    const result = Emotions.Services.AlarmDetector.detect({
+    const result = Emotions.Services.EmotionAlarmDetector.detect({
       event: mocks.GenericEmotionLoggedEvent,
       alarms: [Emotions.Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
     });
@@ -36,7 +36,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
   });
 
   test("false", () => {
-    const result = Emotions.Services.AlarmDetector.detect({
+    const result = Emotions.Services.EmotionAlarmDetector.detect({
       event: mocks.GenericEmotionReappraisedEvent,
       alarms: [Emotions.Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
     });

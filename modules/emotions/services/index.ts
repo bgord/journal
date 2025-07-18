@@ -1,7 +1,7 @@
 export * from "./ai-client";
-export * from "./alarm-detector";
 export * from "./alarm-factory";
 export * as Alarms from "./alarms";
+export * from "./emotion-alarm-detector";
 export * from "./emotional-advice-notification-composer";
 export * from "./emotional-advice-prompt";
 export * from "./inactivity-alarm-scheduler";

@@ -3,7 +3,7 @@ import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 
 /** @public */
-export class NegativeEmotionExtremeIntensityAlarm extends Alarms.AlarmTemplate {
+export class NegativeEmotionExtremeIntensityAlarm extends Alarms.EmotionAlarmTemplate {
   name = VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
 
   check(event: Alarms.AlarmEventToBeChecked): Alarms.AlarmDetection | null {

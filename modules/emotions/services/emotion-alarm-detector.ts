@@ -3,10 +3,10 @@ import * as tools from "@bgord/tools";
 
 type AlarmGeneratorConfigType = {
   event: Alarms.AlarmEventToBeChecked;
-  alarms: tools.Constructor<Alarms.AlarmTemplate>[];
+  alarms: tools.Constructor<Alarms.EmotionAlarmTemplate>[];
 };
 
-export class AlarmDetector {
+export class EmotionAlarmDetector {
   static detect(config: AlarmGeneratorConfigType): Alarms.AlarmDetection | null {
     const result = config.alarms
       .map((Alarm) => new Alarm().check(config.event))
