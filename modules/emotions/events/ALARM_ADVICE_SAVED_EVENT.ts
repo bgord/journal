@@ -1,4 +1,5 @@
 import * as Auth from "+auth";
+import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -17,7 +18,7 @@ export const AlarmAdviceSavedEvent = z.object({
   payload: z.object({
     alarmId: VO.AlarmId,
     advice: VO.EmotionalAdviceSchema,
-    entryId: VO.EntryId,
+    trigger: Alarms.AlarmTrigger,
     userId: Auth.VO.UserId,
   }),
 });
