@@ -11,4 +11,10 @@ const WeeklyReviewSchedulerJob = new Cron(
   JobHandler.handle(Emotions.Services.WeeklyReviewScheduler),
 );
 
-export const jobs = { WeeklyReviewSchedulerJob };
+const InactivityAlarmSchedulerJob = new Cron(
+  Emotions.Services.InactivityAlarmScheduler.cron,
+  { protect: JobHandler.protect },
+  JobHandler.handle(Emotions.Services.InactivityAlarmScheduler),
+);
+
+export const jobs = { WeeklyReviewSchedulerJob, InactivityAlarmSchedulerJob };

@@ -29,6 +29,7 @@ export class AlarmProcessing {
     this.eventBus.on(Events.EMOTION_REAPPRAISED_EVENT, this.onEmotionReappraisedEvent.bind(this));
   }
 
+  // TODO: Should I extract the emotion event handlers?
   async onEmotionLoggedEvent(event: Events.EmotionLoggedEventType) {
     const detection = Services.AlarmDetector.detect({
       event,
@@ -52,7 +53,6 @@ export class AlarmProcessing {
     await CommandBus.emit(command.name, command);
   }
 
-  // TODO: Bundle with onEmotionLoggedEvent
   async onEmotionReappraisedEvent(event: Events.EmotionReappraisedEventType) {
     const detection = Services.AlarmDetector.detect({
       event,
