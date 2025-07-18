@@ -1,3 +1,3 @@
 export * from "./alarm-template";
-export * from "./negative-emotion-extreme-intensity-alarm";
 export * from "./alarm-trigger";
+export * from "./negative-emotion-extreme-intensity-alarm";

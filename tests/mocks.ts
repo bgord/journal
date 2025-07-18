@@ -45,7 +45,7 @@ export const GenericSituationLoggedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     description: "I finished a project",
     kind: Emotions.VO.SituationKindOptions.achievement,
     location: "work",
@@ -62,7 +62,7 @@ export const GenericEmotionLoggedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     label: Emotions.VO.GenevaWheelEmotion.gratitude,
     intensity: 3,
     userId,
@@ -77,7 +77,7 @@ export const GenericReactionLoggedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     description: "Got drunk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
     effectiveness: 1,
@@ -93,7 +93,7 @@ export const GenericEmotionReappraisedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.joy,
     newIntensity: 3,
     userId,
@@ -108,7 +108,7 @@ export const GenericReactionEvaluatedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     description: "Went to bed",
     type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
     effectiveness: 2,
@@ -124,7 +124,7 @@ export const PositiveEmotionLoggedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     label: Emotions.VO.GenevaWheelEmotion.joy,
     intensity: 4,
     userId,
@@ -139,7 +139,7 @@ export const NegativeEmotionLoggedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
     intensity: 4,
     userId,
@@ -154,7 +154,7 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
     intensity: 5,
     userId,
@@ -169,7 +169,7 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.anger,
     newIntensity: 5,
     userId,
@@ -184,7 +184,7 @@ export const MaladaptiveReactionLoggedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     description: "Got drunk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
     effectiveness: 1,
@@ -200,7 +200,7 @@ export const AdaptiveReactionLoggedEvent = {
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   payload: {
-    entryId: entryId,
+    entryId,
     description: "Went for a walk",
     type: Emotions.VO.GrossEmotionRegulationStrategy.reappraisal,
     effectiveness: 4,
@@ -215,7 +215,7 @@ export const GenericEntryDeletedEvent = {
   name: Emotions.Events.ENTRY_DELETED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  payload: { entryId: entryId, userId },
+  payload: { entryId, userId },
 } satisfies Emotions.Events.EntryDeletedEventType;
 
 export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
@@ -270,7 +270,7 @@ export const GenericAlarmGeneratedEvent = {
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     alarmId,
-    entryId: entryId,
+    entryId,
     userId,
   },
 } satisfies Emotions.Events.AlarmGeneratedEventType;

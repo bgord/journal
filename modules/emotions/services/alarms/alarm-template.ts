@@ -1,8 +1,10 @@
 import type * as Events from "+emotions/events";
 import type * as VO from "+emotions/value-objects";
+import type { AlarmTriggerType } from "./alarm-trigger";
 
 export type AlarmApplicableCheckOutputType = {
   applicable: true;
+  trigger: AlarmTriggerType;
   name: VO.AlarmNameOption;
 };
 

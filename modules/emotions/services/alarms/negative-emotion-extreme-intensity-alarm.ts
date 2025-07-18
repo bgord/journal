@@ -7,12 +7,18 @@ export class NegativeEmotionExtremeIntensityAlarm extends Alarms.AlarmTemplate {
   name = VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
 
   check(event: Alarms.AlarmEventToBeChecked): Alarms.AlarmCheckOutputType {
+    const trigger = Alarms.EntryAlarmTrigger.parse({
+      type: Alarms.AlarmTriggerEnum.entry,
+      entryId: event.payload.entryId,
+    } satisfies Alarms.EntryAlarmTriggerType);
+
     switch (event.name) {
       case Events.EMOTION_LOGGED_EVENT: {
         const emotionLabel = new VO.EmotionLabel(event.payload.label);
         const emotionIntensity = new VO.EmotionIntensity(event.payload.intensity);
 
         return {
+          trigger,
           applicable: emotionLabel.isNegative() && emotionIntensity.isExtreme(),
           name: this.name,
         };
@@ -22,6 +28,7 @@ export class NegativeEmotionExtremeIntensityAlarm extends Alarms.AlarmTemplate {
         const emotionIntensity = new VO.EmotionIntensity(event.payload.newIntensity);
 
         return {
+          trigger,
           applicable: emotionLabel.isNegative() && emotionIntensity.isExtreme(),
           name: this.name,
         };

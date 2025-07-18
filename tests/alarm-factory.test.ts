@@ -5,6 +5,10 @@ import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 const detection: Emotions.Services.Alarms.AlarmApplicableCheckOutputType = {
+  trigger: Emotions.Services.Alarms.EntryAlarmTrigger.parse({
+    type: Emotions.Services.Alarms.AlarmTriggerEnum.entry,
+    entryId: mocks.entryId,
+  }),
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
   applicable: true,
 };
