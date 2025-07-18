@@ -38,12 +38,12 @@ export const revision = new tools.Revision(0);
 export const revisionHeaders = (revision: tools.RevisionValueType = 0) => ({ "if-match": `W/${revision}` });
 
 export const entryTrigger = {
-  type: Emotions.Services.Alarms.AlarmTriggerEnum.entry,
+  type: Emotions.VO.AlarmTriggerEnum.entry,
   entryId,
 } as const;
 
 export const inactivityTrigger = {
-  type: Emotions.Services.Alarms.AlarmTriggerEnum.inactivity,
+  type: Emotions.VO.AlarmTriggerEnum.inactivity,
   inactivityDays: 7,
   lastEntryTimestamp: tools.Timestamp.parse(Date.now()),
 } as const;

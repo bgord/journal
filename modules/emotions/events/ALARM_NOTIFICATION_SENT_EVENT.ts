@@ -1,5 +1,4 @@
 import * as Auth from "+auth";
-import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -17,7 +16,7 @@ export const AlarmNotificationSentEvent = z.object({
   revision: tools.RevisionValue.optional(),
   payload: z.object({
     alarmId: VO.AlarmId,
-    trigger: Alarms.AlarmTrigger,
+    trigger: VO.AlarmTrigger,
     userId: Auth.VO.UserId,
   }),
 });

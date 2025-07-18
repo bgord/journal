@@ -1,6 +1,6 @@
-import * as VO from "+emotions/value-objects";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
+import { EntryId } from "./entry-id";
 
 export enum AlarmTriggerEnum {
   entry = "entry",
@@ -9,7 +9,7 @@ export enum AlarmTriggerEnum {
 
 export const EntryAlarmTrigger = z.object({
   type: z.literal(AlarmTriggerEnum.entry),
-  entryId: VO.EntryId,
+  entryId: EntryId,
 });
 export type EntryAlarmTriggerType = z.infer<typeof EntryAlarmTrigger>;
 

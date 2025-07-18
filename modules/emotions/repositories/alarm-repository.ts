@@ -1,5 +1,4 @@
 import type * as Events from "+emotions/events";
-import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
@@ -17,9 +16,7 @@ export class AlarmRepository {
       id: event.payload.alarmId,
       name: event.payload.alarmName,
       entryId:
-        event.payload.trigger.type === Alarms.AlarmTriggerEnum.entry
-          ? event.payload.trigger.entryId
-          : undefined,
+        event.payload.trigger.type === VO.AlarmTriggerEnum.entry ? event.payload.trigger.entryId : undefined,
       status: VO.AlarmStatusEnum.generated,
       generatedAt: event.createdAt,
       emotionLabel: emotion?.label,

@@ -1,7 +1,6 @@
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Policies from "+emotions/policies";
-import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -24,7 +23,7 @@ export class Alarm {
   // @ts-expect-error
   private generatedAt?: VO.AlarmGeneratedAtType;
 
-  private trigger?: Alarms.AlarmTriggerType;
+  private trigger?: VO.AlarmTriggerType;
   // @ts-expect-error
   private name?: VO.AlarmNameOption;
   private advice?: VO.EmotionalAdvice;
@@ -48,7 +47,7 @@ export class Alarm {
   }
 
   async _generate(
-    trigger: Alarms.AlarmTriggerType,
+    trigger: VO.AlarmTriggerType,
     alarmName: VO.AlarmNameType,
     requesterId: Auth.VO.UserIdType,
   ) {
@@ -80,7 +79,7 @@ export class Alarm {
       payload: {
         alarmId: this.id,
         advice: advice.get(),
-        trigger: this.trigger as Alarms.AlarmTriggerType,
+        trigger: this.trigger as VO.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.AlarmAdviceSavedEventType);
@@ -103,7 +102,7 @@ export class Alarm {
       version: 1,
       payload: {
         alarmId: this.id,
-        trigger: this.trigger as Alarms.AlarmTriggerType,
+        trigger: this.trigger as VO.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.AlarmNotificationSentEventType);

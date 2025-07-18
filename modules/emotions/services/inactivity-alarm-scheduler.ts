@@ -23,7 +23,7 @@ export class InactivityAlarmScheduler {
       const detection: Alarms.AlarmApplicableCheckOutputType = {
         name: VO.AlarmNameOption.INACTIVITY_ALARM,
         trigger: {
-          type: Alarms.AlarmTriggerEnum.inactivity,
+          type: VO.AlarmTriggerEnum.inactivity,
           inactivityDays: 7,
           lastEntryTimestamp: tools.Timestamp.parse(lastEntryTimestamp),
         },

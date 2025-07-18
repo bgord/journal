@@ -7,10 +7,10 @@ export class NegativeEmotionExtremeIntensityAlarm extends Alarms.AlarmTemplate {
   name = VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
 
   check(event: Alarms.AlarmEventToBeChecked): Alarms.AlarmCheckOutputType {
-    const trigger = Alarms.EntryAlarmTrigger.parse({
-      type: Alarms.AlarmTriggerEnum.entry,
+    const trigger = VO.EntryAlarmTrigger.parse({
+      type: VO.AlarmTriggerEnum.entry,
       entryId: event.payload.entryId,
-    } satisfies Alarms.EntryAlarmTriggerType);
+    } satisfies VO.EntryAlarmTriggerType);
 
     switch (event.name) {
       case Events.EMOTION_LOGGED_EVENT: {
