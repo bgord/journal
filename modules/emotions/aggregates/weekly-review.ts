@@ -117,6 +117,7 @@ export class WeeklyReview {
       case Events.WEEKLY_REVIEW_REQUESTED_EVENT: {
         this.weekStartedAt = event.payload.weekStartedAt;
         this.status = VO.WeeklyReviewStatusEnum.requested;
+        this.userId = event.payload.userId;
         break;
       }
 
