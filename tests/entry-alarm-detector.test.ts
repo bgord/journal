@@ -15,7 +15,7 @@ describe("EntryAlarmDetector", () => {
     const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
+      saga.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
@@ -32,7 +32,7 @@ describe("EntryAlarmDetector", () => {
     const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      expect(async () => saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
+      expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
         Emotions.Policies.DailyAlarmLimit.error,
       ),
     );
@@ -50,7 +50,7 @@ describe("EntryAlarmDetector", () => {
     const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      expect(async () => saga.onEmotionLoggedEvent(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
+      expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
         Emotions.Policies.EntryAlarmLimit.error,
       ),
     );
@@ -69,7 +69,7 @@ describe("EntryAlarmDetector", () => {
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
-      async () => await saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
+      async () => await saga.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
@@ -86,9 +86,9 @@ describe("EntryAlarmDetector", () => {
     const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      expect(async () =>
-        saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
-      ).toThrow(Emotions.Policies.DailyAlarmLimit.error),
+      expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent)).toThrow(
+        Emotions.Policies.DailyAlarmLimit.error,
+      ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
 
@@ -104,9 +104,9 @@ describe("EntryAlarmDetector", () => {
     const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      expect(async () =>
-        saga.onEmotionReappraisedEvent(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
-      ).toThrow(Emotions.Policies.EntryAlarmLimit.error),
+      expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent)).toThrow(
+        Emotions.Policies.EntryAlarmLimit.error,
+      ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
 
