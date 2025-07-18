@@ -5,6 +5,7 @@ export * as Entities from "./entities";
 export * as EventHandlers from "./event-handlers";
 export * as Events from "./events";
 export * as Policies from "./policies";
+export * as Queries from "./queries";
 export * as Repos from "./repositories";
 export * as Routes from "./routes";
 export * as Sagas from "./sagas";

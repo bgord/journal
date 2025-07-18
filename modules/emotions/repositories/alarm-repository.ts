@@ -1,11 +1,9 @@
-import type * as Auth from "+auth";
 import type * as Events from "+emotions/events";
 import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import * as tools from "@bgord/tools";
-import { and, eq, gte, notInArray } from "drizzle-orm";
+import { and, eq, notInArray } from "drizzle-orm";
 
 export class AlarmRepository {
   static async generate(
@@ -73,19 +71,6 @@ export class AlarmRepository {
           ]),
         ),
       );
-  }
-
-  // TODO: domain query
-  static async getCreatedTodayCountFor(userId: Auth.VO.UserIdType): Promise<number> {
-    const startOfDay = tools.DateCalculator.getStartOfDayTsInTz({
-      now: tools.Timestamp.parse(Date.now()),
-      timeZoneOffsetMs: 0,
-    });
-
-    return db.$count(
-      Schema.alarms,
-      and(gte(Schema.alarms.generatedAt, startOfDay), eq(Schema.alarms.userId, userId)),
-    );
   }
 
   // TODO: domain query

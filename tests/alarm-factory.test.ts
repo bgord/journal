@@ -13,7 +13,7 @@ const detection: Emotions.Services.Alarms.AlarmApplicableCheckOutputType = {
 describe("AlarmFactory", () => {
   test("correct path", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
-    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCountFor").mockResolvedValue(0);
+    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(0);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -28,7 +28,7 @@ describe("AlarmFactory", () => {
 
   test("correct path - at the limit", async () => {
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
-    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCountFor").mockResolvedValue(9);
+    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(9);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(1);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -42,7 +42,7 @@ describe("AlarmFactory", () => {
   });
 
   test("DailyAlarmLimit - above the limit", async () => {
-    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCountFor").mockResolvedValue(10);
+    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(10);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -56,7 +56,7 @@ describe("AlarmFactory", () => {
   });
 
   test("EntryAlarmLimit - above the limit", async () => {
-    spyOn(Emotions.Repos.AlarmRepository, "getCreatedTodayCountFor").mockResolvedValue(0);
+    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(0);
     spyOn(Emotions.Repos.AlarmRepository, "getCreatedPerEntryId").mockResolvedValue(2);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
