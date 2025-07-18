@@ -2,7 +2,6 @@ import type * as Auth from "+auth";
 import * as Aggregates from "+emotions/aggregates";
 import * as Policies from "+emotions/policies";
 import * as Queries from "+emotions/queries";
-import * as Repos from "+emotions/repositories";
 import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import { EventStore } from "+infra/event-store";
@@ -14,12 +13,13 @@ export class AlarmFactory {
     trigger: Alarms.AlarmTriggerType,
     requesterId: Auth.VO.UserIdType,
   ) {
-    const dailyAlarmsCount = await Queries.CountTodaysAlarmsForUser.execute(requesterId);
-    await Policies.DailyAlarmLimit.perform({ count: dailyAlarmsCount });
+    await Policies.DailyAlarmLimit.perform({
+      count: await Queries.CountTodaysAlarmsForUser.execute(requesterId),
+    });
 
     // TODO: Clean up policies per trigger type
     if (trigger.type === Alarms.AlarmTriggerEnum.entry) {
-      const entryAlarmsCount = await Repos.AlarmRepository.getCreatedPerEntryId(trigger.entryId);
+      const entryAlarmsCount = await Queries.CountAlarmsForEntry.execute(trigger.entryId);
 
       await Policies.EntryAlarmLimit.perform({ count: entryAlarmsCount });
     }

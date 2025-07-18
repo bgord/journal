@@ -72,9 +72,4 @@ export class AlarmRepository {
         ),
       );
   }
-
-  // TODO: domain query
-  static async getCreatedPerEntryId(entryId: VO.EntryIdType): Promise<number> {
-    return db.$count(Schema.alarms, eq(Schema.alarms.entryId, entryId));
-  }
 }
