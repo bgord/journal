@@ -15,7 +15,7 @@ export type AlarmCheckOutputType = AlarmApplicableCheckOutputType | AlarmNotAppl
 
 export type AlarmEventToBeChecked = Events.EmotionLoggedEventType | Events.EmotionReappraisedEventType;
 
-export abstract class Alarm {
+export abstract class AlarmTemplate {
   abstract name: VO.AlarmNameOption;
 
   abstract check(event: AlarmEventToBeChecked): AlarmCheckOutputType;

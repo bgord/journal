@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 
 type AlarmGeneratorConfigType = {
   event: Alarms.AlarmEventToBeChecked;
-  alarms: tools.Constructor<Alarms.Alarm>[];
+  alarms: tools.Constructor<Alarms.AlarmTemplate>[];
 };
 
 export class AlarmDetector {
