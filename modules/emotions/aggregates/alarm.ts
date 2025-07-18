@@ -1,6 +1,7 @@
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Policies from "+emotions/policies";
+import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -23,7 +24,7 @@ export class Alarm {
   // @ts-expect-error
   private generatedAt?: VO.AlarmGeneratedAtType;
 
-  private entryId?: VO.EntryIdType;
+  private trigger?: Alarms.AlarmTriggerType;
   // @ts-expect-error
   private name?: VO.AlarmNameOption;
   private advice?: VO.EmotionalAdvice;
@@ -46,7 +47,11 @@ export class Alarm {
     return entry;
   }
 
-  async _generate(entryId: VO.EntryIdType, alarmName: VO.AlarmNameType, requesterId: Auth.VO.UserIdType) {
+  async _generate(
+    trigger: Alarms.AlarmTriggerType,
+    alarmName: VO.AlarmNameType,
+    requesterId: Auth.VO.UserIdType,
+  ) {
     await Policies.AlarmGeneratedOnce.perform({ status: this.status });
 
     const event = Events.AlarmGeneratedEvent.parse({
@@ -56,12 +61,7 @@ export class Alarm {
       name: Events.ALARM_GENERATED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
-      payload: {
-        alarmId: this.id,
-        alarmName,
-        entryId,
-        userId: requesterId,
-      },
+      payload: { alarmId: this.id, alarmName, trigger, userId: requesterId },
     } satisfies Events.AlarmGeneratedEventType);
 
     this.record(event);
@@ -80,7 +80,7 @@ export class Alarm {
       payload: {
         alarmId: this.id,
         advice: advice.get(),
-        entryId: this.entryId as VO.EntryIdType,
+        trigger: this.trigger as Alarms.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.AlarmAdviceSavedEventType);
@@ -103,7 +103,7 @@ export class Alarm {
       version: 1,
       payload: {
         alarmId: this.id,
-        entryId: this.entryId as VO.EntryIdType,
+        trigger: this.trigger as Alarms.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.AlarmNotificationSentEventType);
@@ -143,7 +143,7 @@ export class Alarm {
   private apply(event: AlarmEventType): void {
     switch (event.name) {
       case Events.ALARM_GENERATED_EVENT: {
-        this.entryId = event.payload.entryId;
+        this.trigger = event.payload.trigger;
         this.userId = event.payload.userId;
         this.name = event.payload.alarmName;
         this.status = VO.AlarmStatusEnum.generated;

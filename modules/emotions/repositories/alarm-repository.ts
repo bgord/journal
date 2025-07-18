@@ -1,5 +1,6 @@
 import type * as Auth from "+auth";
 import type * as Events from "+emotions/events";
+import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
@@ -20,16 +21,19 @@ export class AlarmRepository {
       intensity: Schema.SelectEntries["emotionIntensity"];
     },
   ) {
-    await db.insert(Schema.alarms).values({
-      id: event.payload.alarmId,
-      name: event.payload.alarmName,
-      entryId: event.payload.entryId,
-      status: VO.AlarmStatusEnum.generated,
-      generatedAt: event.createdAt,
-      emotionLabel: emotion.label,
-      emotionIntensity: emotion.intensity,
-      userId: event.payload.userId,
-    });
+    // TODO handle other
+    if (event.payload.trigger.type === Alarms.AlarmTriggerEnum.entry) {
+      await db.insert(Schema.alarms).values({
+        id: event.payload.alarmId,
+        name: event.payload.alarmName,
+        entryId: event.payload.trigger.entryId,
+        status: VO.AlarmStatusEnum.generated,
+        generatedAt: event.createdAt,
+        emotionLabel: emotion.label,
+        emotionIntensity: emotion.intensity,
+        userId: event.payload.userId,
+      });
+    }
   }
 
   static async saveAdvice(event: Events.AlarmAdviceSavedEventType) {

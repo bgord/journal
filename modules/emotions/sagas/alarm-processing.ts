@@ -3,6 +3,7 @@ import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
+import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
@@ -76,40 +77,43 @@ export class AlarmProcessing {
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
-    const entry = await Repos.EntryRepository.getByIdRaw(event.payload.entryId);
+    // TODO: handle other types
+    if (event.payload.trigger.type === Alarms.AlarmTriggerEnum.entry) {
+      const entry = await Repos.EntryRepository.getByIdRaw(event.payload.trigger.entryId);
 
-    const prompt = new Services.EmotionalAdvicePrompt(
-      entry,
-      event.payload.alarmName,
-      entry.language as SupportedLanguages,
-    ).generate();
+      const prompt = new Services.EmotionalAdvicePrompt(
+        entry,
+        event.payload.alarmName,
+        entry.language as SupportedLanguages,
+      ).generate();
 
-    try {
-      const advice = await this.AiClient.request(prompt);
+      try {
+        const advice = await this.AiClient.request(prompt);
 
-      const command = Commands.SaveAlarmAdviceCommand.parse({
-        id: bg.NewUUID.generate(),
-        correlationId: bg.CorrelationStorage.get(),
-        name: Commands.SAVE_ALARM_ADVICE_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
-        payload: {
-          alarmId: event.payload.alarmId,
-          advice: new VO.EmotionalAdvice(advice),
-          entryId: event.payload.entryId,
-        },
-      } satisfies Commands.SaveAlarmAdviceCommandType);
+        const command = Commands.SaveAlarmAdviceCommand.parse({
+          id: bg.NewUUID.generate(),
+          correlationId: bg.CorrelationStorage.get(),
+          name: Commands.SAVE_ALARM_ADVICE_COMMAND,
+          createdAt: tools.Timestamp.parse(Date.now()),
+          payload: {
+            alarmId: event.payload.alarmId,
+            advice: new VO.EmotionalAdvice(advice),
+            trigger: event.payload.trigger,
+          },
+        } satisfies Commands.SaveAlarmAdviceCommandType);
 
-      await CommandBus.emit(command.name, command);
-    } catch (_error) {
-      const command = Commands.CancelAlarmCommand.parse({
-        id: bg.NewUUID.generate(),
-        correlationId: bg.CorrelationStorage.get(),
-        name: Commands.CANCEL_ALARM_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
-        payload: { alarmId: event.payload.alarmId },
-      } satisfies Commands.CancelAlarmCommandType);
+        await CommandBus.emit(command.name, command);
+      } catch (_error) {
+        const command = Commands.CancelAlarmCommand.parse({
+          id: bg.NewUUID.generate(),
+          correlationId: bg.CorrelationStorage.get(),
+          name: Commands.CANCEL_ALARM_COMMAND,
+          createdAt: tools.Timestamp.parse(Date.now()),
+          payload: { alarmId: event.payload.alarmId },
+        } satisfies Commands.CancelAlarmCommandType);
 
-      await CommandBus.emit(command.name, command);
+        await CommandBus.emit(command.name, command);
+      }
     }
   }
 
@@ -121,7 +125,7 @@ export class AlarmProcessing {
       createdAt: tools.Timestamp.parse(Date.now()),
       payload: {
         alarmId: event.payload.alarmId,
-        entryId: event.payload.entryId,
+        trigger: event.payload.trigger,
       },
     } satisfies Commands.SendAlarmNotificationCommandType);
 
@@ -129,56 +133,59 @@ export class AlarmProcessing {
   }
 
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
-    const entry = await Repos.EntryRepository.getByIdRaw(event.payload.entryId);
-    const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
-    const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
+    // TODO: handle other types
+    if (event.payload.trigger.type === Alarms.AlarmTriggerEnum.entry) {
+      const entry = await Repos.EntryRepository.getByIdRaw(event.payload.trigger.entryId);
+      const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
+      const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 
-    const composer = new Services.EmotionalAdviceNotificationComposer(entry);
-    const notification = composer.compose(alarm.advice as VO.EmotionalAdviceType);
+      const composer = new Services.EmotionalAdviceNotificationComposer(entry);
+      const notification = composer.compose(alarm.advice as VO.EmotionalAdviceType);
 
-    if (!contact?.email) {
-      const command = Commands.CancelAlarmCommand.parse({
-        id: bg.NewUUID.generate(),
-        correlationId: bg.CorrelationStorage.get(),
-        name: Commands.CANCEL_ALARM_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
-        payload: { alarmId: event.payload.alarmId },
-      } satisfies Commands.CancelAlarmCommandType);
+      if (!contact?.email) {
+        const command = Commands.CancelAlarmCommand.parse({
+          id: bg.NewUUID.generate(),
+          correlationId: bg.CorrelationStorage.get(),
+          name: Commands.CANCEL_ALARM_COMMAND,
+          createdAt: tools.Timestamp.parse(Date.now()),
+          payload: { alarmId: event.payload.alarmId },
+        } satisfies Commands.CancelAlarmCommandType);
 
-      return await CommandBus.emit(command.name, command);
-    }
+        return await CommandBus.emit(command.name, command);
+      }
 
-    if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_DISABLED)) {
-      return logger.info({
-        message: "[FF_MAILER_DISABLED] - email message",
-        correlationId: bg.CorrelationStorage.get(),
-        operation: "email_send",
-        metadata: {
+      if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_DISABLED)) {
+        return logger.info({
+          message: "[FF_MAILER_DISABLED] - email message",
+          correlationId: bg.CorrelationStorage.get(),
+          operation: "email_send",
+          metadata: {
+            from: "journal@example.com",
+            to: contact.email,
+            subject: notification.subject,
+            html: notification.content,
+          },
+        });
+      }
+
+      try {
+        await Mailer.send({
           from: "journal@example.com",
           to: contact.email,
           subject: notification.subject,
           html: notification.content,
-        },
-      });
-    }
+        });
+      } catch (_error) {
+        const command = Commands.CancelAlarmCommand.parse({
+          id: bg.NewUUID.generate(),
+          correlationId: bg.CorrelationStorage.get(),
+          name: Commands.CANCEL_ALARM_COMMAND,
+          createdAt: tools.Timestamp.parse(Date.now()),
+          payload: { alarmId: event.payload.alarmId },
+        } satisfies Commands.CancelAlarmCommandType);
 
-    try {
-      await Mailer.send({
-        from: "journal@example.com",
-        to: contact.email,
-        subject: notification.subject,
-        html: notification.content,
-      });
-    } catch (_error) {
-      const command = Commands.CancelAlarmCommand.parse({
-        id: bg.NewUUID.generate(),
-        correlationId: bg.CorrelationStorage.get(),
-        name: Commands.CANCEL_ALARM_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
-        payload: { alarmId: event.payload.alarmId },
-      } satisfies Commands.CancelAlarmCommandType);
-
-      return await CommandBus.emit(command.name, command);
+        return await CommandBus.emit(command.name, command);
+      }
     }
   }
 

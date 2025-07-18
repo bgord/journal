@@ -1,3 +1,4 @@
+import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -13,7 +14,7 @@ export const SaveAlarmAdviceCommand = z.object({
   payload: z.object({
     alarmId: VO.AlarmId,
     advice: z.instanceof(VO.EmotionalAdvice),
-    entryId: VO.EntryId,
+    trigger: Alarms.AlarmTrigger,
   }),
 });
 
