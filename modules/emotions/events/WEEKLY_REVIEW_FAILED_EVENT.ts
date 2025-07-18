@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -13,7 +14,11 @@ export const WeeklyReviewFailedEvent = z.object({
   name: z.literal(WEEKLY_REVIEW_FAILED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ weeklyReviewId: VO.WeeklyReviewId, weekStartedAt: tools.Timestamp }),
+  payload: z.object({
+    weeklyReviewId: VO.WeeklyReviewId,
+    weekStartedAt: tools.Timestamp,
+    userId: Auth.VO.UserId,
+  }),
 });
 
 export type WeeklyReviewFailedEventType = z.infer<typeof WeeklyReviewFailedEvent>;

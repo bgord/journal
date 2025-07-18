@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
@@ -12,7 +13,7 @@ export const WeeklyReviewSkippedEvent = z.object({
   name: z.literal(WEEKLY_REVIEW_SKIPPED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ weekStartedAt: tools.Timestamp }),
+  payload: z.object({ weekStartedAt: tools.Timestamp, userId: Auth.VO.UserId }),
 });
 
 export type WeeklyReviewSkippedEventType = z.infer<typeof WeeklyReviewSkippedEvent>;

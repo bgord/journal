@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -17,6 +18,7 @@ export const WeeklyReviewCompletedEvent = z.object({
     weeklyReviewId: VO.WeeklyReviewId,
     weekStartedAt: tools.Timestamp,
     insights: VO.EmotionalAdviceSchema,
+    userId: Auth.VO.UserId,
   }),
 });
 

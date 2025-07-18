@@ -317,7 +317,7 @@ export const GenericWeeklyReviewRequestedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
   version: 1,
-  payload: { weekStartedAt, weeklyReviewId },
+  payload: { weekStartedAt, weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewRequestedEventType;
 
 export const GenericWeeklyReviewSkippedEvent = {
@@ -327,7 +327,7 @@ export const GenericWeeklyReviewSkippedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
   version: 1,
-  payload: { weekStartedAt },
+  payload: { weekStartedAt, userId },
 } satisfies Emotions.Events.WeeklyReviewSkippedEventType;
 
 export const GenericWeeklyReviewCompletedEvent = {
@@ -341,6 +341,7 @@ export const GenericWeeklyReviewCompletedEvent = {
     insights: "Good job",
     weeklyReviewId,
     weekStartedAt,
+    userId,
   },
 } satisfies Emotions.Events.WeeklyReviewCompletedEventType;
 
@@ -351,7 +352,7 @@ export const GenericWeeklyReviewFailedEvent = {
   stream: expect.any(String),
   name: "WEEKLY_REVIEW_FAILED_EVENT",
   version: 1,
-  payload: { weekStartedAt, weeklyReviewId },
+  payload: { weekStartedAt, weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
 
 export const partialEntry: Schema.SelectEntries = {
