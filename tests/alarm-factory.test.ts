@@ -4,11 +4,10 @@ import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const detection: Emotions.Services.Alarms.AlarmApplicableCheckOutputType = {
-  trigger: mocks.entryTrigger,
-  name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-  applicable: true,
-};
+const detection = new Emotions.Services.Alarms.AlarmDetection(
+  mocks.entryTrigger,
+  Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+);
 
 describe("AlarmFactory", () => {
   test("correct path", async () => {

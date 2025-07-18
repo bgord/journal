@@ -1,23 +1,21 @@
 import type * as Events from "+emotions/events";
 import type * as VO from "+emotions/value-objects";
 
-export type AlarmApplicableCheckOutputType = {
-  applicable: true;
-  trigger: VO.AlarmTriggerType;
-  name: VO.AlarmNameOption;
-};
+// TODO: cleanup
+// trigger and name should travel together
+// alarm-factory and so on
 
-type AlarmNotApplicableCheckOutputType = {
-  applicable: false;
-  name: VO.AlarmNameOption;
-};
-
-export type AlarmCheckOutputType = AlarmApplicableCheckOutputType | AlarmNotApplicableCheckOutputType;
+export class AlarmDetection {
+  constructor(
+    readonly trigger: VO.AlarmTriggerType,
+    readonly name: VO.AlarmNameOption,
+  ) {}
+}
 
 export type AlarmEventToBeChecked = Events.EmotionLoggedEventType | Events.EmotionReappraisedEventType;
 
 export abstract class AlarmTemplate {
   abstract name: VO.AlarmNameOption;
 
-  abstract check(event: AlarmEventToBeChecked): AlarmCheckOutputType;
+  abstract check(event: AlarmEventToBeChecked): AlarmDetection | null;
 }

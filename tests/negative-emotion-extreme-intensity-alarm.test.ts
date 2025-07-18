@@ -2,6 +2,11 @@ import { describe, expect, test } from "bun:test";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
+const detection = new Emotions.Services.Alarms.AlarmDetection(
+  mocks.entryTrigger,
+  Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+);
+
 describe("NegativeEmotionExtremeIntensityAlarm", () => {
   test("true - EMOTION_LOGGED_EVENT", () => {
     const result = Emotions.Services.AlarmDetector.detect({
@@ -9,11 +14,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
       alarms: [Emotions.Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
     });
 
-    expect(result).toEqual({
-      trigger: mocks.entryTrigger,
-      applicable: true,
-      name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-    });
+    expect(result).toEqual(detection);
   });
 
   test("true - EMOTION_REAPPRAISED_EVENT", () => {
@@ -22,11 +23,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
       alarms: [Emotions.Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
     });
 
-    expect(result).toEqual({
-      trigger: mocks.entryTrigger,
-      applicable: true,
-      name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-    });
+    expect(result).toEqual(detection);
   });
 
   test("false", () => {

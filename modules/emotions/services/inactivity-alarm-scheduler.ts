@@ -20,15 +20,13 @@ export class InactivityAlarmScheduler {
       const lastEntryTimestamp = await Queries.GetLatestEntryTimestampForUser.execute(userId);
       await Policies.NoEntriesInTheLastWeek.perform({ lastEntryTimestamp });
 
-      const detection: Alarms.AlarmApplicableCheckOutputType = {
-        name: VO.AlarmNameOption.INACTIVITY_ALARM,
-        trigger: {
-          type: VO.AlarmTriggerEnum.inactivity,
-          inactivityDays: 7,
-          lastEntryTimestamp: tools.Timestamp.parse(lastEntryTimestamp),
-        },
-        applicable: true,
-      };
+      const trigger = {
+        type: VO.AlarmTriggerEnum.inactivity,
+        inactivityDays: 7,
+        lastEntryTimestamp: tools.Timestamp.parse(lastEntryTimestamp),
+      } as const;
+
+      const detection = new Alarms.AlarmDetection(trigger, VO.AlarmNameOption.INACTIVITY_ALARM);
 
       const command = Commands.GenerateAlarmCommand.parse({
         id: bg.NewUUID.generate(),

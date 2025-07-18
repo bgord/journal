@@ -6,7 +6,7 @@ import * as VO from "+emotions/value-objects";
 export class NegativeEmotionExtremeIntensityAlarm extends Alarms.AlarmTemplate {
   name = VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
 
-  check(event: Alarms.AlarmEventToBeChecked): Alarms.AlarmCheckOutputType {
+  check(event: Alarms.AlarmEventToBeChecked): Alarms.AlarmDetection | null {
     const trigger = VO.EntryAlarmTrigger.parse({
       type: VO.AlarmTriggerEnum.entry,
       entryId: event.payload.entryId,
@@ -17,24 +17,24 @@ export class NegativeEmotionExtremeIntensityAlarm extends Alarms.AlarmTemplate {
         const emotionLabel = new VO.EmotionLabel(event.payload.label);
         const emotionIntensity = new VO.EmotionIntensity(event.payload.intensity);
 
-        return {
-          trigger,
-          applicable: emotionLabel.isNegative() && emotionIntensity.isExtreme(),
-          name: this.name,
-        };
+        const applicable = emotionLabel.isNegative() && emotionIntensity.isExtreme();
+
+        if (!applicable) return null;
+
+        return new Alarms.AlarmDetection(trigger, this.name);
       }
       case Events.EMOTION_REAPPRAISED_EVENT: {
         const emotionLabel = new VO.EmotionLabel(event.payload.newLabel);
         const emotionIntensity = new VO.EmotionIntensity(event.payload.newIntensity);
 
-        return {
-          trigger,
-          applicable: emotionLabel.isNegative() && emotionIntensity.isExtreme(),
-          name: this.name,
-        };
+        const applicable = emotionLabel.isNegative() && emotionIntensity.isExtreme();
+
+        if (!applicable) return null;
+
+        return new Alarms.AlarmDetection(trigger, this.name);
       }
       default:
-        return { applicable: false, name: this.name };
+        return null;
     }
   }
 }
