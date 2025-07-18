@@ -79,6 +79,7 @@ export class Alarm {
       payload: {
         alarmId: this.id,
         advice: advice.get(),
+        alarmName: this.detection?.name as VO.AlarmNameType,
         trigger: this.detection?.trigger as VO.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
       },
@@ -102,6 +103,7 @@ export class Alarm {
       version: 1,
       payload: {
         alarmId: this.id,
+        alarmName: this.detection?.name as VO.AlarmNameType,
         trigger: this.detection?.trigger as VO.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
       },

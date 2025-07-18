@@ -17,6 +17,7 @@ export const AlarmAdviceSavedEvent = z.object({
   payload: z.object({
     alarmId: VO.AlarmId,
     advice: VO.EmotionalAdviceSchema,
+    alarmName: VO.AlarmName,
     trigger: VO.AlarmTrigger,
     userId: Auth.VO.UserId,
   }),

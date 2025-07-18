@@ -16,6 +16,7 @@ export const AlarmNotificationSentEvent = z.object({
   revision: tools.RevisionValue.optional(),
   payload: z.object({
     alarmId: VO.AlarmId,
+    alarmName: VO.AlarmName,
     trigger: VO.AlarmTrigger,
     userId: Auth.VO.UserId,
   }),
