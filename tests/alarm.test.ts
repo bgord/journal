@@ -4,6 +4,11 @@ import * as tools from "@bgord/tools";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
+const detection = new Emotions.Services.Alarms.AlarmDetection(
+  mocks.entryTrigger,
+  Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
+);
+
 describe("Alarm", () => {
   test("create new aggregate", () => {
     expect(() => Emotions.Aggregates.Alarm.create(mocks.alarmId)).not.toThrow();
@@ -20,11 +25,7 @@ describe("Alarm", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, []);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await alarm._generate(
-        mocks.entryTrigger,
-        Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-        mocks.userId,
-      );
+      await alarm._generate(detection, mocks.userId);
     });
 
     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmGeneratedEvent]);
@@ -33,13 +34,9 @@ describe("Alarm", () => {
   test("generate - AlarmGeneratedOnce", async () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
 
-    expect(async () =>
-      alarm._generate(
-        mocks.entryTrigger,
-        Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-        mocks.userId,
-      ),
-    ).toThrow(Emotions.Policies.AlarmGeneratedOnce.error);
+    expect(async () => alarm._generate(detection, mocks.userId)).toThrow(
+      Emotions.Policies.AlarmGeneratedOnce.error,
+    );
 
     expect(alarm.pullEvents()).toEqual([]);
   });

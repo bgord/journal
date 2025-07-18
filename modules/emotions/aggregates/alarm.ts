@@ -1,6 +1,7 @@
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Policies from "+emotions/policies";
+import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -46,11 +47,7 @@ export class Alarm {
     return entry;
   }
 
-  async _generate(
-    trigger: VO.AlarmTriggerType,
-    alarmName: VO.AlarmNameType,
-    requesterId: Auth.VO.UserIdType,
-  ) {
+  async _generate(detection: Alarms.AlarmDetection, requesterId: Auth.VO.UserIdType) {
     await Policies.AlarmGeneratedOnce.perform({ status: this.status });
 
     const event = Events.AlarmGeneratedEvent.parse({
@@ -60,7 +57,12 @@ export class Alarm {
       name: Events.ALARM_GENERATED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
-      payload: { alarmId: this.id, alarmName, trigger, userId: requesterId },
+      payload: {
+        alarmId: this.id,
+        alarmName: detection.name,
+        trigger: detection.trigger,
+        userId: requesterId,
+      },
     } satisfies Events.AlarmGeneratedEventType);
 
     this.record(event);
