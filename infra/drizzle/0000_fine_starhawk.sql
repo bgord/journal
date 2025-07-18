@@ -18,7 +18,7 @@ CREATE TABLE `accounts` (
 CREATE TABLE `alarms` (
 	`id` text(36) PRIMARY KEY NOT NULL,
 	`generatedAt` integer NOT NULL,
-	`entryId` text(36) NOT NULL,
+	`entryId` text(36),
 	`userId` text(36) NOT NULL,
 	`status` text NOT NULL,
 	`name` text NOT NULL,

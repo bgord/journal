@@ -16,24 +16,24 @@ export class AlarmRepository {
 
   static async generate(
     event: Events.AlarmGeneratedEventType,
-    emotion: {
+    emotion?: {
       label: Schema.SelectEntries["emotionLabel"];
       intensity: Schema.SelectEntries["emotionIntensity"];
     },
   ) {
-    // TODO handle other
-    if (event.payload.trigger.type === Alarms.AlarmTriggerEnum.entry) {
-      await db.insert(Schema.alarms).values({
-        id: event.payload.alarmId,
-        name: event.payload.alarmName,
-        entryId: event.payload.trigger.entryId,
-        status: VO.AlarmStatusEnum.generated,
-        generatedAt: event.createdAt,
-        emotionLabel: emotion.label,
-        emotionIntensity: emotion.intensity,
-        userId: event.payload.userId,
-      });
-    }
+    await db.insert(Schema.alarms).values({
+      id: event.payload.alarmId,
+      name: event.payload.alarmName,
+      entryId:
+        event.payload.trigger.type === Alarms.AlarmTriggerEnum.entry
+          ? event.payload.trigger.entryId
+          : undefined,
+      status: VO.AlarmStatusEnum.generated,
+      generatedAt: event.createdAt,
+      emotionLabel: emotion?.label,
+      emotionIntensity: emotion?.intensity,
+      userId: event.payload.userId,
+    });
   }
 
   static async saveAdvice(event: Events.AlarmAdviceSavedEventType) {

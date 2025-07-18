@@ -65,9 +65,7 @@ export const entriesRelations = relations(entries, ({ one, many }) => ({
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
-  entryId: text("entryId", { length: 36 })
-    .references(() => entries.id)
-    .notNull(),
+  entryId: text("entryId", { length: 36 }).references(() => entries.id),
   userId: text("userId", { length: 36 })
     .references(() => entries.id)
     .notNull(),
