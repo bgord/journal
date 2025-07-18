@@ -1,2 +1,2 @@
-export * from "./alarm-processing";
+export * from "./alarm-orchestrator";
 export * from "./weekly-review-processing";

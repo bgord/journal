@@ -14,7 +14,7 @@ import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-export class AlarmProcessing {
+export class AlarmOrchestrator {
   constructor(
     private readonly eventBus: typeof EventBus,
     private readonly AiClient: Services.AiClient,
