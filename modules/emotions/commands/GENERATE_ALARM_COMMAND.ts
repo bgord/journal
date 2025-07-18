@@ -1,5 +1,5 @@
 import * as Auth from "+auth";
-import * as VO from "+emotions/value-objects";
+import * as Alarms from "+emotions/services/alarms";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
@@ -11,7 +11,7 @@ export const GenerateAlarmCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(GENERATE_ALARM_COMMAND),
-  payload: z.object({ alarmName: VO.AlarmName, trigger: VO.AlarmTrigger, userId: Auth.VO.UserId }),
+  payload: z.object({ detection: z.instanceof(Alarms.AlarmDetection), userId: Auth.VO.UserId }),
 });
 
 export type GenerateAlarmCommandType = z.infer<typeof GenerateAlarmCommand>;
