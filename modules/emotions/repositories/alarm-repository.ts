@@ -8,12 +8,6 @@ import * as tools from "@bgord/tools";
 import { and, eq, gte, notInArray } from "drizzle-orm";
 
 export class AlarmRepository {
-  static async getById(id: VO.AlarmIdType): Promise<Schema.SelectAlarms> {
-    const result = await db.select().from(Schema.alarms).where(eq(Schema.alarms.id, id));
-
-    return result[0] as Schema.SelectAlarms;
-  }
-
   static async generate(
     event: Events.AlarmGeneratedEventType,
     emotion?: {
@@ -53,6 +47,19 @@ export class AlarmRepository {
       .where(eq(Schema.alarms.id, event.payload.alarmId));
   }
 
+  static async cancel(event: Events.AlarmCancelledEventType) {
+    await db
+      .update(Schema.alarms)
+      .set({ status: VO.AlarmStatusEnum.cancelled })
+      .where(eq(Schema.alarms.id, event.payload.alarmId));
+  }
+
+  static async getById(id: VO.AlarmIdType): Promise<Schema.SelectAlarms> {
+    const result = await db.select().from(Schema.alarms).where(eq(Schema.alarms.id, id));
+
+    return result[0] as Schema.SelectAlarms;
+  }
+
   static async findCancellableByEntryId(entryId: VO.EntryIdType) {
     return db
       .select({ id: Schema.alarms.id })
@@ -68,13 +75,7 @@ export class AlarmRepository {
       );
   }
 
-  static async cancel(event: Events.AlarmCancelledEventType) {
-    await db
-      .update(Schema.alarms)
-      .set({ status: VO.AlarmStatusEnum.cancelled })
-      .where(eq(Schema.alarms.id, event.payload.alarmId));
-  }
-
+  // TODO: domain query
   static async getCreatedTodayCountFor(userId: Auth.VO.UserIdType): Promise<number> {
     const startOfDay = tools.DateCalculator.getStartOfDayTsInTz({
       now: tools.Timestamp.parse(Date.now()),
@@ -87,6 +88,7 @@ export class AlarmRepository {
     );
   }
 
+  // TODO: domain query
   static async getCreatedPerEntryId(entryId: VO.EntryIdType): Promise<number> {
     return db.$count(Schema.alarms, eq(Schema.alarms.entryId, entryId));
   }

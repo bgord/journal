@@ -45,6 +45,7 @@ export class WeeklyReviewProcessing {
   async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
     const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
 
+    // TODO: limit
     const prompt = new Services.WeeklyReviewInsightsPrompt(entries).generate();
 
     try {

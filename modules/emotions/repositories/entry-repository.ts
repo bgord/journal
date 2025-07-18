@@ -20,19 +20,6 @@ export class EntryRepository {
     return EntryRepository.format(result[0]);
   }
 
-  static async countInWeekFor(userId: Auth.VO.UserIdType, weekStartedAt: number): Promise<number> {
-    const weekEndedAt = weekStartedAt + tools.Time.Days(7).ms;
-
-    return db.$count(
-      Schema.entries,
-      and(
-        gte(Schema.entries.startedAt, weekStartedAt),
-        lte(Schema.entries.startedAt, weekEndedAt),
-        eq(Schema.entries.userId, userId),
-      ),
-    );
-  }
-
   static async findInWeek(weekStartedAt: number): Promise<Schema.SelectEntries[]> {
     const weekEndedAt = weekStartedAt + tools.Time.Days(7).ms;
 
@@ -117,6 +104,20 @@ export class EntryRepository {
 
   static async deleteEntry(event: Events.EntryDeletedEventType) {
     await db.delete(Schema.entries).where(eq(Schema.entries.id, event.payload.entryId));
+  }
+
+  // TODO: domain query
+  static async countInWeekFor(userId: Auth.VO.UserIdType, weekStartedAt: number): Promise<number> {
+    const weekEndedAt = weekStartedAt + tools.Time.Days(7).ms;
+
+    return db.$count(
+      Schema.entries,
+      and(
+        gte(Schema.entries.startedAt, weekStartedAt),
+        lte(Schema.entries.startedAt, weekEndedAt),
+        eq(Schema.entries.userId, userId),
+      ),
+    );
   }
 
   static format(entry: Schema.SelectEntries): Schema.SelectEntriesFormatted {
