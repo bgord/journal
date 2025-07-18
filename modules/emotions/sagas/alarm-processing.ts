@@ -155,8 +155,8 @@ export class AlarmProcessing {
         metadata: {
           from: "journal@example.com",
           to: contact.email,
-          subject: "Emotional advice",
-          html: notification,
+          subject: notification.subject,
+          html: notification.content,
         },
       });
     }
@@ -165,8 +165,8 @@ export class AlarmProcessing {
       await Mailer.send({
         from: "journal@example.com",
         to: contact.email,
-        subject: "Emotional advice",
-        html: notification,
+        subject: notification.subject,
+        html: notification.content,
       });
     } catch (_error) {
       const command = Commands.CancelAlarmCommand.parse({

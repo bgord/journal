@@ -36,8 +36,8 @@ export class WeeklyReviewProcessing {
       await Mailer.send({
         from: "journal@example.com",
         to: contact?.email,
-        subject: "Weekly Review - come back and journal",
-        html: notification,
+        subject: notification.subject,
+        html: notification.content,
       });
     } catch (error) {}
   }
@@ -91,8 +91,8 @@ export class WeeklyReviewProcessing {
     await Mailer.send({
       from: "journal@example.com",
       to: "example@abc.com",
-      subject: `Weekly Review - ${weekStart.get()}`,
-      html: notification,
+      subject: notification.subject,
+      html: notification.content,
     });
   }
 }

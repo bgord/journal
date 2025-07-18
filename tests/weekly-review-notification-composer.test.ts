@@ -9,6 +9,9 @@ describe("WeeklyReviewNotificationComposer", () => {
 
     const notification = composer.compose(weekStart, [], new Emotions.VO.EmotionalAdvice("Good job"));
 
-    expect(notification).toEqual(`Weekly review: ${weekStart.get()}`);
+    expect(notification).toEqual({
+      subject: `Weekly Review - ${weekStart.get()}`,
+      content: `Weekly review: ${weekStart.get()}`,
+    });
   });
 });

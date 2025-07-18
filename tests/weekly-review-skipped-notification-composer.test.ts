@@ -9,6 +9,9 @@ describe("WeeklyReviewSkippedNotificationComposer", () => {
 
     const notification = composer.compose(weekStart);
 
-    expect(notification).toEqual(`Week you missed ${weekStart.get()}`);
+    expect(notification).toEqual({
+      subject: "Weekly Review - come back and journal",
+      content: `Week you missed ${weekStart.get()}`,
+    });
   });
 });

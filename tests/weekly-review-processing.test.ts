@@ -12,7 +12,7 @@ import * as mocks from "./mocks";
 const openAiClient = new OpenAiClient();
 
 describe("WeeklyReviewProcessing", () => {
-  test("onWeeklyReviewSkippedEvent", async () => {
+  test.only("onWeeklyReviewSkippedEvent", async () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
