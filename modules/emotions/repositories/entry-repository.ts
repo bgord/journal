@@ -20,12 +20,16 @@ export class EntryRepository {
     return EntryRepository.format(result[0]);
   }
 
-  static async countInWeek(weekStartedAt: number): Promise<number> {
+  static async countInWeekFor(userId: Auth.VO.UserIdType, weekStartedAt: number): Promise<number> {
     const weekEndedAt = weekStartedAt + tools.Time.Days(7).ms;
 
     return db.$count(
       Schema.entries,
-      and(gte(Schema.entries.startedAt, weekStartedAt), lte(Schema.entries.startedAt, weekEndedAt)),
+      and(
+        gte(Schema.entries.startedAt, weekStartedAt),
+        lte(Schema.entries.startedAt, weekEndedAt),
+        eq(Schema.entries.userId, userId),
+      ),
     );
   }
 
