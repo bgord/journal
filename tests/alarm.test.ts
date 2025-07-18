@@ -21,7 +21,7 @@ describe("Alarm", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await alarm._generate(
-        mocks.trigger,
+        mocks.entryTrigger,
         Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
         mocks.userId,
       );
@@ -35,7 +35,7 @@ describe("Alarm", () => {
 
     expect(async () =>
       alarm._generate(
-        mocks.trigger,
+        mocks.entryTrigger,
         Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
         mocks.userId,
       ),

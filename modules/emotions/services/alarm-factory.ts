@@ -13,19 +13,20 @@ export class AlarmFactory {
     trigger: Alarms.AlarmTriggerType,
     requesterId: Auth.VO.UserIdType,
   ) {
+    const dailyAlarmsCount = await Repos.AlarmRepository.getCreatedTodayCountFor(requesterId);
+    await Policies.DailyAlarmLimit.perform({ count: dailyAlarmsCount });
+
     // TODO: Clean up policies per trigger type
     if (trigger.type === Alarms.AlarmTriggerEnum.entry) {
-      const dailyAlarmsCount = await Repos.AlarmRepository.getCreatedTodayCountFor(requesterId);
       const entryAlarmsCount = await Repos.AlarmRepository.getCreatedPerEntryId(trigger.entryId);
 
-      await Policies.DailyAlarmLimit.perform({ count: dailyAlarmsCount });
       await Policies.EntryAlarmLimit.perform({ count: entryAlarmsCount });
-
-      const alarmId = bg.NewUUID.generate();
-      const alarm = Aggregates.Alarm.create(alarmId);
-
-      await alarm._generate(trigger, alarmName, requesterId);
-      await EventStore.save(alarm.pullEvents());
     }
+
+    const alarmId = bg.NewUUID.generate();
+    const alarm = Aggregates.Alarm.create(alarmId);
+
+    await alarm._generate(trigger, alarmName, requesterId);
+    await EventStore.save(alarm.pullEvents());
   }
 }

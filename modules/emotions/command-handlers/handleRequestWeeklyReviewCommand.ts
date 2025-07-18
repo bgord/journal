@@ -3,7 +3,6 @@ import { EventStore } from "+infra/event-store";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-// TODO - factory?
 export const handleRequestWeeklyReviewCommand = async (
   command: Emotions.Commands.RequestWeeklyReviewCommandType,
 ) => {
@@ -11,8 +10,6 @@ export const handleRequestWeeklyReviewCommand = async (
     command.payload.userId,
     command.payload.weekStart.get(),
   );
-  const weeklyReviewId = bg.NewUUID.generate();
-  const weeklyReview = Emotions.Aggregates.WeeklyReview.create(weeklyReviewId);
 
   if (
     Emotions.Policies.EntriesForWeekExist.fails({
@@ -34,6 +31,9 @@ export const handleRequestWeeklyReviewCommand = async (
 
     return;
   }
+
+  const weeklyReviewId = bg.NewUUID.generate();
+  const weeklyReview = Emotions.Aggregates.WeeklyReview.create(weeklyReviewId);
 
   await weeklyReview.request(command.payload.weekStart, command.payload.userId);
 

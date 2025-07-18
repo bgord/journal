@@ -37,7 +37,7 @@ export const revision = new tools.Revision(0);
 
 export const revisionHeaders = (revision: tools.RevisionValueType = 0) => ({ "if-match": `W/${revision}` });
 
-export const trigger = {
+export const entryTrigger = {
   type: Emotions.Services.Alarms.AlarmTriggerEnum.entry,
   entryId,
 } as const;
@@ -275,7 +275,7 @@ export const GenericAlarmGeneratedEvent = {
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     alarmId,
-    trigger,
+    trigger: entryTrigger,
     userId,
   },
 } satisfies Emotions.Events.AlarmGeneratedEventType;
@@ -287,7 +287,7 @@ export const GenericAlarmAdviceSavedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
   version: 1,
-  payload: { advice: "You should do something", alarmId, trigger, userId },
+  payload: { advice: "You should do something", alarmId, trigger: entryTrigger, userId },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
 
 export const GenericAlarmNotificationSentEvent = {
@@ -297,7 +297,7 @@ export const GenericAlarmNotificationSentEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
   version: 1,
-  payload: { alarmId, trigger, userId },
+  payload: { alarmId, trigger: entryTrigger, userId },
 } satisfies Emotions.Events.AlarmNotificationSentEventType;
 
 export const GenericAlarmCancelledEvent = {
