@@ -25,55 +25,6 @@ export class AlarmOrchestrator {
     this.eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
     this.eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent.bind(this));
     this.eventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
-    this.eventBus.on(Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent.bind(this));
-    this.eventBus.on(Events.EMOTION_REAPPRAISED_EVENT, this.onEmotionReappraisedEvent.bind(this));
-  }
-
-  // TODO: Should I extract the emotion event handlers?
-  async onEmotionLoggedEvent(event: Events.EmotionLoggedEventType) {
-    const detection = Services.AlarmDetector.detect({
-      event,
-      alarms: [Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
-    });
-
-    if (!detection) return;
-
-    const command = Commands.GenerateAlarmCommand.parse({
-      id: bg.NewUUID.generate(),
-      correlationId: bg.CorrelationStorage.get(),
-      name: Commands.GENERATE_ALARM_COMMAND,
-      createdAt: tools.Timestamp.parse(Date.now()),
-      payload: {
-        alarmName: detection.name,
-        trigger: detection.trigger,
-        userId: event.payload.userId,
-      },
-    } satisfies Commands.GenerateAlarmCommandType);
-
-    await CommandBus.emit(command.name, command);
-  }
-
-  async onEmotionReappraisedEvent(event: Events.EmotionReappraisedEventType) {
-    const detection = Services.AlarmDetector.detect({
-      event,
-      alarms: [Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
-    });
-
-    if (!detection) return;
-
-    const command = Commands.GenerateAlarmCommand.parse({
-      id: bg.NewUUID.generate(),
-      correlationId: bg.CorrelationStorage.get(),
-      name: Commands.GENERATE_ALARM_COMMAND,
-      createdAt: tools.Timestamp.parse(Date.now()),
-      payload: {
-        alarmName: detection.name,
-        trigger: detection.trigger,
-        userId: event.payload.userId,
-      },
-    } satisfies Commands.GenerateAlarmCommandType);
-
-    await CommandBus.emit(command.name, command);
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
