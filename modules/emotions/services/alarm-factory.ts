@@ -9,13 +9,19 @@ import * as bg from "@bgord/bun";
 
 export class AlarmFactory {
   static async create(detection: Alarms.AlarmDetection, requesterId: Auth.VO.UserIdType) {
-    // TODO: Clean up policies per trigger type
-    if (detection.trigger.type === VO.AlarmTriggerEnum.entry) {
-      const alarmsTodayForUserCount = await Queries.CountTodaysAlarmsForUser.execute(requesterId);
-      await Policies.DailyAlarmLimit.perform({ count: alarmsTodayForUserCount });
+    switch (detection.trigger.type) {
+      case VO.AlarmTriggerEnum.entry: {
+        const alarmsTodayForUserCount = await Queries.CountTodaysAlarmsForUser.execute(requesterId);
+        await Policies.DailyAlarmLimit.perform({ count: alarmsTodayForUserCount });
 
-      const entryAlarmsCount = await Queries.CountAlarmsForEntry.execute(detection.trigger.entryId);
-      await Policies.EntryAlarmLimit.perform({ count: entryAlarmsCount });
+        const entryAlarmsCount = await Queries.CountAlarmsForEntry.execute(detection.trigger.entryId);
+        await Policies.EntryAlarmLimit.perform({ count: entryAlarmsCount });
+
+        break;
+      }
+
+      case VO.AlarmTriggerEnum.inactivity:
+        break;
     }
 
     const alarmId = bg.NewUUID.generate();
