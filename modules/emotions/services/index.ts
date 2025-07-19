@@ -4,6 +4,7 @@ export * as Alarms from "./alarms";
 export * from "./emotion-alarm-detector";
 export * from "./entry-alarm-advice-notification-composer";
 export * from "./entry-alarm-advice-prompt-builder";
+export * from "./inactivity-alarm-advice-notification-composer";
 export * from "./inactivity-alarm-scheduler";
 export * from "./pattern-detector";
 export * as Patterns from "./patterns/";

@@ -6,11 +6,11 @@ describe("EmotionalAdviceNotificationComposer", () => {
   test("compose", () => {
     const advice = new Emotions.VO.Advice("Do something");
 
-    const emotionalAdviceNotificationComposer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(
+    const entryAlarmAdviceNotificationComposer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(
       mocks.partialEntry,
     );
 
-    const notification = emotionalAdviceNotificationComposer.compose(advice);
+    const notification = entryAlarmAdviceNotificationComposer.compose(advice);
 
     expect(notification).toEqual({
       subject: "Emotional advice",
