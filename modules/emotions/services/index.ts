@@ -6,6 +6,7 @@ export * from "./emotion-alarm-detector";
 export * from "./entry-alarm-advice-notification-composer";
 export * from "./entry-alarm-advice-prompt-builder";
 export * from "./inactivity-alarm-advice-notification-composer";
+export * from "./inactivity-alarm-advice-prompt-builder";
 export * from "./inactivity-alarm-scheduler";
 export * from "./notification-template";
 export * from "./pattern-detector";
