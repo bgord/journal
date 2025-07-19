@@ -20,4 +20,18 @@ describe("AlarmNotificationFactory", () => {
 
     jest.restoreAllMocks();
   });
+
+  test("inactivity", async () => {
+    const result = await Emotions.Services.AlarmNotificationFactory.create(
+      mocks.inactivityDetection,
+      mocks.advice,
+    );
+
+    expect(result).toEqual(
+      new Emotions.Services.NotificationTemplate(
+        "Inactivity advice",
+        `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
+      ),
+    );
+  });
 });

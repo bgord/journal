@@ -53,6 +53,11 @@ export const inactivityTrigger = {
   lastEntryTimestamp: tools.Timestamp.parse(Date.now()),
 } as const;
 
+export const inactivityDetection = new Emotions.Services.Alarms.AlarmDetection(
+  inactivityTrigger,
+  Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
+);
+
 export const advice = new Emotions.VO.Advice("You should do something");
 
 export const GenericSituationLoggedEvent = {

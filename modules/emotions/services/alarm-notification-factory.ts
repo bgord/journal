@@ -2,20 +2,26 @@ import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 
-// TODO tests
 export class AlarmNotificationFactory {
   static async create(
     detection: Services.Alarms.AlarmDetection,
     advice: VO.Advice,
   ): Promise<Services.NotificationTemplate> {
-    if (detection.trigger.type === VO.AlarmTriggerEnum.entry) {
-      const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
+    switch (detection.trigger.type) {
+      case VO.AlarmTriggerEnum.entry: {
+        const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
+        const composer = new Services.EntryAlarmAdviceNotificationComposer(entry);
+        return composer.compose(advice);
+      }
 
-      const composer = new Services.EntryAlarmAdviceNotificationComposer(entry);
+      case VO.AlarmTriggerEnum.inactivity: {
+        const composer = new Services.InactivityAlarmAdviceNotificationComposer(detection.trigger);
 
-      return composer.compose(advice);
+        return composer.compose(advice);
+      }
+
+      default:
+        throw new Error("Unknown alarm trigger type");
     }
-
-    throw new Error("Unknown alarm trigger type");
   }
 }
