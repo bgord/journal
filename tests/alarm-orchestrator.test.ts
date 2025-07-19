@@ -141,7 +141,7 @@ describe("AlarmOrchestrator", () => {
     jest.restoreAllMocks();
   });
 
-  test("onAlarmNotificationSentEvent", async () => {
+  test("onAlarmNotificationSentEvent - entry", async () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);

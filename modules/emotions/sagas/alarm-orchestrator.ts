@@ -78,7 +78,6 @@ export class AlarmOrchestrator {
     await CommandBus.emit(command.name, command);
   }
 
-  // TODO: handle other types
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
     const cancel = Commands.CancelAlarmCommand.parse({
       id: bg.NewUUID.generate(),
@@ -95,28 +94,23 @@ export class AlarmOrchestrator {
 
     const advice = new VO.Advice(alarm.advice as VO.AdviceType);
 
-    if (detection.trigger.type === VO.AlarmTriggerEnum.entry) {
-      const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
+    const notification = await Services.AlarmNotificationFactory.create(detection, advice);
 
-      const composer = new Services.EntryAlarmAdviceNotificationComposer(entry);
-      const notification = composer.compose(advice);
+    if (!contact?.email) return CommandBus.emit(cancel.name, cancel);
 
-      if (!contact?.email) return await CommandBus.emit(cancel.name, cancel);
+    if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_DISABLED)) {
+      return logger.info({
+        message: "[FF_MAILER_DISABLED] - email message",
+        correlationId: bg.CorrelationStorage.get(),
+        operation: "email_send",
+        metadata: { from: "journal@example.com", to: contact.email, notification },
+      });
+    }
 
-      if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_DISABLED)) {
-        return logger.info({
-          message: "[FF_MAILER_DISABLED] - email message",
-          correlationId: bg.CorrelationStorage.get(),
-          operation: "email_send",
-          metadata: { from: "journal@example.com", to: contact.email, notification },
-        });
-      }
-
-      try {
-        await Mailer.send({ from: "journal@example.com", to: contact.email, ...notification.get() });
-      } catch (_error) {
-        return await CommandBus.emit(cancel.name, cancel);
-      }
+    try {
+      await Mailer.send({ from: "journal@example.com", to: contact.email, ...notification.get() });
+    } catch (_error) {
+      return CommandBus.emit(cancel.name, cancel);
     }
   }
 

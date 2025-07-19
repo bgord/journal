@@ -53,6 +53,8 @@ export const inactivityTrigger = {
   lastEntryTimestamp: tools.Timestamp.parse(Date.now()),
 } as const;
 
+export const advice = new Emotions.VO.Advice("You should do something")
+
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
@@ -313,7 +315,7 @@ export const GenericAlarmAdviceSavedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
   version: 1,
-  payload: { advice: "You should do something", alarmId, userId },
+  payload: { advice: advice.get(), alarmId, userId },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
 
 export const GenericAlarmNotificationSentEvent = {
@@ -433,7 +435,7 @@ export const alarm: Schema.SelectAlarms = {
   entryId,
   status: Emotions.VO.AlarmStatusEnum.notification_sent,
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-  advice: "You should do something",
+  advice: advice.get(),
   emotionLabel: null,
   emotionIntensity: null,
   userId,
