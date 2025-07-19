@@ -4,7 +4,7 @@ import * as mocks from "./mocks";
 
 describe("EmotionalAdviceNotificationComposer", () => {
   test("compose", () => {
-    const advice = "Do something";
+    const advice = new Emotions.VO.Advice("Do something");
 
     const emotionalAdviceNotificationComposer = new Emotions.Services.EmotionalAdviceNotificationComposer(
       mocks.partialEntry,

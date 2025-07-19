@@ -10,7 +10,7 @@ export const SaveAlarmAdviceCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(SAVE_ALARM_ADVICE_COMMAND),
-  payload: z.object({ alarmId: VO.AlarmId, advice: z.instanceof(VO.EmotionalAdvice) }),
+  payload: z.object({ alarmId: VO.AlarmId, advice: z.instanceof(VO.Advice) }),
 });
 
 export type SaveAlarmAdviceCommandType = z.infer<typeof SaveAlarmAdviceCommand>;

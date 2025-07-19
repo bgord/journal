@@ -10,7 +10,7 @@ class AlarmAdviceAvailableError extends Error {
 }
 
 type AlarmAdviceAvailableConfigType = {
-  advice?: Emotions.VO.EmotionalAdvice;
+  advice?: Emotions.VO.Advice;
   status: Emotions.VO.AlarmStatusEnum;
 };
 

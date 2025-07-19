@@ -1,3 +1,4 @@
+export * from "./advice";
 export * from "./alarm-generated-at";
 export * from "./alarm-id";
 export * from "./alarm-name";
@@ -6,7 +7,6 @@ export * from "./alarm-status";
 export * from "./alarm-trigger";
 export * from "./emotion-intensity";
 export * from "./emotion-label";
-export * from "./emotional-advice";
 export * from "./entry-finished-at";
 export * from "./entry-id";
 export * from "./entry-started-at";

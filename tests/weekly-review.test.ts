@@ -6,7 +6,7 @@ import * as mocks from "./mocks";
 
 const weekStart = Emotions.VO.WeekStart.fromTimestamp(mocks.weekStartedAt);
 
-const insights = new Emotions.VO.EmotionalAdvice("Good job");
+const insights = new Emotions.VO.Advice("Good job");
 
 describe("WeeklyReview", () => {
   test("create new aggregate", () => {

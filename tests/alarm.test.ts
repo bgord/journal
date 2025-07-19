@@ -40,7 +40,7 @@ describe("Alarm", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
 
-    const advice = new Emotions.VO.EmotionalAdvice("You should do something");
+    const advice = new Emotions.VO.Advice("You should do something");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await alarm.saveAdvice(advice);
@@ -55,7 +55,7 @@ describe("Alarm", () => {
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
 
-    const advice = new Emotions.VO.EmotionalAdvice("You should do something");
+    const advice = new Emotions.VO.Advice("You should do something");
 
     expect(async () => alarm.saveAdvice(advice)).toThrow(Emotions.Policies.AlarmAlreadyGenerated.error);
 

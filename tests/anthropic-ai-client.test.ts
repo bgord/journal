@@ -22,7 +22,7 @@ describe("AnthropicAiClient", () => {
     const result = await client.request(prompt);
 
     expect(anthropicCreate).toHaveBeenCalledWith({
-      max_tokens: Emotions.VO.EmotionalAdvice.MaximumLength,
+      max_tokens: Emotions.VO.Advice.MaximumLength,
       messages: [prompt.read()[1]],
       system: prompt.read()[0].content,
       model: "claude-3-5-sonnet-latest",

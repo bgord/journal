@@ -25,7 +25,7 @@ export class Alarm {
   private generatedAt?: VO.AlarmGeneratedAtType;
 
   private detection?: Alarms.AlarmDetection;
-  private advice?: VO.EmotionalAdvice;
+  private advice?: VO.Advice;
 
   private readonly pending: AlarmEventType[] = [];
 
@@ -66,7 +66,7 @@ export class Alarm {
     this.record(event);
   }
 
-  async saveAdvice(advice: VO.EmotionalAdvice) {
+  async saveAdvice(advice: VO.Advice) {
     await Policies.AlarmAlreadyGenerated.perform({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
@@ -150,7 +150,7 @@ export class Alarm {
       }
 
       case Events.ALARM_ADVICE_SAVED_EVENT: {
-        this.advice = new VO.EmotionalAdvice(event.payload.advice);
+        this.advice = new VO.Advice(event.payload.advice);
         this.status = VO.AlarmStatusEnum.advice_saved;
         break;
       }

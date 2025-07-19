@@ -58,7 +58,7 @@ export class WeeklyReviewProcessing {
         createdAt: tools.Timestamp.parse(Date.now()),
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
-          insights: new VO.EmotionalAdvice(insights),
+          insights: new VO.Advice(insights),
           userId: event.payload.userId,
         },
       } satisfies Commands.CompleteWeeklyReviewCommandType);
@@ -82,7 +82,7 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewCompletedEvent(event: Events.WeeklyReviewCompletedEventType) {
     const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
-    const insights = new VO.EmotionalAdvice(event.payload.insights);
+    const insights = new VO.Advice(event.payload.insights);
     const weekStart = VO.WeekStart.fromTimestamp(event.payload.weekStartedAt);
 
     const composer = new Services.WeeklyReviewNotificationComposer();

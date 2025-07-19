@@ -48,7 +48,7 @@ export class AlarmOrchestrator {
           correlationId: bg.CorrelationStorage.get(),
           name: Commands.SAVE_ALARM_ADVICE_COMMAND,
           createdAt: tools.Timestamp.parse(Date.now()),
-          payload: { alarmId: event.payload.alarmId, advice: new VO.EmotionalAdvice(advice) },
+          payload: { alarmId: event.payload.alarmId, advice: new VO.Advice(advice) },
         } satisfies Commands.SaveAlarmAdviceCommandType);
 
         await CommandBus.emit(command.name, command);
@@ -88,7 +88,8 @@ export class AlarmOrchestrator {
       const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 
       const composer = new Services.EmotionalAdviceNotificationComposer(entry);
-      const notification = composer.compose(alarm.advice as VO.EmotionalAdviceType);
+      const advice = new VO.Advice(alarm.advice as VO.AdviceType);
+      const notification = composer.compose(advice);
 
       if (!contact?.email) {
         const command = Commands.CancelAlarmCommand.parse({

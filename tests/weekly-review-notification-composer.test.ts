@@ -7,7 +7,7 @@ describe("WeeklyReviewNotificationComposer", () => {
     const composer = new Emotions.Services.WeeklyReviewNotificationComposer();
     const weekStart = new Emotions.VO.WeekStart(mocks.weekStartedAt);
 
-    const notification = composer.compose(weekStart, [], new Emotions.VO.EmotionalAdvice("Good job"));
+    const notification = composer.compose(weekStart, [], new Emotions.VO.Advice("Good job"));
 
     expect(notification).toEqual({
       subject: `Weekly Review - ${weekStart.get()}`,

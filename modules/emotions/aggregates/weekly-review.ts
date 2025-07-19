@@ -22,7 +22,7 @@ export class WeeklyReview {
   private weekStartedAt?: tools.TimestampType;
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
   // @ts-expect-error
-  private insights?: VO.EmotionalAdvice;
+  private insights?: VO.Advice;
 
   private readonly pending: WeeklyReviewEventType[] = [];
 
@@ -58,7 +58,7 @@ export class WeeklyReview {
     this.record(event);
   }
 
-  async complete(insights: VO.EmotionalAdvice) {
+  async complete(insights: VO.Advice) {
     await Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
@@ -123,7 +123,7 @@ export class WeeklyReview {
 
       case Events.WEEKLY_REVIEW_COMPLETED_EVENT: {
         this.status = VO.WeeklyReviewStatusEnum.completed;
-        this.insights = new VO.EmotionalAdvice(event.payload.insights);
+        this.insights = new VO.Advice(event.payload.insights);
         break;
       }
 
