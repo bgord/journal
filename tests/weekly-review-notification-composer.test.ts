@@ -9,9 +9,11 @@ describe("WeeklyReviewNotificationComposer", () => {
 
     const notification = composer.compose(weekStart, [], new Emotions.VO.Advice("Good job"));
 
-    expect(notification).toEqual({
-      subject: `Weekly Review - ${weekStart.get()}`,
-      content: `Weekly review: ${weekStart.get()}`,
-    });
+    expect(notification).toEqual(
+      new Emotions.Services.NotificationTemplate(
+        `Weekly Review - ${weekStart.get()}`,
+        `Weekly review: ${weekStart.get()}`,
+      ),
+    );
   });
 });

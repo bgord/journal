@@ -110,22 +110,12 @@ export class AlarmOrchestrator {
           message: "[FF_MAILER_DISABLED] - email message",
           correlationId: bg.CorrelationStorage.get(),
           operation: "email_send",
-          metadata: {
-            from: "journal@example.com",
-            to: contact.email,
-            subject: notification.subject,
-            html: notification.content,
-          },
+          metadata: { from: "journal@example.com", to: contact.email, notification },
         });
       }
 
       try {
-        await Mailer.send({
-          from: "journal@example.com",
-          to: contact.email,
-          subject: notification.subject,
-          html: notification.content,
-        });
+        await Mailer.send({ from: "journal@example.com", to: contact.email, ...notification.get() });
       } catch (_error) {
         const command = Commands.CancelAlarmCommand.parse({
           id: bg.NewUUID.generate(),

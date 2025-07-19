@@ -33,12 +33,7 @@ export class WeeklyReviewProcessing {
     if (!contact?.email) return;
 
     try {
-      await Mailer.send({
-        from: "journal@example.com",
-        to: contact?.email,
-        subject: notification.subject,
-        html: notification.content,
-      });
+      await Mailer.send({ from: "journal@example.com", to: contact?.email, ...notification.get() });
     } catch (error) {}
   }
 
@@ -89,11 +84,6 @@ export class WeeklyReviewProcessing {
 
     const notification = composer.compose(weekStart, entries, insights);
 
-    await Mailer.send({
-      from: "journal@example.com",
-      to: "example@abc.com",
-      subject: notification.subject,
-      html: notification.content,
-    });
+    await Mailer.send({ from: "journal@example.com", to: "example@abc.com", ...notification.get() });
   }
 }

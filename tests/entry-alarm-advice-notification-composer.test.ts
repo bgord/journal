@@ -12,9 +12,11 @@ describe("EmotionalAdviceNotificationComposer", () => {
 
     const notification = entryAlarmAdviceNotificationComposer.compose(advice);
 
-    expect(notification).toEqual({
-      subject: "Emotional advice",
-      content: `Advice for emotion entry: ${mocks.partialEntry.emotionLabel}: ${advice}`,
-    });
+    expect(notification).toEqual(
+      new Emotions.Services.NotificationTemplate(
+        "Emotional advice",
+        `Advice for emotion entry: ${mocks.partialEntry.emotionLabel}: ${advice}`,
+      ),
+    );
   });
 });

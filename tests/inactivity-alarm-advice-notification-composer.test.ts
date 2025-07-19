@@ -11,9 +11,11 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
 
     const notification = inactivityAlarmAdviceNotificationComposer.compose(advice);
 
-    expect(notification).toEqual({
-      subject: "Inactivity advice",
-      content: `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${advice.get()}`,
-    });
+    expect(notification).toEqual(
+      new Emotions.Services.NotificationTemplate(
+        "Inactivity advice",
+        `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${advice.get()}`,
+      ),
+    );
   });
 });
