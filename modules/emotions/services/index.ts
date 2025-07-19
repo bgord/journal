@@ -7,6 +7,7 @@ export * from "./emotional-advice-prompt";
 export * from "./inactivity-alarm-scheduler";
 export * from "./pattern-detector";
 export * as Patterns from "./patterns/";
+export * from "./prompt-template";
 export * from "./weekly-review-insights-prompt";
 export * from "./weekly-review-notification-composer";
 export * from "./weekly-review-scheduler";
