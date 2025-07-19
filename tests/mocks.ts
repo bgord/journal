@@ -453,6 +453,8 @@ export const alarm: Schema.SelectAlarms = {
   advice: advice.get(),
   emotionLabel: null,
   emotionIntensity: null,
+  inactivityDays: null,
+  lastEntryTimestamp: null,
   userId,
 };
 

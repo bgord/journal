@@ -73,6 +73,8 @@ export const alarms = sqliteTable("alarms", {
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),
 
+  inactivityDays: integer("inactivityDays"),
+  lastEntryTimestamp: integer("lastEntryTimestamp"),
   emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)),
   emotionIntensity: integer("emotionIntensity"),
 });

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "d95df7fd-b976-4d0f-9cae-dc69ab573498",
+  "id": "cbad399f-70fa-420a-820d-e97f63bbfd36",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -163,6 +163,20 @@
         "advice": {
           "name": "advice",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "inactivityDays": {
+          "name": "inactivityDays",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "lastEntryTimestamp": {
+          "name": "lastEntryTimestamp",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false

@@ -23,6 +23,8 @@ CREATE TABLE `alarms` (
 	`status` text NOT NULL,
 	`name` text NOT NULL,
 	`advice` text,
+	`inactivityDays` integer,
+	`lastEntryTimestamp` integer,
 	`emotionLabel` text,
 	`emotionIntensity` integer,
 	FOREIGN KEY (`entryId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action,

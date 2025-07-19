@@ -7,9 +7,11 @@ import { and, eq, notInArray } from "drizzle-orm";
 export class AlarmRepository {
   static async generate(
     event: Events.AlarmGeneratedEventType,
-    emotion?: {
-      label: Schema.SelectEntries["emotionLabel"];
-      intensity: Schema.SelectEntries["emotionIntensity"];
+    metadata: {
+      label?: Schema.SelectEntries["emotionLabel"];
+      intensity?: Schema.SelectEntries["emotionIntensity"];
+      inactivityDays?: VO.InactivityAlarmTriggerType["inactivityDays"];
+      lastEntryTimestamp?: VO.InactivityAlarmTriggerType["inactivityDays"];
     },
   ) {
     await db.insert(Schema.alarms).values({
@@ -19,8 +21,10 @@ export class AlarmRepository {
         event.payload.trigger.type === VO.AlarmTriggerEnum.entry ? event.payload.trigger.entryId : undefined,
       status: VO.AlarmStatusEnum.generated,
       generatedAt: event.createdAt,
-      emotionLabel: emotion?.label,
-      emotionIntensity: emotion?.intensity,
+      emotionLabel: metadata?.label,
+      emotionIntensity: metadata?.intensity,
+      inactivityDays: metadata?.inactivityDays,
+      lastEntryTimestamp: metadata?.lastEntryTimestamp,
       userId: event.payload.userId,
     });
   }
