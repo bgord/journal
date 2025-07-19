@@ -6,7 +6,7 @@ describe("EmotionalAdviceNotificationComposer", () => {
   test("compose", () => {
     const advice = new Emotions.VO.Advice("Do something");
 
-    const emotionalAdviceNotificationComposer = new Emotions.Services.EmotionalAdviceNotificationComposer(
+    const emotionalAdviceNotificationComposer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(
       mocks.partialEntry,
     );
 

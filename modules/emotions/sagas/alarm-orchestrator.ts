@@ -78,17 +78,19 @@ export class AlarmOrchestrator {
     await CommandBus.emit(command.name, command);
   }
 
+  // TODO: handle other types
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
-    // TODO: handle other types
     const detection = new Alarms.AlarmDetection(event.payload.trigger, event.payload.alarmName);
+
+    const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
+    const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
+
+    const advice = new VO.Advice(alarm.advice as VO.AdviceType);
 
     if (detection.trigger.type === VO.AlarmTriggerEnum.entry) {
       const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
-      const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
-      const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 
-      const composer = new Services.EmotionalAdviceNotificationComposer(entry);
-      const advice = new VO.Advice(alarm.advice as VO.AdviceType);
+      const composer = new Services.EntryAlarmAdviceNotificationComposer(entry);
       const notification = composer.compose(advice);
 
       if (!contact?.email) {

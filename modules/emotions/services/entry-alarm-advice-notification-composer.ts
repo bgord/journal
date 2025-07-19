@@ -1,8 +1,7 @@
 import type * as VO from "+emotions/value-objects";
 import type * as Schema from "+infra/schema";
 
-// TODO: everything with emotional advice tbc
-export class EmotionalAdviceNotificationComposer {
+export class EntryAlarmAdviceNotificationComposer {
   constructor(private readonly entry: Schema.SelectEntries) {}
 
   compose(advice: VO.Advice) {
