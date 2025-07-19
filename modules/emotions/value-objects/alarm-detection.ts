@@ -1,5 +1,5 @@
-import type { AlarmNameOption } from "+emotions/value-objects/alarm-name-option";
-import type { AlarmTriggerType } from "+emotions/value-objects/alarm-trigger";
+import type { AlarmNameOption } from "./alarm-name-option";
+import type { AlarmTriggerType } from "./alarm-trigger";
 
 export class AlarmDetection {
   constructor(

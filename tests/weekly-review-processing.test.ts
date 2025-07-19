@@ -13,7 +13,7 @@ import * as mocks from "./mocks";
 const openAiClient = new OpenAiClient();
 
 describe("WeeklyReviewProcessing", () => {
-  test.only("onWeeklyReviewSkippedEvent", async () => {
+  test("onWeeklyReviewSkippedEvent", async () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
@@ -114,6 +114,7 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewCompletedEvent", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     spyOn(Emotions.Repos.EntryRepository, "findInWeek").mockResolvedValue([mocks.fullEntry]);
@@ -126,10 +127,52 @@ describe("WeeklyReviewProcessing", () => {
 
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
-      to: "example@abc.com",
+      to: mocks.email,
       subject: `Weekly Review - ${mocks.GenericWeeklyReviewCompletedEvent.payload.weekStartedAt}`,
       html: `Weekly review: ${mocks.GenericWeeklyReviewCompletedEvent.payload.weekStartedAt}`,
     });
+
+    jest.restoreAllMocks();
+  });
+
+  test("onWeeklyReviewCompletedEvent - contact missing", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
+
+    spyOn(Emotions.Repos.EntryRepository, "findInWeek").mockResolvedValue([mocks.fullEntry]);
+
+    const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onWeeklyReviewCompletedEvent(mocks.GenericWeeklyReviewCompletedEvent),
+    );
+
+    expect(mailerSend).not.toHaveBeenCalledWith();
+
+    jest.restoreAllMocks();
+  });
+
+  test("onWeeklyReviewCompletedEvent - mailer failed", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockImplementation(() => {
+      throw new Error("Failed");
+    });
+    spyOn(Emotions.Repos.EntryRepository, "findInWeek").mockResolvedValue([mocks.fullEntry]);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
+
+    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
+      mocks.GenericWeeklyReviewRequestedEvent,
+    ]);
+    spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
+
+    const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onWeeklyReviewCompletedEvent(mocks.GenericWeeklyReviewCompletedEvent),
+    );
+
+    expect(mailerSend).not.toHaveBeenCalledWith();
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewFailedEvent]);
 
     jest.restoreAllMocks();
   });

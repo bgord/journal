@@ -41,7 +41,6 @@ export class WeeklyReviewProcessing {
   async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
     const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
 
-    // TODO: limit
     const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries).generate();
 
     try {
@@ -77,15 +76,35 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewCompletedEvent(event: Events.WeeklyReviewCompletedEventType) {
-    const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
+    try {
+      const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 
-    const insights = new VO.Advice(event.payload.insights);
-    const weekStart = VO.WeekStart.fromTimestamp(event.payload.weekStartedAt);
+      // TODO: Handle error cases
+      if (!contact?.email) return;
 
-    const composer = new Services.WeeklyReviewNotificationComposer();
+      const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
 
-    const notification = composer.compose(weekStart, entries, insights);
+      const insights = new VO.Advice(event.payload.insights);
+      const weekStart = VO.WeekStart.fromTimestamp(event.payload.weekStartedAt);
 
-    await Mailer.send({ from: Env.EMAIL_FROM, to: "example@abc.com", ...notification.get() });
+      const composer = new Services.WeeklyReviewNotificationComposer();
+
+      const notification = composer.compose(weekStart, entries, insights);
+
+      await Mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
+    } catch (error) {
+      const command = Commands.MarkWeeklyReviewAsFailedCommand.parse({
+        id: bg.NewUUID.generate(),
+        correlationId: bg.CorrelationStorage.get(),
+        name: Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
+        createdAt: tools.Timestamp.parse(Date.now()),
+        payload: {
+          weeklyReviewId: event.payload.weeklyReviewId,
+          userId: event.payload.userId,
+        },
+      } satisfies Commands.MarkWeeklyReviewAsFailedCommandType);
+
+      await CommandBus.emit(command.name, command);
+    }
   }
 }
