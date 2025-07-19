@@ -3,10 +3,7 @@ import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 
 export class AlarmNotificationFactory {
-  static async create(
-    detection: Services.Alarms.AlarmDetection,
-    advice: VO.Advice,
-  ): Promise<VO.NotificationTemplate> {
+  static async create(detection: VO.AlarmDetection, advice: VO.Advice): Promise<VO.NotificationTemplate> {
     switch (detection.trigger.type) {
       case VO.AlarmTriggerEnum.entry: {
         const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);

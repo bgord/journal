@@ -6,7 +6,7 @@ import * as VO from "+emotions/value-objects";
 export class NegativeEmotionExtremeIntensityAlarm extends Alarms.EmotionAlarmTemplate {
   name = VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
 
-  check(event: Alarms.AlarmEventToBeChecked): Alarms.AlarmDetection | null {
+  check(event: Alarms.AlarmEventToBeChecked): VO.AlarmDetection | null {
     const trigger = VO.EntryAlarmTrigger.parse({
       type: VO.AlarmTriggerEnum.entry,
       entryId: event.payload.entryId,
@@ -21,7 +21,7 @@ export class NegativeEmotionExtremeIntensityAlarm extends Alarms.EmotionAlarmTem
 
         if (!applicable) return null;
 
-        return new Alarms.AlarmDetection(trigger, this.name);
+        return new VO.AlarmDetection(trigger, this.name);
       }
       case Events.EMOTION_REAPPRAISED_EVENT: {
         const emotionLabel = new VO.EmotionLabel(event.payload.newLabel);
@@ -31,7 +31,7 @@ export class NegativeEmotionExtremeIntensityAlarm extends Alarms.EmotionAlarmTem
 
         if (!applicable) return null;
 
-        return new Alarms.AlarmDetection(trigger, this.name);
+        return new VO.AlarmDetection(trigger, this.name);
       }
       default:
         return null;

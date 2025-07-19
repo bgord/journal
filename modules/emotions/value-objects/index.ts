@@ -1,4 +1,5 @@
 export * from "./advice";
+export * from "./alarm-detection";
 export * from "./alarm-generated-at";
 export * from "./alarm-id";
 export * from "./alarm-name";

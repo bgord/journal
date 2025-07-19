@@ -3,7 +3,6 @@ import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
-import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
@@ -27,7 +26,7 @@ export class AlarmOrchestrator {
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
-    const detection = new Alarms.AlarmDetection(event.payload.trigger, event.payload.alarmName);
+    const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     try {
       const prompt = await Services.AlarmPromptFactory.create(detection);
@@ -81,7 +80,7 @@ export class AlarmOrchestrator {
 
     const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
 
-    const detection = new Alarms.AlarmDetection(event.payload.trigger, event.payload.alarmName);
+    const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new VO.Advice(alarm.advice as VO.AdviceType);
 
     const notification = await Services.AlarmNotificationFactory.create(detection, advice);

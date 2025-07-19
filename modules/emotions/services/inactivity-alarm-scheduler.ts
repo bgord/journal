@@ -2,7 +2,6 @@ import * as Auth from "+auth";
 import * as Commands from "+emotions/commands";
 import * as Policies from "+emotions/policies";
 import * as Queries from "+emotions/queries";
-import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import * as bg from "@bgord/bun";
@@ -26,7 +25,7 @@ export class InactivityAlarmScheduler {
         lastEntryTimestamp: tools.Timestamp.parse(lastEntryTimestamp),
       } as const;
 
-      const detection = new Alarms.AlarmDetection(trigger, VO.AlarmNameOption.INACTIVITY_ALARM);
+      const detection = new VO.AlarmDetection(trigger, VO.AlarmNameOption.INACTIVITY_ALARM);
 
       const command = Commands.GenerateAlarmCommand.parse({
         id: bg.NewUUID.generate(),

@@ -42,7 +42,7 @@ export const entryTrigger = {
   entryId,
 } as const;
 
-export const entryDetection = new Emotions.Services.Alarms.AlarmDetection(
+export const entryDetection = new Emotions.VO.AlarmDetection(
   entryTrigger,
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
 );
@@ -53,7 +53,7 @@ export const inactivityTrigger = {
   lastEntryTimestamp: tools.Timestamp.parse(Date.now()),
 } as const;
 
-export const inactivityDetection = new Emotions.Services.Alarms.AlarmDetection(
+export const inactivityDetection = new Emotions.VO.AlarmDetection(
   inactivityTrigger,
   Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
 );

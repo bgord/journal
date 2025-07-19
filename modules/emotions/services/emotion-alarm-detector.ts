@@ -1,4 +1,5 @@
 import type * as Alarms from "+emotions/services/alarms";
+import type * as VO from "+emotions/value-objects";
 import * as tools from "@bgord/tools";
 
 type AlarmGeneratorConfigType = {
@@ -7,7 +8,7 @@ type AlarmGeneratorConfigType = {
 };
 
 export class EmotionAlarmDetector {
-  static detect(config: AlarmGeneratorConfigType): Alarms.AlarmDetection | null {
+  static detect(config: AlarmGeneratorConfigType): VO.AlarmDetection | null {
     const result = config.alarms
       .map((Alarm) => new Alarm().check(config.event))
       .filter((result) => result !== null);

@@ -1,7 +1,6 @@
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Policies from "+emotions/policies";
-import * as Alarms from "+emotions/services/alarms";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -24,7 +23,7 @@ export class Alarm {
   // @ts-expect-error
   private generatedAt?: VO.AlarmGeneratedAtType;
 
-  private detection?: Alarms.AlarmDetection;
+  private detection?: VO.AlarmDetection;
   private advice?: VO.Advice;
 
   private readonly pending: AlarmEventType[] = [];
@@ -45,7 +44,7 @@ export class Alarm {
     return entry;
   }
 
-  async _generate(detection: Alarms.AlarmDetection, requesterId: Auth.VO.UserIdType) {
+  async _generate(detection: VO.AlarmDetection, requesterId: Auth.VO.UserIdType) {
     await Policies.AlarmGeneratedOnce.perform({ status: this.status });
 
     const event = Events.AlarmGeneratedEvent.parse({
@@ -142,7 +141,7 @@ export class Alarm {
   private apply(event: AlarmEventType): void {
     switch (event.name) {
       case Events.ALARM_GENERATED_EVENT: {
-        this.detection = new Alarms.AlarmDetection(event.payload.trigger, event.payload.alarmName);
+        this.detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
         this.userId = event.payload.userId;
         this.status = VO.AlarmStatusEnum.generated;
         this.generatedAt = event.createdAt;
