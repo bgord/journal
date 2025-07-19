@@ -17,7 +17,7 @@ export class EntryAlarmDetector {
   async detect(event: Events.EmotionLoggedEventType | Events.EmotionReappraisedEventType) {
     const detection = Services.EmotionAlarmDetector.detect({
       event,
-      alarms: [Services.Alarms.NegativeEmotionExtremeIntensityAlarm],
+      alarms: [Services.NegativeEmotionExtremeIntensityAlarm],
     });
 
     if (!detection) return;

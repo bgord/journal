@@ -1,10 +1,10 @@
-import type * as Alarms from "+emotions/services/alarms";
+import { AlarmEventToBeChecked, EmotionAlarmTemplate } from "+emotions/services/emotion-alarm-template";
 import type * as VO from "+emotions/value-objects";
 import * as tools from "@bgord/tools";
 
 type AlarmGeneratorConfigType = {
-  event: Alarms.AlarmEventToBeChecked;
-  alarms: tools.Constructor<Alarms.EmotionAlarmTemplate>[];
+  event: AlarmEventToBeChecked;
+  alarms: tools.Constructor<EmotionAlarmTemplate>[];
 };
 
 export class EmotionAlarmDetector {

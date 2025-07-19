@@ -1,12 +1,12 @@
 import * as Events from "+emotions/events";
-import * as Alarms from "+emotions/services/alarms";
+import { AlarmEventToBeChecked, EmotionAlarmTemplate } from "+emotions/services/emotion-alarm-template";
 import * as VO from "+emotions/value-objects";
 
 /** @public */
-export class NegativeEmotionExtremeIntensityAlarm extends Alarms.EmotionAlarmTemplate {
+export class NegativeEmotionExtremeIntensityAlarm extends EmotionAlarmTemplate {
   name = VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
 
-  check(event: Alarms.AlarmEventToBeChecked): VO.AlarmDetection | null {
+  check(event: AlarmEventToBeChecked): VO.AlarmDetection | null {
     const trigger = VO.EntryAlarmTrigger.parse({
       type: VO.AlarmTriggerEnum.entry,
       entryId: event.payload.entryId,
