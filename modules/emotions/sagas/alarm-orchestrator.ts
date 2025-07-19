@@ -32,15 +32,15 @@ export class AlarmOrchestrator {
 
     // TODO: handle other types
     if (detection.trigger.type === VO.AlarmTriggerEnum.entry) {
-      const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
-
-      const prompt = new Services.EntryAlarmAdvicePromptBuilder(
-        entry,
-        detection.name,
-        entry.language as SupportedLanguages,
-      ).generate();
-
       try {
+        const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
+
+        const prompt = new Services.EntryAlarmAdvicePromptBuilder(
+          entry,
+          detection.name,
+          entry.language as SupportedLanguages,
+        ).generate();
+
         const advice = await this.AiClient.request(prompt);
 
         const command = Commands.SaveAlarmAdviceCommand.parse({
