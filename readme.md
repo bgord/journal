@@ -154,16 +154,14 @@ modules/
     │   ├── alarm-factory.ts
     │   ├── alarm-notification-factory.ts
     │   ├── alarm-prompt-factory.ts
-    │   ├── alarms
-    │   │   ├── alarm-template.ts
-    │   │   └── negative-emotion-extreme-intensity-alarm.ts
     │   ├── emotion-alarm-detector.ts
+    │   ├── emotion-alarm-template.ts
     │   ├── entry-alarm-advice-notification-composer.ts
     │   ├── entry-alarm-advice-prompt-builder.ts
     │   ├── inactivity-alarm-advice-notification-composer.ts
     │   ├── inactivity-alarm-advice-prompt-builder.ts
     │   ├── inactivity-alarm-scheduler.ts
-    │   ├── notification-template.ts
+    │   ├── negative-emotion-extreme-intensity-alarm.ts
     │   ├── pattern-detector.ts
     │   ├── patterns
     │   │   ├── low-coping-effectiveness-pattern.ts
@@ -171,13 +169,13 @@ modules/
     │   │   ├── multiple-maladaptive-reactions-pattern.ts
     │   │   ├── pattern.ts
     │   │   └── positive-emotion-with-maladaptive-reaction-pattern.ts
-    │   ├── prompt-template.ts
     │   ├── weekly-review-insights-prompt-builder.ts
     │   ├── weekly-review-notification-composer.ts
     │   ├── weekly-review-scheduler.ts
     │   └── weekly-review-skipped-notification-composer.ts
     └── value-objects
         ├── advice.ts
+        ├── alarm-detection.ts
         ├── alarm-generated-at.ts
         ├── alarm-id.ts
         ├── alarm-name-option.ts
@@ -192,6 +190,8 @@ modules/
         ├── entry-status.ts
         ├── geneva-wheel-emotion.enum.ts
         ├── gross-emotion-regulation-strategy.enum.ts
+        ├── notification-template.ts
+        ├── prompt-template.ts
         ├── reaction-description.ts
         ├── reaction-effectiveness.ts
         ├── reaction-type.ts
