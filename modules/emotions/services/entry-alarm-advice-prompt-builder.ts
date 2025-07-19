@@ -1,12 +1,8 @@
 // cspell:disable
+import { Prompt } from "+emotions/services/prompt-template";
 import * as VO from "+emotions/value-objects";
 import { SupportedLanguages } from "+infra/i18n";
 import type * as Schema from "+infra/schema";
-
-export type EmotionalAdvicePromptType = [
-  { role: "system"; content: string },
-  { role: "user"; content: string },
-];
 
 const content: Record<
   SupportedLanguages,
@@ -43,20 +39,14 @@ const content: Record<
   },
 };
 
-export class EmotionalAdvicePrompt {
+export class EntryAlarmAdvicePromptBuilder {
   constructor(
     private readonly entry: Schema.SelectEntries,
     private readonly alarmName: VO.AlarmNameOption,
     private readonly language: SupportedLanguages,
   ) {}
 
-  generate(): EmotionalAdvicePromptType {
-    return [
-      {
-        role: "system",
-        content: "You are a compassionate mental health coach providing short, practical advice.",
-      },
-      { role: "user", content: content[this.language](this.entry, this.alarmName) },
-    ];
+  generate(): Prompt {
+    return new Prompt(content[this.language](this.entry, this.alarmName));
   }
 }
