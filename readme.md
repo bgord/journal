@@ -124,12 +124,18 @@ modules/
     │   ├── entry-alarm-limit.ts
     │   ├── entry-has-been-started.ts
     │   ├── entry-is-actionable.ts
+    │   ├── no-entries-in-the-last-week.ts
     │   ├── one-situation-per-entry.ts
     │   ├── reaction-corresponds-to-situation-and-emotion.ts
     │   ├── reaction-for-evaluation-exists.ts
     │   ├── requester-owns-entry.ts
     │   ├── weekly-review-completed-once.ts
     │   └── weekly-review-requested-once.ts
+    ├── queries
+    │   ├── count-alarms-for-user.ts
+    │   ├── count-entries-per-week-for-user.ts
+    │   ├── count-todays-alarms-for-user.ts
+    │   ├── get-latest-entry-timestamp-for-user.ts
     ├── repositories
     │   ├── alarm-repository.ts
     │   ├── entry-repository.ts
@@ -140,17 +146,24 @@ modules/
     │   ├── log-entry.ts
     │   └── reappraise-emotion.ts
     ├── sagas
-    │   ├── alarm-processing.ts
+    │   ├── alarm-orchestrator.ts
+    │   ├── entry-alarm-detector.ts
     │   └── weekly-review-processing.ts
     ├── services
     │   ├── ai-client.ts
-    │   ├── alarm-detector.ts
     │   ├── alarm-factory.ts
+    │   ├── alarm-notification-factory.ts
+    │   ├── alarm-prompt-factory.ts
     │   ├── alarms
-    │   │   ├── alarm.ts
+    │   │   ├── alarm-template.ts
     │   │   └── negative-emotion-extreme-intensity-alarm.ts
-    │   ├── emotional-advice-notification-composer.ts
-    │   ├── emotional-advice-prompt.ts
+    │   ├── emotion-alarm-detector.ts
+    │   ├── entry-alarm-advice-notification-composer.ts
+    │   ├── entry-alarm-advice-prompt-builder.ts
+    │   ├── inactivity-alarm-advice-notification-composer.ts
+    │   ├── inactivity-alarm-advice-prompt-builder.ts
+    │   ├── inactivity-alarm-scheduler.ts
+    │   ├── notification-template.ts
     │   ├── pattern-detector.ts
     │   ├── patterns
     │   │   ├── low-coping-effectiveness-pattern.ts
@@ -158,19 +171,21 @@ modules/
     │   │   ├── multiple-maladaptive-reactions-pattern.ts
     │   │   ├── pattern.ts
     │   │   └── positive-emotion-with-maladaptive-reaction-pattern.ts
-    │   ├── weekly-review-insights-prompt.ts
+    │   ├── prompt-template.ts
+    │   ├── weekly-review-insights-prompt-builder.ts
     │   ├── weekly-review-notification-composer.ts
     │   ├── weekly-review-scheduler.ts
     │   └── weekly-review-skipped-notification-composer.ts
     └── value-objects
+        ├── advice.ts
         ├── alarm-generated-at.ts
         ├── alarm-id.ts
         ├── alarm-name-option.ts
         ├── alarm-name.ts
         ├── alarm-status.ts
+        ├── alarm-trigger.ts
         ├── emotion-intensity.ts
         ├── emotion-label.ts
-        ├── emotional-advice.ts
         ├── entry-finished-at.ts
         ├── entry-id.ts
         ├── entry-started-at.ts
