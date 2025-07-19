@@ -4,7 +4,7 @@ import { SupportedLanguages } from "../infra/i18n";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-describe("EmotionalAdvicePrompt", () => {
+describe("EntryAlarmAdvicePromptBuilder", () => {
   test("situation + emotion (en)", () => {
     const builder = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
       mocks.partialEntry,

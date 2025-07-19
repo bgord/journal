@@ -164,6 +164,28 @@ describe("AlarmOrchestrator", () => {
     jest.restoreAllMocks();
   });
 
+  test("onAlarmNotificationSentEvent - inactivity", async () => {
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
+    spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
+
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
+
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onAlarmNotificationSentEvent(mocks.GenericInactivityAlarmNotificationSentEvent),
+    );
+
+    expect(mailerSend).toHaveBeenCalledWith({
+      from: "journal@example.com",
+      to: mocks.email,
+      subject: "Inactivity advice",
+      html: `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
+    });
+
+    jest.restoreAllMocks();
+  });
+
   test("onEntryDeletedEvent - cancels pending alarm", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
