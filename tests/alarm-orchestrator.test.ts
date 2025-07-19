@@ -16,7 +16,7 @@ describe("AlarmOrchestrator", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
-    spyOn(openAiClient, "request").mockResolvedValue("You should do something");
+    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice.get());
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
@@ -33,13 +33,35 @@ describe("AlarmOrchestrator", () => {
     jest.restoreAllMocks();
   });
 
-  test("onAlarmGeneratedEvent - finding entry fails", async () => {
+  test("onAlarmGeneratedEvent - inactivity", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice.get());
+
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericInactivityAlarmGeneratedEvent,
+    ]);
+    spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
+
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient);
+
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onAlarmGeneratedEvent(mocks.GenericInactivityAlarmGeneratedEvent),
+    );
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
+
+    jest.restoreAllMocks();
+  });
+
+  test("onAlarmGeneratedEvent - entry - finding entry fails", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockImplementation(() => {
       throw new Error("Failed");
     });
-    spyOn(openAiClient, "request").mockResolvedValue("You should do something");
+    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice.get());
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
@@ -157,7 +179,7 @@ describe("AlarmOrchestrator", () => {
       from: "journal@example.com",
       to: mocks.email,
       subject: "Emotional advice",
-      html: "Advice for emotion entry: anger: You should do something",
+      html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
     });
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
 
@@ -181,7 +203,7 @@ describe("AlarmOrchestrator", () => {
       from: "journal@example.com",
       to: mocks.email,
       subject: "Emotional advice",
-      html: "Advice for emotion entry: anger: You should do something",
+      html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
     });
 
     jest.restoreAllMocks();

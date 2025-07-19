@@ -14,7 +14,7 @@ describe("AlarmNotificationFactory", () => {
     expect(result).toEqual(
       new Emotions.Services.NotificationTemplate(
         "Emotional advice",
-        "Advice for emotion entry: anger: You should do something",
+        `Advice for emotion entry: anger: ${mocks.advice.get()}`,
       ),
     );
 
