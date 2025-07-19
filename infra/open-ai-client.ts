@@ -1,5 +1,5 @@
 import { AiClient, AiClientResponseType } from "+emotions/services/ai-client";
-import { EmotionalAdvicePromptType } from "+emotions/services/emotional-advice-prompt";
+import { Prompt } from "+emotions/services/prompt-template";
 import { Env } from "+infra/env";
 import * as tools from "@bgord/tools";
 import OAI from "openai";
@@ -8,12 +8,12 @@ import OAI from "openai";
 export const OpenAI = new OAI({ apiKey: Env.OPEN_AI_API_KEY });
 
 export class OpenAiClient implements AiClient {
-  async request(prompt: EmotionalAdvicePromptType): Promise<AiClientResponseType> {
+  async request(prompt: Prompt): Promise<AiClientResponseType> {
     if (tools.FeatureFlag.isEnabled(Env.FF_AI_CLIENT_REAL_RESPONSE)) {
       const response = await OpenAI.responses.create({
         model: "gpt-4o",
-        instructions: prompt[0].content,
-        input: prompt[1].content,
+        instructions: prompt.read()[0].content,
+        input: prompt.read()[1].content,
         max_output_tokens: AiClient.maxLength,
       });
 

@@ -1,5 +1,5 @@
-import type { EmotionalAdvicePromptType } from "+emotions/services";
 import { EmotionalAdvice } from "+emotions/value-objects";
+import { Prompt } from "./prompt-template";
 
 export type AiClientResponseType = string;
 
@@ -11,5 +11,5 @@ export enum AiClientEnum {
 export abstract class AiClient {
   static maxLength = EmotionalAdvice.MaximumLength;
 
-  abstract request(prompt: EmotionalAdvicePromptType): Promise<AiClientResponseType>;
+  abstract request(prompt: Prompt): Promise<AiClientResponseType>;
 }
