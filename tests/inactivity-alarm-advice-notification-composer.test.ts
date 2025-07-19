@@ -4,17 +4,15 @@ import * as mocks from "./mocks";
 
 describe("InactivityAlarmAdviceNotificationComposer", () => {
   test("compose", () => {
-    const advice = new Emotions.VO.Advice("Do something");
-
     const inactivityAlarmAdviceNotificationComposer =
       new Emotions.Services.InactivityAlarmAdviceNotificationComposer(mocks.inactivityTrigger);
 
-    const notification = inactivityAlarmAdviceNotificationComposer.compose(advice);
+    const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual(
       new Emotions.Services.NotificationTemplate(
         "Inactivity advice",
-        `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${advice.get()}`,
+        `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
       ),
     );
   });

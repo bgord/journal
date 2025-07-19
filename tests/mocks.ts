@@ -53,7 +53,7 @@ export const inactivityTrigger = {
   lastEntryTimestamp: tools.Timestamp.parse(Date.now()),
 } as const;
 
-export const advice = new Emotions.VO.Advice("You should do something")
+export const advice = new Emotions.VO.Advice("You should do something");
 
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
