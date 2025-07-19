@@ -1,18 +1,36 @@
+import * as UI from "@bgord/ui";
+import { API } from "../../api";
+import type { SelectAlarms } from "../../../infra/schema";
+import type { Route } from "./+types/alarms";
+
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
 }
 
-// export async function loader({ request }: Route.LoaderArgs) {
-//   const cookie = UI.Cookies.extractFrom(request);
+export async function loader({ request }: Route.LoaderArgs) {
+  const cookie = UI.Cookies.extractFrom(request);
 
-//   const response = await API("/entry/list", {
-//     headers: { cookie },
-//   });
-//   const entries = (await response.json()) as SelectEntriesFull[];
+  const response = await API("/alarm/list", {
+    headers: { cookie },
+  });
+  console.log(response.status);
 
-//   return { entries, form: AddEntryForm.get() };
-// }
+  const alarms = (await response.json()) as SelectAlarms[];
+  console.log(alarms);
 
-export default function Home() {
-  return <main data-pb="36">Alarms</main>;
+  return { alarms };
+}
+
+export default function Alarms({ loaderData }: Route.ComponentProps) {
+  return (
+    <main data-pb="36">
+      <header>Alarms</header>
+
+      <ul>
+        {loaderData.alarms.map((alarm) => (
+          <li key={alarm.id}>{alarm.name}</li>
+        ))}
+      </ul>
+    </main>
+  );
 }

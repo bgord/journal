@@ -46,6 +46,14 @@ entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
 server.route("/entry", entry);
 // =============================
 
+// Alarms ====================
+const alarms = new Hono();
+
+alarms.use("*", AuthShield.attach, AuthShield.verify);
+alarms.get("/list", Emotions.Routes.ListAlarms);
+server.route("/alarm", alarms);
+// =============================
+
 //Translations =================
 server.get("/translations", ...bg.Translations.build());
 // =============================
