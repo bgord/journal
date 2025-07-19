@@ -1,6 +1,12 @@
 # Changelog
+- 2025-07-19 19:29 4a897cc **step: improve weekly review processing**
+## 2025-07-19 19:29 
+- 2025-07-19 18:15 590d7b6 **refactor: make ai clients use prompt -> advoice vos**
+- 2025-07-19 18:06 82a13c9 **refactor: move emotion alarm template to services**
+- 2025-07-19 18:01 f3ceb4c **refactor: move alarm detection to vo**
+- 2025-07-19 14:03 4428f57 **refactor: move templates to VO**
+- 2025-07-19 13:55 dc8ae00 **refactor: use env.EMAIL_FROM**
 - 2025-07-19 13:44 ad93b0f **step: use alarm prompt factory**
-## 2025-07-19 13:44 
 - 2025-07-19 13:39 58acc3c **step: add alarm prompt factory**
 - 2025-07-19 13:32 9ddfce6 **step: add finding entry fails testcase in alarm orchestrator**
 - 2025-07-19 13:22 a5e0e0f **step: add inactivity alarm advice prompt builder**
@@ -12,6 +18,8 @@
 - 2025-07-19 12:16 a6047ce **step: setup notification template**
 - 2025-07-19 12:05 9396e05 **step: add notification template**
 - 2025-07-19 11:59 2ff87a0 **step: add inactivity alarm advice notification composer**
+- 2025-07-19 11:51 d933337 **docs: generate CHANGELOG**
+- 2025-07-19 11:51 c966193 **docs: generate readme**
 - 2025-07-19 11:48 fbe7762 **refactor: rename entry alarm advice notification composer**
 - 2025-07-19 11:32 c3e29ae **refactor: rename emotional advice to advice**
 - 2025-07-19 11:20 82dd577 **step: adjust tests**
