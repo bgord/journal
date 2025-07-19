@@ -1,6 +1,66 @@
 # Changelog
+- 2025-07-19 13:44 ad93b0f **step: use alarm prompt factory**
+## 2025-07-19 13:44 
+- 2025-07-19 13:39 58acc3c **step: add alarm prompt factory**
+- 2025-07-19 13:32 9ddfce6 **step: add finding entry fails testcase in alarm orchestrator**
+- 2025-07-19 13:22 a5e0e0f **step: add inactivity alarm advice prompt builder**
+- 2025-07-19 13:21 7afab4b **step: adjust tests**
+- 2025-07-19 13:00 5c4e629 **step: add inactivity alarm advice notification composer to alarm notification factory**
+- 2025-07-19 12:42 3cf0738 **refactor: extract mocks.advice**
+- 2025-07-19 12:31 bd2324f **refactor: extract alarm notification factory**
+- 2025-07-19 12:17 2f41af0 **refactor: do not duplicate alarm cancel command**
+- 2025-07-19 12:16 a6047ce **step: setup notification template**
+- 2025-07-19 12:05 9396e05 **step: add notification template**
+- 2025-07-19 11:59 2ff87a0 **step: add inactivity alarm advice notification composer**
+- 2025-07-19 11:48 fbe7762 **refactor: rename entry alarm advice notification composer**
+- 2025-07-19 11:32 c3e29ae **refactor: rename emotional advice to advice**
+- 2025-07-19 11:20 82dd577 **step: adjust tests**
+- 2025-07-19 11:19 cff6847 **step: rename prompt builders**
+- 2025-07-19 11:16 a37383f **step: make ai clients accept prompt**
+- 2025-07-19 10:42 ff481c5 **step: add prompt template**
+- 2025-07-19 00:39 d78b5f6 **refactor: simplify alarm factory**
+- 2025-07-19 00:09 45bd764 **step: simplify alarm commands and events**
+- 2025-07-18 23:57 babf6e2 **step: store alarm.detection as an object**
+- 2025-07-18 23:57 50f8225 **step: add alarmName to alarm advice saved and notification sent event**
+- 2025-07-18 23:50 a053f83 **refactor: extract entryDetection to mocks**
+- 2025-07-18 23:49 ed9073c **step: use detection in alarm agg**
+- 2025-07-18 23:45 f3f4fff **refactor: use detection in genereate alarm command**
+- 2025-07-18 23:41 62830bb **refactor: make names more significant**
+- 2025-07-18 23:35 5ef02c6 **refactor: use alarm detection**
+- 2025-07-18 23:24 21df21c **step: move alarm trigger to vos**
+- 2025-07-18 23:13 2870171 **step: test inactivity alarm scheduler**
+- 2025-07-18 23:11 1f24ffa **feature: implement inactivity alarm scheduler**
+- 2025-07-18 23:00 693dad3 **step: add inactivity_alarm name**
+- 2025-07-18 23:00 556295a **refactor: rename last entry timestamp in alarm trigger payload**
+- 2025-07-18 22:24 e1a5138 **step: add NoEntriesInTheLastWeek**
+- 2025-07-18 18:13 9e50ee6 **step: setup inactivity alarm scheduler tests**
+- 2025-07-18 18:10 dc05038 **step: add GetLatestEntryTimestampForUser**
+- 2025-07-18 18:03 9dcad44 **refactor: extract CountEntriesPerWeekForUser query**
+- 2025-07-18 17:58 be4119d **refactor: extract CountAlarmsForEntry**
+- 2025-07-18 17:52 a8471dc **refactor: extract CountTodaysAlarmsForUser**
+- 2025-07-18 16:08 9bef5e2 **step: mark domain queries**
+- 2025-07-18 16:01 ba6c02a **refactor: use the same detect method for all events in entry alarm detector**
+- 2025-07-18 15:59 6c4aad4 **refactor: extract alarm detection from alarm processing**
+- 2025-07-18 15:39 109efd1 **refactor: rename alarm orchestrator**
+- 2025-07-18 14:48 4fe63af **step: setup inactivity alarm scheduler job**
+- 2025-07-18 14:25 98375ed **refactor: use mocks.trigger in tests**
+- 2025-07-18 14:23 b65c72b **refactor: make alarms schema more extendable**
+- 2025-07-18 13:37 33d0d07 **step: replace entry with trigger on all commands**
+- 2025-07-18 13:31 1ff51fb **fix: tests**
+- 2025-07-18 13:28 5e9dbe4 **step: replace entryId with trigger in alarm events**
+- 2025-07-18 13:23 9290304 **step: handle trigger in alarm factory**
+- 2025-07-18 13:06 f860dbf **step: attach alarm trigger to alarm detection result**
+- 2025-07-18 12:43 5f4d628 **step: define alarm trigger**
+- 2025-07-18 12:24 623a50f **step: rename alarm service to alarm template**
+- 2025-07-18 12:11 beb6bb9 **step: make composers include message subject**
+- 2025-07-18 12:07 f01cb71 **step: test weekly review skipped failed cases**
+- 2025-07-18 11:56 8fc3d6e **fix: tests**
+- 2025-07-18 11:53 c723449 **step: handle entries for week exist per user id**
+- 2025-07-18 11:47 fb056b8 **step: adjust weekly review to include userId**
+- 2025-07-18 11:40 d2b957e **step: add userId to weekly review events**
+- 2025-07-18 11:38 efd9bbd **step: add user repo list**
+- 2025-07-18 11:34 efa0f80 **step: add userId to weekly review commands**
 - 2025-07-17 22:07 327fc6b **step: bump bgord/scripts**
-## 2025-07-17 22:07 
 - 2025-07-17 22:03 77c8985 **step: bump bgord/scripts**
 - 2025-07-17 22:02 ebb713e **step: bump bgord/scripts**
 - 2025-07-17 21:56 2e1d5f0 **step: bump bgord/scripts**
@@ -15,6 +75,7 @@
 - 2025-07-17 20:52 29f07c9 **step: add userId to all alarm events**
 - 2025-07-17 20:49 ea55357 **step: add userId to alarm generated event**
 - 2025-07-17 20:43 7f3237e **step: add userId to generate alarm command**
+- 2025-07-17 20:07 f801c5b **docs: generate CHANGELOG**
 - 2025-07-17 19:46 4a919b5 **fix: typecheck errors**
 - 2025-07-17 19:42 bf6d9ea **step: update packages**
 - 2025-07-17 19:41 0a4ec71 **fix: entry repo list query**
