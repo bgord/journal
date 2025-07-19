@@ -1,5 +1,4 @@
 // cspell:disable
-import { Prompt } from "+emotions/services/prompt-template";
 import * as VO from "+emotions/value-objects";
 import { SupportedLanguages } from "+infra/i18n";
 import type * as Schema from "+infra/schema";
@@ -46,7 +45,7 @@ export class EntryAlarmAdvicePromptBuilder {
     private readonly language: SupportedLanguages,
   ) {}
 
-  generate(): Prompt {
-    return new Prompt(content[this.language](this.entry, this.alarmName));
+  generate(): VO.Prompt {
+    return new VO.Prompt(content[this.language](this.entry, this.alarmName));
   }
 }

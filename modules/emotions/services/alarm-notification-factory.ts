@@ -6,7 +6,7 @@ export class AlarmNotificationFactory {
   static async create(
     detection: Services.Alarms.AlarmDetection,
     advice: VO.Advice,
-  ): Promise<Services.NotificationTemplate> {
+  ): Promise<VO.NotificationTemplate> {
     switch (detection.trigger.type) {
       case VO.AlarmTriggerEnum.entry: {
         const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);

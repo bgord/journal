@@ -1,5 +1,4 @@
-import { Advice } from "+emotions/value-objects";
-import { Prompt } from "./prompt-template";
+import * as VO from "+emotions/value-objects";
 
 export type AiClientResponseType = string;
 
@@ -9,7 +8,7 @@ export enum AiClientEnum {
 }
 
 export abstract class AiClient {
-  static maxLength = Advice.MaximumLength;
+  static maxLength = VO.Advice.MaximumLength;
 
-  abstract request(prompt: Prompt): Promise<AiClientResponseType>;
+  abstract request(prompt: VO.Prompt): Promise<AiClientResponseType>;
 }

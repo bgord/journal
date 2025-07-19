@@ -10,7 +10,7 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual(
-      new Emotions.Services.NotificationTemplate(
+      new Emotions.VO.NotificationTemplate(
         "Inactivity advice",
         `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
       ),

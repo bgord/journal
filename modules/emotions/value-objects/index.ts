@@ -13,6 +13,8 @@ export * from "./entry-started-at";
 export * from "./entry-status";
 export * from "./geneva-wheel-emotion.enum";
 export * from "./gross-emotion-regulation-strategy.enum";
+export * from "./notification-template";
+export * from "./prompt-template";
 export * from "./reaction-description";
 export * from "./reaction-effectiveness";
 export * from "./reaction-type";

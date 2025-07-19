@@ -10,7 +10,7 @@ describe("WeeklyReviewSkippedNotificationComposer", () => {
     const notification = composer.compose(weekStart);
 
     expect(notification).toEqual(
-      new Emotions.Services.NotificationTemplate(
+      new Emotions.VO.NotificationTemplate(
         "Weekly Review - come back and journal",
         `Week you missed ${weekStart.get()}`,
       ),

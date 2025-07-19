@@ -8,7 +8,7 @@ describe("InactivityAlarmAdvicePromptBuilder", () => {
     const builder = new Emotions.Services.InactivityAlarmAdvicePromptBuilder(mocks.inactivityTrigger);
 
     expect(builder.generate()).toEqual(
-      new Emotions.Services.Prompt(`Inactive for ${mocks.inactivityTrigger.inactivityDays} days`),
+      new Emotions.VO.Prompt(`Inactive for ${mocks.inactivityTrigger.inactivityDays} days`),
     );
   });
 });

@@ -12,7 +12,7 @@ describe("AlarmNotificationFactory", () => {
     );
 
     expect(result).toEqual(
-      new Emotions.Services.NotificationTemplate(
+      new Emotions.VO.NotificationTemplate(
         "Emotional advice",
         `Advice for emotion entry: anger: ${mocks.advice.get()}`,
       ),
@@ -28,7 +28,7 @@ describe("AlarmNotificationFactory", () => {
     );
 
     expect(result).toEqual(
-      new Emotions.Services.NotificationTemplate(
+      new Emotions.VO.NotificationTemplate(
         "Inactivity advice",
         `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
       ),

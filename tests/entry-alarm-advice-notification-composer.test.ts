@@ -11,7 +11,7 @@ describe("EntryAlarmAdviceNotificationComposer", () => {
     const notification = entryAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual(
-      new Emotions.Services.NotificationTemplate(
+      new Emotions.VO.NotificationTemplate(
         "Emotional advice",
         `Advice for emotion entry: ${mocks.partialEntry.emotionLabel}: ${mocks.advice.get()}`,
       ),

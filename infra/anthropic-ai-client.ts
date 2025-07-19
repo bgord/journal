@@ -1,5 +1,5 @@
 import { AiClient, AiClientResponseType } from "+emotions/services/ai-client";
-import { Prompt } from "+emotions/services/prompt-template";
+import * as VO from "+emotions/value-objects";
 import { Env } from "+infra/env";
 import Anthropic from "@anthropic-ai/sdk";
 import * as tools from "@bgord/tools";
@@ -9,7 +9,7 @@ export const AnthropicAi = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
 
 /** @public */
 export class AnthropicAiClient implements AiClient {
-  async request(prompt: Prompt): Promise<AiClientResponseType> {
+  async request(prompt: VO.Prompt): Promise<AiClientResponseType> {
     if (tools.FeatureFlag.isEnabled(Env.FF_AI_CLIENT_REAL_RESPONSE)) {
       const message = await AnthropicAi.messages.create({
         max_tokens: AiClient.maxLength,
