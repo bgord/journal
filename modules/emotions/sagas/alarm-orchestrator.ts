@@ -80,6 +80,14 @@ export class AlarmOrchestrator {
 
   // TODO: handle other types
   async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
+    const cancel = Commands.CancelAlarmCommand.parse({
+      id: bg.NewUUID.generate(),
+      correlationId: bg.CorrelationStorage.get(),
+      name: Commands.CANCEL_ALARM_COMMAND,
+      createdAt: tools.Timestamp.parse(Date.now()),
+      payload: { alarmId: event.payload.alarmId },
+    } satisfies Commands.CancelAlarmCommandType);
+
     const detection = new Alarms.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
@@ -93,17 +101,7 @@ export class AlarmOrchestrator {
       const composer = new Services.EntryAlarmAdviceNotificationComposer(entry);
       const notification = composer.compose(advice);
 
-      if (!contact?.email) {
-        const command = Commands.CancelAlarmCommand.parse({
-          id: bg.NewUUID.generate(),
-          correlationId: bg.CorrelationStorage.get(),
-          name: Commands.CANCEL_ALARM_COMMAND,
-          createdAt: tools.Timestamp.parse(Date.now()),
-          payload: { alarmId: event.payload.alarmId },
-        } satisfies Commands.CancelAlarmCommandType);
-
-        return await CommandBus.emit(command.name, command);
-      }
+      if (!contact?.email) return await CommandBus.emit(cancel.name, cancel);
 
       if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_DISABLED)) {
         return logger.info({
@@ -117,15 +115,7 @@ export class AlarmOrchestrator {
       try {
         await Mailer.send({ from: "journal@example.com", to: contact.email, ...notification.get() });
       } catch (_error) {
-        const command = Commands.CancelAlarmCommand.parse({
-          id: bg.NewUUID.generate(),
-          correlationId: bg.CorrelationStorage.get(),
-          name: Commands.CANCEL_ALARM_COMMAND,
-          createdAt: tools.Timestamp.parse(Date.now()),
-          payload: { alarmId: event.payload.alarmId },
-        } satisfies Commands.CancelAlarmCommandType);
-
-        return await CommandBus.emit(command.name, command);
+        return await CommandBus.emit(cancel.name, cancel);
       }
     }
   }
