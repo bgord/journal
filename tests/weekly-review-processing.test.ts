@@ -2,6 +2,7 @@ import * as Auth from "+auth";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { Env } from "../infra/env";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import { Mailer } from "../infra/mailer";
@@ -23,7 +24,7 @@ describe("WeeklyReviewProcessing", () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: "journal@example.com",
+      from: Env.EMAIL_FROM,
       to: mocks.email,
       subject: "Weekly Review - come back and journal",
       html: `Week you missed ${mocks.weekStartedAt}`,
@@ -124,7 +125,7 @@ describe("WeeklyReviewProcessing", () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: "journal@example.com",
+      from: Env.EMAIL_FROM,
       to: "example@abc.com",
       subject: `Weekly Review - ${mocks.GenericWeeklyReviewCompletedEvent.payload.weekStartedAt}`,
       html: `Weekly review: ${mocks.GenericWeeklyReviewCompletedEvent.payload.weekStartedAt}`,

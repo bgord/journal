@@ -91,12 +91,12 @@ export class AlarmOrchestrator {
         message: "[FF_MAILER_DISABLED] - email message",
         correlationId: bg.CorrelationStorage.get(),
         operation: "email_send",
-        metadata: { from: "journal@example.com", to: contact.email, notification },
+        metadata: { from: Env.EMAIL_FROM, to: contact.email, notification },
       });
     }
 
     try {
-      await Mailer.send({ from: "journal@example.com", to: contact.email, ...notification.get() });
+      await Mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
     } catch (_error) {
       return CommandBus.emit(cancel.name, cancel);
     }

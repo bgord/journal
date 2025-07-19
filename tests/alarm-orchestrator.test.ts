@@ -1,6 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { Env } from "../infra/env";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import { Mailer } from "../infra/mailer";
@@ -176,7 +177,7 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: "journal@example.com",
+      from: Env.EMAIL_FROM,
       to: mocks.email,
       subject: "Emotional advice",
       html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
@@ -200,7 +201,7 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: "journal@example.com",
+      from: Env.EMAIL_FROM,
       to: mocks.email,
       subject: "Emotional advice",
       html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
@@ -222,7 +223,7 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: "journal@example.com",
+      from: Env.EMAIL_FROM,
       to: mocks.email,
       subject: "Inactivity advice",
       html: `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,

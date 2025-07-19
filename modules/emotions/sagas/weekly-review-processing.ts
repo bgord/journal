@@ -5,6 +5,7 @@ import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
+import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
@@ -33,7 +34,7 @@ export class WeeklyReviewProcessing {
     if (!contact?.email) return;
 
     try {
-      await Mailer.send({ from: "journal@example.com", to: contact?.email, ...notification.get() });
+      await Mailer.send({ from: Env.EMAIL_FROM, to: contact?.email, ...notification.get() });
     } catch (error) {}
   }
 
@@ -77,6 +78,7 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewCompletedEvent(event: Events.WeeklyReviewCompletedEventType) {
     const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
+
     const insights = new VO.Advice(event.payload.insights);
     const weekStart = VO.WeekStart.fromTimestamp(event.payload.weekStartedAt);
 
@@ -84,6 +86,6 @@ export class WeeklyReviewProcessing {
 
     const notification = composer.compose(weekStart, entries, insights);
 
-    await Mailer.send({ from: "journal@example.com", to: "example@abc.com", ...notification.get() });
+    await Mailer.send({ from: Env.EMAIL_FROM, to: "example@abc.com", ...notification.get() });
   }
 }
