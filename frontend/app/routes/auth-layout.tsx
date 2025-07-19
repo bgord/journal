@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
 import { ProfileCircle } from "iconoir-react";
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 import * as Auth from "../../auth";
 import { LogoutButton } from "../../components/logout-button";
 import type { Route } from "./+types/auth-layout";
@@ -13,6 +13,8 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
   return (
     <div data-display="flex" data-direction="column">
       <div data-display="flex" data-main="end" data-cross="center" data-gap="24" data-mb="24">
+        <Link to="/alarms">Alarms</Link>
+
         <div
           data-display="flex"
           data-cross="center"
