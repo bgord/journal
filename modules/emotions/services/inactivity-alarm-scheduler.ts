@@ -17,7 +17,8 @@ export class InactivityAlarmScheduler {
 
     for (const userId of userIds) {
       const lastEntryTimestamp = await Queries.GetLatestEntryTimestampForUser.execute(userId);
-      await Policies.NoEntriesInTheLastWeek.perform({ lastEntryTimestamp });
+
+      if (Policies.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
 
       const trigger = {
         type: VO.AlarmTriggerEnum.inactivity,

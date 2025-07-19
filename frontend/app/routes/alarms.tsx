@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
-import { API } from "../../api";
 import type { SelectAlarms } from "../../../infra/schema";
+import { API } from "../../api";
 import type { Route } from "./+types/alarms";
 
 export function meta() {
