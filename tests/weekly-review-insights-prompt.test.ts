@@ -4,9 +4,9 @@ import * as mocks from "./mocks";
 
 describe("WeeklyReviewInsightsPrompt", () => {
   test("generate", () => {
-    const prompt = new Emotions.Services.WeeklyReviewInsightsPrompt([mocks.fullEntry]);
+    const prompt = new Emotions.Services.WeeklyReviewInsightsPromptBuilder([mocks.fullEntry]).generate();
 
-    expect(prompt.generate()).toEqual([
+    expect(prompt.read()).toEqual([
       {
         role: "system",
         content: "You are a compassionate mental health coach providing short, practical advice.",

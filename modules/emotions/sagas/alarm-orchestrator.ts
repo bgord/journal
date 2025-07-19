@@ -34,7 +34,7 @@ export class AlarmOrchestrator {
     if (detection.trigger.type === VO.AlarmTriggerEnum.entry) {
       const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
 
-      const prompt = new Services.EmotionalAdvicePrompt(
+      const prompt = new Services.EntryAlarmAdvicePromptBuilder(
         entry,
         detection.name,
         entry.language as SupportedLanguages,

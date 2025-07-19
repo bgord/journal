@@ -4,11 +4,11 @@ import { OpenAI, OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const prompt = new Emotions.Services.EmotionalAdvicePrompt(
+const prompt = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
   mocks.partialEntry,
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
   SupportedLanguages.en,
-);
+).generate();
 
 describe("OpenAiClient", () => {
   test("request", async () => {
@@ -19,12 +19,12 @@ describe("OpenAiClient", () => {
     ).mockResolvedValue({ output_text: "anything" });
 
     const client = new OpenAiClient();
-    const result = await client.request(prompt.generate());
+    const result = await client.request(prompt);
 
     expect(openAiCreate).toHaveBeenCalledWith({
       model: "gpt-4o",
-      instructions: prompt.generate()[0].content,
-      input: prompt.generate()[1].content,
+      instructions: prompt.read()[0].content,
+      input: prompt.read()[1].content,
       max_output_tokens: Emotions.VO.EmotionalAdvice.MaximumLength,
     });
     expect(result).toEqual("anything");

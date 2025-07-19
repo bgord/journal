@@ -46,7 +46,7 @@ export class WeeklyReviewProcessing {
     const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
 
     // TODO: limit
-    const prompt = new Services.WeeklyReviewInsightsPrompt(entries).generate();
+    const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries).generate();
 
     try {
       const insights = await this.AiClient.request(prompt);

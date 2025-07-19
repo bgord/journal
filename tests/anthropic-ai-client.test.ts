@@ -4,11 +4,11 @@ import { SupportedLanguages } from "../infra/i18n";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const prompt = new Emotions.Services.EmotionalAdvicePrompt(
+const prompt = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
   mocks.partialEntry,
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
   SupportedLanguages.en,
-);
+).generate();
 
 describe("AnthropicAiClient", () => {
   test("request", async () => {
@@ -19,12 +19,12 @@ describe("AnthropicAiClient", () => {
     ).mockResolvedValue({ content: "anything" });
 
     const client = new AnthropicAiClient();
-    const result = await client.request(prompt.generate());
+    const result = await client.request(prompt);
 
     expect(anthropicCreate).toHaveBeenCalledWith({
       max_tokens: Emotions.VO.EmotionalAdvice.MaximumLength,
-      messages: [prompt.generate()[1]],
-      system: prompt.generate()[0].content,
+      messages: [prompt.read()[1]],
+      system: prompt.read()[0].content,
       model: "claude-3-5-sonnet-latest",
     });
     expect(result).toEqual("anything");
