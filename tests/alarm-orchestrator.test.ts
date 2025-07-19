@@ -17,7 +17,7 @@ describe("AlarmOrchestrator", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
-    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice.get());
+    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice);
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
@@ -37,7 +37,7 @@ describe("AlarmOrchestrator", () => {
   test("onAlarmGeneratedEvent - inactivity", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice.get());
+    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice);
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
       mocks.GenericInactivityAlarmGeneratedEvent,
@@ -62,7 +62,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockImplementation(() => {
       throw new Error("Failed");
     });
-    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice.get());
+    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice);
 
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);

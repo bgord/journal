@@ -70,7 +70,7 @@ describe("WeeklyReviewProcessing", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     spyOn(Emotions.Repos.EntryRepository, "findInWeek").mockResolvedValue([mocks.fullEntry]);
-    spyOn(openAiClient, "request").mockResolvedValue("Good job");
+    spyOn(openAiClient, "request").mockResolvedValue(new Emotions.VO.Advice("Good job"));
 
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
       mocks.GenericWeeklyReviewRequestedEvent,

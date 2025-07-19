@@ -27,7 +27,7 @@ describe("OpenAiClient", () => {
       input: prompt.read()[1].content,
       max_output_tokens: Emotions.VO.Advice.MaximumLength,
     });
-    expect(result).toEqual("anything");
+    expect(result).toEqual(new Emotions.VO.Advice("anything"));
 
     jest.restoreAllMocks();
   });

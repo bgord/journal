@@ -37,7 +37,7 @@ export class AlarmOrchestrator {
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.SAVE_ALARM_ADVICE_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),
-        payload: { alarmId: event.payload.alarmId, advice: new VO.Advice(advice) },
+        payload: { alarmId: event.payload.alarmId, advice },
       } satisfies Commands.SaveAlarmAdviceCommandType);
 
       await CommandBus.emit(command.name, command);

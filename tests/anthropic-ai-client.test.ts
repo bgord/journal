@@ -27,7 +27,7 @@ describe("AnthropicAiClient", () => {
       system: prompt.read()[0].content,
       model: "claude-3-5-sonnet-latest",
     });
-    expect(result).toEqual("anything");
+    expect(result).toEqual(new Emotions.VO.Advice("anything"));
 
     jest.restoreAllMocks();
   });

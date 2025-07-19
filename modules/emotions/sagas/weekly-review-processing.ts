@@ -54,7 +54,7 @@ export class WeeklyReviewProcessing {
         createdAt: tools.Timestamp.parse(Date.now()),
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
-          insights: new VO.Advice(insights),
+          insights,
           userId: event.payload.userId,
         },
       } satisfies Commands.CompleteWeeklyReviewCommandType);
