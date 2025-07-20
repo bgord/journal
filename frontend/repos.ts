@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { and, count, desc, eq, gte } from "drizzle-orm";
+import { and, count, desc, eq, gte, sql } from "drizzle-orm";
 import * as Schema from "../infra/schema";
 import type { UserIdType } from "../modules/auth/value-objects/user-id";
 import type { EmotionLabelType } from "../modules/emotions/value-objects/emotion-label";
@@ -47,6 +47,37 @@ export class Repo {
       .where(eq(Schema.entries.userId, userId));
 
     return { today: today?.c ?? 0, lastWeek: week?.c ?? 0, all: all?.c ?? 0 };
+  }
+
+  static async getTopEmotions(userId: UserIdType) {
+    const todayStart = tools.Time.Now().Minus(tools.Time.Days(1)).ms;
+    const weekStart = tools.Time.Now().Minus(tools.Time.Days(7)).ms;
+
+    const today = await db
+      .select({ label: Schema.entries.emotionLabel, hits: count(Schema.entries.id).mapWith(Number) })
+      .from(Schema.entries)
+      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, todayStart)))
+      .groupBy(Schema.entries.emotionLabel)
+      .orderBy(sql`count(${Schema.entries.id}) DESC`)
+      .limit(3);
+
+    const lastWeek = await db
+      .select({ label: Schema.entries.emotionLabel, hits: count(Schema.entries.id).mapWith(Number) })
+      .from(Schema.entries)
+      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, weekStart)))
+      .groupBy(Schema.entries.emotionLabel)
+      .orderBy(sql`count(${Schema.entries.id}) DESC`)
+      .limit(3);
+
+    const all = await db
+      .select({ label: Schema.entries.emotionLabel, hits: count(Schema.entries.id).mapWith(Number) })
+      .from(Schema.entries)
+      .where(and(eq(Schema.entries.userId, userId)))
+      .groupBy(Schema.entries.emotionLabel)
+      .orderBy(sql`count(${Schema.entries.id}) DESC`)
+      .limit(3);
+
+    return { today, lastWeek, all };
   }
 
   static formatFull(entry: Schema.SelectEntriesWithAlarms) {

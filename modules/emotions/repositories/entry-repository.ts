@@ -29,37 +29,6 @@ export class EntryRepository {
       .where(and(gte(Schema.entries.startedAt, weekStartedAt), lte(Schema.entries.startedAt, weekEndedAt)));
   }
 
-  static async getTopEmotions(userId: Auth.VO.UserIdType) {
-    const todayStart = tools.Time.Now().Minus(tools.Time.Days(1)).ms;
-    const weekStart = tools.Time.Now().Minus(tools.Time.Days(7)).ms;
-
-    const today = await db
-      .select({ label: Schema.entries.emotionLabel, hits: count(Schema.entries.id).mapWith(Number) })
-      .from(Schema.entries)
-      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, todayStart)))
-      .groupBy(Schema.entries.emotionLabel)
-      .orderBy(sql`count(${Schema.entries.id}) DESC`)
-      .limit(3);
-
-    const lastWeek = await db
-      .select({ label: Schema.entries.emotionLabel, hits: count(Schema.entries.id).mapWith(Number) })
-      .from(Schema.entries)
-      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, weekStart)))
-      .groupBy(Schema.entries.emotionLabel)
-      .orderBy(sql`count(${Schema.entries.id}) DESC`)
-      .limit(3);
-
-    const all = await db
-      .select({ label: Schema.entries.emotionLabel, hits: count(Schema.entries.id).mapWith(Number) })
-      .from(Schema.entries)
-      .where(and(eq(Schema.entries.userId, userId)))
-      .groupBy(Schema.entries.emotionLabel)
-      .orderBy(sql`count(${Schema.entries.id}) DESC`)
-      .limit(3);
-
-    return { today, lastWeek, all };
-  }
-
   static async topFiveEffective(userId: Auth.VO.UserIdType) {
     return db
       .select({

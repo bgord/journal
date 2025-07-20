@@ -23,19 +23,14 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   // TODO: Make typesafe
   const entries = json.entries as {
-    counts: { today: number; lastWeek: number; all: number };
-    topEmotions: {
-      today: { label: SelectEntries["emotionLabel"]; hits: number }[];
-      lastWeek: { label: SelectEntries["emotionLabel"]; hits: number }[];
-      all: { label: SelectEntries["emotionLabel"]; hits: number }[];
-    };
     topReactions: Pick<SelectEntries, "reactionType" | "reactionDescription" | "reactionEffectiveness">[];
   };
 
   const heatmap = await Repo.getHeatmap(userId);
   const counts = await Repo.getCounts(userId);
+  const topEmotions = await Repo.getTopEmotions(userId);
 
-  return { alarms, entries: { ...entries, counts }, heatmap };
+  return { alarms, entries: { ...entries, counts, topEmotions }, heatmap };
 }
 
 function Cell(props: React.JSX.IntrinsicElements["div"]) {
