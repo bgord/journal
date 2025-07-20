@@ -2,10 +2,11 @@ import * as UI from "@bgord/ui";
 import { Plus } from "iconoir-react";
 import { Link } from "react-router";
 import { AddEntryForm } from "../../../app/services/add-entry-form";
-import type { SelectEntriesFull } from "../../../infra/schema";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
+import { guard } from "../../auth";
 import * as Components from "../../components";
+import { Repo } from "../../repos";
 import type { Route } from "./+types/home";
 
 export function meta() {
@@ -50,15 +51,15 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const cookie = UI.Cookies.extractFrom(request);
+  const session = await guard.getServerSession(request);
+  const userId = session?.user.id as string;
 
-  const response = await API("/entry/list", {
-    headers: { cookie },
-  });
-  const entries = (await response.json()) as SelectEntriesFull[];
+  const entries = await Repo.listEntriesForUser(userId);
 
   return { entries, form: AddEntryForm.get() };
 }
+
+export type EntryType = Route.ComponentProps["loaderData"]["entries"][number];
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
