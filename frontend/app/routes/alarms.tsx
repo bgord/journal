@@ -10,13 +10,8 @@ export function meta() {
 export async function loader({ request }: Route.LoaderArgs) {
   const cookie = UI.Cookies.extractFrom(request);
 
-  const response = await API("/alarm/list", {
-    headers: { cookie },
-  });
-  console.log(response.status);
-
+  const response = await API("/alarm/list", { headers: { cookie } });
   const alarms = (await response.json()) as SelectAlarms[];
-  console.log(alarms);
 
   return { alarms };
 }
