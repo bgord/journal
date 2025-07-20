@@ -4,7 +4,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
-import { and, count, desc, eq, gte, lte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, lte } from "drizzle-orm";
 
 export class EntryRepository {
   static async getByIdRaw(id: VO.EntryIdType) {
@@ -27,19 +27,6 @@ export class EntryRepository {
       .select()
       .from(Schema.entries)
       .where(and(gte(Schema.entries.startedAt, weekStartedAt), lte(Schema.entries.startedAt, weekEndedAt)));
-  }
-
-  static async topFiveEffective(userId: Auth.VO.UserIdType) {
-    return db
-      .select({
-        reactionDescription: Schema.entries.reactionDescription,
-        reactionType: Schema.entries.reactionType,
-        reactionEffectiveness: Schema.entries.reactionEffectiveness,
-      })
-      .from(Schema.entries)
-      .where(eq(Schema.entries.userId, userId))
-      .orderBy(desc(Schema.entries.reactionEffectiveness))
-      .limit(5);
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {

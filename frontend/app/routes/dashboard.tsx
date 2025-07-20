@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
 import { Alarm as AlarmIcon, Notes } from "iconoir-react";
-import type { SelectAlarms, SelectEntries } from "../../../infra/schema";
+import type { SelectAlarms } from "../../../infra/schema";
 import { API } from "../../api";
 import { guard } from "../../auth";
 import { Repo } from "../../repos";
@@ -21,16 +21,12 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const alarms = json.alarms as { inactivity: SelectAlarms[]; entry: SelectAlarms[] };
 
-  // TODO: Make typesafe
-  const entries = json.entries as {
-    topReactions: Pick<SelectEntries, "reactionType" | "reactionDescription" | "reactionEffectiveness">[];
-  };
-
   const heatmap = await Repo.getHeatmap(userId);
   const counts = await Repo.getCounts(userId);
   const topEmotions = await Repo.getTopEmotions(userId);
+  const topReactions = await Repo.topFiveEffective(userId);
 
-  return { alarms, entries: { ...entries, counts, topEmotions }, heatmap };
+  return { alarms, entries: { counts, topEmotions, topReactions }, heatmap };
 }
 
 function Cell(props: React.JSX.IntrinsicElements["div"]) {

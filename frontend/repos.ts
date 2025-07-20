@@ -80,6 +80,19 @@ export class Repo {
     return { today, lastWeek, all };
   }
 
+  static async topFiveEffective(userId: UserIdType) {
+    return db
+      .select({
+        reactionDescription: Schema.entries.reactionDescription,
+        reactionType: Schema.entries.reactionType,
+        reactionEffectiveness: Schema.entries.reactionEffectiveness,
+      })
+      .from(Schema.entries)
+      .where(eq(Schema.entries.userId, userId))
+      .orderBy(desc(Schema.entries.reactionEffectiveness))
+      .limit(5);
+  }
+
   static formatFull(entry: Schema.SelectEntriesWithAlarms) {
     return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
   }
