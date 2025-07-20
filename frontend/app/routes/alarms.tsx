@@ -21,17 +21,16 @@ export default function Alarms(props: Route.ComponentProps) {
   const t = UI.useTranslations();
 
   return (
-    <main data-pb="36" data-fs="14" data-max-width="768" data-width="100%" data-mx="auto">
-      <h1 data-mb="24">
+    <main data-pb="36" data-fs="12" data-p="12" {...UI.Rhythm(475).times(1).style.width}>
+      <h2 data-mb="12">
         {t("alarm.header")} <AlarmIcon height={20} width={20} data-color="red-500" />
-      </h1>
+      </h2>
 
       <div
         data-display="flex"
         data-direction="column"
         data-gap="12"
-        data-p="48"
-        data-pt="36"
+        data-p="24"
         data-bc="gray-200"
         data-bw="1"
         data-br="4"
