@@ -45,6 +45,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               <div className="c-badge">{loaderData.alarms.inactivity.length}</div>
             </h2>
 
+            {!loaderData.alarms.inactivity[0] && <div>{t("dashboard.alarm.inactivity.empty")}</div>}
+
             <ul data-display="flex" data-direction="column" data-gap="12" data-mt="12">
               {loaderData.alarms.inactivity.map((alarm) => (
                 <li key={alarm.id}>
@@ -69,6 +71,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               {t("dashboard.alarm.entry")}
               <div className="c-badge">{loaderData.alarms.entry.length}</div>
             </h2>
+
+            {!loaderData.alarms.entry[0] && <div>Entry alarms will appear here</div>}
 
             <ul data-display="flex" data-direction="column" data-gap="12" data-mt="12">
               {loaderData.alarms.entry.map((alarm) => (

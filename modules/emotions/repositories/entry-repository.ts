@@ -1,10 +1,9 @@
-import * as Auth from "+auth";
 import type * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
-import { and, desc, eq, gte, lte } from "drizzle-orm";
+import { and, eq, gte, lte } from "drizzle-orm";
 
 export class EntryRepository {
   static async getByIdRaw(id: VO.EntryIdType) {
