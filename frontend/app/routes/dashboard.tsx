@@ -2,6 +2,8 @@ import * as UI from "@bgord/ui";
 import { Alarm as AlarmIcon, Notes } from "iconoir-react";
 import type { SelectAlarms, SelectEntries } from "../../../infra/schema";
 import { API } from "../../api";
+import { guard } from "../../auth";
+import { Repo } from "../../repos";
 import type { Route } from "./+types/dashboard";
 
 export function meta() {
@@ -9,6 +11,9 @@ export function meta() {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
+  const session = await guard.getServerSession(request);
+  const userId = session?.user.id as string;
+
   const cookie = UI.Cookies.extractFrom(request);
 
   const response = await API("/dashboard/list", { headers: { cookie } });
@@ -27,7 +32,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     topReactions: Pick<SelectEntries, "reactionType" | "reactionDescription" | "reactionEffectiveness">[];
   };
 
-  const heatmap = json.heatmap as number[];
+  const heatmap = await Repo.getHeatmap(userId);
 
   return { alarms, entries, heatmap };
 }
