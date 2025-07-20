@@ -32,6 +32,7 @@
   "dashboard.alarm.inactivity.duration": "Brak aktywności w ostatnich {{inactivityDays}} dniach",
   "dashboard.entries.header": "Wpisy",
   "dashboard.entries.counts": "Liczba wpisów",
+  "dashboard.entries.top_emotions": "Emocje",
   "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negatywna emocja z ekstremalną intensywnością",
   "entry.add.title": "Dodaj wpis",
   "entry.delete.title": "Usuń wpis",

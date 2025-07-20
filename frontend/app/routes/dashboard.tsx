@@ -145,6 +145,27 @@ export default function Dashboard(props: Route.ComponentProps) {
             </div>
           </div>
         </div>
+
+        <div
+          data-display="flex"
+          data-direction="column"
+          data-gap="24"
+          data-p="24"
+          data-mt="24"
+          data-bc="gray-200"
+          data-bw="1"
+          data-br="4"
+          data-shadow="sm"
+          {...UI.Colorful("surface-card").style.background}
+        >
+          <h2 data-display="flex" data-gap="12">
+            {t("dashboard.entries.top_emotions")}
+          </h2>
+
+          <div data-display="flex" data-direction="column">
+            <div>Today</div>
+          </div>
+        </div>
       </section>
     </main>
   );

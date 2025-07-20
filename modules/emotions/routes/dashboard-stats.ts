@@ -6,6 +6,7 @@ export async function DashboardStats(c: hono.Context<infra.HonoConfig>, _next: h
   const user = c.get("user");
   const alarms = await Emotions.Repos.AlarmRepository.list(user.id);
   const entryCounts = await Emotions.Repos.EntryRepository.getCounts(user.id);
+  const entryTopEmotions = await Emotions.Repos.EntryRepository.getTopEmotions(user.id);
 
-  return c.json({ alarms, entries: { counts: entryCounts } });
+  return c.json({ alarms, entries: { counts: entryCounts, topEmotions: entryTopEmotions } });
 }
