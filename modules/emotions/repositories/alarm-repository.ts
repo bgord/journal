@@ -4,7 +4,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
-import { and, eq, notInArray } from "drizzle-orm";
+import { and, eq, not, notInArray } from "drizzle-orm";
 
 export class AlarmRepository {
   static async list(userId: Auth.VO.UserIdType) {
@@ -15,8 +15,19 @@ export class AlarmRepository {
       ),
     });
 
+    const entry = await db.query.alarms.findMany({
+      where: and(
+        eq(Schema.alarms.userId, userId),
+        not(eq(Schema.alarms.name, VO.AlarmNameOption.INACTIVITY_ALARM)),
+      ),
+    });
+
     return {
       inactivity: inactivity.map((alarm) => ({
+        ...alarm,
+        generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
+      })),
+      entry: entry.map((alarm) => ({
         ...alarm,
         generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
       })),

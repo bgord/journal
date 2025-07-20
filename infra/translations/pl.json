@@ -26,6 +26,8 @@
   "auth.register.cta": "Utwórz konto",
   "auth.register.in_progress": "Ładowanie...",
   "alarm.header": "Alarmy",
+  "alarm.entry": "Wpisy",
+  "alarm.entry.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM.description": "Negatywna emocja z ekstremalną intensywnością: {{emotionLabel}}",
   "alarm.inactivity": "Brak aktywności",
   "alarm.inactivity.duration": "Brak aktywności w ostatnich {{inactivityDays}} dniach",
   "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negatywna emocja z ekstremalną intensywnością",
