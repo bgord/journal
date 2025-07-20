@@ -1,12 +1,12 @@
 import * as UI from "@bgord/ui";
 import { Xmark } from "iconoir-react";
 import { useFetcher, useSubmit } from "react-router";
-import type { SelectEntriesFull } from "../../infra/schema";
+import type { EntryType } from "../app/routes/home";
 import { Alarm } from "./alarm";
 import { EntryEmotion } from "./entry-emotion";
 import { EntryReaction } from "./entry-reaction";
 
-export function Entry(props: SelectEntriesFull) {
+export function Entry(props: EntryType) {
   const t = UI.useTranslations();
   const fetcher = useFetcher();
   const submit = useSubmit();

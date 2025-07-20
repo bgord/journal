@@ -1,8 +1,8 @@
 import * as UI from "@bgord/ui";
 import { Alarm as AlarmIcon } from "iconoir-react";
-import type { SelectEntriesFull } from "../../infra/schema";
+import type { EntryType } from "../app/routes/home";
 
-export function Alarm(props: SelectEntriesFull["alarms"][number]) {
+export function Alarm(props: EntryType["alarms"][number]) {
   const t = UI.useTranslations();
 
   return (
