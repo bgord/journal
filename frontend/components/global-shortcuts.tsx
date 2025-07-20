@@ -7,6 +7,7 @@ export function GlobalShortcuts() {
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": () => navigate("/add-entry") });
   UI.useKeyboardShortcuts({ "$mod+Control+KeyJ": () => navigate("/") });
+  UI.useKeyboardShortcuts({ "$mod+Control+KeyD": () => navigate("/dashboard") });
 
   return null;
 }

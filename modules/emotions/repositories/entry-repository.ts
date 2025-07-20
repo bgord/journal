@@ -4,7 +4,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
-import { and, desc, eq, gte, lte } from "drizzle-orm";
+import { and, count, desc, eq, gte, lte } from "drizzle-orm";
 
 export class EntryRepository {
   static async getByIdRaw(id: VO.EntryIdType) {
@@ -37,6 +37,28 @@ export class EntryRepository {
     });
 
     return entries.map(EntryRepository.formatFull);
+  }
+
+  static async getCounts(userId: Auth.VO.UserIdType) {
+    const todayStart = tools.Time.Now().Minus(tools.Time.Days(1)).ms;
+    const weekStart = tools.Time.Now().Minus(tools.Time.Days(7)).ms;
+
+    const [today] = await db
+      .select({ c: count(Schema.entries.id).mapWith(Number) })
+      .from(Schema.entries)
+      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, todayStart)));
+
+    const [week] = await db
+      .select({ c: count(Schema.entries.id).mapWith(Number) })
+      .from(Schema.entries)
+      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, weekStart)));
+
+    const [all] = await db
+      .select({ c: count(Schema.entries.id).mapWith(Number) })
+      .from(Schema.entries)
+      .where(eq(Schema.entries.userId, userId));
+
+    return { today: today?.c ?? 0, lastWeek: week?.c ?? 0, all: all?.c ?? 0 };
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {
