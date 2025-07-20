@@ -5,6 +5,7 @@ import { EventStore } from "+infra/event-store";
 import { SupportedLanguages } from "+infra/i18n";
 import * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import _ from "lodash";
 
 import "+infra/register-event-handlers";
@@ -71,6 +72,30 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         return result;
       }),
     );
+
+    const inactivityDetections = [
+      new Emotions.VO.AlarmDetection(
+        Emotions.VO.AlarmTrigger.parse({
+          type: Emotions.VO.AlarmTriggerEnum.inactivity,
+          inactivityDays: 7,
+          lastEntryTimestamp: tools.Time.Now().Minus(tools.Time.Days(10)).ms,
+        }),
+        Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
+      ),
+      new Emotions.VO.AlarmDetection(
+        Emotions.VO.AlarmTrigger.parse({
+          type: Emotions.VO.AlarmTriggerEnum.inactivity,
+          inactivityDays: 7,
+          lastEntryTimestamp: tools.Time.Now().Minus(tools.Time.Days(20)).ms,
+        }),
+        Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
+      ),
+    ];
+
+    for (const [index, detection] of Object.entries(inactivityDetections)) {
+      await Emotions.Services.AlarmFactory.create(detection, users[0]!.user.id);
+      console.log(`[✓] Alarm ${Number(index) + 1} created`);
+    }
 
     for (const counter of _.range(0, 10)) {
       const situation = new Emotions.Entities.Situation(
