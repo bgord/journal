@@ -50,8 +50,8 @@ server.route("/entry", entry);
 const alarms = new Hono();
 
 alarms.use("*", AuthShield.attach, AuthShield.verify);
-alarms.get("/list", Emotions.Routes.ListAlarms);
-server.route("/alarm", alarms);
+alarms.get("/list", Emotions.Routes.DashboardStats);
+server.route("/dashboard", alarms);
 // =============================
 
 //Translations =================

@@ -11,7 +11,7 @@ export function meta() {
 export async function loader({ request }: Route.LoaderArgs) {
   const cookie = UI.Cookies.extractFrom(request);
 
-  const response = await API("/alarm/list", { headers: { cookie } });
+  const response = await API("/dashboard/list", { headers: { cookie } });
   const alarms = (await response.json()) as { inactivity: SelectAlarms[]; entry: SelectAlarms[] };
 
   return { alarms };
