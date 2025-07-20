@@ -9,7 +9,7 @@ import type { EmotionLabelType } from "../modules/emotions/value-objects/emotion
 import { EmotionLabel } from "../modules/emotions/value-objects/emotion-label";
 import { db } from "./db";
 
-export class Repo {
+export class ReadModel {
   static AddEntryForm = AddEntryForm.get();
 
   static AuthForm = AuthForm.get();
@@ -21,7 +21,7 @@ export class Repo {
       with: { alarms: true },
     });
 
-    return entries.map(Repo.formatFull);
+    return entries.map(ReadModel.formatFull);
   }
 
   static async getHeatmap(userId: UserIdType) {

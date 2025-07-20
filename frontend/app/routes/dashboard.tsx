@@ -1,7 +1,7 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import { guard } from "../../auth";
-import { Repo } from "../../repos";
+import { ReadModel } from "../../read-model";
 import type { Route } from "./+types/dashboard";
 
 export function meta() {
@@ -12,11 +12,11 @@ export async function loader({ request }: Route.LoaderArgs) {
   const session = await guard.getServerSession(request);
   const userId = session?.user.id as string;
 
-  const heatmap = await Repo.getHeatmap(userId);
-  const counts = await Repo.getEntryCounts(userId);
-  const topEmotions = await Repo.getTopEmotions(userId);
-  const topReactions = await Repo.getTopReactions(userId);
-  const alarms = await Repo.listAlarms(userId);
+  const heatmap = await ReadModel.getHeatmap(userId);
+  const counts = await ReadModel.getEntryCounts(userId);
+  const topEmotions = await ReadModel.getTopEmotions(userId);
+  const topReactions = await ReadModel.getTopReactions(userId);
+  const alarms = await ReadModel.listAlarms(userId);
 
   return { alarms, entries: { counts, topEmotions, topReactions }, heatmap };
 }

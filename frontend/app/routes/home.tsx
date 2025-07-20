@@ -5,7 +5,7 @@ import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import { guard } from "../../auth";
 import * as Components from "../../components";
-import { Repo } from "../../repos";
+import { ReadModel } from "../../read-model";
 import type { Route } from "./+types/home";
 
 export function meta() {
@@ -53,9 +53,9 @@ export async function loader({ request }: Route.LoaderArgs) {
   const session = await guard.getServerSession(request);
   const userId = session?.user.id as string;
 
-  const entries = await Repo.listEntriesForUser(userId);
+  const entries = await ReadModel.listEntriesForUser(userId);
 
-  return { entries, form: Repo.AddEntryForm };
+  return { entries, form: ReadModel.AddEntryForm };
 }
 
 export type EntryType = Route.ComponentProps["loaderData"]["entries"][number];

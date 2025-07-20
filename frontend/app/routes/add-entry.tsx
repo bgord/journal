@@ -4,7 +4,7 @@ import { redirect, useFetcher } from "react-router";
 import type { types } from "../../../app/services/add-entry-form";
 import { API } from "../../api";
 import * as Components from "../../components";
-import { Repo } from "../../repos";
+import { ReadModel } from "../../read-model";
 import type { Route } from "./+types/add-entry";
 
 export function meta() {
@@ -12,7 +12,7 @@ export function meta() {
 }
 
 export async function loader() {
-  return Repo.AddEntryForm;
+  return ReadModel.AddEntryForm;
 }
 
 export async function action({ request }: Route.ActionArgs) {
