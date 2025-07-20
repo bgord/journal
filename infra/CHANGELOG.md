@@ -1,9 +1,19 @@
 # Changelog
+- 2025-07-20 10:02 fe41c3b **step: update react-router**
+## 2025-07-20 10:02 
+- 2025-07-20 10:01 724e02f **step: update packages**
+- 2025-07-20 09:57 0dfa7df **step: update packages**
+- 2025-07-20 09:55 c72c33d **fix: tests**
+- 2025-07-19 21:07 608b617 **fix: no entries in the last week**
+- 2025-07-19 20:37 399e4b0 **step: setup list alarms route**
+- 2025-07-19 20:33 3b16f4d **step: setup alarms route**
+- 2025-07-19 20:26 4f624c0 **step: handle all alarms in the repository**
 - 2025-07-19 19:29 4a897cc **step: improve weekly review processing**
-## 2025-07-19 19:29 
 - 2025-07-19 18:15 590d7b6 **refactor: make ai clients use prompt -> advoice vos**
 - 2025-07-19 18:06 82a13c9 **refactor: move emotion alarm template to services**
 - 2025-07-19 18:01 f3ceb4c **refactor: move alarm detection to vo**
+- 2025-07-19 17:29 b2c9cd6 **docs: generate readme**
+- 2025-07-19 17:29 12eeb7d **docs: generate CHANGELOG**
 - 2025-07-19 14:03 4428f57 **refactor: move templates to VO**
 - 2025-07-19 13:55 dc8ae00 **refactor: use env.EMAIL_FROM**
 - 2025-07-19 13:44 ad93b0f **step: use alarm prompt factory**
