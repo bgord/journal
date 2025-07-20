@@ -92,6 +92,19 @@ export class EntryRepository {
     return { today, lastWeek, all };
   }
 
+  static async topFiveEffective(userId: Auth.VO.UserIdType) {
+    return db
+      .select({
+        reactionDescription: Schema.entries.reactionDescription,
+        reactionType: Schema.entries.reactionType,
+        reactionEffectiveness: Schema.entries.reactionEffectiveness,
+      })
+      .from(Schema.entries)
+      .where(eq(Schema.entries.userId, userId))
+      .orderBy(desc(Schema.entries.reactionEffectiveness))
+      .limit(5);
+  }
+
   static async logSituation(event: Events.SituationLoggedEventType) {
     await db.insert(Schema.entries).values({
       id: event.payload.entryId,

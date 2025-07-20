@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
 import { Alarm as AlarmIcon, Notes } from "iconoir-react";
-import type { SelectAlarms } from "../../../infra/schema";
+import type { SelectAlarms, SelectEntries } from "../../../infra/schema";
 import { API } from "../../api";
 import type { Route } from "./+types/dashboard";
 
@@ -15,13 +15,16 @@ export async function loader({ request }: Route.LoaderArgs) {
   const json = await response.json();
 
   const alarms = json.alarms as { inactivity: SelectAlarms[]; entry: SelectAlarms[] };
+
+  // TODO: Make typesafe
   const entries = json.entries as {
     counts: { today: number; lastWeek: number; all: number };
     topEmotions: {
-      today: { label: string; hits: number }[];
-      lastWeek: { label: string; hits: number }[];
-      all: { label: string; hits: number }[];
+      today: { label: SelectEntries["emotionLabel"]; hits: number }[];
+      lastWeek: { label: SelectEntries["emotionLabel"]; hits: number }[];
+      all: { label: SelectEntries["emotionLabel"]; hits: number }[];
     };
+    topReactions: Pick<SelectEntries, "reactionType" | "reactionDescription" | "reactionEffectiveness">[];
   };
 
   return { alarms, entries };
@@ -209,6 +212,35 @@ export default function Dashboard(props: Route.ComponentProps) {
               </ul>
             </div>
           </div>
+        </div>
+
+        <div
+          data-display="flex"
+          data-direction="column"
+          data-gap="24"
+          data-mt="24"
+          data-p="24"
+          data-bc="gray-200"
+          data-bw="1"
+          data-br="4"
+          data-shadow="sm"
+          {...UI.Colorful("surface-card").style.background}
+        >
+          <h2 data-display="flex" data-gap="12">
+            {t("dashboard.entries.reactions")}
+          </h2>
+
+          <ul data-display="flex" data-direction="column" data-gap="24">
+            {props.loaderData.entries.topReactions.map((reaction) => (
+              <li data-display="flex" data-direction="column" data-gap="12">
+                <div data-display="flex" data-gap="12">
+                  <div className="c-badge">{reaction.reactionEffectiveness} / 5</div>
+                  <div>{t(`entry.reaction.type.value.${reaction.reactionType}`)}</div>
+                </div>
+                <div data-ml="12">"{reaction.reactionDescription}"</div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </main>

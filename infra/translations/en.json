@@ -36,6 +36,7 @@
   "dashboard.entries.today": "Today",
   "dashboard.entries.last_week": "Last week",
   "dashboard.entries.all": "All",
+  "dashboard.entries.reactions": "Top reactions",
   "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negative emotion with extreme intensity",
   "entry.add.title": "Add entry",
   "entry.delete.title": "Delete entry",
