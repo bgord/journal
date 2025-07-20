@@ -140,9 +140,9 @@ modules/
     │   ├── alarm-repository.ts
     │   ├── entry-repository.ts
     ├── routes
+    │   ├── dashboard-stats.ts
     │   ├── delete-entry.ts
     │   ├── evaluate-reaction.ts
-    │   ├── list-alarms.ts
     │   ├── list-entries.ts
     │   ├── log-entry.ts
     │   └── reappraise-emotion.ts
