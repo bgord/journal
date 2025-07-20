@@ -3,16 +3,22 @@ import type * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+import * as tools from "@bgord/tools";
 import { and, eq, notInArray } from "drizzle-orm";
 
 export class AlarmRepository {
   static async list(userId: Auth.VO.UserIdType) {
-    return db.query.alarms.findMany({
+    const result = await db.query.alarms.findMany({
       where: and(
         eq(Schema.alarms.userId, userId),
         eq(Schema.alarms.name, VO.AlarmNameOption.INACTIVITY_ALARM),
       ),
     });
+
+    return result.map((alarm) => ({
+      ...alarm,
+      generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
+    }));
   }
 
   static async generate(
