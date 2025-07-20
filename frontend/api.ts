@@ -1,4 +1,4 @@
-export const API: typeof fetch = (input, init) =>
+export const API: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response> = (input, init) =>
   fetch(`${import.meta.env.VITE_API_URL}${input}`, {
     credentials: "include",
     ...init,

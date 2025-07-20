@@ -2,7 +2,7 @@ import * as UI from "@bgord/ui";
 import { ProfileCircle } from "iconoir-react";
 import { Link, Outlet } from "react-router";
 import * as Auth from "../../auth";
-import { LogoutButton } from "../../components/logout-button";
+import * as Components from "../../components";
 import type { Route } from "./+types/auth-layout";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -34,7 +34,7 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
           <ProfileCircle height={20} width={20} /> {loaderData?.user.email}
         </div>
 
-        <LogoutButton />
+        <Components.LogoutButton />
       </div>
       <Outlet context={loaderData} />;
     </div>

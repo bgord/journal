@@ -38,20 +38,11 @@ server.get(
 const entry = new Hono();
 
 entry.use("*", AuthShield.attach, AuthShield.verify);
-entry.get("/list", Emotions.Routes.ListEntries);
 entry.post("/log", Emotions.Routes.LogEntry);
 entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
 entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
 server.route("/entry", entry);
-// =============================
-
-// Alarms ====================
-const alarms = new Hono();
-
-alarms.use("*", AuthShield.attach, AuthShield.verify);
-alarms.get("/list", Emotions.Routes.DashboardStats);
-server.route("/dashboard", alarms);
 // =============================
 
 //Translations =================
