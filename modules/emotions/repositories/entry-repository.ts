@@ -29,16 +29,6 @@ export class EntryRepository {
       .where(and(gte(Schema.entries.startedAt, weekStartedAt), lte(Schema.entries.startedAt, weekEndedAt)));
   }
 
-  static async listForUser(userId: Auth.VO.UserIdType): Promise<Schema.SelectEntriesFull[]> {
-    const entries = await db.query.entries.findMany({
-      orderBy: desc(Schema.entries.startedAt),
-      where: eq(Schema.entries.userId, userId),
-      with: { alarms: true },
-    });
-
-    return entries.map(EntryRepository.formatFull);
-  }
-
   static async getCounts(userId: Auth.VO.UserIdType) {
     const todayStart = tools.Time.Now().Minus(tools.Time.Days(1)).ms;
     const weekStart = tools.Time.Now().Minus(tools.Time.Days(7)).ms;
