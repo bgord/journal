@@ -1,6 +1,7 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import { guard } from "../../auth";
+import * as Components from "../../components";
 import { ReadModel } from "../../read-model";
 import type { Route } from "./+types/dashboard";
 
@@ -21,23 +22,6 @@ export async function loader({ request }: Route.LoaderArgs) {
   return { alarms, entries: { counts, topEmotions, topReactions }, heatmap };
 }
 
-function Cell(props: React.JSX.IntrinsicElements["div"]) {
-  return (
-    <div
-      data-display="flex"
-      data-direction="column"
-      data-gap="12"
-      data-p="24"
-      data-bc="gray-200"
-      data-bw="1"
-      data-br="4"
-      data-shadow="sm"
-      {...UI.Colorful("surface-card").style.background}
-      {...props}
-    />
-  );
-}
-
 export default function Dashboard(props: Route.ComponentProps) {
   const t = UI.useTranslations();
 
@@ -55,7 +39,7 @@ export default function Dashboard(props: Route.ComponentProps) {
             <Icons.Alarm height={20} width={20} data-color="red-500" /> {t("dashboard.alarm.header")}
           </h2>
 
-          <Cell>
+          <Components.DashboardCell>
             <h2 data-display="flex" data-gap="12">
               {t("dashboard.alarm.inactivity")}
               <div className="c-badge">{props.loaderData.alarms.inactivity.length}</div>
@@ -78,9 +62,9 @@ export default function Dashboard(props: Route.ComponentProps) {
                 </li>
               ))}
             </ul>
-          </Cell>
+          </Components.DashboardCell>
 
-          <Cell data-mt="24">
+          <Components.DashboardCell data-mt="24">
             <h2 data-display="flex" data-gap="12">
               {t("dashboard.alarm.entry")}
               <div className="c-badge">{props.loaderData.alarms.entry.length}</div>
@@ -103,7 +87,7 @@ export default function Dashboard(props: Route.ComponentProps) {
                 </li>
               ))}
             </ul>
-          </Cell>
+          </Components.DashboardCell>
         </section>
 
         <section data-pb="36" data-fs="12" data-p="12" {...UI.Rhythm(475).times(1).style.width}>
@@ -111,7 +95,7 @@ export default function Dashboard(props: Route.ComponentProps) {
             <Icons.Notes height={20} width={20} data-color="green-500" /> {t("dashboard.entries.header")}
           </h2>
 
-          <Cell>
+          <Components.DashboardCell>
             <h2 data-display="flex" data-gap="12">
               {t("dashboard.entries.counts")}
             </h2>
@@ -138,9 +122,9 @@ export default function Dashboard(props: Route.ComponentProps) {
                 </div>
               </div>
             </div>
-          </Cell>
+          </Components.DashboardCell>
 
-          <Cell data-mt="24">
+          <Components.DashboardCell data-mt="24">
             <h2 data-display="flex" data-gap="12">
               {t("dashboard.entries.top_emotions")}
             </h2>
@@ -185,9 +169,9 @@ export default function Dashboard(props: Route.ComponentProps) {
                 </ul>
               </div>
             </div>
-          </Cell>
+          </Components.DashboardCell>
 
-          <Cell data-mt="24">
+          <Components.DashboardCell data-mt="24">
             <h2 data-display="flex" data-gap="12">
               {t("dashboard.entries.reactions")}
             </h2>
@@ -203,7 +187,7 @@ export default function Dashboard(props: Route.ComponentProps) {
                 </li>
               ))}
             </ul>
-          </Cell>
+          </Components.DashboardCell>
         </section>
       </div>
     </main>
