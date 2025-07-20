@@ -1,9 +1,12 @@
 # Changelog
+- 2025-07-20 10:06 b73bd57 **step: bump bgord/scripts**
+## 2025-07-20 10:06 
 - 2025-07-20 10:02 fe41c3b **step: update react-router**
-## 2025-07-20 10:02 
 - 2025-07-20 10:01 724e02f **step: update packages**
 - 2025-07-20 09:57 0dfa7df **step: update packages**
 - 2025-07-20 09:55 c72c33d **fix: tests**
+- 2025-07-20 08:05 b85f80c **docs: generate readme**
+- 2025-07-20 08:05 a613fed **docs: generate CHANGELOG**
 - 2025-07-19 21:07 608b617 **fix: no entries in the last week**
 - 2025-07-19 20:37 399e4b0 **step: setup list alarms route**
 - 2025-07-19 20:33 3b16f4d **step: setup alarms route**
