@@ -8,17 +8,19 @@ import { and, eq, notInArray } from "drizzle-orm";
 
 export class AlarmRepository {
   static async list(userId: Auth.VO.UserIdType) {
-    const result = await db.query.alarms.findMany({
+    const inactivity = await db.query.alarms.findMany({
       where: and(
         eq(Schema.alarms.userId, userId),
         eq(Schema.alarms.name, VO.AlarmNameOption.INACTIVITY_ALARM),
       ),
     });
 
-    return result.map((alarm) => ({
-      ...alarm,
-      generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
-    }));
+    return {
+      inactivity: inactivity.map((alarm) => ({
+        ...alarm,
+        generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
+      })),
+    };
   }
 
   static async generate(

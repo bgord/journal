@@ -17,11 +17,11 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
           className="c-button"
           data-variant="bare"
           type="button"
-          to="/alarms"
+          to="/dashboard"
           data-display="flex"
           data-cross="center"
         >
-          Alarms
+          Dashboard
         </Link>
 
         <div

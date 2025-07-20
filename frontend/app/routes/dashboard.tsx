@@ -2,7 +2,7 @@ import * as UI from "@bgord/ui";
 import { Alarm as AlarmIcon } from "iconoir-react";
 import type { SelectAlarms } from "../../../infra/schema";
 import { API } from "../../api";
-import type { Route } from "./+types/alarms";
+import type { Route } from "./+types/dashboard";
 
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
@@ -12,12 +12,12 @@ export async function loader({ request }: Route.LoaderArgs) {
   const cookie = UI.Cookies.extractFrom(request);
 
   const response = await API("/alarm/list", { headers: { cookie } });
-  const alarms = (await response.json()) as SelectAlarms[];
+  const alarms = (await response.json()) as { inactivity: SelectAlarms[] };
 
   return { alarms };
 }
 
-export default function Alarms(props: Route.ComponentProps) {
+export default function Dashboard(props: Route.ComponentProps) {
   const t = UI.useTranslations();
 
   return (
@@ -39,11 +39,11 @@ export default function Alarms(props: Route.ComponentProps) {
       >
         <h2 data-display="flex" data-gap="12">
           {t("alarm.inactivity")}
-          <div className="c-badge">{props.loaderData.alarms.length}</div>
+          <div className="c-badge">{props.loaderData.alarms.inactivity.length}</div>
         </h2>
 
         <ul data-display="flex" data-direction="column" data-gap="12" data-mt="12">
-          {props.loaderData.alarms.map((alarm) => (
+          {props.loaderData.alarms.inactivity.map((alarm) => (
             <li key={alarm.id}>
               <div data-display="flex" data-gap="6">
                 <div>{alarm.generatedAt}</div>

@@ -20,6 +20,7 @@ export class AlarmFactory {
       }
 
       case VO.AlarmTriggerEnum.inactivity:
+        // TODO should check daily alarm limit
         break;
     }
 
