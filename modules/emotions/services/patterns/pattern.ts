@@ -1,6 +1,6 @@
 import type * as Aggregates from "+emotions/aggregates";
 import type * as Events from "+emotions/events";
-import { z } from "zod/v4";
+import type { z } from "zod/v4";
 
 type PatternName = string;
 
