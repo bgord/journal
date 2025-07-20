@@ -142,6 +142,7 @@ modules/
     ├── routes
     │   ├── delete-entry.ts
     │   ├── evaluate-reaction.ts
+    │   ├── list-alarms.ts
     │   ├── list-entries.ts
     │   ├── log-entry.ts
     │   └── reappraise-emotion.ts
