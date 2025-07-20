@@ -105,6 +105,16 @@ export class EntryRepository {
       .limit(5);
   }
 
+  static async getHeatmap(userId: Auth.VO.UserIdType) {
+    const rows = await db
+      .select({ label: Schema.entries.emotionLabel })
+      .from(Schema.entries)
+      .where(eq(Schema.entries.userId, userId))
+      .orderBy(desc(Schema.entries.startedAt));
+
+    return rows.map((row) => (new VO.EmotionLabel(row.label as VO.EmotionLabelType).isPositive() ? 1 : 0));
+  }
+
   static async logSituation(event: Events.SituationLoggedEventType) {
     await db.insert(Schema.entries).values({
       id: event.payload.entryId,
