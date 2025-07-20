@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { desc, eq } from "drizzle-orm";
+import { and, count, desc, eq, gte } from "drizzle-orm";
 import * as Schema from "../infra/schema";
 import type { UserIdType } from "../modules/auth/value-objects/user-id";
 import type { EmotionLabelType } from "../modules/emotions/value-objects/emotion-label";
@@ -27,7 +27,29 @@ export class Repo {
     return rows.map((row) => (new EmotionLabel(row.label as EmotionLabelType).isPositive() ? 1 : 0));
   }
 
-  static formatFull(entry: Schema.SelectEntriesWithAlarms): Schema.SelectEntriesFull {
+  static async getCounts(userId: UserIdType) {
+    const todayStart = tools.Time.Now().Minus(tools.Time.Days(1)).ms;
+    const weekStart = tools.Time.Now().Minus(tools.Time.Days(7)).ms;
+
+    const [today] = await db
+      .select({ c: count(Schema.entries.id).mapWith(Number) })
+      .from(Schema.entries)
+      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, todayStart)));
+
+    const [week] = await db
+      .select({ c: count(Schema.entries.id).mapWith(Number) })
+      .from(Schema.entries)
+      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, weekStart)));
+
+    const [all] = await db
+      .select({ c: count(Schema.entries.id).mapWith(Number) })
+      .from(Schema.entries)
+      .where(eq(Schema.entries.userId, userId));
+
+    return { today: today?.c ?? 0, lastWeek: week?.c ?? 0, all: all?.c ?? 0 };
+  }
+
+  static formatFull(entry: Schema.SelectEntriesWithAlarms) {
     return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
   }
 }

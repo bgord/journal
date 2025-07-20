@@ -33,8 +33,9 @@ export async function loader({ request }: Route.LoaderArgs) {
   };
 
   const heatmap = await Repo.getHeatmap(userId);
+  const counts = await Repo.getCounts(userId);
 
-  return { alarms, entries, heatmap };
+  return { alarms, entries: { ...entries, counts }, heatmap };
 }
 
 function Cell(props: React.JSX.IntrinsicElements["div"]) {
