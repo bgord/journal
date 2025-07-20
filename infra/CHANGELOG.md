@@ -1,9 +1,29 @@
 # Changelog
+- 2025-07-21 00:55 8fc2791 **Merge pull request #17 from bgord/read_poc**
+## 2025-07-21 00:55 
+- 2025-07-21 00:53 1667c6d **fix: type errors**
+- 2025-07-21 00:46 fbc8f6e **step: handle empty alarms state**
+- 2025-07-21 00:41 c781187 **step: improve colors**
+- 2025-07-21 00:38 b1d4067 **refactor: extract dashboard cell**
+- 2025-07-21 00:36 a602e3f **refactor: rename read model**
+- 2025-07-21 00:23 d7c4b22 **refactor: return form from repo**
+- 2025-07-21 00:19 11dc0f6 **step: move alarms**
+- 2025-07-21 00:16 649327c **step: move top five effective**
+- 2025-07-21 00:13 81f90cb **step: move getTopEmotions**
+- 2025-07-21 00:11 fda6321 **refactor: move get counts**
+- 2025-07-21 00:07 2fe1ded **refactor: move heatmap to repo**
+- 2025-07-21 00:02 03442e3 **refactor: remove list entries route**
+- 2025-07-21 00:01 bfda6ce **refactor: derive fe types**
+- 2025-07-21 00:01 03fa201 **step: use entry repo in home routE**
+- 2025-07-21 00:00 82937c6 **step: bump bgord/scripts**
+- 2025-07-21 00:00 0cc5c6c **step: add fe/db**
+- 2025-07-20 23:31 aa48707 **step: add drizzle to fe**
 - 2025-07-20 23:00 4bcf37a **feature: add heatmap**
-## 2025-07-20 23:00 
 - 2025-07-20 22:26 58b4023 **refactor: extract dashboard section**
 - 2025-07-20 22:20 ff0b625 **step: add top reactions dashboard section**
 - 2025-07-20 21:49 718d9fb **step: add top emotions dashboard section**
+- 2025-07-20 21:31 72c6bde **docs: generate readme**
+- 2025-07-20 21:31 10cdf02 **docs: generate CHANGELOG**
 - 2025-07-20 21:18 78121d8 **step: add get top emotions repo method**
 - 2025-07-20 20:37 4933554 **step: add entry counts to dashboard**
 - 2025-07-20 20:23 c981321 **refactor: make alarms a dashboard section**
