@@ -50,7 +50,7 @@ export const entryDetection = new Emotions.VO.AlarmDetection(
 export const inactivityTrigger = {
   type: Emotions.VO.AlarmTriggerEnum.inactivity,
   inactivityDays: 7,
-  lastEntryTimestamp: tools.Timestamp.parse(Date.now()),
+  lastEntryTimestamp: tools.Timestamp.parse(1000),
 } as const;
 
 export const inactivityDetection = new Emotions.VO.AlarmDetection(

@@ -26,25 +26,29 @@ describe("InactivityAlarmScheduler", () => {
   test("NoEntriesInTheLastWeek - undefined timestamp", async () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
     spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(undefined);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      expect(async () => await Emotions.Services.InactivityAlarmScheduler.process()).toThrow(
-        Emotions.Policies.NoEntriesInTheLastWeek.error,
-      );
-    });
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await Emotions.Services.InactivityAlarmScheduler.process(),
+    );
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
 
     jest.restoreAllMocks();
   });
 
   test("NoEntriesInTheLastWeek", async () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
-    spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(1);
+    spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(Date.now());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      expect(async () => await Emotions.Services.InactivityAlarmScheduler.process()).toThrow(
-        Emotions.Policies.NoEntriesInTheLastWeek.error,
-      );
-    });
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await Emotions.Services.InactivityAlarmScheduler.process(),
+    );
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
 
     jest.restoreAllMocks();
   });
