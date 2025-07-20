@@ -1,7 +1,5 @@
 import * as UI from "@bgord/ui";
-import { Alarm as AlarmIcon, Notes } from "iconoir-react";
-import type { SelectAlarms } from "../../../infra/schema";
-import { API } from "../../api";
+import * as Icons from "iconoir-react";
 import { guard } from "../../auth";
 import { Repo } from "../../repos";
 import type { Route } from "./+types/dashboard";
@@ -14,17 +12,11 @@ export async function loader({ request }: Route.LoaderArgs) {
   const session = await guard.getServerSession(request);
   const userId = session?.user.id as string;
 
-  const cookie = UI.Cookies.extractFrom(request);
-
-  const response = await API("/dashboard/list", { headers: { cookie } });
-  const json = await response.json();
-
-  const alarms = json.alarms as { inactivity: SelectAlarms[]; entry: SelectAlarms[] };
-
   const heatmap = await Repo.getHeatmap(userId);
-  const counts = await Repo.getCounts(userId);
+  const counts = await Repo.getEntryCounts(userId);
   const topEmotions = await Repo.getTopEmotions(userId);
-  const topReactions = await Repo.topFiveEffective(userId);
+  const topReactions = await Repo.getTopReactions(userId);
+  const alarms = await Repo.listAlarms(userId);
 
   return { alarms, entries: { counts, topEmotions, topReactions }, heatmap };
 }
@@ -60,7 +52,7 @@ export default function Dashboard(props: Route.ComponentProps) {
       <div data-display="flex">
         <section data-p="12" data-fs="12" {...UI.Rhythm(475).times(1).style.width}>
           <h2 data-display="flex" data-gap="12" data-mb="12" data-ml="6">
-            <AlarmIcon height={20} width={20} data-color="red-500" /> {t("dashboard.alarm.header")}
+            <Icons.Alarm height={20} width={20} data-color="red-500" /> {t("dashboard.alarm.header")}
           </h2>
 
           <Cell>
@@ -116,7 +108,7 @@ export default function Dashboard(props: Route.ComponentProps) {
 
         <section data-pb="36" data-fs="12" data-p="12" {...UI.Rhythm(475).times(1).style.width}>
           <h2 data-display="flex" data-gap="12" data-mb="12" data-ml="6">
-            <Notes height={20} width={20} data-color="green-500" /> {t("dashboard.entries.header")}
+            <Icons.Notes height={20} width={20} data-color="green-500" /> {t("dashboard.entries.header")}
           </h2>
 
           <Cell>

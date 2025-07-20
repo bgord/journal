@@ -1,7 +1,8 @@
 import * as tools from "@bgord/tools";
-import { and, count, desc, eq, gte, sql } from "drizzle-orm";
+import { and, count, desc, eq, gte, not, sql } from "drizzle-orm";
 import * as Schema from "../infra/schema";
 import type { UserIdType } from "../modules/auth/value-objects/user-id";
+import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
 import type { EmotionLabelType } from "../modules/emotions/value-objects/emotion-label";
 import { EmotionLabel } from "../modules/emotions/value-objects/emotion-label";
 import { db } from "./db";
@@ -27,7 +28,7 @@ export class Repo {
     return rows.map((row) => (new EmotionLabel(row.label as EmotionLabelType).isPositive() ? 1 : 0));
   }
 
-  static async getCounts(userId: UserIdType) {
+  static async getEntryCounts(userId: UserIdType) {
     const todayStart = tools.Time.Now().Minus(tools.Time.Days(1)).ms;
     const weekStart = tools.Time.Now().Minus(tools.Time.Days(7)).ms;
 
@@ -80,7 +81,7 @@ export class Repo {
     return { today, lastWeek, all };
   }
 
-  static async topFiveEffective(userId: UserIdType) {
+  static async getTopReactions(userId: UserIdType) {
     return db
       .select({
         reactionDescription: Schema.entries.reactionDescription,
@@ -91,6 +92,30 @@ export class Repo {
       .where(eq(Schema.entries.userId, userId))
       .orderBy(desc(Schema.entries.reactionEffectiveness))
       .limit(5);
+  }
+
+  static async listAlarms(userId: UserIdType) {
+    const inactivity = await db.query.alarms.findMany({
+      where: and(eq(Schema.alarms.userId, userId), eq(Schema.alarms.name, AlarmNameOption.INACTIVITY_ALARM)),
+    });
+
+    const entry = await db.query.alarms.findMany({
+      where: and(
+        eq(Schema.alarms.userId, userId),
+        not(eq(Schema.alarms.name, AlarmNameOption.INACTIVITY_ALARM)),
+      ),
+    });
+
+    return {
+      inactivity: inactivity.map((alarm) => ({
+        ...alarm,
+        generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
+      })),
+      entry: entry.map((alarm) => ({
+        ...alarm,
+        generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
+      })),
+    };
   }
 
   static formatFull(entry: Schema.SelectEntriesWithAlarms) {
