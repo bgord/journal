@@ -15,7 +15,14 @@ export async function loader({ request }: Route.LoaderArgs) {
   const json = await response.json();
 
   const alarms = json.alarms as { inactivity: SelectAlarms[]; entry: SelectAlarms[] };
-  const entries = json.entries as { counts: { today: number; lastWeek: number; all: number } };
+  const entries = json.entries as {
+    counts: { today: number; lastWeek: number; all: number };
+    topEmotions: {
+      today: { label: string; hits: number }[];
+      lastWeek: { label: string; hits: number }[];
+      all: { label: string; hits: number }[];
+    };
+  };
 
   return { alarms, entries };
 }
@@ -124,21 +131,21 @@ export default function Dashboard(props: Route.ComponentProps) {
 
           <div data-display="flex" data-main="between" data-px="36">
             <div data-display="flex" data-direction="column" data-cross="center" data-gap="12">
-              <div data-transform="center">Today</div>
+              <div data-transform="center">{t("dashboard.entries.today")}</div>
               <div data-fs="36" {...UI.Colorful("brand-500").style.color}>
                 {props.loaderData.entries.counts.today}
               </div>
             </div>
 
             <div data-display="flex" data-direction="column" data-cross="center" data-gap="12">
-              <div data-transform="center">Last week</div>
+              <div data-transform="center">{t("dashboard.entries.last_week")}</div>
               <div data-fs="36" {...UI.Colorful("brand-500").style.color}>
                 {props.loaderData.entries.counts.lastWeek}
               </div>
             </div>
 
             <div data-display="flex" data-direction="column" data-cross="center" data-gap="12">
-              <div data-transform="center">All</div>
+              <div data-transform="center">{t("dashboard.entries.all")}</div>
               <div data-fs="36" {...UI.Colorful("brand-500").style.color}>
                 {props.loaderData.entries.counts.all}
               </div>
@@ -162,8 +169,45 @@ export default function Dashboard(props: Route.ComponentProps) {
             {t("dashboard.entries.top_emotions")}
           </h2>
 
-          <div data-display="flex" data-direction="column">
-            <div>Today</div>
+          <div data-display="flex" data-main="between" data-px="12">
+            <div data-display="flex" data-direction="column" data-cross="center" data-gap="12" data-fs="12">
+              <div>{t("dashboard.entries.today")}</div>
+
+              <ul data-display="flex" data-direction="column" data-gap="24">
+                {props.loaderData.entries.topEmotions.today.map((stat) => (
+                  <li data-display="flex" data-gap="6">
+                    <div className="c-badge">{stat.hits}</div>
+                    <div>{t(`entry.emotion.label.value.${stat.label}`)}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div data-display="flex" data-direction="column" data-cross="center" data-gap="12" data-fs="12">
+              <div>{t("dashboard.entries.last_week")}</div>
+
+              <ul data-display="flex" data-direction="column" data-gap="24">
+                {props.loaderData.entries.topEmotions.lastWeek.map((stat) => (
+                  <li data-display="flex" data-gap="6">
+                    <div className="c-badge">{stat.hits}</div>
+                    <div>{t(`entry.emotion.label.value.${stat.label}`)}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div data-display="flex" data-direction="column" data-cross="center" data-gap="12" data-fs="12">
+              <div>{t("dashboard.entries.all")}</div>
+
+              <ul data-display="flex" data-direction="column" data-gap="24">
+                {props.loaderData.entries.topEmotions.all.map((stat) => (
+                  <li data-display="flex" data-gap="6">
+                    <div className="c-badge">{stat.hits}</div>
+                    <div>{t(`entry.emotion.label.value.${stat.label}`)}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>

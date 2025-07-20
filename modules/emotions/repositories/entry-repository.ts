@@ -73,7 +73,7 @@ export class EntryRepository {
       .orderBy(sql`count(${Schema.entries.id}) DESC`)
       .limit(3);
 
-    const week = await db
+    const lastWeek = await db
       .select({ label: Schema.entries.emotionLabel, hits: count(Schema.entries.id).mapWith(Number) })
       .from(Schema.entries)
       .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, weekStart)))
@@ -89,7 +89,7 @@ export class EntryRepository {
       .orderBy(sql`count(${Schema.entries.id}) DESC`)
       .limit(3);
 
-    return { today, week, all };
+    return { today, lastWeek, all };
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {
