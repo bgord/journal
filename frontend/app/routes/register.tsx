@@ -65,6 +65,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
           </label>
 
           <input
+            autoFocus
             className="c-input"
             type="email"
             placeholder={t("auth.email.placeholder")}
