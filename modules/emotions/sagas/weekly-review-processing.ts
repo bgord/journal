@@ -79,7 +79,6 @@ export class WeeklyReviewProcessing {
     try {
       const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 
-      // TODO: Handle error cases
       if (!contact?.email) return;
 
       const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
