@@ -1,7 +1,6 @@
 import * as UI from "@bgord/ui";
 import { Plus } from "iconoir-react";
 import { Link } from "react-router";
-import { AddEntryForm } from "../../../app/services/add-entry-form";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import { guard } from "../../auth";
@@ -56,7 +55,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const entries = await Repo.listEntriesForUser(userId);
 
-  return { entries, form: AddEntryForm.get() };
+  return { entries, form: Repo.AddEntryForm };
 }
 
 export type EntryType = Route.ComponentProps["loaderData"]["entries"][number];

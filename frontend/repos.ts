@@ -1,5 +1,7 @@
 import * as tools from "@bgord/tools";
 import { and, count, desc, eq, gte, not, sql } from "drizzle-orm";
+import { AddEntryForm } from "../app/services/add-entry-form";
+import { AuthForm } from "../app/services/auth-form";
 import * as Schema from "../infra/schema";
 import type { UserIdType } from "../modules/auth/value-objects/user-id";
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
@@ -8,6 +10,10 @@ import { EmotionLabel } from "../modules/emotions/value-objects/emotion-label";
 import { db } from "./db";
 
 export class Repo {
+  static AddEntryForm = AddEntryForm.get();
+
+  static AuthForm = AuthForm.get();
+
   static async listEntriesForUser(userId: UserIdType) {
     const entries = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),

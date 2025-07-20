@@ -2,9 +2,9 @@ import * as UI from "@bgord/ui";
 import React from "react";
 import { redirect, useFetcher } from "react-router";
 import type { types } from "../../../app/services/add-entry-form";
-import { AddEntryForm } from "../../../app/services/add-entry-form";
 import { API } from "../../api";
 import * as Components from "../../components";
+import { Repo } from "../../repos";
 import type { Route } from "./+types/add-entry";
 
 export function meta() {
@@ -12,7 +12,7 @@ export function meta() {
 }
 
 export async function loader() {
-  return AddEntryForm.get();
+  return Repo.AddEntryForm;
 }
 
 export async function action({ request }: Route.ActionArgs) {
