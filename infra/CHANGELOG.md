@@ -1,9 +1,23 @@
 # Changelog
+- 2025-07-20 23:00 4bcf37a **feature: add heatmap**
+## 2025-07-20 23:00 
+- 2025-07-20 22:26 58b4023 **refactor: extract dashboard section**
+- 2025-07-20 22:20 ff0b625 **step: add top reactions dashboard section**
+- 2025-07-20 21:49 718d9fb **step: add top emotions dashboard section**
+- 2025-07-20 21:18 78121d8 **step: add get top emotions repo method**
+- 2025-07-20 20:37 4933554 **step: add entry counts to dashboard**
+- 2025-07-20 20:23 c981321 **refactor: make alarms a dashboard section**
+- 2025-07-20 20:14 cd04fd2 **step: rename list-alarms to dashboard**
+- 2025-07-20 20:01 8c55f81 **step: add entry alarms to dashboard**
+- 2025-07-20 16:51 51b5b56 **refactor: rename dashboard**
+- 2025-07-20 16:40 aa916c3 **step: display inactivity alarm advice**
+- 2025-07-20 16:27 c9a7b7b **step: simplify alarms dashboard**
+- 2025-07-20 16:03 a153908 **step: remove todo**
 - 2025-07-20 15:12 a22c7aa **step: display alarms**
-## 2025-07-20 15:12 
 - 2025-07-20 14:38 e0c313e **step: auto focus login and register emails**
 - 2025-07-20 14:19 980a1f0 **step: seed alarms**
 - 2025-07-20 13:31 20fe591 **step: improve alarms link**
+- 2025-07-20 13:15 8d8e2c0 **docs: generate CHANGELOG**
 - 2025-07-20 11:27 bfa4d0d **docs: generate CHANGELOG**
 - 2025-07-20 10:06 b73bd57 **step: bump bgord/scripts**
 - 2025-07-20 10:06 7702392 **step: bump bgord/scripts**
