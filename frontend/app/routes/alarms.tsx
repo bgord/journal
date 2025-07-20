@@ -42,15 +42,17 @@ export default function Alarms(props: Route.ComponentProps) {
           <div className="c-badge">{props.loaderData.alarms.length}</div>
         </h2>
 
-        <ul data-display="flex" data-direction="column" data-gap="6" data-mt="12">
+        <ul data-display="flex" data-direction="column" data-gap="12" data-mt="12">
           {props.loaderData.alarms.map((alarm) => (
             <li key={alarm.id}>
-              <div data-display="flex" data-gap="12">
+              <div data-display="flex" data-gap="6">
                 <div>{alarm.generatedAt}</div>
 
                 <div {...UI.Colorful("brand-600").style.color}>
                   {t("alarm.inactivity.duration", { inactivityDays: String(alarm.inactivityDays) })}
                 </div>
+
+                <div data-ml="12">"{alarm.advice}"</div>
               </div>
             </li>
           ))}
