@@ -5,6 +5,7 @@ import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
 import { logger } from "+infra/logger";
+import { ResponseCache } from "+infra/response-cache";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
@@ -46,7 +47,7 @@ server.route("/entry", entry);
 // =============================
 
 //Translations =================
-server.get("/translations", ...bg.Translations.build());
+server.get("/translations", ResponseCache.handle, ...bg.Translations.build());
 // =============================
 
 // Auth ========================
