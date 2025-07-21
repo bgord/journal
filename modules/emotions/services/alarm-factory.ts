@@ -25,9 +25,8 @@ export class AlarmFactory {
     }
 
     const alarmId = bg.NewUUID.generate();
-    const alarm = Aggregates.Alarm.create(alarmId);
+    const alarm = Aggregates.Alarm.generate(alarmId, detection, requesterId);
 
-    await alarm._generate(detection, requesterId);
     await EventStore.save(alarm.pullEvents());
   }
 }

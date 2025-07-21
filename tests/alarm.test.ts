@@ -5,10 +5,6 @@ import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 describe("Alarm", () => {
-  test("create new aggregate", () => {
-    expect(() => Emotions.Aggregates.Alarm.create(mocks.alarmId)).not.toThrow();
-  });
-
   test("build new aggregate", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, []);
 
@@ -17,37 +13,25 @@ describe("Alarm", () => {
 
   test("generate - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, []);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await alarm._generate(mocks.entryDetection, mocks.userId);
+      const alarm = Emotions.Aggregates.Alarm.generate(mocks.alarmId, mocks.entryDetection, mocks.userId);
+
+      expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmGeneratedEvent]);
     });
-
-    expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmGeneratedEvent]);
   });
 
-  test("generate - AlarmGeneratedOnce", async () => {
-    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
-
-    expect(async () => alarm._generate(mocks.entryDetection, mocks.userId)).toThrow(
-      Emotions.Policies.AlarmGeneratedOnce.error,
-    );
-
-    expect(alarm.pullEvents()).toEqual([]);
-  });
-
-  test("generate - correct path", async () => {
+  test("saveAdvice - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await alarm.saveAdvice(mocks.advice);
+      alarm.saveAdvice(mocks.advice);
+      expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmAdviceSavedEvent]);
     });
-
-    expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmAdviceSavedEvent]);
   });
 
-  test("generate - AlarmAlreadyGenerated", async () => {
+  test("saveAdvice - AlarmAlreadyGenerated", async () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
@@ -66,10 +50,9 @@ describe("Alarm", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await alarm.notify();
+      alarm.notify();
+      expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationSentEvent]);
     });
-
-    expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationSentEvent]);
   });
 
   test("notify - AlarmAdviceAvailable", async () => {
@@ -99,10 +82,9 @@ describe("Alarm", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await alarm.cancel();
+      alarm.cancel();
+      expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmCancelledEvent]);
     });
-
-    expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmCancelledEvent]);
   });
 
   test("cancel - AlarmIsCancellable", async () => {

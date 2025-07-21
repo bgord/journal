@@ -32,10 +32,6 @@ export class Alarm {
     this.id = id;
   }
 
-  static create(id: VO.AlarmIdType): Alarm {
-    return new Alarm(id);
-  }
-
   static build(id: VO.AlarmIdType, events: AlarmEventType[]): Alarm {
     const entry = new Alarm(id);
 
@@ -44,28 +40,30 @@ export class Alarm {
     return entry;
   }
 
-  async _generate(detection: VO.AlarmDetection, requesterId: Auth.VO.UserIdType) {
-    Policies.AlarmGeneratedOnce.perform({ status: this.status });
+  static generate(id: VO.AlarmIdType, detection: VO.AlarmDetection, requesterId: Auth.VO.UserIdType) {
+    const alarm = new Alarm(id);
 
     const event = Events.AlarmGeneratedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.ALARM_GENERATED_EVENT,
-      stream: Alarm.getStream(this.id),
+      stream: Alarm.getStream(id),
       version: 1,
       payload: {
-        alarmId: this.id,
+        alarmId: id,
         alarmName: detection.name,
         trigger: detection.trigger,
         userId: requesterId,
       },
     } satisfies Events.AlarmGeneratedEventType);
 
-    this.record(event);
+    alarm.record(event);
+
+    return alarm;
   }
 
-  async saveAdvice(advice: VO.Advice) {
+  saveAdvice(advice: VO.Advice) {
     Policies.AlarmAlreadyGenerated.perform({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
@@ -85,7 +83,7 @@ export class Alarm {
     this.record(event);
   }
 
-  async notify() {
+  notify() {
     Policies.AlarmAdviceAvailable.perform({
       advice: this.advice,
       status: this.status,
@@ -109,7 +107,7 @@ export class Alarm {
     this.record(event);
   }
 
-  async cancel() {
+  cancel() {
     Policies.AlarmIsCancellable.perform({ status: this.status });
 
     const event = Events.AlarmCancelledEvent.parse({
