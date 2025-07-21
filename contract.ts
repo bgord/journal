@@ -3,11 +3,15 @@ import { z } from "zod";
 
 const c = initContract();
 
-export const emotionsContract = c.router({
+const emotionsContract = c.router({
   deleteEntry: {
     method: "DELETE",
     path: "/entry/:entryId/delete",
-    pathParams: z.object({ entryId: z.uuid() }),
+    pathParams: z.object({ entryId: z.string() }),
     responses: { 204: c.type<null>() },
   },
+});
+
+export const appContract = c.router({
+  emotions: emotionsContract,
 });

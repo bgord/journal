@@ -1,3 +1,10 @@
+import { initClient } from "@ts-rest/core";
+import { appContract } from "../contract";
+
+export const emotionsApi = initClient<typeof appContract, any>(appContract, {
+  baseUrl: import.meta.env.VITE_API_URL,
+});
+
 export const API: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response> = (input, init) =>
   fetch(`${import.meta.env.VITE_API_URL}${input}`, {
     credentials: "include",

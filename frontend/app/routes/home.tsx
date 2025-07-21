@@ -1,7 +1,7 @@
 import * as UI from "@bgord/ui";
 import { Plus } from "iconoir-react";
 import { Link } from "react-router";
-import { API } from "../../api";
+import { API, emotionsApi } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import { guard } from "../../auth";
 import * as Components from "../../components";
@@ -18,6 +18,8 @@ export async function action({ request }: Route.ActionArgs) {
   const intent = form.get("intent");
 
   if (intent === "entry_delete") {
+    await emotionsApi.emotion;
+
     await API(`/entry/${form.get("id")}/delete`, {
       method: "DELETE",
       headers: { cookie, ...UI.WeakETag.fromRevision(Number(form.get("revision"))) },

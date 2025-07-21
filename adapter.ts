@@ -1,7 +1,7 @@
 // infra/adapter.ts  (works on Bun, Deno, Node, Cloudflare)
 
-import { ZodTypeAny } from "zod";
 import type { Handler, Env as HonoEnv } from "hono";
+import { ZodTypeAny } from "zod";
 
 /* ---------- 1. Route-shape constraint (no required “path”) ---------- */
 
