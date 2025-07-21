@@ -1,6 +1,18 @@
 # Changelog
+- 2025-07-21 23:35 49e8675 **step: add response cache for translations**
+## 2025-07-21 23:35 
+- 2025-07-21 23:31 c30e28b **step: daily alarm limit for inactivity alarm**
+- 2025-07-21 22:59 05f20d1 **refactor: remove entry create**
+- 2025-07-21 22:53 c7ff58d **refactor: remove weekly review create**
+- 2025-07-21 22:47 0a326ad **refactor: remove alarm create**
+- 2025-07-21 22:14 3399c06 **refactor: make policies sync**
+- 2025-07-21 22:12 cd0e676 **step: handle empty dashboard states**
+- 2025-07-21 22:05 84cbbf1 **step: update packages**
+- 2025-07-21 15:34 2763f33 **fix: tests**
+- 2025-07-21 15:23 4c74a9f **step: add zod resolution**
+- 2025-07-21 15:22 3a26272 **step: update anthropic**
+- 2025-07-21 15:21 4d832ac **step: update packages**
 - 2025-07-21 00:55 8fc2791 **Merge pull request #17 from bgord/read_poc**
-## 2025-07-21 00:55 
 - 2025-07-21 00:53 1667c6d **fix: type errors**
 - 2025-07-21 00:46 fbc8f6e **step: handle empty alarms state**
 - 2025-07-21 00:41 c781187 **step: improve colors**
@@ -19,6 +31,8 @@
 - 2025-07-21 00:00 0cc5c6c **step: add fe/db**
 - 2025-07-20 23:31 aa48707 **step: add drizzle to fe**
 - 2025-07-20 23:00 4bcf37a **feature: add heatmap**
+- 2025-07-20 22:55 77cffc1 **docs: generate readme**
+- 2025-07-20 22:55 3cb8d5f **docs: generate CHANGELOG**
 - 2025-07-20 22:26 58b4023 **refactor: extract dashboard section**
 - 2025-07-20 22:20 ff0b625 **step: add top reactions dashboard section**
 - 2025-07-20 21:49 718d9fb **step: add top emotions dashboard section**
