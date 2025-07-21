@@ -166,32 +166,6 @@ describe("POST /entry/log", () => {
     jest.restoreAllMocks();
   });
 
-  test("situation - OneSituationPerEntry", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent]);
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
-    spyOn(Emotions.Aggregates.Entry, "create").mockReturnValue(entry);
-
-    const response = await server.request(
-      url,
-      {
-        method: "POST",
-        body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
-      },
-      mocks.ip,
-    );
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.OneSituationPerEntry.code);
-    expect(json).toEqual({ message: Emotions.Policies.OneSituationPerEntry.message, _known: true });
-
-    expect(eventStoreSave).not.toHaveBeenCalledWith();
-
-    jest.restoreAllMocks();
-  });
-
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);

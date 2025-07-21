@@ -125,8 +125,16 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         new Emotions.VO.ReactionEffectiveness((counter % 5) + 1),
       );
 
-      const entry = Emotions.Aggregates.Entry.create(bg.NewUUID.generate());
-      await entry.log(situation, emotion, reaction, SupportedLanguages.en, users[0]!.user.id);
+      const id = bg.NewUUID.generate();
+
+      const entry = Emotions.Aggregates.Entry.log(
+        id,
+        situation,
+        emotion,
+        reaction,
+        SupportedLanguages.en,
+        users[0]!.user.id,
+      );
 
       await EventStore.save(entry.pullEvents());
 

@@ -11,7 +11,7 @@ export const handleEvaluateReactionCommand = async (
 
   const entry = Emotions.Aggregates.Entry.build(command.payload.entryId, history);
   command.revision.validate(entry.revision.value);
-  await entry.evaluateReaction(command.payload.newReaction, command.payload.userId);
+  entry.evaluateReaction(command.payload.newReaction, command.payload.userId);
 
   await EventStore.save(entry.pullEvents());
 };

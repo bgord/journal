@@ -8,7 +8,6 @@ import { z } from "zod/v4";
 export type EntryEvent = (typeof Entry)["events"][number];
 type EntryEventType = z.infer<EntryEvent>;
 
-// TODO: Tighten-up types
 export class Entry {
   static events = [
     Emotions.Events.SituationLoggedEvent,
@@ -35,10 +34,6 @@ export class Entry {
     this.id = id;
   }
 
-  static create(id: Emotions.VO.EntryIdType): Entry {
-    return new Entry(id);
-  }
-
   static build(id: Emotions.VO.EntryIdType, events: EntryEventType[]): Entry {
     const entry = new Entry(id);
 
@@ -47,24 +42,25 @@ export class Entry {
     return entry;
   }
 
-  async log(
+  static log(
+    id: Emotions.VO.EntryIdType,
     situation: Emotions.Entities.Situation,
     emotion: Emotions.Entities.Emotion,
     reaction: Emotions.Entities.Reaction,
     language: SupportedLanguages,
     requesterId: Auth.VO.UserIdType,
   ) {
-    Emotions.Policies.OneSituationPerEntry.perform({ situation: this.situation });
+    const entry = new Entry(id);
 
     const SituationLoggedEvent = Emotions.Events.SituationLoggedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.SITUATION_LOGGED_EVENT,
-      stream: Entry.getStream(this.id),
+      stream: Entry.getStream(id),
       version: 1,
       payload: {
-        entryId: this.id,
+        entryId: id,
         description: situation.description.get(),
         location: situation.location.get(),
         kind: situation.kind.get(),
@@ -73,34 +69,34 @@ export class Entry {
       },
     } satisfies Emotions.Events.SituationLoggedEventType);
 
-    this.record(SituationLoggedEvent);
+    entry.record(SituationLoggedEvent);
 
     const EmotionLoggedEvent = Emotions.Events.EmotionLoggedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
-      stream: Entry.getStream(this.id),
+      stream: Entry.getStream(id),
       version: 1,
       payload: {
-        entryId: this.id,
+        entryId: id,
         label: emotion.label.get(),
         intensity: emotion.intensity.get(),
         userId: requesterId,
       },
     } satisfies Emotions.Events.EmotionLoggedEventType);
 
-    this.record(EmotionLoggedEvent);
+    entry.record(EmotionLoggedEvent);
 
     const ReactionLoggedEvent = Emotions.Events.ReactionLoggedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.REACTION_LOGGED_EVENT,
-      stream: Entry.getStream(this.id),
+      stream: Entry.getStream(id),
       version: 1,
       payload: {
-        entryId: this.id,
+        entryId: id,
         description: reaction.description.get(),
         type: reaction.type.get(),
         effectiveness: reaction.effectiveness.get(),
@@ -108,10 +104,12 @@ export class Entry {
       },
     } satisfies Emotions.Events.ReactionLoggedEventType);
 
-    this.record(ReactionLoggedEvent);
+    entry.record(ReactionLoggedEvent);
+
+    return entry;
   }
 
-  async reappraiseEmotion(newEmotion: Emotions.Entities.Emotion, requesterId: Auth.VO.UserIdType) {
+  reappraiseEmotion(newEmotion: Emotions.Entities.Emotion, requesterId: Auth.VO.UserIdType) {
     Emotions.Policies.EntryIsActionable.perform({ status: this.status });
     Emotions.Policies.EmotionCorrespondsToSituation.perform({ situation: this.situation });
     Emotions.Policies.EmotionForReappraisalExists.perform({ emotion: this.emotion });
@@ -135,7 +133,7 @@ export class Entry {
     this.record(event);
   }
 
-  async evaluateReaction(newReaction: Emotions.Entities.Reaction, requesterId: Auth.VO.UserIdType) {
+  evaluateReaction(newReaction: Emotions.Entities.Reaction, requesterId: Auth.VO.UserIdType) {
     Emotions.Policies.EntryIsActionable.perform({ status: this.status });
     Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.perform({
       situation: this.situation,
@@ -163,7 +161,7 @@ export class Entry {
     this.record(event);
   }
 
-  async delete(requesterId: Auth.VO.UserIdType) {
+  delete(requesterId: Auth.VO.UserIdType) {
     Emotions.Policies.EntryHasBenStarted.perform({ situation: this.situation });
     Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 

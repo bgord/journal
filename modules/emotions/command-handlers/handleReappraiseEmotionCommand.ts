@@ -11,7 +11,7 @@ export const handleReappraiseEmotionCommand = async (
 
   const entry = Emotions.Aggregates.Entry.build(command.payload.entryId, history);
   command.revision.validate(entry.revision.value);
-  await entry.reappraiseEmotion(command.payload.newEmotion, command.payload.userId);
+  entry.reappraiseEmotion(command.payload.newEmotion, command.payload.userId);
 
   await EventStore.save(entry.pullEvents());
 };
