@@ -37,6 +37,10 @@ export class ErrorHandler {
         );
       }
 
+      if (error.message === bg.AccessDeniedAuthShieldError.message) {
+        return c.json({ message: bg.AccessDeniedAuthShieldError.message, _known: true }, 403);
+      }
+
       if (error.message === bg.TooManyRequestsError.message) {
         return c.json(
           { message: bg.TooManyRequestsError.message, _known: true },
@@ -45,10 +49,6 @@ export class ErrorHandler {
       }
 
       return error.getResponse();
-    }
-
-    if (error.message === bg.AccessDeniedAuthShieldError.message) {
-      return c.json({ message: bg.AccessDeniedAuthShieldError.message, _known: true }, 403);
     }
 
     if (error instanceof tools.RevisionMismatchError) {
