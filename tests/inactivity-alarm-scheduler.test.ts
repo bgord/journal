@@ -23,6 +23,46 @@ describe("InactivityAlarmScheduler", () => {
     jest.restoreAllMocks();
   });
 
+  test("DailyAlarmLimit", async () => {
+    spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
+    spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
+      mocks.inactivityTrigger.lastEntryTimestamp,
+    );
+    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(11);
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      expect(async () => await Emotions.Services.InactivityAlarmScheduler.process()).toThrow(
+        Emotions.Policies.DailyAlarmLimit.error,
+      );
+    });
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
+  test("DailyAlarmLimit - failure", async () => {
+    spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
+    spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
+      mocks.inactivityTrigger.lastEntryTimestamp,
+    );
+    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockImplementation(() => {
+      throw new Error("FAILURE");
+    });
+    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      expect(async () => await Emotions.Services.InactivityAlarmScheduler.process()).toThrow();
+    });
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+
+    jest.restoreAllMocks();
+  });
+
   test("NoEntriesInTheLastWeek - undefined timestamp", async () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
     spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(undefined);

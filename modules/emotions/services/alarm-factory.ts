@@ -8,11 +8,11 @@ import * as bg from "@bgord/bun";
 
 export class AlarmFactory {
   static async create(detection: VO.AlarmDetection, requesterId: Auth.VO.UserIdType) {
+    const alarmsTodayForUserCount = await Queries.CountTodaysAlarmsForUser.execute(requesterId);
+    Policies.DailyAlarmLimit.perform({ count: alarmsTodayForUserCount });
+
     switch (detection.trigger.type) {
       case VO.AlarmTriggerEnum.entry: {
-        const alarmsTodayForUserCount = await Queries.CountTodaysAlarmsForUser.execute(requesterId);
-        Policies.DailyAlarmLimit.perform({ count: alarmsTodayForUserCount });
-
         const entryAlarmsCount = await Queries.CountAlarmsForEntry.execute(detection.trigger.entryId);
         Policies.EntryAlarmLimit.perform({ count: entryAlarmsCount });
 
@@ -20,7 +20,6 @@ export class AlarmFactory {
       }
 
       case VO.AlarmTriggerEnum.inactivity:
-        // TODO should check daily alarm limit
         break;
     }
 
