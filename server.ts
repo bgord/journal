@@ -11,7 +11,7 @@ import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import { adopt } from "./adapter";
 import * as App from "./app";
-import { appContract } from "./contract";
+import { contract } from "./contract";
 import * as Emotions from "./modules/emotions";
 
 import "+infra/register-event-handlers";
@@ -43,7 +43,7 @@ entry.use("*", AuthShield.attach, AuthShield.verify);
 entry.post("/log", Emotions.Routes.LogEntry);
 entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
-entry.delete("/:entryId/delete", adopt(appContract.emotions.deleteEntry, Emotions.Routes.DeleteEntry));
+entry.delete("/:entryId/delete", adopt(contract.emotions.deleteEntry, Emotions.Routes.DeleteEntry));
 server.route("/entry", entry);
 // =============================
 

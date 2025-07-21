@@ -5,10 +5,10 @@ import { CommandBus } from "+infra/command-bus";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Validated } from "../../../adapter";
-import { appContract } from "../../../contract";
+import { contract } from "../../../contract";
 
 export async function DeleteEntry(
-  { params }: Validated<typeof appContract.emotions.deleteEntry>,
+  { params }: Validated<typeof contract.emotions.deleteEntry>,
   c: Parameters<import("hono").Handler<infra.HonoConfig>>[0],
 ) {
   const user = c.get("user");

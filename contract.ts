@@ -16,4 +16,4 @@ const emotions = c.router({
   },
 });
 
-export const appContract = c.router({ emotions });
+export const contract = c.router({ emotions });
