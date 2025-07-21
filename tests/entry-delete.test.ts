@@ -21,7 +21,7 @@ describe("DELETE /entry/:id/delete", () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
       "/entry/id/delete",
-      { method: "DELETE", headers: mocks.revisionHeaders() },
+      { method: "DELETE", headers: { cookie: "mock", ...mocks.revisionHeaders() } },
       mocks.ip,
     );
 
@@ -41,7 +41,7 @@ describe("DELETE /entry/:id/delete", () => {
 
     const response = await server.request(
       url,
-      { method: "DELETE", headers: mocks.revisionHeaders() },
+      { method: "DELETE", headers: { cookie: "mock", ...mocks.revisionHeaders() } },
       mocks.ip,
     );
 
@@ -74,7 +74,7 @@ describe("DELETE /entry/:id/delete", () => {
 
     const response = await server.request(
       url,
-      { method: "DELETE", headers: mocks.revisionHeaders() },
+      { method: "DELETE", headers: { cookie: "mock", ...mocks.revisionHeaders() } },
       mocks.ip,
     );
     const json = await response.json();
@@ -107,7 +107,11 @@ describe("DELETE /entry/:id/delete", () => {
       url,
       {
         method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        headers: new Headers({
+          cookie: "mock",
+          "x-correlation-id": mocks.correlationId,
+          ...mocks.revisionHeaders(),
+        }),
       },
       mocks.ip,
     );
@@ -140,7 +144,11 @@ describe("DELETE /entry/:id/delete", () => {
       url,
       {
         method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        headers: new Headers({
+          cookie: "mock",
+          "x-correlation-id": mocks.correlationId,
+          ...mocks.revisionHeaders(),
+        }),
       },
       mocks.ip,
     );
@@ -177,7 +185,11 @@ describe("DELETE /entry/:id/delete", () => {
       url,
       {
         method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        headers: new Headers({
+          cookie: "mock",
+          "x-correlation-id": mocks.correlationId,
+          ...mocks.revisionHeaders(),
+        }),
       },
       mocks.ip,
     );

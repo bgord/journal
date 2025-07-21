@@ -18,10 +18,8 @@ export async function action({ request }: Route.ActionArgs) {
   const intent = form.get("intent");
 
   if (intent === "entry_delete") {
-    await emotionsApi.emotion;
-
-    await API(`/entry/${form.get("id")}/delete`, {
-      method: "DELETE",
+    await emotionsApi.emotions.deleteEntry({
+      params: { entryId: form.get("id") as string },
       headers: { cookie, ...UI.WeakETag.fromRevision(Number(form.get("revision"))) },
     });
 

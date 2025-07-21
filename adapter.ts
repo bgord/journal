@@ -32,13 +32,6 @@ const badRequest = (err: any) =>
     headers: { "content-type": "application/json" },
   });
 
-/* tiny helper – turn Headers into a plain object */
-const headersToObj = (h: Headers) => {
-  const o: Record<string, string> = {};
-  h.forEach((v, k) => (o[k] = v));
-  return o;
-};
-
 /* ---------- 4. adopt() micro-adapter ---------- */
 
 export function adopt<TRoute extends RouteShape, THonoEnv extends HonoEnv = HonoEnv>(
@@ -62,7 +55,7 @@ export function adopt<TRoute extends RouteShape, THonoEnv extends HonoEnv = Hono
           })(),
         ) ?? undefined;
 
-      const headers = route.headers?.parse?.(headersToObj(c.req.raw.headers)) ?? undefined;
+      const headers = route.headers?.parse?.(c.req.raw.headers.toJSON()) ?? undefined;
 
       return await domain({ params, query, body, headers } as Validated<TRoute>, c);
     } catch (err) {

@@ -1,7 +1,7 @@
 import { initClient } from "@ts-rest/core";
 import { appContract } from "../contract";
 
-export const emotionsApi = initClient<typeof appContract, any>(appContract, {
+export const emotionsApi = initClient(appContract, {
   baseUrl: import.meta.env.VITE_API_URL,
 });
 
