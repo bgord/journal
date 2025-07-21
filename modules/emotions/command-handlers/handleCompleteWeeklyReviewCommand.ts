@@ -10,7 +10,7 @@ export const handleCompleteWeeklyReviewCommand = async (
   );
 
   const weeklyReview = Emotions.Aggregates.WeeklyReview.build(command.payload.weeklyReviewId, history);
-  await weeklyReview.complete(command.payload.insights);
+  weeklyReview.complete(command.payload.insights);
 
   await EventStore.save(weeklyReview.pullEvents());
 };

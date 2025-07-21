@@ -8,7 +8,7 @@ export const handleSaveAlarmAdviceCommand = async (command: Emotions.Commands.Sa
   );
 
   const alarm = Emotions.Aggregates.Alarm.build(command.payload.alarmId, history);
-  await alarm.saveAdvice(command.payload.advice);
+  alarm.saveAdvice(command.payload.advice);
 
   await EventStore.save(alarm.pullEvents());
 };

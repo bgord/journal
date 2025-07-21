@@ -10,7 +10,7 @@ export const handleMarkWeeklyReviewAsFailedCommand = async (
   );
 
   const weeklyReview = Emotions.Aggregates.WeeklyReview.build(command.payload.weeklyReviewId, history);
-  await weeklyReview.fail();
+  weeklyReview.fail();
 
   await EventStore.save(weeklyReview.pullEvents());
 };

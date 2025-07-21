@@ -9,36 +9,22 @@ const weekStart = Emotions.VO.WeekStart.fromTimestamp(mocks.weekStartedAt);
 const insights = new Emotions.VO.Advice("Good job");
 
 describe("WeeklyReview", () => {
-  test("create new aggregate", () => {
-    expect(() => Emotions.Aggregates.WeeklyReview.create(mocks.weeklyReviewId)).not.toThrow();
-  });
-
   test("build new aggregate", () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, []);
 
     expect(weeklyReview.pullEvents()).toEqual([]);
   });
 
-  test("generate - correct path", async () => {
-    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, []);
-
+  test("request - correct path", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await weeklyReview.request(weekStart, mocks.userId);
+      const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
+        mocks.weeklyReviewId,
+        weekStart,
+        mocks.userId,
+      );
+
+      expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewRequestedEvent]);
     });
-
-    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewRequestedEvent]);
-  });
-
-  test("generate - WeeklyReviewRequestedOnce", async () => {
-    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
-      mocks.GenericWeeklyReviewRequestedEvent,
-    ]);
-
-    expect(async () => weeklyReview.request(weekStart, mocks.userId)).toThrow(
-      Emotions.Policies.WeeklyReviewRequestedOnce.error,
-    );
-
-    expect(weeklyReview.pullEvents()).toEqual([]);
   });
 
   test("complete - correct path", async () => {
@@ -48,10 +34,9 @@ describe("WeeklyReview", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await weeklyReview.complete(insights);
+      weeklyReview.complete(insights);
+      expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewCompletedEvent]);
     });
-
-    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewCompletedEvent]);
   });
 
   test("complete - WeeklyReviewCompletedOnce", async () => {
@@ -75,10 +60,9 @@ describe("WeeklyReview", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await weeklyReview.fail();
+      weeklyReview.fail();
+      expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewFailedEvent]);
     });
-
-    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewFailedEvent]);
   });
 
   test("fail - WeeklyReviewCompletedOnce", async () => {

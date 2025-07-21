@@ -11,7 +11,7 @@ export const handleSendAlarmNotificationCommand = async (
 
   const alarm = Emotions.Aggregates.Alarm.build(command.payload.alarmId, history);
 
-  await alarm.notify();
+  alarm.notify();
 
   await EventStore.save(alarm.pullEvents());
 };

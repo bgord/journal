@@ -8,8 +8,7 @@ export const handleCancelAlarmCommand = async (command: Emotions.Commands.Cancel
   );
 
   const alarm = Emotions.Aggregates.Alarm.build(command.payload.alarmId, history);
-
-  await alarm.cancel();
+  alarm.cancel();
 
   await EventStore.save(alarm.pullEvents());
 };

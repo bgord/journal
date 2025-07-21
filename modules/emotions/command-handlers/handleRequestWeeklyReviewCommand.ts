@@ -33,9 +33,12 @@ export const handleRequestWeeklyReviewCommand = async (
   }
 
   const weeklyReviewId = bg.NewUUID.generate();
-  const weeklyReview = Emotions.Aggregates.WeeklyReview.create(weeklyReviewId);
 
-  await weeklyReview.request(command.payload.weekStart, command.payload.userId);
+  const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
+    weeklyReviewId,
+    command.payload.weekStart,
+    command.payload.userId,
+  );
 
   await EventStore.save(weeklyReview.pullEvents());
 };

@@ -30,10 +30,6 @@ export class WeeklyReview {
     this.id = id;
   }
 
-  static create(id: VO.WeeklyReviewIdType): WeeklyReview {
-    return new WeeklyReview(id);
-  }
-
   static build(id: VO.WeeklyReviewIdType, events: WeeklyReviewEventType[]): WeeklyReview {
     const entry = new WeeklyReview(id);
 
@@ -42,23 +38,25 @@ export class WeeklyReview {
     return entry;
   }
 
-  async request(weekStart: VO.WeekStart, requesterId: Auth.VO.UserIdType) {
-    Policies.WeeklyReviewRequestedOnce.perform({ status: this.status });
+  static request(id: VO.WeeklyReviewIdType, weekStart: VO.WeekStart, requesterId: Auth.VO.UserIdType) {
+    const weeklyReview = new WeeklyReview(id);
 
     const event = Events.WeeklyReviewRequestedEvent.parse({
       id: bg.NewUUID.generate(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
-      stream: WeeklyReview.getStream(this.id),
+      stream: WeeklyReview.getStream(id),
       version: 1,
-      payload: { weeklyReviewId: this.id, weekStartedAt: weekStart.get(), userId: requesterId },
+      payload: { weeklyReviewId: id, weekStartedAt: weekStart.get(), userId: requesterId },
     } satisfies Events.WeeklyReviewRequestedEventType);
 
-    this.record(event);
+    weeklyReview.record(event);
+
+    return weeklyReview;
   }
 
-  async complete(insights: VO.Advice) {
+  complete(insights: VO.Advice) {
     Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
@@ -79,7 +77,7 @@ export class WeeklyReview {
     this.record(event);
   }
 
-  async fail() {
+  fail() {
     Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewFailedEvent.parse({
