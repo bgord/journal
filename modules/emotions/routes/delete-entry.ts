@@ -21,7 +21,7 @@ export async function DeleteEntry(
     createdAt: tools.Timestamp.parse(Date.now()),
     revision,
     payload: { entryId: params.entryId, userId: user.id },
-  });
+  } satisfies Emotions.Commands.DeleteEntryCommandType);
 
   await CommandBus.emit(command.name, command);
   return c.body(null, 204);

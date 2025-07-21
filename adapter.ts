@@ -3,17 +3,12 @@
 import type { Handler, Env as HonoEnv } from "hono";
 import { ZodTypeAny } from "zod";
 
-/* ---------- 1. Route-shape constraint (no required “path”) ---------- */
-
 type RouteShape = {
-  /* path?: string;   << not needed, so keep it optional or remove */
   pathParams?: ZodTypeAny;
   query?: ZodTypeAny;
   body?: ZodTypeAny;
   headers?: ZodTypeAny;
 };
-
-/* ---------- 2. Helper compile-time types ---------- */
 
 type Infer<T> = T extends ZodTypeAny ? ReturnType<T["parse"]> : never;
 
@@ -24,15 +19,11 @@ export type Validated<TRoute extends RouteShape> = {
   headers: Infer<NonNullable<TRoute["headers"]>>;
 };
 
-/* ---------- 3. Utility for 400 JSON ---------- */
-
 const badRequest = (err: any) =>
   new Response(JSON.stringify({ error: err.flatten?.() }), {
     status: 400,
     headers: { "content-type": "application/json" },
   });
-
-/* ---------- 4. adopt() micro-adapter ---------- */
 
 export function adopt<TRoute extends RouteShape, THonoEnv extends HonoEnv = HonoEnv>(
   route: TRoute,
