@@ -3,11 +3,14 @@ import type * as infra from "+infra";
 import { CommandBus } from "+infra/command-bus";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import hono from "hono";
+import { Validated } from "../../../adapter";
+import { contract } from "../../../contract";
 
-export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function EvaluateReaction(
+  { body }: Validated<typeof contract.emotions.evaluateReaction>,
+  c: Parameters<import("hono").Handler<infra.HonoConfig>>[0],
+) {
   const user = c.get("user");
-  const body = await bg.safeParseBody(c);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
 

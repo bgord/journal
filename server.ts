@@ -42,7 +42,10 @@ const entry = new Hono();
 entry.use("*", AuthShield.attach, AuthShield.verify);
 entry.post("/log", Emotions.Routes.LogEntry);
 entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
-entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
+entry.post(
+  "/:entryId/evaluate-reaction",
+  adopt(contract.emotions.evaluateReaction, Emotions.Routes.EvaluateReaction),
+);
 entry.delete("/:entryId/delete", adopt(contract.emotions.deleteEntry, Emotions.Routes.DeleteEntry));
 server.route("/entry", entry);
 // =============================
