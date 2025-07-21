@@ -32,5 +32,8 @@
     "emittery": "1.2.0",
     "node-cache": "5.1.2",
     "openai": "5.10.1"
+  },
+  "resolutions": {
+    "zod": "4.0.5"
   }
 }
