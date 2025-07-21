@@ -115,7 +115,6 @@ modules/
     ├── policies
     │   ├── alarm-advice-available.ts
     │   ├── alarm-already-generated.ts
-    │   ├── alarm-generated-once.ts
     │   ├── alarm-is-cancellable.ts
     │   ├── daily-alarm-limit.ts
     │   ├── emotion-corresponds-to-situation.ts
@@ -125,12 +124,10 @@ modules/
     │   ├── entry-has-been-started.ts
     │   ├── entry-is-actionable.ts
     │   ├── no-entries-in-the-last-week.ts
-    │   ├── one-situation-per-entry.ts
     │   ├── reaction-corresponds-to-situation-and-emotion.ts
     │   ├── reaction-for-evaluation-exists.ts
     │   ├── requester-owns-entry.ts
-    │   ├── weekly-review-completed-once.ts
-    │   └── weekly-review-requested-once.ts
+    │   └── weekly-review-completed-once.ts
     ├── queries
     │   ├── count-alarms-for-user.ts
     │   ├── count-entries-per-week-for-user.ts
@@ -210,6 +207,7 @@ infra/
 ├── anthropic-ai-client.ts
 ├── auth.ts
 ├── basic-auth-shield.ts
+├── cache.ts
 ├── command-bus.ts
 ├── db.ts
 ├── e2e
@@ -227,6 +225,7 @@ infra/
 ├── prerequisites.ts
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
+├── response-cache.ts
 ├── schema.ts
 └── translations
     ├── en.json
