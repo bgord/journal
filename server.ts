@@ -9,7 +9,9 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
+import { adopt } from "./adapter";
 import * as App from "./app";
+import { emotionsContract } from "./contract";
 import * as Emotions from "./modules/emotions";
 
 import "+infra/register-event-handlers";
@@ -41,7 +43,7 @@ entry.use("*", AuthShield.attach, AuthShield.verify);
 entry.post("/log", Emotions.Routes.LogEntry);
 entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
-entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
+entry.delete("/:entryId/delete", adopt(emotionsContract.deleteEntry, Emotions.Routes.DeleteEntry));
 server.route("/entry", entry);
 // =============================
 
