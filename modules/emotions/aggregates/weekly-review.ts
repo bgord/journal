@@ -43,7 +43,7 @@ export class WeeklyReview {
   }
 
   async request(weekStart: VO.WeekStart, requesterId: Auth.VO.UserIdType) {
-    await Policies.WeeklyReviewRequestedOnce.perform({ status: this.status });
+    Policies.WeeklyReviewRequestedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewRequestedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -59,7 +59,7 @@ export class WeeklyReview {
   }
 
   async complete(insights: VO.Advice) {
-    await Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
+    Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -80,7 +80,7 @@ export class WeeklyReview {
   }
 
   async fail() {
-    await Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
+    Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewFailedEvent.parse({
       id: bg.NewUUID.generate(),

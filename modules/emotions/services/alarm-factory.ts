@@ -11,10 +11,10 @@ export class AlarmFactory {
     switch (detection.trigger.type) {
       case VO.AlarmTriggerEnum.entry: {
         const alarmsTodayForUserCount = await Queries.CountTodaysAlarmsForUser.execute(requesterId);
-        await Policies.DailyAlarmLimit.perform({ count: alarmsTodayForUserCount });
+        Policies.DailyAlarmLimit.perform({ count: alarmsTodayForUserCount });
 
         const entryAlarmsCount = await Queries.CountAlarmsForEntry.execute(detection.trigger.entryId);
-        await Policies.EntryAlarmLimit.perform({ count: entryAlarmsCount });
+        Policies.EntryAlarmLimit.perform({ count: entryAlarmsCount });
 
         break;
       }

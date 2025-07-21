@@ -45,7 +45,7 @@ export class Alarm {
   }
 
   async _generate(detection: VO.AlarmDetection, requesterId: Auth.VO.UserIdType) {
-    await Policies.AlarmGeneratedOnce.perform({ status: this.status });
+    Policies.AlarmGeneratedOnce.perform({ status: this.status });
 
     const event = Events.AlarmGeneratedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -66,7 +66,7 @@ export class Alarm {
   }
 
   async saveAdvice(advice: VO.Advice) {
-    await Policies.AlarmAlreadyGenerated.perform({ status: this.status });
+    Policies.AlarmAlreadyGenerated.perform({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -86,7 +86,7 @@ export class Alarm {
   }
 
   async notify() {
-    await Policies.AlarmAdviceAvailable.perform({
+    Policies.AlarmAdviceAvailable.perform({
       advice: this.advice,
       status: this.status,
     });
@@ -110,7 +110,7 @@ export class Alarm {
   }
 
   async cancel() {
-    await Policies.AlarmIsCancellable.perform({ status: this.status });
+    Policies.AlarmIsCancellable.perform({ status: this.status });
 
     const event = Events.AlarmCancelledEvent.parse({
       id: bg.NewUUID.generate(),

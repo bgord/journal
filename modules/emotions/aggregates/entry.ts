@@ -54,7 +54,7 @@ export class Entry {
     language: SupportedLanguages,
     requesterId: Auth.VO.UserIdType,
   ) {
-    await Emotions.Policies.OneSituationPerEntry.perform({ situation: this.situation });
+    Emotions.Policies.OneSituationPerEntry.perform({ situation: this.situation });
 
     const SituationLoggedEvent = Emotions.Events.SituationLoggedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -112,10 +112,10 @@ export class Entry {
   }
 
   async reappraiseEmotion(newEmotion: Emotions.Entities.Emotion, requesterId: Auth.VO.UserIdType) {
-    await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
-    await Emotions.Policies.EmotionCorrespondsToSituation.perform({ situation: this.situation });
-    await Emotions.Policies.EmotionForReappraisalExists.perform({ emotion: this.emotion });
-    await Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
+    Emotions.Policies.EntryIsActionable.perform({ status: this.status });
+    Emotions.Policies.EmotionCorrespondsToSituation.perform({ situation: this.situation });
+    Emotions.Policies.EmotionForReappraisalExists.perform({ emotion: this.emotion });
+    Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -136,13 +136,13 @@ export class Entry {
   }
 
   async evaluateReaction(newReaction: Emotions.Entities.Reaction, requesterId: Auth.VO.UserIdType) {
-    await Emotions.Policies.EntryIsActionable.perform({ status: this.status });
-    await Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.perform({
+    Emotions.Policies.EntryIsActionable.perform({ status: this.status });
+    Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.perform({
       situation: this.situation,
       emotion: this.emotion,
     });
-    await Emotions.Policies.ReactionForEvaluationExists.perform({ reaction: this.reaction });
-    await Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
+    Emotions.Policies.ReactionForEvaluationExists.perform({ reaction: this.reaction });
+    Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
       id: bg.NewUUID.generate(),
@@ -164,8 +164,8 @@ export class Entry {
   }
 
   async delete(requesterId: Auth.VO.UserIdType) {
-    await Emotions.Policies.EntryHasBenStarted.perform({ situation: this.situation });
-    await Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
+    Emotions.Policies.EntryHasBenStarted.perform({ situation: this.situation });
+    Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EntryDeletedEvent.parse({
       id: bg.NewUUID.generate(),
