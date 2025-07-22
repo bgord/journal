@@ -14,7 +14,7 @@ type PatternDetectorConfigType = {
 export class PatternDetector {
   static detect(config: PatternDetectorConfigType): Patterns.PatternDetectionEventType[] {
     return config.patterns
-      .map((Pattern) => new Pattern(config.week).check(config.entries, config.userId))
+      .map((Pattern) => new Pattern(config.week, config.userId).check(config.entries))
       .filter((result) => result !== null);
   }
 }

@@ -11,11 +11,14 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
 
   kind = Patterns.PatternKindOptions.negative;
 
-  constructor(public week: tools.Week) {
+  constructor(
+    public week: tools.Week,
+    public userId: Auth.VO.UserIdType,
+  ) {
     super();
   }
 
-  check(entries: Aggregates.Entry[], userId: Auth.VO.UserIdType): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
     const effectivenessScores = entries
       .map((entry) => entry.summarize())
       .flatMap((e) => (e.reaction ? [e.reaction.effectiveness.get()] : []));
@@ -34,7 +37,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
         stream: this.getStream(),
         name: Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
         version: 1,
-        payload: { userId, weekIsoId: this.week.toIsoId() },
+        payload: { userId: this.userId, weekIsoId: this.week.toIsoId() },
       } satisfies Events.LowCopingEffectivenessPatternDetectedEventType);
     }
 

@@ -11,11 +11,14 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
 
   kind = Patterns.PatternKindOptions.negative;
 
-  constructor(public week: tools.Week) {
+  constructor(
+    public week: tools.Week,
+    public userId: Auth.VO.UserIdType,
+  ) {
     super();
   }
 
-  check(entries: Aggregates.Entry[], userId: Auth.VO.UserIdType): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
     const summaries = entries.map((entry) => entry.summarize());
 
     const positiveEmotionsCounter = summaries.filter((entry) => entry.emotion?.label.isPositive()).length;
@@ -30,7 +33,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
         name: Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: { userId, weekIsoId: this.week.toIsoId() },
+        payload: { userId: this.userId, weekIsoId: this.week.toIsoId() },
       } satisfies Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType);
     }
     return null;

@@ -11,11 +11,14 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
 
   kind = Patterns.PatternKindOptions.negative;
 
-  constructor(public week: tools.Week) {
+  constructor(
+    public week: tools.Week,
+    public userId: Auth.VO.UserIdType,
+  ) {
     super();
   }
 
-  check(entries: Aggregates.Entry[], userId: Auth.VO.UserIdType): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
     const matches = entries
       .map((entry) => entry.summarize())
       .filter((entry) => entry.reaction?.type.isMaladaptive());
@@ -28,7 +31,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
         name: Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: { userId, weekIsoId: this.week.toIsoId() },
+        payload: { userId: this.userId, weekIsoId: this.week.toIsoId() },
       } satisfies Events.MultipleMaladaptiveReactionsPatternDetectedEventType);
     }
     return null;

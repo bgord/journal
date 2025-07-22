@@ -27,9 +27,11 @@ export abstract class Pattern {
 
   abstract week: tools.Week;
 
-  abstract check(entries: Aggregates.Entry[], userId: Auth.VO.UserIdType): PatternDetectionEventType | null;
+  abstract userId: Auth.VO.UserIdType;
+
+  abstract check(entries: Aggregates.Entry[]): PatternDetectionEventType | null;
 
   getStream(): string {
-    return `weekly_pattern_detection_${this.week.toIsoId()}`;
+    return `weekly_pattern_detection_${this.userId}_${this.week.toIsoId()}`;
   }
 }
