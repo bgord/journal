@@ -250,7 +250,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: {},
+  payload: { userId },
 } satisfies Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
 
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
@@ -260,7 +260,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: {},
+  payload: { userId },
 } satisfies Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
 export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
@@ -270,7 +270,7 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: {},
+  payload: { userId },
 } satisfies Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType;
 
 export const LowCopingEffectivenessPatternDetectedEvent = {
@@ -280,7 +280,7 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: {},
+  payload: { userId },
 } satisfies Emotions.Events.LowCopingEffectivenessPatternDetectedEventType;
 
 export const GenericAlarmGeneratedEvent = {

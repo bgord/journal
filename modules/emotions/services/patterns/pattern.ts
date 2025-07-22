@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import type * as Aggregates from "+emotions/aggregates";
 import type * as Events from "+emotions/events";
 import type { z } from "zod/v4";
@@ -27,7 +28,7 @@ export abstract class Pattern {
 
   abstract dateRange: PatternDateRange;
 
-  abstract check(entries: Aggregates.Entry[]): PatternDetectionEventType | null;
+  abstract check(entries: Aggregates.Entry[], userId: Auth.VO.UserIdType): PatternDetectionEventType | null;
 
   getStream(): string {
     return `weekly_pattern_detection_${this.dateRange[0]}_${this.dateRange[1]}`;

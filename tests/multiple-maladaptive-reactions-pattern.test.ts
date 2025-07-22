@@ -16,6 +16,7 @@ describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
         entries: [maladaptiveEntry, maladaptiveEntry, maladaptiveEntry],
         patterns: [Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern],
         dateRange: mocks.dateRange,
+        userId: mocks.userId,
       });
 
       expect(result).toEqual([mocks.MultipleMaladaptiveReactionsPatternDetectedEvent]);
@@ -27,6 +28,7 @@ describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
       entries: [maladaptiveEntry, maladaptiveEntry],
       patterns: [Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern],
       dateRange: mocks.dateRange,
+      userId: mocks.userId,
     });
 
     expect(result).toEqual([]);

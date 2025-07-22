@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as Aggregates from "+emotions/aggregates";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
@@ -14,7 +15,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[], userId: Auth.VO.UserIdType): Patterns.PatternDetectionEventType | null {
     const matches = entries
       .map((entry) => entry.summarize())
       .filter((entry) => entry.reaction?.type.isMaladaptive());
@@ -27,7 +28,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
         name: Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: {},
+        payload: { userId },
       } satisfies Events.MultipleMaladaptiveReactionsPatternDetectedEventType);
     }
     return null;

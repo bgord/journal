@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
@@ -13,7 +14,7 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = z.object({
   name: z.literal(MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({}),
+  payload: z.object({ userId: Auth.VO.UserId }),
 });
 
 export type MultipleMaladaptiveReactionsPatternDetectedEventType = z.infer<

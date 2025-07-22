@@ -22,6 +22,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
         entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveMaladaptiveEntry],
         patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
         dateRange: mocks.dateRange,
+        userId: mocks.userId,
       });
 
       expect(result).toEqual([mocks.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent]);
@@ -33,6 +34,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
       entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry],
       patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
       dateRange: mocks.dateRange,
+      userId: mocks.userId,
     });
 
     expect(result).toEqual([]);
@@ -43,6 +45,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
       entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveAdaptiveEntry],
       patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
       dateRange: mocks.dateRange,
+      userId: mocks.userId,
     });
 
     expect(result).toEqual([]);

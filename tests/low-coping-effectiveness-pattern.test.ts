@@ -16,6 +16,7 @@ describe("LowCopingEffectivenessPattern", () => {
         entries: [maladaptiveEntry, maladaptiveEntry, maladaptiveEntry],
         patterns: [Emotions.Services.Patterns.LowCopingEffectivenessPattern],
         dateRange: mocks.dateRange,
+        userId: mocks.userId,
       });
 
       expect(result).toEqual([mocks.LowCopingEffectivenessPatternDetectedEvent]);
@@ -27,6 +28,7 @@ describe("LowCopingEffectivenessPattern", () => {
       entries: [],
       patterns: [Emotions.Services.Patterns.LowCopingEffectivenessPattern],
       dateRange: mocks.dateRange,
+      userId: mocks.userId,
     });
 
     expect(result).toEqual([]);
@@ -37,6 +39,7 @@ describe("LowCopingEffectivenessPattern", () => {
       entries: [maladaptiveEntry, maladaptiveEntry],
       patterns: [Emotions.Services.Patterns.LowCopingEffectivenessPattern],
       dateRange: mocks.dateRange,
+      userId: mocks.userId,
     });
 
     expect(result).toEqual([]);

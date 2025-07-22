@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as Aggregates from "+emotions/aggregates";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns/pattern";
@@ -14,7 +15,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[], userId: Auth.VO.UserIdType): Patterns.PatternDetectionEventType | null {
     const effectivenessScores = entries
       .map((entry) => entry.summarize())
       .flatMap((e) => (e.reaction ? [e.reaction.effectiveness.get()] : []));
@@ -33,7 +34,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
         stream: this.getStream(),
         name: Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
         version: 1,
-        payload: {},
+        payload: { userId },
       } satisfies Events.LowCopingEffectivenessPatternDetectedEventType);
     }
 

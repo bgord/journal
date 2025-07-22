@@ -32,6 +32,7 @@ describe("PatternDetector", () => {
           Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern,
         ],
         dateRange: mocks.dateRange,
+        userId: mocks.userId,
       });
 
       expect(result).toEqual([

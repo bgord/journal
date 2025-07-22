@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import * as Aggregates from "+emotions/aggregates";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
@@ -14,7 +15,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
+  check(entries: Aggregates.Entry[], userId: Auth.VO.UserIdType): Patterns.PatternDetectionEventType | null {
     const summaries = entries.map((entry) => entry.summarize());
 
     const positiveEmotionsCounter = summaries.filter((entry) => entry.emotion?.label.isPositive()).length;
@@ -29,7 +30,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
         name: Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: {},
+        payload: { userId },
       } satisfies Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType);
     }
     return null;

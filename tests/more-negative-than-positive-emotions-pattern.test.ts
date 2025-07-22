@@ -22,6 +22,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
         entries: [negativeEmotionEntry, negativeEmotionEntry, positiveEmotionEntry],
         patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
         dateRange: mocks.dateRange,
+        userId: mocks.userId,
       });
 
       expect(result).toEqual([mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent]);
@@ -33,6 +34,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
       entries: [negativeEmotionEntry, positiveEmotionEntry, positiveEmotionEntry],
       patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
       dateRange: mocks.dateRange,
+      userId: mocks.userId,
     });
 
     expect(result).toEqual([]);
@@ -43,6 +45,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
       entries: [negativeEmotionEntry, positiveEmotionEntry],
       patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
       dateRange: mocks.dateRange,
+      userId: mocks.userId,
     });
 
     expect(result).toEqual([]);
