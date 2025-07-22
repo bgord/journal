@@ -183,24 +183,4 @@ describe("entry", () => {
 
     expect(entry.pullEvents()).toEqual([]);
   });
-
-  test("summarize - full entry", () => {
-    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [
-      mocks.GenericSituationLoggedEvent,
-      mocks.GenericEmotionLoggedEvent,
-      mocks.GenericReactionLoggedEvent,
-    ]);
-
-    const summary = entry.summarize();
-
-    expect(Object.keys(summary)).toEqual([
-      "id",
-      "startedAt",
-      "finishedAt",
-      "situation",
-      "emotion",
-      "reaction",
-      "status",
-    ]);
-  });
 });

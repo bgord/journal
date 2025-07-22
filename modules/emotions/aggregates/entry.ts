@@ -21,8 +21,6 @@ export class Entry {
   private readonly id: Emotions.VO.EntryIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.initial);
   private userId?: Auth.VO.UserIdType;
-  private startedAt?: Emotions.VO.EntryStartedAtType;
-  private finishedAt?: Emotions.VO.EntryFinishedAtType;
   private situation?: Emotions.Entities.Situation;
   private emotion?: Emotions.Entities.Emotion;
   private reaction?: Emotions.Entities.Reaction;
@@ -178,18 +176,6 @@ export class Entry {
     this.record(event);
   }
 
-  summarize() {
-    return {
-      id: this.id,
-      startedAt: this.startedAt,
-      finishedAt: this.finishedAt,
-      situation: this.situation,
-      emotion: this.emotion,
-      reaction: this.reaction,
-      status: this.status,
-    };
-  }
-
   pullEvents(): EntryEventType[] {
     const events = [...this.pending];
 
@@ -208,7 +194,6 @@ export class Entry {
       case Emotions.Events.SITUATION_LOGGED_EVENT: {
         this.userId = event.payload.userId;
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.startedAt = event.createdAt;
         this.situation = new Emotions.Entities.Situation(
           new Emotions.VO.SituationDescription(event.payload.description),
           new Emotions.VO.SituationLocation(event.payload.location),
@@ -228,7 +213,6 @@ export class Entry {
 
       case Emotions.Events.REACTION_LOGGED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.finishedAt = event.createdAt;
         this.reaction = new Emotions.Entities.Reaction(
           new Emotions.VO.ReactionDescription(event.payload.description),
           new Emotions.VO.ReactionType(event.payload.type),
@@ -239,7 +223,6 @@ export class Entry {
 
       case Emotions.Events.EMOTION_REAPPRAISED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.finishedAt = event.createdAt;
         this.emotion = new Emotions.Entities.Emotion(
           new Emotions.VO.EmotionLabel(event.payload.newLabel),
           new Emotions.VO.EmotionIntensity(event.payload.newIntensity),
@@ -249,7 +232,6 @@ export class Entry {
 
       case Emotions.Events.REACTION_EVALUATED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.finishedAt = event.createdAt;
         this.reaction = new Emotions.Entities.Reaction(
           new Emotions.VO.ReactionDescription(event.payload.description),
           new Emotions.VO.ReactionType(event.payload.type),
@@ -262,12 +244,9 @@ export class Entry {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.status = Emotions.VO.EntryStatusEnum.deleted;
 
-        this.finishedAt = event.createdAt;
         this.situation = undefined;
         this.emotion = undefined;
         this.reaction = undefined;
-        this.startedAt = undefined;
-        this.finishedAt = undefined;
         break;
       }
     }
