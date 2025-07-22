@@ -1,6 +1,13 @@
 # Changelog
+- 2025-07-22 21:40 ae7c85c **step: make patterns use user id in stream**
+## 2025-07-22 21:40 
+- 2025-07-22 21:33 82cb540 **refactor: use tools.Week in weekly review in pattern**
+- 2025-07-22 16:13 8ec9f3c **step: switch to local tools**
+- 2025-07-22 16:11 7e4d3b2 **refactor: remove week start**
+- 2025-07-22 16:10 0d875f2 **step: switch to local tools**
+- 2025-07-22 14:17 6f00128 **refactor: make patterns week started at aware**
+- 2025-07-22 14:12 96b23f5 **step: make patterns user aware**
 - 2025-07-21 23:35 49e8675 **step: add response cache for translations**
-## 2025-07-21 23:35 
 - 2025-07-21 23:31 c30e28b **step: daily alarm limit for inactivity alarm**
 - 2025-07-21 22:59 05f20d1 **refactor: remove entry create**
 - 2025-07-21 22:53 c7ff58d **refactor: remove weekly review create**
@@ -8,6 +15,8 @@
 - 2025-07-21 22:14 3399c06 **refactor: make policies sync**
 - 2025-07-21 22:12 cd0e676 **step: handle empty dashboard states**
 - 2025-07-21 22:05 84cbbf1 **step: update packages**
+- 2025-07-21 21:36 e40e8ee **docs: generate CHANGELOG**
+- 2025-07-21 21:36 b627c97 **docs: generate readme**
 - 2025-07-21 15:34 2763f33 **fix: tests**
 - 2025-07-21 15:23 4c74a9f **step: add zod resolution**
 - 2025-07-21 15:22 3a26272 **step: update anthropic**
