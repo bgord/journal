@@ -1,7 +1,8 @@
 import * as Auth from "+auth";
-import type * as Aggregates from "+emotions/aggregates";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
+import * as VO from "+emotions/value-objects";
+import type * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
@@ -18,11 +19,14 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
     super();
   }
 
-  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
+  check(entries: Schema.SelectEntries[]): Patterns.PatternDetectionEventType | null {
     const matches = entries
-      .map((entry) => entry.summarize())
-      .filter((entry) => entry.emotion?.label.isPositive())
-      .filter((entry) => entry.reaction?.type.isMaladaptive());
+      .map((entry) => ({
+        emotionLabel: new VO.EmotionLabel(entry.emotionLabel as VO.GenevaWheelEmotion),
+        reactionType: new VO.ReactionType(entry.reactionType as VO.GrossEmotionRegulationStrategy),
+      }))
+      .filter((entry) => entry.emotionLabel.isPositive())
+      .filter((entry) => entry.reactionType.isMaladaptive());
 
     if (matches.length >= 3) {
       return Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent.parse({

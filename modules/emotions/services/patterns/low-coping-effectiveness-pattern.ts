@@ -1,7 +1,8 @@
 import * as Auth from "+auth";
-import * as Aggregates from "+emotions/aggregates";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns/pattern";
+import * as VO from "+emotions/value-objects";
+import type * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
@@ -18,10 +19,10 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
-    const effectivenessScores = entries
-      .map((entry) => entry.summarize())
-      .flatMap((e) => (e.reaction ? [e.reaction.effectiveness.get()] : []));
+  check(entries: Schema.SelectEntries[]): Patterns.PatternDetectionEventType | null {
+    const effectivenessScores = entries.map((entry) =>
+      new VO.ReactionEffectiveness(entry.reactionEffectiveness as VO.ReactionEffectivenessType).get(),
+    );
 
     if (effectivenessScores.length < 3) {
       return null;

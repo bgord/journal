@@ -3,23 +3,11 @@ import * as bg from "@bgord/bun";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const positiveEmotionEntry = Emotions.Aggregates.Entry.build(mocks.entryId, [
-  mocks.GenericSituationLoggedEvent,
-  mocks.PositiveEmotionLoggedEvent,
-  mocks.GenericReactionLoggedEvent,
-]);
-
-const negativeEmotionEntry = Emotions.Aggregates.Entry.build(mocks.entryId, [
-  mocks.GenericSituationLoggedEvent,
-  mocks.NegativeEmotionLoggedEvent,
-  mocks.GenericReactionLoggedEvent,
-]);
-
 describe("MoreNegativeThanPositiveEmotionsPattern", () => {
   test("true", () => {
     bg.CorrelationStorage.run(mocks.correlationId, () => {
       const result = Emotions.Services.PatternDetector.detect({
-        entries: [negativeEmotionEntry, negativeEmotionEntry, positiveEmotionEntry],
+        entries: [mocks.negativeEmotionEntry, mocks.negativeEmotionEntry, mocks.positiveEmotionEntry],
         patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
         week: mocks.week,
         userId: mocks.userId,
@@ -31,7 +19,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
 
   test("false", () => {
     const result = Emotions.Services.PatternDetector.detect({
-      entries: [negativeEmotionEntry, positiveEmotionEntry, positiveEmotionEntry],
+      entries: [mocks.negativeEmotionEntry, mocks.positiveEmotionEntry, mocks.positiveEmotionEntry],
       patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
       week: mocks.week,
       userId: mocks.userId,
@@ -42,7 +30,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
 
   test("false - equal amount", () => {
     const result = Emotions.Services.PatternDetector.detect({
-      entries: [negativeEmotionEntry, positiveEmotionEntry],
+      entries: [mocks.negativeEmotionEntry, mocks.positiveEmotionEntry],
       patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
       week: mocks.week,
       userId: mocks.userId,

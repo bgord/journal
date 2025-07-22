@@ -1,6 +1,6 @@
 import { Password } from "../../modules/auth/value-objects/password";
 
-export type * as types from "../../modules/auth/value-objects";
+export type * as AuthTypes from "../../modules/auth/value-objects";
 
 /** @public */
 export class AuthForm {

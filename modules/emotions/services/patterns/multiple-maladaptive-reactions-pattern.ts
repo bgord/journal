@@ -1,7 +1,8 @@
 import * as Auth from "+auth";
-import * as Aggregates from "+emotions/aggregates";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
+import * as VO from "+emotions/value-objects";
+import type * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
@@ -18,10 +19,10 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
-    const matches = entries
-      .map((entry) => entry.summarize())
-      .filter((entry) => entry.reaction?.type.isMaladaptive());
+  check(entries: Schema.SelectEntries[]): Patterns.PatternDetectionEventType | null {
+    const matches = entries.filter((entry) =>
+      new VO.ReactionType(entry.reactionType as VO.GrossEmotionRegulationStrategy).isMaladaptive(),
+    );
 
     if (matches.length >= 3) {
       return Events.MultipleMaladaptiveReactionsPatternDetectedEvent.parse({

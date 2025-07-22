@@ -139,36 +139,6 @@ export const GenericReactionEvaluatedEvent = {
   },
 } satisfies Emotions.Events.ReactionEvaluatedEventType;
 
-export const PositiveEmotionLoggedEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: expect.any(Number),
-  name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.Entry.getStream(entryId),
-  version: 1,
-  payload: {
-    entryId,
-    label: Emotions.VO.GenevaWheelEmotion.joy,
-    intensity: 4,
-    userId,
-  },
-} satisfies Emotions.Events.EmotionLoggedEventType;
-
-export const NegativeEmotionLoggedEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: expect.any(Number),
-  name: Emotions.Events.EMOTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.Entry.getStream(entryId),
-  version: 1,
-  payload: {
-    entryId,
-    label: Emotions.VO.GenevaWheelEmotion.anger,
-    intensity: 4,
-    userId,
-  },
-} satisfies Emotions.Events.EmotionLoggedEventType;
-
 export const NegativeEmotionExtremeIntensityLoggedEvent = {
   id: expectAnyId,
   correlationId,
@@ -198,38 +168,6 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
     userId,
   },
 } satisfies Emotions.Events.EmotionReappraisedEventType;
-
-export const MaladaptiveReactionLoggedEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: expect.any(Number),
-  name: Emotions.Events.REACTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.Entry.getStream(entryId),
-  version: 1,
-  payload: {
-    entryId,
-    description: "Got drunk",
-    type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
-    effectiveness: 1,
-    userId,
-  },
-} satisfies Emotions.Events.ReactionLoggedEventType;
-
-export const AdaptiveReactionLoggedEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: expect.any(Number),
-  name: Emotions.Events.REACTION_LOGGED_EVENT,
-  stream: Emotions.Aggregates.Entry.getStream(entryId),
-  version: 1,
-  payload: {
-    entryId,
-    description: "Went for a walk",
-    type: Emotions.VO.GrossEmotionRegulationStrategy.reappraisal,
-    effectiveness: 4,
-    userId,
-  },
-} satisfies Emotions.Events.ReactionLoggedEventType;
 
 export const GenericEntryDeletedEvent = {
   id: expectAnyId,
@@ -435,6 +373,42 @@ export const fullEntry: Schema.SelectEntries = {
   reactionEffectiveness: 1,
   language: SupportedLanguages.en,
   userId,
+};
+
+export const positiveMaladaptiveEntry: Schema.SelectEntries = {
+  ...fullEntry,
+
+  emotionLabel: Emotions.VO.GenevaWheelEmotion.joy,
+  emotionIntensity: 4,
+
+  reactionDescription: "Got drunk",
+  reactionType: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
+  reactionEffectiveness: 1,
+};
+
+export const positiveAdaptiveEntry: Schema.SelectEntries = {
+  ...fullEntry,
+
+  emotionLabel: Emotions.VO.GenevaWheelEmotion.joy,
+  emotionIntensity: 4,
+
+  reactionDescription: "Went for a walk",
+  reactionType: Emotions.VO.GrossEmotionRegulationStrategy.reappraisal,
+  reactionEffectiveness: 4,
+};
+
+export const positiveEmotionEntry: Schema.SelectEntries = {
+  ...fullEntry,
+
+  emotionLabel: Emotions.VO.GenevaWheelEmotion.joy,
+  emotionIntensity: 4,
+};
+
+export const negativeEmotionEntry: Schema.SelectEntries = {
+  ...fullEntry,
+
+  emotionLabel: Emotions.VO.GenevaWheelEmotion.anger,
+  emotionIntensity: 4,
 };
 
 export const fullEntryFormatted: Schema.SelectEntriesFull = {

@@ -1,7 +1,8 @@
 import * as Auth from "+auth";
-import * as Aggregates from "+emotions/aggregates";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
+import * as VO from "+emotions/value-objects";
+import type * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
@@ -18,12 +19,14 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Aggregates.Entry[]): Patterns.PatternDetectionEventType | null {
-    const summaries = entries.map((entry) => entry.summarize());
+  check(entries: Schema.SelectEntries[]): Patterns.PatternDetectionEventType | null {
+    const positiveEmotionsCounter = entries.filter((entry) =>
+      new VO.EmotionLabel(entry.emotionLabel as VO.GenevaWheelEmotion).isPositive(),
+    ).length;
 
-    const positiveEmotionsCounter = summaries.filter((entry) => entry.emotion?.label.isPositive()).length;
-
-    const negativeEmotionsCounter = summaries.filter((entry) => entry.emotion?.label.isNegative()).length;
+    const negativeEmotionsCounter = entries.filter((entry) =>
+      new VO.EmotionLabel(entry.emotionLabel as VO.GenevaWheelEmotion).isNegative(),
+    ).length;
 
     if (negativeEmotionsCounter > positiveEmotionsCounter) {
       return Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent.parse({

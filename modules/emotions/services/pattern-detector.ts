@@ -1,11 +1,11 @@
 import * as Auth from "+auth";
-import type * as Aggregates from "+emotions/aggregates";
 import * as Patterns from "+emotions/services/patterns";
+import type * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
 
 type PatternDetectorConfigType = {
   userId: Auth.VO.UserIdType;
-  entries: Aggregates.Entry[];
+  entries: Schema.SelectEntries[];
   patterns: tools.Constructor<Patterns.Pattern>[];
   week: tools.Week;
 };

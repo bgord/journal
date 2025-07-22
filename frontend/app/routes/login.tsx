@@ -2,7 +2,7 @@ import * as UI from "@bgord/ui";
 import { WarningCircle } from "iconoir-react";
 import React from "react";
 import * as RR from "react-router";
-import type { types } from "../../../app/services/auth-form";
+import type { AuthTypes } from "../../../app/services/auth-form";
 import { AuthForm } from "../../../app/services/auth-form";
 import * as Auth from "../../auth";
 import type { Route } from "./+types/login";
@@ -25,7 +25,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
   const [state, setState] = React.useState<LoginState>(LoginState.idle);
 
   const email = UI.useField({ name: "email", defaultValue: "admin@example.com" });
-  const password = UI.useField<types.PasswordType>({ name: "password", defaultValue: "1234567890" });
+  const password = UI.useField<AuthTypes.PasswordType>({ name: "password", defaultValue: "1234567890" });
 
   const signIn = async (event: React.FormEvent) => {
     event.preventDefault();

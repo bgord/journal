@@ -2,7 +2,7 @@ import * as UI from "@bgord/ui";
 import { CheckCircle, WarningCircle } from "iconoir-react";
 import React from "react";
 import { Form, Link } from "react-router";
-import type { types } from "../../../app/services/auth-form";
+import type { AuthTypes } from "../../../app/services/auth-form";
 import * as Auth from "../../auth";
 import { ReadModel } from "../../read-model";
 import type { Route } from "./+types/register";
@@ -25,7 +25,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
   const [state, setState] = React.useState<RegisterState>(RegisterState.idle);
 
   const email = UI.useField({ name: "email", defaultValue: "" });
-  const password = UI.useField<types.PasswordType>({ name: "password", defaultValue: "" });
+  const password = UI.useField<AuthTypes.PasswordType>({ name: "password", defaultValue: "" });
 
   const signUp = async (event: React.FormEvent) => {
     event.preventDefault();

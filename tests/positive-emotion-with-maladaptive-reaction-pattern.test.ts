@@ -3,23 +3,15 @@ import * as bg from "@bgord/bun";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const positiveMaladaptiveEntry = Emotions.Aggregates.Entry.build(mocks.entryId, [
-  mocks.GenericSituationLoggedEvent,
-  mocks.PositiveEmotionLoggedEvent,
-  mocks.MaladaptiveReactionLoggedEvent,
-]);
-
-const positiveAdaptiveEntry = Emotions.Aggregates.Entry.build(mocks.entryId, [
-  mocks.GenericSituationLoggedEvent,
-  mocks.PositiveEmotionLoggedEvent,
-  mocks.AdaptiveReactionLoggedEvent,
-]);
-
 describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
   test("true", () => {
     bg.CorrelationStorage.run(mocks.correlationId, () => {
       const result = Emotions.Services.PatternDetector.detect({
-        entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveMaladaptiveEntry],
+        entries: [
+          mocks.positiveMaladaptiveEntry,
+          mocks.positiveMaladaptiveEntry,
+          mocks.positiveMaladaptiveEntry,
+        ],
         patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
         week: mocks.week,
         userId: mocks.userId,
@@ -31,7 +23,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
 
   test("false", () => {
     const result = Emotions.Services.PatternDetector.detect({
-      entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry],
+      entries: [mocks.positiveMaladaptiveEntry, mocks.positiveMaladaptiveEntry],
       patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
       week: mocks.week,
       userId: mocks.userId,
@@ -42,7 +34,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
 
   test("mixed (still false)", () => {
     const result = Emotions.Services.PatternDetector.detect({
-      entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveAdaptiveEntry],
+      entries: [mocks.positiveMaladaptiveEntry, mocks.positiveMaladaptiveEntry, mocks.positiveAdaptiveEntry],
       patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
       week: mocks.week,
       userId: mocks.userId,

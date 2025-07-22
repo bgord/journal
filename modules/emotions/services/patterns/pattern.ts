@@ -1,6 +1,6 @@
 import * as Auth from "+auth";
-import type * as Aggregates from "+emotions/aggregates";
 import type * as Events from "+emotions/events";
+import type * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
 import type { z } from "zod/v4";
 
@@ -29,7 +29,7 @@ export abstract class Pattern {
 
   abstract userId: Auth.VO.UserIdType;
 
-  abstract check(entries: Aggregates.Entry[]): PatternDetectionEventType | null;
+  abstract check(entries: Schema.SelectEntries[]): PatternDetectionEventType | null;
 
   getStream(): string {
     return `weekly_pattern_detection_${this.userId}_${this.week.toIsoId()}`;
