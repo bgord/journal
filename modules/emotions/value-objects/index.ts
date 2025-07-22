@@ -23,6 +23,5 @@ export * from "./situation-description";
 export * from "./situation-kind";
 export * from "./situation-kind-options";
 export * from "./situation-location";
-export * from "./week-start";
 export * from "./weekly-review-id";
 export * from "./weekly-review-status";
