@@ -27,11 +27,9 @@ export const anotherEmail = "another@example.com";
 export const userId = bg.NewUUID.generate();
 export const anotherUserId = bg.NewUUID.generate();
 
-export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
-
 export const weeklyReviewId = bg.NewUUID.generate();
 
-export const weekStartedAt = tools.Timestamp.parse(new Date(dateRange[0]).getTime()) as tools.TimestampType;
+export const week = tools.Week.fromNow();
 
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
@@ -247,40 +245,40 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
+  stream: `weekly_pattern_detection_${week.toIsoId()}`,
   name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId, weekStartedAt },
+  payload: { userId, weekIsoId: week.toIsoId() },
 } satisfies Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
 
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
+  stream: `weekly_pattern_detection_${week.toIsoId()}`,
   name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId, weekStartedAt },
+  payload: { userId, weekIsoId: week.toIsoId() },
 } satisfies Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
 export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
+  stream: `weekly_pattern_detection_${week.toIsoId()}`,
   name: Emotions.Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId, weekStartedAt },
+  payload: { userId, weekIsoId: week.toIsoId() },
 } satisfies Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType;
 
 export const LowCopingEffectivenessPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
+  stream: `weekly_pattern_detection_${week.toIsoId()}`,
   name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId, weekStartedAt },
+  payload: { userId, weekIsoId: week.toIsoId() },
 } satisfies Emotions.Events.LowCopingEffectivenessPatternDetectedEventType;
 
 export const GenericAlarmGeneratedEvent = {
@@ -360,7 +358,7 @@ export const GenericWeeklyReviewRequestedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
   version: 1,
-  payload: { weekStartedAt, weeklyReviewId, userId },
+  payload: { weekIsoId: week.toIsoId(), weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewRequestedEventType;
 
 export const GenericWeeklyReviewSkippedEvent = {
@@ -370,7 +368,7 @@ export const GenericWeeklyReviewSkippedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
   version: 1,
-  payload: { weekStartedAt, userId },
+  payload: { weekIsoId: week.toIsoId(), userId },
 } satisfies Emotions.Events.WeeklyReviewSkippedEventType;
 
 export const GenericWeeklyReviewCompletedEvent = {
@@ -383,7 +381,7 @@ export const GenericWeeklyReviewCompletedEvent = {
   payload: {
     insights: "Good job",
     weeklyReviewId,
-    weekStartedAt,
+    weekIsoId: week.toIsoId(),
     userId,
   },
 } satisfies Emotions.Events.WeeklyReviewCompletedEventType;
@@ -395,7 +393,7 @@ export const GenericWeeklyReviewFailedEvent = {
   stream: expect.any(String),
   name: "WEEKLY_REVIEW_FAILED_EVENT",
   version: 1,
-  payload: { weekStartedAt, weeklyReviewId, userId },
+  payload: { weekIsoId: week.toIsoId(), weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
 
 export const partialEntry: Schema.SelectEntries = {

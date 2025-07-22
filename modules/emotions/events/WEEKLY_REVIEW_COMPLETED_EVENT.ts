@@ -16,7 +16,7 @@ export const WeeklyReviewCompletedEvent = z.object({
   revision: tools.RevisionValue.optional(),
   payload: z.object({
     weeklyReviewId: VO.WeeklyReviewId,
-    weekStartedAt: tools.Timestamp,
+    weekIsoId: z.string(),
     insights: VO.AdviceSchema,
     userId: Auth.VO.UserId,
   }),

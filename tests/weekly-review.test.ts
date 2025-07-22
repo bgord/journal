@@ -4,8 +4,6 @@ import * as tools from "@bgord/tools";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const weekStart = Emotions.VO.WeekStart.fromTimestamp(mocks.weekStartedAt);
-
 const insights = new Emotions.VO.Advice("Good job");
 
 describe("WeeklyReview", () => {
@@ -19,7 +17,7 @@ describe("WeeklyReview", () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
         mocks.weeklyReviewId,
-        weekStart,
+        mocks.week,
         mocks.userId,
       );
 

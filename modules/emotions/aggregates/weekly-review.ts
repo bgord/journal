@@ -19,7 +19,7 @@ export class WeeklyReview {
 
   private readonly id: VO.WeeklyReviewIdType;
   private userId?: Auth.VO.UserIdType;
-  private weekStartedAt?: tools.TimestampType;
+  private week?: tools.Week;
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
   // @ts-expect-error
   private insights?: VO.Advice;
@@ -38,7 +38,7 @@ export class WeeklyReview {
     return entry;
   }
 
-  static request(id: VO.WeeklyReviewIdType, weekStart: VO.WeekStart, requesterId: Auth.VO.UserIdType) {
+  static request(id: VO.WeeklyReviewIdType, week: tools.Week, requesterId: Auth.VO.UserIdType) {
     const weeklyReview = new WeeklyReview(id);
 
     const event = Events.WeeklyReviewRequestedEvent.parse({
@@ -48,7 +48,7 @@ export class WeeklyReview {
       name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
       stream: WeeklyReview.getStream(id),
       version: 1,
-      payload: { weeklyReviewId: id, weekStartedAt: weekStart.get(), userId: requesterId },
+      payload: { weeklyReviewId: id, weekIsoId: week.toIsoId(), userId: requesterId },
     } satisfies Events.WeeklyReviewRequestedEventType);
 
     weeklyReview.record(event);
@@ -68,7 +68,7 @@ export class WeeklyReview {
       version: 1,
       payload: {
         weeklyReviewId: this.id,
-        weekStartedAt: this.weekStartedAt as tools.TimestampType,
+        weekIsoId: this.week?.toIsoId() as string,
         insights: insights.get(),
         userId: this.userId as Auth.VO.UserIdType,
       },
@@ -89,7 +89,7 @@ export class WeeklyReview {
       version: 1,
       payload: {
         weeklyReviewId: this.id,
-        weekStartedAt: this.weekStartedAt as tools.TimestampType,
+        weekIsoId: this.week?.toIsoId() as string,
         userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.WeeklyReviewFailedEventType);
@@ -113,7 +113,7 @@ export class WeeklyReview {
   private apply(event: WeeklyReviewEventType): void {
     switch (event.name) {
       case Events.WEEKLY_REVIEW_REQUESTED_EVENT: {
-        this.weekStartedAt = event.payload.weekStartedAt;
+        this.week = tools.Week.fromIsoId(event.payload.weekIsoId);
         this.status = VO.WeeklyReviewStatusEnum.requested;
         this.userId = event.payload.userId;
         break;

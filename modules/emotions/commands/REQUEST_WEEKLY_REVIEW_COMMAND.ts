@@ -1,5 +1,4 @@
 import * as Auth from "+auth";
-import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
@@ -12,7 +11,7 @@ export const RequestWeeklyReviewCommand = z.object({
   createdAt: tools.Timestamp,
   name: z.literal(REQUEST_WEEKLY_REVIEW_COMMAND),
   payload: z.object({
-    weekStart: z.instanceof(VO.WeekStart),
+    week: z.instanceof(tools.Week),
     userId: Auth.VO.UserId,
   }),
 });

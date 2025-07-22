@@ -21,7 +21,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
       const result = Emotions.Services.PatternDetector.detect({
         entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveMaladaptiveEntry],
         patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
-        dateRange: mocks.dateRange,
+        week: mocks.week,
         userId: mocks.userId,
       });
 
@@ -33,7 +33,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry],
       patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
-      dateRange: mocks.dateRange,
+      week: mocks.week,
       userId: mocks.userId,
     });
 
@@ -44,7 +44,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [positiveMaladaptiveEntry, positiveMaladaptiveEntry, positiveAdaptiveEntry],
       patterns: [Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern],
-      dateRange: mocks.dateRange,
+      week: mocks.week,
       userId: mocks.userId,
     });
 

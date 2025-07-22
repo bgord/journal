@@ -21,7 +21,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
       const result = Emotions.Services.PatternDetector.detect({
         entries: [negativeEmotionEntry, negativeEmotionEntry, positiveEmotionEntry],
         patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
-        dateRange: mocks.dateRange,
+        week: mocks.week,
         userId: mocks.userId,
       });
 
@@ -33,7 +33,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [negativeEmotionEntry, positiveEmotionEntry, positiveEmotionEntry],
       patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
-      dateRange: mocks.dateRange,
+      week: mocks.week,
       userId: mocks.userId,
     });
 
@@ -44,7 +44,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [negativeEmotionEntry, positiveEmotionEntry],
       patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
-      dateRange: mocks.dateRange,
+      week: mocks.week,
       userId: mocks.userId,
     });
 

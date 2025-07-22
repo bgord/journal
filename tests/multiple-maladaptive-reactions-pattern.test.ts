@@ -15,7 +15,7 @@ describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
       const result = Emotions.Services.PatternDetector.detect({
         entries: [maladaptiveEntry, maladaptiveEntry, maladaptiveEntry],
         patterns: [Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern],
-        dateRange: mocks.dateRange,
+        week: mocks.week,
         userId: mocks.userId,
       });
 
@@ -27,7 +27,7 @@ describe("MultipleMaladaptiveReactionsInWeekPattern", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [maladaptiveEntry, maladaptiveEntry],
       patterns: [Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern],
-      dateRange: mocks.dateRange,
+      week: mocks.week,
       userId: mocks.userId,
     });
 

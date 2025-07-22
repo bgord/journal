@@ -1,6 +1,7 @@
 import * as Auth from "+auth";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
@@ -9,7 +10,7 @@ describe("WeeklyReviewScheduler", () => {
   test("correct path - single user", async () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
     spyOn(Emotions.Queries.CountEntriesPerWeekForUser, "execute").mockResolvedValue(1);
-    spyOn(Date, "now").mockReturnValue(mocks.weekStartedAt);
+    spyOn(tools.Week, "fromNow").mockReturnValue(mocks.week);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -25,7 +26,7 @@ describe("WeeklyReviewScheduler", () => {
   test("EntriesForWeekExist", async () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
     spyOn(Emotions.Queries.CountEntriesPerWeekForUser, "execute").mockResolvedValue(0);
-    spyOn(Date, "now").mockReturnValue(mocks.weekStartedAt);
+    spyOn(tools.Week, "fromNow").mockReturnValue(mocks.week);
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

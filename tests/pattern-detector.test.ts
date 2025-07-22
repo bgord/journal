@@ -31,7 +31,7 @@ describe("PatternDetector", () => {
           Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern,
           Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern,
         ],
-        dateRange: mocks.dateRange,
+        week: mocks.week,
         userId: mocks.userId,
       });
 

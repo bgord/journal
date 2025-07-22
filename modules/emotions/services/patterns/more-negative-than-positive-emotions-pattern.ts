@@ -11,7 +11,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
 
   kind = Patterns.PatternKindOptions.negative;
 
-  constructor(public dateRange: Patterns.PatternDateRange) {
+  constructor(public week: tools.Week) {
     super();
   }
 
@@ -30,7 +30,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
         name: Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: { userId, weekStartedAt: tools.Timestamp.parse(new Date(this.dateRange[0]).getTime()) },
+        payload: { userId, weekIsoId: this.week.toIsoId() },
       } satisfies Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType);
     }
     return null;

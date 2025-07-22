@@ -5,14 +5,12 @@ import * as tools from "@bgord/tools";
 import { and, eq, gte, lte } from "drizzle-orm";
 
 export class CountEntriesPerWeekForUser {
-  static async execute(userId: Auth.VO.UserIdType, weekStartedAt: number): Promise<number> {
-    const weekEndedAt = weekStartedAt - tools.Time.Days(7).ms;
-
+  static async execute(userId: Auth.VO.UserIdType, week: tools.Week): Promise<number> {
     return db.$count(
       Schema.entries,
       and(
-        gte(Schema.entries.startedAt, weekStartedAt),
-        lte(Schema.entries.startedAt, weekEndedAt),
+        gte(Schema.entries.startedAt, week.getStart()),
+        lte(Schema.entries.startedAt, week.getEnd()),
         eq(Schema.entries.userId, userId),
       ),
     );

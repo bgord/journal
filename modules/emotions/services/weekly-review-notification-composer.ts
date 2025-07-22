@@ -1,15 +1,12 @@
 import * as VO from "+emotions/value-objects";
 import type * as Schema from "+infra/schema";
+import * as tools from "@bgord/tools";
 
 export class WeeklyReviewNotificationComposer {
-  compose(
-    weekStartedAt: VO.WeekStart,
-    _entries: Schema.SelectEntries[],
-    _insights: VO.Advice,
-  ): VO.NotificationTemplate {
+  compose(week: tools.Week, _entries: Schema.SelectEntries[], _insights: VO.Advice): VO.NotificationTemplate {
     return new VO.NotificationTemplate(
-      `Weekly Review - ${weekStartedAt.get()}`,
-      `Weekly review: ${weekStartedAt.get()}`,
+      `Weekly Review - ${week.getStart()}`,
+      `Weekly review: ${week.getStart()}`,
     );
   }
 }

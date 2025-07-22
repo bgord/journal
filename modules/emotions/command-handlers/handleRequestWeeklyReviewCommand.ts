@@ -8,7 +8,7 @@ export const handleRequestWeeklyReviewCommand = async (
 ) => {
   const entriesPerWeekForUserCount = await Emotions.Queries.CountEntriesPerWeekForUser.execute(
     command.payload.userId,
-    command.payload.weekStart.get(),
+    command.payload.week,
   );
 
   if (
@@ -25,7 +25,7 @@ export const handleRequestWeeklyReviewCommand = async (
         name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
         stream: "weekly_review_skipped",
         version: 1,
-        payload: { weekStartedAt: command.payload.weekStart.get(), userId: command.payload.userId },
+        payload: { weekIsoId: command.payload.week.toIsoId(), userId: command.payload.userId },
       } satisfies Emotions.Events.WeeklyReviewSkippedEventType),
     ]);
 
@@ -36,7 +36,7 @@ export const handleRequestWeeklyReviewCommand = async (
 
   const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
     weeklyReviewId,
-    command.payload.weekStart,
+    command.payload.week,
     command.payload.userId,
   );
 

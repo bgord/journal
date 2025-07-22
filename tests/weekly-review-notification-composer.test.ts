@@ -5,14 +5,13 @@ import * as mocks from "./mocks";
 describe("WeeklyReviewNotificationComposer", () => {
   test("compose", () => {
     const composer = new Emotions.Services.WeeklyReviewNotificationComposer();
-    const weekStart = new Emotions.VO.WeekStart(mocks.weekStartedAt);
 
-    const notification = composer.compose(weekStart, [], mocks.advice);
+    const notification = composer.compose(mocks.week, [], mocks.advice);
 
     expect(notification).toEqual(
       new Emotions.VO.NotificationTemplate(
-        `Weekly Review - ${weekStart.get()}`,
-        `Weekly review: ${weekStart.get()}`,
+        `Weekly Review - ${mocks.week.getStart()}`,
+        `Weekly review: ${mocks.week.getStart()}`,
       ),
     );
   });

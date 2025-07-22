@@ -15,7 +15,7 @@ describe("LowCopingEffectivenessPattern", () => {
       const result = Emotions.Services.PatternDetector.detect({
         entries: [maladaptiveEntry, maladaptiveEntry, maladaptiveEntry],
         patterns: [Emotions.Services.Patterns.LowCopingEffectivenessPattern],
-        dateRange: mocks.dateRange,
+        week: mocks.week,
         userId: mocks.userId,
       });
 
@@ -27,7 +27,7 @@ describe("LowCopingEffectivenessPattern", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [],
       patterns: [Emotions.Services.Patterns.LowCopingEffectivenessPattern],
-      dateRange: mocks.dateRange,
+      week: mocks.week,
       userId: mocks.userId,
     });
 
@@ -38,7 +38,7 @@ describe("LowCopingEffectivenessPattern", () => {
     const result = Emotions.Services.PatternDetector.detect({
       entries: [maladaptiveEntry, maladaptiveEntry],
       patterns: [Emotions.Services.Patterns.LowCopingEffectivenessPattern],
-      dateRange: mocks.dateRange,
+      week: mocks.week,
       userId: mocks.userId,
     });
 

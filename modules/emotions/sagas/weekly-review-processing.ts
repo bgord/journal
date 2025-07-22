@@ -26,10 +26,10 @@ export class WeeklyReviewProcessing {
   async onWeeklyReviewSkippedEvent(event: Events.WeeklyReviewSkippedEventType) {
     const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 
-    const weekStart = VO.WeekStart.fromTimestamp(event.payload.weekStartedAt);
+    const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const composer = new Services.WeeklyReviewSkippedNotificationComposer();
 
-    const notification = composer.compose(weekStart);
+    const notification = composer.compose(week);
 
     if (!contact?.email) return;
 
@@ -39,7 +39,8 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
-    const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
+    const week = tools.Week.fromIsoId(event.payload.weekIsoId);
+    const entries = await Repos.EntryRepository.findInWeek(week);
 
     const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries).generate();
 
@@ -81,14 +82,14 @@ export class WeeklyReviewProcessing {
 
       if (!contact?.email) return;
 
-      const entries = await Repos.EntryRepository.findInWeek(event.payload.weekStartedAt);
+      const week = tools.Week.fromIsoId(event.payload.weekIsoId);
+      const entries = await Repos.EntryRepository.findInWeek(week);
 
       const insights = new VO.Advice(event.payload.insights);
-      const weekStart = VO.WeekStart.fromTimestamp(event.payload.weekStartedAt);
 
       const composer = new Services.WeeklyReviewNotificationComposer();
 
-      const notification = composer.compose(weekStart, entries, insights);
+      const notification = composer.compose(week, entries, insights);
 
       await Mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
     } catch (error) {

@@ -11,7 +11,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
 
   kind = Patterns.PatternKindOptions.negative;
 
-  constructor(public dateRange: Patterns.PatternDateRange) {
+  constructor(public week: tools.Week) {
     super();
   }
 
@@ -28,7 +28,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
         name: Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: { userId, weekStartedAt: tools.Timestamp.parse(new Date(this.dateRange[0]).getTime()) },
+        payload: { userId, weekIsoId: this.week.toIsoId() },
       } satisfies Events.MultipleMaladaptiveReactionsPatternDetectedEventType);
     }
     return null;

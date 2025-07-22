@@ -1,11 +1,10 @@
 import * as Auth from "+auth";
 import type * as Aggregates from "+emotions/aggregates";
 import type * as Events from "+emotions/events";
+import * as tools from "@bgord/tools";
 import type { z } from "zod/v4";
 
 type PatternName = string;
-
-export type PatternDateRange = [string, string];
 
 export type PatternDetectionEvent =
   | typeof Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent
@@ -26,11 +25,11 @@ export abstract class Pattern {
 
   abstract kind: PatternKindOptions;
 
-  abstract dateRange: PatternDateRange;
+  abstract week: tools.Week;
 
   abstract check(entries: Aggregates.Entry[], userId: Auth.VO.UserIdType): PatternDetectionEventType | null;
 
   getStream(): string {
-    return `weekly_pattern_detection_${this.dateRange[0]}_${this.dateRange[1]}`;
+    return `weekly_pattern_detection_${this.week.toIsoId()}`;
   }
 }

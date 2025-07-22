@@ -7,14 +7,14 @@ type PatternDetectorConfigType = {
   userId: Auth.VO.UserIdType;
   entries: Aggregates.Entry[];
   patterns: tools.Constructor<Patterns.Pattern>[];
-  dateRange: Patterns.PatternDateRange;
+  week: tools.Week;
 };
 
 /** @public */
 export class PatternDetector {
   static detect(config: PatternDetectorConfigType): Patterns.PatternDetectionEventType[] {
     return config.patterns
-      .map((Pattern) => new Pattern(config.dateRange).check(config.entries, config.userId))
+      .map((Pattern) => new Pattern(config.week).check(config.entries, config.userId))
       .filter((result) => result !== null);
   }
 }

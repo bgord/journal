@@ -27,7 +27,7 @@ describe("WeeklyReviewProcessing", () => {
       from: Env.EMAIL_FROM,
       to: mocks.email,
       subject: "Weekly Review - come back and journal",
-      html: `Week you missed ${mocks.weekStartedAt}`,
+      html: `Week you missed ${mocks.week.getStart()}`,
     });
 
     jest.restoreAllMocks();
@@ -125,11 +125,13 @@ describe("WeeklyReviewProcessing", () => {
       async () => await saga.onWeeklyReviewCompletedEvent(mocks.GenericWeeklyReviewCompletedEvent),
     );
 
+    const week = tools.Week.fromIsoId(mocks.GenericWeeklyReviewCompletedEvent.payload.weekIsoId);
+
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
       to: mocks.email,
-      subject: `Weekly Review - ${mocks.GenericWeeklyReviewCompletedEvent.payload.weekStartedAt}`,
-      html: `Weekly review: ${mocks.GenericWeeklyReviewCompletedEvent.payload.weekStartedAt}`,
+      subject: `Weekly Review - ${week.getStart()}`,
+      html: `Weekly review: ${week.getStart()}`,
     });
 
     jest.restoreAllMocks();

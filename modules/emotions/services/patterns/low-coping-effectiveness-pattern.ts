@@ -11,7 +11,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
 
   kind = Patterns.PatternKindOptions.negative;
 
-  constructor(public dateRange: Patterns.PatternDateRange) {
+  constructor(public week: tools.Week) {
     super();
   }
 
@@ -34,7 +34,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
         stream: this.getStream(),
         name: Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
         version: 1,
-        payload: { userId, weekStartedAt: tools.Timestamp.parse(new Date(this.dateRange[0]).getTime()) },
+        payload: { userId, weekIsoId: this.week.toIsoId() },
       } satisfies Events.LowCopingEffectivenessPatternDetectedEventType);
     }
 

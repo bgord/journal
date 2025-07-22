@@ -19,13 +19,13 @@ export class EntryRepository {
     return EntryRepository.format(result[0]);
   }
 
-  static async findInWeek(weekStartedAt: number): Promise<Schema.SelectEntries[]> {
-    const weekEndedAt = weekStartedAt + tools.Time.Days(7).ms;
-
+  static async findInWeek(week: tools.Week): Promise<Schema.SelectEntries[]> {
     return db
       .select()
       .from(Schema.entries)
-      .where(and(gte(Schema.entries.startedAt, weekStartedAt), lte(Schema.entries.startedAt, weekEndedAt)));
+      .where(
+        and(gte(Schema.entries.startedAt, week.getStart()), lte(Schema.entries.startedAt, week.getEnd())),
+      );
   }
 
   static async logSituation(event: Events.SituationLoggedEventType) {

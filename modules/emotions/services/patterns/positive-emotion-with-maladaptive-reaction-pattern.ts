@@ -11,7 +11,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
 
   kind = Patterns.PatternKindOptions.negative;
 
-  constructor(public dateRange: Patterns.PatternDateRange) {
+  constructor(public week: tools.Week) {
     super();
   }
 
@@ -29,7 +29,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
         name: Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: { userId, weekStartedAt: tools.Timestamp.parse(new Date(this.dateRange[0]).getTime()) },
+        payload: { userId, weekIsoId: this.week.toIsoId() },
       } satisfies Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType);
     }
 
