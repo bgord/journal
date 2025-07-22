@@ -32,7 +32,11 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
         name: Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: { userId: this.userId, weekIsoId: this.week.toIsoId() },
+        payload: {
+          userId: this.userId,
+          weekIsoId: this.week.toIsoId(),
+          entryIds: matches.map((entry) => entry.id),
+        },
       } satisfies Events.MultipleMaladaptiveReactionsPatternDetectedEventType);
     }
     return null;
