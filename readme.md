@@ -195,7 +195,6 @@ modules/
         ├── situation-kind-options.ts
         ├── situation-kind.ts
         ├── situation-location.ts
-        ├── week-start.ts
         ├── weekly-review-id.ts
         └── weekly-review-status.ts
 ```
