@@ -27,9 +27,11 @@ export const anotherEmail = "another@example.com";
 export const userId = bg.NewUUID.generate();
 export const anotherUserId = bg.NewUUID.generate();
 
+export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
+
 export const weeklyReviewId = bg.NewUUID.generate();
 
-export const weekStartedAt = 1750636800000 as tools.TimestampType;
+export const weekStartedAt = tools.Timestamp.parse(new Date(dateRange[0]).getTime()) as tools.TimestampType;
 
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
@@ -241,8 +243,6 @@ export const GenericEntryDeletedEvent = {
   payload: { entryId, userId },
 } satisfies Emotions.Events.EntryDeletedEventType;
 
-export const dateRange: Emotions.Services.Patterns.PatternDateRange = ["2025-06-16", "2025-06-23"] as const;
-
 export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
@@ -250,7 +250,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId },
+  payload: { userId, weekStartedAt },
 } satisfies Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
 
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
@@ -260,7 +260,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId },
+  payload: { userId, weekStartedAt },
 } satisfies Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
 export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
@@ -270,7 +270,7 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId },
+  payload: { userId, weekStartedAt },
 } satisfies Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType;
 
 export const LowCopingEffectivenessPatternDetectedEvent = {
@@ -280,7 +280,7 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${dateRange[0]}_${dateRange[1]}`,
   name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId },
+  payload: { userId, weekStartedAt },
 } satisfies Emotions.Events.LowCopingEffectivenessPatternDetectedEventType;
 
 export const GenericAlarmGeneratedEvent = {

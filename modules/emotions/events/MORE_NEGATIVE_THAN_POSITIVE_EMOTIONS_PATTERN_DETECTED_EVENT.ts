@@ -14,7 +14,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = z.object({
   name: z.literal(MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ userId: Auth.VO.UserId }),
+  payload: z.object({ userId: Auth.VO.UserId, weekStartedAt: tools.Timestamp }),
 });
 
 export type MoreNegativeThanPositiveEmotionsPatternDetectedEventType = z.infer<

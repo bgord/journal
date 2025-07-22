@@ -28,7 +28,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
         name: Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: { userId },
+        payload: { userId, weekStartedAt: tools.Timestamp.parse(new Date(this.dateRange[0]).getTime()) },
       } satisfies Events.MultipleMaladaptiveReactionsPatternDetectedEventType);
     }
     return null;

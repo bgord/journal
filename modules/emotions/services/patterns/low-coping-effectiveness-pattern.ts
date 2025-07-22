@@ -34,7 +34,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
         stream: this.getStream(),
         name: Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
         version: 1,
-        payload: { userId },
+        payload: { userId, weekStartedAt: tools.Timestamp.parse(new Date(this.dateRange[0]).getTime()) },
       } satisfies Events.LowCopingEffectivenessPatternDetectedEventType);
     }
 

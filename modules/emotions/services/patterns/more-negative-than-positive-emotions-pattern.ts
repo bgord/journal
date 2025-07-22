@@ -30,7 +30,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
         name: Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: { userId },
+        payload: { userId, weekStartedAt: tools.Timestamp.parse(new Date(this.dateRange[0]).getTime()) },
       } satisfies Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType);
     }
     return null;
