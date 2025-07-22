@@ -1,7 +1,11 @@
 # Changelog
+- 2025-07-22 22:06 fc236f9 **refactor: make patterns work on entries**
+## 2025-07-22 22:06 
+- 2025-07-22 21:52 c638ca2 **refactor: remove entry summarize**
 - 2025-07-22 21:40 ae7c85c **step: make patterns use user id in stream**
-## 2025-07-22 21:40 
 - 2025-07-22 21:33 82cb540 **refactor: use tools.Week in weekly review in pattern**
+- 2025-07-22 19:52 f594a67 **docs: generate CHANGELOG**
+- 2025-07-22 19:52 ea6dd4f **docs: generate readme**
 - 2025-07-22 16:13 8ec9f3c **step: switch to local tools**
 - 2025-07-22 16:11 7e4d3b2 **refactor: remove week start**
 - 2025-07-22 16:10 0d875f2 **step: switch to local tools**
