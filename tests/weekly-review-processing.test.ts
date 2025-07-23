@@ -83,7 +83,10 @@ describe("WeeklyReviewProcessing", () => {
       async () => await saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
 
-    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewCompletedEvent]);
+    expect(eventStoreSave).toHaveBeenNthCalledWith(1, [
+      mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
+    ]);
+    expect(eventStoreSave).toHaveBeenNthCalledWith(2, [mocks.GenericWeeklyReviewCompletedEvent]);
 
     jest.restoreAllMocks();
   });
