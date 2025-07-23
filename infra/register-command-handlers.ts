@@ -16,3 +16,4 @@ CommandBus.on(
   Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
   CommandHandlers.handleMarkWeeklyReviewAsFailedCommand,
 );
+CommandBus.on(Commands.DETECT_WEEKLY_PATTERNS_COMMAND, CommandHandlers.handleDetectWeeklyPatternsCommand);

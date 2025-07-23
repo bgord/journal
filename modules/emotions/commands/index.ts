@@ -1,6 +1,7 @@
 export * from "./CANCEL_ALARM_COMMAND";
 export * from "./COMPLETE_WEEKLY_REVIEW_COMMAND";
 export * from "./DELETE_ENTRY_COMMAND";
+export * from "./DETECT_WEEKLY_PATTERNS_COMMAND";
 export * from "./EVALUATE_REACTION_COMMAND";
 export * from "./GENERATE_ALARM_COMMAND";
 export * from "./LOG_ENTRY_COMMAND";
