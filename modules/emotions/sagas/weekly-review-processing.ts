@@ -7,7 +7,6 @@ import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
-import { EventStore } from "+infra/event-store";
 import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -48,21 +47,17 @@ export class WeeklyReviewProcessing {
     try {
       const insights = await this.AiClient.request(prompt);
 
-      const patterns = Services.PatternDetector.detect({
-        entries,
-        week,
-        userId: event.payload.userId,
-        patterns: [
-          Services.Patterns.LowCopingEffectivenessPattern,
-          Services.Patterns.MoreNegativeThanPositiveEmotionsPattern,
-          Services.Patterns.MultipleMaladaptiveReactionsPattern,
-          Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern,
-        ],
-      });
+      const detectWeeklyPatterns = Commands.DetectWeeklyPatternsCommand.parse({
+        id: bg.NewUUID.generate(),
+        correlationId: bg.CorrelationStorage.get(),
+        name: Commands.DETECT_WEEKLY_PATTERNS_COMMAND,
+        createdAt: tools.Timestamp.parse(Date.now()),
+        payload: { userId: event.payload.userId, week },
+      } satisfies Commands.DetectWeeklyPatternsCommandType);
 
-      await EventStore.save(patterns);
+      await CommandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
 
-      const command = Commands.CompleteWeeklyReviewCommand.parse({
+      const completeWeeklyReview = Commands.CompleteWeeklyReviewCommand.parse({
         id: bg.NewUUID.generate(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
@@ -74,7 +69,7 @@ export class WeeklyReviewProcessing {
         },
       } satisfies Commands.CompleteWeeklyReviewCommandType);
 
-      await CommandBus.emit(command.name, command);
+      await CommandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
     } catch (_error) {
       const command = Commands.MarkWeeklyReviewAsFailedCommand.parse({
         id: bg.NewUUID.generate(),
