@@ -15,7 +15,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = z.obje
   name: z.literal(POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ userId: Auth.VO.UserId, weekIsoId: z.string(), entryIds: z.array(VO.EntryId) }),
+  payload: z.object({ userId: Auth.VO.UserId, weekIsoId: tools.WeekIsoId, entryIds: z.array(VO.EntryId) }),
 });
 
 export type PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType = z.infer<
