@@ -7,6 +7,7 @@ import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
+import { EventStore } from "+infra/event-store";
 import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -46,6 +47,20 @@ export class WeeklyReviewProcessing {
 
     try {
       const insights = await this.AiClient.request(prompt);
+
+      const patterns = Services.PatternDetector.detect({
+        entries,
+        week,
+        userId: event.payload.userId,
+        patterns: [
+          Services.Patterns.LowCopingEffectivenessPattern,
+          Services.Patterns.MoreNegativeThanPositiveEmotionsPattern,
+          Services.Patterns.MultipleMaladaptiveReactionsPattern,
+          Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern,
+        ],
+      });
+
+      await EventStore.save(patterns);
 
       const command = Commands.CompleteWeeklyReviewCommand.parse({
         id: bg.NewUUID.generate(),
