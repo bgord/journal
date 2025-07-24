@@ -63,6 +63,15 @@ CREATE TABLE `events` (
 --> statement-breakpoint
 CREATE INDEX `stream_idx` ON `events` (`stream`);--> statement-breakpoint
 CREATE UNIQUE INDEX `stream_revision_uidx` ON `events` (`stream`,`revision`);--> statement-breakpoint
+CREATE TABLE `patternDetections` (
+	`id` text(36) PRIMARY KEY NOT NULL,
+	`createdAt` integer NOT NULL,
+	`name` text NOT NULL,
+	`weekIsoId` text NOT NULL,
+	`userId` text(36) NOT NULL,
+	FOREIGN KEY (`userId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
 CREATE TABLE `sessions` (
 	`id` text PRIMARY KEY NOT NULL,
 	`expires_at` integer NOT NULL,
