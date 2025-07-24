@@ -8,7 +8,7 @@ import * as tools from "@bgord/tools";
 
 /** @public */
 export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Pattern {
-  name = "PositiveEmotionWithMaladaptiveReactionPattern";
+  name = VO.PatternNameOption.PositiveEmotionWithMaladaptiveReactionPattern;
 
   kind = Patterns.PatternKindOptions.negative;
 
@@ -41,6 +41,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
           userId: this.userId,
           weekIsoId: this.week.toIsoId(),
           entryIds: matches.map((entry) => entry.id),
+          name: this.name,
         },
       } satisfies Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType);
     }

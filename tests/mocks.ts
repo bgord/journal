@@ -186,7 +186,12 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId, weekIsoId: week.toIsoId(), entryIds: [entryId, entryId, entryId] },
+  payload: {
+    userId,
+    weekIsoId: week.toIsoId(),
+    entryIds: [entryId, entryId, entryId],
+    name: Emotions.VO.PatternNameOption.PositiveEmotionWithMaladaptiveReactionPattern,
+  },
 } satisfies Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType;
 
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
@@ -196,7 +201,11 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId, weekIsoId: week.toIsoId() },
+  payload: {
+    userId,
+    weekIsoId: week.toIsoId(),
+    name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
+  },
 } satisfies Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
 export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
@@ -206,7 +215,12 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   name: Emotions.Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId, weekIsoId: week.toIsoId(), entryIds: [entryId, entryId, entryId] },
+  payload: {
+    userId,
+    weekIsoId: week.toIsoId(),
+    entryIds: [entryId, entryId, entryId],
+    name: Emotions.VO.PatternNameOption.MultipleMaladaptiveReactionsPattern,
+  },
 } satisfies Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType;
 
 export const LowCopingEffectivenessPatternDetectedEvent = {
@@ -216,7 +230,11 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
   version: 1,
-  payload: { userId, weekIsoId: week.toIsoId() },
+  payload: {
+    userId,
+    weekIsoId: week.toIsoId(),
+    name: Emotions.VO.PatternNameOption.LowCopingEffectivenessPattern,
+  },
 } satisfies Emotions.Events.LowCopingEffectivenessPatternDetectedEventType;
 
 export const GenericAlarmGeneratedEvent = {

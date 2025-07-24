@@ -8,7 +8,7 @@ import * as tools from "@bgord/tools";
 
 /** @public */
 export class LowCopingEffectivenessPattern extends Patterns.Pattern {
-  name = "LowCopingEffectivenessPattern";
+  name = VO.PatternNameOption.LowCopingEffectivenessPattern;
 
   kind = Patterns.PatternKindOptions.negative;
 
@@ -38,7 +38,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
         stream: this.getStream(),
         name: Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
         version: 1,
-        payload: { userId: this.userId, weekIsoId: this.week.toIsoId() },
+        payload: { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name },
       } satisfies Events.LowCopingEffectivenessPatternDetectedEventType);
     }
 

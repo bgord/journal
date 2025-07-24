@@ -15,7 +15,12 @@ export const MultipleMaladaptiveReactionsPatternDetectedEvent = z.object({
   name: z.literal(MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ userId: Auth.VO.UserId, weekIsoId: tools.WeekIsoId, entryIds: z.array(VO.EntryId) }),
+  payload: z.object({
+    userId: Auth.VO.UserId,
+    weekIsoId: tools.WeekIsoId,
+    entryIds: z.array(VO.EntryId),
+    name: VO.PatternName,
+  }),
 });
 
 export type MultipleMaladaptiveReactionsPatternDetectedEventType = z.infer<

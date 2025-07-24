@@ -15,6 +15,8 @@ export * from "./entry-status";
 export * from "./geneva-wheel-emotion.enum";
 export * from "./gross-emotion-regulation-strategy.enum";
 export * from "./notification-template";
+export * from "./pattern-name";
+export * from "./pattern-name-option";
 export * from "./prompt-template";
 export * from "./reaction-description";
 export * from "./reaction-effectiveness";
