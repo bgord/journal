@@ -10,7 +10,7 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
   const body = await bg.safeParseBody(c);
   const language = c.get("language");
 
-  const entryId = bg.NewUUID.generate();
+  const entryId = crypto.randomUUID();
 
   const situation = new Emotions.Entities.Situation(
     new Emotions.VO.SituationDescription(body.situationDescription),
@@ -30,7 +30,7 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
   );
 
   const command = Emotions.Commands.LogEntryCommand.parse({
-    id: bg.NewUUID.generate(),
+    id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),

@@ -6,7 +6,7 @@ import * as mocks from "./mocks";
 
 describe("AlarmFactory", () => {
   test("correct path", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(0);
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -19,7 +19,7 @@ describe("AlarmFactory", () => {
   });
 
   test("correct path - at the limit", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(9);
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(1);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());

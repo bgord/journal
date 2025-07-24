@@ -42,7 +42,7 @@ export class WeeklyReview {
     const weeklyReview = new WeeklyReview(id);
 
     const event = Events.WeeklyReviewRequestedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
@@ -60,7 +60,7 @@ export class WeeklyReview {
     Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.WEEKLY_REVIEW_COMPLETED_EVENT,
@@ -81,7 +81,7 @@ export class WeeklyReview {
     Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewFailedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.WEEKLY_REVIEW_FAILED_EVENT,

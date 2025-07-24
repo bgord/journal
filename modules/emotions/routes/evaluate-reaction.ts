@@ -18,7 +18,7 @@ export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next:
   );
 
   const command = Emotions.Commands.EvaluateReactionCommand.parse({
-    id: bg.NewUUID.generate(),
+    id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.EVALUATE_REACTION_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),

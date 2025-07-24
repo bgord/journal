@@ -11,7 +11,7 @@ describe("InactivityAlarmScheduler", () => {
     spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -27,7 +27,7 @@ describe("InactivityAlarmScheduler", () => {
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(11);
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -47,7 +47,7 @@ describe("InactivityAlarmScheduler", () => {
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockImplementation(() => {
       throw new Error("FAILURE");
     });
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {

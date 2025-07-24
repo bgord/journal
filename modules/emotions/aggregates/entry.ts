@@ -51,7 +51,7 @@ export class Entry {
     const entry = new Entry(id);
 
     const SituationLoggedEvent = Emotions.Events.SituationLoggedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.SITUATION_LOGGED_EVENT,
@@ -70,7 +70,7 @@ export class Entry {
     entry.record(SituationLoggedEvent);
 
     const EmotionLoggedEvent = Emotions.Events.EmotionLoggedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
@@ -87,7 +87,7 @@ export class Entry {
     entry.record(EmotionLoggedEvent);
 
     const ReactionLoggedEvent = Emotions.Events.ReactionLoggedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.REACTION_LOGGED_EVENT,
@@ -114,7 +114,7 @@ export class Entry {
     Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
@@ -141,7 +141,7 @@ export class Entry {
     Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.REACTION_EVALUATED_EVENT,
@@ -164,7 +164,7 @@ export class Entry {
     Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EntryDeletedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Emotions.Events.ENTRY_DELETED_EVENT,

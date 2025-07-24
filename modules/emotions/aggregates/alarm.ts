@@ -44,7 +44,7 @@ export class Alarm {
     const alarm = new Alarm(id);
 
     const event = Events.AlarmGeneratedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.ALARM_GENERATED_EVENT,
@@ -67,7 +67,7 @@ export class Alarm {
     Policies.AlarmAlreadyGenerated.perform({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.ALARM_ADVICE_SAVED_EVENT,
@@ -90,7 +90,7 @@ export class Alarm {
     });
 
     const event = Events.AlarmNotificationSentEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.ALARM_NOTIFICATION_SENT_EVENT,
@@ -111,7 +111,7 @@ export class Alarm {
     Policies.AlarmIsCancellable.perform({ status: this.status });
 
     const event = Events.AlarmCancelledEvent.parse({
-      id: bg.NewUUID.generate(),
+      id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Timestamp.parse(Date.now()),
       name: Events.ALARM_CANCELLED_EVENT,

@@ -16,7 +16,7 @@ export class WeeklyReviewScheduler {
 
     for (const userId of userIds) {
       const command = Commands.RequestWeeklyReviewCommand.parse({
-        id: bg.NewUUID.generate(),
+        id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.REQUEST_WEEKLY_REVIEW_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),

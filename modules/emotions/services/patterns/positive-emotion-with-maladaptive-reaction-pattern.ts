@@ -31,7 +31,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
 
     if (matches.length >= 3) {
       return Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent.parse({
-        id: bg.NewUUID.generate(),
+        id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         createdAt: tools.Timestamp.parse(Date.now()),
         name: Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
