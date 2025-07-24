@@ -1,17 +1,24 @@
 import type * as Schema from "+infra/schema";
+import * as tools from "@bgord/tools";
 import { stringify } from "csv";
 
-// TODO: FileDraft that defines filename and mime, to be extended by target files
+class FileDraft {
+  constructor(
+    readonly filename: string,
+    readonly mime: tools.Mime,
+  ) {}
+}
 
-export class EntryExportFile {
+export class EntryExportFile extends FileDraft {
+  constructor(private readonly entries: Schema.SelectEntries[]) {
+    const filename = `entry-export-${Date.now()}.csv`;
+
+    super(filename, new tools.Mime("text/csv"));
+  }
+
   private static COLUMNS = ["id", "situationDescription"];
 
-  constructor(private readonly entries: Schema.SelectEntries[]) {}
-
   generate() {
-    return stringify(this.entries, {
-      header: true,
-      columns: EntryExportFile.COLUMNS,
-    });
+    return stringify(this.entries, { header: true, columns: EntryExportFile.COLUMNS });
   }
 }
