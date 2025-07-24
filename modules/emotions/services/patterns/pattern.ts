@@ -1,10 +1,9 @@
 import * as Auth from "+auth";
 import type * as Events from "+emotions/events";
+import * as VO from "+emotions/value-objects";
 import type * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
 import type { z } from "zod/v4";
-
-type PatternName = string;
 
 export type PatternDetectionEvent =
   | typeof Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent
@@ -21,7 +20,7 @@ export enum PatternKindOptions {
 }
 
 export abstract class Pattern {
-  abstract name: PatternName;
+  abstract name: VO.PatternNameOption;
 
   abstract kind: PatternKindOptions;
 

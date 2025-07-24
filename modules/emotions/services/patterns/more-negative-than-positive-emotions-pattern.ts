@@ -8,7 +8,7 @@ import * as tools from "@bgord/tools";
 
 /** @public */
 export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
-  name = "MoreNegativeThanPositiveEmotionsPattern";
+  name = VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern;
 
   kind = Patterns.PatternKindOptions.negative;
 
@@ -36,7 +36,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
         name: Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,
-        payload: { userId: this.userId, weekIsoId: this.week.toIsoId() },
+        payload: { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name },
       } satisfies Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType);
     }
     return null;
