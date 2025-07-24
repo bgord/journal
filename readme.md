@@ -139,6 +139,7 @@ modules/
     ├── routes
     │   ├── delete-entry.ts
     │   ├── evaluate-reaction.ts
+    │   ├── export-entries.ts
     │   ├── log-entry.ts
     │   └── reappraise-emotion.ts
     ├── sagas
@@ -147,6 +148,7 @@ modules/
     │   └── weekly-review-processing.ts
     ├── services
     │   ├── ai-client.ts
+    │   ├── alarm-export-file.ts
     │   ├── alarm-factory.ts
     │   ├── alarm-notification-factory.ts
     │   ├── alarm-prompt-factory.ts
@@ -154,6 +156,7 @@ modules/
     │   ├── emotion-alarm-template.ts
     │   ├── entry-alarm-advice-notification-composer.ts
     │   ├── entry-alarm-advice-prompt-builder.ts
+    │   ├── entry-export-file.ts
     │   ├── inactivity-alarm-advice-notification-composer.ts
     │   ├── inactivity-alarm-advice-prompt-builder.ts
     │   ├── inactivity-alarm-scheduler.ts
