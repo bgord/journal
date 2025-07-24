@@ -85,6 +85,7 @@ export const alarmsRelations = relations(alarms, ({ one }) => ({
   user: one(users, { fields: [alarms.userId], references: [users.id] }),
 }));
 
+/** @public */
 export const patternDetections = sqliteTable("patternDetections", {
   id,
   createdAt: integer("createdAt").notNull(),
@@ -95,6 +96,7 @@ export const patternDetections = sqliteTable("patternDetections", {
     .notNull(),
 });
 
+/** @public */
 export const patternDetectionsRelations = relations(patternDetections, ({ one }) => ({
   user: one(users, { fields: [patternDetections.userId], references: [users.id] }),
 }));

@@ -25,8 +25,6 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
 
-  console.log(loaderData.entries.topReactions[0]);
-
   return (
     <main data-display="flex" data-direction="column">
       <ul data-display="flex" data-p="12" data-ml="6">
@@ -34,6 +32,18 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           <li data-bg={point ? "green-400" : "red-400"} {...UI.Rhythm(6).times(1).style.square} />
         ))}
       </ul>
+
+      <a
+        href={`${import.meta.env.VITE_API_URL}/entry/export`}
+        download
+        target="_blank"
+        rel="noopener noreferer"
+        data-ml="auto"
+        data-mr="24"
+        {...UI.Colorful("brand-500").style.color}
+      >
+        <Icons.DownloadCircle height={20} width={20} />
+      </a>
 
       <div data-display="flex">
         <section data-p="12" data-fs="12" {...UI.Rhythm(475).times(1).style.width}>

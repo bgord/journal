@@ -4,7 +4,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
-import { and, eq, gte, lte } from "drizzle-orm";
+import { and, desc, eq, gte, lte } from "drizzle-orm";
 
 export class EntryRepository {
   static async getByIdRaw(id: VO.EntryIdType) {
@@ -18,6 +18,13 @@ export class EntryRepository {
     if (!result[0]) return null;
 
     return EntryRepository.format(result[0]);
+  }
+
+  static async listForUser(userId: Auth.VO.UserIdType) {
+    return db.query.entries.findMany({
+      orderBy: desc(Schema.entries.startedAt),
+      where: eq(Schema.entries.userId, userId),
+    });
   }
 
   static async findInWeekForUser(

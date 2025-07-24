@@ -11,6 +11,7 @@ import { server, startup } from "./server";
   const app = Bun.serve({
     fetch: server.fetch,
     maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
+    idleTimeout: infra.IDLE_TIMEOUT,
   });
 
   logger.info({

@@ -29,6 +29,7 @@
 - 2025-07-22 21:40 ae7c85c **step: make patterns use user id in stream**
 - 2025-07-22 21:33 82cb540 **refactor: use tools.Week in weekly review in pattern**
 - 2025-07-22 20:11 17dc141 **docs: generate CHANGELOG**
+>>>>>>> master
 - 2025-07-22 19:52 f594a67 **docs: generate CHANGELOG**
 - 2025-07-22 19:52 ea6dd4f **docs: generate readme**
 - 2025-07-22 16:13 8ec9f3c **step: switch to local tools**

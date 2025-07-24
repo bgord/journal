@@ -43,6 +43,14 @@ entry.post("/log", Emotions.Routes.LogEntry);
 entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
 entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
+entry.get(
+  "/export",
+  bg.rateLimitShield({
+    time: tools.Time.Minutes(1),
+    enabled: Env.type === bg.NodeEnvironmentEnum.production,
+  }),
+  Emotions.Routes.ExportEntries,
+);
 server.route("/entry", entry);
 // =============================
 

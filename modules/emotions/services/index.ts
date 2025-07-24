@@ -1,4 +1,5 @@
 export * from "./ai-client";
+export * from "./alarm-export-file";
 export * from "./alarm-factory";
 export * from "./alarm-notification-factory";
 export * from "./alarm-prompt-factory";
@@ -6,6 +7,7 @@ export * from "./emotion-alarm-detector";
 export * from "./emotion-alarm-template";
 export * from "./entry-alarm-advice-notification-composer";
 export * from "./entry-alarm-advice-prompt-builder";
+export * from "./entry-export-file";
 export * from "./inactivity-alarm-advice-notification-composer";
 export * from "./inactivity-alarm-advice-prompt-builder";
 export * from "./inactivity-alarm-scheduler";
