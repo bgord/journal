@@ -24,7 +24,7 @@ describe("POST ", () => {
     const text = await response.text();
 
     expect(response.status).toBe(200);
-    expect(text).toEqualIgnoringWhitespace(mocks.csv);
+    expect(text).toEqualIgnoringWhitespace(mocks.entryCsv);
     expect(response.headers.get("content-type")).toEqual("text/csv");
     expect(response.headers.get("content-disposition")).toEqual(
       `attachment; filename="entry-export-${1000}.csv"`,
