@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import { relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
@@ -16,7 +15,7 @@ const toEnumList = (value: Record<string, string>) => ({
 
 const id = text("id", { length: 36 })
   .primaryKey()
-  .$defaultFn(() => randomUUID());
+  .$defaultFn(() => crypto.randomUUID());
 
 export const events = sqliteTable(
   "events",
