@@ -25,7 +25,7 @@ export class EntryExportFile extends FileDraft {
 
   private static COLUMNS = ["id", "situationDescription"];
 
-  generate() {
+  create() {
     return stringify(this.entries, { header: true, columns: EntryExportFile.COLUMNS });
   }
 }
