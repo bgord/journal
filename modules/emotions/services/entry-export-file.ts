@@ -1,8 +1,7 @@
 import type * as Schema from "+infra/schema";
-import csv from "csv";
+import { stringify } from "csv";
 
-// FileDraft that defines filename and mime
-// Streaming?
+// TODO: FileDraft that defines filename and mime, to be extended by target files
 
 export class EntryExportFile {
   private static COLUMNS = ["id", "situationDescription"];
@@ -10,7 +9,7 @@ export class EntryExportFile {
   constructor(private readonly entries: Schema.SelectEntries[]) {}
 
   generate() {
-    return csv.stringify(this.entries, {
+    return stringify(this.entries, {
       header: true,
       columns: EntryExportFile.COLUMNS,
     });
