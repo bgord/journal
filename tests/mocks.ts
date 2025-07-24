@@ -448,6 +448,14 @@ export const alarm: Schema.SelectAlarms = {
   userId,
 };
 
+export const patternDetection: Schema.SelectPatternDetections = {
+  id: crypto.randomUUID(),
+  createdAt: Date.now(),
+  name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
+  weekIsoId: week.toIsoId(),
+  userId,
+};
+
 export const user = {
   name: email,
   email: email,
