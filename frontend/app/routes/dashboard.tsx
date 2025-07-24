@@ -38,8 +38,11 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         download
         target="_blank"
         rel="noopener noreferer"
+        data-ml="auto"
+        data-mr="24"
+        {...UI.Colorful("brand-500").style.color}
       >
-        TODO: download
+        <Icons.DownloadCircle height={20} width={20} />
       </a>
 
       <div data-display="flex">
