@@ -9,10 +9,5 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
 
   const file = new Emotions.Services.EntryExportFile(entries);
 
-  return new Response(file.generate() as any, {
-    headers: {
-      "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": `attachment; filename="entries.csv"`,
-    },
-  });
+  return new Response(file.generate() as any, { headers: file.getHeaders() });
 }

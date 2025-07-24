@@ -7,6 +7,13 @@ class FileDraft {
     readonly filename: string,
     readonly mime: tools.Mime,
   ) {}
+
+  getHeaders(): Headers {
+    return new Headers({
+      "Content-Type": this.mime.raw,
+      "Content-Disposition": `attachment; filename="${this.filename}"`,
+    });
+  }
 }
 
 export class EntryExportFile extends FileDraft {

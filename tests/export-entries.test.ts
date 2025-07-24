@@ -18,14 +18,16 @@ describe("POST ", () => {
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.EntryRepository, "listEntriesForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Date, "now").mockReturnValue(1000);
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const text = await response.text();
 
     expect(response.status).toBe(200);
     expect(text).toEqualIgnoringWhitespace(mocks.csv);
-    // TODO
-    expect(response.headers.get("content-type"));
-    expect(response.headers.get("content-disposition"));
+    expect(response.headers.get("content-type")).toEqual("text/csv");
+    expect(response.headers.get("content-disposition")).toEqual(
+      `attachment; filename="entry-export-${1000}.csv"`,
+    );
   });
 });
