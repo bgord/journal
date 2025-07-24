@@ -54,6 +54,7 @@ modules/
     │   ├── handleCancelAlarmCommand.ts
     │   ├── handleCompleteWeeklyReviewCommand.ts
     │   ├── handleDeleteEntryCommand.ts
+    │   ├── handleDetectWeeklyPatternsCommand.ts
     │   ├── handleEvaluateReactionCommand.ts
     │   ├── handleGenerateAlarmCommand.ts
     │   ├── handleLogEntryCommand.ts
@@ -66,6 +67,7 @@ modules/
     │   ├── CANCEL_ALARM_COMMAND.ts
     │   ├── COMPLETE_WEEKLY_REVIEW_COMMAND.ts
     │   ├── DELETE_ENTRY_COMMAND.ts
+    │   ├── DETECT_WEEKLY_PATTERNS_COMMAND.ts
     │   ├── EVALUATE_REACTION_COMMAND.ts
     │   ├── GENERATE_ALARM_COMMAND.ts
     │   ├── LOG_ENTRY_COMMAND.ts
@@ -86,10 +88,7 @@ modules/
     │   ├── onEmotionLoggedEvent.ts
     │   ├── onEmotionReappraisedEvent.ts
     │   ├── onEntryDeletedEvent.ts
-    │   ├── onLowCopingEffectivenessPatternDetectedEvent.ts
-    │   ├── onMoreNegativeThanPositiveEmotionsPatternDetectedEvent.ts
-    │   ├── onMultipleMaladaptiveReactionsPatternDetectedEvent.ts
-    │   ├── onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent.ts
+    │   ├── onPatternDetectedEvent.ts
     │   ├── onReactionEvaluatedEvent.ts
     │   ├── onReactionLoggedEvent.ts
     │   └── onSituationLoggedEvent.ts
@@ -129,13 +128,14 @@ modules/
     │   ├── requester-owns-entry.ts
     │   └── weekly-review-completed-once.ts
     ├── queries
-    │   ├── count-alarms-for-user.ts
+    │   ├── count-alarms-for-entry.ts
     │   ├── count-entries-per-week-for-user.ts
     │   ├── count-todays-alarms-for-user.ts
     │   ├── get-latest-entry-timestamp-for-user.ts
     ├── repositories
     │   ├── alarm-repository.ts
     │   ├── entry-repository.ts
+    │   └── patterns-repository.ts
     ├── routes
     │   ├── delete-entry.ts
     │   ├── evaluate-reaction.ts
@@ -187,6 +187,8 @@ modules/
         ├── geneva-wheel-emotion.enum.ts
         ├── gross-emotion-regulation-strategy.enum.ts
         ├── notification-template.ts
+        ├── pattern-name-option.ts
+        ├── pattern-name.ts
         ├── prompt-template.ts
         ├── reaction-description.ts
         ├── reaction-effectiveness.ts

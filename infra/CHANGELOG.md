@@ -1,9 +1,35 @@
 # Changelog
+- 2025-07-24 13:38 7100723 **refactor: use jobs.day_time schedule**
+## 2025-07-24 13:38 
+- 2025-07-24 13:37 aaf133a **refactor: remove NewUUID calls**
+- 2025-07-24 13:36 1bcb0fa **step: update bgord bun**
+- 2025-07-24 13:24 2dc1974 **step: remove direct tools dep**
+- 2025-07-24 13:18 c51603d **step: test onPatternDetectedEvent**
+- 2025-07-24 13:01 9aa2705 **refactor: use crypto.randomUUID directly**
+- 2025-07-24 12:55 3563204 **refactor: move jest.restoreAllMocks to test setup**
+- 2025-07-24 12:49 784a525 **step: cleanup tests**
+- 2025-07-24 12:38 8fc6744 **step: pass patterns to WeeklyReviewNotificationComposer**
+- 2025-07-24 12:34 5b6c554 **step: read patterns in onWeeklyReviewCompletedEvent**
+- 2025-07-24 12:34 08f093e **step: add pattern detection mock**
+- 2025-07-24 12:16 8f8ffc4 **step: implement pattern repo findInWeekForUser**
+- 2025-07-24 12:15 d5d2b0d **fix: find in week for user entry call in weekly review processing**
+- 2025-07-24 12:12 cf1f452 **fix: count alarms for entry query filename**
+- 2025-07-24 12:07 32955bc **refactor: create one pattern detected event handler**
+- 2025-07-24 12:03 3df5dad **step: add patterns repo create call to event handlers**
+- 2025-07-24 12:01 eebb14c **step: setup patterns repo**
+- 2025-07-24 11:43 c7a2421 **step: add basic pattern detections rm**
+- 2025-07-24 09:34 3663586 **step: add pattern name option**
+- 2025-07-24 00:26 1f29315 **refactor: extract handle detect weekly patterns command**
+- 2025-07-24 00:01 c574105 **step: detect patterns in weekly review**
+- 2025-07-23 16:59 1d7396a **refactor: replace z.string with tools.WeekIsoId**
+- 2025-07-23 16:57 09c2ee8 **step: update packages**
+- 2025-07-23 00:09 4b037be **step: add related entries to patterns**
 - 2025-07-22 22:06 fc236f9 **refactor: make patterns work on entries**
-## 2025-07-22 22:06 
 - 2025-07-22 21:52 c638ca2 **refactor: remove entry summarize**
 - 2025-07-22 21:40 ae7c85c **step: make patterns use user id in stream**
 - 2025-07-22 21:33 82cb540 **refactor: use tools.Week in weekly review in pattern**
+- 2025-07-22 20:11 17dc141 **docs: generate CHANGELOG**
+>>>>>>> master
 - 2025-07-22 19:52 f594a67 **docs: generate CHANGELOG**
 - 2025-07-22 19:52 ea6dd4f **docs: generate readme**
 - 2025-07-22 16:13 8ec9f3c **step: switch to local tools**
