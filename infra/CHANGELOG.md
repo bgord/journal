@@ -1,35 +1,93 @@
 # Changelog
+- 2025-07-24 20:09 611a8a6 **Merge pull request #20 from bgord/exports**
+## 2025-07-24 20:09 
+- 2025-07-24 20:07 1afcd18 **refactor: resolve conflicts**
+- 2025-07-24 19:53 f750b23 **step: update packages**
+- 2025-07-24 19:51 44337c7 **step: add export rate limiter**
+- 2025-07-24 19:50 3388874 **step: improve icon**
+- 2025-07-24 19:46 42cd1dd **step: test export entries**
+- 2025-07-24 19:38 6c245b5 **refactor: use zip draft from bun**
+- 2025-07-24 19:37 b87d3a9 **step: update deps**
+- 2025-07-24 19:36 1ad9bff **step: install bun**
+- 2025-07-24 19:11 8922d20 **MVP**
+- 2025-07-24 18:14 ac7e505 **step: add download link**
+- 2025-07-24 18:11 7feb8f2 **step: add bun idle timeout**
+- 2025-07-24 18:09 45b5d3a **fix: export method**
+- 2025-07-24 18:04 c0188d9 **step: create zip draft**
+- 2025-07-24 18:01 9075903 **refactor: rename listEntriesForUser**
+- 2025-07-24 17:58 16e021a **step: add zip draft**
+- 2025-07-24 17:55 c8f0a60 **docs: generate CHANGELOG**
+- 2025-07-24 17:55 2d334f9 **docs: generate readme**
+- 2025-07-24 17:49 9e15410 **step: update packages**
+- 2025-07-24 17:47 f11a892 **step: intall yazl**
+- 2025-07-24 17:35 117b65c **step: add alarm export file**
+- 2025-07-24 17:34 f368c81 **step: rename csv to entryCsv in mocks**
+- 2025-07-24 17:15 065785a **step: update bun**
+- 2025-07-24 17:11 11bebed **refactor: extract file draft to bgord/bun**
+- 2025-07-24 17:09 3ce6587 **step: update bun**
+- 2025-07-24 17:00 522722a **step: add file draft toResponse**
+- 2025-07-24 16:39 de7e5ca **refactor: rename generate to create**
+- 2025-07-24 16:37 b79c265 **step: add getHeaders to file draft**
+- 2025-07-24 16:29 20720bb **step: add file draft**
+- 2025-07-24 16:10 ecc1630 **step: add export entries route**
+- 2025-07-24 15:47 42c1897 **step: add basic csv**
+- 2025-07-24 15:15 99fa4fe **step: setup EntryExportFile**
+- 2025-07-24 15:15 41e6f32 **step: install csv**
 - 2025-07-24 13:38 7100723 **refactor: use jobs.day_time schedule**
-## 2025-07-24 13:38 
+- 2025-07-24 13:38 2b6e859 **refactor: use jobs.day_time schedule**
 - 2025-07-24 13:37 aaf133a **refactor: remove NewUUID calls**
+- 2025-07-24 13:37 0772301 **refactor: remove NewUUID calls**
+- 2025-07-24 13:36 acb8667 **step: update bgord bun**
 - 2025-07-24 13:36 1bcb0fa **step: update bgord bun**
+- 2025-07-24 13:24 4025bbe **step: remove direct tools dep**
 - 2025-07-24 13:24 2dc1974 **step: remove direct tools dep**
 - 2025-07-24 13:18 c51603d **step: test onPatternDetectedEvent**
+- 2025-07-24 13:18 3d4cc0d **step: test onPatternDetectedEvent**
 - 2025-07-24 13:01 9aa2705 **refactor: use crypto.randomUUID directly**
+- 2025-07-24 13:01 69e2cca **refactor: use crypto.randomUUID directly**
+- 2025-07-24 12:55 6a70e4a **refactor: move jest.restoreAllMocks to test setup**
 - 2025-07-24 12:55 3563204 **refactor: move jest.restoreAllMocks to test setup**
 - 2025-07-24 12:49 784a525 **step: cleanup tests**
+- 2025-07-24 12:49 518f1c9 **step: cleanup tests**
+- 2025-07-24 12:38 9362852 **step: pass patterns to WeeklyReviewNotificationComposer**
 - 2025-07-24 12:38 8fc6744 **step: pass patterns to WeeklyReviewNotificationComposer**
+- 2025-07-24 12:34 ea859e5 **step: add pattern detection mock**
+- 2025-07-24 12:34 9136d5a **step: read patterns in onWeeklyReviewCompletedEvent**
 - 2025-07-24 12:34 5b6c554 **step: read patterns in onWeeklyReviewCompletedEvent**
 - 2025-07-24 12:34 08f093e **step: add pattern detection mock**
+- 2025-07-24 12:16 a86c459 **step: implement pattern repo findInWeekForUser**
 - 2025-07-24 12:16 8f8ffc4 **step: implement pattern repo findInWeekForUser**
 - 2025-07-24 12:15 d5d2b0d **fix: find in week for user entry call in weekly review processing**
+- 2025-07-24 12:15 5e33f86 **fix: find in week for user entry call in weekly review processing**
+- 2025-07-24 12:12 f314c44 **fix: count alarms for entry query filename**
 - 2025-07-24 12:12 cf1f452 **fix: count alarms for entry query filename**
+- 2025-07-24 12:07 d212555 **refactor: create one pattern detected event handler**
 - 2025-07-24 12:07 32955bc **refactor: create one pattern detected event handler**
 - 2025-07-24 12:03 3df5dad **step: add patterns repo create call to event handlers**
+- 2025-07-24 12:03 253a37a **step: add patterns repo create call to event handlers**
 - 2025-07-24 12:01 eebb14c **step: setup patterns repo**
+- 2025-07-24 12:01 760ff9c **step: setup patterns repo**
 - 2025-07-24 11:43 c7a2421 **step: add basic pattern detections rm**
+- 2025-07-24 11:43 7750370 **step: add basic pattern detections rm**
+- 2025-07-24 11:43 6c92274 **step: add basic pattern detections rm**
+- 2025-07-24 09:34 dbed40c **step: add pattern name option**
 - 2025-07-24 09:34 3663586 **step: add pattern name option**
+- 2025-07-24 00:26 64f7e1c **refactor: extract handle detect weekly patterns command**
 - 2025-07-24 00:26 1f29315 **refactor: extract handle detect weekly patterns command**
 - 2025-07-24 00:01 c574105 **step: detect patterns in weekly review**
+- 2025-07-24 00:01 69a7490 **step: detect patterns in weekly review**
+- 2025-07-23 16:59 20bf3b5 **refactor: replace z.string with tools.WeekIsoId**
 - 2025-07-23 16:59 1d7396a **refactor: replace z.string with tools.WeekIsoId**
+- 2025-07-23 16:57 3f5bd5b **step: update packages**
 - 2025-07-23 16:57 09c2ee8 **step: update packages**
+- 2025-07-23 00:09 f0aa260 **step: add related entries to patterns**
 - 2025-07-23 00:09 4b037be **step: add related entries to patterns**
 - 2025-07-22 22:06 fc236f9 **refactor: make patterns work on entries**
 - 2025-07-22 21:52 c638ca2 **refactor: remove entry summarize**
 - 2025-07-22 21:40 ae7c85c **step: make patterns use user id in stream**
 - 2025-07-22 21:33 82cb540 **refactor: use tools.Week in weekly review in pattern**
+- 2025-07-22 20:11 8a28c33 **docs: generate CHANGELOG**
 - 2025-07-22 20:11 17dc141 **docs: generate CHANGELOG**
->>>>>>> master
 - 2025-07-22 19:52 f594a67 **docs: generate CHANGELOG**
 - 2025-07-22 19:52 ea6dd4f **docs: generate readme**
 - 2025-07-22 16:13 8ec9f3c **step: switch to local tools**
