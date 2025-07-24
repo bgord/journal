@@ -19,8 +19,6 @@ describe("EntryAlarmDetector", () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onEmotionLoggedEvent - respects DailyAlarmLimit", async () => {
@@ -37,8 +35,6 @@ describe("EntryAlarmDetector", () => {
       ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("onEmotionLoggedEvent - respects EntryAlarmLimit", async () => {
@@ -55,8 +51,6 @@ describe("EntryAlarmDetector", () => {
       ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("onEmotionReappraisedEvent", async () => {
@@ -73,8 +67,6 @@ describe("EntryAlarmDetector", () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onEmotionReappraisedEvent - respects DailyAlarmLimit", async () => {
@@ -91,8 +83,6 @@ describe("EntryAlarmDetector", () => {
       ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("onEmotionReappraisedEvent - respects EntryAlarmLimit", async () => {
@@ -109,7 +99,5 @@ describe("EntryAlarmDetector", () => {
       ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 });

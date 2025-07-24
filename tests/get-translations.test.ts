@@ -1,4 +1,4 @@
-import { describe, expect, jest, test } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import { SupportedLanguages } from "../infra/i18n";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -15,8 +15,6 @@ describe("GET /translations", () => {
     expect(response.status).toBe(200);
     const json = await response.json();
     expect(json).toEqual({ translations: await en.json(), language: "en" });
-
-    jest.restoreAllMocks();
   });
 
   test("happy path - en", async () => {
@@ -29,8 +27,6 @@ describe("GET /translations", () => {
     expect(response.status).toBe(200);
     const json = await response.json();
     expect(json).toEqual({ translations: await en.json(), language: "en" });
-
-    jest.restoreAllMocks();
   });
 
   test("happy path - pl", async () => {
@@ -43,8 +39,6 @@ describe("GET /translations", () => {
     expect(response.status).toBe(200);
     const json = await response.json();
     expect(json).toEqual({ translations: await pl.json(), language: "pl" });
-
-    jest.restoreAllMocks();
   });
 
   test("happy path - other", async () => {
@@ -57,7 +51,5 @@ describe("GET /translations", () => {
     expect(response.status).toBe(200);
     const json = await response.json();
     expect(json).toEqual({ translations: await en.json(), language: "en" });
-
-    jest.restoreAllMocks();
   });
 });

@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import { SupportedLanguages } from "../infra/i18n";
 import { OpenAI, OpenAiClient } from "../infra/open-ai-client";
 import * as Emotions from "../modules/emotions";
@@ -16,7 +16,7 @@ describe("OpenAiClient", () => {
       OpenAI.responses,
       "create",
       // @ts-expect-error
-    ).mockResolvedValue({ output_text: "anything" });
+    ).mockResolvedValue({ output_text: mocks.advice.get() });
 
     const client = new OpenAiClient();
     const result = await client.request(prompt);
@@ -27,8 +27,6 @@ describe("OpenAiClient", () => {
       input: prompt.read()[1].content,
       max_output_tokens: Emotions.VO.Advice.MaximumLength,
     });
-    expect(result).toEqual(new Emotions.VO.Advice("anything"));
-
-    jest.restoreAllMocks();
+    expect(result).toEqual(mocks.advice);
   });
 });

@@ -29,8 +29,6 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onAlarmGeneratedEvent - inactivity", async () => {
@@ -50,8 +48,6 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onAlarmGeneratedEvent - entry - finding entry fails", async () => {
@@ -72,8 +68,6 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onAlarmGeneratedEvent - cancels alarm when advice requester fails", async () => {
@@ -93,8 +87,6 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onAlarmAdviceSavedEvent", async () => {
@@ -113,8 +105,6 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onAlarmNotificationSentEvent - missing contact", async () => {
@@ -138,8 +128,6 @@ describe("AlarmOrchestrator", () => {
 
     expect(mailerSend).not.toHaveBeenCalled();
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onAlarmNotificationSentEvent - mailer failed", async () => {
@@ -169,8 +157,6 @@ describe("AlarmOrchestrator", () => {
       html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
     });
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onAlarmNotificationSentEvent - entry", async () => {
@@ -191,8 +177,6 @@ describe("AlarmOrchestrator", () => {
       subject: "Emotional advice",
       html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
     });
-
-    jest.restoreAllMocks();
   });
 
   test("onAlarmNotificationSentEvent - inactivity", async () => {
@@ -212,8 +196,6 @@ describe("AlarmOrchestrator", () => {
       subject: "Inactivity advice",
       html: `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
     });
-
-    jest.restoreAllMocks();
   });
 
   test("onEntryDeletedEvent - cancels pending alarm", async () => {
@@ -233,8 +215,6 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onEntryDeletedEvent - does not cancel handled alarms", async () => {
@@ -254,8 +234,6 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("onEntryDeletedEvent - does not cancel cancelled", async () => {
@@ -275,7 +253,5 @@ describe("AlarmOrchestrator", () => {
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 });

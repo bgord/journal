@@ -29,7 +29,6 @@ describe("DELETE /entry/:id/delete", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
-    jest.restoreAllMocks();
   });
 
   test("validation - EntryHasBeenStarted", async () => {
@@ -57,7 +56,6 @@ describe("DELETE /entry/:id/delete", () => {
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
     expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
-    jest.restoreAllMocks();
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
@@ -84,7 +82,6 @@ describe("DELETE /entry/:id/delete", () => {
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
     expect(entryDelete).toHaveBeenCalledWith(mocks.anotherUserId);
-    jest.restoreAllMocks();
   });
 
   test("happy path - after situation", async () => {
@@ -117,7 +114,6 @@ describe("DELETE /entry/:id/delete", () => {
     expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
-    jest.restoreAllMocks();
   });
 
   test("happy path - after emotion", async () => {
@@ -150,7 +146,6 @@ describe("DELETE /entry/:id/delete", () => {
     expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
-    jest.restoreAllMocks();
   });
 
   test("happy path - after reaction", async () => {
@@ -187,6 +182,5 @@ describe("DELETE /entry/:id/delete", () => {
     expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
-    jest.restoreAllMocks();
   });
 });

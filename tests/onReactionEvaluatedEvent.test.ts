@@ -12,7 +12,5 @@ describe("onReactionEvaluatedEvent", () => {
 
     expect(evaluateReaction).toHaveBeenCalledTimes(1);
     expect(evaluateReaction).toHaveBeenCalledWith(mocks.GenericReactionEvaluatedEvent);
-
-    jest.restoreAllMocks();
   });
 });

@@ -32,7 +32,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       message: Emotions.VO.EmotionLabel.Errors.invalid,
       _known: true,
     });
-    jest.restoreAllMocks();
   });
 
   test("validation - missing intensity", async () => {
@@ -54,7 +53,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       message: Emotions.VO.EmotionIntensity.Errors.min_max,
       _known: true,
     });
-    jest.restoreAllMocks();
   });
 
   test("validation - incorrect id", async () => {
@@ -72,7 +70,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
-    jest.restoreAllMocks();
   });
 
   test("validation - EntryIsActionable", async () => {
@@ -110,7 +107,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    jest.restoreAllMocks();
   });
 
   test("validation - EmotionCorrespondsToSituation", async () => {
@@ -143,7 +139,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
-    jest.restoreAllMocks();
   });
 
   test("validation - EmotionForReappraisalExists", async () => {
@@ -177,7 +172,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    jest.restoreAllMocks();
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
@@ -219,8 +213,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     );
     expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
     expect(entryReappraiseEmotion).toHaveBeenCalledWith(emotion, mocks.anotherUserId);
-
-    jest.restoreAllMocks();
   });
 
   test("happy path", async () => {
@@ -261,7 +253,5 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     expect(entryReappraiseEmotion).toHaveBeenCalledWith(emotion, mocks.userId);
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionReappraisedEvent]);
-
-    jest.restoreAllMocks();
   });
 });

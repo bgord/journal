@@ -14,7 +14,5 @@ describe("onEmotionReappraisedEvent", () => {
 
     expect(reappraiseEmotion).toHaveBeenCalledTimes(1);
     expect(reappraiseEmotion).toHaveBeenCalledWith(mocks.NegativeEmotionExtremeIntensityReappraisedEvent);
-
-    jest.restoreAllMocks();
   });
 });

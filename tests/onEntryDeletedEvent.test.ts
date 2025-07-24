@@ -10,7 +10,5 @@ describe("onEntryDeletedEvent", () => {
 
     expect(deleteEntry).toHaveBeenCalledTimes(1);
     expect(deleteEntry).toHaveBeenCalledWith(mocks.GenericEntryDeletedEvent);
-
-    jest.restoreAllMocks();
   });
 });

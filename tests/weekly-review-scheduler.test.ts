@@ -19,8 +19,6 @@ describe("WeeklyReviewScheduler", () => {
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewRequestedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("EntriesForWeekExist", async () => {
@@ -35,7 +33,5 @@ describe("WeeklyReviewScheduler", () => {
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewSkippedEvent]);
-
-    jest.restoreAllMocks();
   });
 });

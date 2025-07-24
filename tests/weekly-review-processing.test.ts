@@ -29,8 +29,6 @@ describe("WeeklyReviewProcessing", () => {
       subject: "Weekly Review - come back and journal",
       html: `Week you missed ${mocks.week.getStart()}`,
     });
-
-    jest.restoreAllMocks();
   });
 
   test("onWeeklyReviewSkippedEvent - no email", async () => {
@@ -44,8 +42,6 @@ describe("WeeklyReviewProcessing", () => {
     );
 
     expect(mailerSend).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("onWeeklyReviewSkippedEvent - mailer failed", async () => {
@@ -61,8 +57,6 @@ describe("WeeklyReviewProcessing", () => {
     );
 
     expect(mailerSend).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("onWeeklyReviewRequestedEvent", async () => {
@@ -85,8 +79,6 @@ describe("WeeklyReviewProcessing", () => {
       mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
     ]);
     expect(eventStoreSave).toHaveBeenNthCalledWith(2, [mocks.GenericWeeklyReviewCompletedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onWeeklyReviewRequestedEvent - failed", async () => {
@@ -108,8 +100,6 @@ describe("WeeklyReviewProcessing", () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewFailedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("onWeeklyReviewCompletedEvent", async () => {
@@ -132,8 +122,6 @@ describe("WeeklyReviewProcessing", () => {
       subject: `Weekly Review - ${week.getStart()}`,
       html: `Weekly review: ${week.getStart()}`,
     });
-
-    jest.restoreAllMocks();
   });
 
   test("onWeeklyReviewCompletedEvent - contact missing", async () => {
@@ -149,8 +137,6 @@ describe("WeeklyReviewProcessing", () => {
     );
 
     expect(mailerSend).not.toHaveBeenCalledWith();
-
-    jest.restoreAllMocks();
   });
 
   test("onWeeklyReviewCompletedEvent - mailer failed", async () => {
@@ -174,7 +160,5 @@ describe("WeeklyReviewProcessing", () => {
 
     expect(mailerSend).not.toHaveBeenCalledWith();
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewFailedEvent]);
-
-    jest.restoreAllMocks();
   });
 });
