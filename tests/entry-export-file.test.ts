@@ -8,11 +8,6 @@ describe("EntryExportFile", () => {
     const file = new Emotions.Services.EntryExportFile([mocks.fullEntry]);
     const result = await text(file.generate());
 
-    const parts = [
-      "id,situationDescription",
-      `${mocks.fullEntry.id},${mocks.fullEntry.situationDescription}`,
-    ].join("");
-
-    expect(result).toEqualIgnoringWhitespace(parts);
+    expect(result).toEqualIgnoringWhitespace(mocks.csv);
   });
 });

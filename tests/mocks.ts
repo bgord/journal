@@ -500,3 +500,5 @@ export const anotherSession = {
 export const auth = { user, session };
 
 export const anotherAuth = { user: anotherUser, session: anotherSession };
+
+export const csv = ["id,situationDescription", `${fullEntry.id},${fullEntry.situationDescription}`].join("");
