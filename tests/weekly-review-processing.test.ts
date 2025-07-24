@@ -121,6 +121,7 @@ describe("WeeklyReviewProcessing", () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([mocks.patternDetection]);
 
     const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
     await bg.CorrelationStorage.run(
@@ -142,9 +143,9 @@ describe("WeeklyReviewProcessing", () => {
 
   test("onWeeklyReviewCompletedEvent - contact missing", async () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
-    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
-
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([mocks.patternDetection]);
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
     await bg.CorrelationStorage.run(
@@ -162,6 +163,7 @@ describe("WeeklyReviewProcessing", () => {
       throw new Error("Failed");
     });
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([mocks.patternDetection]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 

@@ -94,6 +94,7 @@ export class WeeklyReviewProcessing {
 
       const week = tools.Week.fromIsoId(event.payload.weekIsoId);
       const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
+      await Repos.PatternsRepository.findInWeekForUser(week, event.payload.userId);
 
       const insights = new VO.Advice(event.payload.insights);
 
