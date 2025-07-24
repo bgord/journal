@@ -18,3 +18,4 @@ export * from "./weekly-review-insights-prompt-builder";
 export * from "./weekly-review-notification-composer";
 export * from "./weekly-review-scheduler";
 export * from "./weekly-review-skipped-notification-composer";
+export * from "./zip-draft";
