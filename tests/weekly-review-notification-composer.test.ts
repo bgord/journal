@@ -6,7 +6,7 @@ describe("WeeklyReviewNotificationComposer", () => {
   test("compose", () => {
     const composer = new Emotions.Services.WeeklyReviewNotificationComposer();
 
-    const notification = composer.compose(mocks.week, [], mocks.advice);
+    const notification = composer.compose(mocks.week, [], mocks.advice, []);
 
     expect(notification).toEqual(
       new Emotions.VO.NotificationTemplate(
