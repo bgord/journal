@@ -504,3 +504,4 @@ export const anotherAuth = { user: anotherUser, session: anotherSession };
 export const entryCsv = ["id,situationDescription", `${fullEntry.id},${fullEntry.situationDescription}`].join(
   "",
 );
+export const alarmCsv = ["id,name", `${alarm.id},${alarm.name}`].join("");
