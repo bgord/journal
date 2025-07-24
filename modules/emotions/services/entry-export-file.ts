@@ -1,8 +1,11 @@
 import type * as Schema from "+infra/schema";
+import type { ReadableStream } from "node:stream/web";
 import * as tools from "@bgord/tools";
 import { stringify } from "csv";
 
-class FileDraft {
+export type DraftBody = BodyInit | NodeJS.ReadableStream | ReadableStream;
+
+abstract class FileDraft {
   constructor(
     readonly filename: string,
     readonly mime: tools.Mime,
@@ -14,13 +17,19 @@ class FileDraft {
       "Content-Disposition": `attachment; filename="${this.filename}"`,
     });
   }
+
+  protected abstract create(): DraftBody | Promise<DraftBody>;
+
+  async toResponse(): Promise<Response> {
+    const body = await this.create();
+
+    return new Response(body as BodyInit, { headers: this.getHeaders() });
+  }
 }
 
 export class EntryExportFile extends FileDraft {
   constructor(private readonly entries: Schema.SelectEntries[]) {
-    const filename = `entry-export-${Date.now()}.csv`;
-
-    super(filename, new tools.Mime("text/csv"));
+    super(`entry-export-${Date.now()}.csv`, new tools.Mime("text/csv"));
   }
 
   private static COLUMNS = ["id", "situationDescription"];

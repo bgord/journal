@@ -7,7 +7,5 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
 
   const entries = await Emotions.Repos.EntryRepository.listEntriesForUser(user.id);
 
-  const file = new Emotions.Services.EntryExportFile(entries);
-
-  return new Response(file.create() as any, { headers: file.getHeaders() });
+  return new Emotions.Services.EntryExportFile(entries).toResponse();
 }
