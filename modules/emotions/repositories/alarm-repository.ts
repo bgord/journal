@@ -1,10 +1,18 @@
+import * as Auth from "+auth";
 import type * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import { and, eq, notInArray } from "drizzle-orm";
+import { and, desc, eq, notInArray } from "drizzle-orm";
 
 export class AlarmRepository {
+  static async listForUser(userId: Auth.VO.UserIdType) {
+    return db.query.alarms.findMany({
+      where: and(eq(Schema.alarms.userId, userId)),
+      orderBy: desc(Schema.alarms.generatedAt),
+    });
+  }
+
   static async generate(
     event: Events.AlarmGeneratedEventType,
     metadata: {

@@ -6,6 +6,12 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
   const user = c.get("user");
 
   const entries = await Emotions.Repos.EntryRepository.listForUser(user.id);
+  const alarms = await Emotions.Repos.AlarmRepository.listForUser(user.id);
 
-  return new Emotions.Services.EntryExportFile(entries).toResponse();
+  const bundle = new Emotions.Services.ZipDraft([
+    new Emotions.Services.EntryExportFile(entries),
+    new Emotions.Services.AlarmExportFile(alarms),
+  ]);
+
+  return bundle.toResponse();
 }

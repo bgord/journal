@@ -25,8 +25,6 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
 
-  console.log(loaderData.entries.topReactions[0]);
-
   return (
     <main data-display="flex" data-direction="column">
       <ul data-display="flex" data-p="12" data-ml="6">
