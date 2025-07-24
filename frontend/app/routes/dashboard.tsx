@@ -33,6 +33,15 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         ))}
       </ul>
 
+      <a
+        href={`${import.meta.env.VITE_API_URL}/entry/export`}
+        download
+        target="_blank"
+        rel="noopener noreferer"
+      >
+        TODO: download
+      </a>
+
       <div data-display="flex">
         <section data-p="12" data-fs="12" {...UI.Rhythm(475).times(1).style.width}>
           <h2 data-display="flex" data-gap="12" data-mb="12" data-ml="6">
