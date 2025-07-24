@@ -17,7 +17,7 @@ export class Alarm {
     Events.AlarmCancelledEvent,
   ];
 
-  private readonly id: VO.AlarmIdType;
+  readonly id: VO.AlarmIdType;
   private userId?: Auth.VO.UserIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
   // @ts-expect-error

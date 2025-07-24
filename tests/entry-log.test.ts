@@ -169,8 +169,8 @@ describe("POST /entry/log", () => {
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

@@ -78,13 +78,11 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   test("validation - EntryIsActionable", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const history = [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericEntryDeletedEvent,
     ];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
@@ -118,7 +116,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   test("validation - EmotionCorrespondsToSituation", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
 
     const response = await server.request(
@@ -152,9 +149,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
   test("validation - EmotionForReappraisalExists", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const history = [mocks.GenericSituationLoggedEvent];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
@@ -189,11 +184,8 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const entryReappraiseEmotion = spyOn(Emotions.Aggregates.Entry.prototype, "reappraiseEmotion");
-
     const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
@@ -236,11 +228,8 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const entryReappraiseEmotion = spyOn(Emotions.Aggregates.Entry.prototype, "reappraiseEmotion");
-
     const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {

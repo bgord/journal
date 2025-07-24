@@ -99,14 +99,12 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   test("validation - EntryIsActionable", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const history = [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
       mocks.GenericEntryDeletedEvent,
     ];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
@@ -143,7 +141,6 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
 
     const payload = {
@@ -180,9 +177,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const history = [mocks.GenericSituationLoggedEvent];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
@@ -219,9 +214,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   test("validation - ReactionForEvaluationExists", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
@@ -258,15 +251,12 @@ describe("POST /entry/:id/evaluate-reaction", () => {
   test("validation -  RequesterOwnsEntry", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const entryEvaluateReaction = spyOn(Emotions.Aggregates.Entry.prototype, "evaluateReaction");
-
     const history = [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
     ];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
@@ -310,15 +300,12 @@ describe("POST /entry/:id/evaluate-reaction", () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const entryEvaluateReaction = spyOn(Emotions.Aggregates.Entry.prototype, "evaluateReaction");
-
     const history = [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
     ];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
