@@ -85,6 +85,20 @@ export const alarmsRelations = relations(alarms, ({ one }) => ({
   user: one(users, { fields: [alarms.userId], references: [users.id] }),
 }));
 
+export const patternDetections = sqliteTable("patternDetections", {
+  id,
+  createdAt: integer("createdAt").notNull(),
+  name: text("name", toEnumList(PatternNameOption)).notNull(),
+  weekIsoId: text("weekIsoId").notNull(),
+  userId: text("userId", { length: 36 })
+    .references(() => entries.id)
+    .notNull(),
+});
+
+export const patternDetectionsRelations = relations(patternDetections, ({ one }) => ({
+  user: one(users, { fields: [patternDetections.userId], references: [users.id] }),
+}));
+
 /** @public */
 export const patternDetections = sqliteTable("patternDetections", {
   id,
