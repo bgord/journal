@@ -20,7 +20,7 @@ export class EntryRepository {
     return EntryRepository.format(result[0]);
   }
 
-  static async listEntriesForUser(userId: Auth.VO.UserIdType) {
+  static async listForUser(userId: Auth.VO.UserIdType) {
     return db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
       where: eq(Schema.entries.userId, userId),

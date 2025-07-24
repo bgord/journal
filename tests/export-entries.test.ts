@@ -17,7 +17,7 @@ describe("POST ", () => {
 
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Emotions.Repos.EntryRepository, "listEntriesForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Emotions.Repos.EntryRepository, "listForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Date, "now").mockReturnValue(1000);
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
