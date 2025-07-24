@@ -18,7 +18,7 @@ export class Entry {
     Emotions.Events.EntryDeletedEvent,
   ];
 
-  private readonly id: Emotions.VO.EntryIdType;
+  readonly id: Emotions.VO.EntryIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.initial);
   private userId?: Auth.VO.UserIdType;
   private situation?: Emotions.Entities.Situation;

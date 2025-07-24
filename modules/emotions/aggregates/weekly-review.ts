@@ -17,7 +17,7 @@ export class WeeklyReview {
     Events.WeeklyReviewFailedEvent,
   ];
 
-  private readonly id: VO.WeeklyReviewIdType;
+  readonly id: VO.WeeklyReviewIdType;
   private userId?: Auth.VO.UserIdType;
   private week?: tools.Week;
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;

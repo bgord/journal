@@ -36,7 +36,6 @@ describe("DELETE /entry/:id/delete", () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
     const entryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
 
     const response = await server.request(
@@ -65,11 +64,8 @@ describe("DELETE /entry/:id/delete", () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
     const entryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
-
     const history = [mocks.GenericSituationLoggedEvent];
-
     const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
