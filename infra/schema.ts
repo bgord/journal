@@ -6,6 +6,7 @@ import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status"
 import { EntryStatusEnum } from "../modules/emotions/value-objects/entry-status";
 import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
 import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
+import { PatternNameOption } from "../modules/emotions/value-objects/pattern-name-option";
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { SituationKindOptions } from "../modules/emotions/value-objects/situation-kind-options";
 
@@ -83,6 +84,20 @@ export const alarms = sqliteTable("alarms", {
 export const alarmsRelations = relations(alarms, ({ one }) => ({
   entry: one(entries, { fields: [alarms.entryId], references: [entries.id] }),
   user: one(users, { fields: [alarms.userId], references: [users.id] }),
+}));
+
+export const patternDetections = sqliteTable("patternDetections", {
+  id,
+  createdAt: integer("createdAt").notNull(),
+  name: text("name", toEnumList(PatternNameOption)).notNull(),
+  weekIsoId: text("weekIsoId").notNull(),
+  userId: text("userId", { length: 36 })
+    .references(() => entries.id)
+    .notNull(),
+});
+
+export const patternDetectionsRelations = relations(patternDetections, ({ one }) => ({
+  user: one(users, { fields: [patternDetections.userId], references: [users.id] }),
 }));
 
 /** @public */
