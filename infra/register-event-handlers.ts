@@ -32,22 +32,22 @@ EventBus.on(Events.SITUATION_LOGGED_EVENT, EventHandler.handle(EventHandlers.onS
 // Pattern detection
 EventBus.on(
   Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(EventHandlers.onMoreNegativeThanPositiveEmotionsPatternDetectedEvent),
+  EventHandler.handle(EventHandlers.onPatternDetectedEvent),
 );
 
 EventBus.on(
   Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(EventHandlers.onMultipleMaladaptiveReactionsPatternDetectedEvent),
+  EventHandler.handle(EventHandlers.onPatternDetectedEvent),
 );
 
 EventBus.on(
   Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(EventHandlers.onPositiveEmotionWithMaladaptiveReactionPatternDetectedEvent),
+  EventHandler.handle(EventHandlers.onPatternDetectedEvent),
 );
 
 EventBus.on(
   Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(EventHandlers.onLowCopingEffectivenessPatternDetectedEvent),
+  EventHandler.handle(EventHandlers.onPatternDetectedEvent),
 );
 
 // Alarms
