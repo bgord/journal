@@ -1,3 +1,4 @@
+import * as Auth from "+auth";
 import type * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
@@ -19,12 +20,19 @@ export class EntryRepository {
     return EntryRepository.format(result[0]);
   }
 
-  static async findInWeek(week: tools.Week): Promise<Schema.SelectEntries[]> {
+  static async findInWeekForUser(
+    week: tools.Week,
+    userId: Auth.VO.UserIdType,
+  ): Promise<Schema.SelectEntries[]> {
     return db
       .select()
       .from(Schema.entries)
       .where(
-        and(gte(Schema.entries.startedAt, week.getStart()), lte(Schema.entries.startedAt, week.getEnd())),
+        and(
+          gte(Schema.entries.startedAt, week.getStart()),
+          lte(Schema.entries.startedAt, week.getEnd()),
+          eq(Schema.entries.userId, userId),
+        ),
       );
   }
 
