@@ -48,7 +48,7 @@ export class WeeklyReviewProcessing {
       const insights = await this.AiClient.request(prompt);
 
       const detectWeeklyPatterns = Commands.DetectWeeklyPatternsCommand.parse({
-        id: bg.NewUUID.generate(),
+        id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.DETECT_WEEKLY_PATTERNS_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),
@@ -58,7 +58,7 @@ export class WeeklyReviewProcessing {
       await CommandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
 
       const completeWeeklyReview = Commands.CompleteWeeklyReviewCommand.parse({
-        id: bg.NewUUID.generate(),
+        id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),
@@ -72,7 +72,7 @@ export class WeeklyReviewProcessing {
       await CommandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
     } catch (_error) {
       const command = Commands.MarkWeeklyReviewAsFailedCommand.parse({
-        id: bg.NewUUID.generate(),
+        id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),
@@ -105,7 +105,7 @@ export class WeeklyReviewProcessing {
       await Mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
     } catch (error) {
       const command = Commands.MarkWeeklyReviewAsFailedCommand.parse({
-        id: bg.NewUUID.generate(),
+        id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),

@@ -29,7 +29,7 @@ export class InactivityAlarmScheduler {
       const detection = new VO.AlarmDetection(trigger, VO.AlarmNameOption.INACTIVITY_ALARM);
 
       const command = Commands.GenerateAlarmCommand.parse({
-        id: bg.NewUUID.generate(),
+        id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.GENERATE_ALARM_COMMAND,
         createdAt: tools.Timestamp.parse(Date.now()),

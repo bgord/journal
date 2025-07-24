@@ -26,7 +26,7 @@ export class MultipleMaladaptiveReactionsPattern extends Patterns.Pattern {
 
     if (matches.length >= 3) {
       return Events.MultipleMaladaptiveReactionsPatternDetectedEvent.parse({
-        id: bg.NewUUID.generate(),
+        id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         createdAt: tools.Timestamp.parse(Date.now()),
         name: Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,

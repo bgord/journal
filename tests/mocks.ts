@@ -1,6 +1,5 @@
 // cspell:disable
 import { expect } from "bun:test";
-import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "../infra/i18n";
 import type * as Schema from "../infra/schema";
@@ -17,17 +16,17 @@ export const ip = {
   },
 };
 
-export const entryId = bg.NewUUID.generate();
+export const entryId = crypto.randomUUID();
 
-export const alarmId = bg.NewUUID.generate();
+export const alarmId = crypto.randomUUID();
 
 export const email = "user@example.com";
 export const anotherEmail = "another@example.com";
 
-export const userId = bg.NewUUID.generate();
-export const anotherUserId = bg.NewUUID.generate();
+export const userId = crypto.randomUUID();
+export const anotherUserId = crypto.randomUUID();
 
-export const weeklyReviewId = bg.NewUUID.generate();
+export const weeklyReviewId = crypto.randomUUID();
 
 export const week = tools.Week.fromNow();
 

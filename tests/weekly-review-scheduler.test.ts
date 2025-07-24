@@ -11,7 +11,7 @@ describe("WeeklyReviewScheduler", () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
     spyOn(Emotions.Queries.CountEntriesPerWeekForUser, "execute").mockResolvedValue(1);
     spyOn(tools.Week, "fromNow").mockReturnValue(mocks.week);
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -25,7 +25,7 @@ describe("WeeklyReviewScheduler", () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
     spyOn(Emotions.Queries.CountEntriesPerWeekForUser, "execute").mockResolvedValue(0);
     spyOn(tools.Week, "fromNow").mockReturnValue(mocks.week);
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.weeklyReviewId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {

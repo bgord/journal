@@ -7,7 +7,7 @@ import * as mocks from "./mocks";
 
 describe("EntryAlarmDetector", () => {
   test("onEmotionLoggedEvent", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(0);
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -22,7 +22,7 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onEmotionLoggedEvent - respects DailyAlarmLimit", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(10);
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -38,7 +38,7 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onEmotionLoggedEvent - respects EntryAlarmLimit", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(0);
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(2);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -54,7 +54,7 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onEmotionReappraisedEvent", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(0);
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -70,7 +70,7 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onEmotionReappraisedEvent - respects DailyAlarmLimit", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(10);
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -86,7 +86,7 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onEmotionReappraisedEvent - respects EntryAlarmLimit", async () => {
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.alarmId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(0);
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(2);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());

@@ -34,7 +34,7 @@ const reactionDescriptions = [
 const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
 (async function main() {
-  const correlationId = bg.NewUUID.generate();
+  const correlationId = crypto.randomUUID();
 
   await bg.CorrelationStorage.run(correlationId, async () => {
     await db.delete(Schema.events);
@@ -125,10 +125,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         new Emotions.VO.ReactionEffectiveness((counter % 5) + 1),
       );
 
-      const id = bg.NewUUID.generate();
-
       const entry = Emotions.Aggregates.Entry.log(
-        id,
+        crypto.randomUUID(),
         situation,
         emotion,
         reaction,

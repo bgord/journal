@@ -19,7 +19,7 @@ export const handleRequestWeeklyReviewCommand = async (
   ) {
     await EventStore.save([
       Emotions.Events.WeeklyReviewSkippedEvent.parse({
-        id: bg.NewUUID.generate(),
+        id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         createdAt: tools.Timestamp.parse(Date.now()),
         name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
@@ -32,7 +32,7 @@ export const handleRequestWeeklyReviewCommand = async (
     return;
   }
 
-  const weeklyReviewId = bg.NewUUID.generate();
+  const weeklyReviewId = crypto.randomUUID();
 
   const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
     weeklyReviewId,

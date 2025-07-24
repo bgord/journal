@@ -1,5 +1,4 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
-import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { auth } from "../infra/auth";
 import { EventStore } from "../infra/event-store";
@@ -161,7 +160,7 @@ describe("POST /entry/log", () => {
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(bg.NewUUID, "generate").mockReturnValue(mocks.entryId);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.entryId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
