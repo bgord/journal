@@ -8,10 +8,8 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
   const entries = await Emotions.Repos.EntryRepository.listForUser(user.id);
   const alarms = await Emotions.Repos.AlarmRepository.listForUser(user.id);
 
-  const bundle = new Emotions.Services.ZipDraft([
-    new Emotions.Services.EntryExportFile(entries),
-    new Emotions.Services.AlarmExportFile(alarms),
-  ]);
-
-  return bundle.toResponse();
+  return new Emotions.Services.ZipDraft({
+    filename: `entry-${Date.now()}.zip`,
+    parts: [new Emotions.Services.EntryExportFile(entries), new Emotions.Services.AlarmExportFile(alarms)],
+  }).toResponse();
 }
