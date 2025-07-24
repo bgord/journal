@@ -10,7 +10,5 @@ describe("onAlarmNotificationSentEvent", () => {
 
     expect(notify).toHaveBeenCalledTimes(1);
     expect(notify).toHaveBeenCalledWith(mocks.GenericAlarmNotificationSentEvent);
-
-    jest.restoreAllMocks();
   });
 });

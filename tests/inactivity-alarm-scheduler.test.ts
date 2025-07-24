@@ -19,8 +19,6 @@ describe("InactivityAlarmScheduler", () => {
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericInactivityAlarmGeneratedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("DailyAlarmLimit", async () => {
@@ -39,8 +37,6 @@ describe("InactivityAlarmScheduler", () => {
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("DailyAlarmLimit - failure", async () => {
@@ -59,8 +55,6 @@ describe("InactivityAlarmScheduler", () => {
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("NoEntriesInTheLastWeek - undefined timestamp", async () => {
@@ -74,8 +68,6 @@ describe("InactivityAlarmScheduler", () => {
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("NoEntriesInTheLastWeek", async () => {
@@ -89,7 +81,5 @@ describe("InactivityAlarmScheduler", () => {
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 });

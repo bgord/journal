@@ -16,7 +16,5 @@ describe("onAlarmGeneratedEvent", () => {
       label: mocks.fullEntry.emotionLabel,
       intensity: mocks.fullEntry.emotionIntensity,
     });
-
-    jest.restoreAllMocks();
   });
 });

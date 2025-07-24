@@ -10,7 +10,5 @@ describe("onAlarmAdviceSavedEvent", () => {
 
     expect(saveAdvice).toHaveBeenCalledTimes(1);
     expect(saveAdvice).toHaveBeenCalledWith(mocks.GenericAlarmAdviceSavedEvent);
-
-    jest.restoreAllMocks();
   });
 });

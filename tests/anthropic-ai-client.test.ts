@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import { AnthropicAi, AnthropicAiClient } from "../infra/anthropic-ai-client";
 import { SupportedLanguages } from "../infra/i18n";
 import * as Emotions from "../modules/emotions";
@@ -16,7 +16,7 @@ describe("AnthropicAiClient", () => {
       AnthropicAi.messages,
       "create",
       // @ts-expect-error
-    ).mockResolvedValue({ content: "anything" });
+    ).mockResolvedValue({ content: mocks.advice.get() });
 
     const client = new AnthropicAiClient();
     const result = await client.request(prompt);
@@ -27,8 +27,6 @@ describe("AnthropicAiClient", () => {
       system: prompt.read()[0].content,
       model: "claude-3-5-sonnet-latest",
     });
-    expect(result).toEqual(new Emotions.VO.Advice("anything"));
-
-    jest.restoreAllMocks();
+    expect(result).toEqual(mocks.advice);
   });
 });

@@ -16,8 +16,6 @@ describe("AlarmFactory", () => {
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("correct path - at the limit", async () => {
@@ -31,8 +29,6 @@ describe("AlarmFactory", () => {
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
-
-    jest.restoreAllMocks();
   });
 
   test("DailyAlarmLimit - above the limit", async () => {
@@ -45,8 +41,6 @@ describe("AlarmFactory", () => {
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 
   test("EntryAlarmLimit - above the limit", async () => {
@@ -59,7 +53,5 @@ describe("AlarmFactory", () => {
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
-
-    jest.restoreAllMocks();
   });
 });

@@ -10,7 +10,5 @@ describe("onAlarmCancelledEvent", () => {
 
     expect(updateStatus).toHaveBeenCalledTimes(1);
     expect(updateStatus).toHaveBeenCalledWith(mocks.GenericAlarmCancelledEvent);
-
-    jest.restoreAllMocks();
   });
 });

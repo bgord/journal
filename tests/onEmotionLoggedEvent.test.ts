@@ -10,7 +10,5 @@ describe("onEmotionLoggedEvent", () => {
 
     expect(logEmotion).toHaveBeenCalledTimes(1);
     expect(logEmotion).toHaveBeenCalledWith(mocks.NegativeEmotionExtremeIntensityLoggedEvent);
-
-    jest.restoreAllMocks();
   });
 });
