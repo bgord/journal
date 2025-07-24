@@ -7,9 +7,9 @@ import * as mocks from "./mocks";
 
 const url = "/entry/export";
 
-describe("POST ", () => {
+describe("GET /entry/export ", () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
-    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
     expect(response.status).toBe(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
@@ -18,16 +18,15 @@ describe("POST ", () => {
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.EntryRepository, "listForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Emotions.Repos.AlarmRepository, "listForUser").mockResolvedValue([mocks.alarm]);
     spyOn(Date, "now").mockReturnValue(1000);
 
-    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const response = await server.request(url, { method: "GET" }, mocks.ip);
     const text = await response.text();
 
     expect(response.status).toBe(200);
     expect(text).toEqualIgnoringWhitespace(mocks.entryCsv);
     expect(response.headers.get("content-type")).toEqual("text/csv");
-    expect(response.headers.get("content-disposition")).toEqual(
-      `attachment; filename="entry-export-${1000}.csv"`,
-    );
+    expect(response.headers.get("content-disposition")).toEqual(`attachment; filename="export-${1000}.csv"`);
   });
 });

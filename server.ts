@@ -43,7 +43,7 @@ entry.post("/log", Emotions.Routes.LogEntry);
 entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
 entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
-entry.post("/export", Emotions.Routes.ExportEntries);
+entry.get("/export", Emotions.Routes.ExportEntries);
 server.route("/entry", entry);
 // =============================
 
