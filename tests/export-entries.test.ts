@@ -22,11 +22,14 @@ describe("GET /entry/export ", () => {
     spyOn(Date, "now").mockReturnValue(1000);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
-    const text = await response.text();
 
     expect(response.status).toBe(200);
-    expect(text).toEqualIgnoringWhitespace(mocks.entryCsv);
-    expect(response.headers.get("content-type")).toEqual("text/csv");
-    expect(response.headers.get("content-disposition")).toEqual(`attachment; filename="export-${1000}.csv"`);
+    expect(response.headers.get("content-type")).toEqual("application/zip");
+    expect(response.headers.get("content-disposition")).toEqual(`attachment; filename="export-1000.zip"`);
+
+    const zip = Buffer.from(await response.arrayBuffer()).toString("utf-8");
+
+    expect(zip).toContain("entry-export-1000.csv");
+    expect(zip).toContain("alarm-export-1000.csv");
   });
 });
