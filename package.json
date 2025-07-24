@@ -16,7 +16,6 @@
     "@playwright/test": "1.54.1",
     "@types/bun": "1.2.19",
     "@types/lodash": "4.17.20",
-    "@types/yazl": "^3.3.0",
     "cspell": "9.2.0",
     "drizzle-kit": "0.31.4",
     "knip": "5.62.0",
@@ -28,11 +27,10 @@
     "@anthropic-ai/sdk": "0.57.0",
     "@bgord/bun": "0.18.8",
     "better-sqlite3": "12.2.0",
-    "csv": "^6.4.1",
+    "csv": "6.4.1",
     "drizzle-orm": "0.44.3",
     "emittery": "1.2.0",
     "node-cache": "5.1.2",
-    "openai": "5.10.1",
-    "yazl": "^3.3.1"
+    "openai": "5.10.1"
   }
 }
