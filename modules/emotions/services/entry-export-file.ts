@@ -5,7 +5,7 @@ import { stringify } from "csv";
 
 export class EntryExportFile extends bg.FileDraft {
   constructor(private readonly entries: Schema.SelectEntries[]) {
-    super({ filename: `entry-export-${Date.now()}.csv`, mime: new tools.Mime("text/csv") });
+    super({ filename: `entry-export-${Date.now()}.csv`, mime: tools.MIMES.csv });
   }
 
   create() {
