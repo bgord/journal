@@ -4,7 +4,10 @@ import { EventStore } from "+infra/event-store";
 export const handleDetectWeeklyPatternsCommand = async (
   command: Emotions.Commands.DetectWeeklyPatternsCommandType,
 ) => {
-  const entries = await Emotions.Repos.EntryRepository.findInWeek(command.payload.week);
+  const entries = await Emotions.Repos.EntryRepository.findInWeekForUser(
+    command.payload.week,
+    command.payload.userId,
+  );
 
   const patterns = Emotions.Services.PatternDetector.detect({
     entries,

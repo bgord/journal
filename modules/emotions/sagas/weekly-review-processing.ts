@@ -40,7 +40,7 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
-    const entries = await Repos.EntryRepository.findInWeek(week);
+    const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
 
     const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries).generate();
 
@@ -93,7 +93,7 @@ export class WeeklyReviewProcessing {
       if (!contact?.email) return;
 
       const week = tools.Week.fromIsoId(event.payload.weekIsoId);
-      const entries = await Repos.EntryRepository.findInWeek(week);
+      const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
 
       const insights = new VO.Advice(event.payload.insights);
 
