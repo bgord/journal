@@ -5,7 +5,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
 export class WeeklyReviewScheduler {
-  static cron = `0 18 * * ${bg.UTC_DAY_OF_THE_WEEK.Monday}`; // 18:00 UTC
+  static cron = bg.Jobs.SCHEDULES.DAY_TIME(bg.UTC_DAY_OF_THE_WEEK.Monday, new tools.Hour(18));
 
   static label = "WeeklyReviewScheduler";
 
