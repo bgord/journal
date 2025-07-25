@@ -1,6 +1,26 @@
 # Changelog
+- 2025-07-25 17:20 b722104 **step: multilang weekly reviews**
+## 2025-07-25 17:20 
+- 2025-07-25 17:08 d0aa25c **refactor: make weekly review insights prompt language aware**
+- 2025-07-25 17:00 6fd70c2 **step: add weekly review translations**
+- 2025-07-25 16:45 a6705ea **step: bump bgord/scripts**
+- 2025-07-25 16:45 3edc70c **step: add missing list keys**
+- 2025-07-25 16:37 0419ff7 **step: add patterns**
+- 2025-07-25 16:24 ce76ab1 **step: add entry count**
+- 2025-07-25 16:16 ca7174d **step: add entries weekIsoId**
+- 2025-07-25 16:12 39c8c87 **step: add basic weekly review line**
+- 2025-07-25 15:58 1f73b0d **step: add weekly reviews dashboard section**
+- 2025-07-25 15:46 2763029 **step: implement weekly review event handlers**
+- 2025-07-25 15:40 48822bd **step: add weekly review repo**
+- 2025-07-25 15:39 5dc4bbb **step: add weekly review status to schema**
+- 2025-07-25 15:28 2b00812 **step: register weekly review events**
+- 2025-07-25 15:14 88065b9 **step: rename malapdaptive reactions pattern detected event**
+- 2025-07-25 15:09 aa2f36b **fix: patterns repo query**
+- 2025-07-25 14:56 16f5762 **step: add weekly review scheduler to local-db-seed**
+- 2025-07-25 14:41 5d35ec8 **step: hide mailer in weekly review processing under a ff**
+- 2025-07-25 14:38 1ebdc23 **step: add weekly reviews schema**
+- 2025-07-25 14:17 af24fd8 **step: update bun and node**
 - 2025-07-24 20:09 611a8a6 **Merge pull request #20 from bgord/exports**
-## 2025-07-24 20:09 
 - 2025-07-24 20:07 1afcd18 **refactor: resolve conflicts**
 - 2025-07-24 19:53 f750b23 **step: update packages**
 - 2025-07-24 19:51 44337c7 **step: add export rate limiter**
@@ -12,6 +32,8 @@
 - 2025-07-24 19:11 8922d20 **MVP**
 - 2025-07-24 18:14 ac7e505 **step: add download link**
 - 2025-07-24 18:11 7feb8f2 **step: add bun idle timeout**
+- 2025-07-24 18:09 b0f71b8 **docs: generate readme**
+- 2025-07-24 18:09 8dd110f **docs: generate CHANGELOG**
 - 2025-07-24 18:09 45b5d3a **fix: export method**
 - 2025-07-24 18:04 c0188d9 **step: create zip draft**
 - 2025-07-24 18:01 9075903 **refactor: rename listEntriesForUser**
