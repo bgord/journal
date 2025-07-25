@@ -26,12 +26,10 @@ describe("onPatternDetectedEvent", () => {
   test("MultipleMaladaptiveReactionsPatternDetectedEvent", async () => {
     const create = spyOn(Emotions.Repos.PatternsRepository, "create").mockImplementation(jest.fn());
 
-    await Emotions.EventHandlers.onPatternDetectedEvent(
-      mocks.MultipleMaladaptiveReactionsPatternDetectedEvent,
-    );
+    await Emotions.EventHandlers.onPatternDetectedEvent(mocks.MaladaptiveReactionsPatternDetectedEvent);
 
     expect(create).toHaveBeenCalledTimes(1);
-    expect(create).toHaveBeenCalledWith(mocks.MultipleMaladaptiveReactionsPatternDetectedEvent);
+    expect(create).toHaveBeenCalledWith(mocks.MaladaptiveReactionsPatternDetectedEvent);
   });
 
   test("PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent", async () => {

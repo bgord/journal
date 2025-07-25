@@ -16,7 +16,7 @@ describe("PatternDetector", () => {
           mocks.positiveMaladaptiveEntry,
         ],
         patterns: [
-          Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern,
+          Emotions.Services.Patterns.MaladaptiveReactionsPattern,
           Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern,
         ],
         week: mocks.week,

@@ -36,7 +36,7 @@ EventBus.on(
 );
 
 EventBus.on(
-  Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
+  Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   EventHandler.handle(EventHandlers.onPatternDetectedEvent),
 );
 

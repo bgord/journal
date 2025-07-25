@@ -1,6 +1,6 @@
 export enum PatternNameOption {
   LowCopingEffectivenessPattern = "LowCopingEffectivenessPattern",
   MoreNegativeThanPositiveEmotionsPattern = "MoreNegativeThanPositiveEmotionsPattern",
-  MultipleMaladaptiveReactionsPattern = "MultipleMaladaptiveReactionsPattern",
+  MaladaptiveReactionsPattern = "MaladaptiveReactionsPattern",
   PositiveEmotionWithMaladaptiveReactionPattern = "PositiveEmotionWithMaladaptiveReactionPattern",
 }

@@ -7,7 +7,7 @@ import type { z } from "zod/v4";
 
 export type PatternDetectionEvent =
   | typeof Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent
-  | typeof Events.MultipleMaladaptiveReactionsPatternDetectedEvent
+  | typeof Events.MaladaptiveReactionsPatternDetectedEvent
   | typeof Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent
   | typeof Events.LowCopingEffectivenessPatternDetectedEvent;
 

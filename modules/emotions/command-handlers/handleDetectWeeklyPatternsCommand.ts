@@ -16,7 +16,7 @@ export const handleDetectWeeklyPatternsCommand = async (
     patterns: [
       Emotions.Services.Patterns.LowCopingEffectivenessPattern,
       Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern,
-      Emotions.Services.Patterns.MultipleMaladaptiveReactionsPattern,
+      Emotions.Services.Patterns.MaladaptiveReactionsPattern,
       Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern,
     ],
   });

@@ -207,20 +207,20 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   },
 } satisfies Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
-export const MultipleMaladaptiveReactionsPatternDetectedEvent = {
+export const MaladaptiveReactionsPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
-  name: Emotions.Events.MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
+  name: Emotions.Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
   payload: {
     userId,
     weekIsoId: week.toIsoId(),
     entryIds: [entryId, entryId, entryId],
-    name: Emotions.VO.PatternNameOption.MultipleMaladaptiveReactionsPattern,
+    name: Emotions.VO.PatternNameOption.MaladaptiveReactionsPattern,
   },
-} satisfies Emotions.Events.MultipleMaladaptiveReactionsPatternDetectedEventType;
+} satisfies Emotions.Events.MaladaptiveReactionsPatternDetectedEventType;
 
 export const LowCopingEffectivenessPatternDetectedEvent = {
   id: expectAnyId,
