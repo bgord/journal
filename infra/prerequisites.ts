@@ -24,11 +24,11 @@ export const prerequisites = [
   }),
   new bg.PrerequisiteNode({
     label: "node",
-    version: tools.PackageVersion.fromStringWithV("v24.3.0"),
+    version: tools.PackageVersion.fromStringWithV("v24.4.1"),
   }),
   new bg.PrerequisiteBun({
     label: "bun",
-    version: tools.PackageVersion.fromString("1.2.18"),
+    version: tools.PackageVersion.fromString("1.2.19"),
     current: Bun.version,
   }),
   new bg.PrerequisiteMemory({
