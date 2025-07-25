@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
 
-export const onWeeklyReviewCompletedEvent = async (
-  _event: Emotions.Events.WeeklyReviewCompletedEventType,
-) => {};
+export const onWeeklyReviewCompletedEvent = async (event: Emotions.Events.WeeklyReviewCompletedEventType) => {
+  await Emotions.Repos.WeeklyReviewRepository.complete(event);
+};

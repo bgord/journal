@@ -2,6 +2,7 @@ import type * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+import { eq } from "drizzle-orm";
 
 export class WeeklyReviewRepository {
   static async create(event: Events.WeeklyReviewRequestedEventType) {
@@ -23,5 +24,19 @@ export class WeeklyReviewRepository {
       weekIsoId: event.payload.weekIsoId,
       insights: null,
     });
+  }
+
+  static async fail(event: Events.WeeklyReviewFailedEventType) {
+    await db
+      .update(Schema.weeklyReviews)
+      .set({ status: VO.WeeklyReviewStatusEnum.failed })
+      .where(eq(Schema.weeklyReviews.id, event.payload.weeklyReviewId));
+  }
+
+  static async complete(event: Events.WeeklyReviewCompletedEventType) {
+    await db
+      .update(Schema.weeklyReviews)
+      .set({ status: VO.WeeklyReviewStatusEnum.completed, insights: event.payload.insights })
+      .where(eq(Schema.weeklyReviews.id, event.payload.weeklyReviewId));
   }
 }
