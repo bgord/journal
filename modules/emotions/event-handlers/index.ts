@@ -9,3 +9,7 @@ export * from "./onPatternDetectedEvent";
 export * from "./onReactionEvaluatedEvent";
 export * from "./onReactionLoggedEvent";
 export * from "./onSituationLoggedEvent";
+export * from "./onWeeklyReviewCompletedEvent";
+export * from "./onWeeklyReviewFailedEvent";
+export * from "./onWeeklyReviewRequestedEvent";
+export * from "./onWeeklyReviewSkippedEvent";
