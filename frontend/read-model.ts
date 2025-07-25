@@ -90,6 +90,7 @@ export class ReadModel {
   static async getTopReactions(userId: UserIdType) {
     return db
       .select({
+        id: Schema.entries.id,
         reactionDescription: Schema.entries.reactionDescription,
         reactionType: Schema.entries.reactionType,
         reactionEffectiveness: Schema.entries.reactionEffectiveness,

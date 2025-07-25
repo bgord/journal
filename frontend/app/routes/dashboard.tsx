@@ -29,8 +29,12 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
   return (
     <main data-display="flex" data-direction="column">
       <ul data-display="flex" data-p="12" data-ml="6">
-        {loaderData.heatmap.map((point) => (
-          <li data-bg={point ? "green-400" : "red-400"} {...UI.Rhythm(6).times(1).style.square} />
+        {loaderData.heatmap.map((point, index) => (
+          <li
+            key={`heatmap-${point}-${index}`}
+            data-bg={point ? "green-400" : "red-400"}
+            {...UI.Rhythm(6).times(1).style.square}
+          />
         ))}
       </ul>
 
@@ -160,8 +164,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     <div {...UI.Colorful("brand-500").style.color}>{t("dashboard.entries.today")}</div>
 
                     <ul data-display="flex" data-direction="column" data-gap="24">
-                      {loaderData.entries.topEmotions.today.map((stat) => (
-                        <li data-display="flex" data-gap="6">
+                      {loaderData.entries.topEmotions.today.map((stat, index) => (
+                        <li key={`top-emotions-today-${stat.hits}-${index}`} data-display="flex" data-gap="6">
                           <div className="c-badge">{stat.hits}</div>
                           <div>{t(`entry.emotion.label.value.${stat.label}`)}</div>
                         </li>
@@ -179,8 +183,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     <div {...UI.Colorful("brand-500").style.color}>{t("dashboard.entries.last_week")}</div>
 
                     <ul data-display="flex" data-direction="column" data-gap="24">
-                      {loaderData.entries.topEmotions.lastWeek.map((stat) => (
-                        <li data-display="flex" data-gap="6">
+                      {loaderData.entries.topEmotions.lastWeek.map((stat, index) => (
+                        <li key={`top-emotions-last-week-${stat}-${index}`} data-display="flex" data-gap="6">
                           <div className="c-badge">{stat.hits}</div>
                           <div>{t(`entry.emotion.label.value.${stat.label}`)}</div>
                         </li>
@@ -198,8 +202,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     <div {...UI.Colorful("brand-500").style.color}>{t("dashboard.entries.all")}</div>
 
                     <ul data-display="flex" data-direction="column" data-gap="24">
-                      {loaderData.entries.topEmotions.all.map((stat) => (
-                        <li data-display="flex" data-gap="6">
+                      {loaderData.entries.topEmotions.all.map((stat, index) => (
+                        <li key={`top-emotions-all-${stat}-${index}`} data-display="flex" data-gap="6">
                           <div className="c-badge">{stat.hits}</div>
                           <div>{t(`entry.emotion.label.value.${stat.label}`)}</div>
                         </li>
@@ -218,7 +222,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
               <ul data-display="flex" data-direction="column" data-gap="24">
                 {loaderData.entries.topReactions.map((reaction) => (
-                  <li data-display="flex" data-direction="column" data-gap="12">
+                  <li key={reaction.id} data-display="flex" data-direction="column" data-gap="12">
                     <div data-display="flex" data-gap="12">
                       <div className="c-badge">{reaction.reactionEffectiveness} / 5</div>
                       <div>{t(`entry.reaction.type.value.${reaction.reactionType}`)}</div>
@@ -243,7 +247,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
             <ul data-display="flex" data-direction="column" data-gap="24">
               {loaderData.weeklyReviews.map((review) => (
-                <li data-display="flex" data-direction="column" data-gap="12">
+                <li key={review.id} data-display="flex" data-direction="column" data-gap="12">
                   <div data-display="flex" data-main="between">
                     {review.week[0]} - {review.week[1]}
                     <div className="c-badge">{review.status}</div>
@@ -254,7 +258,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                   </div>
                   <ul>
                     {review.patternDetections.map((pattern: any) => (
-                      <li>{pattern.name}</li>
+                      <li key={pattern.id}>{pattern.name}</li>
                     ))}
                   </ul>
                   {review.status === "completed" && <div data-ml="12">"{review.insights}"</div>}
