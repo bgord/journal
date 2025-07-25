@@ -59,14 +59,16 @@ describe("WeeklyReviewProcessing", () => {
     expect(mailerSend).not.toHaveBeenCalled();
   });
 
-  test("onWeeklyReviewRequestedEvent", async () => {
+  test("onWeeklyReviewRequestedEvent - en", async () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
       mocks.GenericWeeklyReviewRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(openAiClient, "request").mockResolvedValue(new Emotions.VO.Advice("Good job"));
+    const openAiClientRequest = spyOn(openAiClient, "request").mockResolvedValue(
+      new Emotions.VO.Advice("Good job"),
+    );
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
@@ -75,6 +77,34 @@ describe("WeeklyReviewProcessing", () => {
       async () => await saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
 
+    expect(openAiClientRequest).toHaveBeenCalledWith(
+      new Emotions.VO.Prompt("Generate insights for these 1 entries."),
+    );
+    expect(eventStoreSave).toHaveBeenNthCalledWith(1, [
+      mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
+    ]);
+    expect(eventStoreSave).toHaveBeenNthCalledWith(2, [mocks.GenericWeeklyReviewCompletedEvent]);
+  });
+
+  test("onWeeklyReviewRequestedEvent - pl", async () => {
+    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
+      mocks.GenericWeeklyReviewRequestedEvent,
+    ]);
+    spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntryPl]);
+    const openAiClientRequest = spyOn(openAiClient, "request").mockResolvedValue(
+      new Emotions.VO.Advice("Good job"),
+    );
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, openAiClient);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
+    );
+
+    expect(openAiClientRequest).toHaveBeenCalledWith(new Emotions.VO.Prompt("Podsumuj te 1 wpisów."));
     expect(eventStoreSave).toHaveBeenNthCalledWith(1, [
       mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
     ]);

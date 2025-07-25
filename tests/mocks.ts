@@ -394,6 +394,11 @@ export const fullEntry: Schema.SelectEntries = {
   userId,
 };
 
+export const fullEntryPl: Schema.SelectEntries = {
+  ...fullEntry,
+  language: SupportedLanguages.pl,
+};
+
 export const positiveMaladaptiveEntry: Schema.SelectEntries = {
   ...fullEntry,
 
