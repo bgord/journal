@@ -229,6 +229,18 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             </Components.DashboardCell>
           )}
         </section>
+
+        <section data-pb="36" data-fs="12" data-p="12" {...UI.Rhythm(475).times(1).style.width}>
+          <h2 data-display="flex" data-gap="12" data-mb="12" data-ml="6">
+            <Icons.Calendar height={20} width={20} data-color="green-500" /> Weekly reviews
+          </h2>
+
+          <Components.DashboardCell>
+            <h2 data-display="flex" data-gap="12">
+              History
+            </h2>
+          </Components.DashboardCell>
+        </section>
       </div>
     </main>
   );
