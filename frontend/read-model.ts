@@ -124,6 +124,20 @@ export class ReadModel {
     };
   }
 
+  static async listWeeklyReviews(userId: UserIdType) {
+    const result = await db.query.weeklyReviews.findMany({
+      where: eq(Schema.weeklyReviews.userId, userId),
+      orderBy: desc(Schema.weeklyReviews.createdAt),
+    });
+
+    return result.map((row) => ({
+      ...row,
+      week: tools.Week.fromIsoId(row.weekIsoId)
+        .toRange()
+        .map((ts) => tools.DateFormatters.datetime(ts)),
+    }));
+  }
+
   static formatFull(entry: Schema.SelectEntriesWithAlarms) {
     return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
   }

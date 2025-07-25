@@ -18,8 +18,9 @@ export async function loader({ request }: Route.LoaderArgs) {
   const topEmotions = await ReadModel.getTopEmotions(userId);
   const topReactions = await ReadModel.getTopReactions(userId);
   const alarms = await ReadModel.listAlarms(userId);
+  const weeklyReviews = await ReadModel.listWeeklyReviews(userId);
 
-  return { alarms, entries: { counts, topEmotions, topReactions }, heatmap };
+  return { alarms, entries: { counts, topEmotions, topReactions }, heatmap, weeklyReviews };
 }
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
@@ -239,6 +240,18 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             <h2 data-display="flex" data-gap="12">
               History
             </h2>
+
+            <ul data-display="flex" data-direction="column" data-gap="24">
+              {loaderData.weeklyReviews.map((review) => (
+                <li data-display="flex" data-direction="column" data-gap="12">
+                  <div data-display="flex" data-main="between">
+                    {review.week[0]} - {review.week[1]}
+                    <div className="c-badge">{review.status}</div>
+                  </div>
+                  <div data-ml="12">"{review.insights}"</div>
+                </li>
+              ))}
+            </ul>
           </Components.DashboardCell>
         </section>
       </div>
