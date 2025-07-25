@@ -91,7 +91,11 @@ modules/
     │   ├── onPatternDetectedEvent.ts
     │   ├── onReactionEvaluatedEvent.ts
     │   ├── onReactionLoggedEvent.ts
-    │   └── onSituationLoggedEvent.ts
+    │   ├── onSituationLoggedEvent.ts
+    │   ├── onWeeklyReviewCompletedEvent.ts
+    │   ├── onWeeklyReviewFailedEvent.ts
+    │   ├── onWeeklyReviewRequestedEvent.ts
+    │   └── onWeeklyReviewSkippedEvent.ts
     ├── events
     │   ├── ALARM_ADVICE_SAVED_EVENT.ts
     │   ├── ALARM_CANCELLED_EVENT.ts
@@ -101,8 +105,8 @@ modules/
     │   ├── EMOTION_REAPPRAISED_EVENT.ts
     │   ├── ENTRY_DELETED_EVENT.ts
     │   ├── LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT.ts
+    │   ├── MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT.ts
     │   ├── MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT.ts
-    │   ├── MULTIPLE_MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT.ts
     │   ├── POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT.ts
     │   ├── REACTION_EVALUATED_EVENT.ts
     │   ├── REACTION_LOGGED_EVENT.ts
@@ -135,7 +139,8 @@ modules/
     ├── repositories
     │   ├── alarm-repository.ts
     │   ├── entry-repository.ts
-    │   └── patterns-repository.ts
+    │   ├── patterns-repository.ts
+    │   └── weekly-review-repository.ts
     ├── routes
     │   ├── delete-entry.ts
     │   ├── evaluate-reaction.ts
@@ -164,8 +169,8 @@ modules/
     │   ├── pattern-detector.ts
     │   ├── patterns
     │   │   ├── low-coping-effectiveness-pattern.ts
+    │   │   ├── maladaptive-reactions-pattern.ts
     │   │   ├── more-negative-than-positive-emotions-pattern.ts
-    │   │   ├── multiple-maladaptive-reactions-pattern.ts
     │   │   ├── pattern.ts
     │   │   └── positive-emotion-with-maladaptive-reaction-pattern.ts
     │   ├── weekly-review-insights-prompt-builder.ts
