@@ -3,4 +3,5 @@ export enum WeeklyReviewStatusEnum {
   requested = "requested",
   completed = "completed",
   failed = "failed",
+  skipped = "skipped",
 }
