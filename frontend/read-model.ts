@@ -138,6 +138,24 @@ export class ReadModel {
           WHERE ${Schema.entries.weekIsoId} = ${Schema.weeklyReviews.weekIsoId}
             AND ${Schema.entries.userId}    = ${userId}
         )`.mapWith(Number),
+        patternDetections: sql<string>`
+          COALESCE(
+            (
+              SELECT
+                json_group_array(
+                  json_object(
+                    'id',        pd.id,
+                    'createdAt', datetime(pd.createdAt/1000, 'unixepoch'),
+                    'name',      pd.name
+                  )
+                )
+              FROM ${Schema.patternDetections} AS pd
+              WHERE pd.weekIsoId = ${Schema.weeklyReviews.weekIsoId}
+                AND pd.userId    = ${userId}
+            ),
+            '[]'
+          )
+        `.mapWith(JSON.parse),
       })
       .from(Schema.weeklyReviews)
       .where(eq(Schema.weeklyReviews.userId, userId))

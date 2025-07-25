@@ -101,6 +101,10 @@ export const patternDetections = sqliteTable("patternDetections", {
 /** @public */
 export const patternDetectionsRelations = relations(patternDetections, ({ one }) => ({
   user: one(users, { fields: [patternDetections.userId], references: [users.id] }),
+  weeklyReview: one(weeklyReviews, {
+    fields: [patternDetections.weekIsoId, patternDetections.userId],
+    references: [weeklyReviews.weekIsoId, weeklyReviews.userId],
+  }),
 }));
 
 /** @public */
@@ -114,6 +118,13 @@ export const weeklyReviews = sqliteTable("weeklyReviews", {
   insights: text("insights"),
   status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull(),
 });
+
+/** @public */
+export const weeklyReviewsRelations = relations(weeklyReviews, ({ many }) => ({
+  patternDetections: many(patternDetections, {
+    relationName: "weeklyReview",
+  }),
+}));
 
 /** @public */
 export const users = sqliteTable("users", {

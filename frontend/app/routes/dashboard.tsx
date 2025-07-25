@@ -252,6 +252,11 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     <div className="c-badge">{review.entryCount}</div>
                     entries
                   </div>
+                  <ul>
+                    {review.patternDetections.map((pattern: any) => (
+                      <li>{pattern.name}</li>
+                    ))}
+                  </ul>
                   {review.status === "completed" && <div data-ml="12">"{review.insights}"</div>}
                 </li>
               ))}
