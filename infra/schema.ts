@@ -52,6 +52,7 @@ export const entries = sqliteTable("entries", {
   reactionEffectiveness: integer("reactionEffectiveness"),
   status: text("status", toEnumList(EntryStatusEnum)).notNull(),
   language: text("language").notNull(),
+  weekIsoId: text("weekIsoId").notNull(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),

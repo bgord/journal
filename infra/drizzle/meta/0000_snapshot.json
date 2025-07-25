@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "39c788a6-b4b7-44af-b947-5a4ea4a6840d",
+  "id": "8a1850bf-2bce-4c26-94b0-6bc04e975200",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -318,6 +318,13 @@
         },
         "language": {
           "name": "language",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "weekIsoId": {
+          "name": "weekIsoId",
           "type": "text",
           "primaryKey": false,
           "notNull": true,

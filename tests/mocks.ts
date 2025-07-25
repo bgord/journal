@@ -366,6 +366,7 @@ export const partialEntry: Schema.SelectEntries = {
   reactionEffectiveness: null,
   reactionType: null,
   language: SupportedLanguages.en,
+  weekIsoId: week.toIsoId(),
   userId,
 };
 
@@ -389,6 +390,7 @@ export const fullEntry: Schema.SelectEntries = {
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
   reactionEffectiveness: 1,
   language: SupportedLanguages.en,
+  weekIsoId: week.toIsoId(),
   userId,
 };
 

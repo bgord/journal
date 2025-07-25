@@ -53,6 +53,7 @@ export class EntryRepository {
       situationLocation: event.payload.location,
       revision: event.revision,
       language: event.payload.language,
+      weekIsoId: tools.Week.fromTimestamp(event.createdAt).toIsoId(),
       userId: event.payload.userId,
     });
   }
