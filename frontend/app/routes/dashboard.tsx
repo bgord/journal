@@ -248,7 +248,11 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     {review.week[0]} - {review.week[1]}
                     <div className="c-badge">{review.status}</div>
                   </div>
-                  <div data-ml="12">"{review.insights}"</div>
+                  <div data-display="flex" data-gap="12">
+                    <div className="c-badge">{review.entryCount}</div>
+                    entries
+                  </div>
+                  {review.status === "completed" && <div data-ml="12">"{review.insights}"</div>}
                 </li>
               ))}
             </ul>

@@ -125,16 +125,27 @@ export class ReadModel {
   }
 
   static async listWeeklyReviews(userId: UserIdType) {
-    const result = await db.query.weeklyReviews.findMany({
-      where: eq(Schema.weeklyReviews.userId, userId),
-      orderBy: desc(Schema.weeklyReviews.createdAt),
-    });
+    const rows = await db
+      .select({
+        id: Schema.weeklyReviews.id,
+        createdAt: Schema.weeklyReviews.createdAt,
+        weekIsoId: Schema.weeklyReviews.weekIsoId,
+        insights: Schema.weeklyReviews.insights,
+        status: Schema.weeklyReviews.status,
+        entryCount: sql<number>`(
+          SELECT COUNT(*) 
+          FROM ${Schema.entries} 
+          WHERE ${Schema.entries.weekIsoId} = ${Schema.weeklyReviews.weekIsoId}
+            AND ${Schema.entries.userId}    = ${userId}
+        )`.mapWith(Number),
+      })
+      .from(Schema.weeklyReviews)
+      .where(eq(Schema.weeklyReviews.userId, userId))
+      .orderBy(desc(Schema.weeklyReviews.createdAt));
 
-    return result.map((row) => ({
+    return rows.map((row) => ({
       ...row,
-      week: tools.Week.fromIsoId(row.weekIsoId)
-        .toRange()
-        .map((ts) => tools.DateFormatters.datetime(ts)),
+      week: tools.Week.fromIsoId(row.weekIsoId).toRange().map(tools.DateFormatters.datetime),
     }));
   }
 
