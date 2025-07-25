@@ -7,6 +7,7 @@ import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
+import { logger } from "+infra/logger";
 import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -101,6 +102,15 @@ export class WeeklyReviewProcessing {
       const composer = new Services.WeeklyReviewNotificationComposer();
 
       const notification = composer.compose(week, entries, insights, patterns);
+
+      if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_DISABLED)) {
+        return logger.info({
+          message: "[FF_MAILER_DISABLED] - email message",
+          correlationId: bg.CorrelationStorage.get(),
+          operation: "email_send",
+          metadata: { from: Env.EMAIL_FROM, to: contact.email, notification },
+        });
+      }
 
       await Mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
     } catch (error) {
