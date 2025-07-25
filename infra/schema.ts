@@ -8,6 +8,7 @@ import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-object
 import { PatternNameOption } from "../modules/emotions/value-objects/pattern-name-option";
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { SituationKindOptions } from "../modules/emotions/value-objects/situation-kind-options";
+import { WeeklyReviewStatusEnum } from "../modules/emotions/value-objects/weekly-review-status";
 
 const toEnumList = (value: Record<string, string>) => ({
   enum: Object.keys(value) as [string, ...string[]],
@@ -110,6 +111,7 @@ export const weeklyReviews = sqliteTable("weeklyReviews", {
     .references(() => entries.id)
     .notNull(),
   insights: text("insights"),
+  status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull(),
 });
 
 /** @public */

@@ -111,5 +111,6 @@ CREATE TABLE `weeklyReviews` (
 	`weekIsoId` text NOT NULL,
 	`userId` text(36) NOT NULL,
 	`insights` text,
+	`status` text NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
 );
