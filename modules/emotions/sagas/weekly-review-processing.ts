@@ -7,6 +7,7 @@ import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
+import { SupportedLanguages } from "+infra/i18n";
 import { logger } from "+infra/logger";
 import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
@@ -43,7 +44,8 @@ export class WeeklyReviewProcessing {
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
 
-    const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries).generate();
+    const language = entries.at(-1)?.language as SupportedLanguages;
+    const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
     try {
       const insights = await this.AiClient.request(prompt);
