@@ -102,6 +102,17 @@ export const patternDetectionsRelations = relations(patternDetections, ({ one })
 }));
 
 /** @public */
+export const weeklyReviews = sqliteTable("weeklyReviews", {
+  id,
+  createdAt: integer("createdAt").notNull(),
+  weekIsoId: text("weekIsoId").notNull(),
+  userId: text("userId", { length: 36 })
+    .references(() => entries.id)
+    .notNull(),
+  insights: text("insights"),
+});
+
+/** @public */
 export const users = sqliteTable("users", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),

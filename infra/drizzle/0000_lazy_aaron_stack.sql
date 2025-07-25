@@ -104,3 +104,12 @@ CREATE TABLE `verifications` (
 	`created_at` integer,
 	`updated_at` integer
 );
+--> statement-breakpoint
+CREATE TABLE `weeklyReviews` (
+	`id` text(36) PRIMARY KEY NOT NULL,
+	`createdAt` integer NOT NULL,
+	`weekIsoId` text NOT NULL,
+	`userId` text(36) NOT NULL,
+	`insights` text,
+	FOREIGN KEY (`userId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
+);
