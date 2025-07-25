@@ -39,6 +39,14 @@
   "dashboard.entries.last_week": "Last week",
   "dashboard.entries.all": "All",
   "dashboard.entries.reactions": "Top reactions",
+  "dashboard.weekly_reviews.header": "Weekly reviews",
+  "dashboard.weekly_reviews.history": "History",
+  "dashboard.weekly_review.status.initial.value": "initial",
+  "dashboard.weekly_review.status.requested.value": "requested",
+  "dashboard.weekly_review.status.completed.value": "completed",
+  "dashboard.weekly_review.status.failed.value": "failed",
+  "dashboard.weekly_review.status.skipped.value": "skipped",
+  "dashboard.weekly_review.entries.count": "entry count",
   "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negative emotion with extreme intensity",
   "entry.add.title": "Add entry",
   "entry.delete.title": "Delete entry",
@@ -118,5 +126,9 @@
   "entry.situation.kind.value.waiting": "waiting",
   "entry.situation.kind.value.work": "work",
   "entry.situation.location.label": "Location",
-  "entry.situation.location.placeholder": "Home"
+  "entry.situation.location.placeholder": "Home",
+  "pattern.LowCopingEffectivenessPattern.name": "Low coping effectiveness",
+  "pattern.MoreNegativeThanPositiveEmotionsPattern.name": "More negative than positive emotions",
+  "pattern.MaladaptiveReactionsPattern.name": "Maladaptive reactions",
+  "pattern.PositiveEmotionWithMaladaptiveReactionPattern.name": "Positive emotion with maladaptive reaction"
 }

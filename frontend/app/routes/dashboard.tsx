@@ -237,12 +237,13 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
         <section data-pb="36" data-fs="12" data-p="12" {...UI.Rhythm(475).times(1).style.width}>
           <h2 data-display="flex" data-gap="12" data-mb="12" data-ml="6">
-            <Icons.Calendar height={20} width={20} data-color="green-500" /> Weekly reviews
+            <Icons.Calendar height={20} width={20} data-color="green-500" />{" "}
+            {t("dashboard.weekly_reviews.header")}
           </h2>
 
           <Components.DashboardCell>
             <h2 data-display="flex" data-gap="12">
-              History
+              {t("dashboard.weekly_reviews.history")}
             </h2>
 
             <ul data-display="flex" data-direction="column" data-gap="24">
@@ -250,15 +251,19 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                 <li key={review.id} data-display="flex" data-direction="column" data-gap="12">
                   <div data-display="flex" data-main="between">
                     {review.week[0]} - {review.week[1]}
-                    <div className="c-badge">{review.status}</div>
+                    <div className="c-badge">
+                      {t(`dashboard.weekly_review.status.${review.status}.value`)}
+                    </div>
                   </div>
                   <div data-display="flex" data-gap="12">
                     <div className="c-badge">{review.entryCount}</div>
-                    entries
+                    {t("dashboard.weekly_review.entries.count")}
                   </div>
                   <ul>
                     {review.patternDetections.map((pattern: any) => (
-                      <li key={pattern.id}>{pattern.name}</li>
+                      <li key={pattern.id} data-fw="700">
+                        - {t(`pattern.${pattern.name}.name`)}
+                      </li>
                     ))}
                   </ul>
                   {review.status === "completed" && <div data-ml="12">"{review.insights}"</div>}

@@ -39,6 +39,14 @@
   "dashboard.entries.last_week": "Tydzień",
   "dashboard.entries.all": "Wszystkie",
   "dashboard.entries.reactions": "Najlepsze reakcje",
+  "dashboard.weekly_reviews.header": "Tygodniowe raporty",
+  "dashboard.weekly_reviews.history": "Historia",
+  "dashboard.weekly_review.status.initial.value": "oczekiwanie",
+  "dashboard.weekly_review.status.requested.value": "w przygotowaniu",
+  "dashboard.weekly_review.status.completed.value": "utworzony",
+  "dashboard.weekly_review.status.failed.value": "błąd",
+  "dashboard.weekly_review.status.skipped.value": "pominięty",
+  "dashboard.weekly_review.entries.count": "liczba wpisów",
   "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negatywna emocja z ekstremalną intensywnością",
   "entry.add.title": "Dodaj wpis",
   "entry.delete.title": "Usuń wpis",
@@ -118,5 +126,9 @@
   "entry.situation.kind.value.waiting": "oczekiwanie",
   "entry.situation.kind.value.work": "praca",
   "entry.situation.location.label": "Lokalizacja",
-  "entry.situation.location.placeholder": "Dom"
+  "entry.situation.location.placeholder": "Dom",
+  "pattern.LowCopingEffectivenessPattern.name": "Nieefektywne reackje",
+  "pattern.MoreNegativeThanPositiveEmotionsPattern.name": "Więcej negatywnych niż pozytywnych emocji",
+  "pattern.MaladaptiveReactionsPattern.name": "Nieodpowiednie reakcje",
+  "pattern.PositiveEmotionWithMaladaptiveReactionPattern.name": "Pozytywne emocje z nieodpowiednimi reakcjami"
 }
