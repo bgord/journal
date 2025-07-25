@@ -20,6 +20,11 @@ export class PatternsRepository {
     return db
       .select()
       .from(Schema.patternDetections)
-      .where(and(eq(Schema.patternDetections.weekIsoId, week.toIsoId()), eq(Schema.entries.userId, userId)));
+      .where(
+        and(
+          eq(Schema.patternDetections.weekIsoId, week.toIsoId()),
+          eq(Schema.patternDetections.userId, userId),
+        ),
+      );
   }
 }
