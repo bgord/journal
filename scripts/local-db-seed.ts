@@ -46,6 +46,12 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.entries);
     console.log("[x] Cleared entries");
 
+    await db.delete(Schema.patternDetections);
+    console.log("[x] Cleared patternDetections");
+
+    await db.delete(Schema.weeklyReviews);
+    console.log("[x] Cleared weeklyReviews");
+
     await db.delete(Schema.accounts);
     console.log("[x] Cleared accounts");
 
@@ -138,6 +144,10 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
       console.log(`[✓] Entry ${counter + 1} created`);
     }
+
+    await Emotions.Services.WeeklyReviewScheduler.process();
+
+    console.log("[✓] Weekly review scheduled");
 
     process.exit(0);
   });
