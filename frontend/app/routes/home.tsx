@@ -64,13 +64,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
 
   return (
-    <main data-pb="36">
+    <main data-pb="6">
       <ul
         className="entries-list"
         data-display="flex"
         data-direction="column"
-        data-gap="24"
-        data-max-width="768"
+        data-gap="5"
+        data-max-width="md"
         data-mx="auto"
       >
         {loaderData.entries.map((entry) => (
@@ -96,8 +96,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         className="c-button"
         data-variant="with-icon"
         data-position="fixed"
-        data-bottom="24"
-        data-right="24"
+        data-bottom="5"
+        data-right="5"
         data-shadow="sm"
         data-interaction="rotate-into-focus"
         viewTransition
