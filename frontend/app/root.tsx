@@ -44,7 +44,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <RR.Meta />
         <RR.Links />
       </head>
-      <body {...UI.Colorful("surface-page").style.background}>
+      <body>
         <UI.TranslationsContext.Provider value={{ translations: data.translations, language: data.language }}>
           <header
             data-display="flex"

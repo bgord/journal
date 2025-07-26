@@ -1,4 +1,3 @@
-import * as UI from "@bgord/ui";
 import { ProfileCircle } from "iconoir-react";
 import { Link, Outlet } from "react-router";
 import * as Auth from "../../auth";
@@ -28,8 +27,9 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
           data-display="flex"
           data-cross="center"
           data-gap="6"
-          data-fs="14"
-          {...UI.Colorful("brand-600").style.color}
+          data-fs="base"
+          data-fw="medium"
+          data-color="brand-200"
         >
           <ProfileCircle height={20} width={20} /> {loaderData?.user.email}
         </div>

@@ -1,5 +1,3 @@
-import * as UI from "@bgord/ui";
-
 export function DashboardCell(props: React.JSX.IntrinsicElements["div"]) {
   return (
     <div
@@ -11,7 +9,6 @@ export function DashboardCell(props: React.JSX.IntrinsicElements["div"]) {
       data-bw="1"
       data-br="4"
       data-shadow="sm"
-      {...UI.Colorful("surface-card").style.background}
       {...props}
     />
   );

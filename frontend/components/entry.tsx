@@ -24,7 +24,6 @@ export function Entry(props: EntryType) {
   return (
     <li
       {...exit.attach}
-      {...UI.Colorful("surface-card").style.background}
       data-testid="entry"
       data-display="flex"
       data-pt="24"
