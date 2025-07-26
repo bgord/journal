@@ -67,7 +67,7 @@ export function Entry(props: EntryType) {
         data-bwb="hairline"
       >
         <div data-display="flex" data-gap="6">
-          <div data-color="neutral-400">{t("entry.situation.description.label")}</div>
+          <div data-color="neutral-500">{t("entry.situation.description.label")}</div>
 
           <div data-ml="auto" data-color="neutral-200">
             @{props.situationLocation}

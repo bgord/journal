@@ -20,6 +20,8 @@ export class OpenAiClient implements AiClient {
       return new VO.Advice(response.output_text);
     }
 
-    return new VO.Advice("This is a mock general advice from Open AI");
+    return new VO.Advice(
+      "This is a mock general advice from Open AI on how to act in a situation of extreme emotions",
+    );
   }
 }
