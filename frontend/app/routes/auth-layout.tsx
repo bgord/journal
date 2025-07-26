@@ -13,12 +13,14 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
     <div data-display="flex" data-direction="column">
       <div data-display="flex" data-main="end" data-cross="center" data-gap="5" data-mb="5">
         <Link
-          className="c-button"
           data-variant="bare"
+          data-fs="sm"
+          data-color="brand-300"
           type="button"
           to="/dashboard"
           data-display="flex"
           data-cross="center"
+          data-transform="uppercase"
         >
           Dashboard
         </Link>
@@ -26,7 +28,7 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
         <div
           data-display="flex"
           data-cross="center"
-          data-gap="6"
+          data-gap="3"
           data-fs="base"
           data-fw="medium"
           data-color="brand-200"
