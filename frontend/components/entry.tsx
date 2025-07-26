@@ -26,14 +26,12 @@ export function Entry(props: EntryType) {
       {...exit.attach}
       data-testid="entry"
       data-display="flex"
-      data-pt="24"
-      data-px="48"
+      data-p="5"
       data-direction="column"
-      data-fs="14"
-      data-bc="gray-200"
-      data-bw="1"
-      data-br="4"
+      data-fs="base"
+      data-br="xs"
       data-shadow="sm"
+      data-bg="neutral-900"
     >
       <header
         data-display="flex"
@@ -41,7 +39,7 @@ export function Entry(props: EntryType) {
         data-cross="center"
         {...UI.Rhythm().times(3).style.height}
       >
-        <div data-fs="16" data-fw="700" data-color="gray-700">
+        <div data-fs="base" data-fw="bold" data-color="neutral-200">
           {props.startedAt}
         </div>
 
@@ -63,22 +61,28 @@ export function Entry(props: EntryType) {
       <section
         data-display="flex"
         data-direction="column"
-        data-gap="12"
-        data-py="24"
-        data-bcb="gray-200"
-        data-bwb="1"
+        data-gap="5"
+        data-py="6"
+        data-bcb="neutral-600"
+        data-bwb="hairline"
       >
         <div data-display="flex" data-gap="6">
-          <div data-color="gray-500">{t("entry.situation.description.label")}</div>
+          <div data-color="neutral-400">{t("entry.situation.description.label")}</div>
 
-          <div data-ml="auto" data-color="gray-700">
+          <div data-ml="auto" data-color="neutral-200">
             @{props.situationLocation}
           </div>
 
           <div className="c-badge">{t(`entry.situation.kind.value.${props.situationKind}`)}</div>
         </div>
 
-        <div data-display="flex" data-main="between" data-cross="center" data-gap="12">
+        <div
+          data-display="flex"
+          data-main="between"
+          data-cross="center"
+          data-gap="12"
+          data-color="neutral-200"
+        >
           <div>{props.situationDescription}</div>
 
           <EntryEmotion {...props} />
@@ -88,7 +92,7 @@ export function Entry(props: EntryType) {
       <EntryReaction {...props} />
 
       {props.alarms[0] && (
-        <ul data-display="flex" data-direction="column" data-gap="24" data-mb="24">
+        <ul data-display="flex" data-direction="column" data-gap="5" data-mb="5">
           {props.alarms.map((alarm) => (
             <Alarm key={alarm.id} {...alarm} />
           ))}

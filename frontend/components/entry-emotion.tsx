@@ -48,7 +48,7 @@ export function EntryEmotion(props: SelectEntriesFormatted) {
   }, [emotionLabel.value]);
 
   return (
-    <div data-display="flex" data-cross="center" data-gap="12">
+    <div data-display="flex" data-cross="center" data-gap="5">
       {editingEmotionLabel.off && (
         <div className="c-badge" onClick={editingEmotionLabel.enable} data-cursor="pointer">
           {t(`entry.emotion.label.value.${emotionLabel.value}`)}

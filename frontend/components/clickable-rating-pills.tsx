@@ -21,15 +21,14 @@ export function ClickableRatingPills(props: ClickableRatingPillsProps) {
           <button
             data-display="block"
             data-p="0"
-            data-br="2"
             data-cursor="pointer"
             type="button"
             /* biome-ignore lint: lint/suspicious/noArrayIndexKey */
             key={index}
             onClick={() => handleClick(rating)}
             style={{
-              border: filled ? "none" : "1px solid var(--brand-200)",
-              backgroundColor: filled ? "var(--brand-500)" : "transparent",
+              border: filled ? "none" : "1px solid var(--color-brand-200)",
+              backgroundColor: filled ? "var(--color-brand-500)" : "transparent",
               ...UI.Rhythm(size).times(1).square,
             }}
             data-testid={`rating-${rating}`}

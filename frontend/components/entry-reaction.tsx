@@ -59,9 +59,9 @@ export function EntryReaction(props: SelectEntriesFormatted) {
   }, [reactionType.value]);
 
   return (
-    <section data-display="flex" data-direction="column" data-gap="12" data-py="24">
-      <div data-display="flex" data-cross="center" data-gap="12" {...UI.Rhythm().times(3).style.minHeight}>
-        <div data-display="flex" data-cross="center" data-gap="6" data-color="gray-500" data-mr="auto">
+    <section data-display="flex" data-direction="column" data-gap="5" data-py="8">
+      <div data-display="flex" data-cross="center" data-gap="5" {...UI.Rhythm().times(3).style.minHeight}>
+        <div data-display="flex" data-cross="center" data-gap="5" data-color="neutral-400" data-mr="auto">
           {t("entry.reaction.description.label")}
         </div>
 
@@ -91,7 +91,9 @@ export function EntryReaction(props: SelectEntriesFormatted) {
       </div>
 
       {editingReactionDescription.off && (
-        <div onClick={editingReactionDescription.enable}>{reactionDescription.value}</div>
+        <div data-color="neutral-200" onClick={editingReactionDescription.enable}>
+          {reactionDescription.value}
+        </div>
       )}
 
       {editingReactionDescription.on && (
@@ -99,7 +101,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
           method="post"
           data-display="flex"
           data-direction="column"
-          data-gap="12"
+          data-gap="5"
           onSubmit={(event) => {
             event.preventDefault();
             evaluateReaction();
@@ -116,7 +118,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
             {...metaEnterSubmit}
           />
 
-          <div data-display="flex" data-main="end" data-gap="12">
+          <div data-display="flex" data-main="end" data-gap="5">
             <CancelButton
               onClick={() => {
                 reactionDescription.clear();

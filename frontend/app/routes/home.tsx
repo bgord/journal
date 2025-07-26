@@ -65,19 +65,19 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-pb="6">
+      {/* @ts-expect-error */}
       <ul
         className="entries-list"
         data-display="flex"
         data-direction="column"
         data-gap="5"
-        data-max-width="md"
+        data-max-width="breakpoint-md"
         data-mx="auto"
       >
         {loaderData.entries.map((entry) => (
           <Components.Entry key={entry.id} {...entry} />
         ))}
       </ul>
-
       {loaderData.entries.length === 0 && (
         <div data-display="flex" data-direction="column" data-cross="center">
           <img
@@ -89,7 +89,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <div {...UI.Colorful("brand-600").style.color}>{t("entry.list.empty")}</div>
         </div>
       )}
-
       <Link
         to="/add-entry"
         type="button"
