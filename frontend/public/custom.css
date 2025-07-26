@@ -22,8 +22,8 @@
 .logo a:visited,
 .logo a:hover,
 .logo a:active {
-  text-shadow: -10px -8px var(--brand-100);
-  color: var(--brand-700);
+  text-shadow: -10px -8px var(--color-brand-800);
+  color: var(--color-brand-300);
   text-decoration: none;
 }
 

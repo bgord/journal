@@ -37,7 +37,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const data = RR.useRouteLoaderData("root");
 
   return (
-    <html lang={data.language}>
+    <html lang={data.language} data-bg="neutral-950">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -50,12 +50,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
             data-display="flex"
             data-main="center"
             data-cross="baseline"
-            data-mt="48"
+            data-mt="4"
             data-gap="12"
-            data-fs="32"
-            data-fw="700"
-            data-transform="center uppercase"
-            data-ls="1.5"
+            data-fs="4xl"
+            data-fw="bold"
+            data-transform="uppercase"
+            data-ls="wider"
+            data-color="brand-600"
             className="logo"
           >
             <RR.Link to="/">Journal</RR.Link>
