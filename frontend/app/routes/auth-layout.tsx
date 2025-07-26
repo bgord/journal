@@ -11,7 +11,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function AuthLayout({ loaderData }: Route.ComponentProps) {
   return (
     <div data-display="flex" data-direction="column">
-      <div data-display="flex" data-main="end" data-cross="center" data-gap="24" data-mb="24">
+      <div data-display="flex" data-main="end" data-cross="center" data-gap="5" data-mb="5">
         <Link
           className="c-button"
           data-variant="bare"
