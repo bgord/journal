@@ -41,22 +41,20 @@ export default function Login({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <main data-display="flex" data-direction="column" data-gap="24" data-mt="72">
+    <main data-display="flex" data-direction="column">
       <RR.Form
         data-display="flex"
         data-direction="column"
-        data-gap="12"
+        data-bg="neutral-900"
         data-mx="auto"
-        data-p="48"
-        data-pt="24"
-        data-bc="gray-200"
-        data-bw="1"
-        data-br="4"
+        data-br="xs"
         data-shadow="sm"
+        data-p="8"
+        data-gap="4"
         onSubmit={signIn}
         style={{ ...UI.Rhythm(400).times(1).width }}
       >
-        <legend data-fs="24" data-transform="center">
+        <legend data-fs="xl" data-color="neutral-200" data-mb="5">
           {t("app.login")}
         </legend>
 
@@ -93,7 +91,6 @@ export default function Login({ loaderData }: Route.ComponentProps) {
         <button
           className="c-button"
           data-variant="primary"
-          data-mt="24"
           type="submit"
           disabled={UI.Fields.allEmpty([email, password]) || state === LoginState.loading}
         >
@@ -103,21 +100,20 @@ export default function Login({ loaderData }: Route.ComponentProps) {
         {state === LoginState.error && (
           <div
             data-display="flex"
-            data-gap="12"
-            data-mt="24"
-            data-mx="auto"
-            data-bg="red-100"
-            data-color="red-600"
-            data-p="12"
+            data-gap="3"
+            data-mt="3"
+            data-bg="neutral-700"
+            data-color="neutral-200"
+            data-p="3"
           >
             <WarningCircle height={20} width={20} />
             {t("auth.login.error.invalid_credentials")}
           </div>
         )}
 
-        <p data-transform="center" data-mt="12">
+        <p data-transform="center" data-color="neutral-400" data-mt="5">
           {t("auth.login.no_account.cta")}{" "}
-          <RR.Link to="/register" data-decoration="underline">
+          <RR.Link className="c-link" to="/register" data-decoration="underline">
             {t("auth.register.label")}
           </RR.Link>
         </p>

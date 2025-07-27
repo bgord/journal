@@ -39,7 +39,7 @@ export function Entry(props: EntryType) {
         data-cross="center"
         {...UI.Rhythm().times(3).style.height}
       >
-        <div data-fs="base" data-fw="bold" data-color="neutral-200">
+        <div data-fs="base" data-fw="regular" data-color="neutral-300">
           {props.startedAt}
         </div>
 
@@ -63,7 +63,7 @@ export function Entry(props: EntryType) {
         data-direction="column"
         data-gap="5"
         data-py="6"
-        data-bcb="neutral-600"
+        data-bcb="neutral-700"
         data-bwb="hairline"
       >
         <div data-display="flex" data-gap="6">
@@ -73,7 +73,9 @@ export function Entry(props: EntryType) {
             @{props.situationLocation}
           </div>
 
-          <div className="c-badge">{t(`entry.situation.kind.value.${props.situationKind}`)}</div>
+          <div className="c-badge" data-variant="outline">
+            {t(`entry.situation.kind.value.${props.situationKind}`)}
+          </div>
         </div>
 
         <div

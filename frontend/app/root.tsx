@@ -57,6 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             data-transform="uppercase"
             data-ls="wider"
             data-color="brand-600"
+            data-ml="5"
             className="logo"
           >
             <RR.Link to="/">Journal</RR.Link>

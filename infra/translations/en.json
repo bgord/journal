@@ -5,7 +5,7 @@
   "app.next": "Next",
   "app.cancel": "Cancel",
   "app.save": "Save",
-  "app.login": "Login",
+  "app.login": "Sign in",
   "app.register": "Register",
   "auth.email.label": "Email",
   "auth.email.placeholder": "user@example.com",
