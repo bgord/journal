@@ -68,9 +68,9 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
             {!loaderData.alarms.inactivity[0] && <div>{t("dashboard.alarm.inactivity.empty")}</div>}
 
-            <ul data-disp="flex" data-dir="column" data-gap="8" data-mt="5">
+            <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
               {loaderData.alarms.inactivity.map((alarm) => (
-                <li key={alarm.id}>
+                <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
                   <div data-disp="flex" data-gap="3">
                     <div data-fs="sm" data-color="neutral-500">
                       {alarm.generatedAt}
@@ -101,9 +101,9 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
             {!loaderData.alarms.entry[0] && <div>Entry alarms will appear here</div>}
 
-            <ul data-disp="flex" data-dir="column" data-gap="8" data-mt="5">
+            <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
               {loaderData.alarms.entry.map((alarm) => (
-                <li key={alarm.id}>
+                <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
                   <div data-disp="flex" data-gap="3">
                     <div data-fs="sm" data-color="neutral-500">
                       {alarm.generatedAt}
@@ -236,7 +236,15 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
               <ul data-disp="flex" data-dir="column" data-mt="5" data-gap="5">
                 {loaderData.entries.topReactions.map((reaction) => (
-                  <li key={reaction.id} data-disp="flex" data-dir="column" data-gap="2">
+                  <li
+                    key={reaction.id}
+                    data-disp="flex"
+                    data-dir="column"
+                    data-bct="neutral-800"
+                    data-bwt="hairline"
+                    data-pt="3"
+                    data-gap="3"
+                  >
                     <div data-disp="flex" data-gap="3">
                       <div className="c-badge" data-variant="primary">
                         {reaction.reactionEffectiveness} / 5

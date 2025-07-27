@@ -21,10 +21,10 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
         <div
           data-disp="flex"
           data-cross="center"
-          data-gap="1-5"
+          data-gap="2"
           data-fs="base"
           data-fw="medium"
-          data-color="neutral-200"
+          data-color="neutral-300"
         >
           <Icons.ProfileCircle data-size="md" /> {loaderData?.user.email}
         </div>
