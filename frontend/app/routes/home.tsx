@@ -1,9 +1,9 @@
 import * as UI from "@bgord/ui";
-import { Plus } from "iconoir-react";
-import { Link } from "react-router";
+import * as Icons from "iconoir-react";
+import * as RR from "react-router";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
-import { guard } from "../../auth";
+import * as Auth from "../../auth";
 import * as Components from "../../components";
 import { ReadModel } from "../../read-model";
 import type { Route } from "./+types/home";
@@ -50,7 +50,7 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const session = await guard.getServerSession(request);
+  const session = await Auth.guard.getServerSession(request);
   const userId = session?.user.id as string;
 
   const entries = await ReadModel.listEntriesForUser(userId);
@@ -77,6 +77,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <Components.Entry key={entry.id} {...entry} />
         ))}
       </ul>
+
       {loaderData.entries.length === 0 && (
         <div data-display="flex" data-direction="column" data-cross="center">
           <img
@@ -88,7 +89,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <div {...UI.Colorful("brand-600").style.color}>{t("entry.list.empty")}</div>
         </div>
       )}
-      <Link
+
+      <RR.Link
         to="/add-entry"
         type="button"
         className="c-button"
@@ -106,8 +108,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           ...UI.Rhythm(16).times(4).square,
         }}
       >
-        <Plus height="36" width="36" />
-      </Link>
+        <Icons.Plus data-size="2xl" />
+      </RR.Link>
     </main>
   );
 }

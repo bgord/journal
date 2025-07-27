@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import { CheckCircle, WarningCircle } from "iconoir-react";
+import * as Icons from "iconoir-react";
 import React from "react";
 import * as RR from "react-router";
 import type { AuthTypes } from "../../../app/services/auth-form";
@@ -113,7 +113,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
             data-bg="positive-300"
             data-br="xs"
           >
-            <CheckCircle height={20} width={20} />
+            <Icons.CheckCircle data-size="md" />
             {t("auth.register.success")}
 
             <RR.Link className="c-link" to="/">
@@ -131,7 +131,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
             data-color="neutral-200"
             data-p="3"
           >
-            <WarningCircle height={20} width={20} />
+            <Icons.WarningCircle data-size="md" />
             {t("auth.register.error")}
           </div>
         )}

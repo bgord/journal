@@ -1,4 +1,4 @@
-import { ProfileCircle } from "iconoir-react";
+import * as Icons from "iconoir-react";
 import * as RR from "react-router";
 import * as Auth from "../../auth";
 import * as Components from "../../components";
@@ -26,7 +26,7 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
           data-fw="medium"
           data-color="brand-200"
         >
-          <ProfileCircle height={20} width={20} /> {loaderData?.user.email}
+          <Icons.ProfileCircle data-size="md" /> {loaderData?.user.email}
         </div>
 
         <Components.LanguageSelector />
