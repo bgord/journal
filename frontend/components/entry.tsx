@@ -26,20 +26,15 @@ export function Entry(props: EntryType) {
     <li
       {...exit.attach}
       data-testid="entry"
-      data-display="flex"
+      data-disp="flex"
       data-p="5"
-      data-direction="column"
+      data-dir="column"
       data-fs="base"
       data-br="xs"
       data-shadow="sm"
       data-bg="neutral-900"
     >
-      <header
-        data-display="flex"
-        data-main="between"
-        data-cross="center"
-        {...UI.Rhythm().times(3).style.height}
-      >
+      <header data-disp="flex" data-main="between" data-cross="center" {...UI.Rhythm().times(3).style.height}>
         <div data-fs="base" data-fw="regular" data-color="neutral-300">
           {props.startedAt}
         </div>
@@ -60,14 +55,14 @@ export function Entry(props: EntryType) {
       </header>
 
       <section
-        data-display="flex"
-        data-direction="column"
+        data-disp="flex"
+        data-dir="column"
         data-gap="5"
         data-py="6"
         data-bcb="neutral-700"
         data-bwb="hairline"
       >
-        <div data-display="flex" data-gap="6">
+        <div data-disp="flex" data-gap="6">
           <div data-color="neutral-400">{t("entry.situation.description.label")}</div>
 
           <div data-ml="auto" data-color="neutral-200">
@@ -79,13 +74,7 @@ export function Entry(props: EntryType) {
           </div>
         </div>
 
-        <div
-          data-display="flex"
-          data-main="between"
-          data-cross="center"
-          data-gap="12"
-          data-color="neutral-200"
-        >
+        <div data-disp="flex" data-main="between" data-cross="center" data-gap="12" data-color="neutral-200">
           <div>{props.situationDescription}</div>
 
           <EntryEmotion {...props} />
@@ -95,7 +84,7 @@ export function Entry(props: EntryType) {
       <EntryReaction {...props} />
 
       {props.alarms[0] && (
-        <ul data-display="flex" data-direction="column" data-gap="5" data-mb="5">
+        <ul data-disp="flex" data-dir="column" data-gap="5" data-mb="5">
           {props.alarms.map((alarm) => (
             <Alarm key={alarm.id} {...alarm} />
           ))}

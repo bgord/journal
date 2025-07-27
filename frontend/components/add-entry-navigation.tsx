@@ -7,7 +7,7 @@ export function AddEntryNavigation(props: { step: AddEntryNavigationStep }) {
 
   return (
     <div
-      data-display="flex"
+      data-disp="flex"
       data-cross="center"
       data-gap="3"
       data-mx="auto"

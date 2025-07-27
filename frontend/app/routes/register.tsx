@@ -41,15 +41,15 @@ export default function Register({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <main data-display="flex" data-direction="column">
-      <header data-display="flex" data-main="between" data-cross="center" data-p="3">
+    <main data-disp="flex" data-dir="column">
+      <header data-disp="flex" data-main="between" data-cross="center" data-p="3">
         <Components.Logo />
         <Components.LanguageSelector />
       </header>
 
       <RR.Form
-        data-display="flex"
-        data-direction="column"
+        data-disp="flex"
+        data-dir="column"
         data-gap="4"
         data-mt="8"
         data-mx="auto"
@@ -63,7 +63,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
           {t("app.register")}
         </legend>
 
-        <div data-display="flex" data-direction="column">
+        <div data-disp="flex" data-dir="column">
           <label className="c-label" {...email.label.props}>
             {t("auth.email.label")}
           </label>
@@ -78,7 +78,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
           />
         </div>
 
-        <div data-display="flex" data-direction="column">
+        <div data-disp="flex" data-dir="column">
           <label className="c-label" {...password.label.props}>
             {t("auth.password.label")}
           </label>
@@ -104,7 +104,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
 
         {state === RegisterState.success && (
           <div
-            data-display="flex"
+            data-disp="flex"
             data-cross="center"
             data-gap="3"
             data-mt="3"
@@ -124,7 +124,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
 
         {state === RegisterState.error && (
           <div
-            data-display="flex"
+            data-disp="flex"
             data-gap="3"
             data-mt="3"
             data-bg="neutral-700"

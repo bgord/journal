@@ -67,10 +67,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <main data-p="6">
       <ul
         className="entries-list"
-        data-display="flex"
-        data-direction="column"
+        data-disp="flex"
+        data-dir="column"
         data-gap="5"
-        data-max-width="md"
+        data-maxw="md"
         data-mx="auto"
       >
         {loaderData.entries.map((entry) => (
@@ -79,7 +79,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       </ul>
 
       {loaderData.entries.length === 0 && (
-        <div data-display="flex" data-direction="column" data-cross="center">
+        <div data-disp="flex" data-dir="column" data-cross="center">
           <img
             src={NotebookSvg}
             data-animation="grow-fade-in"

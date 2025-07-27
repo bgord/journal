@@ -13,14 +13,14 @@ export function ClickableRatingPills(props: ClickableRatingPillsProps) {
   };
 
   return (
-    <div data-display="flex" data-gap="2" data-cross="center">
+    <div data-disp="flex" data-gap="2" data-cross="center">
       {Array.from({ length: total }).map((_, index) => {
         const rating = index + 1;
         const filled = value !== null && rating <= value;
 
         return (
           <button
-            data-display="block"
+            data-disp="block"
             data-p="0"
             data-cursor="pointer"
             type="button"

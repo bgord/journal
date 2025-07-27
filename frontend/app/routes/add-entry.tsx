@@ -63,14 +63,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-p="6">
-      <div
-        data-display="flex"
-        data-direction="column"
-        data-max-width="md"
-        data-mx="auto"
-        data-p="5"
-        data-bg="neutral-900"
-      >
+      <div data-disp="flex" data-dir="column" data-maxw="md" data-mx="auto" data-p="5" data-bg="neutral-900">
         <Components.AddEntryNavigationProgress step={step} />
 
         <fetcher.Form
@@ -85,16 +78,16 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
             });
           }}
           className="add-entry-form"
-          data-display="flex"
-          data-direction="column"
+          data-disp="flex"
+          data-dir="column"
           data-br="sm"
           style={UI.Rhythm().times(25).minHeight}
         >
           <Components.AddEntryNavigation step={step} />
 
           {step === "situation" && (
-            <div data-display="flex" data-direction="column" data-gap="5" data-mt="5">
-              <div data-display="flex" data-direction="column">
+            <div data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
+              <div data-disp="flex" data-dir="column">
                 <label className="c-label" {...situationDescription.label.props}>
                   {t("entry.situation.description.label")}
                 </label>
@@ -109,8 +102,8 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                 />
               </div>
 
-              <div data-display="flex" data-gap="5">
-                <div data-display="flex" data-direction="column">
+              <div data-disp="flex" data-gap="5">
+                <div data-disp="flex" data-dir="column">
                   <label className="c-label" {...situationKind.label.props}>
                     {t("entry.situation.kind.label")}
                   </label>
@@ -125,7 +118,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                   </Components.Select>
                 </div>
 
-                <div data-display="flex" data-direction="column" {...UI.Rhythm().times(20).style.width}>
+                <div data-disp="flex" data-dir="column" {...UI.Rhythm().times(20).style.width}>
                   <label className="c-label" {...situationLocation.label.props}>
                     {t("entry.situation.location.label")}
                   </label>
@@ -142,12 +135,12 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
           )}
 
           {step === "emotion" && (
-            <div data-display="flex" data-direction="column" data-gap="5">
+            <div data-disp="flex" data-dir="column" data-gap="5">
               <div data-fs="sm" data-color="neutral-200" data-mt="5">
                 {t("entry.emotion.label.description")}
               </div>
 
-              <div data-display="flex" data-cross="end" data-gap="3" {...UI.Rhythm().times(5).style.height}>
+              <div data-disp="flex" data-cross="end" data-gap="3" {...UI.Rhythm().times(5).style.height}>
                 <button
                   type="button"
                   className="c-button"
@@ -169,7 +162,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                 </button>
 
                 {emotionType && (
-                  <div data-display="flex" data-direction="column" data-animation="grow-fade-in">
+                  <div data-disp="flex" data-dir="column" data-animation="grow-fade-in">
                     <label className="c-label" {...emotionLabel.label.props}>
                       {t("entry.emotion.label.label")}
                     </label>
@@ -188,7 +181,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                 )}
               </div>
 
-              <div data-display="flex" data-direction="column" data-mt="5">
+              <div data-disp="flex" data-dir="column" data-mt="5">
                 <label className="c-label" {...emotionIntensity.label.props}>
                   {t("entry.emotion.intensity.label")}
                 </label>
@@ -201,8 +194,8 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
           )}
 
           {step === "reaction" && (
-            <div data-display="flex" data-direction="column" data-gap="5">
-              <div data-display="flex" data-direction="column" data-grow="1" data-mt="5">
+            <div data-disp="flex" data-dir="column" data-gap="5">
+              <div data-disp="flex" data-dir="column" data-grow="1" data-mt="5">
                 <label className="c-label" {...reactionDescription.label.props}>
                   {t("entry.reaction.description.label")}
                 </label>
@@ -217,8 +210,8 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                 />
               </div>
 
-              <div data-display="flex" data-gap="5" data-mt="5">
-                <div data-display="flex" data-direction="column">
+              <div data-disp="flex" data-gap="5" data-mt="5">
+                <div data-disp="flex" data-dir="column">
                   <label className="c-label" {...reactionType.label.props}>
                     {t("entry.reaction.type.label")}
                   </label>
@@ -233,7 +226,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
                   </Components.Select>
                 </div>
 
-                <div data-display="flex" data-direction="column">
+                <div data-disp="flex" data-dir="column">
                   <label className="c-label" {...reactionEffectiveness.label.props}>
                     {t("entry.reaction.effectiveness.label")}
                   </label>
@@ -262,7 +255,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
           )}
 
           {step === "emotion" && (
-            <div data-display="flex" data-gap="5" data-ml="auto" data-mt="auto">
+            <div data-disp="flex" data-gap="5" data-ml="auto" data-mt="auto">
               <Components.BackButton onClick={() => setStep("situation")} />
 
               <button
@@ -279,7 +272,7 @@ export default function AddEntry({ loaderData }: Route.ComponentProps) {
           )}
 
           {step === "reaction" && (
-            <div data-display="flex" data-gap="5" data-ml="auto">
+            <div data-disp="flex" data-gap="5" data-ml="auto">
               <Components.BackButton onClick={() => setStep("emotion")} />
 
               <button

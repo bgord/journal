@@ -10,8 +10,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function AuthLayout({ loaderData }: Route.ComponentProps) {
   return (
-    <div data-display="flex" data-direction="column">
-      <header data-display="flex" data-cross="center" data-gap="6" data-p="3">
+    <div data-disp="flex" data-dir="column">
+      <header data-disp="flex" data-cross="center" data-gap="6" data-p="3">
         <Components.Logo />
 
         <RR.Link className="c-link" to="/dashboard" data-transform="uppercase" data-ml="auto">
@@ -19,7 +19,7 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
         </RR.Link>
 
         <div
-          data-display="flex"
+          data-disp="flex"
           data-cross="center"
           data-gap="1-5"
           data-fs="base"
