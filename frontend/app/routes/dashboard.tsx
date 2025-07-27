@@ -28,12 +28,12 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-display="flex" data-direction="column">
-      <ul data-display="flex" data-p="12" data-ml="6">
+      <ul data-display="flex" data-p="5">
         {loaderData.heatmap.map((point, index) => (
           <li
             key={`heatmap-${point}-${index}`}
-            data-bg={point ? "green-400" : "red-400"}
-            {...UI.Rhythm(6).times(1).style.square}
+            data-bg={point ? "positive-500" : "danger-500"}
+            data-size="xs"
           />
         ))}
       </ul>
@@ -44,66 +44,78 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         target="_blank"
         rel="noopener noreferer"
         data-ml="auto"
-        data-mr="24"
-        {...UI.Colorful("brand-500").style.color}
+        data-mr="8"
+        data-color="brand-500"
       >
-        <Icons.DownloadCircle height={20} width={20} />
+        <Icons.DownloadCircle data-size="lg" />
       </a>
 
-      <div data-display="flex">
-        <section data-p="12" data-fs="12" {...UI.Rhythm(475).times(1).style.width}>
-          <h2 data-display="flex" data-gap="12" data-mb="12" data-ml="6">
-            <Icons.Alarm height={20} width={20} data-color="red-500" /> {t("dashboard.alarm.header")}
+      <div data-display="flex" data-gap="5" data-color="neutral-200" data-px="1">
+        <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
+          <h2 data-display="flex" data-cross="center" data-gap="3" data-fw="regular">
+            <Icons.Alarm data-size="md" data-color="brand-300" /> {t("dashboard.alarm.header")}
           </h2>
 
-          <Components.DashboardCell>
-            <h2 data-display="flex" data-gap="12">
+          <Components.DashboardCell data-mt="3">
+            <h2 data-display="flex" data-gap="3" data-fs="base">
               {t("dashboard.alarm.inactivity")}
-              <div className="c-badge">{loaderData.alarms.inactivity.length}</div>
+              <div className="c-badge" data-variant="primary">
+                {loaderData.alarms.inactivity.length}
+              </div>
             </h2>
 
             {!loaderData.alarms.inactivity[0] && <div>{t("dashboard.alarm.inactivity.empty")}</div>}
 
-            <ul data-display="flex" data-direction="column" data-gap="12" data-mt="12">
+            <ul data-display="flex" data-direction="column" data-gap="8" data-mt="5">
               {loaderData.alarms.inactivity.map((alarm) => (
                 <li key={alarm.id}>
-                  <div data-display="flex" data-gap="6">
-                    <div>{alarm.generatedAt}</div>
+                  <div data-display="flex" data-gap="3">
+                    <div data-fs="sm" data-color="neutral-500">
+                      {alarm.generatedAt}
+                    </div>
 
-                    <div {...UI.Colorful("brand-600").style.color}>
+                    <div data-color="neutral-300">
                       {t("dashboard.alarm.inactivity.duration", {
                         inactivityDays: String(alarm.inactivityDays),
                       })}
                     </div>
 
-                    <div data-ml="12">"{alarm.advice}"</div>
+                    <div data-ml="3" data-color="neutral-100">
+                      "{alarm.advice}"
+                    </div>
                   </div>
                 </li>
               ))}
             </ul>
           </Components.DashboardCell>
 
-          <Components.DashboardCell data-mt="24">
-            <h2 data-display="flex" data-gap="12">
+          <Components.DashboardCell data-mt="5">
+            <h2 data-display="flex" data-gap="3" data-fs="base">
               {t("dashboard.alarm.entry")}
-              <div className="c-badge">{loaderData.alarms.entry.length}</div>
+              <div className="c-badge" data-variant="primary">
+                {loaderData.alarms.entry.length}
+              </div>
             </h2>
 
             {!loaderData.alarms.entry[0] && <div>Entry alarms will appear here</div>}
 
-            <ul data-display="flex" data-direction="column" data-gap="12" data-mt="12">
+            <ul data-display="flex" data-direction="column" data-gap="8" data-mt="5">
               {loaderData.alarms.entry.map((alarm) => (
                 <li key={alarm.id}>
-                  <div data-display="flex" data-gap="6">
-                    <div>{alarm.generatedAt}</div>
+                  <div data-display="flex" data-gap="3">
+                    <div data-fs="sm" data-color="neutral-500">
+                      {alarm.generatedAt}
+                    </div>
 
-                    <div {...UI.Colorful("brand-600").style.color}>
+                    <div data-color="neutral-300">
                       {t(`dashboard.alarm.entry.${alarm.name}.description`, {
                         emotionLabel: t(`entry.emotion.label.value.${alarm.emotionLabel}`),
                       })}
                     </div>
 
-                    <div data-ml="12">"{alarm.advice}"</div>
+                    <div data-ml="3" data-color="neutral-100">
+                      "{alarm.advice}"
+                    </div>
                   </div>
                 </li>
               ))}
@@ -111,12 +123,12 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           </Components.DashboardCell>
         </section>
 
-        <section data-pb="36" data-fs="12" data-p="12" {...UI.Rhythm(475).times(1).style.width}>
-          <h2 data-display="flex" data-gap="12" data-mb="12" data-ml="6">
-            <Icons.Notes height={20} width={20} data-color="green-500" /> {t("dashboard.entries.header")}
+        <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
+          <h2 data-display="flex" data-cross="center" data-gap="3" data-fw="regular">
+            <Icons.Notes data-size="md" data-color="brand-300" /> {t("dashboard.entries.header")}
           </h2>
 
-          <Components.DashboardCell>
+          <Components.DashboardCell data-mt="3">
             <h2 data-display="flex" data-gap="12">
               {t("dashboard.entries.counts")}
             </h2>
@@ -235,7 +247,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           )}
         </section>
 
-        <section data-pb="36" data-fs="12" data-p="12" {...UI.Rhythm(475).times(1).style.width}>
+        <section data-pb="36" data-fs="12" data-p="12" {...UI.Rhythm(450).times(1).style.width}>
           <h2 data-display="flex" data-gap="12" data-mb="12" data-ml="6">
             <Icons.Calendar height={20} width={20} data-color="green-500" />{" "}
             {t("dashboard.weekly_reviews.header")}
