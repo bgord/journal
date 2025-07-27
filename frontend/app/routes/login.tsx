@@ -117,7 +117,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
           </div>
         )}
 
-        <p data-transform="center" data-color="neutral-400" data-mt="5">
+        <p data-transform="center" data-color="neutral-400" data-mt="5" data-fs="sm">
           {t("auth.login.no_account.cta")}{" "}
           <RR.Link className="c-link" to="/register" data-decoration="underline">
             {t("auth.register.label")}

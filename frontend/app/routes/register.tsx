@@ -138,7 +138,7 @@ export default function Register({ loaderData }: Route.ComponentProps) {
         )}
 
         {state !== RegisterState.success && (
-          <p data-transform="center" data-color="neutral-400" data-mt="5">
+          <p data-transform="center" data-color="neutral-400" data-mt="5" data-fs="sm">
             {t("auth.register.have_an_account.cta")}{" "}
             <RR.Link className="c-link" to="/" data-decoration="underline">
               {t("auth.login.label")}
