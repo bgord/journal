@@ -66,7 +66,12 @@ export function EntryReaction(props: SelectEntriesFormatted) {
         </div>
 
         {editingReactionType.off && (
-          <div className="c-badge" onClick={editingReactionType.enable} data-cursor="pointer">
+          <div
+            className="c-badge"
+            data-variant="primary"
+            data-cursor="pointer"
+            onClick={editingReactionType.enable}
+          >
             {t(`entry.reaction.type.value.${reactionType.value}`)}
           </div>
         )}
