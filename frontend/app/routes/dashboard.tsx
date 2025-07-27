@@ -54,7 +54,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
       <div data-disp="flex" data-gap="5" data-mx="auto" data-color="neutral-200" data-px="1">
         <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
-          <h2 data-disp="flex" data-cross="center" data-gap="3">
+          <h2 data-disp="flex" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
             <Icons.Alarm data-size="md" data-color="brand-300" /> {t("dashboard.alarm.header")}
           </h2>
 
@@ -126,7 +126,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         </section>
 
         <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
-          <h2 data-disp="flex" data-cross="center" data-gap="3" data-fw="regular">
+          <h2 data-disp="flex" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
             <Icons.Notes data-size="md" data-color="brand-300" /> {t("dashboard.entries.header")}
           </h2>
 
@@ -258,7 +258,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         </section>
 
         <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
-          <h2 data-disp="flex" data-cross="center" data-gap="3" data-fw="regular">
+          <h2 data-disp="flex" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
             <Icons.Calendar data-size="md" data-color="brand-300" /> {t("dashboard.weekly_reviews.header")}
           </h2>
 
