@@ -64,7 +64,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
 
   return (
-    <main data-pb="6">
+    <main data-p="6">
       <ul
         className="entries-list"
         data-display="flex"

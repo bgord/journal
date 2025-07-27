@@ -1,7 +1,8 @@
 import { ProfileCircle } from "iconoir-react";
-import { Link, Outlet } from "react-router";
+import * as RR from "react-router";
 import * as Auth from "../../auth";
 import * as Components from "../../components";
+import { LanguageSelector } from "../../components/language-selector";
 import type { Route } from "./+types/auth-layout";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -11,24 +12,26 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function AuthLayout({ loaderData }: Route.ComponentProps) {
   return (
     <div data-display="flex" data-direction="column">
-      <div data-display="flex" data-main="end" data-cross="center" data-gap="5" data-mb="5">
-        <Link
-          data-variant="bare"
-          data-fs="sm"
-          data-color="brand-300"
-          type="button"
-          to="/dashboard"
-          data-display="flex"
-          data-cross="center"
-          data-transform="uppercase"
+      <header data-display="flex" data-cross="center" data-gap="6" data-p="3">
+        <div
+          className="logo"
+          data-mr="auto"
+          data-fs="4xl"
+          data-fw="bold"
+          data-ls="wider"
+          data-color="brand-600"
         >
+          <RR.Link to="/">JOURNAL</RR.Link>
+        </div>
+
+        <RR.Link className="c-link" to="/dashboard" data-transform="uppercase">
           Dashboard
-        </Link>
+        </RR.Link>
 
         <div
           data-display="flex"
           data-cross="center"
-          data-gap="3"
+          data-gap="1-5"
           data-fs="base"
           data-fw="medium"
           data-color="brand-200"
@@ -36,9 +39,11 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
           <ProfileCircle height={20} width={20} /> {loaderData?.user.email}
         </div>
 
+        <LanguageSelector />
+
         <Components.LogoutButton />
-      </div>
-      <Outlet context={loaderData} />;
+      </header>
+      <RR.Outlet context={loaderData} />;
     </div>
   );
 }

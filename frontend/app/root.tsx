@@ -2,7 +2,6 @@ import * as UI from "@bgord/ui";
 import * as RR from "react-router";
 import { API } from "../api";
 import { GlobalShortcuts } from "../components/global-shortcuts";
-import { LanguageSelector } from "../components/language-selector";
 import { RevalidateOnFocus } from "../components/revalidate-on-focus";
 import type { Route } from "./+types/root";
 
@@ -46,25 +45,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <UI.TranslationsContext.Provider value={{ translations: data.translations, language: data.language }}>
-          <header
-            data-display="flex"
-            data-main="center"
-            data-cross="baseline"
-            data-mt="4"
-            data-gap="12"
-            data-fs="4xl"
-            data-fw="bold"
-            data-transform="uppercase"
-            data-ls="wider"
-            data-color="brand-600"
-            data-ml="5"
-            className="logo"
-          >
-            <RR.Link to="/">Journal</RR.Link>
-
-            <LanguageSelector />
-          </header>
-
           {children}
         </UI.TranslationsContext.Provider>
         <RR.ScrollRestoration />
