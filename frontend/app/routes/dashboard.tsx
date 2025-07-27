@@ -35,7 +35,9 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             key={`heatmap-${point}-${index}`}
             data-bg={point.t ? `positive-${point.c}` : `danger-${point.c}`}
             data-br="xs"
-            style={UI.Rhythm(9).times(1).square}
+            style={UI.Rhythm(10).times(1).square}
+            data-interaction="subtle-scale"
+            data-animation="grow-fade-in"
           />
         ))}
       </ul>
