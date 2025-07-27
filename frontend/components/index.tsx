@@ -4,6 +4,7 @@ export * from "./back-button";
 export * from "./clickable-rating-pills";
 export * from "./dashboard-cell";
 export * from "./entry";
+export * from "./logo";
 export * from "./logout-button";
 export * from "./rating-pills";
 export * from "./revalidate-on-focus";

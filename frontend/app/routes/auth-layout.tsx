@@ -13,18 +13,9 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
   return (
     <div data-display="flex" data-direction="column">
       <header data-display="flex" data-cross="center" data-gap="6" data-p="3">
-        <div
-          className="logo"
-          data-mr="auto"
-          data-fs="4xl"
-          data-fw="bold"
-          data-ls="wider"
-          data-color="brand-600"
-        >
-          <RR.Link to="/">JOURNAL</RR.Link>
-        </div>
+        <Components.Logo />
 
-        <RR.Link className="c-link" to="/dashboard" data-transform="uppercase">
+        <RR.Link className="c-link" to="/dashboard" data-transform="uppercase" data-ml="auto">
           Dashboard
         </RR.Link>
 
