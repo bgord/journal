@@ -65,13 +65,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-pb="6">
-      {/* @ts-expect-error */}
       <ul
         className="entries-list"
         data-display="flex"
         data-direction="column"
         data-gap="5"
-        data-max-width="breakpoint-md"
+        data-max-width="md"
         data-mx="auto"
       >
         {loaderData.entries.map((entry) => (
