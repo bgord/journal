@@ -2,7 +2,6 @@ import { ProfileCircle } from "iconoir-react";
 import * as RR from "react-router";
 import * as Auth from "../../auth";
 import * as Components from "../../components";
-import { LanguageSelector } from "../../components/language-selector";
 import type { Route } from "./+types/auth-layout";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -30,7 +29,7 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
           <ProfileCircle height={20} width={20} /> {loaderData?.user.email}
         </div>
 
-        <LanguageSelector />
+        <Components.LanguageSelector />
 
         <Components.LogoutButton />
       </header>

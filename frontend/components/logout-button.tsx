@@ -8,7 +8,7 @@ export function LogoutButton() {
   const navigate = useNavigate();
 
   return (
-    <fetcher.Form method="post" action="/logout" data-mr="5">
+    <fetcher.Form method="post" action="/logout">
       <button
         type="submit"
         className="c-button"

@@ -4,6 +4,7 @@ import React from "react";
 import * as RR from "react-router";
 import type { AuthTypes } from "../../../app/services/auth-form";
 import * as Auth from "../../auth";
+import * as Components from "../../components";
 import { ReadModel } from "../../read-model";
 import type { Route } from "./+types/register";
 
@@ -41,15 +42,20 @@ export default function Register({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-display="flex" data-direction="column">
+      <header data-display="flex" data-main="between" data-cross="center" data-p="3">
+        <Components.Logo />
+        <Components.LanguageSelector />
+      </header>
+
       <RR.Form
         data-display="flex"
         data-direction="column"
-        data-bg="neutral-900"
-        data-mx="auto"
-        data-br="xs"
-        data-shadow="sm"
-        data-p="8"
         data-gap="4"
+        data-mt="8"
+        data-mx="auto"
+        data-p="8"
+        data-bg="neutral-900"
+        data-br="xs"
         onSubmit={signUp}
         style={UI.Rhythm(400).times(1).width}
       >

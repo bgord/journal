@@ -22,6 +22,7 @@ export function Entry(props: EntryType) {
 
   // TODO tidy-up gaps
   return (
+    // @ts-expect-error
     <li
       {...exit.attach}
       data-testid="entry"
