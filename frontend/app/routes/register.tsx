@@ -106,17 +106,18 @@ export default function Register({ loaderData }: Route.ComponentProps) {
           <div
             data-disp="flex"
             data-cross="center"
-            data-gap="3"
+            data-gap="2"
             data-mt="3"
             data-p="2"
             data-fs="base"
-            data-bg="positive-300"
+            data-bg="positive-200"
+            data-color="positive-800"
             data-br="xs"
           >
             <Icons.CheckCircle data-size="md" />
             {t("auth.register.success")}
 
-            <RR.Link className="c-link" to="/">
+            <RR.Link className="c-link" to="/" data-ml="3">
               {t("auth.login.label")}
             </RR.Link>
           </div>

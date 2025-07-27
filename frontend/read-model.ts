@@ -5,6 +5,8 @@ import { AuthForm } from "../app/services/auth-form";
 import * as Schema from "../infra/schema";
 import type { UserIdType } from "../modules/auth/value-objects/user-id";
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
+import type { EmotionIntensityType } from "../modules/emotions/value-objects/emotion-intensity";
+import { EmotionIntensity } from "../modules/emotions/value-objects/emotion-intensity";
 import type { EmotionLabelType } from "../modules/emotions/value-objects/emotion-label";
 import { EmotionLabel } from "../modules/emotions/value-objects/emotion-label";
 import { db } from "./db";
@@ -26,12 +28,20 @@ export class ReadModel {
 
   static async getHeatmap(userId: UserIdType) {
     const rows = await db
-      .select({ label: Schema.entries.emotionLabel })
+      .select({ label: Schema.entries.emotionLabel, intensity: Schema.entries.emotionIntensity })
       .from(Schema.entries)
       .where(eq(Schema.entries.userId, userId))
       .orderBy(desc(Schema.entries.startedAt));
 
-    return rows.map((row) => (new EmotionLabel(row.label as EmotionLabelType).isPositive() ? 1 : 0));
+    return rows.map((row) => {
+      const label = new EmotionLabel(row.label as EmotionLabelType);
+      const intensity = new EmotionIntensity(row.intensity as EmotionIntensityType);
+
+      return {
+        t: label.isPositive() ? 1 : 0,
+        c: intensity.isExtreme() ? "600" : intensity.isIntensive() ? "400" : "200",
+      };
+    });
   }
 
   static async getEntryCounts(userId: UserIdType) {

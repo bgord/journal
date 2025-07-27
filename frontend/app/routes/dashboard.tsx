@@ -28,12 +28,14 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-disp="flex" data-dir="column">
-      <ul data-disp="flex" data-p="5">
+      <ul data-disp="flex" data-p="5" style={{ gap: "4px" }}>
         {loaderData.heatmap.map((point, index) => (
+          // @ts-expect-error
           <li
             key={`heatmap-${point}-${index}`}
-            data-bg={point ? "positive-500" : "danger-500"}
-            {...UI.Rhythm(8).times(1).style.square}
+            data-bg={point.t ? `positive-${point.c}` : `danger-${point.c}`}
+            data-br="xs"
+            style={UI.Rhythm(9).times(1).square}
           />
         ))}
       </ul>
