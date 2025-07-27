@@ -1,7 +1,7 @@
 import * as UI from "@bgord/ui";
 import { CheckCircle, WarningCircle } from "iconoir-react";
 import React from "react";
-import { Form, Link } from "react-router";
+import * as RR from "react-router";
 import type { AuthTypes } from "../../../app/services/auth-form";
 import * as Auth from "../../auth";
 import { ReadModel } from "../../read-model";
@@ -40,22 +40,20 @@ export default function Register({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <main data-display="flex" data-direction="column" data-gap="24" data-mt="72">
-      <Form
+    <main data-display="flex" data-direction="column">
+      <RR.Form
         data-display="flex"
         data-direction="column"
-        data-gap="12"
+        data-bg="neutral-900"
         data-mx="auto"
-        data-p="48"
-        data-pt="24"
-        data-bc="gray-200"
-        data-bw="1"
-        data-br="4"
+        data-br="xs"
         data-shadow="sm"
+        data-p="8"
+        data-gap="4"
         onSubmit={signUp}
         style={UI.Rhythm(400).times(1).width}
       >
-        <legend data-fs="24" data-transform="center">
+        <legend data-fs="xl" data-color="neutral-200" data-mb="5">
           {t("app.register")}
         </legend>
 
@@ -92,7 +90,6 @@ export default function Register({ loaderData }: Route.ComponentProps) {
         <button
           className="c-button"
           data-variant="primary"
-          data-mt="24"
           type="submit"
           disabled={UI.Fields.allUnchanged([email, password]) || state === RegisterState.success}
         >
@@ -102,49 +99,46 @@ export default function Register({ loaderData }: Route.ComponentProps) {
         {state === RegisterState.success && (
           <div
             data-display="flex"
-            data-main="baseline"
-            data-gap="12"
-            data-mt="24"
-            data-mx="auto"
-            data-bg="green-100"
-            data-color="green-600"
-            data-py="12"
-            data-px="24"
+            data-cross="center"
+            data-gap="3"
+            data-mt="3"
+            data-p="2"
+            data-fs="base"
+            data-bg="positive-300"
+            data-br="xs"
           >
             <CheckCircle height={20} width={20} />
             {t("auth.register.success")}
-            <br />
-            <span>
-              {t("auth.register.success")}{" "}
-              <Link data-transform="center" to="/">
-                {t("auth.login.label")}
-              </Link>
-            </span>
+
+            <RR.Link className="c-link" to="/">
+              {t("auth.login.label")}
+            </RR.Link>
           </div>
         )}
 
         {state === RegisterState.error && (
           <div
             data-display="flex"
-            data-gap="12"
-            data-mt="24"
-            data-mx="auto"
-            data-bg="red-100"
-            data-color="red-600"
-            data-p="12"
+            data-gap="3"
+            data-mt="3"
+            data-bg="neutral-700"
+            data-color="neutral-200"
+            data-p="3"
           >
             <WarningCircle height={20} width={20} />
             {t("auth.register.error")}
           </div>
         )}
 
-        <p data-transform="center" data-mt="12">
-          {t("auth.register.have_an_account.cta")}{" "}
-          <Link to="/" data-decoration="underline">
-            {t("auth.login.label")}
-          </Link>
-        </p>
-      </Form>
+        {state !== RegisterState.success && (
+          <p data-transform="center" data-color="neutral-400" data-mt="5">
+            {t("auth.register.have_an_account.cta")}{" "}
+            <RR.Link className="c-link" to="/" data-decoration="underline">
+              {t("auth.login.label")}
+            </RR.Link>
+          </p>
+        )}
+      </RR.Form>
     </main>
   );
 }

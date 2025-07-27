@@ -52,7 +52,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
         data-p="8"
         data-gap="4"
         onSubmit={signIn}
-        style={{ ...UI.Rhythm(400).times(1).width }}
+        style={UI.Rhythm(400).times(1).width}
       >
         <legend data-fs="xl" data-color="neutral-200" data-mb="5">
           {t("app.login")}
