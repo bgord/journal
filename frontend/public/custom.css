@@ -1,3 +1,8 @@
+html,
+body {
+  font-family: Inter !important;
+}
+
 .logo a,
 .logo a:visited,
 .logo a:hover,
