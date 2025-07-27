@@ -33,7 +33,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           <li
             key={`heatmap-${point}-${index}`}
             data-bg={point ? "positive-500" : "danger-500"}
-            data-size="xs"
+            {...UI.Rhythm(8).times(1).style.square}
           />
         ))}
       </ul>
@@ -275,7 +275,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     </div>
                   </div>
 
-                  <div data-disp="flex" data-gap="2">
+                  <div data-disp="flex" data-gap="2" data-fs="sm">
                     <div className="c-badge" data-variant="primary">
                       {review.entryCount}
                     </div>
