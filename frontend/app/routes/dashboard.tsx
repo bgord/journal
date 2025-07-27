@@ -50,9 +50,9 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         <Icons.DownloadCircle data-size="lg" />
       </a>
 
-      <div data-display="flex" data-gap="5" data-color="neutral-200" data-px="1">
+      <div data-display="flex" data-gap="5" data-mx="auto" data-color="neutral-200" data-px="1">
         <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
-          <h2 data-display="flex" data-cross="center" data-gap="3" data-fw="regular">
+          <h2 data-display="flex" data-cross="center" data-gap="3">
             <Icons.Alarm data-size="md" data-color="brand-300" /> {t("dashboard.alarm.header")}
           </h2>
 
@@ -255,38 +255,50 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           )}
         </section>
 
-        <section data-pb="36" data-fs="12" data-p="12" {...UI.Rhythm(450).times(1).style.width}>
-          <h2 data-display="flex" data-gap="12" data-mb="12" data-ml="6">
-            <Icons.Calendar height={20} width={20} data-color="green-500" />{" "}
-            {t("dashboard.weekly_reviews.header")}
+        <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
+          <h2 data-display="flex" data-cross="center" data-gap="3" data-fw="regular">
+            <Icons.Calendar data-size="md" data-color="brand-300" /> {t("dashboard.weekly_reviews.header")}
           </h2>
 
-          <Components.DashboardCell>
-            <h2 data-display="flex" data-gap="12">
+          <Components.DashboardCell data-mt="3">
+            <h2 data-display="flex" data-fs="base">
               {t("dashboard.weekly_reviews.history")}
             </h2>
 
-            <ul data-display="flex" data-direction="column" data-gap="24">
+            <ul data-display="flex" data-direction="column" data-mt="5">
               {loaderData.weeklyReviews.map((review) => (
-                <li key={review.id} data-display="flex" data-direction="column" data-gap="12">
+                <li key={review.id} data-display="flex" data-direction="column" data-gap="5">
                   <div data-display="flex" data-main="between">
                     {review.week[0]} - {review.week[1]}
-                    <div className="c-badge">
+                    <div className="c-badge" data-variant="outline">
                       {t(`dashboard.weekly_review.status.${review.status}.value`)}
                     </div>
                   </div>
-                  <div data-display="flex" data-gap="12">
-                    <div className="c-badge">{review.entryCount}</div>
+
+                  <div data-display="flex" data-gap="2">
+                    <div className="c-badge" data-variant="primary">
+                      {review.entryCount}
+                    </div>
                     {t("dashboard.weekly_review.entries.count")}
                   </div>
-                  <ul>
-                    {review.patternDetections.map((pattern: any) => (
-                      <li key={pattern.id} data-fw="700">
-                        - {t(`pattern.${pattern.name}.name`)}
-                      </li>
-                    ))}
-                  </ul>
-                  {review.status === "completed" && <div data-ml="12">"{review.insights}"</div>}
+
+                  <div data-display="flex" data-direction="column" data-gap="3">
+                    <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
+
+                    <ul data-display="flex" data-gap="2">
+                      {review.patternDetections.map((pattern: any) => (
+                        <li key={pattern.id} data-fs="sm" data-color="neutral-300">
+                          - {t(`pattern.${pattern.name}.name`)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {review.status === "completed" && (
+                    <div data-ml="3" data-color="neutral-100">
+                      "{review.insights}"
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>

@@ -47,6 +47,7 @@
   "dashboard.weekly_review.status.failed.value": "błąd",
   "dashboard.weekly_review.status.skipped.value": "pominięty",
   "dashboard.weekly_review.entries.count": "liczba wpisów",
+  "dashboard.weekly_review.entries.patterns": "Schematy",
   "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negatywna emocja z ekstremalną intensywnością",
   "entry.add.title": "Dodaj wpis",
   "entry.delete.title": "Usuń wpis",
