@@ -129,28 +129,34 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           </h2>
 
           <Components.DashboardCell data-mt="3">
-            <h2 data-display="flex" data-gap="12">
+            <h2 data-display="flex" data-gap="3" data-fs="base">
               {t("dashboard.entries.counts")}
             </h2>
 
-            <div data-display="flex" data-main="between" data-px="36">
-              <div data-display="flex" data-direction="column" data-cross="center" data-gap="12">
-                <div data-transform="center">{t("dashboard.entries.today")}</div>
-                <div data-fs="36" {...UI.Colorful("brand-500").style.color}>
+            <div data-display="flex" data-main="between" data-mt="5" data-px="8">
+              <div data-display="flex" data-direction="column" data-cross="center" data-gap="2">
+                <div data-color="neutral-400" data-transform="center">
+                  {t("dashboard.entries.today")}
+                </div>
+                <div data-fs="3xl" data-fw="bold">
                   {loaderData.entries.counts.today}
                 </div>
               </div>
 
-              <div data-display="flex" data-direction="column" data-cross="center" data-gap="12">
-                <div data-transform="center">{t("dashboard.entries.last_week")}</div>
-                <div data-fs="36" {...UI.Colorful("brand-500").style.color}>
+              <div data-display="flex" data-direction="column" data-cross="center" data-gap="2">
+                <div data-color="neutral-400" data-transform="center">
+                  {t("dashboard.entries.last_week")}
+                </div>
+                <div data-fs="3xl" data-fw="bold">
                   {loaderData.entries.counts.lastWeek}
                 </div>
               </div>
 
-              <div data-display="flex" data-direction="column" data-cross="center" data-gap="12">
-                <div data-transform="center">{t("dashboard.entries.all")}</div>
-                <div data-fs="36" {...UI.Colorful("brand-500").style.color}>
+              <div data-display="flex" data-direction="column" data-cross="center" data-gap="2">
+                <div data-color="neutral-400" data-transform="center">
+                  {t("dashboard.entries.all")}
+                </div>
+                <div data-fs="3xl" data-fw="bold">
                   {loaderData.entries.counts.all}
                 </div>
               </div>
@@ -160,64 +166,58 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           {loaderData.entries.topEmotions.today[0] &&
             loaderData.entries.topEmotions.lastWeek[0] &&
             loaderData.entries.topEmotions.all[0] && (
-              <Components.DashboardCell data-mt="24">
-                <h2 data-display="flex" data-gap="12">
+              <Components.DashboardCell data-mt="5">
+                <h2 data-display="flex" data-gap="3" data-fs="base">
                   {t("dashboard.entries.top_emotions")}
                 </h2>
 
-                <div data-display="flex" data-main="between" data-px="12">
-                  <div
-                    data-display="flex"
-                    data-direction="column"
-                    data-cross="center"
-                    data-gap="12"
-                    data-fs="12"
-                  >
-                    <div {...UI.Colorful("brand-500").style.color}>{t("dashboard.entries.today")}</div>
+                <div data-display="flex" data-main="between" data-mt="5">
+                  <div data-display="flex" data-direction="column" data-cross="center" data-fs="sm">
+                    <div data-color="neutral-400" data-transform="center">
+                      {t("dashboard.entries.today")}
+                    </div>
 
-                    <ul data-display="flex" data-direction="column" data-gap="24">
+                    <ul data-display="flex" data-direction="column" data-mt="3" data-gap="2">
                       {loaderData.entries.topEmotions.today.map((stat, index) => (
-                        <li key={`top-emotions-today-${stat.hits}-${index}`} data-display="flex" data-gap="6">
-                          <div className="c-badge">{stat.hits}</div>
-                          <div>{t(`entry.emotion.label.value.${stat.label}`)}</div>
+                        <li key={`top-emotions-today-${stat.hits}-${index}`} data-display="flex" data-gap="2">
+                          <div className="c-badge" data-variant="primary">
+                            {stat.hits}
+                          </div>
+                          <div data-fs="xs">{t(`entry.emotion.label.value.${stat.label}`)}</div>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div
-                    data-display="flex"
-                    data-direction="column"
-                    data-cross="center"
-                    data-gap="12"
-                    data-fs="12"
-                  >
-                    <div {...UI.Colorful("brand-500").style.color}>{t("dashboard.entries.last_week")}</div>
+                  <div data-display="flex" data-direction="column" data-cross="center" data-fs="sm">
+                    <div data-color="neutral-400" data-transform="center">
+                      {t("dashboard.entries.last_week")}
+                    </div>
 
-                    <ul data-display="flex" data-direction="column" data-gap="24">
+                    <ul data-display="flex" data-direction="column" data-mt="3" data-gap="2">
                       {loaderData.entries.topEmotions.lastWeek.map((stat, index) => (
-                        <li key={`top-emotions-last-week-${stat}-${index}`} data-display="flex" data-gap="6">
-                          <div className="c-badge">{stat.hits}</div>
-                          <div>{t(`entry.emotion.label.value.${stat.label}`)}</div>
+                        <li key={`top-emotions-last-week-${stat}-${index}`} data-display="flex" data-gap="2">
+                          <div className="c-badge" data-variant="primary">
+                            {stat.hits}
+                          </div>
+                          <div data-fs="xs">{t(`entry.emotion.label.value.${stat.label}`)}</div>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div
-                    data-display="flex"
-                    data-direction="column"
-                    data-cross="center"
-                    data-gap="12"
-                    data-fs="12"
-                  >
-                    <div {...UI.Colorful("brand-500").style.color}>{t("dashboard.entries.all")}</div>
+                  <div data-display="flex" data-direction="column" data-cross="center" data-fs="sm">
+                    <div data-color="neutral-400" data-transform="center">
+                      {t("dashboard.entries.all")}
+                    </div>
 
-                    <ul data-display="flex" data-direction="column" data-gap="24">
+                    <ul data-display="flex" data-direction="column" data-mt="3" data-gap="2">
                       {loaderData.entries.topEmotions.all.map((stat, index) => (
-                        <li key={`top-emotions-all-${stat}-${index}`} data-display="flex" data-gap="6">
-                          <div className="c-badge">{stat.hits}</div>
-                          <div>{t(`entry.emotion.label.value.${stat.label}`)}</div>
+                        <li key={`top-emotions-all-${stat}-${index}`} data-display="flex" data-gap="2">
+                          <div className="c-badge" data-variant="primary">
+                            {stat.hits}
+                          </div>
+                          <div data-fs="xs">{t(`entry.emotion.label.value.${stat.label}`)}</div>
                         </li>
                       ))}
                     </ul>
@@ -227,19 +227,27 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             )}
 
           {loaderData.entries.topReactions[0] && (
-            <Components.DashboardCell data-mt="24">
-              <h2 data-display="flex" data-gap="12">
+            <Components.DashboardCell data-mt="5">
+              <h2 data-display="flex" data-gap="3" data-fs="base">
                 {t("dashboard.entries.reactions")}
               </h2>
 
-              <ul data-display="flex" data-direction="column" data-gap="24">
+              <ul data-display="flex" data-direction="column" data-mt="5" data-gap="5">
                 {loaderData.entries.topReactions.map((reaction) => (
-                  <li key={reaction.id} data-display="flex" data-direction="column" data-gap="12">
-                    <div data-display="flex" data-gap="12">
-                      <div className="c-badge">{reaction.reactionEffectiveness} / 5</div>
-                      <div>{t(`entry.reaction.type.value.${reaction.reactionType}`)}</div>
+                  <li key={reaction.id} data-display="flex" data-direction="column" data-gap="2">
+                    <div data-display="flex" data-gap="3">
+                      <div className="c-badge" data-variant="primary">
+                        {reaction.reactionEffectiveness} / 5
+                      </div>
+
+                      <div data-color="neutral-400">
+                        {t(`entry.reaction.type.value.${reaction.reactionType}`)}
+                      </div>
                     </div>
-                    <div data-ml="12">"{reaction.reactionDescription}"</div>
+
+                    <div data-ml="3" data-color="neutral-100">
+                      "{reaction.reactionDescription}"
+                    </div>
                   </li>
                 ))}
               </ul>
