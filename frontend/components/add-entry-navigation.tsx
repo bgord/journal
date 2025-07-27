@@ -1,38 +1,32 @@
 import * as UI from "@bgord/ui";
-import PencilSvg from "../assets/pencil.svg";
 
 export type AddEntryNavigationStep = "situation" | "emotion" | "reaction";
 
 export function AddEntryNavigation(props: { step: AddEntryNavigationStep }) {
   const t = UI.useTranslations();
 
-  const style = UI.Colorful("brand-600").style.color;
-
   return (
-    <div data-display="flex" data-cross="center" data-mx="auto" data-gap="6" data-ls="0.5" data-mb="12">
-      {props.step === "situation" && (
-        <img src={PencilSvg} height="15px" alt={t("entry.situation.call_to_action")} />
-      )}
-
-      <div data-fs="14" data-fw={props.step === "situation" ? "700" : "300"} {...style}>
+    <div
+      data-display="flex"
+      data-cross="center"
+      data-gap="3"
+      data-mx="auto"
+      data-color="neutral-300"
+      data-ls="tight"
+    >
+      <div data-fs="sm" data-fw={props.step === "situation" ? "bold" : "light"}>
         {t("entry.situation.value")}
       </div>
 
-      <div data-fw="700">·</div>
-      {props.step === "emotion" && (
-        <img src={PencilSvg} height="15px" alt={t("entry.emotion.call_to_action")} />
-      )}
+      <div data-fw="bold">-</div>
 
-      <div data-fs="14" data-fw={props.step === "emotion" ? "700" : "300"} {...style}>
+      <div data-fs="sm" data-fw={props.step === "emotion" ? "bold" : "light"}>
         {t("entry.emotion.value")}
       </div>
 
-      <div data-fw="700">·</div>
-      {props.step === "reaction" && (
-        <img src={PencilSvg} height="15px" alt={t("entry.reaction.call_to_action")} />
-      )}
+      <div data-fw="bold">-</div>
 
-      <div data-fs="14" data-fw={props.step === "reaction" ? "700" : "300"} {...style}>
+      <div data-fs="sm" data-fw={props.step === "reaction" ? "bold" : "light"}>
         {t("entry.reaction.value")}
       </div>
     </div>

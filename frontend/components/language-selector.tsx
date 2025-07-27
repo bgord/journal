@@ -8,7 +8,7 @@ export function LanguageSelector() {
 
   return (
     <div data-display="flex" data-cross="center" data-gap="3">
-      <Icons.Language data-size="md" data-color="brand-400" />
+      <Icons.Language data-size="md" data-color="neutral-400" />
 
       <Select data-display="flex" {...languageSelector.input.props}>
         {languageSelector.options.map((option) => (

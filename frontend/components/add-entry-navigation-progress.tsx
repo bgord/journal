@@ -9,7 +9,8 @@ export function AddEntryNavigationProgress(props: { step: AddEntryNavigationStep
     <div
       data-my="6"
       data-interaction="grow"
-      style={{ width: progress, ...UI.Rhythm(8).times(1).height, ...UI.Colorful("brand-500").background }}
+      data-bg="brand-500"
+      style={{ width: progress, ...UI.Rhythm(8).times(1).height }}
     />
   );
 }
