@@ -139,7 +139,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
             <div data-disp="flex" data-main="between" data-mt="5" data-px="8">
               <div data-disp="flex" data-dir="column" data-cross="center" data-gap="2">
-                <div data-color="neutral-400" data-transform="center">
+                <div data-color="neutral-500" data-transform="center">
                   {t("dashboard.entries.today")}
                 </div>
                 <div data-fs="3xl" data-fw="bold">
@@ -148,7 +148,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               </div>
 
               <div data-disp="flex" data-dir="column" data-cross="center" data-gap="2">
-                <div data-color="neutral-400" data-transform="center">
+                <div data-color="neutral-500" data-transform="center">
                   {t("dashboard.entries.last_week")}
                 </div>
                 <div data-fs="3xl" data-fw="bold">
@@ -157,7 +157,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               </div>
 
               <div data-disp="flex" data-dir="column" data-cross="center" data-gap="2">
-                <div data-color="neutral-400" data-transform="center">
+                <div data-color="neutral-500" data-transform="center">
                   {t("dashboard.entries.all")}
                 </div>
                 <div data-fs="3xl" data-fw="bold">
@@ -177,7 +177,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
                 <div data-disp="flex" data-main="between" data-mt="5">
                   <div data-disp="flex" data-dir="column" data-cross="center" data-fs="sm">
-                    <div data-color="neutral-400" data-transform="center">
+                    <div data-color="neutral-500" data-transform="center">
                       {t("dashboard.entries.today")}
                     </div>
 
@@ -194,7 +194,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                   </div>
 
                   <div data-disp="flex" data-dir="column" data-cross="center" data-fs="sm">
-                    <div data-color="neutral-400" data-transform="center">
+                    <div data-color="neutral-500" data-transform="center">
                       {t("dashboard.entries.last_week")}
                     </div>
 
@@ -211,7 +211,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                   </div>
 
                   <div data-disp="flex" data-dir="column" data-cross="center" data-fs="sm">
-                    <div data-color="neutral-400" data-transform="center">
+                    <div data-color="neutral-500" data-transform="center">
                       {t("dashboard.entries.all")}
                     </div>
 
@@ -252,7 +252,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                         {reaction.reactionEffectiveness} / 5
                       </div>
 
-                      <div data-color="neutral-400">
+                      <div data-color="neutral-500">
                         {t(`entry.reaction.type.value.${reaction.reactionType}`)}
                       </div>
                     </div>
@@ -280,7 +280,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             <ul data-disp="flex" data-dir="column" data-mt="5">
               {loaderData.weeklyReviews.map((review) => (
                 <li key={review.id} data-disp="flex" data-dir="column" data-gap="5">
-                  <div data-disp="flex" data-main="between">
+                  <div data-disp="flex" data-main="between" data-color="neutral-500">
                     {review.week[0]} - {review.week[1]}
                     <div className="c-badge" data-variant="outline">
                       {t(`dashboard.weekly_review.status.${review.status}.value`)}
