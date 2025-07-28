@@ -97,6 +97,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               className="c-textarea"
               placeholder={t("entry.situation.description.placeholder")}
               rows={2}
+              autoFocus
               {...UI.Form.textareaPattern(loaderData.form.situationDescription)}
             />
           </div>
