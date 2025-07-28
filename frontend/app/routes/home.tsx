@@ -63,6 +63,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
   const dialog = UI.useToggle({ name: "dialog" });
 
+  UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
+
   return (
     <main data-p="6">
       <div data-disp="flex" data-main="end" data-maxw="md" data-mx="auto">
