@@ -73,12 +73,8 @@ export default function Register({ loaderData }: Route.ComponentProps) {
             className="c-input"
             type="email"
             placeholder={t("auth.email.placeholder")}
-            // TODO: extract?
-            inputMode="email"
-            autoComplete="email"
-            autoCapitalize="none"
-            spellCheck="false"
             disabled={state === RegisterState.success}
+            {...UI.Credentials.email}
             {...email.input.props}
           />
         </div>
@@ -92,9 +88,8 @@ export default function Register({ loaderData }: Route.ComponentProps) {
             className="c-input"
             type="password"
             placeholder={t("auth.password.placeholder")}
-            // TODO: extract?
-            autoComplete="new-password"
             disabled={state === RegisterState.success}
+            {...UI.Credentials.password.current}
             {...password.input.props}
             {...UI.Form.inputPattern(loaderData.password)}
           />

@@ -20,7 +20,6 @@ export function Entry(props: EntryType) {
 
   if (!exit.visible) return null;
 
-  // TODO tidy-up gaps
   return (
     // @ts-expect-error
     <li

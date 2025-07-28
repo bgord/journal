@@ -74,12 +74,8 @@ export default function Login({ loaderData }: Route.ComponentProps) {
             className="c-input"
             type="email"
             placeholder={t("auth.email.placeholder")}
-            // TODO: extract?
-            inputMode="email"
-            autoComplete="email"
-            autoCapitalize="none"
-            spellCheck="false"
             disabled={state === LoginState.loading}
+            {...UI.Credentials.email}
             {...email.input.props}
           />
         </div>
@@ -93,9 +89,8 @@ export default function Login({ loaderData }: Route.ComponentProps) {
             className="c-input"
             type="password"
             placeholder={t("auth.password.placeholder")}
-            // TODO: extract?
-            autoComplete="current-password"
             disabled={state === LoginState.loading}
+            {...UI.Credentials.password.current}
             {...password.input.props}
             {...UI.Form.inputPattern(loaderData.password)}
           />
