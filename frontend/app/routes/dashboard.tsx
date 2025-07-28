@@ -277,7 +277,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               {t("dashboard.weekly_reviews.history")}
             </h2>
 
-            <ul data-disp="flex" data-dir="column" data-mt="5">
+            <ul data-disp="flex" data-dir="column" data-gap="8" data-mt="5">
               {loaderData.weeklyReviews.map((review) => (
                 <li key={review.id} data-disp="flex" data-dir="column" data-gap="5">
                   <div data-disp="flex" data-main="between" data-color="neutral-500">

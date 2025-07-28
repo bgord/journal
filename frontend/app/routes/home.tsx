@@ -81,7 +81,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <main data-p="6">
       <div data-disp="flex" data-main="end" data-maxw="md" data-mx="auto">
-        <button className="c-button" data-variant="with-icon" data-mb="5" onClick={dialog.enable}>
+        <button
+          type="button"
+          className="c-button"
+          data-variant="with-icon"
+          data-mb="5"
+          onClick={dialog.enable}
+        >
           <Icons.Plus data-size="md" />
           New entry
         </button>
@@ -104,16 +110,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             </button>
           </div>
 
-          <div data-disp="flex" data-dir="column">
-            <label className="c-label">{t("entry.situation.description.label")}</label>
-            <textarea
-              className="c-textarea"
-              placeholder={t("entry.situation.description.placeholder")}
-              rows={2}
-              autoFocus
-              {...UI.Form.textareaPattern(loaderData.form.situationDescription)}
-            />
-          </div>
+          <textarea
+            className="c-textarea"
+            placeholder={t("entry.situation.description.label")}
+            rows={3}
+            autoFocus
+            {...UI.Form.textareaPattern(loaderData.form.situationDescription)}
+          />
 
           <div data-disp="flex" data-gap="8" data-cross="end">
             <Components.Select>
@@ -143,9 +146,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <button
                 type="button"
                 className="c-button"
-                data-bw="hairline"
-                data-bc="neutral-600"
-                data-variant={emotionType === "positive" ? "secondary" : "bare"}
+                data-color="positive-400"
+                data-variant={emotionType === "positive" ? undefined : "bare"}
                 onClick={() => setEmotionType("positive")}
                 {...UI.Rhythm().times(9).style.width}
               >
@@ -155,7 +157,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <button
                 type="button"
                 className="c-button"
-                data-variant={emotionType === "negative" ? "secondary" : "bare"}
+                data-color="danger-400"
+                data-variant={emotionType === "negative" ? undefined : "bare"}
                 onClick={() => setEmotionType("negative")}
                 {...UI.Rhythm().times(9).style.width}
               >
@@ -181,15 +184,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
           <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
 
-          <div data-disp="flex" data-dir="column">
-            <label className="c-label">{t("entry.reaction.description.label")}</label>
-            <textarea
-              className="c-textarea"
-              placeholder={t("entry.reaction.description.placeholder")}
-              rows={2}
-              {...UI.Form.textareaPattern(loaderData.form.reactionDescription)}
-            />
-          </div>
+          <textarea
+            className="c-textarea"
+            placeholder={t("entry.reaction.description.label")}
+            rows={3}
+            {...UI.Form.textareaPattern(loaderData.form.reactionDescription)}
+          />
+
           <div data-disp="flex" data-cross="center">
             <Components.Select>
               <option value="">{t("entry.reaction.type.default.value")}</option>
@@ -214,11 +215,16 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             <Components.ClickableRatingPills {...reactionEffectiveness} />
           </div>
 
-          <div data-disp="flex" data-main="end" data-gap="5" data-mt="auto">
-            <button className="c-button" data-variant="bare">
+          <div data-disp="flex" data-main="end" data-gap="5" data-mt="auto" data-mb="1">
+            <button type="button" className="c-button" data-variant="bare" onClick={dialog.disable}>
               Cancel
             </button>
-            <button className="c-button" data-variant="primary" {...UI.Rhythm().times(12).style.width}>
+            <button
+              type="submit"
+              className="c-button"
+              data-variant="primary"
+              {...UI.Rhythm().times(12).style.width}
+            >
               Save
             </button>
           </div>
