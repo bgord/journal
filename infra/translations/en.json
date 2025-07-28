@@ -82,7 +82,7 @@
   "entry.emotion.label.value.shame": "shame",
   "entry.emotion.label.value.surprise_negative": "surprise negative",
   "entry.emotion.label.value.surprise_positive": "surprise positive",
-  "entry.emotion.location.default.value": "Choose an option",
+  "entry.emotion.label.default.value": "Choose an emotion",
   "entry.list.empty": "The new entries will appear here!",
   "entry.list.empty.alt": "No entries",
   "entry.reaction.description.label": "How did you react?",

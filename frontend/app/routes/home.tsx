@@ -1,5 +1,7 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
+import React from "react";
+import type { types } from "../../../app/services/add-entry-form";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import * as Auth from "../../auth";
@@ -63,6 +65,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
   const dialog = UI.useToggle({ name: "dialog" });
 
+  const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
+  const emotionLabel = UI.useField<types.EmotionLabelType>({ name: "emotion-label" });
+  const emotionIntensity = UI.useField<types.EmotionIntensityType>({
+    name: "emotion-intensity",
+    defaultValue: loaderData.form.emotionIntensity.min,
+  });
+
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
   return (
@@ -121,6 +130,49 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                 {...UI.Form.inputPattern(loaderData.form.situationLocation)}
               />
             </div>
+          </div>
+
+          <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
+
+          <div data-disp="flex" data-main="between">
+            <div data-disp="flex" data-cross="end">
+              <button
+                type="button"
+                className="c-button"
+                data-bw="hairline"
+                data-bc="neutral-600"
+                data-variant={emotionType === "positive" ? "secondary" : "bare"}
+                onClick={() => setEmotionType("positive")}
+                {...UI.Rhythm().times(9).style.width}
+              >
+                {t("entry.emotion.label.type.positive")}
+              </button>
+
+              <button
+                type="button"
+                className="c-button"
+                data-variant={emotionType === "negative" ? "secondary" : "bare"}
+                onClick={() => setEmotionType("negative")}
+                {...UI.Rhythm().times(9).style.width}
+              >
+                {t("entry.emotion.label.type.negative")}
+              </button>
+
+              {emotionType && (
+                <Components.Select data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
+                  <option value="">{t("entry.emotion.label.default.value")}</option>
+                  {loaderData.form.emotionLabels
+                    .filter((label) => (emotionType === "positive" ? label.positive : !label.positive))
+                    .map((emotion) => (
+                      <option key={emotion.option} value={emotion.option}>
+                        {t(`entry.emotion.label.value.${emotion.option}`)}
+                      </option>
+                    ))}
+                </Components.Select>
+              )}
+            </div>
+
+            <Components.ClickableRatingPills {...emotionIntensity} />
           </div>
 
           <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />

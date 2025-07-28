@@ -82,7 +82,7 @@
   "entry.emotion.label.value.shame": "wstyd",
   "entry.emotion.label.value.surprise_negative": "negatywne zaskoczenie",
   "entry.emotion.label.value.surprise_positive": "pozytywne zaskoczenie",
-  "entry.emotion.location.default.value": "Wybierz opcję",
+  "entry.emotion.label.default.value": "Wybierz opcję",
   "entry.list.empty": "Nowe wpisy pojawią się tutaj!",
   "entry.list.empty.alt": "Brak wpisów",
   "entry.reaction.description.label": "Jaka była Twoja reakcja?",
