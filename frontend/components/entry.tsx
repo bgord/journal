@@ -74,10 +74,10 @@ export function Entry(props: EntryType) {
         </div>
 
         <div data-disp="flex" data-main="between" data-cross="center" data-gap="12" data-color="neutral-200">
-          <div>{props.situationDescription}</div>
-
-          <EntryEmotion {...props} />
+          {props.situationDescription}
         </div>
+
+        <EntryEmotion {...props} />
       </section>
 
       <EntryReaction {...props} />
