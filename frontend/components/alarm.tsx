@@ -10,9 +10,7 @@ export function Alarm(props: EntryType["alarms"][number]) {
       <div data-disp="flex" data-gap="3" data-fs="sm" data-color="neutral-300">
         <Icons.Alarm data-size="md" data-color="danger-200" />
         {t(`alarm.name.${props.name}`)} alarm for
-        <div className="c-badge" data-variant="primary">
-          {t(`entry.emotion.label.value.${props.emotionLabel}`)}
-        </div>
+        <div className="c-badge">{t(`entry.emotion.label.value.${props.emotionLabel}`)}</div>
       </div>
 
       <div data-fs="sm" data-color="brand-100" data-ml="8">
