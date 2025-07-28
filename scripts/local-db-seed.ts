@@ -12,11 +12,26 @@ import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
 const situationDescriptions = [
-  "Chat with a friend about a difficult situation",
-  "Work presentation about a boring topic",
-  "Morning jog with a knee pain",
-  "Family dinner with people I do not like",
+  "I missed an important appointment because I confused the time zones while traveling, which made me feel embarrassed and deeply irresponsible",
   "Caught in traffic swearing about other drivers",
+  "Was put on the spot during a meeting with executives",
+  "Overslept and missed a scheduled appointment",
+  "Walked into a room and forgot why I was there",
+  "Chat with a friend about a difficult situation",
+  "Morning jog with a knee pain",
+  "Phone battery died during a crucial navigation moment",
+  "Was interrupted multiple times during focused work",
+  "Woke up feeling inexplicably anxious",
+  "Family dinner with people I do not like",
+  "Had to deal with a difficult customer at work",
+  "While trying to enjoy my evening, I was constantly interrupted by work notifications demanding urgent attention, making me feel anxious and powerless",
+  "Lunch break ruined by noisy coworkers in the cafeteria",
+  "Received critical feedback in front of the whole team",
+  "Work presentation about a boring topic",
+  "A friend unexpectedly opened up about a traumatic event during a casual meetup, and I felt completely unequipped to respond in a supportive way",
+  "Got blamed for something I didn’t do",
+  "After a long day, I found my apartment flooded due to a broken pipe, and had no immediate help available, triggering a full stress response",
+  "I was suddenly asked to explain a complex topic in front of unfamiliar executives without any preparation, leading to visible stress and hesitation",
 ];
 const situationKinds = Object.keys(Emotions.VO.SituationKindOptions);
 const situationLocations = ["Home", "Office", "Park", "Restaurant", "Car"];
@@ -24,11 +39,26 @@ const situationLocations = ["Home", "Office", "Park", "Restaurant", "Car"];
 const emotionLabels = Object.keys(Emotions.VO.GenevaWheelEmotion);
 
 const reactionDescriptions = [
-  "Deep breathing",
-  "Counted to ten",
-  "Talked it out",
   "Took a short walk",
+  "Visualized a safe place",
+  "Deep breathing",
+  "I stepped outside, put my phone away, and focused entirely on slow, intentional breaths while observing the sky and surroundings to ground myself",
+  "Used an app-guided mindfulness exercise",
+  "Talked it out",
+  "Drank a glass of cold water",
+  "Sat quietly and let the feelings pass",
+  "Listened to calming music",
+  "Repeated a calming phrase several times",
   "Wrote in journal",
+  "Counted to ten",
+  "I closed my laptop, turned off all notifications, and gave myself fifteen minutes to simply breathe and acknowledge how overwhelmed I was feeling",
+  "Stepped outside to get some fresh air",
+  "Sent a message to a friend",
+  "Screamed into a pillow",
+  "I made tea, wrapped myself in a blanket, and gave myself permission to feel sad without rushing to fix anything or force productivity",
+  "I walked for over an hour with no destination, letting my mind wander until the emotional intensity gradually started to dissolve",
+  "I poured out all of my thoughts into my journal without censoring myself, which helped me process the chaos I was feeling internally with clarity",
+  "Did a body scan to relax",
 ];
 
 const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
@@ -103,7 +133,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       console.log(`[✓] Alarm ${Number(index) + 1} created`);
     }
 
-    for (const counter of _.range(0, 10)) {
+    for (const counter of _.range(0, 20)) {
       const situation = new Emotions.Entities.Situation(
         new Emotions.VO.SituationDescription(
           situationDescriptions[counter % situationDescriptions.length] as string,
