@@ -108,7 +108,7 @@
   "entry.situation.kind.value.alone_time": "alone time",
   "entry.situation.kind.value.conflict": "conflict",
   "entry.situation.kind.value.decision_making": "decision making",
-  "entry.situation.kind.value.default": "Choose an option",
+  "entry.situation.kind.value.default": "Choose a situation kind",
   "entry.situation.kind.value.environment": "environment",
   "entry.situation.kind.value.failure": "failure",
   "entry.situation.kind.value.health": "health",
