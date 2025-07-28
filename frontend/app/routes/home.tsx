@@ -71,6 +71,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     name: "emotion-intensity",
     defaultValue: loaderData.form.emotionIntensity.min,
   });
+  const reactionEffectiveness = UI.useField<types.ReactionEffectivenessType>({
+    name: "reaction-effectiveness",
+    defaultValue: loaderData.form.reactionEffectiveness.min,
+  });
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
@@ -176,6 +180,39 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </div>
 
           <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
+
+          <div data-disp="flex" data-dir="column">
+            <label className="c-label">{t("entry.reaction.description.label")}</label>
+            <textarea
+              className="c-textarea"
+              placeholder={t("entry.reaction.description.placeholder")}
+              rows={2}
+              {...UI.Form.textareaPattern(loaderData.form.reactionDescription)}
+            />
+          </div>
+          <div data-disp="flex" data-cross="center">
+            <Components.Select>
+              <option value="">{t("entry.reaction.type.default.value")}</option>
+              {loaderData.form.reactionTypes.map((type) => (
+                <option key={type} value={type}>
+                  {t(`entry.reaction.type.value.${type}`)}
+                </option>
+              ))}
+            </Components.Select>
+
+            <label
+              data-fs="xs"
+              data-color="neutral-300"
+              data-ls="wide"
+              data-transform="uppercase"
+              data-ml="12"
+              data-mr="3"
+              {...reactionEffectiveness.label.props}
+            >
+              {t("entry.reaction.effectiveness.label")}
+            </label>
+            <Components.ClickableRatingPills {...reactionEffectiveness} />
+          </div>
         </UI.Dialog>
       </div>
 
