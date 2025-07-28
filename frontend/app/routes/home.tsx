@@ -1,6 +1,5 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
-import * as RR from "react-router";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import * as Auth from "../../auth";
@@ -67,10 +66,28 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <main data-p="6">
       <div data-disp="flex" data-main="end" data-maxw="md" data-mx="auto">
-        <button className="c-button" data-variant="with-icon" data-mb="5" {...dialog}>
+        <button className="c-button" data-variant="with-icon" data-mb="5" onClick={dialog.enable}>
           <Icons.Plus data-size="md" />
           New entry
         </button>
+
+        <Components.Dialog data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
+          <div data-disp="flex" data-main="between" data-cross="center">
+            <strong data-fs="base" data-color="neutral-300">
+              Add new entry
+            </strong>
+
+            <button
+              className="c-button"
+              data-variant="with-icon"
+              type="submit"
+              data-interaction="subtle-scale"
+              onClick={dialog.disable}
+            >
+              <Icons.Xmark data-size="md" />
+            </button>
+          </div>
+        </Components.Dialog>
       </div>
 
       <ul
