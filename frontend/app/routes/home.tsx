@@ -86,7 +86,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             height="300px"
             alt={t("entry.list.empty.alt")}
           />
-          <div {...UI.Colorful("brand-600").style.color}>{t("entry.list.empty")}</div>
+          <div data-color="brand-300">{t("entry.list.empty")}</div>
         </div>
       )}
 
@@ -102,11 +102,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         data-interaction="rotate-into-focus"
         viewTransition
         title={t("entry.add.title")}
-        style={{
-          ...UI.Colorful("color-brand-800").background,
-          ...UI.Colorful("color-brand-100").color,
-          ...UI.Rhythm(16).times(4).square,
-        }}
+        data-bg="brand-800"
+        data-color="brand-100"
+        style={UI.Rhythm(16).times(4).square}
       >
         <Icons.Plus data-size="2xl" />
       </RR.Link>
