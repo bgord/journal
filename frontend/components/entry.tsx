@@ -26,14 +26,20 @@ export function Entry(props: EntryType) {
       {...exit.attach}
       data-testid="entry"
       data-disp="flex"
-      data-p="5"
+      data-px="4"
       data-dir="column"
       data-fs="base"
       data-br="xs"
       data-shadow="sm"
       data-bg="neutral-900"
     >
-      <header data-disp="flex" data-main="between" data-cross="center" {...UI.Rhythm().times(3).style.height}>
+      <header
+        data-disp="flex"
+        data-main="between"
+        data-cross="center"
+        data-mt="2"
+        {...UI.Rhythm().times(3).style.height}
+      >
         <div data-fs="base" data-fw="regular" data-color="neutral-300">
           {props.startedAt}
         </div>
