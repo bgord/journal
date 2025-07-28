@@ -73,7 +73,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           New entry
         </button>
 
-        <Components.Dialog data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
+        <UI.Dialog data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
           <div data-disp="flex" data-main="between" data-cross="center">
             <strong data-fs="base" data-color="neutral-300">
               Add new entry
@@ -89,7 +89,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <Icons.Xmark data-size="md" />
             </button>
           </div>
-        </Components.Dialog>
+
+          <input autoFocus className="c-input" type="text" placeholder="What happened?" data-mt="5" />
+        </UI.Dialog>
       </div>
 
       <ul
