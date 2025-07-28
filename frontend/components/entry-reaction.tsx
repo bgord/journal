@@ -61,7 +61,14 @@ export function EntryReaction(props: SelectEntriesFormatted) {
   return (
     <section data-disp="flex" data-dir="column" data-gap="3" data-py="5">
       <div data-disp="flex" data-cross="center" data-gap="5" {...UI.Rhythm().times(3).style.minHeight}>
-        <div data-disp="flex" data-cross="center" data-gap="5" data-color="neutral-400" data-mr="auto">
+        <div
+          data-disp="flex"
+          data-cross="center"
+          data-gap="5"
+          data-color="neutral-400"
+          data-fs="sm"
+          data-mr="auto"
+        >
           {t("entry.reaction.description.label")}
         </div>
 
