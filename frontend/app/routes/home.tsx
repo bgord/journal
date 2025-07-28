@@ -62,9 +62,17 @@ export type EntryType = Route.ComponentProps["loaderData"]["entries"][number];
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
+  const dialog = UI.useToggle({ name: "dialog" });
 
   return (
     <main data-p="6">
+      <div data-disp="flex" data-main="end" data-maxw="md" data-mx="auto">
+        <button className="c-button" data-variant="with-icon" data-mb="5" {...dialog}>
+          <Icons.Plus data-size="md" />
+          New entry
+        </button>
+      </div>
+
       <ul
         className="entries-list"
         data-disp="flex"
@@ -89,25 +97,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <div data-color="brand-300">{t("entry.list.empty")}</div>
         </div>
       )}
-
-      <RR.Link
-        to="/add-entry"
-        type="button"
-        className="c-button"
-        data-variant="with-icon"
-        data-position="fixed"
-        data-bottom="5"
-        data-right="5"
-        data-shadow="sm"
-        data-interaction="rotate-into-focus"
-        viewTransition
-        title={t("entry.add.title")}
-        data-bg="brand-800"
-        data-color="brand-100"
-        style={UI.Rhythm(16).times(4).square}
-      >
-        <Icons.Plus data-size="2xl" />
-      </RR.Link>
     </main>
   );
 }
