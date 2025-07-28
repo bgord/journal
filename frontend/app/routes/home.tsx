@@ -73,9 +73,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           New entry
         </button>
 
-        <UI.Dialog data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
+        <UI.Dialog data-gap="5" data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
           <div data-disp="flex" data-main="between" data-cross="center">
-            <strong data-fs="base" data-color="neutral-300">
+            <strong data-disp="flex" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
+              <Icons.Book data-size="md" data-color="neutral-300" />
               Add new entry
             </strong>
 
@@ -90,7 +91,38 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             </button>
           </div>
 
-          <input autoFocus className="c-input" type="text" placeholder="What happened?" data-mt="5" />
+          <div data-disp="flex" data-dir="column">
+            <label className="c-label">{t("entry.situation.description.label")}</label>
+            <textarea
+              className="c-textarea"
+              placeholder={t("entry.situation.description.placeholder")}
+              rows={2}
+              {...UI.Form.textareaPattern(loaderData.form.situationDescription)}
+            />
+          </div>
+
+          <div data-disp="flex" data-gap="8" data-cross="end">
+            <Components.Select>
+              <option value="">{t("entry.situation.kind.value.default")}</option>
+              {loaderData.form.situationKinds.map((kind) => (
+                <option key={kind} value={kind}>
+                  {t(`entry.situation.kind.value.${kind}`)}
+                </option>
+              ))}
+            </Components.Select>
+
+            <div data-disp="flex" data-cross="center" data-gap="2">
+              <Icons.MapPin data-size="md" data-color="neutral-400" />
+
+              <input
+                className="c-input"
+                placeholder={t("entry.situation.location.placeholder")}
+                {...UI.Form.inputPattern(loaderData.form.situationLocation)}
+              />
+            </div>
+          </div>
+
+          <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
         </UI.Dialog>
       </div>
 
