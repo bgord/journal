@@ -213,6 +213,15 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             </label>
             <Components.ClickableRatingPills {...reactionEffectiveness} />
           </div>
+
+          <div data-disp="flex" data-main="end" data-gap="5" data-mt="auto">
+            <button className="c-button" data-variant="bare">
+              Cancel
+            </button>
+            <button className="c-button" data-variant="primary" {...UI.Rhythm().times(12).style.width}>
+              Save
+            </button>
+          </div>
         </UI.Dialog>
       </div>
 
