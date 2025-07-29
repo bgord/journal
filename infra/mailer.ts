@@ -1,7 +1,7 @@
 import { Env } from "+infra/env";
 import * as bg from "@bgord/bun";
 
-export const Mailer = new bg.Mailer({
+export const Mailer = new bg.SmtpMailerAdapter({
   SMTP_HOST: Env.SMTP_HOST,
   SMTP_PORT: Env.SMTP_PORT,
   SMTP_USER: Env.SMTP_USER,
