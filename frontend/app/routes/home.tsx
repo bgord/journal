@@ -281,14 +281,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </UI.Dialog>
       </div>
 
-      <ul
-        className="entries-list"
-        data-disp="flex"
-        data-dir="column"
-        data-gap="5"
-        data-maxw="md"
-        data-mx="auto"
-      >
+      <ul data-disp="flex" data-dir="column" data-gap="5" data-maxw="md" data-mx="auto">
         {loaderData.entries.map((entry) => (
           <Components.Entry key={entry.id} {...entry} />
         ))}
