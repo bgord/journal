@@ -8,6 +8,11 @@ export enum AiClientEnum {
   noop = "noop",
 }
 
+export enum MailerAdapter {
+  smtp = "smtp",
+  noop = "noop",
+}
+
 // TODO: Extract known API keys to bgord/bun schema
 const EnvironmentSchema = z
   .object({
@@ -26,6 +31,7 @@ const EnvironmentSchema = z
     ANTHROPIC_AI_API_KEY: z.string().min(1).max(256).trim(),
     AXIOM_API_TOKEN: z.string().length(41),
     AI_CLIENT_ADAPTER: z.enum(AiClientEnum),
+    MAILER_ADAPTER: z.enum(MailerAdapter),
     FF_MAILER_DISABLED: tools.FeatureFlagValue,
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
     BETTER_AUTH_URL: z.url().trim(),
