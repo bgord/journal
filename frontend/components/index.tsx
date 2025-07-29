@@ -1,3 +1,4 @@
+export * from "./add-entry";
 export * from "./add-entry-navigation";
 export * from "./add-entry-navigation-progress";
 export * from "./back-button";
