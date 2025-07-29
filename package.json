@@ -28,7 +28,7 @@
     "@bgord/bun": "0.18.9",
     "better-sqlite3": "12.2.0",
     "csv": "6.4.1",
-    "drizzle-orm": "0.44.3",
+    "drizzle-orm": "0.44.4",
     "emittery": "1.2.0",
     "node-cache": "5.1.2",
     "openai": "5.10.2"
