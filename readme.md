@@ -131,6 +131,8 @@ modules/
     │   ├── reaction-for-evaluation-exists.ts
     │   ├── requester-owns-entry.ts
     │   └── weekly-review-completed-once.ts
+    ├── ports
+    │   ├── ai-client.ts
     ├── queries
     │   ├── count-alarms-for-entry.ts
     │   ├── count-entries-per-week-for-user.ts
@@ -152,7 +154,6 @@ modules/
     │   ├── entry-alarm-detector.ts
     │   └── weekly-review-processing.ts
     ├── services
-    │   ├── ai-client.ts
     │   ├── alarm-export-file.ts
     │   ├── alarm-factory.ts
     │   ├── alarm-notification-factory.ts
@@ -213,7 +214,7 @@ modules/
 
 ```
 infra/
-├── anthropic-ai-client.ts
+├── anthropic-ai-adapter.ts
 ├── auth.ts
 ├── basic-auth-shield.ts
 ├── cache.ts
@@ -230,7 +231,7 @@ infra/
 ├── jobs.ts
 ├── logger.ts
 ├── mailer.ts
-├── open-ai-client.ts
+├── open-ai-adapter.ts
 ├── prerequisites.ts
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
