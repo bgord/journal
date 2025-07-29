@@ -1,22 +1,12 @@
 import * as EventHandlers from "+emotions/event-handlers";
 import * as Events from "+emotions/events";
-import { AiClientEnum } from "+emotions/ports/ai-client";
 import * as Sagas from "+emotions/sagas";
-import { AnthropicAiAdapter } from "+infra/anthropic-ai-adapter";
-import { Env } from "+infra/env";
+import { AiClient } from "+infra/ai-client";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
-import { NoopAdapter } from "+infra/noop-adapter";
-import { OpenAiAdapter } from "+infra/open-ai-adapter";
 import * as bg from "@bgord/bun";
 
 const EventHandler = new bg.EventHandler(logger);
-
-const AiClient = {
-  [AiClientEnum.anthropic]: new AnthropicAiAdapter(),
-  [AiClientEnum.open_ai]: new OpenAiAdapter(),
-  [AiClientEnum.noop]: new NoopAdapter(),
-}[Env.AI_CLIENT_ADAPTER];
 
 // Entry
 EventBus.on(Events.ENTRY_DELETED_EVENT, EventHandler.handle(EventHandlers.onEntryDeletedEvent));

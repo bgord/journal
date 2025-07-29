@@ -1,7 +1,12 @@
-import * as Ports from "+emotions/ports/ai-client";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
+
+export enum AiClientEnum {
+  anthropic = "anthropic",
+  open_ai = "open_ai",
+  noop = "noop",
+}
 
 // TODO: Extract known API keys to bgord/bun schema
 const EnvironmentSchema = z
@@ -20,7 +25,7 @@ const EnvironmentSchema = z
     OPEN_AI_API_KEY: z.string().min(1).max(256).trim(),
     ANTHROPIC_AI_API_KEY: z.string().min(1).max(256).trim(),
     AXIOM_API_TOKEN: z.string().length(41),
-    AI_CLIENT_ADAPTER: z.enum(Ports.AiClientEnum),
+    AI_CLIENT_ADAPTER: z.enum(AiClientEnum),
     FF_MAILER_DISABLED: tools.FeatureFlagValue,
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
     BETTER_AUTH_URL: z.url().trim(),
