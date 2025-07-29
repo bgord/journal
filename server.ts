@@ -25,7 +25,7 @@ const startup = new tools.Stopwatch();
 // Healthcheck =================
 server.get(
   "/healthcheck",
-  bg.rateLimitShield({
+  bg.RateLimitShield({
     time: tools.Time.Seconds(5),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
   }),
@@ -45,7 +45,7 @@ entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
 entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
 entry.get(
   "/export",
-  bg.rateLimitShield({
+  bg.RateLimitShield({
     time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
   }),
