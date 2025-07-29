@@ -1,6 +1,7 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import React from "react";
+import * as RR from "react-router";
 import type { types } from "../../../app/services/add-entry-form";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
@@ -63,7 +64,12 @@ export type EntryType = Route.ComponentProps["loaderData"]["entries"][number];
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
+  const fetcher = RR.useFetcher();
   const dialog = UI.useToggle({ name: "dialog" });
+
+  const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situation-description" });
+  const situationLocation = UI.useField<types.SituationLocationType>({ name: "situation-location" });
+  const situationKind = UI.useField<types.SituationKindType>({ name: "situation-kind" });
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
   const emotionLabel = UI.useField<types.EmotionLabelType>({ name: "emotion-label" });
@@ -71,10 +77,24 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     name: "emotion-intensity",
     defaultValue: loaderData.form.emotionIntensity.min,
   });
+
+  const reactionDescription = UI.useField<types.ReactionDescriptionType>({ name: "reaction-description" });
+  const reactionType = UI.useField<types.ReactionTypeType>({ name: "reaction-type" });
   const reactionEffectiveness = UI.useField<types.ReactionEffectivenessType>({
     name: "reaction-effectiveness",
     defaultValue: loaderData.form.reactionEffectiveness.min,
   });
+
+  const payload = {
+    situationDescription: situationDescription.value,
+    situationLocation: situationLocation.value,
+    situationKind: situationKind.value,
+    emotionLabel: emotionLabel.value,
+    emotionIntensity: emotionIntensity.value,
+    reactionDescription: reactionDescription.value,
+    reactionType: reactionType.value,
+    reactionEffectiveness: reactionEffectiveness.value,
+  };
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
@@ -92,142 +112,162 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           New entry
         </button>
 
-        <UI.Dialog data-gap="5" data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
-          <div data-disp="flex" data-main="between" data-cross="center">
-            <strong data-disp="flex" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
-              <Icons.Book data-size="md" data-color="neutral-300" />
-              Add new entry
-            </strong>
+        <UI.Dialog data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
+          <fetcher.Form
+            data-disp="flex"
+            data-dir="column"
+            data-gap="5"
+            method="POST"
+            onSubmit={(event) => {
+              event.preventDefault();
 
-            <button
-              className="c-button"
-              data-variant="with-icon"
-              type="submit"
-              data-interaction="subtle-scale"
-              onClick={dialog.disable}
-            >
-              <Icons.Xmark data-size="md" />
-            </button>
-          </div>
-
-          <textarea
-            className="c-textarea"
-            placeholder={t("entry.situation.description.label")}
-            rows={3}
-            autoFocus
-            {...UI.Form.textareaPattern(loaderData.form.situationDescription)}
-          />
-
-          <div data-disp="flex" data-gap="8" data-cross="end">
-            <Components.Select>
-              <option value="">{t("entry.situation.kind.value.default")}</option>
-              {loaderData.form.situationKinds.map((kind) => (
-                <option key={kind} value={kind}>
-                  {t(`entry.situation.kind.value.${kind}`)}
-                </option>
-              ))}
-            </Components.Select>
-
-            <div data-disp="flex" data-cross="center" data-gap="2">
-              <Icons.MapPin data-size="md" data-color="neutral-400" />
-
-              <input
-                className="c-input"
-                placeholder={t("entry.situation.location.placeholder")}
-                {...UI.Form.inputPattern(loaderData.form.situationLocation)}
-              />
-            </div>
-          </div>
-
-          <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
-
-          <div data-disp="flex" data-main="between">
-            <div data-disp="flex" data-cross="end">
-              <button
-                type="button"
-                className="c-button"
-                data-color="positive-400"
-                data-variant={emotionType === "positive" ? undefined : "bare"}
-                onClick={() => setEmotionType("positive")}
-                {...UI.Rhythm().times(9).style.width}
+              fetcher.submit(payload, { action: "/add-entry", method: "post", encType: "application/json" });
+            }}
+          >
+            <div data-disp="flex" data-main="between" data-cross="center">
+              <strong
+                data-disp="flex"
+                data-cross="center"
+                data-gap="2"
+                data-fs="base"
+                data-color="neutral-300"
               >
-                {t("entry.emotion.label.type.positive")}
-              </button>
+                <Icons.Book data-size="md" data-color="neutral-300" />
+                Add new entry
+              </strong>
 
               <button
-                type="button"
                 className="c-button"
-                data-color="danger-400"
-                data-variant={emotionType === "negative" ? undefined : "bare"}
-                onClick={() => setEmotionType("negative")}
-                {...UI.Rhythm().times(9).style.width}
+                data-variant="with-icon"
+                type="submit"
+                data-interaction="subtle-scale"
+                onClick={dialog.disable}
               >
-                {t("entry.emotion.label.type.negative")}
+                <Icons.Xmark data-size="md" />
               </button>
-
-              {emotionType && (
-                <Components.Select data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
-                  <option value="">{t("entry.emotion.label.default.value")}</option>
-                  {loaderData.form.emotionLabels
-                    .filter((label) => (emotionType === "positive" ? label.positive : !label.positive))
-                    .map((emotion) => (
-                      <option key={emotion.option} value={emotion.option}>
-                        {t(`entry.emotion.label.value.${emotion.option}`)}
-                      </option>
-                    ))}
-                </Components.Select>
-              )}
             </div>
 
-            <Components.ClickableRatingPills {...emotionIntensity} />
-          </div>
+            <textarea
+              className="c-textarea"
+              placeholder={t("entry.situation.description.label")}
+              rows={3}
+              autoFocus
+              {...situationDescription.input.props}
+              {...UI.Form.textareaPattern(loaderData.form.situationDescription)}
+            />
 
-          <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
+            <div data-disp="flex" data-gap="8" data-cross="end">
+              <Components.Select {...situationKind.input.props}>
+                <option value="">{t("entry.situation.kind.value.default")}</option>
+                {loaderData.form.situationKinds.map((kind) => (
+                  <option key={kind} value={kind}>
+                    {t(`entry.situation.kind.value.${kind}`)}
+                  </option>
+                ))}
+              </Components.Select>
 
-          <textarea
-            className="c-textarea"
-            placeholder={t("entry.reaction.description.label")}
-            rows={3}
-            {...UI.Form.textareaPattern(loaderData.form.reactionDescription)}
-          />
+              <div data-disp="flex" data-cross="center" data-gap="2">
+                <Icons.MapPin data-size="md" data-color="neutral-400" />
 
-          <div data-disp="flex" data-cross="center">
-            <Components.Select>
-              <option value="">{t("entry.reaction.type.default.value")}</option>
-              {loaderData.form.reactionTypes.map((type) => (
-                <option key={type} value={type}>
-                  {t(`entry.reaction.type.value.${type}`)}
-                </option>
-              ))}
-            </Components.Select>
+                <input
+                  className="c-input"
+                  placeholder={t("entry.situation.location.placeholder")}
+                  {...situationLocation.input.props}
+                  {...UI.Form.inputPattern(loaderData.form.situationLocation)}
+                />
+              </div>
+            </div>
 
-            <label
-              data-fs="xs"
-              data-color="neutral-300"
-              data-ls="wide"
-              data-transform="uppercase"
-              data-ml="12"
-              data-mr="3"
-              {...reactionEffectiveness.label.props}
-            >
-              {t("entry.reaction.effectiveness.label")}
-            </label>
-            <Components.ClickableRatingPills {...reactionEffectiveness} />
-          </div>
+            <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
 
-          <div data-disp="flex" data-main="end" data-gap="5" data-mt="auto" data-mb="1">
-            <button type="button" className="c-button" data-variant="bare" onClick={dialog.disable}>
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="c-button"
-              data-variant="primary"
-              {...UI.Rhythm().times(12).style.width}
-            >
-              Save
-            </button>
-          </div>
+            <div data-disp="flex" data-main="between">
+              <div data-disp="flex" data-cross="end">
+                <button
+                  type="button"
+                  className="c-button"
+                  data-color="positive-400"
+                  data-variant={emotionType === "positive" ? undefined : "bare"}
+                  onClick={() => setEmotionType("positive")}
+                  {...UI.Rhythm().times(9).style.width}
+                >
+                  {t("entry.emotion.label.type.positive")}
+                </button>
+
+                <button
+                  type="button"
+                  className="c-button"
+                  data-color="danger-400"
+                  data-variant={emotionType === "negative" ? undefined : "bare"}
+                  onClick={() => setEmotionType("negative")}
+                  {...UI.Rhythm().times(9).style.width}
+                >
+                  {t("entry.emotion.label.type.negative")}
+                </button>
+
+                {emotionType && (
+                  <Components.Select data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
+                    <option value="">{t("entry.emotion.label.default.value")}</option>
+                    {loaderData.form.emotionLabels
+                      .filter((label) => (emotionType === "positive" ? label.positive : !label.positive))
+                      .map((emotion) => (
+                        <option key={emotion.option} value={emotion.option}>
+                          {t(`entry.emotion.label.value.${emotion.option}`)}
+                        </option>
+                      ))}
+                  </Components.Select>
+                )}
+              </div>
+
+              <Components.ClickableRatingPills {...emotionIntensity} />
+            </div>
+
+            <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
+
+            <textarea
+              className="c-textarea"
+              placeholder={t("entry.reaction.description.label")}
+              rows={3}
+              {...reactionDescription.input.props}
+              {...UI.Form.textareaPattern(loaderData.form.reactionDescription)}
+            />
+
+            <div data-disp="flex" data-cross="center">
+              <Components.Select {...reactionType.input.props}>
+                <option value="">{t("entry.reaction.type.default.value")}</option>
+                {loaderData.form.reactionTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {t(`entry.reaction.type.value.${type}`)}
+                  </option>
+                ))}
+              </Components.Select>
+
+              <label
+                data-fs="xs"
+                data-color="neutral-300"
+                data-ls="wide"
+                data-transform="uppercase"
+                data-ml="12"
+                data-mr="3"
+                {...reactionEffectiveness.label.props}
+              >
+                {t("entry.reaction.effectiveness.label")}
+              </label>
+              <Components.ClickableRatingPills {...reactionEffectiveness} />
+            </div>
+
+            <div data-disp="flex" data-main="end" data-gap="5" data-mt="12">
+              <Components.CancelButton onClick={dialog.disable} />
+
+              <button
+                type="submit"
+                className="c-button"
+                data-variant="primary"
+                {...UI.Rhythm().times(12).style.width}
+              >
+                Save
+              </button>
+            </div>
+          </fetcher.Form>
         </UI.Dialog>
       </div>
 
