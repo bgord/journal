@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
 export enum AiClientAdapter {
@@ -32,7 +31,6 @@ const EnvironmentSchema = z
     AXIOM_API_TOKEN: z.string().length(41),
     AI_CLIENT_ADAPTER: z.enum(AiClientAdapter),
     MAILER_ADAPTER: z.enum(MailerAdapter),
-    FF_MAILER_DISABLED: tools.FeatureFlagValue,
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
     BETTER_AUTH_URL: z.url().trim(),
   })

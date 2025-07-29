@@ -1,16 +1,14 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { AiClient } from "../infra/ai-client";
 import { Env } from "../infra/env";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import { Mailer } from "../infra/mailer";
-import { OpenAiAdapter } from "../infra/open-ai-adapter";
 import * as Auth from "../modules/auth";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
-
-const openAiClient = new OpenAiAdapter();
 
 describe("AlarmOrchestrator", () => {
   test("onAlarmGeneratedEvent - entry", async () => {
@@ -18,10 +16,10 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
-    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice);
+    spyOn(AiClient, "request").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
@@ -37,10 +35,10 @@ describe("AlarmOrchestrator", () => {
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice);
+    spyOn(AiClient, "request").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
@@ -57,10 +55,10 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockImplementation(() => {
       throw new Error("Failed");
     });
-    spyOn(openAiClient, "request").mockResolvedValue(mocks.advice);
+    spyOn(AiClient, "request").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
@@ -75,12 +73,12 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
-    spyOn(openAiClient, "request").mockImplementation(() => {
+    spyOn(AiClient, "request").mockImplementation(() => {
       throw new Error();
     });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
@@ -98,7 +96,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent),
@@ -120,7 +118,7 @@ describe("AlarmOrchestrator", () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent),
@@ -144,7 +142,7 @@ describe("AlarmOrchestrator", () => {
     });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent),
@@ -165,7 +163,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent),
@@ -184,7 +182,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await saga.onAlarmNotificationSentEvent(mocks.GenericInactivityAlarmNotificationSentEvent),
@@ -208,7 +206,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([{ id: alarm.id }]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
@@ -227,7 +225,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
@@ -246,7 +244,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, openAiClient, Mailer);
+    const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
