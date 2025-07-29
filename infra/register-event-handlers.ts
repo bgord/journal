@@ -4,6 +4,7 @@ import * as Sagas from "+emotions/sagas";
 import { AiClient } from "+infra/ai-client";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
+import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
 
 const EventHandler = new bg.EventHandler(logger);
@@ -60,5 +61,5 @@ EventBus.on(
 
 // Sagas
 new Sagas.EntryAlarmDetector(EventBus).register();
-new Sagas.AlarmOrchestrator(EventBus, AiClient).register();
-new Sagas.WeeklyReviewProcessing(EventBus, AiClient).register();
+new Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer).register();
+new Sagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer).register();

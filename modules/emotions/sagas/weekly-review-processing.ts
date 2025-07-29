@@ -9,8 +9,6 @@ import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 import { SupportedLanguages } from "+infra/i18n";
-import { logger } from "+infra/logger";
-import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
@@ -18,6 +16,7 @@ export class WeeklyReviewProcessing {
   constructor(
     private readonly eventBus: typeof EventBus,
     private readonly AiClient: Ports.AiClientPort,
+    private readonly mailer: bg.MailerPort,
   ) {}
 
   register() {
@@ -37,7 +36,7 @@ export class WeeklyReviewProcessing {
     if (!contact?.email) return;
 
     try {
-      await Mailer.send({ from: Env.EMAIL_FROM, to: contact?.email, ...notification.get() });
+      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact?.email, ...notification.get() });
     } catch (error) {}
   }
 
@@ -106,16 +105,7 @@ export class WeeklyReviewProcessing {
 
       const notification = composer.compose(week, entries, insights, patterns);
 
-      if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_DISABLED)) {
-        return logger.info({
-          message: "[FF_MAILER_DISABLED] - email message",
-          correlationId: bg.CorrelationStorage.get(),
-          operation: "email_send",
-          metadata: { from: Env.EMAIL_FROM, to: contact.email, notification },
-        });
-      }
-
-      await Mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
+      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
     } catch (error) {
       const command = Commands.MarkWeeklyReviewAsFailedCommand.parse({
         id: crypto.randomUUID(),

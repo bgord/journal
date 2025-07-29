@@ -8,8 +8,6 @@ import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
-import { logger } from "+infra/logger";
-import { Mailer } from "+infra/mailer";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
@@ -17,6 +15,7 @@ export class AlarmOrchestrator {
   constructor(
     private readonly eventBus: typeof EventBus,
     private readonly AiClient: Ports.AiClientPort,
+    private readonly mailer: bg.MailerPort,
   ) {}
 
   register() {
@@ -86,17 +85,8 @@ export class AlarmOrchestrator {
 
     const notification = await Services.AlarmNotificationFactory.create(detection, advice);
 
-    if (tools.FeatureFlag.isEnabled(Env.FF_MAILER_DISABLED)) {
-      return logger.info({
-        message: "[FF_MAILER_DISABLED] - email message",
-        correlationId: bg.CorrelationStorage.get(),
-        operation: "email_send",
-        metadata: { from: Env.EMAIL_FROM, to: contact.email, notification },
-      });
-    }
-
     try {
-      await Mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
+      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
     } catch (_error) {
       return CommandBus.emit(cancel.name, cancel);
     }
