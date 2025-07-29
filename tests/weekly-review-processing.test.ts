@@ -6,11 +6,11 @@ import { Env } from "../infra/env";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import { Mailer } from "../infra/mailer";
-import { OpenAiClient } from "../infra/open-ai-client";
+import { OpenAiAdapter } from "../infra/open-ai-adapter";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const openAiClient = new OpenAiClient();
+const openAiClient = new OpenAiAdapter();
 
 describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent", async () => {

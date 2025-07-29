@@ -1,6 +1,7 @@
 import * as Auth from "+auth";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
+import * as Ports from "+emotions/ports";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
@@ -15,7 +16,7 @@ import * as tools from "@bgord/tools";
 export class AlarmOrchestrator {
   constructor(
     private readonly eventBus: typeof EventBus,
-    private readonly AiClient: Services.AiClient,
+    private readonly AiClient: Ports.AiClientPort,
   ) {}
 
   register() {

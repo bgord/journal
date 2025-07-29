@@ -1,20 +1,20 @@
 import * as EventHandlers from "+emotions/event-handlers";
 import * as Events from "+emotions/events";
+import { AiClientEnum } from "+emotions/ports/ai-client";
 import * as Sagas from "+emotions/sagas";
-import { AiClientEnum } from "+emotions/services/ai-client";
-import { AnthropicAiClient } from "+infra/anthropic-ai-client";
+import { AnthropicAiAdapter } from "+infra/anthropic-ai-adapter";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
-import { OpenAiClient } from "+infra/open-ai-client";
+import { OpenAiAdapter } from "+infra/open-ai-adapter";
 import * as bg from "@bgord/bun";
 
 const EventHandler = new bg.EventHandler(logger);
 
 const AiClient = {
-  [AiClientEnum.anthropic]: new AnthropicAiClient(),
-  [AiClientEnum.open_ai]: new OpenAiClient(),
-};
+  [AiClientEnum.anthropic]: new AnthropicAiAdapter(),
+  [AiClientEnum.open_ai]: new OpenAiAdapter(),
+}[Env.AI_CLIENT_ADAPTER];
 
 // Entry
 EventBus.on(Events.ENTRY_DELETED_EVENT, EventHandler.handle(EventHandlers.onEntryDeletedEvent));
@@ -68,5 +68,5 @@ EventBus.on(
 
 // Sagas
 new Sagas.EntryAlarmDetector(EventBus).register();
-new Sagas.AlarmOrchestrator(EventBus, AiClient[Env.AI_CLIENT]).register();
-new Sagas.WeeklyReviewProcessing(EventBus, AiClient[Env.AI_CLIENT]).register();
+new Sagas.AlarmOrchestrator(EventBus, AiClient).register();
+new Sagas.WeeklyReviewProcessing(EventBus, AiClient).register();

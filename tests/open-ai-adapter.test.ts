@@ -1,6 +1,6 @@
 import { describe, expect, spyOn, test } from "bun:test";
-import { AnthropicAi, AnthropicAiClient } from "../infra/anthropic-ai-client";
 import { SupportedLanguages } from "../infra/i18n";
+import { OpenAI, OpenAiAdapter } from "../infra/open-ai-adapter";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -10,22 +10,22 @@ const prompt = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
   SupportedLanguages.en,
 ).generate();
 
-describe("AnthropicAiClient", () => {
+describe("OpenAiClient", () => {
   test("request", async () => {
-    const anthropicCreate = spyOn(
-      AnthropicAi.messages,
+    const openAiCreate = spyOn(
+      OpenAI.responses,
       "create",
       // @ts-expect-error
-    ).mockResolvedValue({ content: mocks.advice.get() });
+    ).mockResolvedValue({ output_text: mocks.advice.get() });
 
-    const client = new AnthropicAiClient();
+    const client = new OpenAiAdapter();
     const result = await client.request(prompt);
 
-    expect(anthropicCreate).toHaveBeenCalledWith({
-      max_tokens: Emotions.VO.Advice.MaximumLength,
-      messages: [prompt.read()[1]],
-      system: prompt.read()[0].content,
-      model: "claude-3-5-sonnet-latest",
+    expect(openAiCreate).toHaveBeenCalledWith({
+      model: "gpt-4o",
+      instructions: prompt.read()[0].content,
+      input: prompt.read()[1].content,
+      max_output_tokens: Emotions.VO.Advice.MaximumLength,
     });
     expect(result).toEqual(mocks.advice);
   });
