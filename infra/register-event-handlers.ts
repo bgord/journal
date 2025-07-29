@@ -6,6 +6,7 @@ import { AnthropicAiAdapter } from "+infra/anthropic-ai-adapter";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
+import { NoopAdapter } from "+infra/noop-adapter";
 import { OpenAiAdapter } from "+infra/open-ai-adapter";
 import * as bg from "@bgord/bun";
 
@@ -14,6 +15,7 @@ const EventHandler = new bg.EventHandler(logger);
 const AiClient = {
   [AiClientEnum.anthropic]: new AnthropicAiAdapter(),
   [AiClientEnum.open_ai]: new OpenAiAdapter(),
+  [AiClientEnum.noop]: new NoopAdapter(),
 }[Env.AI_CLIENT_ADAPTER];
 
 // Entry
