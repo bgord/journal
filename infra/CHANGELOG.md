@@ -1,8 +1,25 @@
 # Changelog
+- 2025-07-29 23:20 94d90b8 **step: update packages**
+- 2025-07-29 23:20 2c5c603 **refactor: udpate drizzle**
+## 2025-07-29 23:20 
+- 2025-07-29 23:18 7e75de5 **refactor: use runtime adapters in saga tests**
+- 2025-07-29 23:13 9d99483 **refactor: rely on mailer port in sagas**
+- 2025-07-29 23:09 f24e0b9 **step: add runtime mailer adapter choosing**
+- 2025-07-29 23:07 b2e8f9d **refactor: rename AiClientAdapter**
+- 2025-07-29 23:06 ad4ae91 **step: define mailer adapter**
+- 2025-07-29 23:04 6a4755c **step: remove unused FF_AI_CLIENT_REAL_RESPONSE**
+- 2025-07-29 23:03 662fb53 **refactor: rename smtp mailer adapter**
+- 2025-07-29 23:02 1ab3370 **refactor: rename rate limit shield**
+- 2025-07-29 23:02 06a74b5 **step: update packages**
+- 2025-07-29 20:15 7a211e2 **refactor: extract ai client to infra**
+- 2025-07-29 20:13 e588e8a **refactor: remove ff**
+- 2025-07-29 20:12 2fd3b89 **step: wireup noop adapter**
+- 2025-07-29 20:11 fd96cff **step: add noop adapter**
 - 2025-07-29 19:18 bb856b8 **refactor: switch to ai client port/adapters**
-## 2025-07-29 19:18 
 - 2025-07-29 19:11 4cb7dd7 **refactor: remove old ai client**
 - 2025-07-29 19:11 448b0e8 **step: define ai client port**
+- 2025-07-29 17:29 97c4f40 **docs: generate readme**
+- 2025-07-29 17:29 2c5b137 **docs: generate CHANGELOG**
 - 2025-07-29 14:58 e8ca969 **step: unify ai advices in ui**
 - 2025-07-29 13:53 3263c6d **refactor: extract dialog component**
 - 2025-07-29 13:46 6c3ecdc **refactor: remove view transition**
