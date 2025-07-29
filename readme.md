@@ -214,6 +214,7 @@ modules/
 
 ```
 infra/
+├── ai-client.ts
 ├── anthropic-ai-adapter.ts
 ├── auth.ts
 ├── basic-auth-shield.ts
