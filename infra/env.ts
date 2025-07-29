@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
-export enum AiClientEnum {
+export enum AiClientAdapter {
   anthropic = "anthropic",
   open_ai = "open_ai",
   noop = "noop",
@@ -30,7 +30,7 @@ const EnvironmentSchema = z
     OPEN_AI_API_KEY: z.string().min(1).max(256).trim(),
     ANTHROPIC_AI_API_KEY: z.string().min(1).max(256).trim(),
     AXIOM_API_TOKEN: z.string().length(41),
-    AI_CLIENT_ADAPTER: z.enum(AiClientEnum),
+    AI_CLIENT_ADAPTER: z.enum(AiClientAdapter),
     MAILER_ADAPTER: z.enum(MailerAdapter),
     FF_MAILER_DISABLED: tools.FeatureFlagValue,
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
