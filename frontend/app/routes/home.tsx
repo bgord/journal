@@ -19,6 +19,15 @@ export async function action({ request }: Route.ActionArgs) {
   const form = await request.formData();
   const intent = form.get("intent");
 
+  if (intent === "entry_add") {
+    await API("/entry/log", {
+      method: "POST",
+      body: JSON.stringify(Object.fromEntries(form.entries())),
+      headers: { cookie },
+    });
+    return { ok: true };
+  }
+
   if (intent === "entry_delete") {
     await API(`/entry/${form.get("id")}/delete`, {
       method: "DELETE",
@@ -94,6 +103,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     reactionDescription: reactionDescription.value,
     reactionType: reactionType.value,
     reactionEffectiveness: reactionEffectiveness.value,
+    intent: "entry_add",
   };
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
@@ -120,8 +130,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             method="POST"
             onSubmit={(event) => {
               event.preventDefault();
-
-              fetcher.submit(payload, { action: "/add-entry", method: "post", encType: "application/json" });
+              fetcher.submit(payload, { action: "/home", method: "post" });
+              dialog.disable();
             }}
           >
             <div data-disp="flex" data-main="between" data-cross="center">

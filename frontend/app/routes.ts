@@ -5,7 +5,6 @@ export default [
   route("/register", "routes/register.tsx"),
 
   layout("routes/auth-layout.tsx", [
-    route("/add-entry", "routes/add-entry.tsx"),
     route("/home", "routes/home.tsx"),
     route("/dashboard", "routes/dashboard.tsx"),
     route("/logout", "routes/logout.tsx"),

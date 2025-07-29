@@ -26,12 +26,12 @@ export function Entry(props: EntryType) {
       {...exit.attach}
       data-testid="entry"
       data-disp="flex"
-      data-px="4"
       data-dir="column"
+      data-px="4"
+      data-bg="neutral-900"
       data-fs="base"
       data-br="xs"
       data-shadow="sm"
-      data-bg="neutral-900"
     >
       <header
         data-disp="flex"
