@@ -1,6 +1,73 @@
 # Changelog
+- 2025-07-29 19:18 bb856b8 **refactor: switch to ai client port/adapters**
+## 2025-07-29 19:18 
+- 2025-07-29 19:11 4cb7dd7 **refactor: remove old ai client**
+- 2025-07-29 19:11 448b0e8 **step: define ai client port**
+- 2025-07-29 14:58 e8ca969 **step: unify ai advices in ui**
+- 2025-07-29 13:53 3263c6d **refactor: extract dialog component**
+- 2025-07-29 13:46 6c3ecdc **refactor: remove view transition**
+- 2025-07-29 13:42 0a01be1 **refactor: restore add entry API connection**
+- 2025-07-29 13:30 9420bd2 **refactor: migrate add entry to home**
+- 2025-07-28 23:16 f46b0a0 **refactor: remove labels**
+- 2025-07-28 23:13 5cf4945 **step: add buttons**
+- 2025-07-28 23:03 3bf7d9c **refactor: migrate reaction**
+- 2025-07-28 22:50 903ddc8 **step: add emotion to dialog**
+- 2025-07-28 22:35 fb1838c **step: update design**
+- 2025-07-28 17:18 0b22e3c **refactor: migrate situation into the dialog**
+- 2025-07-28 17:10 f568776 **step: change copy**
+- 2025-07-28 16:48 75e4e3c **refactor: use dialog from design**
+- 2025-07-28 14:48 14c3fc1 **step: change new entry shortcut**
+- 2025-07-28 14:46 1f2c1d4 **step: setup add entry dialog**
+- 2025-07-28 14:39 3d1cf33 **step: add new entry button**
+- 2025-07-28 12:19 59df570 **step: make alarm icons smaller**
+- 2025-07-28 12:12 9538862 **refactor: unify dashboard colors secondary**
+- 2025-07-28 12:09 bcd5091 **step: reduce entry card padding**
+- 2025-07-28 12:07 62026e6 **step: improve colors**
+- 2025-07-28 12:02 dca46ec **step: improve entry location**
+- 2025-07-28 11:59 36aa7b5 **step: improve alarm emotion label badge**
+- 2025-07-28 11:58 e010b22 **fix: alarm icon color**
+- 2025-07-28 11:57 72c9bb8 **fix: entry emotion alignment**
+- 2025-07-28 11:55 be1329d **fix: colorful calls**
+- 2025-07-28 11:51 e89806b **step: improve seed**
+- 2025-07-28 11:42 d42b338 **refactor: extract credentials**
+- 2025-07-27 19:43 332a24c **step: add heamap interaction**
+- 2025-07-27 19:38 2a895a6 **step: add pasword manager hints**
+- 2025-07-27 19:33 1824b6c **refactor: improve secondary action on auth pages**
+- 2025-07-27 19:17 bca62b0 **step: improve dashboard spacing**
+- 2025-07-27 19:10 defcc2b **fix: dashboard headers**
+- 2025-07-27 19:03 e5a77af **step: implement better heatmap**
+- 2025-07-27 18:07 42d5aa0 **refactor: make grid smaller**
+- 2025-07-27 17:45 8151bd7 **refactor: update design syntax**
+- 2025-07-27 17:42 3cea58e **step: update design**
+- 2025-07-27 17:32 de6b990 **refactor: refine weekly reviews in dashboard**
+- 2025-07-27 17:23 2433f3a **refactor: refine enetires dashbaord section**
+- 2025-07-27 16:57 36825fc **refactor: refine dashboard**
+- 2025-07-27 16:33 7ca46b8 **fix: dashboard shortcut**
+- 2025-07-27 16:29 e7a133a **step: add inter font**
+- 2025-07-27 16:29 a564940 **step: improve font weights**
+- 2025-07-27 16:19 7f7ac4c **refactor: improve add entry form**
+- 2025-07-27 15:56 7c1545b **refactor: unify icons**
+- 2025-07-27 15:48 8758e97 **step: add headers in login and register**
+- 2025-07-27 15:42 06cf64c **refactor: extract logo**
+- 2025-07-27 15:39 33505bb **fix: badges**
+- 2025-07-27 15:38 229417b **refactor: update nav in auth**
+- 2025-07-27 15:24 f903d95 **fix: breakpoint**
+- 2025-07-27 15:17 8173107 **step: update design**
+- 2025-07-27 13:18 5bf4c74 **refactor: improve register page**
+- 2025-07-27 13:06 a7d79e5 **refactor: improve login page**
+- 2025-07-27 00:44 fac0a09 **step: clean up home design**
+- 2025-07-27 00:35 40a1893 **refactor: adjust add entry link**
+- 2025-07-27 00:11 9d50d7f **fix: lang selector**
+- 2025-07-27 00:08 c5e831e **refactor: adjust home**
+- 2025-07-26 23:48 bdb5882 **fix: home types**
+- 2025-07-26 23:46 c8f2074 **step: adjust logo**
+- 2025-07-26 23:46 0209aab **fix: types**
+- 2025-07-26 23:42 d2ee8bf **step: remove surface variables**
+- 2025-07-26 23:32 3158069 **step: install bgord/design**
+- 2025-07-26 13:19 7e7b692 **step: add types**
+- 2025-07-26 12:43 b151ff8 **step: update bgord/design**
+- 2025-07-26 11:23 909afa3 **step: install @bgord/design v2**
 - 2025-07-25 17:20 b722104 **step: multilang weekly reviews**
-## 2025-07-25 17:20 
 - 2025-07-25 17:08 d0aa25c **refactor: make weekly review insights prompt language aware**
 - 2025-07-25 17:00 6fd70c2 **step: add weekly review translations**
 - 2025-07-25 16:45 a6705ea **step: bump bgord/scripts**
@@ -13,6 +80,8 @@
 - 2025-07-25 15:46 2763029 **step: implement weekly review event handlers**
 - 2025-07-25 15:40 48822bd **step: add weekly review repo**
 - 2025-07-25 15:39 5dc4bbb **step: add weekly review status to schema**
+- 2025-07-25 15:33 ee126a5 **docs: generate readme**
+- 2025-07-25 15:33 c2268b8 **docs: generate CHANGELOG**
 - 2025-07-25 15:28 2b00812 **step: register weekly review events**
 - 2025-07-25 15:14 88065b9 **step: rename malapdaptive reactions pattern detected event**
 - 2025-07-25 15:09 aa2f36b **fix: patterns repo query**
