@@ -84,8 +84,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                       })}
                     </div>
 
-                    <div data-ml="3" data-color="neutral-100">
-                      "{alarm.advice}"
+                    <div data-color="neutral-100">
+                      <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{alarm.advice}"
                     </div>
                   </div>
                 </li>
@@ -307,8 +307,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                   </div>
 
                   {review.status === "completed" && (
-                    <div data-ml="3" data-color="neutral-100">
-                      "{review.insights}"
+                    <div data-color="neutral-100">
+                      <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{review.insights}"
                     </div>
                   )}
                 </li>
