@@ -27,7 +27,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
 
   return (
-    <main data-disp="flex" data-dir="column">
+    <main data-disp="flex" data-dir="column" data-gap="8">
       <ul data-disp="flex" data-p="5" style={{ gap: "4px" }}>
         {loaderData.heatmap.map((point, index) => (
           // @ts-expect-error
@@ -41,18 +41,6 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           />
         ))}
       </ul>
-
-      <a
-        href={`${import.meta.env.VITE_API_URL}/entry/export`}
-        download
-        target="_blank"
-        rel="noopener noreferer"
-        data-ml="auto"
-        data-mr="8"
-        data-color="brand-500"
-      >
-        <Icons.DownloadCircle data-size="lg" />
-      </a>
 
       <div data-disp="flex" data-gap="5" data-mx="auto" data-color="neutral-200" data-px="1">
         <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>

@@ -1,4 +1,4 @@
-import * as Components from "../../components";
+import * as Icons from "iconoir-react";
 
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
@@ -11,7 +11,7 @@ export default function Profile() {
       data-dir="column"
       data-gap="5"
       data-mx="auto"
-      data-p="5"
+      data-p="8"
       data-width="100%"
       data-maxw="md"
       data-br="sm"
@@ -21,9 +21,19 @@ export default function Profile() {
     >
       <h2>Profile</h2>
 
-      <Components.Separator />
+      <div data-disp="flex" data-main="between" data-mt="8">
+        <div>Export all data</div>
 
-      <div data-disp="flex">Export all data</div>
+        <a
+          href={`${import.meta.env.VITE_API_URL}/entry/export`}
+          download
+          target="_blank"
+          rel="noopener noreferer"
+          data-color="brand-500"
+        >
+          <Icons.DownloadCircle data-size="lg" />
+        </a>
+      </div>
     </main>
   );
 }
