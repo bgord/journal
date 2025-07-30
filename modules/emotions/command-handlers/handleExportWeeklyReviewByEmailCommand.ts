@@ -28,6 +28,7 @@ export const handleExportWeeklyReviewByEmailCommand = async (
       weeklyReviewId: command.payload.weeklyReviewId,
       userId: command.payload.userId,
       weeklyReviewExportId,
+      attempt: 1,
     },
   } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType);
 

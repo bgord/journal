@@ -14,7 +14,12 @@ export const WeeklyReviewExportByEmailFailedEvent = z.object({
   name: z.literal(WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ weeklyReviewId: VO.WeeklyReviewId, userId: Auth.VO.UserId, attempt: z.number() }),
+  payload: z.object({
+    attempt: z.number().int(),
+    userId: Auth.VO.UserId,
+    weeklyReviewExportId: VO.WeeklyReviewExportId,
+    weeklyReviewId: VO.WeeklyReviewId,
+  }),
 });
 
 export type WeeklyReviewExportByEmailFailedEventType = z.infer<typeof WeeklyReviewExportByEmailFailedEvent>;

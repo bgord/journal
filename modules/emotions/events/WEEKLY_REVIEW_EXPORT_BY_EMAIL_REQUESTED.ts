@@ -15,9 +15,10 @@ export const WeeklyReviewExportByEmailRequestedEvent = z.object({
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
   payload: z.object({
-    weeklyReviewId: VO.WeeklyReviewId,
+    attempt: z.number().int(),
     userId: Auth.VO.UserId,
     weeklyReviewExportId: VO.WeeklyReviewExportId,
+    weeklyReviewId: VO.WeeklyReviewId,
   }),
 });
 
