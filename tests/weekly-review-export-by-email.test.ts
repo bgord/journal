@@ -61,6 +61,11 @@ describe("WeeklyReviewExportByEmail", () => {
         ),
     );
 
-    expect(mailerSend).toHaveBeenCalledWith({ from: Env.EMAIL_FROM, to: mocks.email });
+    expect(mailerSend).toHaveBeenCalledWith({
+      from: Env.EMAIL_FROM,
+      to: mocks.email,
+      subject: `Weekly Review PDF - ${mocks.week.getStart()}`,
+      html: "Find the file attached",
+    });
   });
 });

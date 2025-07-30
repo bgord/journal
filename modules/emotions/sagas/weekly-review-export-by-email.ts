@@ -1,6 +1,7 @@
 import * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Repos from "+emotions/repositories";
+import * as Services from "+emotions/services";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 import * as bg from "@bgord/bun";
@@ -26,8 +27,11 @@ export class WeeklyReviewExportByEmail {
     const weeklyReview = await Repos.WeeklyReviewRepository.getById(event.payload.userId);
     if (!weeklyReview) return;
 
-    tools.Week.fromIsoId(weeklyReview.weekIsoId);
+    const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
 
-    await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email });
+    const composer = new Services.WeeklyReviewExportNotificationComposer();
+    const notification = composer.compose(week).get();
+
+    await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification });
   }
 }
