@@ -7,6 +7,7 @@ import type { loader } from "../app/routes/home";
 import { CancelButton } from "./cancel-button";
 import { ClickableRatingPills } from "./clickable-rating-pills";
 import { Select } from "./select";
+import { Separator } from "./separator";
 
 type LoaderData = Awaited<ReturnType<typeof loader>>;
 
@@ -116,7 +117,7 @@ export function AddEntry() {
             </div>
           </div>
 
-          <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
+          <Separator />
 
           <div data-disp="flex" data-main="between">
             <div data-disp="flex" data-cross="end">
@@ -159,7 +160,7 @@ export function AddEntry() {
             <ClickableRatingPills {...emotionIntensity} />
           </div>
 
-          <div style={{ width: "100%", height: "2px" }} data-bg="neutral-800" />
+          <Separator />
 
           <textarea
             className="c-textarea"
