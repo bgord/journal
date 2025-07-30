@@ -46,7 +46,7 @@ describe(`POST ${url}`, () => {
     expect(response.status).toBe(500);
   });
 
-  test("validation - WeeklyReviewIsCompleted - skipped", async () => {
+  test("validation - WeeklyReviewIsCompleted", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReviewSkipped);
     const response = await server.request(url, { method: "POST" }, mocks.ip);
@@ -55,6 +55,17 @@ describe(`POST ${url}`, () => {
 
     expect(response.status).toBe(Emotions.Policies.WeeklyReviewIsCompleted.code);
     expect(json).toEqual({ message: Emotions.Policies.WeeklyReviewIsCompleted.message, _known: true });
+  });
+
+  test("validation - RequesterOwnsWeeklyReview", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
+
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.RequesterOwnsWeeklyReview.code);
+    expect(json).toEqual({ message: Emotions.Policies.RequesterOwnsWeeklyReview.message, _known: true });
   });
 
   test("happy path", async () => {

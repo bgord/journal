@@ -6,7 +6,9 @@ export const handleExportWeeklyReviewByEmailCommand = async (
   const weeklyReview = await Emotions.Repos.WeeklyReviewRepository.getById(command.payload.weeklyReviewId);
 
   Emotions.Policies.WeeklyReviewExists.perform({ weeklyReview });
-  Emotions.Policies.WeeklyReviewIsCompleted.perform({
-    status: weeklyReview?.status as Emotions.VO.WeeklyReviewStatusEnum,
+  Emotions.Policies.WeeklyReviewIsCompleted.perform({ status: weeklyReview?.status });
+  Emotions.Policies.RequesterOwnsWeeklyReview.perform({
+    requesterId: command.payload.userId,
+    ownerId: weeklyReview?.userId,
   });
 };
