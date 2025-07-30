@@ -17,11 +17,4 @@ export class WeeklyReviewExportPdfFile extends bg.FileDraft {
   create() {
     return this.pdfGenerator.request("weekly_review_export.html", this.weeklyReview);
   }
-
-  // TODO: migrate to bgord/bun
-  async toAttachment() {
-    const body = await this.create();
-
-    return { filename: this.config.filename, content: body, contentType: this.config.mime.raw };
-  }
 }
