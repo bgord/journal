@@ -27,10 +27,31 @@ describe("WeeklyReviewExportByEmail", () => {
     expect(mailerSend).not.toHaveBeenCalled();
   });
 
+  test("onWeeklyReviewExportByEmailRequestedEvent - no weeklyReview", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
+    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(mocks.user);
+    // @ts-expect-error
+    spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(undefined);
+
+    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () =>
+        await saga.onWeeklyReviewExportByEmailRequestedEvent(
+          mocks.GenericWeeklyReviewExportByEmailRequestedEvent,
+        ),
+    );
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+    expect(mailerSend).not.toHaveBeenCalled();
+  });
+
   test("onWeeklyReviewExportByEmailRequestedEvent", async () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(mocks.user);
+    spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
 
     const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer);
     await bg.CorrelationStorage.run(
