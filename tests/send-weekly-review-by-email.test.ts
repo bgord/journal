@@ -1,8 +1,8 @@
-import { describe, expect, test, spyOn } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import { auth } from "../infra/auth";
 import { server } from "../server";
 import * as mocks from "./mocks";
-import { auth } from "../infra/auth";
 
 const url = `/weekly-review/${mocks.weeklyReviewId}/send-by-email`;
 
