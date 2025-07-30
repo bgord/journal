@@ -22,9 +22,13 @@ export const handleExportWeeklyReviewByEmailCommand = async (
     correlationId: bg.CorrelationStorage.get(),
     createdAt: tools.Timestamp.parse(Date.now()),
     name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
-    stream: `weely_review_export_by_email_${weeklyReviewExportId}`,
+    stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
     version: 1,
-    payload: { weeklyReviewId: command.payload.weeklyReviewId, userId: command.payload.userId },
+    payload: {
+      weeklyReviewId: command.payload.weeklyReviewId,
+      userId: command.payload.userId,
+      weeklyReviewExportId,
+    },
   } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType);
 
   await EventStore.save([event]);

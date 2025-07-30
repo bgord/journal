@@ -14,7 +14,11 @@ export const WeeklyReviewExportByEmailRequestedEvent = z.object({
   name: z.literal(WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: z.object({ weeklyReviewId: VO.WeeklyReviewId, userId: Auth.VO.UserId }),
+  payload: z.object({
+    weeklyReviewId: VO.WeeklyReviewId,
+    userId: Auth.VO.UserId,
+    weeklyReviewExportId: VO.WeeklyReviewExportId,
+  }),
 });
 
 export type WeeklyReviewExportByEmailRequestedEventType = z.infer<

@@ -360,7 +360,7 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent = {
   stream: expect.any(String),
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT",
   version: 1,
-  payload: { weeklyReviewId, userId },
+  payload: { weeklyReviewId, userId, weeklyReviewExportId },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
 export const partialEntry: Schema.SelectEntries = {

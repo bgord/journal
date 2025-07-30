@@ -73,6 +73,7 @@ describe(`POST ${url}`, () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewExportId);
 
     const response = await server.request(
       url,
