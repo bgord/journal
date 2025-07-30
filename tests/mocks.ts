@@ -440,6 +440,15 @@ export const fullEntryFormatted: Schema.SelectEntriesFull = {
   alarms: [],
 };
 
+export const weeklyReview: Schema.SelectWeeklyReviews = {
+  id: weeklyReviewId,
+  userId,
+  weekIsoId: week.toIsoId(),
+  createdAt: Date.now(),
+  insights: "Good job", // TODO: extract
+  status: Emotions.VO.WeeklyReviewStatusEnum.completed,
+};
+
 export const alarm: Schema.SelectAlarms = {
   id: alarmId,
   generatedAt: Date.now(),

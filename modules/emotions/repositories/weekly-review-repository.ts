@@ -5,6 +5,10 @@ import * as Schema from "+infra/schema";
 import { eq } from "drizzle-orm";
 
 export class WeeklyReviewRepository {
+  static async getById(weeklyReviewId: VO.WeeklyReviewIdType) {
+    return db.query.weeklyReviews.findFirst({ where: eq(Schema.weeklyReviews.id, weeklyReviewId) });
+  }
+
   static async create(event: Events.WeeklyReviewRequestedEventType) {
     await db.insert(Schema.weeklyReviews).values({
       id: event.payload.weeklyReviewId,
