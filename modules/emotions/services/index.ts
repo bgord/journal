@@ -13,6 +13,7 @@ export * from "./inactivity-alarm-scheduler";
 export * from "./negative-emotion-extreme-intensity-alarm";
 export * from "./pattern-detector";
 export * as Patterns from "./patterns/";
+export * from "./weekly-review-export-notification-composer";
 export * from "./weekly-review-insights-prompt-builder";
 export * from "./weekly-review-notification-composer";
 export * from "./weekly-review-scheduler";
