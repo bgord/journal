@@ -1,5 +1,6 @@
 import * as Auth from "+auth";
 import * as Events from "+emotions/events";
+import * as Ports from "+emotions/ports";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
 import { Env } from "+infra/env";
@@ -11,6 +12,7 @@ export class WeeklyReviewExportByEmail {
   constructor(
     private readonly eventBus: typeof EventBus,
     private readonly mailer: bg.MailerPort,
+    private readonly pdfGenerator: Ports.PdfGeneratorPort,
   ) {}
 
   register() {
@@ -32,6 +34,14 @@ export class WeeklyReviewExportByEmail {
     const composer = new Services.WeeklyReviewExportNotificationComposer();
     const notification = composer.compose(week).get();
 
-    await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification });
+    const pdf = new Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);
+    const attachment = pdf.toAttachment();
+
+    await this.mailer.send({
+      from: Env.EMAIL_FROM,
+      to: contact.email,
+      attachments: [attachment],
+      ...notification,
+    });
   }
 }

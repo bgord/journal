@@ -5,6 +5,7 @@ import { Env } from "../infra/env";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import { Mailer } from "../infra/mailer";
+import { PdfGenerator } from "../infra/pdf-generator";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
@@ -14,7 +15,7 @@ describe("WeeklyReviewExportByEmail", () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer);
+    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () =>
@@ -33,7 +34,7 @@ describe("WeeklyReviewExportByEmail", () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(mocks.user);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(undefined);
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer);
+    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () =>
@@ -52,7 +53,7 @@ describe("WeeklyReviewExportByEmail", () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(mocks.user);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer);
+    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () =>
