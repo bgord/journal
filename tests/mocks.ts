@@ -363,6 +363,16 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent = {
   payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: 1 },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
+export const GenericWeeklyReviewExportByEmailFailedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: expect.any(String),
+  name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT",
+  version: 1,
+  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: 1 },
+} satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
+
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,
   finishedAt: Date.now(),
