@@ -17,3 +17,7 @@ CommandBus.on(
   CommandHandlers.handleMarkWeeklyReviewAsFailedCommand,
 );
 CommandBus.on(Commands.DETECT_WEEKLY_PATTERNS_COMMAND, CommandHandlers.handleDetectWeeklyPatternsCommand);
+CommandBus.on(
+  Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
+  CommandHandlers.handleExportWeeklyReviewByEmailCommand,
+);

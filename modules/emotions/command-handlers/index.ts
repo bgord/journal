@@ -3,6 +3,7 @@ export * from "./handleCompleteWeeklyReviewCommand";
 export * from "./handleDeleteEntryCommand";
 export * from "./handleDetectWeeklyPatternsCommand";
 export * from "./handleEvaluateReactionCommand";
+export * from "./handleExportWeeklyReviewByEmailCommand";
 export * from "./handleGenerateAlarmCommand";
 export * from "./handleLogEntryCommand";
 export * from "./handleMarkWeeklyReviewAsFailedCommand";
