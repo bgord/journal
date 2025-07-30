@@ -14,3 +14,4 @@ export * from "./reaction-for-evaluation-exists";
 export * from "./requester-owns-entry";
 export * from "./weekly-review-completed-once";
 export * from "./weekly-review-exists";
+export * from "./weekly-review-is-completed";
