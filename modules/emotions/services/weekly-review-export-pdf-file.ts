@@ -3,7 +3,6 @@ import type * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-// TODO: tests
 export class WeeklyReviewExportPdfFile extends bg.FileDraft {
   constructor(
     private readonly pdfGenerator: Ports.PdfGeneratorPort,
