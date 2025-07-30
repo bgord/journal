@@ -26,7 +26,7 @@ export class WeeklyReviewExportByEmail {
     const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
     if (!contact?.email) return;
 
-    const weeklyReview = await Repos.WeeklyReviewRepository.getById(event.payload.userId);
+    const weeklyReview = await Repos.WeeklyReviewRepository.getById(event.payload.weeklyReviewId);
     if (!weeklyReview) return;
 
     const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
