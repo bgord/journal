@@ -7,6 +7,7 @@ export default [
   layout("routes/auth-layout.tsx", [
     route("/home", "routes/home.tsx"),
     route("/dashboard", "routes/dashboard.tsx"),
+    route("/profile", "routes/profile.tsx"),
     route("/logout", "routes/logout.tsx"),
   ]),
 ] satisfies RouteConfig;
