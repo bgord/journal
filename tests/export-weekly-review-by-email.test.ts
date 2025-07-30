@@ -4,7 +4,7 @@ import { auth } from "../infra/auth";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = `/weekly-review/${mocks.weeklyReviewId}/send-by-email`;
+const url = `/weekly-review/${mocks.weeklyReviewId}/export/email`;
 
 describe(`POST ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
@@ -16,7 +16,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const response = await server.request("/weekly-review/id/send-by-email", { method: "POST" }, mocks.ip);
+    const response = await server.request("/weekly-review/id/export/email", { method: "POST" }, mocks.ip);
 
     const json = await response.json();
 

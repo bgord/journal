@@ -16,7 +16,7 @@ type AcceptedCommand =
   | Commands.CompleteWeeklyReviewCommandType
   | Commands.MarkWeeklyReviewAsFailedCommandType
   | Commands.DetectWeeklyPatternsCommandType
-  | Commands.SendWeeklyReviewByEmailCommand;
+  | Commands.ExportWeeklyReviewByEmailCommand;
 
 const CommandLogger = new bg.CommandLogger(logger);
 

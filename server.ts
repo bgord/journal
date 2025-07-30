@@ -59,12 +59,12 @@ const weeklyReview = new Hono();
 
 weeklyReview.use("*", AuthShield.attach, AuthShield.verify);
 entry.post(
-  "/:weeklyReviewId/send-by-email",
+  "/:weeklyReviewId/export/email",
   bg.RateLimitShield({
     time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
   }),
-  Emotions.Routes.SendWeeklyReviewByEmail,
+  Emotions.Routes.ExportWeeklyReviewByEmail,
 );
 server.route("/weekly-review", entry);
 // =============================
