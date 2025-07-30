@@ -4,6 +4,7 @@ import * as Repos from "+emotions/repositories";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 
 export class WeeklyReviewExportByEmail {
   constructor(
@@ -22,8 +23,10 @@ export class WeeklyReviewExportByEmail {
     const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
     if (!contact?.email) return;
 
-    const weeklyReview = await Repos.AlarmRepository.getById(event.payload.userId);
+    const weeklyReview = await Repos.WeeklyReviewRepository.getById(event.payload.userId);
     if (!weeklyReview) return;
+
+    tools.Week.fromIsoId(weeklyReview.weekIsoId);
 
     await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email });
   }

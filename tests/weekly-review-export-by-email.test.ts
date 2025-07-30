@@ -31,8 +31,7 @@ describe("WeeklyReviewExportByEmail", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(mocks.user);
-    // @ts-expect-error
-    spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(undefined);
+    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(undefined);
 
     const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer);
     await bg.CorrelationStorage.run(
@@ -51,7 +50,7 @@ describe("WeeklyReviewExportByEmail", () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(mocks.user);
-    spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
+    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
 
     const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer);
     await bg.CorrelationStorage.run(
