@@ -18,16 +18,17 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
           Dashboard
         </RR.Link>
 
-        <div
+        <RR.Link
+          className="c-link"
           data-disp="flex"
           data-cross="center"
           data-gap="2"
           data-fs="base"
           data-fw="medium"
-          data-color="neutral-300"
+          to="/profile"
         >
           <Icons.ProfileCircle data-size="md" /> {loaderData?.user.email}
-        </div>
+        </RR.Link>
 
         <Components.LanguageSelector />
 
