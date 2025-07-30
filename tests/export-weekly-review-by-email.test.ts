@@ -25,6 +25,27 @@ describe(`POST ${url}`, () => {
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
 
+  test("validation - WeeklyReviewExists - no weekly review", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(undefined);
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
+
+    const json = await response.json();
+
+    expect(response.status).toBe(Emotions.Policies.WeeklyReviewExists.code);
+    expect(json).toEqual({ message: Emotions.Policies.WeeklyReviewExists.message, _known: true });
+  });
+
+  test("validation - WeeklyReviewExists - repo failure", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockImplementation(() => {
+      throw new Error("Failure");
+    });
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
+
+    expect(response.status).toBe(500);
+  });
+
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
