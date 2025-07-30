@@ -1,6 +1,7 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { auth } from "../infra/auth";
+import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -69,10 +70,18 @@ describe(`POST ${url}`, () => {
   });
 
   test("happy path", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
-    const response = await server.request(url, { method: "POST" }, mocks.ip);
+
+    const response = await server.request(
+      url,
+      { method: "POST", headers: new Headers({ "x-correlation-id": mocks.correlationId }) },
+      mocks.ip,
+    );
 
     expect(response.status).toBe(200);
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent]);
   });
 });
