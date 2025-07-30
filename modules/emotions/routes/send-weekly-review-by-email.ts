@@ -4,7 +4,7 @@ import hono from "hono";
 
 export async function SendWeeklyReviewByEmail(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
-  const weeklyReviewId = Emotions.VO.EntryId.parse(c.req.param("weeklyReviewId"));
+  const weeklyReviewId = Emotions.VO.WeeklyReviewId.parse(c.req.param("weeklyReviewId"));
 
   console.log(user, weeklyReviewId);
 
