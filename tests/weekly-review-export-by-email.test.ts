@@ -67,6 +67,13 @@ describe("WeeklyReviewExportByEmail", () => {
       to: mocks.email,
       subject: `Weekly Review PDF - ${mocks.week.getStart()}`,
       html: "Find the file attached",
+      attachments: [
+        {
+          filename: `weekly-review-export-${mocks.week.toIsoId()}.pdf`,
+          content: mocks.PDF,
+          contentType: "application/pdf",
+        },
+      ],
     });
   });
 });

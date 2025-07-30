@@ -35,7 +35,7 @@ export class WeeklyReviewExportByEmail {
     const notification = composer.compose(week).get();
 
     const pdf = new Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);
-    const attachment = pdf.toAttachment();
+    const attachment = await pdf.toAttachment();
 
     await this.mailer.send({
       from: Env.EMAIL_FROM,
