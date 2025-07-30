@@ -63,3 +63,4 @@ EventBus.on(
 new Sagas.EntryAlarmDetector(EventBus).register();
 new Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer).register();
 new Sagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer).register();
+new Sagas.WeeklyReviewExportByEmail(EventBus).register();
