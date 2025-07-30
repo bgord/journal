@@ -1,9 +1,14 @@
 import * as Auth from "+auth";
 import * as Events from "+emotions/events";
+import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
+import * as bg from "@bgord/bun";
 
 export class WeeklyReviewExportByEmail {
-  constructor(private readonly eventBus: typeof EventBus) {}
+  constructor(
+    private readonly eventBus: typeof EventBus,
+    private readonly mailer: bg.MailerPort,
+  ) {}
 
   register() {
     this.eventBus.on(
@@ -16,5 +21,7 @@ export class WeeklyReviewExportByEmail {
     const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 
     if (!contact?.email) return;
+
+    await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email });
   }
 }
