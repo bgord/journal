@@ -15,13 +15,14 @@ export const handleExportWeeklyReviewByEmailCommand = async (
     ownerId: weeklyReview?.userId,
   });
 
+  const weeklyReviewExportId = crypto.randomUUID();
+
   const event = Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     createdAt: tools.Timestamp.parse(Date.now()),
     name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
-    // TODO: establish stream - event sourced entity?
-    stream: `weely_review_export_by_email_${command.payload.weeklyReviewId}`,
+    stream: `weely_review_export_by_email_${weeklyReviewExportId}`,
     version: 1,
     payload: { weeklyReviewId: command.payload.weeklyReviewId, userId: command.payload.userId },
   } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType);

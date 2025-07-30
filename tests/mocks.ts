@@ -28,6 +28,8 @@ export const anotherUserId = crypto.randomUUID();
 
 export const weeklyReviewId = crypto.randomUUID();
 
+export const weeklyReviewExportId = crypto.randomUUID();
+
 export const week = tools.Week.fromNow();
 
 export const correlationId = "00000000-0000-0000-0000-000000000000";
