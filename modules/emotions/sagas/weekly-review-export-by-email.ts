@@ -1,14 +1,9 @@
+import * as Auth from "+auth";
 import * as Events from "+emotions/events";
-// import * as Ports from "+emotions/ports";
 import type { EventBus } from "+infra/event-bus";
-// import * as bg from "@bgord/bun";
 
 export class WeeklyReviewExportByEmail {
-  constructor(
-    private readonly eventBus: typeof EventBus,
-    // private readonly mailer: bg.MailerPort,
-    // private readonly pdfGenerator: Ports.PdfGeneratorPort,
-  ) {}
+  constructor(private readonly eventBus: typeof EventBus) {}
 
   register() {
     this.eventBus.on(
@@ -17,7 +12,9 @@ export class WeeklyReviewExportByEmail {
     );
   }
 
-  async onWeeklyReviewExportByEmailRequestedEvent(
-    _event: Events.WeeklyReviewExportByEmailRequestedEventType,
-  ) {}
+  async onWeeklyReviewExportByEmailRequestedEvent(event: Events.WeeklyReviewExportByEmailRequestedEventType) {
+    const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
+
+    if (!contact?.email) return;
+  }
 }
