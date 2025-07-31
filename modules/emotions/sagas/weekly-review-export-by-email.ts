@@ -72,6 +72,7 @@ export class WeeklyReviewExportByEmail {
   async onWeeklyReviewExportByEmailFailedEvent(event: Events.WeeklyReviewExportByEmailFailedEventType) {
     if (event.payload.attempt > 3) return;
 
+    // TODO: after a timeout
     await EventStore.save([
       Events.WeeklyReviewExportByEmailRequestedEvent.parse({
         id: crypto.randomUUID(),

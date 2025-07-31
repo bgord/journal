@@ -66,6 +66,14 @@ entry.post(
   }),
   Emotions.Routes.ExportWeeklyReviewByEmail,
 );
+entry.post(
+  "/:weeklyReviewId/export/download",
+  bg.RateLimitShield({
+    time: tools.Time.Minutes(1),
+    enabled: Env.type === bg.NodeEnvironmentEnum.production,
+  }),
+  Emotions.Routes.DownloadWeeklyReview,
+);
 server.route("/weekly-review", entry);
 // =============================
 
