@@ -66,7 +66,7 @@ entry.post(
   }),
   Emotions.Routes.ExportWeeklyReviewByEmail,
 );
-entry.post(
+entry.get(
   "/:weeklyReviewId/export/download",
   bg.RateLimitShield({
     time: tools.Time.Minutes(1),

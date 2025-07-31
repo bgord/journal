@@ -7,9 +7,9 @@ import * as mocks from "./mocks";
 
 const url = `/weekly-review/${mocks.weeklyReviewId}/export/download`;
 
-describe(`POST ${url}`, () => {
+describe(`GET ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
-    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
     expect(response.status).toBe(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
@@ -17,7 +17,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const response = await server.request("/weekly-review/id/export/download", { method: "POST" }, mocks.ip);
+    const response = await server.request("/weekly-review/id/export/download", { method: "GET" }, mocks.ip);
 
     const json = await response.json();
 
@@ -28,7 +28,7 @@ describe(`POST ${url}`, () => {
   test("validation - WeeklyReviewExists - no weekly review", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(undefined);
-    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     const json = await response.json();
 
@@ -41,7 +41,7 @@ describe(`POST ${url}`, () => {
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockImplementation(() => {
       throw new Error("Failure");
     });
-    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     expect(response.status).toBe(500);
   });
@@ -49,7 +49,7 @@ describe(`POST ${url}`, () => {
   test("validation - WeeklyReviewIsCompleted", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReviewSkipped);
-    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     const json = await response.json();
 
@@ -60,7 +60,7 @@ describe(`POST ${url}`, () => {
   test("validation - RequesterOwnsWeeklyReview", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
-    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     const json = await response.json();
 
@@ -75,7 +75,7 @@ describe(`POST ${url}`, () => {
 
     const response = await server.request(
       url,
-      { method: "POST", headers: new Headers({ "x-correlation-id": mocks.correlationId }) },
+      { method: "GET", headers: new Headers({ "x-correlation-id": mocks.correlationId }) },
       mocks.ip,
     );
 

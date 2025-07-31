@@ -268,8 +268,19 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             <ul data-disp="flex" data-dir="column" data-gap="8" data-mt="5">
               {loaderData.weeklyReviews.map((review) => (
                 <li key={review.id} data-disp="flex" data-dir="column" data-gap="5">
-                  <div data-disp="flex" data-main="between" data-color="neutral-500">
+                  <div data-disp="flex" data-cross="center" data-gap="4" data-color="neutral-500">
                     {review.week[0]} - {review.week[1]}
+                    <a
+                      href={`${import.meta.env.VITE_API_URL}/weekly-review/${review.id}/export/download`}
+                      download
+                      target="_blank"
+                      rel="noopener noreferer"
+                      data-ml="auto"
+                      data-pt="2"
+                      data-color="brand-500"
+                    >
+                      <Icons.DownloadCircle data-size="lg" />
+                    </a>
                     <div className="c-badge" data-variant="outline">
                       {t(`dashboard.weekly_review.status.${review.status}.value`)}
                     </div>
