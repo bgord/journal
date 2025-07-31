@@ -1,8 +1,11 @@
 # Changelog
+- 2025-07-31 17:11 064fadb **step: bump bgord/scripts**
+## 2025-07-31 17:11 
 - 2025-07-31 16:47 51e1e84 **step: update packages**
-## 2025-07-31 16:47 
 - 2025-07-31 16:46 6dcd1f9 **step: retry after a minute**
 - 2025-07-31 16:29 c9eb693 **step: update packages**
+- 2025-07-31 14:48 656a656 **docs: generate CHANGELOG**
+- 2025-07-31 14:48 02eafd6 **docs: generate readme**
 - 2025-07-31 12:46 048b645 **refactor: use assert policy error helper**
 - 2025-07-31 12:03 86fb6a9 **step: add frontend button**
 - 2025-07-31 11:53 d233d0a **step: setup DownloadWeeklyReview route**
