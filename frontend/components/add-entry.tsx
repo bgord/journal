@@ -96,7 +96,7 @@ export function AddEntry() {
           />
 
           <div data-disp="flex" data-gap="8" data-cross="end">
-            <Select {...situationKind.input.props}>
+            <Select required {...situationKind.input.props}>
               <option value="">{t("entry.situation.kind.value.default")}</option>
               {loader.form.situationKinds.map((kind) => (
                 <option key={kind} value={kind}>
@@ -144,7 +144,7 @@ export function AddEntry() {
               </button>
 
               {emotionType && (
-                <Select data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
+                <Select required data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
                   <option value="">{t("entry.emotion.label.default.value")}</option>
                   {loader.form.emotionLabels
                     .filter((label) => (emotionType === "positive" ? label.positive : !label.positive))
@@ -171,7 +171,7 @@ export function AddEntry() {
           />
 
           <div data-disp="flex" data-cross="center">
-            <Select {...reactionType.input.props}>
+            <Select required {...reactionType.input.props}>
               <option value="">{t("entry.reaction.type.default.value")}</option>
               {loader.form.reactionTypes.map((type) => (
                 <option key={type} value={type}>
