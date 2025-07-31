@@ -56,6 +56,7 @@ modules/
     │   ├── handleDeleteEntryCommand.ts
     │   ├── handleDetectWeeklyPatternsCommand.ts
     │   ├── handleEvaluateReactionCommand.ts
+    │   ├── handleExportWeeklyReviewByEmailCommand.ts
     │   ├── handleGenerateAlarmCommand.ts
     │   ├── handleLogEntryCommand.ts
     │   ├── handleMarkWeeklyReviewAsFailedCommand.ts
@@ -69,6 +70,7 @@ modules/
     │   ├── DELETE_ENTRY_COMMAND.ts
     │   ├── DETECT_WEEKLY_PATTERNS_COMMAND.ts
     │   ├── EVALUATE_REACTION_COMMAND.ts
+    │   ├── EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND.ts
     │   ├── GENERATE_ALARM_COMMAND.ts
     │   ├── LOG_ENTRY_COMMAND.ts
     │   ├── MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND.ts
@@ -112,6 +114,8 @@ modules/
     │   ├── REACTION_LOGGED_EVENT.ts
     │   ├── SITUATION_LOGGED_EVENT.ts
     │   ├── WEEKLY_REVIEW_COMPLETED_EVENT.ts
+    │   ├── WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED.ts
+    │   ├── WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED.ts
     │   ├── WEEKLY_REVIEW_FAILED_EVENT.ts
     │   ├── WEEKLY_REVIEW_REQUESTED_EVENT.ts
     │   ├── WEEKLY_REVIEW_SKIPPED_EVENT.ts
@@ -130,9 +134,13 @@ modules/
     │   ├── reaction-corresponds-to-situation-and-emotion.ts
     │   ├── reaction-for-evaluation-exists.ts
     │   ├── requester-owns-entry.ts
-    │   └── weekly-review-completed-once.ts
+    │   ├── requester-owns-weekly-review.ts
+    │   ├── weekly-review-completed-once.ts
+    │   ├── weekly-review-exists.ts
+    │   └── weekly-review-is-completed.ts
     ├── ports
     │   ├── ai-client.ts
+    │   └── pdf-generator.ts
     ├── queries
     │   ├── count-alarms-for-entry.ts
     │   ├── count-entries-per-week-for-user.ts
@@ -145,13 +153,16 @@ modules/
     │   └── weekly-review-repository.ts
     ├── routes
     │   ├── delete-entry.ts
+    │   ├── download-weekly-review.ts
     │   ├── evaluate-reaction.ts
     │   ├── export-entries.ts
+    │   ├── export-weekly-review-by-email.ts
     │   ├── log-entry.ts
     │   └── reappraise-emotion.ts
     ├── sagas
     │   ├── alarm-orchestrator.ts
     │   ├── entry-alarm-detector.ts
+    │   ├── weekly-review-export-by-email.ts
     │   └── weekly-review-processing.ts
     ├── services
     │   ├── alarm-export-file.ts
@@ -174,6 +185,8 @@ modules/
     │   │   ├── more-negative-than-positive-emotions-pattern.ts
     │   │   ├── pattern.ts
     │   │   └── positive-emotion-with-maladaptive-reaction-pattern.ts
+    │   ├── weekly-review-export-notification-composer.ts
+    │   ├── weekly-review-export-pdf-file.ts
     │   ├── weekly-review-insights-prompt-builder.ts
     │   ├── weekly-review-notification-composer.ts
     │   ├── weekly-review-scheduler.ts
@@ -206,6 +219,7 @@ modules/
         ├── situation-kind-options.ts
         ├── situation-kind.ts
         ├── situation-location.ts
+        ├── weekly-review-export-id.ts
         ├── weekly-review-id.ts
         └── weekly-review-status.ts
 ```
@@ -233,6 +247,7 @@ infra/
 ├── logger.ts
 ├── mailer.ts
 ├── open-ai-adapter.ts
+├── pdf-generator.ts
 ├── prerequisites.ts
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
