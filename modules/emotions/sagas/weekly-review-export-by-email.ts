@@ -72,22 +72,24 @@ export class WeeklyReviewExportByEmail {
   async onWeeklyReviewExportByEmailFailedEvent(event: Events.WeeklyReviewExportByEmailFailedEventType) {
     if (event.payload.attempt > 3) return;
 
-    // TODO: after a timeout
-    await EventStore.save([
-      Events.WeeklyReviewExportByEmailRequestedEvent.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Timestamp.parse(Date.now()),
-        name: Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
-        stream: event.stream,
-        version: 1,
-        payload: {
-          weeklyReviewId: event.payload.weeklyReviewId,
-          userId: event.payload.userId,
-          weeklyReviewExportId: event.payload.weeklyReviewExportId,
-          attempt: event.payload.attempt + 1,
-        },
-      } satisfies Events.WeeklyReviewExportByEmailRequestedEventType),
-    ]);
+    await EventStore.saveAfter(
+      [
+        Events.WeeklyReviewExportByEmailRequestedEvent.parse({
+          id: crypto.randomUUID(),
+          correlationId: bg.CorrelationStorage.get(),
+          createdAt: tools.Timestamp.parse(Date.now()),
+          name: Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
+          stream: event.stream,
+          version: 1,
+          payload: {
+            weeklyReviewId: event.payload.weeklyReviewId,
+            userId: event.payload.userId,
+            weeklyReviewExportId: event.payload.weeklyReviewExportId,
+            attempt: event.payload.attempt + 1,
+          },
+        } satisfies Events.WeeklyReviewExportByEmailRequestedEventType),
+      ],
+      tools.Time.Minutes(1),
+    );
   }
 }

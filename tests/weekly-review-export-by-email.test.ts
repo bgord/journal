@@ -1,6 +1,7 @@
 import * as Auth from "+auth";
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, jest, setSystemTime, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { Env } from "../infra/env";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
@@ -139,6 +140,7 @@ describe("WeeklyReviewExportByEmail", () => {
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 1st", async () => {
+    spyOn(Bun, "sleep").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
@@ -152,6 +154,7 @@ describe("WeeklyReviewExportByEmail", () => {
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 2nd", async () => {
+    spyOn(Bun, "sleep").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
@@ -167,6 +170,7 @@ describe("WeeklyReviewExportByEmail", () => {
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 3rd", async () => {
+    spyOn(Bun, "sleep").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
@@ -182,6 +186,7 @@ describe("WeeklyReviewExportByEmail", () => {
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 4rd", async () => {
+    spyOn(Bun, "sleep").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
