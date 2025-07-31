@@ -4,6 +4,7 @@ import { auth } from "../infra/auth";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
+import * as testcases from "./testcases";
 
 const url = `/weekly-review/${mocks.weeklyReviewId}/export/download`;
 
@@ -29,11 +30,7 @@ describe(`GET ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(undefined);
     const response = await server.request(url, { method: "GET" }, mocks.ip);
-
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.WeeklyReviewExists.code);
-    expect(json).toEqual({ message: Emotions.Policies.WeeklyReviewExists.message, _known: true });
+    await testcases.assertPolicyError(response, Emotions.Policies.WeeklyReviewExists);
   });
 
   test("validation - WeeklyReviewExists - repo failure", async () => {
@@ -50,22 +47,14 @@ describe(`GET ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReviewSkipped);
     const response = await server.request(url, { method: "GET" }, mocks.ip);
-
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.WeeklyReviewIsCompleted.code);
-    expect(json).toEqual({ message: Emotions.Policies.WeeklyReviewIsCompleted.message, _known: true });
+    await testcases.assertPolicyError(response, Emotions.Policies.WeeklyReviewIsCompleted);
   });
 
   test("validation - RequesterOwnsWeeklyReview", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
     const response = await server.request(url, { method: "GET" }, mocks.ip);
-
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.RequesterOwnsWeeklyReview.code);
-    expect(json).toEqual({ message: Emotions.Policies.RequesterOwnsWeeklyReview.message, _known: true });
+    await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsWeeklyReview);
   });
 
   test("happy path", async () => {

@@ -5,6 +5,7 @@ import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
+import * as testcases from "./testcases";
 
 const url = `/entry/${mocks.entryId}/evaluate-reaction`;
 
@@ -119,13 +120,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.EntryIsActionable.code);
-    expect(json).toEqual({
-      message: Emotions.Policies.EntryIsActionable.message,
-      _known: true,
-    });
+    await testcases.assertPolicyError(response, Emotions.Policies.EntryIsActionable);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
@@ -154,13 +149,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.code);
-    expect(json).toEqual({
-      message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
-      _known: true,
-    });
+    await testcases.assertPolicyError(response, Emotions.Policies.ReactionCorrespondsToSituationAndEmotion);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
@@ -190,13 +179,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.code);
-    expect(json).toEqual({
-      message: Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.message,
-      _known: true,
-    });
+    await testcases.assertPolicyError(response, Emotions.Policies.ReactionCorrespondsToSituationAndEmotion);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
@@ -226,13 +209,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.ReactionForEvaluationExists.code);
-    expect(json).toEqual({
-      message: Emotions.Policies.ReactionForEvaluationExists.message,
-      _known: true,
-    });
+    await testcases.assertPolicyError(response, Emotions.Policies.ReactionForEvaluationExists);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
@@ -273,10 +250,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.RequesterOwnsEntry.code);
-    expect(json).toEqual({ message: Emotions.Policies.RequesterOwnsEntry.message, _known: true });
+    await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsEntry);
 
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,

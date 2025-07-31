@@ -6,6 +6,7 @@ import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
+import * as testcases from "./testcases";
 
 const url = `/entry/${mocks.entryId}/delete`;
 
@@ -43,13 +44,7 @@ describe("DELETE /entry/:id/delete", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.EntryHasBenStarted.code);
-    expect(json).toEqual({
-      message: Emotions.Policies.EntryHasBenStarted.message,
-      _known: true,
-    });
+    await testcases.assertPolicyError(response, Emotions.Policies.EntryHasBenStarted);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
@@ -71,11 +66,8 @@ describe("DELETE /entry/:id/delete", () => {
       { method: "DELETE", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
-    const json = await response.json();
 
-    expect(response.status).toBe(Emotions.Policies.RequesterOwnsEntry.code);
-    expect(json).toEqual({ message: Emotions.Policies.RequesterOwnsEntry.message, _known: true });
-
+    await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsEntry);
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.entryId),

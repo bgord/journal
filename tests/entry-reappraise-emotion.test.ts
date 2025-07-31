@@ -6,6 +6,7 @@ import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
+import * as testcases from "./testcases";
 
 const url = `/entry/${mocks.entryId}/reappraise-emotion`;
 
@@ -95,13 +96,8 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
+    await testcases.assertPolicyError(response, Emotions.Policies.EntryIsActionable);
 
-    expect(response.status).toBe(Emotions.Policies.EntryIsActionable.code);
-    expect(json).toEqual({
-      message: Emotions.Policies.EntryIsActionable.message,
-      _known: true,
-    });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
@@ -127,13 +123,8 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
+    await testcases.assertPolicyError(response, Emotions.Policies.EmotionCorrespondsToSituation);
 
-    expect(response.status).toBe(Emotions.Policies.EmotionCorrespondsToSituation.code);
-    expect(json).toEqual({
-      message: Emotions.Policies.EmotionCorrespondsToSituation.message,
-      _known: true,
-    });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
@@ -160,13 +151,8 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
+    await testcases.assertPolicyError(response, Emotions.Policies.EmotionForReappraisalExists);
 
-    expect(response.status).toBe(Emotions.Policies.EmotionForReappraisalExists.code);
-    expect(json).toEqual({
-      message: Emotions.Policies.EmotionForReappraisalExists.message,
-      _known: true,
-    });
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
       Emotions.Aggregates.Entry.getStream(mocks.entryId),
@@ -202,10 +188,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       mocks.ip,
     );
 
-    const json = await response.json();
-
-    expect(response.status).toBe(Emotions.Policies.RequesterOwnsEntry.code);
-    expect(json).toEqual({ message: Emotions.Policies.RequesterOwnsEntry.message, _known: true });
+    await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsEntry);
 
     expect(eventStoreFind).toHaveBeenCalledWith(
       Emotions.Aggregates.Entry.events,
