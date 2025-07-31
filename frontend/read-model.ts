@@ -114,6 +114,7 @@ export class ReadModel {
   static async listAlarms(userId: UserIdType) {
     const inactivity = await db.query.alarms.findMany({
       where: and(eq(Schema.alarms.userId, userId), eq(Schema.alarms.name, AlarmNameOption.INACTIVITY_ALARM)),
+      orderBy: desc(Schema.alarms.generatedAt),
     });
 
     const entry = await db.query.alarms.findMany({
@@ -121,6 +122,7 @@ export class ReadModel {
         eq(Schema.alarms.userId, userId),
         not(eq(Schema.alarms.name, AlarmNameOption.INACTIVITY_ALARM)),
       ),
+      orderBy: desc(Schema.alarms.generatedAt),
     });
 
     return {
