@@ -63,7 +63,7 @@ export function Entry(props: EntryType) {
         data-disp="flex"
         data-dir="column"
         data-gap="5"
-        data-py="6"
+        data-py="5"
         data-bcb="neutral-700"
         data-bwb="hairline"
       >

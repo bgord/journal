@@ -201,7 +201,7 @@ export function AddEntry() {
               type="submit"
               className="c-button"
               data-variant="primary"
-              {...UI.Rhythm().times(12).style.width}
+              {...UI.Rhythm().times(10).style.width}
             >
               Save
             </button>

@@ -59,7 +59,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
   }, [reactionType.value]);
 
   return (
-    <section data-disp="flex" data-dir="column" data-gap="3" data-py="5">
+    <section data-disp="flex" data-dir="column" data-gap="3" data-py="3">
       <div data-disp="flex" data-cross="center" data-gap="5" {...UI.Rhythm().times(3).style.minHeight}>
         <div
           data-disp="flex"
@@ -143,6 +143,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
               type="submit"
               data-variant="primary"
               disabled={reactionDescription.unchanged}
+              {...UI.Rhythm().times(8).style.minWidth}
             >
               {t("app.save")}
             </button>

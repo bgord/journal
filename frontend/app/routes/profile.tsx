@@ -10,6 +10,7 @@ export default function Profile() {
       data-disp="flex"
       data-dir="column"
       data-gap="5"
+      data-mt="8"
       data-mx="auto"
       data-p="8"
       data-width="100%"

@@ -105,8 +105,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                       })}
                     </div>
 
-                    <div data-ml="3" data-color="neutral-100">
-                      "{alarm.advice}"
+                    <div data-color="neutral-100">
+                      <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{alarm.advice}"
                     </div>
                   </div>
                 </li>
