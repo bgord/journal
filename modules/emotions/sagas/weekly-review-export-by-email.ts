@@ -70,9 +70,7 @@ export class WeeklyReviewExportByEmail {
   }
 
   async onWeeklyReviewExportByEmailFailedEvent(event: Events.WeeklyReviewExportByEmailFailedEventType) {
-    const attempt = event.payload.attempt;
-
-    if (attempt >= 3) return;
+    if (event.payload.attempt > 3) return;
 
     await EventStore.save([
       Events.WeeklyReviewExportByEmailRequestedEvent.parse({
@@ -86,7 +84,7 @@ export class WeeklyReviewExportByEmail {
           weeklyReviewId: event.payload.weeklyReviewId,
           userId: event.payload.userId,
           weeklyReviewExportId: event.payload.weeklyReviewExportId,
-          attempt: 1,
+          attempt: event.payload.attempt + 1,
         },
       } satisfies Events.WeeklyReviewExportByEmailRequestedEventType),
     ]);

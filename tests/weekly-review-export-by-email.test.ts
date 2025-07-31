@@ -137,4 +137,62 @@ describe("WeeklyReviewExportByEmail", () => {
       ],
     });
   });
+
+  test("onWeeklyReviewExportByEmailFailedEvent - 1st", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () =>
+        await saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent),
+    );
+
+    expect(eventStoreSave).toHaveBeenCalled();
+  });
+
+  test("onWeeklyReviewExportByEmailFailedEvent - 2nd", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () =>
+        await saga.onWeeklyReviewExportByEmailFailedEvent(
+          mocks.GenericWeeklyReviewExportByEmailFailedEvent2nd,
+        ),
+    );
+
+    expect(eventStoreSave).toHaveBeenCalled();
+  });
+
+  test("onWeeklyReviewExportByEmailFailedEvent - 3rd", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () =>
+        await saga.onWeeklyReviewExportByEmailFailedEvent(
+          mocks.GenericWeeklyReviewExportByEmailFailedEvent3rd,
+        ),
+    );
+
+    expect(eventStoreSave).toHaveBeenCalled();
+  });
+
+  test("onWeeklyReviewExportByEmailFailedEvent - 4rd", async () => {
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () =>
+        await saga.onWeeklyReviewExportByEmailFailedEvent(
+          mocks.GenericWeeklyReviewExportByEmailFailedEvent4th,
+        ),
+    );
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+  });
 });

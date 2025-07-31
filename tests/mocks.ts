@@ -373,6 +373,21 @@ export const GenericWeeklyReviewExportByEmailFailedEvent = {
   payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: 1 },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
+export const GenericWeeklyReviewExportByEmailFailedEvent2nd = {
+  ...GenericWeeklyReviewExportByEmailFailedEvent,
+  payload: { ...GenericWeeklyReviewExportByEmailFailedEvent.payload, attempt: 2 },
+} satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
+
+export const GenericWeeklyReviewExportByEmailFailedEvent3rd = {
+  ...GenericWeeklyReviewExportByEmailFailedEvent,
+  payload: { ...GenericWeeklyReviewExportByEmailFailedEvent.payload, attempt: 3 },
+} satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
+
+export const GenericWeeklyReviewExportByEmailFailedEvent4th = {
+  ...GenericWeeklyReviewExportByEmailFailedEvent,
+  payload: { ...GenericWeeklyReviewExportByEmailFailedEvent.payload, attempt: 4 },
+} satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
+
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,
   finishedAt: Date.now(),
