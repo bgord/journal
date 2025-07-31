@@ -21,6 +21,10 @@ export class WeeklyReviewExportByEmail {
       Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
       this.onWeeklyReviewExportByEmailRequestedEvent.bind(this),
     );
+    this.eventBus.on(
+      Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
+      this.onWeeklyReviewExportByEmailFailedEvent.bind(this),
+    );
   }
 
   async onWeeklyReviewExportByEmailRequestedEvent(event: Events.WeeklyReviewExportByEmailRequestedEventType) {
@@ -63,5 +67,28 @@ export class WeeklyReviewExportByEmail {
         } satisfies Events.WeeklyReviewExportByEmailFailedEventType),
       ]);
     }
+  }
+
+  async onWeeklyReviewExportByEmailFailedEvent(event: Events.WeeklyReviewExportByEmailFailedEventType) {
+    const attempt = event.payload.attempt;
+
+    if (attempt >= 3) return;
+
+    await EventStore.save([
+      Events.WeeklyReviewExportByEmailRequestedEvent.parse({
+        id: crypto.randomUUID(),
+        correlationId: bg.CorrelationStorage.get(),
+        createdAt: tools.Timestamp.parse(Date.now()),
+        name: Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
+        stream: event.stream,
+        version: 1,
+        payload: {
+          weeklyReviewId: event.payload.weeklyReviewId,
+          userId: event.payload.userId,
+          weeklyReviewExportId: event.payload.weeklyReviewExportId,
+          attempt: 1,
+        },
+      } satisfies Events.WeeklyReviewExportByEmailRequestedEventType),
+    ]);
   }
 }
