@@ -1,7 +1,62 @@
 # Changelog
+- 2025-07-31 16:47 51e1e84 **step: update packages**
+## 2025-07-31 16:47 
+- 2025-07-31 16:46 6dcd1f9 **step: retry after a minute**
+- 2025-07-31 16:29 c9eb693 **step: update packages**
+- 2025-07-31 12:46 048b645 **refactor: use assert policy error helper**
+- 2025-07-31 12:03 86fb6a9 **step: add frontend button**
+- 2025-07-31 11:53 d233d0a **step: setup DownloadWeeklyReview route**
+- 2025-07-31 11:09 78e3ee8 **step: test retry**
+- 2025-07-31 11:03 0ba30cf **step: set correct stream in mocks**
+- 2025-07-31 09:59 8bdc86c **step: add retry mechanism**
+- 2025-07-30 23:36 e91e0d5 **step: test failure event**
+- 2025-07-30 23:27 dd48e82 **step: define GenericWeeklyReviewExportByEmailFailedEvent**
+- 2025-07-30 23:26 fc4d877 **step: emit failed event**
+- 2025-07-30 23:12 f6f572f **step: add attempt to requested event**
+- 2025-07-30 22:56 f1ba176 **step: add weeklyReviewExportId to event requested event**
+- 2025-07-30 22:52 2c2402e **step: define WeeklyReviewExportId VO**
+- 2025-07-30 22:51 d9dbc23 **step: add weeklyReviewExportId to stream name**
+- 2025-07-30 22:48 0d5ab0e **fix: weekly review query id**
+- 2025-07-30 22:19 1d59ea4 **step: add weekly review export by email failed event**
+- 2025-07-30 17:32 51ef44c **step: update packages**
+- 2025-07-30 17:25 92159ee **step: test weekly review export pdf file**
+- 2025-07-30 17:21 fd8a11c **step: test pdf attachment**
+- 2025-07-30 17:18 fc277bc **step: add PDF mock**
+- 2025-07-30 17:15 2e1a7ca **step: add WeeklyReviewExportPdfFile**
+- 2025-07-30 17:15 18d7ba4 **step: use WeeklyReviewExportPdfFile in saga**
+- 2025-07-30 15:58 194bdec **step: assert notification composer in tests**
+- 2025-07-30 15:47 9ace0fe **fix: tests**
+- 2025-07-30 15:44 f2ad6f9 **step: add WeeklyReviewExportNotificationComposer**
+- 2025-07-30 15:27 18ff877 **step: fetch weekly review**
+- 2025-07-30 15:16 3d9eea0 **step: send export email**
+- 2025-07-30 14:54 32c60ec **step: test no email case**
+- 2025-07-30 14:30 5ea4bdd **step: setup weekly-review-export-by-emai sagal**
+- 2025-07-30 13:54 b3ecdac **step: emit Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT**
+- 2025-07-30 13:42 23374a4 **step: add WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT-n**
+- 2025-07-30 13:26 750bb9e **step: add infra pdf generator noop adapter**
+- 2025-07-30 13:10 e1011e8 **step: setup pdf generator port**
+- 2025-07-30 13:00 c91ee38 **step: test RequesterOwnsWeeklyReview**
+- 2025-07-30 12:59 f2b095e **step: add RequesterOwnsWeeklyReview**
+- 2025-07-30 12:57 45caea6 **step: test WeeklyReviewIsCompleted**
+- 2025-07-30 12:54 a1a33d2 **step: add weekly review is completed**
+- 2025-07-30 12:51 ca8f6b6 **step: test WeeklyReviewExists**
+- 2025-07-30 12:47 643c7c1 **step: setup weekly review exists**
+- 2025-07-30 12:45 4732884 **step: setup happy path test**
+- 2025-07-30 12:44 f5097e5 **step: setup weekly review get by id**
+- 2025-07-30 11:18 2006d51 **step: setup export by email command handler**
+- 2025-07-30 11:16 a2348e9 **refactor: rename the route**
+- 2025-07-30 11:12 8558def **step: setup command**
+- 2025-07-30 11:09 860f926 **step: setup send weekly review by email command**
+- 2025-07-30 11:05 5201e48 **step: setup test**
+- 2025-07-30 11:03 d8ca91e **step: setup send weekly review by email**
+- 2025-07-30 09:30 ffa3139 **refactor: move zipped data download to profile**
+- 2025-07-30 09:25 09b1137 **step: setup export data profile section**
+- 2025-07-30 09:22 68e7697 **step: extract separator**
+- 2025-07-30 09:06 b0e450b **step: add profile link**
+- 2025-07-30 09:04 b853847 **step: update packages**
+- 2025-07-30 08:59 7a6e3e9 **step: setup profile rr route**
 - 2025-07-29 23:20 94d90b8 **step: update packages**
 - 2025-07-29 23:20 2c5c603 **refactor: udpate drizzle**
-## 2025-07-29 23:20 
 - 2025-07-29 23:18 7e75de5 **refactor: use runtime adapters in saga tests**
 - 2025-07-29 23:13 9d99483 **refactor: rely on mailer port in sagas**
 - 2025-07-29 23:09 f24e0b9 **step: add runtime mailer adapter choosing**
@@ -11,6 +66,8 @@
 - 2025-07-29 23:03 662fb53 **refactor: rename smtp mailer adapter**
 - 2025-07-29 23:02 1ab3370 **refactor: rename rate limit shield**
 - 2025-07-29 23:02 06a74b5 **step: update packages**
+- 2025-07-29 21:22 80f2e59 **docs: generate CHANGELOG**
+- 2025-07-29 21:22 7e43846 **docs: generate readme**
 - 2025-07-29 20:15 7a211e2 **refactor: extract ai client to infra**
 - 2025-07-29 20:13 e588e8a **refactor: remove ff**
 - 2025-07-29 20:12 2fd3b89 **step: wireup noop adapter**
