@@ -12,6 +12,7 @@ export const CreateShareableLinkCommand = z.object({
   createdAt: tools.Timestamp,
   name: z.literal(CREATE_SHAREABLE_LINK_COMMAND),
   payload: z.object({
+    shareableLinkId: VO.ShareableLinkId,
     requesterId: Auth.VO.UserId,
     publicationSpecification: VO.PublicationSpecification,
     dateRange: z.instanceof(tools.DateRange),

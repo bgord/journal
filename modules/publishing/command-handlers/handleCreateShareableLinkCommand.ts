@@ -4,10 +4,8 @@ import * as Publishing from "+publishing";
 export const handleCreateShareableLinkCommand = async (
   command: Publishing.Commands.CreateShareableLinkCommandType,
 ) => {
-  const shareableLinkId = crypto.randomUUID();
-
   const shareableLink = Publishing.Aggregates.ShareableLink.create(
-    shareableLinkId,
+    command.payload.shareableLinkId,
     command.payload.publicationSpecification,
     command.payload.dateRange,
     command.payload.duration,
