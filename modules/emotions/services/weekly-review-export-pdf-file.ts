@@ -15,6 +15,6 @@ export class WeeklyReviewExportPdfFile extends bg.FileDraft {
   }
 
   create() {
-    return this.pdfGenerator.request("weekly_review_export.html", this.weeklyReview);
+    return this.pdfGenerator.request("weekly_review_export", this.weeklyReview);
   }
 }
