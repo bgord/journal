@@ -14,18 +14,25 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
       <header data-disp="flex" data-cross="center" data-gap="6" data-p="3">
         <Components.Logo />
 
-        <RR.Link className="c-link" to="/dashboard" data-transform="uppercase" data-ml="auto">
+        <RR.Link
+          to="/dashboard"
+          prefetch="intent"
+          className="c-link"
+          data-transform="uppercase"
+          data-ml="auto"
+        >
           Dashboard
         </RR.Link>
 
         <RR.Link
+          to="/profile"
+          prefetch="intent"
           className="c-link"
           data-disp="flex"
           data-cross="center"
           data-gap="2"
           data-fs="base"
           data-fw="medium"
-          to="/profile"
         >
           <Icons.ProfileCircle data-size="md" /> {loaderData?.user.email}
         </RR.Link>
