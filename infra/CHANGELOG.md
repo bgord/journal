@@ -1,6 +1,8 @@
 # Changelog
+- 2025-08-01 13:53 9110d29 **step: add prefetches**
+## 2025-08-01 13:53 
+- 2025-08-01 11:13 76b5ca8 **docs: generate CHANGELOG**
 - 2025-07-31 23:40 7c5bf37 **step: improve paddings**
-## 2025-07-31 23:40 
 - 2025-07-31 23:39 0e55e14 **step: bump bgord/scripts**
 - 2025-07-31 23:37 cfa1e81 **step: update design**
 - 2025-07-31 22:33 0449162 **step: update design**
