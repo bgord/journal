@@ -75,7 +75,22 @@ weeklyReview.get(
   }),
   Emotions.Routes.DownloadWeeklyReview,
 );
-server.route("/weekly-review", entry);
+server.route("/weekly-review", weeklyReview);
+// =============================
+
+// Publishing ==================
+const publishing = new Hono();
+
+publishing.use("*", AuthShield.attach, AuthShield.verify);
+publishing.post(
+  "/link/create",
+  bg.RateLimitShield({
+    time: tools.Time.Minutes(1),
+    enabled: Env.type === bg.NodeEnvironmentEnum.production,
+  }),
+  Publishing.Routes.CreateShareableLink,
+);
+server.route("/publishing", publishing);
 // =============================
 
 //Translations =================
