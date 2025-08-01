@@ -10,7 +10,7 @@ export async function RevokeShareableLink(c: hono.Context<infra.HonoConfig>, _ne
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
 
-  const command = Publishing.Commands.CreateShareableLinkCommand.parse({
+  const command = Publishing.Commands.RevokeShareableLinkCommand.parse({
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     name: Publishing.Commands.REVOKE_SHAREABLE_LINK_COMMAND,

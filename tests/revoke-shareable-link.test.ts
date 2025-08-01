@@ -1,0 +1,86 @@
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
+import { auth } from "../infra/auth";
+import { EventStore } from "../infra/event-store";
+import * as Publishing from "../modules/publishing";
+import { server } from "../server";
+import * as mocks from "./mocks";
+import * as testcases from "./testcases";
+
+const url = `/publishing/link/${mocks.shareableLinkId}/revoke`;
+
+describe(`POST ${url}`, () => {
+  test("validation - AccessDeniedAuthShieldError", async () => {
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const json = await response.json();
+    expect(response.status).toBe(403);
+    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+  });
+
+  test("validation - incorrect id", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      "/publishing/link/id/revoke",
+      { method: "POST", headers: mocks.revisionHeaders() },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: "payload.invalid.error", _known: true });
+  });
+
+  // TODO requester owns
+  test("validation - ShareableLinkIsActive - already expired", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(EventStore, "find").mockResolvedValue([
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkExpiredEvent,
+    ]);
+
+    const response = await server.request(
+      url,
+      { method: "POST", headers: mocks.revisionHeaders(2) },
+      mocks.ip,
+    );
+
+    await testcases.assertPolicyError(response, Publishing.Policies.ShareableLinkIsActive);
+  });
+
+  test("validation - ShareableLinkIsActive - already revoked", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(EventStore, "find").mockResolvedValue([
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkRevokedEvent,
+    ]);
+
+    const response = await server.request(
+      url,
+      { method: "POST", headers: mocks.revisionHeaders(2) },
+      mocks.ip,
+    );
+
+    await testcases.assertPolicyError(response, Publishing.Policies.ShareableLinkIsActive);
+  });
+
+  test("happy path", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+      },
+      mocks.ip,
+    );
+
+    expect(response.status).toBe(200);
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkRevokedEvent]);
+  });
+});
