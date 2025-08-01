@@ -6,6 +6,7 @@ import { EventStore } from "../infra/event-store";
 import * as Publishing from "../modules/publishing";
 import { server } from "../server";
 import * as mocks from "./mocks";
+import * as testcases from "./testcases";
 
 const url = "/publishing/link/create";
 
@@ -98,6 +99,30 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     expect(response.status).toBe(500);
+  });
+
+  test("validation - ShareableLinksPerOwnerLimit", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(Publishing.Queries.CountShareableLinksPerOwner, "execute").mockResolvedValue({ count: 50 });
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          publicationSpecification: "entries",
+          durationMs: 1000,
+          dateRangeStart: 0,
+          dateRangeEnd: 1000,
+        }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+    await testcases.assertPolicyError(response, Publishing.Policies.ShareableLinksPerOwnerLimit);
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
   test("happy path", async () => {
