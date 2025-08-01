@@ -17,6 +17,7 @@ export class ShareableLink {
   ];
 
   readonly id: VO.ShareableLinkIdType;
+  public revision: tools.Revision = new tools.Revision(tools.Revision.initial);
   private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.active;
   private createdAt?: tools.TimestampType;
   private duration?: tools.TimeResult;

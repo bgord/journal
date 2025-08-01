@@ -10,6 +10,7 @@ export const ExpireShareableLinkCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(EXPIRE_SHAREABLE_LINK_COMMAND),
+  revision: z.instanceof(tools.Revision),
   payload: z.object({ shareableLinkId: VO.ShareableLinkId }),
 });
 

@@ -10,6 +10,7 @@ export const handleExpireShareableLinkCommand = async (
   );
 
   const shareableLink = Publishing.Aggregates.ShareableLink.build(command.payload.shareableLinkId, history);
+  command.revision.validate(shareableLink.revision.value);
   shareableLink.expire();
 
   await EventStore.save(shareableLink.pullEvents());

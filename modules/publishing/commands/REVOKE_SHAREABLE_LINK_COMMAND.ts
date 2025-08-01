@@ -10,6 +10,7 @@ export const RevokeShareableLinkCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(REVOKE_SHAREABLE_LINK_COMMAND),
+  revision: z.instanceof(tools.Revision),
   payload: z.object({ shareableLinkId: VO.ShareableLinkId }),
 });
 
