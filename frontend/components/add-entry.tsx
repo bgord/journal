@@ -125,6 +125,7 @@ export function AddEntry() {
                 type="button"
                 className="c-button"
                 data-color="positive-400"
+                data-bg={emotionType === "positive" ? "positive-900" : undefined}
                 data-variant={emotionType === "positive" ? undefined : "bare"}
                 onClick={() => setEmotionType("positive")}
                 {...UI.Rhythm().times(9).style.width}
@@ -136,6 +137,7 @@ export function AddEntry() {
                 type="button"
                 className="c-button"
                 data-color="danger-400"
+                data-bg={emotionType === "negative" ? "danger-900" : undefined}
                 data-variant={emotionType === "negative" ? undefined : "bare"}
                 onClick={() => setEmotionType("negative")}
                 {...UI.Rhythm().times(9).style.width}
