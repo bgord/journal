@@ -12,6 +12,7 @@ import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import * as App from "./app";
 import * as Emotions from "./modules/emotions";
+import * as Publishing from "./modules/publishing";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
@@ -58,7 +59,7 @@ server.route("/entry", entry);
 const weeklyReview = new Hono();
 
 weeklyReview.use("*", AuthShield.attach, AuthShield.verify);
-entry.post(
+weeklyReview.post(
   "/:weeklyReviewId/export/email",
   bg.RateLimitShield({
     time: tools.Time.Minutes(1),
@@ -66,7 +67,7 @@ entry.post(
   }),
   Emotions.Routes.ExportWeeklyReviewByEmail,
 );
-entry.get(
+weeklyReview.get(
   "/:weeklyReviewId/export/download",
   bg.RateLimitShield({
     time: tools.Time.Minutes(1),
