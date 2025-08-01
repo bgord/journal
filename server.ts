@@ -90,6 +90,7 @@ publishing.post(
   }),
   Publishing.Routes.CreateShareableLink,
 );
+publishing.post("/link/:shareableLinkId/revoke", Publishing.Routes.RevokeShareableLink);
 server.route("/publishing", publishing);
 // =============================
 
