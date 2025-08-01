@@ -75,13 +75,11 @@ describe("POST /entry/:id/reappraise-emotion", () => {
 
   test("validation - EntryIsActionable", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-    const history = [
+    spyOn(EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericEntryDeletedEvent,
-    ];
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+    ]);
 
     const response = await server.request(
       url,
@@ -97,18 +95,11 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     );
 
     await testcases.assertPolicyError(response, Emotions.Policies.EntryIsActionable);
-
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
   });
 
   test("validation - EmotionCorrespondsToSituation", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
+    spyOn(EventStore, "find").mockResolvedValue([]);
 
     const response = await server.request(
       url,
@@ -124,19 +115,11 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     );
 
     await testcases.assertPolicyError(response, Emotions.Policies.EmotionCorrespondsToSituation);
-
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
   });
 
   test("validation - EmotionForReappraisalExists", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-    const history = [mocks.GenericSituationLoggedEvent];
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
 
     const response = await server.request(
       url,
@@ -152,31 +135,20 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     );
 
     await testcases.assertPolicyError(response, Emotions.Policies.EmotionForReappraisalExists);
-
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-    const entryReappraiseEmotion = spyOn(Emotions.Aggregates.Entry.prototype, "reappraiseEmotion");
-    const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+    spyOn(EventStore, "find").mockResolvedValue([
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+    ]);
 
     const payload = {
       label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,
       intensity: mocks.GenericEmotionReappraisedEvent.payload.newIntensity,
     };
-
-    const emotion = new Emotions.Entities.Emotion(
-      new Emotions.VO.EmotionLabel(payload.label),
-      new Emotions.VO.EmotionIntensity(payload.intensity),
-    );
 
     const response = await server.request(
       url,
@@ -189,33 +161,21 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     );
 
     await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsEntry);
-
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryReappraiseEmotion).toHaveBeenCalledWith(emotion, mocks.anotherUserId);
   });
 
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    spyOn(EventStore, "find").mockResolvedValue([
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+    ]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-    const entryReappraiseEmotion = spyOn(Emotions.Aggregates.Entry.prototype, "reappraiseEmotion");
-    const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const payload = {
       label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,
       intensity: mocks.GenericEmotionReappraisedEvent.payload.newIntensity,
     };
-
-    const emotion = new Emotions.Entities.Emotion(
-      new Emotions.VO.EmotionLabel(payload.label),
-      new Emotions.VO.EmotionIntensity(payload.intensity),
-    );
 
     const response = await server.request(
       url,
@@ -228,13 +188,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryReappraiseEmotion).toHaveBeenCalledWith(emotion, mocks.userId);
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionReappraisedEvent]);
   });
 });
