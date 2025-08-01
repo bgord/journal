@@ -71,7 +71,7 @@ describe("Publishing", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      shareableLink.revoke();
+      shareableLink.revoke(mocks.userId);
       expect(shareableLink.pullEvents()).toEqual([mocks.GenericShareableLinkRevokedEvent]);
     });
   });
@@ -82,7 +82,9 @@ describe("Publishing", () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
 
-    expect(async () => shareableLink.expire()).toThrow(Publishing.Policies.ShareableLinkIsActive.error);
+    expect(async () => shareableLink.revoke(mocks.userId)).toThrow(
+      Publishing.Policies.ShareableLinkIsActive.error,
+    );
 
     expect(shareableLink.pullEvents()).toEqual([]);
   });
@@ -93,7 +95,21 @@ describe("Publishing", () => {
       mocks.GenericShareableLinkExpiredEvent,
     ]);
 
-    expect(async () => shareableLink.expire()).toThrow(Publishing.Policies.ShareableLinkIsActive.error);
+    expect(async () => shareableLink.revoke(mocks.userId)).toThrow(
+      Publishing.Policies.ShareableLinkIsActive.error,
+    );
+
+    expect(shareableLink.pullEvents()).toEqual([]);
+  });
+
+  test("revoke - RequesterOwnsShareableLink", async () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+    ]);
+
+    expect(async () => shareableLink.revoke(mocks.anotherUserId)).toThrow(
+      Publishing.Policies.RequesterOwnsShareableLink.error,
+    );
 
     expect(shareableLink.pullEvents()).toEqual([]);
   });

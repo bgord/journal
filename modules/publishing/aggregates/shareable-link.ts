@@ -17,6 +17,7 @@ export class ShareableLink {
   ];
 
   readonly id: VO.ShareableLinkIdType;
+  private ownerId?: Auth.VO.UserIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.initial);
   private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.active;
   private createdAt?: tools.TimestampType;
@@ -89,8 +90,9 @@ export class ShareableLink {
     this.record(event);
   }
 
-  revoke() {
+  revoke(requesterId: Auth.VO.UserIdType) {
     Policies.ShareableLinkIsActive.perform({ status: this.status });
+    Policies.RequesterOwnsShareableLink.perform({ requesterId, ownerId: this.ownerId });
 
     const event = Events.ShareableLinkRevokedEvent.parse({
       id: crypto.randomUUID(),
@@ -124,6 +126,7 @@ export class ShareableLink {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.duration = tools.Time.Ms(event.payload.durationMs);
         this.createdAt = tools.Timestamp.parse(event.payload.createdAt);
+        this.ownerId = event.payload.ownerId;
         break;
       }
 

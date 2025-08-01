@@ -32,7 +32,6 @@ describe(`POST ${url}`, () => {
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
 
-  // TODO requester owns
   test("validation - ShareableLinkIsActive - already expired", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EventStore, "find").mockResolvedValue([
@@ -63,6 +62,19 @@ describe(`POST ${url}`, () => {
     );
 
     await testcases.assertPolicyError(response, Publishing.Policies.ShareableLinkIsActive);
+  });
+
+  test("validation - RequesterOwnsShareableLink", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+
+    const response = await server.request(
+      url,
+      { method: "POST", headers: mocks.revisionHeaders(1) },
+      mocks.ip,
+    );
+
+    await testcases.assertPolicyError(response, Publishing.Policies.RequesterOwnsShareableLink);
   });
 
   test("happy path", async () => {
