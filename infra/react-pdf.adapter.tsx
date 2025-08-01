@@ -1,8 +1,8 @@
 import * as Ports from "+emotions/ports";
-import { Document, Page, renderToBuffer, StyleSheet, Text } from "@react-pdf/renderer";
+import { Document, type DocumentProps, Page, renderToBuffer, StyleSheet, Text } from "@react-pdf/renderer";
 import React from "react";
 
-type TemplateFn = (data: Record<string, any>) => React.ReactElement;
+type TemplateFn = (data: Record<string, any>) => React.ReactElement<DocumentProps>;
 
 const templates: Record<Ports.PdfGeneratorTemplateType, TemplateFn> = {
   weekly_review_export: (data) => {
@@ -30,8 +30,8 @@ export class ReactPdfGenerator implements Ports.PdfGeneratorPort {
 
     if (!build) throw new Error(`Unknown PDF template: ${template}`);
 
-    // @ts-expect-error
     const pdf = await renderToBuffer(build(data));
+
     return Buffer.from(pdf);
   }
 }
