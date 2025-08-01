@@ -104,6 +104,7 @@ describe(`POST ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.shareableLinkId);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    spyOn(Date, "now").mockReturnValue(mocks.shareableLinkCreatedAt);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(

@@ -13,6 +13,7 @@ describe("Publishing", () => {
 
   test("generate - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    spyOn(Date, "now").mockReturnValue(mocks.shareableLinkCreatedAt);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const shareableLink = Publishing.Aggregates.ShareableLink.create(
@@ -27,7 +28,7 @@ describe("Publishing", () => {
     });
   });
 
-  test.skip("expire - correct path", async () => {
+  test("expire - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.shareableLinkId, [
       mocks.GenericShareableLinkCreatedEvent,
@@ -39,72 +40,61 @@ describe("Publishing", () => {
     });
   });
 
-  // test("saveAdvice - AlarmAlreadyGenerated", async () => {
-  //   const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
-  //     mocks.GenericAlarmGeneratedEvent,
-  //     mocks.GenericAlarmAdviceSavedEvent,
-  //   ]);
+  test("expire - ShareableLinkIsActive", async () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkExpiredEvent,
+    ]);
 
-  //   expect(async () => alarm.saveAdvice(mocks.advice)).toThrow(Emotions.Policies.AlarmAlreadyGenerated.error);
+    expect(async () => shareableLink.expire()).toThrow(Publishing.Policies.ShareableLinkIsActive.error);
 
-  //   expect(alarm.pullEvents()).toEqual([]);
-  // });
+    expect(shareableLink.pullEvents()).toEqual([]);
+  });
 
-  // test("notify - correct path", async () => {
-  //   spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-  //   const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
-  //     mocks.GenericAlarmGeneratedEvent,
-  //     mocks.GenericAlarmAdviceSavedEvent,
-  //   ]);
+  test("expire - ShareableLinkExpirationTimePassed", async () => {
+    spyOn(Date, "now").mockReturnValue(Date.now() + mocks.duration.ms + 1);
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+    ]);
 
-  //   await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-  //     alarm.notify();
-  //     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationSentEvent]);
-  //   });
-  // });
+    expect(async () => shareableLink.expire()).toThrow(
+      Publishing.Policies.ShareableLinkExpirationTimePassed.error,
+    );
 
-  // test("notify - AlarmAdviceAvailable", async () => {
-  //   const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
+    expect(shareableLink.pullEvents()).toEqual([]);
+  });
 
-  //   expect(async () => alarm.notify()).toThrow(Emotions.Policies.AlarmAdviceAvailable.error);
+  test("revoke - correct path", async () => {
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.shareableLinkId, [
+      mocks.GenericShareableLinkCreatedEvent,
+    ]);
 
-  //   expect(alarm.pullEvents()).toEqual([]);
-  // });
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      shareableLink.revoke();
+      expect(shareableLink.pullEvents()).toEqual([mocks.GenericShareableLinkRevokedEvent]);
+    });
+  });
 
-  // test("notify - AlarmAdviceAvailable", async () => {
-  //   const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
-  //     mocks.GenericAlarmGeneratedEvent,
-  //     mocks.GenericAlarmAdviceSavedEvent,
-  //     mocks.GenericAlarmNotificationSentEvent,
-  //   ]);
+  test("revoke - ShareableLinkIsActive - already revoked", async () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkRevokedEvent,
+    ]);
 
-  //   expect(async () => alarm.notify()).toThrow(Emotions.Policies.AlarmAdviceAvailable.error);
+    expect(async () => shareableLink.expire()).toThrow(Publishing.Policies.ShareableLinkIsActive.error);
 
-  //   expect(alarm.pullEvents()).toEqual([]);
-  // });
+    expect(shareableLink.pullEvents()).toEqual([]);
+  });
 
-  // test("cancel - correct path", async () => {
-  //   const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
-  //     mocks.GenericAlarmGeneratedEvent,
-  //     mocks.GenericAlarmAdviceSavedEvent,
-  //   ]);
+  test("revoke - ShareableLinkIsActive - already expired", async () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkExpiredEvent,
+    ]);
 
-  //   await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-  //     alarm.cancel();
-  //     expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmCancelledEvent]);
-  //   });
-  // });
+    expect(async () => shareableLink.expire()).toThrow(Publishing.Policies.ShareableLinkIsActive.error);
 
-  // test("cancel - AlarmIsCancellable", async () => {
-  //   const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
-  //     mocks.GenericAlarmGeneratedEvent,
-  //     mocks.GenericAlarmAdviceSavedEvent,
-  //     mocks.GenericAlarmNotificationSentEvent,
-  //     mocks.GenericAlarmCancelledEvent,
-  //   ]);
-
-  //   expect(async () => alarm.cancel()).toThrow(Emotions.Policies.AlarmIsCancellable.error);
-
-  //   expect(alarm.pullEvents()).toEqual([]);
-  // });
+    expect(shareableLink.pullEvents()).toEqual([]);
+  });
 });

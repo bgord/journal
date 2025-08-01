@@ -63,6 +63,7 @@ export const inactivityDetection = new Emotions.VO.AlarmDetection(
 export const advice = new Emotions.VO.Advice("You should do something");
 
 export const shareableLinkId = crypto.randomUUID();
+export const shareableLinkCreatedAt = tools.Timestamp.parse(Date.now());
 
 export const publicationSpecification = "entries";
 
@@ -411,6 +412,7 @@ export const GenericShareableLinkCreatedEvent = {
     durationMs: duration.ms as tools.TimestampType,
     dateRangeStart: dateRange.getStart(),
     dateRangeEnd: dateRange.getEnd(),
+    createdAt: shareableLinkCreatedAt,
   },
 } satisfies Publishing.Events.ShareableLinkCreatedEventType;
 
@@ -423,6 +425,16 @@ export const GenericShareableLinkExpiredEvent = {
   version: 1,
   payload: { shareableLinkId },
 } satisfies Publishing.Events.ShareableLinkExpiredEventType;
+
+export const GenericShareableLinkRevokedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_REVOKED",
+  version: 1,
+  payload: { shareableLinkId },
+} satisfies Publishing.Events.ShareableLinkRevokedEventType;
 
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,

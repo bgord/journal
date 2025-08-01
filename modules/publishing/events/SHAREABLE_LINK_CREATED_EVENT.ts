@@ -22,6 +22,7 @@ export const ShareableLinkCreatedEvent = z.object({
     dateRangeStart: tools.Timestamp,
     dateRangeEnd: tools.Timestamp,
     durationMs: tools.Timestamp,
+    createdAt: tools.Timestamp,
   }),
 });
 

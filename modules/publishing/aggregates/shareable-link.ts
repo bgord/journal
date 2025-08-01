@@ -59,6 +59,7 @@ export class ShareableLink {
         dateRangeEnd: dateRange.getEnd(),
         publicationSpecification,
         durationMs: tools.Timestamp.parse(duration.ms),
+        createdAt: tools.Timestamp.parse(Date.now()),
       },
     } satisfies Events.ShareableLinkCreatedEventType);
 
@@ -122,7 +123,7 @@ export class ShareableLink {
       case Events.SHAREABLE_LINK_CREATED: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.duration = tools.Time.Ms(event.payload.durationMs);
-        this.createdAt = tools.Timestamp.parse(event.createdAt);
+        this.createdAt = tools.Timestamp.parse(event.payload.createdAt);
         break;
       }
 

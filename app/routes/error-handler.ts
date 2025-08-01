@@ -20,7 +20,7 @@ const validationErrors = [
   Publishing.VO.PublicationSpecificationErrors.invalid,
 ];
 
-const policies = Object.values(Emotions.Policies);
+const policies = Object.values({ ...Emotions.Policies, ...Publishing.Policies });
 
 export class ErrorHandler {
   static handle: hono.ErrorHandler = async (error, c) => {
