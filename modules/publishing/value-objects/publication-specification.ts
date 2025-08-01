@@ -1,7 +1,7 @@
 import { z } from "zod/v4";
 
-const PublicationSpecificationErrors = {
-  invalid: "reaction.description.invalid",
+export const PublicationSpecificationErrors = {
+  invalid: "publication.specification.invalid",
 };
 
 const PublicationSpecificationMin = 1;

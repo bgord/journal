@@ -12,5 +12,8 @@ export const handleCreateShareableLinkCommand = async (
     command.payload.requesterId,
   );
 
-  await EventStore.save(shareableLink.pullEvents());
+  const events = shareableLink.pullEvents();
+  console.log(events);
+
+  await EventStore.save(events);
 };

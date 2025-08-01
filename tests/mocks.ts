@@ -5,6 +5,7 @@ import { SupportedLanguages } from "../infra/i18n";
 import type * as Schema from "../infra/schema";
 
 import * as Emotions from "../modules/emotions";
+import * as Publishing from "../modules/publishing";
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
@@ -60,6 +61,8 @@ export const inactivityDetection = new Emotions.VO.AlarmDetection(
 );
 
 export const advice = new Emotions.VO.Advice("You should do something");
+
+export const shareableLinkId = crypto.randomUUID();
 
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
@@ -387,6 +390,23 @@ export const GenericWeeklyReviewExportByEmailFailedEvent4th = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
   payload: { ...GenericWeeklyReviewExportByEmailFailedEvent.payload, attempt: 4 },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
+
+export const GenericShareableLinkCreatedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_CREATED",
+  version: 1,
+  payload: {
+    shareableLinkId,
+    ownerId: userId,
+    publicationSpecification: "entries",
+    durationMs: tools.Timestamp.parse(tools.Time.Seconds(1).ms),
+    dateRangeStart: tools.Timestamp.parse(0),
+    dateRangeEnd: tools.Timestamp.parse(1000),
+  },
+} satisfies Publishing.Events.ShareableLinkCreatedEventType;
 
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,

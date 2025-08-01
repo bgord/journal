@@ -1,5 +1,6 @@
 import * as Emotions from "+emotions";
 import { logger } from "+infra/logger";
+import * as Publishing from "+publishing";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
@@ -16,6 +17,7 @@ const validationErrors = [
   Emotions.VO.ReactionDescription.Errors.invalid,
   Emotions.VO.ReactionType.Errors.invalid,
   Emotions.VO.ReactionEffectiveness.Errors.min_max,
+  Publishing.VO.PublicationSpecificationErrors.invalid,
 ];
 
 const policies = Object.values(Emotions.Policies);
