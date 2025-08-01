@@ -64,6 +64,12 @@ export const advice = new Emotions.VO.Advice("You should do something");
 
 export const shareableLinkId = crypto.randomUUID();
 
+export const publicationSpecification = "entries";
+
+export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Timestamp.parse(1000));
+
+export const duration = tools.Time.Seconds(1);
+
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
@@ -401,12 +407,22 @@ export const GenericShareableLinkCreatedEvent = {
   payload: {
     shareableLinkId,
     ownerId: userId,
-    publicationSpecification: "entries",
-    durationMs: tools.Timestamp.parse(tools.Time.Seconds(1).ms),
-    dateRangeStart: tools.Timestamp.parse(0),
-    dateRangeEnd: tools.Timestamp.parse(1000),
+    publicationSpecification,
+    durationMs: duration.ms as tools.TimestampType,
+    dateRangeStart: dateRange.getStart(),
+    dateRangeEnd: dateRange.getEnd(),
   },
 } satisfies Publishing.Events.ShareableLinkCreatedEventType;
+
+export const GenericShareableLinkExpiredEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_EXPIRED",
+  version: 1,
+  payload: { shareableLinkId },
+} satisfies Publishing.Events.ShareableLinkExpiredEventType;
 
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,

@@ -120,17 +120,20 @@ export class ShareableLink {
   private apply(event: ShareableLinkEventType): void {
     switch (event.name) {
       case Events.SHAREABLE_LINK_CREATED: {
+        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.duration = tools.Time.Ms(event.payload.durationMs);
         this.createdAt = tools.Timestamp.parse(event.createdAt);
         break;
       }
 
       case Events.SHAREABLE_LINK_EXPIRED: {
+        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.status = VO.ShareableLinkStatusEnum.expired;
         break;
       }
 
       case Events.SHAREABLE_LINK_REVOKED: {
+        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.status = VO.ShareableLinkStatusEnum.revoked;
         break;
       }
