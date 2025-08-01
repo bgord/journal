@@ -1,5 +1,6 @@
 import type * as Auth from "+auth";
 import * as Events from "+publishing/events";
+import * as Policies from "+publishing/policies";
 import * as VO from "+publishing/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -16,17 +17,8 @@ export class ShareableLink {
   ];
 
   readonly id: VO.ShareableLinkIdType;
-
-  // @ts-expect-error
-  private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.created;
-
-  // @ts-expect-error
-  private ownerId?: Auth.VO.UserIdType;
-  // @ts-expect-error
-  private publicationSpecification?: VO.PublicationSpecificationType;
-  // @ts-expect-error
-  private dateRange?: tools.DateRange;
-  // @ts-expect-error
+  private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.active;
+  private createdAt?: tools.TimestampType;
   private duration?: tools.TimeResult;
 
   private readonly pending: ShareableLinkEventType[] = [];
@@ -75,6 +67,13 @@ export class ShareableLink {
   }
 
   expire() {
+    Policies.ShareableLinkIsActive.perform({ status: this.status });
+    Policies.ShareableLinkExpirationTimePassed.perform({
+      duration: this.duration,
+      now: Date.now(),
+      createdAt: this.createdAt,
+    });
+
     const event = Events.ShareableLinkExpiredEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
@@ -82,15 +81,15 @@ export class ShareableLink {
       name: Events.SHAREABLE_LINK_EXPIRED,
       stream: ShareableLink.getStream(this.id),
       version: 1,
-      payload: {
-        shareableLinkId: this.id,
-      },
+      payload: { shareableLinkId: this.id },
     } satisfies Events.ShareableLinkExpiredEventType);
 
     this.record(event);
   }
 
   revoke() {
+    Policies.ShareableLinkIsActive.perform({ status: this.status });
+
     const event = Events.ShareableLinkRevokedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
@@ -98,9 +97,7 @@ export class ShareableLink {
       name: Events.SHAREABLE_LINK_REVOKED,
       stream: ShareableLink.getStream(this.id),
       version: 1,
-      payload: {
-        shareableLinkId: this.id,
-      },
+      payload: { shareableLinkId: this.id },
     } satisfies Events.ShareableLinkRevokedEventType);
 
     this.record(event);
@@ -122,10 +119,8 @@ export class ShareableLink {
   private apply(event: ShareableLinkEventType): void {
     switch (event.name) {
       case Events.SHAREABLE_LINK_CREATED: {
-        this.ownerId = event.payload.ownerId;
-        this.publicationSpecification = event.payload.publicationSpecification;
-        this.dateRange = new tools.DateRange(event.payload.dateRangeStart, event.payload.dateRangeEnd);
         this.duration = tools.Time.Ms(event.payload.durationMs);
+        this.createdAt = tools.Timestamp.parse(event.createdAt);
         break;
       }
 

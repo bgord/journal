@@ -1,5 +1,5 @@
 export enum ShareableLinkStatusEnum {
-  created = "created",
+  active = "active",
   expired = "expired",
   revoked = "revoked",
 }
