@@ -12,3 +12,5 @@ export const PublicationSpecification = z
   .trim()
   .min(PublicationSpecificationMin, { message: PublicationSpecificationErrors.invalid })
   .max(PublicationSpecificationMax, { message: PublicationSpecificationErrors.invalid });
+
+export type PublicationSpecificationType = z.infer<typeof PublicationSpecification>;
