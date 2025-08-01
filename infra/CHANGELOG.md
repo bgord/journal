@@ -1,9 +1,17 @@
 # Changelog
+- 2025-07-31 23:40 7c5bf37 **step: improve paddings**
+## 2025-07-31 23:40 
+- 2025-07-31 23:39 0e55e14 **step: bump bgord/scripts**
+- 2025-07-31 23:37 cfa1e81 **step: update design**
+- 2025-07-31 22:33 0449162 **step: update design**
+- 2025-07-31 22:00 aa52dba **step: update packages**
+- 2025-07-31 21:37 6b889e6 **fix: make selects required**
+- 2025-07-31 17:20 d8966c5 **step: order by desc alarm generated at in read model**
 - 2025-07-31 17:11 064fadb **step: bump bgord/scripts**
-## 2025-07-31 17:11 
 - 2025-07-31 16:47 51e1e84 **step: update packages**
 - 2025-07-31 16:46 6dcd1f9 **step: retry after a minute**
 - 2025-07-31 16:29 c9eb693 **step: update packages**
+- 2025-07-31 15:16 720646c **docs: generate CHANGELOG**
 - 2025-07-31 14:48 656a656 **docs: generate CHANGELOG**
 - 2025-07-31 14:48 02eafd6 **docs: generate readme**
 - 2025-07-31 12:46 048b645 **refactor: use assert policy error helper**
