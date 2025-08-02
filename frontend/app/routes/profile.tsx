@@ -91,7 +91,13 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
               data-bg="neutral-800"
             >
               {link.status === "active" && (
-                <div className="c-badge" data-variant="primary" data-mr="5">
+                <div
+                  className="c-badge"
+                  data-variant="primary"
+                  data-bc="positive-600"
+                  data-color="positive-400"
+                  data-mr="5"
+                >
                   {t("profile.shareable_links.status.active.value")}
                 </div>
               )}
