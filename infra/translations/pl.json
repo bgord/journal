@@ -143,7 +143,7 @@
   "profile.shareable_links.expired_at": "wygasł {{date}}",
   "profile.shareable_links.expires_at": "wygaśnie {{date}}",
   "profile.shareable_links.header": "Udostępnione linki",
-  "profile.shareable_links.revoke.cta": "revoke",
+  "profile.shareable_links.revoke.cta": "wygaś",
   "profile.shareable_links.revoked_at": "wycofany {{date}}",
   "profile.shareable_links.specification.entries.value": "Wpisy z okresu",
   "profile.shareable_links.status.active.value": "aktywny",
@@ -151,5 +151,15 @@
   "profile.shareable_links.status.revoked.value": "wycofany",
   "profile.shareable_links.create.cta_primary": "Utwórz link",
   "profile.shareable_links.create.cta_secondary": "Utwórz",
-  "profile.shareable_links.create.label": "Udostępnij link"
+  "profile.shareable_links.create.label": "Udostępnij link",
+  "profile.shareable_links.create.duration.label": "Okres ważności",
+  "profile.shareable_links.create.duration.one_day.value": "24 godziny",
+  "profile.shareable_links.create.duration.one_week.value": "Tydzień",
+  "profile.shareable_links.create.duration.one_month.value": "Miesiąc",
+  "profile.shareable_links.create.specification.label": "Typ zasobu",
+  "profile.shareable_links.create.specification.default": "Wybierz typ zasobu",
+  "profile.shareable_links.create.specification.entries.value": "Wpisy",
+  "profile.shareable_links.create.specification.legend": "Tylko wybrany typ zasobu będzie udostępniony",
+  "profile.shareable_links.create.date_range.label": "Zakres dat",
+  "profile.shareable_links.create.date_range.error": "Niepoprawny zakres dat"
 }

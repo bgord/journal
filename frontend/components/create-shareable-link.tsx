@@ -84,65 +84,48 @@ export function CreateShareableLink() {
           </div>
 
           <div data-disp="flex" data-dir="column" data-gap="1">
-            <label className="c-label">Duration</label>
+            <label className="c-label">{t("profile.shareable_links.create.duration.label")}</label>
 
             <div data-disp="flex">
-              <button
-                type="button"
-                className="c-button"
-                data-variant={durationType === "one_day" ? "secondary" : "bare"}
-                onClick={() => setDurationType("one_day")}
-                {...UI.Rhythm().times(9).style.width}
-              >
-                24 hours
-              </button>
-
-              <button
-                type="button"
-                className="c-button"
-                data-variant={durationType === "one_week" ? "secondary" : "bare"}
-                onClick={() => setDurationType("one_week")}
-                {...UI.Rhythm().times(9).style.width}
-              >
-                7 days
-              </button>
-
-              <button
-                type="button"
-                className="c-button"
-                data-variant={durationType === "one_month" ? "secondary" : "bare"}
-                onClick={() => setDurationType("one_month")}
-                {...UI.Rhythm().times(9).style.width}
-              >
-                30 days
-              </button>
+              {Object.keys(loader.form.durations).map((duration) => (
+                <button
+                  key={duration}
+                  type="button"
+                  className="c-button"
+                  data-variant={durationType === duration ? "secondary" : "bare"}
+                  onClick={() => setDurationType(duration as DurationType)}
+                  {...UI.Rhythm().times(9).style.width}
+                >
+                  {t(`profile.shareable_links.create.duration.${duration}.value`)}
+                </button>
+              ))}
             </div>
           </div>
 
           <div data-disp="flex" data-dir="column" data-cross="start" data-gap="1">
             <label className="c-label" {...specification.label.props}>
-              Resource type
+              {t("profile.shareable_links.create.specification.label")}
             </label>
 
             <div data-disp="flex" data-gap="5">
               <Select required {...specification.input.props}>
-                <option value="">Choose a resource</option>
+                <option value="">{t("profile.shareable_links.create.specification.default")}</option>
                 {loader.form.specifications.map((specification) => (
                   <option key={specification} value={specification}>
-                    {specification}
+                    {t(`profile.shareable_links.create.specification.${specification}.value`)}
                   </option>
                 ))}
               </Select>
 
               <div data-disp="flex" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-300">
                 <Icons.HelpCircle data-size="sm" />
-                Only the selected resource type will be accessible
+                {t("profile.shareable_links.create.specification.legend")}
               </div>
             </div>
           </div>
 
           <div data-disp="flex" data-dir="column" data-cross="start" data-gap="1">
-            <label className="c-label">Date range</label>
+            <label className="c-label">{t("profile.shareable_links.create.date_range.label")}</label>
 
             <div data-disp="flex" data-cross="center" data-gap="3">
               <input
@@ -172,7 +155,7 @@ export function CreateShareableLink() {
 
             {dateRangeError && (
               <div data-mt="1" data-ml="1" data-fs="sm" data-color="danger-400">
-                Invalid date range
+                {t("profile.shareable_links.create.date_range.error")}
               </div>
             )}
           </div>

@@ -151,5 +151,15 @@
   "profile.shareable_links.status.revoked.value": "revoked",
   "profile.shareable_links.create.cta_primary": "Create link",
   "profile.shareable_links.create.cta_secondary": "Create",
-  "profile.shareable_links.create.label": "Share a link"
+  "profile.shareable_links.create.label": "Share a link",
+  "profile.shareable_links.create.duration.label": "Duration",
+  "profile.shareable_links.create.duration.one_day.value": "24 hours",
+  "profile.shareable_links.create.duration.one_week.value": "7 days",
+  "profile.shareable_links.create.duration.one_month.value": "30 days",
+  "profile.shareable_links.create.specification.label": "Resource type",
+  "profile.shareable_links.create.specification.default": "Choose a resource type",
+  "profile.shareable_links.create.specification.entries.value": "Entries",
+  "profile.shareable_links.create.specification.legend": "Only the selected resource type will be accessible",
+  "profile.shareable_links.create.date_range.label": "Date range",
+  "profile.shareable_links.create.date_range.error": "Invalid date range"
 }
