@@ -1,6 +1,16 @@
 # Changelog
+- 2025-08-03 00:41 ddcc45f **step: add insights header**
+## 2025-08-03 00:41 
+- 2025-08-03 00:39 ac038a0 **step: add alarm weekly review translations**
+- 2025-08-03 00:32 8b2def6 **feature: display alarms in weekly review**
+- 2025-08-03 00:27 88f09bb **fix: userId reference in weekly reviews**
+- 2025-08-03 00:25 bc3b3bf **step: add alarm weekIsoId field**
+- 2025-08-03 00:23 59148b6 **refactor: rerun migrations**
+- 2025-08-03 00:20 2c05274 **refactor: simplify weekly review read model**
+- 2025-08-03 00:15 476800a **step: update schema relations**
+- 2025-08-03 00:08 d96c02c **refactor: restore migrations**
+- 2025-08-02 23:26 35694c1 **fix: set conditional alias to resolve react-dom server to node**
 - 2025-08-02 23:18 6adeb79 **fix: prod build of vite**
-## 2025-08-02 23:18 
 - 2025-08-02 23:16 bca6ab4 **refactor: remove use client in global shortcuts**
 - 2025-08-02 23:16 5fa9a34 **step: update ui**
 - 2025-08-02 23:15 7ec72c9 **step: bump bgord/scripts**
@@ -13,6 +23,7 @@
 - 2025-08-02 22:22 5301d62 **step: update packages**
 - 2025-08-02 22:16 bc4d764 **step: clean up insights in tests**
 - 2025-08-02 22:10 9887d15 **step: change links limit to 3 active**
+- 2025-08-02 21:18 67bb1ed **docs: generate CHANGELOG**
 - 2025-08-02 20:53 cdf2c6d **docs: generate readme**
 - 2025-08-02 20:53 a686ec5 **docs: generate CHANGELOG**
 - 2025-08-02 20:48 c519dfa **docs: generate CHANGELOG**
