@@ -1,9 +1,17 @@
 import * as UI from "@bgord/ui";
-import React from "react";
 import * as Icons from "iconoir-react";
+import React from "react";
 import * as RR from "react-router";
 import { CancelButton } from "./cancel-button";
 import { Select } from "./select";
+
+type DurationType = "one_day" | "one_week" | "one_month";
+
+const durationTypeToMs: Record<DurationType, number> = {
+  one_day: 24 * 60 * 60 * 1000,
+  one_week: 7 * 24 * 60 * 60 * 1000,
+  one_month: 30 * 24 * 60 * 60 * 1000,
+};
 
 export function CreateShareableLink() {
   const t = UI.useTranslations();
@@ -11,7 +19,7 @@ export function CreateShareableLink() {
 
   const dialog = UI.useToggle({ name: "dialog" });
 
-  const [durationType, setDurationType] = React.useState<"one_day" | "one_week" | "one_month">("one_day");
+  const [durationType, setDurationType] = React.useState<DurationType>("one_day");
 
   const dateRangeStart = UI.useField<number>({ name: "dateRangeStart" });
   const dateRangeEnd = UI.useField<number>({ name: "dateRangeEnd" });
@@ -19,6 +27,14 @@ export function CreateShareableLink() {
   const dateRangeError = dateRangeStart.value > dateRangeEnd.value;
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
+
+  const payload = {
+    publicationSpecification: "entries",
+    durationMs: durationTypeToMs[durationType],
+    dateRangeStart: dateRangeStart.value,
+    dateRangeEnd: dateRangeEnd.value,
+    intent: "shareable_link_create",
+  };
 
   return (
     <>
@@ -48,6 +64,7 @@ export function CreateShareableLink() {
           onSubmit={(event) => {
             event.preventDefault();
             dialog.disable();
+            fetcher.submit(payload, { action: "/profile", method: "post" });
           }}
         >
           <div data-disp="flex" data-main="between" data-cross="center">

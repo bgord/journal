@@ -34,6 +34,15 @@ export async function action({ request }: Route.ActionArgs) {
     return { ok: true };
   }
 
+  if (intent === "shareable_link_create") {
+    await API("/publishing/link/create", {
+      method: "POST",
+      body: JSON.stringify(Object.fromEntries(form.entries())),
+      headers: { cookie },
+    });
+    return { ok: true };
+  }
+
   throw new Error("Intent unknown");
 }
 
@@ -146,7 +155,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                 )}
 
                 {link.status === "active" && (
-                  <div data-disp="flex" data-gap="5">
+                  <div data-disp="flex" data-gap="4">
                     <button
                       type="button"
                       className="c-button"
@@ -165,13 +174,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                       <input name="id" type="hidden" value={link.id} />
                       <input name="revision" type="hidden" value={link.revision} />
                       <input name="intent" type="hidden" value="shareable_link_revoke" />
-                      <button
-                        type="submit"
-                        className="c-button"
-                        data-variant="primary"
-                        data-color="danger-400"
-                        data-bg="danger-900"
-                      >
+                      <button type="submit" className="c-button" data-variant="secondary">
                         {t("profile.shareable_links.revoke.cta")}
                       </button>
                     </RR.Form>
