@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1754172513022,
-      "tag": "0000_gigantic_jamie_braddock",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1754172853888,
-      "tag": "0001_worried_nemesis",
+      "when": 1754173376506,
+      "tag": "0000_small_dragon_lord",
       "breakpoints": true
     }
   ]

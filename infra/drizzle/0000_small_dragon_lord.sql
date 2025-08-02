@@ -70,7 +70,7 @@ CREATE TABLE `patternDetections` (
 	`name` text NOT NULL,
 	`weekIsoId` text NOT NULL,
 	`userId` text(36) NOT NULL,
-	FOREIGN KEY (`userId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `sessions` (
@@ -98,7 +98,7 @@ CREATE TABLE `shareableLinks` (
 	`dateRangeEnd` integer NOT NULL,
 	`durationMs` integer NOT NULL,
 	`expiresAt` integer NOT NULL,
-	FOREIGN KEY (`ownerId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`ownerId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `users` (

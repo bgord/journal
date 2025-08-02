@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "987c7ddf-d4f9-477a-a5ed-37a79578675e",
+  "id": "c1fb1924-bbe1-4c4c-997e-1fc92bb9d28a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -474,10 +474,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "patternDetections_userId_entries_id_fk": {
-          "name": "patternDetections_userId_entries_id_fk",
+        "patternDetections_userId_users_id_fk": {
+          "name": "patternDetections_userId_users_id_fk",
           "tableFrom": "patternDetections",
-          "tableTo": "entries",
+          "tableTo": "users",
           "columnsFrom": ["userId"],
           "columnsTo": ["id"],
           "onDelete": "no action",
@@ -654,10 +654,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "shareableLinks_ownerId_entries_id_fk": {
-          "name": "shareableLinks_ownerId_entries_id_fk",
+        "shareableLinks_ownerId_users_id_fk": {
+          "name": "shareableLinks_ownerId_users_id_fk",
           "tableFrom": "shareableLinks",
-          "tableTo": "entries",
+          "tableTo": "users",
           "columnsFrom": ["ownerId"],
           "columnsTo": ["id"],
           "onDelete": "no action",
