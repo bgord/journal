@@ -141,10 +141,20 @@ export class ReadModel {
   }
 
   static async listShareableLinks(userId: UserIdType) {
-    const links = await db.query.shareableLinks.findMany({
-      where: eq(Schema.shareableLinks.ownerId, userId),
-      orderBy: desc(Schema.shareableLinks.createdAt),
-    });
+    const links = await db
+      .select()
+      .from(Schema.shareableLinks)
+      .where(eq(Schema.shareableLinks.ownerId, userId))
+      .orderBy(
+        // ① "active" first
+        sql`CASE ${Schema.shareableLinks.status}
+          WHEN 'active' THEN 0
+          ELSE 1
+        END`,
+        // ② newest first
+        desc(Schema.shareableLinks.createdAt),
+      )
+      .limit(5);
 
     return links.map((link) => ({
       ...link,
