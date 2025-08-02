@@ -57,30 +57,34 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             </h2>
 
             {!loaderData.alarms.inactivity[0] && (
-              <div data-mt="5">{t("dashboard.alarm.inactivity.empty")}</div>
+              <div data-mt="5" data-fs="sm" data-color="neutral-400">
+                {t("dashboard.alarm.inactivity.empty")}
+              </div>
             )}
 
-            <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
-              {loaderData.alarms.inactivity.map((alarm) => (
-                <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
-                  <div data-disp="flex" data-gap="3">
-                    <div data-fs="sm" data-color="neutral-500">
-                      {alarm.generatedAt}
-                    </div>
+            {loaderData.alarms.inactivity[0] && (
+              <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
+                {loaderData.alarms.inactivity.map((alarm) => (
+                  <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
+                    <div data-disp="flex" data-gap="3">
+                      <div data-fs="sm" data-color="neutral-500">
+                        {alarm.generatedAt}
+                      </div>
 
-                    <div data-color="neutral-300">
-                      {t("dashboard.alarm.inactivity.duration", {
-                        inactivityDays: String(alarm.inactivityDays),
-                      })}
-                    </div>
+                      <div data-color="neutral-300">
+                        {t("dashboard.alarm.inactivity.duration", {
+                          inactivityDays: String(alarm.inactivityDays),
+                        })}
+                      </div>
 
-                    <div data-color="neutral-100">
-                      <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{alarm.advice}"
+                      <div data-color="neutral-100">
+                        <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{alarm.advice}"
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Components.DashboardCell>
 
           <Components.DashboardCell data-mt="5">
@@ -91,29 +95,35 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               </div>
             </h2>
 
-            {!loaderData.alarms.entry[0] && <div data-mt="5">Entry alarms will appear here</div>}
+            {!loaderData.alarms.entry[0] && (
+              <div data-mt="5" data-fs="sm" data-color="neutral-400">
+                {t("dashboard.alarm.entries.empty")}
+              </div>
+            )}
 
-            <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
-              {loaderData.alarms.entry.map((alarm) => (
-                <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
-                  <div data-disp="flex" data-gap="3">
-                    <div data-fs="sm" data-color="neutral-500">
-                      {alarm.generatedAt}
-                    </div>
+            {loaderData.alarms.entry[0] && (
+              <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
+                {loaderData.alarms.entry.map((alarm) => (
+                  <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
+                    <div data-disp="flex" data-gap="3">
+                      <div data-fs="sm" data-color="neutral-500">
+                        {alarm.generatedAt}
+                      </div>
 
-                    <div data-color="neutral-300">
-                      {t(`dashboard.alarm.entry.${alarm.name}.description`, {
-                        emotionLabel: t(`entry.emotion.label.value.${alarm.emotionLabel}`),
-                      })}
-                    </div>
+                      <div data-color="neutral-300">
+                        {t(`dashboard.alarm.entry.${alarm.name}.description`, {
+                          emotionLabel: t(`entry.emotion.label.value.${alarm.emotionLabel}`),
+                        })}
+                      </div>
 
-                    <div data-color="neutral-100">
-                      <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{alarm.advice}"
+                      <div data-color="neutral-100">
+                        <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{alarm.advice}"
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Components.DashboardCell>
         </section>
 
@@ -267,59 +277,67 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               {t("dashboard.weekly_reviews.history")}
             </h2>
 
-            <ul data-disp="flex" data-dir="column" data-gap="8" data-mt="5">
-              {loaderData.weeklyReviews.map((review) => (
-                <li key={review.id} data-disp="flex" data-dir="column" data-gap="5">
-                  <div data-disp="flex" data-cross="center" data-gap="4" data-color="neutral-500">
-                    <div data-mr="auto">
-                      {review.week[0]} - {review.week[1]}
+            {!loaderData.weeklyReviews[0] && (
+              <div data-mt="5" data-fs="sm" data-color="neutral-400">
+                {t("dashboard.weekly_reviews.empty")}
+              </div>
+            )}
+
+            {loaderData.weeklyReviews[0] && (
+              <ul data-disp="flex" data-dir="column" data-gap="8" data-mt="5">
+                {loaderData.weeklyReviews.map((review) => (
+                  <li key={review.id} data-disp="flex" data-dir="column" data-gap="5">
+                    <div data-disp="flex" data-cross="center" data-gap="4" data-color="neutral-500">
+                      <div data-mr="auto">
+                        {review.week[0]} - {review.week[1]}
+                      </div>
+                      {review.status === "completed" && (
+                        <a
+                          href={`${import.meta.env.VITE_API_URL}/weekly-review/${review.id}/export/download`}
+                          download
+                          target="_blank"
+                          rel="noopener noreferer"
+                          data-pt="2"
+                          data-color="brand-500"
+                        >
+                          <Icons.DownloadCircle data-size="lg" />
+                        </a>
+                      )}
+                      <div className="c-badge" data-variant="outline">
+                        {t(`dashboard.weekly_review.status.${review.status}.value`)}
+                      </div>
                     </div>
+
+                    <div data-disp="flex" data-gap="2" data-fs="sm">
+                      <div className="c-badge" data-variant="primary">
+                        {review.entryCount}
+                      </div>
+                      {t("dashboard.weekly_review.entries.count")}
+                    </div>
+
                     {review.status === "completed" && (
-                      <a
-                        href={`${import.meta.env.VITE_API_URL}/weekly-review/${review.id}/export/download`}
-                        download
-                        target="_blank"
-                        rel="noopener noreferer"
-                        data-pt="2"
-                        data-color="brand-500"
-                      >
-                        <Icons.DownloadCircle data-size="lg" />
-                      </a>
+                      <div data-disp="flex" data-dir="column" data-gap="3">
+                        <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
+
+                        <ul data-disp="flex" data-gap="2">
+                          {review.patternDetections.map((pattern: any) => (
+                            <li key={pattern.id} data-fs="sm" data-color="neutral-300">
+                              - {t(`pattern.${pattern.name}.name`)}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     )}
-                    <div className="c-badge" data-variant="outline">
-                      {t(`dashboard.weekly_review.status.${review.status}.value`)}
-                    </div>
-                  </div>
 
-                  <div data-disp="flex" data-gap="2" data-fs="sm">
-                    <div className="c-badge" data-variant="primary">
-                      {review.entryCount}
-                    </div>
-                    {t("dashboard.weekly_review.entries.count")}
-                  </div>
-
-                  {review.status === "completed" && (
-                    <div data-disp="flex" data-dir="column" data-gap="3">
-                      <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
-
-                      <ul data-disp="flex" data-gap="2">
-                        {review.patternDetections.map((pattern: any) => (
-                          <li key={pattern.id} data-fs="sm" data-color="neutral-300">
-                            - {t(`pattern.${pattern.name}.name`)}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {review.status === "completed" && (
-                    <div data-color="neutral-100">
-                      <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{review.insights}"
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
+                    {review.status === "completed" && (
+                      <div data-color="neutral-100">
+                        <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{review.insights}"
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
           </Components.DashboardCell>
         </section>
       </div>

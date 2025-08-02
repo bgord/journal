@@ -68,7 +68,16 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
       </h2>
 
       <div data-disp="flex" data-dir="column" data-gap="5">
-        <div>{t("profile.shareable_links.header")}</div>
+        <div data-disp="flex" data-cross="center" data-gap="3">
+          <Icons.ShareIos data-size="md" />
+          <div>{t("profile.shareable_links.header")}</div>
+        </div>
+
+        {!loaderData.shareableLinks[0] && (
+          <div data-fs="sm" data-color="neutral-400">
+            {t("profile.shareable_links.empty")}
+          </div>
+        )}
 
         <ul data-disp="flex" data-dir="column" data-gap="5">
           {loaderData.shareableLinks.map((link) => (
@@ -166,17 +175,26 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         </ul>
       </div>
 
-      <div data-disp="flex" data-gap="5">
-        <div>{t("profile.export_all_data.header")}</div>
+      <div data-disp="flex" data-dir="column" data-gap="5">
+        <div data-disp="flex" data-cross="center" data-gap="3">
+          <Icons.DownloadCircle data-size="md" />
+          <div>{t("profile.export_all_data.header")}</div>
+        </div>
 
         <a
+          type="button"
           href={`${import.meta.env.VITE_API_URL}/entry/export`}
           download
           target="_blank"
           rel="noopener noreferer"
-          data-color="brand-500"
+          className="c-button"
+          data-variant="secondary"
+          data-disp="flex"
+          data-main="center"
+          data-cross="center"
+          data-mr="auto"
         >
-          <Icons.DownloadCircle data-size="lg" />
+          {t("profile.export_all_data.cta")}
         </a>
       </div>
     </main>

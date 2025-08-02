@@ -40,6 +40,7 @@
   "dashboard.entries.all": "All",
   "dashboard.entries.reactions": "Top reactions",
   "dashboard.weekly_reviews.header": "Weekly reviews",
+  "dashboard.weekly_reviews.empty": "Weekly reviews will appear here",
   "dashboard.weekly_reviews.history": "History",
   "dashboard.weekly_review.status.initial.value": "initial",
   "dashboard.weekly_review.status.requested.value": "requested",
@@ -142,5 +143,7 @@
   "profile.shareable_links.revoked_at": "revoked at {{date}}",
   "profile.shareable_links.expired_at": "expired at {{date}}",
   "profile.shareable_links.revoke.cta": "revoke",
-  "profile.export_all_data.header": "Export all data"
+  "profile.shareable_links.empty": "Shareable links will appear here",
+  "profile.export_all_data.header": "Export all data",
+  "profile.export_all_data.cta": "Download"
 }

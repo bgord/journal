@@ -40,6 +40,7 @@
   "dashboard.entries.all": "Wszystkie",
   "dashboard.entries.reactions": "Najlepsze reakcje",
   "dashboard.weekly_reviews.header": "Tygodniowe raporty",
+  "dashboard.weekly_reviews.empty": "Tygodniowe raporty pojawią się tutaj",
   "dashboard.weekly_reviews.history": "Historia",
   "dashboard.weekly_review.status.initial.value": "oczekiwanie",
   "dashboard.weekly_review.status.requested.value": "w przygotowaniu",
@@ -142,5 +143,7 @@
   "profile.shareable_links.revoked_at": "wycofany {{date}}",
   "profile.shareable_links.expired_at": "wygasł {{date}}",
   "profile.shareable_links.revoke.cta": "revoke",
-  "profile.export_all_data.header": "Eksport wszystkich danych"
+  "profile.shareable_links.empty": "Udostępnione linki pojawią się tutaj",
+  "profile.export_all_data.header": "Eksport wszystkich danych",
+  "profile.export_all_data.cta": "Pobierz"
 }
