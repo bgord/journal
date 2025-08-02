@@ -171,8 +171,11 @@ export class ReadModel {
       orderBy: desc(Schema.weeklyReviews.createdAt),
       with: {
         entries: { columns: { id: true } },
-        patternDetections: { columns: { id: true, name: true } },
-        alarms: { columns: { id: true, name: true } },
+        patternDetections: {
+          columns: { id: true, name: true },
+          orderBy: desc(Schema.patternDetections.createdAt),
+        },
+        alarms: { columns: { id: true, name: true }, orderBy: desc(Schema.alarms.generatedAt) },
       },
     });
 

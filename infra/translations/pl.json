@@ -1,5 +1,6 @@
 {
   "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negatywna emocja z ekstremalną intensywnością",
+  "alarm.name.INACTIVITY_ALARM": "Brak aktywności",
   "app.add": "Dodaj",
   "app.back": "Powrót",
   "app.cancel": "Anuluj",
@@ -41,6 +42,7 @@
   "dashboard.entries.today": "Dziś",
   "dashboard.entries.top_emotions": "Najczęstsze emocje",
   "dashboard.weekly_review.entries.count": "liczba wpisów",
+  "dashboard.weekly_review.entries.alarms": "Alarmy",
   "dashboard.weekly_review.entries.patterns": "Schematy",
   "dashboard.weekly_review.status.completed.value": "utworzony",
   "dashboard.weekly_review.status.failed.value": "błąd",

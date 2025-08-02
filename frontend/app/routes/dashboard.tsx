@@ -330,12 +330,12 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
                     {review.status === "completed" && (
                       <div data-stack="y" data-gap="3">
-                        <div data-fs="base">Alarms</div>
+                        <div data-fs="base">{t("dashboard.weekly_review.entries.alarms")}:</div>
 
                         <ul data-stack="y" data-gap="2">
                           {review.alarms.map((alarm) => (
                             <li key={alarm.id} data-fs="sm" data-color="neutral-300">
-                              - {alarm.name}
+                              - {t(`alarm.name.${alarm.name}`)}
                             </li>
                           ))}
                         </ul>
