@@ -1,22 +1,26 @@
-import * as Commands from "+emotions/commands";
+import * as EmotionCommands from "+emotions/commands";
 import { logger } from "+infra/logger";
+import * as PublishngCommands from "+publishing/commands";
 import * as bg from "@bgord/bun";
 import Emittery from "emittery";
 
 type AcceptedCommand =
-  | Commands.CancelAlarmCommandType
-  | Commands.DeleteEntryCommandType
-  | Commands.EvaluateReactionCommandType
-  | Commands.GenerateAlarmCommandType
-  | Commands.LogEntryCommandType
-  | Commands.ReappraiseEmotionCommandType
-  | Commands.SaveAlarmAdviceCommandType
-  | Commands.SendAlarmNotificationCommandType
-  | Commands.RequestWeeklyReviewCommandType
-  | Commands.CompleteWeeklyReviewCommandType
-  | Commands.MarkWeeklyReviewAsFailedCommandType
-  | Commands.DetectWeeklyPatternsCommandType
-  | Commands.ExportWeeklyReviewByEmailCommand;
+  | EmotionCommands.CancelAlarmCommandType
+  | EmotionCommands.DeleteEntryCommandType
+  | EmotionCommands.EvaluateReactionCommandType
+  | EmotionCommands.GenerateAlarmCommandType
+  | EmotionCommands.LogEntryCommandType
+  | EmotionCommands.ReappraiseEmotionCommandType
+  | EmotionCommands.SaveAlarmAdviceCommandType
+  | EmotionCommands.SendAlarmNotificationCommandType
+  | EmotionCommands.RequestWeeklyReviewCommandType
+  | EmotionCommands.CompleteWeeklyReviewCommandType
+  | EmotionCommands.MarkWeeklyReviewAsFailedCommandType
+  | EmotionCommands.DetectWeeklyPatternsCommandType
+  | EmotionCommands.ExportWeeklyReviewByEmailCommand
+  | PublishngCommands.CreateShareableLinkCommandType
+  | PublishngCommands.ExpireShareableLinkCommandType
+  | PublishngCommands.RevokeShareableLinkCommandType;
 
 const CommandLogger = new bg.CommandLogger(logger);
 

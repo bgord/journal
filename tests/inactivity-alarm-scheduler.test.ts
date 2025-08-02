@@ -26,7 +26,7 @@ describe("InactivityAlarmScheduler", () => {
     spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
-    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue(11);
+    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue({ count: 11 });
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

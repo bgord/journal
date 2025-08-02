@@ -1,5 +1,6 @@
 import * as Emotions from "+emotions";
 import { logger } from "+infra/logger";
+import * as Publishing from "+publishing";
 import * as bg from "@bgord/bun";
 import { Cron } from "croner";
 
@@ -17,4 +18,10 @@ const InactivityAlarmSchedulerJob = new Cron(
   JobHandler.handle(Emotions.Services.InactivityAlarmScheduler),
 );
 
-export const jobs = { WeeklyReviewSchedulerJob, InactivityAlarmSchedulerJob };
+const ShareableLinksExpirerJob = new Cron(
+  Publishing.Services.ShareableLinksExpirer.cron,
+  { protect: JobHandler.protect },
+  JobHandler.handle(Publishing.Services.ShareableLinksExpirer),
+);
+
+export const jobs = { WeeklyReviewSchedulerJob, InactivityAlarmSchedulerJob, ShareableLinksExpirerJob };

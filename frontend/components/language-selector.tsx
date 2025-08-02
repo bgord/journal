@@ -6,7 +6,7 @@ export function LanguageSelector() {
   const languageSelector = UI.useLanguageSelector(SupportedLanguages);
 
   return (
-    <div data-disp="flex" data-cross="center" data-gap="3">
+    <div data-stack="x" data-cross="center" data-gap="3">
       <Select data-disp="flex" {...languageSelector.input.props}>
         {languageSelector.options.map((option) => (
           <option key={option.value} value={option.value}>

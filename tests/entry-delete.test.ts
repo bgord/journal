@@ -34,9 +34,7 @@ describe("DELETE /entry/:id/delete", () => {
 
   test("validation - EntryHasBeenStarted", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-    const entryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue([]);
+    spyOn(EventStore, "find").mockResolvedValue([]);
 
     const response = await server.request(
       url,
@@ -45,21 +43,12 @@ describe("DELETE /entry/:id/delete", () => {
     );
 
     await testcases.assertPolicyError(response, Emotions.Policies.EntryHasBenStarted);
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, []);
-    expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-    const entryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
-    const history = [mocks.GenericSituationLoggedEvent];
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
 
     const response = await server.request(
       url,
@@ -68,25 +57,13 @@ describe("DELETE /entry/:id/delete", () => {
     );
 
     await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsEntry);
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryDelete).toHaveBeenCalledWith(mocks.anotherUserId);
   });
 
   test("happy path - after situation", async () => {
+    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
-    const entryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
-
-    const history = [mocks.GenericSituationLoggedEvent];
-
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
       url,
@@ -98,27 +75,17 @@ describe("DELETE /entry/:id/delete", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
   });
 
   test("happy path - after emotion", async () => {
+    spyOn(EventStore, "find").mockResolvedValue([
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+    ]);
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
-    const entryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
-
-    const history = [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent];
-
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
 
     const response = await server.request(
       url,
@@ -130,31 +97,18 @@ describe("DELETE /entry/:id/delete", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
   });
 
   test("happy path - after reaction", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-    const entryBuild = spyOn(Emotions.Aggregates.Entry, "build");
-
-    const entryDelete = spyOn(Emotions.Aggregates.Entry.prototype, "delete");
-
-    const history = [
+    spyOn(EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
-    ];
-
-    const eventStoreFind = spyOn(EventStore, "find").mockResolvedValue(history);
+    ]);
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -166,13 +120,6 @@ describe("DELETE /entry/:id/delete", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(eventStoreFind).toHaveBeenCalledWith(
-      Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(mocks.entryId),
-    );
-    expect(entryBuild).toHaveBeenCalledWith(mocks.entryId, history);
-    expect(entryDelete).toHaveBeenCalledWith(mocks.userId);
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
   });
 });

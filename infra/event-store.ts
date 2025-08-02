@@ -7,6 +7,7 @@ import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import * as schema from "+infra/schema";
+import type { ShareableLinkEvent } from "+publishing/aggregates";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
@@ -18,7 +19,8 @@ export type AcceptedEvent =
   | AlarmEvent
   | WeeklyReviewEvent
   | typeof WeeklyReviewExportByEmailRequestedEvent
-  | typeof WeeklyReviewExportByEmailFailedEvent;
+  | typeof WeeklyReviewExportByEmailFailedEvent
+  | ShareableLinkEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {

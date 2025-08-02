@@ -5,6 +5,7 @@ import { SupportedLanguages } from "../infra/i18n";
 import type * as Schema from "../infra/schema";
 
 import * as Emotions from "../modules/emotions";
+import * as Publishing from "../modules/publishing";
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
@@ -60,6 +61,15 @@ export const inactivityDetection = new Emotions.VO.AlarmDetection(
 );
 
 export const advice = new Emotions.VO.Advice("You should do something");
+
+export const shareableLinkId = crypto.randomUUID();
+export const shareableLinkCreatedAt = tools.Timestamp.parse(Date.now());
+
+export const publicationSpecification = "entries";
+
+export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Timestamp.parse(1000));
+
+export const duration = tools.Time.Seconds(1);
 
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
@@ -388,6 +398,44 @@ export const GenericWeeklyReviewExportByEmailFailedEvent4th = {
   payload: { ...GenericWeeklyReviewExportByEmailFailedEvent.payload, attempt: 4 },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
+export const GenericShareableLinkCreatedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_CREATED",
+  version: 1,
+  payload: {
+    shareableLinkId,
+    ownerId: userId,
+    publicationSpecification,
+    durationMs: duration.ms as tools.TimestampType,
+    dateRangeStart: dateRange.getStart(),
+    dateRangeEnd: dateRange.getEnd(),
+    createdAt: shareableLinkCreatedAt,
+  },
+} satisfies Publishing.Events.ShareableLinkCreatedEventType;
+
+export const GenericShareableLinkExpiredEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_EXPIRED",
+  version: 1,
+  payload: { shareableLinkId },
+} satisfies Publishing.Events.ShareableLinkExpiredEventType;
+
+export const GenericShareableLinkRevokedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_REVOKED",
+  version: 1,
+  payload: { shareableLinkId },
+} satisfies Publishing.Events.ShareableLinkRevokedEventType;
+
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,
   finishedAt: Date.now(),
@@ -511,6 +559,20 @@ export const patternDetection: Schema.SelectPatternDetections = {
   name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
   weekIsoId: week.toIsoId(),
   userId,
+};
+
+export const shareableLink: Schema.SelectShareableLinks = {
+  id: shareableLinkId,
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
+  status: Publishing.VO.ShareableLinkStatusEnum.active,
+  revision: 0,
+  ownerId: userId,
+  publicationSpecification: "entries",
+  dateRangeStart: Date.now(),
+  dateRangeEnd: Date.now(),
+  durationMs: Date.now(),
+  expiresAt: Date.now(),
 };
 
 export const user = {

@@ -1,63 +1,109 @@
-import * as EventHandlers from "+emotions/event-handlers";
-import * as Events from "+emotions/events";
+import * as EmotionsEventHandlers from "+emotions/event-handlers";
+import * as EmotionsEvents from "+emotions/events";
 import * as Sagas from "+emotions/sagas";
 import { AiClient } from "+infra/ai-client";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
 import { Mailer } from "+infra/mailer";
 import { PdfGenerator } from "+infra/pdf-generator";
+import * as PublishingEventHandlers from "+publishing/event-handlers";
+import * as PublishingEvents from "+publishing/events";
 import * as bg from "@bgord/bun";
 
 const EventHandler = new bg.EventHandler(logger);
 
 // Entry
-EventBus.on(Events.ENTRY_DELETED_EVENT, EventHandler.handle(EventHandlers.onEntryDeletedEvent));
-EventBus.on(Events.EMOTION_REAPPRAISED_EVENT, EventHandler.handle(EventHandlers.onEmotionReappraisedEvent));
-EventBus.on(Events.EMOTION_LOGGED_EVENT, EventHandler.handle(EventHandlers.onEmotionLoggedEvent));
-EventBus.on(Events.REACTION_EVALUATED_EVENT, EventHandler.handle(EventHandlers.onReactionEvaluatedEvent));
-EventBus.on(Events.REACTION_LOGGED_EVENT, EventHandler.handle(EventHandlers.onReactionLoggedEvent));
-EventBus.on(Events.SITUATION_LOGGED_EVENT, EventHandler.handle(EventHandlers.onSituationLoggedEvent));
+EventBus.on(
+  EmotionsEvents.ENTRY_DELETED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onEntryDeletedEvent),
+);
+EventBus.on(
+  EmotionsEvents.EMOTION_REAPPRAISED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onEmotionReappraisedEvent),
+);
+EventBus.on(
+  EmotionsEvents.EMOTION_LOGGED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onEmotionLoggedEvent),
+);
+EventBus.on(
+  EmotionsEvents.REACTION_EVALUATED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onReactionEvaluatedEvent),
+);
+EventBus.on(
+  EmotionsEvents.REACTION_LOGGED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onReactionLoggedEvent),
+);
+EventBus.on(
+  EmotionsEvents.SITUATION_LOGGED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onSituationLoggedEvent),
+);
 
 // Pattern detection
 EventBus.on(
-  Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(EventHandlers.onPatternDetectedEvent),
+  EmotionsEvents.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onPatternDetectedEvent),
 );
 EventBus.on(
-  Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(EventHandlers.onPatternDetectedEvent),
+  EmotionsEvents.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onPatternDetectedEvent),
 );
 EventBus.on(
-  Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(EventHandlers.onPatternDetectedEvent),
+  EmotionsEvents.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onPatternDetectedEvent),
 );
 EventBus.on(
-  Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
-  EventHandler.handle(EventHandlers.onPatternDetectedEvent),
+  EmotionsEvents.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onPatternDetectedEvent),
 );
 
 // Alarm
-EventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(EventHandlers.onAlarmGeneratedEvent));
-EventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, EventHandler.handle(EventHandlers.onAlarmAdviceSavedEvent));
 EventBus.on(
-  Events.ALARM_NOTIFICATION_SENT_EVENT,
-  EventHandler.handle(EventHandlers.onAlarmNotificationSentEvent),
+  EmotionsEvents.ALARM_GENERATED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onAlarmGeneratedEvent),
 );
-EventBus.on(Events.ALARM_CANCELLED_EVENT, EventHandler.handle(EventHandlers.onAlarmCancelledEvent));
+EventBus.on(
+  EmotionsEvents.ALARM_ADVICE_SAVED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onAlarmAdviceSavedEvent),
+);
+EventBus.on(
+  EmotionsEvents.ALARM_NOTIFICATION_SENT_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onAlarmNotificationSentEvent),
+);
+EventBus.on(
+  EmotionsEvents.ALARM_CANCELLED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onAlarmCancelledEvent),
+);
 
 // Weekly review
 EventBus.on(
-  Events.WEEKLY_REVIEW_COMPLETED_EVENT,
-  EventHandler.handle(EventHandlers.onWeeklyReviewCompletedEvent),
-);
-EventBus.on(Events.WEEKLY_REVIEW_FAILED_EVENT, EventHandler.handle(EventHandlers.onWeeklyReviewFailedEvent));
-EventBus.on(
-  Events.WEEKLY_REVIEW_REQUESTED_EVENT,
-  EventHandler.handle(EventHandlers.onWeeklyReviewRequestedEvent),
+  EmotionsEvents.WEEKLY_REVIEW_COMPLETED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onWeeklyReviewCompletedEvent),
 );
 EventBus.on(
-  Events.WEEKLY_REVIEW_SKIPPED_EVENT,
-  EventHandler.handle(EventHandlers.onWeeklyReviewSkippedEvent),
+  EmotionsEvents.WEEKLY_REVIEW_FAILED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onWeeklyReviewFailedEvent),
+);
+EventBus.on(
+  EmotionsEvents.WEEKLY_REVIEW_REQUESTED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onWeeklyReviewRequestedEvent),
+);
+EventBus.on(
+  EmotionsEvents.WEEKLY_REVIEW_SKIPPED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onWeeklyReviewSkippedEvent),
+);
+
+// Shareable links
+EventBus.on(
+  PublishingEvents.SHAREABLE_LINK_CREATED,
+  EventHandler.handle(PublishingEventHandlers.onShareableLinkCreatedEvent),
+);
+EventBus.on(
+  PublishingEvents.SHAREABLE_LINK_EXPIRED,
+  EventHandler.handle(PublishingEventHandlers.onShareableLinkExpiredEvent),
+);
+EventBus.on(
+  PublishingEvents.SHAREABLE_LINK_REVOKED,
+  EventHandler.handle(PublishingEventHandlers.onShareableLinkRevokedEvent),
 );
 
 // Sagas

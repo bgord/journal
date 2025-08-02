@@ -42,15 +42,14 @@ export default function Login({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <main data-disp="flex" data-dir="column">
-      <header data-disp="flex" data-main="between" data-cross="center" data-p="3">
+    <main data-stack="y">
+      <header data-stack="x" data-main="between" data-cross="center" data-p="3">
         <Components.Logo />
         <Components.LanguageSelector />
       </header>
 
       <RR.Form
-        data-disp="flex"
-        data-dir="column"
+        data-stack="y"
         data-gap="4"
         data-mt="8"
         data-mx="auto"
@@ -64,7 +63,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
           {t("app.login")}
         </legend>
 
-        <div data-disp="flex" data-dir="column">
+        <div data-stack="y">
           <label className="c-label" {...email.label.props}>
             {t("auth.email.label")}
           </label>
@@ -80,7 +79,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
           />
         </div>
 
-        <div data-disp="flex" data-dir="column">
+        <div data-stack="y">
           <label className="c-label" {...password.label.props}>
             {t("auth.password.label")}
           </label>
@@ -107,7 +106,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
 
         {state === LoginState.error && (
           <div
-            data-disp="flex"
+            data-stack="x"
             data-gap="3"
             data-mt="3"
             data-bg="neutral-700"

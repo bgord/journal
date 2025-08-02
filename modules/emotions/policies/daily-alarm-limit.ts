@@ -9,7 +9,7 @@ class DailyAlarmLimitError extends Error {
   }
 }
 
-type DailyAlarmLimitConfigType = { count: Awaited<ReturnType<typeof CountTodaysAlarmsForUser.execute>> };
+type DailyAlarmLimitConfigType = Awaited<ReturnType<typeof CountTodaysAlarmsForUser.execute>>;
 
 class DailyAlarmLimitFactory extends bg.Policy<DailyAlarmLimitConfigType> {
   fails(config: DailyAlarmLimitConfigType) {

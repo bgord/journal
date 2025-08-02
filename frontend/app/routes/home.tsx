@@ -75,18 +75,18 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-p="6">
-      <div data-disp="flex" data-main="end" data-maxw="md" data-mx="auto">
+      <div data-stack="x" data-main="end" data-maxw="md" data-mx="auto">
         <Components.AddEntry />
       </div>
 
-      <ul data-disp="flex" data-dir="column" data-gap="5" data-maxw="md" data-mx="auto">
+      <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto">
         {loaderData.entries.map((entry) => (
           <Components.Entry key={entry.id} {...entry} />
         ))}
       </ul>
 
       {loaderData.entries.length === 0 && (
-        <div data-disp="flex" data-dir="column" data-cross="center">
+        <div data-stack="y" data-cross="center">
           <img
             src={NotebookSvg}
             data-animation="grow-fade-in"

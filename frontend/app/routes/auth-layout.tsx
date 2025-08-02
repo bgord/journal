@@ -10,8 +10,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function AuthLayout({ loaderData }: Route.ComponentProps) {
   return (
-    <div data-disp="flex" data-dir="column">
-      <header data-disp="flex" data-cross="center" data-gap="6" data-p="3">
+    <div data-stack="y">
+      <header data-stack="x" data-cross="center" data-gap="6" data-p="3">
         <Components.Logo />
 
         <RR.Link

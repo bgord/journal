@@ -1,23 +1,58 @@
-import * as CommandHandlers from "+emotions/command-handlers";
-import * as Commands from "+emotions/commands";
+import * as EmotionCommandHandlers from "+emotions/command-handlers";
+import * as EmotionCommands from "+emotions/commands";
 import { CommandBus } from "+infra/command-bus";
+import * as PublishingCommandHandlers from "+publishing/command-handlers";
+import * as PublishingCommands from "+publishing/commands";
 
-CommandBus.on(Commands.CANCEL_ALARM_COMMAND, CommandHandlers.handleCancelAlarmCommand);
-CommandBus.on(Commands.DELETE_ENTRY_COMMAND, CommandHandlers.handleDeleteEntryCommand);
-CommandBus.on(Commands.EVALUATE_REACTION_COMMAND, CommandHandlers.handleEvaluateReactionCommand);
-CommandBus.on(Commands.GENERATE_ALARM_COMMAND, CommandHandlers.handleGenerateAlarmCommand);
-CommandBus.on(Commands.LOG_ENTRY_COMMAND, CommandHandlers.handleLogEntryCommand);
-CommandBus.on(Commands.REAPPRAISE_EMOTION_COMMAND, CommandHandlers.handleReappraiseEmotionCommand);
-CommandBus.on(Commands.SAVE_ALARM_ADVICE_COMMAND, CommandHandlers.handleSaveAlarmAdviceCommand);
-CommandBus.on(Commands.SEND_ALARM_NOTIFICATION_COMMAND, CommandHandlers.handleSendAlarmNotificationCommand);
-CommandBus.on(Commands.REQUEST_WEEKLY_REVIEW_COMMAND, CommandHandlers.handleRequestWeeklyReviewCommand);
-CommandBus.on(Commands.COMPLETE_WEEKLY_REVIEW_COMMAND, CommandHandlers.handleCompleteWeeklyReviewCommand);
+CommandBus.on(EmotionCommands.CANCEL_ALARM_COMMAND, EmotionCommandHandlers.handleCancelAlarmCommand);
+CommandBus.on(EmotionCommands.DELETE_ENTRY_COMMAND, EmotionCommandHandlers.handleDeleteEntryCommand);
 CommandBus.on(
-  Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
-  CommandHandlers.handleMarkWeeklyReviewAsFailedCommand,
+  EmotionCommands.EVALUATE_REACTION_COMMAND,
+  EmotionCommandHandlers.handleEvaluateReactionCommand,
 );
-CommandBus.on(Commands.DETECT_WEEKLY_PATTERNS_COMMAND, CommandHandlers.handleDetectWeeklyPatternsCommand);
+CommandBus.on(EmotionCommands.GENERATE_ALARM_COMMAND, EmotionCommandHandlers.handleGenerateAlarmCommand);
+CommandBus.on(EmotionCommands.LOG_ENTRY_COMMAND, EmotionCommandHandlers.handleLogEntryCommand);
 CommandBus.on(
-  Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-  CommandHandlers.handleExportWeeklyReviewByEmailCommand,
+  EmotionCommands.REAPPRAISE_EMOTION_COMMAND,
+  EmotionCommandHandlers.handleReappraiseEmotionCommand,
+);
+CommandBus.on(EmotionCommands.SAVE_ALARM_ADVICE_COMMAND, EmotionCommandHandlers.handleSaveAlarmAdviceCommand);
+CommandBus.on(
+  EmotionCommands.SEND_ALARM_NOTIFICATION_COMMAND,
+  EmotionCommandHandlers.handleSendAlarmNotificationCommand,
+);
+CommandBus.on(
+  EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
+  EmotionCommandHandlers.handleRequestWeeklyReviewCommand,
+);
+CommandBus.on(
+  EmotionCommands.COMPLETE_WEEKLY_REVIEW_COMMAND,
+  EmotionCommandHandlers.handleCompleteWeeklyReviewCommand,
+);
+CommandBus.on(
+  EmotionCommands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
+  EmotionCommandHandlers.handleMarkWeeklyReviewAsFailedCommand,
+);
+CommandBus.on(
+  EmotionCommands.DETECT_WEEKLY_PATTERNS_COMMAND,
+  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand,
+);
+CommandBus.on(
+  EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
+  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand,
+);
+
+CommandBus.on(
+  PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
+  PublishingCommandHandlers.handleCreateShareableLinkCommand,
+);
+
+CommandBus.on(
+  PublishingCommands.EXPIRE_SHAREABLE_LINK_COMMAND,
+  PublishingCommandHandlers.handleExpireShareableLinkCommand,
+);
+
+CommandBus.on(
+  PublishingCommands.REVOKE_SHAREABLE_LINK_COMMAND,
+  PublishingCommandHandlers.handleRevokeShareableLinkCommand,
 );
