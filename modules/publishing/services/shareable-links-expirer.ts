@@ -11,7 +11,7 @@ export class ShareableLinksExpirer {
 
   static async process() {
     try {
-      const shareableLinks = await Repos.ShareableLinkRepository.listExpired();
+      const shareableLinks = await Repos.ShareableLinkRepository.listNearExpiration();
 
       for (const shareableLink of shareableLinks) {
         const command = Commands.ExpireShareableLinkCommand.parse({
