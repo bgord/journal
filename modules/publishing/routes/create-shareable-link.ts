@@ -8,6 +8,7 @@ import hono from "hono";
 export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
+  const timeZoneOffsetMs = c.get("timeZoneOffset").miliseconds;
 
   const publicationSpecification = Publishing.VO.PublicationSpecification.parse(
     body.publicationSpecification,
@@ -16,8 +17,9 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _ne
   const durationMs = tools.Timestamp.parse(Number(body.durationMs));
   const duration = tools.Time.Ms(durationMs);
 
-  const dateRangeStart = tools.Timestamp.parse(Number(body.dateRangeStart));
-  const dateRangeEnd = tools.Timestamp.parse(Number(body.dateRangeEnd));
+  const dateRangeStart = tools.Timestamp.parse(Number(body.dateRangeStart) + timeZoneOffsetMs);
+  const dateRangeEnd = tools.Timestamp.parse(Number(body.dateRangeEnd) + timeZoneOffsetMs);
+
   const dateRange = new tools.DateRange(dateRangeStart, dateRangeEnd);
 
   const shareableLinkId = crypto.randomUUID();
