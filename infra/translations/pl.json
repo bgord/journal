@@ -131,5 +131,16 @@
   "pattern.LowCopingEffectivenessPattern.name": "Nieefektywne reackje",
   "pattern.MoreNegativeThanPositiveEmotionsPattern.name": "Więcej negatywnych niż pozytywnych emocji",
   "pattern.MaladaptiveReactionsPattern.name": "Nieodpowiednie reakcje",
-  "pattern.PositiveEmotionWithMaladaptiveReactionPattern.name": "Pozytywne emocje z nieodpowiednimi reakcjami"
+  "pattern.PositiveEmotionWithMaladaptiveReactionPattern.name": "Pozytywne emocje z nieodpowiednimi reakcjami",
+  "profile.header": "Profil",
+  "profile.shareable_links.header": "Udostępnione linki",
+  "profile.shareable_links.status.active.value": "aktywny",
+  "profile.shareable_links.status.expired.value": "wygasł",
+  "profile.shareable_links.status.revoked.value": "wycofany",
+  "profile.shareable_links.specification.entries.value": "Wpisy z okresu",
+  "profile.shareable_links.expires_at": "wygaśnie {{date}}",
+  "profile.shareable_links.revoked_at": "wycofany {{date}}",
+  "profile.shareable_links.expired_at": "wygasł {{date}}",
+  "profile.shareable_links.revoke.cta": "revoke",
+  "profile.export_all_data.header": "Eksport wszystkich danych"
 }

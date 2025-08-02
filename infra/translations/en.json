@@ -131,5 +131,16 @@
   "pattern.LowCopingEffectivenessPattern.name": "Low coping effectiveness",
   "pattern.MoreNegativeThanPositiveEmotionsPattern.name": "More negative than positive emotions",
   "pattern.MaladaptiveReactionsPattern.name": "Maladaptive reactions",
-  "pattern.PositiveEmotionWithMaladaptiveReactionPattern.name": "Positive emotion with maladaptive reaction"
+  "pattern.PositiveEmotionWithMaladaptiveReactionPattern.name": "Positive emotion with maladaptive reaction",
+  "profile.header": "Profile",
+  "profile.shareable_links.header": "Shareable links",
+  "profile.shareable_links.status.active.value": "active",
+  "profile.shareable_links.status.expired.value": "expired",
+  "profile.shareable_links.status.revoked.value": "revoked",
+  "profile.shareable_links.specification.entries.value": "Entries from date range",
+  "profile.shareable_links.expires_at": "expires at {{date}}",
+  "profile.shareable_links.revoked_at": "revoked at {{date}}",
+  "profile.shareable_links.expired_at": "expired at {{date}}",
+  "profile.shareable_links.revoke.cta": "revoke",
+  "profile.export_all_data.header": "Export all data"
 }

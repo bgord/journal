@@ -37,6 +37,8 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function Profile({ loaderData }: Route.ComponentProps) {
+  const t = UI.useTranslations();
+
   return (
     <main
       data-disp="flex"
@@ -62,11 +64,11 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         data-bcb="neutral-800"
         data-bwb="hairline"
       >
-        <Icons.ProfileCircle data-size="md" data-color="brand-300" /> Profile
+        <Icons.ProfileCircle data-size="md" data-color="brand-300" /> {t("profile.header")}
       </h2>
 
       <div data-disp="flex" data-dir="column" data-gap="5">
-        <div>Shareable links</div>
+        <div>{t("profile.shareable_links.header")}</div>
 
         <ul data-disp="flex" data-dir="column" data-gap="5">
           {loaderData.shareableLinks.map((link) => (
@@ -81,7 +83,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
             >
               {link.status === "active" && (
                 <div className="c-badge" data-variant="primary" data-mr="5">
-                  {link.status}
+                  {t("profile.shareable_links.status.active.value")}
                 </div>
               )}
 
@@ -93,12 +95,14 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                   data-color="danger-400"
                   data-mr="5"
                 >
-                  {link.status}
+                  {t(`profile.shareable_links.status.${link.status}.value`)}
                 </div>
               )}
 
               <div data-disp="flex" data-dir="column" data-gap="1">
-                <div data-mr="2">{link.publicationSpecification.toUpperCase()} from date range</div>
+                <div data-mr="2">
+                  {t(`profile.shareable_links.specification.${link.publicationSpecification}.value`)}
+                </div>
 
                 <div data-color="neutral-300">
                   {link.dateRangeStart} - {link.dateRangeEnd}
@@ -108,19 +112,19 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
               <div data-disp="flex" data-dir="column" data-gap="3" data-ml="auto">
                 {link.status === "active" && (
                   <div data-fs="xs" data-color="neutral-400" data-ml="auto">
-                    expires at {link.expiresAt}
+                    {t("profile.shareable_links.expires_at", { date: link.expiresAt })}
                   </div>
                 )}
 
                 {link.status === "revoked" && (
                   <div data-fs="xs" data-color="neutral-400" data-ml="auto">
-                    revoked at {link.updatedAt}
+                    {t("profile.shareable_links.revoked_at", { date: link.updatedAt })}
                   </div>
                 )}
 
                 {link.status === "expired" && (
                   <div data-fs="xs" data-color="neutral-400" data-ml="auto">
-                    expired at {link.expiresAt}
+                    {t("profile.shareable_links.expired_at", { date: link.expiresAt })}
                   </div>
                 )}
 
@@ -151,7 +155,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                         data-color="danger-400"
                         data-bg="danger-900"
                       >
-                        revoke
+                        {t("profile.shareable_links.revoke.cta")}
                       </button>
                     </RR.Form>
                   </div>
@@ -163,7 +167,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
       </div>
 
       <div data-disp="flex" data-gap="5">
-        <div>Export all data</div>
+        <div>{t("profile.export_all_data.header")}</div>
 
         <a
           href={`${import.meta.env.VITE_API_URL}/entry/export`}
