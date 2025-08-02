@@ -4,6 +4,7 @@ import { db } from "+infra/db";
 import { EventStore } from "+infra/event-store";
 import { SupportedLanguages } from "+infra/i18n";
 import * as Schema from "+infra/schema";
+import * as Publishing from "+publishing";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import _ from "lodash";
@@ -181,6 +182,21 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await Emotions.Services.WeeklyReviewScheduler.process();
 
     console.log("[✓] Weekly review scheduled");
+
+    const shareableLink = Publishing.Aggregates.ShareableLink.create(
+      crypto.randomUUID(),
+      "entries",
+      new tools.DateRange(
+        tools.Time.Now().Minus(tools.Time.Days(7)).ms as tools.TimestampType,
+        Date.now() as tools.TimestampType,
+      ),
+      tools.Time.Days(3),
+      users[0]!.user.id,
+    );
+
+    await EventStore.save(shareableLink.pullEvents());
+
+    console.log("[✓] Shareable Link created");
 
     process.exit(0);
   });
