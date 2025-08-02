@@ -98,12 +98,13 @@ export class WeeklyReviewProcessing {
       const week = tools.Week.fromIsoId(event.payload.weekIsoId);
       const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
       const patterns = await Repos.PatternsRepository.findInWeekForUser(week, event.payload.userId);
+      const alarms = await Repos.AlarmRepository.findInWeekForUser(week, event.payload.userId);
 
       const insights = new VO.Advice(event.payload.insights);
 
       const composer = new Services.WeeklyReviewNotificationComposer();
 
-      const notification = composer.compose(week, entries, insights, patterns);
+      const notification = composer.compose(week, entries, insights, patterns, alarms);
 
       await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
     } catch (error) {
