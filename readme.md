@@ -287,6 +287,7 @@ infra/
 ├── pdf-generator.ts
 ├── prerequisites.ts
 ├── rate-limiters.ts
+├── react-pdf.adapter.tsx
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
 ├── response-cache.ts
