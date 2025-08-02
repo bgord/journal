@@ -343,8 +343,13 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     )}
 
                     {review.status === "completed" && (
-                      <div data-color="neutral-100">
-                        <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{review.insights}"
+                      <div data-stack="y" data-gap="3">
+                        <div data-fs="base">{t("dashboard.weekly_review.insights")}:</div>
+
+                        <div data-color="neutral-100">
+                          <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "
+                          {review.insights}"
+                        </div>
                       </div>
                     )}
                   </li>
