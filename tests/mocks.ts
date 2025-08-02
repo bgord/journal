@@ -33,6 +33,8 @@ export const weeklyReviewExportId = crypto.randomUUID();
 
 export const week = tools.Week.fromNow();
 
+export const insights = new Emotions.VO.Advice("Good job");
+
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
 export const revision = new tools.Revision(0);
@@ -345,12 +347,7 @@ export const GenericWeeklyReviewCompletedEvent = {
   stream: expect.any(String),
   name: "WEEKLY_REVIEW_COMPLETED_EVENT",
   version: 1,
-  payload: {
-    insights: "Good job",
-    weeklyReviewId,
-    weekIsoId: week.toIsoId(),
-    userId,
-  },
+  payload: { insights: insights.get(), weeklyReviewId, weekIsoId: week.toIsoId(), userId },
 } satisfies Emotions.Events.WeeklyReviewCompletedEventType;
 
 export const GenericWeeklyReviewFailedEvent = {
@@ -530,7 +527,7 @@ export const weeklyReview: Schema.SelectWeeklyReviews = {
   userId,
   weekIsoId: week.toIsoId(),
   createdAt: Date.now(),
-  insights: "Good job", // TODO: extract
+  insights: insights.get(),
   status: Emotions.VO.WeeklyReviewStatusEnum.completed,
 };
 

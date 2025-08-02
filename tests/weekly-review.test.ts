@@ -4,8 +4,6 @@ import * as tools from "@bgord/tools";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const insights = new Emotions.VO.Advice("Good job");
-
 describe("WeeklyReview", () => {
   test("build new aggregate", () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, []);
@@ -32,7 +30,7 @@ describe("WeeklyReview", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      weeklyReview.complete(insights);
+      weeklyReview.complete(mocks.insights);
       expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewCompletedEvent]);
     });
   });
@@ -44,7 +42,7 @@ describe("WeeklyReview", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      expect(async () => weeklyReview.complete(insights)).toThrow(
+      expect(async () => weeklyReview.complete(mocks.insights)).toThrow(
         Emotions.Policies.WeeklyReviewCompletedOnce.error,
       );
     });
@@ -70,7 +68,7 @@ describe("WeeklyReview", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      expect(async () => weeklyReview.complete(insights)).toThrow(
+      expect(async () => weeklyReview.complete(mocks.insights)).toThrow(
         Emotions.Policies.WeeklyReviewCompletedOnce.error,
       );
     });
