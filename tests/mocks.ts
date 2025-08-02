@@ -561,9 +561,18 @@ export const patternDetection: Schema.SelectPatternDetections = {
   userId,
 };
 
-export const shareableLink = {
+export const shareableLink: Schema.SelectShareableLinks = {
   id: shareableLinkId,
-  revision: revision.value,
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
+  status: Publishing.VO.ShareableLinkStatusEnum.active,
+  revision: 0,
+  ownerId: userId,
+  publicationSpecification: "entries",
+  dateRangeStart: Date.now(),
+  dateRangeEnd: Date.now(),
+  durationMs: Date.now(),
+  expiresAt: Date.now(),
 };
 
 export const user = {

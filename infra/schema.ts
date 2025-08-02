@@ -9,6 +9,7 @@ import { PatternNameOption } from "../modules/emotions/value-objects/pattern-nam
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { SituationKindOptions } from "../modules/emotions/value-objects/situation-kind-options";
 import { WeeklyReviewStatusEnum } from "../modules/emotions/value-objects/weekly-review-status";
+import { ShareableLinkStatusEnum } from "../modules/publishing/value-objects/shareable-link-status";
 
 const toEnumList = (value: Record<string, string>) => ({
   enum: Object.keys(value) as [string, ...string[]],
@@ -23,7 +24,9 @@ export const events = sqliteTable(
   {
     id,
     correlationId: text("correlationId").notNull(),
-    createdAt: integer("createdAt").default(sql`now`).notNull(),
+    createdAt: integer("createdAt")
+      .default(sql`now`)
+      .notNull(),
     name: text("name").notNull(),
     stream: text("stream").notNull(),
     version: integer("version").notNull(),
@@ -127,6 +130,23 @@ export const weeklyReviewsRelations = relations(weeklyReviews, ({ many }) => ({
 }));
 
 /** @public */
+export const shareableLinks = sqliteTable("shareableLinks", {
+  id,
+  createdAt: integer("createdAt").notNull(),
+  updatedAt: integer("updatedAt").notNull(),
+  status: text("status", toEnumList(ShareableLinkStatusEnum)).notNull(),
+  revision: integer("revision").notNull().default(0),
+  ownerId: text("ownerId", { length: 36 })
+    .references(() => entries.id)
+    .notNull(),
+  publicationSpecification: text("publicationSpecification").notNull(),
+  dateRangeStart: integer("dateRangeStart").notNull(),
+  dateRangeEnd: integer("dateRangeEnd").notNull(),
+  durationMs: integer("durationMs").notNull(),
+  expiresAt: integer("expiresAt").notNull(),
+});
+
+/** @public */
 export const users = sqliteTable("users", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -199,3 +219,4 @@ export type SelectEntriesFull = Omit<SelectEntriesWithAlarms, "startedAt"> & { s
 export type SelectAlarms = typeof alarms.$inferSelect;
 export type SelectPatternDetections = typeof patternDetections.$inferSelect;
 export type SelectWeeklyReviews = typeof weeklyReviews.$inferSelect;
+export type SelectShareableLinks = typeof shareableLinks.$inferSelect;

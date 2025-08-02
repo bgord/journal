@@ -1,7 +1,7 @@
-type ShareableLinkType = { id: string; revision: number };
+import * as Schema from "+infra/schema";
 
 export class ShareableLinkRepository {
-  static async listExpired(): Promise<ShareableLinkType[]> {
+  static async listExpired(): Promise<Schema.SelectShareableLinks[]> {
     return [];
   }
 }
