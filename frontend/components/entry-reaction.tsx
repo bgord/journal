@@ -59,10 +59,10 @@ export function EntryReaction(props: SelectEntriesFormatted) {
   }, [reactionType.value]);
 
   return (
-    <section data-disp="flex" data-dir="column" data-gap="3" data-py="3">
-      <div data-disp="flex" data-cross="center" data-gap="5" {...UI.Rhythm().times(3).style.minHeight}>
+    <section data-stack="y" data-gap="3" data-py="3">
+      <div data-stack="x" data-cross="center" data-gap="5" {...UI.Rhythm().times(3).style.minHeight}>
         <div
-          data-disp="flex"
+          data-stack="x"
           data-cross="center"
           data-gap="5"
           data-color="neutral-400"
@@ -111,8 +111,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
       {editingReactionDescription.on && (
         <fetcher.Form
           method="post"
-          data-disp="flex"
-          data-dir="column"
+          data-stack="y"
           data-gap="5"
           onSubmit={(event) => {
             event.preventDefault();
@@ -130,7 +129,7 @@ export function EntryReaction(props: SelectEntriesFormatted) {
             {...metaEnterSubmit}
           />
 
-          <div data-disp="flex" data-main="end" data-gap="5">
+          <div data-stack="x" data-main="end" data-gap="5">
             <CancelButton
               onClick={() => {
                 reactionDescription.clear();

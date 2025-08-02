@@ -14,6 +14,7 @@ export class WeeklyReviewExportPdfFile extends bg.FileDraft {
     });
   }
 
+  // @ts-ignore
   create() {
     return this.pdfGenerator.request("weekly_review_export", this.weeklyReview);
   }

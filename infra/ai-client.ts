@@ -10,7 +10,7 @@ class NoopAdapter implements Ports.AiClientPort {
     logger.info({ message: "[NOOP] AI Client adapter", operation: "write", metadata: prompt.read() });
 
     return new VO.Advice(
-      "This is a mock general advice from Open AI on how to act in a situation of extreme emotions",
+      "This is a mock general advice from AI on how to act in a situation of extreme emotions",
     );
   }
 }

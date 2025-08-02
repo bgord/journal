@@ -3,12 +3,24 @@ import type * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import { and, desc, eq, notInArray } from "drizzle-orm";
+import * as tools from "@bgord/tools";
+import { and, desc, eq, gte, lte, notInArray } from "drizzle-orm";
 
 export class AlarmRepository {
   static async listForUser(userId: Auth.VO.UserIdType) {
     return db.query.alarms.findMany({
       where: and(eq(Schema.alarms.userId, userId)),
+      orderBy: desc(Schema.alarms.generatedAt),
+    });
+  }
+
+  static async findInWeekForUser(week: tools.Week, userId: Auth.VO.UserIdType) {
+    return db.query.alarms.findMany({
+      where: and(
+        eq(Schema.alarms.userId, userId),
+        gte(Schema.alarms.generatedAt, week.getStart()),
+        lte(Schema.alarms.generatedAt, week.getEnd()),
+      ),
       orderBy: desc(Schema.alarms.generatedAt),
     });
   }

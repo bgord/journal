@@ -16,7 +16,9 @@
       "+emotions": ["./modules/emotions/index"],
       "+emotions/*": ["./modules/emotions/*"],
       "+auth": ["./modules/auth/index"],
-      "+auth/*": ["./modules/auth/*"]
+      "+auth/*": ["./modules/auth/*"],
+      "+publishing": ["./modules/publishing/index"],
+      "+publishing/*": ["./modules/publishing/*"]
     }
   },
   "exclude": ["bgord-scripts", "frontend"]

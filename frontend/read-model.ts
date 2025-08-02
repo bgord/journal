@@ -2,6 +2,7 @@ import * as tools from "@bgord/tools";
 import { and, count, desc, eq, gte, not, sql } from "drizzle-orm";
 import { AddEntryForm } from "../app/services/add-entry-form";
 import { AuthForm } from "../app/services/auth-form";
+import { CreateShareableLinkForm } from "../app/services/create-shareable-link-form";
 import * as Schema from "../infra/schema";
 import type { UserIdType } from "../modules/auth/value-objects/user-id";
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
@@ -15,6 +16,8 @@ export class ReadModel {
   static AddEntryForm = AddEntryForm.get();
 
   static AuthForm = AuthForm.get();
+
+  static CreateShareableLinkForm = CreateShareableLinkForm.get();
 
   static async listEntriesForUser(userId: UserIdType) {
     const entries = await db.query.entries.findMany({
@@ -135,6 +138,31 @@ export class ReadModel {
         generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
       })),
     };
+  }
+
+  static async listShareableLinks(userId: UserIdType) {
+    const links = await db
+      .select()
+      .from(Schema.shareableLinks)
+      .where(eq(Schema.shareableLinks.ownerId, userId))
+      .orderBy(
+        // ① "active" first
+        sql`CASE ${Schema.shareableLinks.status}
+          WHEN 'active' THEN 0
+          ELSE 1
+        END`,
+        // ② newest first
+        desc(Schema.shareableLinks.createdAt),
+      )
+      .limit(5);
+
+    return links.map((link) => ({
+      ...link,
+      dateRangeStart: tools.DateFormatters.datetime(link.dateRangeStart),
+      dateRangeEnd: tools.DateFormatters.datetime(link.dateRangeEnd),
+      expiresAt: tools.DateFormatters.datetime(link.expiresAt),
+      updatedAt: tools.DateFormatters.datetime(link.updatedAt),
+    }));
   }
 
   static async listWeeklyReviews(userId: UserIdType) {
