@@ -12,8 +12,8 @@ export default defineConfig({
   ],
   resolve: {
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
-    // alias: {
-    //   "react-dom/server": "react-dom/server.node",
-    // },
+    alias: {
+      "react-dom/server": "react-dom/server.node",
+    },
   },
 });
