@@ -3,6 +3,7 @@ import * as Icons from "iconoir-react";
 import * as RR from "react-router";
 import { API } from "../../api";
 import { guard } from "../../auth";
+import * as Components from "../../components";
 import { ReadModel } from "../../read-model";
 import type { Route } from "./+types/profile";
 
@@ -71,6 +72,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         <div data-disp="flex" data-cross="center" data-gap="3">
           <Icons.ShareIos data-size="md" />
           <div>{t("profile.shareable_links.header")}</div>
+          <Components.CreateShareableLink />
         </div>
 
         {!loaderData.shareableLinks[0] && (

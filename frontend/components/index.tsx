@@ -4,6 +4,7 @@ export * from "./add-entry-navigation-progress";
 export * from "./back-button";
 export * from "./cancel-button";
 export * from "./clickable-rating-pills";
+export * from "./create-shareable-link";
 export * from "./dashboard-cell";
 export * from "./entry";
 export * from "./language-selector";
