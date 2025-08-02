@@ -1,6 +1,10 @@
 # Changelog
+- 2025-08-02 23:18 6adeb79 **fix: prod build of vite**
+## 2025-08-02 23:18 
+- 2025-08-02 23:16 bca6ab4 **refactor: remove use client in global shortcuts**
+- 2025-08-02 23:16 5fa9a34 **step: update ui**
+- 2025-08-02 23:15 7ec72c9 **step: bump bgord/scripts**
 - 2025-08-02 22:52 272f76f **Merge pull request #22 from bgord/react-pdf-generator**
-## 2025-08-02 22:52 
 - 2025-08-02 22:51 67ee866 **step: resolve conflicts**
 - 2025-08-02 22:47 854f4c7 **Merge pull request #21 from bgord/publishing**
 - 2025-08-02 22:34 5ebc77a **step: append alarms to weekly review notification**
@@ -9,6 +13,8 @@
 - 2025-08-02 22:22 5301d62 **step: update packages**
 - 2025-08-02 22:16 bc4d764 **step: clean up insights in tests**
 - 2025-08-02 22:10 9887d15 **step: change links limit to 3 active**
+- 2025-08-02 20:53 cdf2c6d **docs: generate readme**
+- 2025-08-02 20:53 a686ec5 **docs: generate CHANGELOG**
 - 2025-08-02 20:48 c519dfa **docs: generate CHANGELOG**
 - 2025-08-02 20:48 3dbd921 **docs: generate readme**
 - 2025-08-02 19:16 6543cea **step: add possible prod issue remedy**
