@@ -27,6 +27,7 @@ CREATE TABLE `alarms` (
 	`lastEntryTimestamp` integer,
 	`emotionLabel` text,
 	`emotionIntensity` integer,
+	`weekIsoId` text NOT NULL,
 	FOREIGN KEY (`entryId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`userId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -128,5 +129,5 @@ CREATE TABLE `weeklyReviews` (
 	`userId` text(36) NOT NULL,
 	`insights` text,
 	`status` text NOT NULL,
-	FOREIGN KEY (`userId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );

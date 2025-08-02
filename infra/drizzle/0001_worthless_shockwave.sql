@@ -1,1 +1,0 @@
-ALTER TABLE `alarms` ADD `weekIsoId` text NOT NULL;

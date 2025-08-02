@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "c1fb1924-bbe1-4c4c-997e-1fc92bb9d28a",
+  "id": "be2ef7e1-84da-4752-b81d-a6d953337a39",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -193,6 +193,13 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
+          "autoincrement": false
+        },
+        "weekIsoId": {
+          "name": "weekIsoId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false
         }
       },
@@ -833,10 +840,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "weeklyReviews_userId_entries_id_fk": {
-          "name": "weeklyReviews_userId_entries_id_fk",
+        "weeklyReviews_userId_users_id_fk": {
+          "name": "weeklyReviews_userId_users_id_fk",
           "tableFrom": "weeklyReviews",
-          "tableTo": "entries",
+          "tableTo": "users",
           "columnsFrom": ["userId"],
           "columnsTo": ["id"],
           "onDelete": "no action",

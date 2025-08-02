@@ -113,6 +113,13 @@ export const alarmsRelations = relations(alarms, ({ one }) => ({
     fields: [alarms.userId],
     references: [users.id],
   }),
+
+  /*  link each alarm to its weeklyReview via (weekIsoId, userId) */
+  weeklyReview: one(weeklyReviews, {
+    fields: [alarms.weekIsoId, alarms.userId],
+    references: [weeklyReviews.weekIsoId, weeklyReviews.userId],
+    relationName: "week", // matches all other (user,week) joins
+  }),
 }));
 
 /** @public */
@@ -172,6 +179,8 @@ export const weeklyReviewsRelations = relations(weeklyReviews, ({ one, many }) =
   patternDetections: many(patternDetections, {
     relationName: "week", // shares the composite join
   }),
+  /*  every alarm that belongs to the same user-week */
+  alarms: many(alarms, { relationName: "week" }),
 }));
 
 /** @public */

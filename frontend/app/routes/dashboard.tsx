@@ -318,10 +318,24 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                       <div data-stack="y" data-gap="3">
                         <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
 
-                        <ul data-stack="x" data-gap="2">
-                          {review.patternDetections.map((pattern: any) => (
+                        <ul data-stack="y" data-gap="2">
+                          {review.patternDetections.map((pattern) => (
                             <li key={pattern.id} data-fs="sm" data-color="neutral-300">
                               - {t(`pattern.${pattern.name}.name`)}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {review.status === "completed" && (
+                      <div data-stack="y" data-gap="3">
+                        <div data-fs="base">Alarms</div>
+
+                        <ul data-stack="y" data-gap="2">
+                          {review.alarms.map((alarm) => (
+                            <li key={alarm.id} data-fs="sm" data-color="neutral-300">
+                              - {alarm.name}
                             </li>
                           ))}
                         </ul>

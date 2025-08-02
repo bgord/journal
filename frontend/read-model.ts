@@ -169,7 +169,11 @@ export class ReadModel {
     const reviews = await db.query.weeklyReviews.findMany({
       where: eq(Schema.weeklyReviews.userId, userId),
       orderBy: desc(Schema.weeklyReviews.createdAt),
-      with: { entries: { columns: { id: true } }, patternDetections: { columns: { id: true, name: true } } },
+      with: {
+        entries: { columns: { id: true } },
+        patternDetections: { columns: { id: true, name: true } },
+        alarms: { columns: { id: true, name: true } },
+      },
     });
 
     return reviews.map((review) => ({
