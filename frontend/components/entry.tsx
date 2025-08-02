@@ -25,8 +25,7 @@ export function Entry(props: EntryType) {
     <li
       {...exit.attach}
       data-testid="entry"
-      data-disp="flex"
-      data-dir="column"
+      data-stack="y"
       data-px="4"
       data-bg="neutral-900"
       data-fs="base"
@@ -34,7 +33,7 @@ export function Entry(props: EntryType) {
       data-shadow="sm"
     >
       <header
-        data-disp="flex"
+        data-stack="y"
         data-main="between"
         data-cross="center"
         data-mt="2"
@@ -59,15 +58,8 @@ export function Entry(props: EntryType) {
         </fetcher.Form>
       </header>
 
-      <section
-        data-disp="flex"
-        data-dir="column"
-        data-gap="5"
-        data-py="5"
-        data-bcb="neutral-700"
-        data-bwb="hairline"
-      >
-        <div data-disp="flex" data-cross="center" data-gap="4">
+      <section data-stack="y" data-gap="5" data-py="5" data-bcb="neutral-700" data-bwb="hairline">
+        <div data-stack="x" data-cross="center" data-gap="4">
           <div data-fs="sm" data-color="neutral-400">
             {t("entry.situation.description.label")}
           </div>
@@ -81,7 +73,7 @@ export function Entry(props: EntryType) {
           </div>
         </div>
 
-        <div data-disp="flex" data-main="between" data-cross="center" data-gap="12" data-color="neutral-200">
+        <div data-stack="x" data-main="between" data-cross="center" data-gap="12" data-color="neutral-200">
           {props.situationDescription}
         </div>
 
@@ -91,7 +83,7 @@ export function Entry(props: EntryType) {
       <EntryReaction {...props} />
 
       {props.alarms[0] && (
-        <ul data-disp="flex" data-dir="column" data-gap="5" data-mb="5">
+        <ul data-stack="y" data-gap="5" data-mb="5">
           {props.alarms.map((alarm) => (
             <Alarm key={alarm.id} {...alarm} />
           ))}

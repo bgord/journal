@@ -59,8 +59,7 @@ export function AddEntry() {
 
       <UI.Dialog data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
         <fetcher.Form
-          data-disp="flex"
-          data-dir="column"
+          data-stack="y"
           data-gap="5"
           method="POST"
           onSubmit={(event) => {
@@ -69,8 +68,8 @@ export function AddEntry() {
             dialog.disable();
           }}
         >
-          <div data-disp="flex" data-main="between" data-cross="center">
-            <strong data-disp="flex" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
+          <div data-stack="x" data-main="between" data-cross="center">
+            <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
               <Icons.Book data-size="md" data-color="neutral-300" />
               {t("entry.new.label")}
             </strong>
@@ -95,7 +94,7 @@ export function AddEntry() {
             {...UI.Form.textareaPattern(loader.form.situationDescription)}
           />
 
-          <div data-disp="flex" data-gap="8" data-cross="end">
+          <div data-stack="x" data-gap="8" data-cross="end">
             <Select required {...situationKind.input.props}>
               <option value="">{t("entry.situation.kind.value.default")}</option>
               {loader.form.situationKinds.map((kind) => (
@@ -105,7 +104,7 @@ export function AddEntry() {
               ))}
             </Select>
 
-            <div data-disp="flex" data-cross="center" data-gap="2">
+            <div data-stack="x" data-cross="center" data-gap="2">
               <Icons.MapPin data-size="md" data-color="neutral-400" />
 
               <input
@@ -119,8 +118,8 @@ export function AddEntry() {
 
           <Separator />
 
-          <div data-disp="flex" data-main="between">
-            <div data-disp="flex" data-cross="end">
+          <div data-stack="x" data-main="between">
+            <div data-stack="x" data-cross="end">
               <button
                 type="button"
                 className="c-button"
@@ -172,7 +171,7 @@ export function AddEntry() {
             {...UI.Form.textareaPattern(loader.form.reactionDescription)}
           />
 
-          <div data-disp="flex" data-cross="center">
+          <div data-stack="x" data-cross="center">
             <Select required {...reactionType.input.props}>
               <option value="">{t("entry.reaction.type.default.value")}</option>
               {loader.form.reactionTypes.map((type) => (
@@ -196,7 +195,7 @@ export function AddEntry() {
             <ClickableRatingPills {...reactionEffectiveness} />
           </div>
 
-          <div data-disp="flex" data-main="end" data-gap="5" data-mt="12">
+          <div data-stack="x" data-main="end" data-gap="5" data-mt="12">
             <CancelButton onClick={dialog.disable} />
 
             <button

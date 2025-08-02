@@ -51,8 +51,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
 
   return (
     <main
-      data-disp="flex"
-      data-dir="column"
+      data-stack="y"
       data-gap="8"
       data-mt="8"
       data-mx="auto"
@@ -65,8 +64,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
       ata-bg="neutral-900"
     >
       <h2
-        data-disp="flex"
-        data-cross="center"
+        data-stack="x"
         data-gap="3"
         data-pb="5"
         data-fw="bold"
@@ -77,8 +75,8 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         <Icons.ProfileCircle data-size="md" data-color="brand-300" /> {t("profile.header")}
       </h2>
 
-      <div data-disp="flex" data-dir="column" data-gap="5">
-        <div data-disp="flex" data-cross="center" data-gap="3">
+      <div data-stack="y" data-gap="5">
+        <div data-stack="x" data-cross="center" data-gap="3">
           <Icons.ShareIos data-size="md" />
           <div>{t("profile.shareable_links.header")}</div>
           <Components.CreateShareableLink />
@@ -90,11 +88,11 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
           </div>
         )}
 
-        <ul data-disp="flex" data-dir="column" data-gap="5">
+        <ul data-stack="y" data-gap="5">
           {loaderData.shareableLinks.map((link) => (
             <li
               key={link.id}
-              data-disp="flex"
+              data-stack="x"
               data-cross="center"
               data-py="2"
               data-px="4"
@@ -125,7 +123,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                 </div>
               )}
 
-              <div data-disp="flex" data-dir="column" data-gap="1">
+              <div data-stack="y" data-gap="1">
                 <div data-mr="2">
                   {t(`profile.shareable_links.specification.${link.publicationSpecification}.value`)}
                 </div>
@@ -135,7 +133,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                 </div>
               </div>
 
-              <div data-disp="flex" data-dir="column" data-gap="3" data-ml="auto">
+              <div data-stack="y" data-gap="3" data-ml="auto">
                 {link.status === "active" && (
                   <div data-fs="xs" data-color="neutral-400" data-ml="auto">
                     {t("profile.shareable_links.expires_at", { date: link.expiresAt })}
@@ -155,7 +153,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                 )}
 
                 {link.status === "active" && (
-                  <div data-disp="flex" data-gap="4">
+                  <div data-stack="x" data-gap="4">
                     <button
                       type="button"
                       className="c-button"
@@ -186,8 +184,8 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         </ul>
       </div>
 
-      <div data-disp="flex" data-dir="column" data-gap="5">
-        <div data-disp="flex" data-cross="center" data-gap="3">
+      <div data-stack="y" data-gap="5">
+        <div data-stack="x" data-cross="center" data-gap="3">
           <Icons.DownloadCircle data-size="md" />
           <div>{t("profile.export_all_data.header")}</div>
         </div>

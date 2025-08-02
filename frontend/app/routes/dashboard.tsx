@@ -27,8 +27,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
 
   return (
-    <main data-disp="flex" data-dir="column" data-gap="8">
-      <ul data-disp="flex" data-p="5" style={{ gap: "4px" }}>
+    <main data-stack="y" data-gap="8">
+      <ul data-stack="x" data-p="5" style={{ gap: "4px" }}>
         {loaderData.heatmap.map((point, index) => (
           // @ts-expect-error
           <li
@@ -42,14 +42,14 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         ))}
       </ul>
 
-      <div data-disp="flex" data-gap="5" data-mx="auto" data-color="neutral-200" data-px="1">
+      <div data-stack="x" data-gap="5" data-mx="auto" data-color="neutral-200" data-px="1">
         <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
-          <h2 data-disp="flex" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
+          <h2 data-stack="x" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
             <Icons.Alarm data-size="md" data-color="brand-300" /> {t("dashboard.alarm.header")}
           </h2>
 
           <Components.DashboardCell data-mt="3">
-            <h2 data-disp="flex" data-gap="3" data-fs="base">
+            <h2 data-stack="x" data-gap="3" data-fs="base">
               {t("dashboard.alarm.inactivity")}
               <div className="c-badge" data-variant="primary">
                 {loaderData.alarms.inactivity.length}
@@ -63,10 +63,10 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             )}
 
             {loaderData.alarms.inactivity[0] && (
-              <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
+              <ul data-stack="y" data-gap="5" data-mt="5">
                 {loaderData.alarms.inactivity.map((alarm) => (
                   <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
-                    <div data-disp="flex" data-gap="3">
+                    <div data-stack="x" data-gap="3">
                       <div data-fs="sm" data-color="neutral-500">
                         {alarm.generatedAt}
                       </div>
@@ -88,7 +88,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           </Components.DashboardCell>
 
           <Components.DashboardCell data-mt="5">
-            <h2 data-disp="flex" data-gap="3" data-fs="base">
+            <h2 data-stack="x" data-gap="3" data-fs="base">
               {t("dashboard.alarm.entry")}
               <div className="c-badge" data-variant="primary">
                 {loaderData.alarms.entry.length}
@@ -102,10 +102,10 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             )}
 
             {loaderData.alarms.entry[0] && (
-              <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
+              <ul data-stack="y" data-gap="5" data-mt="5">
                 {loaderData.alarms.entry.map((alarm) => (
                   <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
-                    <div data-disp="flex" data-gap="3">
+                    <div data-stack="x" data-gap="3">
                       <div data-fs="sm" data-color="neutral-500">
                         {alarm.generatedAt}
                       </div>
@@ -128,17 +128,17 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         </section>
 
         <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
-          <h2 data-disp="flex" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
+          <h2 data-stack="x" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
             <Icons.Notes data-size="md" data-color="brand-300" /> {t("dashboard.entries.header")}
           </h2>
 
           <Components.DashboardCell data-mt="3">
-            <h2 data-disp="flex" data-gap="3" data-fs="base">
+            <h2 data-stack="x" data-gap="3" data-fs="base">
               {t("dashboard.entries.counts")}
             </h2>
 
-            <div data-disp="flex" data-main="between" data-mt="5" data-px="8">
-              <div data-disp="flex" data-dir="column" data-cross="center" data-gap="2">
+            <div data-stack="x" data-main="between" data-mt="5" data-px="8">
+              <div data-stack="y" data-cross="center" data-gap="2">
                 <div data-color="neutral-500" data-transform="center">
                   {t("dashboard.entries.today")}
                 </div>
@@ -147,7 +147,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                 </div>
               </div>
 
-              <div data-disp="flex" data-dir="column" data-cross="center" data-gap="2">
+              <div data-stack="y" data-cross="center" data-gap="2">
                 <div data-color="neutral-500" data-transform="center">
                   {t("dashboard.entries.last_week")}
                 </div>
@@ -156,7 +156,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                 </div>
               </div>
 
-              <div data-disp="flex" data-dir="column" data-cross="center" data-gap="2">
+              <div data-stack="y" data-cross="center" data-gap="2">
                 <div data-color="neutral-500" data-transform="center">
                   {t("dashboard.entries.all")}
                 </div>
@@ -171,19 +171,19 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             loaderData.entries.topEmotions.lastWeek[0] &&
             loaderData.entries.topEmotions.all[0] && (
               <Components.DashboardCell data-mt="5">
-                <h2 data-disp="flex" data-gap="3" data-fs="base">
+                <h2 data-stack="x" data-gap="3" data-fs="base">
                   {t("dashboard.entries.top_emotions")}
                 </h2>
 
-                <div data-disp="flex" data-main="between" data-mt="5">
-                  <div data-disp="flex" data-dir="column" data-cross="center" data-fs="sm">
+                <div data-stack="x" data-main="between" data-mt="5">
+                  <div data-stack="y" data-cross="center" data-fs="sm">
                     <div data-color="neutral-500" data-transform="center">
                       {t("dashboard.entries.today")}
                     </div>
 
-                    <ul data-disp="flex" data-dir="column" data-mt="3" data-gap="2">
+                    <ul data-stack="y" data-mt="3" data-gap="2">
                       {loaderData.entries.topEmotions.today.map((stat, index) => (
-                        <li key={`top-emotions-today-${stat.hits}-${index}`} data-disp="flex" data-gap="2">
+                        <li key={`top-emotions-today-${stat.hits}-${index}`} data-stack="x" data-gap="2">
                           <div className="c-badge" data-variant="primary">
                             {stat.hits}
                           </div>
@@ -193,14 +193,14 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     </ul>
                   </div>
 
-                  <div data-disp="flex" data-dir="column" data-cross="center" data-fs="sm">
+                  <div data-stack="y" data-cross="center" data-fs="sm">
                     <div data-color="neutral-500" data-transform="center">
                       {t("dashboard.entries.last_week")}
                     </div>
 
-                    <ul data-disp="flex" data-dir="column" data-mt="3" data-gap="2">
+                    <ul data-stack="y" data-mt="3" data-gap="2">
                       {loaderData.entries.topEmotions.lastWeek.map((stat, index) => (
-                        <li key={`top-emotions-last-week-${stat}-${index}`} data-disp="flex" data-gap="2">
+                        <li key={`top-emotions-last-week-${stat}-${index}`} data-stack="x" data-gap="2">
                           <div className="c-badge" data-variant="primary">
                             {stat.hits}
                           </div>
@@ -210,14 +210,14 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     </ul>
                   </div>
 
-                  <div data-disp="flex" data-dir="column" data-cross="center" data-fs="sm">
+                  <div data-stack="y" data-cross="center" data-fs="sm">
                     <div data-color="neutral-500" data-transform="center">
                       {t("dashboard.entries.all")}
                     </div>
 
-                    <ul data-disp="flex" data-dir="column" data-mt="3" data-gap="2">
+                    <ul data-stack="y" data-mt="3" data-gap="2">
                       {loaderData.entries.topEmotions.all.map((stat, index) => (
-                        <li key={`top-emotions-all-${stat}-${index}`} data-disp="flex" data-gap="2">
+                        <li key={`top-emotions-all-${stat}-${index}`} data-stack="x" data-gap="2">
                           <div className="c-badge" data-variant="primary">
                             {stat.hits}
                           </div>
@@ -232,22 +232,21 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
           {loaderData.entries.topReactions[0] && (
             <Components.DashboardCell data-mt="5">
-              <h2 data-disp="flex" data-gap="3" data-fs="base">
+              <h2 data-stack="x" data-gap="3" data-fs="base">
                 {t("dashboard.entries.reactions")}
               </h2>
 
-              <ul data-disp="flex" data-dir="column" data-mt="5" data-gap="5">
+              <ul data-stack="y" data-mt="5" data-gap="5">
                 {loaderData.entries.topReactions.map((reaction) => (
                   <li
                     key={reaction.id}
-                    data-disp="flex"
-                    data-dir="column"
+                    data-stack="y"
                     data-bct="neutral-800"
                     data-bwt="hairline"
                     data-pt="3"
                     data-gap="3"
                   >
-                    <div data-disp="flex" data-gap="3">
+                    <div data-stack="x" data-gap="3">
                       <div className="c-badge" data-variant="primary">
                         {reaction.reactionEffectiveness} / 5
                       </div>
@@ -268,12 +267,12 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         </section>
 
         <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
-          <h2 data-disp="flex" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
+          <h2 data-stack="x" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
             <Icons.Calendar data-size="md" data-color="brand-300" /> {t("dashboard.weekly_reviews.header")}
           </h2>
 
           <Components.DashboardCell data-mt="3">
-            <h2 data-disp="flex" data-fs="base">
+            <h2 data-stack="x" data-fs="base">
               {t("dashboard.weekly_reviews.history")}
             </h2>
 
@@ -284,10 +283,10 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             )}
 
             {loaderData.weeklyReviews[0] && (
-              <ul data-disp="flex" data-dir="column" data-gap="8" data-mt="5">
+              <ul data-stack="y" data-gap="8" data-mt="5">
                 {loaderData.weeklyReviews.map((review) => (
-                  <li key={review.id} data-disp="flex" data-dir="column" data-gap="5">
-                    <div data-disp="flex" data-cross="center" data-gap="4" data-color="neutral-500">
+                  <li key={review.id} data-stack="y" data-gap="5">
+                    <div data-stack="x" data-cross="center" data-gap="4" data-color="neutral-500">
                       <div data-mr="auto">
                         {review.week[0]} - {review.week[1]}
                       </div>
@@ -308,7 +307,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                       </div>
                     </div>
 
-                    <div data-disp="flex" data-gap="2" data-fs="sm">
+                    <div data-stack="x" data-gap="2" data-fs="sm">
                       <div className="c-badge" data-variant="primary">
                         {review.entryCount}
                       </div>
@@ -316,10 +315,10 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     </div>
 
                     {review.status === "completed" && (
-                      <div data-disp="flex" data-dir="column" data-gap="3">
+                      <div data-stack="y" data-gap="3">
                         <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
 
-                        <ul data-disp="flex" data-gap="2">
+                        <ul data-stack="x" data-gap="2">
                           {review.patternDetections.map((pattern: any) => (
                             <li key={pattern.id} data-fs="sm" data-color="neutral-300">
                               - {t(`pattern.${pattern.name}.name`)}

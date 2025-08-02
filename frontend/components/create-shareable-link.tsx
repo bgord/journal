@@ -54,11 +54,10 @@ export function CreateShareableLink() {
         {...dialog}
       >
         <fetcher.Form
-          data-disp="flex"
-          data-dir="column"
+          data-stack="y"
+          data-height="100%"
           data-gap="8"
           data-color="neutral-100"
-          data-height="100%"
           method="POST"
           onSubmit={(event) => {
             event.preventDefault();
@@ -66,8 +65,8 @@ export function CreateShareableLink() {
             fetcher.submit(payload, { action: "/profile", method: "post" });
           }}
         >
-          <div data-disp="flex" data-main="between" data-cross="center">
-            <strong data-disp="flex" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
+          <div data-stack="x" data-main="between" data-cross="center">
+            <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
               <Icons.ShareIos data-size="md" data-color="neutral-300" />
               {t("profile.shareable_links.create.label")}
             </strong>
@@ -83,10 +82,10 @@ export function CreateShareableLink() {
             </button>
           </div>
 
-          <div data-disp="flex" data-dir="column" data-gap="1">
+          <div data-stack="y" data-gap="1">
             <label className="c-label">{t("profile.shareable_links.create.duration.label")}</label>
 
-            <div data-disp="flex">
+            <div data-stack="x">
               {Object.keys(loader.form.durations).map((duration) => (
                 <button
                   key={duration}
@@ -102,12 +101,12 @@ export function CreateShareableLink() {
             </div>
           </div>
 
-          <div data-disp="flex" data-dir="column" data-cross="start" data-gap="1">
+          <div data-stack="y" data-cross="start" data-gap="1">
             <label className="c-label" {...specification.label.props}>
               {t("profile.shareable_links.create.specification.label")}
             </label>
 
-            <div data-disp="flex" data-gap="5">
+            <div data-stack="x" data-gap="5">
               <Select required {...specification.input.props}>
                 <option value="">{t("profile.shareable_links.create.specification.default")}</option>
                 {loader.form.specifications.map((specification) => (
@@ -117,17 +116,17 @@ export function CreateShareableLink() {
                 ))}
               </Select>
 
-              <div data-disp="flex" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-300">
+              <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-300">
                 <Icons.HelpCircle data-size="sm" />
                 {t("profile.shareable_links.create.specification.legend")}
               </div>
             </div>
           </div>
 
-          <div data-disp="flex" data-dir="column" data-cross="start" data-gap="1">
+          <div data-stack="y" data-cross="start" data-gap="1">
             <label className="c-label">{t("profile.shareable_links.create.date_range.label")}</label>
 
-            <div data-disp="flex" data-cross="center" data-gap="3">
+            <div data-stack="x" data-cross="center" data-gap="3">
               <input
                 className="c-input"
                 required
@@ -160,7 +159,7 @@ export function CreateShareableLink() {
             )}
           </div>
 
-          <div data-disp="flex" data-main="end" data-gap="5" data-mt="auto">
+          <div data-stack="x" data-main="end" data-gap="5" data-mt="auto">
             <CancelButton onClick={dialog.disable} />
 
             <button
