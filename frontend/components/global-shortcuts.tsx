@@ -1,4 +1,3 @@
-"use client";
 import * as UI from "@bgord/ui";
 import * as RR from "react-router";
 
