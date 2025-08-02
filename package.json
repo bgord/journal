@@ -26,11 +26,13 @@
   "dependencies": {
     "@anthropic-ai/sdk": "0.57.0",
     "@bgord/bun": "0.18.16",
+    "@react-pdf/renderer": "^4.3.0",
     "better-sqlite3": "12.2.0",
     "csv": "6.4.1",
     "drizzle-orm": "0.44.4",
     "emittery": "1.2.0",
     "node-cache": "5.1.2",
-    "openai": "5.11.0"
+    "openai": "5.11.0",
+    "react": "^19.1.1"
   }
 }
