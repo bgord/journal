@@ -17,7 +17,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const shareableLinks = await ReadModel.listShareableLinks(userId);
 
-  return { shareableLinks };
+  return { shareableLinks, form: ReadModel.CreateShareableLinkForm };
 }
 
 export async function action({ request }: Route.ActionArgs) {

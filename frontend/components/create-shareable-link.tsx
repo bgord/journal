@@ -2,22 +2,21 @@ import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import React from "react";
 import * as RR from "react-router";
+import type { DurationType, SpecificationType } from "../../app/services/create-shareable-link-form";
+import type { loader } from "../app/routes/profile";
 import { CancelButton } from "./cancel-button";
 import { Select } from "./select";
 
-type DurationType = "one_day" | "one_week" | "one_month";
-
-const durationTypeToMs: Record<DurationType, number> = {
-  one_day: 24 * 60 * 60 * 1000,
-  one_week: 7 * 24 * 60 * 60 * 1000,
-  one_month: 30 * 24 * 60 * 60 * 1000,
-};
+type LoaderData = Awaited<ReturnType<typeof loader>>;
 
 export function CreateShareableLink() {
   const t = UI.useTranslations();
   const fetcher = RR.useFetcher();
+  const loader = RR.useLoaderData<LoaderData>();
 
   const dialog = UI.useToggle({ name: "dialog" });
+
+  const specification = UI.useField<SpecificationType>({ name: "specification" });
 
   const [durationType, setDurationType] = React.useState<DurationType>("one_day");
 
@@ -29,8 +28,8 @@ export function CreateShareableLink() {
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
   const payload = {
-    publicationSpecification: "entries",
-    durationMs: durationTypeToMs[durationType],
+    publicationSpecification: specification.value,
+    durationMs: loader.form.durations[durationType],
     dateRangeStart: dateRangeStart.value,
     dateRangeEnd: dateRangeEnd.value,
     intent: "shareable_link_create",
@@ -121,12 +120,18 @@ export function CreateShareableLink() {
           </div>
 
           <div data-disp="flex" data-dir="column" data-cross="start" data-gap="1">
-            <label className="c-label">Resource type</label>
+            <label className="c-label" {...specification.label.props}>
+              Resource type
+            </label>
 
             <div data-disp="flex" data-gap="5">
-              <Select required>
+              <Select required {...specification.input.props}>
                 <option value="">Choose a resource</option>
-                <option value="entries">Entries</option>
+                {loader.form.specifications.map((specification) => (
+                  <option key={specification} value={specification}>
+                    {specification}
+                  </option>
+                ))}
               </Select>
 
               <div data-disp="flex" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-300">
