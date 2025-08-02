@@ -149,7 +149,7 @@ export const weeklyReviews = sqliteTable("weeklyReviews", {
   createdAt: integer("createdAt").notNull(),
   weekIsoId: text("weekIsoId").notNull(),
   userId: text("userId", { length: 36 })
-    .references(() => entries.id)
+    .references(() => users.id)
     .notNull(),
   insights: text("insights"),
   status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull(),
