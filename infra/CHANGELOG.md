@@ -1,12 +1,16 @@
 # Changelog
+- 2025-08-02 22:52 272f76f **Merge pull request #22 from bgord/react-pdf-generator**
+## 2025-08-02 22:52 
+- 2025-08-02 22:51 67ee866 **step: resolve conflicts**
 - 2025-08-02 22:47 854f4c7 **Merge pull request #21 from bgord/publishing**
-## 2025-08-02 22:47 
 - 2025-08-02 22:34 5ebc77a **step: append alarms to weekly review notification**
 - 2025-08-02 22:28 1b77f6e **refactor: improve list shareable links read model query**
 - 2025-08-02 22:23 ee08b93 **refactor: use revalidate on focus**
 - 2025-08-02 22:22 5301d62 **step: update packages**
 - 2025-08-02 22:16 bc4d764 **step: clean up insights in tests**
 - 2025-08-02 22:10 9887d15 **step: change links limit to 3 active**
+- 2025-08-02 20:48 c519dfa **docs: generate CHANGELOG**
+- 2025-08-02 20:48 3dbd921 **docs: generate readme**
 - 2025-08-02 19:16 6543cea **step: add possible prod issue remedy**
 - 2025-08-02 18:57 909ee75 **step: add copy button**
 - 2025-08-02 18:47 1cbd137 **step: update bun**
@@ -67,6 +71,10 @@
 - 2025-08-01 18:55 00cbdd5 **step: add publishing vos**
 - 2025-08-01 15:05 af39662 **docs: generate CHANGELOG**
 - 2025-08-01 13:53 9110d29 **step: add prefetches**
+- 2025-08-01 13:36 6825783 **fix: types**
+- 2025-08-01 13:16 e4d95e2 **step: setup react pdf generator**
+- 2025-08-01 13:16 2eaee5d **step: use react pdf adapter in local env**
+- 2025-08-01 13:14 626b4e8 **step: install react pdf renderer**
 - 2025-08-01 11:13 76b5ca8 **docs: generate CHANGELOG**
 - 2025-07-31 23:40 7c5bf37 **step: improve paddings**
 - 2025-07-31 23:39 0e55e14 **step: bump bgord/scripts**
