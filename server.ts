@@ -5,6 +5,7 @@ import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
 import { logger } from "+infra/logger";
+import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -29,6 +30,8 @@ server.get(
   bg.RateLimitShield({
     time: tools.Time.Seconds(5),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
+    subject: bg.AnonSubjectResolver,
+    store: RateLimiters.HealthcheckStore,
   }),
   timeout(tools.Time.Seconds(15).ms, infra.requestTimeoutError),
   BasicAuthShield,
@@ -49,6 +52,8 @@ entry.get(
   bg.RateLimitShield({
     time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
+    subject: bg.UserSubjectResolver,
+    store: RateLimiters.EntriesExportStore,
   }),
   Emotions.Routes.ExportEntries,
 );
@@ -64,6 +69,8 @@ weeklyReview.post(
   bg.RateLimitShield({
     time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
+    subject: bg.UserSubjectResolver,
+    store: RateLimiters.WeeklyReviewExportEmailStore,
   }),
   Emotions.Routes.ExportWeeklyReviewByEmail,
 );
@@ -72,6 +79,8 @@ weeklyReview.get(
   bg.RateLimitShield({
     time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
+    subject: bg.UserSubjectResolver,
+    store: RateLimiters.WeeklyReviewExportDownloadStore,
   }),
   Emotions.Routes.DownloadWeeklyReview,
 );
@@ -87,6 +96,8 @@ publishing.post(
   bg.RateLimitShield({
     time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
+    subject: bg.UserSubjectResolver,
+    store: RateLimiters.ShareableLinkCreateStore,
   }),
   Publishing.Routes.CreateShareableLink,
 );
