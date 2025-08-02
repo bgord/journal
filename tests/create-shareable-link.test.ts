@@ -103,7 +103,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - ShareableLinksPerOwnerLimit", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Publishing.Queries.CountShareableLinksPerOwner, "execute").mockResolvedValue({ count: 50 });
+    spyOn(Publishing.Queries.CountActiveShareableLinksPerOwner, "execute").mockResolvedValue({ count: 50 });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(

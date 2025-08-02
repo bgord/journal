@@ -4,10 +4,10 @@ import * as Publishing from "+publishing";
 export const handleCreateShareableLinkCommand = async (
   command: Publishing.Commands.CreateShareableLinkCommandType,
 ) => {
-  const shareableLinksPerOwnerCount = await Publishing.Queries.CountShareableLinksPerOwner.execute(
-    command.payload.requesterId,
-  );
-  Publishing.Policies.ShareableLinksPerOwnerLimit.perform(shareableLinksPerOwnerCount);
+  const shareableActiveLinksPerOwnerCount =
+    await Publishing.Queries.CountActiveShareableLinksPerOwner.execute(command.payload.requesterId);
+
+  Publishing.Policies.ShareableLinksPerOwnerLimit.perform(shareableActiveLinksPerOwnerCount);
 
   const shareableLink = Publishing.Aggregates.ShareableLink.create(
     command.payload.shareableLinkId,

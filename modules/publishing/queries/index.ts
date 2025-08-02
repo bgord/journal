@@ -1,1 +1,1 @@
-export * from "./count-shareable-links-per-owner";
+export * from "./count-active-shareable-links-per-owner";

@@ -1,4 +1,4 @@
-import { CountShareableLinksPerOwner } from "+publishing/queries";
+import { CountActiveShareableLinksPerOwner } from "+publishing/queries";
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
@@ -9,11 +9,13 @@ class ShareableLinksPerOwnerLimitError extends Error {
   }
 }
 
-type ShareableLinksPerOwnerLimitConfigType = Awaited<ReturnType<typeof CountShareableLinksPerOwner.execute>>;
+type ShareableLinksPerOwnerLimitConfigType = Awaited<
+  ReturnType<typeof CountActiveShareableLinksPerOwner.execute>
+>;
 
 class ShareableLinksPerOwnerLimitFactory extends bg.Policy<ShareableLinksPerOwnerLimitConfigType> {
   fails(config: ShareableLinksPerOwnerLimitConfigType) {
-    return config.count >= 50;
+    return config.count >= 3;
   }
 
   message = "ShareableLinksPerOwnerLimit";
