@@ -10,5 +10,10 @@ export default defineConfig({
     tsconfigPaths(),
     ValidateEnv({ validator: "builtin", schema: { VITE_API_URL: Schema.string() } }),
   ],
-  resolve: { dedupe: ["react", "react-dom", "react/jsx-runtime"] },
+  resolve: {
+    dedupe: ["react", "react-dom", "react/jsx-runtime"],
+    // alias: {
+    //   "react-dom/server": "react-dom/server.node",
+    // },
+  },
 });
