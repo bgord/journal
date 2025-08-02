@@ -12,6 +12,5 @@ export * from "./language-selector";
 export * from "./logo";
 export * from "./logout-button";
 export * from "./rating-pills";
-export * from "./revalidate-on-focus";
 export * from "./select";
 export * from "./separator";
