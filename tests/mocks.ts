@@ -548,6 +548,7 @@ export const alarm: Schema.SelectAlarms = {
   inactivityDays: null,
   lastEntryTimestamp: null,
   userId,
+  weekIsoId: week.toIsoId(),
 };
 
 export const patternDetection: Schema.SelectPatternDetections = {

@@ -46,6 +46,7 @@ export class AlarmRepository {
       inactivityDays: metadata?.inactivityDays,
       lastEntryTimestamp: metadata?.lastEntryTimestamp,
       userId: event.payload.userId,
+      weekIsoId: tools.Week.fromTimestamp(event.createdAt).toIsoId(),
     });
   }
 

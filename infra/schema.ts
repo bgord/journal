@@ -95,6 +95,8 @@ export const alarms = sqliteTable("alarms", {
   lastEntryTimestamp: integer("lastEntryTimestamp"),
   emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)),
   emotionIntensity: integer("emotionIntensity"),
+
+  weekIsoId: text("weekIsoId").notNull(),
 });
 
 /** @public */
