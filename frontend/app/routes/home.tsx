@@ -86,7 +86,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       </ul>
 
       {loaderData.entries.length === 0 && (
-        <div data-stack="x" data-cross="center">
+        <div data-stack="y" data-cross="center">
           <img
             src={NotebookSvg}
             data-animation="grow-fade-in"

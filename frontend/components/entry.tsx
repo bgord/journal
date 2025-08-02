@@ -33,7 +33,7 @@ export function Entry(props: EntryType) {
       data-shadow="sm"
     >
       <header
-        data-stack="y"
+        data-stack="x"
         data-main="between"
         data-cross="center"
         data-mt="2"
