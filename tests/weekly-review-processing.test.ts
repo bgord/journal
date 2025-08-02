@@ -134,6 +134,7 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([mocks.patternDetection]);
+    spyOn(Emotions.Repos.AlarmRepository, "findInWeekForUser").mockResolvedValue([mocks.alarm]);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer);
@@ -156,6 +157,7 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([mocks.patternDetection]);
+    spyOn(Emotions.Repos.AlarmRepository, "findInWeekForUser").mockResolvedValue([mocks.alarm]);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer);
@@ -177,6 +179,7 @@ describe("WeeklyReviewProcessing", () => {
     });
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([mocks.patternDetection]);
+    spyOn(Emotions.Repos.AlarmRepository, "findInWeekForUser").mockResolvedValue([mocks.alarm]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 

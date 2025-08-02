@@ -32,7 +32,6 @@ export const handleRequestWeeklyReviewCommand = async (
     return;
   }
 
-  // TODO: create weekly review id for skipped too
   const weeklyReviewId = crypto.randomUUID();
 
   const weeklyReview = Emotions.Aggregates.WeeklyReview.request(

@@ -1,12 +1,12 @@
 import * as Emotions from "+emotions";
 import { logger } from "+infra/logger";
+import * as Publishing from "+publishing";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
 
-// TODO: try extracting the logic for errors
 const validationErrors = [
   Emotions.VO.SituationDescription.Errors.invalid,
   Emotions.VO.SituationLocation.Errors.invalid,
@@ -16,9 +16,10 @@ const validationErrors = [
   Emotions.VO.ReactionDescription.Errors.invalid,
   Emotions.VO.ReactionType.Errors.invalid,
   Emotions.VO.ReactionEffectiveness.Errors.min_max,
+  Publishing.VO.PublicationSpecificationErrors.invalid,
 ];
 
-const policies = Object.values(Emotions.Policies);
+const policies = Object.values({ ...Emotions.Policies, ...Publishing.Policies });
 
 export class ErrorHandler {
   static handle: hono.ErrorHandler = async (error, c) => {

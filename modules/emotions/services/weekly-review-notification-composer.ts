@@ -8,6 +8,7 @@ export class WeeklyReviewNotificationComposer {
     _entries: Schema.SelectEntries[],
     _insights: VO.Advice,
     _patterns: Schema.SelectPatternDetections[],
+    _alarms: Schema.SelectAlarms[],
   ): VO.NotificationTemplate {
     return new VO.NotificationTemplate(
       `Weekly Review - ${week.getStart()}`,

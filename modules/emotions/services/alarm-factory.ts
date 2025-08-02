@@ -8,7 +8,7 @@ import { EventStore } from "+infra/event-store";
 export class AlarmFactory {
   static async create(detection: VO.AlarmDetection, requesterId: Auth.VO.UserIdType) {
     const alarmsTodayForUserCount = await Queries.CountTodaysAlarmsForUser.execute(requesterId);
-    Policies.DailyAlarmLimit.perform({ count: alarmsTodayForUserCount });
+    Policies.DailyAlarmLimit.perform(alarmsTodayForUserCount);
 
     switch (detection.trigger.type) {
       case VO.AlarmTriggerEnum.entry: {

@@ -12,5 +12,7 @@ body {
   text-decoration: none;
 }
 
-/* View transition Home -> Add entry */
-
+input[type="date"] {
+  font-size: var(--font-size-xs);
+  border: var(--border-width-hairline) solid var(--color-neutral-900);
+}
