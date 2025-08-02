@@ -154,19 +154,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
 
                 {link.status === "active" && (
                   <div data-stack="x" data-gap="4">
-                    <button
-                      type="button"
-                      className="c-button"
-                      data-ml="auto"
-                      onClick={() =>
-                        UI.copyToClipboard({
-                          // TODO: add correct link
-                          text: `https://localhost:5173/${link.id}`,
-                        })
-                      }
-                    >
-                      <Icons.Copy data-size="md" />
-                    </button>
+                    <Components.CopyButton text={`https://localhost:5173/${link.id}`} />
 
                     <RR.Form method="POST" action=".">
                       <input name="id" type="hidden" value={link.id} />
