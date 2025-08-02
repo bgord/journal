@@ -56,7 +56,9 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               </div>
             </h2>
 
-            {!loaderData.alarms.inactivity[0] && <div>{t("dashboard.alarm.inactivity.empty")}</div>}
+            {!loaderData.alarms.inactivity[0] && (
+              <div data-mt="5">{t("dashboard.alarm.inactivity.empty")}</div>
+            )}
 
             <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
               {loaderData.alarms.inactivity.map((alarm) => (
@@ -89,7 +91,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               </div>
             </h2>
 
-            {!loaderData.alarms.entry[0] && <div>Entry alarms will appear here</div>}
+            {!loaderData.alarms.entry[0] && <div data-mt="5">Entry alarms will appear here</div>}
 
             <ul data-disp="flex" data-dir="column" data-gap="5" data-mt="5">
               {loaderData.alarms.entry.map((alarm) => (
@@ -269,18 +271,21 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               {loaderData.weeklyReviews.map((review) => (
                 <li key={review.id} data-disp="flex" data-dir="column" data-gap="5">
                   <div data-disp="flex" data-cross="center" data-gap="4" data-color="neutral-500">
-                    {review.week[0]} - {review.week[1]}
-                    <a
-                      href={`${import.meta.env.VITE_API_URL}/weekly-review/${review.id}/export/download`}
-                      download
-                      target="_blank"
-                      rel="noopener noreferer"
-                      data-ml="auto"
-                      data-pt="2"
-                      data-color="brand-500"
-                    >
-                      <Icons.DownloadCircle data-size="lg" />
-                    </a>
+                    <div data-mr="auto">
+                      {review.week[0]} - {review.week[1]}
+                    </div>
+                    {review.status === "completed" && (
+                      <a
+                        href={`${import.meta.env.VITE_API_URL}/weekly-review/${review.id}/export/download`}
+                        download
+                        target="_blank"
+                        rel="noopener noreferer"
+                        data-pt="2"
+                        data-color="brand-500"
+                      >
+                        <Icons.DownloadCircle data-size="lg" />
+                      </a>
+                    )}
                     <div className="c-badge" data-variant="outline">
                       {t(`dashboard.weekly_review.status.${review.status}.value`)}
                     </div>
@@ -293,17 +298,19 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                     {t("dashboard.weekly_review.entries.count")}
                   </div>
 
-                  <div data-disp="flex" data-dir="column" data-gap="3">
-                    <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
+                  {review.status === "completed" && (
+                    <div data-disp="flex" data-dir="column" data-gap="3">
+                      <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
 
-                    <ul data-disp="flex" data-gap="2">
-                      {review.patternDetections.map((pattern: any) => (
-                        <li key={pattern.id} data-fs="sm" data-color="neutral-300">
-                          - {t(`pattern.${pattern.name}.name`)}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                      <ul data-disp="flex" data-gap="2">
+                        {review.patternDetections.map((pattern: any) => (
+                          <li key={pattern.id} data-fs="sm" data-color="neutral-300">
+                            - {t(`pattern.${pattern.name}.name`)}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                   {review.status === "completed" && (
                     <div data-color="neutral-100">
