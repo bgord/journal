@@ -82,6 +82,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.weeklyReviews);
     console.log("[x] Cleared weeklyReviews");
 
+    await db.delete(Schema.shareableLinks);
+    console.log("[x] Cleared shareableLinks");
+
     await db.delete(Schema.accounts);
     console.log("[x] Cleared accounts");
 
