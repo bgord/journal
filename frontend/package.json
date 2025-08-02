@@ -8,7 +8,7 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@bgord/design": "1.3.0",
+    "@bgord/design": "1.3.2",
     "@bgord/ui": "file:../../bgord-ui",
     "@react-router/node": "7.7.1",
     "@react-router/serve": "7.7.1",
