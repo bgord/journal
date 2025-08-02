@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.57.0",
-    "@bgord/bun": "0.18.12",
+    "@bgord/bun": "0.18.14",
     "better-sqlite3": "12.2.0",
     "csv": "6.4.1",
     "drizzle-orm": "0.44.4",
