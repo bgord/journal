@@ -28,7 +28,6 @@ const startup = new tools.Stopwatch();
 server.get(
   "/healthcheck",
   bg.RateLimitShield({
-    time: tools.Time.Seconds(5),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.AnonSubjectResolver,
     store: RateLimiters.HealthcheckStore,
@@ -50,7 +49,6 @@ entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
 entry.get(
   "/export",
   bg.RateLimitShield({
-    time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.EntriesExportStore,
@@ -67,7 +65,6 @@ weeklyReview.use("*", AuthShield.attach, AuthShield.verify);
 weeklyReview.post(
   "/:weeklyReviewId/export/email",
   bg.RateLimitShield({
-    time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.WeeklyReviewExportEmailStore,
@@ -77,7 +74,6 @@ weeklyReview.post(
 weeklyReview.get(
   "/:weeklyReviewId/export/download",
   bg.RateLimitShield({
-    time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.WeeklyReviewExportDownloadStore,
@@ -94,7 +90,6 @@ publishing.use("*", AuthShield.attach, AuthShield.verify);
 publishing.post(
   "/link/create",
   bg.RateLimitShield({
-    time: tools.Time.Minutes(1),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.ShareableLinkCreateStore,
