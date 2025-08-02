@@ -561,6 +561,11 @@ export const patternDetection: Schema.SelectPatternDetections = {
   userId,
 };
 
+export const shareableLink = {
+  id: shareableLinkId,
+  revision: revision.value,
+};
+
 export const user = {
   name: email,
   email: email,

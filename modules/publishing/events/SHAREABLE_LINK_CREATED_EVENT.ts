@@ -18,7 +18,6 @@ export const ShareableLinkCreatedEvent = z.object({
     shareableLinkId: VO.ShareableLinkId,
     ownerId: Auth.VO.UserId,
     publicationSpecification: VO.PublicationSpecification,
-    // TODO: upper caps
     dateRangeStart: tools.Timestamp,
     dateRangeEnd: tools.Timestamp,
     durationMs: tools.Timestamp,
