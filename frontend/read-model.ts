@@ -166,45 +166,16 @@ export class ReadModel {
   }
 
   static async listWeeklyReviews(userId: UserIdType) {
-    const rows = await db
-      .select({
-        id: Schema.weeklyReviews.id,
-        createdAt: Schema.weeklyReviews.createdAt,
-        weekIsoId: Schema.weeklyReviews.weekIsoId,
-        insights: Schema.weeklyReviews.insights,
-        status: Schema.weeklyReviews.status,
-        entryCount: sql<number>`(
-          SELECT COUNT(*) 
-          FROM ${Schema.entries} 
-          WHERE ${Schema.entries.weekIsoId} = ${Schema.weeklyReviews.weekIsoId}
-            AND ${Schema.entries.userId}    = ${userId}
-        )`.mapWith(Number),
-        patternDetections: sql<string>`
-          COALESCE(
-            (
-              SELECT
-                json_group_array(
-                  json_object(
-                    'id',        pd.id,
-                    'createdAt', datetime(pd.createdAt/1000, 'unixepoch'),
-                    'name',      pd.name
-                  )
-                )
-              FROM ${Schema.patternDetections} AS pd
-              WHERE pd.weekIsoId = ${Schema.weeklyReviews.weekIsoId}
-                AND pd.userId    = ${userId}
-            ),
-            '[]'
-          )
-        `.mapWith(JSON.parse),
-      })
-      .from(Schema.weeklyReviews)
-      .where(eq(Schema.weeklyReviews.userId, userId))
-      .orderBy(desc(Schema.weeklyReviews.createdAt));
+    const reviews = await db.query.weeklyReviews.findMany({
+      where: eq(Schema.weeklyReviews.userId, userId),
+      orderBy: desc(Schema.weeklyReviews.createdAt),
+      with: { entries: { columns: { id: true } }, patternDetections: { columns: { id: true, name: true } } },
+    });
 
-    return rows.map((row) => ({
-      ...row,
-      week: tools.Week.fromIsoId(row.weekIsoId).toRange().map(tools.DateFormatters.datetime),
+    return reviews.map((review) => ({
+      ...review,
+      entryCount: review.entries.length,
+      week: tools.Week.fromIsoId(review.weekIsoId).toRange().map(tools.DateFormatters.datetime),
     }));
   }
 
