@@ -7,7 +7,6 @@ import hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
 
-// TODO: try extracting the logic for errors
 const validationErrors = [
   Emotions.VO.SituationDescription.Errors.invalid,
   Emotions.VO.SituationLocation.Errors.invalid,
