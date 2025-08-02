@@ -129,6 +129,9 @@
   "entry.situation.location.label": "Lokalizacja",
   "entry.situation.location.placeholder": "Dom",
   "entry.situation.value": "SYTUACJA",
+  "entry.new.cta_primary": "Zapisz",
+  "entry.new.cta_secondary": "Dodaj wpis",
+  "entry.new.label": "Dodaj wpis",
   "pattern.LowCopingEffectivenessPattern.name": "Nieefektywne reackje",
   "pattern.MaladaptiveReactionsPattern.name": "Nieodpowiednie reakcje",
   "pattern.MoreNegativeThanPositiveEmotionsPattern.name": "Więcej negatywnych niż pozytywnych emocji",
@@ -145,5 +148,8 @@
   "profile.shareable_links.specification.entries.value": "Wpisy z okresu",
   "profile.shareable_links.status.active.value": "aktywny",
   "profile.shareable_links.status.expired.value": "wygasł",
-  "profile.shareable_links.status.revoked.value": "wycofany"
+  "profile.shareable_links.status.revoked.value": "wycofany",
+  "profile.shareable_links.create.cta_primary": "Utwórz link",
+  "profile.shareable_links.create.cta_secondary": "Utwórz",
+  "profile.shareable_links.create.label": "Udostępnij link"
 }

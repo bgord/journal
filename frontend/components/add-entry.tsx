@@ -54,7 +54,7 @@ export function AddEntry() {
     <>
       <button type="button" className="c-button" data-variant="with-icon" data-mb="5" onClick={dialog.enable}>
         <Icons.Plus data-size="md" />
-        New entry
+        {t("entry.new.cta_secondary")}
       </button>
 
       <UI.Dialog data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
@@ -72,7 +72,7 @@ export function AddEntry() {
           <div data-disp="flex" data-main="between" data-cross="center">
             <strong data-disp="flex" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
               <Icons.Book data-size="md" data-color="neutral-300" />
-              Add new entry
+              {t("entry.new.label")}
             </strong>
 
             <button
@@ -205,7 +205,7 @@ export function AddEntry() {
               data-variant="primary"
               {...UI.Rhythm().times(10).style.width}
             >
-              Save
+              {t("entry.new.cta_primary")}
             </button>
           </div>
         </fetcher.Form>

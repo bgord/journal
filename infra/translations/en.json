@@ -129,6 +129,9 @@
   "entry.situation.location.label": "Location",
   "entry.situation.location.placeholder": "Home",
   "entry.situation.value": "SITUATION",
+  "entry.new.cta_primary": "Save",
+  "entry.new.cta_secondary": "New entry",
+  "entry.new.label": "Add an entry",
   "pattern.LowCopingEffectivenessPattern.name": "Low coping effectiveness",
   "pattern.MaladaptiveReactionsPattern.name": "Maladaptive reactions",
   "pattern.MoreNegativeThanPositiveEmotionsPattern.name": "More negative than positive emotions",
@@ -145,5 +148,8 @@
   "profile.shareable_links.specification.entries.value": "Entries from date range",
   "profile.shareable_links.status.active.value": "active",
   "profile.shareable_links.status.expired.value": "expired",
-  "profile.shareable_links.status.revoked.value": "revoked"
+  "profile.shareable_links.status.revoked.value": "revoked",
+  "profile.shareable_links.create.cta_primary": "Create link",
+  "profile.shareable_links.create.cta_secondary": "Create",
+  "profile.shareable_links.create.label": "Share a link"
 }
