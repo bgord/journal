@@ -5,5 +5,6 @@ export * as Events from "./events";
 export * as Policies from "./policies";
 export * as Queries from "./queries";
 export * as Repos from "./repositories";
+export * as Services from "./services";
 export * as Routes from "./routes";
 export * as VO from "./value-objects";
