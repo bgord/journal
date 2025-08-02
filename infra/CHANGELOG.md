@@ -1,6 +1,72 @@
 # Changelog
+- 2025-08-02 22:47 854f4c7 **Merge pull request #21 from bgord/publishing**
+## 2025-08-02 22:47 
+- 2025-08-02 22:34 5ebc77a **step: append alarms to weekly review notification**
+- 2025-08-02 22:28 1b77f6e **refactor: improve list shareable links read model query**
+- 2025-08-02 22:23 ee08b93 **refactor: use revalidate on focus**
+- 2025-08-02 22:22 5301d62 **step: update packages**
+- 2025-08-02 22:16 bc4d764 **step: clean up insights in tests**
+- 2025-08-02 22:10 9887d15 **step: change links limit to 3 active**
+- 2025-08-02 19:16 6543cea **step: add possible prod issue remedy**
+- 2025-08-02 18:57 909ee75 **step: add copy button**
+- 2025-08-02 18:47 1cbd137 **step: update bun**
+- 2025-08-02 18:41 a63c894 **fix: restore previous ts version**
+- 2025-08-02 18:37 81a8dbe **step: update ts**
+- 2025-08-02 18:34 dc387e4 **fix: stacks**
+- 2025-08-02 18:29 d4edf50 **step: setup rate limiter stores**
+- 2025-08-02 18:23 df51f50 **step: update packages**
+- 2025-08-02 18:19 7dc3be2 **step: regenerate types**
+- 2025-08-02 18:19 0effe9f **step: update packages**
+- 2025-08-02 17:18 ced020c **step: update packages**
+- 2025-08-02 17:03 58126f4 **refactor: use data-stack**
+- 2025-08-02 16:54 d014551 **step: update design**
+- 2025-08-02 16:35 7a8c26f **step: add  translations**
+- 2025-08-02 16:27 f523b0a **step: introduce form object**
+- 2025-08-02 16:13 84e2173 **fix: include tz offset**
+- 2025-08-02 15:56 9581b52 **feature: add request to create a link**
+- 2025-08-02 14:38 afcb916 **step: add missing translations**
+- 2025-08-02 14:36 ee39052 **refactor: sort translations**
+- 2025-08-02 14:35 fb30c31 **step: setup create shareable link dialog**
+- 2025-08-02 14:27 8c92f45 **step: add global shortcut**
+- 2025-08-02 14:23 df1216f **refactor: improve export all data profile section**
+- 2025-08-02 14:13 6e51216 **step: add translations**
+- 2025-08-02 13:29 f75e90d **step: display shareable links**
+- 2025-08-02 13:08 e1eaf35 **step: create a shareable link in seeder**
+- 2025-08-02 13:02 58d1709 **step: delete shareable links in seed**
+- 2025-08-02 12:54 f304a74 **step: add event handlers**
+- 2025-08-02 12:48 a774484 **step: add list near expiration repo method**
+- 2025-08-02 12:38 e4346c2 **step: add shareable links schema**
+- 2025-08-02 12:08 c3ed2b5 **step: setup expirer tests**
+- 2025-08-02 12:04 63e06da **step: wire up the expirer**
+- 2025-08-02 12:03 1b67051 **feature: add ShareableLinksExpirer**
+- 2025-08-02 12:01 a8ce786 **step: add shareable link repo**
+- 2025-08-02 10:36 c852f8f **fix: do not download empty reviews**
+- 2025-08-02 00:25 86e4cf8 **step: add bg to emotion type**
+- 2025-08-02 00:13 2049453 **refactor: cleanup customcss**
+- 2025-08-01 23:53 004655e **refactor: improve query**
+- 2025-08-01 23:50 c073434 **step: test limits**
+- 2025-08-01 23:40 2df5cab **step: setup CountShareableLinksPerOwner**
+- 2025-08-01 23:17 9749336 **refactor: simplify tests**
+- 2025-08-01 22:58 347b2b8 **step: check that the requester owns the link when revoking**
+- 2025-08-01 22:50 1bf2481 **step: test revoke shareable link route**
+- 2025-08-01 22:29 2460315 **step: add revoke shareable link route**
+- 2025-08-01 22:10 9e95dac **refactor: add created at to aggregate**
+- 2025-08-01 22:08 f4c1916 **step: setup aggregate tests**
+- 2025-08-01 21:25 625aafc **step: test the route**
+- 2025-08-01 21:03 d5fd06d **step: setup tests**
+- 2025-08-01 21:02 014d5a1 **step: handle revisions**
+- 2025-08-01 20:56 640d07f **fix: publishing routing**
+- 2025-08-01 20:56 133aa6a **feature: create shareable link route**
+- 2025-08-01 20:39 3f58f98 **refactor: incldue id in create command**
+- 2025-08-01 20:15 992bdbe **step: add command handlers**
+- 2025-08-01 20:02 4c0b1e9 **step: add commands**
+- 2025-08-01 19:41 9436ab9 **feature: add policies**
+- 2025-08-01 19:27 43d37d3 **feature: add shareable link aggregate**
+- 2025-08-01 19:03 61cf60f **step: define eventS**
+- 2025-08-01 19:02 ea9cc37 **step: setup ts alias**
+- 2025-08-01 18:55 00cbdd5 **step: add publishing vos**
+- 2025-08-01 15:05 af39662 **docs: generate CHANGELOG**
 - 2025-08-01 13:53 9110d29 **step: add prefetches**
-## 2025-08-01 13:53 
 - 2025-08-01 11:13 76b5ca8 **docs: generate CHANGELOG**
 - 2025-07-31 23:40 7c5bf37 **step: improve paddings**
 - 2025-07-31 23:39 0e55e14 **step: bump bgord/scripts**
