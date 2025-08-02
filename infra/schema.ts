@@ -61,8 +61,23 @@ export const entries = sqliteTable("entries", {
 
 /** @public */
 export const entriesRelations = relations(entries, ({ one, many }) => ({
-  alarms: many(alarms),
-  user: one(users, { fields: [entries.userId], references: [users.id] }),
+  /* every entry belongs to exactly one user */
+  user: one(users, {
+    fields: [entries.userId],
+    references: [users.id],
+  }),
+
+  /* any number of alarms can be generated for this entry */
+  alarms: many(alarms, {
+    relationName: "entryAlarms", // optional but helps disambiguate
+  }),
+
+  /* link to the weekly review for the same (userId, weekIsoId) */
+  weeklyReview: one(weeklyReviews, {
+    fields: [entries.weekIsoId, entries.userId],
+    references: [weeklyReviews.weekIsoId, weeklyReviews.userId],
+    relationName: "week", // shared with other composites
+  }),
 }));
 
 export const alarms = sqliteTable("alarms", {
@@ -84,8 +99,18 @@ export const alarms = sqliteTable("alarms", {
 
 /** @public */
 export const alarmsRelations = relations(alarms, ({ one }) => ({
-  entry: one(entries, { fields: [alarms.entryId], references: [entries.id] }),
-  user: one(users, { fields: [alarms.userId], references: [users.id] }),
+  /** the entry that triggered this alarm (nullable) */
+  entry: one(entries, {
+    fields: [alarms.entryId],
+    references: [entries.id],
+    relationName: "entryAlarms", // disambiguates if you later join both directions
+  }),
+
+  /** the user who owns the alarm */
+  user: one(users, {
+    fields: [alarms.userId],
+    references: [users.id],
+  }),
 }));
 
 /** @public */
@@ -95,16 +120,24 @@ export const patternDetections = sqliteTable("patternDetections", {
   name: text("name", toEnumList(PatternNameOption)).notNull(),
   weekIsoId: text("weekIsoId").notNull(),
   userId: text("userId", { length: 36 })
-    .references(() => entries.id)
+    .references(() => users.id)
     .notNull(),
 });
 
 /** @public */
+
 export const patternDetectionsRelations = relations(patternDetections, ({ one }) => ({
-  user: one(users, { fields: [patternDetections.userId], references: [users.id] }),
+  /** the user who owns the detection */
+  user: one(users, {
+    fields: [patternDetections.userId],
+    references: [users.id],
+  }),
+
+  /** the weekly review for the same (userId, weekIsoId) pair */
   weeklyReview: one(weeklyReviews, {
     fields: [patternDetections.weekIsoId, patternDetections.userId],
     references: [weeklyReviews.weekIsoId, weeklyReviews.userId],
+    relationName: "week", // shared across all (user,week) composites
   }),
 }));
 
@@ -121,9 +154,21 @@ export const weeklyReviews = sqliteTable("weeklyReviews", {
 });
 
 /** @public */
-export const weeklyReviewsRelations = relations(weeklyReviews, ({ many }) => ({
+export const weeklyReviewsRelations = relations(weeklyReviews, ({ one, many }) => ({
+  /** owner of the review */
+  user: one(users, {
+    fields: [weeklyReviews.userId],
+    references: [users.id],
+  }),
+
+  /** every entry whose (userId, weekIsoId) matches this review */
+  entries: many(entries, {
+    relationName: "week", // same name used on entriesRelations
+  }),
+
+  /** every pattern detection for the same user-week */
   patternDetections: many(patternDetections, {
-    relationName: "weeklyReview",
+    relationName: "week", // shares the composite join
   }),
 }));
 
@@ -135,7 +180,7 @@ export const shareableLinks = sqliteTable("shareableLinks", {
   status: text("status", toEnumList(ShareableLinkStatusEnum)).notNull(),
   revision: integer("revision").notNull().default(0),
   ownerId: text("ownerId", { length: 36 })
-    .references(() => entries.id)
+    .references(() => users.id)
     .notNull(),
   publicationSpecification: text("publicationSpecification").notNull(),
   dateRangeStart: integer("dateRangeStart").notNull(),
@@ -143,6 +188,16 @@ export const shareableLinks = sqliteTable("shareableLinks", {
   durationMs: integer("durationMs").notNull(),
   expiresAt: integer("expiresAt").notNull(),
 });
+
+/** @public */
+export const shareableLinksRelations = relations(shareableLinks, ({ one }) => ({
+  /** the user who owns / created the link */
+  owner: one(users, {
+    fields: [shareableLinks.ownerId],
+    references: [users.id],
+    relationName: "userShareLinks", // optional, helps disambiguate joins
+  }),
+}));
 
 /** @public */
 export const users = sqliteTable("users", {
@@ -162,9 +217,18 @@ export const users = sqliteTable("users", {
 });
 
 /** @public */
+
 export const usersRelations = relations(users, ({ many }) => ({
+  /* --- core aggregates a user owns ------------------------------------ */
   entries: many(entries),
   alarms: many(alarms),
+  weeklyReviews: many(weeklyReviews),
+
+  /* shareable links: same relationName used on the child side */
+  shareableLinks: many(shareableLinks, { relationName: "userShareLinks" }),
+
+  /* if you often load detections straight from a user, expose them here */
+  patternDetections: many(patternDetections),
 }));
 
 /** @public */
