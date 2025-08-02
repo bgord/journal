@@ -137,6 +137,21 @@ export class ReadModel {
     };
   }
 
+  static async listShareableLinks(userId: UserIdType) {
+    const links = await db.query.shareableLinks.findMany({
+      where: eq(Schema.shareableLinks.ownerId, userId),
+      orderBy: desc(Schema.shareableLinks.createdAt),
+    });
+
+    return links.map((link) => ({
+      ...link,
+      dateRangeStart: tools.DateFormatters.datetime(link.dateRangeStart),
+      dateRangeEnd: tools.DateFormatters.datetime(link.dateRangeEnd),
+      expiresAt: tools.DateFormatters.datetime(link.expiresAt),
+      updatedAt: tools.DateFormatters.datetime(link.updatedAt),
+    }));
+  }
+
   static async listWeeklyReviews(userId: UserIdType) {
     const rows = await db
       .select({
