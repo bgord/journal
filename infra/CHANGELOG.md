@@ -1,6 +1,8 @@
 # Changelog
+- 2025-08-03 13:55 be93077 **step: add export weekly review by email button**
+## 2025-08-03 13:55 
+- 2025-08-03 13:44 1c287c7 **step: write missing event handler tests**
 - 2025-08-03 00:41 ddcc45f **step: add insights header**
-## 2025-08-03 00:41 
 - 2025-08-03 00:39 ac038a0 **step: add alarm weekly review translations**
 - 2025-08-03 00:32 8b2def6 **feature: display alarms in weekly review**
 - 2025-08-03 00:27 88f09bb **fix: userId reference in weekly reviews**
@@ -17,6 +19,7 @@
 - 2025-08-02 22:52 272f76f **Merge pull request #22 from bgord/react-pdf-generator**
 - 2025-08-02 22:51 67ee866 **step: resolve conflicts**
 - 2025-08-02 22:47 854f4c7 **Merge pull request #21 from bgord/publishing**
+- 2025-08-02 22:41 de3c313 **docs: generate CHANGELOG**
 - 2025-08-02 22:34 5ebc77a **step: append alarms to weekly review notification**
 - 2025-08-02 22:28 1b77f6e **refactor: improve list shareable links read model query**
 - 2025-08-02 22:23 ee08b93 **refactor: use revalidate on focus**
