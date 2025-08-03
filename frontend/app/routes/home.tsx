@@ -74,12 +74,35 @@ export type EntryType = Route.ComponentProps["loaderData"]["entries"][number];
 export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
   const dialog = UI.useToggle({ name: "dialog" });
+  const navigate = RR.useNavigate();
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
+  function handleFilterChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const filter = event.target.value;
+
+    if (filter) {
+      navigate(`?filter=${filter}`);
+    } else {
+      navigate("/");
+    }
+  }
+
   return (
     <main data-p="6">
-      <div data-stack="x" data-main="end" data-maxw="md" data-mx="auto">
+      <div data-stack="x" data-main="between" data-cross="end" data-maxw="md" data-mx="auto">
+        <div data-stacyk="y">
+          <label>{t("entry.list.filter.label")}</label>
+          <RR.Form method="get">
+            <Components.Select name="filter" value={loaderData.filter ?? ""} onChange={handleFilterChange}>
+              <option value="">{t("entry.list.filter.all_time")}</option>
+              <option value="today">{t("entry.list.filter.today")}</option>
+              <option value="last_week">{t("entry.list.filter.last_week")}</option>
+              <option value="last_month">{t("entry.list.filter.last_month")}</option>
+            </Components.Select>
+          </RR.Form>
+        </div>
+
         <Components.AddEntry />
       </div>
 
