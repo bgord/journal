@@ -1,7 +1,19 @@
 # Changelog
+- 2025-08-03 21:20 8fc1785 **refactor: remove labels**
+## 2025-08-03 21:20 
+- 2025-08-03 21:18 43cda78 **step: add search**
+- 2025-08-03 14:21 32b9aba **step: add filter UI.useField**
+- 2025-08-03 14:18 4d55b1e **step: improve filter**
+- 2025-08-03 14:10 6187416 **fix: label ui**
+- 2025-08-03 14:09 e159a06 **refactor: remove unused form**
+- 2025-08-03 14:09 53b36cc **step: add filter ui**
+- 2025-08-03 14:08 f906cb0 **step: remove add entry button margin**
+- 2025-08-03 14:08 09e58dd **step: include filter query param in the read model query**
+- 2025-08-03 14:07 d83d2ca **step: add read model filters**
+- 2025-08-03 14:07 c8cd3bd **step: add entry filter translations**
 - 2025-08-03 13:55 be93077 **step: add export weekly review by email button**
-## 2025-08-03 13:55 
 - 2025-08-03 13:44 1c287c7 **step: write missing event handler tests**
+- 2025-08-03 11:56 a48c721 **docs: generate CHANGELOG**
 - 2025-08-03 00:41 ddcc45f **step: add insights header**
 - 2025-08-03 00:39 ac038a0 **step: add alarm weekly review translations**
 - 2025-08-03 00:32 8b2def6 **feature: display alarms in weekly review**
