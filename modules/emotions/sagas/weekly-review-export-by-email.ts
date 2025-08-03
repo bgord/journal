@@ -35,10 +35,20 @@ export class WeeklyReviewExportByEmail {
       const weeklyReview = await Repos.WeeklyReviewRepository.getById(event.payload.weeklyReviewId);
       if (!weeklyReview) return;
 
+      const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
+      const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
+      const patterns = await Repos.PatternsRepository.findInWeekForUser(week, event.payload.userId);
+      const alarms = await Repos.AlarmRepository.findInWeekForUser(week, event.payload.userId);
+
       const composer = new Services.WeeklyReviewExportNotificationComposer();
       const notification = composer.compose(weeklyReview).get();
 
-      const pdf = new Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);
+      const pdf = new Services.WeeklyReviewExportPdfFile(this.pdfGenerator, {
+        weeklyReview,
+        entries,
+        patterns,
+        alarms,
+      });
       const attachment = await pdf.toAttachment();
 
       await this.mailer.send({
