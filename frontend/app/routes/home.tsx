@@ -1,4 +1,5 @@
 import * as UI from "@bgord/ui";
+import * as RR from "react-router";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import * as Auth from "../../auth";
@@ -60,9 +61,12 @@ export async function loader({ request }: Route.LoaderArgs) {
   const session = await Auth.guard.getServerSession(request);
   const userId = session?.user.id as string;
 
-  const entries = await ReadModel.listEntriesForUser(userId);
+  const url = new URL(request.url);
+  const filter = url.searchParams.get("filter");
 
-  return { entries, form: ReadModel.AddEntryForm };
+  const entries = await ReadModel.listEntriesForUser(userId, filter);
+
+  return { entries, form: ReadModel.AddEntryForm, filter };
 }
 
 export type EntryType = Route.ComponentProps["loaderData"]["entries"][number];
@@ -79,7 +83,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <Components.AddEntry />
       </div>
 
-      <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto">
+      <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto" data-mt="6">
         {loaderData.entries.map((entry) => (
           <Components.Entry key={entry.id} {...entry} />
         ))}
