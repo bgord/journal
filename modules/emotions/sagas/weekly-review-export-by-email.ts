@@ -35,10 +35,8 @@ export class WeeklyReviewExportByEmail {
       const weeklyReview = await Repos.WeeklyReviewRepository.getById(event.payload.weeklyReviewId);
       if (!weeklyReview) return;
 
-      const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
-
       const composer = new Services.WeeklyReviewExportNotificationComposer();
-      const notification = composer.compose(week).get();
+      const notification = composer.compose(weeklyReview).get();
 
       const pdf = new Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);
       const attachment = await pdf.toAttachment();
