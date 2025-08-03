@@ -1,5 +1,7 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
+import * as RR from "react-router";
+import { API } from "../../api";
 import { guard } from "../../auth";
 import * as Components from "../../components";
 import { ReadModel } from "../../read-model";
@@ -7,6 +9,23 @@ import type { Route } from "./+types/dashboard";
 
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  const cookie = UI.Cookies.extractFrom(request);
+  const form = await request.formData();
+  const intent = form.get("intent");
+
+  if (intent === "export_weekly_review_by_email") {
+    await API(`/weekly-review/${form.get("weeklyReviewId")}/export/email`, {
+      method: "POST",
+      headers: { cookie },
+    });
+
+    return { ok: true };
+  }
+
+  throw new Error("Intent unknown");
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -291,16 +310,32 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                         {review.week[0]} - {review.week[1]}
                       </div>
                       {review.status === "completed" && (
-                        <a
-                          href={`${import.meta.env.VITE_API_URL}/weekly-review/${review.id}/export/download`}
-                          download
-                          target="_blank"
-                          rel="noopener noreferer"
-                          data-pt="2"
-                          data-color="brand-500"
-                        >
-                          <Icons.DownloadCircle data-size="lg" />
-                        </a>
+                        <>
+                          <a
+                            href={`${import.meta.env.VITE_API_URL}/weekly-review/${review.id}/export/download`}
+                            download
+                            target="_blank"
+                            rel="noopener noreferer"
+                            data-pt="2"
+                            data-color="brand-500"
+                          >
+                            <Icons.DownloadCircle data-size="lg" />
+                          </a>
+
+                          <RR.Form method="POST" action=".">
+                            <input type="hidden" name="intent" value="export_weekly_review_by_email" />
+                            <input type="hidden" name="weeklyReviewId" value={review.id} />
+                            <button
+                              type="submit"
+                              className="c-button"
+                              data-variant="bare"
+                              data-pt="2"
+                              data-color="brand-500"
+                            >
+                              <Icons.SendMail data-size="lg" />
+                            </button>
+                          </RR.Form>
+                        </>
                       )}
                       <div className="c-badge" data-variant="outline">
                         {t(`dashboard.weekly_review.status.${review.status}.value`)}
