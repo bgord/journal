@@ -52,7 +52,7 @@ export function AddEntry() {
 
   return (
     <>
-      <button type="button" className="c-button" data-variant="with-icon" data-mb="5" onClick={dialog.enable}>
+      <button type="button" className="c-button" data-variant="with-icon" onClick={dialog.enable}>
         <Icons.Plus data-size="md" />
         {t("entry.new.cta_secondary")}
       </button>
