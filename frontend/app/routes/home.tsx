@@ -91,8 +91,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <main data-p="6">
       <div data-stack="x" data-main="between" data-cross="end" data-maxw="md" data-mx="auto">
-        <div data-stacyk="y">
-          <label>{t("entry.list.filter.label")}</label>
+        <div data-stack="y">
+          <label className="c-label">{t("entry.list.filter.label")}</label>
           <Components.Select name="filter" value={loaderData.filter ?? ""} onChange={handleFilterChange}>
             <option value="">{t("entry.list.filter.all_time")}</option>
             <option value="today">{t("entry.list.filter.today")}</option>
