@@ -19,7 +19,7 @@ export class ReadModel {
 
   static CreateShareableLinkForm = CreateShareableLinkForm.get();
 
-  static async listEntriesForUser(userId: UserIdType, filter?: string | null) {
+  static async listEntriesForUser(userId: UserIdType, filter?: string | null, search?: string | null) {
     const where = [eq(Schema.entries.userId, userId)];
 
     if (filter === "today") {
@@ -32,6 +32,14 @@ export class ReadModel {
 
     if (filter === "last_month") {
       where.push(gte(Schema.entries.startedAt, tools.Time.Now().Minus(tools.Time.Days(30)).ms));
+    }
+
+    if (search) {
+      where.push(
+        sql`(${Schema.entries.situationDescription} LIKE ${`%${search}%`} OR ${
+          Schema.entries.reactionDescription
+        } LIKE ${`%${search}%`} OR ${Schema.entries.emotionLabel} LIKE ${`%${search}%`})`,
+      );
     }
 
     const entries = await db.query.entries.findMany({

@@ -62,8 +62,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const url = new URL(request.url);
   const filter = url.searchParams.get("filter");
+  const search = url.searchParams.get("search");
 
-  const entries = await ReadModel.listEntriesForUser(userId, filter);
+  const entries = await ReadModel.listEntriesForUser(userId, filter, search);
 
   return { entries, form: ReadModel.AddEntryForm, filter };
 }
@@ -74,11 +75,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
   const dialog = UI.useToggle({ name: "dialog" });
 
-  const filter = UI.useField({
-    strategy: UI.useFieldStrategyEnum.params,
-    name: "filter",
-    defaultValue: "",
-  });
+  const filter = UI.useField({ strategy: UI.useFieldStrategyEnum.params, name: "filter", defaultValue: "" });
+  const search = UI.useField({ strategy: UI.useFieldStrategyEnum.params, name: "search", defaultValue: "" });
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
@@ -86,6 +84,18 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <main data-p="6">
       <div data-stack="x" data-main="between" data-cross="end" data-maxw="md" data-mx="auto">
         <div data-stack="x" data-cross="end" data-gap="3">
+          <div data-stack="y">
+            <label className="c-label" htmlFor="search-input">
+              {t("entry.list.search.label")}
+            </label>
+            <input
+              className="c-input"
+              placeholder={t("entry.list.search.placeholder")}
+              data-grow="1"
+              {...search.input.props}
+            />
+          </div>
+
           <div data-stack="y">
             <label className="c-label" {...filter.label.props}>
               {t("entry.list.filter.label")}
@@ -102,8 +112,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             type="button"
             className="c-button"
             data-variant="bare"
-            onClick={filter.clear}
-            disabled={filter.unchanged}
+            onClick={UI.exec([filter.clear, search.clear])}
+            disabled={filter.unchanged && search.unchanged}
           >
             Clear
           </button>

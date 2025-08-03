@@ -91,6 +91,8 @@
   "entry.list.filter.today": "Today",
   "entry.list.filter.last_week": "Last week",
   "entry.list.filter.last_month": "Last month",
+  "entry.list.search.label": "Search",
+  "entry.list.search.placeholder": "Search...",
   "entry.reaction.call_to_action": "Fill up reaction",
   "entry.reaction.description.label": "How did you react?",
   "entry.reaction.description.placeholder": "I went home",
