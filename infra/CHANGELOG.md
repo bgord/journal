@@ -1,7 +1,13 @@
 # Changelog
+- 2025-08-03 23:28 f88cf89 **step: add basic template**
+## 2025-08-03 23:28 
+- 2025-08-03 23:16 86e14ee **step: adjust weekly review export by email**
+- 2025-08-03 23:14 5773410 **step: adjust WeeklyReviewExportPdfFile**
+- 2025-08-03 23:13 a0fe73e **step: adjust download weekly review**
+- 2025-08-03 22:58 3057fb5 **step: change weekly review export notification**
 - 2025-08-03 21:20 8fc1785 **refactor: remove labels**
-## 2025-08-03 21:20 
 - 2025-08-03 21:18 43cda78 **step: add search**
+- 2025-08-03 19:51 cde9834 **docs: generate CHANGELOG**
 - 2025-08-03 14:21 32b9aba **step: add filter UI.useField**
 - 2025-08-03 14:18 4d55b1e **step: improve filter**
 - 2025-08-03 14:10 6187416 **fix: label ui**
