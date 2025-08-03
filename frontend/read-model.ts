@@ -19,10 +19,24 @@ export class ReadModel {
 
   static CreateShareableLinkForm = CreateShareableLinkForm.get();
 
-  static async listEntriesForUser(userId: UserIdType) {
+  static async listEntriesForUser(userId: UserIdType, filter?: string | null) {
+    const where = [eq(Schema.entries.userId, userId)];
+
+    if (filter === "today") {
+      where.push(gte(Schema.entries.startedAt, tools.Time.Now().Minus(tools.Time.Days(1)).ms));
+    }
+
+    if (filter === "last_week") {
+      where.push(gte(Schema.entries.startedAt, tools.Time.Now().Minus(tools.Time.Days(7)).ms));
+    }
+
+    if (filter === "last_month") {
+      where.push(gte(Schema.entries.startedAt, tools.Time.Now().Minus(tools.Time.Days(30)).ms));
+    }
+
     const entries = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
-      where: eq(Schema.entries.userId, userId),
+      where: and(...where),
       with: { alarms: true },
     });
 
