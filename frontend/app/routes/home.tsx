@@ -1,4 +1,5 @@
 import * as UI from "@bgord/ui";
+import React from "react";
 import * as RR from "react-router";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
@@ -6,6 +7,12 @@ import * as Auth from "../../auth";
 import * as Components from "../../components";
 import { ReadModel } from "../../read-model";
 import type { Route } from "./+types/home";
+
+enum EntryFilters {
+  today = "today",
+  last_week = "last_week",
+  last_month = "last_month",
+}
 
 export function meta() {
   return [{ title: "Journal" }, { name: "description", content: "The Journal App" }];
@@ -76,24 +83,22 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const dialog = UI.useToggle({ name: "dialog" });
   const navigate = RR.useNavigate();
 
+  const filter = UI.useClientFilter({ name: "filter", enum: EntryFilters });
+
+  React.useEffect(() => {
+    filter.value ? navigate(`?filter=${filter.value}`) : navigate("/");
+  }, [filter.value]);
+
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
-
-  function handleFilterChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const filter = event.target.value;
-
-    if (filter) {
-      navigate(`?filter=${filter}`);
-    } else {
-      navigate("/");
-    }
-  }
 
   return (
     <main data-p="6">
       <div data-stack="x" data-main="between" data-cross="end" data-maxw="md" data-mx="auto">
         <div data-stack="y">
-          <label className="c-label">{t("entry.list.filter.label")}</label>
-          <Components.Select name="filter" value={loaderData.filter ?? ""} onChange={handleFilterChange}>
+          <label className="c-label" {...filter.label.props}>
+            {t("entry.list.filter.label")}
+          </label>
+          <Components.Select {...filter.input.props}>
             <option value="">{t("entry.list.filter.all_time")}</option>
             <option value="today">{t("entry.list.filter.today")}</option>
             <option value="last_week">{t("entry.list.filter.last_week")}</option>
