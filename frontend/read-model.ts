@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { and, count, desc, eq, gte, not, sql } from "drizzle-orm";
+import { and, count, desc, eq, gte, not, sql, like, or, SQL } from "drizzle-orm";
 import { AddEntryForm } from "../app/services/add-entry-form";
 import { AuthForm } from "../app/services/auth-form";
 import { CreateShareableLinkForm } from "../app/services/create-shareable-link-form";
@@ -34,12 +34,16 @@ export class ReadModel {
       where.push(gte(Schema.entries.startedAt, tools.Time.Now().Minus(tools.Time.Days(30)).ms));
     }
 
-    if (search) {
-      where.push(
-        sql`(${Schema.entries.situationDescription} LIKE ${`%${search}%`} OR ${
-          Schema.entries.reactionDescription
-        } LIKE ${`%${search}%`} OR ${Schema.entries.emotionLabel} LIKE ${`%${search}%`})`,
-      );
+    if (search?.trim()) {
+      const pattern = `%${search.trim()}%`;
+
+      const clauses: SQL[] = [
+        Schema.entries.situationDescription,
+        Schema.entries.reactionDescription,
+        Schema.entries.emotionLabel,
+      ].map((col) => like(col, pattern));
+
+      where.push(or(...clauses) as SQL<unknown>);
     }
 
     const entries = await db.query.entries.findMany({

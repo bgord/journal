@@ -84,29 +84,19 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <main data-p="6">
       <div data-stack="x" data-main="between" data-cross="end" data-maxw="md" data-mx="auto">
         <div data-stack="x" data-cross="end" data-gap="3">
-          <div data-stack="y">
-            <label className="c-label" htmlFor="search-input">
-              {t("entry.list.search.label")}
-            </label>
-            <input
-              className="c-input"
-              placeholder={t("entry.list.search.placeholder")}
-              data-grow="1"
-              {...search.input.props}
-            />
-          </div>
+          <input
+            className="c-input"
+            placeholder={t("entry.list.search.placeholder")}
+            data-grow="1"
+            {...search.input.props}
+          />
 
-          <div data-stack="y">
-            <label className="c-label" {...filter.label.props}>
-              {t("entry.list.filter.label")}
-            </label>
-            <Components.Select {...filter.input.props}>
-              <option value="">{t("entry.list.filter.all_time")}</option>
-              <option value="today">{t("entry.list.filter.today")}</option>
-              <option value="last_week">{t("entry.list.filter.last_week")}</option>
-              <option value="last_month">{t("entry.list.filter.last_month")}</option>
-            </Components.Select>
-          </div>
+          <Components.Select {...filter.input.props}>
+            <option value="">{t("entry.list.filter.all_time")}</option>
+            <option value="today">{t("entry.list.filter.today")}</option>
+            <option value="last_week">{t("entry.list.filter.last_week")}</option>
+            <option value="last_month">{t("entry.list.filter.last_month")}</option>
+          </Components.Select>
 
           <button
             type="button"
