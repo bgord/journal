@@ -93,14 +93,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <div data-stack="x" data-main="between" data-cross="end" data-maxw="md" data-mx="auto">
         <div data-stacyk="y">
           <label>{t("entry.list.filter.label")}</label>
-          <RR.Form method="get">
-            <Components.Select name="filter" value={loaderData.filter ?? ""} onChange={handleFilterChange}>
-              <option value="">{t("entry.list.filter.all_time")}</option>
-              <option value="today">{t("entry.list.filter.today")}</option>
-              <option value="last_week">{t("entry.list.filter.last_week")}</option>
-              <option value="last_month">{t("entry.list.filter.last_month")}</option>
-            </Components.Select>
-          </RR.Form>
+          <Components.Select name="filter" value={loaderData.filter ?? ""} onChange={handleFilterChange}>
+            <option value="">{t("entry.list.filter.all_time")}</option>
+            <option value="today">{t("entry.list.filter.today")}</option>
+            <option value="last_week">{t("entry.list.filter.last_week")}</option>
+            <option value="last_month">{t("entry.list.filter.last_month")}</option>
+          </Components.Select>
         </div>
 
         <Components.AddEntry />
