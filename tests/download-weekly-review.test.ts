@@ -28,10 +28,7 @@ describe(`GET ${url}`, () => {
 
   test("validation - WeeklyReviewExists - no weekly review", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(undefined);
-    spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.AlarmRepository, "findInWeekForUser").mockResolvedValue([]);
+    spyOn(Emotions.Queries.WeeklyReviewExportReadModel, "getFull").mockResolvedValue(undefined);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     await testcases.assertPolicyError(response, Emotions.Policies.WeeklyReviewExists);
@@ -39,12 +36,9 @@ describe(`GET ${url}`, () => {
 
   test("validation - WeeklyReviewExists - repo failure", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockImplementation(() => {
+    spyOn(Emotions.Queries.WeeklyReviewExportReadModel, "getFull").mockImplementation(() => {
       throw new Error("Failure");
     });
-    spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.AlarmRepository, "findInWeekForUser").mockResolvedValue([]);
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     expect(response.status).toBe(500);
@@ -52,30 +46,24 @@ describe(`GET ${url}`, () => {
 
   test("validation - WeeklyReviewIsCompleted", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReviewSkipped);
-    spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.AlarmRepository, "findInWeekForUser").mockResolvedValue([]);
+    // @ts-ignore
+    spyOn(Emotions.Queries.WeeklyReviewExportReadModel, "getFull").mockResolvedValue(
+      mocks.weeklyReviewSkipped,
+    );
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     await testcases.assertPolicyError(response, Emotions.Policies.WeeklyReviewIsCompleted);
   });
 
   test("validation - RequesterOwnsWeeklyReview", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
-    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
-    spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.AlarmRepository, "findInWeekForUser").mockResolvedValue([]);
+    spyOn(Emotions.Queries.WeeklyReviewExportReadModel, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsWeeklyReview);
   });
 
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
-    spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.PatternsRepository, "findInWeekForUser").mockResolvedValue([]);
-    spyOn(Emotions.Repos.AlarmRepository, "findInWeekForUser").mockResolvedValue([]);
+    spyOn(Emotions.Queries.WeeklyReviewExportReadModel, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewExportId);
 
     const response = await server.request(

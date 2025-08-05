@@ -5,12 +5,7 @@ import * as mocks from "./mocks";
 
 describe("WeeklyReviewExportPdfFile", () => {
   test("generates a PDF", async () => {
-    const file = new Emotions.Services.WeeklyReviewExportPdfFile(PdfGenerator, {
-      weeklyReview: mocks.weeklyReview,
-      entries: [mocks.fullEntry],
-      patterns: [mocks.patternDetection],
-      alarms: [mocks.alarm],
-    });
+    const file = new Emotions.Services.WeeklyReviewExportPdfFile(PdfGenerator, mocks.weeklyReviewFull);
     const result = await file.create();
 
     expect(result).toEqual(mocks.PDF);

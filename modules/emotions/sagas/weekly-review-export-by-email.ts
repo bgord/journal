@@ -1,7 +1,7 @@
 import * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Ports from "+emotions/ports";
-import * as Repos from "+emotions/repositories";
+import * as Queries from "+emotions/queries";
 import * as Services from "+emotions/services";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
@@ -32,20 +32,10 @@ export class WeeklyReviewExportByEmail {
       const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
       if (!contact?.email) return;
 
-      const weeklyReview = await Repos.WeeklyReviewRepository.getById(event.payload.weeklyReviewId);
+      const weeklyReview = await Queries.WeeklyReviewExportReadModel.getFull(event.payload.weeklyReviewId);
       if (!weeklyReview) return;
 
-      const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
-      const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
-      const patterns = await Repos.PatternsRepository.findInWeekForUser(week, event.payload.userId);
-      const alarms = await Repos.AlarmRepository.findInWeekForUser(week, event.payload.userId);
-
-      const pdf = new Services.WeeklyReviewExportPdfFile(this.pdfGenerator, {
-        weeklyReview,
-        entries,
-        patterns,
-        alarms,
-      });
+      const pdf = new Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);
       const attachment = await pdf.toAttachment();
 
       const composer = new Services.WeeklyReviewExportNotificationComposer();

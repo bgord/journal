@@ -536,6 +536,13 @@ export const weeklyReviewSkipped: Schema.SelectWeeklyReviews = {
   status: Emotions.VO.WeeklyReviewStatusEnum.skipped,
 };
 
+export const weeklyReviewFull: Emotions.Queries.WeeklyReviewExportDto = {
+  ...weeklyReview,
+  patternDetections: [],
+  entries: [],
+  alarms: [],
+};
+
 export const alarm: Schema.SelectAlarms = {
   id: alarmId,
   generatedAt: Date.now(),
