@@ -1,20 +1,8 @@
 import * as Ports from "+emotions/ports";
-import type {
-  SelectAlarms,
-  SelectEntries,
-  SelectPatternDetections,
-  SelectWeeklyReviews,
-} from "+infra/schema";
+import * as Queries from "+emotions/queries";
 import * as tools from "@bgord/tools";
 import { Document, DocumentProps, Page, renderToBuffer, StyleSheet, Text, View } from "@react-pdf/renderer";
 import React from "react";
-
-type WeeklyReviewExportData = {
-  weeklyReview: SelectWeeklyReviews;
-  entries: SelectEntries[];
-  patterns: SelectPatternDetections[];
-  alarms: SelectAlarms[];
-};
 
 type TemplateFn = (data: Record<string, any>) => React.ReactElement<DocumentProps>;
 
@@ -32,7 +20,7 @@ const styles = StyleSheet.create({
 
 const templates: Record<Ports.PdfGeneratorTemplateType, TemplateFn> = {
   weekly_review_export: (data) => {
-    const { weeklyReview, entries, patterns, alarms } = data as WeeklyReviewExportData;
+    const { entries, patternDetections, alarms, ...weeklyReview } = data as Queries.WeeklyReviewExportDto;
 
     return (
       <Document>
@@ -46,10 +34,10 @@ const templates: Record<Ports.PdfGeneratorTemplateType, TemplateFn> = {
             </>
           )}
 
-          {patterns.length > 0 && (
+          {patternDetections.length > 0 && (
             <>
               <Text style={styles.h2}>Detected patterns</Text>
-              {patterns.map((pattern, index) => (
+              {patternDetections.map((pattern, index) => (
                 <View key={index}>
                   <Text style={styles.p}>- {pattern.name}</Text>
                 </View>
