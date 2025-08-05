@@ -4,7 +4,6 @@ import * as Events from "+emotions/events";
 import * as Ports from "+emotions/ports";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
-import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
@@ -90,36 +89,14 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewCompletedEvent(event: Events.WeeklyReviewCompletedEventType) {
-    try {
-      const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
+    const command = Commands.ExportWeeklyReviewByEmailCommand.parse({
+      id: crypto.randomUUID(),
+      correlationId: bg.CorrelationStorage.get(),
+      name: Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
+      createdAt: tools.Timestamp.parse(Date.now()),
+      payload: { userId: event.payload.userId, weeklyReviewId: event.payload.weeklyReviewId },
+    } satisfies Commands.ExportWeeklyReviewByEmailCommand);
 
-      if (!contact?.email) return;
-
-      const week = tools.Week.fromIsoId(event.payload.weekIsoId);
-      const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
-      const patterns = await Repos.PatternsRepository.findInWeekForUser(week, event.payload.userId);
-      const alarms = await Repos.AlarmRepository.findInWeekForUser(week, event.payload.userId);
-
-      const insights = new VO.Advice(event.payload.insights);
-
-      const composer = new Services.WeeklyReviewNotificationComposer();
-
-      const notification = composer.compose(week, entries, insights, patterns, alarms);
-
-      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
-    } catch (error) {
-      const command = Commands.MarkWeeklyReviewAsFailedCommand.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
-        name: Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
-        payload: {
-          weeklyReviewId: event.payload.weeklyReviewId,
-          userId: event.payload.userId,
-        },
-      } satisfies Commands.MarkWeeklyReviewAsFailedCommandType);
-
-      await CommandBus.emit(command.name, command);
-    }
+    await CommandBus.emit(command.name, command);
   }
 }
