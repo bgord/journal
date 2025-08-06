@@ -182,7 +182,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     }
 
     await new Emotions.Policies.WeeklyReviewScheduler(EventBus).onHourHasPassed(
-      mocks.GenericHourHasPassedEvent,
+      mocks.GenericHourHasPassedMondayUtc18Event,
     );
 
     console.log("[✓] Weekly review scheduled");
