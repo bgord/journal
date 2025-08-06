@@ -108,11 +108,10 @@ EventBus.on(
 );
 
 // Policies
-
 new PublishingPolicies.ShareableLinksExpirer(EventBus);
 
 // Sagas
-new EmotionsSagas.EntryAlarmDetector(EventBus).register();
-new EmotionsSagas.AlarmOrchestrator(EventBus, AiClient, Mailer).register();
-new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer).register();
-new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator).register();
+new EmotionsSagas.EntryAlarmDetector(EventBus);
+new EmotionsSagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
+new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer);
+new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);

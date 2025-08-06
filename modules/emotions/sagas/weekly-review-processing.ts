@@ -16,9 +16,7 @@ export class WeeklyReviewProcessing {
     private readonly eventBus: typeof EventBus,
     private readonly AiClient: Ports.AiClientPort,
     private readonly mailer: bg.MailerPort,
-  ) {}
-
-  register() {
+  ) {
     this.eventBus.on(Events.WEEKLY_REVIEW_SKIPPED_EVENT, this.onWeeklyReviewSkippedEvent.bind(this));
     this.eventBus.on(Events.WEEKLY_REVIEW_REQUESTED_EVENT, this.onWeeklyReviewRequestedEvent.bind(this));
     this.eventBus.on(Events.WEEKLY_REVIEW_COMPLETED_EVENT, this.onWeeklyReviewCompletedEvent.bind(this));
