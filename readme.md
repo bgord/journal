@@ -130,6 +130,7 @@ modules/
 │   │   ├── entry-alarm-limit.ts
 │   │   ├── entry-has-been-started.ts
 │   │   ├── entry-is-actionable.ts
+│   │   ├── inactivity-alarm-schedule.ts
 │   │   ├── no-entries-in-the-last-week.ts
 │   │   ├── reaction-corresponds-to-situation-and-emotion.ts
 │   │   ├── reaction-for-evaluation-exists.ts
@@ -137,7 +138,12 @@ modules/
 │   │   ├── requester-owns-weekly-review.ts
 │   │   ├── weekly-review-completed-once.ts
 │   │   ├── weekly-review-exists.ts
-│   │   └── weekly-review-is-completed.ts
+│   │   ├── weekly-review-is-completed.ts
+│   │   └── weekly-review-schedule.ts
+│   ├── policies
+│   │   ├── entry-alarm-detector.ts
+│   │   ├── inactivity-alarm-scheduler.ts
+│   │   └── weekly-review-scheduler.ts
 │   ├── ports
 │   │   ├── ai-client.ts
 │   │   └── pdf-generator.ts
@@ -162,7 +168,6 @@ modules/
 │   │   └── reappraise-emotion.ts
 │   ├── sagas
 │   │   ├── alarm-orchestrator.ts
-│   │   ├── entry-alarm-detector.ts
 │   │   ├── weekly-review-export-by-email.ts
 │   │   └── weekly-review-processing.ts
 │   ├── services
@@ -177,7 +182,6 @@ modules/
 │   │   ├── entry-export-file.ts
 │   │   ├── inactivity-alarm-advice-notification-composer.ts
 │   │   ├── inactivity-alarm-advice-prompt-builder.ts
-│   │   ├── inactivity-alarm-scheduler.ts
 │   │   ├── negative-emotion-extreme-intensity-alarm.ts
 │   │   ├── pattern-detector.ts
 │   │   ├── patterns
@@ -189,7 +193,6 @@ modules/
 │   │   ├── weekly-review-export-notification-composer.ts
 │   │   ├── weekly-review-export-pdf-file.ts
 │   │   ├── weekly-review-insights-prompt-builder.ts
-│   │   ├── weekly-review-scheduler.ts
 │   │   └── weekly-review-skipped-notification-composer.ts
 │   └── value-objects
 │       ├── advice.ts
@@ -246,6 +249,8 @@ modules/
     │   ├── shareable-link-expiration-time-passed.ts
     │   ├── shareable-link-is-active.ts
     │   └── shareable-links-per-owner-limit.ts
+    ├── policies
+    │   └── shareable-links-expirer.ts
     ├── queries
     │   ├── count-active-shareable-links-per-owner.ts
     ├── repositories
@@ -253,8 +258,6 @@ modules/
     ├── routes
     │   ├── create-shareable-link.ts
     │   └── revoke-shareable-link.ts
-    ├── services
-    │   └── shareable-links-expirer.ts
     └── value-objects
         ├── publication-specification.ts
         ├── shareable-link-id.ts
