@@ -18,7 +18,7 @@ describe("InactivityAlarmScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent);
+      await policy.onHourHasPassed(mocks.GenericHourHasPassedWednesdayUtc18Event);
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericInactivityAlarmGeneratedEvent]);
@@ -34,7 +34,7 @@ describe("InactivityAlarmScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      expect(async () => await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent)).toThrow(
+      expect(async () => await policy.onHourHasPassed(mocks.GenericHourHasPassedWednesdayUtc18Event)).toThrow(
         Emotions.Invariants.DailyAlarmLimit.error,
       );
     });
@@ -54,7 +54,9 @@ describe("InactivityAlarmScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      expect(async () => await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent)).toThrow();
+      expect(
+        async () => await policy.onHourHasPassed(mocks.GenericHourHasPassedWednesdayUtc18Event),
+      ).toThrow();
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -67,7 +69,7 @@ describe("InactivityAlarmScheduler", () => {
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
-      async () => await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent),
+      async () => await policy.onHourHasPassed(mocks.GenericHourHasPassedWednesdayUtc18Event),
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -76,6 +78,17 @@ describe("InactivityAlarmScheduler", () => {
   test("NoEntriesInTheLastWeek", async () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
     spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(Date.now());
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await policy.onHourHasPassed(mocks.GenericHourHasPassedWednesdayUtc18Event),
+    );
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+  });
+
+  test("InactivityAlarmSchedule", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(

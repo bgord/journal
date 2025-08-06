@@ -8,6 +8,7 @@ export * from "./entries-for-week-exist";
 export * from "./entry-alarm-limit";
 export * from "./entry-has-been-started";
 export * from "./entry-is-actionable";
+export * from "./inactivity-alarm-schedule";
 export * from "./no-entries-in-the-last-week";
 export * from "./reaction-corresponds-to-situation-and-emotion";
 export * from "./reaction-for-evaluation-exists";

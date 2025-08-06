@@ -12,7 +12,6 @@ export class ShareableLinksExpirer {
   }
 
   async onHourHasPassed(_event: Events.HourHasPassedEventType) {
-    // TODO: schedule
     try {
       const shareableLinks = await Repos.ShareableLinkRepository.listNearExpiration();
 

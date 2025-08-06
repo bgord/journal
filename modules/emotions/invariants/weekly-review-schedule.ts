@@ -15,10 +15,7 @@ class WeeklyReviewScheduleFactory extends bg.Policy<WeeklyReviewScheduleConfigTy
   fails(config: WeeklyReviewScheduleConfigType) {
     const date = new Date(config.timestamp);
 
-    const isMondayUtc = date.getUTCDay() === bg.UTC_DAY_OF_THE_WEEK.Monday;
-    const isHour18Utc = date.getUTCHours() === 18;
-
-    return !(isMondayUtc && isHour18Utc);
+    return !(date.getUTCDay() === bg.UTC_DAY_OF_THE_WEEK.Monday && date.getUTCHours() === 18);
   }
 
   message = "WeeklyReviewSchedule";

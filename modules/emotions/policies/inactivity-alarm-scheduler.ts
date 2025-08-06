@@ -14,8 +14,8 @@ export class InactivityAlarmScheduler {
     this.eventBus.on(Events.HOUR_HAS_PASSED_EVENT, this.onHourHasPassed.bind(this));
   }
 
-  async onHourHasPassed(_event: Events.HourHasPassedEventType) {
-    // static cron = bg.jobs.schedules.day_time(bg.utc_day_of_the_week.wednesday, new tools.hour(18));
+  async onHourHasPassed(event: Events.HourHasPassedEventType) {
+    if (Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
     const userIds = await Auth.Repos.UserRepository.listIds();
 
