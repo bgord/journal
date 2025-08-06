@@ -1,9 +1,9 @@
+import type { HourHasPassedEvent } from "+app/events";
 import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
 import type {
   WeeklyReviewExportByEmailFailedEvent,
   WeeklyReviewExportByEmailRequestedEvent,
 } from "+emotions/events";
-import type {  HourHasPassedEvent } from "+app/events";
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
