@@ -1,6 +1,6 @@
 import * as EmotionsEventHandlers from "+emotions/event-handlers";
 import * as EmotionsEvents from "+emotions/events";
-import * as Sagas from "+emotions/sagas";
+import * as EmotionsSagas from "+emotions/sagas";
 import { AiClient } from "+infra/ai-client";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
@@ -8,6 +8,7 @@ import { Mailer } from "+infra/mailer";
 import { PdfGenerator } from "+infra/pdf-generator";
 import * as PublishingEventHandlers from "+publishing/event-handlers";
 import * as PublishingEvents from "+publishing/events";
+import * as PublishingPolicies from "+publishing/policies";
 import * as bg from "@bgord/bun";
 
 const EventHandler = new bg.EventHandler(logger);
@@ -106,8 +107,12 @@ EventBus.on(
   EventHandler.handle(PublishingEventHandlers.onShareableLinkRevokedEvent),
 );
 
+// Policies
+
+new PublishingPolicies.ShareableLinksExpirer(EventBus);
+
 // Sagas
-new Sagas.EntryAlarmDetector(EventBus).register();
-new Sagas.AlarmOrchestrator(EventBus, AiClient, Mailer).register();
-new Sagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer).register();
-new Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator).register();
+new EmotionsSagas.EntryAlarmDetector(EventBus).register();
+new EmotionsSagas.AlarmOrchestrator(EventBus, AiClient, Mailer).register();
+new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer).register();
+new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator).register();

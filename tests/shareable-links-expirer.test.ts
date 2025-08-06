@@ -1,9 +1,12 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import * as Publishing from "../modules/publishing";
 import * as mocks from "./mocks";
+
+const policy = new Publishing.Policies.ShareableLinksExpirer(EventBus);
 
 describe("WeeklyReviewScheduler", () => {
   test("validation - ShareableLinkIsActive - already revoked", async () => {
@@ -18,7 +21,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Publishing.Services.ShareableLinksExpirer.process();
+      await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent);
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -36,7 +39,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Publishing.Services.ShareableLinksExpirer.process();
+      await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent);
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -52,7 +55,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Publishing.Services.ShareableLinksExpirer.process();
+      await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent);
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -67,7 +70,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Publishing.Services.ShareableLinksExpirer.process();
+      await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent);
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -78,7 +81,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Publishing.Services.ShareableLinksExpirer.process();
+      await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent);
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -93,7 +96,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Publishing.Services.ShareableLinksExpirer.process();
+      await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent);
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkExpiredEvent]);

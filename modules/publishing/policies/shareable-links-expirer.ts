@@ -7,14 +7,12 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
 export class ShareableLinksExpirer {
-  constructor(private readonly eventBus: typeof EventBus) {}
-
-  register() {
+  constructor(private readonly eventBus: typeof EventBus) {
     this.eventBus.on(Events.HOUR_HAS_PASSED_EVENT, this.onHourHasPassed.bind(this));
   }
 
   async onHourHasPassed(_event: Events.HourHasPassedEventType) {
-    // todo schedule
+    // TODO: schedule
     try {
       const shareableLinks = await Repos.ShareableLinkRepository.listNearExpiration();
 
