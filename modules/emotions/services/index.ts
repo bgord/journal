@@ -9,7 +9,6 @@ export * from "./entry-alarm-advice-prompt-builder";
 export * from "./entry-export-file";
 export * from "./inactivity-alarm-advice-notification-composer";
 export * from "./inactivity-alarm-advice-prompt-builder";
-export * from "./inactivity-alarm-scheduler";
 export * from "./negative-emotion-extreme-intensity-alarm";
 export * from "./pattern-detector";
 export * as Patterns from "./patterns/";

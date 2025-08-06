@@ -15,6 +15,8 @@ export class InactivityAlarmScheduler {
   }
 
   async onHourHasPassed(_event: Events.HourHasPassedEventType) {
+    // static cron = bg.jobs.schedules.day_time(bg.utc_day_of_the_week.wednesday, new tools.hour(18));
+
     const userIds = await Auth.Repos.UserRepository.listIds();
 
     for (const userId of userIds) {
