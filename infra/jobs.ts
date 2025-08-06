@@ -1,3 +1,4 @@
+import * as App from "+app";
 import * as Emotions from "+emotions";
 import { logger } from "+infra/logger";
 import * as Publishing from "+publishing";
@@ -24,4 +25,15 @@ const ShareableLinksExpirerJob = new Cron(
   JobHandler.handle(Publishing.Services.ShareableLinksExpirer),
 );
 
-export const jobs = { WeeklyReviewSchedulerJob, InactivityAlarmSchedulerJob, ShareableLinksExpirerJob };
+const PassageOfTimeJob = new Cron(
+  App.Services.PassageOfTime.cron,
+  { protect: JobHandler.protect },
+  JobHandler.handle(App.Services.PassageOfTime),
+);
+
+export const jobs = {
+  WeeklyReviewSchedulerJob,
+  InactivityAlarmSchedulerJob,
+  ShareableLinksExpirerJob,
+  PassageOfTimeJob,
+};
