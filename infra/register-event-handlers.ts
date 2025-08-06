@@ -1,5 +1,6 @@
 import * as EmotionsEventHandlers from "+emotions/event-handlers";
 import * as EmotionsEvents from "+emotions/events";
+import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import { AiClient } from "+infra/ai-client";
 import { EventBus } from "+infra/event-bus";
@@ -109,9 +110,9 @@ EventBus.on(
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus);
+new EmotionsPolicies.EntryAlarmDetector(EventBus);
 
 // Sagas
-new EmotionsSagas.EntryAlarmDetector(EventBus);
 new EmotionsSagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
 new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer);
 new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
