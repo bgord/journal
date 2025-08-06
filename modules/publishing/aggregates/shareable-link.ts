@@ -107,6 +107,17 @@ export class ShareableLink {
     this.record(event);
   }
 
+  isValid(now: tools.TimestampType): boolean {
+    return (
+      Invariants.ShareableLinkIsActive.passes({ status: this.status }) &&
+      Invariants.ShareableLinkExpirationTimePassed.passes({
+        duration: this.duration,
+        now,
+        createdAt: this.createdAt,
+      })
+    );
+  }
+
   pullEvents(): ShareableLinkEventType[] {
     const events = [...this.pending];
 
@@ -127,6 +138,7 @@ export class ShareableLink {
         this.duration = tools.Time.Ms(event.payload.durationMs);
         this.createdAt = tools.Timestamp.parse(event.payload.createdAt);
         this.ownerId = event.payload.ownerId;
+        this.status = VO.ShareableLinkStatusEnum.active;
         break;
       }
 

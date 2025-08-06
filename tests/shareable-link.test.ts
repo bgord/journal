@@ -113,4 +113,40 @@ describe("Publishing", () => {
 
     expect(shareableLink.pullEvents()).toEqual([]);
   });
+
+  test("isValid - true", async () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+    ]);
+
+    expect(shareableLink.isValid(tools.Timestamp.parse(Date.now()))).toEqual(true);
+  });
+
+  test("isValid - false - expired", async () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkExpiredEvent,
+    ]);
+
+    expect(shareableLink.isValid(tools.Timestamp.parse(Date.now()))).toEqual(false);
+  });
+
+  test("isValid - false - revoked", async () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkRevokedEvent,
+    ]);
+
+    expect(shareableLink.isValid(tools.Timestamp.parse(Date.now()))).toEqual(false);
+  });
+
+  test("isValid - false - time has passed", async () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkRevokedEvent,
+    ]);
+
+    const yesterday = tools.Time.Now().Minus(tools.Time.Days(1)).ms;
+    expect(shareableLink.isValid(tools.Timestamp.parse(yesterday))).toEqual(false);
+  });
 });
