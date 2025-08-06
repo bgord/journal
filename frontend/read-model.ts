@@ -144,6 +144,7 @@ export class ReadModel {
     const inactivity = await db.query.alarms.findMany({
       where: and(eq(Schema.alarms.userId, userId), eq(Schema.alarms.name, AlarmNameOption.INACTIVITY_ALARM)),
       orderBy: desc(Schema.alarms.generatedAt),
+      limit: 5,
     });
 
     const entry = await db.query.alarms.findMany({
@@ -152,6 +153,7 @@ export class ReadModel {
         not(eq(Schema.alarms.name, AlarmNameOption.INACTIVITY_ALARM)),
       ),
       orderBy: desc(Schema.alarms.generatedAt),
+      limit: 5,
     });
 
     return {
@@ -203,6 +205,7 @@ export class ReadModel {
         },
         alarms: { columns: { id: true, name: true }, orderBy: desc(Schema.alarms.generatedAt) },
       },
+      limit: 5,
     });
 
     return reviews.map((review) => ({
