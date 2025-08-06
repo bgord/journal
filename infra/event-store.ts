@@ -3,6 +3,7 @@ import type {
   WeeklyReviewExportByEmailFailedEvent,
   WeeklyReviewExportByEmailRequestedEvent,
 } from "+emotions/events";
+import type {  HourHasPassedEvent } from "+app/events";
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
@@ -20,7 +21,8 @@ export type AcceptedEvent =
   | WeeklyReviewEvent
   | typeof WeeklyReviewExportByEmailRequestedEvent
   | typeof WeeklyReviewExportByEmailFailedEvent
-  | ShareableLinkEvent;
+  | ShareableLinkEvent
+  | typeof HourHasPassedEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {

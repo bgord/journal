@@ -18,7 +18,9 @@
       "+auth": ["./modules/auth/index"],
       "+auth/*": ["./modules/auth/*"],
       "+publishing": ["./modules/publishing/index"],
-      "+publishing/*": ["./modules/publishing/*"]
+      "+publishing/*": ["./modules/publishing/*"],
+      "+app": ["./app/index"],
+      "+app/*": ["./app/*"]
     }
   },
   "exclude": ["bgord-scripts", "frontend"]
