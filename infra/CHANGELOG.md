@@ -1,6 +1,25 @@
 # Changelog
+- 2025-08-06 22:12 ea147c1 **Merge pull request #25 from bgord/passage_of_time**
+## 2025-08-06 22:12 
+- 2025-08-06 22:09 d1e7539 **step: update packages**
+- 2025-08-06 21:53 934c48d **step: add InactivityAlarmSchedule**
+- 2025-08-06 21:47 4264486 **step: add weekly review schedule**
+- 2025-08-06 21:31 094fa38 **step: bump bgord/scripts**
+- 2025-08-06 21:25 d1964f1 **refactor: make EntryAlarmDetector a policy**
+- 2025-08-06 21:22 3a47086 **refactor: remove saga register**
+- 2025-08-06 18:02 2fed9a5 **refactor: weekly review scheduler**
+- 2025-08-06 17:57 7cf9d02 **refactor: remove scheduler**
+- 2025-08-06 17:56 2295cfa **step: define inactivity alarm scheduler policy**
+- 2025-08-06 15:59 7d0f5ad **refactor: remove shareable links expirer service**
+- 2025-08-06 15:58 eacee47 **step: define ShareableLinksExpirer policy**
+- 2025-08-06 15:05 f14e1ec **step: test passsage of time**
+- 2025-08-06 15:01 0f6ce2e **step: define mock hour has passed event**
+- 2025-08-06 14:59 f402aa9 **step: wire up passage of time service**
+- 2025-08-06 14:58 270ada0 **step: add passage of time service**
+- 2025-08-06 14:51 f32f5ed **step: add hour has passed event**
 - 2025-08-06 14:37 5064096 **refactor: rename policies to invariants**
-## 2025-08-06 14:37 
+- 2025-08-06 12:48 321e0b2 **docs: generate CHANGELOG**
+- 2025-08-06 12:48 036894d **docs: generate readme**
 - 2025-08-05 22:58 2829e0e **refactor: use weekly review export dto**
 - 2025-08-05 22:49 4c81a83 **step: adjut weekly-review-export-pdf-file.ts**
 - 2025-08-05 22:49 3217bda **step: adjust react pdf adapter to the dto**
