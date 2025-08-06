@@ -1,15 +1,19 @@
+import * as Events from "+app/events";
 import * as Auth from "+auth";
 import * as Commands from "+emotions/commands";
 import { CommandBus } from "+infra/command-bus";
+import type { EventBus } from "+infra/event-bus";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
 export class WeeklyReviewScheduler {
-  static cron = bg.Jobs.SCHEDULES.DAY_TIME(bg.UTC_DAY_OF_THE_WEEK.Monday, new tools.Hour(18));
+  constructor(private readonly eventBus: typeof EventBus) {
+    this.eventBus.on(Events.HOUR_HAS_PASSED_EVENT, this.onHourHasPassed.bind(this));
+  }
 
-  static label = "WeeklyReviewScheduler";
+  async onHourHasPassed(_event: Events.HourHasPassedEventType) {
+    // static cron = bg.Jobs.SCHEDULES.DAY_TIME(bg.UTC_DAY_OF_THE_WEEK.Monday, new tools.Hour(18));
 
-  static async process() {
     const week = tools.Week.fromNow();
 
     const userIds = await Auth.Repos.UserRepository.listIds();

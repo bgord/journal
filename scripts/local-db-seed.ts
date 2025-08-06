@@ -1,6 +1,7 @@
 import * as Emotions from "+emotions";
 import { auth } from "+infra/auth";
 import { db } from "+infra/db";
+import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { SupportedLanguages } from "+infra/i18n";
 import * as Schema from "+infra/schema";
@@ -8,6 +9,7 @@ import * as Publishing from "+publishing";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import _ from "lodash";
+import * as mocks from "../tests/mocks";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
@@ -179,7 +181,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       console.log(`[✓] Entry ${counter + 1} created`);
     }
 
-    await Emotions.Services.WeeklyReviewScheduler.process();
+    await new Emotions.Policies.WeeklyReviewScheduler(EventBus).onHourHasPassed(
+      mocks.GenericHourHasPassedEvent,
+    );
 
     console.log("[✓] Weekly review scheduled");
 
