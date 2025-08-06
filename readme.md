@@ -119,7 +119,7 @@ modules/
 │   │   ├── WEEKLY_REVIEW_FAILED_EVENT.ts
 │   │   ├── WEEKLY_REVIEW_REQUESTED_EVENT.ts
 │   │   ├── WEEKLY_REVIEW_SKIPPED_EVENT.ts
-│   ├── policies
+│   ├── invariants
 │   │   ├── alarm-advice-available.ts
 │   │   ├── alarm-already-generated.ts
 │   │   ├── alarm-is-cancellable.ts
@@ -146,6 +146,7 @@ modules/
 │   │   ├── count-entries-per-week-for-user.ts
 │   │   ├── count-todays-alarms-for-user.ts
 │   │   ├── get-latest-entry-timestamp-for-user.ts
+│   │   └── weekly-review-export-dto.ts
 │   ├── repositories
 │   │   ├── alarm-repository.ts
 │   │   ├── entry-repository.ts
@@ -188,7 +189,6 @@ modules/
 │   │   ├── weekly-review-export-notification-composer.ts
 │   │   ├── weekly-review-export-pdf-file.ts
 │   │   ├── weekly-review-insights-prompt-builder.ts
-│   │   ├── weekly-review-notification-composer.ts
 │   │   ├── weekly-review-scheduler.ts
 │   │   └── weekly-review-skipped-notification-composer.ts
 │   └── value-objects
@@ -241,7 +241,7 @@ modules/
     │   ├── SHAREABLE_LINK_CREATED_EVENT.ts
     │   ├── SHAREABLE_LINK_EXPIRED_EVENT.ts
     │   ├── SHAREABLE_LINK_REVOKED_EVENT.ts
-    ├── policies
+    ├── invariants
     │   ├── requester-owns-shareable-link.ts
     │   ├── shareable-link-expiration-time-passed.ts
     │   ├── shareable-link-is-active.ts
