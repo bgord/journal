@@ -1,8 +1,12 @@
+import * as Auth from "+auth";
 import { EventStore } from "+infra/event-store";
 import * as Aggregates from "+publishing/aggregates";
 import * as VO from "+publishing/value-objects";
 
-export async function isShareableLinkValid(id: VO.ShareableLinkIdType): Promise<boolean> {
+export async function isShareableLinkValid(
+  id: VO.ShareableLinkIdType,
+  requesterId: Auth.VO.UserIdType,
+): Promise<boolean> {
   const history = await EventStore.find(
     Aggregates.ShareableLink.events,
     Aggregates.ShareableLink.getStream(id),
@@ -10,5 +14,5 @@ export async function isShareableLinkValid(id: VO.ShareableLinkIdType): Promise<
 
   if (!history.length) return false;
 
-  return Aggregates.ShareableLink.build(id, history).isValid();
+  return Aggregates.ShareableLink.build(id, history).isValid(requesterId);
 }

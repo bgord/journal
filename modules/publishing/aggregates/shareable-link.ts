@@ -107,8 +107,11 @@ export class ShareableLink {
     this.record(event);
   }
 
-  isValid(): boolean {
-    return Invariants.ShareableLinkIsActive.passes({ status: this.status });
+  isValid(requesterId: Auth.VO.UserIdType): boolean {
+    return (
+      Invariants.ShareableLinkIsActive.passes({ status: this.status }) &&
+      Invariants.RequesterOwnsShareableLink.passes({ requesterId, ownerId: this.ownerId })
+    );
   }
 
   pullEvents(): ShareableLinkEventType[] {
