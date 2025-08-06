@@ -16,3 +16,4 @@ export * from "./requester-owns-weekly-review";
 export * from "./weekly-review-completed-once";
 export * from "./weekly-review-exists";
 export * from "./weekly-review-is-completed";
+export * from "./weekly-review-schedule";

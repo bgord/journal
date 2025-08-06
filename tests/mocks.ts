@@ -445,6 +445,16 @@ export const GenericHourHasPassedEvent = {
   payload: { timestamp: hourHasPassedTimestamp },
 } satisfies App.Events.HourHasPassedEventType;
 
+export const GenericHourHasPassedMondayUtc18Event = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: "passage_of_time",
+  name: "HOUR_HAS_PASSED_EVENT",
+  version: 1,
+  payload: { timestamp: tools.Timestamp.parse(1754330400000) },
+} satisfies App.Events.HourHasPassedEventType;
+
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,
   finishedAt: Date.now(),
