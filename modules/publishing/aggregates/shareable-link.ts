@@ -107,15 +107,8 @@ export class ShareableLink {
     this.record(event);
   }
 
-  isValid(now: tools.TimestampType): boolean {
-    return (
-      Invariants.ShareableLinkIsActive.passes({ status: this.status }) &&
-      Invariants.ShareableLinkExpirationTimePassed.passes({
-        duration: this.duration,
-        now,
-        createdAt: this.createdAt,
-      })
-    );
+  isValid(): boolean {
+    return Invariants.ShareableLinkIsActive.passes({ status: this.status });
   }
 
   pullEvents(): ShareableLinkEventType[] {
