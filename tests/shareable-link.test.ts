@@ -46,7 +46,7 @@ describe("Publishing", () => {
       mocks.GenericShareableLinkExpiredEvent,
     ]);
 
-    expect(async () => shareableLink.expire()).toThrow(Publishing.Policies.ShareableLinkIsActive.error);
+    expect(async () => shareableLink.expire()).toThrow(Publishing.Invariants.ShareableLinkIsActive.error);
 
     expect(shareableLink.pullEvents()).toEqual([]);
   });
@@ -58,7 +58,7 @@ describe("Publishing", () => {
     ]);
 
     expect(async () => shareableLink.expire()).toThrow(
-      Publishing.Policies.ShareableLinkExpirationTimePassed.error,
+      Publishing.Invariants.ShareableLinkExpirationTimePassed.error,
     );
 
     expect(shareableLink.pullEvents()).toEqual([]);
@@ -83,7 +83,7 @@ describe("Publishing", () => {
     ]);
 
     expect(async () => shareableLink.revoke(mocks.userId)).toThrow(
-      Publishing.Policies.ShareableLinkIsActive.error,
+      Publishing.Invariants.ShareableLinkIsActive.error,
     );
 
     expect(shareableLink.pullEvents()).toEqual([]);
@@ -96,7 +96,7 @@ describe("Publishing", () => {
     ]);
 
     expect(async () => shareableLink.revoke(mocks.userId)).toThrow(
-      Publishing.Policies.ShareableLinkIsActive.error,
+      Publishing.Invariants.ShareableLinkIsActive.error,
     );
 
     expect(shareableLink.pullEvents()).toEqual([]);
@@ -108,7 +108,7 @@ describe("Publishing", () => {
     ]);
 
     expect(async () => shareableLink.revoke(mocks.anotherUserId)).toThrow(
-      Publishing.Policies.RequesterOwnsShareableLink.error,
+      Publishing.Invariants.RequesterOwnsShareableLink.error,
     );
 
     expect(shareableLink.pullEvents()).toEqual([]);

@@ -31,7 +31,7 @@ describe("EntryAlarmDetector", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
-        Emotions.Policies.DailyAlarmLimit.error,
+        Emotions.Invariants.DailyAlarmLimit.error,
       ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -47,7 +47,7 @@ describe("EntryAlarmDetector", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
-        Emotions.Policies.EntryAlarmLimit.error,
+        Emotions.Invariants.EntryAlarmLimit.error,
       ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -79,7 +79,7 @@ describe("EntryAlarmDetector", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent)).toThrow(
-        Emotions.Policies.DailyAlarmLimit.error,
+        Emotions.Invariants.DailyAlarmLimit.error,
       ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -95,7 +95,7 @@ describe("EntryAlarmDetector", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent)).toThrow(
-        Emotions.Policies.EntryAlarmLimit.error,
+        Emotions.Invariants.EntryAlarmLimit.error,
       ),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();

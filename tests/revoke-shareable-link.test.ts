@@ -45,7 +45,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Publishing.Policies.ShareableLinkIsActive);
+    await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinkIsActive);
   });
 
   test("validation - ShareableLinkIsActive - already revoked", async () => {
@@ -61,7 +61,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Publishing.Policies.ShareableLinkIsActive);
+    await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinkIsActive);
   });
 
   test("validation - RequesterOwnsShareableLink", async () => {
@@ -74,7 +74,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Publishing.Policies.RequesterOwnsShareableLink);
+    await testcases.assertInvariantError(response, Publishing.Invariants.RequesterOwnsShareableLink);
   });
 
   test("happy path", async () => {

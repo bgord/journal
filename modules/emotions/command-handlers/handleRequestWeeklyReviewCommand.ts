@@ -12,7 +12,7 @@ export const handleRequestWeeklyReviewCommand = async (
   );
 
   if (
-    Emotions.Policies.EntriesForWeekExist.fails({
+    Emotions.Invariants.EntriesForWeekExist.fails({
       count: entriesPerWeekForUserCount,
       userId: command.payload.userId,
     })

@@ -37,7 +37,7 @@ describe("AlarmFactory", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     expect(async () => Emotions.Services.AlarmFactory.create(mocks.entryDetection, mocks.userId)).toThrow(
-      Emotions.Policies.DailyAlarmLimit.error,
+      Emotions.Invariants.DailyAlarmLimit.error,
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -49,7 +49,7 @@ describe("AlarmFactory", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     expect(async () => Emotions.Services.AlarmFactory.create(mocks.entryDetection, mocks.userId)).toThrow(
-      Emotions.Policies.EntryAlarmLimit.error,
+      Emotions.Invariants.EntryAlarmLimit.error,
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();

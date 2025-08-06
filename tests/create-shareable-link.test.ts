@@ -120,7 +120,7 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-    await testcases.assertPolicyError(response, Publishing.Policies.ShareableLinksPerOwnerLimit);
+    await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinksPerOwnerLimit);
 
     expect(eventStoreSave).not.toHaveBeenCalled();
   });

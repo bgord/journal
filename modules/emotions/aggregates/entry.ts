@@ -108,10 +108,10 @@ export class Entry {
   }
 
   reappraiseEmotion(newEmotion: Emotions.Entities.Emotion, requesterId: Auth.VO.UserIdType) {
-    Emotions.Policies.EntryIsActionable.perform({ status: this.status });
-    Emotions.Policies.EmotionCorrespondsToSituation.perform({ situation: this.situation });
-    Emotions.Policies.EmotionForReappraisalExists.perform({ emotion: this.emotion });
-    Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
+    Emotions.Invariants.EntryIsActionable.perform({ status: this.status });
+    Emotions.Invariants.EmotionCorrespondsToSituation.perform({ situation: this.situation });
+    Emotions.Invariants.EmotionForReappraisalExists.perform({ emotion: this.emotion });
+    Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
       id: crypto.randomUUID(),
@@ -132,13 +132,13 @@ export class Entry {
   }
 
   evaluateReaction(newReaction: Emotions.Entities.Reaction, requesterId: Auth.VO.UserIdType) {
-    Emotions.Policies.EntryIsActionable.perform({ status: this.status });
-    Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.perform({
+    Emotions.Invariants.EntryIsActionable.perform({ status: this.status });
+    Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.perform({
       situation: this.situation,
       emotion: this.emotion,
     });
-    Emotions.Policies.ReactionForEvaluationExists.perform({ reaction: this.reaction });
-    Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
+    Emotions.Invariants.ReactionForEvaluationExists.perform({ reaction: this.reaction });
+    Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
       id: crypto.randomUUID(),
@@ -160,8 +160,8 @@ export class Entry {
   }
 
   delete(requesterId: Auth.VO.UserIdType) {
-    Emotions.Policies.EntryHasBenStarted.perform({ situation: this.situation });
-    Emotions.Policies.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
+    Emotions.Invariants.EntryHasBenStarted.perform({ situation: this.situation });
+    Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EntryDeletedEvent.parse({
       id: crypto.randomUUID(),

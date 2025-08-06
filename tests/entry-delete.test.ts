@@ -42,7 +42,7 @@ describe("DELETE /entry/:id/delete", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.EntryHasBenStarted);
+    await testcases.assertInvariantError(response, Emotions.Invariants.EntryHasBenStarted);
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
@@ -56,7 +56,7 @@ describe("DELETE /entry/:id/delete", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsEntry);
+    await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsEntry);
   });
 
   test("happy path - after situation", async () => {

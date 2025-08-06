@@ -9,9 +9,9 @@ export async function DownloadWeeklyReview(c: hono.Context<infra.HonoConfig>, _n
 
   const weeklyReview = await Emotions.Queries.WeeklyReviewExportReadModel.getFull(weeklyReviewId);
 
-  Emotions.Policies.WeeklyReviewExists.perform({ weeklyReview });
-  Emotions.Policies.WeeklyReviewIsCompleted.perform({ status: weeklyReview?.status });
-  Emotions.Policies.RequesterOwnsWeeklyReview.perform({
+  Emotions.Invariants.WeeklyReviewExists.perform({ weeklyReview });
+  Emotions.Invariants.WeeklyReviewIsCompleted.perform({ status: weeklyReview?.status });
+  Emotions.Invariants.RequesterOwnsWeeklyReview.perform({
     requesterId: user.id,
     ownerId: weeklyReview?.userId,
   });

@@ -37,7 +37,9 @@ describe("Alarm", () => {
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
 
-    expect(async () => alarm.saveAdvice(mocks.advice)).toThrow(Emotions.Policies.AlarmAlreadyGenerated.error);
+    expect(async () => alarm.saveAdvice(mocks.advice)).toThrow(
+      Emotions.Invariants.AlarmAlreadyGenerated.error,
+    );
 
     expect(alarm.pullEvents()).toEqual([]);
   });
@@ -58,7 +60,7 @@ describe("Alarm", () => {
   test("notify - AlarmAdviceAvailable", async () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
 
-    expect(async () => alarm.notify()).toThrow(Emotions.Policies.AlarmAdviceAvailable.error);
+    expect(async () => alarm.notify()).toThrow(Emotions.Invariants.AlarmAdviceAvailable.error);
 
     expect(alarm.pullEvents()).toEqual([]);
   });
@@ -70,7 +72,7 @@ describe("Alarm", () => {
       mocks.GenericAlarmNotificationSentEvent,
     ]);
 
-    expect(async () => alarm.notify()).toThrow(Emotions.Policies.AlarmAdviceAvailable.error);
+    expect(async () => alarm.notify()).toThrow(Emotions.Invariants.AlarmAdviceAvailable.error);
 
     expect(alarm.pullEvents()).toEqual([]);
   });
@@ -95,7 +97,7 @@ describe("Alarm", () => {
       mocks.GenericAlarmCancelledEvent,
     ]);
 
-    expect(async () => alarm.cancel()).toThrow(Emotions.Policies.AlarmIsCancellable.error);
+    expect(async () => alarm.cancel()).toThrow(Emotions.Invariants.AlarmIsCancellable.error);
 
     expect(alarm.pullEvents()).toEqual([]);
   });

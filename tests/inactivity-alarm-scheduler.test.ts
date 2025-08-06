@@ -32,7 +32,7 @@ describe("InactivityAlarmScheduler", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(async () => await Emotions.Services.InactivityAlarmScheduler.process()).toThrow(
-        Emotions.Policies.DailyAlarmLimit.error,
+        Emotions.Invariants.DailyAlarmLimit.error,
       );
     });
 

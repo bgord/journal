@@ -7,7 +7,7 @@ export const handleCreateShareableLinkCommand = async (
   const shareableActiveLinksPerOwnerCount =
     await Publishing.Queries.CountActiveShareableLinksPerOwner.execute(command.payload.requesterId);
 
-  Publishing.Policies.ShareableLinksPerOwnerLimit.perform(shareableActiveLinksPerOwnerCount);
+  Publishing.Invariants.ShareableLinksPerOwnerLimit.perform(shareableActiveLinksPerOwnerCount);
 
   const shareableLink = Publishing.Aggregates.ShareableLink.create(
     command.payload.shareableLinkId,

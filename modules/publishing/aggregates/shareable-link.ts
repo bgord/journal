@@ -1,6 +1,6 @@
 import type * as Auth from "+auth";
 import * as Events from "+publishing/events";
-import * as Policies from "+publishing/policies";
+import * as Invariants from "+publishing/invariants";
 import * as VO from "+publishing/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -70,8 +70,8 @@ export class ShareableLink {
   }
 
   expire() {
-    Policies.ShareableLinkIsActive.perform({ status: this.status });
-    Policies.ShareableLinkExpirationTimePassed.perform({
+    Invariants.ShareableLinkIsActive.perform({ status: this.status });
+    Invariants.ShareableLinkExpirationTimePassed.perform({
       duration: this.duration,
       now: Date.now(),
       createdAt: this.createdAt,
@@ -91,8 +91,8 @@ export class ShareableLink {
   }
 
   revoke(requesterId: Auth.VO.UserIdType) {
-    Policies.ShareableLinkIsActive.perform({ status: this.status });
-    Policies.RequesterOwnsShareableLink.perform({ requesterId, ownerId: this.ownerId });
+    Invariants.ShareableLinkIsActive.perform({ status: this.status });
+    Invariants.RequesterOwnsShareableLink.perform({ requesterId, ownerId: this.ownerId });
 
     const event = Events.ShareableLinkRevokedEvent.parse({
       id: crypto.randomUUID(),

@@ -43,7 +43,7 @@ describe("WeeklyReview", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(async () => weeklyReview.complete(mocks.insights)).toThrow(
-        Emotions.Policies.WeeklyReviewCompletedOnce.error,
+        Emotions.Invariants.WeeklyReviewCompletedOnce.error,
       );
     });
 
@@ -69,7 +69,7 @@ describe("WeeklyReview", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(async () => weeklyReview.complete(mocks.insights)).toThrow(
-        Emotions.Policies.WeeklyReviewCompletedOnce.error,
+        Emotions.Invariants.WeeklyReviewCompletedOnce.error,
       );
     });
 

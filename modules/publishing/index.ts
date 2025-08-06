@@ -3,7 +3,7 @@ export * as CommandHandlers from "./command-handlers";
 export * as Commands from "./commands";
 export * as EventHandlers from "./event-handlers";
 export * as Events from "./events";
-export * as Policies from "./policies";
+export * as Invariants from "./invariants";
 export * as Queries from "./queries";
 export * as Repos from "./repositories";
 export * as Routes from "./routes";

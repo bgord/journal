@@ -94,7 +94,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.EntryIsActionable);
+    await testcases.assertInvariantError(response, Emotions.Invariants.EntryIsActionable);
   });
 
   test("validation - EmotionCorrespondsToSituation", async () => {
@@ -114,7 +114,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.EmotionCorrespondsToSituation);
+    await testcases.assertInvariantError(response, Emotions.Invariants.EmotionCorrespondsToSituation);
   });
 
   test("validation - EmotionForReappraisalExists", async () => {
@@ -134,7 +134,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.EmotionForReappraisalExists);
+    await testcases.assertInvariantError(response, Emotions.Invariants.EmotionForReappraisalExists);
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
@@ -160,7 +160,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsEntry);
+    await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsEntry);
   });
 
   test("happy path", async () => {

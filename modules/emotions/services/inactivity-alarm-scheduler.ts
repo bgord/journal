@@ -1,6 +1,6 @@
 import * as Auth from "+auth";
 import * as Commands from "+emotions/commands";
-import * as Policies from "+emotions/policies";
+import * as Invariants from "+emotions/invariants";
 import * as Queries from "+emotions/queries";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
@@ -18,7 +18,7 @@ export class InactivityAlarmScheduler {
     for (const userId of userIds) {
       const lastEntryTimestamp = await Queries.GetLatestEntryTimestampForUser.execute(userId);
 
-      if (Policies.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
+      if (Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
 
       const trigger = {
         type: VO.AlarmTriggerEnum.inactivity,

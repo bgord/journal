@@ -1,6 +1,6 @@
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
-import * as Policies from "+emotions/policies";
+import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -57,7 +57,7 @@ export class WeeklyReview {
   }
 
   complete(insights: VO.Advice) {
-    Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
+    Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
       id: crypto.randomUUID(),
@@ -78,7 +78,7 @@ export class WeeklyReview {
   }
 
   fail() {
-    Policies.WeeklyReviewCompletedOnce.perform({ status: this.status });
+    Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewFailedEvent.parse({
       id: crypto.randomUUID(),

@@ -1,6 +1,6 @@
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
-import * as Policies from "+emotions/policies";
+import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -64,7 +64,7 @@ export class Alarm {
   }
 
   saveAdvice(advice: VO.Advice) {
-    Policies.AlarmAlreadyGenerated.perform({ status: this.status });
+    Invariants.AlarmAlreadyGenerated.perform({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
       id: crypto.randomUUID(),
@@ -84,7 +84,7 @@ export class Alarm {
   }
 
   notify() {
-    Policies.AlarmAdviceAvailable.perform({
+    Invariants.AlarmAdviceAvailable.perform({
       advice: this.advice,
       status: this.status,
     });
@@ -108,7 +108,7 @@ export class Alarm {
   }
 
   cancel() {
-    Policies.AlarmIsCancellable.perform({ status: this.status });
+    Invariants.AlarmIsCancellable.perform({ status: this.status });
 
     const event = Events.AlarmCancelledEvent.parse({
       id: crypto.randomUUID(),

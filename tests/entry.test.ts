@@ -77,21 +77,21 @@ describe("entry", () => {
     expect(entry.pullEvents()).toEqual([mocks.GenericEmotionReappraisedEvent]);
   });
 
-  test("reappraiseEmotion - Policies.EmotionCorrespondsToSituation", async () => {
+  test("reappraiseEmotion - Invariants.EmotionCorrespondsToSituation", async () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, []);
 
     expect(() => entry.reappraiseEmotion(newEmotion, mocks.userId)).toThrow(
-      Emotions.Policies.EmotionCorrespondsToSituation.error,
+      Emotions.Invariants.EmotionCorrespondsToSituation.error,
     );
 
     expect(entry.pullEvents()).toEqual([]);
   });
 
-  test("reappraiseEmotion - Policies.EmotionForReappraisalExists", async () => {
+  test("reappraiseEmotion - Invariants.EmotionForReappraisalExists", async () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent]);
 
     expect(() => entry.reappraiseEmotion(newEmotion, mocks.userId)).toThrow(
-      Emotions.Policies.EmotionForReappraisalExists.error,
+      Emotions.Invariants.EmotionForReappraisalExists.error,
     );
 
     expect(entry.pullEvents()).toEqual([]);
@@ -112,34 +112,34 @@ describe("entry", () => {
     expect(entry.pullEvents()).toEqual([mocks.GenericReactionEvaluatedEvent]);
   });
 
-  test("evaluateReaction - Policies.ReactionCorrespondsToSituationAndEmotion - missing situation and emotion", async () => {
+  test("evaluateReaction - Invariants.ReactionCorrespondsToSituationAndEmotion - missing situation and emotion", async () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, []);
 
     expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
-      Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.error,
+      Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.error,
     );
 
     expect(entry.pullEvents()).toEqual([]);
   });
 
-  test("evaluateReaction - Policies.ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
+  test("evaluateReaction - Invariants.ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent]);
 
     expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
-      Emotions.Policies.ReactionCorrespondsToSituationAndEmotion.error,
+      Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.error,
     );
 
     expect(entry.pullEvents()).toEqual([]);
   });
 
-  test("evaluateReaction - Policies.ReactionForEvaluationExists - missing emotion", async () => {
+  test("evaluateReaction - Invariants.ReactionForEvaluationExists - missing emotion", async () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
 
     expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
-      Emotions.Policies.ReactionForEvaluationExists.error,
+      Emotions.Invariants.ReactionForEvaluationExists.error,
     );
 
     expect(entry.pullEvents()).toEqual([]);
@@ -179,7 +179,7 @@ describe("entry", () => {
   test("delete - EntryHasBenStarted", async () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, []);
 
-    expect(() => entry.delete(mocks.userId)).toThrow(Emotions.Policies.EntryHasBenStarted.error);
+    expect(() => entry.delete(mocks.userId)).toThrow(Emotions.Invariants.EntryHasBenStarted.error);
 
     expect(entry.pullEvents()).toEqual([]);
   });

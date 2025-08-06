@@ -118,7 +118,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.EntryIsActionable);
+    await testcases.assertInvariantError(response, Emotions.Invariants.EntryIsActionable);
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
@@ -141,7 +141,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.ReactionCorrespondsToSituationAndEmotion);
+    await testcases.assertInvariantError(response, Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion);
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
@@ -164,7 +164,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.ReactionCorrespondsToSituationAndEmotion);
+    await testcases.assertInvariantError(response, Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion);
   });
 
   test("validation - ReactionForEvaluationExists", async () => {
@@ -190,7 +190,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.ReactionForEvaluationExists);
+    await testcases.assertInvariantError(response, Emotions.Invariants.ReactionForEvaluationExists);
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
@@ -217,7 +217,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    await testcases.assertPolicyError(response, Emotions.Policies.RequesterOwnsEntry);
+    await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsEntry);
   });
 
   test("happy path", async () => {

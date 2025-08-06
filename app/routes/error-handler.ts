@@ -19,7 +19,7 @@ const validationErrors = [
   Publishing.VO.PublicationSpecificationErrors.invalid,
 ];
 
-const policies = Object.values({ ...Emotions.Policies, ...Publishing.Policies });
+const invariants = Object.values({ ...Emotions.Invariants, ...Publishing.Invariants });
 
 export class ErrorHandler {
   static handle: hono.ErrorHandler = async (error, c) => {
@@ -84,16 +84,16 @@ export class ErrorHandler {
       return c.json({ message: "payload.invalid.error", _known: true }, 400);
     }
 
-    const policyErrorHandler = new bg.PolicyErrorHandler(policies).detect(error);
+    const invariantErrorHandler = new bg.PolicyErrorHandler(invariants).detect(error);
 
-    if (policyErrorHandler.error) {
+    if (invariantErrorHandler.error) {
       logger.error({
         message: "Domain error",
-        operation: policyErrorHandler.error.message,
+        operation: invariantErrorHandler.error.message,
         correlationId,
       });
 
-      return c.json(...bg.PolicyErrorHandler.respond(policyErrorHandler.error));
+      return c.json(...bg.PolicyErrorHandler.respond(invariantErrorHandler.error));
     }
 
     logger.error({
