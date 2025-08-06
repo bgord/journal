@@ -141,7 +141,10 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion);
+    await testcases.assertInvariantError(
+      response,
+      Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion,
+    );
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
@@ -164,7 +167,10 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion);
+    await testcases.assertInvariantError(
+      response,
+      Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion,
+    );
   });
 
   test("validation - ReactionForEvaluationExists", async () => {

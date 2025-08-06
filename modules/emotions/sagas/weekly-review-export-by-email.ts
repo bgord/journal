@@ -14,9 +14,7 @@ export class WeeklyReviewExportByEmail {
     private readonly eventBus: typeof EventBus,
     private readonly mailer: bg.MailerPort,
     private readonly pdfGenerator: Ports.PdfGeneratorPort,
-  ) {}
-
-  register() {
+  ) {
     this.eventBus.on(
       Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
       this.onWeeklyReviewExportByEmailRequestedEvent.bind(this),

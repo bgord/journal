@@ -7,9 +7,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
 export class EntryAlarmDetector {
-  constructor(private readonly eventBus: typeof EventBus) {}
-
-  register() {
+  constructor(private readonly eventBus: typeof EventBus) {
     this.eventBus.on(Events.EMOTION_LOGGED_EVENT, this.detect.bind(this));
     this.eventBus.on(Events.EMOTION_REAPPRAISED_EVENT, this.detect.bind(this));
   }

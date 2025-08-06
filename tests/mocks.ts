@@ -1,9 +1,9 @@
 // cspell:disable
 import { expect } from "bun:test";
 import * as tools from "@bgord/tools";
+import * as App from "../app";
 import { SupportedLanguages } from "../infra/i18n";
 import type * as Schema from "../infra/schema";
-
 import * as Emotions from "../modules/emotions";
 import * as Publishing from "../modules/publishing";
 
@@ -72,6 +72,8 @@ export const publicationSpecification = "entries";
 export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Timestamp.parse(1000));
 
 export const duration = tools.Time.Seconds(1);
+
+export const hourHasPassedTimestamp = tools.Timestamp.parse(Date.now());
 
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
@@ -432,6 +434,36 @@ export const GenericShareableLinkRevokedEvent = {
   version: 1,
   payload: { shareableLinkId },
 } satisfies Publishing.Events.ShareableLinkRevokedEventType;
+
+export const GenericHourHasPassedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: "passage_of_time",
+  name: "HOUR_HAS_PASSED_EVENT",
+  version: 1,
+  payload: { timestamp: hourHasPassedTimestamp },
+} satisfies App.Events.HourHasPassedEventType;
+
+export const GenericHourHasPassedMondayUtc18Event = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: "passage_of_time",
+  name: "HOUR_HAS_PASSED_EVENT",
+  version: 1,
+  payload: { timestamp: tools.Timestamp.parse(1754330400000) },
+} satisfies App.Events.HourHasPassedEventType;
+
+export const GenericHourHasPassedWednesdayUtc18Event = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: "passage_of_time",
+  name: "HOUR_HAS_PASSED_EVENT",
+  version: 1,
+  payload: { timestamp: tools.Timestamp.parse(1754503200000) },
+} satisfies App.Events.HourHasPassedEventType;
 
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,

@@ -1,3 +1,4 @@
+import type { HourHasPassedEvent } from "+app/events";
 import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
 import type {
   WeeklyReviewExportByEmailFailedEvent,
@@ -20,7 +21,8 @@ export type AcceptedEvent =
   | WeeklyReviewEvent
   | typeof WeeklyReviewExportByEmailRequestedEvent
   | typeof WeeklyReviewExportByEmailFailedEvent
-  | ShareableLinkEvent;
+  | ShareableLinkEvent
+  | typeof HourHasPassedEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {

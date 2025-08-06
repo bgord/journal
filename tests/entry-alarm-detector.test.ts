@@ -12,7 +12,7 @@ describe("EntryAlarmDetector", () => {
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
+    const saga = new Emotions.Policies.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
@@ -27,7 +27,7 @@ describe("EntryAlarmDetector", () => {
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
+    const saga = new Emotions.Policies.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
@@ -43,7 +43,7 @@ describe("EntryAlarmDetector", () => {
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(2);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
+    const saga = new Emotions.Policies.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent)).toThrow(
@@ -59,7 +59,7 @@ describe("EntryAlarmDetector", () => {
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
+    const saga = new Emotions.Policies.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
@@ -75,7 +75,7 @@ describe("EntryAlarmDetector", () => {
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
+    const saga = new Emotions.Policies.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent)).toThrow(
@@ -91,7 +91,7 @@ describe("EntryAlarmDetector", () => {
     spyOn(Emotions.Queries.CountAlarmsForEntry, "execute").mockResolvedValue(2);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.EntryAlarmDetector(EventBus);
+    const saga = new Emotions.Policies.EntryAlarmDetector(EventBus);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => saga.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent)).toThrow(

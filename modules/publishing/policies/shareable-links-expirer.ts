@@ -1,15 +1,17 @@
+import * as Events from "+app/events";
 import { CommandBus } from "+infra/command-bus";
+import type { EventBus } from "+infra/event-bus";
 import * as Commands from "+publishing/commands";
 import * as Repos from "+publishing/repositories";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
 export class ShareableLinksExpirer {
-  static cron = bg.Jobs.SCHEDULES.EVERY_HOUR;
+  constructor(private readonly eventBus: typeof EventBus) {
+    this.eventBus.on(Events.HOUR_HAS_PASSED_EVENT, this.onHourHasPassed.bind(this));
+  }
 
-  static label = "ShareableLinksExpirer";
-
-  static async process() {
+  async onHourHasPassed(_event: Events.HourHasPassedEventType) {
     try {
       const shareableLinks = await Repos.ShareableLinkRepository.listNearExpiration();
 

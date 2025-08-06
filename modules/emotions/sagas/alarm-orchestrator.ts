@@ -16,9 +16,7 @@ export class AlarmOrchestrator {
     private readonly eventBus: typeof EventBus,
     private readonly AiClient: Ports.AiClientPort,
     private readonly mailer: bg.MailerPort,
-  ) {}
-
-  register() {
+  ) {
     this.eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
     this.eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
     this.eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent.bind(this));
