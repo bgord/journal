@@ -115,6 +115,7 @@ export class ShareableLink {
 
   summarize() {
     return {
+      ownerId: this.ownerId as Auth.VO.UserIdType,
       dateRange: this.dateRange as tools.DateRange,
       publicationSpecification: this.publicationSpecification as VO.PublicationSpecificationType,
     };
