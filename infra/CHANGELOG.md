@@ -1,12 +1,30 @@
 # Changelog
+- 2025-08-07 22:34 cb84b47 **step: add shared entries page**
+## 2025-08-07 22:34 
+- 2025-08-07 22:24 69b3dfb **step: add shared entries page**
+- 2025-08-07 22:12 5d5dab2 **step: check specification**
+- 2025-08-07 22:05 a957112 **step: return shared entries**
+- 2025-08-07 22:03 14254a4 **step: expose owner id from ohq**
+- 2025-08-07 21:52 cda65b7 **refactor: remove requester id in validity**
+- 2025-08-07 21:50 178256c **step: setup tests**
+- 2025-08-07 21:41 b5991fe **refactor: make ohq a class**
+- 2025-08-07 21:34 e2f0910 **step: add ohq details**
+- 2025-08-07 21:33 f71aff6 **step: expose summarize() aggregate method so it is readable in ohq**
+- 2025-08-07 21:25 7f63ce2 **refactor: make ohq richer so one aggregate-hop is needed in the final endpoint**
+- 2025-08-06 23:44 0e4ba4e **step: add requester id check**
+- 2025-08-06 23:18 352d889 **step: add ohq**
+- 2025-08-06 23:14 84c20b3 **step: add is valid to shareable link**
+- 2025-08-06 22:18 5cfeaa2 **step: add limit for the alarms**
+- 2025-08-06 22:17 6115e3d **fix: seeder**
 - 2025-08-06 22:12 ea147c1 **Merge pull request #25 from bgord/passage_of_time**
-## 2025-08-06 22:12 
 - 2025-08-06 22:09 d1e7539 **step: update packages**
 - 2025-08-06 21:53 934c48d **step: add InactivityAlarmSchedule**
 - 2025-08-06 21:47 4264486 **step: add weekly review schedule**
 - 2025-08-06 21:31 094fa38 **step: bump bgord/scripts**
 - 2025-08-06 21:25 d1964f1 **refactor: make EntryAlarmDetector a policy**
 - 2025-08-06 21:22 3a47086 **refactor: remove saga register**
+- 2025-08-06 20:12 fdf2f1e **docs: generate readme**
+- 2025-08-06 20:12 d785d19 **docs: generate CHANGELOG**
 - 2025-08-06 18:02 2fed9a5 **refactor: weekly review scheduler**
 - 2025-08-06 17:57 7cf9d02 **refactor: remove scheduler**
 - 2025-08-06 17:56 2295cfa **step: define inactivity alarm scheduler policy**
