@@ -164,6 +164,7 @@ modules/
 │   │   ├── evaluate-reaction.ts
 │   │   ├── export-entries.ts
 │   │   ├── export-weekly-review-by-email.ts
+│   │   ├── get-shared-entries.ts
 │   │   ├── log-entry.ts
 │   │   └── reappraise-emotion.ts
 │   ├── sagas
@@ -249,6 +250,8 @@ modules/
     │   ├── shareable-link-expiration-time-passed.ts
     │   ├── shareable-link-is-active.ts
     │   └── shareable-links-per-owner-limit.ts
+    ├── open-host-queries
+    │   └── shareable-link-access.ts
     ├── policies
     │   └── shareable-links-expirer.ts
     ├── queries
