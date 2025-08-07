@@ -1,13 +1,24 @@
 import * as UI from "@bgord/ui";
-import type { SelectEntriesWithAlarms } from "../../../infra/schema";
+import type { SelectEntriesFullWithAlarms } from "../../../infra/schema";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import * as Components from "../../components";
 import type { Route } from "./+types/shared-entries";
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const result = await API(`/shared/entries/${params.shareableLinkId}`, { method: "GET" });
-  return (await result.json()) as (Omit<SelectEntriesWithAlarms, "startedAt"> & { startedAt: string })[];
+  try {
+    const result = await API(`/shared/entries/${params.shareableLinkId}`, {
+      method: "GET",
+    });
+
+    if (!result.ok) return [];
+
+    const entries = await result.json();
+
+    return entries as SelectEntriesFullWithAlarms[];
+  } catch (error) {
+    return [];
+  }
 }
 
 export default function SharedEntries({ loaderData }: Route.ComponentProps) {

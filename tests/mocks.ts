@@ -610,6 +610,7 @@ export const shareableLink: Schema.SelectShareableLinks = {
   dateRangeEnd: Date.now(),
   durationMs: Date.now(),
   expiresAt: Date.now(),
+  hidden: false,
 };
 
 export const user = {

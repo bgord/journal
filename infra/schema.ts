@@ -290,6 +290,10 @@ export type SelectEntries = typeof entries.$inferSelect;
 export type SelectEntriesFormatted = Omit<SelectEntries, "startedAt"> & { startedAt: string };
 export type SelectEntriesWithAlarms = SelectEntries & { alarms: SelectAlarms[] };
 export type SelectEntriesFull = Omit<SelectEntriesWithAlarms, "startedAt"> & { startedAt: string };
+/** @public */
+export type SelectEntriesFullWithAlarms = Omit<SelectEntriesWithAlarms, "startedAt"> & {
+  startedAt: string;
+} & { alarms: SelectAlarms[] };
 export type SelectAlarms = typeof alarms.$inferSelect;
 export type SelectPatternDetections = typeof patternDetections.$inferSelect;
 export type SelectWeeklyReviews = typeof weeklyReviews.$inferSelect;
