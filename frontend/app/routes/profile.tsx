@@ -34,6 +34,11 @@ export async function action({ request }: Route.ActionArgs) {
     return { ok: true };
   }
 
+  if (intent === "shareable_link_hide") {
+    await ReadModel.hideShareableLink(String(form.get("shareableLinkId")));
+    return { ok: true };
+  }
+
   if (intent === "shareable_link_create") {
     await API("/publishing/link/create", {
       method: "POST",
@@ -168,6 +173,18 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                       <input name="intent" type="hidden" value="shareable_link_revoke" />
                       <button type="submit" className="c-button" data-variant="secondary">
                         {t("profile.shareable_links.revoke.cta")}
+                      </button>
+                    </RR.Form>
+                  </div>
+                )}
+
+                {["revoked", "expired"].includes(link.status) && (
+                  <div data-stack="x" data-gap="3" data-ml="auto">
+                    <RR.Form method="POST" action=".">
+                      <input name="shareableLinkId" type="hidden" value={link.id} />
+                      <input name="intent" type="hidden" value="shareable_link_hide" />
+                      <button type="submit" className="c-button" data-variant="secondary">
+                        {t("profile.shareable_links.hide.cta")}
                       </button>
                     </RR.Form>
                   </div>
