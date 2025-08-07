@@ -58,6 +58,9 @@ entry.get(
 server.route("/entry", entry);
 // =============================
 
+// Shared ======================
+server.get("/shared/entries/:shareableLinkId", Emotions.Routes.GetSharedEntries);
+
 // Weekly review ===============
 const weeklyReview = new Hono();
 
