@@ -10,7 +10,7 @@ export async function GetSharedEntries(c: hono.Context<infra.HonoConfig>, _next:
 
   if (!shareableLinkAccess.valid) return c.json({ _known: true, message: "shareable_link_invalid" }, 403);
 
-  const entries = Emotions.Repos.EntryRepository.listShared(shareableLinkAccess);
+  const entries = await Emotions.Repos.EntryRepository.listShared(shareableLinkAccess);
 
   return c.json(entries);
 }

@@ -154,7 +154,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
 
                 {link.status === "active" && (
                   <div data-stack="x" data-gap="4">
-                    <Components.CopyButton text={`https://localhost:5173/${link.id}`} />
+                    <Components.CopyButton text={`http://localhost:5173/shared-entries/${link.id}`} />
 
                     <RR.Form method="POST" action=".">
                       <input name="id" type="hidden" value={link.id} />

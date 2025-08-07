@@ -29,7 +29,7 @@ export class EntryRepository {
   }
 
   static async listShared(access: ShareableLinkAccessValidType) {
-    return db.query.entries.findMany({
+    const result = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
       where: and(
         gte(Schema.entries.startedAt, access.details.dateRange.getStart()),
@@ -38,6 +38,8 @@ export class EntryRepository {
       ),
       with: { alarms: true },
     });
+
+    return result.map(EntryRepository.formatFull);
   }
 
   static async findInWeekForUser(
