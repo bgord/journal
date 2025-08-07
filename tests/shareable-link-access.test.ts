@@ -7,13 +7,15 @@ describe("ShareableLinkAccess", () => {
   test("true", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
 
-    expect((await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId)).valid).toEqual(true);
+    expect((await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).valid).toEqual(
+      true,
+    );
   });
 
   test("false - not found", async () => {
     spyOn(EventStore, "find").mockResolvedValue([]);
 
-    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId)).toEqual({
+    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).toEqual({
       valid: false,
     });
   });
@@ -24,7 +26,7 @@ describe("ShareableLinkAccess", () => {
       mocks.GenericShareableLinkExpiredEvent,
     ]);
 
-    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId)).toEqual({
+    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).toEqual({
       valid: false,
     });
   });
@@ -35,7 +37,18 @@ describe("ShareableLinkAccess", () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
 
-    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId)).toEqual({
+    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).toEqual({
+      valid: false,
+    });
+  });
+
+  test("isValid - false - specification", async () => {
+    spyOn(EventStore, "find").mockResolvedValue([
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkRevokedEvent,
+    ]);
+
+    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "other")).toEqual({
       valid: false,
     });
   });

@@ -109,8 +109,11 @@ export class ShareableLink {
     this.record(event);
   }
 
-  isValid(): boolean {
-    return Invariants.ShareableLinkIsActive.passes({ status: this.status });
+  isValid(publicationSpecification: VO.PublicationSpecificationType): boolean {
+    return (
+      Invariants.ShareableLinkIsActive.passes({ status: this.status }) &&
+      publicationSpecification === this.publicationSpecification
+    );
   }
 
   summarize() {

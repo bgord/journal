@@ -20,6 +20,7 @@ export type ShareableLinkAccessInvalidType = {
 export class ShareableLinkAccess {
   static async check(
     id: VO.ShareableLinkIdType,
+    publicationSpecification: VO.PublicationSpecificationType,
   ): Promise<ShareableLinkAccessValidType | ShareableLinkAccessInvalidType> {
     const history = await EventStore.find(
       Aggregates.ShareableLink.events,
@@ -30,7 +31,7 @@ export class ShareableLinkAccess {
 
     const shareableLink = Aggregates.ShareableLink.build(id, history);
 
-    const valid = shareableLink.isValid();
+    const valid = shareableLink.isValid(publicationSpecification);
 
     if (!valid) return { valid: false };
 

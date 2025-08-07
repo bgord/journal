@@ -119,7 +119,7 @@ describe("Publishing", () => {
       mocks.GenericShareableLinkCreatedEvent,
     ]);
 
-    expect(shareableLink.isValid()).toEqual(true);
+    expect(shareableLink.isValid("entries")).toEqual(true);
   });
 
   test("isValid - false - expired", async () => {
@@ -128,7 +128,7 @@ describe("Publishing", () => {
       mocks.GenericShareableLinkExpiredEvent,
     ]);
 
-    expect(shareableLink.isValid()).toEqual(false);
+    expect(shareableLink.isValid("entries")).toEqual(false);
   });
 
   test("isValid - false - revoked", async () => {
@@ -137,6 +137,15 @@ describe("Publishing", () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
 
-    expect(shareableLink.isValid()).toEqual(false);
+    expect(shareableLink.isValid("entries")).toEqual(false);
+  });
+
+  test("isValid - false - specification", async () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+      mocks.GenericShareableLinkRevokedEvent,
+    ]);
+
+    expect(shareableLink.isValid("other")).toEqual(false);
   });
 });
