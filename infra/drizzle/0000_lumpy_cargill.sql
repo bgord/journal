@@ -99,6 +99,7 @@ CREATE TABLE `shareableLinks` (
 	`dateRangeEnd` integer NOT NULL,
 	`durationMs` integer NOT NULL,
 	`expiresAt` integer NOT NULL,
+	`hidden` integer DEFAULT false,
 	FOREIGN KEY (`ownerId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint

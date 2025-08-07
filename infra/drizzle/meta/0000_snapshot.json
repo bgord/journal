@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "be2ef7e1-84da-4752-b81d-a6d953337a39",
+  "id": "f339cfe5-af8a-40fd-afbc-ac53dd74fa2e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -657,6 +657,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "hidden": {
+          "name": "hidden",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
         }
       },
       "indexes": {},
