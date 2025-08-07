@@ -22,6 +22,8 @@ export class ShareableLink {
   private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.active;
   private createdAt?: tools.TimestampType;
   private duration?: tools.TimeResult;
+  private dateRange?: tools.DateRange;
+  private publicationSpecification?: VO.PublicationSpecificationType;
 
   private readonly pending: ShareableLinkEventType[] = [];
 
@@ -114,6 +116,13 @@ export class ShareableLink {
     );
   }
 
+  summarize() {
+    return {
+      dateRange: this.dateRange as tools.DateRange,
+      publicationSpecification: this.publicationSpecification as VO.PublicationSpecificationType,
+    };
+  }
+
   pullEvents(): ShareableLinkEventType[] {
     const events = [...this.pending];
 
@@ -135,6 +144,8 @@ export class ShareableLink {
         this.createdAt = tools.Timestamp.parse(event.payload.createdAt);
         this.ownerId = event.payload.ownerId;
         this.status = VO.ShareableLinkStatusEnum.active;
+        this.dateRange = new tools.DateRange(event.payload.dateRangeStart, event.payload.dateRangeEnd);
+        this.publicationSpecification = event.payload.publicationSpecification;
         break;
       }
 
