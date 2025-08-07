@@ -1,4 +1,3 @@
-import * as Auth from "+auth";
 import { EventStore } from "+infra/event-store";
 import * as Aggregates from "+publishing/aggregates";
 import * as VO from "+publishing/value-objects";
@@ -16,7 +15,6 @@ export type ShareableLinkAccessInvalidType = {
 export class ShareableLinkAccess {
   static async check(
     id: VO.ShareableLinkIdType,
-    requesterId: Auth.VO.UserIdType,
   ): Promise<ShareableLinkAccessValidType | ShareableLinkAccessInvalidType> {
     const history = await EventStore.find(
       Aggregates.ShareableLink.events,
@@ -27,7 +25,7 @@ export class ShareableLinkAccess {
 
     const shareableLink = Aggregates.ShareableLink.build(id, history);
 
-    const valid = shareableLink.isValid(requesterId);
+    const valid = shareableLink.isValid();
 
     if (!valid) return { valid: false };
 
