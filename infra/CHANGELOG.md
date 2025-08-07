@@ -1,6 +1,14 @@
 # Changelog
+- 2025-08-07 23:23 4105945 **step: update packages**
+## 2025-08-07 23:23 
+- 2025-08-07 23:19 8e4a5d0 **step: handle errors**
+- 2025-08-07 23:13 6d77484 **step: handle empty shared entries**
+- 2025-08-07 23:10 40ebf17 **feature: implement hide shareable links**
+- 2025-08-07 23:09 6d40992 **step: add hide shareable link read model method**
+- 2025-08-07 22:59 727485b **step: add shareablelinks hidden field to query**
+- 2025-08-07 22:59 25e5fe7 **step: rerun projections**
+- 2025-08-07 22:58 3834d3a **step: add shareableLinks hidden field**
 - 2025-08-07 22:34 cb84b47 **step: add shared entries page**
-## 2025-08-07 22:34 
 - 2025-08-07 22:24 69b3dfb **step: add shared entries page**
 - 2025-08-07 22:12 5d5dab2 **step: check specification**
 - 2025-08-07 22:05 a957112 **step: return shared entries**
@@ -11,6 +19,8 @@
 - 2025-08-07 21:34 e2f0910 **step: add ohq details**
 - 2025-08-07 21:33 f71aff6 **step: expose summarize() aggregate method so it is readable in ohq**
 - 2025-08-07 21:25 7f63ce2 **refactor: make ohq richer so one aggregate-hop is needed in the final endpoint**
+- 2025-08-07 20:58 d912ebc **docs: generate CHANGELOG**
+- 2025-08-07 20:58 3068718 **docs: generate readme**
 - 2025-08-06 23:44 0e4ba4e **step: add requester id check**
 - 2025-08-06 23:18 352d889 **step: add ohq**
 - 2025-08-06 23:14 84c20b3 **step: add is valid to shareable link**
