@@ -198,6 +198,7 @@ export const shareableLinks = sqliteTable("shareableLinks", {
   dateRangeEnd: integer("dateRangeEnd").notNull(),
   durationMs: integer("durationMs").notNull(),
   expiresAt: integer("expiresAt").notNull(),
+  hidden: integer("hidden", { mode: "boolean" }).default(false),
 });
 
 /** @public */
