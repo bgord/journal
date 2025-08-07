@@ -3,19 +3,19 @@ import { EventStore } from "../infra/event-store";
 import * as Publishing from "../modules/publishing";
 import * as mocks from "./mocks";
 
-describe("isShareableLinkValid", () => {
+describe("ShareableLinkAccess", () => {
   test("true", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
 
-    expect((await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).valid).toEqual(
-      true,
-    );
+    expect(
+      (await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, mocks.userId)).valid,
+    ).toEqual(true);
   });
 
   test("false - not found", async () => {
     spyOn(EventStore, "find").mockResolvedValue([]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual({
+    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, mocks.userId)).toEqual({
       valid: false,
     });
   });
@@ -26,7 +26,7 @@ describe("isShareableLinkValid", () => {
       mocks.GenericShareableLinkExpiredEvent,
     ]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual({
+    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, mocks.userId)).toEqual({
       valid: false,
     });
   });
@@ -37,7 +37,7 @@ describe("isShareableLinkValid", () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual({
+    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, mocks.userId)).toEqual({
       valid: false,
     });
   });
@@ -48,7 +48,9 @@ describe("isShareableLinkValid", () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.anotherUserId)).toEqual({
+    expect(
+      await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, mocks.anotherUserId),
+    ).toEqual({
       valid: false,
     });
   });

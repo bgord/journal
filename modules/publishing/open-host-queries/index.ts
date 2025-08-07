@@ -1,1 +1,1 @@
-export * from "./is-shareable-link-valid";
+export * from "./shareable-link-access";
