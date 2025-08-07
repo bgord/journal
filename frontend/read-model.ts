@@ -218,4 +218,8 @@ export class ReadModel {
   static formatFull(entry: Schema.SelectEntriesWithAlarms) {
     return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
   }
+
+  static async hideShareableLink(linkId: Schema.SelectShareableLinks["id"]) {
+    await db.update(Schema.shareableLinks).set({ hidden: true }).where(eq(Schema.shareableLinks.id, linkId));
+  }
 }

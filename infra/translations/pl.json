@@ -153,6 +153,7 @@
   "profile.shareable_links.expires_at": "wygaśnie {{date}}",
   "profile.shareable_links.header": "Udostępnione linki",
   "profile.shareable_links.revoke.cta": "wygaś",
+  "profile.shareable_links.hide.cta": "Ukryj",
   "profile.shareable_links.revoked_at": "wycofany {{date}}",
   "profile.shareable_links.specification.entries.value": "Wpisy z okresu",
   "profile.shareable_links.status.active.value": "aktywny",

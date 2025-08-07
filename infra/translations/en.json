@@ -153,6 +153,7 @@
   "profile.shareable_links.expires_at": "expires at {{date}}",
   "profile.shareable_links.header": "Shareable links",
   "profile.shareable_links.revoke.cta": "revoke",
+  "profile.shareable_links.hide.cta": "Hide",
   "profile.shareable_links.revoked_at": "revoked at {{date}}",
   "profile.shareable_links.specification.entries.value": "Entries from date range",
   "profile.shareable_links.status.active.value": "active",
