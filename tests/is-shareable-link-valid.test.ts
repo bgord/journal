@@ -7,13 +7,17 @@ describe("isShareableLinkValid", () => {
   test("true", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual(true);
+    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual({
+      valid: true,
+    });
   });
 
   test("false - not found", async () => {
     spyOn(EventStore, "find").mockResolvedValue([]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual(false);
+    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual({
+      valid: false,
+    });
   });
 
   test("isValid - false - expired", async () => {
@@ -22,7 +26,9 @@ describe("isShareableLinkValid", () => {
       mocks.GenericShareableLinkExpiredEvent,
     ]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual(false);
+    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual({
+      valid: false,
+    });
   });
 
   test("isValid - false - revoked", async () => {
@@ -31,7 +37,9 @@ describe("isShareableLinkValid", () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual(false);
+    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual({
+      valid: false,
+    });
   });
 
   test("isValid - false - requesterId", async () => {
@@ -40,8 +48,8 @@ describe("isShareableLinkValid", () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.anotherUserId)).toEqual(
-      false,
-    );
+    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.anotherUserId)).toEqual({
+      valid: false,
+    });
   });
 });
