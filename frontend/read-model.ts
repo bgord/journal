@@ -172,7 +172,7 @@ export class ReadModel {
     const links = await db
       .select()
       .from(Schema.shareableLinks)
-      .where(eq(Schema.shareableLinks.ownerId, userId))
+      .where(and(eq(Schema.shareableLinks.ownerId, userId), eq(Schema.shareableLinks.hidden, false)))
       .orderBy(
         // ① "active" first
         sql`CASE ${Schema.shareableLinks.status}
