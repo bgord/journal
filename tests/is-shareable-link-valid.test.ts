@@ -7,9 +7,9 @@ describe("isShareableLinkValid", () => {
   test("true", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
 
-    expect(await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).toEqual({
-      valid: true,
-    });
+    expect((await Publishing.OHQ.isShareableLinkValid(mocks.shareableLinkId, mocks.userId)).valid).toEqual(
+      true,
+    );
   });
 
   test("false - not found", async () => {

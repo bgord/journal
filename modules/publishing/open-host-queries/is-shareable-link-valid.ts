@@ -2,9 +2,11 @@ import * as Auth from "+auth";
 import { EventStore } from "+infra/event-store";
 import * as Aggregates from "+publishing/aggregates";
 import * as VO from "+publishing/value-objects";
+import * as tools from "@bgord/tools";
 
 type ShareableLinkValidType = {
   valid: true;
+  details: { publicationSpecification: VO.PublicationSpecificationType; dateRange: tools.DateRange };
 };
 
 type ShareableLinkInvalidType = {
@@ -22,7 +24,11 @@ export async function isShareableLinkValid(
 
   if (!history.length) return { valid: false };
 
-  const valid = Aggregates.ShareableLink.build(id, history).isValid(requesterId);
+  const shareableLink = Aggregates.ShareableLink.build(id, history);
 
-  return { valid };
+  const valid = shareableLink.isValid(requesterId);
+
+  if (!valid) return { valid: false };
+
+  return { valid: true, details: shareableLink.summarize() };
 }
