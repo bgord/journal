@@ -9,7 +9,6 @@ export function CopyButton(props: { text: string }) {
     <button
       type="button"
       className="c-button"
-      data-ml="auto"
       onClick={() => {
         if (state === "initial") {
           UI.copyToClipboard({ text: props.text });

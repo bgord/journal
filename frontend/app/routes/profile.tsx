@@ -153,7 +153,13 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                 )}
 
                 {link.status === "active" && (
-                  <div data-stack="x" data-gap="4">
+                  <div data-stack="x" data-gap="3" data-ml="auto">
+                    <RR.Link to={`/shared-entries/${link.id}`} target="_blank">
+                      <button type="button" className="c-button" data-variant="bare">
+                        <Icons.OpenInWindow data-size="md" />
+                      </button>
+                    </RR.Link>
+
                     <Components.CopyButton text={`http://localhost:5173/shared-entries/${link.id}`} />
 
                     <RR.Form method="POST" action=".">

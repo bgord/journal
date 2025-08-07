@@ -12,5 +12,6 @@ export * from "./language-selector";
 export * from "./logo";
 export * from "./logout-button";
 export * from "./rating-pills";
+export * from "./read-only-entry";
 export * from "./select";
 export * from "./separator";
