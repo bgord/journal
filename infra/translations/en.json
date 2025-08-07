@@ -171,5 +171,6 @@
   "profile.shareable_links.create.specification.entries.value": "Entries",
   "profile.shareable_links.create.specification.legend": "Only the selected resource type will be accessible",
   "profile.shareable_links.create.date_range.label": "Date range",
-  "profile.shareable_links.create.date_range.error": "Invalid date range"
+  "profile.shareable_links.create.date_range.error": "Invalid date range",
+  "shared_entries.list.empty": "No entries matching this link"
 }
