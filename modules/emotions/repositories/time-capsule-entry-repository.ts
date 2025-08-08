@@ -16,6 +16,10 @@ export class TimeCapsuleEntryRepository {
     });
   }
 
+  static async getById(entryId: VO.EntryIdType) {
+    return db.query.timeCapsuleEntries.findFirst({ where: eq(Schema.timeCapsuleEntries.id, entryId) });
+  }
+
   static async create(event: Events.TimeCapsuleEntryScheduledEventType) {
     await db.insert(Schema.timeCapsuleEntries).values({
       id: event.payload.entryId,
