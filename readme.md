@@ -63,6 +63,7 @@ modules/
 │   │   ├── handleReappraiseEmotionCommand.ts
 │   │   ├── handleRequestWeeklyReviewCommand.ts
 │   │   ├── handleSaveAlarmAdviceCommand.ts
+│   │   ├── handleScheduleTimeCapsuleEntryCommand.ts
 │   │   ├── handleSendAlarmNotificationCommand.ts
 │   ├── commands
 │   │   ├── CANCEL_ALARM_COMMAND.ts
@@ -77,6 +78,7 @@ modules/
 │   │   ├── REAPPRAISE_EMOTION_COMMAND.ts
 │   │   ├── REQUEST_WEEKLY_REVIEW_COMMAND.ts
 │   │   ├── SAVE_ALARM_ADVICE_COMMAND.ts
+│   │   ├── SCHEDULE_TIME_CAPSULE_ENTRY.ts
 │   │   ├── SEND_ALARM_NOTIFICATION_COMMAND.ts
 │   ├── entities
 │   │   ├── emotion.ts
@@ -94,6 +96,7 @@ modules/
 │   │   ├── onReactionEvaluatedEvent.ts
 │   │   ├── onReactionLoggedEvent.ts
 │   │   ├── onSituationLoggedEvent.ts
+│   │   ├── onTimeCapsuleEntryScheduledEvent.ts
 │   │   ├── onWeeklyReviewCompletedEvent.ts
 │   │   ├── onWeeklyReviewFailedEvent.ts
 │   │   ├── onWeeklyReviewRequestedEvent.ts
@@ -113,6 +116,7 @@ modules/
 │   │   ├── REACTION_EVALUATED_EVENT.ts
 │   │   ├── REACTION_LOGGED_EVENT.ts
 │   │   ├── SITUATION_LOGGED_EVENT.ts
+│   │   ├── TIME_CAPSULE_ENTRY_SCHEDULED_EVENT.ts
 │   │   ├── WEEKLY_REVIEW_COMPLETED_EVENT.ts
 │   │   ├── WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED.ts
 │   │   ├── WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED.ts
@@ -136,6 +140,8 @@ modules/
 │   │   ├── reaction-for-evaluation-exists.ts
 │   │   ├── requester-owns-entry.ts
 │   │   ├── requester-owns-weekly-review.ts
+│   │   ├── time-capsule-entry-is-publishable.ts
+│   │   ├── time-capsule-entry-scheduled-in-future.ts
 │   │   ├── weekly-review-completed-once.ts
 │   │   ├── weekly-review-exists.ts
 │   │   ├── weekly-review-is-completed.ts
@@ -143,6 +149,7 @@ modules/
 │   ├── policies
 │   │   ├── entry-alarm-detector.ts
 │   │   ├── inactivity-alarm-scheduler.ts
+│   │   ├── time-capsule-entries-scheduler.ts
 │   │   └── weekly-review-scheduler.ts
 │   ├── ports
 │   │   ├── ai-client.ts
@@ -157,6 +164,7 @@ modules/
 │   │   ├── alarm-repository.ts
 │   │   ├── entry-repository.ts
 │   │   ├── patterns-repository.ts
+│   │   ├── time-capsule-entry-repository.ts
 │   │   └── weekly-review-repository.ts
 │   ├── routes
 │   │   ├── delete-entry.ts
@@ -166,7 +174,8 @@ modules/
 │   │   ├── export-weekly-review-by-email.ts
 │   │   ├── get-shared-entries.ts
 │   │   ├── log-entry.ts
-│   │   └── reappraise-emotion.ts
+│   │   ├── reappraise-emotion.ts
+│   │   └── schedule-time-capsule-entry.ts
 │   ├── sagas
 │   │   ├── alarm-orchestrator.ts
 │   │   ├── weekly-review-export-by-email.ts
@@ -208,6 +217,8 @@ modules/
 │       ├── emotion-label.ts
 │       ├── entry-finished-at.ts
 │       ├── entry-id.ts
+│       ├── entry-origin-option.ts
+│       ├── entry-origin.ts
 │       ├── entry-started-at.ts
 │       ├── entry-status.ts
 │       ├── geneva-wheel-emotion.enum.ts
@@ -223,6 +234,7 @@ modules/
 │       ├── situation-kind-options.ts
 │       ├── situation-kind.ts
 │       ├── situation-location.ts
+│       ├── time-capsule-entry-status.ts
 │       ├── weekly-review-export-id.ts
 │       ├── weekly-review-id.ts
 │       └── weekly-review-status.ts
