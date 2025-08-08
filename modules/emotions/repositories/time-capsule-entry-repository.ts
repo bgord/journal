@@ -6,7 +6,7 @@ import * as tools from "@bgord/tools";
 import { and, eq, lte } from "drizzle-orm";
 
 export class TimeCapsuleEntryRepository {
-  static async listDueForScheduling(now: tools.TimestampType) {
+  static async listDueForPublishing(now: tools.TimestampType) {
     return db.query.timeCapsuleEntries.findMany({
       where: and(
         lte(Schema.timeCapsuleEntries.scheduledFor, now),

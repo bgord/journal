@@ -1,6 +1,7 @@
 import * as Events from "+app/events";
 import * as Commands from "+emotions/commands";
 import * as Entities from "+emotions/entities";
+import * as Invariants from "+emotions/invariants";
 import * as Repos from "+emotions/repositories";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
@@ -16,9 +17,18 @@ export class TimeCapsuleEntriesScheduler {
 
   async onHourHasPassed() {
     const now = tools.Timestamp.parse(Date.now());
-    const entries = await Repos.TimeCapsuleEntryRepository.listDueForScheduling(now);
+    const entries = await Repos.TimeCapsuleEntryRepository.listDueForPublishing(now);
 
     for (const entry of entries) {
+      if (
+        Invariants.TimeCapsuleEntryIsPublishable.fails({
+          status: entry.status,
+          now: tools.Timestamp.parse(Date.now()),
+          scheduledFor: tools.Timestamp.parse(entry.scheduledFor),
+        })
+      )
+        continue;
+
       const command = Commands.LogEntryCommand.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),

@@ -558,6 +558,11 @@ export const timeCapsuleEntry: Schema.SelectTimeCapsuleEntries = {
   userId,
 };
 
+export const timeCapsuleEntryPublished: Schema.SelectTimeCapsuleEntries = {
+  ...timeCapsuleEntry,
+  status: Emotions.VO.TimeCapsuleEntryStatusEnum.published,
+};
+
 export const fullEntryPl: Schema.SelectEntries = {
   ...fullEntry,
   language: SupportedLanguages.pl,
