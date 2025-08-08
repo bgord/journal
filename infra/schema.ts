@@ -80,6 +80,24 @@ export const entriesRelations = relations(entries, ({ one, many }) => ({
   }),
 }));
 
+export const timeCapsuleEntries = sqliteTable("timeCapsuleEntries", {
+  id,
+  scheduledAt: integer("scheduledAt").notNull(),
+  scheduledFor: integer("scheduledFor").notNull(),
+  situationDescription: text("situationDescription").notNull(),
+  situationLocation: text("situationLocation").notNull(),
+  situationKind: text("situationKind", toEnumList(SituationKindOptions)).notNull(),
+  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).notNull(),
+  emotionIntensity: integer("emotionIntensity").notNull(),
+  reactionDescription: text("reactionDescription").notNull(),
+  reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)).notNull(),
+  reactionEffectiveness: integer("reactionEffectiveness").notNull(),
+  language: text("language").notNull(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+});
+
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),

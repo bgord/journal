@@ -103,6 +103,23 @@ CREATE TABLE `shareableLinks` (
 	FOREIGN KEY (`ownerId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE TABLE `timeCapsuleEntries` (
+	`id` text(36) PRIMARY KEY NOT NULL,
+	`scheduledAt` integer NOT NULL,
+	`scheduledFor` integer NOT NULL,
+	`situationDescription` text NOT NULL,
+	`situationLocation` text NOT NULL,
+	`situationKind` text NOT NULL,
+	`emotionLabel` text NOT NULL,
+	`emotionIntensity` integer NOT NULL,
+	`reactionDescription` text NOT NULL,
+	`reactionType` text NOT NULL,
+	`reactionEffectiveness` integer NOT NULL,
+	`language` text NOT NULL,
+	`userId` text NOT NULL,
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
 CREATE TABLE `users` (
 	`id` text PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,
