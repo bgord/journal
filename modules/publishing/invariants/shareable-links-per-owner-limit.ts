@@ -13,7 +13,7 @@ type ShareableLinksPerOwnerLimitConfigType = Awaited<
   ReturnType<typeof CountActiveShareableLinksPerOwner.execute>
 >;
 
-class ShareableLinksPerOwnerLimitFactory extends bg.Policy<ShareableLinksPerOwnerLimitConfigType> {
+class ShareableLinksPerOwnerLimitFactory extends bg.Invariant<ShareableLinksPerOwnerLimitConfigType> {
   fails(config: ShareableLinksPerOwnerLimitConfigType) {
     return config.count >= 3;
   }

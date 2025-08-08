@@ -11,7 +11,7 @@ class ShareableLinkIsActiveError extends Error {
 
 type ShareableLinkIsActiveConfigType = { status?: VO.ShareableLinkStatusEnum };
 
-class ShareableLinkIsActiveFactory extends bg.Policy<ShareableLinkIsActiveConfigType> {
+class ShareableLinkIsActiveFactory extends bg.Invariant<ShareableLinkIsActiveConfigType> {
   fails(config: ShareableLinkIsActiveConfigType) {
     return config.status !== VO.ShareableLinkStatusEnum.active;
   }

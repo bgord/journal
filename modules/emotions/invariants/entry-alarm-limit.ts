@@ -10,7 +10,7 @@ class EntryAlarmLimitError extends Error {
 
 type EntryAlarmLimitConfigType = { count: number };
 
-class EntryAlarmLimitFactory extends bg.Policy<EntryAlarmLimitConfigType> {
+class EntryAlarmLimitFactory extends bg.Invariant<EntryAlarmLimitConfigType> {
   fails(config: EntryAlarmLimitConfigType) {
     return config.count >= 2;
   }

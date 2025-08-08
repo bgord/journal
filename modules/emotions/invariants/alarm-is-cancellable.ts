@@ -11,7 +11,7 @@ class AlarmIsCancellableError extends Error {
 
 type AlarmIsCancellableConfigType = { status: Emotions.VO.AlarmStatusEnum };
 
-class AlarmIsCancellableFactory extends bg.Policy<AlarmIsCancellableConfigType> {
+class AlarmIsCancellableFactory extends bg.Invariant<AlarmIsCancellableConfigType> {
   fails(config: AlarmIsCancellableConfigType) {
     return config.status === Emotions.VO.AlarmStatusEnum.cancelled;
   }

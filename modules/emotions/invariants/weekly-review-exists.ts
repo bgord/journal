@@ -11,7 +11,7 @@ class WeeklyReviewExistsError extends Error {
 
 type WeeklyReviewExistsConfigType = { weeklyReview?: Schema.SelectWeeklyReviews };
 
-class WeeklyReviewExistsFactory extends bg.Policy<WeeklyReviewExistsConfigType> {
+class WeeklyReviewExistsFactory extends bg.Invariant<WeeklyReviewExistsConfigType> {
   fails(config: WeeklyReviewExistsConfigType) {
     return config.weeklyReview === undefined;
   }

@@ -11,7 +11,7 @@ class WeeklyReviewCompletedOnceError extends Error {
 
 type WeeklyReviewCompletedOnceConfigType = { status: Emotions.VO.WeeklyReviewStatusEnum };
 
-class WeeklyReviewCompletedOnceFactory extends bg.Policy<WeeklyReviewCompletedOnceConfigType> {
+class WeeklyReviewCompletedOnceFactory extends bg.Invariant<WeeklyReviewCompletedOnceConfigType> {
   fails(config: WeeklyReviewCompletedOnceConfigType) {
     return config.status !== Emotions.VO.WeeklyReviewStatusEnum.requested;
   }

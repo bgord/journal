@@ -11,7 +11,7 @@ class WeeklyReviewScheduleError extends Error {
 
 type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampType };
 
-class WeeklyReviewScheduleFactory extends bg.Policy<WeeklyReviewScheduleConfigType> {
+class WeeklyReviewScheduleFactory extends bg.Invariant<WeeklyReviewScheduleConfigType> {
   fails(config: WeeklyReviewScheduleConfigType) {
     const date = new Date(config.timestamp);
 

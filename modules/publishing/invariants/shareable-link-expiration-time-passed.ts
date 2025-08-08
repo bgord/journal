@@ -15,7 +15,7 @@ type ShareableLinkExpirationTimePassedConfigType = {
   duration?: tools.TimeResult;
 };
 
-class ShareableLinkExpirationTimePassedFactory extends bg.Policy<ShareableLinkExpirationTimePassedConfigType> {
+class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLinkExpirationTimePassedConfigType> {
   fails(config: ShareableLinkExpirationTimePassedConfigType) {
     if (!config.createdAt) return true;
     if (!config.duration) return true;

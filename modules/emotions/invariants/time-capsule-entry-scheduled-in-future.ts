@@ -14,7 +14,7 @@ type TimeCapsuleEntryScheduledInFutureConfigType = {
   scheduledFor: tools.TimestampType;
 };
 
-class TimeCapsuleEntryScheduledInFutureFactory extends bg.Policy<TimeCapsuleEntryScheduledInFutureConfigType> {
+class TimeCapsuleEntryScheduledInFutureFactory extends bg.Invariant<TimeCapsuleEntryScheduledInFutureConfigType> {
   fails(config: TimeCapsuleEntryScheduledInFutureConfigType) {
     return config.now >= config.scheduledFor;
   }

@@ -14,7 +14,7 @@ type ReactionCorrespondsToSituationAndEmotionConfigType = {
   emotion?: Emotions.Entities.Emotion;
 };
 
-class ReactionCorrespondsToSituationAndEmotionFactory extends bg.Policy<ReactionCorrespondsToSituationAndEmotionConfigType> {
+class ReactionCorrespondsToSituationAndEmotionFactory extends bg.Invariant<ReactionCorrespondsToSituationAndEmotionConfigType> {
   fails(config: ReactionCorrespondsToSituationAndEmotionConfigType) {
     return config.situation === undefined || config.emotion === undefined;
   }

@@ -84,7 +84,7 @@ export class ErrorHandler {
       return c.json({ message: "payload.invalid.error", _known: true }, 400);
     }
 
-    const invariantErrorHandler = new bg.PolicyErrorHandler(invariants).detect(error);
+    const invariantErrorHandler = new bg.InvariantErrorHandler(invariants).detect(error);
 
     if (invariantErrorHandler.error) {
       logger.error({
@@ -93,7 +93,7 @@ export class ErrorHandler {
         correlationId,
       });
 
-      return c.json(...bg.PolicyErrorHandler.respond(invariantErrorHandler.error));
+      return c.json(...bg.InvariantErrorHandler.respond(invariantErrorHandler.error));
     }
 
     logger.error({

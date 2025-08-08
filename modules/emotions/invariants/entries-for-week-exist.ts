@@ -11,7 +11,7 @@ class EntriesForWeekExistError extends Error {
 
 type EntriesForWeekExistConfigType = { count: number; userId: Auth.VO.UserIdType };
 
-class EntriesForWeekExistFactory extends bg.Policy<EntriesForWeekExistConfigType> {
+class EntriesForWeekExistFactory extends bg.Invariant<EntriesForWeekExistConfigType> {
   fails(config: EntriesForWeekExistConfigType) {
     return config.count === 0;
   }

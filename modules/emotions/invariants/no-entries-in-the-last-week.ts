@@ -14,7 +14,7 @@ type NoEntriesInTheLastWeekConfigType = {
   lastEntryTimestamp: Awaited<ReturnType<typeof GetLatestEntryTimestampForUser.execute>>;
 };
 
-class NoEntriesInTheLastWeekFactory extends bg.Policy<NoEntriesInTheLastWeekConfigType> {
+class NoEntriesInTheLastWeekFactory extends bg.Invariant<NoEntriesInTheLastWeekConfigType> {
   fails(config: NoEntriesInTheLastWeekConfigType) {
     if (!config.lastEntryTimestamp) return true;
     return config.lastEntryTimestamp > tools.Time.Now().Minus(tools.Time.Days(7)).ms;

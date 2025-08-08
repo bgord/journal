@@ -65,7 +65,7 @@ export const inactivityDetection = new Emotions.VO.AlarmDetection(
 export const advice = new Emotions.VO.Advice("You should do something");
 
 export const shareableLinkId = crypto.randomUUID();
-export const shareableLinkCreatedAt = tools.Timestamp.parse(Date.now());
+export const shareableLinkCreatedAt = tools.Time.Now().value;
 
 export const publicationSpecification = "entries";
 
@@ -73,10 +73,10 @@ export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Tim
 
 export const duration = tools.Time.Seconds(1);
 
-export const hourHasPassedTimestamp = tools.Timestamp.parse(Date.now());
+export const hourHasPassedTimestamp = tools.Time.Now().value;
 
-export const scheduledAt = tools.Timestamp.parse(Date.now());
-export const scheduledFor = tools.Timestamp.parse(Date.now() + tools.Time.Hours(2).ms);
+export const scheduledAt = tools.Time.Now().value;
+export const scheduledFor = tools.Time.Now().Add(tools.Time.Hours(2)).ms;
 
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,

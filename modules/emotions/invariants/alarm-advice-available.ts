@@ -14,7 +14,7 @@ type AlarmAdviceAvailableConfigType = {
   status: Emotions.VO.AlarmStatusEnum;
 };
 
-class AlarmAdviceAvailableFactory extends bg.Policy<AlarmAdviceAvailableConfigType> {
+class AlarmAdviceAvailableFactory extends bg.Invariant<AlarmAdviceAvailableConfigType> {
   fails(config: AlarmAdviceAvailableConfigType) {
     return !config.advice?.get() || config.status !== Emotions.VO.AlarmStatusEnum.advice_saved;
   }

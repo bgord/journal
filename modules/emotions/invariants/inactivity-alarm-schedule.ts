@@ -11,7 +11,7 @@ class InactivityAlarmScheduleError extends Error {
 
 type InactivityAlarmScheduleConfigType = { timestamp: tools.TimestampType };
 
-class InactivityAlarmScheduleFactory extends bg.Policy<InactivityAlarmScheduleConfigType> {
+class InactivityAlarmScheduleFactory extends bg.Invariant<InactivityAlarmScheduleConfigType> {
   fails(config: InactivityAlarmScheduleConfigType) {
     const date = new Date(config.timestamp);
 

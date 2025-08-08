@@ -11,7 +11,7 @@ class AlarmAlreadyGeneratedError extends Error {
 
 type AlarmAlreadyGeneratedConfigType = { status: Emotions.VO.AlarmStatusEnum };
 
-class AlarmAlreadyGeneratedFactory extends bg.Policy<AlarmAlreadyGeneratedConfigType> {
+class AlarmAlreadyGeneratedFactory extends bg.Invariant<AlarmAlreadyGeneratedConfigType> {
   fails(config: AlarmAlreadyGeneratedConfigType) {
     return config.status !== Emotions.VO.AlarmStatusEnum.generated;
   }

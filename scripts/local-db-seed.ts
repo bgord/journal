@@ -15,7 +15,7 @@ import * as mocks from "../tests/mocks";
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
-const now = tools.Timestamp.parse(Date.now());
+const now = tools.Time.Now().value;
 
 const situationDescriptions = [
   "I missed an important appointment because I confused the time zones while traveling, which made me feel embarrassed and deeply irresponsible",

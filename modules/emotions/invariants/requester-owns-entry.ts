@@ -11,7 +11,7 @@ class RequesterOwnsEntryError extends Error {
 
 type RequesterOwnsEntryConfigType = { requesterId: Auth.VO.UserIdType; ownerId?: Auth.VO.UserIdType };
 
-class RequesterOwnsEntryFactory extends bg.Policy<RequesterOwnsEntryConfigType> {
+class RequesterOwnsEntryFactory extends bg.Invariant<RequesterOwnsEntryConfigType> {
   fails(config: RequesterOwnsEntryConfigType) {
     return config.requesterId !== config.ownerId;
   }

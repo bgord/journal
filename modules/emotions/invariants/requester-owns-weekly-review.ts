@@ -11,7 +11,7 @@ class RequesterOwnsWeeklyReviewError extends Error {
 
 type RequesterOwnsWeeklyReviewConfigType = { requesterId: Auth.VO.UserIdType; ownerId?: Auth.VO.UserIdType };
 
-class RequesterOwnsWeeklyReviewFactory extends bg.Policy<RequesterOwnsWeeklyReviewConfigType> {
+class RequesterOwnsWeeklyReviewFactory extends bg.Invariant<RequesterOwnsWeeklyReviewConfigType> {
   fails(config: RequesterOwnsWeeklyReviewConfigType) {
     return config.requesterId !== config.ownerId;
   }
