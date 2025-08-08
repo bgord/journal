@@ -1,8 +1,17 @@
 import type * as Events from "+emotions/events";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+import * as tools from "@bgord/tools";
+import { lte } from "drizzle-orm";
 
 export class TimeCapsuleEntryRepository {
+  static async listDueForScheduling(now: tools.TimestampType) {
+    return db.query.timeCapsuleEntries.findMany({
+      where: lte(Schema.timeCapsuleEntries.scheduledFor, now),
+      limit: 10,
+    });
+  }
+
   static async create(event: Events.TimeCapsuleEntryScheduledEventType) {
     await db.insert(Schema.timeCapsuleEntries).values({
       id: event.payload.entryId,

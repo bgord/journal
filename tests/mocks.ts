@@ -541,6 +541,22 @@ export const fullEntry: Schema.SelectEntries = {
   userId,
 };
 
+export const timeCapsuleEntry: Schema.SelectTimeCapsuleEntries = {
+  scheduledAt,
+  scheduledFor,
+  id: entryId,
+  situationDescription: "I finished a project",
+  situationKind: Emotions.VO.SituationKindOptions.achievement,
+  situationLocation: "work",
+  emotionLabel: Emotions.VO.GenevaWheelEmotion.gratitude,
+  emotionIntensity: 3,
+  reactionDescription: "Got drunk",
+  reactionType: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
+  reactionEffectiveness: 1,
+  language: SupportedLanguages.en,
+  userId,
+};
+
 export const fullEntryPl: Schema.SelectEntries = {
   ...fullEntry,
   language: SupportedLanguages.pl,

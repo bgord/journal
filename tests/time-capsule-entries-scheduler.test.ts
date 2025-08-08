@@ -8,7 +8,8 @@ import * as mocks from "./mocks";
 const policy = new Emotions.Policies.TimeCapsuleEntriesScheduler(EventBus);
 
 describe("TimeCapsuleEntriesScheduler", () => {
-  test("correct path", async () => {
+  test("correct path - no time capsule entries", async () => {
+    spyOn(Emotions.Repos.TimeCapsuleEntryRepository, "listDueForScheduling").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -16,5 +17,22 @@ describe("TimeCapsuleEntriesScheduler", () => {
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
+  });
+
+  test("correct path", async () => {
+    spyOn(Emotions.Repos.TimeCapsuleEntryRepository, "listDueForScheduling").mockResolvedValue([
+      mocks.timeCapsuleEntry,
+    ]);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      await policy.onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event);
+    });
+
+    expect(eventStoreSave).toHaveBeenCalledWith([
+      mocks.GenericSituationLoggedEvent,
+      mocks.GenericEmotionLoggedEvent,
+      mocks.GenericReactionLoggedEvent,
+    ]);
   });
 });
