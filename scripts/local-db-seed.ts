@@ -1,5 +1,6 @@
 import * as Emotions from "+emotions";
 import { auth } from "+infra/auth";
+import { CommandBus } from "+infra/command-bus";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -13,6 +14,8 @@ import * as mocks from "../tests/mocks";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
+
+const now = tools.Timestamp.parse(Date.now());
 
 const situationDescriptions = [
   "I missed an important appointment because I confused the time zones while traveling, which made me feel embarrassed and deeply irresponsible",
@@ -87,6 +90,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     await db.delete(Schema.shareableLinks);
     console.log("[x] Cleared shareableLinks");
+
+    await db.delete(Schema.timeCapsuleEntries);
+    console.log("[x] Cleared timeCapsuleEntries");
 
     await db.delete(Schema.accounts);
     console.log("[x] Cleared accounts");
@@ -181,6 +187,38 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
       console.log(`[✓] Entry ${counter + 1} created`);
     }
+
+    const ScheduleTimeCapsuleEntryCommand = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
+      id: crypto.randomUUID(),
+      correlationId: bg.CorrelationStorage.get(),
+      name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
+      createdAt: now,
+      payload: {
+        entryId: crypto.randomUUID(),
+        situation: new Emotions.Entities.Situation(
+          new Emotions.VO.SituationDescription(situationDescriptions[0] as string),
+          new Emotions.VO.SituationLocation(situationLocations[0] as string),
+          new Emotions.VO.SituationKind(situationKinds[0] as Emotions.VO.SituationKindOptions),
+        ),
+        emotion: new Emotions.Entities.Emotion(
+          new Emotions.VO.EmotionLabel(emotionLabels[0] as Emotions.VO.GenevaWheelEmotion),
+          new Emotions.VO.EmotionIntensity(1),
+        ),
+        reaction: new Emotions.Entities.Reaction(
+          new Emotions.VO.ReactionDescription(reactionDescriptions[0] as string),
+          new Emotions.VO.ReactionType(reactionTypes[0] as Emotions.VO.GrossEmotionRegulationStrategy),
+          new Emotions.VO.ReactionEffectiveness(1),
+        ),
+        language: SupportedLanguages.en,
+        userId: users[0]!.user.id,
+        scheduledAt: now,
+        scheduledFor: tools.Timestamp.parse(tools.Time.Now().Add(tools.Time.Minutes(5)).ms),
+      },
+    } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
+
+    await CommandBus.emit(ScheduleTimeCapsuleEntryCommand.name, ScheduleTimeCapsuleEntryCommand);
+
+    console.log("[✓] Time capsule entry scheduled");
 
     await new Emotions.Policies.WeeklyReviewScheduler(EventBus).onHourHasPassed(
       mocks.GenericHourHasPassedMondayUtc18Event,
