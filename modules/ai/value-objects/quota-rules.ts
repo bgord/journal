@@ -32,7 +32,7 @@ export const EMOTIONS_ALARM_INACTIVITY_WEEKLY_RULE: QuotaRule = {
     `user:${context.userId}:week:${tools.Week.fromTimestamp(context.timestamp).toIsoId()}:${UsageCategory.EMOTIONS_ALARM_INACTIVITY}`,
 };
 
-export const EMOTIONS_ALARM_ENTRY: QuotaRule = {
+export const EMOTIONS_ALARM_ENTRY_RULE: QuotaRule = {
   id: "EMOTIONS_ALARM_ENTRY",
   window: QuotaWindow.ALL_TIME,
   limit: QuotaLimit.parse(2),
@@ -45,5 +45,5 @@ export const RULES: QuotaRule[] = [
   USER_DAILY_RULE,
   EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY_RULE,
   EMOTIONS_ALARM_INACTIVITY_WEEKLY_RULE,
-  EMOTIONS_ALARM_ENTRY,
+  EMOTIONS_ALARM_ENTRY_RULE,
 ];
