@@ -10,4 +10,5 @@ export * from "./handleMarkWeeklyReviewAsFailedCommand";
 export * from "./handleReappraiseEmotionCommand";
 export * from "./handleRequestWeeklyReviewCommand";
 export * from "./handleSaveAlarmAdviceCommand";
+export * from "./handleScheduleTimeCapsuleEntryCommand";
 export * from "./handleSendAlarmNotificationCommand";
