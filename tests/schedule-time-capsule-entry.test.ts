@@ -1,0 +1,151 @@
+import { describe, expect, spyOn, test } from "bun:test";
+import { auth } from "../infra/auth";
+import * as Emotions from "../modules/emotions";
+import { server } from "../server";
+import * as mocks from "./mocks";
+
+const url = "/entry/time-capsule-entry/schedule";
+
+const situation = {
+  situationDescription: mocks.GenericSituationLoggedEvent.payload.description,
+  situationLocation: mocks.GenericSituationLoggedEvent.payload.location,
+  situationKind: mocks.GenericSituationLoggedEvent.payload.kind,
+};
+
+const emotion = {
+  emotionLabel: mocks.GenericEmotionLoggedEvent.payload.label,
+  emotionIntensity: mocks.GenericEmotionLoggedEvent.payload.intensity,
+};
+
+describe(`POST ${url}`, () => {
+  test("situation - validation - empty payload", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({
+      message: Emotions.VO.SituationDescription.Errors.invalid,
+      _known: true,
+    });
+  });
+
+  test("situation - validation - missing kind and location", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situationDescription: "Something happened" }),
+      },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: Emotions.VO.SituationLocation.Errors.invalid, _known: true });
+  });
+
+  test("situation - validation - missing kind", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ situationDescription: "Something happened", situationLocation: "work" }),
+      },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: Emotions.VO.SituationKind.Errors.invalid, _known: true });
+  });
+
+  test("emotion - validation - empty payload", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      { method: "POST", body: JSON.stringify({ ...situation }) },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: Emotions.VO.EmotionLabel.Errors.invalid, _known: true });
+  });
+
+  test("emotion - validation - missing intensity", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ ...situation, emotionLabel: Emotions.VO.GenevaWheelEmotion.admiration }),
+      },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: Emotions.VO.EmotionIntensity.Errors.min_max, _known: true });
+  });
+
+  test("reaction - validation - empty payload", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      { method: "POST", body: JSON.stringify({ ...situation, ...emotion }) },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: Emotions.VO.ReactionDescription.Errors.invalid, _known: true });
+  });
+
+  test("reaction - validation - missing type", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({ ...situation, ...emotion, reactionDescription: "I got drunk" }),
+      },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: Emotions.VO.ReactionType.Errors.invalid, _known: true });
+  });
+
+  test("reaction - validation - missing effectiveness", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          ...situation,
+          ...emotion,
+          reactionDescription: "I got drunk",
+          reactionType: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
+        }),
+      },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.min_max, _known: true });
+  });
+});
