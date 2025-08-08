@@ -6,6 +6,7 @@ import * as tools from "@bgord/tools";
 export const handleScheduleTimeCapsuleEntryCommand = async (
   command: Emotions.Commands.ScheduleTimeCapsuleEntryCommandType,
 ) => {
+  // TODO: invariant to check if scheduledFor > now
   const event = Emotions.Events.TimeCapsuleEntryScheduledEvent.parse({
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),

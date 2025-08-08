@@ -93,6 +93,10 @@ EventBus.on(
   EmotionsEvents.WEEKLY_REVIEW_SKIPPED_EVENT,
   EventHandler.handle(EmotionsEventHandlers.onWeeklyReviewSkippedEvent),
 );
+EventBus.on(
+  EmotionsEvents.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
+  EventHandler.handle(EmotionsEventHandlers.onTimeCapsuleEntryScheduledEvent),
+);
 
 // Shareable links
 EventBus.on(

@@ -9,6 +9,7 @@ export * from "./onPatternDetectedEvent";
 export * from "./onReactionEvaluatedEvent";
 export * from "./onReactionLoggedEvent";
 export * from "./onSituationLoggedEvent";
+export * from "./onTimeCapsuleEntryScheduledEvent";
 export * from "./onWeeklyReviewCompletedEvent";
 export * from "./onWeeklyReviewFailedEvent";
 export * from "./onWeeklyReviewRequestedEvent";
