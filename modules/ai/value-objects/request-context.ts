@@ -6,4 +6,5 @@ export type RequestContext = {
   category: UsageCategoryType;
   userId: UserIdType;
   timestamp: tools.TimestampType;
+  dimension: string;
 };
