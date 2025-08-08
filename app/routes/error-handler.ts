@@ -16,6 +16,7 @@ const validationErrors = [
   Emotions.VO.ReactionDescription.Errors.invalid,
   Emotions.VO.ReactionType.Errors.invalid,
   Emotions.VO.ReactionEffectiveness.Errors.min_max,
+  Emotions.VO.EntryScheduledForErrors.invalid,
   Publishing.VO.PublicationSpecificationErrors.invalid,
 ];
 

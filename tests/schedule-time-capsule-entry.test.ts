@@ -1,5 +1,7 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as tools from "@bgord/tools";
 import { auth } from "../infra/auth";
+import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -15,6 +17,12 @@ const situation = {
 const emotion = {
   emotionLabel: mocks.GenericEmotionLoggedEvent.payload.label,
   emotionIntensity: mocks.GenericEmotionLoggedEvent.payload.intensity,
+};
+
+const reaction = {
+  reactionDescription: mocks.GenericReactionLoggedEvent.payload.description,
+  reactionType: mocks.GenericReactionLoggedEvent.payload.type,
+  reactionEffectiveness: mocks.GenericReactionLoggedEvent.payload.effectiveness,
 };
 
 describe(`POST ${url}`, () => {
@@ -147,5 +155,62 @@ describe(`POST ${url}`, () => {
 
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.min_max, _known: true });
+  });
+
+  test("scheduledFor - missing", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      { method: "POST", body: JSON.stringify({ ...situation, ...emotion, ...reaction }) },
+      mocks.ip,
+    );
+
+    expect(response.status).toBe(400);
+  });
+
+  test("scheduledFor - in the past", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          ...situation,
+          ...emotion,
+          ...reaction,
+          scheduledFor: tools.Time.Now().Minus(tools.Time.Days(1)).ms,
+        }),
+      },
+      mocks.ip,
+    );
+
+    const json = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: Emotions.VO.EntryScheduledForErrors.invalid, _known: true });
+  });
+
+  test("happy path", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.entryId);
+    spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          ...situation,
+          ...emotion,
+          ...reaction,
+          scheduledFor: mocks.entryScheduledFor,
+        }),
+        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+      },
+      mocks.ip,
+    );
+
+    expect(response.status).toBe(200);
   });
 });

@@ -21,8 +21,7 @@ export const ScheduleTimeCapsuleEntryCommand = z.object({
     language: z.enum(SupportedLanguages),
     userId: Auth.VO.UserId,
     scheduledAt: tools.Timestamp,
-    // TODO : > now
-    scheduledFor: tools.Timestamp,
+    scheduledFor: VO.EntryScheduledFor,
   }),
 });
 
