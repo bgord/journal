@@ -1,7 +1,8 @@
 # Changelog
+- 2025-08-08 19:26 f982721 **step: add time capsule entry to seed**
+## 2025-08-08 19:26 
 - 2025-08-08 19:04 890dce2 **Merge pull request #26 from bgord/time-capsule**
 - 2025-08-08 19:04 23450d9 **refactor: add location icon**
-## 2025-08-08 19:04 
 - 2025-08-08 19:01 8b2d9b9 **step: take into account tz offset into scheduling**
 - 2025-08-08 18:56 0b938af **fix: tests**
 - 2025-08-08 18:54 6109096 **step: add origin icon**
@@ -17,6 +18,8 @@
 - 2025-08-08 17:23 e10d11e **step: add TimeCapsuleEntryStatusEnum**
 - 2025-08-08 17:10 a44f069 **step: add TimeCapsuleEntryScheduledInFuture**
 - 2025-08-08 17:09 9c575aa **step: export EntryScheduledForType**
+- 2025-08-08 17:05 dd0f963 **docs: generate readme**
+- 2025-08-08 17:05 c47ed9b **docs: generate CHANGELOG**
 - 2025-08-08 16:38 93ab8fd **step: update packages**
 - 2025-08-08 15:04 888a6e8 **step: add listDueForScheduling**
 - 2025-08-08 14:53 1b5512c **step: add event handler**
