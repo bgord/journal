@@ -24,6 +24,15 @@ export async function action({ request }: Route.ActionArgs) {
     return { ok: true };
   }
 
+  if (intent === "time_capsule_entry_add") {
+    await API("/entry/time-capsule-entry/schedule", {
+      method: "POST",
+      body: JSON.stringify(Object.fromEntries(form.entries())),
+      headers: { cookie },
+    });
+    return { ok: true };
+  }
+
   if (intent === "entry_delete") {
     await API(`/entry/${form.get("id")}/delete`, {
       method: "DELETE",

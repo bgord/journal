@@ -49,6 +49,7 @@ export function AddEntry() {
     reactionType: reactionType.value,
     reactionEffectiveness: reactionEffectiveness.value,
     intent: timeCapsuleMode.on ? "time_capsule_entry_add" : "entry_add",
+    scheduledFor: timeCapsuleMode.on ? scheduledFor.value : null,
   };
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });

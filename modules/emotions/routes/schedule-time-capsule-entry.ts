@@ -30,7 +30,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   );
 
   const now = tools.Timestamp.parse(Date.now());
-  const scheduledFor = tools.Timestamp.parse(body.scheduledFor);
+  const scheduledFor = tools.Timestamp.parse(Number(body.scheduledFor));
 
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
     id: crypto.randomUUID(),
