@@ -48,6 +48,7 @@ CREATE TABLE `entries` (
 	`status` text NOT NULL,
 	`language` text NOT NULL,
 	`weekIsoId` text NOT NULL,
+	`origin` text NOT NULL,
 	`userId` text NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );

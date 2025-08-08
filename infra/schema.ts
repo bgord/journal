@@ -2,6 +2,7 @@ import { relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
 import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status";
+import { EntryOriginOption } from "../modules/emotions/value-objects/entry-origin-option";
 import { EntryStatusEnum } from "../modules/emotions/value-objects/entry-status";
 import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
 import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
@@ -55,6 +56,7 @@ export const entries = sqliteTable("entries", {
   status: text("status", toEnumList(EntryStatusEnum)).notNull(),
   language: text("language").notNull(),
   weekIsoId: text("weekIsoId").notNull(),
+  origin: text("origin", toEnumList(EntryOriginOption)).notNull(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
