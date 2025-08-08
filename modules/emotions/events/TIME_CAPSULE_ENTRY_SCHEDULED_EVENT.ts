@@ -31,7 +31,6 @@ export const TimeCapsuleEntryScheduledEvent = z.object({
     emotion: z.object({
       label: VO.EmotionLabelSchema,
       intensity: VO.EmotionIntensitySchema,
-      userId: Auth.VO.UserId,
     }),
     reaction: z.object({
       type: VO.ReactionTypeSchema,
