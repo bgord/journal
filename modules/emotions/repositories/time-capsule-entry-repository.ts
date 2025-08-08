@@ -1,4 +1,5 @@
 import type * as Events from "+emotions/events";
+import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
@@ -26,6 +27,7 @@ export class TimeCapsuleEntryRepository {
       reactionType: event.payload.reaction.type,
       reactionEffectiveness: event.payload.reaction.effectiveness,
       language: event.payload.language,
+      status: VO.TimeCapsuleEntryStatusEnum.scheduled,
       userId: event.payload.userId,
     });
   }

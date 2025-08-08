@@ -554,6 +554,7 @@ export const timeCapsuleEntry: Schema.SelectTimeCapsuleEntries = {
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
   reactionEffectiveness: 1,
   language: SupportedLanguages.en,
+  status: Emotions.VO.TimeCapsuleEntryStatusEnum.scheduled,
   userId,
 };
 

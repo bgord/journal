@@ -8,6 +8,7 @@ import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-object
 import { PatternNameOption } from "../modules/emotions/value-objects/pattern-name-option";
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { SituationKindOptions } from "../modules/emotions/value-objects/situation-kind-options";
+import { TimeCapsuleEntryStatusEnum } from "../modules/emotions/value-objects/time-capsule-entry-status";
 import { WeeklyReviewStatusEnum } from "../modules/emotions/value-objects/weekly-review-status";
 import { ShareableLinkStatusEnum } from "../modules/publishing/value-objects/shareable-link-status";
 
@@ -93,6 +94,7 @@ export const timeCapsuleEntries = sqliteTable("timeCapsuleEntries", {
   reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)).notNull(),
   reactionEffectiveness: integer("reactionEffectiveness").notNull(),
   language: text("language").notNull(),
+  status: text("status", toEnumList(TimeCapsuleEntryStatusEnum)).notNull(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
