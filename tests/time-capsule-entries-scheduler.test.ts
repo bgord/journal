@@ -58,7 +58,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([
-      mocks.GenericSituationLoggedEvent,
+      mocks.GenericSituationLoggedTimeCapsuleEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
     ]);

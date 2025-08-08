@@ -53,6 +53,7 @@ describe("entry", () => {
         reaction,
         language,
         mocks.userId,
+        Emotions.VO.EntryOriginOption.web,
       );
 
       expect(entry.pullEvents()).toEqual([

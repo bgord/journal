@@ -70,6 +70,7 @@ export class EntryRepository {
       language: event.payload.language,
       weekIsoId: tools.Week.fromTimestamp(event.createdAt).toIsoId(),
       userId: event.payload.userId,
+      origin: event.payload.origin,
     });
   }
 

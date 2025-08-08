@@ -174,6 +174,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         reaction,
         SupportedLanguages.en,
         users[0]!.user.id,
+        Emotions.VO.EntryOriginOption.web,
       );
 
       await EventStore.save(entry.pullEvents());

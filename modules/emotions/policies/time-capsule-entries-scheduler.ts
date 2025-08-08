@@ -52,6 +52,7 @@ export class TimeCapsuleEntriesScheduler {
           ),
           language: entry.language as SupportedLanguages,
           userId: entry.userId,
+          origin: VO.EntryOriginOption.time_capsule,
         },
       } satisfies Commands.LogEntryCommandType);
 

@@ -92,6 +92,15 @@ export const GenericSituationLoggedEvent = {
     location: "work",
     language: SupportedLanguages.en,
     userId,
+    origin: Emotions.VO.EntryOriginOption.web,
+  },
+} satisfies Emotions.Events.SituationLoggedEventType;
+
+export const GenericSituationLoggedTimeCapsuleEvent = {
+  ...GenericSituationLoggedEvent,
+  payload: {
+    ...GenericSituationLoggedEvent.payload,
+    origin: Emotions.VO.EntryOriginOption.time_capsule,
   },
 } satisfies Emotions.Events.SituationLoggedEventType;
 
@@ -514,6 +523,7 @@ export const partialEntry: Schema.SelectEntries = {
   reactionType: null,
   language: SupportedLanguages.en,
   weekIsoId: week.toIsoId(),
+  origin: Emotions.VO.EntryOriginOption.web,
   userId,
 };
 
@@ -538,6 +548,7 @@ export const fullEntry: Schema.SelectEntries = {
   reactionEffectiveness: 1,
   language: SupportedLanguages.en,
   weekIsoId: week.toIsoId(),
+  origin: Emotions.VO.EntryOriginOption.web,
   userId,
 };
 

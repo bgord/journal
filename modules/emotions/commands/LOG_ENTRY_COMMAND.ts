@@ -20,6 +20,7 @@ export const LogEntryCommand = z.object({
     reaction: z.instanceof(Entities.Reaction),
     language: z.enum(SupportedLanguages),
     userId: Auth.VO.UserId,
+    origin: VO.EntryOrigin,
   }),
 });
 

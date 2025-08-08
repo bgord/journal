@@ -22,6 +22,7 @@ export const SituationLoggedEvent = z.object({
     kind: VO.SituationKindSchema,
     language: z.enum(SupportedLanguages),
     userId: Auth.VO.UserId,
+    origin: VO.EntryOrigin,
   }),
 });
 

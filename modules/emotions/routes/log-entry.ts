@@ -34,7 +34,15 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
     createdAt: tools.Timestamp.parse(Date.now()),
-    payload: { entryId, situation, emotion, reaction, language, userId: user.id },
+    payload: {
+      entryId,
+      situation,
+      emotion,
+      reaction,
+      language,
+      userId: user.id,
+      origin: Emotions.VO.EntryOriginOption.web,
+    },
   } satisfies Emotions.Commands.LogEntryCommandType);
 
   await CommandBus.emit(command.name, command);
