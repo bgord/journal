@@ -316,4 +316,5 @@ export type SelectAlarms = typeof alarms.$inferSelect;
 export type SelectPatternDetections = typeof patternDetections.$inferSelect;
 export type SelectWeeklyReviews = typeof weeklyReviews.$inferSelect;
 export type SelectShareableLinks = typeof shareableLinks.$inferSelect;
+/** @public */
 export type SelectTimeCapsuleEntries = typeof timeCapsuleEntries.$inferSelect;
