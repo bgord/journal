@@ -1,5 +1,6 @@
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+import { CommandBus } from "+infra/command-bus";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
@@ -28,8 +29,27 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
     new Emotions.VO.ReactionEffectiveness(Number(body.reactionEffectiveness)),
   );
 
-  const scheduledAt = tools.Timestamp.parse(Date.now());
+  const now = tools.Timestamp.parse(Date.now());
   const scheduledFor = tools.Timestamp.parse(body.scheduledFor);
+
+  const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
+    id: crypto.randomUUID(),
+    correlationId: bg.CorrelationStorage.get(),
+    name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
+    createdAt: now,
+    payload: {
+      entryId,
+      situation,
+      emotion,
+      reaction,
+      language,
+      userId: user.id,
+      scheduledAt: now,
+      scheduledFor,
+    },
+  } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
+
+  await CommandBus.emit(command.name, command);
 
   return new Response();
 }
