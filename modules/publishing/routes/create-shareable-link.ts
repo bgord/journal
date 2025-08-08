@@ -28,7 +28,7 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _ne
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     name: Publishing.Commands.CREATE_SHAREABLE_LINK_COMMAND,
-    createdAt: tools.Timestamp.parse(Date.now()),
+    createdAt: tools.Time.Now().value,
     payload: {
       shareableLinkId,
       requesterId: user.id,

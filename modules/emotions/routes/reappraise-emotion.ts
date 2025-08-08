@@ -20,7 +20,7 @@ export async function ReappraiseEmotion(c: hono.Context<infra.HonoConfig>, _next
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.REAPPRAISE_EMOTION_COMMAND,
-    createdAt: tools.Timestamp.parse(Date.now()),
+    createdAt: tools.Time.Now().value,
     revision,
     payload: { entryId, newEmotion, userId: user.id },
   } satisfies Emotions.Commands.ReappraiseEmotionCommandType);

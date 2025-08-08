@@ -28,7 +28,7 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
       return Events.MaladaptiveReactionsPatternDetectedEvent.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         name: Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,

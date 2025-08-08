@@ -16,14 +16,14 @@ export class TimeCapsuleEntriesScheduler {
   }
 
   async onHourHasPassed() {
-    const now = tools.Timestamp.parse(Date.now());
+    const now = tools.Time.Now().value;
     const entries = await Repos.TimeCapsuleEntryRepository.listDueForPublishing(now);
 
     for (const entry of entries) {
       if (
         Invariants.TimeCapsuleEntryIsPublishable.fails({
           status: entry.status,
-          now: tools.Timestamp.parse(Date.now()),
+          now,
           scheduledFor: tools.Timestamp.parse(entry.scheduledFor),
         })
       )
@@ -33,7 +33,7 @@ export class TimeCapsuleEntriesScheduler {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.LOG_ENTRY_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         payload: {
           entryId: entry.id,
           situation: new Entities.Situation(

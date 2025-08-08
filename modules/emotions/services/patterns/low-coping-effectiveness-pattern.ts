@@ -34,7 +34,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
       return Events.LowCopingEffectivenessPatternDetectedEvent.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         stream: this.getStream(),
         name: Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
         version: 1,

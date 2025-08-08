@@ -51,7 +51,7 @@ export class WeeklyReviewProcessing {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.DETECT_WEEKLY_PATTERNS_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         payload: { userId: event.payload.userId, week },
       } satisfies Commands.DetectWeeklyPatternsCommandType);
 
@@ -61,7 +61,7 @@ export class WeeklyReviewProcessing {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
           insights,
@@ -75,7 +75,7 @@ export class WeeklyReviewProcessing {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
           userId: event.payload.userId,
@@ -91,7 +91,7 @@ export class WeeklyReviewProcessing {
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       name: Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       payload: { userId: event.payload.userId, weeklyReviewId: event.payload.weeklyReviewId },
     } satisfies Commands.ExportWeeklyReviewByEmailCommand);
 

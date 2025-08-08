@@ -21,7 +21,7 @@ export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next:
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.EVALUATE_REACTION_COMMAND,
-    createdAt: tools.Timestamp.parse(Date.now()),
+    createdAt: tools.Time.Now().value,
     revision,
     payload: { entryId, newReaction, userId: user.id },
   } satisfies Emotions.Commands.EvaluateReactionCommandType);

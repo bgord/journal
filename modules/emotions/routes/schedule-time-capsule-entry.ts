@@ -30,7 +30,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
     new Emotions.VO.ReactionEffectiveness(Number(body.reactionEffectiveness)),
   );
 
-  const now = tools.Timestamp.parse(Date.now());
+  const now = tools.Time.Now().value;
   const scheduledFor = tools.Timestamp.parse(Number(body.scheduledFor) + timeZoneOffsetMs);
 
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({

@@ -24,7 +24,7 @@ export class WeeklyReviewScheduler {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.REQUEST_WEEKLY_REVIEW_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         payload: { week, userId },
       } satisfies Commands.RequestWeeklyReviewCommandType);
 

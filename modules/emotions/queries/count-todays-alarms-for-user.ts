@@ -7,7 +7,7 @@ import { and, eq, gte } from "drizzle-orm";
 export class CountTodaysAlarmsForUser {
   static async execute(userId: Auth.VO.UserIdType): Promise<{ count: number }> {
     const startOfDay = tools.DateCalculator.getStartOfDayTsInTz({
-      now: tools.Timestamp.parse(Date.now()),
+      now: tools.Time.Now().value,
       timeZoneOffsetMs: 0,
     });
 

@@ -20,7 +20,7 @@ export class ShareableLinksExpirer {
           id: crypto.randomUUID(),
           correlationId: bg.CorrelationStorage.get(),
           name: Commands.EXPIRE_SHAREABLE_LINK_COMMAND,
-          createdAt: tools.Timestamp.parse(Date.now()),
+          createdAt: tools.Time.Now().value,
           revision: new tools.Revision(shareableLink.revision),
           payload: { shareableLinkId: shareableLink.id },
         } satisfies Commands.ExpireShareableLinkCommandType);

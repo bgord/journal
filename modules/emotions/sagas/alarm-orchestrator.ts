@@ -34,7 +34,7 @@ export class AlarmOrchestrator {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.SAVE_ALARM_ADVICE_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         payload: { alarmId: event.payload.alarmId, advice },
       } satisfies Commands.SaveAlarmAdviceCommandType);
 
@@ -44,7 +44,7 @@ export class AlarmOrchestrator {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.CANCEL_ALARM_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
@@ -57,7 +57,7 @@ export class AlarmOrchestrator {
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       name: Commands.SEND_ALARM_NOTIFICATION_COMMAND,
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.SendAlarmNotificationCommandType);
 
@@ -69,7 +69,7 @@ export class AlarmOrchestrator {
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       name: Commands.CANCEL_ALARM_COMMAND,
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.CancelAlarmCommandType);
 
@@ -98,7 +98,7 @@ export class AlarmOrchestrator {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.CANCEL_ALARM_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         payload: { alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 

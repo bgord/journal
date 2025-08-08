@@ -14,7 +14,7 @@ export async function RevokeShareableLink(c: hono.Context<infra.HonoConfig>, _ne
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     name: Publishing.Commands.REVOKE_SHAREABLE_LINK_COMMAND,
-    createdAt: tools.Timestamp.parse(Date.now()),
+    createdAt: tools.Time.Now().value,
     revision,
     payload: { shareableLinkId, requesterId: user.id },
   } satisfies Publishing.Commands.RevokeShareableLinkCommandType);

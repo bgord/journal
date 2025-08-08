@@ -21,7 +21,7 @@ export const handleRequestWeeklyReviewCommand = async (
       Emotions.Events.WeeklyReviewSkippedEvent.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
         stream: "weekly_review_skipped",
         version: 1,

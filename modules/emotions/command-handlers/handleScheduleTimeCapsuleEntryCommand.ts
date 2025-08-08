@@ -6,15 +6,17 @@ import * as tools from "@bgord/tools";
 export const handleScheduleTimeCapsuleEntryCommand = async (
   command: Emotions.Commands.ScheduleTimeCapsuleEntryCommandType,
 ) => {
+  const now = tools.Time.Now().value;
+
   Emotions.Invariants.TimeCapsuleEntryScheduledInFuture.perform({
-    now: tools.Timestamp.parse(Date.now()),
+    now,
     scheduledFor: command.payload.scheduledFor,
   });
 
   const event = Emotions.Events.TimeCapsuleEntryScheduledEvent.parse({
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
-    createdAt: tools.Timestamp.parse(Date.now()),
+    createdAt: now,
     name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
     stream: Emotions.Aggregates.Entry.getStream(command.payload.entryId),
     version: 1,

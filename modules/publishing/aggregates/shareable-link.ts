@@ -51,7 +51,7 @@ export class ShareableLink {
     const event = Events.ShareableLinkCreatedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Events.SHAREABLE_LINK_CREATED,
       stream: ShareableLink.getStream(id),
       version: 1,
@@ -62,7 +62,7 @@ export class ShareableLink {
         dateRangeEnd: dateRange.getEnd(),
         publicationSpecification,
         durationMs: tools.Timestamp.parse(duration.ms),
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
       },
     } satisfies Events.ShareableLinkCreatedEventType);
 
@@ -82,7 +82,7 @@ export class ShareableLink {
     const event = Events.ShareableLinkExpiredEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Events.SHAREABLE_LINK_EXPIRED,
       stream: ShareableLink.getStream(this.id),
       version: 1,
@@ -99,7 +99,7 @@ export class ShareableLink {
     const event = Events.ShareableLinkRevokedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Events.SHAREABLE_LINK_REVOKED,
       stream: ShareableLink.getStream(this.id),
       version: 1,

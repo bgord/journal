@@ -14,7 +14,7 @@ export async function DeleteEntry(c: hono.Context<infra.HonoConfig>, _next: hono
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.DELETE_ENTRY_COMMAND,
-    createdAt: tools.Timestamp.parse(Date.now()),
+    createdAt: tools.Time.Now().value,
     revision,
     payload: { entryId, userId: user.id },
   } satisfies Emotions.Commands.DeleteEntryCommandType);

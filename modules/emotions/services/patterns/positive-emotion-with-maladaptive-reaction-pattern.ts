@@ -33,7 +33,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
       return Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         name: Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,

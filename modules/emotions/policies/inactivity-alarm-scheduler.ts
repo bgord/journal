@@ -36,7 +36,7 @@ export class InactivityAlarmScheduler {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         name: Commands.GENERATE_ALARM_COMMAND,
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         payload: { detection, userId },
       } satisfies Commands.GenerateAlarmCommandType);
 

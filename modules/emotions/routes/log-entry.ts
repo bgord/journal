@@ -33,7 +33,7 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
-    createdAt: tools.Timestamp.parse(Date.now()),
+    createdAt: tools.Time.Now().value,
     payload: {
       entryId,
       situation,

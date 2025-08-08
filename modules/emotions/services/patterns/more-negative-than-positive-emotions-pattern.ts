@@ -32,7 +32,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
       return Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Timestamp.parse(Date.now()),
+        createdAt: tools.Time.Now().value,
         name: Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
         stream: this.getStream(),
         version: 1,

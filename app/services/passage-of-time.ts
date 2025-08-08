@@ -9,7 +9,7 @@ export class PassageOfTime {
   static label = "PassageOfTime";
 
   static async process() {
-    const timestamp = tools.Timestamp.parse(Date.now());
+    const timestamp = tools.Time.Now().value;
 
     const event = Events.HourHasPassedEvent.parse({
       id: crypto.randomUUID(),
@@ -18,7 +18,7 @@ export class PassageOfTime {
       name: Events.HOUR_HAS_PASSED_EVENT,
       stream: "passage_of_time",
       version: 1,
-      payload: { timestamp: timestamp },
+      payload: { timestamp },
     } satisfies Events.HourHasPassedEventType);
 
     await EventStore.save([event]);

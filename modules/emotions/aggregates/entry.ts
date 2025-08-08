@@ -54,7 +54,7 @@ export class Entry {
     const SituationLoggedEvent = Emotions.Events.SituationLoggedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Emotions.Events.SITUATION_LOGGED_EVENT,
       stream: Entry.getStream(id),
       version: 1,
@@ -74,7 +74,7 @@ export class Entry {
     const EmotionLoggedEvent = Emotions.Events.EmotionLoggedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
       stream: Entry.getStream(id),
       version: 1,
@@ -91,7 +91,7 @@ export class Entry {
     const ReactionLoggedEvent = Emotions.Events.ReactionLoggedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Emotions.Events.REACTION_LOGGED_EVENT,
       stream: Entry.getStream(id),
       version: 1,
@@ -118,7 +118,7 @@ export class Entry {
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
@@ -145,7 +145,7 @@ export class Entry {
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Emotions.Events.REACTION_EVALUATED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,
@@ -168,7 +168,7 @@ export class Entry {
     const event = Emotions.Events.EntryDeletedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Emotions.Events.ENTRY_DELETED_EVENT,
       stream: Entry.getStream(this.id),
       version: 1,

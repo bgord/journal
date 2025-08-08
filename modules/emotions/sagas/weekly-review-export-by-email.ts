@@ -50,7 +50,7 @@ export class WeeklyReviewExportByEmail {
         Events.WeeklyReviewExportByEmailFailedEvent.parse({
           id: crypto.randomUUID(),
           correlationId: bg.CorrelationStorage.get(),
-          createdAt: tools.Timestamp.parse(Date.now()),
+          createdAt: tools.Time.Now().value,
           name: Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
           stream: `weekly_review_export_by_email_${event.payload.weeklyReviewExportId}`,
           version: 1,
@@ -73,7 +73,7 @@ export class WeeklyReviewExportByEmail {
         Events.WeeklyReviewExportByEmailRequestedEvent.parse({
           id: crypto.randomUUID(),
           correlationId: bg.CorrelationStorage.get(),
-          createdAt: tools.Timestamp.parse(Date.now()),
+          createdAt: tools.Time.Now().value,
           name: Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
           stream: event.stream,
           version: 1,

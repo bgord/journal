@@ -21,7 +21,7 @@ export const handleExportWeeklyReviewByEmailCommand = async (
     Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Timestamp.parse(Date.now()),
+      createdAt: tools.Time.Now().value,
       name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
       stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
       version: 1,
