@@ -1,6 +1,10 @@
 # Changelog
+- 2025-08-08 21:11 680a11e **refactor: use tools.Time.Now().value**
+## 2025-08-08 21:11 
+- 2025-08-08 21:01 cb59a9b **refactor: rename policy**
+- 2025-08-08 20:59 938a808 **step: update packages**
+- 2025-08-08 20:53 f17b952 **step: set min scheduled for**
 - 2025-08-08 19:26 f982721 **step: add time capsule entry to seed**
-## 2025-08-08 19:26 
 - 2025-08-08 19:04 890dce2 **Merge pull request #26 from bgord/time-capsule**
 - 2025-08-08 19:04 23450d9 **refactor: add location icon**
 - 2025-08-08 19:01 8b2d9b9 **step: take into account tz offset into scheduling**
@@ -12,6 +16,7 @@
 - 2025-08-08 18:10 acb017b **step: add entry origin option vo**
 - 2025-08-08 17:58 31b63e9 **step: mark as published**
 - 2025-08-08 17:36 a43b5b3 **step: add TimeCapsuleEntryIsPublishable**
+- 2025-08-08 17:33 a424975 **docs: generate CHANGELOG**
 - 2025-08-08 17:29 6f2a65a **step: list only scheduled in listDueForScheduling**
 - 2025-08-08 17:28 f34efd6 **step: add publish read model**
 - 2025-08-08 17:25 e63bd47 **step: add time capsule entry status**
