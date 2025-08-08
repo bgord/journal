@@ -6,3 +6,4 @@ export * from "./export-weekly-review-by-email";
 export * from "./get-shared-entries";
 export * from "./log-entry";
 export * from "./reappraise-emotion";
+export * from "./schedule-time-capsule-entry";
