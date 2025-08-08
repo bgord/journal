@@ -219,6 +219,7 @@ export function AddEntry() {
                   className="c-input"
                   required
                   type="date"
+                  min={new Date().toISOString().split("T")[0]}
                   {...timeCapsuleMode.props.target}
                   {...scheduledFor.input.props}
                   value={
