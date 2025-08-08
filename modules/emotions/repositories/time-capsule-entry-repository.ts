@@ -3,7 +3,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
-import { lte } from "drizzle-orm";
+import { eq, lte } from "drizzle-orm";
 
 export class TimeCapsuleEntryRepository {
   static async listDueForScheduling(now: tools.TimestampType) {
@@ -30,5 +30,12 @@ export class TimeCapsuleEntryRepository {
       status: VO.TimeCapsuleEntryStatusEnum.scheduled,
       userId: event.payload.userId,
     });
+  }
+
+  static async publish(entryId: VO.EntryIdType) {
+    await db
+      .update(Schema.timeCapsuleEntries)
+      .set({ status: VO.TimeCapsuleEntryStatusEnum.published })
+      .where(eq(Schema.timeCapsuleEntries.id, entryId));
   }
 }
