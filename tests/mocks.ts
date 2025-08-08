@@ -75,6 +75,8 @@ export const duration = tools.Time.Seconds(1);
 
 export const hourHasPassedTimestamp = tools.Timestamp.parse(Date.now());
 
+export const entryScheduledFor = tools.Timestamp.parse(Date.now() + tools.Time.Hours(2).ms);
+
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
