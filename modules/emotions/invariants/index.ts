@@ -14,6 +14,7 @@ export * from "./reaction-corresponds-to-situation-and-emotion";
 export * from "./reaction-for-evaluation-exists";
 export * from "./requester-owns-entry";
 export * from "./requester-owns-weekly-review";
+export * from "./time-capsule-entry-scheduled-in-future";
 export * from "./weekly-review-completed-once";
 export * from "./weekly-review-exists";
 export * from "./weekly-review-is-completed";

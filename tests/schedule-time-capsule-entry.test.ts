@@ -5,6 +5,7 @@ import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
+import * as testcases from "./testcases";
 
 const url = "/entry/time-capsule-entry/schedule";
 
@@ -184,10 +185,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
 
-    const json = await response.json();
-
-    expect(response.status).toBe(400);
-    expect(json).toEqual({ message: Emotions.VO.EntryScheduledForErrors.invalid, _known: true });
+    await testcases.assertInvariantError(response, Emotions.Invariants.TimeCapsuleEntryScheduledInFuture);
   });
 
   test("happy path", async () => {

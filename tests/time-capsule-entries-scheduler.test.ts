@@ -13,7 +13,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event);
+      await policy.onHourHasPassed();
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -26,7 +26,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event);
+      await policy.onHourHasPassed();
     });
 
     expect(eventStoreSave).toHaveBeenCalledWith([

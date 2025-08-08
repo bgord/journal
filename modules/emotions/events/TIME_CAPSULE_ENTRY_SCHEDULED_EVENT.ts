@@ -21,7 +21,7 @@ export const TimeCapsuleEntryScheduledEvent = z.object({
     userId: Auth.VO.UserId,
 
     scheduledAt: tools.Timestamp,
-    scheduledFor: VO.EntryScheduledFor,
+    scheduledFor: tools.Timestamp,
 
     situation: z.object({
       description: VO.SituationDescriptionSchema,

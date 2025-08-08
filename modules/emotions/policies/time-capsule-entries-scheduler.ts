@@ -1,7 +1,6 @@
 import * as Events from "+app/events";
 import * as Commands from "+emotions/commands";
 import * as Entities from "+emotions/entities";
-import * as Invariants from "+emotions/invariants";
 import * as Repos from "+emotions/repositories";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
@@ -15,9 +14,7 @@ export class TimeCapsuleEntriesScheduler {
     this.eventBus.on(Events.HOUR_HAS_PASSED_EVENT, this.onHourHasPassed.bind(this));
   }
 
-  async onHourHasPassed(event: Events.HourHasPassedEventType) {
-    if (Invariants.WeeklyReviewSchedule.fails({ timestamp: event.payload.timestamp })) return;
-
+  async onHourHasPassed() {
     const now = tools.Timestamp.parse(Date.now());
     const entries = await Repos.TimeCapsuleEntryRepository.listDueForScheduling(now);
 
