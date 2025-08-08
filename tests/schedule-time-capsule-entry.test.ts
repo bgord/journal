@@ -194,7 +194,8 @@ describe(`POST ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.entryId);
-    spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(Date, "now").mockReturnValue(mocks.scheduledAt);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -204,7 +205,7 @@ describe(`POST ${url}`, () => {
           ...situation,
           ...emotion,
           ...reaction,
-          scheduledFor: mocks.entryScheduledFor,
+          scheduledFor: mocks.scheduledFor,
         }),
         headers: new Headers({ "x-correlation-id": mocks.correlationId }),
       },
@@ -212,5 +213,6 @@ describe(`POST ${url}`, () => {
     );
 
     expect(response.status).toBe(200);
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericTimeCapsuleEntryScheduledEvent]);
   });
 });

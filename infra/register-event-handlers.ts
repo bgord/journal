@@ -113,7 +113,7 @@ new PublishingPolicies.ShareableLinksExpirer(EventBus);
 new EmotionsPolicies.EntryAlarmDetector(EventBus);
 new EmotionsPolicies.WeeklyReviewScheduler(EventBus);
 new EmotionsPolicies.InactivityAlarmScheduler(EventBus);
-new EmotionsPolicies.TimeCalsupeEntriesScheduler(EventBus);
+new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus);
 
 // Sagas
 new EmotionsSagas.AlarmOrchestrator(EventBus, AiClient, Mailer);

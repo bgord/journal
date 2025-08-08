@@ -75,7 +75,8 @@ export const duration = tools.Time.Seconds(1);
 
 export const hourHasPassedTimestamp = tools.Timestamp.parse(Date.now());
 
-export const entryScheduledFor = tools.Timestamp.parse(Date.now() + tools.Time.Hours(2).ms);
+export const scheduledAt = tools.Timestamp.parse(Date.now());
+export const scheduledFor = tools.Timestamp.parse(Date.now() + tools.Time.Hours(2).ms);
 
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
@@ -195,6 +196,36 @@ export const GenericEntryDeletedEvent = {
   version: 1,
   payload: { entryId, userId },
 } satisfies Emotions.Events.EntryDeletedEventType;
+
+export const GenericTimeCapsuleEntryScheduledEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
+  stream: Emotions.Aggregates.Entry.getStream(entryId),
+  version: 1,
+  payload: {
+    entryId,
+    language: SupportedLanguages.en,
+    userId,
+    situation: {
+      description: "I finished a project",
+      kind: Emotions.VO.SituationKindOptions.achievement,
+      location: "work",
+    },
+    emotion: {
+      label: Emotions.VO.GenevaWheelEmotion.gratitude,
+      intensity: 3,
+    },
+    reaction: {
+      description: "Got drunk",
+      type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
+      effectiveness: 1,
+    },
+    scheduledFor,
+    scheduledAt,
+  },
+} satisfies Emotions.Events.TimeCapsuleEntryScheduledEventType;
 
 export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   id: expectAnyId,
