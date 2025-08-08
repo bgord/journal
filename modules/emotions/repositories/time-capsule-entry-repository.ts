@@ -3,12 +3,15 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
-import { eq, lte } from "drizzle-orm";
+import { and, eq, lte } from "drizzle-orm";
 
 export class TimeCapsuleEntryRepository {
   static async listDueForScheduling(now: tools.TimestampType) {
     return db.query.timeCapsuleEntries.findMany({
-      where: lte(Schema.timeCapsuleEntries.scheduledFor, now),
+      where: and(
+        lte(Schema.timeCapsuleEntries.scheduledFor, now),
+        eq(Schema.timeCapsuleEntries.status, VO.TimeCapsuleEntryStatusEnum.scheduled),
+      ),
       limit: 10,
     });
   }
