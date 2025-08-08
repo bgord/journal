@@ -34,12 +34,14 @@ export function Entry(props: EntryType) {
     >
       <header
         data-stack="x"
-        data-main="between"
+        data-gap="3"
         data-cross="center"
         data-mt="2"
         {...UI.Rhythm().times(3).style.height}
       >
-        <div data-fs="base" data-fw="regular" data-color="neutral-300">
+        {props.origin === "time_capsule" && <Icons.Timer data-size="sm" data-color="neutral-300" />}
+
+        <div data-fs="base" data-fw="regular" data-color="neutral-300" data-mr="auto">
           {props.startedAt}
         </div>
 

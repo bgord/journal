@@ -19,7 +19,7 @@ type TimeCapsuleEntryIsPublishableConfigType = {
 class TimeCapsuleEntryIsPublishableFactory extends bg.Policy<TimeCapsuleEntryIsPublishableConfigType> {
   fails(config: TimeCapsuleEntryIsPublishableConfigType) {
     if (config.status !== VO.TimeCapsuleEntryStatusEnum.scheduled) return true;
-    if (config.now > config.scheduledFor) return true;
+    if (config.now < config.scheduledFor) return true;
     return false;
   }
 
