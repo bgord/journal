@@ -1,6 +1,7 @@
 import type { HourHasPassedEvent } from "+app/events";
 import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
 import type {
+  TimeCapsuleEntryScheduledEvent,
   WeeklyReviewExportByEmailFailedEvent,
   WeeklyReviewExportByEmailRequestedEvent,
 } from "+emotions/events";
@@ -21,6 +22,7 @@ export type AcceptedEvent =
   | WeeklyReviewEvent
   | typeof WeeklyReviewExportByEmailRequestedEvent
   | typeof WeeklyReviewExportByEmailFailedEvent
+  | typeof TimeCapsuleEntryScheduledEvent
   | ShareableLinkEvent
   | typeof HourHasPassedEvent;
 
