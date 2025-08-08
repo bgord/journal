@@ -1,9 +1,9 @@
 import type { UserIdType } from "+auth/value-objects";
 import type * as tools from "@bgord/tools";
-import { UsageCategoryType } from "./usage-category";
+import { UsageCategory } from "./usage-category";
 
 export type RequestContext = {
-  category: UsageCategoryType;
+  category: UsageCategory;
   userId: UserIdType;
   timestamp: tools.TimestampType;
   dimension: string;
