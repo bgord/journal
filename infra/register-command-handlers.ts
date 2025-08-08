@@ -41,6 +41,10 @@ CommandBus.on(
   EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
   EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand,
 );
+CommandBus.on(
+  EmotionCommands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
+  EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand,
+);
 
 CommandBus.on(
   PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,

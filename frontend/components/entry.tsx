@@ -34,12 +34,14 @@ export function Entry(props: EntryType) {
     >
       <header
         data-stack="x"
-        data-main="between"
+        data-gap="3"
         data-cross="center"
         data-mt="2"
         {...UI.Rhythm().times(3).style.height}
       >
-        <div data-fs="base" data-fw="regular" data-color="neutral-300">
+        {props.origin === "time_capsule" && <Icons.Timer data-size="sm" data-color="neutral-300" />}
+
+        <div data-fs="base" data-fw="regular" data-color="neutral-300" data-mr="auto">
           {props.startedAt}
         </div>
 
@@ -64,8 +66,16 @@ export function Entry(props: EntryType) {
             {t("entry.situation.description.label")}
           </div>
 
-          <div data-ml="auto" data-color="neutral-300" data-fs="sm">
-            @{props.situationLocation}
+          <div
+            data-stack="x"
+            data-cross="center"
+            data-gap="2"
+            data-ml="auto"
+            data-color="neutral-300"
+            data-fs="sm"
+          >
+            <Icons.MapPin data-size="sm" data-color="brand-300" />
+            {props.situationLocation}
           </div>
 
           <div className="c-badge" data-variant="outline">

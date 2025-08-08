@@ -47,6 +47,7 @@ export class Entry {
     reaction: Emotions.Entities.Reaction,
     language: SupportedLanguages,
     requesterId: Auth.VO.UserIdType,
+    origin: Emotions.VO.EntryOriginOption,
   ) {
     const entry = new Entry(id);
 
@@ -64,6 +65,7 @@ export class Entry {
         kind: situation.kind.get(),
         language,
         userId: requesterId,
+        origin,
       },
     } satisfies Emotions.Events.SituationLoggedEventType);
 

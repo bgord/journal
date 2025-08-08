@@ -5,10 +5,11 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import hono from "hono";
 
-export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
   const language = c.get("language");
+  const timeZoneOffsetMs = c.get("timeZoneOffset").miliseconds;
 
   const entryId = crypto.randomUUID();
 
@@ -29,11 +30,14 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
     new Emotions.VO.ReactionEffectiveness(Number(body.reactionEffectiveness)),
   );
 
-  const command = Emotions.Commands.LogEntryCommand.parse({
+  const now = tools.Timestamp.parse(Date.now());
+  const scheduledFor = tools.Timestamp.parse(Number(body.scheduledFor) + timeZoneOffsetMs);
+
+  const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
     id: crypto.randomUUID(),
     correlationId: bg.CorrelationStorage.get(),
-    name: Emotions.Commands.LOG_ENTRY_COMMAND,
-    createdAt: tools.Timestamp.parse(Date.now()),
+    name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
+    createdAt: now,
     payload: {
       entryId,
       situation,
@@ -41,9 +45,10 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
       reaction,
       language,
       userId: user.id,
-      origin: Emotions.VO.EntryOriginOption.web,
+      scheduledAt: now,
+      scheduledFor,
     },
-  } satisfies Emotions.Commands.LogEntryCommandType);
+  } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
   await CommandBus.emit(command.name, command);
 

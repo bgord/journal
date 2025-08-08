@@ -18,6 +18,7 @@ type AcceptedCommand =
   | EmotionCommands.MarkWeeklyReviewAsFailedCommandType
   | EmotionCommands.DetectWeeklyPatternsCommandType
   | EmotionCommands.ExportWeeklyReviewByEmailCommand
+  | EmotionCommands.ScheduleTimeCapsuleEntryCommandType
   | PublishngCommands.CreateShareableLinkCommandType
   | PublishngCommands.ExpireShareableLinkCommandType
   | PublishngCommands.RevokeShareableLinkCommandType;

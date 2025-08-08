@@ -17,6 +17,7 @@ export function AddEntry() {
   const loader = RR.useLoaderData<LoaderData>();
 
   const dialog = UI.useToggle({ name: "dialog" });
+  const timeCapsuleMode = UI.useToggle({ name: "time-capsule-mode" });
 
   const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situation-description" });
   const situationLocation = UI.useField<types.SituationLocationType>({ name: "situation-location" });
@@ -36,6 +37,8 @@ export function AddEntry() {
     defaultValue: loader.form.reactionEffectiveness.min,
   });
 
+  const scheduledFor = UI.useField<number | null>({ name: "scheduledFor" });
+
   const payload = {
     situationDescription: situationDescription.value,
     situationLocation: situationLocation.value,
@@ -45,7 +48,8 @@ export function AddEntry() {
     reactionDescription: reactionDescription.value,
     reactionType: reactionType.value,
     reactionEffectiveness: reactionEffectiveness.value,
-    intent: "entry_add",
+    intent: timeCapsuleMode.on ? "time_capsule_entry_add" : "entry_add",
+    scheduledFor: timeCapsuleMode.on ? scheduledFor.value : null,
   };
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
@@ -195,7 +199,38 @@ export function AddEntry() {
             <ClickableRatingPills {...reactionEffectiveness} />
           </div>
 
-          <div data-stack="x" data-main="end" data-gap="5" data-mt="12">
+          <div data-stack="x" data-gap="3">
+            {timeCapsuleMode.off && (
+              <button type="button" className="c-button" onClick={timeCapsuleMode.enable}>
+                <Icons.TimerOff data-size="md" data-color="neutral-300" />
+              </button>
+            )}
+            {timeCapsuleMode.on && (
+              <>
+                <button
+                  type="button"
+                  className="c-button"
+                  onClick={timeCapsuleMode.disable}
+                  {...timeCapsuleMode.props.controller}
+                >
+                  <Icons.Timer data-size="md" data-color="neutral-300" />
+                </button>
+                <input
+                  className="c-input"
+                  required
+                  type="date"
+                  {...timeCapsuleMode.props.target}
+                  {...scheduledFor.input.props}
+                  value={
+                    scheduledFor.value ? new Date(scheduledFor.value).toISOString().split("T")[0] : undefined
+                  }
+                  onChange={(event) => scheduledFor.set(event.currentTarget.valueAsNumber)}
+                />
+              </>
+            )}
+          </div>
+
+          <div data-stack="x" data-main="end" data-gap="5">
             <CancelButton onClick={dialog.disable} />
 
             <button

@@ -43,6 +43,7 @@ const entry = new Hono();
 
 entry.use("*", AuthShield.attach, AuthShield.verify);
 entry.post("/log", Emotions.Routes.LogEntry);
+entry.post("/time-capsule-entry/schedule", Emotions.Routes.ScheduleTimeCapsuleEntry);
 entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
 entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
 entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);

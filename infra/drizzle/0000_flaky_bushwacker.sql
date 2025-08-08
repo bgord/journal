@@ -48,6 +48,7 @@ CREATE TABLE `entries` (
 	`status` text NOT NULL,
 	`language` text NOT NULL,
 	`weekIsoId` text NOT NULL,
+	`origin` text NOT NULL,
 	`userId` text NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
@@ -101,6 +102,24 @@ CREATE TABLE `shareableLinks` (
 	`expiresAt` integer NOT NULL,
 	`hidden` integer DEFAULT false,
 	FOREIGN KEY (`ownerId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE TABLE `timeCapsuleEntries` (
+	`id` text(36) PRIMARY KEY NOT NULL,
+	`scheduledAt` integer NOT NULL,
+	`scheduledFor` integer NOT NULL,
+	`situationDescription` text NOT NULL,
+	`situationLocation` text NOT NULL,
+	`situationKind` text NOT NULL,
+	`emotionLabel` text NOT NULL,
+	`emotionIntensity` integer NOT NULL,
+	`reactionDescription` text NOT NULL,
+	`reactionType` text NOT NULL,
+	`reactionEffectiveness` integer NOT NULL,
+	`language` text NOT NULL,
+	`status` text NOT NULL,
+	`userId` text NOT NULL,
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `users` (

@@ -2,12 +2,14 @@ import { relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
 import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status";
+import { EntryOriginOption } from "../modules/emotions/value-objects/entry-origin-option";
 import { EntryStatusEnum } from "../modules/emotions/value-objects/entry-status";
 import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
 import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
 import { PatternNameOption } from "../modules/emotions/value-objects/pattern-name-option";
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { SituationKindOptions } from "../modules/emotions/value-objects/situation-kind-options";
+import { TimeCapsuleEntryStatusEnum } from "../modules/emotions/value-objects/time-capsule-entry-status";
 import { WeeklyReviewStatusEnum } from "../modules/emotions/value-objects/weekly-review-status";
 import { ShareableLinkStatusEnum } from "../modules/publishing/value-objects/shareable-link-status";
 
@@ -54,6 +56,7 @@ export const entries = sqliteTable("entries", {
   status: text("status", toEnumList(EntryStatusEnum)).notNull(),
   language: text("language").notNull(),
   weekIsoId: text("weekIsoId").notNull(),
+  origin: text("origin", toEnumList(EntryOriginOption)).notNull(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
@@ -79,6 +82,25 @@ export const entriesRelations = relations(entries, ({ one, many }) => ({
     relationName: "week", // shared with other composites
   }),
 }));
+
+export const timeCapsuleEntries = sqliteTable("timeCapsuleEntries", {
+  id,
+  scheduledAt: integer("scheduledAt").notNull(),
+  scheduledFor: integer("scheduledFor").notNull(),
+  situationDescription: text("situationDescription").notNull(),
+  situationLocation: text("situationLocation").notNull(),
+  situationKind: text("situationKind", toEnumList(SituationKindOptions)).notNull(),
+  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).notNull(),
+  emotionIntensity: integer("emotionIntensity").notNull(),
+  reactionDescription: text("reactionDescription").notNull(),
+  reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)).notNull(),
+  reactionEffectiveness: integer("reactionEffectiveness").notNull(),
+  language: text("language").notNull(),
+  status: text("status", toEnumList(TimeCapsuleEntryStatusEnum)).notNull(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+});
 
 export const alarms = sqliteTable("alarms", {
   id,
@@ -298,3 +320,5 @@ export type SelectAlarms = typeof alarms.$inferSelect;
 export type SelectPatternDetections = typeof patternDetections.$inferSelect;
 export type SelectWeeklyReviews = typeof weeklyReviews.$inferSelect;
 export type SelectShareableLinks = typeof shareableLinks.$inferSelect;
+/** @public */
+export type SelectTimeCapsuleEntries = typeof timeCapsuleEntries.$inferSelect;
