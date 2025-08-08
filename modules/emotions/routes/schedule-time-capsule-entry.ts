@@ -9,6 +9,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
   const language = c.get("language");
+  const timeZoneOffsetMs = c.get("timeZoneOffset").miliseconds;
 
   const entryId = crypto.randomUUID();
 
@@ -30,7 +31,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   );
 
   const now = tools.Timestamp.parse(Date.now());
-  const scheduledFor = tools.Timestamp.parse(Number(body.scheduledFor));
+  const scheduledFor = tools.Timestamp.parse(Number(body.scheduledFor) + timeZoneOffsetMs);
 
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
     id: crypto.randomUUID(),
