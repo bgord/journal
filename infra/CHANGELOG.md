@@ -1,6 +1,39 @@
 # Changelog
+- 2025-08-08 19:04 890dce2 **Merge pull request #26 from bgord/time-capsule**
+- 2025-08-08 19:04 23450d9 **refactor: add location icon**
+## 2025-08-08 19:04 
+- 2025-08-08 19:01 8b2d9b9 **step: take into account tz offset into scheduling**
+- 2025-08-08 18:56 0b938af **fix: tests**
+- 2025-08-08 18:54 6109096 **step: add origin icon**
+- 2025-08-08 18:49 ce71033 **step: handle time capsules in FE**
+- 2025-08-08 18:19 20281db **feature: add entry origin**
+- 2025-08-08 18:11 fa72609 **step: add entry origin to schema**
+- 2025-08-08 18:10 acb017b **step: add entry origin option vo**
+- 2025-08-08 17:58 31b63e9 **step: mark as published**
+- 2025-08-08 17:36 a43b5b3 **step: add TimeCapsuleEntryIsPublishable**
+- 2025-08-08 17:29 6f2a65a **step: list only scheduled in listDueForScheduling**
+- 2025-08-08 17:28 f34efd6 **step: add publish read model**
+- 2025-08-08 17:25 e63bd47 **step: add time capsule entry status**
+- 2025-08-08 17:23 e10d11e **step: add TimeCapsuleEntryStatusEnum**
+- 2025-08-08 17:10 a44f069 **step: add TimeCapsuleEntryScheduledInFuture**
+- 2025-08-08 17:09 9c575aa **step: export EntryScheduledForType**
+- 2025-08-08 16:38 93ab8fd **step: update packages**
+- 2025-08-08 15:04 888a6e8 **step: add listDueForScheduling**
+- 2025-08-08 14:53 1b5512c **step: add event handler**
+- 2025-08-08 14:51 676417e **step: setup time capsule entry read model**
+- 2025-08-08 14:40 0a743c7 **step: setup scheduler tests**
+- 2025-08-08 14:32 929c36d **step: test mocks.GenericTimeCapsuleEntryScheduledEvent**
+- 2025-08-08 14:23 2b42c03 **step: implement handleScheduleTimeCapsuleEntryCommand**
+- 2025-08-08 14:12 73a5594 **step: setup time capsule entry scheduled event**
+- 2025-08-08 13:54 cb09601 **step: add proper scheduled for vo**
+- 2025-08-08 13:47 26bed30 **step: add mocks.entryScheduledFor**
+- 2025-08-08 13:42 a7c384e **step: wire up command**
+- 2025-08-08 13:41 e4111c5 **step: add command handler**
+- 2025-08-08 13:39 d0cca9a **step: setup schedule time capsule entry command**
+- 2025-08-08 13:34 496c159 **step: setup tests**
+- 2025-08-08 13:32 bda483b **step: setup schedule time capsule entry route**
+- 2025-08-08 13:29 4557fbf **step: setup time capsule entries scheduler**
 - 2025-08-07 23:23 4105945 **step: update packages**
-## 2025-08-07 23:23 
 - 2025-08-07 23:19 8e4a5d0 **step: handle errors**
 - 2025-08-07 23:13 6d77484 **step: handle empty shared entries**
 - 2025-08-07 23:10 40ebf17 **feature: implement hide shareable links**
@@ -19,6 +52,7 @@
 - 2025-08-07 21:34 e2f0910 **step: add ohq details**
 - 2025-08-07 21:33 f71aff6 **step: expose summarize() aggregate method so it is readable in ohq**
 - 2025-08-07 21:25 7f63ce2 **refactor: make ohq richer so one aggregate-hop is needed in the final endpoint**
+- 2025-08-07 21:23 6327503 **docs: generate CHANGELOG**
 - 2025-08-07 20:58 d912ebc **docs: generate CHANGELOG**
 - 2025-08-07 20:58 3068718 **docs: generate readme**
 - 2025-08-06 23:44 0e4ba4e **step: add requester id check**
