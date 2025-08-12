@@ -1,5 +1,14 @@
 import * as Emotions from "+emotions";
+import { db } from "+infra/db";
+import * as Schema from "+infra/schema";
+import { eq } from "drizzle-orm";
 
 export const onAlarmAdviceSavedEvent = async (event: Emotions.Events.AlarmAdviceSavedEventType) => {
-  await Emotions.Repos.AlarmRepository.saveAdvice(event);
+  await db
+    .update(Schema.alarms)
+    .set({
+      advice: event.payload.advice,
+      status: Emotions.VO.AlarmStatusEnum.advice_saved,
+    })
+    .where(eq(Schema.alarms.id, event.payload.alarmId));
 };

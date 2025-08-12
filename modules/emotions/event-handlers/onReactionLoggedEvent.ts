@@ -1,5 +1,17 @@
 import * as Emotions from "+emotions";
+import { db } from "+infra/db";
+import * as Schema from "+infra/schema";
+import { eq } from "drizzle-orm";
 
 export const onReactionLoggedEvent = async (event: Emotions.Events.ReactionLoggedEventType) => {
-  await Emotions.Repos.EntryRepository.logReaction(event);
+  await db
+    .update(Schema.entries)
+    .set({
+      reactionDescription: event.payload.description,
+      reactionType: event.payload.type,
+      reactionEffectiveness: event.payload.effectiveness,
+      finishedAt: event.createdAt,
+      revision: event.revision,
+    })
+    .where(eq(Schema.entries.id, event.payload.entryId));
 };
