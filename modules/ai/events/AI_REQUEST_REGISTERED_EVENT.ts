@@ -6,12 +6,6 @@ import { z } from "zod/v4";
 
 export const AI_REQUEST_REGISTERED_EVENT = "AI_REQUEST_REGISTERED_EVENT";
 
-export const DimensionSchemas = {
-  [VO.UsageCategory.EMOTIONS_ALARM_ENTRY]: z.object({ entryId: z.uuid() }),
-  [VO.UsageCategory.EMOTIONS_ALARM_INACTIVITY]: z.object({}).strict(),
-  [VO.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT]: z.object({}).strict(),
-} as const satisfies Record<VO.UsageCategory, z.ZodType>;
-
 export const AiRequestRegisteredEvent = z.object({
   id: bg.UUID,
   correlationId: bg.UUID,
@@ -22,7 +16,7 @@ export const AiRequestRegisteredEvent = z.object({
   revision: tools.RevisionValue.optional(),
   payload: z.object({
     category: z.enum(VO.UsageCategory),
-    dimensions: DimensionSchemas,
+    dimensions: z.union([z.object({ entryId: z.uuid() }), z.object({}).strict()]),
     timestamp: tools.Timestamp,
     userId: Auth.VO.UserId,
   }),
