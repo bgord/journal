@@ -24,7 +24,7 @@ describe("AiGateway", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      const result = await gateway.request(prompt, mocks.EmotionsAlarmEntryContext);
+      const result = await gateway.query(prompt, mocks.EmotionsAlarmEntryContext);
       expect(result).toEqual(mocks.advice);
     });
 
@@ -41,7 +41,7 @@ describe("AiGateway", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      expect(async () => await gateway.request(prompt, mocks.EmotionsAlarmEntryContext)).toThrowError(
+      expect(async () => await gateway.query(prompt, mocks.EmotionsAlarmEntryContext)).toThrowError(
         AiQuotaExceededError,
       );
     });

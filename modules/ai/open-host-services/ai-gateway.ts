@@ -26,7 +26,7 @@ export class AiGateway implements Ports.AiGatewayPort {
     this.specification = new AIQuotaSpecification(new QuotaRuleSelector(VO.RULES), bucketCounter);
   }
 
-  async request<C extends VO.UsageCategory>(
+  async query<C extends VO.UsageCategory>(
     prompt: VO.Prompt,
     context: VO.RequestContext<C>,
   ): Promise<VO.Advice> {
