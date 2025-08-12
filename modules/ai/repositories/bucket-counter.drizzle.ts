@@ -9,7 +9,7 @@ export class BucketCounterDrizzleRepository implements BucketCounter {
     if (buckets.length === 0) return {};
 
     const rows = await db
-      .select({ key: Schema.aiUsageCounters.key, count: Schema.aiUsageCounters.count })
+      .select({ bucket: Schema.aiUsageCounters.bucket, count: Schema.aiUsageCounters.count })
       .from(Schema.aiUsageCounters)
       .where(inArray(Schema.aiUsageCounters, buckets));
 
@@ -17,7 +17,7 @@ export class BucketCounterDrizzleRepository implements BucketCounter {
       buckets.map((bucket) => [bucket, 0]),
     );
 
-    for (const row of rows) usage[row.key] = row.count;
+    for (const row of rows) usage[row.bucket] = row.count;
 
     return usage;
   }

@@ -16,7 +16,7 @@ CREATE TABLE `accounts` (
 );
 --> statement-breakpoint
 CREATE TABLE `ai_usage_counters` (
-	`key` text PRIMARY KEY NOT NULL,
+	`bucket` text PRIMARY KEY NOT NULL,
 	`rule_id` text NOT NULL,
 	`window` text NOT NULL,
 	`user_id` text NOT NULL,

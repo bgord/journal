@@ -8,7 +8,7 @@ export const CategoryDimensionMap = {
   [UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT]: {} as Record<string, never>,
 } as const satisfies Record<UsageCategory, unknown>;
 
-export type DimensionsOf<Category extends UsageCategory> = (typeof CategoryDimensionMap)[Category];
+type DimensionsOf<Category extends UsageCategory> = (typeof CategoryDimensionMap)[Category];
 
 export type RequestContext<Category extends UsageCategory = UsageCategory> = {
   category: Category;

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "1db5e3de-8b2d-4d99-9aa0-6a11d6241f94",
+  "id": "fdb52f1a-8bca-4d98-ac69-671efd59676f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -118,8 +118,8 @@
     "ai_usage_counters": {
       "name": "ai_usage_counters",
       "columns": {
-        "key": {
-          "name": "key",
+        "bucket": {
+          "name": "bucket",
           "type": "text",
           "primaryKey": true,
           "notNull": true,

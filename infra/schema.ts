@@ -235,7 +235,7 @@ export const shareableLinksRelations = relations(shareableLinks, ({ one }) => ({
 
 /** @public */
 export const aiUsageCounters = sqliteTable("ai_usage_counters", {
-  key: text("key").primaryKey(),
+  bucket: text("bucket").primaryKey(),
   ruleId: text("rule_id").notNull(),
   window: text("window").notNull(),
   userId: text("user_id").notNull(),
