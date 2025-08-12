@@ -1,5 +1,6 @@
 export * from "./quota-limit";
 export * from "./quota-rule";
+export * from "./quota-rule-id";
 export * from "./quota-rules";
 export * from "./quota-window";
 export * from "./request-context";
