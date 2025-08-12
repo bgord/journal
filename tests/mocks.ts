@@ -539,7 +539,7 @@ export const GenericHourHasPassedWednesdayUtc18Event = {
   payload: { timestamp: tools.Timestamp.parse(1754503200000) },
 } satisfies App.Events.HourHasPassedEventType;
 
-export const GenericAiRequestRegisteredEvent = {
+export const GenericAiRequestRegisteredEmotionsAlarmEntryEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),

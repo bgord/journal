@@ -28,7 +28,7 @@ describe("AiGateway", () => {
       expect(result).toEqual(mocks.advice);
     });
 
-    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAiRequestRegisteredEvent]);
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAiRequestRegisteredEmotionsAlarmEntryEvent]);
   });
 
   test("quota exceeded", async () => {
