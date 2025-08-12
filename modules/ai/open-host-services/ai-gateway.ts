@@ -8,6 +8,13 @@ import { BucketCounter } from "../ports/bucket-counter";
 import { QuotaRuleSelector } from "../services/quota-rule-selector";
 import { AIQuotaSpecification } from "../specifications/ai-quota-specification";
 
+export class AiQuotaExceededError extends Error {
+  constructor() {
+    super();
+    Object.setPrototypeOf(this, AiQuotaExceededError.prototype);
+  }
+}
+
 export class AiGateway {
   private readonly specification: AIQuotaSpecification;
 
@@ -36,6 +43,8 @@ export class AiGateway {
       } satisfies Events.AiQuotaExceededEventType);
 
       await EventStore.save([event]);
+
+      throw new AiQuotaExceededError();
     }
 
     const advice = this.AiClient.request(prompt);
