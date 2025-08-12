@@ -4,13 +4,11 @@ import { QuotaRule } from "./quota-rule";
 import { QuotaWindow } from "./quota-window";
 import { UsageCategory } from "./usage-category";
 
-export const day = (ts: number) => new Date(ts).toISOString().slice(0, 10);
-
 export const USER_DAILY_RULE: QuotaRule = {
   id: "USER_DAILY",
   window: QuotaWindow.DAY,
   limit: QuotaLimit.parse(10),
-  bucket: (context) => `user:${context.userId}:day:${day(context.timestamp)}`,
+  bucket: (context) => `user:${context.userId}:day:${tools.Day.fromTimestamp(context.timestamp).toIsoId()}`,
   appliesTo: (_category) => true,
 };
 

@@ -4,9 +4,6 @@ import { QuotaRuleSelector } from "../modules/ai/services/quota-rule-selector";
 import * as VO from "../modules/ai/value-objects";
 import * as mocks from "./mocks";
 
-// TODO: replace with tools.Day
-export const day = (ts: number) => new Date(ts).toISOString().slice(0, 10);
-
 const EmotionsAlarmEntryContext: VO.RequestContext<VO.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
   userId: mocks.userId,
   category: VO.UsageCategory.EMOTIONS_ALARM_ENTRY,
@@ -36,7 +33,7 @@ describe("QuotaRuleSelector", () => {
     const result = selector.select(EmotionsAlarmEntryContext);
     expect(result).toEqual([
       {
-        bucket: `user:${mocks.userId}:day:${day(tools.Time.Now().value)}`,
+        bucket: `user:${mocks.userId}:day:${tools.Day.fromNow().toIsoId()}`,
         id: "USER_DAILY",
         limit: VO.QuotaLimit.parse(10),
         window: VO.QuotaWindow.DAY,
@@ -56,7 +53,7 @@ describe("QuotaRuleSelector", () => {
     const result = selector.select(EmotionsWeeklyReviewInsightContext);
     expect(result).toEqual([
       {
-        bucket: `user:${mocks.userId}:day:${day(tools.Time.Now().value)}`,
+        bucket: `user:${mocks.userId}:day:${tools.Day.fromTimestamp(tools.Time.Now().value).toIsoId()}`,
         id: "USER_DAILY",
         limit: VO.QuotaLimit.parse(10),
         window: VO.QuotaWindow.DAY,
@@ -76,7 +73,7 @@ describe("QuotaRuleSelector", () => {
     const result = selector.select(EmotionsAlarmInactivityWeeklyContext);
     expect(result).toEqual([
       {
-        bucket: `user:${mocks.userId}:day:${day(tools.Time.Now().value)}`,
+        bucket: `user:${mocks.userId}:day:${tools.Day.fromTimestamp(tools.Time.Now().value).toIsoId()}`,
         id: "USER_DAILY",
         limit: VO.QuotaLimit.parse(10),
         window: VO.QuotaWindow.DAY,

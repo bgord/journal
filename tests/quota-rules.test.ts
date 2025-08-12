@@ -3,9 +3,6 @@ import * as tools from "@bgord/tools";
 import * as VO from "../modules/ai/value-objects";
 import * as mocks from "./mocks";
 
-// TODO: replace with tools.Day
-export const day = (ts: number) => new Date(ts).toISOString().slice(0, 10);
-
 const EmotionsAlarmEntryContext: VO.RequestContext<VO.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
   userId: mocks.userId,
   category: VO.UsageCategory.EMOTIONS_ALARM_ENTRY,
@@ -33,7 +30,7 @@ describe("Quota rules", () => {
     expect(VO.USER_DAILY_RULE.appliesTo(EmotionsAlarmEntryContext.category)).toEqual(true);
 
     expect(VO.USER_DAILY_RULE.bucket(EmotionsAlarmEntryContext)).toEqual(
-      `user:${mocks.userId}:day:${day(tools.Time.Now().value)}`,
+      `user:${mocks.userId}:day:${tools.Day.fromNow().toIsoId()}`,
     );
   });
 

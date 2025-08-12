@@ -6,11 +6,7 @@ import { AIQuotaSpecification } from "../modules/ai/specifications/ai-quota-spec
 import * as VO from "../modules/ai/value-objects";
 import * as mocks from "./mocks";
 
-// TODO: replace with tools.Day
-export const day = (ts: number) => new Date(ts).toISOString().slice(0, 10);
-
-// TODO: export to mocks
-export const userDailyBucket = `user:${mocks.userId}:day:${day(tools.Time.Now().value)}`;
+export const userDailyBucket = `user:${mocks.userId}:day:${tools.Day.fromNow().toIsoId()}`;
 export const emotionsAlarmEntryBucket = `user:${mocks.userId}:entry:${mocks.entryId}:alarms`;
 export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${mocks.userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_weekly_review_insight`;
 export const emotionsAlarmInactivityWeeklyBucket = `user:${mocks.userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_alarm_inactivity`;
