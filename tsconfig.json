@@ -19,6 +19,8 @@
       "+auth/*": ["./modules/auth/*"],
       "+publishing": ["./modules/publishing/index"],
       "+publishing/*": ["./modules/publishing/*"],
+      "+ai": ["./modules/ai/index"],
+      "+ai/*": ["./modules/ai/*"],
       "+app": ["./app/index"],
       "+app/*": ["./app/*"]
     }
