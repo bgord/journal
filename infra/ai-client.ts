@@ -1,5 +1,5 @@
 import * as AI from "+ai";
-import * as Ports from "+emotions/ports";
+import * as Ports from "+ai/ports";
 import { AnthropicAiAdapter } from "+infra/anthropic-ai-adapter";
 import { AiClientAdapter, Env } from "+infra/env";
 import { logger } from "+infra/logger";

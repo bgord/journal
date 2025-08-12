@@ -1,5 +1,5 @@
 import * as AI from "+ai";
-import * as Ports from "+emotions/ports";
+import * as Ports from "+ai/ports";
 import { Env } from "+infra/env";
 import OAI from "openai";
 

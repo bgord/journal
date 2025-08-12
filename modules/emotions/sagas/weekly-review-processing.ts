@@ -1,7 +1,7 @@
+import * as Ports from "+ai/ports";
 import * as Auth from "+auth";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
-import * as Ports from "+emotions/ports";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
 import { CommandBus } from "+infra/command-bus";

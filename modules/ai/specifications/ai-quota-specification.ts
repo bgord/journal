@@ -24,11 +24,11 @@ export class AIQuotaSpecification {
     const counts = await this.bucketCounter.getMany(buckets);
 
     const violations: QuotaViolation[] = quotaRules
-      .map((quotaRule) => ({
-        id: quotaRule.id,
-        bucket: quotaRule.bucket,
-        used: counts[quotaRule.bucket] ?? 0,
-        limit: quotaRule.limit,
+      .map((rule) => ({
+        id: rule.id,
+        bucket: rule.bucket,
+        used: counts[rule.bucket] ?? 0,
+        limit: rule.limit,
       }))
       .filter((rule) => rule.used >= rule.limit);
 
