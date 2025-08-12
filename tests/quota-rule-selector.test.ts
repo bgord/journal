@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-import * as tools from "@bgord/tools";
 import { QuotaRuleSelector } from "../modules/ai/services/quota-rule-selector";
 import * as VO from "../modules/ai/value-objects";
 import * as mocks from "./mocks";
@@ -8,8 +7,7 @@ describe("QuotaRuleSelector", () => {
   test("EmotionsAlarmEntryContext", () => {
     const selector = new QuotaRuleSelector(VO.RULES);
 
-    const result = selector.select(mocks.EmotionsAlarmEntryContext);
-    expect(result).toEqual([
+    expect(selector.select(mocks.EmotionsAlarmEntryContext)).toEqual([
       {
         bucket: mocks.userDailyBucket,
         id: "USER_DAILY",
@@ -28,8 +26,7 @@ describe("QuotaRuleSelector", () => {
   test("EmotionsWeeklyReviewInsightContext", () => {
     const selector = new QuotaRuleSelector(VO.RULES);
 
-    const result = selector.select(mocks.EmotionsWeeklyReviewInsightContext);
-    expect(result).toEqual([
+    expect(selector.select(mocks.EmotionsWeeklyReviewInsightContext)).toEqual([
       {
         bucket: mocks.userDailyBucket,
         id: "USER_DAILY",
@@ -48,8 +45,7 @@ describe("QuotaRuleSelector", () => {
   test("EmotionsAlarmInactivityWeeklyContext", () => {
     const selector = new QuotaRuleSelector(VO.RULES);
 
-    const result = selector.select(mocks.EmotionsAlarmInactivityWeeklyContext);
-    expect(result).toEqual([
+    expect(selector.select(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual([
       {
         bucket: mocks.userDailyBucket,
         id: "USER_DAILY",

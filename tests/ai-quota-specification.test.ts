@@ -5,30 +5,27 @@ import { AIQuotaSpecification } from "../modules/ai/specifications/ai-quota-spec
 import * as VO from "../modules/ai/value-objects";
 import * as mocks from "./mocks";
 
+const selector = new QuotaRuleSelector(VO.RULES);
+const bucketCounterRepo = new BucketCounterDrizzleRepository();
+
+const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
+
 describe("AIQuotaSpecification", () => {
   test("EmotionsAlarmEntryContext - no violations", async () => {
-    const selector = new QuotaRuleSelector(VO.RULES);
-    const bucketCounterRepo = new BucketCounterDrizzleRepository();
-
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsAlarmEntryBucket]: 0,
     });
 
-    const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({ violations: [] });
   });
 
   test("EmotionsAlarmEntryContext - USER_DAILY violations", async () => {
-    const selector = new QuotaRuleSelector(VO.RULES);
-    const bucketCounterRepo = new BucketCounterDrizzleRepository();
-
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 10,
       [mocks.emotionsAlarmEntryBucket]: 0,
     });
 
-    const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({
       violations: [
         {
@@ -42,15 +39,11 @@ describe("AIQuotaSpecification", () => {
   });
 
   test("EmotionsAlarmEntryContext - EMOTIONS_ALARM_ENTRY violations", async () => {
-    const selector = new QuotaRuleSelector(VO.RULES);
-    const bucketCounterRepo = new BucketCounterDrizzleRepository();
-
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 2,
       [mocks.emotionsAlarmEntryBucket]: 2,
     });
 
-    const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({
       violations: [
         {
@@ -64,28 +57,20 @@ describe("AIQuotaSpecification", () => {
   });
 
   test("EmotionsWeeklyReviewInsightContext - no violations", async () => {
-    const selector = new QuotaRuleSelector(VO.RULES);
-    const bucketCounterRepo = new BucketCounterDrizzleRepository();
-
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 0,
     });
 
-    const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
     expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({ violations: [] });
   });
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
-    const selector = new QuotaRuleSelector(VO.RULES);
-    const bucketCounterRepo = new BucketCounterDrizzleRepository();
-
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 10,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 0,
     });
 
-    const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
     expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({
       violations: [
         {
@@ -99,15 +84,11 @@ describe("AIQuotaSpecification", () => {
   });
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
-    const selector = new QuotaRuleSelector(VO.RULES);
-    const bucketCounterRepo = new BucketCounterDrizzleRepository();
-
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 1,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 1,
     });
 
-    const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
     expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({
       violations: [
         {
@@ -121,30 +102,22 @@ describe("AIQuotaSpecification", () => {
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - no violations", async () => {
-    const selector = new QuotaRuleSelector(VO.RULES);
-    const bucketCounterRepo = new BucketCounterDrizzleRepository();
-
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: 0,
     });
 
-    const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
     expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
       violations: [],
     });
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
-    const selector = new QuotaRuleSelector(VO.RULES);
-    const bucketCounterRepo = new BucketCounterDrizzleRepository();
-
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 10,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: 0,
     });
 
-    const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
     expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
       violations: [
         {
@@ -158,15 +131,11 @@ describe("AIQuotaSpecification", () => {
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
-    const selector = new QuotaRuleSelector(VO.RULES);
-    const bucketCounterRepo = new BucketCounterDrizzleRepository();
-
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 1,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: 1,
     });
 
-    const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
     expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
       violations: [
         {
