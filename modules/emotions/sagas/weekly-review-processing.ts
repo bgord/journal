@@ -1,4 +1,4 @@
-import * as Ports from "+ai/ports";
+import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
@@ -14,7 +14,7 @@ import * as tools from "@bgord/tools";
 export class WeeklyReviewProcessing {
   constructor(
     private readonly eventBus: typeof EventBus,
-    private readonly AiClient: Ports.AiClientPort,
+    private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
   ) {
     this.eventBus.on(Events.WEEKLY_REVIEW_SKIPPED_EVENT, this.onWeeklyReviewSkippedEvent.bind(this));
@@ -45,7 +45,12 @@ export class WeeklyReviewProcessing {
     const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
     try {
-      const insights = await this.AiClient.request(prompt);
+      const insights = await this.AiGateway.query(prompt, {
+        category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
+        userId: event.payload.userId,
+        timestamp: tools.Time.Now().value,
+        dimensions: {},
+      });
 
       const detectWeeklyPatterns = Commands.DetectWeeklyPatternsCommand.parse({
         id: crypto.randomUUID(),

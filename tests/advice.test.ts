@@ -1,17 +1,17 @@
 import * as AI from "+ai";
 import { describe, expect, test } from "bun:test";
 
-describe("EmotionalAdvice", () => {
+describe("advice", () => {
   test("constructor - creates with minimum length", () => {
-    const emotionalAdvice = new AI.Advice("a".repeat(AI.Advice.MinimumLength)).get();
+    const advice = new AI.Advice("a".repeat(AI.Advice.MinimumLength)).get();
 
-    expect(emotionalAdvice).toEqual("a");
+    expect(advice).toEqual("a");
   });
 
   test("constructor - creates with maximum length", () => {
-    const emotionalAdvice = new AI.Advice("a".repeat(AI.Advice.MaximumLength)).get();
+    const advice = new AI.Advice("a".repeat(AI.Advice.MaximumLength)).get();
 
-    expect(emotionalAdvice).toEqual("a".repeat(1024));
+    expect(advice).toEqual("a".repeat(1024));
   });
 
   test("constructor - rejects under the limit", () => {
@@ -27,20 +27,20 @@ describe("EmotionalAdvice", () => {
   });
 
   test("length", () => {
-    const emotionalAdvice = new AI.Advice("abc");
+    const advice = new AI.Advice("abc");
 
-    expect(emotionalAdvice.length()).toEqual(3);
+    expect(advice.length()).toEqual(3);
   });
 
   test("toString", () => {
-    const emotionalAdvice = new AI.Advice("abc");
+    const advice = new AI.Advice("abc");
 
-    expect(emotionalAdvice.toString()).toEqual("abc");
+    expect(advice.toString()).toEqual("abc");
   });
 
   test("toJSON", () => {
-    const emotionalAdvice = new AI.Advice("abc");
+    const advice = new AI.Advice("abc");
 
-    expect(emotionalAdvice.toJSON()).toEqual("abc");
+    expect(advice.toJSON()).toEqual("abc");
   });
 });

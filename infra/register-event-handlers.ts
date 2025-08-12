@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import * as EmotionsEventHandlers from "+emotions/event-handlers";
 import * as EmotionsEvents from "+emotions/events";
 import * as EmotionsPolicies from "+emotions/policies";
@@ -121,5 +122,5 @@ new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus);
 
 // Sagas
 new EmotionsSagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
-new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer);
+new EmotionsSagas.WeeklyReviewProcessing(EventBus, AI.AiGateway, Mailer);
 new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
