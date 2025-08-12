@@ -1,16 +1,13 @@
-// modules/ai/specifications/ai-quota.spec.ts
-
 import type { BucketCounter } from "+ai/ports/bucket-counter";
 import { QuotaRuleSelector } from "+ai/services/quota-rule-selector";
-import type { RequestContext } from "+ai/value-objects/request-context";
-import type { UsageCategory } from "+ai/value-objects/usage-category";
+import * as VO from "+ai/value-objects";
 
-export type QuotaViolation = Readonly<{
-  ruleId: string;
-  bucket: string;
-  used: number;
-  limit: number;
-}>;
+type QuotaViolation = {
+  id: VO.QuotaRuleId;
+  bucket: VO.QuotaBucketType;
+  used: VO.QuotaUsageType;
+  limit: VO.QuotaLimitType;
+};
 
 export class AIQuotaSpecification {
   constructor(
@@ -18,8 +15,8 @@ export class AIQuotaSpecification {
     private readonly bucketCounter: BucketCounter,
   ) {}
 
-  async verify<C extends UsageCategory>(
-    context: RequestContext<C>,
+  async verify<C extends VO.UsageCategory>(
+    context: VO.RequestContext<C>,
   ): Promise<{ violations: QuotaViolation[] }> {
     const quotaRules = this.selector.select(context);
     const buckets = quotaRules.map((rule) => rule.bucket);
@@ -28,7 +25,7 @@ export class AIQuotaSpecification {
 
     const violations: QuotaViolation[] = quotaRules
       .map((quotaRule) => ({
-        ruleId: quotaRule.id,
+        id: quotaRule.id,
         bucket: quotaRule.bucket,
         used: counts[quotaRule.bucket] ?? 0,
         limit: quotaRule.limit,

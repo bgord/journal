@@ -31,7 +31,7 @@ describe("AIQuotaSpecification", () => {
         {
           bucket: mocks.userDailyBucket,
           limit: VO.QuotaLimit.parse(10),
-          ruleId: "USER_DAILY",
+          id: "USER_DAILY",
           used: 10,
         },
       ],
@@ -49,7 +49,7 @@ describe("AIQuotaSpecification", () => {
         {
           bucket: mocks.emotionsAlarmEntryBucket,
           limit: VO.QuotaLimit.parse(2),
-          ruleId: "EMOTIONS_ALARM_ENTRY",
+          id: "EMOTIONS_ALARM_ENTRY",
           used: 2,
         },
       ],
@@ -76,7 +76,7 @@ describe("AIQuotaSpecification", () => {
         {
           bucket: mocks.userDailyBucket,
           limit: VO.QuotaLimit.parse(10),
-          ruleId: "USER_DAILY",
+          id: "USER_DAILY",
           used: 10,
         },
       ],
@@ -94,7 +94,7 @@ describe("AIQuotaSpecification", () => {
         {
           bucket: mocks.emotionsWeeklyReviewInsightWeeklyBucket,
           limit: VO.QuotaLimit.parse(1),
-          ruleId: "EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY",
+          id: "EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY",
           used: 1,
         },
       ],
@@ -123,7 +123,7 @@ describe("AIQuotaSpecification", () => {
         {
           bucket: mocks.userDailyBucket,
           limit: VO.QuotaLimit.parse(10),
-          ruleId: "USER_DAILY",
+          id: "USER_DAILY",
           used: 10,
         },
       ],
@@ -141,7 +141,7 @@ describe("AIQuotaSpecification", () => {
         {
           bucket: mocks.emotionsAlarmInactivityWeeklyBucket,
           limit: VO.QuotaLimit.parse(1),
-          ruleId: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
+          id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
           used: 1,
         },
       ],
