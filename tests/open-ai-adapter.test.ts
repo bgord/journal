@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import { describe, expect, spyOn, test } from "bun:test";
 import { SupportedLanguages } from "../infra/i18n";
 import { OpenAI, OpenAiAdapter } from "../infra/open-ai-adapter";
@@ -25,7 +26,7 @@ describe("OpenAiClient", () => {
       model: "gpt-4o",
       instructions: prompt.read()[0].content,
       input: prompt.read()[1].content,
-      max_output_tokens: Emotions.VO.Advice.MaximumLength,
+      max_output_tokens: AI.Advice.MaximumLength,
     });
     expect(result).toEqual(mocks.advice);
   });

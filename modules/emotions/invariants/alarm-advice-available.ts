@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
@@ -10,7 +11,7 @@ class AlarmAdviceAvailableError extends Error {
 }
 
 type AlarmAdviceAvailableConfigType = {
-  advice?: Emotions.VO.Advice;
+  advice?: AI.Advice;
   status: Emotions.VO.AlarmStatusEnum;
 };
 

@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
@@ -79,7 +80,7 @@ export class AlarmOrchestrator {
     const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
 
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
-    const advice = new VO.Advice(alarm.advice as VO.AdviceType);
+    const advice = new AI.Advice(alarm.advice as AI.AdviceType);
 
     const notification = await Services.AlarmNotificationFactory.create(detection, advice);
 

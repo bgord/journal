@@ -35,7 +35,7 @@ export const weeklyReviewExportId = crypto.randomUUID();
 export const week = tools.Week.fromNow();
 export const day = tools.Day.fromNow();
 
-export const insights = new Emotions.VO.Advice("Good job");
+export const insights = new AI.Advice("Good job");
 
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
@@ -64,7 +64,7 @@ export const inactivityDetection = new Emotions.VO.AlarmDetection(
   Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
 );
 
-export const advice = new Emotions.VO.Advice("You should do something");
+export const advice = new AI.Advice("You should do something");
 
 export const shareableLinkId = crypto.randomUUID();
 export const shareableLinkCreatedAt = tools.Time.Now().value;
@@ -80,25 +80,25 @@ export const hourHasPassedTimestamp = tools.Time.Now().value;
 export const scheduledAt = tools.Time.Now().value;
 export const scheduledFor = tools.Time.Now().Add(tools.Time.Hours(2)).ms;
 
-export const EmotionsAlarmEntryContext: AI.VO.RequestContext<AI.VO.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
+export const EmotionsAlarmEntryContext: AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
   userId: userId,
-  category: AI.VO.UsageCategory.EMOTIONS_ALARM_ENTRY,
+  category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
   timestamp: tools.Time.Now().value,
   dimensions: { entryId: entryId },
 };
 
-export const EmotionsWeeklyReviewInsightContext: AI.VO.RequestContext<AI.VO.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT> =
+export const EmotionsWeeklyReviewInsightContext: AI.RequestContext<AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT> =
   {
     userId: userId,
-    category: AI.VO.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
+    category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
     timestamp: tools.Time.Now().value,
     dimensions: {},
   };
 
-export const EmotionsAlarmInactivityWeeklyContext: AI.VO.RequestContext<AI.VO.UsageCategory.EMOTIONS_ALARM_INACTIVITY> =
+export const EmotionsAlarmInactivityWeeklyContext: AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY> =
   {
     userId: userId,
-    category: AI.VO.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
+    category: AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
     timestamp: tools.Time.Now().value,
     dimensions: {},
   };

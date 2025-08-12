@@ -1,6 +1,6 @@
+import * as VO from "+ai/value-objects";
 import { describe, expect, test } from "bun:test";
 import { QuotaRuleSelector } from "../modules/ai/services/quota-rule-selector";
-import * as VO from "../modules/ai/value-objects";
 import * as mocks from "./mocks";
 
 describe("QuotaRuleSelector", () => {

@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import { describe, expect, spyOn, test } from "bun:test";
 import { AnthropicAi, AnthropicAiAdapter } from "../infra/anthropic-ai-adapter";
 import { SupportedLanguages } from "../infra/i18n";
@@ -22,7 +23,7 @@ describe("AnthropicAiClient", () => {
     const result = await client.request(prompt);
 
     expect(anthropicCreate).toHaveBeenCalledWith({
-      max_tokens: Emotions.VO.Advice.MaximumLength,
+      max_tokens: AI.Advice.MaximumLength,
       messages: [prompt.read()[1]],
       system: prompt.read()[0].content,
       model: "claude-3-5-sonnet-latest",

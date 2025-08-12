@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import * as Auth from "+auth";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
@@ -64,9 +65,7 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
-    const openAiClientRequest = spyOn(AiClient, "request").mockResolvedValue(
-      new Emotions.VO.Advice("Good job"),
-    );
+    const openAiClientRequest = spyOn(AiClient, "request").mockResolvedValue(new AI.Advice("Good job"));
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer);
@@ -75,9 +74,7 @@ describe("WeeklyReviewProcessing", () => {
       async () => await saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
 
-    expect(openAiClientRequest).toHaveBeenCalledWith(
-      new Emotions.VO.Prompt("Generate insights for these 1 entries."),
-    );
+    expect(openAiClientRequest).toHaveBeenCalledWith(new AI.Prompt("Generate insights for these 1 entries."));
     expect(eventStoreSave).toHaveBeenNthCalledWith(1, [
       mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
     ]);
@@ -91,9 +88,7 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntryPl]);
-    const openAiClientRequest = spyOn(AiClient, "request").mockResolvedValue(
-      new Emotions.VO.Advice("Good job"),
-    );
+    const openAiClientRequest = spyOn(AiClient, "request").mockResolvedValue(new AI.Advice("Good job"));
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer);
@@ -102,7 +97,7 @@ describe("WeeklyReviewProcessing", () => {
       async () => await saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
 
-    expect(openAiClientRequest).toHaveBeenCalledWith(new Emotions.VO.Prompt("Podsumuj te 1 wpisów."));
+    expect(openAiClientRequest).toHaveBeenCalledWith(new AI.Prompt("Podsumuj te 1 wpisów."));
     expect(eventStoreSave).toHaveBeenNthCalledWith(1, [
       mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
     ]);

@@ -1,4 +1,3 @@
-export * from "./advice";
 export * from "./alarm-detection";
 export * from "./alarm-generated-at";
 export * from "./alarm-id";
@@ -19,7 +18,6 @@ export * from "./gross-emotion-regulation-strategy.enum";
 export * from "./notification-template";
 export * from "./pattern-name";
 export * from "./pattern-name-option";
-export * from "./prompt-template";
 export * from "./reaction-description";
 export * from "./reaction-effectiveness";
 export * from "./reaction-type";

@@ -1,5 +1,5 @@
+import * as AI from "+ai";
 import * as Ports from "+emotions/ports";
-import * as VO from "+emotions/value-objects";
 import { Env } from "+infra/env";
 import Anthropic from "@anthropic-ai/sdk";
 
@@ -8,7 +8,7 @@ export const AnthropicAi = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
 
 /** @public */
 export class AnthropicAiAdapter implements Ports.AiClientPort {
-  async request(prompt: VO.Prompt): Promise<VO.Advice> {
+  async request(prompt: AI.Prompt): Promise<AI.Advice> {
     const message = await AnthropicAi.messages.create({
       max_tokens: Ports.AiClientPort.maxLength,
       messages: [prompt.read()[1]],
@@ -16,6 +16,6 @@ export class AnthropicAiAdapter implements Ports.AiClientPort {
       model: "claude-3-5-sonnet-latest",
     });
 
-    return new VO.Advice(message.content.toString());
+    return new AI.Advice(message.content.toString());
   }
 }

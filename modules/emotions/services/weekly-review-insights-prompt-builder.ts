@@ -1,4 +1,4 @@
-import * as VO from "+emotions/value-objects";
+import * as AI from "+ai";
 import { SupportedLanguages } from "+infra/i18n";
 import type * as Schema from "+infra/schema";
 
@@ -14,7 +14,7 @@ export class WeeklyReviewInsightsPromptBuilder {
     private readonly language: SupportedLanguages,
   ) {}
 
-  generate(): VO.Prompt {
-    return new VO.Prompt(content[this.language](this.entries));
+  generate(): AI.Prompt {
+    return new AI.Prompt(content[this.language](this.entries));
   }
 }

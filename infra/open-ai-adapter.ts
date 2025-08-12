@@ -1,5 +1,5 @@
+import * as AI from "+ai";
 import * as Ports from "+emotions/ports";
-import * as VO from "+emotions/value-objects";
 import { Env } from "+infra/env";
 import OAI from "openai";
 
@@ -7,7 +7,7 @@ import OAI from "openai";
 export const OpenAI = new OAI({ apiKey: Env.OPEN_AI_API_KEY });
 
 export class OpenAiAdapter implements Ports.AiClientPort {
-  async request(prompt: VO.Prompt): Promise<VO.Advice> {
+  async request(prompt: AI.Prompt): Promise<AI.Advice> {
     const response = await OpenAI.responses.create({
       model: "gpt-4o",
       instructions: prompt.read()[0].content,
@@ -15,6 +15,6 @@ export class OpenAiAdapter implements Ports.AiClientPort {
       max_output_tokens: Ports.AiClientPort.maxLength,
     });
 
-    return new VO.Advice(response.output_text);
+    return new AI.Advice(response.output_text);
   }
 }

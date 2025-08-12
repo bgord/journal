@@ -1,7 +1,7 @@
-import * as VO from "+emotions/value-objects";
+import * as AI from "+ai";
 
 export abstract class AiClientPort {
-  static maxLength = VO.Advice.MaximumLength;
+  static maxLength = AI.Advice.MaximumLength;
 
-  abstract request(prompt: VO.Prompt): Promise<VO.Advice>;
+  abstract request(prompt: AI.Prompt): Promise<AI.Advice>;
 }

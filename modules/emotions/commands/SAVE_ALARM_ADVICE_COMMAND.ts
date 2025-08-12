@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -10,7 +11,7 @@ export const SaveAlarmAdviceCommand = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   name: z.literal(SAVE_ALARM_ADVICE_COMMAND),
-  payload: z.object({ alarmId: VO.AlarmId, advice: z.instanceof(VO.Advice) }),
+  payload: z.object({ alarmId: VO.AlarmId, advice: z.instanceof(AI.Advice) }),
 });
 
 export type SaveAlarmAdviceCommandType = z.infer<typeof SaveAlarmAdviceCommand>;

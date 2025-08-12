@@ -1,4 +1,5 @@
 // cspell:disable
+import * as AI from "+ai";
 import * as VO from "+emotions/value-objects";
 import { SupportedLanguages } from "+infra/i18n";
 import type * as Schema from "+infra/schema";
@@ -45,7 +46,7 @@ export class EntryAlarmAdvicePromptBuilder {
     private readonly language: SupportedLanguages,
   ) {}
 
-  generate(): VO.Prompt {
-    return new VO.Prompt(content[this.language](this.entry, this.alarmName));
+  generate(): AI.Prompt {
+    return new AI.Prompt(content[this.language](this.entry, this.alarmName));
   }
 }

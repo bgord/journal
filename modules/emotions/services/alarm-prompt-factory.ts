@@ -1,10 +1,11 @@
+import * as AI from "+ai";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 import { SupportedLanguages } from "+infra/i18n";
 
 export class AlarmPromptFactory {
-  static async create(detection: VO.AlarmDetection): Promise<VO.Prompt> {
+  static async create(detection: VO.AlarmDetection): Promise<AI.Prompt> {
     switch (detection.trigger.type) {
       case VO.AlarmTriggerEnum.entry: {
         const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
