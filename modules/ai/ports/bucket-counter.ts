@@ -1,4 +1,6 @@
+import type { QuotaBucketType } from "+ai/value-objects/quota-bucket";
+import type { QuotaUsageType } from "+ai/value-objects/quota-usage";
+
 export interface BucketCounter {
-  /** Returns counts for keys. Missing keys default to 0. */
-  getMany(keys: string[]): Promise<Record<string, number>>;
+  getMany(buckets: QuotaBucketType[]): Promise<Record<QuotaBucketType, QuotaUsageType>>;
 }
