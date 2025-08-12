@@ -11,13 +11,13 @@ describe("QuotaRuleSelector", () => {
     const result = selector.select(mocks.EmotionsAlarmEntryContext);
     expect(result).toEqual([
       {
-        bucket: `user:${mocks.userId}:day:${tools.Day.fromNow().toIsoId()}`,
+        bucket: mocks.userDailyBucket,
         id: "USER_DAILY",
         limit: VO.QuotaLimit.parse(10),
         window: VO.QuotaWindow.DAY,
       },
       {
-        bucket: `user:${mocks.userId}:entry:${mocks.entryId}:alarms`,
+        bucket: mocks.emotionsAlarmEntryBucket,
         id: "EMOTIONS_ALARM_ENTRY",
         limit: VO.QuotaLimit.parse(2),
         window: VO.QuotaWindow.ALL_TIME,
@@ -31,13 +31,13 @@ describe("QuotaRuleSelector", () => {
     const result = selector.select(mocks.EmotionsWeeklyReviewInsightContext);
     expect(result).toEqual([
       {
-        bucket: `user:${mocks.userId}:day:${tools.Day.fromTimestamp(tools.Time.Now().value).toIsoId()}`,
+        bucket: mocks.userDailyBucket,
         id: "USER_DAILY",
         limit: VO.QuotaLimit.parse(10),
         window: VO.QuotaWindow.DAY,
       },
       {
-        bucket: `user:${mocks.userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_weekly_review_insight`,
+        bucket: mocks.emotionsWeeklyReviewInsightWeeklyBucket,
         id: "EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY",
         limit: VO.QuotaLimit.parse(1),
         window: VO.QuotaWindow.WEEK,
@@ -51,13 +51,13 @@ describe("QuotaRuleSelector", () => {
     const result = selector.select(mocks.EmotionsAlarmInactivityWeeklyContext);
     expect(result).toEqual([
       {
-        bucket: `user:${mocks.userId}:day:${tools.Day.fromTimestamp(tools.Time.Now().value).toIsoId()}`,
+        bucket: mocks.userDailyBucket,
         id: "USER_DAILY",
         limit: VO.QuotaLimit.parse(10),
         window: VO.QuotaWindow.DAY,
       },
       {
-        bucket: `user:${mocks.userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_alarm_inactivity`,
+        bucket: mocks.emotionsAlarmInactivityWeeklyBucket,
         id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
         limit: VO.QuotaLimit.parse(1),
         window: VO.QuotaWindow.WEEK,

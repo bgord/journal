@@ -103,6 +103,11 @@ export const EmotionsAlarmInactivityWeeklyContext: AI.VO.RequestContext<AI.VO.Us
     dimensions: {},
   };
 
+export const userDailyBucket = `user:${userId}:day:${tools.Day.fromNow().toIsoId()}`;
+export const emotionsAlarmEntryBucket = `user:${userId}:entry:${entryId}:alarms`;
+export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_weekly_review_insight`;
+export const emotionsAlarmInactivityWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_alarm_inactivity`;
+
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
