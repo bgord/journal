@@ -7,7 +7,7 @@ import * as tools from "@bgord/tools";
 import { AiClientPort } from "../ports/ai-client";
 import { BucketCounter } from "../ports/bucket-counter";
 import { QuotaRuleSelector } from "../services/quota-rule-selector";
-import { AIQuotaSpecification } from "../specifications/ai-quota-specification";
+import { AIQuotaSpecification, QuotaViolation } from "../specifications/ai-quota-specification";
 
 export class AiQuotaExceededError extends Error {
   constructor() {
@@ -24,6 +24,12 @@ export class AiGateway implements Ports.AiGatewayPort {
     bucketCounter: BucketCounter,
   ) {
     this.specification = new AIQuotaSpecification(new QuotaRuleSelector(VO.RULES), bucketCounter);
+  }
+
+  async check<C extends VO.UsageCategory>(
+    context: VO.RequestContext<C>,
+  ): Promise<{ violations: QuotaViolation[] }> {
+    return this.specification.verify(context);
   }
 
   async query<C extends VO.UsageCategory>(

@@ -2,7 +2,7 @@ import type { BucketCounter } from "+ai/ports/bucket-counter";
 import { QuotaRuleSelector } from "+ai/services/quota-rule-selector";
 import * as VO from "+ai/value-objects";
 
-type QuotaViolation = {
+export type QuotaViolation = {
   id: VO.QuotaRuleId;
   bucket: VO.QuotaBucketType;
   used: VO.QuotaUsageType;
