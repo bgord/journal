@@ -1,3 +1,4 @@
+import type { QuotaBucketType } from "./quota-bucket";
 import type { QuotaLimitType } from "./quota-limit";
 import type { QuotaRuleId } from "./quota-rule-id";
 import type { QuotaWindow } from "./quota-window";
@@ -8,6 +9,6 @@ export type QuotaRule = {
   id: QuotaRuleId;
   window: QuotaWindow;
   limit: QuotaLimitType;
-  bucket: (context: RequestContext) => string;
+  bucket: (context: RequestContext) => QuotaBucketType;
   appliesTo: (category: UsageCategory) => boolean;
 };

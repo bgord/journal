@@ -1,3 +1,4 @@
+export * from "./quota-bucket";
 export * from "./quota-limit";
 export * from "./quota-rule";
 export * from "./quota-rule-id";
