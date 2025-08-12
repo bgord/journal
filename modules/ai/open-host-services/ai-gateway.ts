@@ -1,4 +1,5 @@
 import * as Events from "+ai/events";
+import * as Ports from "+ai/ports";
 import * as VO from "+ai/value-objects";
 import { EventStore } from "+infra/event-store";
 import * as bg from "@bgord/bun";
@@ -15,7 +16,7 @@ export class AiQuotaExceededError extends Error {
   }
 }
 
-export class AiGateway {
+export class AiGateway implements Ports.AiGatewayPort {
   private readonly specification: AIQuotaSpecification;
 
   constructor(
