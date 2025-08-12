@@ -11,28 +11,6 @@ export const emotionsAlarmEntryBucket = `user:${mocks.userId}:entry:${mocks.entr
 export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${mocks.userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_weekly_review_insight`;
 export const emotionsAlarmInactivityWeeklyBucket = `user:${mocks.userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_alarm_inactivity`;
 
-const EmotionsAlarmEntryContext: VO.RequestContext<VO.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
-  userId: mocks.userId,
-  category: VO.UsageCategory.EMOTIONS_ALARM_ENTRY,
-  timestamp: tools.Time.Now().value,
-  dimensions: { entryId: mocks.entryId },
-};
-
-const EmotionsWeeklyReviewInsightContext: VO.RequestContext<VO.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT> =
-  {
-    userId: mocks.userId,
-    category: VO.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
-    timestamp: tools.Time.Now().value,
-    dimensions: {},
-  };
-
-const EmotionsAlarmInactivityWeeklyContext: VO.RequestContext<VO.UsageCategory.EMOTIONS_ALARM_INACTIVITY> = {
-  userId: mocks.userId,
-  category: VO.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
-  timestamp: tools.Time.Now().value,
-  dimensions: {},
-};
-
 describe("AIQuotaSpecification", () => {
   test("EmotionsAlarmEntryContext - no violations", async () => {
     const selector = new QuotaRuleSelector(VO.RULES);
@@ -44,7 +22,7 @@ describe("AIQuotaSpecification", () => {
     });
 
     const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
-    expect(await specification.verify(EmotionsAlarmEntryContext)).toEqual({ violations: [] });
+    expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({ violations: [] });
   });
 
   test("EmotionsAlarmEntryContext - USER_DAILY violations", async () => {
@@ -57,7 +35,7 @@ describe("AIQuotaSpecification", () => {
     });
 
     const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
-    expect(await specification.verify(EmotionsAlarmEntryContext)).toEqual({
+    expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({
       violations: [
         {
           bucket: userDailyBucket,
@@ -79,7 +57,7 @@ describe("AIQuotaSpecification", () => {
     });
 
     const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
-    expect(await specification.verify(EmotionsAlarmEntryContext)).toEqual({
+    expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({
       violations: [
         {
           bucket: emotionsAlarmEntryBucket,
@@ -101,7 +79,7 @@ describe("AIQuotaSpecification", () => {
     });
 
     const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
-    expect(await specification.verify(EmotionsWeeklyReviewInsightContext)).toEqual({ violations: [] });
+    expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({ violations: [] });
   });
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
@@ -114,7 +92,7 @@ describe("AIQuotaSpecification", () => {
     });
 
     const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
-    expect(await specification.verify(EmotionsWeeklyReviewInsightContext)).toEqual({
+    expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({
       violations: [
         {
           bucket: userDailyBucket,
@@ -136,7 +114,7 @@ describe("AIQuotaSpecification", () => {
     });
 
     const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
-    expect(await specification.verify(EmotionsWeeklyReviewInsightContext)).toEqual({
+    expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({
       violations: [
         {
           bucket: emotionsWeeklyReviewInsightWeeklyBucket,
@@ -158,7 +136,9 @@ describe("AIQuotaSpecification", () => {
     });
 
     const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
-    expect(await specification.verify(EmotionsAlarmInactivityWeeklyContext)).toEqual({ violations: [] });
+    expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
+      violations: [],
+    });
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
@@ -171,7 +151,7 @@ describe("AIQuotaSpecification", () => {
     });
 
     const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
-    expect(await specification.verify(EmotionsAlarmInactivityWeeklyContext)).toEqual({
+    expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
       violations: [
         {
           bucket: userDailyBucket,
@@ -193,7 +173,7 @@ describe("AIQuotaSpecification", () => {
     });
 
     const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
-    expect(await specification.verify(EmotionsAlarmInactivityWeeklyContext)).toEqual({
+    expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
       violations: [
         {
           bucket: emotionsAlarmInactivityWeeklyBucket,

@@ -4,33 +4,11 @@ import { QuotaRuleSelector } from "../modules/ai/services/quota-rule-selector";
 import * as VO from "../modules/ai/value-objects";
 import * as mocks from "./mocks";
 
-const EmotionsAlarmEntryContext: VO.RequestContext<VO.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
-  userId: mocks.userId,
-  category: VO.UsageCategory.EMOTIONS_ALARM_ENTRY,
-  timestamp: tools.Time.Now().value,
-  dimensions: { entryId: mocks.entryId },
-};
-
-const EmotionsWeeklyReviewInsightContext: VO.RequestContext<VO.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT> =
-  {
-    userId: mocks.userId,
-    category: VO.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
-    timestamp: tools.Time.Now().value,
-    dimensions: {},
-  };
-
-const EmotionsAlarmInactivityWeeklyContext: VO.RequestContext<VO.UsageCategory.EMOTIONS_ALARM_INACTIVITY> = {
-  userId: mocks.userId,
-  category: VO.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
-  timestamp: tools.Time.Now().value,
-  dimensions: {},
-};
-
 describe("QuotaRuleSelector", () => {
   test("EmotionsAlarmEntryContext", () => {
     const selector = new QuotaRuleSelector(VO.RULES);
 
-    const result = selector.select(EmotionsAlarmEntryContext);
+    const result = selector.select(mocks.EmotionsAlarmEntryContext);
     expect(result).toEqual([
       {
         bucket: `user:${mocks.userId}:day:${tools.Day.fromNow().toIsoId()}`,
@@ -50,7 +28,7 @@ describe("QuotaRuleSelector", () => {
   test("EmotionsWeeklyReviewInsightContext", () => {
     const selector = new QuotaRuleSelector(VO.RULES);
 
-    const result = selector.select(EmotionsWeeklyReviewInsightContext);
+    const result = selector.select(mocks.EmotionsWeeklyReviewInsightContext);
     expect(result).toEqual([
       {
         bucket: `user:${mocks.userId}:day:${tools.Day.fromTimestamp(tools.Time.Now().value).toIsoId()}`,
@@ -70,7 +48,7 @@ describe("QuotaRuleSelector", () => {
   test("EmotionsAlarmInactivityWeeklyContext", () => {
     const selector = new QuotaRuleSelector(VO.RULES);
 
-    const result = selector.select(EmotionsAlarmInactivityWeeklyContext);
+    const result = selector.select(mocks.EmotionsAlarmInactivityWeeklyContext);
     expect(result).toEqual([
       {
         bucket: `user:${mocks.userId}:day:${tools.Day.fromTimestamp(tools.Time.Now().value).toIsoId()}`,

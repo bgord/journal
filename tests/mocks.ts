@@ -4,6 +4,7 @@ import * as tools from "@bgord/tools";
 import * as App from "../app";
 import { SupportedLanguages } from "../infra/i18n";
 import type * as Schema from "../infra/schema";
+import * as AI from "../modules/ai";
 import * as Emotions from "../modules/emotions";
 import * as Publishing from "../modules/publishing";
 
@@ -32,6 +33,7 @@ export const weeklyReviewId = crypto.randomUUID();
 export const weeklyReviewExportId = crypto.randomUUID();
 
 export const week = tools.Week.fromNow();
+export const day = tools.Day.fromNow();
 
 export const insights = new Emotions.VO.Advice("Good job");
 
@@ -77,6 +79,29 @@ export const hourHasPassedTimestamp = tools.Time.Now().value;
 
 export const scheduledAt = tools.Time.Now().value;
 export const scheduledFor = tools.Time.Now().Add(tools.Time.Hours(2)).ms;
+
+export const EmotionsAlarmEntryContext: AI.VO.RequestContext<AI.VO.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
+  userId: userId,
+  category: AI.VO.UsageCategory.EMOTIONS_ALARM_ENTRY,
+  timestamp: tools.Time.Now().value,
+  dimensions: { entryId: entryId },
+};
+
+export const EmotionsWeeklyReviewInsightContext: AI.VO.RequestContext<AI.VO.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT> =
+  {
+    userId: userId,
+    category: AI.VO.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
+    timestamp: tools.Time.Now().value,
+    dimensions: {},
+  };
+
+export const EmotionsAlarmInactivityWeeklyContext: AI.VO.RequestContext<AI.VO.UsageCategory.EMOTIONS_ALARM_INACTIVITY> =
+  {
+    userId: userId,
+    category: AI.VO.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
+    timestamp: tools.Time.Now().value,
+    dimensions: {},
+  };
 
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
