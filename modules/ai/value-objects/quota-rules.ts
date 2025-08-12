@@ -25,9 +25,9 @@ export const EMOTIONS_ALARM_INACTIVITY_WEEKLY_RULE: QuotaRule = {
   id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
   window: QuotaWindow.WEEK,
   limit: QuotaLimit.parse(1),
-  appliesTo: (category) => category === UsageCategory.EMOTIONS_ALARM_INACTIVITY,
   bucket: (context) =>
     `user:${context.userId}:week:${tools.Week.fromTimestamp(context.timestamp).toIsoId()}:${UsageCategory.EMOTIONS_ALARM_INACTIVITY}`,
+  appliesTo: (category) => category === UsageCategory.EMOTIONS_ALARM_INACTIVITY,
 };
 
 export const EMOTIONS_ALARM_ENTRY_RULE: QuotaRule = {
