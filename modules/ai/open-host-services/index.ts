@@ -1,5 +1,5 @@
 import { BucketCounterDrizzleRepository } from "+ai/repositories";
 import { AiClient } from "+infra/ai-client";
-import { AiGateway } from "./ai-gateway";
+import * as Gateway from "./ai-gateway";
 
-export const aiGateway = new AiGateway(AiClient, new BucketCounterDrizzleRepository());
+export const AiGateway = new Gateway.AiGateway(AiClient, new BucketCounterDrizzleRepository());
