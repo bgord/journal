@@ -20,7 +20,7 @@
     "drizzle-kit": "0.31.4",
     "knip": "5.62.0",
     "lefthook": "1.12.3",
-    "shellcheck": "3.1.0",
+    "shellcheck": "4.1.0",
     "typescript": "5.8.3"
   },
   "dependencies": {
