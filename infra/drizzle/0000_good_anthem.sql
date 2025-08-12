@@ -15,6 +15,16 @@ CREATE TABLE `accounts` (
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
+CREATE TABLE `ai_usage_counters` (
+	`key` text PRIMARY KEY NOT NULL,
+	`rule_id` text NOT NULL,
+	`window` text NOT NULL,
+	`user_id` text NOT NULL,
+	`count` integer DEFAULT 0 NOT NULL,
+	`first_event_at` integer,
+	`last_event_at` integer
+);
+--> statement-breakpoint
 CREATE TABLE `alarms` (
 	`id` text(36) PRIMARY KEY NOT NULL,
 	`generatedAt` integer NOT NULL,

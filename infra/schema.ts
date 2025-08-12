@@ -234,6 +234,17 @@ export const shareableLinksRelations = relations(shareableLinks, ({ one }) => ({
 }));
 
 /** @public */
+export const aiUsageCounters = sqliteTable("ai_usage_counters", {
+  key: text("key").primaryKey(),
+  ruleId: text("rule_id").notNull(),
+  window: text("window").notNull(),
+  userId: text("user_id").notNull(),
+  count: integer("count", { mode: "number" }).notNull().default(0),
+  firstEventAt: integer("first_event_at", { mode: "number" }),
+  lastEventAt: integer("last_event_at", { mode: "number" }),
+});
+
+/** @public */
 export const users = sqliteTable("users", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
