@@ -80,6 +80,8 @@ export const hourHasPassedTimestamp = tools.Time.Now().value;
 export const scheduledAt = tools.Time.Now().value;
 export const scheduledFor = tools.Time.Now().Add(tools.Time.Hours(2)).ms;
 
+export const aiRequestRegisteredTimestamp = tools.Time.Now().value;
+
 export const EmotionsAlarmEntryContext: AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
   userId: userId,
   category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
@@ -536,6 +538,31 @@ export const GenericHourHasPassedWednesdayUtc18Event = {
   version: 1,
   payload: { timestamp: tools.Timestamp.parse(1754503200000) },
 } satisfies App.Events.HourHasPassedEventType;
+
+export const GenericAiRequestRegisteredEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `user_ai_usage_${userId}`,
+  name: "AI_REQUEST_REGISTERED_EVENT",
+  version: 1,
+  payload: {
+    category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
+    dimensions: { entryId },
+    userId,
+    timestamp: aiRequestRegisteredTimestamp,
+  },
+} satisfies AI.Events.AiRequestRegisteredEventType;
+
+export const GenericAiQuotaExceededEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `user_ai_usage_${userId}`,
+  name: "AI_QUOTA_EXCEEDED_EVENT",
+  version: 1,
+  payload: { userId, timestamp: aiRequestRegisteredTimestamp },
+} satisfies AI.Events.AiQuotaExceededEventType;
 
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,

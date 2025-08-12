@@ -1,3 +1,4 @@
+export * as Events from "./events";
 export type { AdviceType } from "./value-objects/advice";
 export { Advice, AdviceSchema } from "./value-objects/advice";
 export { Prompt } from "./value-objects/prompt";
