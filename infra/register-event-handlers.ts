@@ -1,3 +1,5 @@
+import * as AiEventHandlers from "+ai/event-handlers";
+import * as AiEvents from "+ai/events";
 import * as EmotionsEventHandlers from "+emotions/event-handlers";
 import * as EmotionsEvents from "+emotions/events";
 import * as EmotionsPolicies from "+emotions/policies";
@@ -111,6 +113,9 @@ EventBus.on(
   PublishingEvents.SHAREABLE_LINK_REVOKED,
   EventHandler.handle(PublishingEventHandlers.onShareableLinkRevokedEvent),
 );
+
+// AI
+EventBus.on(AiEvents.AI_REQUEST_REGISTERED_EVENT, AiEventHandlers.onAiRequestRegisteredEvent);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus);
