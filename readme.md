@@ -39,6 +39,36 @@ Run the tests
 
 ```
 modules/
+├── ai
+│   ├── event-handlers
+│   │   └── onAiRequestRegisteredEvent.ts
+│   ├── events
+│   │   ├── AI_QUOTA_EXCEEDED_EVENT.ts
+│   │   ├── AI_REQUEST_REGISTERED_EVENT.ts
+│   ├── open-host-services
+│   │   ├── ai-gateway.ts
+│   ├── ports
+│   │   ├── ai-client.ts
+│   │   ├── ai-gateway.ts
+│   │   ├── bucket-counter.ts
+│   ├── repositories
+│   │   ├── bucket-counter.drizzle.ts
+│   ├── services
+│   │   └── quota-rule-selector.ts
+│   ├── specifications
+│   │   └── quota-specification.ts
+│   └── value-objects
+│       ├── advice.ts
+│       ├── prompt.ts
+│       ├── quota-bucket.ts
+│       ├── quota-limit.ts
+│       ├── quota-rule-id.ts
+│       ├── quota-rule.ts
+│       ├── quota-rules.ts
+│       ├── quota-usage.ts
+│       ├── quota-window.ts
+│       ├── request-context.ts
+│       └── usage-category.ts
 ├── auth
 │   ├── repositories
 │   │   └── user-repository.ts
@@ -46,6 +76,13 @@ modules/
 │       ├── password.ts
 │       └── user-id.ts
 ├── emotions
+│   ├── acl
+│   │   ├── ai-prompts
+│   │   │   ├── alarm-prompt-factory.ts
+│   │   │   ├── entry-alarm-advice-prompt-builder.ts
+│   │   │   ├── inactivity-alarm-advice-prompt-builder.ts
+│   │   │   └── weekly-review-insights-prompt-builder.ts
+│   │   ├── ai-request-creator.ts
 │   ├── aggregates
 │   │   ├── alarm.ts
 │   │   ├── entry.ts
@@ -127,11 +164,9 @@ modules/
 │   │   ├── alarm-advice-available.ts
 │   │   ├── alarm-already-generated.ts
 │   │   ├── alarm-is-cancellable.ts
-│   │   ├── daily-alarm-limit.ts
 │   │   ├── emotion-corresponds-to-situation.ts
 │   │   ├── emotion-for-reappraisal-exists.ts
 │   │   ├── entries-for-week-exist.ts
-│   │   ├── entry-alarm-limit.ts
 │   │   ├── entry-has-been-started.ts
 │   │   ├── entry-is-actionable.ts
 │   │   ├── inactivity-alarm-schedule.ts
@@ -152,12 +187,9 @@ modules/
 │   │   ├── time-capsule-entries-scheduler.ts
 │   │   └── weekly-review-scheduler.ts
 │   ├── ports
-│   │   ├── ai-client.ts
 │   │   └── pdf-generator.ts
 │   ├── queries
-│   │   ├── count-alarms-for-entry.ts
 │   │   ├── count-entries-per-week-for-user.ts
-│   │   ├── count-todays-alarms-for-user.ts
 │   │   ├── get-latest-entry-timestamp-for-user.ts
 │   │   └── weekly-review-export-dto.ts
 │   ├── repositories
@@ -182,16 +214,12 @@ modules/
 │   │   └── weekly-review-processing.ts
 │   ├── services
 │   │   ├── alarm-export-file.ts
-│   │   ├── alarm-factory.ts
 │   │   ├── alarm-notification-factory.ts
-│   │   ├── alarm-prompt-factory.ts
 │   │   ├── emotion-alarm-detector.ts
 │   │   ├── emotion-alarm-template.ts
 │   │   ├── entry-alarm-advice-notification-composer.ts
-│   │   ├── entry-alarm-advice-prompt-builder.ts
 │   │   ├── entry-export-file.ts
 │   │   ├── inactivity-alarm-advice-notification-composer.ts
-│   │   ├── inactivity-alarm-advice-prompt-builder.ts
 │   │   ├── negative-emotion-extreme-intensity-alarm.ts
 │   │   ├── pattern-detector.ts
 │   │   ├── patterns
@@ -202,10 +230,8 @@ modules/
 │   │   │   └── positive-emotion-with-maladaptive-reaction-pattern.ts
 │   │   ├── weekly-review-export-notification-composer.ts
 │   │   ├── weekly-review-export-pdf-file.ts
-│   │   ├── weekly-review-insights-prompt-builder.ts
 │   │   └── weekly-review-skipped-notification-composer.ts
 │   └── value-objects
-│       ├── advice.ts
 │       ├── alarm-detection.ts
 │       ├── alarm-generated-at.ts
 │       ├── alarm-id.ts
@@ -226,7 +252,6 @@ modules/
 │       ├── notification-template.ts
 │       ├── pattern-name-option.ts
 │       ├── pattern-name.ts
-│       ├── prompt-template.ts
 │       ├── reaction-description.ts
 │       ├── reaction-effectiveness.ts
 │       ├── reaction-type.ts
@@ -284,6 +309,7 @@ modules/
 ```
 infra/
 ├── ai-client.ts
+├── ai-gateway.ts
 ├── anthropic-ai-adapter.ts
 ├── auth.ts
 ├── basic-auth-shield.ts
