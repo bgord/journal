@@ -1,10 +1,107 @@
 # Changelog
+- 2025-08-14 00:13 6518791 **Merge pull request #30 from bgord/ai_bc**
+## 2025-08-14 00:13 
+- 2025-08-13 23:33 c50bc81 **step: bump bgord/scripts**
+- 2025-08-13 23:33 2192122 **step: update packages**
+- 2025-08-13 23:17 3f56cbe **step: bump bgord/scripts**
+- 2025-08-13 22:52 1e4079d **step: WIP**
+- 2025-08-13 22:38 24429bd **refactor: regenerate schema**
+- 2025-08-13 22:33 463d8ad **step: update fe packages**
+- 2025-08-13 22:32 1ff67b2 **step: update packages**
+- 2025-08-13 22:22 ab604f6 **step: pinpoint all packages**
+- 2025-08-13 22:11 f80b9db **step: update better auth in fe**
+- 2025-08-13 22:00 8b8d97e **step: update packages**
+- 2025-08-13 21:52 66ac92f **step: update packages**
+- 2025-08-13 21:52 0555a8b **refactor: fix knip errors**
+- 2025-08-13 21:45 6f1d038 **refactor: remove todo**
+- 2025-08-13 21:42 e28ecc6 **refactor: rename quota specification**
+- 2025-08-13 17:30 83c4fd5 **refactor: use acl in handle generate alarm command**
+- 2025-08-13 17:28 36fc807 **refactor: cleanup ai clients**
+- 2025-08-13 17:15 2c73b39 **refactor: remove abundant inactivity alarms from seed**
+- 2025-08-13 17:12 6d67d0b **fix: do not display cancelled alarms in dashboarD**
+- 2025-08-13 17:10 b568fe0 **fix: bucket counter**
+- 2025-08-13 17:02 40943be **step: add on ai request registered event handler**
+- 2025-08-13 16:46 9f39ccf **step: improve mocks**
+- 2025-08-13 16:40 259bbc8 **step: cleanup emotions bc**
+- 2025-08-13 16:33 3cc22d7 **step: clean up auth bc imports**
+- 2025-08-13 16:32 cb4b919 **refactor: tiyy up ports ai bc**
+- 2025-08-13 16:26 10b76a4 **refactor: make all paths absolute in tests**
+- 2025-08-13 16:10 2b3c45a **refactor: move prompt to acl**
+- 2025-08-13 15:19 8c8b01e **refactor: inject ai gateway into the alarm orchestrator**
+- 2025-08-13 14:20 6292d5f **step: create emotions -> ai ACL**
+- 2025-08-13 13:52 5b79871 **refactor: remove unused queries and invariants**
+- 2025-08-13 13:32 6415209 **refactor: rely on ai gateway check for handle generate alarm**
+- 2025-08-13 12:48 55b0291 **step: add ai gateway check in handle generate alarm command**
+- 2025-08-13 12:25 95fb2f1 **refactor: remove alarm factory**
+- 2025-08-13 00:14 bddb8fd **step: add check to ohs**
+- 2025-08-12 23:35 6ff0c4f **refactor: adjust weekly review processing testsl**
+- 2025-08-12 23:26 3aefb81 **refactor: make mocks more specific**
+- 2025-08-12 23:25 5161458 **fix: export type**
+- 2025-08-12 23:22 302ff12 **refactor: replace ai client with ai gateway with tests**
+- 2025-08-12 23:20 bf91566 **refactor: register ai gateway from infra**
+- 2025-08-12 23:20 2292d93 **step: add infra ai-gateway**
+- 2025-08-12 23:13 72c1be6 **refactor: make weekly review processing use ai gateway**
+- 2025-08-12 23:12 d14a8b1 **step: rename the ai gateway port method**
+- 2025-08-12 23:09 ab128e2 **step: make ai gateway implement the port**
+- 2025-08-12 23:03 a4291ec **step: add ai gateway ports**
+- 2025-08-12 22:50 98844de **step: expose ai gateway error**
+- 2025-08-12 22:50 85ea32b **step: add mock events**
+- 2025-08-12 22:50 5f2408a **step: add ai gateway tests**
+- 2025-08-12 22:39 4419ed2 **step: fix ai request registered event**
+- 2025-08-12 22:13 de9ad1b **feature: implement ai gateway**
+- 2025-08-12 22:11 5d1709b **step: add ai quota exceeded event**
+- 2025-08-12 22:08 bee963d **step: register ai request registered event**
+- 2025-08-12 21:41 6ca2192 **refactor: move ai-client port to ai/ports**
+- 2025-08-12 21:25 8685ef3 **refactor: complete the advice/prompt migration**
+- 2025-08-12 20:54 8b68211 **refactor: export vos from ai bc entrypoint**
+- 2025-08-12 20:53 888af36 **refactor: move prompt and advice to ai**
+- 2025-08-12 20:21 aa8656f **refactor: cleanup event handlers**
+- 2025-08-12 20:15 5596b24 **step: update packages fr**
+- 2025-08-12 20:15 48b7aeb **step: regenerate migrations**
+- 2025-08-12 20:12 d400a17 **step: update packages**
+- 2025-08-12 16:04 f36c45e **refactor: move repo calls to event handlers**
+- 2025-08-12 15:53 11608f3 **step: define ai request registered event**
+- 2025-08-12 14:35 9790edc **step: rename key to bucket in drizzle**
+- 2025-08-12 14:33 07beb98 **refactor: improve types**
+- 2025-08-12 14:27 9751a5c **refactor: add quota usage type**
+- 2025-08-12 14:25 b50e7de **step: add quota bucket type**
+- 2025-08-12 14:24 3fa327c **refactor: attr order**
+- 2025-08-12 14:23 a9e1d95 **refactor: extract quota rule id**
+- 2025-08-12 14:21 41ed5c8 **refactor: simplify tests**
+- 2025-08-12 14:16 ca211bf **refactor: extract buckets**
+- 2025-08-12 14:12 5d83aa0 **refactor: extract request contexts**
+- 2025-08-12 14:09 64629bd **refactor: use day vo from tools**
+- 2025-08-12 14:04 f34f553 **step: udpate frontend packages**
+- 2025-08-12 14:02 fc21a98 **step: update packages**
+- 2025-08-12 14:01 62e9b1e **step: update bgord bun**
+- 2025-08-12 13:44 2e113da **step: add ai quota specification**
+- 2025-08-12 13:20 74fd1b2 **step: add bucket counter drizzle adapter**
+- 2025-08-12 13:19 2720a1a **step: add ai alias**
+- 2025-08-12 13:11 05b79d1 **step: add ai usage counters**
+- 2025-08-12 13:03 759bed3 **step: add bucket counter port**
+- 2025-08-12 12:58 34846a8 **step: add quote rule selector**
+- 2025-08-09 00:57 d3b717d **step: test the rules**
+- 2025-08-09 00:43 88ee547 **refactor: reorganize rules**
+- 2025-08-09 00:43 3fb8739 **step: export quota rules**
+- 2025-08-09 00:37 d32f5e7 **step: define rules**
+- 2025-08-09 00:37 5a11062 **refactor: rename usage cateogry**
+- 2025-08-09 00:11 911eab3 **step: ref make CateoryDimensionMap typesafe**
+- 2025-08-09 00:08 3bfd580 **step: add CategoryDimensionMap**
+- 2025-08-09 00:04 5e8219e **refactor: switch to enum in usage category**
+- 2025-08-08 23:58 8ae4627 **step: improve quota rule**
+- 2025-08-08 23:57 9ff60d0 **step: add quota limit vo**
+- 2025-08-08 23:56 b0a805e **step: add request context dimension**
+- 2025-08-08 23:54 5279b97 **step: make bucket dependant on context**
+- 2025-08-08 23:53 d9d5ab5 **step: make quota appliesTo base on categories**
+- 2025-08-08 23:52 58f5a57 **step: define request context**
+- 2025-08-08 23:50 70d5d34 **step: add usage category**
+- 2025-08-08 23:30 c20a198 **step: setup quota rule vo**
 - 2025-08-08 21:11 680a11e **refactor: use tools.Time.Now().value**
-## 2025-08-08 21:11 
 - 2025-08-08 21:01 cb59a9b **refactor: rename policy**
 - 2025-08-08 20:59 938a808 **step: update packages**
 - 2025-08-08 20:53 f17b952 **step: set min scheduled for**
 - 2025-08-08 19:26 f982721 **step: add time capsule entry to seed**
+- 2025-08-08 19:16 1906e2d **docs: generate CHANGELOG**
 - 2025-08-08 19:04 890dce2 **Merge pull request #26 from bgord/time-capsule**
 - 2025-08-08 19:04 23450d9 **refactor: add location icon**
 - 2025-08-08 19:01 8b2d9b9 **step: take into account tz offset into scheduling**
