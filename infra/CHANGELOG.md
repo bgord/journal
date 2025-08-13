@@ -1,6 +1,8 @@
 # Changelog
+- 2025-08-14 00:22 cb2b1e5 **step: bump bgord/scripts**
+- 2025-08-14 00:22 464b439 **refactor: format imports**
+## 2025-08-14 00:22 
 - 2025-08-14 00:13 6518791 **Merge pull request #30 from bgord/ai_bc**
-## 2025-08-14 00:13 
 - 2025-08-13 23:33 c50bc81 **step: bump bgord/scripts**
 - 2025-08-13 23:33 2192122 **step: update packages**
 - 2025-08-13 23:17 3f56cbe **step: bump bgord/scripts**
@@ -9,6 +11,8 @@
 - 2025-08-13 22:33 463d8ad **step: update fe packages**
 - 2025-08-13 22:32 1ff67b2 **step: update packages**
 - 2025-08-13 22:22 ab604f6 **step: pinpoint all packages**
+- 2025-08-13 22:14 576c8b1 **docs: generate readme**
+- 2025-08-13 22:13 d84175e **docs: generate CHANGELOG**
 - 2025-08-13 22:11 f80b9db **step: update better auth in fe**
 - 2025-08-13 22:00 8b8d97e **step: update packages**
 - 2025-08-13 21:52 66ac92f **step: update packages**
