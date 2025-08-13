@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+// Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
 import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status";
 import { EntryOriginOption } from "../modules/emotions/value-objects/entry-origin-option";
@@ -7,7 +8,6 @@ import { EntryStatusEnum } from "../modules/emotions/value-objects/entry-status"
 import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
 import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
 import { PatternNameOption } from "../modules/emotions/value-objects/pattern-name-option";
-// Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { SituationKindOptions } from "../modules/emotions/value-objects/situation-kind-options";
 import { TimeCapsuleEntryStatusEnum } from "../modules/emotions/value-objects/time-capsule-entry-status";
 import { WeeklyReviewStatusEnum } from "../modules/emotions/value-objects/weekly-review-status";
