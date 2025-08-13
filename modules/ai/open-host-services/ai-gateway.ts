@@ -7,6 +7,7 @@ import { EventStore } from "+infra/event-store";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
+/** @public */
 export class AiQuotaExceededError extends Error {
   constructor() {
     super();

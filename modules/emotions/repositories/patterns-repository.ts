@@ -4,6 +4,7 @@ import * as Schema from "+infra/schema";
 import * as tools from "@bgord/tools";
 import { and, eq } from "drizzle-orm";
 
+/** @public */
 export class PatternsRepository {
   static async findInWeekForUser(week: tools.Week, userId: Auth.VO.UserIdType) {
     return db

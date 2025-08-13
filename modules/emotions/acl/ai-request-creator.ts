@@ -14,6 +14,7 @@ export const createWeeklyReviewInsightRequestContext = (
   };
 };
 
+/** @public */
 export const createEmotionsAlarmEntryRequestContext = (
   userId: Auth.VO.UserIdType,
   entryId: Emotions.VO.EntryIdType,
@@ -26,6 +27,7 @@ export const createEmotionsAlarmEntryRequestContext = (
   };
 };
 
+/** @public */
 export const createEmotionsAlarmInactivityRequestContext = (
   userId: Auth.VO.UserIdType,
 ): AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY> => {
