@@ -1,5 +1,5 @@
-import * as VO from "+emotions/value-objects";
 import * as tools from "@bgord/tools";
+import * as VO from "+emotions/value-objects";
 
 export class WeeklyReviewSkippedNotificationComposer {
   compose(week: tools.Week): VO.NotificationTemplate {

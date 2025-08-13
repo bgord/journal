@@ -1,8 +1,8 @@
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
-import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 
 export class EntryAlarmDetector {
   constructor(private readonly eventBus: typeof EventBus) {

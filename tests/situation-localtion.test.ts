@@ -1,5 +1,5 @@
-import { SituationLocation } from "+emotions/value-objects";
 import { describe, expect, test } from "bun:test";
+import { SituationLocation } from "+emotions/value-objects";
 
 describe("SituationLocation", () => {
   test("constructor - creates with minimum length", () => {

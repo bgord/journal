@@ -1,9 +1,9 @@
-import { EventBus } from "+infra/event-bus";
-import { EventStore } from "+infra/event-store";
-import * as Publishing from "+publishing";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as Publishing from "+publishing";
+import { EventBus } from "+infra/event-bus";
+import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
 const policy = new Publishing.Policies.ShareableLinksExpirer(EventBus);

@@ -1,6 +1,6 @@
+import OAI from "openai";
 import * as AI from "+ai";
 import { Env } from "+infra/env";
-import OAI from "openai";
 
 /** @public */
 export const OpenAI = new OAI({ apiKey: Env.OPEN_AI_API_KEY });

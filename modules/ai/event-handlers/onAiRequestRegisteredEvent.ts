@@ -1,7 +1,7 @@
+import { sql } from "drizzle-orm";
 import * as Events from "+ai/events";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import { sql } from "drizzle-orm";
 import { QuotaRuleSelector } from "../services/quota-rule-selector";
 import { RULES } from "../value-objects/quota-rules";
 

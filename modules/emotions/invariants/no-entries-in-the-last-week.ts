@@ -1,7 +1,7 @@
-import type { GetLatestEntryTimestampForUser } from "+emotions/queries";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
+import type { GetLatestEntryTimestampForUser } from "+emotions/queries";
 
 class NoEntriesInTheLastWeekError extends Error {
   constructor() {

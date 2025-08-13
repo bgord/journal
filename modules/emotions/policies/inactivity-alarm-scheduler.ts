@@ -1,10 +1,10 @@
-import * as Events from "+app/events";
-import * as Auth from "+auth";
-import * as Emotions from "+emotions";
-import { CommandBus } from "+infra/command-bus";
-import type { EventBus } from "+infra/event-bus";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as Auth from "+auth";
+import * as Emotions from "+emotions";
+import * as Events from "+app/events";
+import { CommandBus } from "+infra/command-bus";
+import type { EventBus } from "+infra/event-bus";
 
 export class InactivityAlarmScheduler {
   constructor(private readonly eventBus: typeof EventBus) {

@@ -1,6 +1,6 @@
-import type * as Auth from "+auth";
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
+import type * as Auth from "+auth";
 
 class RequesterOwnsEntryError extends Error {
   constructor() {

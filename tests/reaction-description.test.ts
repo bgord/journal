@@ -1,5 +1,5 @@
-import { ReactionDescription } from "+emotions/value-objects";
 import { describe, expect, test } from "bun:test";
+import { ReactionDescription } from "+emotions/value-objects";
 
 describe("ReactionDescription", () => {
   test("constructor - creates with minimum length", () => {

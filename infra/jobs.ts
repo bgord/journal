@@ -1,7 +1,7 @@
-import * as App from "+app";
-import { logger } from "+infra/logger";
 import * as bg from "@bgord/bun";
 import { Cron } from "croner";
+import * as App from "+app";
+import { logger } from "+infra/logger";
 
 const JobHandler = new bg.JobHandler(logger);
 

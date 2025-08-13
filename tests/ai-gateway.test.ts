@@ -1,10 +1,10 @@
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
 import { BucketCounterDrizzleRepository } from "+ai/repositories";
 import * as VO from "+ai/value-objects";
 import { AiClient } from "+infra/ai-client";
 import { EventStore } from "+infra/event-store";
-import { describe, expect, jest, spyOn, test } from "bun:test";
-import * as bg from "@bgord/bun";
 import * as mocks from "./mocks";
 
 const bucketCounterRepo = new BucketCounterDrizzleRepository();

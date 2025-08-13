@@ -1,9 +1,9 @@
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { Env } from "+infra/env";
 import { SupportedLanguages } from "+infra/i18n";
 import { jobs } from "+infra/jobs";
 import { logger } from "+infra/logger";
-import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 
 export const prerequisites = [
   new bg.PrerequisitePort({ label: "port", port: Env.PORT }),

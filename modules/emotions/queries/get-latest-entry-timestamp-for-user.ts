@@ -1,7 +1,7 @@
+import { eq, sql } from "drizzle-orm";
 import type * as Auth from "+auth";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import { eq, sql } from "drizzle-orm";
 
 export class GetLatestEntryTimestampForUser {
   static async execute(userId: Auth.VO.UserIdType): Promise<number | undefined> {

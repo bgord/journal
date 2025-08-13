@@ -1,8 +1,8 @@
+import * as tools from "@bgord/tools";
+import { eq } from "drizzle-orm";
 import * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import * as tools from "@bgord/tools";
-import { eq } from "drizzle-orm";
 
 export const onSituationLoggedEvent = async (event: Emotions.Events.SituationLoggedEventType) => {
   await db.insert(Schema.entries).values({

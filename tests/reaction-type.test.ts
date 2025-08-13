@@ -1,5 +1,5 @@
-import { GrossEmotionRegulationStrategy, ReactionType } from "+emotions/value-objects";
 import { describe, expect, test } from "bun:test";
+import { GrossEmotionRegulationStrategy, ReactionType } from "+emotions/value-objects";
 
 describe("ReactionType", () => {
   test("constructor - creates all correct emotion regulation strategy", () => {

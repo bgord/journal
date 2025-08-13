@@ -1,6 +1,6 @@
-import type * as Schema from "+infra/schema";
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
+import type * as Schema from "+infra/schema";
 
 class WeeklyReviewExistsError extends Error {
   constructor() {

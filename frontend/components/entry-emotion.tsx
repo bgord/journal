@@ -1,11 +1,9 @@
 import * as UI from "@bgord/ui";
 import React from "react";
 import * as RR from "react-router";
-
 import type { types } from "../../app/services/add-entry-form";
 import type { SelectEntriesFormatted } from "../../infra/schema";
 import type { loader } from "../app/routes/home";
-
 import { ClickableRatingPills } from "./clickable-rating-pills";
 import { Select } from "./select";
 

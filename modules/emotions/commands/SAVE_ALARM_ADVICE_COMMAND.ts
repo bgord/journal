@@ -1,8 +1,8 @@
-import * as AI from "+ai";
-import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
+import * as AI from "+ai";
+import * as VO from "+emotions/value-objects";
 
 export const SAVE_ALARM_ADVICE_COMMAND = "SAVE_ALARM_ADVICE_COMMAND";
 

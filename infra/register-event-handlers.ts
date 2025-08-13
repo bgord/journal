@@ -1,3 +1,4 @@
+import * as bg from "@bgord/bun";
 import * as AiEventHandlers from "+ai/event-handlers";
 import * as AiEvents from "+ai/events";
 import * as EmotionsEventHandlers from "+emotions/event-handlers";
@@ -12,7 +13,6 @@ import { PdfGenerator } from "+infra/pdf-generator";
 import * as PublishingEventHandlers from "+publishing/event-handlers";
 import * as PublishingEvents from "+publishing/events";
 import * as PublishingPolicies from "+publishing/policies";
-import * as bg from "@bgord/bun";
 
 const EventHandler = new bg.EventHandler(logger);
 

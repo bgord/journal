@@ -1,7 +1,7 @@
+import { eq } from "drizzle-orm";
 import * as VO from "+auth/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import { eq } from "drizzle-orm";
 
 export class UserRepository {
   static async getEmailFor(userId: VO.UserIdType) {

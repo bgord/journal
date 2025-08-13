@@ -1,5 +1,5 @@
-import { EmotionIntensity } from "+emotions/value-objects";
 import { describe, expect, test } from "bun:test";
+import { EmotionIntensity } from "+emotions/value-objects";
 
 describe("EmotionIntensity", () => {
   test("constructor - creates correct minimum emotion intensity", () => {

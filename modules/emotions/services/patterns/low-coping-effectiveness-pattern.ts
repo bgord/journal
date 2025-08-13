@@ -1,10 +1,10 @@
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns/pattern";
 import * as VO from "+emotions/value-objects";
 import type * as Schema from "+infra/schema";
-import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 
 /** @public */
 export class LowCopingEffectivenessPattern extends Patterns.Pattern {

@@ -1,7 +1,7 @@
+import * as bg from "@bgord/bun";
 import * as Ports from "+emotions/ports";
 import { Env } from "+infra/env";
 import { logger } from "+infra/logger";
-import * as bg from "@bgord/bun";
 import { ReactPdfGenerator } from "./react-pdf.adapter";
 
 const PLACEHOLDER_PDF_BASE64 =

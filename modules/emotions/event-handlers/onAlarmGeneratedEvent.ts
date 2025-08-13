@@ -1,7 +1,7 @@
+import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import * as tools from "@bgord/tools";
 
 export const onAlarmGeneratedEvent = async (event: Emotions.Events.AlarmGeneratedEventType) => {
   if (event.payload.trigger.type === Emotions.VO.AlarmTriggerEnum.entry) {

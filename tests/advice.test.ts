@@ -1,5 +1,5 @@
-import * as AI from "+ai";
 import { describe, expect, test } from "bun:test";
+import * as AI from "+ai";
 
 describe("advice", () => {
   test("constructor - creates with minimum length", () => {

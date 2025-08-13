@@ -1,6 +1,6 @@
+import { describe, expect, spyOn, test } from "bun:test";
 import * as Repos from "+emotions/repositories";
 import { EventStore } from "+infra/event-store";
-import { describe, expect, spyOn, test } from "bun:test";
 import { server } from "../server";
 import * as mocks from "./mocks";
 

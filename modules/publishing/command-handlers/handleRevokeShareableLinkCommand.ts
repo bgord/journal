@@ -1,5 +1,5 @@
-import { EventStore } from "+infra/event-store";
 import * as Publishing from "+publishing";
+import { EventStore } from "+infra/event-store";
 
 export const handleRevokeShareableLinkCommand = async (
   command: Publishing.Commands.RevokeShareableLinkCommandType,

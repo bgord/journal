@@ -1,6 +1,6 @@
-import { CountActiveShareableLinksPerOwner } from "+publishing/queries";
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
+import { CountActiveShareableLinksPerOwner } from "+publishing/queries";
 
 class ShareableLinksPerOwnerLimitError extends Error {
   constructor() {

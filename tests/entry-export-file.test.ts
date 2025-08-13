@@ -1,6 +1,6 @@
-import * as Emotions from "+emotions";
 import { describe, expect, test } from "bun:test";
 import { text } from "node:stream/consumers";
+import * as Emotions from "+emotions";
 import * as mocks from "./mocks";
 
 describe("EntryExportFile", () => {

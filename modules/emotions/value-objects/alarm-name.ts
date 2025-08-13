@@ -1,5 +1,4 @@
 import { z } from "zod/v4";
-
 import { AlarmNameOption } from "./alarm-name-option";
 
 export const AlarmName = z.enum(AlarmNameOption);

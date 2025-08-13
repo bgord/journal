@@ -1,8 +1,8 @@
+import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import { EventStore } from "+infra/event-store";
 import * as Aggregates from "+publishing/aggregates";
 import * as VO from "+publishing/value-objects";
-import * as tools from "@bgord/tools";
 
 export type ShareableLinkAccessValidType = {
   valid: true;

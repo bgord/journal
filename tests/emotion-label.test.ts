@@ -1,5 +1,5 @@
-import { EmotionLabel, GenevaWheelEmotion } from "+emotions/value-objects";
 import { describe, expect, test } from "bun:test";
+import { EmotionLabel, GenevaWheelEmotion } from "+emotions/value-objects";
 
 describe("EmotionLabel", () => {
   test("constructor - creates all correct emotion labels", () => {

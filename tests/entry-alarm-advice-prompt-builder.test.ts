@@ -1,8 +1,9 @@
 // cspell:disable
+
+import { describe, expect, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+infra/i18n";
-import { describe, expect, test } from "bun:test";
 import * as mocks from "./mocks";
 
 describe("EntryAlarmAdvicePromptBuilder", () => {

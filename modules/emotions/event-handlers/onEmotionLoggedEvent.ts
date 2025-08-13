@@ -1,7 +1,7 @@
+import { eq } from "drizzle-orm";
 import * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import { eq } from "drizzle-orm";
 
 export const onEmotionLoggedEvent = async (event: Emotions.Events.EmotionLoggedEventType) => {
   await db

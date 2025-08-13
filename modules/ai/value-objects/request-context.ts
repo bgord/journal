@@ -1,5 +1,5 @@
-import * as Auth from "+auth";
 import type * as tools from "@bgord/tools";
+import * as Auth from "+auth";
 import { UsageCategory } from "./usage-category";
 
 const CategoryDimensionMap = {

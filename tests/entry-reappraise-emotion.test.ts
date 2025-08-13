@@ -1,9 +1,9 @@
-import * as Emotions from "+emotions";
-import { auth } from "+infra/auth";
-import { EventStore } from "+infra/event-store";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as Emotions from "+emotions";
+import { auth } from "+infra/auth";
+import { EventStore } from "+infra/event-store";
 import { server } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";

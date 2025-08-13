@@ -1,6 +1,6 @@
+import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import * as Publishing from "+publishing";
 
 export const onShareableLinkCreatedEvent = async (event: Publishing.Events.ShareableLinkCreatedEventType) => {
   await db.insert(Schema.shareableLinks).values({

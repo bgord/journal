@@ -1,8 +1,8 @@
+import * as bg from "@bgord/bun";
 import * as infra from "+infra";
 import { Env } from "+infra/env";
 import { logger } from "+infra/logger";
 import { prerequisites } from "+infra/prerequisites";
-import * as bg from "@bgord/bun";
 import { server, startup } from "./server";
 
 (async function main() {

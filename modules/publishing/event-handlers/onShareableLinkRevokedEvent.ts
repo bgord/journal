@@ -1,7 +1,7 @@
+import { eq } from "drizzle-orm";
+import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import * as Publishing from "+publishing";
-import { eq } from "drizzle-orm";
 
 export const onShareableLinkRevokedEvent = async (event: Publishing.Events.ShareableLinkRevokedEventType) => {
   await db

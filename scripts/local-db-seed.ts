@@ -1,4 +1,8 @@
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
+import _ from "lodash";
 import * as Emotions from "+emotions";
+import * as Publishing from "+publishing";
 import { auth } from "+infra/auth";
 import { CommandBus } from "+infra/command-bus";
 import { db } from "+infra/db";
@@ -6,10 +10,6 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { SupportedLanguages } from "+infra/i18n";
 import * as Schema from "+infra/schema";
-import * as Publishing from "+publishing";
-import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
-import _ from "lodash";
 import * as mocks from "../tests/mocks";
 
 import "+infra/register-event-handlers";

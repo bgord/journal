@@ -1,7 +1,7 @@
-import * as Events from "+app/events";
-import { EventStore } from "+infra/event-store";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as Events from "+app/events";
+import { EventStore } from "+infra/event-store";
 
 export class PassageOfTime {
   static cron = bg.Jobs.SCHEDULES.EVERY_HOUR;

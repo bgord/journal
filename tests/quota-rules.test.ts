@@ -1,10 +1,10 @@
+import { describe, expect, test } from "bun:test";
 import {
   EMOTIONS_ALARM_ENTRY_RULE,
   EMOTIONS_ALARM_INACTIVITY_WEEKLY_RULE,
   EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY_RULE,
   USER_DAILY_RULE,
 } from "+ai/value-objects";
-import { describe, expect, test } from "bun:test";
 import * as mocks from "./mocks";
 
 describe("Quota rules", () => {

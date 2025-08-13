@@ -1,8 +1,8 @@
-import * as VO from "+ai/value-objects";
-import * as Auth from "+auth";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
+import * as Auth from "+auth";
+import * as VO from "+ai/value-objects";
 
 export const AI_REQUEST_REGISTERED_EVENT = "AI_REQUEST_REGISTERED_EVENT";
 

@@ -1,3 +1,5 @@
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { Env } from "+infra/env";
@@ -5,8 +7,6 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { Mailer } from "+infra/mailer";
 import { PdfGenerator } from "+infra/pdf-generator";
-import { describe, expect, jest, spyOn, test } from "bun:test";
-import * as bg from "@bgord/bun";
 import * as mocks from "./mocks";
 
 describe("WeeklyReviewExportByEmail", () => {

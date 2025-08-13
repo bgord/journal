@@ -1,6 +1,6 @@
+import Anthropic from "@anthropic-ai/sdk";
 import * as AI from "+ai";
 import { Env } from "+infra/env";
-import Anthropic from "@anthropic-ai/sdk";
 
 /** @public */
 export const AnthropicAi = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });

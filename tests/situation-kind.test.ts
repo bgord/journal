@@ -1,5 +1,5 @@
-import { SituationKind, SituationKindOptions } from "+emotions/value-objects";
 import { describe, expect, test } from "bun:test";
+import { SituationKind, SituationKindOptions } from "+emotions/value-objects";
 
 describe("SituationKind", () => {
   test("constructor - creates all correct emotion labels", () => {

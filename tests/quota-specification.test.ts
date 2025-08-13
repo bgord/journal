@@ -1,8 +1,8 @@
+import { describe, expect, spyOn, test } from "bun:test";
 import { BucketCounterDrizzleRepository } from "+ai/repositories";
 import { QuotaRuleSelector } from "+ai/services";
 import { QuotaSpecification } from "+ai/specifications";
 import * as VO from "+ai/value-objects";
-import { describe, expect, spyOn, test } from "bun:test";
 import * as mocks from "./mocks";
 
 const selector = new QuotaRuleSelector(VO.RULES);

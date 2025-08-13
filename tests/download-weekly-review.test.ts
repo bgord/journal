@@ -1,6 +1,6 @@
-import * as Emotions from "+emotions";
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as Emotions from "+emotions";
 import { auth } from "../infra/auth";
 import { server } from "../server";
 import * as mocks from "./mocks";
