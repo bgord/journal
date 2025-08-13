@@ -1,6 +1,5 @@
-import type { QuotaBucketType } from "+ai/value-objects/quota-bucket";
-import type { QuotaUsageType } from "+ai/value-objects/quota-usage";
+import type * as VO from "+ai/value-objects";
 
 export interface BucketCounter {
-  getMany(buckets: QuotaBucketType[]): Promise<Record<QuotaBucketType, QuotaUsageType>>;
+  getMany(buckets: VO.QuotaBucketType[]): Promise<Record<VO.QuotaBucketType, VO.QuotaUsageType>>;
 }

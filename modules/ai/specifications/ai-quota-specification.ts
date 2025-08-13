@@ -1,5 +1,5 @@
-import type { BucketCounter } from "+ai/ports/bucket-counter";
-import { QuotaRuleSelector } from "+ai/services/quota-rule-selector";
+import type * as Ports from "+ai/ports";
+import * as Services from "+ai/services";
 import * as VO from "+ai/value-objects";
 
 export type QuotaViolation = {
@@ -11,8 +11,8 @@ export type QuotaViolation = {
 
 export class AIQuotaSpecification {
   constructor(
-    private readonly selector: QuotaRuleSelector,
-    private readonly bucketCounter: BucketCounter,
+    private readonly selector: Services.QuotaRuleSelector,
+    private readonly bucketCounter: Ports.BucketCounter,
   ) {}
 
   async verify<C extends VO.UsageCategory>(

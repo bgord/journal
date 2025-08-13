@@ -1,13 +1,11 @@
 import * as Events from "+ai/events";
 import * as Ports from "+ai/ports";
+import * as Services from "+ai/services";
+import * as Specs from "+ai/specifications";
 import * as VO from "+ai/value-objects";
 import { EventStore } from "+infra/event-store";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { AiClientPort } from "../ports/ai-client";
-import { BucketCounter } from "../ports/bucket-counter";
-import { QuotaRuleSelector } from "../services/quota-rule-selector";
-import { AIQuotaSpecification, QuotaViolation } from "../specifications/ai-quota-specification";
 
 export class AiQuotaExceededError extends Error {
   constructor() {
@@ -17,18 +15,21 @@ export class AiQuotaExceededError extends Error {
 }
 
 export class AiGateway implements Ports.AiGatewayPort {
-  private readonly specification: AIQuotaSpecification;
+  private readonly specification: Specs.AIQuotaSpecification;
 
   constructor(
-    private readonly AiClient: AiClientPort,
-    bucketCounter: BucketCounter,
+    private readonly AiClient: Ports.AiClientPort,
+    bucketCounter: Ports.BucketCounter,
   ) {
-    this.specification = new AIQuotaSpecification(new QuotaRuleSelector(VO.RULES), bucketCounter);
+    this.specification = new Specs.AIQuotaSpecification(
+      new Services.QuotaRuleSelector(VO.RULES),
+      bucketCounter,
+    );
   }
 
   async check<C extends VO.UsageCategory>(
     context: VO.RequestContext<C>,
-  ): Promise<{ violations: QuotaViolation[] }> {
+  ): Promise<{ violations: Specs.QuotaViolation[] }> {
     return this.specification.verify(context);
   }
 

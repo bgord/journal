@@ -1,14 +1,9 @@
-import type { QuotaBucketType } from "./quota-bucket";
-import type { QuotaLimitType } from "./quota-limit";
-import type { QuotaRuleId } from "./quota-rule-id";
-import type { QuotaWindow } from "./quota-window";
-import type { RequestContext } from "./request-context";
-import type { UsageCategory } from "./usage-category";
+import type * as VO from "+ai/value-objects";
 
 export type QuotaRule = {
-  id: QuotaRuleId;
-  window: QuotaWindow;
-  limit: QuotaLimitType;
-  bucket: (context: RequestContext) => QuotaBucketType;
-  appliesTo: (category: UsageCategory) => boolean;
+  id: VO.QuotaRuleId;
+  window: VO.QuotaWindow;
+  limit: VO.QuotaLimitType;
+  bucket: (context: VO.RequestContext) => VO.QuotaBucketType;
+  appliesTo: (category: VO.UsageCategory) => boolean;
 };

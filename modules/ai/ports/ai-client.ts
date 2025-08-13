@@ -1,7 +1,7 @@
-import * as AI from "+ai";
+import * as VO from "+ai/value-objects";
 
 export abstract class AiClientPort {
-  static maxLength = AI.Advice.MaximumLength;
+  static maxLength = VO.Advice.MaximumLength;
 
-  abstract request(prompt: AI.Prompt): Promise<AI.Advice>;
+  abstract request(prompt: VO.Prompt): Promise<VO.Advice>;
 }

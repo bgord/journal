@@ -1,4 +1,4 @@
-import type { UserIdType } from "+auth/value-objects";
+import * as Auth from "+auth";
 import type * as tools from "@bgord/tools";
 import { UsageCategory } from "./usage-category";
 
@@ -12,7 +12,7 @@ type DimensionsOf<Category extends UsageCategory> = (typeof CategoryDimensionMap
 
 export type RequestContext<Category extends UsageCategory = UsageCategory> = {
   category: Category;
-  userId: UserIdType;
+  userId: Auth.VO.UserIdType;
   timestamp: tools.TimestampType;
   dimensions: DimensionsOf<Category>;
 };
