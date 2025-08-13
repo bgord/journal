@@ -7,7 +7,7 @@ import * as mocks from "./mocks";
 
 describe("EntryAlarmAdvicePromptBuilder", () => {
   test("situation + emotion (en)", () => {
-    const builder = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
+    const builder = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
       mocks.partialEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
       SupportedLanguages.en,
@@ -21,7 +21,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
   });
 
   test("situation + emotion + reaction (en)", () => {
-    const builder = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
+    const builder = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
       mocks.fullEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
       SupportedLanguages.en,
@@ -35,7 +35,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
   });
 
   test("situation + emotion (pl)", () => {
-    const builder = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
+    const builder = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
       mocks.partialEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
       SupportedLanguages.pl,
@@ -49,7 +49,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
   });
 
   test("situation + emotion + reaction (pl)", () => {
-    const builder = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
+    const builder = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
       mocks.fullEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
       SupportedLanguages.pl,

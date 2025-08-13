@@ -43,7 +43,7 @@ export class WeeklyReviewProcessing {
     const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
 
     const language = entries.at(-1)?.language as SupportedLanguages;
-    const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
+    const prompt = new ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
     try {
       const insights = await this.AiGateway.query(

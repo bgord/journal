@@ -1,8 +1,9 @@
 import * as AI from "+ai";
 import * as Repos from "+emotions/repositories";
-import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 import { SupportedLanguages } from "+infra/i18n";
+import { EntryAlarmAdvicePromptBuilder } from "./entry-alarm-advice-prompt-builder";
+import { InactivityAlarmAdvicePromptBuilder } from "./inactivity-alarm-advice-prompt-builder";
 
 export class AlarmPromptFactory {
   static async create(detection: VO.AlarmDetection): Promise<AI.Prompt> {
@@ -11,11 +12,11 @@ export class AlarmPromptFactory {
         const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
         const language = entry.language as SupportedLanguages;
 
-        return new Services.EntryAlarmAdvicePromptBuilder(entry, detection.name, language).generate();
+        return new EntryAlarmAdvicePromptBuilder(entry, detection.name, language).generate();
       }
 
       case VO.AlarmTriggerEnum.inactivity: {
-        return new Services.InactivityAlarmAdvicePromptBuilder(detection.trigger).generate();
+        return new InactivityAlarmAdvicePromptBuilder(detection.trigger).generate();
       }
 
       default:

@@ -6,7 +6,7 @@ import * as mocks from "./mocks";
 
 describe("InactivityAlarmAdvicePromptBuilder", () => {
   test("generate", () => {
-    const builder = new Emotions.Services.InactivityAlarmAdvicePromptBuilder(mocks.inactivityTrigger);
+    const builder = new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(mocks.inactivityTrigger);
 
     expect(builder.generate()).toEqual(
       new AI.Prompt(`Inactive for ${mocks.inactivityTrigger.inactivityDays} days`),

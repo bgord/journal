@@ -28,7 +28,7 @@ export class AlarmOrchestrator {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     try {
-      const prompt = await Services.AlarmPromptFactory.create(detection);
+      const prompt = await ACL.AiPrompts.AlarmPromptFactory.create(detection);
       // @ts-ignore
       const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
       const advice = await this.AiGateway.query(prompt, context);

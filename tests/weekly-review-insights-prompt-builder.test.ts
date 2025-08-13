@@ -5,7 +5,7 @@ import * as mocks from "./mocks";
 
 describe("WeeklyReviewInsightsPromptBuilder", () => {
   test("generate - en", () => {
-    const prompt = new Emotions.Services.WeeklyReviewInsightsPromptBuilder(
+    const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(
       [mocks.fullEntry],
       SupportedLanguages.en,
     ).generate();
@@ -23,7 +23,7 @@ describe("WeeklyReviewInsightsPromptBuilder", () => {
   });
 
   test("generate - pl", () => {
-    const prompt = new Emotions.Services.WeeklyReviewInsightsPromptBuilder(
+    const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(
       [mocks.fullEntry],
       SupportedLanguages.pl,
     ).generate();

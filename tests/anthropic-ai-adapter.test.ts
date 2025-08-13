@@ -5,7 +5,7 @@ import { SupportedLanguages } from "../infra/i18n";
 import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const prompt = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
+const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
   mocks.partialEntry,
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
   SupportedLanguages.en,
