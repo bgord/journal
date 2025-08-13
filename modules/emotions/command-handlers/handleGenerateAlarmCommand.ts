@@ -4,24 +4,16 @@ import { AiGateway } from "+infra/ai-gateway";
 import { EventStore } from "+infra/event-store";
 
 export const handleGenerateAlarmCommand = async (command: Emotions.Commands.GenerateAlarmCommandType) => {
-  const alarmsTodayForUserCount = await Emotions.Queries.CountTodaysAlarmsForUser.execute(
-    command.payload.userId,
-  );
-  Emotions.Invariants.DailyAlarmLimit.perform(alarmsTodayForUserCount);
-
   switch (command.payload.detection.trigger.type) {
     case Emotions.VO.AlarmTriggerEnum.entry: {
-      const entryAlarmsCount = await Emotions.Queries.CountAlarmsForEntry.execute(
-        command.payload.detection.trigger.entryId,
-      );
-      Emotions.Invariants.EntryAlarmLimit.perform({ count: entryAlarmsCount });
-
-      await AiGateway.check({
+      const check = await AiGateway.check({
         userId: command.payload.userId,
         category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
         timestamp: command.createdAt,
         dimensions: { entryId: command.payload.detection.trigger.entryId },
       });
+
+      if (check.violations.length) return;
 
       break;
     }

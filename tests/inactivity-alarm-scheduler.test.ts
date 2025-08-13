@@ -1,6 +1,8 @@
+import * as AI from "+ai";
 import * as Auth from "+auth";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import { AiGateway } from "../infra/ai-gateway";
 import { EventBus } from "../infra/event-bus";
 import { EventStore } from "../infra/event-store";
 import * as Emotions from "../modules/emotions";
@@ -15,6 +17,7 @@ describe("InactivityAlarmScheduler", () => {
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
+    spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -24,19 +27,46 @@ describe("InactivityAlarmScheduler", () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericInactivityAlarmGeneratedEvent]);
   });
 
-  test("DailyAlarmLimit", async () => {
+  test("USER_DAILY", async () => {
     spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
     spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
-    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockResolvedValue({ count: 11 });
+    spyOn(AiGateway, "check").mockResolvedValue({
+      violations: [
+        { bucket: mocks.userDailyBucket, limit: AI.QuotaLimit.parse(10), id: "USER_DAILY", used: 10 },
+      ],
+    });
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      expect(async () => await policy.onHourHasPassed(mocks.GenericHourHasPassedWednesdayUtc18Event)).toThrow(
-        Emotions.Invariants.DailyAlarmLimit.error,
-      );
+      policy.onHourHasPassed(mocks.GenericHourHasPassedWednesdayUtc18Event);
+    });
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+  });
+
+  test("EMOTIONS_ALARM_INACTIVITY_WEEKLY", async () => {
+    spyOn(Auth.Repos.UserRepository, "listIds").mockResolvedValue([mocks.userId]);
+    spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
+      mocks.inactivityTrigger.lastEntryTimestamp,
+    );
+    spyOn(AiGateway, "check").mockResolvedValue({
+      violations: [
+        {
+          bucket: mocks.emotionsAlarmInactivityWeeklyBucket,
+          limit: AI.QuotaLimit.parse(1),
+          id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
+          used: 1,
+        },
+      ],
+    });
+    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      policy.onHourHasPassed(mocks.GenericHourHasPassedWednesdayUtc18Event);
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -47,7 +77,7 @@ describe("InactivityAlarmScheduler", () => {
     spyOn(Emotions.Queries.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
-    spyOn(Emotions.Queries.CountTodaysAlarmsForUser, "execute").mockImplementation(() => {
+    spyOn(AiGateway, "check").mockImplementation(() => {
       throw new Error("FAILURE");
     });
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
