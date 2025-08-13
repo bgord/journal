@@ -38,7 +38,6 @@ export const EMOTIONS_ALARM_ENTRY_RULE: QuotaRule = {
   appliesTo: (category) => category === UsageCategory.EMOTIONS_ALARM_ENTRY,
 };
 
-// TODO: extract somewhere else
 export const RULES: QuotaRule[] = [
   USER_DAILY_RULE,
   EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY_RULE,
