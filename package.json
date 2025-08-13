@@ -21,11 +21,11 @@
     "knip": "5.62.0",
     "lefthook": "1.12.3",
     "shellcheck": "4.1.0",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.60.0",
-    "@bgord/bun": "0.18.18",
+    "@bgord/bun": "0.18.19",
     "@react-pdf/renderer": "4.3.0",
     "better-sqlite3": "12.2.0",
     "csv": "6.4.1",
