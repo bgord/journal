@@ -16,7 +16,7 @@ export async function loader({ params }: Route.LoaderArgs) {
     const entries = await result.json();
 
     return entries as SelectEntriesFullWithAlarms[];
-  } catch (error) {
+  } catch {
     return [];
   }
 }

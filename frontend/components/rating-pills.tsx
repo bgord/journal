@@ -14,7 +14,6 @@ export function RatingPills(props: RatingPillsProps) {
 
         return (
           <rect
-            /* biome-ignore lint: lint/suspicious/noArrayIndexKey */
             key={index}
             x={x}
             y={0}

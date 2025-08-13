@@ -24,7 +24,6 @@ export function ClickableRatingPills(props: ClickableRatingPillsProps) {
             data-p="0"
             data-cursor="pointer"
             type="button"
-            /* biome-ignore lint: lint/suspicious/noArrayIndexKey */
             key={index}
             onClick={() => handleClick(rating)}
             style={{

@@ -41,7 +41,7 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
 
         <Components.LogoutButton />
       </header>
-      <RR.Outlet context={loaderData} />;
+      <RR.Outlet context={loaderData} />
     </div>
   );
 }
