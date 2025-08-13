@@ -1,14 +1,14 @@
 import * as AI from "+ai";
 import * as Auth from "+auth";
+import * as Emotions from "+emotions";
+import { AiGateway } from "+infra/ai-gateway";
+import { Env } from "+infra/env";
+import { EventBus } from "+infra/event-bus";
+import { EventStore } from "+infra/event-store";
+import { Mailer } from "+infra/mailer";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { AiGateway } from "../infra/ai-gateway";
-import { Env } from "../infra/env";
-import { EventBus } from "../infra/event-bus";
-import { EventStore } from "../infra/event-store";
-import { Mailer } from "../infra/mailer";
-import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, AiGateway, Mailer);

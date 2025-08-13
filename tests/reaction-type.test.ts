@@ -1,6 +1,5 @@
+import { GrossEmotionRegulationStrategy, ReactionType } from "+emotions/value-objects";
 import { describe, expect, test } from "bun:test";
-import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
-import { ReactionType } from "../modules/emotions/value-objects/reaction-type";
 
 describe("ReactionType", () => {
   test("constructor - creates all correct emotion regulation strategy", () => {

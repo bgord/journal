@@ -1,8 +1,8 @@
+import { BucketCounterDrizzleRepository } from "+ai/repositories/bucket-counter.drizzle";
+import { QuotaRuleSelector } from "+ai/services/quota-rule-selector";
+import { AIQuotaSpecification } from "+ai/specifications/ai-quota-specification";
 import * as VO from "+ai/value-objects";
 import { describe, expect, spyOn, test } from "bun:test";
-import { BucketCounterDrizzleRepository } from "../modules/ai/repositories/bucket-counter.drizzle";
-import { QuotaRuleSelector } from "../modules/ai/services/quota-rule-selector";
-import { AIQuotaSpecification } from "../modules/ai/specifications/ai-quota-specification";
 import * as mocks from "./mocks";
 
 const selector = new QuotaRuleSelector(VO.RULES);

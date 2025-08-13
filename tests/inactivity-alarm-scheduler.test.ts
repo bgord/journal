@@ -1,11 +1,11 @@
 import * as AI from "+ai";
 import * as Auth from "+auth";
+import * as Emotions from "+emotions";
+import { AiGateway } from "+infra/ai-gateway";
+import { EventBus } from "+infra/event-bus";
+import { EventStore } from "+infra/event-store";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { AiGateway } from "../infra/ai-gateway";
-import { EventBus } from "../infra/event-bus";
-import { EventStore } from "../infra/event-store";
-import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 const policy = new Emotions.Policies.InactivityAlarmScheduler(EventBus);

@@ -1,6 +1,6 @@
+import { EventStore } from "+infra/event-store";
+import * as Publishing from "+publishing";
 import { describe, expect, spyOn, test } from "bun:test";
-import { EventStore } from "../infra/event-store";
-import * as Publishing from "../modules/publishing";
 import * as mocks from "./mocks";
 
 describe("ShareableLinkAccess", () => {

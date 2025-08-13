@@ -1,10 +1,10 @@
 import * as Auth from "+auth";
+import * as Emotions from "+emotions";
+import { EventBus } from "+infra/event-bus";
+import { EventStore } from "+infra/event-store";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { EventBus } from "../infra/event-bus";
-import { EventStore } from "../infra/event-store";
-import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 const policy = new Emotions.Policies.WeeklyReviewScheduler(EventBus);

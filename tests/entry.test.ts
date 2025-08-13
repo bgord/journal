@@ -1,8 +1,8 @@
+import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+infra/i18n";
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 const situation = new Emotions.Entities.Situation(

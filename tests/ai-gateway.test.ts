@@ -1,10 +1,10 @@
+import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
+import { BucketCounterDrizzleRepository } from "+ai/repositories";
 import * as VO from "+ai/value-objects";
+import { AiClient } from "+infra/ai-client";
+import { EventStore } from "+infra/event-store";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { AiClient } from "../infra/ai-client";
-import { EventStore } from "../infra/event-store";
-import { AiGateway, AiQuotaExceededError } from "../modules/ai/open-host-services/ai-gateway";
-import { BucketCounterDrizzleRepository } from "../modules/ai/repositories/bucket-counter.drizzle";
 import * as mocks from "./mocks";
 
 const bucketCounterRepo = new BucketCounterDrizzleRepository();

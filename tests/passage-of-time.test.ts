@@ -1,7 +1,7 @@
+import { EventStore } from "+infra/event-store";
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Services from "../app/services";
-import { EventStore } from "../infra/event-store";
 import * as mocks from "./mocks";
 
 describe("PassageOfTime", () => {
