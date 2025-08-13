@@ -1,6 +1,7 @@
 import * as AI from "+ai";
 import * as Ports from "+ai/ports";
 import * as Auth from "+auth";
+import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
 import * as Repos from "+emotions/repositories";
@@ -30,6 +31,8 @@ export class AlarmOrchestrator {
     try {
       const prompt = await Services.AlarmPromptFactory.create(detection);
       const advice = await this.AiClient.request(prompt);
+      // @ts-ignore
+      const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
 
       const command = Commands.SaveAlarmAdviceCommand.parse({
         id: crypto.randomUUID(),

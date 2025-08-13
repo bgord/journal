@@ -1,5 +1,6 @@
 import * as AI from "+ai";
 import * as Auth from "+auth";
+import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
 import * as Repos from "+emotions/repositories";
@@ -45,12 +46,10 @@ export class WeeklyReviewProcessing {
     const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
     try {
-      const insights = await this.AiGateway.query(prompt, {
-        category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
-        userId: event.payload.userId,
-        timestamp: tools.Time.Now().value,
-        dimensions: {},
-      });
+      const insights = await this.AiGateway.query(
+        prompt,
+        ACL.createWeeklyReviewInsightRequestContext(event.payload.userId),
+      );
 
       const detectWeeklyPatterns = Commands.DetectWeeklyPatternsCommand.parse({
         id: crypto.randomUUID(),

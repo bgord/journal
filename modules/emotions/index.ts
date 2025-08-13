@@ -1,3 +1,4 @@
+export * as ACL from "./acl";
 export * as Aggregates from "./aggregates";
 export * as CommandHandlers from "./command-handlers";
 export * as Commands from "./commands";
