@@ -2,7 +2,6 @@ import * as EmotionsEventHandlers from "+emotions/event-handlers";
 import * as EmotionsEvents from "+emotions/events";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
-import { AiClient } from "+infra/ai-client";
 import { AiGateway } from "+infra/ai-gateway";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
@@ -121,6 +120,6 @@ new EmotionsPolicies.InactivityAlarmScheduler(EventBus);
 new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus);
 
 // Sagas
-new EmotionsSagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
+new EmotionsSagas.AlarmOrchestrator(EventBus, AiGateway, Mailer);
 new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiGateway, Mailer);
 new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
