@@ -21,7 +21,6 @@ export function Entry(props: EntryType) {
   if (!exit.visible) return null;
 
   return (
-    // @ts-expect-error
     <li
       {...exit.attach}
       data-testid="entry"

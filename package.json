@@ -6,6 +6,10 @@
   "scripts": {
     "preinstall": "npx only-allow bun"
   },
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
   "keywords": [],
   "author": "Bartosz Gordon",
   "license": "ISC",
