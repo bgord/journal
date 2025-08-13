@@ -172,5 +172,8 @@
   "profile.shareable_links.create.specification.legend": "Tylko wybrany typ zasobu będzie udostępniony",
   "profile.shareable_links.create.date_range.label": "Zakres dat",
   "profile.shareable_links.create.date_range.error": "Niepoprawny zakres dat",
-  "shared_entries.list.empty": "Brak wpisów dla tego linku"
+  "shared_entries.list.empty": "Brak wpisów dla tego linku",
+  "profile.ai_limits.header": "Limity AI",
+  "profile.ai_limits.usage": "Wykorzystano {{count}} z {{limit}} promptów",
+  "profile.ai_limits.resets_in": "Reset za {{hours}} godzin"
 }

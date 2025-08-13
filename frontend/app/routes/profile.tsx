@@ -17,7 +17,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const shareableLinks = await ReadModel.listShareableLinks(userId);
 
-  return { shareableLinks, form: ReadModel.CreateShareableLinkForm };
+  const aiUsageToday = await ReadModel.getAiUsageToday(userId);
+
+  return { shareableLinks, form: ReadModel.CreateShareableLinkForm, aiUsageToday };
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -79,6 +81,35 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
       >
         <Icons.ProfileCircle data-size="md" data-color="brand-300" /> {t("profile.header")}
       </h2>
+
+      <div data-stack="y" data-gap="5">
+        <div data-stack="x" data-cross="center" data-gap="3">
+          <Icons.EnergyUsageWindow data-size="md" />
+          <div>{t("profile.ai_limits.header")}</div>
+          <div
+            data-stack="x"
+            data-cross="center"
+            data-gap="1"
+            data-ml="auto"
+            data-color="neutral-400"
+            data-fs="xs"
+          >
+            <Icons.InfoCircle data-size="sm" />
+            {t("profile.ai_limits.resets_in", { hours: loaderData.aiUsageToday.resetsIn })}
+          </div>
+        </div>
+
+        <div data-stack="x" data-cross="center" data-gap="3" data-color="neutral-400">
+          {!loaderData.aiUsageToday.consumed && (
+            <Icons.CheckSquare data-size="md" data-color="positive-400" />
+          )}
+          {loaderData.aiUsageToday.consumed && <Icons.CheckSquare data-size="md" data-color="danger-400" />}
+          {t("profile.ai_limits.usage", {
+            count: loaderData.aiUsageToday.count,
+            limit: loaderData.aiUsageToday.limit,
+          })}
+        </div>
+      </div>
 
       <div data-stack="y" data-gap="5">
         <div data-stack="x" data-cross="center" data-gap="3">

@@ -227,4 +227,29 @@ export class ReadModel {
   static async hideShareableLink(linkId: Schema.SelectShareableLinks["id"]) {
     await db.update(Schema.shareableLinks).set({ hidden: true }).where(eq(Schema.shareableLinks.id, linkId));
   }
+
+  static async getAiUsageToday(userId: UserIdType) {
+    const now = tools.Time.Now().value;
+    const day = tools.Day.fromNow(now);
+
+    const bucket = `user:${userId}:day:${day.toIsoId()}`;
+
+    const result = await db.query.aiUsageCounters.findFirst({
+      columns: { count: true },
+      where: and(eq(Schema.aiUsageCounters.bucket, bucket)),
+    });
+
+    const count = result?.count ?? 0;
+    const limit = 10;
+
+    const resetsInHours = tools.Time.Ms(day.getEnd() - now).hours;
+
+    return {
+      consumed: count >= limit,
+      limit,
+      count,
+      remaining: limit - count,
+      resetsIn: new tools.RoundToNearest().round(resetsInHours),
+    };
+  }
 }

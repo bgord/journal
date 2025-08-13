@@ -172,5 +172,8 @@
   "profile.shareable_links.create.specification.legend": "Only the selected resource type will be accessible",
   "profile.shareable_links.create.date_range.label": "Date range",
   "profile.shareable_links.create.date_range.error": "Invalid date range",
-  "shared_entries.list.empty": "No entries matching this link"
+  "shared_entries.list.empty": "No entries matching this link",
+  "profile.ai_limits.header": "AI limits",
+  "profile.ai_limits.usage": "{{count}} out of {{limit}} prompts consumed",
+  "profile.ai_limits.resets_in": "Resets in {{hours}} hours"
 }
