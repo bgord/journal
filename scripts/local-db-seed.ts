@@ -94,6 +94,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.timeCapsuleEntries);
     console.log("[x] Cleared timeCapsuleEntries");
 
+    await db.delete(Schema.aiUsageCounters);
+    console.log("[x] Cleared aiUsageCounters");
+
     await db.delete(Schema.accounts);
     console.log("[x] Cleared accounts");
 
@@ -127,14 +130,6 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
           type: Emotions.VO.AlarmTriggerEnum.inactivity,
           inactivityDays: 7,
           lastEntryTimestamp: tools.Time.Now().Minus(tools.Time.Days(10)).ms,
-        }),
-        Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
-      ),
-      new Emotions.VO.AlarmDetection(
-        Emotions.VO.AlarmTrigger.parse({
-          type: Emotions.VO.AlarmTriggerEnum.inactivity,
-          inactivityDays: 7,
-          lastEntryTimestamp: tools.Time.Now().Minus(tools.Time.Days(20)).ms,
         }),
         Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
       ),
