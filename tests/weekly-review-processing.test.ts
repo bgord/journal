@@ -65,7 +65,7 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
-    const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(new AI.Advice("Good job"));
+    const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
@@ -94,7 +94,7 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntryPl]);
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
-    const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(new AI.Advice("Good job"));
+    const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
