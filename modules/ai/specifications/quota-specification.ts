@@ -12,7 +12,7 @@ export type QuotaViolation = {
 export class QuotaSpecification {
   constructor(
     private readonly selector: Services.QuotaRuleSelector,
-    private readonly bucketCounter: Ports.BucketCounter,
+    private readonly bucketCounter: Ports.BucketCounterPort,
   ) {}
 
   async verify<C extends VO.UsageCategory>(

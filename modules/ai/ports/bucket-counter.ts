@@ -1,5 +1,5 @@
 import type * as VO from "+ai/value-objects";
 
-export interface BucketCounter {
+export interface BucketCounterPort {
   getMany(buckets: VO.QuotaBucketType[]): Promise<Record<VO.QuotaBucketType, VO.QuotaUsageType>>;
 }

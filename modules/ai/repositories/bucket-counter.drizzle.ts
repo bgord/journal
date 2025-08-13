@@ -1,10 +1,10 @@
 import { inArray } from "drizzle-orm";
-import { BucketCounter } from "+ai/ports/bucket-counter";
+import { BucketCounterPort } from "+ai/ports/bucket-counter";
 import * as VO from "+ai/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export class BucketCounterDrizzleRepository implements BucketCounter {
+export class BucketCounterDrizzleRepository implements BucketCounterPort {
   async getMany(buckets: VO.QuotaBucketType[]): Promise<Record<VO.QuotaBucketType, VO.QuotaUsageType>> {
     if (buckets.length === 0) return {};
 

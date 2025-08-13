@@ -20,7 +20,7 @@ export class AiGateway implements Ports.AiGatewayPort {
 
   constructor(
     private readonly AiClient: Ports.AiClientPort,
-    bucketCounter: Ports.BucketCounter,
+    bucketCounter: Ports.BucketCounterPort,
   ) {
     this.specification = new Specs.QuotaSpecification(
       new Services.QuotaRuleSelector(VO.RULES),
