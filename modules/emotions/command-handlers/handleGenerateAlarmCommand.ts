@@ -13,20 +13,23 @@ export const handleGenerateAlarmCommand = async (command: Emotions.Commands.Gene
         dimensions: { entryId: command.payload.detection.trigger.entryId },
       });
 
-      if (check.violations.length) return;
+      if (check.violations.length > 0) return;
 
       break;
     }
 
-    case Emotions.VO.AlarmTriggerEnum.inactivity:
-      await AiGateway.check({
+    case Emotions.VO.AlarmTriggerEnum.inactivity: {
+      const check = await AiGateway.check({
         userId: command.payload.userId,
         category: AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
         timestamp: command.createdAt,
         dimensions: {},
       });
 
+      if (check.violations.length > 0) return;
+
       break;
+    }
   }
 
   const alarmId = crypto.randomUUID();
