@@ -11,7 +11,7 @@ export class BucketCounterDrizzleRepository implements BucketCounter {
     const rows = await db
       .select({ bucket: Schema.aiUsageCounters.bucket, count: Schema.aiUsageCounters.count })
       .from(Schema.aiUsageCounters)
-      .where(inArray(Schema.aiUsageCounters, buckets));
+      .where(inArray(Schema.aiUsageCounters.bucket, buckets));
 
     const usage: Record<VO.QuotaBucketType, VO.QuotaUsageType> = Object.fromEntries(
       buckets.map((bucket) => [bucket, 0]),
