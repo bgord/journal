@@ -1,11 +1,11 @@
-import type * as Events from "+emotions/events";
-import { AlarmDetection } from "+emotions/value-objects/alarm-detection";
-import { AlarmNameOption } from "+emotions/value-objects/alarm-name-option";
+import * as Emotions from "+emotions";
 
-export type AlarmEventToBeChecked = Events.EmotionLoggedEventType | Events.EmotionReappraisedEventType;
+export type AlarmEventToBeChecked =
+  | Emotions.Events.EmotionLoggedEventType
+  | Emotions.Events.EmotionReappraisedEventType;
 
 export abstract class EmotionAlarmTemplate {
-  abstract name: AlarmNameOption;
+  abstract name: Emotions.VO.AlarmNameOption;
 
-  abstract check(event: AlarmEventToBeChecked): AlarmDetection | null;
+  abstract check(event: AlarmEventToBeChecked): Emotions.VO.AlarmDetection | null;
 }

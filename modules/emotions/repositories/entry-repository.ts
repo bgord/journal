@@ -1,5 +1,4 @@
 import * as Auth from "+auth";
-import type * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
@@ -56,10 +55,6 @@ export class EntryRepository {
           eq(Schema.entries.userId, userId),
         ),
       );
-  }
-
-  static async deleteEntry(event: Events.EntryDeletedEventType) {
-    await db.delete(Schema.entries).where(eq(Schema.entries.id, event.payload.entryId));
   }
 
   static format(entry: Schema.SelectEntries): Schema.SelectEntriesFormatted {

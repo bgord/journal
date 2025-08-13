@@ -1,9 +1,6 @@
 import * as Events from "+app/events";
 import * as Auth from "+auth";
-import * as Commands from "+emotions/commands";
-import * as Invariants from "+emotions/invariants";
-import * as Queries from "+emotions/queries";
-import * as VO from "+emotions/value-objects";
+import * as Emotions from "+emotions";
 import { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 import * as bg from "@bgord/bun";
@@ -15,30 +12,30 @@ export class InactivityAlarmScheduler {
   }
 
   async onHourHasPassed(event: Events.HourHasPassedEventType) {
-    if (Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
+    if (Emotions.Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
     const userIds = await Auth.Repos.UserRepository.listIds();
 
     for (const userId of userIds) {
-      const lastEntryTimestamp = await Queries.GetLatestEntryTimestampForUser.execute(userId);
+      const lastEntryTimestamp = await Emotions.Queries.GetLatestEntryTimestampForUser.execute(userId);
 
-      if (Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
+      if (Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
 
       const trigger = {
-        type: VO.AlarmTriggerEnum.inactivity,
+        type: Emotions.VO.AlarmTriggerEnum.inactivity,
         inactivityDays: 7,
         lastEntryTimestamp: tools.Timestamp.parse(lastEntryTimestamp),
       } as const;
 
-      const detection = new VO.AlarmDetection(trigger, VO.AlarmNameOption.INACTIVITY_ALARM);
+      const detection = new Emotions.VO.AlarmDetection(trigger, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM);
 
-      const command = Commands.GenerateAlarmCommand.parse({
+      const command = Emotions.Commands.GenerateAlarmCommand.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
-        name: Commands.GENERATE_ALARM_COMMAND,
+        name: Emotions.Commands.GENERATE_ALARM_COMMAND,
         createdAt: tools.Time.Now().value,
         payload: { detection, userId },
-      } satisfies Commands.GenerateAlarmCommandType);
+      } satisfies Emotions.Commands.GenerateAlarmCommandType);
 
       await CommandBus.emit(command.name, command);
     }

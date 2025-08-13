@@ -1,14 +1,13 @@
-import { AlarmEventToBeChecked, EmotionAlarmTemplate } from "+emotions/services/emotion-alarm-template";
-import type * as VO from "+emotions/value-objects";
+import * as Emotions from "+emotions";
 import * as tools from "@bgord/tools";
 
 type AlarmGeneratorConfigType = {
-  event: AlarmEventToBeChecked;
-  alarms: tools.Constructor<EmotionAlarmTemplate>[];
+  event: Emotions.Services.AlarmEventToBeChecked;
+  alarms: tools.Constructor<Emotions.Services.EmotionAlarmTemplate>[];
 };
 
 export class EmotionAlarmDetector {
-  static detect(config: AlarmGeneratorConfigType): VO.AlarmDetection | null {
+  static detect(config: AlarmGeneratorConfigType): Emotions.VO.AlarmDetection | null {
     const result = config.alarms
       .map((Alarm) => new Alarm().check(config.event))
       .filter((result) => result !== null);

@@ -1,14 +1,14 @@
 // cspell:disable
 import * as AI from "+ai";
-import * as VO from "+emotions/value-objects";
+import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+infra/i18n";
 import type * as Schema from "+infra/schema";
 
 const content: Record<
   SupportedLanguages,
-  (entry: Schema.SelectEntries, alarmName: VO.AlarmNameOption) => string
+  (entry: Schema.SelectEntries, alarmName: Emotions.VO.AlarmNameOption) => string
 > = {
-  [SupportedLanguages.en]: (entry: Schema.SelectEntries, alarmName: VO.AlarmNameOption) => {
+  [SupportedLanguages.en]: (entry: Schema.SelectEntries, alarmName: Emotions.VO.AlarmNameOption) => {
     let content = `Here is a summary of an entry from my AI journal app, it triggered an ${alarmName} alarm. `;
 
     content += `Situation (${entry.situationKind}): ${entry.situationDescription}, at ${entry.situationLocation}. `;
@@ -23,7 +23,7 @@ const content: Record<
     return content;
   },
 
-  [SupportedLanguages.pl]: (entry: Schema.SelectEntries, alarmName: VO.AlarmNameOption) => {
+  [SupportedLanguages.pl]: (entry: Schema.SelectEntries, alarmName: Emotions.VO.AlarmNameOption) => {
     let content = `Oto podsumowanie wpisu z mojej aplikacji dziennika AI, który wywołał alarm ${alarmName}. `;
 
     content += `Sytuacja (${entry.situationKind}): ${entry.situationDescription}, w ${entry.situationLocation}. `;
@@ -42,7 +42,7 @@ const content: Record<
 export class EntryAlarmAdvicePromptBuilder {
   constructor(
     private readonly entry: Schema.SelectEntries,
-    private readonly alarmName: VO.AlarmNameOption,
+    private readonly alarmName: Emotions.VO.AlarmNameOption,
     private readonly language: SupportedLanguages,
   ) {}
 
