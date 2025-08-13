@@ -141,7 +141,11 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     ];
 
     for (const [index, detection] of Object.entries(inactivityDetections)) {
-      await Emotions.Services.AlarmFactory.create(detection, users[0]!.user.id);
+      const alarmId = crypto.randomUUID();
+      const alarm = Emotions.Aggregates.Alarm.generate(alarmId, detection, users[0]!.user.id);
+
+      await EventStore.save(alarm.pullEvents());
+
       console.log(`[✓] Alarm ${Number(index) + 1} created`);
     }
 
