@@ -1,6 +1,6 @@
-import { BucketCounterDrizzleRepository } from "+ai/repositories/bucket-counter.drizzle";
-import { QuotaRuleSelector } from "+ai/services/quota-rule-selector";
-import { AIQuotaSpecification } from "+ai/specifications/ai-quota-specification";
+import { BucketCounterDrizzleRepository } from "+ai/repositories";
+import { QuotaRuleSelector } from "+ai/services";
+import { QuotaSpecification } from "+ai/specifications";
 import * as VO from "+ai/value-objects";
 import { describe, expect, spyOn, test } from "bun:test";
 import * as mocks from "./mocks";
@@ -8,9 +8,9 @@ import * as mocks from "./mocks";
 const selector = new QuotaRuleSelector(VO.RULES);
 const bucketCounterRepo = new BucketCounterDrizzleRepository();
 
-const specification = new AIQuotaSpecification(selector, bucketCounterRepo);
+const specification = new QuotaSpecification(selector, bucketCounterRepo);
 
-describe("AIQuotaSpecification", () => {
+describe("QuotaSpecification", () => {
   test("EmotionsAlarmEntryContext - no violations", async () => {
     spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,

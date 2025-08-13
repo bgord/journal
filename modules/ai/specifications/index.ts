@@ -1,1 +1,1 @@
-export * from "./ai-quota-specification";
+export * from "./quota-specification";

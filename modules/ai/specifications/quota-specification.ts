@@ -9,7 +9,7 @@ export type QuotaViolation = {
   limit: VO.QuotaLimitType;
 };
 
-export class AIQuotaSpecification {
+export class QuotaSpecification {
   constructor(
     private readonly selector: Services.QuotaRuleSelector,
     private readonly bucketCounter: Ports.BucketCounter,
@@ -18,12 +18,12 @@ export class AIQuotaSpecification {
   async verify<C extends VO.UsageCategory>(
     context: VO.RequestContext<C>,
   ): Promise<{ violations: QuotaViolation[] }> {
-    const quotaRules = this.selector.select(context);
-    const buckets = quotaRules.map((rule) => rule.bucket);
+    const rules = this.selector.select(context);
+    const buckets = rules.map((rule) => rule.bucket);
 
     const counts = await this.bucketCounter.getMany(buckets);
 
-    const violations: QuotaViolation[] = quotaRules
+    const violations: QuotaViolation[] = rules
       .map((rule) => ({
         id: rule.id,
         bucket: rule.bucket,

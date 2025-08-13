@@ -15,13 +15,13 @@ export class AiQuotaExceededError extends Error {
 }
 
 export class AiGateway implements Ports.AiGatewayPort {
-  private readonly specification: Specs.AIQuotaSpecification;
+  private readonly specification: Specs.QuotaSpecification;
 
   constructor(
     private readonly AiClient: Ports.AiClientPort,
     bucketCounter: Ports.BucketCounter,
   ) {
-    this.specification = new Specs.AIQuotaSpecification(
+    this.specification = new Specs.QuotaSpecification(
       new Services.QuotaRuleSelector(VO.RULES),
       bucketCounter,
     );
