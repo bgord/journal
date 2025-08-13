@@ -1,6 +1,6 @@
+import * as Emotions from "+emotions";
+import { PdfGenerator } from "+infra/pdf-generator";
 import { describe, expect, test } from "bun:test";
-import { PdfGenerator } from "../infra/pdf-generator";
-import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 describe("WeeklyReviewExportPdfFile", () => {

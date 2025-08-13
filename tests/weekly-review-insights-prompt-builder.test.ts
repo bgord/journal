@@ -1,11 +1,11 @@
+import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+infra/i18n";
 import { describe, expect, test } from "bun:test";
-import { SupportedLanguages } from "../infra/i18n";
-import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 describe("WeeklyReviewInsightsPromptBuilder", () => {
   test("generate - en", () => {
-    const prompt = new Emotions.Services.WeeklyReviewInsightsPromptBuilder(
+    const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(
       [mocks.fullEntry],
       SupportedLanguages.en,
     ).generate();
@@ -23,7 +23,7 @@ describe("WeeklyReviewInsightsPromptBuilder", () => {
   });
 
   test("generate - pl", () => {
-    const prompt = new Emotions.Services.WeeklyReviewInsightsPromptBuilder(
+    const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(
       [mocks.fullEntry],
       SupportedLanguages.pl,
     ).generate();

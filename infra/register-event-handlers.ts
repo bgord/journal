@@ -1,8 +1,10 @@
+import * as AiEventHandlers from "+ai/event-handlers";
+import * as AiEvents from "+ai/events";
 import * as EmotionsEventHandlers from "+emotions/event-handlers";
 import * as EmotionsEvents from "+emotions/events";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
-import { AiClient } from "+infra/ai-client";
+import { AiGateway } from "+infra/ai-gateway";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
 import { Mailer } from "+infra/mailer";
@@ -112,6 +114,9 @@ EventBus.on(
   EventHandler.handle(PublishingEventHandlers.onShareableLinkRevokedEvent),
 );
 
+// AI
+EventBus.on(AiEvents.AI_REQUEST_REGISTERED_EVENT, AiEventHandlers.onAiRequestRegisteredEvent);
+
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus);
 new EmotionsPolicies.EntryAlarmDetector(EventBus);
@@ -120,6 +125,6 @@ new EmotionsPolicies.InactivityAlarmScheduler(EventBus);
 new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus);
 
 // Sagas
-new EmotionsSagas.AlarmOrchestrator(EventBus, AiClient, Mailer);
-new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiClient, Mailer);
+new EmotionsSagas.AlarmOrchestrator(EventBus, AiGateway, Mailer);
+new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiGateway, Mailer);
 new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);

@@ -1,7 +1,8 @@
+import * as AI from "+ai";
 import * as Auth from "+auth";
+import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
-import * as Ports from "+emotions/ports";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
@@ -14,7 +15,7 @@ import * as tools from "@bgord/tools";
 export class AlarmOrchestrator {
   constructor(
     private readonly eventBus: typeof EventBus,
-    private readonly AiClient: Ports.AiClientPort,
+    private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
   ) {
     this.eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
@@ -27,8 +28,10 @@ export class AlarmOrchestrator {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     try {
-      const prompt = await Services.AlarmPromptFactory.create(detection);
-      const advice = await this.AiClient.request(prompt);
+      const prompt = await ACL.AiPrompts.AlarmPromptFactory.create(detection);
+      // @ts-ignore
+      const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
+      const advice = await this.AiGateway.query(prompt, context);
 
       const command = Commands.SaveAlarmAdviceCommand.parse({
         id: crypto.randomUUID(),
@@ -79,7 +82,7 @@ export class AlarmOrchestrator {
     const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
 
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
-    const advice = new VO.Advice(alarm.advice as VO.AdviceType);
+    const advice = new AI.Advice(alarm.advice as AI.AdviceType);
 
     const notification = await Services.AlarmNotificationFactory.create(detection, advice);
 

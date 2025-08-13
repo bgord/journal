@@ -1,7 +1,8 @@
+import * as AI from "+ai";
 import * as Auth from "+auth";
+import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
-import * as Ports from "+emotions/ports";
 import * as Repos from "+emotions/repositories";
 import * as Services from "+emotions/services";
 import { CommandBus } from "+infra/command-bus";
@@ -14,7 +15,7 @@ import * as tools from "@bgord/tools";
 export class WeeklyReviewProcessing {
   constructor(
     private readonly eventBus: typeof EventBus,
-    private readonly AiClient: Ports.AiClientPort,
+    private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
   ) {
     this.eventBus.on(Events.WEEKLY_REVIEW_SKIPPED_EVENT, this.onWeeklyReviewSkippedEvent.bind(this));
@@ -42,10 +43,13 @@ export class WeeklyReviewProcessing {
     const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
 
     const language = entries.at(-1)?.language as SupportedLanguages;
-    const prompt = new Services.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
+    const prompt = new ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
     try {
-      const insights = await this.AiClient.request(prompt);
+      const insights = await this.AiGateway.query(
+        prompt,
+        ACL.createWeeklyReviewInsightRequestContext(event.payload.userId),
+      );
 
       const detectWeeklyPatterns = Commands.DetectWeeklyPatternsCommand.parse({
         id: crypto.randomUUID(),

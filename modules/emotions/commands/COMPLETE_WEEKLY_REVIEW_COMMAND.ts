@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
@@ -13,7 +14,7 @@ export const CompleteWeeklyReviewCommand = z.object({
   name: z.literal(COMPLETE_WEEKLY_REVIEW_COMMAND),
   payload: z.object({
     weeklyReviewId: VO.WeeklyReviewId,
-    insights: z.instanceof(VO.Advice),
+    insights: z.instanceof(AI.Advice),
     userId: Auth.VO.UserId,
   }),
 });

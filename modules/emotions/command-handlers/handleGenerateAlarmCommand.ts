@@ -1,5 +1,24 @@
 import * as Emotions from "+emotions";
+import { AiGateway } from "+infra/ai-gateway";
+import { EventStore } from "+infra/event-store";
 
 export const handleGenerateAlarmCommand = async (command: Emotions.Commands.GenerateAlarmCommandType) => {
-  await Emotions.Services.AlarmFactory.create(command.payload.detection, command.payload.userId);
+  const check = await AiGateway.check(
+    Emotions.ACL.createAlarmRequestContext(
+      command.payload.userId,
+      // @ts-ignore
+      command.payload.detection.trigger.entryId,
+    ),
+  );
+
+  if (check.violations.length > 0) return;
+
+  const alarmId = crypto.randomUUID();
+  const alarm = Emotions.Aggregates.Alarm.generate(
+    alarmId,
+    command.payload.detection,
+    command.payload.userId,
+  );
+
+  await EventStore.save(alarm.pullEvents());
 };

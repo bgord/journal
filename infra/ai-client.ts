@@ -1,15 +1,14 @@
-import * as Ports from "+emotions/ports";
-import * as VO from "+emotions/value-objects";
+import * as AI from "+ai";
 import { AnthropicAiAdapter } from "+infra/anthropic-ai-adapter";
 import { AiClientAdapter, Env } from "+infra/env";
 import { logger } from "+infra/logger";
 import { OpenAiAdapter } from "+infra/open-ai-adapter";
 
-class NoopAdapter implements Ports.AiClientPort {
-  async request(prompt: VO.Prompt): Promise<VO.Advice> {
+class NoopAdapter implements AI.AiClientPort {
+  async request(prompt: AI.Prompt): Promise<AI.Advice> {
     logger.info({ message: "[NOOP] AI Client adapter", operation: "write", metadata: prompt.read() });
 
-    return new VO.Advice(
+    return new AI.Advice(
       "This is a mock general advice from AI on how to act in a situation of extreme emotions",
     );
   }

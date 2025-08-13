@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
@@ -24,7 +25,7 @@ export class Alarm {
   private generatedAt?: VO.AlarmGeneratedAtType;
 
   private detection?: VO.AlarmDetection;
-  private advice?: VO.Advice;
+  private advice?: AI.Advice;
 
   private readonly pending: AlarmEventType[] = [];
 
@@ -63,7 +64,7 @@ export class Alarm {
     return alarm;
   }
 
-  saveAdvice(advice: VO.Advice) {
+  saveAdvice(advice: AI.Advice) {
     Invariants.AlarmAlreadyGenerated.perform({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
@@ -147,7 +148,7 @@ export class Alarm {
       }
 
       case Events.ALARM_ADVICE_SAVED_EVENT: {
-        this.advice = new VO.Advice(event.payload.advice);
+        this.advice = new AI.Advice(event.payload.advice);
         this.status = VO.AlarmStatusEnum.advice_saved;
         break;
       }

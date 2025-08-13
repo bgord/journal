@@ -1,5 +1,5 @@
+import { SituationDescription } from "+emotions/value-objects";
 import { describe, expect, test } from "bun:test";
-import { SituationDescription } from "../modules/emotions/value-objects/situation-description";
 
 describe("SituationDescription", () => {
   test("constructor - creates with minimum length", () => {

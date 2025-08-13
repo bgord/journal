@@ -1,7 +1,7 @@
+import * as Emotions from "+emotions";
+import { auth } from "+infra/auth";
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { auth } from "../infra/auth";
-import * as Emotions from "../modules/emotions";
 import { server } from "../server";
 import * as mocks from "./mocks";
 

@@ -1,5 +1,5 @@
+import * as Emotions from "+emotions";
 import { describe, expect, spyOn, test } from "bun:test";
-import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 describe("AlarmNotificationFactory", () => {

@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 import * as bg from "@bgord/bun";
@@ -17,7 +18,7 @@ export const WeeklyReviewCompletedEvent = z.object({
   payload: z.object({
     weeklyReviewId: VO.WeeklyReviewId,
     weekIsoId: tools.WeekIsoId,
-    insights: VO.AdviceSchema,
+    insights: AI.AdviceSchema,
     userId: Auth.VO.UserId,
   }),
 });

@@ -1,18 +1,20 @@
-import * as Repos from "+emotions/repositories";
-import * as Services from "+emotions/services";
-import * as VO from "+emotions/value-objects";
+import * as AI from "+ai";
+import * as Emotions from "+emotions";
 
 export class AlarmNotificationFactory {
-  static async create(detection: VO.AlarmDetection, advice: VO.Advice): Promise<VO.NotificationTemplate> {
+  static async create(
+    detection: Emotions.VO.AlarmDetection,
+    advice: AI.Advice,
+  ): Promise<Emotions.VO.NotificationTemplate> {
     switch (detection.trigger.type) {
-      case VO.AlarmTriggerEnum.entry: {
-        const entry = await Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
-        const composer = new Services.EntryAlarmAdviceNotificationComposer(entry);
+      case Emotions.VO.AlarmTriggerEnum.entry: {
+        const entry = await Emotions.Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
+        const composer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(entry);
         return composer.compose(advice);
       }
 
-      case VO.AlarmTriggerEnum.inactivity: {
-        const composer = new Services.InactivityAlarmAdviceNotificationComposer(detection.trigger);
+      case Emotions.VO.AlarmTriggerEnum.inactivity: {
+        const composer = new Emotions.Services.InactivityAlarmAdviceNotificationComposer(detection.trigger);
 
         return composer.compose(advice);
       }

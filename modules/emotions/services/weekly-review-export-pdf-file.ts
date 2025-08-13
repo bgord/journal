@@ -1,12 +1,11 @@
-import * as Ports from "+emotions/ports";
-import * as Queries from "+emotions/queries";
+import * as Emotions from "+emotions";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
 export class WeeklyReviewExportPdfFile extends bg.FileDraft {
   constructor(
-    private readonly pdfGenerator: Ports.PdfGeneratorPort,
-    private readonly data: Queries.WeeklyReviewExportDto,
+    private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
+    private readonly data: Emotions.Queries.WeeklyReviewExportDto,
   ) {
     super({
       filename: `weekly-review-export-${data.weekIsoId}.pdf`,

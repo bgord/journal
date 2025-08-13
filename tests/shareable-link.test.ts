@@ -1,7 +1,7 @@
+import * as Publishing from "+publishing";
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Publishing from "../modules/publishing";
 import * as mocks from "./mocks";
 
 describe("Publishing", () => {

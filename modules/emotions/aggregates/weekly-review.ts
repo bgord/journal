@@ -1,3 +1,4 @@
+import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
@@ -56,7 +57,7 @@ export class WeeklyReview {
     return weeklyReview;
   }
 
-  complete(insights: VO.Advice) {
+  complete(insights: AI.Advice) {
     Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
@@ -121,7 +122,7 @@ export class WeeklyReview {
 
       case Events.WEEKLY_REVIEW_COMPLETED_EVENT: {
         this.status = VO.WeeklyReviewStatusEnum.completed;
-        this.insights = new VO.Advice(event.payload.insights);
+        this.insights = new AI.Advice(event.payload.insights);
         break;
       }
 

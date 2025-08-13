@@ -1,3 +1,4 @@
+import type { AiQuotaExceededEvent, AiRequestRegisteredEvent } from "+ai/events";
 import type { HourHasPassedEvent } from "+app/events";
 import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
 import type {
@@ -24,7 +25,9 @@ export type AcceptedEvent =
   | typeof WeeklyReviewExportByEmailFailedEvent
   | typeof TimeCapsuleEntryScheduledEvent
   | ShareableLinkEvent
-  | typeof HourHasPassedEvent;
+  | typeof HourHasPassedEvent
+  | typeof AiRequestRegisteredEvent
+  | typeof AiQuotaExceededEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {

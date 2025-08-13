@@ -1,10 +1,11 @@
+import * as AI from "+ai";
+import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+infra/i18n";
+import { OpenAI, OpenAiAdapter } from "+infra/open-ai-adapter";
 import { describe, expect, spyOn, test } from "bun:test";
-import { SupportedLanguages } from "../infra/i18n";
-import { OpenAI, OpenAiAdapter } from "../infra/open-ai-adapter";
-import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
-const prompt = new Emotions.Services.EntryAlarmAdvicePromptBuilder(
+const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
   mocks.partialEntry,
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
   SupportedLanguages.en,
@@ -25,7 +26,7 @@ describe("OpenAiClient", () => {
       model: "gpt-4o",
       instructions: prompt.read()[0].content,
       input: prompt.read()[1].content,
-      max_output_tokens: Emotions.VO.Advice.MaximumLength,
+      max_output_tokens: AI.Advice.MaximumLength,
     });
     expect(result).toEqual(mocks.advice);
   });

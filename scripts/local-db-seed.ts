@@ -94,6 +94,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.timeCapsuleEntries);
     console.log("[x] Cleared timeCapsuleEntries");
 
+    await db.delete(Schema.aiUsageCounters);
+    console.log("[x] Cleared aiUsageCounters");
+
     await db.delete(Schema.accounts);
     console.log("[x] Cleared accounts");
 
@@ -130,18 +133,14 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         }),
         Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
       ),
-      new Emotions.VO.AlarmDetection(
-        Emotions.VO.AlarmTrigger.parse({
-          type: Emotions.VO.AlarmTriggerEnum.inactivity,
-          inactivityDays: 7,
-          lastEntryTimestamp: tools.Time.Now().Minus(tools.Time.Days(20)).ms,
-        }),
-        Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
-      ),
     ];
 
     for (const [index, detection] of Object.entries(inactivityDetections)) {
-      await Emotions.Services.AlarmFactory.create(detection, users[0]!.user.id);
+      const alarmId = crypto.randomUUID();
+      const alarm = Emotions.Aggregates.Alarm.generate(alarmId, detection, users[0]!.user.id);
+
+      await EventStore.save(alarm.pullEvents());
+
       console.log(`[✓] Alarm ${Number(index) + 1} created`);
     }
 

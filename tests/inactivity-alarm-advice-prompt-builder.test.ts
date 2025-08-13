@@ -1,14 +1,15 @@
 // cspell:disable
+import * as AI from "+ai";
+import * as Emotions from "+emotions";
 import { describe, expect, test } from "bun:test";
-import * as Emotions from "../modules/emotions";
 import * as mocks from "./mocks";
 
 describe("InactivityAlarmAdvicePromptBuilder", () => {
   test("generate", () => {
-    const builder = new Emotions.Services.InactivityAlarmAdvicePromptBuilder(mocks.inactivityTrigger);
+    const builder = new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(mocks.inactivityTrigger);
 
     expect(builder.generate()).toEqual(
-      new Emotions.VO.Prompt(`Inactive for ${mocks.inactivityTrigger.inactivityDays} days`),
+      new AI.Prompt(`Inactive for ${mocks.inactivityTrigger.inactivityDays} days`),
     );
   });
 });
