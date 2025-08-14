@@ -19,6 +19,14 @@ export const auth = betterAuth({
     minPasswordLength: Password.MinimumLength,
     maxPasswordLength: Password.MaximumLength,
     requireEmailVerification: true,
+    async sendResetPassword({ user, url }) {
+      await Mailer.send({
+        to: user.email,
+        subject: "Reset your Journal password",
+        text: `Click the link to reset your password: ${url}`,
+        html: `<p>Click to reset your password: <a href="${url}">Reset password</a></p>`,
+      });
+    },
   },
   emailVerification: {
     async sendVerificationEmail({ user, url }) {
