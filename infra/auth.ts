@@ -24,6 +24,7 @@ export const auth = betterAuth({
   session: { expiresIn: tools.Time.Days(30).seconds, updateAge: tools.Time.Days(1).seconds },
   rateLimit: { enabled: true, window: tools.Time.Minutes(5).seconds, max: 100 },
   emailAndPassword: {
+    autoSignIn: false,
     enabled: true,
     minPasswordLength: Password.MinimumLength,
     maxPasswordLength: Password.MaximumLength,
