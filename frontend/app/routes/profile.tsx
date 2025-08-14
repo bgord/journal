@@ -55,6 +55,7 @@ export async function action({ request }: Route.ActionArgs) {
 
 export default function Profile({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
+  const pluralize = UI.usePluralize();
 
   return (
     <main
@@ -107,6 +108,11 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
           {t("profile.ai_limits.usage", {
             count: loaderData.aiUsageToday.count,
             limit: loaderData.aiUsageToday.limit,
+            noun: pluralize({
+              value: loaderData.aiUsageToday.count,
+              singular: t("app.prompt.singular"),
+              plural: t("app.prompt.plural"),
+            }),
           })}
         </div>
       </div>
