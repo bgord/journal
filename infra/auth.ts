@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI } from "better-auth/plugins";
@@ -8,6 +9,7 @@ import { db } from "./db";
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
   advanced: { database: { generateId: () => crypto.randomUUID() } },
+  session: { expiresIn: tools.Time.Days(30).seconds, updateAge: tools.Time.Days(1).seconds },
   emailAndPassword: {
     enabled: true,
     minPasswordLength: Password.MinimumLength,
