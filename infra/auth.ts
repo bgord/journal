@@ -6,6 +6,7 @@ import { openAPI } from "better-auth/plugins";
 import { Password } from "../modules/auth/value-objects/password";
 import { db } from "./db";
 import { logger } from "./logger";
+import { Mailer } from "./mailer";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
@@ -17,6 +18,24 @@ export const auth = betterAuth({
     enabled: true,
     minPasswordLength: Password.MinimumLength,
     maxPasswordLength: Password.MaximumLength,
+    requireEmailVerification: true,
+  },
+  emailVerification: {
+    async sendVerificationEmail({ user, url }) {
+      const callbackUrl = new URL(url);
+      callbackUrl.searchParams.set("callbackURL", "http://localhost:5173");
+
+      await Mailer.send({
+        to: user.email,
+        subject: "Verify your Journal account",
+        text: `Click to verify: ${callbackUrl.toString()}`,
+        html: `<p>Click to verify: <a href="${callbackUrl.toString()}">Verify</a></p>`,
+      });
+    },
+    sendOnSignUp: true,
+    sendOnSignIn: true,
+    autoSignInAfterVerification: false,
+    expiresIn: tools.Time.Hours(1).seconds,
   },
   autoSignIn: false,
   trustedOrigins: ["http://localhost:5173", "http://localhost:3000"],
