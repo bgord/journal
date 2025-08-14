@@ -10,6 +10,7 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
   advanced: { database: { generateId: () => crypto.randomUUID() } },
   session: { expiresIn: tools.Time.Days(30).seconds, updateAge: tools.Time.Days(1).seconds },
+  rateLimit: { enabled: true, window: tools.Time.Minutes(5).seconds, max: 100 },
   emailAndPassword: {
     enabled: true,
     minPasswordLength: Password.MinimumLength,
