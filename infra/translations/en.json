@@ -184,5 +184,9 @@
   "auth.change_password.send_cta": "Change password",
   "auth.change_password.sending": "Sending...",
   "auth.change_password.sent": "Check your inbox",
-  "auth.change_password.error": "Error while sending the link"
+  "auth.change_password.error": "Error while sending the link",
+  "auth.reset.header": "Set new password",
+  "auth.reset.cta": "Change",
+  "auth.reset.in_progress": "Loading...",
+  "auth.reset.error.generic": "Expired or invalid link"
 }

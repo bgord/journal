@@ -184,5 +184,9 @@
   "auth.change_password.send_cta": "Zmień hasło",
   "auth.change_password.sending": "Wysyłanie...",
   "auth.change_password.sent": "Sprawdź swoją skrzynkę",
-  "auth.change_password.error": "Błąd przy wysyłce linku"
+  "auth.change_password.error": "Błąd przy wysyłce linku",
+  "auth.reset.header": "Nowe hasło",
+  "auth.reset.cta": "Zmień",
+  "auth.reset.in_progress": "Ładowanie...",
+  "auth.reset.error.generic": "Niepoprawny lub wygasły link"
 }
