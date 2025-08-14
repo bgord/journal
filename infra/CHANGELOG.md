@@ -1,10 +1,13 @@
 # Changelog
+- 2025-08-15 00:39 a592919 **step: add a placeholder for account deleted**
+## 2025-08-15 00:39 
+- 2025-08-15 00:33 daa8d65 **step: add a placeholder for account created**
 - 2025-08-15 00:08 c6663a3 **feature: add reset password page**
-## 2025-08-15 00:08 
 - 2025-08-14 23:50 75dbf93 **refactor: rename to change password**
 - 2025-08-14 23:00 4f78dcb **step: use correct email**
 - 2025-08-14 22:52 5571c40 **step: add send reset password**
 - 2025-08-14 22:39 0696959 **feature: add reset password form**
+- 2025-08-14 22:13 19e6297 **docs: generate CHANGELOG**
 - 2025-08-14 22:08 a3e199d **step: make the users verified in seeder**
 - 2025-08-14 21:54 5bcb9bd **step: add email verification**
 - 2025-08-14 21:10 ba54c53 **step: update bun**
