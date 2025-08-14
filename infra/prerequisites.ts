@@ -14,12 +14,12 @@ export const prerequisites = [
   new bg.PrerequisiteRAM({
     label: "RAM",
     enabled: Env.type !== bg.NodeEnvironmentEnum.local,
-    // @ts-ignore
+    // @ts-expect-error
     minimum: new tools.Size({ unit: tools.SizeUnit.MB, value: 128 }),
   }),
   new bg.PrerequisiteSpace({
     label: "disk-space",
-    // @ts-ignore
+    // @ts-expect-error
     minimum: new tools.Size({ unit: tools.SizeUnit.MB, value: 512 }),
   }),
   new bg.PrerequisiteNode({
@@ -33,7 +33,7 @@ export const prerequisites = [
   }),
   new bg.PrerequisiteMemory({
     label: "memory-consumption",
-    // @ts-ignore
+    // @ts-expect-error
     maximum: new tools.Size({ value: 300, unit: tools.SizeUnit.MB }),
   }),
   new bg.PrerequisiteLogFile({

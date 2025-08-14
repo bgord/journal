@@ -47,7 +47,7 @@ describe(`GET ${url}`, () => {
   test("validation - WeeklyReviewIsCompleted", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Emotions.Queries.WeeklyReviewExportReadModel, "getFull").mockResolvedValue(
-      // @ts-ignore
+      // @ts-expect-error
       mocks.weeklyReviewSkipped,
     );
     const response = await server.request(url, { method: "GET" }, mocks.ip);

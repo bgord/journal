@@ -29,7 +29,7 @@ export class AlarmOrchestrator {
 
     try {
       const prompt = await ACL.AiPrompts.AlarmPromptFactory.create(detection);
-      // @ts-ignore
+      // @ts-expect-error
       const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
       const advice = await this.AiGateway.query(prompt, context);
 

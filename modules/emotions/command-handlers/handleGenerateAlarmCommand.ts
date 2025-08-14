@@ -6,7 +6,7 @@ export const handleGenerateAlarmCommand = async (command: Emotions.Commands.Gene
   const check = await AiGateway.check(
     Emotions.ACL.createAlarmRequestContext(
       command.payload.userId,
-      // @ts-ignore
+      // @ts-expect-error
       command.payload.detection.trigger.entryId,
     ),
   );

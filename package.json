@@ -14,7 +14,7 @@
   "author": "Bartosz Gordon",
   "license": "ISC",
   "devDependencies": {
-    "@biomejs/biome": "2.1.4",
+    "@biomejs/biome": "2.2.0",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@playwright/test": "1.54.2",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.60.0",
-    "@bgord/bun": "0.18.19",
+    "@bgord/bun": "0.18.20",
     "@react-pdf/renderer": "4.3.0",
     "better-sqlite3": "12.2.0",
     "csv": "6.4.1",
