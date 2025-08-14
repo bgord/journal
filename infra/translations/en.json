@@ -179,10 +179,10 @@
   "app.prompt.singular": "prompt",
   "app.prompt.plural": "prompts",
   "app.prompt.genitive": "prompts",
-  "auth.password_reset.header": "Reset password",
-  "auth.password_reset.desc": "You will be redirected to the new password form",
-  "auth.password_reset.send_cta": "Reset password",
-  "auth.password_reset.sending": "Sending...",
-  "auth.password_reset.sent": "Check your inbox",
-  "auth.password_reset.error": "Error while sending the link"
+  "auth.change_password.header": "Password change",
+  "auth.change_password.desc": "You will be redirected to the new password form",
+  "auth.change_password.send_cta": "Change password",
+  "auth.change_password.sending": "Sending...",
+  "auth.change_password.sent": "Check your inbox",
+  "auth.change_password.error": "Error while sending the link"
 }

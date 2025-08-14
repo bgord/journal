@@ -10,7 +10,7 @@ enum ResetPasswordState {
   error = "error",
 }
 
-export function PasswordReset({ email }: { email: string }) {
+export function ChangePassword({ email }: { email: string }) {
   const t = UI.useTranslations();
   const [state, setState] = React.useState<ResetPasswordState>(ResetPasswordState.idle);
 
@@ -27,10 +27,10 @@ export function PasswordReset({ email }: { email: string }) {
 
   return (
     <section data-stack="y" data-gap="5" data-br="xs">
-      <div>{t("auth.password_reset.header")}</div>
+      <div>{t("auth.change_password.header")}</div>
 
       <div data-color="neutral-400" data-fs="sm">
-        {t("auth.password_reset.desc")}
+        {t("auth.change_password.desc")}
       </div>
 
       <div data-stack="x" data-gap="3">
@@ -42,21 +42,21 @@ export function PasswordReset({ email }: { email: string }) {
           onClick={sendLink}
         >
           {state === ResetPasswordState.loading
-            ? t("auth.password_reset.sending")
-            : t("auth.password_reset.send_cta")}
+            ? t("auth.change_password.sending")
+            : t("auth.change_password.send_cta")}
         </button>
 
         {state === ResetPasswordState.sent && (
           <div data-stack="x" data-cross="center" data-gap="2" data-color="positive-400" data-fs="sm">
             <Icons.CheckCircle data-size="sm" />
-            {t("auth.password_reset.sent")}
+            {t("auth.change_password.sent")}
           </div>
         )}
 
         {state === ResetPasswordState.error && (
           <div data-stack="x" data-cross="center" data-gap="2" data-color="danger-400" data-fs="sm">
             <Icons.WarningCircle data-size="sm" />
-            {t("auth.password_reset.error")}
+            {t("auth.change_password.error")}
           </div>
         )}
       </div>

@@ -179,10 +179,10 @@
   "app.prompt.singular": "zapytanie",
   "app.prompt.plural": "zapytań",
   "app.prompt.genitive": "zapytania",
-  "auth.password_reset.header": "Reset hasła",
-  "auth.password_reset.desc": "Nastąpi przekierowanie do formularza ustawienia nowego hasła",
-  "auth.password_reset.send_cta": "Resetuj hasło",
-  "auth.password_reset.sending": "Wysyłanie...",
-  "auth.password_reset.sent": "Sprawdź swoją skrzynkę",
-  "auth.password_reset.error": "Błąd przy wysyłce linku"
+  "auth.change_password.header": "Zmiana hasła",
+  "auth.change_password.desc": "Nastąpi przekierowanie do formularza ustawienia nowego hasła",
+  "auth.change_password.send_cta": "Zmień hasło",
+  "auth.change_password.sending": "Wysyłanie...",
+  "auth.change_password.sent": "Sprawdź swoją skrzynkę",
+  "auth.change_password.error": "Błąd przy wysyłce linku"
 }

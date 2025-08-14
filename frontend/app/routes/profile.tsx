@@ -274,7 +274,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         </a>
       </div>
 
-      <Components.PasswordReset email={session?.user.email as string} />
+      <Components.ChangePassword email={session?.user.email as string} />
     </main>
   );
 }
