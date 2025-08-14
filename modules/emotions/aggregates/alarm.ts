@@ -21,8 +21,6 @@ export class Alarm {
   readonly id: VO.AlarmIdType;
   private userId?: Auth.VO.UserIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
-  // @ts-expect-error
-  private generatedAt?: VO.AlarmGeneratedAtType;
 
   private detection?: VO.AlarmDetection;
   private advice?: AI.Advice;
@@ -143,7 +141,6 @@ export class Alarm {
         this.detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
         this.userId = event.payload.userId;
         this.status = VO.AlarmStatusEnum.generated;
-        this.generatedAt = event.createdAt;
         break;
       }
 
