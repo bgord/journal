@@ -1,0 +1,65 @@
+import * as UI from "@bgord/ui";
+import * as Icons from "iconoir-react";
+import React from "react";
+import * as Auth from "../auth";
+
+enum ResetPasswordState {
+  idle = "idle",
+  loading = "loading",
+  sent = "sent",
+  error = "error",
+}
+
+export function PasswordReset({ email }: { email: string }) {
+  const t = UI.useTranslations();
+  const [state, setState] = React.useState<ResetPasswordState>(ResetPasswordState.idle);
+
+  const sendLink = async () => {
+    setState(ResetPasswordState.loading);
+    try {
+      const redirectTo = `${window.location.origin}/reset-password`; // premade route
+      await Auth.client.requestPasswordReset({ email, redirectTo });
+      setState(ResetPasswordState.sent);
+    } catch {
+      setState(ResetPasswordState.error);
+    }
+  };
+
+  return (
+    <section data-stack="y" data-gap="5" data-br="xs">
+      <div>{t("auth.password_reset.header")}</div>
+
+      <div data-color="neutral-400" data-fs="sm">
+        {t("auth.password_reset.desc")}
+      </div>
+
+      <div data-stack="x" data-gap="3">
+        <button
+          className="c-button"
+          data-variant="secondary"
+          type="button"
+          disabled={state === ResetPasswordState.loading || state === ResetPasswordState.sent}
+          onClick={sendLink}
+        >
+          {state === ResetPasswordState.loading
+            ? t("auth.password_reset.sending")
+            : t("auth.password_reset.send_cta")}
+        </button>
+
+        {state === ResetPasswordState.sent && (
+          <div data-stack="x" data-cross="center" data-gap="2" data-color="positive-400" data-fs="sm">
+            <Icons.CheckCircle data-size="sm" />
+            {t("auth.password_reset.sent")}
+          </div>
+        )}
+
+        {state === ResetPasswordState.error && (
+          <div data-stack="x" data-cross="center" data-gap="2" data-color="danger-400" data-fs="sm">
+            <Icons.WarningCircle data-size="sm" />
+            {t("auth.password_reset.error")}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}

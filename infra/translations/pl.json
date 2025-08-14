@@ -178,5 +178,11 @@
   "profile.ai_limits.resets_in": "Reset za {{hours}} godzin",
   "app.prompt.singular": "zapytanie",
   "app.prompt.plural": "zapytań",
-  "app.prompt.genitive": "zapytania"
+  "app.prompt.genitive": "zapytania",
+  "auth.password_reset.header": "Reset hasła",
+  "auth.password_reset.desc": "Nastąpi przekierowanie do formularza ustawienia nowego hasła",
+  "auth.password_reset.send_cta": "Resetuj hasło",
+  "auth.password_reset.sending": "Wysyłanie...",
+  "auth.password_reset.sent": "Sprawdź swoją skrzynkę",
+  "auth.password_reset.error": "Błąd przy wysyłce linku"
 }

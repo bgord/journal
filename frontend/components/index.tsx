@@ -13,5 +13,6 @@ export * from "./logo";
 export * from "./logout-button";
 export * from "./rating-pills";
 export * from "./read-only-entry";
+export * from "./reset-password";
 export * from "./select";
 export * from "./separator";

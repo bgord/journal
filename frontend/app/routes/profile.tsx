@@ -270,6 +270,8 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
           {t("profile.export_all_data.cta")}
         </a>
       </div>
+
+      <Components.PasswordReset email="ok@example.com" />
     </main>
   );
 }

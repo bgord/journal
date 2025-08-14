@@ -178,5 +178,11 @@
   "profile.ai_limits.resets_in": "Resets in {{hours}} hours",
   "app.prompt.singular": "prompt",
   "app.prompt.plural": "prompts",
-  "app.prompt.genitive": "prompts"
+  "app.prompt.genitive": "prompts",
+  "auth.password_reset.header": "Reset password",
+  "auth.password_reset.desc": "You will be redirected to the new password form",
+  "auth.password_reset.send_cta": "Reset password",
+  "auth.password_reset.sending": "Sending...",
+  "auth.password_reset.sent": "Check your inbox",
+  "auth.password_reset.error": "Error while sending the link"
 }
