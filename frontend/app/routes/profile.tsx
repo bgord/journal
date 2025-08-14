@@ -5,6 +5,7 @@ import { API } from "../../api";
 import { guard } from "../../auth";
 import * as Components from "../../components";
 import { ReadModel } from "../../read-model";
+import type { Route as AuthLayoutRoute } from "./+types/auth-layout";
 import type { Route } from "./+types/profile";
 
 export function meta() {
@@ -56,6 +57,8 @@ export async function action({ request }: Route.ActionArgs) {
 export default function Profile({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
   const pluralize = UI.usePluralize();
+
+  const session = RR.useOutletContext<AuthLayoutRoute.ComponentProps["loaderData"]>();
 
   return (
     <main
@@ -271,7 +274,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         </a>
       </div>
 
-      <Components.PasswordReset email="ok@example.com" />
+      <Components.PasswordReset email={session?.user.email as string} />
     </main>
   );
 }
