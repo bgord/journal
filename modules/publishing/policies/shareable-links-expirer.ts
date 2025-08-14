@@ -27,6 +27,6 @@ export class ShareableLinksExpirer {
 
         await CommandBus.emit(command.name, command);
       }
-    } catch (error) {}
+    } catch {}
   }
 }

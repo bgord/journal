@@ -45,7 +45,7 @@ export class WeeklyReviewExportByEmail {
         attachments: [attachment],
         ...notification,
       });
-    } catch (error) {
+    } catch {
       await EventStore.save([
         Events.WeeklyReviewExportByEmailFailedEvent.parse({
           id: crypto.randomUUID(),

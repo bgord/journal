@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import _ from "lodash";
+import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
 import { auth } from "+infra/auth";
@@ -137,7 +138,11 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     for (const [index, detection] of Object.entries(inactivityDetections)) {
       const alarmId = crypto.randomUUID();
-      const alarm = Emotions.Aggregates.Alarm.generate(alarmId, detection, users[0]!.user.id);
+      const alarm = Emotions.Aggregates.Alarm.generate(
+        alarmId,
+        detection,
+        users[0]?.user.id as Auth.VO.UserIdType,
+      );
 
       await EventStore.save(alarm.pullEvents());
 
@@ -178,7 +183,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         emotion,
         reaction,
         SupportedLanguages.en,
-        users[0]!.user.id,
+        users[0]?.user.id as Auth.VO.UserIdType,
         Emotions.VO.EntryOriginOption.web,
       );
 
@@ -209,7 +214,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
           new Emotions.VO.ReactionEffectiveness(1),
         ),
         language: SupportedLanguages.en,
-        userId: users[0]!.user.id,
+        userId: users[0]?.user.id as Auth.VO.UserIdType,
         scheduledAt: now,
         scheduledFor: tools.Timestamp.parse(tools.Time.Now().Add(tools.Time.Minutes(5)).ms),
       },
@@ -233,7 +238,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         Date.now() as tools.TimestampType,
       ),
       tools.Time.Days(3),
-      users[0]!.user.id,
+      users[0]?.user.id as Auth.VO.UserIdType,
     );
 
     await EventStore.save(shareableLink.pullEvents());

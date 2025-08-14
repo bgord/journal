@@ -35,7 +35,7 @@ export class WeeklyReviewProcessing {
 
     try {
       await this.mailer.send({ from: Env.EMAIL_FROM, to: contact?.email, ...notification.get() });
-    } catch (error) {}
+    } catch {}
   }
 
   async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
