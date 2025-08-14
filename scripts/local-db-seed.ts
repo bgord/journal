@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { eq } from "drizzle-orm";
 import _ from "lodash";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
@@ -118,6 +119,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         const result = await auth.api.signUpEmail({
           body: { email: user.email, name: user.email, password: user.password },
         });
+
+        await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
 
         console.log(`[✓] User ${index + 1} created`);
 
