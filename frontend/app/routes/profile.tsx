@@ -177,13 +177,29 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
 
               <div data-stack="y" data-gap="3" data-ml="auto">
                 {link.status === "active" && (
-                  <div data-fs="xs" data-color="neutral-400" data-ml="auto">
+                  <div
+                    data-stack="x"
+                    data-cross="center"
+                    data-gap="1"
+                    data-fs="xs"
+                    data-color="neutral-400"
+                    data-ml="auto"
+                  >
+                    <Icons.Clock data-size="xs" />
                     {t("profile.shareable_links.expires_at", { date: link.expiresAt })}
                   </div>
                 )}
 
                 {link.status === "revoked" && (
-                  <div data-fs="xs" data-color="neutral-400" data-ml="auto">
+                  <div
+                    data-stack="x"
+                    data-cross="center"
+                    data-gap="1"
+                    data-fs="xs"
+                    data-color="neutral-400"
+                    data-ml="auto"
+                  >
+                    <Icons.Clock data-size="xs" />
                     {t("profile.shareable_links.revoked_at", { date: link.updatedAt })}
                   </div>
                 )}
