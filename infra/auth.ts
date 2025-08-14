@@ -44,6 +44,9 @@ export const auth = betterAuth({
     sendOnSignIn: true,
     autoSignInAfterVerification: false,
     expiresIn: tools.Time.Hours(1).seconds,
+    async afterEmailVerification(_user) {
+      // TODO: emit an event
+    },
   },
   autoSignIn: false,
   trustedOrigins: ["http://localhost:5173", "http://localhost:3000"],
