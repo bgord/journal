@@ -1,9 +1,24 @@
 # Changelog
+- 2025-08-15 00:08 c6663a3 **feature: add reset password page**
+## 2025-08-15 00:08 
+- 2025-08-14 23:50 75dbf93 **refactor: rename to change password**
+- 2025-08-14 23:00 4f78dcb **step: use correct email**
+- 2025-08-14 22:52 5571c40 **step: add send reset password**
+- 2025-08-14 22:39 0696959 **feature: add reset password form**
+- 2025-08-14 22:08 a3e199d **step: make the users verified in seeder**
+- 2025-08-14 21:54 5bcb9bd **step: add email verification**
+- 2025-08-14 21:10 ba54c53 **step: update bun**
+- 2025-08-14 21:10 a61a826 **step: add better auth logger**
+- 2025-08-14 20:55 96e2d46 **step: add no auto sign in in email and password**
+- 2025-08-14 20:54 11ad60c **step: wire up logger in auth**
+- 2025-08-14 20:36 6852cdc **step: add rate limit for auth**
+- 2025-08-14 20:35 79efd4a **step: add session duration**
+- 2025-08-14 20:00 716c70c **refactor: improve icons in profile**
 - 2025-08-14 19:49 06686c2 **fix: biome hints**
-## 2025-08-14 19:49 
 - 2025-08-14 19:48 2423454 **step: bump bgord/scripts**
 - 2025-08-14 19:45 6b38227 **fix: biome hints**
 - 2025-08-14 19:44 ca63629 **step: update packages**
+- 2025-08-14 17:52 8d4fa95 **docs: generate CHANGELOG**
 - 2025-08-14 15:20 f2b8bc5 **refactor: add pluralization**
 - 2025-08-14 01:03 8fa5bcb **fix: restore bgord-design type checking**
 - 2025-08-14 00:59 a2e212a **feature: add ai usage profile section**
