@@ -13,6 +13,14 @@ export const auth = betterAuth({
   advanced: { database: { generateId: () => crypto.randomUUID() } },
   session: { expiresIn: tools.Time.Days(30).seconds, updateAge: tools.Time.Days(1).seconds },
   rateLimit: { enabled: true, window: tools.Time.Minutes(5).seconds, max: 100 },
+  user: {
+    deleteUser: {
+      enabled: true,
+      async afterDelete(_user) {
+        // TODO: emit an event
+      },
+    },
+  },
   emailAndPassword: {
     autoSignIn: false,
     enabled: true,
