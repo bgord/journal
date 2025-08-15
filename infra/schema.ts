@@ -246,6 +246,14 @@ export const aiUsageCounters = sqliteTable("ai_usage_counters", {
   lastEventAt: integer("lastEventAt", { mode: "number" }),
 });
 
+export const history = sqliteTable("history", {
+  id,
+  createdAt: integer("created_at", { mode: "number" }).notNull(),
+  correlationId: text("correlation_id").notNull(),
+  operation: text("operation").notNull(),
+  payload: text("payload"),
+});
+
 /** @public */
 export const users = sqliteTable("users", {
   id: text("id").primaryKey(),
