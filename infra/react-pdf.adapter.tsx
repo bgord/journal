@@ -74,7 +74,7 @@ const templates: Record<Ports.PdfGeneratorTemplateType, TemplateFn> = {
                   <View style={styles.row}>
                     <Text style={styles.label}>Emotion:</Text>
                     <Text>
-                      {entry.emotionLabel} ({entry.emotionIntensity}/10)
+                      {entry.emotionLabel} ({entry.emotionIntensity}/5)
                     </Text>
                   </View>
 
