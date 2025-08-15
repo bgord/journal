@@ -26,7 +26,7 @@
   "auth.register.have_an_account.cta": "Masz już konto?",
   "auth.register.in_progress": "Ładowanie...",
   "auth.register.label": "Zarejestruj się",
-  "auth.register.success": "Konto utworzone pomyślnie!",
+  "auth.register.success": "Sprawdź swoją skrzynkę, by potwierdzić konto",
   "auth.register.success.cta": "Sprawdź swoją skrzynkę i",
   "dashboard.alarm.entries.empty": "Alerty wpisów pojawią się tutaj",
   "dashboard.alarm.entry": "Wpisy",

@@ -26,7 +26,7 @@
   "auth.register.have_an_account.cta": "Already have an account?",
   "auth.register.in_progress": "Loading...",
   "auth.register.label": "Register",
-  "auth.register.success": "Account created successfully!",
+  "auth.register.success": "Check your inbox to confirm the account",
   "auth.register.success.cta": "Check your inbox and",
   "dashboard.alarm.entries.empty": "Entry alarms will appear here",
   "dashboard.alarm.entry": "Entries",
