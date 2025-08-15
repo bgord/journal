@@ -27,15 +27,21 @@ export default function Register({ loaderData }: Route.ComponentProps) {
 
   const email = UI.useField({ name: "email", defaultValue: "" });
   const password = UI.useField<AuthTypes.PasswordType>({ name: "password", defaultValue: "" });
+  const [error, setError] = React.useState();
 
   const signUp = async (event: React.FormEvent) => {
     event.preventDefault();
+    setState(RegisterState.loading);
+    setError(undefined);
 
     await Auth.client.signUp.email(
       { email: email.value, password: password.value, name: email.value },
       {
         onSuccess: () => setState(RegisterState.success),
-        onError: () => setState(RegisterState.error),
+        onError: (context) => {
+          setState(RegisterState.error);
+          setError(context.error.code);
+        },
       },
     );
   };
@@ -127,14 +133,21 @@ export default function Register({ loaderData }: Route.ComponentProps) {
         {state === RegisterState.error && (
           <div
             data-stack="x"
+            data-cross="center"
             data-gap="3"
             data-mt="3"
+            data-fs="sm"
             data-bg="neutral-700"
             data-color="neutral-200"
             data-p="3"
           >
             <Icons.WarningCircle data-size="md" />
             {t("auth.register.error")}
+            {error === "PASSWORD_COMPROMISED" && (
+              <div data-color="neutral-300" data-fs="sm">
+                {t("auth.register.error.PASSWORD_COMPROMISED")}
+              </div>
+            )}
           </div>
         )}
 

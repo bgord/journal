@@ -2,9 +2,10 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { openAPI } from "better-auth/plugins";
+import { haveIBeenPwned, openAPI } from "better-auth/plugins";
 import * as Auth from "+auth";
 import { db } from "./db";
+import { Env } from "./env";
 import { EventStore } from "./event-store";
 import { logger } from "./logger";
 import { Mailer } from "./mailer";
@@ -79,7 +80,9 @@ export const auth = betterAuth({
   },
   autoSignIn: false,
   trustedOrigins: ["http://localhost:5173", "http://localhost:3000"],
-  plugins: [openAPI()],
+  plugins: [openAPI(), Env.type === bg.NodeEnvironmentEnum.production ? haveIBeenPwned() : undefined].filter(
+    (plugin) => plugin !== undefined,
+  ),
   logger: new bg.BetterAuthLogger(logger).attach(),
 });
 

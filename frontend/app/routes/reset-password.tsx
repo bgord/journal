@@ -21,11 +21,13 @@ export async function loader(_args: Route.LoaderArgs) {
 export default function ResetPassword({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
   const navigate = RR.useNavigate();
+
   const [state, setState] = React.useState<ResetState>(ResetState.idle);
+  const [error, setError] = React.useState();
 
   const [params] = RR.useSearchParams();
   const token = params.get("token") ?? "";
-  const error = params.get("error") ?? "";
+  const tokenError = params.get("error") ?? "";
 
   const newPassword = UI.useField({ name: "newPassword", defaultValue: "" });
 
@@ -33,14 +35,19 @@ export default function ResetPassword({ loaderData }: Route.ComponentProps) {
     event.preventDefault();
     setState(ResetState.loading);
 
-    try {
-      const result = await Auth.client.resetPassword({ newPassword: newPassword.value, token });
-      if (result.error) return setState(ResetState.error);
-      setState(ResetState.done);
-      navigate("/", { replace: true });
-    } catch (error) {
-      setState(ResetState.error);
-    }
+    await Auth.client.resetPassword(
+      { newPassword: newPassword.value, token },
+      {
+        onSuccess: () => {
+          setState(ResetState.done);
+          navigate("/", { replace: true });
+        },
+        onError: (context) => {
+          setState(ResetState.error);
+          setError(context.error.code);
+        },
+      },
+    );
   };
 
   return (
@@ -90,9 +97,10 @@ export default function ResetPassword({ loaderData }: Route.ComponentProps) {
           {state === ResetState.loading ? t("auth.reset.in_progress") : t("auth.reset.cta")}
         </button>
 
-        {(state === ResetState.error || error) && (
+        {(state === ResetState.error || tokenError) && (
           <div
             data-stack="x"
+            data-cross="center"
             data-gap="3"
             data-mt="3"
             data-bg="neutral-700"
@@ -101,6 +109,12 @@ export default function ResetPassword({ loaderData }: Route.ComponentProps) {
           >
             <Icons.WarningCircle data-size="md" />
             {t("auth.reset.error.generic")}
+
+            {error === "PASSWORD_COMPROMISED" && (
+              <div data-color="neutral-400" data-fs="sm">
+                {t("auth.register.error.PASSWORD_COMPROMISED")}
+              </div>
+            )}
           </div>
         )}
       </RR.Form>

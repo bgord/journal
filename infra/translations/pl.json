@@ -23,6 +23,7 @@
   "auth.password.placeholder": "****************",
   "auth.register.cta": "Utwórz konto",
   "auth.register.error": "Błąd tworzenia konta",
+  "auth.register.error.PASSWORD_COMPROMISED": "Hasło brało udział w wycieku",
   "auth.register.have_an_account.cta": "Masz już konto?",
   "auth.register.in_progress": "Ładowanie...",
   "auth.register.label": "Zarejestruj się",
