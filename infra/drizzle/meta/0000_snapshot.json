@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "792854ed-1ec7-48d1-9ff9-1fcaceffd32d",
+  "id": "19f1d976-bfb7-46f0-b60c-78f994e4a5ad",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -125,8 +125,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "rule_id": {
-          "name": "rule_id",
+        "ruleId": {
+          "name": "ruleId",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -139,9 +139,9 @@
           "notNull": true,
           "autoincrement": false
         },
-        "user_id": {
-          "name": "user_id",
-          "type": "text",
+        "userId": {
+          "name": "userId",
+          "type": "text(36)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -154,15 +154,15 @@
           "autoincrement": false,
           "default": 0
         },
-        "first_event_at": {
-          "name": "first_event_at",
+        "firstEventAt": {
+          "name": "firstEventAt",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "last_event_at": {
-          "name": "last_event_at",
+        "lastEventAt": {
+          "name": "lastEventAt",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -170,7 +170,17 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "ai_usage_counters_userId_users_id_fk": {
+          "name": "ai_usage_counters_userId_users_id_fk",
+          "tableFrom": "ai_usage_counters",
+          "tableTo": "users",
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
@@ -271,16 +281,16 @@
           "tableTo": "entries",
           "columnsFrom": ["entryId"],
           "columnsTo": ["id"],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "alarms_userId_entries_id_fk": {
-          "name": "alarms_userId_entries_id_fk",
+        "alarms_userId_users_id_fk": {
+          "name": "alarms_userId_users_id_fk",
           "tableFrom": "alarms",
-          "tableTo": "entries",
+          "tableTo": "users",
           "columnsFrom": ["userId"],
           "columnsTo": ["id"],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -554,7 +564,7 @@
           "tableTo": "users",
           "columnsFrom": ["userId"],
           "columnsTo": ["id"],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -742,7 +752,7 @@
           "tableTo": "users",
           "columnsFrom": ["ownerId"],
           "columnsTo": ["id"],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -1039,7 +1049,7 @@
           "tableTo": "users",
           "columnsFrom": ["userId"],
           "columnsTo": ["id"],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },

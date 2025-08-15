@@ -17,12 +17,13 @@ CREATE TABLE `accounts` (
 --> statement-breakpoint
 CREATE TABLE `ai_usage_counters` (
 	`bucket` text PRIMARY KEY NOT NULL,
-	`rule_id` text NOT NULL,
+	`ruleId` text NOT NULL,
 	`window` text NOT NULL,
-	`user_id` text NOT NULL,
+	`userId` text(36) NOT NULL,
 	`count` integer DEFAULT 0 NOT NULL,
-	`first_event_at` integer,
-	`last_event_at` integer
+	`firstEventAt` integer,
+	`lastEventAt` integer,
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `alarms` (
@@ -38,8 +39,8 @@ CREATE TABLE `alarms` (
 	`emotionLabel` text,
 	`emotionIntensity` integer,
 	`weekIsoId` text NOT NULL,
-	FOREIGN KEY (`entryId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`userId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`entryId`) REFERENCES `entries`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `entries` (
@@ -82,7 +83,7 @@ CREATE TABLE `patternDetections` (
 	`name` text NOT NULL,
 	`weekIsoId` text NOT NULL,
 	`userId` text(36) NOT NULL,
-	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `sessions` (
@@ -111,7 +112,7 @@ CREATE TABLE `shareableLinks` (
 	`durationMs` integer NOT NULL,
 	`expiresAt` integer NOT NULL,
 	`hidden` integer DEFAULT false,
-	FOREIGN KEY (`ownerId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`ownerId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `timeCapsuleEntries` (
@@ -159,5 +160,5 @@ CREATE TABLE `weeklyReviews` (
 	`userId` text(36) NOT NULL,
 	`insights` text,
 	`status` text NOT NULL,
-	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
