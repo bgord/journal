@@ -63,8 +63,8 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
   return (
     <main
       data-stack="y"
-      data-gap="8"
-      data-mt="8"
+      data-gap="12"
+      data-my="8"
       data-mx="auto"
       data-p="8"
       data-width="100%"
@@ -275,6 +275,8 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
       </div>
 
       <Components.ChangePassword email={session?.user.email as string} />
+
+      <Components.DeleteAccount />
     </main>
   );
 }

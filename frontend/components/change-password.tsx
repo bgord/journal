@@ -26,7 +26,7 @@ export function ChangePassword({ email }: { email: string }) {
   };
 
   return (
-    <section data-stack="y" data-gap="5" data-br="xs">
+    <section data-stack="y" data-gap="5">
       <div>{t("auth.change_password.header")}</div>
 
       <div data-color="neutral-400" data-fs="sm">

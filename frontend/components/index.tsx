@@ -8,6 +8,7 @@ export * from "./clickable-rating-pills";
 export * from "./copy-button";
 export * from "./create-shareable-link";
 export * from "./dashboard-cell";
+export * from "./delete-account";
 export * from "./entry";
 export * from "./language-selector";
 export * from "./logo";

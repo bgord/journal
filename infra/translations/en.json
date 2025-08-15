@@ -189,5 +189,10 @@
   "auth.reset.header": "Set new password",
   "auth.reset.cta": "Change",
   "auth.reset.in_progress": "Loading...",
-  "auth.reset.error.generic": "Expired or invalid link"
+  "auth.reset.error.generic": "Expired or invalid link",
+  "profile.delete_account.header": "Delete account",
+  "profile.delete_account.info": "This action is irreversible",
+  "profile.delete_account.cta_primary": "Delete account",
+  "profile.delete_account.challenge": "Type 'delete' in the field below",
+  "profile.delete_account.error": "Error while deleting account"
 }

@@ -189,5 +189,10 @@
   "auth.reset.header": "Nowe hasło",
   "auth.reset.cta": "Zmień",
   "auth.reset.in_progress": "Ładowanie...",
-  "auth.reset.error.generic": "Niepoprawny lub wygasły link"
+  "auth.reset.error.generic": "Niepoprawny lub wygasły link",
+  "profile.delete_account.header": "usuwanie konta",
+  "profile.delete_account.info": "Ta akcja jest nieodwracalna",
+  "profile.delete_account.cta_primary": "Usuń konto",
+  "profile.delete_account.challenge": "Wpisz 'delete' w polu poniżej",
+  "profile.delete_account.error": "Błąd w trakcie usuwania konta"
 }
