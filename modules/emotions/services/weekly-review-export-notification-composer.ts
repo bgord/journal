@@ -1,10 +1,9 @@
 import * as tools from "@bgord/tools";
-import * as VO from "+emotions/value-objects";
 import type * as Schema from "+infra/schema";
 
 export class WeeklyReviewExportNotificationComposer {
-  compose(weeklyReview: Schema.SelectWeeklyReviews): VO.NotificationTemplate {
+  compose(weeklyReview: Schema.SelectWeeklyReviews): tools.NotificationTemplate {
     const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
-    return new VO.NotificationTemplate(`Weekly Review PDF - ${week.getStart()}`, "Find the file attached");
+    return new tools.NotificationTemplate(`Weekly Review PDF - ${week.getStart()}`, "Find the file attached");
   }
 }
