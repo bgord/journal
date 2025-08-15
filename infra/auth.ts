@@ -42,22 +42,15 @@ export const auth = betterAuth({
     async sendResetPassword({ user, url }) {
       await Mailer.send({
         to: user.email,
-        subject: "Reset your Journal password",
-        text: `Click the link to reset your password: ${url}`,
-        html: `<p>Click to reset your password: <a href="${url}">Reset password</a></p>`,
+        ...new Auth.Services.PasswordResetNotificationComposer().compose(url),
       });
     },
   },
   emailVerification: {
     async sendVerificationEmail({ user, url }) {
-      const callbackUrl = new URL(url);
-      callbackUrl.searchParams.set("callbackURL", "http://localhost:5173");
-
       await Mailer.send({
         to: user.email,
-        subject: "Verify your Journal account",
-        text: `Click to verify: ${callbackUrl.toString()}`,
-        html: `<p>Click to verify: <a href="${callbackUrl.toString()}">Verify</a></p>`,
+        ...new Auth.Services.EmailVerificationNotificationComposer().compose(url),
       });
     },
     sendOnSignUp: true,
