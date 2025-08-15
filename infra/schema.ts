@@ -105,10 +105,10 @@ export const timeCapsuleEntries = sqliteTable("timeCapsuleEntries", {
 export const alarms = sqliteTable("alarms", {
   id,
   generatedAt: integer("generatedAt").notNull(),
-  entryId: text("entryId", { length: 36 }).references(() => entries.id),
+  entryId: text("entryId", { length: 36 }).references(() => entries.id, { onDelete: "cascade" }),
   userId: text("userId", { length: 36 })
-    .references(() => entries.id)
-    .notNull(),
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   status: text("status", toEnumList(AlarmStatusEnum)).notNull(),
   name: text("name", toEnumList(AlarmNameOption)).notNull(),
   advice: text("advice"),
@@ -151,8 +151,8 @@ export const patternDetections = sqliteTable("patternDetections", {
   name: text("name", toEnumList(PatternNameOption)).notNull(),
   weekIsoId: text("weekIsoId").notNull(),
   userId: text("userId", { length: 36 })
-    .references(() => users.id)
-    .notNull(),
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
 });
 
 /** @public */
@@ -178,8 +178,8 @@ export const weeklyReviews = sqliteTable("weeklyReviews", {
   createdAt: integer("createdAt").notNull(),
   weekIsoId: text("weekIsoId").notNull(),
   userId: text("userId", { length: 36 })
-    .references(() => users.id)
-    .notNull(),
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   insights: text("insights"),
   status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull(),
 });
@@ -213,8 +213,8 @@ export const shareableLinks = sqliteTable("shareableLinks", {
   status: text("status", toEnumList(ShareableLinkStatusEnum)).notNull(),
   revision: integer("revision").notNull().default(0),
   ownerId: text("ownerId", { length: 36 })
-    .references(() => users.id)
-    .notNull(),
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   publicationSpecification: text("publicationSpecification").notNull(),
   dateRangeStart: integer("dateRangeStart").notNull(),
   dateRangeEnd: integer("dateRangeEnd").notNull(),
@@ -236,12 +236,14 @@ export const shareableLinksRelations = relations(shareableLinks, ({ one }) => ({
 /** @public */
 export const aiUsageCounters = sqliteTable("ai_usage_counters", {
   bucket: text("bucket").primaryKey(),
-  ruleId: text("rule_id").notNull(),
+  ruleId: text("ruleId").notNull(),
   window: text("window").notNull(),
-  userId: text("user_id").notNull(),
+  userId: text("userId", { length: 36 })
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   count: integer("count", { mode: "number" }).notNull().default(0),
-  firstEventAt: integer("first_event_at", { mode: "number" }),
-  lastEventAt: integer("last_event_at", { mode: "number" }),
+  firstEventAt: integer("firstEventAt", { mode: "number" }),
+  lastEventAt: integer("lastEventAt", { mode: "number" }),
 });
 
 /** @public */
