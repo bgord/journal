@@ -1,7 +1,13 @@
 # Changelog
+- 2025-08-15 12:37 c937959 **refactor: rerun migrations**
+- 2025-08-15 12:37 66b3e32 **step: add delete cascades**
+## 2025-08-15 12:37 
+- 2025-08-15 12:08 cf6c368 **feature: add delete account profile section**
+- 2025-08-15 10:26 2fcf87c **step: add haveibeenpwned better auth plugin**
 - 2025-08-15 09:38 ed86f2d **refactor: improve register flow copy**
-## 2025-08-15 09:38 
 - 2025-08-15 09:32 cdf7ae7 **step: add auth events**
+- 2025-08-15 08:21 9c57cdd **docs: generate CHANGELOG**
+- 2025-08-15 08:21 16e288d **docs: generate readme**
 - 2025-08-15 00:39 a592919 **step: add a placeholder for account deleted**
 - 2025-08-15 00:33 daa8d65 **step: add a placeholder for account created**
 - 2025-08-15 00:08 c6663a3 **feature: add reset password page**
