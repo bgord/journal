@@ -186,6 +186,7 @@
   "auth.change_password.sending": "Sending...",
   "auth.change_password.sent": "Check your inbox",
   "auth.change_password.error": "Error while sending the link",
+  "auth.forgot_password.label": "Forgot password?",
   "auth.reset.header": "Set new password",
   "auth.reset.cta": "Change",
   "auth.reset.in_progress": "Loading...",

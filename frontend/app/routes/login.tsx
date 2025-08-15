@@ -124,6 +124,10 @@ export default function Login({ loaderData }: Route.ComponentProps) {
             {t("auth.register.label")}
           </RR.Link>
         </p>
+
+        <RR.Link className="c-link" to="/forgot-password" data-decoration="underline" data-mx="auto">
+          {t("auth.forgot_password.label")}
+        </RR.Link>
       </RR.Form>
     </main>
   );

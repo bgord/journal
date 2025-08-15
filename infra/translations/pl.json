@@ -194,5 +194,6 @@
   "profile.delete_account.info": "Ta akcja jest nieodwracalna",
   "profile.delete_account.cta_primary": "Usuń konto",
   "profile.delete_account.challenge": "Wpisz 'delete' w polu poniżej",
-  "profile.delete_account.error": "Błąd w trakcie usuwania konta"
+  "profile.delete_account.error": "Błąd w trakcie usuwania konta",
+  "auth.forgot_password.label": "Zapomniałeś hasło?"
 }
