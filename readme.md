@@ -70,6 +70,9 @@ modules/
 │       ├── request-context.ts
 │       └── usage-category.ts
 ├── auth
+│   ├── events
+│   │   ├── ACCOUNT_CREATED_EVENT.ts
+│   │   ├── ACCOUNT_DELETED_EVENT.ts
 │   ├── repositories
 │   │   └── user-repository.ts
 │   └── value-objects
