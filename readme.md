@@ -75,6 +75,9 @@ modules/
 │   │   ├── ACCOUNT_DELETED_EVENT.ts
 │   ├── repositories
 │   │   └── user-repository.ts
+│   ├── services
+│   │   ├── email-verification-notification-composer.ts
+│   │   └── password-reset-notification-composer.ts
 │   └── value-objects
 │       ├── password.ts
 │       └── user-id.ts
@@ -252,7 +255,6 @@ modules/
 │       ├── entry-status.ts
 │       ├── geneva-wheel-emotion.enum.ts
 │       ├── gross-emotion-regulation-strategy.enum.ts
-│       ├── notification-template.ts
 │       ├── pattern-name-option.ts
 │       ├── pattern-name.ts
 │       ├── reaction-description.ts
