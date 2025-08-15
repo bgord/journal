@@ -17,7 +17,7 @@ export function ChangePassword({ email }: { email: string }) {
   const sendLink = async () => {
     setState(ResetPasswordState.loading);
     try {
-      const redirectTo = `${window.location.origin}/reset-password`; // premade route
+      const redirectTo = `${window.location.origin}/reset-password`;
       await Auth.client.requestPasswordReset({ email, redirectTo });
       setState(ResetPasswordState.sent);
     } catch {

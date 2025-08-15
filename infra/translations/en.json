@@ -186,7 +186,6 @@
   "auth.change_password.sending": "Sending...",
   "auth.change_password.sent": "Check your inbox",
   "auth.change_password.error": "Error while sending the link",
-  "auth.forgot_password.label": "Forgot password?",
   "auth.reset.header": "Set new password",
   "auth.reset.cta": "Change",
   "auth.reset.in_progress": "Loading...",
@@ -195,5 +194,11 @@
   "profile.delete_account.info": "This action is irreversible",
   "profile.delete_account.cta_primary": "Delete account",
   "profile.delete_account.challenge": "Type 'delete' in the field below",
-  "profile.delete_account.error": "Error while deleting account"
+  "profile.delete_account.error": "Error while deleting account",
+  "auth.forgot_password.label": "Forgot password?",
+  "auth.forgot_password.header": "Forgot password",
+  "auth.forgot_password.in_progress": "Sending...",
+  "auth.forgot_password.cta": "Send link",
+  "auth.forgot_password.error": "Could not send the password reset link",
+  "auth.forgot_password.success": "Check your inbox"
 }

@@ -4,6 +4,7 @@ export default [
   index("routes/login.tsx"),
   route("/register", "routes/register.tsx"),
   route("/reset-password", "routes/reset-password.tsx"),
+  route("/forgot-password", "routes/forgot-password.tsx"),
   route("/shared-entries/:shareableLinkId", "routes/shared-entries.tsx"),
 
   layout("routes/auth-layout.tsx", [

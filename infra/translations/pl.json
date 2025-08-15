@@ -195,5 +195,10 @@
   "profile.delete_account.cta_primary": "Usuń konto",
   "profile.delete_account.challenge": "Wpisz 'delete' w polu poniżej",
   "profile.delete_account.error": "Błąd w trakcie usuwania konta",
-  "auth.forgot_password.label": "Zapomniałeś hasło?"
+  "auth.forgot_password.label": "Zapomniałeś hasło?",
+  "auth.forgot_password.header": "Przypominanie hasła",
+  "auth.forgot_password.in_progress": "Wysyłanie...",
+  "auth.forgot_password.cta": "Wyślij link",
+  "auth.forgot_password.error": "Błąd przy wysyłce linku",
+  "auth.forgot_password.success": "Sprawdź swoją skrzynkę"
 }
