@@ -4,6 +4,7 @@ import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { z } from "zod/v4";
 import type { AiQuotaExceededEvent, AiRequestRegisteredEvent } from "+ai/events";
 import type { HourHasPassedEvent } from "+app/events";
+import type { AccountCreatedEvent, AccountDeletedEvent } from "+auth/events";
 import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
 import type {
   TimeCapsuleEntryScheduledEvent,
@@ -27,7 +28,9 @@ export type AcceptedEvent =
   | ShareableLinkEvent
   | typeof HourHasPassedEvent
   | typeof AiRequestRegisteredEvent
-  | typeof AiQuotaExceededEvent;
+  | typeof AiQuotaExceededEvent
+  | typeof AccountCreatedEvent
+  | typeof AccountDeletedEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {

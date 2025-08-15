@@ -3,8 +3,9 @@ import * as tools from "@bgord/tools";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI } from "better-auth/plugins";
-import { Password } from "../modules/auth/value-objects/password";
+import * as Auth from "+auth";
 import { db } from "./db";
+import { EventStore } from "./event-store";
 import { logger } from "./logger";
 import { Mailer } from "./mailer";
 
@@ -16,16 +17,26 @@ export const auth = betterAuth({
   user: {
     deleteUser: {
       enabled: true,
-      async afterDelete(_user) {
-        // TODO: emit an event
+      async afterDelete(user) {
+        const event = Auth.Events.AccountDeletedEvent.parse({
+          id: crypto.randomUUID(),
+          correlationId: bg.CorrelationStorage.get(),
+          createdAt: tools.Time.Now().value,
+          name: Auth.Events.ACCOUNT_DELETED_EVENT,
+          stream: `account_${user.id}`,
+          version: 1,
+          payload: { userId: user.id, timestamp: tools.Time.Now().value },
+        } satisfies Auth.Events.AccountDeletedEventType);
+
+        await EventStore.save([event]);
       },
     },
   },
   emailAndPassword: {
     autoSignIn: false,
     enabled: true,
-    minPasswordLength: Password.MinimumLength,
-    maxPasswordLength: Password.MaximumLength,
+    minPasswordLength: Auth.VO.Password.MinimumLength,
+    maxPasswordLength: Auth.VO.Password.MaximumLength,
     requireEmailVerification: true,
     async sendResetPassword({ user, url }) {
       await Mailer.send({
@@ -52,8 +63,18 @@ export const auth = betterAuth({
     sendOnSignIn: true,
     autoSignInAfterVerification: false,
     expiresIn: tools.Time.Hours(1).seconds,
-    async afterEmailVerification(_user) {
-      // TODO: emit an event
+    async afterEmailVerification(user) {
+      const event = Auth.Events.AccountCreatedEvent.parse({
+        id: crypto.randomUUID(),
+        correlationId: bg.CorrelationStorage.get(),
+        createdAt: tools.Time.Now().value,
+        name: Auth.Events.ACCOUNT_CREATED_EVENT,
+        stream: `account_${user.id}`,
+        version: 1,
+        payload: { userId: user.id, timestamp: tools.Time.Now().value },
+      } satisfies Auth.Events.AccountCreatedEventType);
+
+      await EventStore.save([event]);
     },
   },
   autoSignIn: false,
