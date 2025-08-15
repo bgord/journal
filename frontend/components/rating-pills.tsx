@@ -20,8 +20,8 @@ export function RatingPills(props: RatingPillsProps) {
             width={size}
             height={size}
             rx="2"
-            fill={filled ? "var(--color-brand-500)" : "none"}
-            stroke={filled ? "none" : "var(--color-brand-200)"}
+            fill={filled ? "var(--color-brand-600)" : "none"}
+            stroke={filled ? "none" : "var(--color-brand-600)"}
           />
         );
       })}

@@ -1,4 +1,3 @@
-import { BrandTokens } from "@bgord/design";
 import * as UI from "@bgord/ui";
 import type { types } from "../../app/services/add-entry-form";
 
@@ -6,11 +5,8 @@ type ClickableRatingPillsProps = { total?: number } & UI.useFieldReturnType<type
 
 export function ClickableRatingPills(props: ClickableRatingPillsProps) {
   const { value, total = 5 } = props;
-  const size = 16;
 
-  const handleClick = (rating: number) => {
-    props.set(rating);
-  };
+  const handleClick = (rating: number) => props.set(rating);
 
   return (
     <div data-stack="x" data-gap="2" data-cross="center">
@@ -23,14 +19,13 @@ export function ClickableRatingPills(props: ClickableRatingPillsProps) {
             data-disp="block"
             data-p="0"
             data-cursor="pointer"
+            data-bc={filled ? undefined : "brand-600"}
+            data-bw="hairline"
+            data-bg={filled ? "brand-600" : undefined}
             type="button"
             key={index}
             onClick={() => handleClick(rating)}
-            style={{
-              border: filled ? "none" : `1px solid ${BrandTokens["color-brand-600"]}`,
-              backgroundColor: filled ? "var(--color-brand-600)" : "transparent",
-              ...UI.Rhythm(size).times(1).square,
-            }}
+            data-size="sm"
             data-testid={`rating-${rating}`}
           />
         );
