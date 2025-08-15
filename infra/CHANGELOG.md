@@ -1,7 +1,13 @@
 # Changelog
+- 2025-08-15 19:48 2c2822d **step: update packages**
+## 2025-08-15 19:48 
+- 2025-08-15 19:07 a35d475 **fix: pills**
+- 2025-08-15 18:31 c9a9613 **fix: intensity max**
+- 2025-08-15 18:06 9db50d2 **feature: add forgot password page**
+- 2025-08-15 17:53 b7e2d38 **step: add forgot password link**
+- 2025-08-15 15:39 a9d0b7c **docs: generate CHANGELOG**
 - 2025-08-15 12:37 c937959 **refactor: rerun migrations**
 - 2025-08-15 12:37 66b3e32 **step: add delete cascades**
-## 2025-08-15 12:37 
 - 2025-08-15 12:08 cf6c368 **feature: add delete account profile section**
 - 2025-08-15 10:26 2fcf87c **step: add haveibeenpwned better auth plugin**
 - 2025-08-15 09:38 ed86f2d **refactor: improve register flow copy**
