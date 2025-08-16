@@ -7,7 +7,7 @@ import * as Schema from "+infra/schema";
 export interface HistoryRepositoryPort {
   append(data: History.VO.HistoryType, createdAt: tools.TimestampType): Promise<void>;
 
-  clear(correlationId: History.VO.HistoryType["correlationId"]): Promise<void>;
+  clear(subject: History.VO.HistoryType["subject"]): Promise<void>;
 }
 
 export class HistoryRepository implements HistoryRepositoryPort {
@@ -15,7 +15,7 @@ export class HistoryRepository implements HistoryRepositoryPort {
     await db.insert(Schema.history).values([{ ...data, createdAt }]);
   }
 
-  async clear(correlationId: History.VO.HistoryType["correlationId"]) {
-    await db.delete(Schema.history).where(eq(Schema.history.correlationId, correlationId));
+  async clear(subject: History.VO.HistoryType["subject"]) {
+    await db.delete(Schema.history).where(eq(Schema.history.subject, subject));
   }
 }

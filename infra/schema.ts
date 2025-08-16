@@ -249,7 +249,7 @@ export const aiUsageCounters = sqliteTable("ai_usage_counters", {
 export const history = sqliteTable("history", {
   id,
   createdAt: integer("created_at", { mode: "number" }).notNull(),
-  correlationId: text("correlation_id").notNull(),
+  subject: text("subject").notNull(),
   operation: text("operation").notNull(),
   payload: text("payload"),
 });
