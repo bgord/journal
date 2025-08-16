@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "b42cde6a-dbd6-4a5f-81b5-669fd5901f1f",
+  "id": "596bf8c0-a2da-4d88-9813-ca0b12fa8c91",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -527,8 +527,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -556,7 +556,23 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "history_subject_createdAt": {
+          "name": "history_subject_createdAt",
+          "columns": ["subject", "\"createdAt\" desc"],
+          "isUnique": false
+        },
+        "history_operation_createdAt": {
+          "name": "history_operation_createdAt",
+          "columns": ["operation", "\"createdAt\" desc"],
+          "isUnique": false
+        },
+        "history_createdAt": {
+          "name": "history_createdAt",
+          "columns": ["\"createdAt\" desc"],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -1111,6 +1127,28 @@
     "columns": {}
   },
   "internal": {
-    "indexes": {}
+    "indexes": {
+      "history_subject_createdAt": {
+        "columns": {
+          "\"createdAt\" desc": {
+            "isExpression": true
+          }
+        }
+      },
+      "history_operation_createdAt": {
+        "columns": {
+          "\"createdAt\" desc": {
+            "isExpression": true
+          }
+        }
+      },
+      "history_createdAt": {
+        "columns": {
+          "\"createdAt\" desc": {
+            "isExpression": true
+          }
+        }
+      }
+    }
   }
 }
