@@ -6,7 +6,6 @@ export class HistoryWriterEventStore implements bg.History.Services.HistoryWrite
   constructor(private readonly eventStore: typeof EventStore) {}
 
   async populate(history: Omit<bg.History.VO.HistoryType, "id">) {
-    const id = crypto.randomUUID();
     const event = bg.History.Events.HistoryPopulatedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
@@ -14,10 +13,10 @@ export class HistoryWriterEventStore implements bg.History.Services.HistoryWrite
       name: bg.History.Events.HISTORY_POPULATED_EVENT,
       stream: `history_${history.subject}`,
       version: 1,
-      payload: { ...history, id },
+      payload: { ...history, id: crypto.randomUUID() },
     } satisfies bg.History.Events.HistoryPopulatedEventType);
 
-    await this.eventStore.save([event]);
+    await this.eventStore.saveAfter([event], tools.Time.Ms(10));
   }
 
   async clear(subject: bg.History.VO.HistorySubjectType) {
@@ -31,6 +30,6 @@ export class HistoryWriterEventStore implements bg.History.Services.HistoryWrite
       payload: { subject },
     }) satisfies bg.History.Events.HistoryClearedEventType;
 
-    await this.eventStore.save([event]);
+    await this.eventStore.saveAfter([event], tools.Time.Ms(10));
   }
 }
