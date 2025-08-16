@@ -50,7 +50,7 @@ export function EntryHistory(props: EntryType) {
 
         <ul data-stack="y" data-gap="2" data-mt="5">
           {loader.entryHistory.map((entry) => (
-            <li data-stack="x" data-main="between" data-color="neutral-300">
+            <li key={entry.id} data-stack="x" data-main="between" data-color="neutral-300">
               <div>- {t(entry.operation, entry.payload)}</div>
               <div data-fs="xs" data-color="neutral-500" style={{ fontVariantNumeric: "tabular-nums" }}>
                 {entry.createdAt}
