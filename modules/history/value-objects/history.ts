@@ -1,7 +1,7 @@
 import { z } from "zod/v4";
 import { HistoryId } from "./history-id";
 import { HistoryOperation } from "./history-operation";
-import { HistoryPayload } from "./history-payload";
+import { HistoryPayload, HistoryPayloadParsed } from "./history-payload";
 import { HistorySubject } from "./history-subject";
 
 export const History = z.object({
@@ -10,4 +10,14 @@ export const History = z.object({
   payload: HistoryPayload,
   subject: HistorySubject,
 });
-export type HistoryType = z.infer<typeof History>;
+
+export type HistoryType = z.infer<typeof HistoryParsed>;
+
+export const HistoryParsed = z.object({
+  id: HistoryId,
+  operation: HistoryOperation,
+  payload: HistoryPayloadParsed,
+  subject: HistorySubject,
+});
+
+export type HistoryParsedType = z.infer<typeof HistoryParsed>;

@@ -5,11 +5,11 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 export class HistoryRepository implements History.Repos.HistoryRepositoryPort {
-  async append(data: History.VO.HistoryType, createdAt: tools.TimestampType) {
+  async append(data: History.VO.HistoryParsedType, createdAt: tools.TimestampType) {
     await db.insert(Schema.history).values([{ ...data, createdAt }]);
   }
 
-  async clear(subject: History.VO.HistoryType["subject"]) {
+  async clear(subject: History.VO.HistoryParsedType["subject"]) {
     await db.delete(Schema.history).where(eq(Schema.history.subject, subject));
   }
 }

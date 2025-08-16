@@ -17,7 +17,7 @@ export const HistoryPopulatedEvent = z.object({
     id: VO.HistoryId,
     operation: VO.HistoryOperation,
     subject: VO.HistorySubject,
-    payload: z.record(z.string(), z.any()),
+    payload: VO.HistoryPayload,
   }),
 });
 export type HistoryPopulatedEventType = z.infer<typeof HistoryPopulatedEvent>;
