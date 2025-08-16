@@ -1,9 +1,14 @@
 # Changelog
+- 2025-08-16 20:14 96ffa6f **step: write tests**
+## 2025-08-16 20:14 
+- 2025-08-16 20:02 e7fe4a2 **refactor: simplify entry alarm detector test**
+- 2025-08-16 19:53 c813e06 **refactor: extract emotions history publisher**
 - 2025-08-16 18:29 2c6b00d **Merge pull request #31 from bgord/history**
-## 2025-08-16 18:29 
 - 2025-08-16 17:55 d13c4a8 **step: setup entry history dialog**
 - 2025-08-16 17:55 5081088 **step: setup entry history dialog**
 - 2025-08-16 16:55 35552ee **step: set slight delay for history writer event store adapter**
+- 2025-08-16 16:30 bc9e477 **docs: generate readme**
+- 2025-08-16 16:30 55483ff **docs: generate CHANGELOG**
 - 2025-08-16 12:37 94d4998 **fix: history event stream**
 - 2025-08-16 12:32 9b02087 **refactor: clear history**
 - 2025-08-16 12:20 e49b66b **refactor: migrate to history from bgord/bun**
