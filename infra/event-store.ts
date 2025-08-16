@@ -30,7 +30,9 @@ export type AcceptedEvent =
   | typeof AiRequestRegisteredEvent
   | typeof AiQuotaExceededEvent
   | typeof AccountCreatedEvent
-  | typeof AccountDeletedEvent;
+  | typeof AccountDeletedEvent
+  | typeof bg.History.Events.HistoryClearedEvent
+  | typeof bg.History.Events.HistoryPopulatedEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {

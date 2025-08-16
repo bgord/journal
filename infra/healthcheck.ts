@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { Mailer } from "+infra/mailer";
+import { Mailer } from "+infra/adapters";
 import { prerequisites } from "+infra/prerequisites";
 
 export const healthcheck = [

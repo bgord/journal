@@ -72,10 +72,13 @@ export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const filter = url.searchParams.get("filter");
   const search = url.searchParams.get("search");
+  const historyFor = url.searchParams.get("historyFor");
 
   const entries = await ReadModel.listEntriesForUser(userId, filter, search);
 
-  return { entries, form: ReadModel.AddEntryForm, filter };
+  const entryHistory = historyFor ? await ReadModel.listHistoryForEntry(historyFor) : [];
+
+  return { entries, form: ReadModel.AddEntryForm, filter, entryHistory };
 }
 
 export type EntryType = Route.ComponentProps["loaderData"]["entries"][number];

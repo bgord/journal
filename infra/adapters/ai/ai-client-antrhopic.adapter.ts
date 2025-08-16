@@ -6,7 +6,7 @@ import { Env } from "+infra/env";
 export const AnthropicAi = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
 
 /** @public */
-export class AnthropicAiAdapter implements AI.AiClientPort {
+export class AiClientAnthropicAdapter implements AI.AiClientPort {
   async request(prompt: AI.Prompt): Promise<AI.Advice> {
     const message = await AnthropicAi.messages.create({
       max_tokens: AI.AiClientPort.maxLength,

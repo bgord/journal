@@ -92,7 +92,7 @@ const templates: Record<Ports.PdfGeneratorTemplateType, TemplateFn> = {
   },
 };
 
-export class ReactPdfGenerator implements Ports.PdfGeneratorPort {
+export class PdfGeneratorReact implements Ports.PdfGeneratorPort {
   async request(
     template: Ports.PdfGeneratorTemplateType,
     data: Record<string, unknown> = {},

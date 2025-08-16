@@ -77,6 +77,17 @@ CREATE TABLE `events` (
 --> statement-breakpoint
 CREATE INDEX `stream_idx` ON `events` (`stream`);--> statement-breakpoint
 CREATE UNIQUE INDEX `stream_revision_uidx` ON `events` (`stream`,`revision`);--> statement-breakpoint
+CREATE TABLE `history` (
+	`id` text(36) PRIMARY KEY NOT NULL,
+	`createdAt` integer NOT NULL,
+	`subject` text NOT NULL,
+	`operation` text NOT NULL,
+	`payload` text
+);
+--> statement-breakpoint
+CREATE INDEX `history_subject_createdAt` ON `history` (`subject`,"createdAt" desc);--> statement-breakpoint
+CREATE INDEX `history_operation_createdAt` ON `history` (`operation`,"createdAt" desc);--> statement-breakpoint
+CREATE INDEX `history_createdAt` ON `history` ("createdAt" desc);--> statement-breakpoint
 CREATE TABLE `patternDetections` (
 	`id` text(36) PRIMARY KEY NOT NULL,
 	`createdAt` integer NOT NULL,

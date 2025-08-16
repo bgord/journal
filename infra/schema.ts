@@ -1,4 +1,4 @@
-import { relations, sql } from "drizzle-orm";
+import { desc, relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
@@ -245,6 +245,22 @@ export const aiUsageCounters = sqliteTable("ai_usage_counters", {
   firstEventAt: integer("firstEventAt", { mode: "number" }),
   lastEventAt: integer("lastEventAt", { mode: "number" }),
 });
+
+export const history = sqliteTable(
+  "history",
+  {
+    id,
+    createdAt: integer("createdAt", { mode: "number" }).notNull(),
+    subject: text("subject").notNull(),
+    operation: text("operation").notNull(),
+    payload: text("payload"),
+  },
+  (table) => [
+    index("history_subject_createdAt").on(table.subject, desc(table.createdAt)),
+    index("history_operation_createdAt").on(table.operation, desc(table.createdAt)),
+    index("history_createdAt").on(desc(table.createdAt)),
+  ],
+);
 
 /** @public */
 export const users = sqliteTable("users", {

@@ -1,15 +1,16 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
-import { useFetcher, useSubmit } from "react-router";
+import * as RR from "react-router";
 import type { EntryType } from "../app/routes/home";
 import { Alarm } from "./alarm";
 import { EntryEmotion } from "./entry-emotion";
+import { EntryHistory } from "./entry-history";
 import { EntryReaction } from "./entry-reaction";
 
 export function Entry(props: EntryType) {
   const t = UI.useTranslations();
-  const fetcher = useFetcher();
-  const submit = useSubmit();
+  const fetcher = RR.useFetcher();
+  const submit = RR.useSubmit();
 
   const deleteEntry = () =>
     submit(
@@ -44,6 +45,8 @@ export function Entry(props: EntryType) {
         <div data-fs="base" data-fw="regular" data-color="neutral-300" data-mr="auto">
           {props.startedAt}
         </div>
+
+        <EntryHistory {...props} />
 
         <fetcher.Form method="delete">
           <button

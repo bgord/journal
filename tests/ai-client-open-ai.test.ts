@@ -1,8 +1,8 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
+import { AiClientOpenAiAdapter, OpenAI } from "+infra/adapters/ai";
 import { SupportedLanguages } from "+infra/i18n";
-import { OpenAI, OpenAiAdapter } from "+infra/open-ai-adapter";
 import * as mocks from "./mocks";
 
 const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
@@ -11,7 +11,7 @@ const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
   SupportedLanguages.en,
 ).generate();
 
-describe("OpenAiClient", () => {
+describe("AiClientOpenAi", () => {
   test("request", async () => {
     const openAiCreate = spyOn(
       OpenAI.responses,
@@ -19,7 +19,7 @@ describe("OpenAiClient", () => {
       // @ts-expect-error
     ).mockResolvedValue({ output_text: mocks.advice.get() });
 
-    const client = new OpenAiAdapter();
+    const client = new AiClientOpenAiAdapter();
     const result = await client.request(prompt);
 
     expect(openAiCreate).toHaveBeenCalledWith({

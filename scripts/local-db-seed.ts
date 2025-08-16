@@ -99,6 +99,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.aiUsageCounters);
     console.log("[x] Cleared aiUsageCounters");
 
+    await db.delete(Schema.history);
+    console.log("[x] Cleared history");
+
     await db.delete(Schema.accounts);
     console.log("[x] Cleared accounts");
 

@@ -200,5 +200,12 @@
   "auth.forgot_password.in_progress": "Wysyłanie...",
   "auth.forgot_password.cta": "Wyślij link",
   "auth.forgot_password.error": "Błąd przy wysyłce linku",
-  "auth.forgot_password.success": "Sprawdź swoją skrzynkę"
+  "auth.forgot_password.success": "Sprawdź swoją skrzynkę",
+  "app.history": "Historia",
+  "entry.history": "Historia wpisu",
+  "entry.reaction.evaluated": "Zmieniono reakcję",
+  "entry.emotion.reappraised": "Zmieniono emocję",
+  "entry.reaction.logged": "Dodano reakcję",
+  "entry.emotion.logged": "Dodane emocję",
+  "entry.situation.logged": "Dodano sytuację"
 }
