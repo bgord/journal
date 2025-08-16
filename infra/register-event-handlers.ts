@@ -5,6 +5,9 @@ import * as EmotionsEventHandlers from "+emotions/event-handlers";
 import * as EmotionsEvents from "+emotions/events";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
+import * as HistoryEventHandlers from "+history/event-handlers";
+import * as HistoryEvents from "+history/events";
+import { HistoryRepository } from "+infra/adapters/history";
 import { AiGateway } from "+infra/ai-gateway";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
@@ -115,7 +118,20 @@ EventBus.on(
 );
 
 // AI
-EventBus.on(AiEvents.AI_REQUEST_REGISTERED_EVENT, AiEventHandlers.onAiRequestRegisteredEvent);
+EventBus.on(
+  AiEvents.AI_REQUEST_REGISTERED_EVENT,
+  EventHandler.handle(AiEventHandlers.onAiRequestRegisteredEvent),
+);
+
+// History
+EventBus.on(
+  HistoryEvents.HISTORY_POPULATED_EVENT,
+  EventHandler.handle(HistoryEventHandlers.onHistoryPopulatedEvent(new HistoryRepository())),
+);
+EventBus.on(
+  HistoryEvents.HISTORY_CLEARED_EVENT,
+  EventHandler.handle(HistoryEventHandlers.onHistoryClearedEvent(new HistoryRepository())),
+);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus);
