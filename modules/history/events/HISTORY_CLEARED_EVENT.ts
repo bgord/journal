@@ -13,7 +13,7 @@ export const HistoryClearedEvent = z.object({
   name: z.literal(HISTORY_CLEARED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: VO.History.pick({ correlationId: true }),
+  payload: z.object({ correlationId: VO.HistoryCorrelationId }),
 });
 
 export type HistoryClearedEventType = z.infer<typeof HistoryClearedEvent>;

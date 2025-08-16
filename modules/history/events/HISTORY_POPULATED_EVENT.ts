@@ -13,8 +13,11 @@ export const HistoryPopulatedEvent = z.object({
   name: z.literal(HISTORY_POPULATED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
-  payload: VO.History.pick({ createdAt: true, operation: true, correlationId: true }).extend(
-    z.object({ payload: z.record(z.string(), z.any()) }),
-  ),
+  payload: z.object({
+    id: VO.HistoryId,
+    operation: VO.HistoryOperation,
+    correlationId: VO.HistoryCorrelationId,
+    payload: z.record(z.string(), z.any()),
+  }),
 });
 export type HistoryPopulatedEventType = z.infer<typeof HistoryPopulatedEvent>;
