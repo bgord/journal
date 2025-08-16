@@ -11,7 +11,7 @@ export const History = z.object({
   subject: HistorySubject,
 });
 
-export type HistoryType = z.infer<typeof HistoryParsed>;
+export type HistoryType = z.infer<typeof History>;
 
 export const HistoryParsed = z.object({
   id: HistoryId,
