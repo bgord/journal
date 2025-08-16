@@ -6,14 +6,11 @@ import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
 export class AlarmProjector {
-  constructor(private readonly eventBus: typeof EventBus) {
-    this.eventBus.on(Emotions.Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
-    this.eventBus.on(
-      Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
-      this.onAlarmNotificationSentEvent.bind(this),
-    );
-    this.eventBus.on(Emotions.Events.ALARM_CANCELLED_EVENT, this.onAlarmCancelledEvent.bind(this));
+  constructor(eventBus: typeof EventBus) {
+    eventBus.on(Emotions.Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
+    eventBus.on(Emotions.Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
+    eventBus.on(Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent.bind(this));
+    eventBus.on(Emotions.Events.ALARM_CANCELLED_EVENT, this.onAlarmCancelledEvent.bind(this));
   }
 
   async onAlarmGeneratedEvent(event: Emotions.Events.AlarmGeneratedEventType) {

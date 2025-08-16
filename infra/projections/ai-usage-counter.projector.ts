@@ -6,11 +6,11 @@ import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
 export class AiUsageCounterProjector {
-  constructor(private readonly eventBus: typeof EventBus) {
-    this.eventBus.on(AI.Events.AI_REQUEST_REGISTERED_EVENT, this.onAiRequestRegisteredEvent.bind(this));
+  constructor(eventBus: typeof EventBus) {
+    eventBus.on(AI.Events.AI_REQUEST_REGISTERED_EVENT, this.onAiRequestRegisteredEvent.bind(this));
   }
 
-  onAiRequestRegisteredEvent = async (event: Events.AiRequestRegisteredEventType) => {
+  async onAiRequestRegisteredEvent(event: Events.AiRequestRegisteredEventType) {
     const rules = new AI.QuotaRuleSelector(AI.RULES).select(event.payload);
 
     await db
@@ -33,5 +33,5 @@ export class AiUsageCounterProjector {
           lastEventAt: event.payload.timestamp,
         },
       });
-  };
+  }
 }

@@ -6,20 +6,20 @@ import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
 export class EntryProjector {
-  constructor(private readonly eventBus: typeof EventBus) {
-    this.eventBus.on(Emotions.Events.SITUATION_LOGGED_EVENT, this.onSituationLoggedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.REACTION_LOGGED_EVENT, this.onReactionLoggedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.EMOTION_REAPPRAISED_EVENT, this.onEmotionReappraisedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.REACTION_EVALUATED_EVENT, this.onReactionEvaluatedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
-    this.eventBus.on(
+  constructor(eventBus: typeof EventBus) {
+    eventBus.on(Emotions.Events.SITUATION_LOGGED_EVENT, this.onSituationLoggedEvent.bind(this));
+    eventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent.bind(this));
+    eventBus.on(Emotions.Events.REACTION_LOGGED_EVENT, this.onReactionLoggedEvent.bind(this));
+    eventBus.on(Emotions.Events.EMOTION_REAPPRAISED_EVENT, this.onEmotionReappraisedEvent.bind(this));
+    eventBus.on(Emotions.Events.REACTION_EVALUATED_EVENT, this.onReactionEvaluatedEvent.bind(this));
+    eventBus.on(Emotions.Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
+    eventBus.on(
       Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
       this.onTimeCapsuleEntryScheduledEvent.bind(this),
     );
   }
 
-  onSituationLoggedEvent = async (event: Emotions.Events.SituationLoggedEventType) => {
+  async onSituationLoggedEvent(event: Emotions.Events.SituationLoggedEventType) {
     await db.insert(Schema.entries).values({
       id: event.payload.entryId,
       status: Emotions.VO.EntryStatusEnum.actionable,
@@ -42,9 +42,9 @@ export class EntryProjector {
         .set({ status: Emotions.VO.TimeCapsuleEntryStatusEnum.published })
         .where(eq(Schema.timeCapsuleEntries.id, event.payload.entryId));
     }
-  };
+  }
 
-  onEmotionLoggedEvent = async (event: Emotions.Events.EmotionLoggedEventType) => {
+  async onEmotionLoggedEvent(event: Emotions.Events.EmotionLoggedEventType) {
     await db
       .update(Schema.entries)
       .set({
@@ -53,9 +53,9 @@ export class EntryProjector {
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
-  };
+  }
 
-  onReactionLoggedEvent = async (event: Emotions.Events.ReactionLoggedEventType) => {
+  async onReactionLoggedEvent(event: Emotions.Events.ReactionLoggedEventType) {
     await db
       .update(Schema.entries)
       .set({
@@ -66,9 +66,9 @@ export class EntryProjector {
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
-  };
+  }
 
-  onEmotionReappraisedEvent = async (event: Emotions.Events.EmotionReappraisedEventType) => {
+  async onEmotionReappraisedEvent(event: Emotions.Events.EmotionReappraisedEventType) {
     await db
       .update(Schema.entries)
       .set({
@@ -78,9 +78,9 @@ export class EntryProjector {
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
-  };
+  }
 
-  onReactionEvaluatedEvent = async (event: Emotions.Events.ReactionEvaluatedEventType) => {
+  async onReactionEvaluatedEvent(event: Emotions.Events.ReactionEvaluatedEventType) {
     await db
       .update(Schema.entries)
       .set({
@@ -91,13 +91,13 @@ export class EntryProjector {
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
-  };
+  }
 
-  onEntryDeletedEvent = async (event: Emotions.Events.EntryDeletedEventType) => {
+  async onEntryDeletedEvent(event: Emotions.Events.EntryDeletedEventType) {
     await db.delete(Schema.entries).where(eq(Schema.entries.id, event.payload.entryId));
-  };
+  }
 
-  onTimeCapsuleEntryScheduledEvent = async (event: Emotions.Events.TimeCapsuleEntryScheduledEventType) => {
+  async onTimeCapsuleEntryScheduledEvent(event: Emotions.Events.TimeCapsuleEntryScheduledEventType) {
     await db.insert(Schema.timeCapsuleEntries).values({
       id: event.payload.entryId,
       scheduledAt: event.payload.scheduledAt,
@@ -114,5 +114,5 @@ export class EntryProjector {
       status: Emotions.VO.TimeCapsuleEntryStatusEnum.scheduled,
       userId: event.payload.userId,
     });
-  };
+  }
 }

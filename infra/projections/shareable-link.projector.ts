@@ -5,13 +5,13 @@ import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
 export class ShareableLinkProjector {
-  constructor(private readonly eventBus: typeof EventBus) {
-    this.eventBus.on(Publishing.Events.SHAREABLE_LINK_CREATED, this.onShareableLinkCreatedEvent.bind(this));
-    this.eventBus.on(Publishing.Events.SHAREABLE_LINK_EXPIRED, this.onShareableLinkExpiredEvent.bind(this));
-    this.eventBus.on(Publishing.Events.SHAREABLE_LINK_REVOKED, this.onShareableLinkRevokedEvent.bind(this));
+  constructor(eventBus: typeof EventBus) {
+    eventBus.on(Publishing.Events.SHAREABLE_LINK_CREATED, this.onShareableLinkCreatedEvent.bind(this));
+    eventBus.on(Publishing.Events.SHAREABLE_LINK_EXPIRED, this.onShareableLinkExpiredEvent.bind(this));
+    eventBus.on(Publishing.Events.SHAREABLE_LINK_REVOKED, this.onShareableLinkRevokedEvent.bind(this));
   }
 
-  onShareableLinkCreatedEvent = async (event: Publishing.Events.ShareableLinkCreatedEventType) => {
+  async onShareableLinkCreatedEvent(event: Publishing.Events.ShareableLinkCreatedEventType) {
     await db.insert(Schema.shareableLinks).values({
       id: event.payload.shareableLinkId,
       createdAt: event.payload.createdAt,
@@ -25,19 +25,19 @@ export class ShareableLinkProjector {
       durationMs: event.payload.durationMs,
       expiresAt: event.payload.createdAt + event.payload.durationMs,
     });
-  };
+  }
 
-  onShareableLinkExpiredEvent = async (event: Publishing.Events.ShareableLinkExpiredEventType) => {
+  async onShareableLinkExpiredEvent(event: Publishing.Events.ShareableLinkExpiredEventType) {
     await db
       .update(Schema.shareableLinks)
       .set({ updatedAt: event.createdAt, status: Publishing.VO.ShareableLinkStatusEnum.expired })
       .where(eq(Schema.shareableLinks.id, event.payload.shareableLinkId));
-  };
+  }
 
-  onShareableLinkRevokedEvent = async (event: Publishing.Events.ShareableLinkRevokedEventType) => {
+  async onShareableLinkRevokedEvent(event: Publishing.Events.ShareableLinkRevokedEventType) {
     await db
       .update(Schema.shareableLinks)
       .set({ updatedAt: event.createdAt, status: Publishing.VO.ShareableLinkStatusEnum.revoked })
       .where(eq(Schema.shareableLinks.id, event.payload.shareableLinkId));
-  };
+  }
 }
