@@ -12,7 +12,7 @@ export class HistoryWriterEventStore implements bg.History.Services.HistoryWrite
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Time.Now().value,
       name: bg.History.Events.HISTORY_POPULATED_EVENT,
-      stream: "history",
+      stream: `history_${history.subject}`,
       version: 1,
       payload: { ...history, id },
     } satisfies bg.History.Events.HistoryPopulatedEventType);
@@ -26,7 +26,7 @@ export class HistoryWriterEventStore implements bg.History.Services.HistoryWrite
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Time.Now().value,
       name: bg.History.Events.HISTORY_CLEARED_EVENT,
-      stream: "history",
+      stream: `history_${subject}`,
       version: 1,
       payload: { subject },
     }) satisfies bg.History.Events.HistoryClearedEventType;
