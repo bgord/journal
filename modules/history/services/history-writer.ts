@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { EventStore } from "+infra/event-store";
 import * as History from "../";
 
-export class HistoryPopulator {
+export class HistoryWriter {
   static async populate(payload: History.Events.HistoryPopulatedEventType["payload"]) {
     const event = History.Events.HistoryPopulatedEvent.parse({
       id: crypto.randomUUID(),
