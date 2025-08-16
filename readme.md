@@ -51,8 +51,6 @@ modules/
 │   │   ├── ai-client.ts
 │   │   ├── ai-gateway.ts
 │   │   ├── bucket-counter.ts
-│   ├── repositories
-│   │   ├── bucket-counter.drizzle.ts
 │   ├── services
 │   │   └── quota-rule-selector.ts
 │   ├── specifications
@@ -313,9 +311,23 @@ modules/
 
 ```
 infra/
-├── ai-client.ts
-├── ai-gateway.ts
-├── anthropic-ai-adapter.ts
+├── adapters
+│   ├── ai
+│   │   ├── ai-client-antrhopic.adapter.ts
+│   │   ├── ai-client-noop.adapter.ts
+│   │   ├── ai-client-open-ai.adapter.ts
+│   │   ├── ai-client.adapter.ts
+│   │   ├── ai-gateway.adapter.ts
+│   │   ├── bucket-counter-drizzle.adapter.ts
+│   ├── emotions
+│   │   ├── pdf-generator-noop.adapter.ts
+│   │   ├── pdf-generator-react.adapter.tsx
+│   │   └── pdf-generator.adapter.ts
+│   ├── history
+│   │   ├── history-repository.adapter.ts
+│   │   ├── history-writer-event-store.adapter.ts
+│   │   ├── history-writer.adapter.ts
+│   └── mailer.adapter.ts
 ├── auth.ts
 ├── basic-auth-shield.ts
 ├── cache.ts
@@ -331,12 +343,8 @@ infra/
 ├── i18n.ts
 ├── jobs.ts
 ├── logger.ts
-├── mailer.ts
-├── open-ai-adapter.ts
-├── pdf-generator.ts
 ├── prerequisites.ts
 ├── rate-limiters.ts
-├── react-pdf.adapter.tsx
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
 ├── response-cache.ts
