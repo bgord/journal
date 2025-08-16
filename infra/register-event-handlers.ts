@@ -20,27 +20,27 @@ const EventHandler = new bg.EventHandler(logger);
 // Entry
 EventBus.on(
   EmotionsEvents.ENTRY_DELETED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onEntryDeletedEvent(HistoryWriter)),
+  EventHandler.handle(EmotionsEventHandlers.onEntryDeletedEvent),
 );
 EventBus.on(
   EmotionsEvents.EMOTION_REAPPRAISED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onEmotionReappraisedEvent(HistoryWriter)),
+  EventHandler.handle(EmotionsEventHandlers.onEmotionReappraisedEvent),
 );
 EventBus.on(
   EmotionsEvents.EMOTION_LOGGED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onEmotionLoggedEvent(HistoryWriter)),
+  EventHandler.handle(EmotionsEventHandlers.onEmotionLoggedEvent),
 );
 EventBus.on(
   EmotionsEvents.REACTION_EVALUATED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onReactionEvaluatedEvent(HistoryWriter)),
+  EventHandler.handle(EmotionsEventHandlers.onReactionEvaluatedEvent),
 );
 EventBus.on(
   EmotionsEvents.REACTION_LOGGED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onReactionLoggedEvent(HistoryWriter)),
+  EventHandler.handle(EmotionsEventHandlers.onReactionLoggedEvent),
 );
 EventBus.on(
   EmotionsEvents.SITUATION_LOGGED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onSituationLoggedEvent(HistoryWriter)),
+  EventHandler.handle(EmotionsEventHandlers.onSituationLoggedEvent),
 );
 
 // Pattern detection
@@ -137,6 +137,7 @@ new EmotionsPolicies.EntryAlarmDetector(EventBus);
 new EmotionsPolicies.WeeklyReviewScheduler(EventBus);
 new EmotionsPolicies.InactivityAlarmScheduler(EventBus);
 new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus);
+new EmotionsPolicies.EntryHistoryPublisher(EventBus, HistoryWriter);
 
 // Sagas
 new EmotionsSagas.AlarmOrchestrator(EventBus, AiGateway, Mailer);
