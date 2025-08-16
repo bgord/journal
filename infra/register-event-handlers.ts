@@ -1,6 +1,4 @@
 import * as bg from "@bgord/bun";
-import * as AiEventHandlers from "+ai/event-handlers";
-import * as AiEvents from "+ai/events";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import { Mailer } from "+infra/adapters";
@@ -13,12 +11,6 @@ import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
 
 const EventHandler = new bg.EventHandler(logger);
-
-// AI
-EventBus.on(
-  AiEvents.AI_REQUEST_REGISTERED_EVENT,
-  EventHandler.handle(AiEventHandlers.onAiRequestRegisteredEvent),
-);
 
 // History
 EventBus.on(
@@ -38,6 +30,9 @@ new Projections.WeeklyReviewProjector(EventBus);
 
 // Publishing
 new Projections.ShareableLinkProjector(EventBus);
+
+// AI
+new Projections.AiUsageCounterProjector(EventBus);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus);

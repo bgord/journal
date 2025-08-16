@@ -1,3 +1,4 @@
+export * from "./ai-usage-counter.projector";
 export * from "./alarm.projector";
 export * from "./entry.projector";
 export * from "./pattern-detection.projector";
