@@ -187,6 +187,7 @@ modules/
 │   │   └── weekly-review-schedule.ts
 │   ├── policies
 │   │   ├── entry-alarm-detector.ts
+│   │   ├── entry-history-publisher.ts
 │   │   ├── inactivity-alarm-scheduler.ts
 │   │   ├── time-capsule-entries-scheduler.ts
 │   │   └── weekly-review-scheduler.ts
