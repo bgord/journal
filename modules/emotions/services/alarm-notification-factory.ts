@@ -9,8 +9,9 @@ export class AlarmNotificationFactory {
   ): Promise<tools.NotificationTemplate> {
     switch (detection.trigger.type) {
       case Emotions.VO.AlarmTriggerEnum.entry: {
-        const entry = await Emotions.Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
+        const entry = await Emotions.Repos.EntryRepository.getById(detection.trigger.entryId);
         const composer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(entry);
+
         return composer.compose(advice);
       }
 

@@ -5,7 +5,7 @@ import * as mocks from "./mocks";
 
 describe("AlarmPromptFactory", () => {
   test("entry", async () => {
-    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
 
     const result = await Emotions.ACL.AiPrompts.AlarmPromptFactory.create(mocks.entryDetection);
     expect(result).toEqual(

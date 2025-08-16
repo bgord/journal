@@ -1,5 +1,4 @@
 import * as Emotions from "+emotions";
-import * as Events from "+emotions/events";
 
 /** @public */
 export class NegativeEmotionExtremeIntensityAlarm extends Emotions.Services.EmotionAlarmTemplate {
@@ -12,7 +11,7 @@ export class NegativeEmotionExtremeIntensityAlarm extends Emotions.Services.Emot
     } satisfies Emotions.VO.EntryAlarmTriggerType);
 
     switch (event.name) {
-      case Events.EMOTION_LOGGED_EVENT: {
+      case Emotions.Events.EMOTION_LOGGED_EVENT: {
         const emotionLabel = new Emotions.VO.EmotionLabel(event.payload.label);
         const emotionIntensity = new Emotions.VO.EmotionIntensity(event.payload.intensity);
 
@@ -22,7 +21,7 @@ export class NegativeEmotionExtremeIntensityAlarm extends Emotions.Services.Emot
 
         return new Emotions.VO.AlarmDetection(trigger, this.name);
       }
-      case Events.EMOTION_REAPPRAISED_EVENT: {
+      case Emotions.Events.EMOTION_REAPPRAISED_EVENT: {
         const emotionLabel = new Emotions.VO.EmotionLabel(event.payload.newLabel);
         const emotionIntensity = new Emotions.VO.EmotionIntensity(event.payload.newIntensity);
 

@@ -17,7 +17,7 @@ describe("AlarmOrchestrator", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(AiGateway, "query").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -50,7 +50,7 @@ describe("AlarmOrchestrator", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockImplementation(() => {
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockImplementation(() => {
       throw new Error("Failed");
     });
     spyOn(AiGateway, "query").mockResolvedValue(mocks.advice);
@@ -68,7 +68,7 @@ describe("AlarmOrchestrator", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(AiGateway, "query").mockImplementation(() => {
       throw new Error();
     });
@@ -107,7 +107,7 @@ describe("AlarmOrchestrator", () => {
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
-    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -128,7 +128,7 @@ describe("AlarmOrchestrator", () => {
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
-    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
       throw new Error("MAILER_FAILED");
@@ -151,7 +151,7 @@ describe("AlarmOrchestrator", () => {
 
   test("onAlarmNotificationSentEvent - entry", async () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
-    spyOn(Emotions.Repos.EntryRepository, "getByIdRaw").mockResolvedValue(mocks.partialEntry);
+    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 

@@ -691,11 +691,6 @@ export const partialEntry: Schema.SelectEntries = {
   userId,
 };
 
-export const partialEntryFormatted: Schema.SelectEntriesFull = {
-  ...Emotions.Repos.EntryRepository.format(partialEntry),
-  alarms: [],
-};
-
 export const fullEntry: Schema.SelectEntries = {
   revision: 0,
   finishedAt: Date.now(),
@@ -777,11 +772,6 @@ export const negativeEmotionEntry: Schema.SelectEntries = {
 
   emotionLabel: Emotions.VO.GenevaWheelEmotion.anger,
   emotionIntensity: 4,
-};
-
-export const fullEntryFormatted: Schema.SelectEntriesFull = {
-  ...Emotions.Repos.EntryRepository.format(fullEntry),
-  alarms: [],
 };
 
 export const weeklyReview: Schema.SelectWeeklyReviews = {

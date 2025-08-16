@@ -1,3 +1,4 @@
+import * as bg from "@bgord/bun";
 import { sql } from "drizzle-orm";
 import * as AI from "+ai";
 import * as Events from "+ai/events";
@@ -6,8 +7,11 @@ import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
 export class AiUsageCounterProjector {
-  constructor(eventBus: typeof EventBus) {
-    eventBus.on(AI.Events.AI_REQUEST_REGISTERED_EVENT, this.onAiRequestRegisteredEvent.bind(this));
+  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+    eventBus.on(
+      AI.Events.AI_REQUEST_REGISTERED_EVENT,
+      EventHandler.handle(this.onAiRequestRegisteredEvent.bind(this)),
+    );
   }
 
   async onAiRequestRegisteredEvent(event: Events.AiRequestRegisteredEventType) {

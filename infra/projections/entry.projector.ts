@@ -1,3 +1,4 @@
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import * as Emotions from "+emotions";
@@ -6,13 +7,31 @@ import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
 export class EntryProjector {
-  constructor(eventBus: typeof EventBus) {
-    eventBus.on(Emotions.Events.SITUATION_LOGGED_EVENT, this.onSituationLoggedEvent.bind(this));
-    eventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent.bind(this));
-    eventBus.on(Emotions.Events.REACTION_LOGGED_EVENT, this.onReactionLoggedEvent.bind(this));
-    eventBus.on(Emotions.Events.EMOTION_REAPPRAISED_EVENT, this.onEmotionReappraisedEvent.bind(this));
-    eventBus.on(Emotions.Events.REACTION_EVALUATED_EVENT, this.onReactionEvaluatedEvent.bind(this));
-    eventBus.on(Emotions.Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
+  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+    eventBus.on(
+      Emotions.Events.SITUATION_LOGGED_EVENT,
+      EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
+    );
+    eventBus.on(
+      Emotions.Events.EMOTION_LOGGED_EVENT,
+      EventHandler.handle(this.onEmotionLoggedEvent.bind(this)),
+    );
+    eventBus.on(
+      Emotions.Events.REACTION_LOGGED_EVENT,
+      EventHandler.handle(this.onReactionLoggedEvent.bind(this)),
+    );
+    eventBus.on(
+      Emotions.Events.EMOTION_REAPPRAISED_EVENT,
+      EventHandler.handle(this.onEmotionReappraisedEvent.bind(this)),
+    );
+    eventBus.on(
+      Emotions.Events.REACTION_EVALUATED_EVENT,
+      EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
+    );
+    eventBus.on(
+      Emotions.Events.ENTRY_DELETED_EVENT,
+      EventHandler.handle(this.onEntryDeletedEvent.bind(this)),
+    );
     eventBus.on(
       Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
       this.onTimeCapsuleEntryScheduledEvent.bind(this),

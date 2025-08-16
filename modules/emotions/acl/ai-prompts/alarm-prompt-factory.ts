@@ -8,7 +8,7 @@ export class AlarmPromptFactory {
   static async create(detection: Emotions.VO.AlarmDetection): Promise<AI.Prompt> {
     switch (detection.trigger.type) {
       case Emotions.VO.AlarmTriggerEnum.entry: {
-        const entry = await Emotions.Repos.EntryRepository.getByIdRaw(detection.trigger.entryId);
+        const entry = await Emotions.Repos.EntryRepository.getById(detection.trigger.entryId);
         const language = entry.language as SupportedLanguages;
 
         return new EntryAlarmAdvicePromptBuilder(entry, detection.name, language).generate();
