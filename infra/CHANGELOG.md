@@ -1,9 +1,43 @@
 # Changelog
+- 2025-08-16 18:29 2c6b00d **Merge pull request #31 from bgord/history**
+## 2025-08-16 18:29 
+- 2025-08-16 17:55 d13c4a8 **step: setup entry history dialog**
+- 2025-08-16 17:55 5081088 **step: setup entry history dialog**
+- 2025-08-16 16:55 35552ee **step: set slight delay for history writer event store adapter**
+- 2025-08-16 12:37 94d4998 **fix: history event stream**
+- 2025-08-16 12:32 9b02087 **refactor: clear history**
+- 2025-08-16 12:20 e49b66b **refactor: migrate to history from bgord/bun**
+- 2025-08-16 12:19 0380358 **step: update packages**
+- 2025-08-16 11:54 d5ef829 **step: add history indexes**
+- 2025-08-16 11:47 03fb2af **refactor: migrate mailer adapter**
+- 2025-08-16 11:45 62bc7d6 **refactor: wire up history writer to event handlers**
+- 2025-08-16 10:59 d2e3dba **refactor: clean up ai client names**
+- 2025-08-16 10:56 5b4fb3d **refactor: other ports**
+- 2025-08-16 10:51 059eaaa **refactor: clean up emotions adapter**
+- 2025-08-16 10:26 aa41f6f **refactor: cleanup adapters**
+- 2025-08-16 10:04 98b003c **step: wire up event handlers**
+- 2025-08-16 10:01 c5a3a7f **step: setup infra/adapters**
+- 2025-08-16 09:37 0f8bffd **step: define a port for history writer**
+- 2025-08-16 09:32 ab7840d **refactor: improve history writer**
+- 2025-08-16 09:30 797b633 **refactor: handle payloads better**
+- 2025-08-16 09:23 af984b1 **refactor: rename subject in events**
+- 2025-08-16 09:21 7e3ecbe **refactor: extract history repo adapter to infra**
+- 2025-08-16 09:16 1079ee7 **refactor: rename history writer**
+- 2025-08-16 09:14 6b52c15 **refactor: rename history correlation id to subject**
+- 2025-08-16 09:11 8ffa156 **step: add repo**
+- 2025-08-16 08:58 62df0bd **step: add populator**
+- 2025-08-16 08:57 fc90d6d **step: adjust events**
+- 2025-08-15 22:04 85eac3d **step: add the repo**
+- 2025-08-15 21:55 7fe2389 **step: add VO**
+- 2025-08-15 21:52 9b38e25 **step: add history alias**
+- 2025-08-15 21:52 3e94efb **step: add history events**
+- 2025-08-15 21:41 260d73c **step: add history schema**
 - 2025-08-15 20:11 533adaa **refactor: extract auth notifications**
-## 2025-08-15 20:11 
 - 2025-08-15 19:48 dd4a52c **refactor: use tools for notification template**
 - 2025-08-15 19:48 2c2822d **step: update packages**
 - 2025-08-15 19:07 a35d475 **fix: pills**
+- 2025-08-15 18:43 b3aa5c4 **docs: generate readme**
+- 2025-08-15 18:43 1f508bf **docs: generate CHANGELOG**
 - 2025-08-15 18:31 c9a9613 **fix: intensity max**
 - 2025-08-15 18:06 9db50d2 **feature: add forgot password page**
 - 2025-08-15 17:53 b7e2d38 **step: add forgot password link**
