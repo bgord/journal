@@ -10,25 +10,9 @@ import { HistoryRepository, HistoryWriter } from "+infra/adapters/history";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
 import * as Projections from "+infra/projections";
-import * as PublishingEventHandlers from "+publishing/event-handlers";
-import * as PublishingEvents from "+publishing/events";
 import * as PublishingPolicies from "+publishing/policies";
 
 const EventHandler = new bg.EventHandler(logger);
-
-// Shareable links
-EventBus.on(
-  PublishingEvents.SHAREABLE_LINK_CREATED,
-  EventHandler.handle(PublishingEventHandlers.onShareableLinkCreatedEvent),
-);
-EventBus.on(
-  PublishingEvents.SHAREABLE_LINK_EXPIRED,
-  EventHandler.handle(PublishingEventHandlers.onShareableLinkExpiredEvent),
-);
-EventBus.on(
-  PublishingEvents.SHAREABLE_LINK_REVOKED,
-  EventHandler.handle(PublishingEventHandlers.onShareableLinkRevokedEvent),
-);
 
 // AI
 EventBus.on(
@@ -51,6 +35,9 @@ new Projections.EntryProjector(EventBus);
 new Projections.AlarmProjector(EventBus);
 new Projections.PatternDetectionProjector(EventBus);
 new Projections.WeeklyReviewProjector(EventBus);
+
+// Publishing
+new Projections.ShareableLinkProjector(EventBus);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus);

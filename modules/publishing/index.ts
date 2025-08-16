@@ -1,7 +1,6 @@
 export * as Aggregates from "./aggregates";
 export * as CommandHandlers from "./command-handlers";
 export * as Commands from "./commands";
-export * as EventHandlers from "./event-handlers";
 export * as Events from "./events";
 export * as Invariants from "./invariants";
 export * as OHQ from "./open-host-queries";
