@@ -3,7 +3,7 @@ import * as bg from "@bgord/bun";
 import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import { AiGateway } from "+infra/ai-gateway";
+import { AiGateway } from "+infra/adapters/ai";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";

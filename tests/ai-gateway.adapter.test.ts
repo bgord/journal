@@ -3,7 +3,7 @@ import * as bg from "@bgord/bun";
 import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
 import { BucketCounterDrizzleRepository } from "+ai/repositories";
 import * as VO from "+ai/value-objects";
-import { AiClient } from "+infra/ai-client";
+import { AiClient } from "+infra/adapters/ai";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 

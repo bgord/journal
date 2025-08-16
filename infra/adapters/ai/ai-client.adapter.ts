@@ -1,8 +1,8 @@
 import * as AI from "+ai";
-import { AnthropicAiAdapter } from "+infra/anthropic-ai-adapter";
 import { AiClientAdapter, Env } from "+infra/env";
 import { logger } from "+infra/logger";
-import { OpenAiAdapter } from "+infra/open-ai-adapter";
+import { AnthropicAiAdapter } from "./anthropic-ai.adapter";
+import { OpenAiAdapter } from "./open-ai.adapter";
 
 class NoopAdapter implements AI.AiClientPort {
   async request(prompt: AI.Prompt): Promise<AI.Advice> {

@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import { AiGateway } from "+infra/ai-gateway";
+import { AiGateway } from "+infra/adapters/ai";
 import { EventStore } from "+infra/event-store";
 
 export const handleGenerateAlarmCommand = async (command: Emotions.Commands.GenerateAlarmCommandType) => {
