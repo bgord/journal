@@ -3,11 +3,11 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
+import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { Mailer } from "+infra/mailer";
 import * as mocks from "./mocks";
 
 const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiGateway, Mailer);

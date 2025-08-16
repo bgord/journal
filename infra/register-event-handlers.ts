@@ -7,12 +7,12 @@ import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import * as HistoryEventHandlers from "+history/event-handlers";
 import * as HistoryEvents from "+history/events";
+import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
 import { PdfGenerator } from "+infra/adapters/emotions";
-import { HistoryRepository } from "+infra/adapters/history";
+import { HistoryRepository, HistoryWriter } from "+infra/adapters/history";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
-import { Mailer } from "+infra/mailer";
 import * as PublishingEventHandlers from "+publishing/event-handlers";
 import * as PublishingEvents from "+publishing/events";
 import * as PublishingPolicies from "+publishing/policies";
@@ -22,27 +22,27 @@ const EventHandler = new bg.EventHandler(logger);
 // Entry
 EventBus.on(
   EmotionsEvents.ENTRY_DELETED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onEntryDeletedEvent),
+  EventHandler.handle(EmotionsEventHandlers.onEntryDeletedEvent(HistoryWriter)),
 );
 EventBus.on(
   EmotionsEvents.EMOTION_REAPPRAISED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onEmotionReappraisedEvent),
+  EventHandler.handle(EmotionsEventHandlers.onEmotionReappraisedEvent(HistoryWriter)),
 );
 EventBus.on(
   EmotionsEvents.EMOTION_LOGGED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onEmotionLoggedEvent),
+  EventHandler.handle(EmotionsEventHandlers.onEmotionLoggedEvent(HistoryWriter)),
 );
 EventBus.on(
   EmotionsEvents.REACTION_EVALUATED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onReactionEvaluatedEvent),
+  EventHandler.handle(EmotionsEventHandlers.onReactionEvaluatedEvent(HistoryWriter)),
 );
 EventBus.on(
   EmotionsEvents.REACTION_LOGGED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onReactionLoggedEvent),
+  EventHandler.handle(EmotionsEventHandlers.onReactionLoggedEvent(HistoryWriter)),
 );
 EventBus.on(
   EmotionsEvents.SITUATION_LOGGED_EVENT,
-  EventHandler.handle(EmotionsEventHandlers.onSituationLoggedEvent),
+  EventHandler.handle(EmotionsEventHandlers.onSituationLoggedEvent(HistoryWriter)),
 );
 
 // Pattern detection
