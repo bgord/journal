@@ -1,12 +1,12 @@
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import * as Emotions from "+emotions";
-import * as History from "+history";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 export const onSituationLoggedEvent =
-  (HistoryWriter: History.Services.HistoryWriterPort) =>
+  (HistoryWriter: bg.History.Services.HistoryWriterPort) =>
   async (event: Emotions.Events.SituationLoggedEventType) => {
     await db.insert(Schema.entries).values({
       id: event.payload.entryId,

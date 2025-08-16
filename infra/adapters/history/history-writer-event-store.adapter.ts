@@ -1,36 +1,35 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as History from "+history";
 import { EventStore } from "+infra/event-store";
 
-export class HistoryWriterEventStore implements History.Services.HistoryWriterPort {
+export class HistoryWriterEventStore implements bg.History.Services.HistoryWriterPort {
   constructor(private readonly eventStore: typeof EventStore) {}
 
-  async populate(history: Omit<History.VO.HistoryType, "id">) {
+  async populate(history: Omit<bg.History.VO.HistoryType, "id">) {
     const id = crypto.randomUUID();
-    const event = History.Events.HistoryPopulatedEvent.parse({
+    const event = bg.History.Events.HistoryPopulatedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Time.Now().value,
-      name: History.Events.HISTORY_POPULATED_EVENT,
+      name: bg.History.Events.HISTORY_POPULATED_EVENT,
       stream: "history",
       version: 1,
       payload: { ...history, id },
-    } satisfies History.Events.HistoryPopulatedEventType);
+    } satisfies bg.History.Events.HistoryPopulatedEventType);
 
     await this.eventStore.save([event]);
   }
 
-  async clear(subject: History.VO.HistorySubjectType) {
-    const event = History.Events.HistoryClearedEvent.parse({
+  async clear(subject: bg.History.VO.HistorySubjectType) {
+    const event = bg.History.Events.HistoryClearedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Time.Now().value,
-      name: History.Events.HISTORY_CLEARED_EVENT,
+      name: bg.History.Events.HISTORY_CLEARED_EVENT,
       stream: "history",
       version: 1,
       payload: { subject },
-    }) satisfies History.Events.HistoryClearedEventType;
+    }) satisfies bg.History.Events.HistoryClearedEventType;
 
     await this.eventStore.save([event]);
   }

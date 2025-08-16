@@ -1,11 +1,11 @@
+import * as bg from "@bgord/bun";
 import { eq } from "drizzle-orm";
 import * as Emotions from "+emotions";
-import * as History from "+history";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 export const onEmotionLoggedEvent =
-  (HistoryWriter: History.Services.HistoryWriterPort) =>
+  (HistoryWriter: bg.History.Services.HistoryWriterPort) =>
   async (event: Emotions.Events.EmotionLoggedEventType) => {
     await db
       .update(Schema.entries)

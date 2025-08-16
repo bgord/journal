@@ -5,8 +5,6 @@ import * as EmotionsEventHandlers from "+emotions/event-handlers";
 import * as EmotionsEvents from "+emotions/events";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
-import * as HistoryEventHandlers from "+history/event-handlers";
-import * as HistoryEvents from "+history/events";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
 import { PdfGenerator } from "+infra/adapters/emotions";
@@ -125,12 +123,12 @@ EventBus.on(
 
 // History
 EventBus.on(
-  HistoryEvents.HISTORY_POPULATED_EVENT,
-  EventHandler.handle(HistoryEventHandlers.onHistoryPopulatedEvent(new HistoryRepository())),
+  bg.History.Events.HISTORY_POPULATED_EVENT,
+  EventHandler.handle(bg.History.EventHandlers.onHistoryPopulatedEvent(new HistoryRepository())),
 );
 EventBus.on(
-  HistoryEvents.HISTORY_CLEARED_EVENT,
-  EventHandler.handle(HistoryEventHandlers.onHistoryClearedEvent(new HistoryRepository())),
+  bg.History.Events.HISTORY_CLEARED_EVENT,
+  EventHandler.handle(bg.History.EventHandlers.onHistoryClearedEvent(new HistoryRepository())),
 );
 
 // Policies

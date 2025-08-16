@@ -12,7 +12,6 @@ import type {
   WeeklyReviewExportByEmailRequestedEvent,
 } from "+emotions/events";
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
-import type { HistoryClearedEvent, HistoryPopulatedEvent } from "+history/events";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import * as schema from "+infra/schema";
@@ -32,8 +31,8 @@ export type AcceptedEvent =
   | typeof AiQuotaExceededEvent
   | typeof AccountCreatedEvent
   | typeof AccountDeletedEvent
-  | typeof HistoryClearedEvent
-  | typeof HistoryPopulatedEvent;
+  | typeof bg.History.Events.HistoryClearedEvent
+  | typeof bg.History.Events.HistoryPopulatedEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {
