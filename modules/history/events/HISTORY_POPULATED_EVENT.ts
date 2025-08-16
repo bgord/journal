@@ -16,7 +16,7 @@ export const HistoryPopulatedEvent = z.object({
   payload: z.object({
     id: VO.HistoryId,
     operation: VO.HistoryOperation,
-    correlationId: VO.HistorySubject,
+    subject: VO.HistorySubject,
     payload: z.record(z.string(), z.any()),
   }),
 });
