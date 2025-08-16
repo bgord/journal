@@ -5,7 +5,7 @@ import { Env } from "+infra/env";
 /** @public */
 export const OpenAI = new OAI({ apiKey: Env.OPEN_AI_API_KEY });
 
-export class OpenAiAdapter implements AI.AiClientPort {
+export class AiClientOpenAiAdapter implements AI.AiClientPort {
   async request(prompt: AI.Prompt): Promise<AI.Advice> {
     const response = await OpenAI.responses.create({
       model: "gpt-4o",
