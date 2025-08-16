@@ -1,5 +1,5 @@
 import * as AI from "+ai";
-import { BucketCounterDrizzleRepository } from "+ai/repositories";
-import { AiClient } from "+infra/adapters/ai";
+import { AiClient } from "./ai-client.adapter";
+import { BucketCounterDrizzleRepository } from "./bucket-counter-drizzle.adapter";
 
 export const AiGateway = new AI.OHS.AiGateway(AiClient, new BucketCounterDrizzleRepository());
