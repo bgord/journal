@@ -1,6 +1,7 @@
 // cspell:disable
 
 import { expect } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
@@ -32,6 +33,8 @@ export const anotherUserId = crypto.randomUUID();
 export const weeklyReviewId = crypto.randomUUID();
 
 export const weeklyReviewExportId = crypto.randomUUID();
+
+export const historyId = crypto.randomUUID();
 
 export const week = tools.Week.fromNow();
 export const day = tools.Day.fromNow();
@@ -564,6 +567,109 @@ export const GenericAiQuotaExceededEvent = {
   version: 1,
   payload: { userId, timestamp: aiRequestRegisteredTimestamp },
 } satisfies AI.Events.AiQuotaExceededEventType;
+
+export const GenericEntryHistorySituationLoggedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `history_${entryId}`,
+  name: "HISTORY_POPULATED_EVENT",
+  version: 1,
+  payload: {
+    id: historyId,
+    operation: "entry.situation.logged",
+    subject: entryId,
+    payload: {
+      description: "I finished a project",
+      kind: Emotions.VO.SituationKindOptions.achievement,
+      location: "work",
+    },
+  },
+} satisfies bg.History.Events.HistoryPopulatedEventType;
+
+export const GenericEntryHistoryEmotionLoggedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `history_${entryId}`,
+  name: "HISTORY_POPULATED_EVENT",
+  version: 1,
+  payload: {
+    id: historyId,
+    operation: "entry.emotion.logged",
+    subject: entryId,
+    payload: {
+      label: Emotions.VO.GenevaWheelEmotion.gratitude,
+      intensity: 3,
+    },
+  },
+} satisfies bg.History.Events.HistoryPopulatedEventType;
+
+export const GenericEntryHistoryReactionLoggedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `history_${entryId}`,
+  name: "HISTORY_POPULATED_EVENT",
+  version: 1,
+  payload: {
+    id: historyId,
+    operation: "entry.reaction.logged",
+    subject: entryId,
+    payload: {
+      description: "Got drunk",
+      type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
+      effectiveness: 1,
+    },
+  },
+} satisfies bg.History.Events.HistoryPopulatedEventType;
+
+export const GenericEntryHistoryEmotionReappraisedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `history_${entryId}`,
+  name: "HISTORY_POPULATED_EVENT",
+  version: 1,
+  payload: {
+    id: historyId,
+    operation: "entry.emotion.reappraised",
+    subject: entryId,
+    payload: {
+      label: Emotions.VO.GenevaWheelEmotion.joy,
+      intensity: 3,
+    },
+  },
+} satisfies bg.History.Events.HistoryPopulatedEventType;
+
+export const GenericEntryHistoryReactionEvaluatedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `history_${entryId}`,
+  name: "HISTORY_POPULATED_EVENT",
+  version: 1,
+  payload: {
+    id: historyId,
+    operation: "entry.reaction.evaluated",
+    subject: entryId,
+    payload: {
+      description: "Went to bed",
+      type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
+      effectiveness: 2,
+    },
+  },
+} satisfies bg.History.Events.HistoryPopulatedEventType;
+
+export const GenericEntryHistoryClearedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `history_${entryId}`,
+  name: "HISTORY_CLEARED_EVENT",
+  version: 1,
+  payload: { subject: entryId },
+} satisfies bg.History.Events.HistoryClearedEventType;
 
 export const partialEntry: Schema.SelectEntries = {
   revision: 0,

@@ -16,7 +16,7 @@ export class EntryHistoryPublisher {
 
   async onSituationLoggedEvent(event: Emotions.Events.SituationLoggedEventType) {
     await this.historyWriter.populate({
-      operation: "entry.emotion.logged",
+      operation: "entry.situation.logged",
       subject: event.payload.entryId,
       payload: {
         kind: event.payload.kind,
@@ -31,8 +31,8 @@ export class EntryHistoryPublisher {
       operation: "entry.emotion.logged",
       subject: event.payload.entryId,
       payload: {
-        emotionLabel: event.payload.label,
-        emotionIntensity: event.payload.intensity as number,
+        label: event.payload.label,
+        intensity: event.payload.intensity as number,
       },
     });
   }
@@ -54,8 +54,8 @@ export class EntryHistoryPublisher {
       operation: "entry.emotion.reappraised",
       subject: event.payload.entryId,
       payload: {
-        emotionLabel: event.payload.newLabel,
-        emotionIntensity: event.payload.newIntensity as number,
+        label: event.payload.newLabel,
+        intensity: event.payload.newIntensity as number,
       },
     });
   }
