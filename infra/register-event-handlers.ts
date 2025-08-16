@@ -1,4 +1,4 @@
-import * as bg from "@bgord/bun";
+// import * as bg from "@bgord/bun";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import { Mailer } from "+infra/adapters";
@@ -6,33 +6,21 @@ import { AiGateway } from "+infra/adapters/ai";
 import { PdfGenerator } from "+infra/adapters/emotions";
 import { HistoryRepository, HistoryWriter } from "+infra/adapters/history";
 import { EventBus } from "+infra/event-bus";
-import { logger } from "+infra/logger";
+// import { logger } from "+infra/logger";
 import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
 
-const EventHandler = new bg.EventHandler(logger);
+// const EventHandler = new bg.EventHandler(logger);
+const historyRepository = new HistoryRepository();
 
-// History
-EventBus.on(
-  bg.History.Events.HISTORY_POPULATED_EVENT,
-  EventHandler.handle(bg.History.EventHandlers.onHistoryPopulatedEvent(new HistoryRepository())),
-);
-EventBus.on(
-  bg.History.Events.HISTORY_CLEARED_EVENT,
-  EventHandler.handle(bg.History.EventHandlers.onHistoryClearedEvent(new HistoryRepository())),
-);
-
-// Emotions
+// Projections
 new Projections.EntryProjector(EventBus);
 new Projections.AlarmProjector(EventBus);
 new Projections.PatternDetectionProjector(EventBus);
 new Projections.WeeklyReviewProjector(EventBus);
-
-// Publishing
 new Projections.ShareableLinkProjector(EventBus);
-
-// AI
 new Projections.AiUsageCounterProjector(EventBus);
+new Projections.HistoryProjector(EventBus, historyRepository);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus);
