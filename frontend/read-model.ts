@@ -252,4 +252,17 @@ export class ReadModel {
       resetsIn: new tools.RoundToNearest().round(resetsInHours),
     };
   }
+
+  static async listHistoryForEntry(entryId: Schema.SelectEntries["id"]) {
+    const history = await db.query.history.findMany({
+      where: eq(Schema.history.subject, entryId),
+      orderBy: desc(Schema.history.createdAt),
+    });
+
+    return history.map((entry) => ({
+      ...entry,
+      createdAt: tools.DateFormatters.datetime(entry.createdAt),
+      payload: entry.payload ? JSON.parse(entry.payload) : {},
+    }));
+  }
 }

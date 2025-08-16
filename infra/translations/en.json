@@ -200,5 +200,12 @@
   "auth.forgot_password.in_progress": "Sending...",
   "auth.forgot_password.cta": "Send link",
   "auth.forgot_password.error": "Could not send the password reset link",
-  "auth.forgot_password.success": "Check your inbox"
+  "auth.forgot_password.success": "Check your inbox",
+  "app.history": "History",
+  "entry.history": "Entry history",
+  "entry.reaction.evaluated": "Reaction evaluated",
+  "entry.emotion.reappraised": "Emotion reappraised",
+  "entry.reaction.logged": "Reaction logged",
+  "entry.emotion.logged": "Emotion logged",
+  "entry.situation.logged": "Situation logged"
 }
