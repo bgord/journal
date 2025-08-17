@@ -21,6 +21,10 @@ export class AlarmProjector {
       EventHandler.handle(this.onAlarmNotificationRequestedEvent.bind(this)),
     );
     eventBus.on(
+      Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
+      EventHandler.handle(this.onAlarmNotificationSentEvent.bind(this)),
+    );
+    eventBus.on(
       Emotions.Events.ALARM_CANCELLED_EVENT,
       EventHandler.handle(this.onAlarmCancelledEvent.bind(this)),
     );
@@ -83,6 +87,13 @@ export class AlarmProjector {
     await db
       .update(Schema.alarms)
       .set({ status: Emotions.VO.AlarmStatusEnum.notification_requested })
+      .where(eq(Schema.alarms.id, event.payload.alarmId));
+  }
+
+  async onAlarmNotificationSentEvent(event: Emotions.Events.AlarmNotificationSentEventType) {
+    await db
+      .update(Schema.alarms)
+      .set({ status: Emotions.VO.AlarmStatusEnum.completed })
       .where(eq(Schema.alarms.id, event.payload.alarmId));
   }
 }
