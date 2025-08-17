@@ -32,7 +32,9 @@ export class AlarmProjector {
 
   async onAlarmGeneratedEvent(event: Emotions.Events.AlarmGeneratedEventType) {
     if (event.payload.trigger.type === Emotions.VO.AlarmTriggerEnum.entry) {
-      const entry = await Emotions.Repos.EntryRepository.getById(event.payload.trigger.entryId);
+      const entry = await db.query.entries.findFirst({
+        where: eq(Schema.entries.id, event.payload.trigger.entryId),
+      });
 
       await db.insert(Schema.alarms).values({
         id: event.payload.alarmId,
