@@ -18,7 +18,7 @@ export type WeeklyReviewExportDto = Schema.SelectWeeklyReviews & {
     | "reactionEffectiveness"
     | "startedAt"
   >[];
-  patternDetections: Pick<Schema.SelectPatternDetections, "id" | "name">[];
+  patternDetections: VO.PatternDetectionSnapshot[];
   alarms: Pick<
     Schema.SelectAlarms,
     | "id"
@@ -81,6 +81,10 @@ export class WeeklyReviewExportReadModel {
         situationKind: entry.situationKind as VO.SituationKindOptions,
         emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
         reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
+      })),
+      patternDetections: result.patternDetections.map((pattern) => ({
+        id: pattern.id,
+        name: pattern.name as VO.PatternNameOption,
       })),
     };
   }
