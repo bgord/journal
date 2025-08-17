@@ -13,6 +13,7 @@ type AcceptedCommand =
   | EmotionCommands.ReappraiseEmotionCommandType
   | EmotionCommands.SaveAlarmAdviceCommandType
   | EmotionCommands.SendAlarmNotificationCommandType
+  | EmotionCommands.CompleteAlarmCommandType
   | EmotionCommands.RequestWeeklyReviewCommandType
   | EmotionCommands.CompleteWeeklyReviewCommandType
   | EmotionCommands.MarkWeeklyReviewAsFailedCommandType

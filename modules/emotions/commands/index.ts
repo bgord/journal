@@ -1,4 +1,5 @@
 export * from "./CANCEL_ALARM_COMMAND";
+export * from "./COMPLETE_ALARM_COMMAND";
 export * from "./COMPLETE_WEEKLY_REVIEW_COMMAND";
 export * from "./DELETE_ENTRY_COMMAND";
 export * from "./DETECT_WEEKLY_PATTERNS_COMMAND";

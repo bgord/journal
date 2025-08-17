@@ -21,6 +21,7 @@ CommandBus.on(
   EmotionCommands.SEND_ALARM_NOTIFICATION_COMMAND,
   EmotionCommandHandlers.handleSendAlarmNotificationCommand,
 );
+CommandBus.on(EmotionCommands.COMPLETE_ALARM_COMMAND, EmotionCommandHandlers.handleCompleteAlarmCommand);
 CommandBus.on(
   EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
   EmotionCommandHandlers.handleRequestWeeklyReviewCommand,
