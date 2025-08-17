@@ -796,7 +796,7 @@ export const negativeEmotionEntry: Schema.SelectEntries = {
   emotionIntensity: 4,
 };
 
-export const weeklyReview: Schema.SelectWeeklyReviews = {
+export const weeklyReview = {
   id: weeklyReviewId,
   userId,
   weekIsoId: week.toIsoId(),
@@ -805,7 +805,7 @@ export const weeklyReview: Schema.SelectWeeklyReviews = {
   status: Emotions.VO.WeeklyReviewStatusEnum.completed,
 };
 
-export const weeklyReviewSkipped: Schema.SelectWeeklyReviews = {
+export const weeklyReviewSkipped = {
   ...weeklyReview,
   status: Emotions.VO.WeeklyReviewStatusEnum.skipped,
 };

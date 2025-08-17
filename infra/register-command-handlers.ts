@@ -1,5 +1,6 @@
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
+import { WeeklyReviewSnapshot } from "+infra/adapters/emotions";
 import { CommandBus } from "+infra/command-bus";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
@@ -40,7 +41,7 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand,
+  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand(WeeklyReviewSnapshot),
 );
 CommandBus.on(
   EmotionCommands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,

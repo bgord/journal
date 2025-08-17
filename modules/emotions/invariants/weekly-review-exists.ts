@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import type * as Schema from "+infra/schema";
 
 class WeeklyReviewExistsError extends Error {
   constructor() {
@@ -9,11 +8,11 @@ class WeeklyReviewExistsError extends Error {
   }
 }
 
-type WeeklyReviewExistsConfigType = { weeklyReview?: Schema.SelectWeeklyReviews };
+type WeeklyReviewExistsConfigType = { weeklyReview: any | null | undefined };
 
 class WeeklyReviewExistsFactory extends bg.Invariant<WeeklyReviewExistsConfigType> {
   fails(config: WeeklyReviewExistsConfigType) {
-    return config.weeklyReview === undefined;
+    return !config.weeklyReview;
   }
 
   message = "weekly.review.exists.error";

@@ -6,6 +6,7 @@ import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
+import { WeeklyReviewSnapshot } from "+infra/adapters/emotions";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -124,7 +125,7 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewCompletedEvent", async () => {
-    spyOn(Emotions.Repos.WeeklyReviewRepository, "getById").mockResolvedValue(mocks.weeklyReview);
+    spyOn(WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewExportId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
