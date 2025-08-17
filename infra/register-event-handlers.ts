@@ -4,7 +4,7 @@ import * as EmotionsSagas from "+emotions/sagas";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
 import { AlarmCancellationLookup, PdfGenerator } from "+infra/adapters/emotions";
-import { HistoryRepository, HistoryWriter } from "+infra/adapters/history";
+import { HistoryProjection, HistoryWriter } from "+infra/adapters/history";
 import { ExpiringShareableLinks } from "+infra/adapters/publishing";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
@@ -20,7 +20,7 @@ new Projections.PatternDetectionProjector(EventBus, EventHandler);
 new Projections.WeeklyReviewProjector(EventBus, EventHandler);
 new Projections.ShareableLinkProjector(EventBus, EventHandler);
 new Projections.AiUsageCounterProjector(EventBus, EventHandler);
-new Projections.HistoryProjector(EventBus, EventHandler, HistoryRepository);
+new Projections.HistoryProjector(EventBus, EventHandler, HistoryProjection);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler, ExpiringShareableLinks);
