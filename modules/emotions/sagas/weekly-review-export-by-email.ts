@@ -31,9 +31,7 @@ export class WeeklyReviewExportByEmail {
       const contact = await this.userContact.getPrimary(event.payload.userId);
       if (!contact?.address) return;
 
-      const weeklyReview = await Emotions.Queries.WeeklyReviewExportReadModel.getFull(
-        event.payload.weeklyReviewId,
-      );
+      const weeklyReview = await Emotions.Queries.WeeklyReviewExport.getFull(event.payload.weeklyReviewId);
       if (!weeklyReview) return;
 
       const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);

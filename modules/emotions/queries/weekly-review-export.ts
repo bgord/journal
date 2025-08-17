@@ -32,7 +32,7 @@ export type WeeklyReviewExportDto = VO.WeeklyReviewSnapshot & {
   >[];
 };
 
-export class WeeklyReviewExportReadModel {
+export class WeeklyReviewExport {
   static async getFull(id: VO.WeeklyReviewIdType): Promise<WeeklyReviewExportDto | undefined> {
     const result = await db.query.weeklyReviews.findFirst({
       where: eq(Schema.weeklyReviews.id, id),
