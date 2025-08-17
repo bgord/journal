@@ -18,7 +18,7 @@ export type WeeklyReviewExportDto = Schema.SelectWeeklyReviews & {
     | "reactionEffectiveness"
     | "startedAt"
   >[];
-  patternDetections: VO.PatternDetectionSnapshot[];
+  patternDetections: Pick<VO.PatternDetectionSnapshot, "id" | "name">[];
   alarms: VO.AlarmSnapshot[];
 };
 

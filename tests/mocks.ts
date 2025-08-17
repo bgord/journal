@@ -828,9 +828,9 @@ export const alarm: Schema.SelectAlarms = {
   weekIsoId: week.toIsoId(),
 };
 
-export const patternDetection: Schema.SelectPatternDetections = {
+export const patternDetection: Emotions.VO.PatternDetectionSnapshot = {
   id: crypto.randomUUID(),
-  createdAt: Date.now(),
+  createdAt: tools.Time.Now().value,
   name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
   weekIsoId: week.toIsoId(),
   userId,
