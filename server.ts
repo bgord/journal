@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import * as infra from "+infra";
-import { WeeklyReviewExport } from "+infra/adapters/emotions";
+import { EntrySnapshot, WeeklyReviewExport } from "+infra/adapters/emotions";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
@@ -55,7 +55,7 @@ entry.get(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.EntriesExportStore,
   }),
-  Emotions.Routes.ExportEntries,
+  Emotions.Routes.ExportEntries(EntrySnapshot),
 );
 server.route("/entry", entry);
 // =============================

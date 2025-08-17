@@ -1,6 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
+import { EntrySnapshot } from "+infra/adapters/emotions";
 import { auth } from "+infra/auth";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -17,7 +18,7 @@ describe("GET /entry/export ", () => {
 
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Emotions.Repos.EntryRepository, "listForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(EntrySnapshot, "getAllForuser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Emotions.Repos.AlarmRepository, "listForUser").mockResolvedValue([mocks.alarm]);
     spyOn(Date, "now").mockReturnValue(1000);
 
