@@ -1,10 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
-import * as Events from "+emotions/events";
-import * as Ports from "+emotions/ports";
-import * as Queries from "+emotions/queries";
-import * as Services from "+emotions/services";
+import * as Emotions from "+emotions";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -14,30 +11,34 @@ export class WeeklyReviewExportByEmail {
     eventBus: typeof EventBus,
     EventHandler: bg.EventHandler,
     private readonly mailer: bg.MailerPort,
-    private readonly pdfGenerator: Ports.PdfGeneratorPort,
+    private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
   ) {
     eventBus.on(
-      Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
+      Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
       EventHandler.handle(this.onWeeklyReviewExportByEmailRequestedEvent.bind(this)),
     );
     eventBus.on(
-      Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
+      Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
       EventHandler.handle(this.onWeeklyReviewExportByEmailFailedEvent.bind(this)),
     );
   }
 
-  async onWeeklyReviewExportByEmailRequestedEvent(event: Events.WeeklyReviewExportByEmailRequestedEventType) {
+  async onWeeklyReviewExportByEmailRequestedEvent(
+    event: Emotions.Events.WeeklyReviewExportByEmailRequestedEventType,
+  ) {
     try {
       const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
       if (!contact?.email) return;
 
-      const weeklyReview = await Queries.WeeklyReviewExportReadModel.getFull(event.payload.weeklyReviewId);
+      const weeklyReview = await Emotions.Queries.WeeklyReviewExportReadModel.getFull(
+        event.payload.weeklyReviewId,
+      );
       if (!weeklyReview) return;
 
-      const pdf = new Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);
+      const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);
       const attachment = await pdf.toAttachment();
 
-      const composer = new Services.WeeklyReviewExportNotificationComposer();
+      const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
       const notification = composer.compose(weeklyReview).get();
 
       await this.mailer.send({
@@ -48,11 +49,11 @@ export class WeeklyReviewExportByEmail {
       });
     } catch {
       await EventStore.save([
-        Events.WeeklyReviewExportByEmailFailedEvent.parse({
+        Emotions.Events.WeeklyReviewExportByEmailFailedEvent.parse({
           id: crypto.randomUUID(),
           correlationId: bg.CorrelationStorage.get(),
           createdAt: tools.Time.Now().value,
-          name: Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
+          name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
           stream: `weekly_review_export_by_email_${event.payload.weeklyReviewExportId}`,
           version: 1,
           payload: {
@@ -61,21 +62,23 @@ export class WeeklyReviewExportByEmail {
             weeklyReviewExportId: event.payload.weeklyReviewExportId,
             attempt: event.payload.attempt,
           },
-        } satisfies Events.WeeklyReviewExportByEmailFailedEventType),
+        } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType),
       ]);
     }
   }
 
-  async onWeeklyReviewExportByEmailFailedEvent(event: Events.WeeklyReviewExportByEmailFailedEventType) {
+  async onWeeklyReviewExportByEmailFailedEvent(
+    event: Emotions.Events.WeeklyReviewExportByEmailFailedEventType,
+  ) {
     if (event.payload.attempt > 3) return;
 
     await EventStore.saveAfter(
       [
-        Events.WeeklyReviewExportByEmailRequestedEvent.parse({
+        Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
           id: crypto.randomUUID(),
           correlationId: bg.CorrelationStorage.get(),
           createdAt: tools.Time.Now().value,
-          name: Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
+          name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
           stream: event.stream,
           version: 1,
           payload: {
@@ -84,7 +87,7 @@ export class WeeklyReviewExportByEmail {
             weeklyReviewExportId: event.payload.weeklyReviewExportId,
             attempt: event.payload.attempt + 1,
           },
-        } satisfies Events.WeeklyReviewExportByEmailRequestedEventType),
+        } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType),
       ],
       tools.Time.Minutes(1),
     );

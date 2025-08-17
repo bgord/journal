@@ -2,11 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Auth from "+auth";
-import * as ACL from "+emotions/acl";
-import * as Commands from "+emotions/commands";
-import * as Events from "+emotions/events";
-import * as Repos from "+emotions/repositories";
-import * as Services from "+emotions/services";
+import * as Emotions from "+emotions";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
@@ -20,24 +16,24 @@ export class WeeklyReviewProcessing {
     private readonly mailer: bg.MailerPort,
   ) {
     eventBus.on(
-      Events.WEEKLY_REVIEW_SKIPPED_EVENT,
+      Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
       EventHandler.handle(this.onWeeklyReviewSkippedEvent.bind(this)),
     );
     eventBus.on(
-      Events.WEEKLY_REVIEW_REQUESTED_EVENT,
+      Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
       EventHandler.handle(this.onWeeklyReviewRequestedEvent.bind(this)),
     );
     eventBus.on(
-      Events.WEEKLY_REVIEW_COMPLETED_EVENT,
+      Emotions.Events.WEEKLY_REVIEW_COMPLETED_EVENT,
       EventHandler.handle(this.onWeeklyReviewCompletedEvent.bind(this)),
     );
   }
 
-  async onWeeklyReviewSkippedEvent(event: Events.WeeklyReviewSkippedEventType) {
+  async onWeeklyReviewSkippedEvent(event: Emotions.Events.WeeklyReviewSkippedEventType) {
     const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
 
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
-    const composer = new Services.WeeklyReviewSkippedNotificationComposer();
+    const composer = new Emotions.Services.WeeklyReviewSkippedNotificationComposer();
 
     const notification = composer.compose(week);
 
@@ -48,66 +44,66 @@ export class WeeklyReviewProcessing {
     } catch {}
   }
 
-  async onWeeklyReviewRequestedEvent(event: Events.WeeklyReviewRequestedEventType) {
+  async onWeeklyReviewRequestedEvent(event: Emotions.Events.WeeklyReviewRequestedEventType) {
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
-    const entries = await Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
+    const entries = await Emotions.Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
 
     const language = entries.at(-1)?.language as SupportedLanguages;
-    const prompt = new ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
+    const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
     try {
       const insights = await this.AiGateway.query(
         prompt,
-        ACL.createWeeklyReviewInsightRequestContext(event.payload.userId),
+        Emotions.ACL.createWeeklyReviewInsightRequestContext(event.payload.userId),
       );
 
-      const detectWeeklyPatterns = Commands.DetectWeeklyPatternsCommand.parse({
+      const detectWeeklyPatterns = Emotions.Commands.DetectWeeklyPatternsCommand.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
-        name: Commands.DETECT_WEEKLY_PATTERNS_COMMAND,
+        name: Emotions.Commands.DETECT_WEEKLY_PATTERNS_COMMAND,
         createdAt: tools.Time.Now().value,
         payload: { userId: event.payload.userId, week },
-      } satisfies Commands.DetectWeeklyPatternsCommandType);
+      } satisfies Emotions.Commands.DetectWeeklyPatternsCommandType);
 
       await CommandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
 
-      const completeWeeklyReview = Commands.CompleteWeeklyReviewCommand.parse({
+      const completeWeeklyReview = Emotions.Commands.CompleteWeeklyReviewCommand.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
-        name: Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
+        name: Emotions.Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
         createdAt: tools.Time.Now().value,
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
           insights,
           userId: event.payload.userId,
         },
-      } satisfies Commands.CompleteWeeklyReviewCommandType);
+      } satisfies Emotions.Commands.CompleteWeeklyReviewCommandType);
 
       await CommandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
     } catch (_error) {
-      const command = Commands.MarkWeeklyReviewAsFailedCommand.parse({
+      const command = Emotions.Commands.MarkWeeklyReviewAsFailedCommand.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
-        name: Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
+        name: Emotions.Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
         createdAt: tools.Time.Now().value,
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
           userId: event.payload.userId,
         },
-      } satisfies Commands.MarkWeeklyReviewAsFailedCommandType);
+      } satisfies Emotions.Commands.MarkWeeklyReviewAsFailedCommandType);
 
       await CommandBus.emit(command.name, command);
     }
   }
 
-  async onWeeklyReviewCompletedEvent(event: Events.WeeklyReviewCompletedEventType) {
-    const command = Commands.ExportWeeklyReviewByEmailCommand.parse({
+  async onWeeklyReviewCompletedEvent(event: Emotions.Events.WeeklyReviewCompletedEventType) {
+    const command = Emotions.Commands.ExportWeeklyReviewByEmailCommand.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      name: Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
+      name: Emotions.Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
       createdAt: tools.Time.Now().value,
       payload: { userId: event.payload.userId, weeklyReviewId: event.payload.weeklyReviewId },
-    } satisfies Commands.ExportWeeklyReviewByEmailCommand);
+    } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommand);
 
     await CommandBus.emit(command.name, command);
   }
