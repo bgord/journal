@@ -13,6 +13,7 @@ export class WeeklyReviewExportByEmail {
     private readonly mailer: bg.MailerPort,
     private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
+    private readonly weeklyReviewExport: Emotions.Queries.WeeklyReviewExport,
   ) {
     eventBus.on(
       Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
@@ -31,7 +32,7 @@ export class WeeklyReviewExportByEmail {
       const contact = await this.userContact.getPrimary(event.payload.userId);
       if (!contact?.address) return;
 
-      const weeklyReview = await Emotions.Queries.WeeklyReviewExport.getFull(event.payload.weeklyReviewId);
+      const weeklyReview = await this.weeklyReviewExport.getFull(event.payload.weeklyReviewId);
       if (!weeklyReview) return;
 
       const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);

@@ -3,7 +3,7 @@ import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import { Mailer } from "+infra/adapters";
 import { UserContact } from "+infra/adapters/auth";
-import { PdfGenerator } from "+infra/adapters/emotions";
+import { PdfGenerator, WeeklyReviewExport } from "+infra/adapters/emotions";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -17,6 +17,7 @@ const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(
   Mailer,
   PdfGenerator,
   UserContact,
+  WeeklyReviewExport,
 );
 
 describe("WeeklyReviewExportByEmail", () => {
@@ -50,7 +51,7 @@ describe("WeeklyReviewExportByEmail", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
-    spyOn(Emotions.Queries.WeeklyReviewExport, "getFull").mockResolvedValue(undefined);
+    spyOn(WeeklyReviewExport, "getFull").mockResolvedValue(undefined);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
@@ -63,7 +64,7 @@ describe("WeeklyReviewExportByEmail", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
-    spyOn(Emotions.Queries.WeeklyReviewExport, "getFull").mockImplementation(() => {
+    spyOn(WeeklyReviewExport, "getFull").mockImplementation(() => {
       throw new Error("FAILURE");
     });
 
@@ -80,7 +81,7 @@ describe("WeeklyReviewExportByEmail", () => {
       throw new Error("FAILURE");
     });
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
-    spyOn(Emotions.Queries.WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
+    spyOn(WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
@@ -92,7 +93,7 @@ describe("WeeklyReviewExportByEmail", () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
-    spyOn(Emotions.Queries.WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
+    spyOn(WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),

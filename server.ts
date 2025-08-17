@@ -3,6 +3,7 @@ import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import * as infra from "+infra";
+import { WeeklyReviewExport } from "+infra/adapters/emotions";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
@@ -82,7 +83,7 @@ weeklyReview.get(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.WeeklyReviewExportDownloadStore,
   }),
-  Emotions.Routes.DownloadWeeklyReview,
+  Emotions.Routes.DownloadWeeklyReview(WeeklyReviewExport),
 );
 server.route("/weekly-review", weeklyReview);
 // =============================

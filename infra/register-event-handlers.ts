@@ -10,6 +10,7 @@ import {
   GetLatestEntryTimestampForUser,
   PdfGenerator,
   TimeCapsuleDueEntries,
+  WeeklyReviewExport,
 } from "+infra/adapters/emotions";
 import { HistoryProjection, HistoryWriter } from "+infra/adapters/history";
 import { ExpiringShareableLinks } from "+infra/adapters/publishing";
@@ -60,4 +61,11 @@ new EmotionsSagas.WeeklyReviewProcessing(
   EntrySnapshot,
   UserContact,
 );
-new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, EventHandler, Mailer, PdfGenerator, UserContact);
+new EmotionsSagas.WeeklyReviewExportByEmail(
+  EventBus,
+  EventHandler,
+  Mailer,
+  PdfGenerator,
+  UserContact,
+  WeeklyReviewExport,
+);
