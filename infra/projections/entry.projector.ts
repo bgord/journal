@@ -53,7 +53,9 @@ export class EntryProjector {
       origin: event.payload.origin,
     });
 
-    const isTimeCapsule = await Emotions.Repos.TimeCapsuleEntryRepository.getById(event.payload.entryId);
+    const isTimeCapsule = await db.query.timeCapsuleEntries.findFirst({
+      where: eq(Schema.timeCapsuleEntries.id, event.payload.entryId),
+    });
 
     if (isTimeCapsule) {
       await db

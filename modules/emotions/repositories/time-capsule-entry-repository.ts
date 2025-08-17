@@ -14,8 +14,4 @@ export class TimeCapsuleEntryRepository {
       limit: 10,
     });
   }
-
-  static async getById(entryId: VO.EntryIdType) {
-    return db.query.timeCapsuleEntries.findFirst({ where: eq(Schema.timeCapsuleEntries.id, entryId) });
-  }
 }
