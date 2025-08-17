@@ -1,6 +1,7 @@
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
 import { EntrySnapshot, WeeklyReviewSnapshot } from "+infra/adapters/emotions";
+import { ShareableLinksQuota } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
@@ -50,7 +51,7 @@ CommandBus.on(
 
 CommandBus.on(
   PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleCreateShareableLinkCommand,
+  PublishingCommandHandlers.handleCreateShareableLinkCommand(ShareableLinksQuota),
 );
 
 CommandBus.on(

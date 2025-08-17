@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import { CountActiveShareableLinksPerOwner } from "+publishing/queries";
+import { ShareableLinksQuotaQuery } from "+publishing/queries";
 
 class ShareableLinksPerOwnerLimitError extends Error {
   constructor() {
@@ -9,9 +9,7 @@ class ShareableLinksPerOwnerLimitError extends Error {
   }
 }
 
-type ShareableLinksPerOwnerLimitConfigType = Awaited<
-  ReturnType<typeof CountActiveShareableLinksPerOwner.execute>
->;
+type ShareableLinksPerOwnerLimitConfigType = Awaited<ReturnType<ShareableLinksQuotaQuery["execute"]>>;
 
 class ShareableLinksPerOwnerLimitFactory extends bg.Invariant<ShareableLinksPerOwnerLimitConfigType> {
   fails(config: ShareableLinksPerOwnerLimitConfigType) {

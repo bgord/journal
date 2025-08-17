@@ -2,6 +2,7 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
+import { ShareableLinksQuota } from "+infra/adapters/publishing";
 import { auth } from "+infra/auth";
 import { EventStore } from "+infra/event-store";
 import { server } from "../server";
@@ -103,7 +104,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - ShareableLinksPerOwnerLimit", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Publishing.Queries.CountActiveShareableLinksPerOwner, "execute").mockResolvedValue({ count: 50 });
+    spyOn(ShareableLinksQuota, "execute").mockResolvedValue({ count: 50 });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
