@@ -1,6 +1,11 @@
 # Changelog
+- 2025-08-17 16:46 2313a83 **step: do not use entry repo in projector**
+## 2025-08-17 16:46 
+- 2025-08-17 15:12 9b5c853 **refactor: simplify saga imports**
+- 2025-08-17 15:07 95d2a2d **refactor: remove time capsule entry repo**
+- 2025-08-17 14:25 b4553a9 **refactor: remove get by id in time capsule entry repo**
+- 2025-08-17 14:24 e3f9953 **refactor: rename history projection**
 - 2025-08-17 14:14 4fb19a8 **refactor: add weekly review snapshot adapter**
-## 2025-08-17 14:14 
 - 2025-08-17 14:05 d1a562e **refactor: add ExpiringShareableLinksDrizzle**
 - 2025-08-17 13:30 b4b2765 **refactor: remove unused patterns read model**
 - 2025-08-17 13:27 58eb889 **refactor: cleanup tests**
@@ -8,6 +13,8 @@
 - 2025-08-17 12:47 c33bbf5 **refactor: cleanup adapter exports**
 - 2025-08-17 12:44 8128d96 **step: introduce AlarmCancellationLookupPort**
 - 2025-08-17 12:23 8bfe5f5 **refactor: improve alarm orchestrator**
+- 2025-08-17 12:17 79984d5 **docs: generate readme**
+- 2025-08-17 12:17 5932894 **docs: generate CHANGELOG**
 - 2025-08-17 12:05 621da5b **docs: generate CHANGELOG**
 - 2025-08-17 12:05 069a7cc **docs: generate readme**
 - 2025-08-17 09:16 23ea1b1 **refactor: add alarm projector**
