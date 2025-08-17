@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "264eeaf0-e656-412a-91e2-5dff640a4668",
+  "id": "fbbcc3cb-38d7-494a-9dda-c7c8faad13f8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -327,21 +327,21 @@
           "name": "situationDescription",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "situationLocation": {
           "name": "situationLocation",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "situationKind": {
           "name": "situationKind",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "emotionLabel": {
