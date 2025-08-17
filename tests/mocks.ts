@@ -792,16 +792,16 @@ export const negativeEmotionEntry: Emotions.VO.EntrySnapshot = {
   emotionIntensity: 4,
 };
 
-export const weeklyReview = {
+export const weeklyReview: Emotions.VO.WeeklyReviewSnapshot = {
   id: weeklyReviewId,
   userId,
   weekIsoId: week.toIsoId(),
-  createdAt: Date.now(),
+  createdAt: tools.Time.Now().value,
   insights: insights.get(),
   status: Emotions.VO.WeeklyReviewStatusEnum.completed,
 };
 
-export const weeklyReviewSkipped = {
+export const weeklyReviewSkipped: Emotions.VO.WeeklyReviewSnapshot = {
   ...weeklyReview,
   status: Emotions.VO.WeeklyReviewStatusEnum.skipped,
 };

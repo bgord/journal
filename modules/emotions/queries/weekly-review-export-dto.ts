@@ -4,7 +4,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export type WeeklyReviewExportDto = Schema.SelectWeeklyReviews & {
+export type WeeklyReviewExportDto = VO.WeeklyReviewSnapshot & {
   entries: Pick<
     VO.EntrySnapshot,
     | "id"
@@ -75,6 +75,8 @@ export class WeeklyReviewExportReadModel {
     if (!result) return undefined;
     return {
       ...result,
+      createdAt: result.createdAt as tools.TimestampType,
+      status: result.status as VO.WeeklyReviewStatusEnum,
       entries: result.entries.map((entry) => ({
         ...entry,
         startedAt: tools.Timestamp.parse(entry.startedAt),
