@@ -3,12 +3,15 @@ import hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 
-export const ExportEntries = (EntrySnapshot: Emotions.Ports.EntrySnapshotPort) =>
+export const ExportEntries = (
+  EntrySnapshot: Emotions.Ports.EntrySnapshotPort,
+  AlarmDirectory: Emotions.Ports.AlarmDirectoryPort,
+) =>
   async function (c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
     const user = c.get("user");
 
     const entries = await EntrySnapshot.getAllForuser(user.id);
-    const alarms = await Emotions.Repos.AlarmRepository.listForUser(user.id);
+    const alarms = await AlarmDirectory.listForUser(user.id);
 
     return new bg.ZipDraft({
       filename: `export-${Date.now()}.zip`,
