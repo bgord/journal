@@ -1,5 +1,5 @@
 import { describe, expect, spyOn, test } from "bun:test";
-import * as Repos from "+emotions/repositories";
+import { EntriesSharing } from "+infra/adapters/emotions";
 import { EventStore } from "+infra/event-store";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -37,7 +37,7 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path", async () => {
-    spyOn(Repos.EntryRepository, "listShared").mockResolvedValue([]);
+    spyOn(EntriesSharing, "listForOwnerInRange").mockResolvedValue([]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
     expect(response.status).toBe(200);

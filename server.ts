@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import * as infra from "+infra";
-import { AlarmDirectory, EntrySnapshot, WeeklyReviewExport } from "+infra/adapters/emotions";
+import { AlarmDirectory, EntriesSharing, EntrySnapshot, WeeklyReviewExport } from "+infra/adapters/emotions";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
@@ -61,7 +61,7 @@ server.route("/entry", entry);
 // =============================
 
 // Shared ======================
-server.get("/shared/entries/:shareableLinkId", Emotions.Routes.GetSharedEntries);
+server.get("/shared/entries/:shareableLinkId", Emotions.Routes.GetSharedEntries(EntriesSharing));
 
 // Weekly review ===============
 const weeklyReview = new Hono();
