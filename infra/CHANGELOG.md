@@ -1,12 +1,15 @@
 # Changelog
+- 2025-08-17 14:14 4fb19a8 **refactor: add weekly review snapshot adapter**
+## 2025-08-17 14:14 
 - 2025-08-17 14:05 d1a562e **refactor: add ExpiringShareableLinksDrizzle**
-## 2025-08-17 14:05 
 - 2025-08-17 13:30 b4b2765 **refactor: remove unused patterns read model**
 - 2025-08-17 13:27 58eb889 **refactor: cleanup tests**
 - 2025-08-17 12:58 92183c3 **refactor: pass event handler to policies**
 - 2025-08-17 12:47 c33bbf5 **refactor: cleanup adapter exports**
 - 2025-08-17 12:44 8128d96 **step: introduce AlarmCancellationLookupPort**
 - 2025-08-17 12:23 8bfe5f5 **refactor: improve alarm orchestrator**
+- 2025-08-17 12:05 621da5b **docs: generate CHANGELOG**
+- 2025-08-17 12:05 069a7cc **docs: generate readme**
 - 2025-08-17 09:16 23ea1b1 **refactor: add alarm projector**
 - 2025-08-17 09:15 f1f5f45 **step: implement completion flow**
 - 2025-08-17 09:05 c385eb5 **refactor: rename send alarm notification command**
