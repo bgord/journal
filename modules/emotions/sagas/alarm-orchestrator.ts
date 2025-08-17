@@ -5,7 +5,7 @@ import * as Auth from "+auth";
 import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
-import * as Repos from "+emotions/repositories";
+import * as Ports from "+emotions/ports";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 import { CommandBus } from "+infra/command-bus";
@@ -17,6 +17,7 @@ export class AlarmOrchestrator {
     private readonly eventBus: typeof EventBus,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
+    private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
   ) {
     this.eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
     this.eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
@@ -103,9 +104,9 @@ export class AlarmOrchestrator {
   }
 
   async onEntryDeletedEvent(event: Events.EntryDeletedEventType) {
-    const cancellableAlarmIds = await Repos.AlarmRepository.findCancellableByEntryId(event.payload.entryId);
+    const cancellableAlarmIds = await this.alarmCancellationLookup.listIdsForEntry(event.payload.entryId);
 
-    for (const alarmId of cancellableAlarmIds.map((result) => result.id)) {
+    for (const alarmId of cancellableAlarmIds) {
       const command = Commands.CancelAlarmCommand.parse({
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),

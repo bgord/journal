@@ -5,12 +5,13 @@ import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
+import { AlarmCancellationLookup } from "+infra/adapters/emotions";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
-const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiGateway, Mailer);
+const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiGateway, Mailer, AlarmCancellationLookup);
 
 describe("AlarmOrchestrator", () => {
   test("onAlarmGeneratedEvent - entry", async () => {
@@ -207,7 +208,7 @@ describe("AlarmOrchestrator", () => {
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([{ id: alarm.id }]);
+    spyOn(AlarmCancellationLookup, "listIdsForEntry").mockResolvedValue([alarm.id]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
@@ -218,14 +219,14 @@ describe("AlarmOrchestrator", () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
   });
 
-  test("onEntryDeletedEvent - does not cancel handled alarms", async () => {
+  test("onEntryDeletedEvent - does not cancel in_flight alarms", async () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
       mocks.GenericAlarmNotificationRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([]);
+    spyOn(AlarmCancellationLookup, "listIdsForEntry").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
@@ -243,7 +244,7 @@ describe("AlarmOrchestrator", () => {
       mocks.GenericAlarmCancelledEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([]);
+    spyOn(AlarmCancellationLookup, "listIdsForEntry").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(

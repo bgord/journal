@@ -3,7 +3,7 @@ import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
-import { PdfGenerator } from "+infra/adapters/emotions";
+import { AlarmCancellationLookup, PdfGenerator } from "+infra/adapters/emotions";
 import { HistoryRepository, HistoryWriter } from "+infra/adapters/history";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
@@ -31,6 +31,6 @@ new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus);
 new EmotionsPolicies.EntryHistoryPublisher(EventBus, HistoryWriter);
 
 // Sagas
-new EmotionsSagas.AlarmOrchestrator(EventBus, AiGateway, Mailer);
+new EmotionsSagas.AlarmOrchestrator(EventBus, AiGateway, Mailer, AlarmCancellationLookup);
 new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiGateway, Mailer);
 new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
