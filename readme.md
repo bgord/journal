@@ -179,6 +179,7 @@ modules/
 │   ├── ports
 │   │   ├── alarm-cancellation-lookup.ts
 │   │   ├── pdf-generator.ts
+│   │   ├── time-capsule-due-entries.ts
 │   │   └── weekly-review-snapshot.ts
 │   ├── queries
 │   │   ├── count-entries-per-week-for-user.ts
@@ -187,7 +188,6 @@ modules/
 │   ├── repositories
 │   │   ├── alarm-repository.ts
 │   │   ├── entry-repository.ts
-│   │   └── time-capsule-entry-repository.ts
 │   ├── routes
 │   │   ├── delete-entry.ts
 │   │   ├── download-weekly-review.ts
@@ -308,11 +308,13 @@ infra/
 │   │   ├── pdf-generator-noop.adapter.ts
 │   │   ├── pdf-generator-react.adapter.tsx
 │   │   ├── pdf-generator.adapter.ts
+│   │   ├── time-capsule-due-entries-drizzle.adapter.ts
+│   │   ├── time-capsule-due-entries.adapter.ts
 │   │   ├── weekly-review-snapshot-drizzle.adapter.ts
 │   │   └── weekly-review-snapshot.adapter.ts
 │   ├── history
-│   │   ├── history-repository-drizzle.adapter.ts
-│   │   ├── history-repository.adapter.ts
+│   │   ├── history-projection-drizzle.adapter.ts
+│   │   ├── history-projection.adapter.ts
 │   │   ├── history-writer-event-store.adapter.ts
 │   │   ├── history-writer.adapter.ts
 │   ├── mailer.adapter.ts
