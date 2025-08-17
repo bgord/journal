@@ -96,14 +96,14 @@ describe("AlarmOrchestrator", () => {
       async () => await saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent),
     );
 
-    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationRequestedEvent]);
   });
 
-  test("onAlarmNotificationSentEvent - missing contact", async () => {
+  test("onAlarmNotificationRequestedEvent - missing contact", async () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
-      mocks.GenericAlarmNotificationSentEvent,
+      mocks.GenericAlarmNotificationRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
@@ -114,14 +114,14 @@ describe("AlarmOrchestrator", () => {
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
-      async () => await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent),
+      async () => await saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
     );
 
     expect(mailerSend).not.toHaveBeenCalled();
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
   });
 
-  test("onAlarmNotificationSentEvent - mailer failed", async () => {
+  test("onAlarmNotificationRequestedEvent - mailer failed", async () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
@@ -137,7 +137,7 @@ describe("AlarmOrchestrator", () => {
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
-      async () => await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent),
+      async () => await saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
@@ -149,7 +149,7 @@ describe("AlarmOrchestrator", () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
   });
 
-  test("onAlarmNotificationSentEvent - entry", async () => {
+  test("onAlarmNotificationRequestedEvent - entry", async () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
@@ -157,7 +157,7 @@ describe("AlarmOrchestrator", () => {
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
-      async () => await saga.onAlarmNotificationSentEvent(mocks.GenericAlarmNotificationSentEvent),
+      async () => await saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
@@ -168,14 +168,15 @@ describe("AlarmOrchestrator", () => {
     });
   });
 
-  test("onAlarmNotificationSentEvent - inactivity", async () => {
+  test("onAlarmNotificationRequestedEvent - inactivity", async () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     spyOn(Emotions.Repos.AlarmRepository, "getById").mockResolvedValue(mocks.alarm);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
-      async () => await saga.onAlarmNotificationSentEvent(mocks.GenericInactivityAlarmNotificationSentEvent),
+      async () =>
+        await saga.onAlarmNotificationRequestedEvent(mocks.GenericInactivityAlarmNotificationRequestedEvent),
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
@@ -208,7 +209,7 @@ describe("AlarmOrchestrator", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
-      mocks.GenericAlarmNotificationSentEvent,
+      mocks.GenericAlarmNotificationRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(Emotions.Repos.AlarmRepository, "findCancellableByEntryId").mockResolvedValue([]);

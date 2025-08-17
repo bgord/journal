@@ -370,25 +370,25 @@ export const GenericAlarmAdviceSavedEvent = {
   payload: { advice: advice.get(), alarmId, userId },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
 
-export const GenericAlarmNotificationSentEvent = {
+export const GenericAlarmNotificationRequestedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
+  name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
   version: 1,
   payload: { alarmId, trigger: entryDetection.trigger, alarmName: entryDetection.name, userId },
-} satisfies Emotions.Events.AlarmNotificationSentEventType;
+} satisfies Emotions.Events.AlarmNotificationRequestedEventType;
 
-export const GenericInactivityAlarmNotificationSentEvent = {
+export const GenericInactivityAlarmNotificationRequestedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
+  name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
   version: 1,
   payload: { alarmId, trigger: inactivityDetection.trigger, alarmName: inactivityDetection.name, userId },
-} satisfies Emotions.Events.AlarmNotificationSentEventType;
+} satisfies Emotions.Events.AlarmNotificationRequestedEventType;
 
 export const GenericAlarmCancelledEvent = {
   id: expectAnyId,

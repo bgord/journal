@@ -14,7 +14,7 @@ export class Alarm {
   static events = [
     Events.AlarmGeneratedEvent,
     Events.AlarmAdviceSavedEvent,
-    Events.AlarmNotificationSentEvent,
+    Events.AlarmNotificationRequestedEvent,
     Events.AlarmCancelledEvent,
   ];
 
@@ -88,11 +88,11 @@ export class Alarm {
       status: this.status,
     });
 
-    const event = Events.AlarmNotificationSentEvent.parse({
+    const event = Events.AlarmNotificationRequestedEvent.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Time.Now().value,
-      name: Events.ALARM_NOTIFICATION_SENT_EVENT,
+      name: Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
       stream: Alarm.getStream(this.id),
       version: 1,
       payload: {
@@ -101,7 +101,7 @@ export class Alarm {
         trigger: this.detection?.trigger as VO.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
       },
-    } satisfies Events.AlarmNotificationSentEventType);
+    } satisfies Events.AlarmNotificationRequestedEventType);
 
     this.record(event);
   }
@@ -150,7 +150,7 @@ export class Alarm {
         break;
       }
 
-      case Events.ALARM_NOTIFICATION_SENT_EVENT: {
+      case Events.ALARM_NOTIFICATION_REQUESTED_EVENT: {
         this.status = VO.AlarmStatusEnum.notification_sent;
         break;
       }

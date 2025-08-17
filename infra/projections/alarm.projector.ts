@@ -17,8 +17,8 @@ export class AlarmProjector {
       EventHandler.handle(this.onAlarmAdviceSavedEvent.bind(this)),
     );
     eventBus.on(
-      Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
-      EventHandler.handle(this.onAlarmNotificationSentEvent.bind(this)),
+      Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
+      EventHandler.handle(this.onAlarmNotificationRequestedEvent.bind(this)),
     );
     eventBus.on(
       Emotions.Events.ALARM_CANCELLED_EVENT,
@@ -79,7 +79,7 @@ export class AlarmProjector {
       .where(eq(Schema.alarms.id, event.payload.alarmId));
   }
 
-  async onAlarmNotificationSentEvent(event: Emotions.Events.AlarmNotificationSentEventType) {
+  async onAlarmNotificationRequestedEvent(event: Emotions.Events.AlarmNotificationRequestedEventType) {
     await db
       .update(Schema.alarms)
       .set({ status: Emotions.VO.AlarmStatusEnum.notification_sent })

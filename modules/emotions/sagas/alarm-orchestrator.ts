@@ -20,7 +20,10 @@ export class AlarmOrchestrator {
   ) {
     this.eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
     this.eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
-    this.eventBus.on(Events.ALARM_NOTIFICATION_SENT_EVENT, this.onAlarmNotificationSentEvent.bind(this));
+    this.eventBus.on(
+      Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
+      this.onAlarmNotificationRequestedEvent.bind(this),
+    );
     this.eventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
   }
 
@@ -67,7 +70,7 @@ export class AlarmOrchestrator {
     await CommandBus.emit(command.name, command);
   }
 
-  async onAlarmNotificationSentEvent(event: Events.AlarmNotificationSentEventType) {
+  async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
     const cancel = Commands.CancelAlarmCommand.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
