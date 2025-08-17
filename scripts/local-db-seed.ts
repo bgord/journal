@@ -5,6 +5,7 @@ import _ from "lodash";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
+import { UserDirectory } from "+infra/adapters/auth/user-directory.adapter";
 import { auth } from "+infra/auth";
 import { CommandBus } from "+infra/command-bus";
 import { db } from "+infra/db";
@@ -232,7 +233,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     console.log("[✓] Time capsule entry scheduled");
 
-    await new Emotions.Policies.WeeklyReviewScheduler(EventBus, EventHandler).onHourHasPassed(
+    await new Emotions.Policies.WeeklyReviewScheduler(EventBus, EventHandler, UserDirectory).onHourHasPassed(
       mocks.GenericHourHasPassedMondayUtc18Event,
     );
 

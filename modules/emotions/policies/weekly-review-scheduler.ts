@@ -7,7 +7,11 @@ import { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 
 export class WeeklyReviewScheduler {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+  constructor(
+    eventBus: typeof EventBus,
+    EventHandler: bg.EventHandler,
+    private readonly userDirectory: Auth.Ports.UserDirectoryPort,
+  ) {
     eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
 
@@ -16,7 +20,7 @@ export class WeeklyReviewScheduler {
 
     const week = tools.Week.fromNow();
 
-    const userIds = await Auth.Repos.UserRepository.listIds();
+    const userIds = await this.userDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
       const command = Emotions.Commands.RequestWeeklyReviewCommand.parse({

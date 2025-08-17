@@ -3,7 +3,7 @@ import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
-import { UserContact } from "+infra/adapters/auth";
+import { UserContact, UserDirectory } from "+infra/adapters/auth";
 import {
   AlarmCancellationLookup,
   EntrySnapshot,
@@ -31,8 +31,8 @@ new Projections.HistoryProjector(EventBus, EventHandler, HistoryProjection);
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler, ExpiringShareableLinks);
 new EmotionsPolicies.EntryAlarmDetector(EventBus, EventHandler);
-new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler);
-new EmotionsPolicies.InactivityAlarmScheduler(EventBus, EventHandler);
+new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler, UserDirectory);
+new EmotionsPolicies.InactivityAlarmScheduler(EventBus, EventHandler, UserDirectory);
 new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler, TimeCapsuleDueEntries);
 new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
 

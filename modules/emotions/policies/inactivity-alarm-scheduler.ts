@@ -7,14 +7,18 @@ import { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 
 export class InactivityAlarmScheduler {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+  constructor(
+    eventBus: typeof EventBus,
+    EventHandler: bg.EventHandler,
+    private readonly userDirectory: Auth.Ports.UserDirectoryPort,
+  ) {
     eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
 
   async onHourHasPassed(event: Events.HourHasPassedEventType) {
     if (Emotions.Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
-    const userIds = await Auth.Repos.UserRepository.listIds();
+    const userIds = await this.userDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
       const lastEntryTimestamp = await Emotions.Queries.GetLatestEntryTimestampForUser.execute(userId);
