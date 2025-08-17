@@ -144,7 +144,7 @@ describe("AlarmOrchestrator", () => {
       subject: "Emotional advice",
       html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
     });
-    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
+    expect(eventStoreSave).not.toHaveBeenCalledWith();
   });
 
   test("onAlarmNotificationRequestedEvent - entry", async () => {

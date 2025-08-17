@@ -99,9 +99,7 @@ export class AlarmOrchestrator {
       } satisfies Commands.CompleteAlarmCommandType);
 
       await CommandBus.emit(complete.name, complete);
-    } catch (_error) {
-      return CommandBus.emit(cancel.name, cancel);
-    }
+    } catch {}
   }
 
   async onEntryDeletedEvent(event: Events.EntryDeletedEventType) {
