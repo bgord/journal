@@ -1,12 +1,12 @@
+import * as tools from "@bgord/tools";
 import { desc, eq } from "drizzle-orm";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 export type WeeklyReviewExportDto = Schema.SelectWeeklyReviews & {
-  // TODO
   entries: Pick<
-    Schema.SelectEntries,
+    VO.EntrySnapshot,
     | "id"
     | "situationDescription"
     | "situationLocation"
@@ -34,7 +34,7 @@ export type WeeklyReviewExportDto = Schema.SelectWeeklyReviews & {
 
 export class WeeklyReviewExportReadModel {
   static async getFull(id: VO.WeeklyReviewIdType): Promise<WeeklyReviewExportDto | undefined> {
-    return db.query.weeklyReviews.findFirst({
+    const result = await db.query.weeklyReviews.findFirst({
       where: eq(Schema.weeklyReviews.id, id),
       orderBy: desc(Schema.weeklyReviews.createdAt),
       with: {
@@ -71,5 +71,17 @@ export class WeeklyReviewExportReadModel {
         },
       },
     });
+
+    if (!result) return undefined;
+    return {
+      ...result,
+      entries: result.entries.map((entry) => ({
+        ...entry,
+        startedAt: tools.Timestamp.parse(entry.startedAt),
+        situationKind: entry.situationKind as VO.SituationKindOptions,
+        emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
+        reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
+      })),
+    };
   }
 }
