@@ -338,6 +338,7 @@ export const verifications = sqliteTable("verifications", {
 });
 
 export type SelectEntries = typeof entries.$inferSelect;
+/** @public */
 export type SelectEntriesFormatted = Omit<SelectEntries, "startedAt"> & { startedAt: string };
 export type SelectEntriesWithAlarms = SelectEntries & { alarms: SelectAlarms[] };
 export type SelectEntriesFull = Omit<SelectEntriesWithAlarms, "startedAt"> & { startedAt: string };
@@ -348,6 +349,7 @@ export type SelectEntriesFullWithAlarms = Omit<SelectEntriesWithAlarms, "started
 export type SelectAlarms = typeof alarms.$inferSelect;
 export type SelectPatternDetections = typeof patternDetections.$inferSelect;
 export type SelectWeeklyReviews = typeof weeklyReviews.$inferSelect;
+/** @public */
 export type SelectShareableLinks = typeof shareableLinks.$inferSelect;
 /** @public */
 export type SelectTimeCapsuleEntries = typeof timeCapsuleEntries.$inferSelect;

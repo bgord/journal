@@ -5,7 +5,7 @@ export * as Events from "./events";
 export * as Invariants from "./invariants";
 export * as OHQ from "./open-host-queries";
 export * as Policies from "./policies";
+export * as Ports from "./ports";
 export * as Queries from "./queries";
-export * as Repos from "./repositories";
 export * as Routes from "./routes";
 export * as VO from "./value-objects";

@@ -5,6 +5,7 @@ import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
 import { AlarmCancellationLookup, PdfGenerator } from "+infra/adapters/emotions";
 import { HistoryRepository, HistoryWriter } from "+infra/adapters/history";
+import { ExpiringShareableLinks } from "+infra/adapters/publishing";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
 import * as Projections from "+infra/projections";
@@ -22,7 +23,7 @@ new Projections.AiUsageCounterProjector(EventBus, EventHandler);
 new Projections.HistoryProjector(EventBus, EventHandler, HistoryRepository);
 
 // Policies
-new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler);
+new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler, ExpiringShareableLinks);
 new EmotionsPolicies.EntryAlarmDetector(EventBus, EventHandler);
 new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler);
 new EmotionsPolicies.InactivityAlarmScheduler(EventBus, EventHandler);

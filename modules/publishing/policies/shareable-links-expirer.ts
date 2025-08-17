@@ -4,16 +4,20 @@ import * as Events from "+app/events";
 import { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 import * as Commands from "+publishing/commands";
-import * as Repos from "+publishing/repositories";
+import * as Ports from "+publishing/ports";
 
 export class ShareableLinksExpirer {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+  constructor(
+    eventBus: typeof EventBus,
+    EventHandler: bg.EventHandler,
+    private readonly expiringShareableLinks: Ports.ExpiringShareableLinksPort,
+  ) {
     eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
 
-  async onHourHasPassed(_event: Events.HourHasPassedEventType) {
+  async onHourHasPassed(event: Events.HourHasPassedEventType) {
     try {
-      const shareableLinks = await Repos.ShareableLinkRepository.listNearExpiration();
+      const shareableLinks = await this.expiringShareableLinks.listDue(event.payload.timestamp);
 
       for (const shareableLink of shareableLinks) {
         const command = Commands.ExpireShareableLinkCommand.parse({
