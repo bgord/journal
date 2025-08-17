@@ -1,8 +1,30 @@
 # Changelog
+- 2025-08-17 14:05 d1a562e **refactor: add ExpiringShareableLinksDrizzle**
+## 2025-08-17 14:05 
+- 2025-08-17 13:30 b4b2765 **refactor: remove unused patterns read model**
+- 2025-08-17 13:27 58eb889 **refactor: cleanup tests**
+- 2025-08-17 12:58 92183c3 **refactor: pass event handler to policies**
+- 2025-08-17 12:47 c33bbf5 **refactor: cleanup adapter exports**
+- 2025-08-17 12:44 8128d96 **step: introduce AlarmCancellationLookupPort**
+- 2025-08-17 12:23 8bfe5f5 **refactor: improve alarm orchestrator**
+- 2025-08-17 09:16 23ea1b1 **refactor: add alarm projector**
+- 2025-08-17 09:15 f1f5f45 **step: implement completion flow**
+- 2025-08-17 09:05 c385eb5 **refactor: rename send alarm notification command**
+- 2025-08-17 09:03 d953660 **step: add complete alarm command**
+- 2025-08-17 08:59 13cce24 **step: add alarm.complete method**
+- 2025-08-17 08:44 af2e226 **refactor: include advice in alarm notification requested**
+- 2025-08-17 08:40 bbd7e8a **step: rename alarm notification sent event**
+- 2025-08-17 00:15 a0403ac **step: apply event handler handle**
+- 2025-08-16 22:06 8247174 **refactor: unify projectors**
+- 2025-08-16 22:02 49c0c7a **refactor: extract history projector**
+- 2025-08-16 21:53 4f8ae87 **refactor: migrate ai event handlers**
+- 2025-08-16 21:49 f446049 **refactor: create publishing projectors**
+- 2025-08-16 21:44 973b9ab **refactor: introduce projectors**
 - 2025-08-16 20:14 96ffa6f **step: write tests**
-## 2025-08-16 20:14 
 - 2025-08-16 20:02 e7fe4a2 **refactor: simplify entry alarm detector test**
 - 2025-08-16 19:53 c813e06 **refactor: extract emotions history publisher**
+- 2025-08-16 18:33 34e8d77 **docs: generate readme**
+- 2025-08-16 18:33 1f5e38c **docs: generate CHANGELOG**
 - 2025-08-16 18:29 2c6b00d **Merge pull request #31 from bgord/history**
 - 2025-08-16 17:55 d13c4a8 **step: setup entry history dialog**
 - 2025-08-16 17:55 5081088 **step: setup entry history dialog**
