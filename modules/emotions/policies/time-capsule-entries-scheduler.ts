@@ -4,16 +4,20 @@ import * as Emotions from "+emotions";
 import * as Events from "+app/events";
 import { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
-import { SupportedLanguages } from "+infra/i18n";
+import type { SupportedLanguages } from "+infra/i18n";
 
 export class TimeCapsuleEntriesScheduler {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+  constructor(
+    eventBus: typeof EventBus,
+    EventHandler: bg.EventHandler,
+    private readonly timeCapsuleDueEntries: Emotions.Ports.TimeCapsuleDueEntriesPort,
+  ) {
     eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
 
   async onHourHasPassed() {
     const now = tools.Time.Now().value;
-    const entries = await Emotions.Repos.TimeCapsuleEntryRepository.listDueForPublishing(now);
+    const entries = await this.timeCapsuleDueEntries.listDue(now);
 
     for (const entry of entries) {
       if (

@@ -3,7 +3,7 @@ import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
-import { AlarmCancellationLookup, PdfGenerator } from "+infra/adapters/emotions";
+import { AlarmCancellationLookup, PdfGenerator, TimeCapsuleDueEntries } from "+infra/adapters/emotions";
 import { HistoryProjection, HistoryWriter } from "+infra/adapters/history";
 import { ExpiringShareableLinks } from "+infra/adapters/publishing";
 import { EventBus } from "+infra/event-bus";
@@ -27,7 +27,7 @@ new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler, ExpiringSha
 new EmotionsPolicies.EntryAlarmDetector(EventBus, EventHandler);
 new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler);
 new EmotionsPolicies.InactivityAlarmScheduler(EventBus, EventHandler);
-new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler);
+new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler, TimeCapsuleDueEntries);
 new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
 
 // Sagas

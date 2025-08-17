@@ -733,8 +733,7 @@ export const fullEntry: Schema.SelectEntries = {
   userId,
 };
 
-export const timeCapsuleEntry: Schema.SelectTimeCapsuleEntries = {
-  scheduledAt,
+export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
   scheduledFor,
   id: entryId,
   situationDescription: "I finished a project",
@@ -750,7 +749,7 @@ export const timeCapsuleEntry: Schema.SelectTimeCapsuleEntries = {
   userId,
 };
 
-export const timeCapsuleEntryPublished: Schema.SelectTimeCapsuleEntries = {
+export const timeCapsuleEntryPublished: Emotions.Ports.TimeCapsuleEntrySnapshot = {
   ...timeCapsuleEntry,
   status: Emotions.VO.TimeCapsuleEntryStatusEnum.published,
 };
