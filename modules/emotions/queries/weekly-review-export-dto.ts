@@ -19,7 +19,17 @@ export type WeeklyReviewExportDto = Schema.SelectWeeklyReviews & {
     | "startedAt"
   >[];
   patternDetections: Pick<VO.PatternDetectionSnapshot, "id" | "name">[];
-  alarms: VO.AlarmSnapshot[];
+  alarms: Pick<
+    VO.AlarmSnapshot,
+    | "id"
+    | "name"
+    | "advice"
+    | "generatedAt"
+    | "inactivityDays"
+    | "lastEntryTimestamp"
+    | "emotionLabel"
+    | "emotionIntensity"
+  >[];
 };
 
 export class WeeklyReviewExportReadModel {

@@ -813,9 +813,9 @@ export const weeklyReviewFull: Emotions.Queries.WeeklyReviewExportDto = {
   alarms: [],
 };
 
-export const alarm: Schema.SelectAlarms = {
+export const alarm: Emotions.VO.AlarmSnapshot = {
   id: alarmId,
-  generatedAt: Date.now(),
+  generatedAt: tools.Time.Now().value,
   entryId,
   status: Emotions.VO.AlarmStatusEnum.notification_requested,
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
