@@ -11,6 +11,7 @@ export class InactivityAlarmScheduler {
     eventBus: typeof EventBus,
     EventHandler: bg.EventHandler,
     private readonly userDirectory: Auth.OHQ.UserDirectoryOHQ,
+    private readonly getLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser,
   ) {
     eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
@@ -21,7 +22,7 @@ export class InactivityAlarmScheduler {
     const userIds = await this.userDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
-      const lastEntryTimestamp = await Emotions.Queries.GetLatestEntryTimestampForUser.execute(userId);
+      const lastEntryTimestamp = await this.getLatestEntryTimestampForUser.execute(userId);
 
       if (Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
 

@@ -1,0 +1,19 @@
+import * as tools from "@bgord/tools";
+import { eq, sql } from "drizzle-orm";
+import type * as Auth from "+auth";
+import type { GetLatestEntryTimestampForUser } from "+emotions/queries/get-latest-entry-timestamp-for-user";
+import { db } from "+infra/db";
+import * as Schema from "+infra/schema";
+
+export class GetLatestEntryTimestampForUserDrizzle implements GetLatestEntryTimestampForUser {
+  async execute(userId: Auth.VO.UserIdType): Promise<tools.TimestampType | undefined> {
+    const result = await db
+      .select({ max: sql<number>`max(${Schema.entries.startedAt})` })
+      .from(Schema.entries)
+      .where(eq(Schema.entries.userId, userId));
+
+    if (!result[0]?.max) return undefined;
+
+    return tools.Timestamp.parse(result[0].max);
+  }
+}

@@ -7,6 +7,7 @@ import { UserContact, UserDirectory } from "+infra/adapters/auth";
 import {
   AlarmCancellationLookup,
   EntrySnapshot,
+  GetLatestEntryTimestampForUser,
   PdfGenerator,
   TimeCapsuleDueEntries,
 } from "+infra/adapters/emotions";
@@ -32,7 +33,12 @@ new Projections.HistoryProjector(EventBus, EventHandler, HistoryProjection);
 new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler, ExpiringShareableLinks);
 new EmotionsPolicies.EntryAlarmDetector(EventBus, EventHandler);
 new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler, UserDirectory);
-new EmotionsPolicies.InactivityAlarmScheduler(EventBus, EventHandler, UserDirectory);
+new EmotionsPolicies.InactivityAlarmScheduler(
+  EventBus,
+  EventHandler,
+  UserDirectory,
+  GetLatestEntryTimestampForUser,
+);
 new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler, TimeCapsuleDueEntries);
 new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
 

@@ -11,7 +11,7 @@ class NoEntriesInTheLastWeekError extends Error {
 }
 
 type NoEntriesInTheLastWeekConfigType = {
-  lastEntryTimestamp: Awaited<ReturnType<typeof GetLatestEntryTimestampForUser.execute>>;
+  lastEntryTimestamp: Awaited<ReturnType<GetLatestEntryTimestampForUser["execute"]>>;
 };
 
 class NoEntriesInTheLastWeekFactory extends bg.Invariant<NoEntriesInTheLastWeekConfigType> {
