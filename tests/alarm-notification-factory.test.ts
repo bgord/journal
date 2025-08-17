@@ -1,13 +1,14 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
+import { EntrySnapshot } from "+infra/adapters/emotions";
 import * as mocks from "./mocks";
 
 describe("AlarmNotificationFactory", () => {
   test("entry", async () => {
-    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
 
-    const result = await Emotions.Services.AlarmNotificationFactory.create(
+    const result = await new Emotions.Services.AlarmNotificationFactory(EntrySnapshot).create(
       mocks.entryDetection,
       mocks.advice,
     );
@@ -21,7 +22,7 @@ describe("AlarmNotificationFactory", () => {
   });
 
   test("inactivity", async () => {
-    const result = await Emotions.Services.AlarmNotificationFactory.create(
+    const result = await new Emotions.Services.AlarmNotificationFactory(EntrySnapshot).create(
       mocks.inactivityDetection,
       mocks.advice,
     );

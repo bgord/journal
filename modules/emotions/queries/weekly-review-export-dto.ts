@@ -4,6 +4,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 export type WeeklyReviewExportDto = Schema.SelectWeeklyReviews & {
+  // TODO
   entries: Pick<
     Schema.SelectEntries,
     | "id"

@@ -19,6 +19,7 @@ export class AlarmOrchestrator {
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
     private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
+    private readonly entrySnapshot: Ports.EntrySnapshotPort,
   ) {
     eventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
     eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
@@ -30,7 +31,7 @@ export class AlarmOrchestrator {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     try {
-      const prompt = await ACL.AiPrompts.AlarmPromptFactory.create(detection);
+      const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.entrySnapshot).create(detection);
       // @ts-expect-error
       const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
       const advice = await this.AiGateway.query(prompt, context);
@@ -84,7 +85,10 @@ export class AlarmOrchestrator {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
 
-    const notification = await Services.AlarmNotificationFactory.create(detection, advice);
+    const notification = await new Services.AlarmNotificationFactory(this.entrySnapshot).create(
+      detection,
+      advice,
+    );
 
     try {
       await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });

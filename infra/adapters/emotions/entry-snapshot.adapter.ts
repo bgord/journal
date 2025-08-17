@@ -1,3 +1,3 @@
 import { EntrySnapshotDrizzle } from "./entry-snapshot-drizzle.adapter";
 
-export const entrySnapshot = new EntrySnapshotDrizzle();
+export const EntrySnapshot = new EntrySnapshotDrizzle();

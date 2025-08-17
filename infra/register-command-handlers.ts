@@ -1,6 +1,6 @@
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
-import { WeeklyReviewSnapshot } from "+infra/adapters/emotions";
+import { EntrySnapshot, WeeklyReviewSnapshot } from "+infra/adapters/emotions";
 import { CommandBus } from "+infra/command-bus";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
@@ -37,7 +37,7 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.DETECT_WEEKLY_PATTERNS_COMMAND,
-  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand,
+  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand(EntrySnapshot),
 );
 CommandBus.on(
   EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,

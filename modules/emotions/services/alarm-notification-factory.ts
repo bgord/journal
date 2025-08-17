@@ -3,14 +3,18 @@ import * as AI from "+ai";
 import * as Emotions from "+emotions";
 
 export class AlarmNotificationFactory {
-  static async create(
+  constructor(private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort) {}
+
+  async create(
     detection: Emotions.VO.AlarmDetection,
     advice: AI.Advice,
   ): Promise<tools.NotificationTemplate> {
     switch (detection.trigger.type) {
       case Emotions.VO.AlarmTriggerEnum.entry: {
-        const entry = await Emotions.Repos.EntryRepository.getById(detection.trigger.entryId);
-        const composer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(entry);
+        const entry = await this.entrySnapshot.getById(detection.trigger.entryId);
+        const composer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(
+          entry as Emotions.VO.EntrySnapshot,
+        );
 
         return composer.compose(advice);
       }

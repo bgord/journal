@@ -4,7 +4,6 @@ import * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
 import * as VO from "+emotions/value-objects";
-import type * as Schema from "+infra/schema";
 
 /** @public */
 export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Pattern {
@@ -19,7 +18,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
     super();
   }
 
-  check(entries: Schema.SelectEntries[]): Patterns.PatternDetectionEventType | null {
+  check(entries: VO.EntrySnapshot[]): Patterns.PatternDetectionEventType | null {
     const matches = entries
       .map((entry) => ({
         id: entry.id,

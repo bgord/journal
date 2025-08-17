@@ -6,7 +6,7 @@ import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
-import { WeeklyReviewSnapshot } from "+infra/adapters/emotions";
+import { EntrySnapshot, WeeklyReviewSnapshot } from "+infra/adapters/emotions";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -14,7 +14,14 @@ import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, EventHandler, AiGateway, Mailer);
+
+const saga = new Emotions.Sagas.WeeklyReviewProcessing(
+  EventBus,
+  EventHandler,
+  AiGateway,
+  Mailer,
+  EntrySnapshot,
+);
 
 describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent", async () => {
@@ -60,7 +67,7 @@ describe("WeeklyReviewProcessing", () => {
     ]);
     spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
     const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -86,7 +93,7 @@ describe("WeeklyReviewProcessing", () => {
     ]);
     spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntryPl]);
+    spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntryPl]);
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
     const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -112,7 +119,7 @@ describe("WeeklyReviewProcessing", () => {
     ]);
     spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Emotions.Repos.EntryRepository, "findInWeekForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(AiGateway, "query").mockImplementation(() => {
       throw new Error("Failure");
     });

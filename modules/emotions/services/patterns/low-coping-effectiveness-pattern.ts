@@ -4,7 +4,6 @@ import * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns/pattern";
 import * as VO from "+emotions/value-objects";
-import type * as Schema from "+infra/schema";
 
 /** @public */
 export class LowCopingEffectivenessPattern extends Patterns.Pattern {
@@ -19,7 +18,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: Schema.SelectEntries[]): Patterns.PatternDetectionEventType | null {
+  check(entries: VO.EntrySnapshot[]): Patterns.PatternDetectionEventType | null {
     const effectivenessScores = entries.map((entry) =>
       new VO.ReactionEffectiveness(entry.reactionEffectiveness as VO.ReactionEffectivenessType).get(),
     );

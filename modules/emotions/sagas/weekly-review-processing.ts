@@ -14,6 +14,7 @@ export class WeeklyReviewProcessing {
     EventHandler: bg.EventHandler,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
+    private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,
   ) {
     eventBus.on(
       Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
@@ -46,7 +47,7 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewRequestedEvent(event: Emotions.Events.WeeklyReviewRequestedEventType) {
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
-    const entries = await Emotions.Repos.EntryRepository.findInWeekForUser(week, event.payload.userId);
+    const entries = await this.entrySnapshot.getByWeekForUser(week, event.payload.userId);
 
     const language = entries.at(-1)?.language as SupportedLanguages;
     const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
