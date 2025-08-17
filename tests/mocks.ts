@@ -402,6 +402,16 @@ export const GenericInactivityAlarmNotificationRequestedEvent = {
   },
 } satisfies Emotions.Events.AlarmNotificationRequestedEventType;
 
+export const GenericAlarmNotificationSentEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: expect.any(String),
+  name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
+  version: 1,
+  payload: { alarmId },
+} satisfies Emotions.Events.AlarmNotificationSentEventType;
+
 export const GenericAlarmCancelledEvent = {
   id: expectAnyId,
   correlationId,

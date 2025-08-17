@@ -15,6 +15,7 @@ export class Alarm {
     Events.AlarmGeneratedEvent,
     Events.AlarmAdviceSavedEvent,
     Events.AlarmNotificationRequestedEvent,
+    Events.AlarmNotificationSentEvent,
     Events.AlarmCancelledEvent,
   ];
 
@@ -107,6 +108,22 @@ export class Alarm {
     this.record(event);
   }
 
+  complete() {
+    Invariants.AlarmNotificationRequested.perform({ status: this.status });
+
+    const event = Events.AlarmNotificationSentEvent.parse({
+      id: crypto.randomUUID(),
+      correlationId: bg.CorrelationStorage.get(),
+      createdAt: tools.Time.Now().value,
+      name: Events.ALARM_NOTIFICATION_SENT_EVENT,
+      stream: Alarm.getStream(this.id),
+      version: 1,
+      payload: { alarmId: this.id },
+    } satisfies Events.AlarmNotificationSentEventType);
+
+    this.record(event);
+  }
+
   cancel() {
     Invariants.AlarmIsCancellable.perform({ status: this.status });
 
@@ -153,6 +170,11 @@ export class Alarm {
 
       case Events.ALARM_NOTIFICATION_REQUESTED_EVENT: {
         this.status = VO.AlarmStatusEnum.notification_requested;
+        break;
+      }
+
+      case Events.ALARM_NOTIFICATION_SENT_EVENT: {
+        this.status = VO.AlarmStatusEnum.completed;
         break;
       }
 

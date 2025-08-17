@@ -3,5 +3,6 @@ export enum AlarmStatusEnum {
   generated = "generated",
   advice_saved = "advice_saved",
   notification_requested = "notification_sent",
+  completed = "completed",
   cancelled = "cancelled",
 }

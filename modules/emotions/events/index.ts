@@ -2,6 +2,7 @@ export * from "./ALARM_ADVICE_SAVED_EVENT";
 export * from "./ALARM_CANCELLED_EVENT";
 export * from "./ALARM_GENERATED_EVENT";
 export * from "./ALARM_NOTIFICATION_REQUESTED_EVENT";
+export * from "./ALARM_NOTIFICATION_SENT_EVENT";
 export * from "./EMOTION_LOGGED_EVENT";
 export * from "./EMOTION_REAPPRAISED_EVENT";
 export * from "./ENTRY_DELETED_EVENT";

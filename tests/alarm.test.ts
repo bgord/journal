@@ -77,6 +77,27 @@ describe("Alarm", () => {
     expect(alarm.pullEvents()).toEqual([]);
   });
 
+  test("complete - correct path", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
+      mocks.GenericAlarmGeneratedEvent,
+      mocks.GenericAlarmAdviceSavedEvent,
+      mocks.GenericAlarmNotificationRequestedEvent,
+    ]);
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      alarm.complete();
+      expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationSentEvent]);
+    });
+  });
+
+  test("complete - AlarmNotificationRequested", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      expect(async () => alarm.complete()).toThrow(Emotions.Invariants.AlarmNotificationRequested.error);
+    });
+  });
+
   test("cancel - correct path", async () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [
       mocks.GenericAlarmGeneratedEvent,
