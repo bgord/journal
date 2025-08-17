@@ -12,12 +12,6 @@ export class AlarmRepository {
     });
   }
 
-  static async getById(id: VO.AlarmIdType): Promise<Schema.SelectAlarms> {
-    const result = await db.select().from(Schema.alarms).where(eq(Schema.alarms.id, id));
-
-    return result[0] as Schema.SelectAlarms;
-  }
-
   static async findCancellableByEntryId(entryId: VO.EntryIdType) {
     return db
       .select({ id: Schema.alarms.id })
@@ -27,7 +21,7 @@ export class AlarmRepository {
           eq(Schema.alarms.entryId, entryId),
           notInArray(Schema.alarms.status, [
             VO.AlarmStatusEnum.cancelled,
-            VO.AlarmStatusEnum.notification_sent,
+            VO.AlarmStatusEnum.notification_requested,
           ]),
         ),
       );

@@ -82,10 +82,8 @@ export class AlarmOrchestrator {
     const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
     if (!contact?.email) return CommandBus.emit(cancel.name, cancel);
 
-    const alarm = await Repos.AlarmRepository.getById(event.payload.alarmId);
-
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
-    const advice = new AI.Advice(alarm.advice as AI.AdviceType);
+    const advice = new AI.Advice(event.payload.advice);
 
     const notification = await Services.AlarmNotificationFactory.create(detection, advice);
 

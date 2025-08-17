@@ -377,7 +377,13 @@ export const GenericAlarmNotificationRequestedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
   version: 1,
-  payload: { alarmId, trigger: entryDetection.trigger, alarmName: entryDetection.name, userId },
+  payload: {
+    alarmId,
+    trigger: entryDetection.trigger,
+    alarmName: entryDetection.name,
+    userId,
+    advice: advice.get(),
+  },
 } satisfies Emotions.Events.AlarmNotificationRequestedEventType;
 
 export const GenericInactivityAlarmNotificationRequestedEvent = {
@@ -387,7 +393,13 @@ export const GenericInactivityAlarmNotificationRequestedEvent = {
   stream: expect.any(String),
   name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
   version: 1,
-  payload: { alarmId, trigger: inactivityDetection.trigger, alarmName: inactivityDetection.name, userId },
+  payload: {
+    alarmId,
+    trigger: inactivityDetection.trigger,
+    alarmName: inactivityDetection.name,
+    userId,
+    advice: advice.get(),
+  },
 } satisfies Emotions.Events.AlarmNotificationRequestedEventType;
 
 export const GenericAlarmCancelledEvent = {
@@ -799,7 +811,7 @@ export const alarm: Schema.SelectAlarms = {
   id: alarmId,
   generatedAt: Date.now(),
   entryId,
-  status: Emotions.VO.AlarmStatusEnum.notification_sent,
+  status: Emotions.VO.AlarmStatusEnum.notification_requested,
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
   advice: advice.get(),
   emotionLabel: null,

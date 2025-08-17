@@ -82,7 +82,7 @@ export class AlarmProjector {
   async onAlarmNotificationRequestedEvent(event: Emotions.Events.AlarmNotificationRequestedEventType) {
     await db
       .update(Schema.alarms)
-      .set({ status: Emotions.VO.AlarmStatusEnum.notification_sent })
+      .set({ status: Emotions.VO.AlarmStatusEnum.notification_requested })
       .where(eq(Schema.alarms.id, event.payload.alarmId));
   }
 }

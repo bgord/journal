@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
+import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
@@ -17,6 +18,7 @@ export const AlarmNotificationRequestedEvent = z.object({
   payload: z.object({
     alarmId: VO.AlarmId,
     alarmName: VO.AlarmName,
+    advice: AI.AdviceSchema,
     trigger: VO.AlarmTrigger,
     userId: Auth.VO.UserId,
   }),

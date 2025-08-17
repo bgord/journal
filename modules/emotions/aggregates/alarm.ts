@@ -100,6 +100,7 @@ export class Alarm {
         alarmName: this.detection?.name as VO.AlarmNameType,
         trigger: this.detection?.trigger as VO.AlarmTriggerType,
         userId: this.userId as Auth.VO.UserIdType,
+        advice: this.advice?.get() as AI.AdviceType,
       },
     } satisfies Events.AlarmNotificationRequestedEventType);
 
@@ -151,7 +152,7 @@ export class Alarm {
       }
 
       case Events.ALARM_NOTIFICATION_REQUESTED_EVENT: {
-        this.status = VO.AlarmStatusEnum.notification_sent;
+        this.status = VO.AlarmStatusEnum.notification_requested;
         break;
       }
 
