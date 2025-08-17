@@ -1,5 +1,4 @@
 // cspell:disable
-
 import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -693,10 +692,10 @@ export const GenericEntryHistoryClearedEvent = {
   payload: { subject: entryId },
 } satisfies bg.History.Events.HistoryClearedEventType;
 
-export const partialEntry: Schema.SelectEntries = {
+export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
-  startedAt: Date.now(),
-  status: Emotions.VO.AlarmStatusEnum.generated,
+  startedAt: tools.Time.Now().value,
+  status: Emotions.VO.EntryStatusEnum.actionable,
   id: entryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
@@ -712,10 +711,10 @@ export const partialEntry: Schema.SelectEntries = {
   userId,
 };
 
-export const fullEntry: Schema.SelectEntries = {
+export const fullEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
-  startedAt: Date.now(),
-  status: Emotions.VO.AlarmStatusEnum.generated,
+  startedAt: tools.Time.Now().value,
+  status: Emotions.VO.EntryStatusEnum.actionable,
   id: entryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
@@ -752,12 +751,12 @@ export const timeCapsuleEntryPublished: Emotions.Ports.TimeCapsuleEntrySnapshot 
   status: Emotions.VO.TimeCapsuleEntryStatusEnum.published,
 };
 
-export const fullEntryPl: Schema.SelectEntries = {
+export const fullEntryPl: Emotions.VO.EntrySnapshot = {
   ...fullEntry,
   language: SupportedLanguages.pl,
 };
 
-export const positiveMaladaptiveEntry: Schema.SelectEntries = {
+export const positiveMaladaptiveEntry: Emotions.VO.EntrySnapshot = {
   ...fullEntry,
 
   emotionLabel: Emotions.VO.GenevaWheelEmotion.joy,
@@ -768,7 +767,7 @@ export const positiveMaladaptiveEntry: Schema.SelectEntries = {
   reactionEffectiveness: 1,
 };
 
-export const positiveAdaptiveEntry: Schema.SelectEntries = {
+export const positiveAdaptiveEntry: Emotions.VO.EntrySnapshot = {
   ...fullEntry,
 
   emotionLabel: Emotions.VO.GenevaWheelEmotion.joy,
@@ -779,14 +778,14 @@ export const positiveAdaptiveEntry: Schema.SelectEntries = {
   reactionEffectiveness: 4,
 };
 
-export const positiveEmotionEntry: Schema.SelectEntries = {
+export const positiveEmotionEntry: Emotions.VO.EntrySnapshot = {
   ...fullEntry,
 
   emotionLabel: Emotions.VO.GenevaWheelEmotion.joy,
   emotionIntensity: 4,
 };
 
-export const negativeEmotionEntry: Schema.SelectEntries = {
+export const negativeEmotionEntry: Emotions.VO.EntrySnapshot = {
   ...fullEntry,
 
   emotionLabel: Emotions.VO.GenevaWheelEmotion.anger,
