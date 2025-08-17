@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "596bf8c0-a2da-4d88-9813-ca0b12fa8c91",
+  "id": "264eeaf0-e656-412a-91e2-5dff640a4668",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -321,13 +321,6 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
-        },
-        "finishedAt": {
-          "name": "finishedAt",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
           "autoincrement": false
         },
         "situationDescription": {

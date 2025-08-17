@@ -83,7 +83,6 @@ export class EntryProjector {
         reactionDescription: event.payload.description,
         reactionType: event.payload.type,
         reactionEffectiveness: event.payload.effectiveness,
-        finishedAt: event.createdAt,
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
@@ -95,7 +94,6 @@ export class EntryProjector {
       .set({
         emotionLabel: event.payload.newLabel,
         emotionIntensity: event.payload.newIntensity as number,
-        finishedAt: event.createdAt,
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
@@ -108,7 +106,6 @@ export class EntryProjector {
         reactionDescription: event.payload.description,
         reactionType: event.payload.type,
         reactionEffectiveness: event.payload.effectiveness,
-        finishedAt: event.createdAt,
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));

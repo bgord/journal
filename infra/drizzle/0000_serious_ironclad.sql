@@ -47,7 +47,6 @@ CREATE TABLE `entries` (
 	`id` text(36) PRIMARY KEY NOT NULL,
 	`revision` integer DEFAULT 0 NOT NULL,
 	`startedAt` integer NOT NULL,
-	`finishedAt` integer,
 	`situationDescription` text,
 	`situationLocation` text,
 	`situationKind` text,
