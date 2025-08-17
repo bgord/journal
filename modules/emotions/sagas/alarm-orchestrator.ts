@@ -89,6 +89,16 @@ export class AlarmOrchestrator {
 
     try {
       await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
+
+      const complete = Commands.CompleteAlarmCommand.parse({
+        id: crypto.randomUUID(),
+        correlationId: bg.CorrelationStorage.get(),
+        name: Commands.COMPLETE_ALARM_COMMAND,
+        createdAt: tools.Time.Now().value,
+        payload: { alarmId: event.payload.alarmId },
+      } satisfies Commands.CompleteAlarmCommandType);
+
+      await CommandBus.emit(complete.name, complete);
     } catch (_error) {
       return CommandBus.emit(cancel.name, cancel);
     }
