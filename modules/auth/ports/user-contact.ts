@@ -1,7 +1,7 @@
 import * as VO from "+auth/value-objects";
 
-export type EmailContact = { email: string };
+export type EmailContact = { type: "email"; address: string };
 
 export interface UserContactPort {
-  getPrimaryEmail(userId: VO.UserIdType): Promise<EmailContact | undefined>;
+  getPrimary(userId: VO.UserIdType): Promise<EmailContact | undefined>;
 }

@@ -26,7 +26,7 @@ const saga = new Emotions.Sagas.WeeklyReviewProcessing(
 
 describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent", async () => {
-    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue({ email: mocks.email });
+    spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -41,7 +41,7 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewSkippedEvent - no email", async () => {
-    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue(undefined);
+    spyOn(UserContact, "getPrimary").mockResolvedValue(undefined);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -51,7 +51,7 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewSkippedEvent - mailer failed", async () => {
-    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue(undefined);
+    spyOn(UserContact, "getPrimary").mockResolvedValue(undefined);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
       throw new Error("MAILER_FAILED");
     });

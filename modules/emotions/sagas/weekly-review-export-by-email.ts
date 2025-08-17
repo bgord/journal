@@ -28,8 +28,8 @@ export class WeeklyReviewExportByEmail {
     event: Emotions.Events.WeeklyReviewExportByEmailRequestedEventType,
   ) {
     try {
-      const contact = await this.userContact.getPrimaryEmail(event.payload.userId);
-      if (!contact?.email) return;
+      const contact = await this.userContact.getPrimary(event.payload.userId);
+      if (!contact?.address) return;
 
       const weeklyReview = await Emotions.Queries.WeeklyReviewExportReadModel.getFull(
         event.payload.weeklyReviewId,
@@ -44,7 +44,7 @@ export class WeeklyReviewExportByEmail {
 
       await this.mailer.send({
         from: Env.EMAIL_FROM,
-        to: contact.email,
+        to: contact.address,
         attachments: [attachment],
         ...notification,
       });

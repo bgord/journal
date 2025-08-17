@@ -32,17 +32,17 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewSkippedEvent(event: Emotions.Events.WeeklyReviewSkippedEventType) {
-    const contact = await this.userContact.getPrimaryEmail(event.payload.userId);
+    const contact = await this.userContact.getPrimary(event.payload.userId);
 
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const composer = new Emotions.Services.WeeklyReviewSkippedNotificationComposer();
 
     const notification = composer.compose(week);
 
-    if (!contact?.email) return;
+    if (!contact?.address) return;
 
     try {
-      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact?.email, ...notification.get() });
+      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact?.address, ...notification.get() });
     } catch {}
   }
 

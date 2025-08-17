@@ -112,7 +112,7 @@ describe("AlarmOrchestrator", () => {
       mocks.GenericAlarmNotificationRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue(undefined);
+    spyOn(UserContact, "getPrimary").mockResolvedValue(undefined);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -130,7 +130,7 @@ describe("AlarmOrchestrator", () => {
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue({ email: mocks.email });
+    spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
     spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
       throw new Error("MAILER_FAILED");
@@ -157,7 +157,7 @@ describe("AlarmOrchestrator", () => {
       mocks.GenericAlarmNotificationRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue({ email: mocks.email });
+    spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
     spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -183,7 +183,7 @@ describe("AlarmOrchestrator", () => {
       mocks.GenericAlarmNotificationRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue({ email: mocks.email });
+    spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

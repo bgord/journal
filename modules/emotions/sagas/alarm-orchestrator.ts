@@ -80,8 +80,8 @@ export class AlarmOrchestrator {
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.CancelAlarmCommandType);
 
-    const contact = await this.userContact.getPrimaryEmail(event.payload.userId);
-    if (!contact?.email) return CommandBus.emit(cancel.name, cancel);
+    const contact = await this.userContact.getPrimary(event.payload.userId);
+    if (!contact?.address) return CommandBus.emit(cancel.name, cancel);
 
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
@@ -92,7 +92,7 @@ export class AlarmOrchestrator {
     );
 
     try {
-      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.email, ...notification.get() });
+      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.address, ...notification.get() });
 
       const complete = Commands.CompleteAlarmCommand.parse({
         id: crypto.randomUUID(),
