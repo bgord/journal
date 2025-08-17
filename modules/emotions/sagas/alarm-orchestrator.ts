@@ -20,7 +20,7 @@ export class AlarmOrchestrator {
     private readonly mailer: bg.MailerPort,
     private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
     private readonly entrySnapshot: Ports.EntrySnapshotPort,
-    private readonly userContact: Auth.Ports.UserContactPort,
+    private readonly userContact: Auth.OHQ.UserContactOHQ,
   ) {
     eventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
     eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));

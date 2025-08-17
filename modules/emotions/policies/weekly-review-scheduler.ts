@@ -10,7 +10,7 @@ export class WeeklyReviewScheduler {
   constructor(
     eventBus: typeof EventBus,
     EventHandler: bg.EventHandler,
-    private readonly userDirectory: Auth.Ports.UserDirectoryPort,
+    private readonly userDirectory: Auth.OHQ.UserDirectoryOHQ,
   ) {
     eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }

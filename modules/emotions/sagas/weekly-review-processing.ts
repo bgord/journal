@@ -15,7 +15,7 @@ export class WeeklyReviewProcessing {
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
     private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,
-    private readonly userContact: Auth.Ports.UserContactPort,
+    private readonly userContact: Auth.OHQ.UserContactOHQ,
   ) {
     eventBus.on(
       Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,

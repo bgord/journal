@@ -12,7 +12,7 @@ export class WeeklyReviewExportByEmail {
     EventHandler: bg.EventHandler,
     private readonly mailer: bg.MailerPort,
     private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
-    private readonly userContact: Auth.Ports.UserContactPort,
+    private readonly userContact: Auth.OHQ.UserContactOHQ,
   ) {
     eventBus.on(
       Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
