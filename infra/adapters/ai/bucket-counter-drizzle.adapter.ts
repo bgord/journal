@@ -4,7 +4,7 @@ import * as VO from "+ai/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export class BucketCounterDrizzleRepository implements BucketCounterPort {
+export class BucketCounterDrizzle implements BucketCounterPort {
   async getMany(buckets: VO.QuotaBucketType[]): Promise<Record<VO.QuotaBucketType, VO.QuotaUsageType>> {
     if (buckets.length === 0) return {};
 

@@ -2,17 +2,16 @@ import { describe, expect, spyOn, test } from "bun:test";
 import { QuotaRuleSelector } from "+ai/services";
 import { QuotaSpecification } from "+ai/specifications";
 import * as VO from "+ai/value-objects";
-import { BucketCounterDrizzleRepository } from "+infra/adapters/ai";
+import { BucketCounter } from "+infra/adapters/ai";
 import * as mocks from "./mocks";
 
 const selector = new QuotaRuleSelector(VO.RULES);
-const bucketCounterRepo = new BucketCounterDrizzleRepository();
 
-const specification = new QuotaSpecification(selector, bucketCounterRepo);
+const specification = new QuotaSpecification(selector, BucketCounter);
 
 describe("QuotaSpecification", () => {
   test("EmotionsAlarmEntryContext - no violations", async () => {
-    spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
+    spyOn(BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsAlarmEntryBucket]: 0,
     });
@@ -21,7 +20,7 @@ describe("QuotaSpecification", () => {
   });
 
   test("EmotionsAlarmEntryContext - USER_DAILY violations", async () => {
-    spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
+    spyOn(BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 10,
       [mocks.emotionsAlarmEntryBucket]: 0,
     });
@@ -39,7 +38,7 @@ describe("QuotaSpecification", () => {
   });
 
   test("EmotionsAlarmEntryContext - EMOTIONS_ALARM_ENTRY violations", async () => {
-    spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
+    spyOn(BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 2,
       [mocks.emotionsAlarmEntryBucket]: 2,
     });
@@ -57,7 +56,7 @@ describe("QuotaSpecification", () => {
   });
 
   test("EmotionsWeeklyReviewInsightContext - no violations", async () => {
-    spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
+    spyOn(BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 0,
     });
@@ -66,7 +65,7 @@ describe("QuotaSpecification", () => {
   });
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
-    spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
+    spyOn(BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 10,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 0,
     });
@@ -84,7 +83,7 @@ describe("QuotaSpecification", () => {
   });
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
-    spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
+    spyOn(BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 1,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 1,
     });
@@ -102,7 +101,7 @@ describe("QuotaSpecification", () => {
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - no violations", async () => {
-    spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
+    spyOn(BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: 0,
     });
@@ -113,7 +112,7 @@ describe("QuotaSpecification", () => {
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
-    spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
+    spyOn(BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 10,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: 0,
     });
@@ -131,7 +130,7 @@ describe("QuotaSpecification", () => {
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
-    spyOn(bucketCounterRepo, "getMany").mockResolvedValue({
+    spyOn(BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 1,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: 1,
     });

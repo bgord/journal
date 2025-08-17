@@ -11,7 +11,6 @@ import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
 
 const EventHandler = new bg.EventHandler(logger);
-const historyRepository = new HistoryRepository();
 
 // Projections
 new Projections.EntryProjector(EventBus, EventHandler);
@@ -20,7 +19,7 @@ new Projections.PatternDetectionProjector(EventBus, EventHandler);
 new Projections.WeeklyReviewProjector(EventBus, EventHandler);
 new Projections.ShareableLinkProjector(EventBus, EventHandler);
 new Projections.AiUsageCounterProjector(EventBus, EventHandler);
-new Projections.HistoryProjector(EventBus, EventHandler, historyRepository);
+new Projections.HistoryProjector(EventBus, EventHandler, HistoryRepository);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus);
