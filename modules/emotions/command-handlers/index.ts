@@ -9,7 +9,7 @@ export * from "./handleGenerateAlarmCommand";
 export * from "./handleLogEntryCommand";
 export * from "./handleMarkWeeklyReviewAsFailedCommand";
 export * from "./handleReappraiseEmotionCommand";
+export * from "./handleRequestAlarmNotificationCommand";
 export * from "./handleRequestWeeklyReviewCommand";
 export * from "./handleSaveAlarmAdviceCommand";
 export * from "./handleScheduleTimeCapsuleEntryCommand";
-export * from "./handleSendAlarmNotificationCommand";

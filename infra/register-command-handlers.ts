@@ -18,8 +18,8 @@ CommandBus.on(
 );
 CommandBus.on(EmotionCommands.SAVE_ALARM_ADVICE_COMMAND, EmotionCommandHandlers.handleSaveAlarmAdviceCommand);
 CommandBus.on(
-  EmotionCommands.SEND_ALARM_NOTIFICATION_COMMAND,
-  EmotionCommandHandlers.handleSendAlarmNotificationCommand,
+  EmotionCommands.REQUEST_ALARM_NOTIFICATION_COMMAND,
+  EmotionCommandHandlers.handleRequestAlarmNotificationCommand,
 );
 CommandBus.on(EmotionCommands.COMPLETE_ALARM_COMMAND, EmotionCommandHandlers.handleCompleteAlarmCommand);
 CommandBus.on(

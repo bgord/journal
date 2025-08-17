@@ -59,10 +59,10 @@ export class AlarmOrchestrator {
   }
 
   async onAlarmAdviceSavedEvent(event: Events.AlarmAdviceSavedEventType) {
-    const command = Commands.SendAlarmNotificationCommand.parse({
+    const command = Commands.RequestAlarmNotificationCommand.parse({
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
-      name: Commands.SEND_ALARM_NOTIFICATION_COMMAND,
+      name: Commands.REQUEST_ALARM_NOTIFICATION_COMMAND,
       createdAt: tools.Time.Now().value,
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.SendAlarmNotificationCommandType);

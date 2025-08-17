@@ -1,7 +1,7 @@
 import * as Emotions from "+emotions";
 import { EventStore } from "+infra/event-store";
 
-export const handleSendAlarmNotificationCommand = async (
+export const handleRequestAlarmNotificationCommand = async (
   command: Emotions.Commands.SendAlarmNotificationCommandType,
 ) => {
   const history = await EventStore.find(
