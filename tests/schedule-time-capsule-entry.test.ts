@@ -30,9 +30,7 @@ describe(`POST ${url}`, () => {
   test("situation - validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(url, { method: "POST" }, mocks.ip);
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({
       message: Emotions.VO.SituationDescription.Errors.invalid,
@@ -50,9 +48,7 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.SituationLocation.Errors.invalid, _known: true });
   });
@@ -67,9 +63,7 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.SituationKind.Errors.invalid, _known: true });
   });
@@ -81,9 +75,7 @@ describe(`POST ${url}`, () => {
       { method: "POST", body: JSON.stringify({ ...situation }) },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionLabel.Errors.invalid, _known: true });
   });
@@ -98,9 +90,7 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionIntensity.Errors.min_max, _known: true });
   });
@@ -112,9 +102,7 @@ describe(`POST ${url}`, () => {
       { method: "POST", body: JSON.stringify({ ...situation, ...emotion }) },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionDescription.Errors.invalid, _known: true });
   });
@@ -129,9 +117,7 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionType.Errors.invalid, _known: true });
   });
@@ -151,9 +137,7 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.min_max, _known: true });
   });
@@ -165,7 +149,6 @@ describe(`POST ${url}`, () => {
       { method: "POST", body: JSON.stringify({ ...situation, ...emotion, ...reaction }) },
       mocks.ip,
     );
-
     expect(response.status).toBe(400);
   });
 
@@ -184,7 +167,6 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Emotions.Invariants.TimeCapsuleEntryScheduledInFuture);
   });
 
@@ -209,7 +191,6 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-
     expect(response.status).toBe(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericTimeCapsuleEntryScheduledEvent]);
   });

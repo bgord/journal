@@ -24,9 +24,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       { method: "POST", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({
       message: Emotions.VO.ReactionDescription.Errors.invalid,
@@ -45,9 +43,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({
       message: Emotions.VO.ReactionType.Errors.invalid,
@@ -69,9 +65,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({
       message: Emotions.VO.ReactionEffectiveness.Errors.min_max,
@@ -86,9 +80,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       { method: "POST", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -240,7 +232,6 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       type: mocks.GenericReactionEvaluatedEvent.payload.type,
       effectiveness: mocks.GenericReactionEvaluatedEvent.payload.effectiveness,
     };
-
     const response = await server.request(
       url,
       {
@@ -250,7 +241,6 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       },
       mocks.ip,
     );
-
     expect(response.status).toBe(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericReactionEvaluatedEvent]);
   });

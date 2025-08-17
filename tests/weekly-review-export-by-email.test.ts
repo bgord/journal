@@ -7,7 +7,11 @@ import { PdfGenerator } from "+infra/adapters/emotions";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
+import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
+
+const EventHandler = new bg.EventHandler(logger);
+const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, EventHandler, Mailer, PdfGenerator);
 
 describe("WeeklyReviewExportByEmail", () => {
   test("onWeeklyReviewExportByEmailRequestedEvent - no email", async () => {
@@ -15,15 +19,9 @@ describe("WeeklyReviewExportByEmail", () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailRequestedEvent(
-          mocks.GenericWeeklyReviewExportByEmailRequestedEvent,
-        ),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
-
     expect(eventStoreSave).not.toHaveBeenCalled();
     expect(mailerSend).not.toHaveBeenCalled();
   });
@@ -35,15 +33,9 @@ describe("WeeklyReviewExportByEmail", () => {
       throw new Error("FAILURE");
     });
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailRequestedEvent(
-          mocks.GenericWeeklyReviewExportByEmailRequestedEvent,
-        ),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailFailedEvent]);
     expect(mailerSend).not.toHaveBeenCalled();
   });
@@ -54,15 +46,9 @@ describe("WeeklyReviewExportByEmail", () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(mocks.user);
     spyOn(Emotions.Queries.WeeklyReviewExportReadModel, "getFull").mockResolvedValue(undefined);
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailRequestedEvent(
-          mocks.GenericWeeklyReviewExportByEmailRequestedEvent,
-        ),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
-
     expect(eventStoreSave).not.toHaveBeenCalled();
     expect(mailerSend).not.toHaveBeenCalled();
   });
@@ -75,15 +61,9 @@ describe("WeeklyReviewExportByEmail", () => {
       throw new Error("FAILURE");
     });
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailRequestedEvent(
-          mocks.GenericWeeklyReviewExportByEmailRequestedEvent,
-        ),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailFailedEvent]);
     expect(mailerSend).not.toHaveBeenCalled();
   });
@@ -96,15 +76,9 @@ describe("WeeklyReviewExportByEmail", () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(mocks.user);
     spyOn(Emotions.Queries.WeeklyReviewExportReadModel, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailRequestedEvent(
-          mocks.GenericWeeklyReviewExportByEmailRequestedEvent,
-        ),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailFailedEvent]);
   });
 
@@ -114,13 +88,8 @@ describe("WeeklyReviewExportByEmail", () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(mocks.user);
     spyOn(Emotions.Queries.WeeklyReviewExportReadModel, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailRequestedEvent(
-          mocks.GenericWeeklyReviewExportByEmailRequestedEvent,
-        ),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
@@ -142,13 +111,9 @@ describe("WeeklyReviewExportByEmail", () => {
     spyOn(Bun, "sleep").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent),
     );
-
     expect(eventStoreSave).toHaveBeenCalled();
   });
 
@@ -156,15 +121,9 @@ describe("WeeklyReviewExportByEmail", () => {
     spyOn(Bun, "sleep").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailFailedEvent(
-          mocks.GenericWeeklyReviewExportByEmailFailedEvent2nd,
-        ),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent2nd),
     );
-
     expect(eventStoreSave).toHaveBeenCalled();
   });
 
@@ -172,15 +131,9 @@ describe("WeeklyReviewExportByEmail", () => {
     spyOn(Bun, "sleep").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailFailedEvent(
-          mocks.GenericWeeklyReviewExportByEmailFailedEvent3rd,
-        ),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent3rd),
     );
-
     expect(eventStoreSave).toHaveBeenCalled();
   });
 
@@ -188,15 +141,9 @@ describe("WeeklyReviewExportByEmail", () => {
     spyOn(Bun, "sleep").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onWeeklyReviewExportByEmailFailedEvent(
-          mocks.GenericWeeklyReviewExportByEmailFailedEvent4th,
-        ),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent4th),
     );
-
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 });

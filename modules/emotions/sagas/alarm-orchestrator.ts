@@ -14,18 +14,16 @@ import type { EventBus } from "+infra/event-bus";
 
 export class AlarmOrchestrator {
   constructor(
-    private readonly eventBus: typeof EventBus,
+    eventBus: typeof EventBus,
+    EventHandler: bg.EventHandler,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
     private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
   ) {
-    this.eventBus.on(Events.ALARM_GENERATED_EVENT, this.onAlarmGeneratedEvent.bind(this));
-    this.eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
-    this.eventBus.on(
-      Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
-      this.onAlarmNotificationRequestedEvent.bind(this),
-    );
-    this.eventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
+    eventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
+    eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
+    eventBus.on(Events.ALARM_NOTIFICATION_REQUESTED_EVENT, this.onAlarmNotificationRequestedEvent.bind(this));
+    eventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {

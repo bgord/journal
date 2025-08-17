@@ -7,7 +7,6 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
   test("compose", () => {
     const inactivityAlarmAdviceNotificationComposer =
       new Emotions.Services.InactivityAlarmAdviceNotificationComposer(mocks.inactivityTrigger);
-
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual(

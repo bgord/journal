@@ -9,9 +9,17 @@ import { AlarmCancellationLookup } from "+infra/adapters/emotions";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
+import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
 
-const saga = new Emotions.Sagas.AlarmOrchestrator(EventBus, AiGateway, Mailer, AlarmCancellationLookup);
+const EventHandler = new bg.EventHandler(logger);
+const saga = new Emotions.Sagas.AlarmOrchestrator(
+  EventBus,
+  EventHandler,
+  AiGateway,
+  Mailer,
+  AlarmCancellationLookup,
+);
 
 describe("AlarmOrchestrator", () => {
   test("onAlarmGeneratedEvent - entry", async () => {
@@ -22,9 +30,8 @@ describe("AlarmOrchestrator", () => {
     spyOn(AiGateway, "query").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
@@ -39,9 +46,8 @@ describe("AlarmOrchestrator", () => {
     spyOn(AiGateway, "query").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onAlarmGeneratedEvent(mocks.GenericInactivityAlarmGeneratedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmGeneratedEvent(mocks.GenericInactivityAlarmGeneratedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
@@ -57,9 +63,8 @@ describe("AlarmOrchestrator", () => {
     spyOn(AiGateway, "query").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
@@ -75,9 +80,8 @@ describe("AlarmOrchestrator", () => {
     });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
@@ -92,9 +96,8 @@ describe("AlarmOrchestrator", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationRequestedEvent]);
@@ -108,13 +111,11 @@ describe("AlarmOrchestrator", () => {
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
-    spyOn(Emotions.Repos.EntryRepository, "getById").mockResolvedValue(mocks.partialEntry);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
     );
 
     expect(mailerSend).not.toHaveBeenCalled();
@@ -134,9 +135,8 @@ describe("AlarmOrchestrator", () => {
     });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
@@ -160,9 +160,8 @@ describe("AlarmOrchestrator", () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
@@ -186,10 +185,8 @@ describe("AlarmOrchestrator", () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () =>
-        await saga.onAlarmNotificationRequestedEvent(mocks.GenericInactivityAlarmNotificationRequestedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmNotificationRequestedEvent(mocks.GenericInactivityAlarmNotificationRequestedEvent),
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
@@ -211,9 +208,8 @@ describe("AlarmOrchestrator", () => {
     spyOn(AlarmCancellationLookup, "listIdsForEntry").mockResolvedValue([alarm.id]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
@@ -229,9 +225,8 @@ describe("AlarmOrchestrator", () => {
     spyOn(AlarmCancellationLookup, "listIdsForEntry").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -247,9 +242,8 @@ describe("AlarmOrchestrator", () => {
     spyOn(AlarmCancellationLookup, "listIdsForEntry").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();

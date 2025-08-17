@@ -25,9 +25,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       { method: "POST", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({
       message: Emotions.VO.EmotionLabel.Errors.invalid,
@@ -46,9 +44,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({
       message: Emotions.VO.EmotionIntensity.Errors.min_max,
@@ -66,9 +62,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -93,7 +87,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Emotions.Invariants.EntryIsActionable);
   });
 
@@ -113,7 +106,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Emotions.Invariants.EmotionCorrespondsToSituation);
   });
 
@@ -133,7 +125,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Emotions.Invariants.EmotionForReappraisalExists);
   });
 
@@ -159,7 +150,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsEntry);
   });
 
@@ -186,7 +176,6 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       },
       mocks.ip,
     );
-
     expect(response.status).toBe(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionReappraisedEvent]);
   });

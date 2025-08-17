@@ -7,7 +7,6 @@ import * as mocks from "./mocks";
 describe("WeeklyReview", () => {
   test("build new aggregate", () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, []);
-
     expect(weeklyReview.pullEvents()).toEqual([]);
   });
 
@@ -18,7 +17,6 @@ describe("WeeklyReview", () => {
         mocks.week,
         mocks.userId,
       );
-
       expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewRequestedEvent]);
     });
   });
@@ -29,10 +27,8 @@ describe("WeeklyReview", () => {
       mocks.GenericWeeklyReviewRequestedEvent,
     ]);
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      weeklyReview.complete(mocks.insights);
-      expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewCompletedEvent]);
-    });
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => weeklyReview.complete(mocks.insights));
+    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewCompletedEvent]);
   });
 
   test("complete - WeeklyReviewCompletedOnce", async () => {
@@ -46,7 +42,6 @@ describe("WeeklyReview", () => {
         Emotions.Invariants.WeeklyReviewCompletedOnce.error,
       );
     });
-
     expect(weeklyReview.pullEvents()).toEqual([]);
   });
 
@@ -55,10 +50,8 @@ describe("WeeklyReview", () => {
       mocks.GenericWeeklyReviewRequestedEvent,
     ]);
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      weeklyReview.fail();
-      expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewFailedEvent]);
-    });
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => weeklyReview.fail());
+    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewFailedEvent]);
   });
 
   test("fail - WeeklyReviewCompletedOnce", async () => {
@@ -72,7 +65,6 @@ describe("WeeklyReview", () => {
         Emotions.Invariants.WeeklyReviewCompletedOnce.error,
       );
     });
-
     expect(weeklyReview.pullEvents()).toEqual([]);
   });
 });

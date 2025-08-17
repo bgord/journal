@@ -5,10 +5,8 @@ import * as Auth from "+auth";
 describe("PasswordResetNotificationComposer", () => {
   test("compose", () => {
     const composer = new Auth.Services.PasswordResetNotificationComposer();
-
     const url = "http://example.com";
     const notification = composer.compose(url);
-
     expect(notification).toEqual(
       new tools.NotificationTemplate(
         "Reset your Journal password",

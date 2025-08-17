@@ -92,86 +92,26 @@ describe("EmotionLabel", () => {
 
   test("all - returns all options", () => {
     expect(EmotionLabel.all()).toEqual([
-      {
-        option: GenevaWheelEmotion.joy,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.pleasure,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.pride,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.gratitude,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.admiration,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.love,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.relief,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.interest,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.hope,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.surprise_positive,
-        positive: true,
-      },
-      {
-        option: GenevaWheelEmotion.anger,
-        positive: false,
-      },
-      {
-        option: GenevaWheelEmotion.disgust,
-        positive: false,
-      },
-      {
-        option: GenevaWheelEmotion.contempt,
-        positive: false,
-      },
-      {
-        option: GenevaWheelEmotion.hate,
-        positive: false,
-      },
-      {
-        option: GenevaWheelEmotion.sadness,
-        positive: false,
-      },
-      {
-        option: GenevaWheelEmotion.fear,
-        positive: false,
-      },
-      {
-        option: GenevaWheelEmotion.shame,
-        positive: false,
-      },
-      {
-        option: GenevaWheelEmotion.guilt,
-        positive: false,
-      },
-      {
-        option: GenevaWheelEmotion.boredom,
-        positive: false,
-      },
-      {
-        option: GenevaWheelEmotion.surprise_negative,
-        positive: false,
-      },
+      { option: GenevaWheelEmotion.joy, positive: true },
+      { option: GenevaWheelEmotion.pleasure, positive: true },
+      { option: GenevaWheelEmotion.pride, positive: true },
+      { option: GenevaWheelEmotion.gratitude, positive: true },
+      { option: GenevaWheelEmotion.admiration, positive: true },
+      { option: GenevaWheelEmotion.love, positive: true },
+      { option: GenevaWheelEmotion.relief, positive: true },
+      { option: GenevaWheelEmotion.interest, positive: true },
+      { option: GenevaWheelEmotion.hope, positive: true },
+      { option: GenevaWheelEmotion.surprise_positive, positive: true },
+      { option: GenevaWheelEmotion.anger, positive: false },
+      { option: GenevaWheelEmotion.disgust, positive: false },
+      { option: GenevaWheelEmotion.contempt, positive: false },
+      { option: GenevaWheelEmotion.hate, positive: false },
+      { option: GenevaWheelEmotion.sadness, positive: false },
+      { option: GenevaWheelEmotion.fear, positive: false },
+      { option: GenevaWheelEmotion.shame, positive: false },
+      { option: GenevaWheelEmotion.guilt, positive: false },
+      { option: GenevaWheelEmotion.boredom, positive: false },
+      { option: GenevaWheelEmotion.surprise_negative, positive: false },
     ]);
   });
 

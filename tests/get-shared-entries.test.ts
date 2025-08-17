@@ -13,9 +13,7 @@ describe(`GET ${url}`, () => {
       { method: "GET", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -26,7 +24,6 @@ describe(`GET ${url}`, () => {
       mocks.GenericShareableLinkExpiredEvent,
     ]);
     const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
-
     expect(response.status).toBe(403);
   });
 
@@ -36,7 +33,6 @@ describe(`GET ${url}`, () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
     const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
-
     expect(response.status).toBe(403);
   });
 
@@ -44,7 +40,6 @@ describe(`GET ${url}`, () => {
     spyOn(Repos.EntryRepository, "listShared").mockResolvedValue([]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
-
     expect(response.status).toBe(200);
   });
 });

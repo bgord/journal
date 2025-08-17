@@ -11,17 +11,18 @@ import { EventStore } from "+infra/event-store";
 
 export class WeeklyReviewExportByEmail {
   constructor(
-    private readonly eventBus: typeof EventBus,
+    eventBus: typeof EventBus,
+    EventHandler: bg.EventHandler,
     private readonly mailer: bg.MailerPort,
     private readonly pdfGenerator: Ports.PdfGeneratorPort,
   ) {
-    this.eventBus.on(
+    eventBus.on(
       Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
-      this.onWeeklyReviewExportByEmailRequestedEvent.bind(this),
+      EventHandler.handle(this.onWeeklyReviewExportByEmailRequestedEvent.bind(this)),
     );
-    this.eventBus.on(
+    eventBus.on(
       Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
-      this.onWeeklyReviewExportByEmailFailedEvent.bind(this),
+      EventHandler.handle(this.onWeeklyReviewExportByEmailFailedEvent.bind(this)),
     );
   }
 

@@ -16,7 +16,6 @@ describe("LowCopingEffectivenessPattern", () => {
         week: mocks.week,
         userId: mocks.userId,
       });
-
       expect(result).toEqual([mocks.LowCopingEffectivenessPatternDetectedEvent]);
     });
   });
@@ -28,7 +27,6 @@ describe("LowCopingEffectivenessPattern", () => {
       week: mocks.week,
       userId: mocks.userId,
     });
-
     expect(result).toEqual([]);
   });
 
@@ -39,7 +37,6 @@ describe("LowCopingEffectivenessPattern", () => {
       week: mocks.week,
       userId: mocks.userId,
     });
-
     expect(result).toEqual([]);
   });
 });

@@ -9,10 +9,7 @@ describe("PassageOfTime", () => {
     spyOn(Date, "now").mockReturnValue(mocks.hourHasPassedTimestamp);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await Services.PassageOfTime.process();
-    });
-
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => Services.PassageOfTime.process());
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericHourHasPassedEvent]);
   });
 });

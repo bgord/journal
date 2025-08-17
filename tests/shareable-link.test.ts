@@ -7,7 +7,6 @@ import * as mocks from "./mocks";
 describe("Publishing", () => {
   test("build new aggregate", () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, []);
-
     expect(shareableLink.pullEvents()).toEqual([]);
   });
 
@@ -23,7 +22,6 @@ describe("Publishing", () => {
         mocks.duration,
         mocks.userId,
       );
-
       expect(shareableLink.pullEvents()).toEqual([mocks.GenericShareableLinkCreatedEvent]);
     });
   });

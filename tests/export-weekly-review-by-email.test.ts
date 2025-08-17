@@ -20,9 +20,7 @@ describe(`POST ${url}`, () => {
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request("/weekly-review/id/export/email", { method: "POST" }, mocks.ip);
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -40,7 +38,6 @@ describe(`POST ${url}`, () => {
       throw new Error("Failure");
     });
     const response = await server.request(url, { method: "POST" }, mocks.ip);
-
     expect(response.status).toBe(500);
   });
 
@@ -69,9 +66,7 @@ describe(`POST ${url}`, () => {
       { method: "POST", headers: new Headers({ "x-correlation-id": mocks.correlationId }) },
       mocks.ip,
     );
-
     expect(response.status).toBe(200);
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent]);
   });
 });

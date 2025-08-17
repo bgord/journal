@@ -7,7 +7,6 @@ import * as mocks from "./mocks";
 describe("Alarm", () => {
   test("build new aggregate", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, []);
-
     expect(alarm.pullEvents()).toEqual([]);
   });
 
@@ -16,7 +15,6 @@ describe("Alarm", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const alarm = Emotions.Aggregates.Alarm.generate(mocks.alarmId, mocks.entryDetection, mocks.userId);
-
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmGeneratedEvent]);
     });
   });
@@ -40,7 +38,6 @@ describe("Alarm", () => {
     expect(async () => alarm.saveAdvice(mocks.advice)).toThrow(
       Emotions.Invariants.AlarmAlreadyGenerated.error,
     );
-
     expect(alarm.pullEvents()).toEqual([]);
   });
 
@@ -61,7 +58,6 @@ describe("Alarm", () => {
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent]);
 
     expect(async () => alarm.notify()).toThrow(Emotions.Invariants.AlarmAdviceAvailable.error);
-
     expect(alarm.pullEvents()).toEqual([]);
   });
 
@@ -73,7 +69,6 @@ describe("Alarm", () => {
     ]);
 
     expect(async () => alarm.notify()).toThrow(Emotions.Invariants.AlarmAdviceAvailable.error);
-
     expect(alarm.pullEvents()).toEqual([]);
   });
 
@@ -119,7 +114,6 @@ describe("Alarm", () => {
     ]);
 
     expect(async () => alarm.cancel()).toThrow(Emotions.Invariants.AlarmIsCancellable.error);
-
     expect(alarm.pullEvents()).toEqual([]);
   });
 });

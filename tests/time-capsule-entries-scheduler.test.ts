@@ -17,10 +17,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     ]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed();
-    });
-
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassed());
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -31,10 +28,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     ]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed();
-    });
-
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassed());
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -42,10 +36,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     spyOn(Emotions.Repos.TimeCapsuleEntryRepository, "listDueForPublishing").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed();
-    });
-
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassed());
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -56,10 +47,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     ]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed();
-    });
-
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassed());
     expect(eventStoreSave).toHaveBeenCalledWith([
       mocks.GenericSituationLoggedTimeCapsuleEvent,
       mocks.GenericEmotionLoggedEvent,

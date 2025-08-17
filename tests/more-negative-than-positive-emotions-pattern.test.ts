@@ -12,7 +12,6 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
         week: mocks.week,
         userId: mocks.userId,
       });
-
       expect(result).toEqual([mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent]);
     });
   });
@@ -24,7 +23,6 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
       week: mocks.week,
       userId: mocks.userId,
     });
-
     expect(result).toEqual([]);
   });
 
@@ -35,7 +33,6 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
       week: mocks.week,
       userId: mocks.userId,
     });
-
     expect(result).toEqual([]);
   });
 });

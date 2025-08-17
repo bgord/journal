@@ -8,7 +8,6 @@ describe("EntryAlarmAdviceNotificationComposer", () => {
     const entryAlarmAdviceNotificationComposer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(
       mocks.partialEntry,
     );
-
     const notification = entryAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual(

@@ -14,13 +14,23 @@ import { SupportedLanguages } from "+infra/i18n";
 
 export class WeeklyReviewProcessing {
   constructor(
-    private readonly eventBus: typeof EventBus,
+    eventBus: typeof EventBus,
+    EventHandler: bg.EventHandler,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
   ) {
-    this.eventBus.on(Events.WEEKLY_REVIEW_SKIPPED_EVENT, this.onWeeklyReviewSkippedEvent.bind(this));
-    this.eventBus.on(Events.WEEKLY_REVIEW_REQUESTED_EVENT, this.onWeeklyReviewRequestedEvent.bind(this));
-    this.eventBus.on(Events.WEEKLY_REVIEW_COMPLETED_EVENT, this.onWeeklyReviewCompletedEvent.bind(this));
+    eventBus.on(
+      Events.WEEKLY_REVIEW_SKIPPED_EVENT,
+      EventHandler.handle(this.onWeeklyReviewSkippedEvent.bind(this)),
+    );
+    eventBus.on(
+      Events.WEEKLY_REVIEW_REQUESTED_EVENT,
+      EventHandler.handle(this.onWeeklyReviewRequestedEvent.bind(this)),
+    );
+    eventBus.on(
+      Events.WEEKLY_REVIEW_COMPLETED_EVENT,
+      EventHandler.handle(this.onWeeklyReviewCompletedEvent.bind(this)),
+    );
   }
 
   async onWeeklyReviewSkippedEvent(event: Events.WeeklyReviewSkippedEventType) {

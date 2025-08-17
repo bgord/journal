@@ -19,20 +19,18 @@ describe("WeeklyReviewScheduler", () => {
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event);
-    });
-
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      policy.onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event),
+    );
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewRequestedEvent]);
   });
 
   test("WeeklyReviewSchedule", async () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed(mocks.GenericHourHasPassedEvent);
-    });
-
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      policy.onHourHasPassed(mocks.GenericHourHasPassedEvent),
+    );
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -43,10 +41,9 @@ describe("WeeklyReviewScheduler", () => {
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      await policy.onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event);
-    });
-
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      policy.onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event),
+    );
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewSkippedEvent]);
   });
 });

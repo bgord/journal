@@ -11,9 +11,8 @@ const pl = Bun.file("infra/translations/pl.json");
 describe("GET /translations", () => {
   test("happy path - no language specified", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
-
-    expect(response.status).toBe(200);
     const json = await response.json();
+    expect(response.status).toBe(200);
     expect(json).toEqual({ translations: await en.json(), language: "en" });
   });
 
@@ -23,9 +22,8 @@ describe("GET /translations", () => {
       { method: "GET", headers: { cookie: `language=${SupportedLanguages.en}` } },
       mocks.ip,
     );
-
-    expect(response.status).toBe(200);
     const json = await response.json();
+    expect(response.status).toBe(200);
     expect(json).toEqual({ translations: await en.json(), language: "en" });
   });
 
@@ -35,9 +33,8 @@ describe("GET /translations", () => {
       { method: "GET", headers: { cookie: `language=${SupportedLanguages.pl}` } },
       mocks.ip,
     );
-
-    expect(response.status).toBe(200);
     const json = await response.json();
+    expect(response.status).toBe(200);
     expect(json).toEqual({ translations: await pl.json(), language: "pl" });
   });
 
@@ -47,9 +44,8 @@ describe("GET /translations", () => {
       { method: "GET", headers: { cookie: "language=es" } },
       mocks.ip,
     );
-
-    expect(response.status).toBe(200);
     const json = await response.json();
+    expect(response.status).toBe(200);
     expect(json).toEqual({ translations: await en.json(), language: "en" });
   });
 });

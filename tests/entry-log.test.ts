@@ -29,9 +29,7 @@ describe("POST /entry/log", () => {
   test("situation - validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(url, { method: "POST" }, mocks.ip);
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({
       message: Emotions.VO.SituationDescription.Errors.invalid,
@@ -49,9 +47,7 @@ describe("POST /entry/log", () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.SituationLocation.Errors.invalid, _known: true });
   });
@@ -66,9 +62,7 @@ describe("POST /entry/log", () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.SituationKind.Errors.invalid, _known: true });
   });
@@ -80,9 +74,7 @@ describe("POST /entry/log", () => {
       { method: "POST", body: JSON.stringify({ ...situation }) },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionLabel.Errors.invalid, _known: true });
   });
@@ -97,9 +89,7 @@ describe("POST /entry/log", () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionIntensity.Errors.min_max, _known: true });
   });
@@ -111,9 +101,7 @@ describe("POST /entry/log", () => {
       { method: "POST", body: JSON.stringify({ ...situation, ...emotion }) },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionDescription.Errors.invalid, _known: true });
   });
@@ -128,9 +116,7 @@ describe("POST /entry/log", () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionType.Errors.invalid, _known: true });
   });
@@ -150,9 +136,7 @@ describe("POST /entry/log", () => {
       },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.min_max, _known: true });
   });
@@ -172,9 +156,7 @@ describe("POST /entry/log", () => {
       },
       mocks.ip,
     );
-
     expect(response.status).toBe(200);
-
     expect(eventStoreSave).toHaveBeenCalledWith([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,

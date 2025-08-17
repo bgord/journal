@@ -25,9 +25,7 @@ describe(`POST ${url}`, () => {
       { method: "POST", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -38,13 +36,11 @@ describe(`POST ${url}`, () => {
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
     ]);
-
     const response = await server.request(
       url,
       { method: "POST", headers: mocks.revisionHeaders(2) },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinkIsActive);
   });
 
@@ -54,26 +50,22 @@ describe(`POST ${url}`, () => {
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
     ]);
-
     const response = await server.request(
       url,
       { method: "POST", headers: mocks.revisionHeaders(2) },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinkIsActive);
   });
 
   test("validation - RequesterOwnsShareableLink", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-
     const response = await server.request(
       url,
       { method: "POST", headers: mocks.revisionHeaders(1) },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Publishing.Invariants.RequesterOwnsShareableLink);
   });
 
@@ -82,7 +74,6 @@ describe(`POST ${url}`, () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
-
     const response = await server.request(
       url,
       {
@@ -91,7 +82,6 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-
     expect(response.status).toBe(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkRevokedEvent]);
   });

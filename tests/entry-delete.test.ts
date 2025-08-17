@@ -25,9 +25,7 @@ describe("DELETE /entry/:id/delete", () => {
       { method: "DELETE", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
-
     const json = await response.json();
-
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -41,7 +39,6 @@ describe("DELETE /entry/:id/delete", () => {
       { method: "DELETE", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Emotions.Invariants.EntryHasBenStarted);
   });
 
@@ -55,7 +52,6 @@ describe("DELETE /entry/:id/delete", () => {
       { method: "DELETE", headers: mocks.revisionHeaders() },
       mocks.ip,
     );
-
     await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsEntry);
   });
 
@@ -73,7 +69,6 @@ describe("DELETE /entry/:id/delete", () => {
       },
       mocks.ip,
     );
-
     expect(response.status).toBe(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
   });
@@ -95,7 +90,6 @@ describe("DELETE /entry/:id/delete", () => {
       },
       mocks.ip,
     );
-
     expect(response.status).toBe(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
   });
@@ -118,7 +112,6 @@ describe("DELETE /entry/:id/delete", () => {
       },
       mocks.ip,
     );
-
     expect(response.status).toBe(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
   });

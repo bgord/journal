@@ -5,7 +5,6 @@ import * as Auth from "+auth";
 describe("EmailVerificationNotificationComposer", () => {
   test("compose", () => {
     const composer = new Auth.Services.EmailVerificationNotificationComposer();
-
     const notification = composer.compose("http://example.com");
 
     expect(notification).toEqual(

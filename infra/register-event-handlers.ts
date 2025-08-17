@@ -30,6 +30,6 @@ new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler);
 new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
 
 // Sagas
-new EmotionsSagas.AlarmOrchestrator(EventBus, AiGateway, Mailer, AlarmCancellationLookup);
-new EmotionsSagas.WeeklyReviewProcessing(EventBus, AiGateway, Mailer);
-new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, Mailer, PdfGenerator);
+new EmotionsSagas.AlarmOrchestrator(EventBus, EventHandler, AiGateway, Mailer, AlarmCancellationLookup);
+new EmotionsSagas.WeeklyReviewProcessing(EventBus, EventHandler, AiGateway, Mailer);
+new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, EventHandler, Mailer, PdfGenerator);

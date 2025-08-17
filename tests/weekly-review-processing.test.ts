@@ -9,20 +9,20 @@ import { AiGateway } from "+infra/adapters/ai";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
+import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
 
-const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, AiGateway, Mailer);
+const EventHandler = new bg.EventHandler(logger);
+const saga = new Emotions.Sagas.WeeklyReviewProcessing(EventBus, EventHandler, AiGateway, Mailer);
 
 describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent", async () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
     );
-
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
       to: mocks.email,
@@ -35,11 +35,9 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
     );
-
     expect(mailerSend).not.toHaveBeenCalled();
   });
 
@@ -49,11 +47,9 @@ describe("WeeklyReviewProcessing", () => {
       throw new Error("MAILER_FAILED");
     });
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
     );
-
     expect(mailerSend).not.toHaveBeenCalled();
   });
 
@@ -68,18 +64,15 @@ describe("WeeklyReviewProcessing", () => {
     const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
-
     expect(aiGatewayQuery).toHaveBeenCalledWith(new AI.Prompt("Generate insights for these 1 entries."), {
       category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
       userId: mocks.userId,
       timestamp: mocks.aiRequestRegisteredTimestamp,
       dimensions: {},
     });
-
     expect(eventStoreSave).toHaveBeenNthCalledWith(1, [
       mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
     ]);
@@ -97,11 +90,9 @@ describe("WeeklyReviewProcessing", () => {
     const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
-
     expect(aiGatewayQuery).toHaveBeenCalledWith(new AI.Prompt("Podsumuj te 1 wpisów."), {
       category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
       userId: mocks.userId,
@@ -126,11 +117,9 @@ describe("WeeklyReviewProcessing", () => {
     });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewFailedEvent]);
   });
 
@@ -139,9 +128,8 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewExportId);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(
-      mocks.correlationId,
-      async () => await saga.onWeeklyReviewCompletedEvent(mocks.GenericWeeklyReviewCompletedEvent),
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onWeeklyReviewCompletedEvent(mocks.GenericWeeklyReviewCompletedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent]);

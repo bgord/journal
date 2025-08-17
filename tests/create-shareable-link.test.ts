@@ -146,8 +146,8 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-    expect(response.status).toBe(200);
 
+    expect(response.status).toBe(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkCreatedEvent]);
   });
 });

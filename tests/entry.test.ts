@@ -38,7 +38,6 @@ const language = SupportedLanguages.en;
 describe("entry", () => {
   test("build new aggregate", () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, []);
-
     expect(entry.pullEvents()).toEqual([]);
   });
 
@@ -55,7 +54,6 @@ describe("entry", () => {
         mocks.userId,
         Emotions.VO.EntryOriginOption.web,
       );
-
       expect(entry.pullEvents()).toEqual([
         mocks.GenericSituationLoggedEvent,
         mocks.GenericEmotionLoggedEvent,
@@ -74,7 +72,6 @@ describe("entry", () => {
     await bg.CorrelationStorage.run(mocks.correlationId, () =>
       entry.reappraiseEmotion(newEmotion, mocks.userId),
     );
-
     expect(entry.pullEvents()).toEqual([mocks.GenericEmotionReappraisedEvent]);
   });
 
@@ -84,7 +81,6 @@ describe("entry", () => {
     expect(() => entry.reappraiseEmotion(newEmotion, mocks.userId)).toThrow(
       Emotions.Invariants.EmotionCorrespondsToSituation.error,
     );
-
     expect(entry.pullEvents()).toEqual([]);
   });
 
@@ -94,7 +90,6 @@ describe("entry", () => {
     expect(() => entry.reappraiseEmotion(newEmotion, mocks.userId)).toThrow(
       Emotions.Invariants.EmotionForReappraisalExists.error,
     );
-
     expect(entry.pullEvents()).toEqual([]);
   });
 
@@ -109,7 +104,6 @@ describe("entry", () => {
     await bg.CorrelationStorage.run(mocks.correlationId, () =>
       entry.evaluateReaction(newReaction, mocks.userId),
     );
-
     expect(entry.pullEvents()).toEqual([mocks.GenericReactionEvaluatedEvent]);
   });
 
@@ -119,7 +113,6 @@ describe("entry", () => {
     expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
       Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.error,
     );
-
     expect(entry.pullEvents()).toEqual([]);
   });
 
@@ -129,7 +122,6 @@ describe("entry", () => {
     expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
       Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.error,
     );
-
     expect(entry.pullEvents()).toEqual([]);
   });
 
@@ -142,7 +134,6 @@ describe("entry", () => {
     expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
       Emotions.Invariants.ReactionForEvaluationExists.error,
     );
-
     expect(entry.pullEvents()).toEqual([]);
   });
 
@@ -161,7 +152,6 @@ describe("entry", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, () => entry.delete(mocks.userId));
-
     expect(entry.pullEvents()).toEqual([mocks.GenericEntryDeletedEvent]);
   });
 
@@ -173,15 +163,12 @@ describe("entry", () => {
     ]);
 
     await bg.CorrelationStorage.run(mocks.correlationId, () => entry.delete(mocks.userId));
-
     expect(entry.pullEvents()).toEqual([mocks.GenericEntryDeletedEvent]);
   });
 
   test("delete - EntryHasBenStarted", async () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, []);
-
     expect(() => entry.delete(mocks.userId)).toThrow(Emotions.Invariants.EntryHasBenStarted.error);
-
     expect(entry.pullEvents()).toEqual([]);
   });
 });
