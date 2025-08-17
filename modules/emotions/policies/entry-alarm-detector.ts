@@ -5,9 +5,9 @@ import { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 
 export class EntryAlarmDetector {
-  constructor(private readonly eventBus: typeof EventBus) {
-    this.eventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, this.detect.bind(this));
-    this.eventBus.on(Emotions.Events.EMOTION_REAPPRAISED_EVENT, this.detect.bind(this));
+  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+    eventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, EventHandler.handle(this.detect.bind(this)));
+    eventBus.on(Emotions.Events.EMOTION_REAPPRAISED_EVENT, EventHandler.handle(this.detect.bind(this)));
   }
 
   async detect(event: Emotions.Events.EmotionLoggedEventType | Emotions.Events.EmotionReappraisedEventType) {

@@ -7,8 +7,8 @@ import type { EventBus } from "+infra/event-bus";
 import { SupportedLanguages } from "+infra/i18n";
 
 export class TimeCapsuleEntriesScheduler {
-  constructor(private readonly eventBus: typeof EventBus) {
-    this.eventBus.on(Events.HOUR_HAS_PASSED_EVENT, this.onHourHasPassed.bind(this));
+  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+    eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
 
   async onHourHasPassed() {

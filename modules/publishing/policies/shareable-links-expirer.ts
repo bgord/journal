@@ -7,8 +7,8 @@ import * as Commands from "+publishing/commands";
 import * as Repos from "+publishing/repositories";
 
 export class ShareableLinksExpirer {
-  constructor(private readonly eventBus: typeof EventBus) {
-    this.eventBus.on(Events.HOUR_HAS_PASSED_EVENT, this.onHourHasPassed.bind(this));
+  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+    eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
 
   async onHourHasPassed(_event: Events.HourHasPassedEventType) {

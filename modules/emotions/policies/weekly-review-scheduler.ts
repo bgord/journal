@@ -7,8 +7,8 @@ import { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 
 export class WeeklyReviewScheduler {
-  constructor(private readonly eventBus: typeof EventBus) {
-    this.eventBus.on(Events.HOUR_HAS_PASSED_EVENT, this.onHourHasPassed.bind(this));
+  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+    eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
 
   async onHourHasPassed(event: Events.HourHasPassedEventType) {

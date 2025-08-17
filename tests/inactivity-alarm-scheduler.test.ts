@@ -6,9 +6,11 @@ import * as Emotions from "+emotions";
 import { AiGateway } from "+infra/adapters/ai";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
+import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
 
-const policy = new Emotions.Policies.InactivityAlarmScheduler(EventBus);
+const EventHandler = new bg.EventHandler(logger);
+const policy = new Emotions.Policies.InactivityAlarmScheduler(EventBus, EventHandler);
 
 describe("InactivityAlarmScheduler", () => {
   test("correct path - single user", async () => {

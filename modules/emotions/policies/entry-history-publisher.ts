@@ -4,14 +4,30 @@ import type { EventBus } from "+infra/event-bus";
 
 export class EntryHistoryPublisher {
   constructor(
-    private readonly eventBus: typeof EventBus,
+    eventBus: typeof EventBus,
+    EventHandler: bg.EventHandler,
     private readonly historyWriter: bg.History.Services.HistoryWriterPort,
   ) {
-    this.eventBus.on(Emotions.Events.SITUATION_LOGGED_EVENT, this.onSituationLoggedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, this.onEmotionLoggedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.REACTION_LOGGED_EVENT, this.onReactionLoggedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.EMOTION_REAPPRAISED_EVENT, this.onEmotionReappraisedEvent.bind(this));
-    this.eventBus.on(Emotions.Events.REACTION_EVALUATED_EVENT, this.onReactionEvaluatedEvent.bind(this));
+    eventBus.on(
+      Emotions.Events.SITUATION_LOGGED_EVENT,
+      EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
+    );
+    eventBus.on(
+      Emotions.Events.EMOTION_LOGGED_EVENT,
+      EventHandler.handle(this.onEmotionLoggedEvent.bind(this)),
+    );
+    eventBus.on(
+      Emotions.Events.REACTION_LOGGED_EVENT,
+      EventHandler.handle(this.onReactionLoggedEvent.bind(this)),
+    );
+    eventBus.on(
+      Emotions.Events.EMOTION_REAPPRAISED_EVENT,
+      EventHandler.handle(this.onEmotionReappraisedEvent.bind(this)),
+    );
+    eventBus.on(
+      Emotions.Events.REACTION_EVALUATED_EVENT,
+      EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
+    );
   }
 
   async onSituationLoggedEvent(event: Emotions.Events.SituationLoggedEventType) {

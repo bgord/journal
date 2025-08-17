@@ -5,9 +5,11 @@ import * as Emotions from "+emotions";
 import { AiGateway } from "+infra/adapters/ai";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
+import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
 
-const policy = new Emotions.Policies.EntryAlarmDetector(EventBus);
+const EventHandler = new bg.EventHandler(logger);
+const policy = new Emotions.Policies.EntryAlarmDetector(EventBus, EventHandler);
 
 describe("EntryAlarmDetector", () => {
   test("onEmotionLoggedEvent", async () => {

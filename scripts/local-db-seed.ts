@@ -11,12 +11,14 @@ import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { SupportedLanguages } from "+infra/i18n";
+import { logger } from "+infra/logger";
 import * as Schema from "+infra/schema";
 import * as mocks from "../tests/mocks";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
+const EventHandler = new bg.EventHandler(logger);
 const now = tools.Time.Now().value;
 
 const situationDescriptions = [
@@ -230,7 +232,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     console.log("[✓] Time capsule entry scheduled");
 
-    await new Emotions.Policies.WeeklyReviewScheduler(EventBus).onHourHasPassed(
+    await new Emotions.Policies.WeeklyReviewScheduler(EventBus, EventHandler).onHourHasPassed(
       mocks.GenericHourHasPassedMondayUtc18Event,
     );
 

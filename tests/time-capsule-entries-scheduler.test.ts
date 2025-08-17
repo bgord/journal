@@ -4,9 +4,11 @@ import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
+import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
 
-const policy = new Emotions.Policies.TimeCapsuleEntriesScheduler(EventBus);
+const EventHandler = new bg.EventHandler(logger);
+const policy = new Emotions.Policies.TimeCapsuleEntriesScheduler(EventBus, EventHandler);
 
 describe("TimeCapsuleEntriesScheduler", () => {
   test("TimeCapsuleEntryIsPublishable - status", async () => {

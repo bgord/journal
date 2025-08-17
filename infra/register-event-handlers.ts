@@ -22,12 +22,12 @@ new Projections.AiUsageCounterProjector(EventBus, EventHandler);
 new Projections.HistoryProjector(EventBus, EventHandler, HistoryRepository);
 
 // Policies
-new PublishingPolicies.ShareableLinksExpirer(EventBus);
-new EmotionsPolicies.EntryAlarmDetector(EventBus);
-new EmotionsPolicies.WeeklyReviewScheduler(EventBus);
-new EmotionsPolicies.InactivityAlarmScheduler(EventBus);
-new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus);
-new EmotionsPolicies.EntryHistoryPublisher(EventBus, HistoryWriter);
+new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler);
+new EmotionsPolicies.EntryAlarmDetector(EventBus, EventHandler);
+new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler);
+new EmotionsPolicies.InactivityAlarmScheduler(EventBus, EventHandler);
+new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler);
+new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
 
 // Sagas
 new EmotionsSagas.AlarmOrchestrator(EventBus, AiGateway, Mailer, AlarmCancellationLookup);

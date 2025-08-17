@@ -4,9 +4,11 @@ import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
+import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
 
-const policy = new Publishing.Policies.ShareableLinksExpirer(EventBus);
+const EventHandler = new bg.EventHandler(logger);
+const policy = new Publishing.Policies.ShareableLinksExpirer(EventBus, EventHandler);
 
 describe("WeeklyReviewScheduler", () => {
   test("validation - ShareableLinkIsActive - already revoked", async () => {
