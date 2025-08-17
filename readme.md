@@ -40,8 +40,6 @@ Run the tests
 ```
 modules/
 ├── ai
-│   ├── event-handlers
-│   │   └── onAiRequestRegisteredEvent.ts
 │   ├── events
 │   │   ├── AI_QUOTA_EXCEEDED_EVENT.ts
 │   │   ├── AI_REQUEST_REGISTERED_EVENT.ts
@@ -93,6 +91,7 @@ modules/
 │   │   └── weekly-review.ts
 │   ├── command-handlers
 │   │   ├── handleCancelAlarmCommand.ts
+│   │   ├── handleCompleteAlarmCommand.ts
 │   │   ├── handleCompleteWeeklyReviewCommand.ts
 │   │   ├── handleDeleteEntryCommand.ts
 │   │   ├── handleDetectWeeklyPatternsCommand.ts
@@ -102,12 +101,13 @@ modules/
 │   │   ├── handleLogEntryCommand.ts
 │   │   ├── handleMarkWeeklyReviewAsFailedCommand.ts
 │   │   ├── handleReappraiseEmotionCommand.ts
+│   │   ├── handleRequestAlarmNotificationCommand.ts
 │   │   ├── handleRequestWeeklyReviewCommand.ts
 │   │   ├── handleSaveAlarmAdviceCommand.ts
 │   │   ├── handleScheduleTimeCapsuleEntryCommand.ts
-│   │   ├── handleSendAlarmNotificationCommand.ts
 │   ├── commands
 │   │   ├── CANCEL_ALARM_COMMAND.ts
+│   │   ├── COMPLETE_ALARM_COMMAND.ts
 │   │   ├── COMPLETE_WEEKLY_REVIEW_COMMAND.ts
 │   │   ├── DELETE_ENTRY_COMMAND.ts
 │   │   ├── DETECT_WEEKLY_PATTERNS_COMMAND.ts
@@ -117,35 +117,19 @@ modules/
 │   │   ├── LOG_ENTRY_COMMAND.ts
 │   │   ├── MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND.ts
 │   │   ├── REAPPRAISE_EMOTION_COMMAND.ts
+│   │   ├── REQUEST_ALARM_NOTIFICATION_COMMAND.ts
 │   │   ├── REQUEST_WEEKLY_REVIEW_COMMAND.ts
 │   │   ├── SAVE_ALARM_ADVICE_COMMAND.ts
 │   │   ├── SCHEDULE_TIME_CAPSULE_ENTRY.ts
-│   │   ├── SEND_ALARM_NOTIFICATION_COMMAND.ts
 │   ├── entities
 │   │   ├── emotion.ts
 │   │   ├── reaction.ts
 │   │   └── situation.ts
-│   ├── event-handlers
-│   │   ├── onAlarmAdviceSavedEvent.ts
-│   │   ├── onAlarmCancelledEvent.ts
-│   │   ├── onAlarmGeneratedEvent.ts
-│   │   ├── onAlarmNotificationSentEvent.ts
-│   │   ├── onEmotionLoggedEvent.ts
-│   │   ├── onEmotionReappraisedEvent.ts
-│   │   ├── onEntryDeletedEvent.ts
-│   │   ├── onPatternDetectedEvent.ts
-│   │   ├── onReactionEvaluatedEvent.ts
-│   │   ├── onReactionLoggedEvent.ts
-│   │   ├── onSituationLoggedEvent.ts
-│   │   ├── onTimeCapsuleEntryScheduledEvent.ts
-│   │   ├── onWeeklyReviewCompletedEvent.ts
-│   │   ├── onWeeklyReviewFailedEvent.ts
-│   │   ├── onWeeklyReviewRequestedEvent.ts
-│   │   └── onWeeklyReviewSkippedEvent.ts
 │   ├── events
 │   │   ├── ALARM_ADVICE_SAVED_EVENT.ts
 │   │   ├── ALARM_CANCELLED_EVENT.ts
 │   │   ├── ALARM_GENERATED_EVENT.ts
+│   │   ├── ALARM_NOTIFICATION_REQUESTED_EVENT.ts
 │   │   ├── ALARM_NOTIFICATION_SENT_EVENT.ts
 │   │   ├── EMOTION_LOGGED_EVENT.ts
 │   │   ├── EMOTION_REAPPRAISED_EVENT.ts
@@ -168,6 +152,7 @@ modules/
 │   │   ├── alarm-advice-available.ts
 │   │   ├── alarm-already-generated.ts
 │   │   ├── alarm-is-cancellable.ts
+│   │   ├── alarm-notification-requested.ts
 │   │   ├── emotion-corresponds-to-situation.ts
 │   │   ├── emotion-for-reappraisal-exists.ts
 │   │   ├── entries-for-week-exist.ts
@@ -192,6 +177,7 @@ modules/
 │   │   ├── time-capsule-entries-scheduler.ts
 │   │   └── weekly-review-scheduler.ts
 │   ├── ports
+│   │   ├── alarm-cancellation-lookup.ts
 │   │   └── pdf-generator.ts
 │   ├── queries
 │   │   ├── count-entries-per-week-for-user.ts
@@ -200,7 +186,6 @@ modules/
 │   ├── repositories
 │   │   ├── alarm-repository.ts
 │   │   ├── entry-repository.ts
-│   │   ├── patterns-repository.ts
 │   │   ├── time-capsule-entry-repository.ts
 │   │   └── weekly-review-repository.ts
 │   ├── routes
@@ -278,10 +263,6 @@ modules/
     │   ├── CREATE_SHAREABLE_LINK_COMMAND.ts
     │   ├── EXPIRE_SHAREABLE_LINK_COMMAND.ts
     │   ├── REVOKE_SHAREABLE_LINK_COMMAND.ts
-    ├── event-handlers
-    │   ├── onShareableLinkCreatedEvent.ts
-    │   ├── onShareableLinkExpiredEvent.ts
-    │   └── onShareableLinkRevokedEvent.ts
     ├── events
     │   ├── SHAREABLE_LINK_CREATED_EVENT.ts
     │   ├── SHAREABLE_LINK_EXPIRED_EVENT.ts
@@ -295,10 +276,10 @@ modules/
     │   └── shareable-link-access.ts
     ├── policies
     │   └── shareable-links-expirer.ts
+    ├── ports
+    │   ├── expiring-shareable-links.ts
     ├── queries
     │   ├── count-active-shareable-links-per-owner.ts
-    ├── repositories
-    │   └── shareable-link-repository.ts
     ├── routes
     │   ├── create-shareable-link.ts
     │   └── revoke-shareable-link.ts
@@ -320,15 +301,22 @@ infra/
 │   │   ├── ai-client.adapter.ts
 │   │   ├── ai-gateway.adapter.ts
 │   │   ├── bucket-counter-drizzle.adapter.ts
+│   │   ├── bucket-counter.adapter.ts
 │   ├── emotions
+│   │   ├── alarm-cancellation-lookup-drizzle.adapter.ts
+│   │   ├── alarm-cancellation-lookup.adapter.ts
 │   │   ├── pdf-generator-noop.adapter.ts
 │   │   ├── pdf-generator-react.adapter.tsx
 │   │   └── pdf-generator.adapter.ts
 │   ├── history
+│   │   ├── history-repository-drizzle.adapter.ts
 │   │   ├── history-repository.adapter.ts
 │   │   ├── history-writer-event-store.adapter.ts
 │   │   ├── history-writer.adapter.ts
-│   └── mailer.adapter.ts
+│   ├── mailer.adapter.ts
+│   └── publishing
+│       ├── expiring-shareable-links.drizzle.ts
+│       ├── expiring-shareable-links.ts
 ├── auth.ts
 ├── basic-auth-shield.ts
 ├── cache.ts
@@ -345,6 +333,14 @@ infra/
 ├── jobs.ts
 ├── logger.ts
 ├── prerequisites.ts
+├── projections
+│   ├── ai-usage-counter.projector.ts
+│   ├── alarm.projector.ts
+│   ├── entry.projector.ts
+│   ├── history.projector.ts
+│   ├── pattern-detection.projector.ts
+│   ├── shareable-link.projector.ts
+│   └── weekly-review.projector.ts
 ├── rate-limiters.ts
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
