@@ -3,6 +3,7 @@ export * from "./alarm-generated-at";
 export * from "./alarm-id";
 export * from "./alarm-name";
 export * from "./alarm-name-option";
+export * from "./alarm-snapshot";
 export * from "./alarm-status";
 export * from "./alarm-trigger";
 export * from "./emotion-intensity";

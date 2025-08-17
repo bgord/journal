@@ -19,17 +19,7 @@ export type WeeklyReviewExportDto = Schema.SelectWeeklyReviews & {
     | "startedAt"
   >[];
   patternDetections: VO.PatternDetectionSnapshot[];
-  alarms: Pick<
-    Schema.SelectAlarms,
-    | "id"
-    | "name"
-    | "advice"
-    | "generatedAt"
-    | "inactivityDays"
-    | "lastEntryTimestamp"
-    | "emotionLabel"
-    | "emotionIntensity"
-  >[];
+  alarms: VO.AlarmSnapshot[];
 };
 
 export class WeeklyReviewExportReadModel {
@@ -85,6 +75,14 @@ export class WeeklyReviewExportReadModel {
       patternDetections: result.patternDetections.map((pattern) => ({
         id: pattern.id,
         name: pattern.name as VO.PatternNameOption,
+      })),
+      alarms: result.alarms.map((alarm) => ({
+        ...alarm,
+        name: alarm.name as VO.AlarmNameOption,
+        advice: alarm.advice as VO.AlarmSnapshot["advice"],
+        generatedAt: alarm.generatedAt as tools.TimestampType,
+        lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampType | null,
+        emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
       })),
     };
   }
