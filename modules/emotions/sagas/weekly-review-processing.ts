@@ -15,6 +15,7 @@ export class WeeklyReviewProcessing {
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
     private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,
+    private readonly userContact: Auth.Ports.UserContactPort,
   ) {
     eventBus.on(
       Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
@@ -31,7 +32,7 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewSkippedEvent(event: Emotions.Events.WeeklyReviewSkippedEventType) {
-    const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
+    const contact = await this.userContact.getPrimaryEmail(event.payload.userId);
 
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const composer = new Emotions.Services.WeeklyReviewSkippedNotificationComposer();

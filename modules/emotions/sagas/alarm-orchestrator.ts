@@ -20,6 +20,7 @@ export class AlarmOrchestrator {
     private readonly mailer: bg.MailerPort,
     private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
     private readonly entrySnapshot: Ports.EntrySnapshotPort,
+    private readonly userContact: Auth.Ports.UserContactPort,
   ) {
     eventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
     eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
@@ -79,7 +80,7 @@ export class AlarmOrchestrator {
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.CancelAlarmCommandType);
 
-    const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
+    const contact = await this.userContact.getPrimaryEmail(event.payload.userId);
     if (!contact?.email) return CommandBus.emit(cancel.name, cancel);
 
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);

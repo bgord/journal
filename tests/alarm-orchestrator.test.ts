@@ -1,10 +1,10 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
+import { UserContact } from "+infra/adapters/auth";
 import { AlarmCancellationLookup, EntrySnapshot } from "+infra/adapters/emotions";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
@@ -20,6 +20,7 @@ const saga = new Emotions.Sagas.AlarmOrchestrator(
   Mailer,
   AlarmCancellationLookup,
   EntrySnapshot,
+  UserContact,
 );
 
 describe("AlarmOrchestrator", () => {
@@ -111,7 +112,7 @@ describe("AlarmOrchestrator", () => {
       mocks.GenericAlarmNotificationRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue(undefined);
+    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue(undefined);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -129,7 +130,7 @@ describe("AlarmOrchestrator", () => {
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
+    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue({ email: mocks.email });
     spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
       throw new Error("MAILER_FAILED");
@@ -156,7 +157,7 @@ describe("AlarmOrchestrator", () => {
       mocks.GenericAlarmNotificationRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
+    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue({ email: mocks.email });
     spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -182,7 +183,7 @@ describe("AlarmOrchestrator", () => {
       mocks.GenericAlarmNotificationRequestedEvent,
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
-    spyOn(Auth.Repos.UserRepository, "getEmailFor").mockResolvedValue({ email: mocks.email });
+    spyOn(UserContact, "getPrimaryEmail").mockResolvedValue({ email: mocks.email });
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

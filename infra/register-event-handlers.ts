@@ -3,6 +3,7 @@ import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
+import { UserContact } from "+infra/adapters/auth";
 import {
   AlarmCancellationLookup,
   EntrySnapshot,
@@ -43,6 +44,14 @@ new EmotionsSagas.AlarmOrchestrator(
   Mailer,
   AlarmCancellationLookup,
   EntrySnapshot,
+  UserContact,
 );
-new EmotionsSagas.WeeklyReviewProcessing(EventBus, EventHandler, AiGateway, Mailer, EntrySnapshot);
-new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, EventHandler, Mailer, PdfGenerator);
+new EmotionsSagas.WeeklyReviewProcessing(
+  EventBus,
+  EventHandler,
+  AiGateway,
+  Mailer,
+  EntrySnapshot,
+  UserContact,
+);
+new EmotionsSagas.WeeklyReviewExportByEmail(EventBus, EventHandler, Mailer, PdfGenerator, UserContact);

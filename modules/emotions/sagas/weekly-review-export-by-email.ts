@@ -12,6 +12,7 @@ export class WeeklyReviewExportByEmail {
     EventHandler: bg.EventHandler,
     private readonly mailer: bg.MailerPort,
     private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
+    private readonly userContact: Auth.Ports.UserContactPort,
   ) {
     eventBus.on(
       Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
@@ -27,7 +28,7 @@ export class WeeklyReviewExportByEmail {
     event: Emotions.Events.WeeklyReviewExportByEmailRequestedEventType,
   ) {
     try {
-      const contact = await Auth.Repos.UserRepository.getEmailFor(event.payload.userId);
+      const contact = await this.userContact.getPrimaryEmail(event.payload.userId);
       if (!contact?.email) return;
 
       const weeklyReview = await Emotions.Queries.WeeklyReviewExportReadModel.getFull(
