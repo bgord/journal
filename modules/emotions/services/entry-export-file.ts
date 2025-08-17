@@ -1,10 +1,10 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { stringify } from "csv";
-import type * as Schema from "+infra/schema";
+import * as VO from "+emotions/value-objects";
 
 export class EntryExportFile extends bg.FileDraft {
-  constructor(private readonly entries: Schema.SelectEntries[]) {
+  constructor(private readonly entries: VO.EntrySnapshot[]) {
     super({ filename: `entry-export-${Date.now()}.csv`, mime: tools.MIMES.csv });
   }
 
