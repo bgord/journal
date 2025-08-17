@@ -1,6 +1,6 @@
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
-import { EntrySnapshot, WeeklyReviewSnapshot } from "+infra/adapters/emotions";
+import { EntriesPerWeekCount, EntrySnapshot, WeeklyReviewSnapshot } from "+infra/adapters/emotions";
 import { ShareableLinksQuota } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
@@ -26,7 +26,7 @@ CommandBus.on(
 CommandBus.on(EmotionCommands.COMPLETE_ALARM_COMMAND, EmotionCommandHandlers.handleCompleteAlarmCommand);
 CommandBus.on(
   EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
-  EmotionCommandHandlers.handleRequestWeeklyReviewCommand,
+  EmotionCommandHandlers.handleRequestWeeklyReviewCommand(EntriesPerWeekCount),
 );
 CommandBus.on(
   EmotionCommands.COMPLETE_WEEKLY_REVIEW_COMMAND,
