@@ -4,12 +4,17 @@ import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
+import type { EventBusLike } from "+app/ports";
 import type { CommandBus } from "+infra/command-bus";
-import type { EventBus } from "+infra/event-bus";
+
+type AcceptedEvent =
+  | Emotions.Events.WeeklyReviewSkippedEventType
+  | Emotions.Events.WeeklyReviewRequestedEventType
+  | Emotions.Events.WeeklyReviewCompletedEventType;
 
 export class WeeklyReviewProcessing {
   constructor(
-    eventBus: typeof EventBus,
+    EventBus: EventBusLike<AcceptedEvent>,
     private readonly commandBus: typeof CommandBus,
     EventHandler: bg.EventHandler,
     private readonly AiGateway: AI.AiGatewayPort,
@@ -18,15 +23,15 @@ export class WeeklyReviewProcessing {
     private readonly userContact: Auth.OHQ.UserContactOHQ,
     private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
       EventHandler.handle(this.onWeeklyReviewSkippedEvent.bind(this)),
     );
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
       EventHandler.handle(this.onWeeklyReviewRequestedEvent.bind(this)),
     );
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_COMPLETED_EVENT,
       EventHandler.handle(this.onWeeklyReviewCompletedEvent.bind(this)),
     );

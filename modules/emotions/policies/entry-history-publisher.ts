@@ -1,30 +1,37 @@
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import type { EventBus } from "+infra/event-bus";
+import type { EventBusLike } from "+app/ports";
+
+type AcceptedEvent =
+  | Emotions.Events.SituationLoggedEventType
+  | Emotions.Events.EmotionLoggedEventType
+  | Emotions.Events.ReactionLoggedEventType
+  | Emotions.Events.EmotionReappraisedEventType
+  | Emotions.Events.ReactionEvaluatedEventType;
 
 export class EntryHistoryPublisher {
   constructor(
-    eventBus: typeof EventBus,
+    EventBus: EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
     private readonly historyWriter: bg.History.Services.HistoryWriterPort,
   ) {
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.SITUATION_LOGGED_EVENT,
       EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
     );
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.EMOTION_LOGGED_EVENT,
       EventHandler.handle(this.onEmotionLoggedEvent.bind(this)),
     );
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.REACTION_LOGGED_EVENT,
       EventHandler.handle(this.onReactionLoggedEvent.bind(this)),
     );
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.EMOTION_REAPPRAISED_EVENT,
       EventHandler.handle(this.onEmotionReappraisedEvent.bind(this)),
     );
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.REACTION_EVALUATED_EVENT,
       EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
     );

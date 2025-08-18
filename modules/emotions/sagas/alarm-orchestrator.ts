@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Auth from "+auth";
+import type { EventBusLike } from "+app/ports";
 import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
@@ -9,11 +10,16 @@ import * as Ports from "+emotions/ports";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 import type { CommandBus } from "+infra/command-bus";
-import type { EventBus } from "+infra/event-bus";
+
+type AcceptedEvent =
+  | Events.AlarmGeneratedEventType
+  | Events.AlarmAdviceSavedEventType
+  | Events.AlarmNotificationRequestedEventType
+  | Events.EntryDeletedEventType;
 
 export class AlarmOrchestrator {
   constructor(
-    eventBus: typeof EventBus,
+    EventBus: EventBusLike<AcceptedEvent>,
     private readonly commandBus: typeof CommandBus,
     EventHandler: bg.EventHandler,
     private readonly AiGateway: AI.AiGatewayPort,
@@ -23,10 +29,10 @@ export class AlarmOrchestrator {
     private readonly userContact: Auth.OHQ.UserContactOHQ,
     private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
-    eventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
-    eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
-    eventBus.on(Events.ALARM_NOTIFICATION_REQUESTED_EVENT, this.onAlarmNotificationRequestedEvent.bind(this));
-    eventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
+    EventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
+    EventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
+    EventBus.on(Events.ALARM_NOTIFICATION_REQUESTED_EVENT, this.onAlarmNotificationRequestedEvent.bind(this));
+    EventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {

@@ -2,12 +2,16 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import type { EventBus } from "+infra/event-bus";
+import type { EventBusLike } from "+app/ports";
 import type { EventStore as EventStoreType } from "+infra/event-store";
+
+type AcceptedEvent =
+  | Emotions.Events.WeeklyReviewExportByEmailRequestedEventType
+  | Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
 export class WeeklyReviewExportByEmail {
   constructor(
-    eventBus: typeof EventBus,
+    EventBus: EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
     private readonly EventStore: typeof EventStoreType,
     private readonly mailer: bg.MailerPort,
@@ -16,11 +20,11 @@ export class WeeklyReviewExportByEmail {
     private readonly weeklyReviewExport: Emotions.Queries.WeeklyReviewExport,
     private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
       EventHandler.handle(this.onWeeklyReviewExportByEmailRequestedEvent.bind(this)),
     );
-    eventBus.on(
+    EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
       EventHandler.handle(this.onWeeklyReviewExportByEmailFailedEvent.bind(this)),
     );

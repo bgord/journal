@@ -3,17 +3,19 @@ import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Events from "+app/events";
+import type { EventBusLike } from "+app/ports";
 import type { CommandBus } from "+infra/command-bus";
-import type { EventBus } from "+infra/event-bus";
+
+type AcceptedEvent = Events.HourHasPassedEventType;
 
 export class WeeklyReviewScheduler {
   constructor(
-    eventBus: typeof EventBus,
+    EventBus: EventBusLike<AcceptedEvent>,
     private readonly commandBus: typeof CommandBus,
     EventHandler: bg.EventHandler,
     private readonly userDirectory: Auth.OHQ.UserDirectoryOHQ,
   ) {
-    eventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
+    EventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
 
   async onHourHasPassed(event: Events.HourHasPassedEventType) {
