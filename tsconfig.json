@@ -25,7 +25,9 @@
       "+history/*": ["./modules/history/*"],
       "+app": ["./app/index"],
       "+app/*": ["./app/*"],
-      "+languages": ["./modules/supported-languages.ts"]
+      "+languages": ["./modules/supported-languages.ts"],
+      "+system": ["./modules/system/index"],
+      "+system/*": ["./modules/system/*"]
     }
   },
   "exclude": ["bgord-scripts", "frontend"]

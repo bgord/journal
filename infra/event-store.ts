@@ -3,7 +3,6 @@ import * as tools from "@bgord/tools";
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import type { z } from "zod/v4";
 import type { AiQuotaExceededEvent, AiRequestRegisteredEvent } from "+ai/events";
-import type { HourHasPassedEvent } from "+app/events";
 import type { AccountCreatedEvent, AccountDeletedEvent } from "+auth/events";
 import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
 import type {
@@ -16,6 +15,7 @@ import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import * as schema from "+infra/schema";
 import type { ShareableLinkEvent } from "+publishing/aggregates";
+import type { HourHasPassedEvent } from "+system/events";
 
 export type AcceptedEvent =
   | EntryEvent

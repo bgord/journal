@@ -6,8 +6,8 @@ import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import * as Publishing from "+publishing";
+import type * as System from "+system";
 import type * as Schema from "+infra/schema";
-import type * as App from "../app";
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
@@ -542,7 +542,7 @@ export const GenericHourHasPassedEvent = {
   name: "HOUR_HAS_PASSED_EVENT",
   version: 1,
   payload: { timestamp: hourHasPassedTimestamp },
-} satisfies App.Events.HourHasPassedEventType;
+} satisfies System.Events.HourHasPassedEventType;
 
 export const GenericHourHasPassedMondayUtc18Event = {
   id: expectAnyId,
@@ -552,7 +552,7 @@ export const GenericHourHasPassedMondayUtc18Event = {
   name: "HOUR_HAS_PASSED_EVENT",
   version: 1,
   payload: { timestamp: tools.Timestamp.parse(1754330400000) },
-} satisfies App.Events.HourHasPassedEventType;
+} satisfies System.Events.HourHasPassedEventType;
 
 export const GenericHourHasPassedWednesdayUtc18Event = {
   id: expectAnyId,
@@ -562,7 +562,7 @@ export const GenericHourHasPassedWednesdayUtc18Event = {
   name: "HOUR_HAS_PASSED_EVENT",
   version: 1,
   payload: { timestamp: tools.Timestamp.parse(1754503200000) },
-} satisfies App.Events.HourHasPassedEventType;
+} satisfies System.Events.HourHasPassedEventType;
 
 export const GenericAiRequestRegisteredEmotionsAlarmEntryEvent = {
   id: expectAnyId,

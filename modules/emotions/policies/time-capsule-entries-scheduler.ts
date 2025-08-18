@@ -2,10 +2,10 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
-import * as Events from "+app/events";
+import * as System from "+system";
 import type * as Buses from "+app/ports";
 
-type AcceptedEvent = Events.HourHasPassedEventType;
+type AcceptedEvent = System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.LogEntryCommandType;
 
 export class TimeCapsuleEntriesScheduler {
@@ -15,7 +15,7 @@ export class TimeCapsuleEntriesScheduler {
     private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
     private readonly timeCapsuleDueEntries: Emotions.Ports.TimeCapsuleDueEntriesPort,
   ) {
-    EventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
+    EventBus.on(System.Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
   }
 
   async onHourHasPassed() {
