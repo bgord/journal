@@ -1,8 +1,39 @@
 # Changelog
+- 2025-08-18 09:44 ad7350b **refactor: make ai infra free**
+## 2025-08-18 09:44 
+- 2025-08-18 09:07 53f5373 **refactor: simplify ai gateway**
+- 2025-08-17 23:39 bc576bc **refactor: extract sharing entries ohq**
+- 2025-08-17 23:19 803403d **refactor: remove schema refs**
+- 2025-08-17 23:13 7858c30 **step: add alarm directory port**
+- 2025-08-17 23:06 ce185c5 **refactor: remove entry repository list for user**
+- 2025-08-17 23:04 66ea3fe **step: add getAllForuser**
+- 2025-08-17 22:55 ce5c953 **refactor: add weekly review export query port**
+- 2025-08-17 22:48 4b90445 **refactor: rename weekly review export**
+- 2025-08-17 22:45 e1ec423 **refactor: add weekly review snapshot**
+- 2025-08-17 22:40 099f3c7 **refactor: make full alarm snapshot**
+- 2025-08-17 22:37 522dbcf **refactor: make full pattern detection snapshot**
+- 2025-08-17 22:32 a730b6d **refactor: unfiy weekly review export alarm**
+- 2025-08-17 22:24 7e7f8ec **refactor: unfiy weekly review export pattern detections**
+- 2025-08-17 22:20 f350769 **refactor: unfiy weekly review export dto entries**
+- 2025-08-17 22:17 8d12176 **refactor: portify GetLatestEntryTimestampForUser**
+- 2025-08-17 22:09 07db1a3 **refactor: portify entries per week count**
+- 2025-08-17 21:55 0b390a7 **refactor: make publishing query infra free**
+- 2025-08-17 21:35 62236f9 **refactor: rename auth ports to ohq**
+- 2025-08-17 21:32 4aa3cb5 **refactor: remove user repository**
+- 2025-08-17 21:28 82b0f71 **step: define user directory port and adapter**
+- 2025-08-17 21:25 857435c **refactor: preare user contact for extension**
+- 2025-08-17 21:20 e0e3edb **step: add user contact adapter**
+- 2025-08-17 20:57 f1f2faf **step: remove infra references**
+- 2025-08-17 20:36 9a3baff **refactor: remove getbyid from entry repository**
+- 2025-08-17 20:23 5d39e11 **step: add entry snapshot**
+- 2025-08-17 20:06 d450c15 **refactor: add entry snapshot**
+- 2025-08-17 20:00 ccaad4e **step: tighten entries schema**
+- 2025-08-17 19:53 5f41025 **refactor: cleanup entry schema**
 - 2025-08-17 16:46 2313a83 **step: do not use entry repo in projector**
-## 2025-08-17 16:46 
 - 2025-08-17 15:12 9b5c853 **refactor: simplify saga imports**
 - 2025-08-17 15:07 95d2a2d **refactor: remove time capsule entry repo**
+- 2025-08-17 14:46 fe93bca **docs: generate readme**
+- 2025-08-17 14:46 98491e8 **docs: generate CHANGELOG**
 - 2025-08-17 14:25 b4553a9 **refactor: remove get by id in time capsule entry repo**
 - 2025-08-17 14:24 e3f9953 **refactor: rename history projection**
 - 2025-08-17 14:14 4fb19a8 **refactor: add weekly review snapshot adapter**
