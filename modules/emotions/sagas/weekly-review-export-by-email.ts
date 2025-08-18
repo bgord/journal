@@ -2,8 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import type { EventBusLike } from "+app/ports";
-import type { EventStore as EventStoreType } from "+infra/event-store";
+import * as Ports from "+app/ports";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewExportByEmailRequestedEventType
@@ -11,9 +10,9 @@ type AcceptedEvent =
 
 export class WeeklyReviewExportByEmail {
   constructor(
-    EventBus: EventBusLike<AcceptedEvent>,
+    EventBus: Ports.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
-    private readonly EventStore: typeof EventStoreType,
+    private readonly EventStore: Ports.EventStoreLike<AcceptedEvent>,
     private readonly mailer: bg.MailerPort,
     private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,

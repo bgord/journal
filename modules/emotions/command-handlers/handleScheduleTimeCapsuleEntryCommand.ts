@@ -1,10 +1,12 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import type { EventStore as EventStoreType } from "+infra/event-store";
+import * as Ports from "+app/ports";
+
+type AcceptedEvent = Emotions.Events.TimeCapsuleEntryScheduledEventType;
 
 export const handleScheduleTimeCapsuleEntryCommand =
-  (EventStore: typeof EventStoreType) =>
+  (EventStore: Ports.EventStoreLike<AcceptedEvent>) =>
   async (command: Emotions.Commands.ScheduleTimeCapsuleEntryCommandType) => {
     const now = tools.Time.Now().value;
 

@@ -1,8 +1,14 @@
 import * as Emotions from "+emotions";
-import type { EventStore as EventStoreType } from "+infra/event-store";
+import * as Ports from "+app/ports";
+
+type AcceptedEvent =
+  | Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType
+  | Emotions.Events.LowCopingEffectivenessPatternDetectedEventType
+  | Emotions.Events.MaladaptiveReactionsPatternDetectedEventType
+  | Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
 export const handleDetectWeeklyPatternsCommand =
-  (EventStore: typeof EventStoreType, EntrySnapshot: Emotions.Ports.EntrySnapshotPort) =>
+  (EventStore: Ports.EventStoreLike<AcceptedEvent>, EntrySnapshot: Emotions.Ports.EntrySnapshotPort) =>
   async (command: Emotions.Commands.DetectWeeklyPatternsCommandType) => {
     const entries = await EntrySnapshot.getByWeekForUser(command.payload.week, command.payload.userId);
 
