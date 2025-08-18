@@ -1,22 +1,33 @@
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
-import { EntriesPerWeekCount, EntrySnapshot, WeeklyReviewSnapshot } from "+infra/adapters/emotions";
+import {
+  EntriesPerWeekCount,
+  EntryRepository,
+  EntrySnapshot,
+  WeeklyReviewSnapshot,
+} from "+infra/adapters/emotions";
 import { ShareableLinkRepositoryAdapter, ShareableLinksQuota } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
 CommandBus.on(EmotionCommands.CANCEL_ALARM_COMMAND, EmotionCommandHandlers.handleCancelAlarmCommand);
-CommandBus.on(EmotionCommands.DELETE_ENTRY_COMMAND, EmotionCommandHandlers.handleDeleteEntryCommand);
+CommandBus.on(
+  EmotionCommands.DELETE_ENTRY_COMMAND,
+  EmotionCommandHandlers.handleDeleteEntryCommand(EntryRepository),
+);
 CommandBus.on(
   EmotionCommands.EVALUATE_REACTION_COMMAND,
-  EmotionCommandHandlers.handleEvaluateReactionCommand,
+  EmotionCommandHandlers.handleEvaluateReactionCommand(EntryRepository),
 );
 CommandBus.on(EmotionCommands.GENERATE_ALARM_COMMAND, EmotionCommandHandlers.handleGenerateAlarmCommand);
-CommandBus.on(EmotionCommands.LOG_ENTRY_COMMAND, EmotionCommandHandlers.handleLogEntryCommand);
+CommandBus.on(
+  EmotionCommands.LOG_ENTRY_COMMAND,
+  EmotionCommandHandlers.handleLogEntryCommand(EntryRepository),
+);
 CommandBus.on(
   EmotionCommands.REAPPRAISE_EMOTION_COMMAND,
-  EmotionCommandHandlers.handleReappraiseEmotionCommand,
+  EmotionCommandHandlers.handleReappraiseEmotionCommand(EntryRepository),
 );
 CommandBus.on(EmotionCommands.SAVE_ALARM_ADVICE_COMMAND, EmotionCommandHandlers.handleSaveAlarmAdviceCommand);
 CommandBus.on(

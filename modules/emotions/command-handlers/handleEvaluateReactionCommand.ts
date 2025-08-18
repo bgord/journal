@@ -1,17 +1,10 @@
 import * as Emotions from "+emotions";
-import { EventStore } from "+infra/event-store";
 
-export const handleEvaluateReactionCommand = async (
-  command: Emotions.Commands.EvaluateReactionCommandType,
-) => {
-  const history = await EventStore.find(
-    Emotions.Aggregates.Entry.events,
-    Emotions.Aggregates.Entry.getStream(command.payload.entryId),
-  );
-
-  const entry = Emotions.Aggregates.Entry.build(command.payload.entryId, history);
-  command.revision.validate(entry.revision.value);
-  entry.evaluateReaction(command.payload.newReaction, command.payload.userId);
-
-  await EventStore.save(entry.pullEvents());
-};
+export const handleEvaluateReactionCommand =
+  (repo: Emotions.Ports.EntryRepositoryPort) =>
+  async (command: Emotions.Commands.EvaluateReactionCommandType) => {
+    const entry = await repo.load(command.payload.entryId);
+    command.revision.validate(entry.revision.value);
+    entry.evaluateReaction(command.payload.newReaction, command.payload.userId);
+    await repo.save(entry);
+  };

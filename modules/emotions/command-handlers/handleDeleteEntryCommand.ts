@@ -1,15 +1,9 @@
 import * as Emotions from "+emotions";
-import { EventStore } from "+infra/event-store";
 
-export const handleDeleteEntryCommand = async (command: Emotions.Commands.DeleteEntryCommandType) => {
-  const history = await EventStore.find(
-    Emotions.Aggregates.Entry.events,
-    Emotions.Aggregates.Entry.getStream(command.payload.entryId),
-  );
-
-  const entry = Emotions.Aggregates.Entry.build(command.payload.entryId, history);
-  command.revision.validate(entry.revision.value);
-  entry.delete(command.payload.userId);
-
-  await EventStore.save(entry.pullEvents());
-};
+export const handleDeleteEntryCommand =
+  (repo: Emotions.Ports.EntryRepositoryPort) => async (command: Emotions.Commands.DeleteEntryCommandType) => {
+    const entry = await repo.load(command.payload.entryId);
+    command.revision.validate(entry.revision.value);
+    entry.delete(command.payload.userId);
+    await repo.save(entry);
+  };

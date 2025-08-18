@@ -1,5 +1,6 @@
 export * from "./alarm-cancellation-lookup";
 export * from "./alarm-directory";
+export * from "./entry-repository";
 export * from "./entry-snapshot";
 export * from "./pdf-generator";
 export * from "./time-capsule-due-entries";
