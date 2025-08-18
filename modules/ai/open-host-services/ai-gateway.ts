@@ -2,10 +2,9 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Events from "+ai/events";
 import * as Ports from "+ai/ports";
-import * as Services from "+ai/services";
 import * as Specs from "+ai/specifications";
 import * as VO from "+ai/value-objects";
-import { EventStore } from "+infra/event-store";
+import type { EventStore } from "+infra/event-store";
 
 /** @public */
 export class AiQuotaExceededError extends Error {
@@ -19,13 +18,11 @@ export class AiGateway implements Ports.AiGatewayPort {
   private readonly specification: Specs.QuotaSpecification;
 
   constructor(
+    private readonly store: typeof EventStore,
     private readonly AiClient: Ports.AiClientPort,
     bucketCounter: Ports.BucketCounterPort,
   ) {
-    this.specification = new Specs.QuotaSpecification(
-      new Services.QuotaRuleSelector(VO.RULES),
-      bucketCounter,
-    );
+    this.specification = new Specs.QuotaSpecification(bucketCounter);
   }
 
   async check<C extends VO.UsageCategory>(
@@ -38,7 +35,7 @@ export class AiGateway implements Ports.AiGatewayPort {
     prompt: VO.Prompt,
     context: VO.RequestContext<C>,
   ): Promise<VO.Advice> {
-    const verification = await this.specification.verify(context);
+    const verification = await this.check(context);
 
     if (verification.violations.length) {
       const event = Events.AiQuotaExceededEvent.parse({
@@ -51,12 +48,12 @@ export class AiGateway implements Ports.AiGatewayPort {
         payload: { userId: context.userId, timestamp: context.timestamp },
       } satisfies Events.AiQuotaExceededEventType);
 
-      await EventStore.save([event]);
+      await this.store.save([event]);
 
       throw new AiQuotaExceededError();
     }
 
-    const advice = this.AiClient.request(prompt);
+    const advice = await this.AiClient.request(prompt);
 
     const event = Events.AiRequestRegisteredEvent.parse({
       id: crypto.randomUUID(),
@@ -68,7 +65,7 @@ export class AiGateway implements Ports.AiGatewayPort {
       payload: context,
     } satisfies Events.AiRequestRegisteredEventType);
 
-    await EventStore.save([event]);
+    await this.store.save([event]);
 
     return advice;
   }

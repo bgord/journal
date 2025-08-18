@@ -1,13 +1,10 @@
 import { describe, expect, spyOn, test } from "bun:test";
-import { QuotaRuleSelector } from "+ai/services";
 import { QuotaSpecification } from "+ai/specifications";
 import * as VO from "+ai/value-objects";
 import { BucketCounter } from "+infra/adapters/ai";
 import * as mocks from "./mocks";
 
-const selector = new QuotaRuleSelector(VO.RULES);
-
-const specification = new QuotaSpecification(selector, BucketCounter);
+const specification = new QuotaSpecification(BucketCounter);
 
 describe("QuotaSpecification", () => {
   test("EmotionsAlarmEntryContext - no violations", async () => {

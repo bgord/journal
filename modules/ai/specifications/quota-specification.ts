@@ -10,15 +10,12 @@ export type QuotaViolation = {
 };
 
 export class QuotaSpecification {
-  constructor(
-    private readonly selector: Services.QuotaRuleSelector,
-    private readonly bucketCounter: Ports.BucketCounterPort,
-  ) {}
+  constructor(private readonly bucketCounter: Ports.BucketCounterPort) {}
 
   async verify<C extends VO.UsageCategory>(
     context: VO.RequestContext<C>,
   ): Promise<{ violations: QuotaViolation[] }> {
-    const rules = this.selector.select(context);
+    const rules = new Services.QuotaRuleSelector(VO.RULES).select(context);
     const buckets = rules.map((rule) => rule.bucket);
 
     const counts = await this.bucketCounter.getMany(buckets);
