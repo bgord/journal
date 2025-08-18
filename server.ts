@@ -14,7 +14,6 @@ import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
 import * as App from "./app";
 import * as Emotions from "./modules/emotions";
-import * as Publishing from "./modules/publishing";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
@@ -99,9 +98,9 @@ publishing.post(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.ShareableLinkCreateStore,
   }),
-  Publishing.Routes.CreateShareableLink,
+  App.HTTP.Publishing.CreateShareableLink,
 );
-publishing.post("/link/:shareableLinkId/revoke", Publishing.Routes.RevokeShareableLink);
+publishing.post("/link/:shareableLinkId/revoke", App.HTTP.Publishing.RevokeShareableLink);
 server.route("/publishing", publishing);
 // =============================
 
