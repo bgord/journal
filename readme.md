@@ -288,6 +288,37 @@ modules/
 └── supported-languages.ts
 ```
 
+## App:
+
+```
+app/
+├── events
+│   ├── hour-has-passed.ts
+├── http
+│   ├── emotions
+│   │   ├── delete-entry.ts
+│   │   ├── download-weekly-review.ts
+│   │   ├── evaluate-reaction.ts
+│   │   ├── export-entries.ts
+│   │   ├── export-weekly-review-by-email.ts
+│   │   ├── get-shared-entries.ts
+│   │   ├── log-entry.ts
+│   │   ├── reappraise-emotion.ts
+│   │   └── schedule-time-capsule-entry.ts
+│   ├── error-handler.ts
+│   └── publishing
+│       ├── create-shareable-link.ts
+│       └── revoke-shareable-link.ts
+├── ports
+│   ├── bus-like.ts
+│   ├── event-store-like.ts
+└── services
+    ├── add-entry-form.ts
+    ├── auth-form.ts
+    ├── create-shareable-link-form.ts
+    └── passage-of-time.ts
+```
+
 ## Infra:
 
 ```
