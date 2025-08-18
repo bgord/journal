@@ -17,6 +17,7 @@ import { ExpiringShareableLinks } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
+import { EventStore } from "+infra/event-store";
 import { logger } from "+infra/logger";
 import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
@@ -38,6 +39,7 @@ new EmotionsPolicies.EntryAlarmDetector(EventBus, CommandBus, EventHandler);
 new EmotionsPolicies.WeeklyReviewScheduler(EventBus, CommandBus, EventHandler, UserDirectory);
 new EmotionsPolicies.InactivityAlarmScheduler(
   EventBus,
+  CommandBus,
   EventHandler,
   UserDirectory,
   GetLatestEntryTimestampForUser,
@@ -70,6 +72,7 @@ new EmotionsSagas.WeeklyReviewProcessing(
 new EmotionsSagas.WeeklyReviewExportByEmail(
   EventBus,
   EventHandler,
+  EventStore,
   Mailer,
   PdfGenerator,
   UserContact,

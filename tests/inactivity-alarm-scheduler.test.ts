@@ -6,6 +6,7 @@ import * as Emotions from "+emotions";
 import { AiGateway } from "+infra/adapters/ai";
 import { UserDirectory } from "+infra/adapters/auth";
 import { GetLatestEntryTimestampForUser } from "+infra/adapters/emotions";
+import { CommandBus } from "+infra/command-bus";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { logger } from "+infra/logger";
@@ -14,6 +15,7 @@ import * as mocks from "./mocks";
 const EventHandler = new bg.EventHandler(logger);
 const policy = new Emotions.Policies.InactivityAlarmScheduler(
   EventBus,
+  CommandBus,
   EventHandler,
   UserDirectory,
   GetLatestEntryTimestampForUser,

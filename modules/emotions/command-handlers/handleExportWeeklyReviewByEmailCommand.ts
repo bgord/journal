@@ -1,10 +1,10 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import { EventStore } from "+infra/event-store";
+import type { EventStore as EventStoreType } from "+infra/event-store";
 
 export const handleExportWeeklyReviewByEmailCommand =
-  (WeeklyReviewSnapshot: Emotions.Ports.WeeklyReviewSnapshotPort) =>
+  (EventStore: typeof EventStoreType, WeeklyReviewSnapshot: Emotions.Ports.WeeklyReviewSnapshotPort) =>
   async (command: Emotions.Commands.ExportWeeklyReviewByEmailCommand) => {
     const weeklyReview = await WeeklyReviewSnapshot.getById(command.payload.weeklyReviewId);
 

@@ -14,6 +14,7 @@ const EventHandler = new bg.EventHandler(logger);
 const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(
   EventBus,
   EventHandler,
+  EventStore,
   Mailer,
   PdfGenerator,
   UserContact,

@@ -11,6 +11,7 @@ import {
 } from "+infra/adapters/emotions";
 import { ShareableLinkRepositoryAdapter, ShareableLinksQuota } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
+import { EventStore } from "+infra/event-store";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
@@ -52,7 +53,11 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
-  EmotionCommandHandlers.handleRequestWeeklyReviewCommand(WeeklyReviewRepository, EntriesPerWeekCount),
+  EmotionCommandHandlers.handleRequestWeeklyReviewCommand(
+    EventStore,
+    WeeklyReviewRepository,
+    EntriesPerWeekCount,
+  ),
 );
 CommandBus.on(
   EmotionCommands.COMPLETE_WEEKLY_REVIEW_COMMAND,
@@ -64,15 +69,15 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.DETECT_WEEKLY_PATTERNS_COMMAND,
-  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand(EntrySnapshot),
+  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand(EventStore, EntrySnapshot),
 );
 CommandBus.on(
   EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand(WeeklyReviewSnapshot),
+  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand(EventStore, WeeklyReviewSnapshot),
 );
 CommandBus.on(
   EmotionCommands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand,
+  EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand(EventStore),
 );
 
 CommandBus.on(

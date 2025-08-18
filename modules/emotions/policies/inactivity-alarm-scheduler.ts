@@ -3,12 +3,13 @@ import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Events from "+app/events";
-import { CommandBus } from "+infra/command-bus";
+import type { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 
 export class InactivityAlarmScheduler {
   constructor(
     eventBus: typeof EventBus,
+    private readonly commandBus: typeof CommandBus,
     EventHandler: bg.EventHandler,
     private readonly userDirectory: Auth.OHQ.UserDirectoryOHQ,
     private readonly getLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser,
@@ -42,7 +43,7 @@ export class InactivityAlarmScheduler {
         payload: { detection, userId },
       } satisfies Emotions.Commands.GenerateAlarmCommandType);
 
-      await CommandBus.emit(command.name, command);
+      await this.commandBus.emit(command.name, command);
     }
   }
 }

@@ -1,10 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import { EventStore } from "+infra/event-store";
+import type { EventStore as EventStoreType } from "+infra/event-store";
 
 export const handleRequestWeeklyReviewCommand =
   (
+    EventStore: typeof EventStoreType,
     repo: Emotions.Ports.WeeklyReviewRepositoryPort,
     EntriesPerWeekCountQuery: Emotions.Queries.EntriesPerWeekCountQuery,
   ) =>

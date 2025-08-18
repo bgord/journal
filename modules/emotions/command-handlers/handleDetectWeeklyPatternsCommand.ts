@@ -1,8 +1,8 @@
 import * as Emotions from "+emotions";
-import { EventStore } from "+infra/event-store";
+import type { EventStore as EventStoreType } from "+infra/event-store";
 
 export const handleDetectWeeklyPatternsCommand =
-  (EntrySnapshot: Emotions.Ports.EntrySnapshotPort) =>
+  (EventStore: typeof EventStoreType, EntrySnapshot: Emotions.Ports.EntrySnapshotPort) =>
   async (command: Emotions.Commands.DetectWeeklyPatternsCommandType) => {
     const entries = await EntrySnapshot.getByWeekForUser(command.payload.week, command.payload.userId);
 

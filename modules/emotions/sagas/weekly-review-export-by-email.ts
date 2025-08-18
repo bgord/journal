@@ -3,12 +3,13 @@ import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { EventBus } from "+infra/event-bus";
-import { EventStore } from "+infra/event-store";
+import type { EventStore as EventStoreType } from "+infra/event-store";
 
 export class WeeklyReviewExportByEmail {
   constructor(
     eventBus: typeof EventBus,
     EventHandler: bg.EventHandler,
+    private readonly EventStore: typeof EventStoreType,
     private readonly mailer: bg.MailerPort,
     private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
@@ -48,7 +49,7 @@ export class WeeklyReviewExportByEmail {
         ...notification,
       });
     } catch {
-      await EventStore.save([
+      await this.EventStore.save([
         Emotions.Events.WeeklyReviewExportByEmailFailedEvent.parse({
           id: crypto.randomUUID(),
           correlationId: bg.CorrelationStorage.get(),
@@ -72,7 +73,7 @@ export class WeeklyReviewExportByEmail {
   ) {
     if (event.payload.attempt > 3) return;
 
-    await EventStore.saveAfter(
+    await this.EventStore.saveAfter(
       [
         Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
           id: crypto.randomUUID(),
