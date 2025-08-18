@@ -1,7 +1,5 @@
 import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
-import { EventStore } from "+infra/event-store";
-import * as Aggregates from "+publishing/aggregates";
 import * as VO from "+publishing/value-objects";
 
 export type ShareableLinkAccessValidType = {
@@ -18,24 +16,9 @@ export type ShareableLinkAccessInvalidType = {
   valid: false;
 };
 
-export class ShareableLinkAccess {
-  static async check(
+export interface ShareableLinkAccessPort {
+  check(
     id: VO.ShareableLinkIdType,
     publicationSpecification: VO.PublicationSpecificationType,
-  ): Promise<ShareableLinkAccessValidType | ShareableLinkAccessInvalidType> {
-    const history = await EventStore.find(
-      Aggregates.ShareableLink.events,
-      Aggregates.ShareableLink.getStream(id),
-    );
-
-    if (!history.length) return { valid: false };
-
-    const shareableLink = Aggregates.ShareableLink.build(id, history);
-
-    const valid = shareableLink.isValid(publicationSpecification);
-
-    if (!valid) return { valid: false };
-
-    return { valid: true, details: shareableLink.summarize() };
-  }
+  ): Promise<ShareableLinkAccessValidType | ShareableLinkAccessInvalidType>;
 }

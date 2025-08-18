@@ -2,11 +2,12 @@ import hono from "hono";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
 import { EntriesSharing } from "+infra/adapters/emotions";
+import { ShareableLinkAccess } from "+infra/adapters/publishing";
 
 export async function GetSharedEntries(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
 
-  const shareableLinkAccess = await Publishing.OHQ.ShareableLinkAccess.check(shareableLinkId, "entries");
+  const shareableLinkAccess = await ShareableLinkAccess.check(shareableLinkId, "entries");
 
   if (!shareableLinkAccess.valid) return c.json({ _known: true, message: "shareable_link_invalid" }, 403);
 

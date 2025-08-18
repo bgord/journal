@@ -1,5 +1,5 @@
 import { describe, expect, spyOn, test } from "bun:test";
-import * as Publishing from "+publishing";
+import { ShareableLinkAccess } from "+infra/adapters/publishing";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
@@ -7,15 +7,13 @@ describe("ShareableLinkAccess", () => {
   test("true", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
 
-    expect((await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).valid).toEqual(
-      true,
-    );
+    expect((await ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).valid).toEqual(true);
   });
 
   test("false - not found", async () => {
     spyOn(EventStore, "find").mockResolvedValue([]);
 
-    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).toEqual({
+    expect(await ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).toEqual({
       valid: false,
     });
   });
@@ -26,9 +24,7 @@ describe("ShareableLinkAccess", () => {
       mocks.GenericShareableLinkExpiredEvent,
     ]);
 
-    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).toEqual({
-      valid: false,
-    });
+    expect(await ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).toEqual({ valid: false });
   });
 
   test("isValid - false - revoked", async () => {
@@ -37,9 +33,7 @@ describe("ShareableLinkAccess", () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
 
-    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).toEqual({
-      valid: false,
-    });
+    expect(await ShareableLinkAccess.check(mocks.shareableLinkId, "entries")).toEqual({ valid: false });
   });
 
   test("isValid - false - specification", async () => {
@@ -48,8 +42,6 @@ describe("ShareableLinkAccess", () => {
       mocks.GenericShareableLinkRevokedEvent,
     ]);
 
-    expect(await Publishing.OHQ.ShareableLinkAccess.check(mocks.shareableLinkId, "other")).toEqual({
-      valid: false,
-    });
+    expect(await ShareableLinkAccess.check(mocks.shareableLinkId, "other")).toEqual({ valid: false });
   });
 });
