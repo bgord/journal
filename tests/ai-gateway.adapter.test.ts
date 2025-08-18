@@ -2,11 +2,11 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
 import * as VO from "+ai/value-objects";
-import { AiClient, BucketCounter } from "+infra/adapters/ai";
+import { AiClient, AiEventStorePublisher, BucketCounter } from "+infra/adapters/ai";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
-const gateway = new AiGateway(EventStore, AiClient, BucketCounter);
+const gateway = new AiGateway(AiEventStorePublisher, AiClient, BucketCounter);
 
 const prompt = new VO.Prompt("Give me some insights");
 

@@ -4,7 +4,6 @@ import * as Events from "+ai/events";
 import * as Ports from "+ai/ports";
 import * as Specs from "+ai/specifications";
 import * as VO from "+ai/value-objects";
-import type { EventStore } from "+infra/event-store";
 
 /** @public */
 export class AiQuotaExceededError extends Error {
@@ -18,7 +17,7 @@ export class AiGateway implements Ports.AiGatewayPort {
   private readonly specification: Specs.QuotaSpecification;
 
   constructor(
-    private readonly store: typeof EventStore,
+    private readonly store: Ports.AiEventPublisherPort,
     private readonly AiClient: Ports.AiClientPort,
     bucketCounter: Ports.BucketCounterPort,
   ) {
@@ -48,7 +47,7 @@ export class AiGateway implements Ports.AiGatewayPort {
         payload: { userId: context.userId, timestamp: context.timestamp },
       } satisfies Events.AiQuotaExceededEventType);
 
-      await this.store.save([event]);
+      await this.store.publish([event]);
 
       throw new AiQuotaExceededError();
     }
@@ -65,7 +64,7 @@ export class AiGateway implements Ports.AiGatewayPort {
       payload: context,
     } satisfies Events.AiRequestRegisteredEventType);
 
-    await this.store.save([event]);
+    await this.store.publish([event]);
 
     return advice;
   }
