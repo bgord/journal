@@ -4,13 +4,14 @@ import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
-import { CommandBus } from "+infra/command-bus";
+import type { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 
 export class WeeklyReviewProcessing {
   constructor(
     eventBus: typeof EventBus,
+    private readonly commandBus: typeof CommandBus,
     EventHandler: bg.EventHandler,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
@@ -67,7 +68,7 @@ export class WeeklyReviewProcessing {
         payload: { userId: event.payload.userId, week },
       } satisfies Emotions.Commands.DetectWeeklyPatternsCommandType);
 
-      await CommandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
+      await this.commandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
 
       const completeWeeklyReview = Emotions.Commands.CompleteWeeklyReviewCommand.parse({
         id: crypto.randomUUID(),
@@ -81,7 +82,7 @@ export class WeeklyReviewProcessing {
         },
       } satisfies Emotions.Commands.CompleteWeeklyReviewCommandType);
 
-      await CommandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
+      await this.commandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
     } catch (_error) {
       const command = Emotions.Commands.MarkWeeklyReviewAsFailedCommand.parse({
         id: crypto.randomUUID(),
@@ -94,7 +95,7 @@ export class WeeklyReviewProcessing {
         },
       } satisfies Emotions.Commands.MarkWeeklyReviewAsFailedCommandType);
 
-      await CommandBus.emit(command.name, command);
+      await this.commandBus.emit(command.name, command);
     }
   }
 
@@ -107,6 +108,6 @@ export class WeeklyReviewProcessing {
       payload: { userId: event.payload.userId, weeklyReviewId: event.payload.weeklyReviewId },
     } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommand);
 
-    await CommandBus.emit(command.name, command);
+    await this.commandBus.emit(command.name, command);
   }
 }

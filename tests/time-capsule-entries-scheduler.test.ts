@@ -3,6 +3,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { TimeCapsuleDueEntries } from "+infra/adapters/emotions";
+import { CommandBus } from "+infra/command-bus";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { logger } from "+infra/logger";
@@ -11,6 +12,7 @@ import * as mocks from "./mocks";
 const EventHandler = new bg.EventHandler(logger);
 const policy = new Emotions.Policies.TimeCapsuleEntriesScheduler(
   EventBus,
+  CommandBus,
   EventHandler,
   TimeCapsuleDueEntries,
 );

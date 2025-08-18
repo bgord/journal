@@ -6,6 +6,7 @@ import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
 import { UserContact } from "+infra/adapters/auth";
 import { AlarmCancellationLookup, EntrySnapshot } from "+infra/adapters/emotions";
+import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -15,6 +16,7 @@ import * as mocks from "./mocks";
 const EventHandler = new bg.EventHandler(logger);
 const saga = new Emotions.Sagas.AlarmOrchestrator(
   EventBus,
+  CommandBus,
   EventHandler,
   AiGateway,
   Mailer,

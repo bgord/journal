@@ -1,11 +1,15 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import { CommandBus } from "+infra/command-bus";
+import type { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 
 export class EntryAlarmDetector {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
+  constructor(
+    eventBus: typeof EventBus,
+    private readonly commandBus: typeof CommandBus,
+    EventHandler: bg.EventHandler,
+  ) {
     eventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, EventHandler.handle(this.detect.bind(this)));
     eventBus.on(Emotions.Events.EMOTION_REAPPRAISED_EVENT, EventHandler.handle(this.detect.bind(this)));
   }
@@ -26,6 +30,6 @@ export class EntryAlarmDetector {
       payload: { detection, userId: event.payload.userId },
     } satisfies Emotions.Commands.GenerateAlarmCommandType);
 
-    await CommandBus.emit(command.name, command);
+    await this.commandBus.emit(command.name, command);
   }
 }

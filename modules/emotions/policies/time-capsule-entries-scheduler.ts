@@ -3,12 +3,13 @@ import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
 import * as Events from "+app/events";
-import { CommandBus } from "+infra/command-bus";
+import type { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 
 export class TimeCapsuleEntriesScheduler {
   constructor(
     eventBus: typeof EventBus,
+    private readonly commandBus: typeof CommandBus,
     EventHandler: bg.EventHandler,
     private readonly timeCapsuleDueEntries: Emotions.Ports.TimeCapsuleDueEntriesPort,
   ) {
@@ -56,7 +57,7 @@ export class TimeCapsuleEntriesScheduler {
         },
       } satisfies Emotions.Commands.LogEntryCommandType);
 
-      await CommandBus.emit(command.name, command);
+      await this.commandBus.emit(command.name, command);
     }
   }
 }

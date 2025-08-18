@@ -3,13 +3,14 @@ import * as bg from "@bgord/bun";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { AiGateway } from "+infra/adapters/ai";
+import { CommandBus } from "+infra/command-bus";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const policy = new Emotions.Policies.EntryAlarmDetector(EventBus, EventHandler);
+const policy = new Emotions.Policies.EntryAlarmDetector(EventBus, CommandBus, EventHandler);
 
 describe("EntryAlarmDetector", () => {
   test("onEmotionLoggedEvent", async () => {

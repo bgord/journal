@@ -8,13 +8,14 @@ import * as Events from "+emotions/events";
 import * as Ports from "+emotions/ports";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
-import { CommandBus } from "+infra/command-bus";
+import type { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 
 export class AlarmOrchestrator {
   constructor(
     eventBus: typeof EventBus,
+    private readonly commandBus: typeof CommandBus,
     EventHandler: bg.EventHandler,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
@@ -45,7 +46,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId, advice },
       } satisfies Commands.SaveAlarmAdviceCommandType);
 
-      await CommandBus.emit(command.name, command);
+      await this.commandBus.emit(command.name, command);
     } catch (_error) {
       const command = Commands.CancelAlarmCommand.parse({
         id: crypto.randomUUID(),
@@ -55,7 +56,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
-      await CommandBus.emit(command.name, command);
+      await this.commandBus.emit(command.name, command);
     }
   }
 
@@ -68,7 +69,7 @@ export class AlarmOrchestrator {
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.SendAlarmNotificationCommandType);
 
-    await CommandBus.emit(command.name, command);
+    await this.commandBus.emit(command.name, command);
   }
 
   async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
@@ -81,7 +82,7 @@ export class AlarmOrchestrator {
     } satisfies Commands.CancelAlarmCommandType);
 
     const contact = await this.userContact.getPrimary(event.payload.userId);
-    if (!contact?.address) return CommandBus.emit(cancel.name, cancel);
+    if (!contact?.address) return this.commandBus.emit(cancel.name, cancel);
 
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
@@ -102,7 +103,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CompleteAlarmCommandType);
 
-      await CommandBus.emit(complete.name, complete);
+      await this.commandBus.emit(complete.name, complete);
     } catch {}
   }
 
@@ -118,7 +119,7 @@ export class AlarmOrchestrator {
         payload: { alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
-      await CommandBus.emit(command.name, command);
+      await this.commandBus.emit(command.name, command);
     }
   }
 }

@@ -14,6 +14,7 @@ import {
 } from "+infra/adapters/emotions";
 import { HistoryProjection, HistoryWriter } from "+infra/adapters/history";
 import { ExpiringShareableLinks } from "+infra/adapters/publishing";
+import { CommandBus } from "+infra/command-bus";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
 import * as Projections from "+infra/projections";
@@ -32,7 +33,7 @@ new Projections.HistoryProjector(EventBus, EventHandler, HistoryProjection);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler, ExpiringShareableLinks);
-new EmotionsPolicies.EntryAlarmDetector(EventBus, EventHandler);
+new EmotionsPolicies.EntryAlarmDetector(EventBus, CommandBus, EventHandler);
 new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler, UserDirectory);
 new EmotionsPolicies.InactivityAlarmScheduler(
   EventBus,
@@ -40,12 +41,13 @@ new EmotionsPolicies.InactivityAlarmScheduler(
   UserDirectory,
   GetLatestEntryTimestampForUser,
 );
-new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler, TimeCapsuleDueEntries);
+new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, CommandBus, EventHandler, TimeCapsuleDueEntries);
 new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
 
 // Sagas
 new EmotionsSagas.AlarmOrchestrator(
   EventBus,
+  CommandBus,
   EventHandler,
   AiGateway,
   Mailer,
@@ -55,6 +57,7 @@ new EmotionsSagas.AlarmOrchestrator(
 );
 new EmotionsSagas.WeeklyReviewProcessing(
   EventBus,
+  CommandBus,
   EventHandler,
   AiGateway,
   Mailer,

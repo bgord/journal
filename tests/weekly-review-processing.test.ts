@@ -7,6 +7,7 @@ import { Mailer } from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
 import { UserContact } from "+infra/adapters/auth";
 import { EntrySnapshot, WeeklyReviewSnapshot } from "+infra/adapters/emotions";
+import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -17,6 +18,7 @@ const EventHandler = new bg.EventHandler(logger);
 
 const saga = new Emotions.Sagas.WeeklyReviewProcessing(
   EventBus,
+  CommandBus,
   EventHandler,
   AiGateway,
   Mailer,
