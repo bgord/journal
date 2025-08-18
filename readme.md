@@ -47,6 +47,7 @@ modules/
 │   │   ├── ai-gateway.ts
 │   ├── ports
 │   │   ├── ai-client.ts
+│   │   ├── ai-event-publisher.ts
 │   │   ├── ai-gateway.ts
 │   │   ├── bucket-counter.ts
 │   ├── services
@@ -69,8 +70,9 @@ modules/
 │   ├── events
 │   │   ├── ACCOUNT_CREATED_EVENT.ts
 │   │   ├── ACCOUNT_DELETED_EVENT.ts
-│   ├── repositories
-│   │   └── user-repository.ts
+│   ├── open-host-queries
+│   │   ├── user-contact.ts
+│   │   └── user-directory.ts
 │   ├── services
 │   │   ├── email-verification-notification-composer.ts
 │   │   └── password-reset-notification-composer.ts
@@ -170,6 +172,8 @@ modules/
 │   │   ├── weekly-review-exists.ts
 │   │   ├── weekly-review-is-completed.ts
 │   │   └── weekly-review-schedule.ts
+│   ├── open-host-queries
+│   │   ├── entries-sharing.ts
 │   ├── policies
 │   │   ├── entry-alarm-detector.ts
 │   │   ├── entry-history-publisher.ts
@@ -178,16 +182,15 @@ modules/
 │   │   └── weekly-review-scheduler.ts
 │   ├── ports
 │   │   ├── alarm-cancellation-lookup.ts
+│   │   ├── alarm-directory.ts
+│   │   ├── entry-snapshot.ts
 │   │   ├── pdf-generator.ts
 │   │   ├── time-capsule-due-entries.ts
 │   │   └── weekly-review-snapshot.ts
 │   ├── queries
-│   │   ├── count-entries-per-week-for-user.ts
+│   │   ├── entries-per-week-count.ts
 │   │   ├── get-latest-entry-timestamp-for-user.ts
-│   │   └── weekly-review-export-dto.ts
-│   ├── repositories
-│   │   ├── alarm-repository.ts
-│   │   ├── entry-repository.ts
+│   │   └── weekly-review-export.ts
 │   ├── routes
 │   │   ├── delete-entry.ts
 │   │   ├── download-weekly-review.ts
@@ -227,6 +230,7 @@ modules/
 │       ├── alarm-id.ts
 │       ├── alarm-name-option.ts
 │       ├── alarm-name.ts
+│       ├── alarm-snapshot.ts
 │       ├── alarm-status.ts
 │       ├── alarm-trigger.ts
 │       ├── emotion-intensity.ts
@@ -235,10 +239,12 @@ modules/
 │       ├── entry-id.ts
 │       ├── entry-origin-option.ts
 │       ├── entry-origin.ts
+│       ├── entry-snapshot.ts
 │       ├── entry-started-at.ts
 │       ├── entry-status.ts
 │       ├── geneva-wheel-emotion.enum.ts
 │       ├── gross-emotion-regulation-strategy.enum.ts
+│       ├── pattern-detection-snapshot.ts
 │       ├── pattern-name-option.ts
 │       ├── pattern-name.ts
 │       ├── reaction-description.ts
@@ -251,6 +257,7 @@ modules/
 │       ├── time-capsule-entry-status.ts
 │       ├── weekly-review-export-id.ts
 │       ├── weekly-review-id.ts
+│       ├── weekly-review-snapshot.ts
 │       └── weekly-review-status.ts
 └── publishing
     ├── aggregates
@@ -279,7 +286,7 @@ modules/
     ├── ports
     │   ├── expiring-shareable-links.ts
     ├── queries
-    │   ├── count-active-shareable-links-per-owner.ts
+    │   └── shareable-links-quota.ts
     ├── routes
     │   ├── create-shareable-link.ts
     │   └── revoke-shareable-link.ts
@@ -299,17 +306,36 @@ infra/
 │   │   ├── ai-client-noop.adapter.ts
 │   │   ├── ai-client-open-ai.adapter.ts
 │   │   ├── ai-client.adapter.ts
+│   │   ├── ai-event-publisher-bg.adapter.ts
+│   │   ├── ai-event-publisher.adapter.ts
 │   │   ├── ai-gateway.adapter.ts
 │   │   ├── bucket-counter-drizzle.adapter.ts
 │   │   ├── bucket-counter.adapter.ts
+│   ├── auth
+│   │   ├── user-contact-drizzle.adapter.ts
+│   │   ├── user-contact.adapter.ts
+│   │   ├── user-directory-drizzle.adapter.ts
+│   │   └── user-directory.adapter.ts
 │   ├── emotions
 │   │   ├── alarm-cancellation-lookup-drizzle.adapter.ts
 │   │   ├── alarm-cancellation-lookup.adapter.ts
+│   │   ├── alarm-directory-drizzle.adapter.ts
+│   │   ├── alarm-directory.adapter.ts
+│   │   ├── entries-per-week-count-drizzle.adapter.ts
+│   │   ├── entries-per-week-count.adapter.ts
+│   │   ├── entries-sharing-drizzle.adapter.ts
+│   │   ├── entries-sharing.adapter.ts
+│   │   ├── entry-snapshot-drizzle.adapter.ts
+│   │   ├── entry-snapshot.adapter.ts
+│   │   ├── get-latest-entry-timestamp-for-user-drizzle.adapter.ts
+│   │   ├── get-latest-entry-timestamp-for-user.adapter.ts
 │   │   ├── pdf-generator-noop.adapter.ts
 │   │   ├── pdf-generator-react.adapter.tsx
 │   │   ├── pdf-generator.adapter.ts
 │   │   ├── time-capsule-due-entries-drizzle.adapter.ts
 │   │   ├── time-capsule-due-entries.adapter.ts
+│   │   ├── weekly-review-export-drizzle.adapter.ts
+│   │   ├── weekly-review-export.adapter.ts
 │   │   ├── weekly-review-snapshot-drizzle.adapter.ts
 │   │   └── weekly-review-snapshot.adapter.ts
 │   ├── history
@@ -321,6 +347,8 @@ infra/
 │   └── publishing
 │       ├── expiring-shareable-links.drizzle.ts
 │       ├── expiring-shareable-links.ts
+│       ├── shareable-links-quota-drizzle.adapter.ts
+│       └── shareable-links-quota.adapter.ts
 ├── auth.ts
 ├── basic-auth-shield.ts
 ├── cache.ts
