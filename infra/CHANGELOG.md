@@ -1,9 +1,11 @@
 # Changelog
+- 2025-08-18 22:54 9a9358a **step: bump bgord/scripts**
+## 2025-08-18 22:54 
 - 2025-08-18 22:40 a9632cc **refactor: clear event store imports**
-## 2025-08-18 22:40 
 - 2025-08-18 22:17 e7027c5 **refactor: clear command bus imports**
 - 2025-08-18 22:04 3d7f237 **refactor: clear event bus port**
 - 2025-08-18 21:37 3527241 **refactor: make all modules infra imports types**
+- 2025-08-18 20:42 99d274d **docs: generate CHANGELOG**
 - 2025-08-18 16:19 616f885 **refactor: extract Env.EMAIL_FROM**
 - 2025-08-18 16:14 1ba5845 **refactor: extract command bus types**
 - 2025-08-18 14:19 e40475c **docs: generate CHANGELOG**
