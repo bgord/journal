@@ -17,7 +17,7 @@ export class AiGateway implements Ports.AiGatewayPort {
   private readonly specification: Specs.QuotaSpecification;
 
   constructor(
-    private readonly store: Ports.AiEventPublisherPort,
+    private readonly publisher: Ports.AiEventPublisherPort,
     private readonly AiClient: Ports.AiClientPort,
     bucketCounter: Ports.BucketCounterPort,
   ) {
@@ -47,7 +47,7 @@ export class AiGateway implements Ports.AiGatewayPort {
         payload: { userId: context.userId, timestamp: context.timestamp },
       } satisfies Events.AiQuotaExceededEventType);
 
-      await this.store.publish([event]);
+      await this.publisher.publish([event]);
 
       throw new AiQuotaExceededError();
     }
@@ -64,7 +64,7 @@ export class AiGateway implements Ports.AiGatewayPort {
       payload: context,
     } satisfies Events.AiRequestRegisteredEventType);
 
-    await this.store.publish([event]);
+    await this.publisher.publish([event]);
 
     return advice;
   }
