@@ -2,8 +2,6 @@ import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import { EntrySnapshotPort } from "+emotions/ports";
-import { EntryAlarmAdvicePromptBuilder } from "./entry-alarm-advice-prompt-builder";
-import { InactivityAlarmAdvicePromptBuilder } from "./inactivity-alarm-advice-prompt-builder";
 
 export class AlarmPromptFactory {
   constructor(private readonly entrySnapshot: EntrySnapshotPort) {}
@@ -14,7 +12,7 @@ export class AlarmPromptFactory {
         const entry = await this.entrySnapshot.getById(detection.trigger.entryId);
         const language = entry?.language as SupportedLanguages;
 
-        return new EntryAlarmAdvicePromptBuilder(
+        return new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
           entry as Emotions.VO.EntrySnapshot,
           detection.name,
           language,
@@ -22,7 +20,7 @@ export class AlarmPromptFactory {
       }
 
       case Emotions.VO.AlarmTriggerEnum.inactivity: {
-        return new InactivityAlarmAdvicePromptBuilder(detection.trigger).generate();
+        return new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(detection.trigger).generate();
       }
 
       default:
