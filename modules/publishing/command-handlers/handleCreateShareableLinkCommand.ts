@@ -1,8 +1,10 @@
 import * as Publishing from "+publishing";
-import { EventStore } from "+infra/event-store";
 
 export const handleCreateShareableLinkCommand =
-  (ShareableLinksQuotaQuery: Publishing.Queries.ShareableLinksQuotaQuery) =>
+  (
+    repo: Publishing.Ports.ShareableLinkRepositoryPort,
+    ShareableLinksQuotaQuery: Publishing.Queries.ShareableLinksQuotaQuery,
+  ) =>
   async (command: Publishing.Commands.CreateShareableLinkCommandType) => {
     const shareableActiveLinksPerOwnerCount = await ShareableLinksQuotaQuery.execute(
       command.payload.requesterId,
@@ -18,7 +20,5 @@ export const handleCreateShareableLinkCommand =
       command.payload.requesterId,
     );
 
-    const events = shareableLink.pullEvents();
-
-    await EventStore.save(events);
+    await repo.save(shareableLink);
   };

@@ -1,7 +1,7 @@
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
 import { EntriesPerWeekCount, EntrySnapshot, WeeklyReviewSnapshot } from "+infra/adapters/emotions";
-import { ShareableLinksQuota } from "+infra/adapters/publishing";
+import { ShareableLinkRepositoryAdapter, ShareableLinksQuota } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
@@ -51,15 +51,18 @@ CommandBus.on(
 
 CommandBus.on(
   PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleCreateShareableLinkCommand(ShareableLinksQuota),
+  PublishingCommandHandlers.handleCreateShareableLinkCommand(
+    ShareableLinkRepositoryAdapter,
+    ShareableLinksQuota,
+  ),
 );
 
 CommandBus.on(
   PublishingCommands.EXPIRE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleExpireShareableLinkCommand,
+  PublishingCommandHandlers.handleExpireShareableLinkCommand(ShareableLinkRepositoryAdapter),
 );
 
 CommandBus.on(
   PublishingCommands.REVOKE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleRevokeShareableLinkCommand,
+  PublishingCommandHandlers.handleRevokeShareableLinkCommand(ShareableLinkRepositoryAdapter),
 );
