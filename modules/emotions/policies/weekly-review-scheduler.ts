@@ -3,16 +3,16 @@ import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Events from "+app/events";
-import type { EventBusLike } from "+app/ports";
-import type { CommandBus } from "+infra/command-bus";
+import type * as Buses from "+app/ports";
 
 type AcceptedEvent = Events.HourHasPassedEventType;
+type AcceptedCommand = Emotions.Commands.RequestWeeklyReviewCommandType;
 
 export class WeeklyReviewScheduler {
   constructor(
-    EventBus: EventBusLike<AcceptedEvent>,
-    private readonly commandBus: typeof CommandBus,
+    EventBus: Buses.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
+    private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
     private readonly userDirectory: Auth.OHQ.UserDirectoryOHQ,
   ) {
     EventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
@@ -34,7 +34,7 @@ export class WeeklyReviewScheduler {
         payload: { week, userId },
       } satisfies Emotions.Commands.RequestWeeklyReviewCommandType);
 
-      await this.commandBus.emit(command.name, command);
+      await this.CommandBus.emit(command.name, command);
     }
   }
 }

@@ -12,8 +12,8 @@ import * as mocks from "./mocks";
 const EventHandler = new bg.EventHandler(logger);
 const policy = new Publishing.Policies.ShareableLinksExpirer(
   EventBus,
-  CommandBus,
   EventHandler,
+  CommandBus,
   ExpiringShareableLinks,
 );
 

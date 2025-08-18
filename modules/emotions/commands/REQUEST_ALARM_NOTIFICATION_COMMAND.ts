@@ -13,4 +13,4 @@ export const RequestAlarmNotificationCommand = z.object({
   payload: z.object({ alarmId: VO.AlarmId }),
 });
 
-export type SendAlarmNotificationCommandType = z.infer<typeof RequestAlarmNotificationCommand>;
+export type RequestAlarmNotificationCommandType = z.infer<typeof RequestAlarmNotificationCommand>;

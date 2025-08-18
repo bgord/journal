@@ -235,8 +235,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     await new Emotions.Policies.WeeklyReviewScheduler(
       EventBus,
-      CommandBus,
       EventHandler,
+      CommandBus,
       UserDirectory,
     ).onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event);
 

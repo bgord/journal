@@ -16,8 +16,8 @@ import * as mocks from "./mocks";
 const EventHandler = new bg.EventHandler(logger);
 const saga = new Emotions.Sagas.AlarmOrchestrator(
   EventBus,
-  CommandBus,
   EventHandler,
+  CommandBus,
   AiGateway,
   Mailer,
   AlarmCancellationLookup,

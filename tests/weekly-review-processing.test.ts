@@ -18,8 +18,8 @@ const EventHandler = new bg.EventHandler(logger);
 
 const saga = new Emotions.Sagas.WeeklyReviewProcessing(
   EventBus,
-  CommandBus,
   EventHandler,
+  CommandBus,
   AiGateway,
   Mailer,
   EntrySnapshot,

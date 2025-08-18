@@ -12,8 +12,8 @@ import * as mocks from "./mocks";
 const EventHandler = new bg.EventHandler(logger);
 const policy = new Emotions.Policies.TimeCapsuleEntriesScheduler(
   EventBus,
-  CommandBus,
   EventHandler,
+  CommandBus,
   TimeCapsuleDueEntries,
 );
 

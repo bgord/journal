@@ -15,7 +15,7 @@ export async function ExportWeeklyReviewByEmail(c: hono.Context<infra.HonoConfig
     name: Emotions.Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
     createdAt: tools.Time.Now().value,
     payload: { userId: user.id, weeklyReviewId },
-  } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommand);
+  } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommandType);
 
   await CommandBus.emit(command.name, command);
 

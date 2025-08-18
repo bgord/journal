@@ -15,8 +15,8 @@ import * as mocks from "./mocks";
 const EventHandler = new bg.EventHandler(logger);
 const policy = new Emotions.Policies.InactivityAlarmScheduler(
   EventBus,
-  CommandBus,
   EventHandler,
+  CommandBus,
   UserDirectory,
   GetLatestEntryTimestampForUser,
 );

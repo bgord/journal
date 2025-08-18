@@ -14,4 +14,4 @@ export const ExportWeeklyReviewByEmailCommand = z.object({
   payload: z.object({ weeklyReviewId: VO.WeeklyReviewId, userId: Auth.VO.UserId }),
 });
 
-export type ExportWeeklyReviewByEmailCommand = z.infer<typeof ExportWeeklyReviewByEmailCommand>;
+export type ExportWeeklyReviewByEmailCommandType = z.infer<typeof ExportWeeklyReviewByEmailCommand>;

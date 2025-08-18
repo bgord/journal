@@ -5,7 +5,7 @@ import type { EventStore as EventStoreType } from "+infra/event-store";
 
 export const handleExportWeeklyReviewByEmailCommand =
   (EventStore: typeof EventStoreType, WeeklyReviewSnapshot: Emotions.Ports.WeeklyReviewSnapshotPort) =>
-  async (command: Emotions.Commands.ExportWeeklyReviewByEmailCommand) => {
+  async (command: Emotions.Commands.ExportWeeklyReviewByEmailCommandType) => {
     const weeklyReview = await WeeklyReviewSnapshot.getById(command.payload.weeklyReviewId);
 
     Emotions.Invariants.WeeklyReviewExists.perform({ weeklyReview });

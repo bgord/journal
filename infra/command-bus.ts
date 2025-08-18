@@ -12,13 +12,13 @@ type AcceptedCommand =
   | EmotionCommands.LogEntryCommandType
   | EmotionCommands.ReappraiseEmotionCommandType
   | EmotionCommands.SaveAlarmAdviceCommandType
-  | EmotionCommands.SendAlarmNotificationCommandType
+  | EmotionCommands.RequestAlarmNotificationCommandType
   | EmotionCommands.CompleteAlarmCommandType
   | EmotionCommands.RequestWeeklyReviewCommandType
   | EmotionCommands.CompleteWeeklyReviewCommandType
   | EmotionCommands.MarkWeeklyReviewAsFailedCommandType
   | EmotionCommands.DetectWeeklyPatternsCommandType
-  | EmotionCommands.ExportWeeklyReviewByEmailCommand
+  | EmotionCommands.ExportWeeklyReviewByEmailCommandType
   | EmotionCommands.ScheduleTimeCapsuleEntryCommandType
   | PublishngCommands.CreateShareableLinkCommandType
   | PublishngCommands.ExpireShareableLinkCommandType

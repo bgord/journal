@@ -4,19 +4,25 @@ import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
-import type { EventBusLike } from "+app/ports";
-import type { CommandBus } from "+infra/command-bus";
+import type * as Buses from "+app/ports";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewSkippedEventType
   | Emotions.Events.WeeklyReviewRequestedEventType
   | Emotions.Events.WeeklyReviewCompletedEventType;
 
+type AcceptedCommand =
+  | Emotions.Commands.DetectWeeklyPatternsCommandType
+  | Emotions.Commands.CompleteWeeklyReviewCommandType
+  | Emotions.Commands.ExportWeeklyReviewByEmailCommandType
+  | Emotions.Commands.ExportWeeklyReviewByEmailCommandType
+  | Emotions.Commands.MarkWeeklyReviewAsFailedCommandType;
+
 export class WeeklyReviewProcessing {
   constructor(
-    EventBus: EventBusLike<AcceptedEvent>,
-    private readonly commandBus: typeof CommandBus,
+    EventBus: Buses.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
+    private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
     private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,
@@ -73,7 +79,7 @@ export class WeeklyReviewProcessing {
         payload: { userId: event.payload.userId, week },
       } satisfies Emotions.Commands.DetectWeeklyPatternsCommandType);
 
-      await this.commandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
+      await this.CommandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
 
       const completeWeeklyReview = Emotions.Commands.CompleteWeeklyReviewCommand.parse({
         id: crypto.randomUUID(),
@@ -87,7 +93,7 @@ export class WeeklyReviewProcessing {
         },
       } satisfies Emotions.Commands.CompleteWeeklyReviewCommandType);
 
-      await this.commandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
+      await this.CommandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
     } catch (_error) {
       const command = Emotions.Commands.MarkWeeklyReviewAsFailedCommand.parse({
         id: crypto.randomUUID(),
@@ -100,7 +106,7 @@ export class WeeklyReviewProcessing {
         },
       } satisfies Emotions.Commands.MarkWeeklyReviewAsFailedCommandType);
 
-      await this.commandBus.emit(command.name, command);
+      await this.CommandBus.emit(command.name, command);
     }
   }
 
@@ -111,8 +117,8 @@ export class WeeklyReviewProcessing {
       name: Emotions.Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
       createdAt: tools.Time.Now().value,
       payload: { userId: event.payload.userId, weeklyReviewId: event.payload.weeklyReviewId },
-    } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommand);
+    } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommandType);
 
-    await this.commandBus.emit(command.name, command);
+    await this.CommandBus.emit(command.name, command);
   }
 }

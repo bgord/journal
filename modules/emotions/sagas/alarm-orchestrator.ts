@@ -2,14 +2,13 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Auth from "+auth";
-import type { EventBusLike } from "+app/ports";
+import type * as Buses from "+app/ports";
 import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
 import * as Ports from "+emotions/ports";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
-import type { CommandBus } from "+infra/command-bus";
 
 type AcceptedEvent =
   | Events.AlarmGeneratedEventType
@@ -17,11 +16,17 @@ type AcceptedEvent =
   | Events.AlarmNotificationRequestedEventType
   | Events.EntryDeletedEventType;
 
+type AcceptedCommand =
+  | Commands.SaveAlarmAdviceCommandType
+  | Commands.CancelAlarmCommandType
+  | Commands.RequestAlarmNotificationCommandType
+  | Commands.CompleteAlarmCommandType;
+
 export class AlarmOrchestrator {
   constructor(
-    EventBus: EventBusLike<AcceptedEvent>,
-    private readonly commandBus: typeof CommandBus,
+    EventBus: Buses.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
+    private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
     private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
@@ -52,7 +57,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId, advice },
       } satisfies Commands.SaveAlarmAdviceCommandType);
 
-      await this.commandBus.emit(command.name, command);
+      await this.CommandBus.emit(command.name, command);
     } catch (_error) {
       const command = Commands.CancelAlarmCommand.parse({
         id: crypto.randomUUID(),
@@ -62,7 +67,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
-      await this.commandBus.emit(command.name, command);
+      await this.CommandBus.emit(command.name, command);
     }
   }
 
@@ -73,9 +78,9 @@ export class AlarmOrchestrator {
       name: Commands.REQUEST_ALARM_NOTIFICATION_COMMAND,
       createdAt: tools.Time.Now().value,
       payload: { alarmId: event.payload.alarmId },
-    } satisfies Commands.SendAlarmNotificationCommandType);
+    } satisfies Commands.RequestAlarmNotificationCommandType);
 
-    await this.commandBus.emit(command.name, command);
+    await this.CommandBus.emit(command.name, command);
   }
 
   async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
@@ -88,7 +93,7 @@ export class AlarmOrchestrator {
     } satisfies Commands.CancelAlarmCommandType);
 
     const contact = await this.userContact.getPrimary(event.payload.userId);
-    if (!contact?.address) return this.commandBus.emit(cancel.name, cancel);
+    if (!contact?.address) return this.CommandBus.emit(cancel.name, cancel);
 
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
@@ -109,7 +114,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CompleteAlarmCommandType);
 
-      await this.commandBus.emit(complete.name, complete);
+      await this.CommandBus.emit(complete.name, complete);
     } catch {}
   }
 
@@ -125,7 +130,7 @@ export class AlarmOrchestrator {
         payload: { alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
-      await this.commandBus.emit(command.name, command);
+      await this.CommandBus.emit(command.name, command);
     }
   }
 }

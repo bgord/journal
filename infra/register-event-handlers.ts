@@ -34,24 +34,24 @@ new Projections.AiUsageCounterProjector(EventBus, EventHandler);
 new Projections.HistoryProjector(EventBus, EventHandler, HistoryProjection);
 
 // Policies
-new PublishingPolicies.ShareableLinksExpirer(EventBus, CommandBus, EventHandler, ExpiringShareableLinks);
-new EmotionsPolicies.EntryAlarmDetector(EventBus, CommandBus, EventHandler);
-new EmotionsPolicies.WeeklyReviewScheduler(EventBus, CommandBus, EventHandler, UserDirectory);
+new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler, CommandBus, ExpiringShareableLinks);
+new EmotionsPolicies.EntryAlarmDetector(EventBus, EventHandler, CommandBus);
+new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler, CommandBus, UserDirectory);
 new EmotionsPolicies.InactivityAlarmScheduler(
   EventBus,
-  CommandBus,
   EventHandler,
+  CommandBus,
   UserDirectory,
   GetLatestEntryTimestampForUser,
 );
-new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, CommandBus, EventHandler, TimeCapsuleDueEntries);
+new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler, CommandBus, TimeCapsuleDueEntries);
 new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
 
 // Sagas
 new EmotionsSagas.AlarmOrchestrator(
   EventBus,
-  CommandBus,
   EventHandler,
+  CommandBus,
   AiGateway,
   Mailer,
   AlarmCancellationLookup,
@@ -61,8 +61,8 @@ new EmotionsSagas.AlarmOrchestrator(
 );
 new EmotionsSagas.WeeklyReviewProcessing(
   EventBus,
-  CommandBus,
   EventHandler,
+  CommandBus,
   AiGateway,
   Mailer,
   EntrySnapshot,

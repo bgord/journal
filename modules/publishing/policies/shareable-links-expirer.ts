@@ -1,18 +1,19 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Events from "+app/events";
-import type { EventBusLike } from "+app/ports";
-import type { CommandBus } from "+infra/command-bus";
+import type * as Buses from "+app/ports";
 import * as Commands from "+publishing/commands";
 import * as Ports from "+publishing/ports";
 
 type AcceptedEvent = Events.HourHasPassedEventType;
 
+type AcceptedCommand = Commands.ExpireShareableLinkCommandType;
+
 export class ShareableLinksExpirer {
   constructor(
-    EventBus: EventBusLike<AcceptedEvent>,
-    private readonly commandBus: typeof CommandBus,
+    EventBus: Buses.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
+    private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
     private readonly expiringShareableLinks: Ports.ExpiringShareableLinksPort,
   ) {
     EventBus.on(Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
@@ -32,7 +33,7 @@ export class ShareableLinksExpirer {
           payload: { shareableLinkId: shareableLink.id },
         } satisfies Commands.ExpireShareableLinkCommandType);
 
-        await this.commandBus.emit(command.name, command);
+        await this.CommandBus.emit(command.name, command);
       }
     } catch {}
   }
