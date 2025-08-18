@@ -2,8 +2,8 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
+import * as App from "+app";
 import * as infra from "+infra";
-import { AlarmDirectory, EntriesSharing, EntrySnapshot, WeeklyReviewExport } from "+infra/adapters/emotions";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
@@ -12,8 +12,6 @@ import { I18nConfig } from "+infra/i18n";
 import { logger } from "+infra/logger";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
-import * as App from "./app";
-import * as Emotions from "./modules/emotions";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
@@ -42,11 +40,11 @@ server.get(
 const entry = new Hono();
 
 entry.use("*", AuthShield.attach, AuthShield.verify);
-entry.post("/log", Emotions.Routes.LogEntry);
-entry.post("/time-capsule-entry/schedule", Emotions.Routes.ScheduleTimeCapsuleEntry);
-entry.post("/:entryId/reappraise-emotion", Emotions.Routes.ReappraiseEmotion);
-entry.post("/:entryId/evaluate-reaction", Emotions.Routes.EvaluateReaction);
-entry.delete("/:entryId/delete", Emotions.Routes.DeleteEntry);
+entry.post("/log", App.HTTP.Emotions.LogEntry);
+entry.post("/time-capsule-entry/schedule", App.HTTP.Emotions.ScheduleTimeCapsuleEntry);
+entry.post("/:entryId/reappraise-emotion", App.HTTP.Emotions.ReappraiseEmotion);
+entry.post("/:entryId/evaluate-reaction", App.HTTP.Emotions.EvaluateReaction);
+entry.delete("/:entryId/delete", App.HTTP.Emotions.DeleteEntry);
 entry.get(
   "/export",
   bg.RateLimitShield({
@@ -54,13 +52,13 @@ entry.get(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.EntriesExportStore,
   }),
-  Emotions.Routes.ExportEntries(EntrySnapshot, AlarmDirectory),
+  App.HTTP.Emotions.ExportEntries,
 );
 server.route("/entry", entry);
 // =============================
 
 // Shared ======================
-server.get("/shared/entries/:shareableLinkId", Emotions.Routes.GetSharedEntries(EntriesSharing));
+server.get("/shared/entries/:shareableLinkId", App.HTTP.Emotions.GetSharedEntries);
 
 // Weekly review ===============
 const weeklyReview = new Hono();
@@ -73,7 +71,7 @@ weeklyReview.post(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.WeeklyReviewExportEmailStore,
   }),
-  Emotions.Routes.ExportWeeklyReviewByEmail,
+  App.HTTP.Emotions.ExportWeeklyReviewByEmail,
 );
 weeklyReview.get(
   "/:weeklyReviewId/export/download",
@@ -82,7 +80,7 @@ weeklyReview.get(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.WeeklyReviewExportDownloadStore,
   }),
-  Emotions.Routes.DownloadWeeklyReview(WeeklyReviewExport),
+  App.HTTP.Emotions.DownloadWeeklyReview,
 );
 server.route("/weekly-review", weeklyReview);
 // =============================
