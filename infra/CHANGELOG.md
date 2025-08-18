@@ -1,7 +1,13 @@
 # Changelog
+- 2025-08-18 10:21 d118c19 **refactor: move emotions routes to app http**
+## 2025-08-18 10:21 
+- 2025-08-18 10:17 d76e428 **refactor: move publishing routes to app http**
+- 2025-08-18 10:14 347fec6 **refactor: rename app/routes to app/http**
+- 2025-08-18 10:05 173deef **refactor: rextract supported languages**
 - 2025-08-18 09:44 ad7350b **refactor: make ai infra free**
-## 2025-08-18 09:44 
 - 2025-08-18 09:07 53f5373 **refactor: simplify ai gateway**
+- 2025-08-18 07:55 df6d76f **docs: generate readme**
+- 2025-08-18 07:55 8ef98de **docs: generate CHANGELOG**
 - 2025-08-17 23:39 bc576bc **refactor: extract sharing entries ohq**
 - 2025-08-17 23:19 803403d **refactor: remove schema refs**
 - 2025-08-17 23:13 7858c30 **step: add alarm directory port**
