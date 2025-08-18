@@ -1,6 +1,7 @@
 # Changelog
+- 2025-08-18 13:41 5f3d804 **refactor: extract command bus type**
+## 2025-08-18 13:41 
 - 2025-08-18 13:11 e09a55f **refactor: cleanup exports**
-## 2025-08-18 13:11 
 - 2025-08-18 13:05 5d85e3f **fix: frontend typechecks**
 - 2025-08-18 12:48 63d3005 **refactor: simplify adapters**
 - 2025-08-18 12:42 69d2ae9 **refactor: introduce weekly review repo**
@@ -10,6 +11,8 @@
 - 2025-08-18 12:20 cc5472e **refactor: simplify imports**
 - 2025-08-18 12:18 220aeb1 **refactor: make publishing event store free**
 - 2025-08-18 12:09 c8357ba **refactor: create shareable link repo port**
+- 2025-08-18 11:14 e442ffa **docs: generate readme**
+- 2025-08-18 11:14 50b83ca **docs: generate CHANGELOG**
 - 2025-08-18 10:27 c0aa484 **refactor: simplify adapters method return types**
 - 2025-08-18 10:21 d118c19 **refactor: move emotions routes to app http**
 - 2025-08-18 10:17 d76e428 **refactor: move publishing routes to app http**
