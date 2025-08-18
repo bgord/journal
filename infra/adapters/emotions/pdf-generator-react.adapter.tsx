@@ -93,10 +93,7 @@ const templates: Record<Ports.PdfGeneratorTemplateType, TemplateFn> = {
 };
 
 export class PdfGeneratorReact implements Ports.PdfGeneratorPort {
-  async request(
-    template: Ports.PdfGeneratorTemplateType,
-    data: Record<string, unknown> = {},
-  ): Promise<Buffer> {
+  async request(template: Ports.PdfGeneratorTemplateType, data: Record<string, unknown> = {}) {
     const build = templates[template];
 
     if (!build) throw new Error(`Unknown PDF template: ${template}`);

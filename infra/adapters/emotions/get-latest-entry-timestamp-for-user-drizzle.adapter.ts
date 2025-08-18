@@ -6,7 +6,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 export class GetLatestEntryTimestampForUserDrizzle implements GetLatestEntryTimestampForUser {
-  async execute(userId: Auth.VO.UserIdType): Promise<tools.TimestampType | undefined> {
+  async execute(userId: Auth.VO.UserIdType) {
     const result = await db
       .select({ max: sql<number>`max(${Schema.entries.startedAt})` })
       .from(Schema.entries)

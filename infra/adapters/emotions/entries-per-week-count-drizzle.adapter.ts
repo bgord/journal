@@ -6,7 +6,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 export class EntriesPerWeekCountDrizzle implements EntriesPerWeekCountQuery {
-  async execute(userId: Auth.VO.UserIdType, week: tools.Week): Promise<number> {
+  async execute(userId: Auth.VO.UserIdType, week: tools.Week) {
     return db.$count(
       Schema.entries,
       and(

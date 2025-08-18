@@ -7,7 +7,7 @@ export const AnthropicAi = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
 
 /** @public */
 export class AiClientAnthropicAdapter implements AI.AiClientPort {
-  async request(prompt: AI.Prompt): Promise<AI.Advice> {
+  async request(prompt: AI.Prompt) {
     const message = await AnthropicAi.messages.create({
       max_tokens: AI.AiClientPort.maxLength,
       messages: [prompt.read()[1]],
