@@ -18,6 +18,7 @@ const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(
   PdfGenerator,
   UserContact,
   WeeklyReviewExport,
+  Env.EMAIL_FROM,
 );
 
 describe("WeeklyReviewExportByEmail", () => {

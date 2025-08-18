@@ -9,7 +9,6 @@ import * as Ports from "+emotions/ports";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 import type { CommandBus } from "+infra/command-bus";
-import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 
 export class AlarmOrchestrator {
@@ -22,6 +21,7 @@ export class AlarmOrchestrator {
     private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
     private readonly entrySnapshot: Ports.EntrySnapshotPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
+    private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
     eventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
     eventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
@@ -93,7 +93,7 @@ export class AlarmOrchestrator {
     );
 
     try {
-      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact.address, ...notification.get() });
+      await this.mailer.send({ from: this.EMAIL_FROM, to: contact.address, ...notification.get() });
 
       const complete = Commands.CompleteAlarmCommand.parse({
         id: crypto.randomUUID(),

@@ -2,7 +2,6 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 
@@ -14,6 +13,7 @@ export class WeeklyReviewExportByEmail {
     private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
     private readonly weeklyReviewExport: Emotions.Queries.WeeklyReviewExport,
+    private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
     eventBus.on(
       Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
@@ -42,7 +42,7 @@ export class WeeklyReviewExportByEmail {
       const notification = composer.compose(weeklyReview).get();
 
       await this.mailer.send({
-        from: Env.EMAIL_FROM,
+        from: this.EMAIL_FROM,
         to: contact.address,
         attachments: [attachment],
         ...notification,

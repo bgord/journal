@@ -5,7 +5,6 @@ import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
 import type { CommandBus } from "+infra/command-bus";
-import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
 
 export class WeeklyReviewProcessing {
@@ -17,6 +16,7 @@ export class WeeklyReviewProcessing {
     private readonly mailer: bg.MailerPort,
     private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
+    private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
     eventBus.on(
       Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
@@ -43,7 +43,7 @@ export class WeeklyReviewProcessing {
     if (!contact?.address) return;
 
     try {
-      await this.mailer.send({ from: Env.EMAIL_FROM, to: contact?.address, ...notification.get() });
+      await this.mailer.send({ from: this.EMAIL_FROM, to: contact?.address, ...notification.get() });
     } catch {}
   }
 

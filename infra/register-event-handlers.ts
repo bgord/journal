@@ -15,6 +15,7 @@ import {
 import { HistoryProjection, HistoryWriter } from "+infra/adapters/history";
 import { ExpiringShareableLinks } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
+import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { logger } from "+infra/logger";
 import * as Projections from "+infra/projections";
@@ -54,6 +55,7 @@ new EmotionsSagas.AlarmOrchestrator(
   AlarmCancellationLookup,
   EntrySnapshot,
   UserContact,
+  Env.EMAIL_FROM,
 );
 new EmotionsSagas.WeeklyReviewProcessing(
   EventBus,
@@ -63,6 +65,7 @@ new EmotionsSagas.WeeklyReviewProcessing(
   Mailer,
   EntrySnapshot,
   UserContact,
+  Env.EMAIL_FROM,
 );
 new EmotionsSagas.WeeklyReviewExportByEmail(
   EventBus,
@@ -71,4 +74,5 @@ new EmotionsSagas.WeeklyReviewExportByEmail(
   PdfGenerator,
   UserContact,
   WeeklyReviewExport,
+  Env.EMAIL_FROM,
 );

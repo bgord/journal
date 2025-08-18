@@ -24,6 +24,7 @@ const saga = new Emotions.Sagas.WeeklyReviewProcessing(
   Mailer,
   EntrySnapshot,
   UserContact,
+  Env.EMAIL_FROM,
 );
 
 describe("WeeklyReviewProcessing", () => {

@@ -23,6 +23,7 @@ const saga = new Emotions.Sagas.AlarmOrchestrator(
   AlarmCancellationLookup,
   EntrySnapshot,
   UserContact,
+  Env.EMAIL_FROM,
 );
 
 describe("AlarmOrchestrator", () => {
