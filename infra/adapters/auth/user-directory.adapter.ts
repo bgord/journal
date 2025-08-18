@@ -1,3 +1,11 @@
-import { UserDirectoryDrizzle } from "./user-directory-drizzle.adapter";
+import type { UserDirectoryOHQ } from "+auth/open-host-queries";
+import { db } from "+infra/db";
+
+class UserDirectoryDrizzle implements UserDirectoryOHQ {
+  async listActiveUserIds() {
+    const rows = await db.query.users.findMany({ columns: { id: true } });
+    return rows.map((r) => r.id);
+  }
+}
 
 export const UserDirectory = new UserDirectoryDrizzle();

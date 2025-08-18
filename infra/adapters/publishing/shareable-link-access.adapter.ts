@@ -1,7 +1,7 @@
 import * as Publishing from "+publishing";
 import { ShareableLinkRepositoryAdapter } from "./shareable-link-repository.adapter";
 
-export class ShareableLinkAccessBg implements Publishing.OHQ.ShareableLinkAccessPort {
+class ShareableLinkAccessBg implements Publishing.OHQ.ShareableLinkAccessPort {
   constructor(private readonly repo: Publishing.Ports.ShareableLinkRepositoryPort) {}
 
   async check(

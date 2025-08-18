@@ -6,7 +6,7 @@ import type {
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export class WeeklyReviewSnapshotDrizzle implements WeeklyReviewSnapshotPort {
+class WeeklyReviewSnapshotDrizzle implements WeeklyReviewSnapshotPort {
   async getById(id: string) {
     const review = (await db.query.weeklyReviews.findFirst({
       where: eq(Schema.weeklyReviews.id, id),

@@ -1,7 +1,7 @@
 import * as Publishing from "+publishing";
 import { EventStore } from "+infra/event-store";
 
-export class ShareableLinkRepositoryAdapterBg implements Publishing.Ports.ShareableLinkRepositoryPort {
+class ShareableLinkRepositoryAdapterBg implements Publishing.Ports.ShareableLinkRepositoryPort {
   async load(id: Publishing.VO.ShareableLinkIdType) {
     const history = await EventStore.find(
       Publishing.Aggregates.ShareableLink.events,

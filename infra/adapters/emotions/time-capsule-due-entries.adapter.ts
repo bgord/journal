@@ -5,7 +5,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export class TimeCapsuleDueEntriesDrizzle implements TimeCapsuleDueEntriesPort {
+class TimeCapsuleDueEntriesDrizzle implements TimeCapsuleDueEntriesPort {
   async listDue(now: tools.TimestampType) {
     const rows = await db.query.timeCapsuleEntries.findMany({
       where: and(

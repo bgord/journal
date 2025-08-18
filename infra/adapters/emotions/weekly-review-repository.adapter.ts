@@ -1,7 +1,7 @@
 import * as Emotions from "+emotions";
 import { EventStore } from "+infra/event-store";
 
-export class WeeklyReviewRepositoryBg implements Emotions.Ports.WeeklyReviewRepositoryPort {
+class WeeklyReviewRepositoryBg implements Emotions.Ports.WeeklyReviewRepositoryPort {
   async load(id: Emotions.VO.WeeklyReviewIdType) {
     const history = await EventStore.find(
       Emotions.Aggregates.WeeklyReview.events,

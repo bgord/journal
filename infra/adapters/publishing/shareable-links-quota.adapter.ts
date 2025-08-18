@@ -5,7 +5,7 @@ import * as Schema from "+infra/schema";
 import type { ShareableLinksQuotaQuery } from "+publishing/queries";
 import * as VO from "+publishing/value-objects";
 
-export class ShareableLinksQuotaDrizzle implements ShareableLinksQuotaQuery {
+class ShareableLinksQuotaDrizzle implements ShareableLinksQuotaQuery {
   async execute(ownerId: Auth.VO.UserIdType) {
     return {
       count: await db.$count(

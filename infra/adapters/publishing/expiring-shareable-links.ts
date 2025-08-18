@@ -5,7 +5,7 @@ import * as Schema from "+infra/schema";
 import type { ExpiringShareableLinksPort } from "+publishing/ports";
 import * as VO from "+publishing/value-objects";
 
-export class ExpiringShareableLinksDrizzle implements ExpiringShareableLinksPort {
+class ExpiringShareableLinksDrizzle implements ExpiringShareableLinksPort {
   async listDue(now: tools.TimestampType) {
     const rows = await db
       .select({ id: Schema.shareableLinks.id, revision: Schema.shareableLinks.revision })

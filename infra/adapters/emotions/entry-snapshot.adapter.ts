@@ -7,7 +7,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export class EntrySnapshotDrizzle implements EntrySnapshotPort {
+class EntrySnapshotDrizzle implements EntrySnapshotPort {
   async getById(entryId: VO.EntryIdType) {
     const entry = await db.query.entries.findFirst({
       where: eq(Schema.entries.id, entryId),

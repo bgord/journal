@@ -5,7 +5,7 @@ import type { GetLatestEntryTimestampForUser as GetLatestEntryTimestampForUserQu
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export class GetLatestEntryTimestampForUserDrizzle implements GetLatestEntryTimestampForUserQuery {
+class GetLatestEntryTimestampForUserDrizzle implements GetLatestEntryTimestampForUserQuery {
   async execute(userId: Auth.VO.UserIdType) {
     const result = await db
       .select({ max: sql<number>`max(${Schema.entries.startedAt})` })

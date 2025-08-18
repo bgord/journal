@@ -8,7 +8,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export class EntriesSharingDrizzle implements EntriesSharingPort {
+class EntriesSharingDrizzle implements EntriesSharingPort {
   async listForOwnerInRange(ownerId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
     const result = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),

@@ -5,35 +5,7 @@ import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export type WeeklyReviewExportDto = VO.WeeklyReviewSnapshot & {
-  entries: Pick<
-    VO.EntrySnapshot,
-    | "id"
-    | "situationDescription"
-    | "situationLocation"
-    | "situationKind"
-    | "emotionLabel"
-    | "emotionIntensity"
-    | "reactionDescription"
-    | "reactionType"
-    | "reactionEffectiveness"
-    | "startedAt"
-  >[];
-  patternDetections: Pick<VO.PatternDetectionSnapshot, "id" | "name">[];
-  alarms: Pick<
-    VO.AlarmSnapshot,
-    | "id"
-    | "name"
-    | "advice"
-    | "generatedAt"
-    | "inactivityDays"
-    | "lastEntryTimestamp"
-    | "emotionLabel"
-    | "emotionIntensity"
-  >[];
-};
-
-export class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
+class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
   async getFull(id: VO.WeeklyReviewIdType) {
     const result = await db.query.weeklyReviews.findFirst({
       where: eq(Schema.weeklyReviews.id, id),

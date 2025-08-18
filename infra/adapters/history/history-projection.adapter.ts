@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export class HistoryProjectionDrizzle implements bg.History.Repos.HistoryRepositoryPort {
+class HistoryProjectionDrizzle implements bg.History.Repos.HistoryRepositoryPort {
   async append(data: bg.History.VO.HistoryParsedType, createdAt: tools.TimestampType) {
     await db.insert(Schema.history).values([{ ...data, createdAt }]);
   }

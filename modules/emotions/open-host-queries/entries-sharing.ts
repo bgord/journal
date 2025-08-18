@@ -2,7 +2,7 @@ import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
-export type SharedEntryDto = Omit<VO.EntrySnapshot, "startedAt"> & { startedAt: string } & {
+type SharedEntryDto = Omit<VO.EntrySnapshot, "startedAt"> & { startedAt: string } & {
   alarms: VO.AlarmSnapshot[];
 };
 

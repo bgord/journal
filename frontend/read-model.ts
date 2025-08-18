@@ -10,6 +10,7 @@ import type { EmotionIntensityType } from "../modules/emotions/value-objects/emo
 import { EmotionIntensity } from "../modules/emotions/value-objects/emotion-intensity";
 import type { EmotionLabelType } from "../modules/emotions/value-objects/emotion-label";
 import { EmotionLabel } from "../modules/emotions/value-objects/emotion-label";
+import type { EntryIdType } from "../modules/emotions/value-objects/entry-id";
 import { db } from "./db";
 
 export class ReadModel {
@@ -253,7 +254,7 @@ export class ReadModel {
     };
   }
 
-  static async listHistoryForEntry(entryId: Schema.SelectEntries["id"]) {
+  static async listHistoryForEntry(entryId: EntryIdType) {
     const history = await db.query.history.findMany({
       where: eq(Schema.history.subject, entryId),
       orderBy: desc(Schema.history.createdAt),

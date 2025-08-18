@@ -336,19 +336,19 @@ export const verifications = sqliteTable("verifications", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
+/** @public */
 export type SelectEntries = typeof entries.$inferSelect;
 /** @public */
 export type SelectEntriesFormatted = Omit<SelectEntries, "startedAt"> & { startedAt: string };
+/** @public */
 export type SelectEntriesWithAlarms = SelectEntries & { alarms: SelectAlarms[] };
+/** @public */
 export type SelectEntriesFull = Omit<SelectEntriesWithAlarms, "startedAt"> & { startedAt: string };
 /** @public */
 export type SelectEntriesFullWithAlarms = Omit<SelectEntriesWithAlarms, "startedAt"> & {
   startedAt: string;
 } & { alarms: SelectAlarms[] };
+/** @public */
 export type SelectAlarms = typeof alarms.$inferSelect;
-export type SelectPatternDetections = typeof patternDetections.$inferSelect;
-export type SelectWeeklyReviews = typeof weeklyReviews.$inferSelect;
 /** @public */
 export type SelectShareableLinks = typeof shareableLinks.$inferSelect;
-/** @public */
-export type SelectTimeCapsuleEntries = typeof timeCapsuleEntries.$inferSelect;

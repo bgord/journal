@@ -1,7 +1,7 @@
 import * as Emotions from "+emotions";
 import { EventStore } from "+infra/event-store";
 
-export class EntryRepositoryBg implements Emotions.Ports.EntryRepositoryPort {
+class EntryRepositoryBg implements Emotions.Ports.EntryRepositoryPort {
   async load(id: Emotions.VO.EntryIdType) {
     const history = await EventStore.find(
       Emotions.Aggregates.Entry.events,

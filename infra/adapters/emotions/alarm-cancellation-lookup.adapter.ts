@@ -3,7 +3,7 @@ import * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export class AlarmCancellationLookupDrizzle implements Emotions.Ports.AlarmCancellationLookupPort {
+class AlarmCancellationLookupDrizzle implements Emotions.Ports.AlarmCancellationLookupPort {
   async listIdsForEntry(entryId: Emotions.VO.EntryIdType) {
     const rows = await db
       .select({ id: Schema.alarms.id })
