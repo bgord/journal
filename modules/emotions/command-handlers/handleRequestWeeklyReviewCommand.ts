@@ -4,7 +4,10 @@ import * as Emotions from "+emotions";
 import { EventStore } from "+infra/event-store";
 
 export const handleRequestWeeklyReviewCommand =
-  (EntriesPerWeekCountQuery: Emotions.Queries.EntriesPerWeekCountQuery) =>
+  (
+    repo: Emotions.Ports.WeeklyReviewRepositoryPort,
+    EntriesPerWeekCountQuery: Emotions.Queries.EntriesPerWeekCountQuery,
+  ) =>
   async (command: Emotions.Commands.RequestWeeklyReviewCommandType) => {
     const entriesPerWeekForUserCount = await EntriesPerWeekCountQuery.execute(
       command.payload.userId,
@@ -32,13 +35,11 @@ export const handleRequestWeeklyReviewCommand =
       return;
     }
 
-    const weeklyReviewId = crypto.randomUUID();
-
     const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
-      weeklyReviewId,
+      crypto.randomUUID(),
       command.payload.week,
       command.payload.userId,
     );
 
-    await EventStore.save(weeklyReview.pullEvents());
+    await repo.save(weeklyReview);
   };

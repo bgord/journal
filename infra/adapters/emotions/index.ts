@@ -9,4 +9,5 @@ export * from "./get-latest-entry-timestamp-for-user.adapter";
 export * from "./pdf-generator.adapter";
 export * from "./time-capsule-due-entries.adapter";
 export * from "./weekly-review-export.adapter";
+export * from "./weekly-review-repository.adapter";
 export * from "./weekly-review-snapshot.adapter";

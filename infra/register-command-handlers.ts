@@ -6,6 +6,7 @@ import {
   EntriesPerWeekCount,
   EntryRepository,
   EntrySnapshot,
+  WeeklyReviewRepository,
   WeeklyReviewSnapshot,
 } from "+infra/adapters/emotions";
 import { ShareableLinkRepositoryAdapter, ShareableLinksQuota } from "+infra/adapters/publishing";
@@ -51,15 +52,15 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
-  EmotionCommandHandlers.handleRequestWeeklyReviewCommand(EntriesPerWeekCount),
+  EmotionCommandHandlers.handleRequestWeeklyReviewCommand(WeeklyReviewRepository, EntriesPerWeekCount),
 );
 CommandBus.on(
   EmotionCommands.COMPLETE_WEEKLY_REVIEW_COMMAND,
-  EmotionCommandHandlers.handleCompleteWeeklyReviewCommand,
+  EmotionCommandHandlers.handleCompleteWeeklyReviewCommand(WeeklyReviewRepository),
 );
 CommandBus.on(
   EmotionCommands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
-  EmotionCommandHandlers.handleMarkWeeklyReviewAsFailedCommand,
+  EmotionCommandHandlers.handleMarkWeeklyReviewAsFailedCommand(WeeklyReviewRepository),
 );
 CommandBus.on(
   EmotionCommands.DETECT_WEEKLY_PATTERNS_COMMAND,
