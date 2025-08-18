@@ -191,16 +191,6 @@ modules/
 │   │   ├── entries-per-week-count.ts
 │   │   ├── get-latest-entry-timestamp-for-user.ts
 │   │   └── weekly-review-export.ts
-│   ├── routes
-│   │   ├── delete-entry.ts
-│   │   ├── download-weekly-review.ts
-│   │   ├── evaluate-reaction.ts
-│   │   ├── export-entries.ts
-│   │   ├── export-weekly-review-by-email.ts
-│   │   ├── get-shared-entries.ts
-│   │   ├── log-entry.ts
-│   │   ├── reappraise-emotion.ts
-│   │   └── schedule-time-capsule-entry.ts
 │   ├── sagas
 │   │   ├── alarm-orchestrator.ts
 │   │   ├── weekly-review-export-by-email.ts
@@ -259,41 +249,39 @@ modules/
 │       ├── weekly-review-id.ts
 │       ├── weekly-review-snapshot.ts
 │       └── weekly-review-status.ts
-└── publishing
-    ├── aggregates
-    │   └── shareable-link.ts
-    ├── command-handlers
-    │   ├── handleCreateShareableLinkCommand.ts
-    │   ├── handleExpireShareableLinkCommand.ts
-    │   ├── handleRevokeShareableLinkCommand.ts
-    ├── commands
-    │   ├── CREATE_SHAREABLE_LINK_COMMAND.ts
-    │   ├── EXPIRE_SHAREABLE_LINK_COMMAND.ts
-    │   ├── REVOKE_SHAREABLE_LINK_COMMAND.ts
-    ├── events
-    │   ├── SHAREABLE_LINK_CREATED_EVENT.ts
-    │   ├── SHAREABLE_LINK_EXPIRED_EVENT.ts
-    │   ├── SHAREABLE_LINK_REVOKED_EVENT.ts
-    ├── invariants
-    │   ├── requester-owns-shareable-link.ts
-    │   ├── shareable-link-expiration-time-passed.ts
-    │   ├── shareable-link-is-active.ts
-    │   └── shareable-links-per-owner-limit.ts
-    ├── open-host-queries
-    │   └── shareable-link-access.ts
-    ├── policies
-    │   └── shareable-links-expirer.ts
-    ├── ports
-    │   ├── expiring-shareable-links.ts
-    ├── queries
-    │   └── shareable-links-quota.ts
-    ├── routes
-    │   ├── create-shareable-link.ts
-    │   └── revoke-shareable-link.ts
-    └── value-objects
-        ├── publication-specification.ts
-        ├── shareable-link-id.ts
-        └── shareable-link-status.ts
+├── publishing
+│   ├── aggregates
+│   │   └── shareable-link.ts
+│   ├── command-handlers
+│   │   ├── handleCreateShareableLinkCommand.ts
+│   │   ├── handleExpireShareableLinkCommand.ts
+│   │   ├── handleRevokeShareableLinkCommand.ts
+│   ├── commands
+│   │   ├── CREATE_SHAREABLE_LINK_COMMAND.ts
+│   │   ├── EXPIRE_SHAREABLE_LINK_COMMAND.ts
+│   │   ├── REVOKE_SHAREABLE_LINK_COMMAND.ts
+│   ├── events
+│   │   ├── SHAREABLE_LINK_CREATED_EVENT.ts
+│   │   ├── SHAREABLE_LINK_EXPIRED_EVENT.ts
+│   │   ├── SHAREABLE_LINK_REVOKED_EVENT.ts
+│   ├── invariants
+│   │   ├── requester-owns-shareable-link.ts
+│   │   ├── shareable-link-expiration-time-passed.ts
+│   │   ├── shareable-link-is-active.ts
+│   │   └── shareable-links-per-owner-limit.ts
+│   ├── open-host-queries
+│   │   └── shareable-link-access.ts
+│   ├── policies
+│   │   └── shareable-links-expirer.ts
+│   ├── ports
+│   │   ├── expiring-shareable-links.ts
+│   ├── queries
+│   │   └── shareable-links-quota.ts
+│   └── value-objects
+│       ├── publication-specification.ts
+│       ├── shareable-link-id.ts
+│       └── shareable-link-status.ts
+└── supported-languages.ts
 ```
 
 ## Infra:
