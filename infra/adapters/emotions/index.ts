@@ -1,5 +1,6 @@
 export * from "./alarm-cancellation-lookup.adapter";
 export * from "./alarm-directory.adapter";
+export * from "./alarm-repository.adapter";
 export * from "./entries-per-week-count.adapter";
 export * from "./entries-sharing.adapter";
 export * from "./entry-repository.adapter";

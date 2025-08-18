@@ -2,6 +2,7 @@ import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
 import { AiGateway } from "+infra/adapters/ai";
 import {
+  AlarmRepository,
   EntriesPerWeekCount,
   EntryRepository,
   EntrySnapshot,
@@ -12,7 +13,10 @@ import { CommandBus } from "+infra/command-bus";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
-CommandBus.on(EmotionCommands.CANCEL_ALARM_COMMAND, EmotionCommandHandlers.handleCancelAlarmCommand);
+CommandBus.on(
+  EmotionCommands.CANCEL_ALARM_COMMAND,
+  EmotionCommandHandlers.handleCancelAlarmCommand(AlarmRepository),
+);
 CommandBus.on(
   EmotionCommands.DELETE_ENTRY_COMMAND,
   EmotionCommandHandlers.handleDeleteEntryCommand(EntryRepository),
@@ -23,7 +27,7 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.GENERATE_ALARM_COMMAND,
-  EmotionCommandHandlers.handleGenerateAlarmCommand(AiGateway),
+  EmotionCommandHandlers.handleGenerateAlarmCommand(AlarmRepository, AiGateway),
 );
 CommandBus.on(
   EmotionCommands.LOG_ENTRY_COMMAND,
@@ -33,12 +37,18 @@ CommandBus.on(
   EmotionCommands.REAPPRAISE_EMOTION_COMMAND,
   EmotionCommandHandlers.handleReappraiseEmotionCommand(EntryRepository),
 );
-CommandBus.on(EmotionCommands.SAVE_ALARM_ADVICE_COMMAND, EmotionCommandHandlers.handleSaveAlarmAdviceCommand);
+CommandBus.on(
+  EmotionCommands.SAVE_ALARM_ADVICE_COMMAND,
+  EmotionCommandHandlers.handleSaveAlarmAdviceCommand(AlarmRepository),
+);
 CommandBus.on(
   EmotionCommands.REQUEST_ALARM_NOTIFICATION_COMMAND,
-  EmotionCommandHandlers.handleRequestAlarmNotificationCommand,
+  EmotionCommandHandlers.handleRequestAlarmNotificationCommand(AlarmRepository),
 );
-CommandBus.on(EmotionCommands.COMPLETE_ALARM_COMMAND, EmotionCommandHandlers.handleCompleteAlarmCommand);
+CommandBus.on(
+  EmotionCommands.COMPLETE_ALARM_COMMAND,
+  EmotionCommandHandlers.handleCompleteAlarmCommand(AlarmRepository),
+);
 CommandBus.on(
   EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
   EmotionCommandHandlers.handleRequestWeeklyReviewCommand(EntriesPerWeekCount),

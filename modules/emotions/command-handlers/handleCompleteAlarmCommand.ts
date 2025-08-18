@@ -1,14 +1,9 @@
 import * as Emotions from "+emotions";
-import { EventStore } from "+infra/event-store";
 
-export const handleCompleteAlarmCommand = async (command: Emotions.Commands.CompleteAlarmCommandType) => {
-  const history = await EventStore.find(
-    Emotions.Aggregates.Alarm.events,
-    Emotions.Aggregates.Alarm.getStream(command.payload.alarmId),
-  );
-
-  const alarm = Emotions.Aggregates.Alarm.build(command.payload.alarmId, history);
-  alarm.complete();
-
-  await EventStore.save(alarm.pullEvents());
-};
+export const handleCompleteAlarmCommand =
+  (repo: Emotions.Ports.AlarmRepositoryPort) =>
+  async (command: Emotions.Commands.CompleteAlarmCommandType) => {
+    const alarm = await repo.load(command.payload.alarmId);
+    alarm.complete();
+    await repo.save(alarm);
+  };
