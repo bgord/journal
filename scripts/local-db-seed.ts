@@ -233,9 +233,12 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     console.log("[✓] Time capsule entry scheduled");
 
-    await new Emotions.Policies.WeeklyReviewScheduler(EventBus, EventHandler, UserDirectory).onHourHasPassed(
-      mocks.GenericHourHasPassedMondayUtc18Event,
-    );
+    await new Emotions.Policies.WeeklyReviewScheduler(
+      EventBus,
+      CommandBus,
+      EventHandler,
+      UserDirectory,
+    ).onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event);
 
     console.log("[✓] Weekly review scheduled");
 

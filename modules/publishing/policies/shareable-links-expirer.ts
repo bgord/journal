@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Events from "+app/events";
-import { CommandBus } from "+infra/command-bus";
+import type { CommandBus } from "+infra/command-bus";
 import type { EventBus } from "+infra/event-bus";
 import * as Commands from "+publishing/commands";
 import * as Ports from "+publishing/ports";
@@ -9,6 +9,7 @@ import * as Ports from "+publishing/ports";
 export class ShareableLinksExpirer {
   constructor(
     eventBus: typeof EventBus,
+    private readonly commandBus: typeof CommandBus,
     EventHandler: bg.EventHandler,
     private readonly expiringShareableLinks: Ports.ExpiringShareableLinksPort,
   ) {
@@ -29,7 +30,7 @@ export class ShareableLinksExpirer {
           payload: { shareableLinkId: shareableLink.id },
         } satisfies Commands.ExpireShareableLinkCommandType);
 
-        await CommandBus.emit(command.name, command);
+        await this.commandBus.emit(command.name, command);
       }
     } catch {}
   }

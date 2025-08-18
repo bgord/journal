@@ -3,13 +3,19 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
 import { ExpiringShareableLinks } from "+infra/adapters/publishing";
+import { CommandBus } from "+infra/command-bus";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { logger } from "+infra/logger";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const policy = new Publishing.Policies.ShareableLinksExpirer(EventBus, EventHandler, ExpiringShareableLinks);
+const policy = new Publishing.Policies.ShareableLinksExpirer(
+  EventBus,
+  CommandBus,
+  EventHandler,
+  ExpiringShareableLinks,
+);
 
 describe("WeeklyReviewScheduler", () => {
   test("validation - ShareableLinkIsActive - already revoked", async () => {

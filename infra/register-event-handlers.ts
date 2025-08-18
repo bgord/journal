@@ -32,9 +32,9 @@ new Projections.AiUsageCounterProjector(EventBus, EventHandler);
 new Projections.HistoryProjector(EventBus, EventHandler, HistoryProjection);
 
 // Policies
-new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler, ExpiringShareableLinks);
+new PublishingPolicies.ShareableLinksExpirer(EventBus, CommandBus, EventHandler, ExpiringShareableLinks);
 new EmotionsPolicies.EntryAlarmDetector(EventBus, CommandBus, EventHandler);
-new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler, UserDirectory);
+new EmotionsPolicies.WeeklyReviewScheduler(EventBus, CommandBus, EventHandler, UserDirectory);
 new EmotionsPolicies.InactivityAlarmScheduler(
   EventBus,
   EventHandler,
