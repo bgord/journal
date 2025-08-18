@@ -1,4 +1,4 @@
-import * as UI from "@bgord/ui";
+import type * as UI from "@bgord/ui";
 import type { types } from "../../app/services/add-entry-form";
 
 type ClickableRatingPillsProps = { total?: number } & UI.useFieldReturnType<types.EmotionIntensityType>;

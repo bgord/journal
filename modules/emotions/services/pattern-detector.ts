@@ -1,7 +1,7 @@
-import * as tools from "@bgord/tools";
-import * as Auth from "+auth";
-import * as Patterns from "+emotions/services/patterns";
-import * as VO from "+emotions/value-objects";
+import type * as tools from "@bgord/tools";
+import type * as Auth from "+auth";
+import type * as Patterns from "+emotions/services/patterns";
+import type * as VO from "+emotions/value-objects";
 
 type PatternDetectorConfigType = {
   userId: Auth.VO.UserIdType;

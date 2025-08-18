@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import _ from "lodash";
-import * as Auth from "+auth";
+import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import * as Publishing from "+publishing";

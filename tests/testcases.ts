@@ -1,5 +1,5 @@
 import { expect } from "bun:test";
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 
 export async function assertInvariantError(response: Response, policy: bg.Invariant<any>) {
   const json = await response.json();

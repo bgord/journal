@@ -1,4 +1,4 @@
-import * as tools from "@bgord/tools";
+import type * as tools from "@bgord/tools";
 import { and, eq, gte, lte } from "drizzle-orm";
 import type * as Auth from "+auth";
 import type { EntriesPerWeekCountQuery } from "+emotions/queries/entries-per-week-count";

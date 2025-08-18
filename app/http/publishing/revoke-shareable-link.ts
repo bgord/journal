@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import hono from "hono";
+import type hono from "hono";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
 import { CommandBus } from "+infra/command-bus";

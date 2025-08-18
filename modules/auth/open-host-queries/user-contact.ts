@@ -1,4 +1,4 @@
-import * as VO from "+auth/value-objects";
+import type * as VO from "+auth/value-objects";
 
 type EmailContact = { type: "email"; address: string };
 

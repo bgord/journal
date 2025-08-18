@@ -1,5 +1,5 @@
 import * as AI from "+ai";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 
 export class InactivityAlarmAdvicePromptBuilder {
   constructor(private readonly trigger: Emotions.VO.InactivityAlarmTriggerType) {}

@@ -1,7 +1,7 @@
 import * as tools from "@bgord/tools";
 import { desc, eq } from "drizzle-orm";
 import type { WeeklyReviewExport as WeeklyReviewExportQuery } from "+emotions/queries";
-import * as VO from "+emotions/value-objects";
+import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 

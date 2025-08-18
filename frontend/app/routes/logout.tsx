@@ -1,4 +1,4 @@
-import { type ActionFunctionArgs } from "react-router";
+import type { ActionFunctionArgs } from "react-router";
 import * as Auth from "../../auth";
 
 export async function action({ request }: ActionFunctionArgs) {

@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import hono from "hono";
+import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { AlarmDirectory, EntrySnapshot } from "+infra/adapters/emotions";

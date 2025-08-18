@@ -1,4 +1,4 @@
-import * as Events from "+ai/events";
+import type * as Events from "+ai/events";
 
 export type AIEvents = Events.AiRequestRegisteredEventType | Events.AiQuotaExceededEventType;
 

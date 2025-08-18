@@ -1,4 +1,4 @@
-import * as tools from "@bgord/tools";
+import type * as tools from "@bgord/tools";
 import { and, eq, lte } from "drizzle-orm";
 import type { TimeCapsuleDueEntriesPort, TimeCapsuleEntrySnapshot } from "+emotions/ports";
 import * as VO from "+emotions/value-objects";

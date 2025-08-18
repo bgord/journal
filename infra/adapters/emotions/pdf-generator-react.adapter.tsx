@@ -1,8 +1,16 @@
 import * as tools from "@bgord/tools";
-import { Document, DocumentProps, Page, renderToBuffer, StyleSheet, Text, View } from "@react-pdf/renderer";
+import {
+  Document,
+  type DocumentProps,
+  Page,
+  renderToBuffer,
+  StyleSheet,
+  Text,
+  View,
+} from "@react-pdf/renderer";
 import React from "react";
-import * as Ports from "+emotions/ports";
-import * as Queries from "+emotions/queries";
+import type * as Ports from "+emotions/ports";
+import type * as Queries from "+emotions/queries";
 
 type TemplateFn = (data: Record<string, any>) => React.ReactElement<DocumentProps>;
 

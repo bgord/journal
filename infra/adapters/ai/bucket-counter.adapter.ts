@@ -1,6 +1,6 @@
 import { inArray } from "drizzle-orm";
-import { BucketCounterPort } from "+ai/ports/bucket-counter";
-import * as VO from "+ai/value-objects";
+import type { BucketCounterPort } from "+ai/ports/bucket-counter";
+import type * as VO from "+ai/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 

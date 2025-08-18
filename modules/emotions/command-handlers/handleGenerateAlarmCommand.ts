@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import { AiGateway } from "+ai/open-host-services";
+import type { AiGateway } from "+ai/open-host-services";
 
 export const handleGenerateAlarmCommand =
   (repo: Emotions.Ports.AlarmRepositoryPort, aiGateway: AiGateway) =>

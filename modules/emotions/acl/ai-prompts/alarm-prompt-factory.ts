@@ -1,7 +1,7 @@
-import * as AI from "+ai";
+import type * as AI from "+ai";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
-import { EntrySnapshotPort } from "+emotions/ports";
+import type { SupportedLanguages } from "+languages";
+import type { EntrySnapshotPort } from "+emotions/ports";
 
 export class AlarmPromptFactory {
   constructor(private readonly entrySnapshot: EntrySnapshotPort) {}

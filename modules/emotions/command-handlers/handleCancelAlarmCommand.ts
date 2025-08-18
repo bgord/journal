@@ -1,4 +1,4 @@
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 
 export const handleCancelAlarmCommand =
   (repo: Emotions.Ports.AlarmRepositoryPort) => async (command: Emotions.Commands.CancelAlarmCommandType) => {

@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as AI from "+ai";
-import * as Auth from "+auth";
+import type * as AI from "+ai";
+import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
 import type * as Buses from "+app/ports";

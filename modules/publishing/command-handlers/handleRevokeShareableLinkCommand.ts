@@ -1,4 +1,4 @@
-import * as Publishing from "+publishing";
+import type * as Publishing from "+publishing";
 
 export const handleRevokeShareableLinkCommand =
   (repo: Publishing.Ports.ShareableLinkRepositoryPort) =>

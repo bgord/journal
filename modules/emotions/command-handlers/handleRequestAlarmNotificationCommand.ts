@@ -1,4 +1,4 @@
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 
 export const handleRequestAlarmNotificationCommand =
   (repo: Emotions.Ports.AlarmRepositoryPort) =>

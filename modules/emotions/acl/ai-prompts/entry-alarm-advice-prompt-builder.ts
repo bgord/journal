@@ -1,6 +1,6 @@
 // cspell:disable
 import * as AI from "+ai";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 
 const content: Record<

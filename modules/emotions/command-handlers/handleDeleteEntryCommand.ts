@@ -1,4 +1,4 @@
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 
 export const handleDeleteEntryCommand =
   (repo: Emotions.Ports.EntryRepositoryPort) => async (command: Emotions.Commands.DeleteEntryCommandType) => {

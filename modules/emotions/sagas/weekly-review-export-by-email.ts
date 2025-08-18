@@ -1,8 +1,8 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Auth from "+auth";
+import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import * as Ports from "+app/ports";
+import type * as Ports from "+app/ports";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewExportByEmailRequestedEventType

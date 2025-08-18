@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Auth from "+auth";
+import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Events from "+app/events";
 import type * as Buses from "+app/ports";

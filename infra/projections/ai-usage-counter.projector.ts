@@ -1,7 +1,7 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import { sql } from "drizzle-orm";
 import * as AI from "+ai";
-import * as Events from "+ai/events";
+import type * as Events from "+ai/events";
 import { db } from "+infra/db";
 import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";

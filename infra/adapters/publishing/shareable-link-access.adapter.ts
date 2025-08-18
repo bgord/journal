@@ -1,4 +1,4 @@
-import * as Publishing from "+publishing";
+import type * as Publishing from "+publishing";
 import { ShareableLinkRepositoryAdapter } from "./shareable-link-repository.adapter";
 
 class ShareableLinkAccessBg implements Publishing.OHQ.ShareableLinkAccessPort {

@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import * as AI from "+ai";
+import type * as AI from "+ai";
 import type * as VO from "+emotions/value-objects";
 
 export class EntryAlarmAdviceNotificationComposer {

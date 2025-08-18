@@ -1,9 +1,9 @@
 import type * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
+import type * as tools from "@bgord/tools";
 import { and, desc, eq } from "drizzle-orm";
 import type * as Auth from "+auth";
 import type { AlarmDirectoryPort } from "+emotions/ports";
-import * as VO from "+emotions/value-objects";
+import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 

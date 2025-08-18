@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import * as Events from "+app/events";
 import type * as Buses from "+app/ports";
 import * as Commands from "+publishing/commands";
-import * as Ports from "+publishing/ports";
+import type * as Ports from "+publishing/ports";
 
 type AcceptedEvent = Events.HourHasPassedEventType;
 

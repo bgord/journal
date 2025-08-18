@@ -1,4 +1,4 @@
-import hono from "hono";
+import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { PdfGenerator, WeeklyReviewExport } from "+infra/adapters/emotions";

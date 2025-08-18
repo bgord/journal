@@ -1,5 +1,5 @@
 import * as Emotions from "+emotions";
-import * as Ports from "+app/ports";
+import type * as Ports from "+app/ports";
 
 type AcceptedEvent =
   | Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType

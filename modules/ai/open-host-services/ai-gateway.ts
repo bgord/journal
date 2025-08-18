@@ -1,9 +1,9 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Events from "+ai/events";
-import * as Ports from "+ai/ports";
+import type * as Ports from "+ai/ports";
 import * as Specs from "+ai/specifications";
-import * as VO from "+ai/value-objects";
+import type * as VO from "+ai/value-objects";
 
 /** @public */
 export class AiQuotaExceededError extends Error {

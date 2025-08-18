@@ -1,4 +1,4 @@
-import * as Ports from "+emotions/ports";
+import type * as Ports from "+emotions/ports";
 import { logger } from "+infra/logger";
 
 const PLACEHOLDER_PDF_BASE64 =

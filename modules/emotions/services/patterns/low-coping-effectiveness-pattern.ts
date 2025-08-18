@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Auth from "+auth";
+import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns/pattern";
 import * as VO from "+emotions/value-objects";

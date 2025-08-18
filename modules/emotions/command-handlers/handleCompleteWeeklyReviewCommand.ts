@@ -1,4 +1,4 @@
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 
 export const handleCompleteWeeklyReviewCommand =
   (repo: Emotions.Ports.WeeklyReviewRepositoryPort) =>

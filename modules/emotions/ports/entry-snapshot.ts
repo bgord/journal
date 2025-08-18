@@ -1,6 +1,6 @@
-import * as tools from "@bgord/tools";
+import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import * as VO from "+emotions/value-objects";
+import type * as VO from "+emotions/value-objects";
 
 export interface EntrySnapshotPort {
   getById(entryId: VO.EntryIdType): Promise<VO.EntrySnapshot | undefined>;

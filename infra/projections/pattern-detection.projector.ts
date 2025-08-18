@@ -1,4 +1,4 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import type { EventBus } from "+infra/event-bus";

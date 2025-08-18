@@ -1,4 +1,4 @@
-import * as VO from "+ai/value-objects";
+import type * as VO from "+ai/value-objects";
 
 type ApplicableQuota = Readonly<{
   id: VO.QuotaRuleId;

@@ -1,13 +1,13 @@
 // cspell:disable
 import { expect } from "bun:test";
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import * as Publishing from "+publishing";
 import type * as Schema from "+infra/schema";
-import * as App from "../app";
+import type * as App from "../app";
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,

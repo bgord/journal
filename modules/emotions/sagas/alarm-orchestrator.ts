@@ -1,12 +1,12 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
-import * as Auth from "+auth";
+import type * as Auth from "+auth";
 import type * as Buses from "+app/ports";
 import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
-import * as Ports from "+emotions/ports";
+import type * as Ports from "+emotions/ports";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
 

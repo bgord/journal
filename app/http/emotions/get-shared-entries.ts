@@ -1,4 +1,4 @@
-import hono from "hono";
+import type hono from "hono";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
 import { EntriesSharing } from "+infra/adapters/emotions";
