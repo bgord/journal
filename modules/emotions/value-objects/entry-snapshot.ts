@@ -1,7 +1,7 @@
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
+import type { SupportedLanguages } from "+languages";
 import type * as VO from "+emotions/value-objects";
-import type { SupportedLanguages } from "+infra/i18n";
 
 export type EntrySnapshot = {
   revision: tools.RevisionValueType;

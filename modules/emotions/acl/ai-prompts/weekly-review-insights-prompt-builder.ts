@@ -1,6 +1,6 @@
 import * as AI from "+ai";
+import { SupportedLanguages } from "+languages";
 import * as VO from "+emotions/value-objects";
-import { SupportedLanguages } from "+infra/i18n";
 
 const content: Record<SupportedLanguages, (entries: VO.EntrySnapshot[]) => string> = {
   [SupportedLanguages.en]: (entries: VO.EntrySnapshot[]) =>

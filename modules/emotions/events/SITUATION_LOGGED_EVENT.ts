@@ -2,8 +2,8 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
+import { SupportedLanguages } from "+languages";
 import * as VO from "+emotions/value-objects";
-import { SupportedLanguages } from "+infra/i18n";
 
 export const SITUATION_LOGGED_EVENT = "SITUATION_LOGGED_EVENT";
 

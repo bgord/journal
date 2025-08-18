@@ -1,7 +1,7 @@
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+languages";
 import { EntrySnapshotPort } from "+emotions/ports";
-import { SupportedLanguages } from "+infra/i18n";
 import { EntryAlarmAdvicePromptBuilder } from "./entry-alarm-advice-prompt-builder";
 import { InactivityAlarmAdvicePromptBuilder } from "./inactivity-alarm-advice-prompt-builder";
 

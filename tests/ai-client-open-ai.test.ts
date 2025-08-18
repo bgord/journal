@@ -1,8 +1,8 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+languages";
 import { AiClientOpenAiAdapter, OpenAI } from "+infra/adapters/ai/ai-client-open-ai.adapter";
-import { SupportedLanguages } from "+infra/i18n";
 import * as mocks from "./mocks";
 
 const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(

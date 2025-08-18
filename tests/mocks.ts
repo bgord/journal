@@ -4,8 +4,8 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+languages";
 import * as Publishing from "+publishing";
-import { SupportedLanguages } from "+infra/i18n";
 import type * as Schema from "+infra/schema";
 import * as App from "../app";
 

@@ -1,7 +1,7 @@
 import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
+import type { SupportedLanguages } from "+languages";
 import * as VO from "+emotions/value-objects";
-import type { SupportedLanguages } from "+infra/i18n";
 
 export type TimeCapsuleEntrySnapshot = {
   id: VO.EntryIdType;

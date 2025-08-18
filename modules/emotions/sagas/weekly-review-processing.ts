@@ -3,10 +3,10 @@ import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
+import type { SupportedLanguages } from "+languages";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import type { EventBus } from "+infra/event-bus";
-import { SupportedLanguages } from "+infra/i18n";
 
 export class WeeklyReviewProcessing {
   constructor(

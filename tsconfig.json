@@ -24,7 +24,8 @@
       "+history": ["./modules/history/index"],
       "+history/*": ["./modules/history/*"],
       "+app": ["./app/index"],
-      "+app/*": ["./app/*"]
+      "+app/*": ["./app/*"],
+      "+languages": ["./modules/supported-languages.ts"]
     }
   },
   "exclude": ["bgord-scripts", "frontend"]

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { SupportedLanguages } from "+infra/i18n";
+import { SupportedLanguages } from "+languages";
 import { server } from "../server";
 import * as mocks from "./mocks";
 

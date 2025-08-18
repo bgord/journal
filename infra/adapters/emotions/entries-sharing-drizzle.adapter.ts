@@ -2,10 +2,10 @@ import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 import * as Auth from "+auth";
+import { SupportedLanguages } from "+languages";
 import type { EntriesSharingPort } from "+emotions/open-host-queries";
 import * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
-import type { SupportedLanguages } from "+infra/i18n";
 import * as Schema from "+infra/schema";
 
 export class EntriesSharingDrizzle implements EntriesSharingPort {
