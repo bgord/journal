@@ -113,6 +113,6 @@ server.get("/translations", ResponseCache.handle, ...bg.Translations.build());
 server.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 // =============================
 
-server.onError(App.Routes.ErrorHandler.handle);
+server.onError(App.HTTP.ErrorHandler.handle);
 
 export { server, startup };

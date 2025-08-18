@@ -1,3 +1,3 @@
 export * as Events from "./events";
-export * as Routes from "./routes";
+export * as HTTP from "./http";
 export * as Services from "./services";
