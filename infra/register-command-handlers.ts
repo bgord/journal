@@ -1,5 +1,6 @@
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
+import { AiGateway } from "+infra/adapters/ai";
 import {
   EntriesPerWeekCount,
   EntryRepository,
@@ -20,7 +21,10 @@ CommandBus.on(
   EmotionCommands.EVALUATE_REACTION_COMMAND,
   EmotionCommandHandlers.handleEvaluateReactionCommand(EntryRepository),
 );
-CommandBus.on(EmotionCommands.GENERATE_ALARM_COMMAND, EmotionCommandHandlers.handleGenerateAlarmCommand);
+CommandBus.on(
+  EmotionCommands.GENERATE_ALARM_COMMAND,
+  EmotionCommandHandlers.handleGenerateAlarmCommand(AiGateway),
+);
 CommandBus.on(
   EmotionCommands.LOG_ENTRY_COMMAND,
   EmotionCommandHandlers.handleLogEntryCommand(EntryRepository),
