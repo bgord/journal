@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import { SupportedLanguages } from "../../infra/i18n";
+import { SupportedLanguages } from "../../modules/supported-languages";
 import { Select } from "../components/select";
 
 export function LanguageSelector() {

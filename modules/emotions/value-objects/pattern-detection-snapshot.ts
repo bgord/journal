@@ -1,12 +1,12 @@
 import type * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
-import type * as Auth from "+auth";
-import type * as VO from "+emotions/value-objects";
+import type * as Auth from "../../auth/value-objects";
+import type { PatternNameOption } from "./pattern-name-option";
 
 export type PatternDetectionSnapshot = {
   id: bg.UUIDType;
-  name: VO.PatternNameOption;
+  name: PatternNameOption;
   createdAt: tools.TimestampType;
-  userId: Auth.VO.UserIdType;
+  userId: Auth.UserIdType;
   weekIsoId: tools.WeekIsoIdType;
 };

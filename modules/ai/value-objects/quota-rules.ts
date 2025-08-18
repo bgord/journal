@@ -1,6 +1,6 @@
 import * as tools from "@bgord/tools";
 import { QuotaLimit } from "./quota-limit";
-import { QuotaRule } from "./quota-rule";
+import type { QuotaRule } from "./quota-rule";
 import { QuotaWindow } from "./quota-window";
 import { UsageCategory } from "./usage-category";
 

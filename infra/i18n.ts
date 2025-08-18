@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { SupportedLanguages } from "+languages";
+import { SupportedLanguages } from "../modules/supported-languages";
 
 export const I18nConfig: bg.I18nConfigType = {
   supportedLanguages: SupportedLanguages,

@@ -1,4 +1,4 @@
-import type * as VO from "+ai/value-objects";
+import type * as VO from "../value-objects";
 
 export type QuotaRule = {
   id: VO.QuotaRuleId;
