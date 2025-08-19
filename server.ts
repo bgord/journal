@@ -6,6 +6,7 @@ import * as App from "+app";
 import * as infra from "+infra";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
+import { CaptchaShield } from "+infra/captcha";
 import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
@@ -71,6 +72,7 @@ weeklyReview.post(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.WeeklyReviewExportEmailStore,
   }),
+  CaptchaShield.verify,
   App.HTTP.Emotions.ExportWeeklyReviewByEmail,
 );
 weeklyReview.get(
