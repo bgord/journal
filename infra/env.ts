@@ -33,6 +33,7 @@ const EnvironmentSchema = z
     MAILER_ADAPTER: z.enum(MailerAdapter),
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
     BETTER_AUTH_URL: z.url().trim(),
+    HCAPTCHA_SECRET_KEY: bg.HCaptchaSecretKey,
   })
   .strip();
 
