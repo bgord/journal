@@ -34,7 +34,7 @@
     "frontend": {
       "name": "frontend",
       "dependencies": {
-        "@bgord/design": "1.3.3",
+        "@bgord/design": "1.4.0",
         "@bgord/ui": "0.5.6",
         "@react-router/node": "7.8.0",
         "@react-router/serve": "7.8.0",
@@ -134,7 +134,7 @@
 
     "@bgord/bun": ["@bgord/bun@0.18.24", "", { "dependencies": { "@axiomhq/winston": "1.3.1", "@bgord/tools": "0.12.11", "@hono/ua-blocker": "0.1.7", "better-auth": "1.3.6", "check-disk-space": "3.4.0", "croner": "9.1.0", "hcaptcha": "0.2.0", "hono": "4.9.2", "lodash": "4.17.21", "mime-types": "3.0.1", "node-cache": "5.1.2", "nodemailer": "7.0.5", "sharp": "0.34.3", "ssl-checker": "2.0.10", "winston": "3.17.0", "yazl": "3.3.1" } }, "sha512-S26HFDOhnwECISL5i8LqZu78U8XhdBOSeDVp/lEHGKze0eZay/Y+k+Kf0mzBHTotXS9VJKmx1j9NRerr/zJtZg=="],
 
-    "@bgord/design": ["@bgord/design@1.3.3", "", { "dependencies": { "culori": "4.0.2", "lodash": "4.17.21" } }, "sha512-5pLVAPx3P2CJidLBu6DC7gCAplH/h0ar8k49MiBtNR9qmFnBr/gNQ6lPNvfQdYVIkjsR3+FeyiEP5Gl4VmPGvA=="],
+    "@bgord/design": ["@bgord/design@1.4.0", "", { "dependencies": { "culori": "4.0.2", "lodash": "4.17.21" } }, "sha512-xg8E9AlpKq5fy9gf0p1PamnxRleNH2ruQ2n7DqyATDsR1y5aX5LFAVucnUYJVW7HUKWd5Vf+KZCVKDDkzhzYug=="],
 
     "@bgord/tools": ["@bgord/tools@0.12.11", "", { "dependencies": { "date-fns": "4.1.0", "zod": "3.25.76" } }, "sha512-QGV+lsHUyrb4cnfrzoexSuBWVipP6JydAc2dbnmgRroPHge/9c8w+as4N0+HaPnkSwCtLJzq1Uxl6RO40AVlAA=="],
 
