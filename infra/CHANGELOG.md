@@ -1,10 +1,18 @@
 # Changelog
+- 2025-08-19 13:03 a946458 **step: bump bgord/scripts**
+## 2025-08-19 13:03 
+- 2025-08-19 13:00 c35f169 **step: bump bgord/scripts**
+- 2025-08-19 13:00 0662738 **step: setup depcruise**
+- 2025-08-18 23:42 4f42574 **refactor: move hour has passed to modules/system**
+- 2025-08-18 23:23 28941d5 **step: install deps cruiser**
+- 2025-08-18 23:08 8e5a0cc **step: use import type in biome**
 - 2025-08-18 22:54 9a9358a **step: bump bgord/scripts**
-## 2025-08-18 22:54 
 - 2025-08-18 22:40 a9632cc **refactor: clear event store imports**
 - 2025-08-18 22:17 e7027c5 **refactor: clear command bus imports**
 - 2025-08-18 22:04 3d7f237 **refactor: clear event bus port**
 - 2025-08-18 21:37 3527241 **refactor: make all modules infra imports types**
+- 2025-08-18 20:55 e5601dd **docs: generate CHANGELOG**
+- 2025-08-18 20:55 3a1008b **docs: generate readme**
 - 2025-08-18 20:42 99d274d **docs: generate CHANGELOG**
 - 2025-08-18 16:19 616f885 **refactor: extract Env.EMAIL_FROM**
 - 2025-08-18 16:14 1ba5845 **refactor: extract command bus types**
