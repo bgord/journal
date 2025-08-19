@@ -285,15 +285,16 @@ modules/
 │       ├── publication-specification.ts
 │       ├── shareable-link-id.ts
 │       └── shareable-link-status.ts
-└── supported-languages.ts
+├── supported-languages.ts
+└── system
+    ├── events
+    │   ├── hour-has-passed.ts
 ```
 
 ## App:
 
 ```
 app/
-├── events
-│   ├── hour-has-passed.ts
 ├── http
 │   ├── emotions
 │   │   ├── delete-entry.ts
@@ -365,6 +366,7 @@ infra/
 ├── cache.ts
 ├── command-bus.ts
 ├── db.ts
+├── depcruise.webpack.cjs
 ├── e2e
 │   ├── add-entry.spec.ts
 │   └── home.spec.ts
