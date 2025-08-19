@@ -1,7 +1,17 @@
 # Changelog
+- 2025-08-19 22:35 35bd2c6 **refactor: remove hcaptcha from fe for now**
+## 2025-08-19 22:35 
+- 2025-08-19 22:19 c400826 **step: setup better auth hcaptcha**
+- 2025-08-19 22:15 2a2bdad **step: install react hcaptcha**
+- 2025-08-19 22:09 33b04b3 **fix: key parsing**
+- 2025-08-19 22:00 321f696 **step: add captcha shield to weekly review export email**
+- 2025-08-19 21:56 d8b150f **step: add hcaptcha secret key to env**
+- 2025-08-19 21:55 441b621 **step: add captcha shield**
+- 2025-08-19 21:50 12e2419 **refactor: use new mailer adapter names**
+- 2025-08-19 21:49 f38b2cf **step: update packages**
+- 2025-08-19 20:31 141b8c7 **refactor: use data-transform for font variant numeric**
 - 2025-08-19 20:30 7ea1b60 **fix: history projection port type**
 - 2025-08-19 20:30 751b68e **step: regenerate bun lock**
-## 2025-08-19 20:30 
 - 2025-08-19 20:27 80b5326 **step: update packages**
 - 2025-08-19 20:25 6f07fb2 **step: update packages**
 - 2025-08-19 20:22 349b587 **step: update packages**
@@ -10,6 +20,7 @@
 - 2025-08-19 20:01 ffe2040 **refactor: remove unused components**
 - 2025-08-19 19:55 2a1b1e4 **refactor: cleanup styles**
 - 2025-08-19 19:35 ba31c56 **step: bump bgord/scripts**
+- 2025-08-19 18:31 da8cd30 **docs: generate CHANGELOG**
 - 2025-08-19 17:35 50d1b25 **docs: generate CHANGELOG**
 - 2025-08-19 13:03 a946458 **step: bump bgord/scripts**
 - 2025-08-19 13:00 c35f169 **step: bump bgord/scripts**
