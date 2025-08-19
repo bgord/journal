@@ -1,6 +1,16 @@
 # Changelog
+- 2025-08-19 20:30 7ea1b60 **fix: history projection port type**
+- 2025-08-19 20:30 751b68e **step: regenerate bun lock**
+## 2025-08-19 20:30 
+- 2025-08-19 20:27 80b5326 **step: update packages**
+- 2025-08-19 20:25 6f07fb2 **step: update packages**
+- 2025-08-19 20:22 349b587 **step: update packages**
+- 2025-08-19 20:08 5e19376 **refactor: remove custom css**
+- 2025-08-19 20:05 1f6ec5d **fix: remove normalize css call**
+- 2025-08-19 20:01 ffe2040 **refactor: remove unused components**
+- 2025-08-19 19:55 2a1b1e4 **refactor: cleanup styles**
 - 2025-08-19 19:35 ba31c56 **step: bump bgord/scripts**
-## 2025-08-19 19:35 
+- 2025-08-19 17:35 50d1b25 **docs: generate CHANGELOG**
 - 2025-08-19 13:03 a946458 **step: bump bgord/scripts**
 - 2025-08-19 13:00 c35f169 **step: bump bgord/scripts**
 - 2025-08-19 13:00 0662738 **step: setup depcruise**
