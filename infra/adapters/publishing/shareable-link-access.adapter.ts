@@ -7,6 +7,7 @@ class ShareableLinkAccessBg implements Publishing.OHQ.ShareableLinkAccessPort {
   async check(
     id: Publishing.VO.ShareableLinkIdType,
     publicationSpecification: Publishing.VO.PublicationSpecificationType,
+    _context: Publishing.VO.AccessContext,
   ): Promise<Publishing.OHQ.ShareableLinkAccessValidType | Publishing.OHQ.ShareableLinkAccessInvalidType> {
     const shareableLink = await this.repo.load(id);
 

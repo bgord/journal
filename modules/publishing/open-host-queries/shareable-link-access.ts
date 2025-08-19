@@ -20,5 +20,6 @@ export interface ShareableLinkAccessPort {
   check(
     id: VO.ShareableLinkIdType,
     publicationSpecification: VO.PublicationSpecificationType,
+    context: VO.AccessContext,
   ): Promise<ShareableLinkAccessValidType | ShareableLinkAccessInvalidType>;
 }

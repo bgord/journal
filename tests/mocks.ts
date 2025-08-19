@@ -1,6 +1,6 @@
 // cspell:disable
 import { expect } from "bun:test";
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
@@ -77,6 +77,11 @@ export const publicationSpecification = "entries";
 export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Timestamp.parse(1000));
 
 export const duration = tools.Time.Seconds(1);
+
+export const accessContext: Publishing.VO.AccessContext = {
+  timestamp: tools.Time.Now().value,
+  visitorId: new bg.VisitorIdHash(ip.server.requestIP().address, "anon"),
+};
 
 export const hourHasPassedTimestamp = tools.Time.Now().value;
 
