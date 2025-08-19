@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
+// biome-ignore lint: lint/suspicious/noConsole
 import React from "react";
 import type * as Ports from "+emotions/ports";
 import type * as Queries from "+emotions/queries";
