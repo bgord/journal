@@ -47,7 +47,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
   return (
     <main data-stack="y" data-gap="8">
-      <ul data-stack="x" data-p="5" style={{ gap: "4px" }}>
+      <ul data-stack="x" data-p="5" data-gap="1">
         {loaderData.heatmap.map((point, index) => (
           // @ts-expect-error
           <li

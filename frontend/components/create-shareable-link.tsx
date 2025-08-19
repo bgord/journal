@@ -50,7 +50,7 @@ export function CreateShareableLink() {
 
       <UI.Dialog
         data-mt="12"
-        style={{ ...UI.Rhythm().times(50).width, ...UI.Rhythm().times(39).height }}
+        style={{ ...UI.Rhythm().times(50).width, ...UI.Rhythm().times(40).height }}
         {...dialog}
       >
         <fetcher.Form
