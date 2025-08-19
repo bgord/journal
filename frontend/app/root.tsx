@@ -8,11 +8,6 @@ export const links: Route.LinksFunction = () => [
   {
     as: "style",
     rel: "stylesheet preload",
-    href: "/normalize.min.css",
-  },
-  {
-    as: "style",
-    rel: "stylesheet preload",
     href: "/main.min.css",
   },
   {
