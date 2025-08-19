@@ -5,7 +5,7 @@ export class HistoryProjector {
   constructor(
     eventBus: typeof EventBus,
     EventHandler: bg.EventHandler,
-    historyRepository: bg.History.Repos.HistoryRepositoryPort,
+    historyRepository: bg.History.Ports.HistoryProjectionPort,
   ) {
     eventBus.on(
       bg.History.Events.HISTORY_POPULATED_EVENT,
