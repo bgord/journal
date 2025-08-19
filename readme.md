@@ -364,6 +364,7 @@ infra/
 ├── auth.ts
 ├── basic-auth-shield.ts
 ├── cache.ts
+├── captcha.ts
 ├── command-bus.ts
 ├── db.ts
 ├── depcruise.webpack.cjs
