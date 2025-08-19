@@ -1,8 +1,11 @@
 # Changelog
+- 2025-08-19 19:35 ba31c56 **step: bump bgord/scripts**
+## 2025-08-19 19:35 
 - 2025-08-19 13:03 a946458 **step: bump bgord/scripts**
-## 2025-08-19 13:03 
 - 2025-08-19 13:00 c35f169 **step: bump bgord/scripts**
 - 2025-08-19 13:00 0662738 **step: setup depcruise**
+- 2025-08-19 11:03 9ad2f29 **docs: generate readme**
+- 2025-08-19 11:03 92d0181 **docs: generate CHANGELOG**
 - 2025-08-18 23:42 4f42574 **refactor: move hour has passed to modules/system**
 - 2025-08-18 23:23 28941d5 **step: install deps cruiser**
 - 2025-08-18 23:08 8e5a0cc **step: use import type in biome**
