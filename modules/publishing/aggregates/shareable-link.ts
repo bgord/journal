@@ -52,7 +52,7 @@ export class ShareableLink {
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Time.Now().value,
-      name: Events.SHAREABLE_LINK_CREATED,
+      name: Events.SHAREABLE_LINK_CREATED_EVENT,
       stream: ShareableLink.getStream(id),
       version: 1,
       payload: {
@@ -83,7 +83,7 @@ export class ShareableLink {
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Time.Now().value,
-      name: Events.SHAREABLE_LINK_EXPIRED,
+      name: Events.SHAREABLE_LINK_EXPIRED_EVENT,
       stream: ShareableLink.getStream(this.id),
       version: 1,
       payload: { shareableLinkId: this.id },
@@ -100,7 +100,7 @@ export class ShareableLink {
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Time.Now().value,
-      name: Events.SHAREABLE_LINK_REVOKED,
+      name: Events.SHAREABLE_LINK_REVOKED_EVENT,
       stream: ShareableLink.getStream(this.id),
       version: 1,
       payload: { shareableLinkId: this.id },
@@ -139,7 +139,7 @@ export class ShareableLink {
 
   private apply(event: ShareableLinkEventType): void {
     switch (event.name) {
-      case Events.SHAREABLE_LINK_CREATED: {
+      case Events.SHAREABLE_LINK_CREATED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.duration = tools.Time.Ms(event.payload.durationMs);
         this.createdAt = tools.Timestamp.parse(event.payload.createdAt);
@@ -150,13 +150,13 @@ export class ShareableLink {
         break;
       }
 
-      case Events.SHAREABLE_LINK_EXPIRED: {
+      case Events.SHAREABLE_LINK_EXPIRED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.status = VO.ShareableLinkStatusEnum.expired;
         break;
       }
 
-      case Events.SHAREABLE_LINK_REVOKED: {
+      case Events.SHAREABLE_LINK_REVOKED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.status = VO.ShareableLinkStatusEnum.revoked;
         break;

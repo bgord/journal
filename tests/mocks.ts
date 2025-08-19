@@ -506,7 +506,7 @@ export const GenericShareableLinkCreatedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_CREATED",
+  name: "SHAREABLE_LINK_CREATED_EVENT",
   version: 1,
   payload: {
     shareableLinkId,
@@ -524,7 +524,7 @@ export const GenericShareableLinkExpiredEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_EXPIRED",
+  name: "SHAREABLE_LINK_EXPIRED_EVENT",
   version: 1,
   payload: { shareableLinkId },
 } satisfies Publishing.Events.ShareableLinkExpiredEventType;
@@ -534,7 +534,7 @@ export const GenericShareableLinkRevokedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_REVOKED",
+  name: "SHAREABLE_LINK_REVOKED_EVENT",
   version: 1,
   payload: { shareableLinkId },
 } satisfies Publishing.Events.ShareableLinkRevokedEventType;

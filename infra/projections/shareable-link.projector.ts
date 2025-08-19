@@ -8,15 +8,15 @@ import * as Schema from "+infra/schema";
 export class ShareableLinkProjector {
   constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
     eventBus.on(
-      Publishing.Events.SHAREABLE_LINK_CREATED,
+      Publishing.Events.SHAREABLE_LINK_CREATED_EVENT,
       EventHandler.handle(this.onShareableLinkCreatedEvent.bind(this)),
     );
     eventBus.on(
-      Publishing.Events.SHAREABLE_LINK_EXPIRED,
+      Publishing.Events.SHAREABLE_LINK_EXPIRED_EVENT,
       EventHandler.handle(this.onShareableLinkExpiredEvent.bind(this)),
     );
     eventBus.on(
-      Publishing.Events.SHAREABLE_LINK_REVOKED,
+      Publishing.Events.SHAREABLE_LINK_REVOKED_EVENT,
       EventHandler.handle(this.onShareableLinkRevokedEvent.bind(this)),
     );
   }
