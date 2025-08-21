@@ -1,6 +1,18 @@
 # Changelog
+- 2025-08-21 22:17 73b9293c **step: adjust tests**
+## 2025-08-21 22:17 
+- 2025-08-21 22:15 84e4ad5f **step: handle invalid date range error**
+- 2025-08-21 22:14 7eac9b4f **step: implement export entries date range**
+- 2025-08-21 21:45 d52b3942 **refactor: shorten server names**
+- 2025-08-21 21:44 41c5d98f **step: add export entries endpoint**
+- 2025-08-21 21:43 5e6477e9 **refactor: adjust naming**
+- 2025-08-21 21:33 b5c53641 **step: add getByDateRangeForUser for EntrySnapshotPort**
+- 2025-08-21 21:27 96f4f65a **refactor: rename export entries to data**
+- 2025-08-21 21:20 9fad2550 **step: improve polish translations**
+- 2025-08-21 21:12 2556bb96 **step: improve english translations**
+- 2025-08-21 21:09 57772b89 **refactor: sort translations**
+- 2025-08-21 21:01 1dc60aa6 **fix: translations**
 - 2025-08-21 18:44 a4aa0682 **refactor: extract correlation id header helper**
-## 2025-08-21 18:44 
 - 2025-08-21 18:40 6007edbd **step: add missing tests**
 - 2025-08-21 18:30 5db12be1 **step: add correct translations**
 - 2025-08-21 18:22 98f3cb0a **step: add link stats**
@@ -23,6 +35,7 @@
 - 2025-08-21 16:55 2b29b2d7 **step: wire up shareable link accessed event**
 - 2025-08-21 16:54 faaad936 **step: improve shareable link accessed event**
 - 2025-08-21 16:54 903ee311 **step: adjust ShareableLinkAccessAuditorPort**
+- 2025-08-21 16:52 5f6f1aab **docs: generate CHANGELOG**
 - 2025-08-21 16:46 ad30ee44 **step: expose status in shareable link summarize method**
 - 2025-08-21 16:43 bbe2806c **step: add access validity**
 - 2025-08-21 16:43 8a0d7e2d **step: add shareable link access auditor**
