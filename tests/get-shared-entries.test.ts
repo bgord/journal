@@ -1,4 +1,5 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import { EntriesSharing } from "+infra/adapters/emotions";
 import { EventStore } from "+infra/event-store";
 import { server } from "../server";
@@ -23,8 +24,22 @@ describe(`GET ${url}`, () => {
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
     ]);
-    const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
-    expect(response.status).toBe(403);
+    spyOn(Date, "now").mockReturnValue(mocks.accessContext.timestamp);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      const response = await server.request(
+        url,
+        {
+          method: "GET",
+          headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        },
+        mocks.ip,
+      );
+
+      expect(response.status).toBe(403);
+      expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedExpiredEvent]);
+    });
   });
 
   test("validation - revoked", async () => {
@@ -32,14 +47,40 @@ describe(`GET ${url}`, () => {
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
     ]);
-    const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
-    expect(response.status).toBe(403);
+    spyOn(Date, "now").mockReturnValue(mocks.accessContext.timestamp);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      const response = await server.request(
+        url,
+        {
+          method: "GET",
+          headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        },
+        mocks.ip,
+      );
+      expect(response.status).toBe(403);
+      expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedRevokedEvent]);
+    });
   });
 
   test("happy path", async () => {
     spyOn(EntriesSharing, "listForOwnerInRange").mockResolvedValue([]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-    const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
-    expect(response.status).toBe(200);
+    spyOn(Date, "now").mockReturnValue(mocks.accessContext.timestamp);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      const response = await server.request(
+        url,
+        {
+          method: "GET",
+          headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        },
+        mocks.ip,
+      );
+      expect(response.status).toBe(200);
+      expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedAcceptedEvent]);
+    });
   });
 });
