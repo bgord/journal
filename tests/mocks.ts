@@ -557,6 +557,42 @@ export const GenericShareableLinkAccessedAcceptedEvent = {
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
 
+export const GenericShareableLinkAccessedExpiredEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_ACCESSED_EVENT",
+  version: 1,
+  payload: {
+    shareableLinkId,
+    ownerId: userId,
+    publicationSpecification,
+    validity: Publishing.VO.AccessValidity.rejected,
+    visitorId: visitorIdRaw,
+    timestamp: accessContext.timestamp,
+    reason: "expired",
+  },
+} satisfies Publishing.Events.ShareableLinkAccessedEventType;
+
+export const GenericShareableLinkAccessedRevokedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_ACCESSED_EVENT",
+  version: 1,
+  payload: {
+    shareableLinkId,
+    ownerId: userId,
+    publicationSpecification,
+    validity: Publishing.VO.AccessValidity.rejected,
+    visitorId: visitorIdRaw,
+    timestamp: accessContext.timestamp,
+    reason: "revoked",
+  },
+} satisfies Publishing.Events.ShareableLinkAccessedEventType;
+
 export const GenericHourHasPassedEvent = {
   id: expectAnyId,
   correlationId,
