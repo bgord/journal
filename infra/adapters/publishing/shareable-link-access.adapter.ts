@@ -20,12 +20,20 @@ class ShareableLinkAccessBg implements Publishing.OHQ.ShareableLinkAccessPort {
     const valid = shareableLink.isValid(publicationSpecification);
     const summary = shareableLink.summarize();
 
+    const reason = valid
+      ? "active"
+      : summary.status === "expired"
+        ? "expired"
+        : summary.status === "revoked"
+          ? "revoked"
+          : "wrong_specification_publication";
+
     await this.auditor.record({
       linkId: id,
       ownerId: summary.ownerId,
       publicationSpecification,
       validity: valid ? Publishing.VO.AccessValidity.accepted : Publishing.VO.AccessValidity.rejected,
-      reason: summary.status ?? "unknown",
+      reason,
       context,
     });
 
