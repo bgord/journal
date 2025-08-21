@@ -8,6 +8,7 @@ import { EntrySnapshot } from "+infra/adapters/emotions";
 enum ExportEntriesStrategy {
   text = "text",
   csv = "csv",
+  markdown = "markdown",
 }
 
 const StrategySchema = z.enum(ExportEntriesStrategy).default(ExportEntriesStrategy.csv);
@@ -31,6 +32,7 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
   const file = {
     csv: new Emotions.Services.EntryExportFileCsv(entries),
     text: new Emotions.Services.EntryExportFileText(entries),
+    markdown: new Emotions.Services.EntryExportFileMarkdown(entries),
   };
 
   return file[strategy].toResponse();
