@@ -15,6 +15,7 @@ import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import * as schema from "+infra/schema";
 import type { ShareableLinkEvent } from "+publishing/aggregates";
+import type { ShareableLinkAccessedEvent } from "+publishing/events";
 import type { HourHasPassedEvent } from "+system/events";
 
 export type AcceptedEvent =
@@ -26,6 +27,7 @@ export type AcceptedEvent =
   | typeof WeeklyReviewExportByEmailFailedEvent
   | typeof TimeCapsuleEntryScheduledEvent
   | ShareableLinkEvent
+  | typeof ShareableLinkAccessedEvent
   | typeof HourHasPassedEvent
   | typeof AiRequestRegisteredEvent
   | typeof AiQuotaExceededEvent
