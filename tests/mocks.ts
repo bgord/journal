@@ -73,6 +73,7 @@ export const shareableLinkId = crypto.randomUUID();
 export const shareableLinkCreatedAt = tools.Time.Now().value;
 
 export const publicationSpecification = "entries";
+export const anotherPublicationSpecification = "other";
 
 export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Timestamp.parse(1000));
 
@@ -590,6 +591,24 @@ export const GenericShareableLinkAccessedRevokedEvent = {
     visitorId: visitorIdRaw,
     timestamp: accessContext.timestamp,
     reason: "revoked",
+  },
+} satisfies Publishing.Events.ShareableLinkAccessedEventType;
+
+export const GenericShareableLinkAccessedWrongSpecEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_ACCESSED_EVENT",
+  version: 1,
+  payload: {
+    shareableLinkId,
+    ownerId: userId,
+    publicationSpecification: anotherPublicationSpecification,
+    validity: Publishing.VO.AccessValidity.rejected,
+    visitorId: visitorIdRaw,
+    timestamp: accessContext.timestamp,
+    reason: "wrong_specification_publication",
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
 
