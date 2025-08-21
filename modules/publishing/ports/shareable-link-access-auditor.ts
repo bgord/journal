@@ -6,6 +6,7 @@ export interface ShareableLinkAccessAuditorPort {
     linkId: VO.ShareableLinkIdType;
     ownerId: Auth.VO.UserIdType;
     validity: VO.AccessValidity;
+    publicationSpecification: VO.PublicationSpecificationType;
     reason: string;
     context: VO.AccessContext;
   }): Promise<void>;
