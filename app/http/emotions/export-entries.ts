@@ -1,4 +1,5 @@
 import * as tools from "@bgord/tools";
+import { endOfDay, startOfDay } from "date-fns";
 import type hono from "hono";
 import { z } from "zod/v4";
 import * as Emotions from "+emotions";
@@ -19,10 +20,10 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
   const timeZoneOffsetMs = c.get("timeZoneOffset").miliseconds;
 
   const dateRangeStart = tools.Timestamp.parse(
-    new Date(c.req.query("dateRangeStart") as string).getTime() + timeZoneOffsetMs,
+    startOfDay(new Date(c.req.query("dateRangeStart") as string).getTime() + timeZoneOffsetMs).getTime(),
   );
   const dateRangeEnd = tools.Timestamp.parse(
-    new Date(c.req.query("dateRangeEnd") as string).getTime() + timeZoneOffsetMs,
+    endOfDay(new Date(c.req.query("dateRangeEnd") as string).getTime() + timeZoneOffsetMs).getTime(),
   );
   const dateRange = new tools.DateRange(dateRangeStart, dateRangeEnd);
 
