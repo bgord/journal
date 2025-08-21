@@ -8,6 +8,7 @@ export * from "./create-shareable-link";
 export * from "./dashboard-cell";
 export * from "./delete-account";
 export * from "./entry";
+export * from "./export-entries";
 export * from "./language-selector";
 export * from "./logo";
 export * from "./logout-button";

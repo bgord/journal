@@ -1,5 +1,5 @@
-import * as tools from "@bgord/tools";
 import * as UI from "@bgord/ui";
+import * as Icons from "iconoir-react";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import * as Auth from "../../auth";
@@ -87,23 +87,16 @@ export type EntryType = Route.ComponentProps["loaderData"]["entries"][number];
 export default function Home({ loaderData }: Route.ComponentProps) {
   const t = UI.useTranslations();
   const dialog = UI.useToggle({ name: "dialog" });
+  const exportEntries = UI.useToggle({ name: "export" });
 
   const filter = UI.useField({ strategy: UI.useFieldStrategyEnum.params, name: "filter", defaultValue: "" });
   const search = UI.useField({ strategy: UI.useFieldStrategyEnum.params, name: "search", defaultValue: "" });
-
-  const dateRangeStart = UI.useField<number>({ name: "dateRangeStart", defaultValue: new Date().getTime() });
-  const dateRangeEnd = UI.useField<number>({ name: "dateRangeEnd", defaultValue: new Date().getTime() });
-  const strategy = UI.useField<string>({ name: "strategy", defaultValue: "text" });
-
-  const dateRangeError = dateRangeStart.value > dateRangeEnd.value;
-
-  const baseExportUrl = `${import.meta.env.VITE_API_URL}/entry/export-entries?dateRangeStart=${tools.DateFormatters.date(dateRangeStart.value)}&dateRangeEnd=${tools.DateFormatters.date(dateRangeEnd.value)}&strategy=${strategy.value}`;
 
   UI.useKeyboardShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
   return (
     <main data-p="6">
-      <div data-stack="x" data-main="between" data-cross="end" data-maxw="md" data-mx="auto">
+      <div data-stack="x" data-main="between" data-cross="end" data-maxw="md" data-mx="auto" data-gap="3">
         <div data-stack="x" data-cross="end" data-gap="3">
           <input
             className="c-input"
@@ -130,61 +123,19 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </button>
         </div>
 
+        <button
+          type="button"
+          className="c-button"
+          data-variant="with-icon"
+          data-ml="auto"
+          onClick={exportEntries.toggle}
+        >
+          <Icons.MoreHoriz data-size="md" />
+        </button>
         <Components.AddEntry />
       </div>
 
-      <div data-stack="y" data-maxw="md" data-mx="auto" data-mt="6">
-        <div data-stack="x" data-cross="center" data-gap="3" data-color="neutral-200">
-          <input
-            className="c-input"
-            required
-            type="date"
-            {...dateRangeStart.input.props}
-            value={
-              dateRangeStart.value ? new Date(dateRangeStart.value).toISOString().split("T")[0] : undefined
-            }
-            max={new Date().toISOString().split("T")[0]}
-            onChange={(event) => dateRangeStart.set(event.currentTarget.valueAsNumber)}
-          />
-          -
-          <input
-            className="c-input"
-            required
-            type="date"
-            {...dateRangeEnd.input.props}
-            value={dateRangeEnd.value ? new Date(dateRangeEnd.value).toISOString().split("T")[0] : undefined}
-            max={new Date().toISOString().split("T")[0]}
-            onChange={(event) => dateRangeEnd.set(event.currentTarget.valueAsNumber)}
-          />
-          <Components.Select {...strategy.input.props}>
-            <option value="text">Text</option>
-            <option value="csv">CSV</option>
-            <option value="markdown">Markdown</option>
-            <option value="pdf">PDF</option>
-          </Components.Select>
-          <a
-            type="button"
-            href={baseExportUrl}
-            download
-            target="_blank"
-            rel="noopener noreferer"
-            className="c-button"
-            data-variant="secondary"
-            data-disp="flex"
-            data-main="center"
-            data-cross="center"
-            data-mr="auto"
-          >
-            Export
-          </a>
-        </div>
-
-        {dateRangeError && (
-          <div data-mt="1" data-ml="1" data-fs="sm" data-color="danger-400">
-            {t("profile.shareable_links.create.date_range.error")}
-          </div>
-        )}
-      </div>
+      {exportEntries.on && <Components.ExportEntries />}
 
       <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto" data-mt="6">
         {loaderData.entries.map((entry) => (
