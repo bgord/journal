@@ -33,7 +33,7 @@ describe("GET /entry/export-entries ", () => {
     expect(json).toEqual({ message: "invalid.date.range", _known: true });
   });
 
-  test("happy path", async () => {
+  test("happy path - csv", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Date, "now").mockReturnValue(1000);
@@ -48,6 +48,24 @@ describe("GET /entry/export-entries ", () => {
     expect(response.headers.get("content-type")).toEqual("text/csv");
     expect(response.headers.get("content-disposition")).toEqual(
       `attachment; filename="entry-export-1000.csv"`,
+    );
+  });
+
+  test("happy path - text", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Date, "now").mockReturnValue(1000);
+
+    const response = await server.request(
+      `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=text`,
+      { method: "GET" },
+      mocks.ip,
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toEqual("text/plain");
+    expect(response.headers.get("content-disposition")).toEqual(
+      `attachment; filename="entry-export-1000.txt"`,
     );
   });
 });

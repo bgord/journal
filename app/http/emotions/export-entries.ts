@@ -1,8 +1,16 @@
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import { z } from "zod/v4";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { EntrySnapshot } from "+infra/adapters/emotions";
+
+enum ExportEntriesStrategy {
+  text = "text",
+  csv = "csv",
+}
+
+const StrategySchema = z.enum(ExportEntriesStrategy).default(ExportEntriesStrategy.csv);
 
 export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
@@ -16,7 +24,14 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
   );
   const dateRange = new tools.DateRange(dateRangeStart, dateRangeEnd);
 
+  const strategy = StrategySchema.parse(c.req.query("strategy"));
+
   const entries = await EntrySnapshot.getByDateRangeForUser(user.id, dateRange);
 
-  return new Emotions.Services.EntryExportFileCsv(entries).toResponse();
+  const file = {
+    csv: new Emotions.Services.EntryExportFileCsv(entries),
+    text: new Emotions.Services.EntryExportFileText(entries),
+  };
+
+  return file[strategy].toResponse();
 }
