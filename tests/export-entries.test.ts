@@ -28,7 +28,9 @@ describe("GET /entry/export-entries ", () => {
       { method: "GET" },
       mocks.ip,
     );
+    const json = await response.json();
     expect(response.status).toBe(400);
+    expect(json).toEqual({ message: "invalid.date.range", _known: true });
   });
 
   test("happy path", async () => {

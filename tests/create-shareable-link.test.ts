@@ -99,7 +99,9 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-    expect(response.status).toBe(500);
+    const json = await response.json();
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: "invalid.date.range", _known: true });
   });
 
   test("validation - ShareableLinksPerOwnerLimit", async () => {
