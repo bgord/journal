@@ -18,5 +18,5 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
 
   const entries = await EntrySnapshot.getByDateRangeForUser(user.id, dateRange);
 
-  return new Emotions.Services.EntryExportFile(entries).toResponse();
+  return new Emotions.Services.EntryExportFileCsv(entries).toResponse();
 }

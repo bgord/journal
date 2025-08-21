@@ -3,7 +3,7 @@ export * from "./alarm-notification-factory";
 export * from "./emotion-alarm-detector";
 export * from "./emotion-alarm-template";
 export * from "./entry-alarm-advice-notification-composer";
-export * from "./entry-export-file";
+export * from "./entry-export-file-csv";
 export * from "./inactivity-alarm-advice-notification-composer";
 export * from "./negative-emotion-extreme-intensity-alarm";
 export * from "./pattern-detector";

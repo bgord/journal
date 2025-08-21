@@ -12,6 +12,6 @@ export async function ExportData(c: hono.Context<infra.HonoConfig>, _next: hono.
 
   return new bg.ZipDraft({
     filename: `export-${Date.now()}.zip`,
-    parts: [new Emotions.Services.EntryExportFile(entries), new Emotions.Services.AlarmExportFile(alarms)],
+    parts: [new Emotions.Services.EntryExportFileCsv(entries), new Emotions.Services.AlarmExportFile(alarms)],
   }).toResponse();
 }
