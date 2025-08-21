@@ -3,12 +3,13 @@ import type hono from "hono";
 import { z } from "zod/v4";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import { EntrySnapshot } from "+infra/adapters/emotions";
+import { EntrySnapshot, PdfGenerator } from "+infra/adapters/emotions";
 
 enum ExportEntriesStrategy {
   text = "text",
   csv = "csv",
   markdown = "markdown",
+  pdf = "pdf",
 }
 
 const StrategySchema = z.enum(ExportEntriesStrategy).default(ExportEntriesStrategy.csv);
@@ -33,6 +34,7 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
     csv: new Emotions.Services.EntryExportFileCsv(entries),
     text: new Emotions.Services.EntryExportFileText(entries),
     markdown: new Emotions.Services.EntryExportFileMarkdown(entries),
+    pdf: new Emotions.Services.EntryExportFilePdf(PdfGenerator, entries),
   };
 
   return file[strategy].toResponse();

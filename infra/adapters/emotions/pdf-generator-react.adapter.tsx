@@ -99,6 +99,13 @@ const templates: Record<Ports.PdfGeneratorTemplateType, TemplateFn> = {
       </Document>
     );
   },
+  entry_export: () => (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <Text style={styles.h1}>Entry export</Text>
+      </Page>
+    </Document>
+  ),
 };
 
 export class PdfGeneratorReact implements Ports.PdfGeneratorPort {

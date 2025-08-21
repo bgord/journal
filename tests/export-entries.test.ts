@@ -89,4 +89,22 @@ describe("GET /entry/export-entries ", () => {
     );
     expect(await response.text()).toEqualIgnoringWhitespace(mocks.entryMarkdown);
   });
+
+  test("happy path - pdf", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Date, "now").mockReturnValue(1000);
+
+    const response = await server.request(
+      `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=pdf`,
+      { method: "GET" },
+      mocks.ip,
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toEqual("application/pdf");
+    expect(response.headers.get("content-disposition")).toEqual(
+      `attachment; filename="entry-export-1000.pdf"`,
+    );
+  });
 });
