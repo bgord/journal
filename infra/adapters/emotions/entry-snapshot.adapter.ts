@@ -39,16 +39,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
         ),
       );
 
-    return entries.map((entry) => ({
-      ...entry,
-      startedAt: tools.Timestamp.parse(entry.startedAt),
-      status: entry.status as VO.EntryStatusEnum,
-      situationKind: entry.situationKind as VO.SituationKindOptions,
-      emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
-      reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
-      language: entry.language as SupportedLanguages,
-      origin: entry.origin as VO.EntryOriginOption,
-    }));
+    return entries.map((entry) => this.format(entry));
   }
 
   async getAllForuser(userId: Auth.VO.UserIdType) {
@@ -57,16 +48,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       where: eq(Schema.entries.userId, userId),
     });
 
-    return entries.map((entry) => ({
-      ...entry,
-      startedAt: tools.Timestamp.parse(entry.startedAt),
-      status: entry.status as VO.EntryStatusEnum,
-      situationKind: entry.situationKind as VO.SituationKindOptions,
-      emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
-      reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
-      language: entry.language as SupportedLanguages,
-      origin: entry.origin as VO.EntryOriginOption,
-    }));
+    return entries.map((entry) => this.format(entry));
   }
 
   async getByDateRangeForUser(userId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
@@ -79,7 +61,11 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       ),
     });
 
-    return entries.map((entry) => ({
+    return entries.map((entry) => this.format(entry));
+  }
+
+  format(entry: Schema.SelectEntries) {
+    return {
       ...entry,
       startedAt: tools.Timestamp.parse(entry.startedAt),
       status: entry.status as VO.EntryStatusEnum,
@@ -88,7 +74,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
       language: entry.language as SupportedLanguages,
       origin: entry.origin as VO.EntryOriginOption,
-    }));
+    };
   }
 }
 
