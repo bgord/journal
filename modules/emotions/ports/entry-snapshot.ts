@@ -8,4 +8,6 @@ export interface EntrySnapshotPort {
   getByWeekForUser(week: tools.Week, userId: Auth.VO.UserIdType): Promise<VO.EntrySnapshot[]>;
 
   getAllForuser(userId: Auth.VO.UserIdType): Promise<VO.EntrySnapshot[]>;
+
+  getByDateRangeForUser(userId: Auth.VO.UserIdType, dateRange: tools.DateRange): Promise<VO.EntrySnapshot[]>;
 }

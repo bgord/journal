@@ -68,6 +68,28 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       origin: entry.origin as VO.EntryOriginOption,
     }));
   }
+
+  async getByDateRangeForUser(userId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
+    const entries = await db.query.entries.findMany({
+      orderBy: desc(Schema.entries.startedAt),
+      where: and(
+        eq(Schema.entries.userId, userId),
+        gte(Schema.entries.startedAt, dateRange.getStart()),
+        lte(Schema.entries.startedAt, dateRange.getEnd()),
+      ),
+    });
+
+    return entries.map((entry) => ({
+      ...entry,
+      startedAt: tools.Timestamp.parse(entry.startedAt),
+      status: entry.status as VO.EntryStatusEnum,
+      situationKind: entry.situationKind as VO.SituationKindOptions,
+      emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
+      reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
+      language: entry.language as SupportedLanguages,
+      origin: entry.origin as VO.EntryOriginOption,
+    }));
+  }
 }
 
 export const EntrySnapshot = new EntrySnapshotDrizzle();
