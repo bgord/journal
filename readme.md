@@ -264,6 +264,7 @@ modules/
 │   │   ├── EXPIRE_SHAREABLE_LINK_COMMAND.ts
 │   │   ├── REVOKE_SHAREABLE_LINK_COMMAND.ts
 │   ├── events
+│   │   ├── SHAREABLE_LINK_ACCESSED_EVENT.ts
 │   │   ├── SHAREABLE_LINK_CREATED_EVENT.ts
 │   │   ├── SHAREABLE_LINK_EXPIRED_EVENT.ts
 │   │   ├── SHAREABLE_LINK_REVOKED_EVENT.ts
@@ -278,10 +279,13 @@ modules/
 │   │   └── shareable-links-expirer.ts
 │   ├── ports
 │   │   ├── expiring-shareable-links.ts
+│   │   ├── shareable-link-access-auditor.ts
 │   │   └── shareable-link-repository.ts
 │   ├── queries
 │   │   └── shareable-links-quota.ts
 │   └── value-objects
+│       ├── access-context.ts
+│       ├── access-validity.ts
 │       ├── publication-specification.ts
 │       ├── shareable-link-id.ts
 │       └── shareable-link-status.ts
@@ -358,6 +362,7 @@ infra/
 │   ├── mailer.adapter.ts
 │   └── publishing
 │       ├── expiring-shareable-links.ts
+│       ├── shareable-link-access-auditor.adapter.ts
 │       ├── shareable-link-access.adapter.ts
 │       ├── shareable-link-repository.adapter.ts
 │       └── shareable-links-quota.adapter.ts
@@ -385,6 +390,7 @@ infra/
 │   ├── entry.projector.ts
 │   ├── history.projector.ts
 │   ├── pattern-detection.projector.ts
+│   ├── shareable-link-hits.projector.ts
 │   ├── shareable-link.projector.ts
 │   └── weekly-review.projector.ts
 ├── rate-limiters.ts
