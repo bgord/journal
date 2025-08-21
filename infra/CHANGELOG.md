@@ -1,6 +1,8 @@
 # Changelog
+- 2025-08-21 18:44 a4aa0682 **refactor: extract correlation id header helper**
+## 2025-08-21 18:44 
+- 2025-08-21 18:40 6007edbd **step: add missing tests**
 - 2025-08-21 18:30 5db12be1 **step: add correct translations**
-## 2025-08-21 18:30 
 - 2025-08-21 18:22 98f3cb0a **step: add link stats**
 - 2025-08-21 18:05 4d3dafc4 **step: add relations**
 - 2025-08-21 18:00 4a5cc116 **step: pass user agent header to shared entries**
@@ -25,6 +27,8 @@
 - 2025-08-21 16:43 bbe2806c **step: add access validity**
 - 2025-08-21 16:43 8a0d7e2d **step: add shareable link access auditor**
 - 2025-08-21 16:39 7dfed24b **step: update packages**
+- 2025-08-21 16:30 f8ffc71c **docs: generate readme**
+- 2025-08-21 16:30 11cf9ff8 **docs: generate CHANGELOG**
 - 2025-08-19 23:44 fc050b42 **step: add shareable link accessed event**
 - 2025-08-19 23:41 57ddddd8 **fix: event naming**
 - 2025-08-19 23:36 4f7e0c74 **step: add shareable link access context**
