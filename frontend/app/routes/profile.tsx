@@ -176,6 +176,19 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                 <div data-color="neutral-300">
                   {link.dateRangeStart} - {link.dateRangeEnd}
                 </div>
+
+                {!(link.totalHits && link.uniqueVisitors) && (
+                  <div data-color="neutral-500">{t("profile.shareable_links.no_hits")}</div>
+                )}
+
+                {link.totalHits > 0 && link.uniqueVisitors > 0 && (
+                  <div data-color="neutral-500">
+                    {t("profile.shareable_links.hits", {
+                      totalHits: link.totalHits,
+                      uniqueVisitors: link.uniqueVisitors,
+                    })}
+                  </div>
+                )}
               </div>
 
               <div data-stack="y" data-gap="3" data-ml="auto">

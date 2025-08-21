@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { and, count, desc, eq, gte, like, not, or, type SQL, sql } from "drizzle-orm";
+import { and, count, desc, eq, getTableColumns, gte, like, not, or, type SQL, sql } from "drizzle-orm";
 import { AddEntryForm } from "../app/services/add-entry-form";
 import { AuthForm } from "../app/services/auth-form";
 import { CreateShareableLinkForm } from "../app/services/create-shareable-link-form";
@@ -175,27 +175,43 @@ export class ReadModel {
   }
 
   static async listShareableLinks(userId: UserIdType) {
-    const links = await db
-      .select()
+    const totalHitsExpr = sql<number>`COUNT(*)`.as("totalHits");
+    const uniqueVisitorsExpr = sql<number>`COUNT(DISTINCT ${Schema.shareableLinkHits.visitorId})`.as(
+      "uniqueVisitors",
+    );
+
+    const hits = db
+      .select({
+        shareableLinkId: Schema.shareableLinkHits.shareableLinkId,
+        totalHits: totalHitsExpr,
+        uniqueVisitors: uniqueVisitorsExpr,
+      })
+      .from(Schema.shareableLinkHits)
+      .where(eq(Schema.shareableLinkHits.ownerId, userId))
+      .groupBy(Schema.shareableLinkHits.shareableLinkId)
+      .as("hitsAgg");
+
+    const rows = await db
+      .select({
+        ...getTableColumns(Schema.shareableLinks),
+        totalHits: sql<number>`COALESCE(${hits.totalHits}, 0)`.as("totalHits"),
+        uniqueVisitors: sql<number>`COALESCE(${hits.uniqueVisitors}, 0)`.as("uniqueVisitors"),
+      })
       .from(Schema.shareableLinks)
+      .leftJoin(hits, eq(hits.shareableLinkId, Schema.shareableLinks.id))
       .where(and(eq(Schema.shareableLinks.ownerId, userId), eq(Schema.shareableLinks.hidden, false)))
       .orderBy(
-        // ① "active" first
-        sql`CASE ${Schema.shareableLinks.status}
-          WHEN 'active' THEN 0
-          ELSE 1
-        END`,
-        // ② newest first
+        sql`CASE ${Schema.shareableLinks.status} WHEN 'active' THEN 0 ELSE 1 END`,
         desc(Schema.shareableLinks.createdAt),
       )
       .limit(5);
 
-    return links.map((link) => ({
-      ...link,
-      dateRangeStart: tools.DateFormatters.datetime(link.dateRangeStart),
-      dateRangeEnd: tools.DateFormatters.datetime(link.dateRangeEnd),
-      expiresAt: tools.DateFormatters.datetime(link.expiresAt),
-      updatedAt: tools.DateFormatters.datetime(link.updatedAt),
+    return rows.map((rows) => ({
+      ...rows,
+      dateRangeStart: tools.DateFormatters.datetime(rows.dateRangeStart),
+      dateRangeEnd: tools.DateFormatters.datetime(rows.dateRangeEnd),
+      expiresAt: tools.DateFormatters.datetime(rows.expiresAt),
+      updatedAt: tools.DateFormatters.datetime(rows.updatedAt),
     }));
   }
 
