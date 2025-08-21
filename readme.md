@@ -199,12 +199,15 @@ modules/
 │   │   ├── weekly-review-export-by-email.ts
 │   │   └── weekly-review-processing.ts
 │   ├── services
-│   │   ├── alarm-export-file.ts
+│   │   ├── alarm-export-file-csv.ts
 │   │   ├── alarm-notification-factory.ts
 │   │   ├── emotion-alarm-detector.ts
 │   │   ├── emotion-alarm-template.ts
 │   │   ├── entry-alarm-advice-notification-composer.ts
-│   │   ├── entry-export-file.ts
+│   │   ├── entry-export-file-csv.ts
+│   │   ├── entry-export-file-markdown.ts
+│   │   ├── entry-export-file-pdf.ts
+│   │   ├── entry-export-file-text.ts
 │   │   ├── inactivity-alarm-advice-notification-composer.ts
 │   │   ├── negative-emotion-extreme-intensity-alarm.ts
 │   │   ├── pattern-detector.ts
