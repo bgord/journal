@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
-import * as App from "+app";
+import { HTTP } from "+app";
 import * as infra from "+infra";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
@@ -41,11 +41,11 @@ server.get(
 const entry = new Hono();
 
 entry.use("*", AuthShield.attach, AuthShield.verify);
-entry.post("/log", App.HTTP.Emotions.LogEntry);
-entry.post("/time-capsule-entry/schedule", App.HTTP.Emotions.ScheduleTimeCapsuleEntry);
-entry.post("/:entryId/reappraise-emotion", App.HTTP.Emotions.ReappraiseEmotion);
-entry.post("/:entryId/evaluate-reaction", App.HTTP.Emotions.EvaluateReaction);
-entry.delete("/:entryId/delete", App.HTTP.Emotions.DeleteEntry);
+entry.post("/log", HTTP.Emotions.LogEntry);
+entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry);
+entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion);
+entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction);
+entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry);
 entry.get(
   "/export-data",
   bg.RateLimitShield({
@@ -53,7 +53,7 @@ entry.get(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.EntriesDataStore,
   }),
-  App.HTTP.Emotions.ExportData,
+  HTTP.Emotions.ExportData,
 );
 entry.get(
   "/export-entries",
@@ -62,13 +62,13 @@ entry.get(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.EntriesEntriesStore,
   }),
-  App.HTTP.Emotions.ExportEntries,
+  HTTP.Emotions.ExportEntries,
 );
 server.route("/entry", entry);
 // =============================
 
 // Shared ======================
-server.get("/shared/entries/:shareableLinkId", App.HTTP.Emotions.GetSharedEntries);
+server.get("/shared/entries/:shareableLinkId", HTTP.Emotions.GetSharedEntries);
 
 // Weekly review ===============
 const weeklyReview = new Hono();
@@ -82,7 +82,7 @@ weeklyReview.post(
     store: RateLimiters.WeeklyReviewExportEmailStore,
   }),
   CaptchaShield.verify,
-  App.HTTP.Emotions.ExportWeeklyReviewByEmail,
+  HTTP.Emotions.ExportWeeklyReviewByEmail,
 );
 weeklyReview.get(
   "/:weeklyReviewId/export/download",
@@ -91,7 +91,7 @@ weeklyReview.get(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.WeeklyReviewExportDownloadStore,
   }),
-  App.HTTP.Emotions.DownloadWeeklyReview,
+  HTTP.Emotions.DownloadWeeklyReview,
 );
 server.route("/weekly-review", weeklyReview);
 // =============================
@@ -107,9 +107,9 @@ publishing.post(
     subject: bg.UserSubjectResolver,
     store: RateLimiters.ShareableLinkCreateStore,
   }),
-  App.HTTP.Publishing.CreateShareableLink,
+  HTTP.Publishing.CreateShareableLink,
 );
-publishing.post("/link/:shareableLinkId/revoke", App.HTTP.Publishing.RevokeShareableLink);
+publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink);
 server.route("/publishing", publishing);
 // =============================
 
@@ -121,6 +121,6 @@ server.get("/translations", ResponseCache.handle, ...bg.Translations.build());
 server.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 // =============================
 
-server.onError(App.HTTP.ErrorHandler.handle);
+server.onError(HTTP.ErrorHandler.handle);
 
 export { server, startup };
