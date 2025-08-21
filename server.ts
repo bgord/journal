@@ -47,13 +47,13 @@ entry.post("/:entryId/reappraise-emotion", App.HTTP.Emotions.ReappraiseEmotion);
 entry.post("/:entryId/evaluate-reaction", App.HTTP.Emotions.EvaluateReaction);
 entry.delete("/:entryId/delete", App.HTTP.Emotions.DeleteEntry);
 entry.get(
-  "/export",
+  "/export-data",
   bg.RateLimitShield({
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.EntriesExportStore,
   }),
-  App.HTTP.Emotions.ExportEntries,
+  App.HTTP.Emotions.ExportData,
 );
 server.route("/entry", entry);
 // =============================

@@ -4,7 +4,7 @@ import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { AlarmDirectory, EntrySnapshot } from "+infra/adapters/emotions";
 
-export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function ExportData(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
 
   const entries = await EntrySnapshot.getAllForuser(user.id);

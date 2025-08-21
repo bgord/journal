@@ -284,7 +284,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
 
         <a
           type="button"
-          href={`${import.meta.env.VITE_API_URL}/entry/export`}
+          href={`${import.meta.env.VITE_API_URL}/entry/export-data`}
           download
           target="_blank"
           rel="noopener noreferer"
