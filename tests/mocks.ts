@@ -78,10 +78,9 @@ export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Tim
 
 export const duration = tools.Time.Seconds(1);
 
-export const accessContext: Publishing.VO.AccessContext = {
-  timestamp: tools.Time.Now().value,
-  visitorId: new bg.VisitorIdHash(ip.server.requestIP().address, "anon"),
-};
+export const visitorId = new bg.VisitorIdHash(ip.server.requestIP().address, "anon");
+
+export const accessContext: Publishing.VO.AccessContext = { timestamp: tools.Time.Now().value, visitorId };
 
 export const hourHasPassedTimestamp = tools.Time.Now().value;
 
