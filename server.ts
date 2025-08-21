@@ -51,7 +51,7 @@ entry.get(
   bg.RateLimitShield({
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
-    store: RateLimiters.EntriesExportStore,
+    store: RateLimiters.EntriesDataStore,
   }),
   App.HTTP.Emotions.ExportData,
 );
