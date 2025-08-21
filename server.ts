@@ -55,6 +55,15 @@ entry.get(
   }),
   App.HTTP.Emotions.ExportData,
 );
+entry.get(
+  "/export-entries",
+  bg.RateLimitShield({
+    enabled: Env.type === bg.NodeEnvironmentEnum.production,
+    subject: bg.UserSubjectResolver,
+    store: RateLimiters.EntriesEntriesStore,
+  }),
+  App.HTTP.Emotions.ExportEntries,
+);
 server.route("/entry", entry);
 // =============================
 
