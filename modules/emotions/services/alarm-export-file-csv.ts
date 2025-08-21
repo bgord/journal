@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { stringify } from "csv";
 import type * as VO from "+emotions/value-objects";
 
-export class AlarmExportFile extends bg.FileDraft {
+export class AlarmExportFileCsv extends bg.FileDraft {
   constructor(private readonly alarms: VO.AlarmSnapshot[]) {
     super({ filename: `alarm-export-${Date.now()}.csv`, mime: tools.MIMES.csv });
   }
