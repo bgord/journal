@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
 import { EventStore } from "+infra/event-store";
 
-export class ShareableLinkAccessAuditorBg implements Publishing.Ports.ShareableLinkAccessAuditorPort {
+class ShareableLinkAccessAuditorBg implements Publishing.Ports.ShareableLinkAccessAuditorPort {
   constructor() {}
 
   async record(input: Publishing.Ports.ShareableLinkAccessAuditorInput) {
