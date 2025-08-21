@@ -304,6 +304,7 @@ app/
 │   │   ├── delete-entry.ts
 │   │   ├── download-weekly-review.ts
 │   │   ├── evaluate-reaction.ts
+│   │   ├── export-data.ts
 │   │   ├── export-entries.ts
 │   │   ├── export-weekly-review-by-email.ts
 │   │   ├── get-shared-entries.ts
