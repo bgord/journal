@@ -538,6 +538,24 @@ export const GenericShareableLinkRevokedEvent = {
   payload: { shareableLinkId },
 } satisfies Publishing.Events.ShareableLinkRevokedEventType;
 
+export const GenericShareableLinkAccessedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `shareable_link_${shareableLinkId}`,
+  name: "SHAREABLE_LINK_ACCESSED_EVENT",
+  version: 1,
+  payload: {
+    shareableLinkId,
+    ownerId: userId,
+    publicationSpecification,
+    validity: Publishing.VO.AccessValidity.accepted,
+    visitorId: "ok",
+    timestamp: accessContext.timestamp,
+    reason: "active",
+  },
+} satisfies Publishing.Events.ShareableLinkAccessedEventType;
+
 export const GenericHourHasPassedEvent = {
   id: expectAnyId,
   correlationId,
