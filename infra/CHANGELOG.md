@@ -1,1952 +1,1984 @@
 # Changelog
-- 2025-08-19 22:35 35bd2c6 **refactor: remove hcaptcha from fe for now**
-## 2025-08-19 22:35 
-- 2025-08-19 22:19 c400826 **step: setup better auth hcaptcha**
-- 2025-08-19 22:15 2a2bdad **step: install react hcaptcha**
-- 2025-08-19 22:09 33b04b3 **fix: key parsing**
-- 2025-08-19 22:00 321f696 **step: add captcha shield to weekly review export email**
-- 2025-08-19 21:56 d8b150f **step: add hcaptcha secret key to env**
-- 2025-08-19 21:55 441b621 **step: add captcha shield**
-- 2025-08-19 21:50 12e2419 **refactor: use new mailer adapter names**
-- 2025-08-19 21:49 f38b2cf **step: update packages**
-- 2025-08-19 20:31 141b8c7 **refactor: use data-transform for font variant numeric**
-- 2025-08-19 20:30 7ea1b60 **fix: history projection port type**
-- 2025-08-19 20:30 751b68e **step: regenerate bun lock**
-- 2025-08-19 20:27 80b5326 **step: update packages**
-- 2025-08-19 20:25 6f07fb2 **step: update packages**
-- 2025-08-19 20:22 349b587 **step: update packages**
-- 2025-08-19 20:08 5e19376 **refactor: remove custom css**
-- 2025-08-19 20:05 1f6ec5d **fix: remove normalize css call**
-- 2025-08-19 20:01 ffe2040 **refactor: remove unused components**
-- 2025-08-19 19:55 2a1b1e4 **refactor: cleanup styles**
-- 2025-08-19 19:35 ba31c56 **step: bump bgord/scripts**
-- 2025-08-19 18:31 da8cd30 **docs: generate CHANGELOG**
-- 2025-08-19 17:35 50d1b25 **docs: generate CHANGELOG**
-- 2025-08-19 13:03 a946458 **step: bump bgord/scripts**
-- 2025-08-19 13:00 c35f169 **step: bump bgord/scripts**
-- 2025-08-19 13:00 0662738 **step: setup depcruise**
-- 2025-08-19 11:03 9ad2f29 **docs: generate readme**
-- 2025-08-19 11:03 92d0181 **docs: generate CHANGELOG**
-- 2025-08-18 23:42 4f42574 **refactor: move hour has passed to modules/system**
-- 2025-08-18 23:23 28941d5 **step: install deps cruiser**
-- 2025-08-18 23:08 8e5a0cc **step: use import type in biome**
-- 2025-08-18 22:54 9a9358a **step: bump bgord/scripts**
-- 2025-08-18 22:40 a9632cc **refactor: clear event store imports**
-- 2025-08-18 22:17 e7027c5 **refactor: clear command bus imports**
-- 2025-08-18 22:04 3d7f237 **refactor: clear event bus port**
-- 2025-08-18 21:37 3527241 **refactor: make all modules infra imports types**
-- 2025-08-18 20:55 e5601dd **docs: generate CHANGELOG**
-- 2025-08-18 20:55 3a1008b **docs: generate readme**
-- 2025-08-18 20:42 99d274d **docs: generate CHANGELOG**
-- 2025-08-18 16:19 616f885 **refactor: extract Env.EMAIL_FROM**
-- 2025-08-18 16:14 1ba5845 **refactor: extract command bus types**
-- 2025-08-18 14:19 e40475c **docs: generate CHANGELOG**
-- 2025-08-18 14:11 18f26d9 **docs: generate CHANGELOG**
-- 2025-08-18 13:41 5f3d804 **refactor: extract command bus type**
-- 2025-08-18 13:11 e09a55f **refactor: cleanup exports**
-- 2025-08-18 13:05 5d85e3f **fix: frontend typechecks**
-- 2025-08-18 12:48 63d3005 **refactor: simplify adapters**
-- 2025-08-18 12:42 69d2ae9 **refactor: introduce weekly review repo**
-- 2025-08-18 12:36 356b78f **refactor: introduce alarm repo**
-- 2025-08-18 12:31 d031300 **refactor: use ai gateway port**
-- 2025-08-18 12:27 3da7f52 **step: add entry repo**
-- 2025-08-18 12:20 cc5472e **refactor: simplify imports**
-- 2025-08-18 12:18 220aeb1 **refactor: make publishing event store free**
-- 2025-08-18 12:09 c8357ba **refactor: create shareable link repo port**
-- 2025-08-18 11:14 e442ffa **docs: generate readme**
-- 2025-08-18 11:14 50b83ca **docs: generate CHANGELOG**
-- 2025-08-18 10:27 c0aa484 **refactor: simplify adapters method return types**
-- 2025-08-18 10:21 d118c19 **refactor: move emotions routes to app http**
-- 2025-08-18 10:17 d76e428 **refactor: move publishing routes to app http**
-- 2025-08-18 10:14 347fec6 **refactor: rename app/routes to app/http**
-- 2025-08-18 10:05 173deef **refactor: rextract supported languages**
-- 2025-08-18 09:44 ad7350b **refactor: make ai infra free**
-- 2025-08-18 09:07 53f5373 **refactor: simplify ai gateway**
-- 2025-08-18 08:31 02ff7d9 **docs: generate CHANGELOG**
-- 2025-08-18 08:22 f0cd2da **docs: generate readme**
-- 2025-08-18 08:22 d7e7ed2 **docs: generate CHANGELOG**
-- 2025-08-18 07:55 df6d76f **docs: generate readme**
-- 2025-08-18 07:55 8ef98de **docs: generate CHANGELOG**
-- 2025-08-17 23:39 bc576bc **refactor: extract sharing entries ohq**
-- 2025-08-17 23:19 803403d **refactor: remove schema refs**
-- 2025-08-17 23:13 7858c30 **step: add alarm directory port**
-- 2025-08-17 23:06 ce185c5 **refactor: remove entry repository list for user**
-- 2025-08-17 23:04 66ea3fe **step: add getAllForuser**
-- 2025-08-17 22:55 ce5c953 **refactor: add weekly review export query port**
-- 2025-08-17 22:48 4b90445 **refactor: rename weekly review export**
-- 2025-08-17 22:45 e1ec423 **refactor: add weekly review snapshot**
-- 2025-08-17 22:40 099f3c7 **refactor: make full alarm snapshot**
-- 2025-08-17 22:37 522dbcf **refactor: make full pattern detection snapshot**
-- 2025-08-17 22:32 a730b6d **refactor: unfiy weekly review export alarm**
-- 2025-08-17 22:24 7e7f8ec **refactor: unfiy weekly review export pattern detections**
-- 2025-08-17 22:20 f350769 **refactor: unfiy weekly review export dto entries**
-- 2025-08-17 22:17 8d12176 **refactor: portify GetLatestEntryTimestampForUser**
-- 2025-08-17 22:09 07db1a3 **refactor: portify entries per week count**
-- 2025-08-17 21:55 0b390a7 **refactor: make publishing query infra free**
-- 2025-08-17 21:35 62236f9 **refactor: rename auth ports to ohq**
-- 2025-08-17 21:32 4aa3cb5 **refactor: remove user repository**
-- 2025-08-17 21:28 82b0f71 **step: define user directory port and adapter**
-- 2025-08-17 21:25 857435c **refactor: preare user contact for extension**
-- 2025-08-17 21:20 e0e3edb **step: add user contact adapter**
-- 2025-08-17 20:57 f1f2faf **step: remove infra references**
-- 2025-08-17 20:36 9a3baff **refactor: remove getbyid from entry repository**
-- 2025-08-17 20:23 5d39e11 **step: add entry snapshot**
-- 2025-08-17 20:06 d450c15 **refactor: add entry snapshot**
-- 2025-08-17 20:00 ccaad4e **step: tighten entries schema**
-- 2025-08-17 19:53 5f41025 **refactor: cleanup entry schema**
-- 2025-08-17 16:46 2313a83 **step: do not use entry repo in projector**
-- 2025-08-17 15:12 9b5c853 **refactor: simplify saga imports**
-- 2025-08-17 15:07 95d2a2d **refactor: remove time capsule entry repo**
-- 2025-08-17 14:46 fe93bca **docs: generate readme**
-- 2025-08-17 14:46 98491e8 **docs: generate CHANGELOG**
-- 2025-08-17 14:25 b4553a9 **refactor: remove get by id in time capsule entry repo**
-- 2025-08-17 14:24 e3f9953 **refactor: rename history projection**
-- 2025-08-17 14:14 4fb19a8 **refactor: add weekly review snapshot adapter**
-- 2025-08-17 14:05 d1a562e **refactor: add ExpiringShareableLinksDrizzle**
-- 2025-08-17 13:30 b4b2765 **refactor: remove unused patterns read model**
-- 2025-08-17 13:27 58eb889 **refactor: cleanup tests**
-- 2025-08-17 12:58 92183c3 **refactor: pass event handler to policies**
-- 2025-08-17 12:47 c33bbf5 **refactor: cleanup adapter exports**
-- 2025-08-17 12:44 8128d96 **step: introduce AlarmCancellationLookupPort**
-- 2025-08-17 12:23 8bfe5f5 **refactor: improve alarm orchestrator**
-- 2025-08-17 12:17 79984d5 **docs: generate readme**
-- 2025-08-17 12:17 5932894 **docs: generate CHANGELOG**
-- 2025-08-17 12:05 621da5b **docs: generate CHANGELOG**
-- 2025-08-17 12:05 069a7cc **docs: generate readme**
-- 2025-08-17 09:16 23ea1b1 **refactor: add alarm projector**
-- 2025-08-17 09:15 f1f5f45 **step: implement completion flow**
-- 2025-08-17 09:05 c385eb5 **refactor: rename send alarm notification command**
-- 2025-08-17 09:03 d953660 **step: add complete alarm command**
-- 2025-08-17 08:59 13cce24 **step: add alarm.complete method**
-- 2025-08-17 08:44 af2e226 **refactor: include advice in alarm notification requested**
-- 2025-08-17 08:40 bbd7e8a **step: rename alarm notification sent event**
-- 2025-08-17 00:15 a0403ac **step: apply event handler handle**
-- 2025-08-16 22:06 8247174 **refactor: unify projectors**
-- 2025-08-16 22:02 49c0c7a **refactor: extract history projector**
-- 2025-08-16 21:53 4f8ae87 **refactor: migrate ai event handlers**
-- 2025-08-16 21:49 f446049 **refactor: create publishing projectors**
-- 2025-08-16 21:44 973b9ab **refactor: introduce projectors**
-- 2025-08-16 20:14 96ffa6f **step: write tests**
-- 2025-08-16 20:02 e7fe4a2 **refactor: simplify entry alarm detector test**
-- 2025-08-16 19:53 c813e06 **refactor: extract emotions history publisher**
-- 2025-08-16 18:33 34e8d77 **docs: generate readme**
-- 2025-08-16 18:33 1f5e38c **docs: generate CHANGELOG**
-- 2025-08-16 18:29 2c6b00d **Merge pull request #31 from bgord/history**
-- 2025-08-16 17:55 d13c4a8 **step: setup entry history dialog**
-- 2025-08-16 17:55 5081088 **step: setup entry history dialog**
-- 2025-08-16 16:55 35552ee **step: set slight delay for history writer event store adapter**
-- 2025-08-16 16:30 bc9e477 **docs: generate readme**
-- 2025-08-16 16:30 55483ff **docs: generate CHANGELOG**
-- 2025-08-16 12:37 94d4998 **fix: history event stream**
-- 2025-08-16 12:32 9b02087 **refactor: clear history**
-- 2025-08-16 12:20 e49b66b **refactor: migrate to history from bgord/bun**
-- 2025-08-16 12:19 0380358 **step: update packages**
-- 2025-08-16 11:54 d5ef829 **step: add history indexes**
-- 2025-08-16 11:47 03fb2af **refactor: migrate mailer adapter**
-- 2025-08-16 11:45 62bc7d6 **refactor: wire up history writer to event handlers**
-- 2025-08-16 10:59 d2e3dba **refactor: clean up ai client names**
-- 2025-08-16 10:56 5b4fb3d **refactor: other ports**
-- 2025-08-16 10:51 059eaaa **refactor: clean up emotions adapter**
-- 2025-08-16 10:26 aa41f6f **refactor: cleanup adapters**
-- 2025-08-16 10:04 98b003c **step: wire up event handlers**
-- 2025-08-16 10:01 c5a3a7f **step: setup infra/adapters**
-- 2025-08-16 09:37 0f8bffd **step: define a port for history writer**
-- 2025-08-16 09:32 ab7840d **refactor: improve history writer**
-- 2025-08-16 09:30 797b633 **refactor: handle payloads better**
-- 2025-08-16 09:23 af984b1 **refactor: rename subject in events**
-- 2025-08-16 09:21 7e3ecbe **refactor: extract history repo adapter to infra**
-- 2025-08-16 09:16 1079ee7 **refactor: rename history writer**
-- 2025-08-16 09:14 6b52c15 **refactor: rename history correlation id to subject**
-- 2025-08-16 09:11 8ffa156 **step: add repo**
-- 2025-08-16 08:58 62df0bd **step: add populator**
-- 2025-08-16 08:57 fc90d6d **step: adjust events**
-- 2025-08-15 22:04 85eac3d **step: add the repo**
-- 2025-08-15 21:55 7fe2389 **step: add VO**
-- 2025-08-15 21:52 9b38e25 **step: add history alias**
-- 2025-08-15 21:52 3e94efb **step: add history events**
-- 2025-08-15 21:41 260d73c **step: add history schema**
-- 2025-08-15 20:11 533adaa **refactor: extract auth notifications**
-- 2025-08-15 19:48 dd4a52c **refactor: use tools for notification template**
-- 2025-08-15 19:48 2c2822d **step: update packages**
-- 2025-08-15 19:07 a35d475 **fix: pills**
-- 2025-08-15 18:43 b3aa5c4 **docs: generate readme**
-- 2025-08-15 18:43 1f508bf **docs: generate CHANGELOG**
-- 2025-08-15 18:31 c9a9613 **fix: intensity max**
-- 2025-08-15 18:06 9db50d2 **feature: add forgot password page**
-- 2025-08-15 17:53 b7e2d38 **step: add forgot password link**
-- 2025-08-15 17:48 ca36c84 **docs: generate CHANGELOG**
-- 2025-08-15 15:39 a9d0b7c **docs: generate CHANGELOG**
-- 2025-08-15 12:37 c937959 **refactor: rerun migrations**
-- 2025-08-15 12:37 66b3e32 **step: add delete cascades**
-- 2025-08-15 12:08 cf6c368 **feature: add delete account profile section**
-- 2025-08-15 10:26 2fcf87c **step: add haveibeenpwned better auth plugin**
-- 2025-08-15 09:38 ed86f2d **refactor: improve register flow copy**
-- 2025-08-15 09:32 cdf7ae7 **step: add auth events**
-- 2025-08-15 08:21 9c57cdd **docs: generate CHANGELOG**
-- 2025-08-15 08:21 16e288d **docs: generate readme**
-- 2025-08-15 00:39 a592919 **step: add a placeholder for account deleted**
-- 2025-08-15 00:33 daa8d65 **step: add a placeholder for account created**
-- 2025-08-15 00:08 c6663a3 **feature: add reset password page**
-- 2025-08-14 23:50 75dbf93 **refactor: rename to change password**
-- 2025-08-14 23:00 4f78dcb **step: use correct email**
-- 2025-08-14 22:52 5571c40 **step: add send reset password**
-- 2025-08-14 22:49 d6e19fe **docs: generate CHANGELOG**
-- 2025-08-14 22:39 0696959 **feature: add reset password form**
-- 2025-08-14 22:13 19e6297 **docs: generate CHANGELOG**
-- 2025-08-14 22:08 a3e199d **step: make the users verified in seeder**
-- 2025-08-14 21:54 5bcb9bd **step: add email verification**
-- 2025-08-14 21:10 ba54c53 **step: update bun**
-- 2025-08-14 21:10 a61a826 **step: add better auth logger**
-- 2025-08-14 20:55 96e2d46 **step: add no auto sign in in email and password**
-- 2025-08-14 20:54 11ad60c **step: wire up logger in auth**
-- 2025-08-14 20:36 6852cdc **step: add rate limit for auth**
-- 2025-08-14 20:35 79efd4a **step: add session duration**
-- 2025-08-14 20:00 716c70c **refactor: improve icons in profile**
-- 2025-08-14 19:49 06686c2 **fix: biome hints**
-- 2025-08-14 19:48 2423454 **step: bump bgord/scripts**
-- 2025-08-14 19:45 6b38227 **fix: biome hints**
-- 2025-08-14 19:44 ca63629 **step: update packages**
-- 2025-08-14 17:52 8d4fa95 **docs: generate CHANGELOG**
-- 2025-08-14 15:20 f2b8bc5 **refactor: add pluralization**
-- 2025-08-14 01:03 8fa5bcb **fix: restore bgord-design type checking**
-- 2025-08-14 00:59 a2e212a **feature: add ai usage profile section**
-- 2025-08-14 00:27 ebc140f **refactor: make ports naming consistent**
-- 2025-08-14 00:24 f9a5c32 **fix: biome hints**
-- 2025-08-14 00:22 cb2b1e5 **step: bump bgord/scripts**
-- 2025-08-14 00:22 464b439 **refactor: format imports**
-- 2025-08-14 00:13 6518791 **Merge pull request #30 from bgord/ai_bc**
-- 2025-08-13 23:33 c50bc81 **step: bump bgord/scripts**
-- 2025-08-13 23:33 2192122 **step: update packages**
-- 2025-08-13 23:17 3f56cbe **step: bump bgord/scripts**
-- 2025-08-13 22:52 1e4079d **step: WIP**
-- 2025-08-13 22:38 24429bd **refactor: regenerate schema**
-- 2025-08-13 22:33 463d8ad **step: update fe packages**
-- 2025-08-13 22:32 1ff67b2 **step: update packages**
-- 2025-08-13 22:25 17a2f78 **docs: generate CHANGELOG**
-- 2025-08-13 22:23 b301dd0 **docs: generate CHANGELOG**
-- 2025-08-13 22:22 ab604f6 **step: pinpoint all packages**
-- 2025-08-13 22:14 576c8b1 **docs: generate readme**
-- 2025-08-13 22:13 d84175e **docs: generate CHANGELOG**
-- 2025-08-13 22:11 f80b9db **step: update better auth in fe**
-- 2025-08-13 22:00 8b8d97e **step: update packages**
-- 2025-08-13 21:52 66ac92f **step: update packages**
-- 2025-08-13 21:52 0555a8b **refactor: fix knip errors**
-- 2025-08-13 21:45 6f1d038 **refactor: remove todo**
-- 2025-08-13 21:42 e28ecc6 **refactor: rename quota specification**
-- 2025-08-13 17:30 83c4fd5 **refactor: use acl in handle generate alarm command**
-- 2025-08-13 17:28 36fc807 **refactor: cleanup ai clients**
-- 2025-08-13 17:15 2c73b39 **refactor: remove abundant inactivity alarms from seed**
-- 2025-08-13 17:12 6d67d0b **fix: do not display cancelled alarms in dashboarD**
-- 2025-08-13 17:10 b568fe0 **fix: bucket counter**
-- 2025-08-13 17:02 40943be **step: add on ai request registered event handler**
-- 2025-08-13 16:46 9f39ccf **step: improve mocks**
-- 2025-08-13 16:40 259bbc8 **step: cleanup emotions bc**
-- 2025-08-13 16:33 3cc22d7 **step: clean up auth bc imports**
-- 2025-08-13 16:32 cb4b919 **refactor: tiyy up ports ai bc**
-- 2025-08-13 16:26 10b76a4 **refactor: make all paths absolute in tests**
-- 2025-08-13 16:10 2b3c45a **refactor: move prompt to acl**
-- 2025-08-13 15:19 8c8b01e **refactor: inject ai gateway into the alarm orchestrator**
-- 2025-08-13 14:20 6292d5f **step: create emotions -> ai ACL**
-- 2025-08-13 13:52 5b79871 **refactor: remove unused queries and invariants**
-- 2025-08-13 13:32 6415209 **refactor: rely on ai gateway check for handle generate alarm**
-- 2025-08-13 12:48 55b0291 **step: add ai gateway check in handle generate alarm command**
-- 2025-08-13 12:25 95fb2f1 **refactor: remove alarm factory**
-- 2025-08-13 00:14 bddb8fd **step: add check to ohs**
-- 2025-08-12 23:35 6ff0c4f **refactor: adjust weekly review processing testsl**
-- 2025-08-12 23:26 3aefb81 **refactor: make mocks more specific**
-- 2025-08-12 23:25 5161458 **fix: export type**
-- 2025-08-12 23:22 302ff12 **refactor: replace ai client with ai gateway with tests**
-- 2025-08-12 23:20 bf91566 **refactor: register ai gateway from infra**
-- 2025-08-12 23:20 2292d93 **step: add infra ai-gateway**
-- 2025-08-12 23:13 72c1be6 **refactor: make weekly review processing use ai gateway**
-- 2025-08-12 23:12 d14a8b1 **step: rename the ai gateway port method**
-- 2025-08-12 23:09 ab128e2 **step: make ai gateway implement the port**
-- 2025-08-12 23:03 a4291ec **step: add ai gateway ports**
-- 2025-08-12 22:50 98844de **step: expose ai gateway error**
-- 2025-08-12 22:50 85ea32b **step: add mock events**
-- 2025-08-12 22:50 5f2408a **step: add ai gateway tests**
-- 2025-08-12 22:39 4419ed2 **step: fix ai request registered event**
-- 2025-08-12 22:13 de9ad1b **feature: implement ai gateway**
-- 2025-08-12 22:11 5d1709b **step: add ai quota exceeded event**
-- 2025-08-12 22:08 bee963d **step: register ai request registered event**
-- 2025-08-12 21:41 6ca2192 **refactor: move ai-client port to ai/ports**
-- 2025-08-12 21:25 8685ef3 **refactor: complete the advice/prompt migration**
-- 2025-08-12 20:54 8b68211 **refactor: export vos from ai bc entrypoint**
-- 2025-08-12 20:53 888af36 **refactor: move prompt and advice to ai**
-- 2025-08-12 20:21 aa8656f **refactor: cleanup event handlers**
-- 2025-08-12 20:15 5596b24 **step: update packages fr**
-- 2025-08-12 20:15 48b7aeb **step: regenerate migrations**
-- 2025-08-12 20:12 d400a17 **step: update packages**
-- 2025-08-12 16:04 f36c45e **refactor: move repo calls to event handlers**
-- 2025-08-12 15:53 11608f3 **step: define ai request registered event**
-- 2025-08-12 14:35 9790edc **step: rename key to bucket in drizzle**
-- 2025-08-12 14:33 07beb98 **refactor: improve types**
-- 2025-08-12 14:27 9751a5c **refactor: add quota usage type**
-- 2025-08-12 14:25 b50e7de **step: add quota bucket type**
-- 2025-08-12 14:24 3fa327c **refactor: attr order**
-- 2025-08-12 14:23 a9e1d95 **refactor: extract quota rule id**
-- 2025-08-12 14:21 41ed5c8 **refactor: simplify tests**
-- 2025-08-12 14:16 ca211bf **refactor: extract buckets**
-- 2025-08-12 14:12 5d83aa0 **refactor: extract request contexts**
-- 2025-08-12 14:09 64629bd **refactor: use day vo from tools**
-- 2025-08-12 14:04 f34f553 **step: udpate frontend packages**
-- 2025-08-12 14:02 fc21a98 **step: update packages**
-- 2025-08-12 14:01 62e9b1e **step: update bgord bun**
-- 2025-08-12 13:44 2e113da **step: add ai quota specification**
-- 2025-08-12 13:20 74fd1b2 **step: add bucket counter drizzle adapter**
-- 2025-08-12 13:19 2720a1a **step: add ai alias**
-- 2025-08-12 13:11 05b79d1 **step: add ai usage counters**
-- 2025-08-12 13:03 759bed3 **step: add bucket counter port**
-- 2025-08-12 12:58 34846a8 **step: add quote rule selector**
-- 2025-08-09 00:57 d3b717d **step: test the rules**
-- 2025-08-09 00:43 88ee547 **refactor: reorganize rules**
-- 2025-08-09 00:43 3fb8739 **step: export quota rules**
-- 2025-08-09 00:37 d32f5e7 **step: define rules**
-- 2025-08-09 00:37 5a11062 **refactor: rename usage cateogry**
-- 2025-08-09 00:11 911eab3 **step: ref make CateoryDimensionMap typesafe**
-- 2025-08-09 00:08 3bfd580 **step: add CategoryDimensionMap**
-- 2025-08-09 00:04 5e8219e **refactor: switch to enum in usage category**
-- 2025-08-08 23:58 8ae4627 **step: improve quota rule**
-- 2025-08-08 23:57 9ff60d0 **step: add quota limit vo**
-- 2025-08-08 23:56 b0a805e **step: add request context dimension**
-- 2025-08-08 23:54 5279b97 **step: make bucket dependant on context**
-- 2025-08-08 23:53 d9d5ab5 **step: make quota appliesTo base on categories**
-- 2025-08-08 23:52 58f5a57 **step: define request context**
-- 2025-08-08 23:50 70d5d34 **step: add usage category**
-- 2025-08-08 23:30 c20a198 **step: setup quota rule vo**
-- 2025-08-08 21:11 680a11e **refactor: use tools.Time.Now().value**
-- 2025-08-08 21:01 cb59a9b **refactor: rename policy**
-- 2025-08-08 20:59 938a808 **step: update packages**
-- 2025-08-08 20:53 f17b952 **step: set min scheduled for**
-- 2025-08-08 19:26 f982721 **step: add time capsule entry to seed**
-- 2025-08-08 19:16 1906e2d **docs: generate CHANGELOG**
-- 2025-08-08 19:04 890dce2 **Merge pull request #26 from bgord/time-capsule**
-- 2025-08-08 19:04 23450d9 **refactor: add location icon**
-- 2025-08-08 19:01 8b2d9b9 **step: take into account tz offset into scheduling**
-- 2025-08-08 18:56 0b938af **fix: tests**
-- 2025-08-08 18:54 6109096 **step: add origin icon**
-- 2025-08-08 18:49 ce71033 **step: handle time capsules in FE**
-- 2025-08-08 18:19 20281db **feature: add entry origin**
-- 2025-08-08 18:11 fa72609 **step: add entry origin to schema**
-- 2025-08-08 18:10 acb017b **step: add entry origin option vo**
-- 2025-08-08 17:58 31b63e9 **step: mark as published**
-- 2025-08-08 17:36 a43b5b3 **step: add TimeCapsuleEntryIsPublishable**
-- 2025-08-08 17:33 a424975 **docs: generate CHANGELOG**
-- 2025-08-08 17:29 6f2a65a **step: list only scheduled in listDueForScheduling**
-- 2025-08-08 17:28 f34efd6 **step: add publish read model**
-- 2025-08-08 17:25 e63bd47 **step: add time capsule entry status**
-- 2025-08-08 17:23 e10d11e **step: add TimeCapsuleEntryStatusEnum**
-- 2025-08-08 17:10 a44f069 **step: add TimeCapsuleEntryScheduledInFuture**
-- 2025-08-08 17:09 9c575aa **step: export EntryScheduledForType**
-- 2025-08-08 17:05 dd0f963 **docs: generate readme**
-- 2025-08-08 17:05 c47ed9b **docs: generate CHANGELOG**
-- 2025-08-08 16:38 93ab8fd **step: update packages**
-- 2025-08-08 15:04 888a6e8 **step: add listDueForScheduling**
-- 2025-08-08 14:53 1b5512c **step: add event handler**
-- 2025-08-08 14:51 676417e **step: setup time capsule entry read model**
-- 2025-08-08 14:40 0a743c7 **step: setup scheduler tests**
-- 2025-08-08 14:32 929c36d **step: test mocks.GenericTimeCapsuleEntryScheduledEvent**
-- 2025-08-08 14:23 2b42c03 **step: implement handleScheduleTimeCapsuleEntryCommand**
-- 2025-08-08 14:12 73a5594 **step: setup time capsule entry scheduled event**
-- 2025-08-08 13:54 cb09601 **step: add proper scheduled for vo**
-- 2025-08-08 13:47 26bed30 **step: add mocks.entryScheduledFor**
-- 2025-08-08 13:42 a7c384e **step: wire up command**
-- 2025-08-08 13:41 e4111c5 **step: add command handler**
-- 2025-08-08 13:39 d0cca9a **step: setup schedule time capsule entry command**
-- 2025-08-08 13:34 496c159 **step: setup tests**
-- 2025-08-08 13:32 bda483b **step: setup schedule time capsule entry route**
-- 2025-08-08 13:29 4557fbf **step: setup time capsule entries scheduler**
-- 2025-08-07 23:23 4105945 **step: update packages**
-- 2025-08-07 23:19 8e4a5d0 **step: handle errors**
-- 2025-08-07 23:13 6d77484 **step: handle empty shared entries**
-- 2025-08-07 23:10 40ebf17 **feature: implement hide shareable links**
-- 2025-08-07 23:09 6d40992 **step: add hide shareable link read model method**
-- 2025-08-07 22:59 727485b **step: add shareablelinks hidden field to query**
-- 2025-08-07 22:59 25e5fe7 **step: rerun projections**
-- 2025-08-07 22:58 3834d3a **step: add shareableLinks hidden field**
-- 2025-08-07 22:34 cb84b47 **step: add shared entries page**
-- 2025-08-07 22:24 69b3dfb **step: add shared entries page**
-- 2025-08-07 22:12 5d5dab2 **step: check specification**
-- 2025-08-07 22:05 a957112 **step: return shared entries**
-- 2025-08-07 22:03 14254a4 **step: expose owner id from ohq**
-- 2025-08-07 21:52 cda65b7 **refactor: remove requester id in validity**
-- 2025-08-07 21:50 178256c **step: setup tests**
-- 2025-08-07 21:41 b5991fe **refactor: make ohq a class**
-- 2025-08-07 21:34 e2f0910 **step: add ohq details**
-- 2025-08-07 21:33 f71aff6 **step: expose summarize() aggregate method so it is readable in ohq**
-- 2025-08-07 21:25 7f63ce2 **refactor: make ohq richer so one aggregate-hop is needed in the final endpoint**
-- 2025-08-07 21:23 6327503 **docs: generate CHANGELOG**
-- 2025-08-07 20:58 d912ebc **docs: generate CHANGELOG**
-- 2025-08-07 20:58 3068718 **docs: generate readme**
-- 2025-08-06 23:44 0e4ba4e **step: add requester id check**
-- 2025-08-06 23:18 352d889 **step: add ohq**
-- 2025-08-06 23:14 84c20b3 **step: add is valid to shareable link**
-- 2025-08-06 22:18 5cfeaa2 **step: add limit for the alarms**
-- 2025-08-06 22:17 6115e3d **fix: seeder**
-- 2025-08-06 22:12 ea147c1 **Merge pull request #25 from bgord/passage_of_time**
-- 2025-08-06 22:09 d1e7539 **step: update packages**
-- 2025-08-06 21:53 934c48d **step: add InactivityAlarmSchedule**
-- 2025-08-06 21:47 4264486 **step: add weekly review schedule**
-- 2025-08-06 21:31 094fa38 **step: bump bgord/scripts**
-- 2025-08-06 21:25 d1964f1 **refactor: make EntryAlarmDetector a policy**
-- 2025-08-06 21:22 3a47086 **refactor: remove saga register**
-- 2025-08-06 20:12 fdf2f1e **docs: generate readme**
-- 2025-08-06 20:12 d785d19 **docs: generate CHANGELOG**
-- 2025-08-06 18:02 2fed9a5 **refactor: weekly review scheduler**
-- 2025-08-06 17:57 7cf9d02 **refactor: remove scheduler**
-- 2025-08-06 17:56 2295cfa **step: define inactivity alarm scheduler policy**
-- 2025-08-06 15:59 7d0f5ad **refactor: remove shareable links expirer service**
-- 2025-08-06 15:58 eacee47 **step: define ShareableLinksExpirer policy**
-- 2025-08-06 15:05 f14e1ec **step: test passsage of time**
-- 2025-08-06 15:01 0f6ce2e **step: define mock hour has passed event**
-- 2025-08-06 14:59 f402aa9 **step: wire up passage of time service**
-- 2025-08-06 14:58 270ada0 **step: add passage of time service**
-- 2025-08-06 14:51 f32f5ed **step: add hour has passed event**
-- 2025-08-06 14:37 5064096 **refactor: rename policies to invariants**
-- 2025-08-06 12:48 321e0b2 **docs: generate CHANGELOG**
-- 2025-08-06 12:48 036894d **docs: generate readme**
-- 2025-08-05 22:58 2829e0e **refactor: use weekly review export dto**
-- 2025-08-05 22:49 4c81a83 **step: adjut weekly-review-export-pdf-file.ts**
-- 2025-08-05 22:49 3217bda **step: adjust react pdf adapter to the dto**
-- 2025-08-05 22:45 0463eb1 **step: define weekly review export dto**
-- 2025-08-05 22:15 e2357c1 **refactor: schedule ExportWeeklyReviewByEmailCommand in onWeeklyReviewCompletedEvent**
-- 2025-08-05 22:14 2c96112 **step: remove redundandt notification composer**
-- 2025-08-03 23:28 f88cf89 **step: add basic template**
-- 2025-08-03 23:16 86e14ee **step: adjust weekly review export by email**
-- 2025-08-03 23:14 5773410 **step: adjust WeeklyReviewExportPdfFile**
-- 2025-08-03 23:13 a0fe73e **step: adjust download weekly review**
-- 2025-08-03 22:58 3057fb5 **step: change weekly review export notification**
-- 2025-08-03 21:28 2f336a3 **docs: generate CHANGELOG**
-- 2025-08-03 21:20 8fc1785 **refactor: remove labels**
-- 2025-08-03 21:18 43cda78 **step: add search**
-- 2025-08-03 19:51 cde9834 **docs: generate CHANGELOG**
-- 2025-08-03 14:21 32b9aba **step: add filter UI.useField**
-- 2025-08-03 14:18 4d55b1e **step: improve filter**
-- 2025-08-03 14:10 6187416 **fix: label ui**
-- 2025-08-03 14:09 e159a06 **refactor: remove unused form**
-- 2025-08-03 14:09 53b36cc **step: add filter ui**
-- 2025-08-03 14:08 f906cb0 **step: remove add entry button margin**
-- 2025-08-03 14:08 09e58dd **step: include filter query param in the read model query**
-- 2025-08-03 14:07 d83d2ca **step: add read model filters**
-- 2025-08-03 14:07 c8cd3bd **step: add entry filter translations**
-- 2025-08-03 13:55 be93077 **step: add export weekly review by email button**
-- 2025-08-03 13:44 1c287c7 **step: write missing event handler tests**
-- 2025-08-03 11:56 a48c721 **docs: generate CHANGELOG**
-- 2025-08-03 00:41 ddcc45f **step: add insights header**
-- 2025-08-03 00:39 ac038a0 **step: add alarm weekly review translations**
-- 2025-08-03 00:32 8b2def6 **feature: display alarms in weekly review**
-- 2025-08-03 00:27 88f09bb **fix: userId reference in weekly reviews**
-- 2025-08-03 00:25 bc3b3bf **step: add alarm weekIsoId field**
-- 2025-08-03 00:23 59148b6 **refactor: rerun migrations**
-- 2025-08-03 00:20 2c05274 **refactor: simplify weekly review read model**
-- 2025-08-03 00:15 476800a **step: update schema relations**
-- 2025-08-03 00:08 d96c02c **refactor: restore migrations**
-- 2025-08-02 23:26 35694c1 **fix: set conditional alias to resolve react-dom server to node**
-- 2025-08-02 23:18 6adeb79 **fix: prod build of vite**
-- 2025-08-02 23:16 bca6ab4 **refactor: remove use client in global shortcuts**
-- 2025-08-02 23:16 5fa9a34 **step: update ui**
-- 2025-08-02 23:15 7ec72c9 **step: bump bgord/scripts**
-- 2025-08-02 22:52 272f76f **Merge pull request #22 from bgord/react-pdf-generator**
-- 2025-08-02 22:51 67ee866 **step: resolve conflicts**
-- 2025-08-02 22:47 854f4c7 **Merge pull request #21 from bgord/publishing**
-- 2025-08-02 22:41 de3c313 **docs: generate CHANGELOG**
-- 2025-08-02 22:34 5ebc77a **step: append alarms to weekly review notification**
-- 2025-08-02 22:28 1b77f6e **refactor: improve list shareable links read model query**
-- 2025-08-02 22:23 ee08b93 **refactor: use revalidate on focus**
-- 2025-08-02 22:22 5301d62 **step: update packages**
-- 2025-08-02 22:16 bc4d764 **step: clean up insights in tests**
-- 2025-08-02 22:10 9887d15 **step: change links limit to 3 active**
-- 2025-08-02 21:18 67bb1ed **docs: generate CHANGELOG**
-- 2025-08-02 20:53 cdf2c6d **docs: generate readme**
-- 2025-08-02 20:53 a686ec5 **docs: generate CHANGELOG**
-- 2025-08-02 20:48 c519dfa **docs: generate CHANGELOG**
-- 2025-08-02 20:48 3dbd921 **docs: generate readme**
-- 2025-08-02 19:16 6543cea **step: add possible prod issue remedy**
-- 2025-08-02 18:57 909ee75 **step: add copy button**
-- 2025-08-02 18:47 1cbd137 **step: update bun**
-- 2025-08-02 18:41 a63c894 **fix: restore previous ts version**
-- 2025-08-02 18:37 81a8dbe **step: update ts**
-- 2025-08-02 18:34 dc387e4 **fix: stacks**
-- 2025-08-02 18:29 d4edf50 **step: setup rate limiter stores**
-- 2025-08-02 18:23 df51f50 **step: update packages**
-- 2025-08-02 18:19 7dc3be2 **step: regenerate types**
-- 2025-08-02 18:19 0effe9f **step: update packages**
-- 2025-08-02 17:18 ced020c **step: update packages**
-- 2025-08-02 17:03 58126f4 **refactor: use data-stack**
-- 2025-08-02 16:54 d014551 **step: update design**
-- 2025-08-02 16:35 7a8c26f **step: add  translations**
-- 2025-08-02 16:27 f523b0a **step: introduce form object**
-- 2025-08-02 16:13 84e2173 **fix: include tz offset**
-- 2025-08-02 15:56 9581b52 **feature: add request to create a link**
-- 2025-08-02 14:38 afcb916 **step: add missing translations**
-- 2025-08-02 14:36 ee39052 **refactor: sort translations**
-- 2025-08-02 14:35 fb30c31 **step: setup create shareable link dialog**
-- 2025-08-02 14:27 8c92f45 **step: add global shortcut**
-- 2025-08-02 14:23 df1216f **refactor: improve export all data profile section**
-- 2025-08-02 14:13 6e51216 **step: add translations**
-- 2025-08-02 13:29 f75e90d **step: display shareable links**
-- 2025-08-02 13:08 e1eaf35 **step: create a shareable link in seeder**
-- 2025-08-02 13:02 58d1709 **step: delete shareable links in seed**
-- 2025-08-02 12:54 f304a74 **step: add event handlers**
-- 2025-08-02 12:48 a774484 **step: add list near expiration repo method**
-- 2025-08-02 12:38 e4346c2 **step: add shareable links schema**
-- 2025-08-02 12:08 c3ed2b5 **step: setup expirer tests**
-- 2025-08-02 12:04 63e06da **step: wire up the expirer**
-- 2025-08-02 12:03 1b67051 **feature: add ShareableLinksExpirer**
-- 2025-08-02 12:01 a8ce786 **step: add shareable link repo**
-- 2025-08-02 10:36 c852f8f **fix: do not download empty reviews**
-- 2025-08-02 00:25 86e4cf8 **step: add bg to emotion type**
-- 2025-08-02 00:13 2049453 **refactor: cleanup customcss**
-- 2025-08-01 23:53 004655e **refactor: improve query**
-- 2025-08-01 23:50 c073434 **step: test limits**
-- 2025-08-01 23:40 2df5cab **step: setup CountShareableLinksPerOwner**
-- 2025-08-01 23:17 9749336 **refactor: simplify tests**
-- 2025-08-01 22:58 347b2b8 **step: check that the requester owns the link when revoking**
-- 2025-08-01 22:50 1bf2481 **step: test revoke shareable link route**
-- 2025-08-01 22:29 2460315 **step: add revoke shareable link route**
-- 2025-08-01 22:10 9e95dac **refactor: add created at to aggregate**
-- 2025-08-01 22:08 f4c1916 **step: setup aggregate tests**
-- 2025-08-01 21:25 625aafc **step: test the route**
-- 2025-08-01 21:03 d5fd06d **step: setup tests**
-- 2025-08-01 21:02 014d5a1 **step: handle revisions**
-- 2025-08-01 20:56 640d07f **fix: publishing routing**
-- 2025-08-01 20:56 133aa6a **feature: create shareable link route**
-- 2025-08-01 20:39 3f58f98 **refactor: incldue id in create command**
-- 2025-08-01 20:15 992bdbe **step: add command handlers**
-- 2025-08-01 20:02 4c0b1e9 **step: add commands**
-- 2025-08-01 19:41 9436ab9 **feature: add policies**
-- 2025-08-01 19:27 43d37d3 **feature: add shareable link aggregate**
-- 2025-08-01 19:03 61cf60f **step: define eventS**
-- 2025-08-01 19:02 ea9cc37 **step: setup ts alias**
-- 2025-08-01 18:55 00cbdd5 **step: add publishing vos**
-- 2025-08-01 15:05 af39662 **docs: generate CHANGELOG**
-- 2025-08-01 13:53 9110d29 **step: add prefetches**
-- 2025-08-01 13:36 6825783 **fix: types**
-- 2025-08-01 13:16 e4d95e2 **step: setup react pdf generator**
-- 2025-08-01 13:16 2eaee5d **step: use react pdf adapter in local env**
-- 2025-08-01 13:14 626b4e8 **step: install react pdf renderer**
-- 2025-08-01 11:13 76b5ca8 **docs: generate CHANGELOG**
-- 2025-07-31 23:40 7c5bf37 **step: improve paddings**
-- 2025-07-31 23:39 0e55e14 **step: bump bgord/scripts**
-- 2025-07-31 23:37 cfa1e81 **step: update design**
-- 2025-07-31 22:33 0449162 **step: update design**
-- 2025-07-31 22:00 aa52dba **step: update packages**
-- 2025-07-31 21:37 6b889e6 **fix: make selects required**
-- 2025-07-31 17:20 d8966c5 **step: order by desc alarm generated at in read model**
-- 2025-07-31 17:11 064fadb **step: bump bgord/scripts**
-- 2025-07-31 16:47 51e1e84 **step: update packages**
-- 2025-07-31 16:46 6dcd1f9 **step: retry after a minute**
-- 2025-07-31 16:29 c9eb693 **step: update packages**
-- 2025-07-31 15:16 720646c **docs: generate CHANGELOG**
-- 2025-07-31 14:48 656a656 **docs: generate CHANGELOG**
-- 2025-07-31 14:48 02eafd6 **docs: generate readme**
-- 2025-07-31 12:46 048b645 **refactor: use assert policy error helper**
-- 2025-07-31 12:03 86fb6a9 **step: add frontend button**
-- 2025-07-31 11:53 d233d0a **step: setup DownloadWeeklyReview route**
-- 2025-07-31 11:09 78e3ee8 **step: test retry**
-- 2025-07-31 11:03 0ba30cf **step: set correct stream in mocks**
-- 2025-07-31 09:59 8bdc86c **step: add retry mechanism**
-- 2025-07-30 23:36 e91e0d5 **step: test failure event**
-- 2025-07-30 23:27 dd48e82 **step: define GenericWeeklyReviewExportByEmailFailedEvent**
-- 2025-07-30 23:26 fc4d877 **step: emit failed event**
-- 2025-07-30 23:12 f6f572f **step: add attempt to requested event**
-- 2025-07-30 22:56 f1ba176 **step: add weeklyReviewExportId to event requested event**
-- 2025-07-30 22:52 2c2402e **step: define WeeklyReviewExportId VO**
-- 2025-07-30 22:51 d9dbc23 **step: add weeklyReviewExportId to stream name**
-- 2025-07-30 22:48 0d5ab0e **fix: weekly review query id**
-- 2025-07-30 22:19 1d59ea4 **step: add weekly review export by email failed event**
-- 2025-07-30 17:32 51ef44c **step: update packages**
-- 2025-07-30 17:25 92159ee **step: test weekly review export pdf file**
-- 2025-07-30 17:21 fd8a11c **step: test pdf attachment**
-- 2025-07-30 17:18 fc277bc **step: add PDF mock**
-- 2025-07-30 17:15 2e1a7ca **step: add WeeklyReviewExportPdfFile**
-- 2025-07-30 17:15 18d7ba4 **step: use WeeklyReviewExportPdfFile in saga**
-- 2025-07-30 15:58 194bdec **step: assert notification composer in tests**
-- 2025-07-30 15:47 9ace0fe **fix: tests**
-- 2025-07-30 15:44 f2ad6f9 **step: add WeeklyReviewExportNotificationComposer**
-- 2025-07-30 15:27 18ff877 **step: fetch weekly review**
-- 2025-07-30 15:16 3d9eea0 **step: send export email**
-- 2025-07-30 14:54 32c60ec **step: test no email case**
-- 2025-07-30 14:30 5ea4bdd **step: setup weekly-review-export-by-emai sagal**
-- 2025-07-30 13:54 b3ecdac **step: emit Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT**
-- 2025-07-30 13:42 23374a4 **step: add WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT-n**
-- 2025-07-30 13:26 750bb9e **step: add infra pdf generator noop adapter**
-- 2025-07-30 13:10 e1011e8 **step: setup pdf generator port**
-- 2025-07-30 13:00 c91ee38 **step: test RequesterOwnsWeeklyReview**
-- 2025-07-30 12:59 f2b095e **step: add RequesterOwnsWeeklyReview**
-- 2025-07-30 12:57 45caea6 **step: test WeeklyReviewIsCompleted**
-- 2025-07-30 12:54 a1a33d2 **step: add weekly review is completed**
-- 2025-07-30 12:51 ca8f6b6 **step: test WeeklyReviewExists**
-- 2025-07-30 12:47 643c7c1 **step: setup weekly review exists**
-- 2025-07-30 12:45 4732884 **step: setup happy path test**
-- 2025-07-30 12:44 f5097e5 **step: setup weekly review get by id**
-- 2025-07-30 11:18 2006d51 **step: setup export by email command handler**
-- 2025-07-30 11:16 a2348e9 **refactor: rename the route**
-- 2025-07-30 11:12 8558def **step: setup command**
-- 2025-07-30 11:09 860f926 **step: setup send weekly review by email command**
-- 2025-07-30 11:05 5201e48 **step: setup test**
-- 2025-07-30 11:03 d8ca91e **step: setup send weekly review by email**
-- 2025-07-30 09:30 ffa3139 **refactor: move zipped data download to profile**
-- 2025-07-30 09:25 09b1137 **step: setup export data profile section**
-- 2025-07-30 09:22 68e7697 **step: extract separator**
-- 2025-07-30 09:06 b0e450b **step: add profile link**
-- 2025-07-30 09:04 b853847 **step: update packages**
-- 2025-07-30 08:59 7a6e3e9 **step: setup profile rr route**
-- 2025-07-29 23:20 94d90b8 **step: update packages**
-- 2025-07-29 23:20 2c5c603 **refactor: udpate drizzle**
-- 2025-07-29 23:18 7e75de5 **refactor: use runtime adapters in saga tests**
-- 2025-07-29 23:13 9d99483 **refactor: rely on mailer port in sagas**
-- 2025-07-29 23:09 f24e0b9 **step: add runtime mailer adapter choosing**
-- 2025-07-29 23:07 b2e8f9d **refactor: rename AiClientAdapter**
-- 2025-07-29 23:06 ad4ae91 **step: define mailer adapter**
-- 2025-07-29 23:04 6a4755c **step: remove unused FF_AI_CLIENT_REAL_RESPONSE**
-- 2025-07-29 23:03 662fb53 **refactor: rename smtp mailer adapter**
-- 2025-07-29 23:02 1ab3370 **refactor: rename rate limit shield**
-- 2025-07-29 23:02 06a74b5 **step: update packages**
-- 2025-07-29 21:22 80f2e59 **docs: generate CHANGELOG**
-- 2025-07-29 21:22 7e43846 **docs: generate readme**
-- 2025-07-29 20:15 7a211e2 **refactor: extract ai client to infra**
-- 2025-07-29 20:13 e588e8a **refactor: remove ff**
-- 2025-07-29 20:12 2fd3b89 **step: wireup noop adapter**
-- 2025-07-29 20:11 fd96cff **step: add noop adapter**
-- 2025-07-29 19:18 bb856b8 **refactor: switch to ai client port/adapters**
-- 2025-07-29 19:11 4cb7dd7 **refactor: remove old ai client**
-- 2025-07-29 19:11 448b0e8 **step: define ai client port**
-- 2025-07-29 17:29 97c4f40 **docs: generate readme**
-- 2025-07-29 17:29 2c5b137 **docs: generate CHANGELOG**
-- 2025-07-29 14:58 e8ca969 **step: unify ai advices in ui**
-- 2025-07-29 13:53 3263c6d **refactor: extract dialog component**
-- 2025-07-29 13:46 6c3ecdc **refactor: remove view transition**
-- 2025-07-29 13:42 0a01be1 **refactor: restore add entry API connection**
-- 2025-07-29 13:30 9420bd2 **refactor: migrate add entry to home**
-- 2025-07-28 23:16 f46b0a0 **refactor: remove labels**
-- 2025-07-28 23:13 5cf4945 **step: add buttons**
-- 2025-07-28 23:03 3bf7d9c **refactor: migrate reaction**
-- 2025-07-28 22:50 903ddc8 **step: add emotion to dialog**
-- 2025-07-28 22:35 fb1838c **step: update design**
-- 2025-07-28 17:18 0b22e3c **refactor: migrate situation into the dialog**
-- 2025-07-28 17:10 f568776 **step: change copy**
-- 2025-07-28 16:48 75e4e3c **refactor: use dialog from design**
-- 2025-07-28 14:48 14c3fc1 **step: change new entry shortcut**
-- 2025-07-28 14:46 1f2c1d4 **step: setup add entry dialog**
-- 2025-07-28 14:39 3d1cf33 **step: add new entry button**
-- 2025-07-28 12:19 59df570 **step: make alarm icons smaller**
-- 2025-07-28 12:12 9538862 **refactor: unify dashboard colors secondary**
-- 2025-07-28 12:09 bcd5091 **step: reduce entry card padding**
-- 2025-07-28 12:07 62026e6 **step: improve colors**
-- 2025-07-28 12:02 dca46ec **step: improve entry location**
-- 2025-07-28 11:59 36aa7b5 **step: improve alarm emotion label badge**
-- 2025-07-28 11:58 e010b22 **fix: alarm icon color**
-- 2025-07-28 11:57 72c9bb8 **fix: entry emotion alignment**
-- 2025-07-28 11:55 be1329d **fix: colorful calls**
-- 2025-07-28 11:51 e89806b **step: improve seed**
-- 2025-07-28 11:42 d42b338 **refactor: extract credentials**
-- 2025-07-27 19:43 332a24c **step: add heamap interaction**
-- 2025-07-27 19:38 2a895a6 **step: add pasword manager hints**
-- 2025-07-27 19:33 1824b6c **refactor: improve secondary action on auth pages**
-- 2025-07-27 19:17 bca62b0 **step: improve dashboard spacing**
-- 2025-07-27 19:10 defcc2b **fix: dashboard headers**
-- 2025-07-27 19:03 e5a77af **step: implement better heatmap**
-- 2025-07-27 18:07 42d5aa0 **refactor: make grid smaller**
-- 2025-07-27 17:45 8151bd7 **refactor: update design syntax**
-- 2025-07-27 17:42 3cea58e **step: update design**
-- 2025-07-27 17:32 de6b990 **refactor: refine weekly reviews in dashboard**
-- 2025-07-27 17:23 2433f3a **refactor: refine enetires dashbaord section**
-- 2025-07-27 16:57 36825fc **refactor: refine dashboard**
-- 2025-07-27 16:33 7ca46b8 **fix: dashboard shortcut**
-- 2025-07-27 16:29 e7a133a **step: add inter font**
-- 2025-07-27 16:29 a564940 **step: improve font weights**
-- 2025-07-27 16:19 7f7ac4c **refactor: improve add entry form**
-- 2025-07-27 15:56 7c1545b **refactor: unify icons**
-- 2025-07-27 15:48 8758e97 **step: add headers in login and register**
-- 2025-07-27 15:42 06cf64c **refactor: extract logo**
-- 2025-07-27 15:39 33505bb **fix: badges**
-- 2025-07-27 15:38 229417b **refactor: update nav in auth**
-- 2025-07-27 15:24 f903d95 **fix: breakpoint**
-- 2025-07-27 15:17 8173107 **step: update design**
-- 2025-07-27 13:18 5bf4c74 **refactor: improve register page**
-- 2025-07-27 13:06 a7d79e5 **refactor: improve login page**
-- 2025-07-27 00:44 fac0a09 **step: clean up home design**
-- 2025-07-27 00:35 40a1893 **refactor: adjust add entry link**
-- 2025-07-27 00:11 9d50d7f **fix: lang selector**
-- 2025-07-27 00:08 c5e831e **refactor: adjust home**
-- 2025-07-26 23:48 bdb5882 **fix: home types**
-- 2025-07-26 23:46 c8f2074 **step: adjust logo**
-- 2025-07-26 23:46 0209aab **fix: types**
-- 2025-07-26 23:42 d2ee8bf **step: remove surface variables**
-- 2025-07-26 23:32 3158069 **step: install bgord/design**
-- 2025-07-26 13:19 7e7b692 **step: add types**
-- 2025-07-26 12:43 b151ff8 **step: update bgord/design**
-- 2025-07-26 11:23 909afa3 **step: install @bgord/design v2**
-- 2025-07-25 17:20 b722104 **step: multilang weekly reviews**
-- 2025-07-25 17:08 d0aa25c **refactor: make weekly review insights prompt language aware**
-- 2025-07-25 17:00 6fd70c2 **step: add weekly review translations**
-- 2025-07-25 16:45 a6705ea **step: bump bgord/scripts**
-- 2025-07-25 16:45 3edc70c **step: add missing list keys**
-- 2025-07-25 16:37 0419ff7 **step: add patterns**
-- 2025-07-25 16:24 ce76ab1 **step: add entry count**
-- 2025-07-25 16:16 ca7174d **step: add entries weekIsoId**
-- 2025-07-25 16:12 39c8c87 **step: add basic weekly review line**
-- 2025-07-25 15:58 1f73b0d **step: add weekly reviews dashboard section**
-- 2025-07-25 15:46 2763029 **step: implement weekly review event handlers**
-- 2025-07-25 15:40 48822bd **step: add weekly review repo**
-- 2025-07-25 15:39 5dc4bbb **step: add weekly review status to schema**
-- 2025-07-25 15:33 ee126a5 **docs: generate readme**
-- 2025-07-25 15:33 c2268b8 **docs: generate CHANGELOG**
-- 2025-07-25 15:28 2b00812 **step: register weekly review events**
-- 2025-07-25 15:14 88065b9 **step: rename malapdaptive reactions pattern detected event**
-- 2025-07-25 15:09 aa2f36b **fix: patterns repo query**
-- 2025-07-25 14:56 16f5762 **step: add weekly review scheduler to local-db-seed**
-- 2025-07-25 14:41 5d35ec8 **step: hide mailer in weekly review processing under a ff**
-- 2025-07-25 14:38 1ebdc23 **step: add weekly reviews schema**
-- 2025-07-25 14:17 af24fd8 **step: update bun and node**
-- 2025-07-24 20:09 611a8a6 **Merge pull request #20 from bgord/exports**
-- 2025-07-24 20:07 1afcd18 **refactor: resolve conflicts**
-- 2025-07-24 19:53 f750b23 **step: update packages**
-- 2025-07-24 19:51 44337c7 **step: add export rate limiter**
-- 2025-07-24 19:50 3388874 **step: improve icon**
-- 2025-07-24 19:46 42cd1dd **step: test export entries**
-- 2025-07-24 19:38 6c245b5 **refactor: use zip draft from bun**
-- 2025-07-24 19:37 b87d3a9 **step: update deps**
-- 2025-07-24 19:36 1ad9bff **step: install bun**
-- 2025-07-24 19:11 8922d20 **MVP**
-- 2025-07-24 18:14 ac7e505 **step: add download link**
-- 2025-07-24 18:11 7feb8f2 **step: add bun idle timeout**
-- 2025-07-24 18:09 b0f71b8 **docs: generate readme**
-- 2025-07-24 18:09 8dd110f **docs: generate CHANGELOG**
-- 2025-07-24 18:09 45b5d3a **fix: export method**
-- 2025-07-24 18:04 c0188d9 **step: create zip draft**
-- 2025-07-24 18:01 9075903 **refactor: rename listEntriesForUser**
-- 2025-07-24 17:58 16e021a **step: add zip draft**
-- 2025-07-24 17:55 c8f0a60 **docs: generate CHANGELOG**
-- 2025-07-24 17:55 2d334f9 **docs: generate readme**
-- 2025-07-24 17:49 9e15410 **step: update packages**
-- 2025-07-24 17:47 f11a892 **step: intall yazl**
-- 2025-07-24 17:35 117b65c **step: add alarm export file**
-- 2025-07-24 17:34 f368c81 **step: rename csv to entryCsv in mocks**
-- 2025-07-24 17:15 065785a **step: update bun**
-- 2025-07-24 17:11 11bebed **refactor: extract file draft to bgord/bun**
-- 2025-07-24 17:09 3ce6587 **step: update bun**
-- 2025-07-24 17:00 522722a **step: add file draft toResponse**
-- 2025-07-24 16:39 de7e5ca **refactor: rename generate to create**
-- 2025-07-24 16:37 b79c265 **step: add getHeaders to file draft**
-- 2025-07-24 16:29 20720bb **step: add file draft**
-- 2025-07-24 16:10 ecc1630 **step: add export entries route**
-- 2025-07-24 15:47 42c1897 **step: add basic csv**
-- 2025-07-24 15:15 99fa4fe **step: setup EntryExportFile**
-- 2025-07-24 15:15 41e6f32 **step: install csv**
-- 2025-07-24 13:38 7100723 **refactor: use jobs.day_time schedule**
-- 2025-07-24 13:38 2b6e859 **refactor: use jobs.day_time schedule**
-- 2025-07-24 13:37 aaf133a **refactor: remove NewUUID calls**
-- 2025-07-24 13:37 0772301 **refactor: remove NewUUID calls**
-- 2025-07-24 13:36 acb8667 **step: update bgord bun**
-- 2025-07-24 13:36 1bcb0fa **step: update bgord bun**
-- 2025-07-24 13:24 4025bbe **step: remove direct tools dep**
-- 2025-07-24 13:24 2dc1974 **step: remove direct tools dep**
-- 2025-07-24 13:18 c51603d **step: test onPatternDetectedEvent**
-- 2025-07-24 13:18 3d4cc0d **step: test onPatternDetectedEvent**
-- 2025-07-24 13:01 9aa2705 **refactor: use crypto.randomUUID directly**
-- 2025-07-24 13:01 69e2cca **refactor: use crypto.randomUUID directly**
-- 2025-07-24 12:55 6a70e4a **refactor: move jest.restoreAllMocks to test setup**
-- 2025-07-24 12:55 3563204 **refactor: move jest.restoreAllMocks to test setup**
-- 2025-07-24 12:49 784a525 **step: cleanup tests**
-- 2025-07-24 12:49 518f1c9 **step: cleanup tests**
-- 2025-07-24 12:38 9362852 **step: pass patterns to WeeklyReviewNotificationComposer**
-- 2025-07-24 12:38 8fc6744 **step: pass patterns to WeeklyReviewNotificationComposer**
-- 2025-07-24 12:34 ea859e5 **step: add pattern detection mock**
-- 2025-07-24 12:34 9136d5a **step: read patterns in onWeeklyReviewCompletedEvent**
-- 2025-07-24 12:34 5b6c554 **step: read patterns in onWeeklyReviewCompletedEvent**
-- 2025-07-24 12:34 08f093e **step: add pattern detection mock**
-- 2025-07-24 12:16 a86c459 **step: implement pattern repo findInWeekForUser**
-- 2025-07-24 12:16 8f8ffc4 **step: implement pattern repo findInWeekForUser**
-- 2025-07-24 12:15 d5d2b0d **fix: find in week for user entry call in weekly review processing**
-- 2025-07-24 12:15 5e33f86 **fix: find in week for user entry call in weekly review processing**
-- 2025-07-24 12:12 f314c44 **fix: count alarms for entry query filename**
-- 2025-07-24 12:12 cf1f452 **fix: count alarms for entry query filename**
-- 2025-07-24 12:07 d212555 **refactor: create one pattern detected event handler**
-- 2025-07-24 12:07 32955bc **refactor: create one pattern detected event handler**
-- 2025-07-24 12:03 3df5dad **step: add patterns repo create call to event handlers**
-- 2025-07-24 12:03 253a37a **step: add patterns repo create call to event handlers**
-- 2025-07-24 12:01 eebb14c **step: setup patterns repo**
-- 2025-07-24 12:01 760ff9c **step: setup patterns repo**
-- 2025-07-24 11:43 c7a2421 **step: add basic pattern detections rm**
-- 2025-07-24 11:43 7750370 **step: add basic pattern detections rm**
-- 2025-07-24 11:43 6c92274 **step: add basic pattern detections rm**
-- 2025-07-24 09:34 dbed40c **step: add pattern name option**
-- 2025-07-24 09:34 3663586 **step: add pattern name option**
-- 2025-07-24 00:26 64f7e1c **refactor: extract handle detect weekly patterns command**
-- 2025-07-24 00:26 1f29315 **refactor: extract handle detect weekly patterns command**
-- 2025-07-24 00:01 c574105 **step: detect patterns in weekly review**
-- 2025-07-24 00:01 69a7490 **step: detect patterns in weekly review**
-- 2025-07-23 16:59 20bf3b5 **refactor: replace z.string with tools.WeekIsoId**
-- 2025-07-23 16:59 1d7396a **refactor: replace z.string with tools.WeekIsoId**
-- 2025-07-23 16:57 3f5bd5b **step: update packages**
-- 2025-07-23 16:57 09c2ee8 **step: update packages**
-- 2025-07-23 00:09 f0aa260 **step: add related entries to patterns**
-- 2025-07-23 00:09 4b037be **step: add related entries to patterns**
-- 2025-07-22 22:06 fc236f9 **refactor: make patterns work on entries**
-- 2025-07-22 21:52 c638ca2 **refactor: remove entry summarize**
-- 2025-07-22 21:40 ae7c85c **step: make patterns use user id in stream**
-- 2025-07-22 21:33 82cb540 **refactor: use tools.Week in weekly review in pattern**
-- 2025-07-22 20:11 8a28c33 **docs: generate CHANGELOG**
-- 2025-07-22 20:11 17dc141 **docs: generate CHANGELOG**
-- 2025-07-22 19:52 f594a67 **docs: generate CHANGELOG**
-- 2025-07-22 19:52 ea6dd4f **docs: generate readme**
-- 2025-07-22 16:13 8ec9f3c **step: switch to local tools**
-- 2025-07-22 16:11 7e4d3b2 **refactor: remove week start**
-- 2025-07-22 16:10 0d875f2 **step: switch to local tools**
-- 2025-07-22 14:17 6f00128 **refactor: make patterns week started at aware**
-- 2025-07-22 14:12 96b23f5 **step: make patterns user aware**
-- 2025-07-21 23:35 49e8675 **step: add response cache for translations**
-- 2025-07-21 23:31 c30e28b **step: daily alarm limit for inactivity alarm**
-- 2025-07-21 22:59 05f20d1 **refactor: remove entry create**
-- 2025-07-21 22:53 c7ff58d **refactor: remove weekly review create**
-- 2025-07-21 22:47 0a326ad **refactor: remove alarm create**
-- 2025-07-21 22:14 3399c06 **refactor: make policies sync**
-- 2025-07-21 22:12 cd0e676 **step: handle empty dashboard states**
-- 2025-07-21 22:05 84cbbf1 **step: update packages**
-- 2025-07-21 21:36 e40e8ee **docs: generate CHANGELOG**
-- 2025-07-21 21:36 b627c97 **docs: generate readme**
-- 2025-07-21 15:34 2763f33 **fix: tests**
-- 2025-07-21 15:23 4c74a9f **step: add zod resolution**
-- 2025-07-21 15:22 3a26272 **step: update anthropic**
-- 2025-07-21 15:21 4d832ac **step: update packages**
-- 2025-07-21 00:55 8fc2791 **Merge pull request #17 from bgord/read_poc**
-- 2025-07-21 00:53 1667c6d **fix: type errors**
-- 2025-07-21 00:46 fbc8f6e **step: handle empty alarms state**
-- 2025-07-21 00:41 c781187 **step: improve colors**
-- 2025-07-21 00:38 b1d4067 **refactor: extract dashboard cell**
-- 2025-07-21 00:36 a602e3f **refactor: rename read model**
-- 2025-07-21 00:23 d7c4b22 **refactor: return form from repo**
-- 2025-07-21 00:19 11dc0f6 **step: move alarms**
-- 2025-07-21 00:16 649327c **step: move top five effective**
-- 2025-07-21 00:13 81f90cb **step: move getTopEmotions**
-- 2025-07-21 00:11 fda6321 **refactor: move get counts**
-- 2025-07-21 00:07 2fe1ded **refactor: move heatmap to repo**
-- 2025-07-21 00:02 03442e3 **refactor: remove list entries route**
-- 2025-07-21 00:01 bfda6ce **refactor: derive fe types**
-- 2025-07-21 00:01 03fa201 **step: use entry repo in home routE**
-- 2025-07-21 00:00 82937c6 **step: bump bgord/scripts**
-- 2025-07-21 00:00 0cc5c6c **step: add fe/db**
-- 2025-07-20 23:31 aa48707 **step: add drizzle to fe**
-- 2025-07-20 23:00 4bcf37a **feature: add heatmap**
-- 2025-07-20 22:55 77cffc1 **docs: generate readme**
-- 2025-07-20 22:55 3cb8d5f **docs: generate CHANGELOG**
-- 2025-07-20 22:26 58b4023 **refactor: extract dashboard section**
-- 2025-07-20 22:20 ff0b625 **step: add top reactions dashboard section**
-- 2025-07-20 21:49 718d9fb **step: add top emotions dashboard section**
-- 2025-07-20 21:31 72c6bde **docs: generate readme**
-- 2025-07-20 21:31 10cdf02 **docs: generate CHANGELOG**
-- 2025-07-20 21:18 78121d8 **step: add get top emotions repo method**
-- 2025-07-20 20:37 4933554 **step: add entry counts to dashboard**
-- 2025-07-20 20:23 c981321 **refactor: make alarms a dashboard section**
-- 2025-07-20 20:14 cd04fd2 **step: rename list-alarms to dashboard**
-- 2025-07-20 20:01 8c55f81 **step: add entry alarms to dashboard**
-- 2025-07-20 16:51 51b5b56 **refactor: rename dashboard**
-- 2025-07-20 16:40 aa916c3 **step: display inactivity alarm advice**
-- 2025-07-20 16:27 c9a7b7b **step: simplify alarms dashboard**
-- 2025-07-20 16:03 a153908 **step: remove todo**
-- 2025-07-20 15:12 a22c7aa **step: display alarms**
-- 2025-07-20 14:38 e0c313e **step: auto focus login and register emails**
-- 2025-07-20 14:19 980a1f0 **step: seed alarms**
-- 2025-07-20 13:31 20fe591 **step: improve alarms link**
-- 2025-07-20 13:15 8d8e2c0 **docs: generate CHANGELOG**
-- 2025-07-20 11:27 bfa4d0d **docs: generate CHANGELOG**
-- 2025-07-20 10:06 b73bd57 **step: bump bgord/scripts**
-- 2025-07-20 10:06 7702392 **step: bump bgord/scripts**
-- 2025-07-20 10:02 fe41c3b **step: update react-router**
-- 2025-07-20 10:01 724e02f **step: update packages**
-- 2025-07-20 09:57 0dfa7df **step: update packages**
-- 2025-07-20 09:55 c72c33d **fix: tests**
-- 2025-07-20 08:07 8773c00 **docs: generate CHANGELOG**
-- 2025-07-20 08:05 b85f80c **docs: generate readme**
-- 2025-07-20 08:05 a613fed **docs: generate CHANGELOG**
-- 2025-07-19 21:07 608b617 **fix: no entries in the last week**
-- 2025-07-19 20:37 399e4b0 **step: setup list alarms route**
-- 2025-07-19 20:33 3b16f4d **step: setup alarms route**
-- 2025-07-19 20:26 4f624c0 **step: handle all alarms in the repository**
-- 2025-07-19 19:29 4a897cc **step: improve weekly review processing**
-- 2025-07-19 18:15 590d7b6 **refactor: make ai clients use prompt -> advoice vos**
-- 2025-07-19 18:06 82a13c9 **refactor: move emotion alarm template to services**
-- 2025-07-19 18:01 f3ceb4c **refactor: move alarm detection to vo**
-- 2025-07-19 17:29 b2c9cd6 **docs: generate readme**
-- 2025-07-19 17:29 12eeb7d **docs: generate CHANGELOG**
-- 2025-07-19 14:03 4428f57 **refactor: move templates to VO**
-- 2025-07-19 13:55 dc8ae00 **refactor: use env.EMAIL_FROM**
-- 2025-07-19 13:44 ad93b0f **step: use alarm prompt factory**
-- 2025-07-19 13:39 58acc3c **step: add alarm prompt factory**
-- 2025-07-19 13:32 9ddfce6 **step: add finding entry fails testcase in alarm orchestrator**
-- 2025-07-19 13:22 a5e0e0f **step: add inactivity alarm advice prompt builder**
-- 2025-07-19 13:21 7afab4b **step: adjust tests**
-- 2025-07-19 13:00 5c4e629 **step: add inactivity alarm advice notification composer to alarm notification factory**
-- 2025-07-19 12:42 3cf0738 **refactor: extract mocks.advice**
-- 2025-07-19 12:31 bd2324f **refactor: extract alarm notification factory**
-- 2025-07-19 12:17 2f41af0 **refactor: do not duplicate alarm cancel command**
-- 2025-07-19 12:16 a6047ce **step: setup notification template**
-- 2025-07-19 12:05 9396e05 **step: add notification template**
-- 2025-07-19 11:59 2ff87a0 **step: add inactivity alarm advice notification composer**
-- 2025-07-19 11:51 d933337 **docs: generate CHANGELOG**
-- 2025-07-19 11:51 c966193 **docs: generate readme**
-- 2025-07-19 11:48 fbe7762 **refactor: rename entry alarm advice notification composer**
-- 2025-07-19 11:32 c3e29ae **refactor: rename emotional advice to advice**
-- 2025-07-19 11:20 82dd577 **step: adjust tests**
-- 2025-07-19 11:19 cff6847 **step: rename prompt builders**
-- 2025-07-19 11:16 a37383f **step: make ai clients accept prompt**
-- 2025-07-19 10:42 ff481c5 **step: add prompt template**
-- 2025-07-19 00:39 d78b5f6 **refactor: simplify alarm factory**
-- 2025-07-19 00:09 45bd764 **step: simplify alarm commands and events**
-- 2025-07-18 23:57 babf6e2 **step: store alarm.detection as an object**
-- 2025-07-18 23:57 50f8225 **step: add alarmName to alarm advice saved and notification sent event**
-- 2025-07-18 23:50 a053f83 **refactor: extract entryDetection to mocks**
-- 2025-07-18 23:49 ed9073c **step: use detection in alarm agg**
-- 2025-07-18 23:45 f3f4fff **refactor: use detection in genereate alarm command**
-- 2025-07-18 23:41 62830bb **refactor: make names more significant**
-- 2025-07-18 23:35 5ef02c6 **refactor: use alarm detection**
-- 2025-07-18 23:24 21df21c **step: move alarm trigger to vos**
-- 2025-07-18 23:13 2870171 **step: test inactivity alarm scheduler**
-- 2025-07-18 23:11 1f24ffa **feature: implement inactivity alarm scheduler**
-- 2025-07-18 23:00 693dad3 **step: add inactivity_alarm name**
-- 2025-07-18 23:00 556295a **refactor: rename last entry timestamp in alarm trigger payload**
-- 2025-07-18 22:24 e1a5138 **step: add NoEntriesInTheLastWeek**
-- 2025-07-18 18:13 9e50ee6 **step: setup inactivity alarm scheduler tests**
-- 2025-07-18 18:10 dc05038 **step: add GetLatestEntryTimestampForUser**
-- 2025-07-18 18:03 9dcad44 **refactor: extract CountEntriesPerWeekForUser query**
-- 2025-07-18 17:58 be4119d **refactor: extract CountAlarmsForEntry**
-- 2025-07-18 17:52 a8471dc **refactor: extract CountTodaysAlarmsForUser**
-- 2025-07-18 16:08 9bef5e2 **step: mark domain queries**
-- 2025-07-18 16:01 ba6c02a **refactor: use the same detect method for all events in entry alarm detector**
-- 2025-07-18 15:59 6c4aad4 **refactor: extract alarm detection from alarm processing**
-- 2025-07-18 15:39 109efd1 **refactor: rename alarm orchestrator**
-- 2025-07-18 14:48 4fe63af **step: setup inactivity alarm scheduler job**
-- 2025-07-18 14:25 98375ed **refactor: use mocks.trigger in tests**
-- 2025-07-18 14:23 b65c72b **refactor: make alarms schema more extendable**
-- 2025-07-18 13:37 33d0d07 **step: replace entry with trigger on all commands**
-- 2025-07-18 13:31 1ff51fb **fix: tests**
-- 2025-07-18 13:28 5e9dbe4 **step: replace entryId with trigger in alarm events**
-- 2025-07-18 13:23 9290304 **step: handle trigger in alarm factory**
-- 2025-07-18 13:06 f860dbf **step: attach alarm trigger to alarm detection result**
-- 2025-07-18 12:43 5f4d628 **step: define alarm trigger**
-- 2025-07-18 12:24 623a50f **step: rename alarm service to alarm template**
-- 2025-07-18 12:11 beb6bb9 **step: make composers include message subject**
-- 2025-07-18 12:07 f01cb71 **step: test weekly review skipped failed cases**
-- 2025-07-18 11:56 8fc3d6e **fix: tests**
-- 2025-07-18 11:53 c723449 **step: handle entries for week exist per user id**
-- 2025-07-18 11:47 fb056b8 **step: adjust weekly review to include userId**
-- 2025-07-18 11:40 d2b957e **step: add userId to weekly review events**
-- 2025-07-18 11:38 efd9bbd **step: add user repo list**
-- 2025-07-18 11:34 efa0f80 **step: add userId to weekly review commands**
-- 2025-07-17 22:07 327fc6b **step: bump bgord/scripts**
-- 2025-07-17 22:03 77c8985 **step: bump bgord/scripts**
-- 2025-07-17 22:02 ebb713e **step: bump bgord/scripts**
-- 2025-07-17 21:56 2e1d5f0 **step: bump bgord/scripts**
-- 2025-07-17 21:50 4191acc **refactor: tighten daily alarms count per user**
-- 2025-07-17 21:45 3fd6cd0 **step: adjust alarm repository read model to include userId**
-- 2025-07-17 21:43 e5725ba **step: connect alarms to users**
-- 2025-07-17 21:32 f62b516 **refactor: rename FF_MAILER_DISABLED**
-- 2025-07-17 21:28 5e66ce9 **step: handle onAlarmNotificationSentEvent - mailer failed**
-- 2025-07-17 21:21 857f063 **step: test onAlarmNotificationSentEvent - missing contact**
-- 2025-07-17 21:17 ee764ed **step: send an alarm to a correct recipient**
-- 2025-07-17 21:12 ebc5cb2 **step: add user repo**
-- 2025-07-17 20:52 29f07c9 **step: add userId to all alarm events**
-- 2025-07-17 20:49 ea55357 **step: add userId to alarm generated event**
-- 2025-07-17 20:43 7f3237e **step: add userId to generate alarm command**
-- 2025-07-17 20:07 f801c5b **docs: generate CHANGELOG**
-- 2025-07-17 19:46 4a919b5 **fix: typecheck errors**
-- 2025-07-17 19:42 bf6d9ea **step: update packages**
-- 2025-07-17 19:41 0a4ec71 **fix: entry repo list query**
-- 2025-07-17 19:34 6e17776 **fix: generate uuids in better auth**
-- 2025-07-17 19:34 06dd754 **fix: seeding**
-- 2025-07-17 19:33 ebed844 **docs: generate readme**
-- 2025-07-17 19:33 7fe777b **docs: generate CHANGELOG**
-- 2025-07-17 19:24 f3e80b6 **fix: missing userId in repo and mocks**
-- 2025-07-17 19:24 682ca1b **step: change list for user entry repo method**
-- 2025-07-17 19:21 244e625 **step: add userId to journal**
-- 2025-07-17 19:02 90d98f5 **fix: tests**
-- 2025-07-17 18:41 21838c0 **step: add more auth mocks**
-- 2025-07-17 18:38 180ab3a **step: adjust tests**
-- 2025-07-17 18:30 4335624 **step: apply requester owns entry policy**
-- 2025-07-17 18:26 2621970 **step: add requester owns entry policy**
-- 2025-07-17 18:20 bde08f2 **step: add requesterId to all Entry methods**
-- 2025-07-17 18:17 5b2715b **step: add userId Entry field**
-- 2025-07-17 18:16 04009cd **step: pass userId to all entry events**
-- 2025-07-17 18:15 00a974f **step: define a userId for all entry events**
-- 2025-07-17 18:12 7ae21c3 **step: add userId to entry commands**
-- 2025-07-17 18:02 37dab29 **step: define user-id vo**
-- 2025-07-17 17:47 486f93d **docs: generate readme**
-- 2025-07-17 17:47 320f2c0 **docs: generate CHANGELOG**
-- 2025-07-17 16:51 d560079 **Merge pull request #16 from bgord/better-auth**
-- 2025-07-17 16:47 e10bb33 **step: add translations**
-- 2025-07-17 16:11 e0de2bf **step: add auth shield error error handler**
-- 2025-07-17 16:11 77f8df3 **step: handle auth in tests**
-- 2025-07-17 15:49 9eb9412 **step: add user and session mocks**
-- 2025-07-17 15:27 a72168c **refactor: use auth guard from bgord-ui**
-- 2025-07-17 15:27 226aef1 **refactor: use auth guard from bgord-ui**
-- 2025-07-17 15:25 f513a2a **step: move removeSession to auth guard**
-- 2025-07-17 15:23 bc19746 **refactor: use cookies.extract from**
-- 2025-07-17 15:19 2153e68 **refactor: extract auth guard**
-- 2025-07-17 15:16 bd443b2 **refactor: rename auth client to client**
-- 2025-07-17 15:03 32b153d **step: switch to local bgord ui**
-- 2025-07-17 15:01 3d4a629 **step: simplify auth layout**
-- 2025-07-17 14:58 12a2d01 **step: add missing cookies to the BFF calls**
-- 2025-07-17 14:51 f1a6270 **fix: links in auth fe**
-- 2025-07-17 14:51 b4520cd **docs: generate CHANGELOG**
-- 2025-07-17 14:51 ab501db **docs: generate readme**
-- 2025-07-17 14:51 91947db **step: improve auth layout**
-- 2025-07-17 14:41 901a759 **step: enable auth for entries**
-- 2025-07-17 14:41 8aa0a6b **step: update packages**
-- 2025-07-17 14:38 ecc4ba3 **refactor: use bg.auth shield**
-- 2025-07-17 14:32 0162757 **refactor: extract auth shield to an independent class**
-- 2025-07-17 14:29 dea2a50 **refactor: rename read to attach**
-- 2025-07-17 14:29 d8dcfd2 **refactor: group entry routes**
-- 2025-07-16 20:45 0c0d742 **step: improve auth layout**
-- 2025-07-16 20:37 aa55cfe **fix: home**
-- 2025-07-16 20:35 1c9826f **feature: add auth-layout**
-- 2025-07-16 20:31 7ca7279 **refactor: improve routes**
-- 2025-07-16 20:06 d99048e **step: require no session at login and register**
-- 2025-07-16 20:05 950e838 **step: require session at home**
-- 2025-07-16 20:04 2d3e6ca **step: add test url to trusted origins**
-- 2025-07-16 20:03 bfe393d **step: add auth guard**
-- 2025-07-16 20:02 aa0abe0 **step: use only needed icons**
-- 2025-07-16 19:44 2bafbf2 **step: add logout route**
-- 2025-07-16 19:40 2712936 **step: setup logout page**
-- 2025-07-16 19:39 0dd470e **step: add default login credentials prefilled**
-- 2025-07-16 19:01 e1aa74b **step: add logout button**
-- 2025-07-16 18:52 d8c7530 **step: pass cookie to homepage loader**
-- 2025-07-16 18:52 9868e89 **step: navigate to homepage from login if already logged in**
-- 2025-07-16 18:51 b242a36 **step: attach auth shield to entry list**
-- 2025-07-16 18:34 407c49f **step: add auth shield**
-- 2025-07-16 17:18 5100fca **step: wire up auth password lengths**
-- 2025-07-16 17:16 f4aa01b **refactor: change auth form name**
-- 2025-07-16 16:49 b9cca28 **step: write up register form into register route fields**
-- 2025-07-16 16:47 a624d83 **refactor: remove app/services/index**
-- 2025-07-16 16:47 9ffed2e **step: add auth alias**
-- 2025-07-16 16:47 738fd32 **step: add register form service**
-- 2025-07-16 16:44 3a76b1e **step: setup auth module**
-- 2025-07-16 16:37 222aef9 **step: add register info boxes**
-- 2025-07-16 16:17 4487caf **step: style register form**
-- 2025-07-16 16:02 ce046cc **step: add two users to seeder**
-- 2025-07-16 16:01 db95bd5 **step: improve seeder**
-- 2025-07-16 15:57 06249bf **fix: auth cors**
-- 2025-07-16 15:54 eafb9b5 **step: switch to local bun**
-- 2025-07-16 15:39 a1b6721 **step: simplify register form**
-- 2025-07-16 15:17 e9bbdc0 **step: add register route implementation**
-- 2025-07-16 15:12 6669911 **step: add open api to better auth**
-- 2025-07-16 15:11 86dc3bc **fix: api/auth routes path**
-- 2025-07-16 14:37 d89647f **step: setup register route**
-- 2025-07-16 14:04 beb7906 **step: setup login page**
-- 2025-07-16 13:55 0e68214 **step: add frontend/auth exports**
-- 2025-07-16 13:51 308a068 **step: add FE to trusted origings to auth**
-- 2025-07-16 13:48 e29d93b **step: clear auth tables in seed**
-- 2025-07-16 13:47 c143e26 **refactor: use plurals for drizzle table names**
-- 2025-07-16 13:44 da9b809 **step: add auth shield verify**
-- 2025-07-16 13:38 e348492 **step: add auth sheild apply**
-- 2025-07-16 13:38 2b00a9f **step: add auth variables**
-- 2025-07-16 13:10 4775c86 **step: disable auto sign in**
-- 2025-07-16 13:10 2394225 **step: setup better/auth for fe**
-- 2025-07-16 13:07 8b975e9 **step: add better-auth**
-- 2025-07-16 13:05 d073bf1 **step: wire up auth handlers**
-- 2025-07-16 12:56 daa1fa6 **step: defien email and password handler**
-- 2025-07-16 12:56 083e6bc **step: define email and password handler**
-- 2025-07-16 12:55 367ce93 **step: define auth schema**
-- 2025-07-16 12:48 723ab6a **step: setup auth file**
-- 2025-07-16 12:45 ec80dfc **step: add BETTER_AUTH_URL**
-- 2025-07-16 12:44 36b4001 **step: add BETTER_AUTH_SECRET env**
-- 2025-07-16 12:41 79da56a **step: install better-auth**
-- 2025-07-15 18:01 33d9322 **step: update packages**
-- 2025-07-15 17:57 a40b847 **step: udpate packages**
-- 2025-07-15 17:56 ba63208 **step: update ui**
-- 2025-07-15 17:28 dd6ecaa **step: change it to test**
-- 2025-07-15 17:24 f9a97c3 **step: translate the pl prompt**
-- 2025-07-15 17:21 810f51f **feature: make emotional advice prompt multilang**
-- 2025-07-15 16:59 daae537 **step: add language to entries schema**
-- 2025-07-15 16:57 b99afca **fix: tests**
-- 2025-07-15 16:29 10bf699 **feature: save entry language**
-- 2025-07-15 15:58 8e6e922 **docs: generate readme**
-- 2025-07-15 15:58 03bd3e7 **docs: generate CHANGELOG**
-- 2025-07-15 15:50 06afc7d **step: display emotion label for an alarm**
-- 2025-07-15 15:46 207205b **step: save emotion label and intensity for alarms**
-- 2025-07-15 15:32 1207953 **step: add alarm component**
-- 2025-07-15 15:28 804ef66 **fix: types**
-- 2025-07-15 15:26 774ca7a **step: add emotion label and intensity db schema**
-- 2025-07-15 15:25 417ab6b **fix: migration types**
-- 2025-07-15 15:05 111b6c7 **feature: implement entry alarm limit policy**
-- 2025-07-15 14:59 9d83285 **step: add entry alarm limit policy**
-- 2025-07-15 14:59 391df8a **step: reformat policies**
-- 2025-07-15 14:52 59ffd38 **step: bump daily alarm limit to 10**
-- 2025-07-15 14:50 6cb9003 **feature: display alarms for entries**
-- 2025-07-15 14:30 621f62e **refactor: rewrite entry repo list to include alarms**
-- 2025-07-15 14:26 a9530e4 **step: add relations to schema**
-- 2025-07-15 14:09 5451188 **refactor: switch to drizzle orm**
-- 2025-07-15 13:50 a2bb799 **step: add FF_MAILER_ENABLED ff**
-- 2025-07-15 13:37 66e91ff **step: add mock responses from ai clients**
-- 2025-07-15 13:35 b043305 **step: add AI_CLIENT_REAL_RESPONSE ff**
-- 2025-07-14 22:18 303e3ae **step: bump bgord/scripts**
-- 2025-07-14 22:17 ae29fcc **step: bump bgord/scripts**
-- 2025-07-14 22:15 4b96d9f **fix: types**
-- 2025-07-14 22:12 413b72b **step: add getByIdRaw**
-- 2025-07-14 22:08 6da8f01 **refactor: change id to entryId in routes**
-- 2025-07-14 22:06 6f529ed **step: handle emotion label update**
-- 2025-07-14 21:49 d90b580 **step: handle entry emotion intensity change**
-- 2025-07-14 21:49 011cce1 **fix: update entry reaction only when changed**
-- 2025-07-14 21:23 42cd99b **step: add meta enter submit**
-- 2025-07-14 21:17 d10c88f **step: add autofocus to add entry**
-- 2025-07-14 21:17 36fc1f4 **step: add global shortcuts**
-- 2025-07-14 20:50 bae56be **refactor: extract cancel button**
-- 2025-07-14 20:46 f1cf990 **refactor: extract entry emotion**
-- 2025-07-14 20:30 bed9aca **fix: loader types**
-- 2025-07-14 20:25 455572e **feature: implement evaluate reaction for reaction type**
-- 2025-07-14 20:19 d50875f **docs: generate CHANGELOG**
-- 2025-07-14 20:07 032d078 **feature: implement evaluate reaction for reaction effectiveness**
-- 2025-07-14 19:52 afa3bc9 **feature: implement evaluate reaction for reaction description**
-- 2025-07-14 19:35 9c43af9 **step: add entry delete intent**
-- 2025-07-14 19:30 f8a5071 **refactor: extract reaction**
-- 2025-07-14 14:48 958a9c0 **refactor: rename entry component**
-- 2025-07-14 14:44 68a40c9 **refactor: resign from single entry view**
-- 2025-07-14 14:28 d75a585 **step: add list entry tests**
-- 2025-07-14 14:26 cd1074e **step: add entry list tests**
-- 2025-07-14 14:20 efad4ab **step: add list-entry route**
-- 2025-07-14 14:17 b0fac7a **step: improve entry repository**
-- 2025-07-14 00:19 c580dab **step: setup single entry route**
-- 2025-07-14 00:11 0b151a7 **refactor: rename home entry**
-- 2025-07-14 00:03 0a00b5b **step: improve entry started at formatting**
-- 2025-07-14 00:00 6fc4a6a **refactor: switch to local bgord-ui**
-- 2025-07-13 23:44 28571e7 **feature: change color palette**
-- 2025-07-13 22:56 dc96c10 **step: add missing translations**
-- 2025-07-13 22:45 2720049 **step: add language icon**
-- 2025-07-13 22:29 02493fe **docs: generate CHANGELOG**
-- 2025-07-13 22:14 e7026db **refactor: use ui language selector**
-- 2025-07-13 22:12 a5d0ac5 **Revert "step: install js-cookie"**
-- 2025-07-13 22:10 7e82995 **docs: generate CHANGELOG**
-- 2025-07-13 22:10 7920aa9 **step: add language selector**
-- 2025-07-13 22:07 f1da190 **step: pass cookie to app/root**
-- 2025-07-13 22:07 318e822 **step: add credentials include**
-- 2025-07-13 22:07 2b5c353 **step: install js-cookie**
-- 2025-07-13 21:45 36658b1 **docs: generate CHANGELOG**
-- 2025-07-13 20:39 f5e6103 **step: improve emotion label selection**
-- 2025-07-13 20:33 b11e5ca **docs: generate CHANGELOG**
-- 2025-07-13 17:33 0a64930 **step: setup revision mismatch error handler**
-- 2025-07-13 17:17 5d7a134 **refactor: remove empty file**
-- 2025-07-13 17:15 f054f22 **step: update bgord-bun**
-- 2025-07-13 17:12 58ca278 **fix: data-exit**
-- 2025-07-13 17:11 42da12b **step: update bgord ui**
-- 2025-07-13 17:08 91776d8 **step: update bgord desi**
-- 2025-07-13 17:07 06e23c4 **refactor: clean up animations**
-- 2025-07-13 16:54 3009269 **refactor: remove hover for delete entry**
-- 2025-07-13 16:49 a01e276 **refactor: simplify event-store inserter**
-- 2025-07-13 16:40 42b8b3e **refactor: rename incoming events**
-- 2025-07-13 16:35 40b8a0c **fix: order events by revision**
-- 2025-07-13 16:29 7328b76 **fix: handleRequestWeeklyReviewCommand**
-- 2025-07-13 16:27 10894c3 **feature: resurface processed events in the inserter**
-- 2025-07-13 16:22 11cf693 **fix: revision in delete entry action**
-- 2025-07-13 15:53 a36a0c0 **fix: save revision in read model**
-- 2025-07-13 15:50 df2b112 **step: add revision to API requests**
-- 2025-07-13 15:44 364b429 **step: switch to local bgord ui**
-- 2025-07-13 15:39 9023c87 **fix: tests**
-- 2025-07-13 15:33 a3b9995 **docs: generate CHANGELOG**
-- 2025-07-13 15:29 90e5b81 **step: validate revisions in 3 command handlers**
-- 2025-07-13 15:29 37e9757 **step: update cspell**
-- 2025-07-13 15:25 36e727a **fix: revision in route tests**
-- 2025-07-13 15:17 d6ea76f **docs: generate readme**
-- 2025-07-13 15:17 42dbdce **docs: generate CHANGELOG**
-- 2025-07-13 15:09 c28d47f **step: extract revisions in routes**
-- 2025-07-13 15:02 4a19abc **fix: tests**
-- 2025-07-13 13:57 a297eec **refactor: move EventStoreSaveUniqueStream to bgord-bun**
-- 2025-07-13 13:53 add0e94 **feature: add revisions to inserter**
-- 2025-07-13 13:51 28c5a94 **fix: entry repo list**
-- 2025-07-13 13:37 c973a79 **refactor: merge log* commands into one**
-- 2025-07-13 13:11 a23c3fb **feature: add stream_revision_uidx**
-- 2025-07-13 12:14 e691ce1 **fix: revision in tests**
-- 2025-07-13 12:09 024a85b **step: use inital revision in all event mocks**
-- 2025-07-13 11:58 18f0355 **step: add missing revisions to events**
-- 2025-07-13 11:57 ff5dfd8 **step: add event revision to mocks**
-- 2025-07-13 11:57 689990b **step: add event.revision schema**
-- 2025-07-13 11:46 b778f5b **step: add revision to all aggregates**
-- 2025-07-13 11:44 4c959eb **step: add revision for entry**
-- 2025-07-13 11:43 6b4dc39 **step: define revision for events**
-- 2025-07-13 11:22 b5feb08 **step: switch to local bgord bun**
-- 2025-07-13 11:22 8454d0f **fix: entry revision**
-- 2025-07-12 19:39 1494ca4 **step: add revision to entry schema**
-- 2025-07-12 19:35 fe78644 **step: update packages**
-- 2025-07-12 19:28 d89aaa5 **step: update packages**
-- 2025-07-12 19:22 7d7a92c **step: setup entry-revision**
-- 2025-07-12 18:29 2d0a906 **refactor: fix entry translations**
-- 2025-07-12 18:25 4c5062c **step: update bgord ui**
-- 2025-07-12 18:23 1399e61 **step: update bgord-design**
-- 2025-07-12 18:13 2019ed9 **fix: bg**
-- 2025-07-12 18:11 3e8bf1b **refactor: use data-shadow**
-- 2025-07-12 17:56 3d01aca **feature: add ai client env**
-- 2025-07-12 17:47 9dca44e **step: update packages**
-- 2025-07-12 17:45 cc2501d **step: update packages**
-- 2025-07-12 16:12 e6776d3 **docs: generate CHANGELOG**
-- 2025-07-12 16:12 66e82d3 **docs: generate readme**
-- 2025-07-12 15:09 407447a **fix: entryId in schema**
-- 2025-07-12 14:41 e993b12 **refactor: use bg Translations.build to serve translations**
-- 2025-07-12 14:28 2d394aa **refactor: rename all files**
-- 2025-07-12 14:07 56f5de8 **refactor: rename repo**
-- 2025-07-12 14:06 500fcf4 **refactor: rename entries schema**
-- 2025-07-12 13:48 a757e87 **refactor: rename entryId in events**
-- 2025-07-12 13:46 a2dcedc **refactor: rename entry id vo**
-- 2025-07-12 13:44 15b07d3 **refactor: rename entry event**
-- 2025-07-12 13:42 4c35b61 **fix: rename onEntryDeletedEvent**
-- 2025-07-12 13:41 043ab76 **refactor: rename entry deleted event**
-- 2025-07-12 13:38 ef09c91 **fix: test types**
-- 2025-07-12 13:36 1a8c9b8 **refactor: rename entry aggregate**
-- 2025-07-12 13:01 b5d4b4e **fix: types**
-- 2025-07-11 18:32 cd8573c **refactor: render add journal navigation once**
-- 2025-07-11 18:24 4f0bcf4 **refactor: flatten log entry payload**
-- 2025-07-11 18:18 aebdd8d **refactor: use UI.Colorful**
-- 2025-07-11 18:06 1def8e8 **refactor: simplify components**
-- 2025-07-11 16:42 3a3e878 **step: add all translations**
-- 2025-07-11 16:38 35755a5 **refactor: plug-in the translations provider**
-- 2025-07-11 16:25 0dfe115 **refactor: return language from get translations**
-- 2025-07-11 16:20 882f08a **step: install local bgord-ui**
-- 2025-07-11 15:53 5756584 **step: add Layout.loader for translations**
-- 2025-07-11 15:45 f13df1d **feature: add get translations route**
-- 2025-07-11 15:32 f320e09 **step: setup translations**
-- 2025-07-11 09:47 0219b0e **step: adjust e2e tests**
-- 2025-07-11 09:46 bf0e3f4 **step: improve labels**
-- 2025-07-11 09:42 f236633 **feature: extract navigation progress**
-- 2025-07-11 00:00 60353b1 **fix: e2e tests**
-- 2025-07-10 23:49 a166fad **refactor: move test-server-start to bgord-scripts**
-- 2025-07-10 23:48 f35b1a4 **step: bump bgord/scripts**
-- 2025-07-10 23:47 2376992 **refactor: vite svg handling**
-- 2025-07-10 23:38 6e5f423 **step: improve add entry navigation**
-- 2025-07-10 23:27 1ebd7ba **step: add journal navigation**
-- 2025-07-10 23:11 47058e5 **step: optimise svg**
-- 2025-07-10 23:10 e46c5b4 **step: handle empty entries page**
-- 2025-07-10 22:57 d2ff7a4 **refactor: use use exit action from bgord/ui**
-- 2025-07-10 22:56 4be4cf8 **step: update bgord/ui**
-- 2025-07-10 22:20 c458e41 **refactor: improve state handling**
-- 2025-07-10 22:16 fde680d **refactor: rename onAnimationEnd**
-- 2025-07-10 22:16 dc407b6 **refactor: improve returned values**
-- 2025-07-10 22:15 3397ce4 **refactor: use object options**
-- 2025-07-10 22:14 0bba2cf **refactor: rename animation**
-- 2025-07-10 22:11 75c4303 **refactor: improve event naming**
-- 2025-07-10 22:05 b81e6cb **feature: exit action**
-- 2025-07-10 21:56 16ffd4b **refactor: bring entry delete back into entry**
-- 2025-07-10 19:30 df5a342 **docs: generate readme**
-- 2025-07-10 19:30 5cf6beb **docs: generate CHANGELOG**
-- 2025-07-09 16:37 97ef3f5 **feature: add delete entry form**
-- 2025-07-09 16:10 a3d428c **step: setup delete entry button**
-- 2025-07-09 15:11 e9369a2 **refactor: extract entry**
-- 2025-07-09 15:05 4c9b1a6 **refactor: extract rotate-into-focus interaction**
-- 2025-07-09 12:54 e8db344 **refactor: improve fab styles**
-- 2025-07-09 12:44 e365a57 **step: add fab for add new entry**
-- 2025-07-09 12:34 ec3f9e4 **refactor: use clickable rating pills**
-- 2025-07-09 12:24 12e3f0c **refactor: use clickable rating pills for emotion intensity**
-- 2025-07-09 12:01 c9331fa **step: test add-journal-entry tests**
-- 2025-07-09 11:41 6c82465 **step: test homepage**
-- 2025-07-09 11:28 fd25bb5 **step: make seeder stable**
-- 2025-07-08 14:19 8a3c34a **step: test basic home layout**
-- 2025-07-08 13:55 6ab7660 **fix: import register-{event,command}-handlers in server**
-- 2025-07-08 13:47 4b81078 **fix: test imports**
-- 2025-07-08 13:39 3dd7afe **refactor: adjust to barrel file free infra exports**
-- 2025-07-08 13:34 136e795 **refactor: remove infra barrel export**
-- 2025-07-08 13:24 741a355 **step: add drizzle-seed to test-server-start**
-- 2025-07-08 13:23 d252b07 **step: bump bgord/scripts**
-- 2025-07-08 13:23 473f0af **step: add drizzle reset to test-server-start**
-- 2025-07-08 13:20 c8a1722 **fix: drizzle schema**
-- 2025-07-08 13:14 d606259 **feature: setup e2e tests**
-- 2025-07-08 13:12 3f1481b **step: bump bgord/scripts**
-- 2025-07-08 13:09 54e64ae **step: bump bgord/scripts**
-- 2025-07-08 13:07 fa83c64 **refactor: cleanup test-server-start**
-- 2025-07-08 13:02 25dc985 **refactor: adjust test-app-start**
-- 2025-07-08 12:59 437dfaf **step: bump bgord/scripts**
-- 2025-07-08 12:56 4e62a07 **step: add frontend-serve to test-app-start**
-- 2025-07-08 12:56 3ebcf7b **step: bump bgord/scripts**
-- 2025-07-08 12:54 1945ba7 **refactor: adjust playwright config**
-- 2025-07-08 12:44 8a2f262 **step: add test-results to gitignore**
-- 2025-07-08 12:40 ce8433f **step: setup home test**
-- 2025-07-08 12:39 edb4813 **step: bump bgord/scripts**
-- 2025-07-08 12:34 167ce97 **step: add playwright config**
-- 2025-07-08 12:33 ecd1af3 **step: install playwright**
-- 2025-07-08 12:31 f25d91a **fix: logo link color**
-- 2025-07-07 17:28 c8c7144 **refactor: extract back button**
-- 2025-07-07 17:13 f52a33e **fix: select empty values**
-- 2025-07-07 17:05 f497628 **refactor: used improved input.props returned by useField**
-- 2025-07-07 17:03 41a4980 **refactor: switch to real bgord-bun**
-- 2025-07-07 16:53 9a8be27 **fix: typecheck-prune**
-- 2025-07-07 16:50 965d60c **fix: typecheck-prune**
-- 2025-07-07 16:50 0179cff **refactor: remove unused commands**
-- 2025-07-07 16:47 250fc44 **step: update packageS**
-- 2025-07-07 16:44 c336a3f **step: update packages**
-- 2025-07-07 15:30 93938a0 **docs: generate CHANGELOG**
-- 2025-07-07 14:54 acc2723 **docs: generate CHANGELOG**
-- 2025-07-07 14:54 53750da **docs: generate readme**
-- 2025-07-07 14:40 489b3f8 **step: bump bgord/scripts**
-- 2025-07-07 14:38 1c7c099 **refactor: simplify the verify dependencies script**
-- 2025-07-07 14:25 f4148b7 **step: wip**
-- 2025-07-07 14:25 3f4670a **refactor: switch to real bgord-bun**
-- 2025-07-07 14:25 1374e37 **refactor: fix lodash version**
-- 2025-07-07 14:19 c3de08a **step: bump bgord/scripts**
-- 2025-07-06 18:18 0e6a115 **refactor: simplify types**
-- 2025-07-06 18:11 af1f928 **refactor: extract form fields to a service**
-- 2025-07-06 12:29 f4bc18f **feature: implement the first server action**
-- 2025-07-06 12:03 d22228e **step: setup fetcher**
-- 2025-07-06 12:01 9099b65 **step: setup mock server action**
-- 2025-07-05 17:57 20eb58e **step: setup add journal entry form**
-- 2025-07-05 17:56 e58cecd **step: make fields type safe**
-- 2025-07-05 17:50 c9c4502 **step: apply useField for numeric fields**
-- 2025-07-05 17:44 1663e94 **step: apply useField for select fields**
-- 2025-07-05 17:33 cdf1d86 **step: apply useField for text fields**
-- 2025-07-05 16:03 d8edae9 **refactor: adjust form validations**
-- 2025-07-05 15:29 d1b3af1 **feature: implement the stepper**
-- 2025-07-05 00:23 7cadee6 **step: setup rough form**
-- 2025-07-04 23:04 e95e8ca **feature: add view transition**
-- 2025-07-04 23:00 4699498 **fix: form class**
-- 2025-07-04 22:58 578f1bf **step: add journal entry legend**
-- 2025-07-04 19:37 29b9e44 **step: add stable classes**
-- 2025-07-04 19:32 8200495 **step: setup view transition**
-- 2025-07-04 18:25 a46e94e **step: automate validations**
-- 2025-07-04 18:24 9ee9591 **step: extract select component**
-- 2025-07-04 18:16 2bb2f85 **refactor: use rhythm from ui**
-- 2025-07-04 18:12 e98ce9b **fix: remove bgord ui from the api**
-- 2025-07-04 18:09 a3d7cc7 **refactor: improve add journal entry form**
-- 2025-07-04 18:08 97acf90 **step: fix logo underline**
-- 2025-07-04 17:58 19cc7a2 **feature: extract add journal entry route**
-- 2025-07-04 17:54 6b31111 **step: add link to journal**
-- 2025-07-04 17:51 cc28889 **refactor: extract header**
-- 2025-07-04 17:49 1b7f072 **feature: setup add journal entry form**
-- 2025-07-04 17:22 75acc08 **step: add journal entry button**
-- 2025-07-04 17:17 b9dad36 **step: install iconoir**
-- 2025-07-04 17:02 142884f **step: update packages**
-- 2025-07-04 17:01 dc683cd **refactor: use policy error handler from bgord-bun**
-- 2025-07-04 16:56 a539413 **refactor: simplify policy error handling**
-- 2025-07-04 16:01 bb755ec **refactor: remove separate log situation/emotion/reaction routes**
-- 2025-07-04 15:55 799859a **refactor: simplify policy error handling**
-- 2025-07-04 15:51 79622b5 **step: add all log entry tests**
-- 2025-07-04 15:39 7d88ee3 **step: add policy tests to log-entry**
-- 2025-07-04 15:28 612215e **step: add happy path test**
-- 2025-07-04 13:36 fe44f5a **fix: log entry route path**
-- 2025-07-04 13:36 3c0c2e1 **fix: use optional chaining in log-entry**
-- 2025-07-04 13:35 90b5911 **refactor: extract urls in tests**
-- 2025-07-04 13:25 2c34ea6 **step: implement handleLogEntryCommand**
-- 2025-07-04 13:24 9c80696 **step: add log-entry route**
-- 2025-07-04 13:22 9d558b0 **step: setup log entry command**
-- 2025-07-03 20:07 7ce70d1 **Merge pull request #13 from bgord/bgord-ui**
-- 2025-07-03 20:06 f563760 **step: update packages**
-- 2025-07-03 19:59 23674ed **refactor: restore bgord-ui**
-- 2025-07-03 19:57 3402ce6 **step: dedupe react**
-- 2025-07-03 19:50 7e1a15f **step: install local bgord-ui**
-- 2025-07-03 19:27 4fb4c6f **step: install bgord-ui**
-- 2025-07-03 18:07 e3337b2 **docs: generate CHANGELOG**
-- 2025-07-02 23:28 f09627c **Merge pull request #12 from bgord/fe**
-- 2025-07-02 23:06 a879834 **step: replace favicon**
-- 2025-07-02 22:36 c7b39fb **step: add schema validator to VITE**
-- 2025-07-02 22:32 ac011c1 **refactor: simplify imports**
-- 2025-07-02 22:09 3f53699 **step: wip**
-- 2025-07-02 21:28 bbc3c9b **docs: generate CHANGELOG**
-- 2025-07-02 21:28 aeba99c **docs: generate readme**
-- 2025-07-02 21:25 061f6ea **step: improve path aliases**
-- 2025-07-02 21:19 e20cd8d **refactor: simplify emotion imports in infra**
-- 2025-07-02 21:11 abc0806 **feature: add infra path alias**
-- 2025-07-02 20:45 9540b36 **step: compress the logo file**
-- 2025-07-02 20:35 5cbf0eb **step: setup logo image**
-- 2025-07-02 20:18 7a130c1 **step: improve pills color**
-- 2025-07-02 20:16 7056fe3 **step: apply solid badge for situation kind**
-- 2025-07-02 20:12 6146575 **refactor: improve startedat**
-- 2025-07-02 20:10 3326ee2 **step: add surface card bg**
-- 2025-07-02 20:10 2dbc527 **step: style entry date**
-- 2025-07-02 20:09 018602d **step: set body bg**
-- 2025-07-02 20:08 ce95848 **step: improve logo**
-- 2025-07-02 20:08 a894272 **step: add custom css**
-- 2025-07-02 19:46 20e6577 **step: add list item border radius**
-- 2025-07-02 19:28 df7fe02 **step: bump bgord/scripts**
-- 2025-07-02 19:21 0ffb77b **step: improve formatting**
-- 2025-07-02 19:17 6b08c8a **step: bump bgord/scripts**
-- 2025-07-02 19:08 04ab300 **step: bump bgord/scripts**
-- 2025-07-02 19:05 dcd9565 **step: bump bgord/scripts**
-- 2025-07-02 19:04 607b416 **step: bump bgord/scripts**
-- 2025-07-02 19:03 bfa5a94 **refactor: remove unused export**
-- 2025-07-02 18:59 e6816e6 **step: setup api fe service**
-- 2025-07-02 18:54 12ef3eb **step: add VITE_API_URL**
-- 2025-07-02 18:49 e07cb6d **step: restore isbot**
-- 2025-07-02 18:43 74bbaab **refactor: adjust colors**
-- 2025-07-02 18:41 00cda9c **step: update vite to v7**
-- 2025-07-02 18:38 c402c68 **step: remove unused isbot package in fe**
-- 2025-07-02 16:39 c5779c4 **fix: exclude frontend from the main tsconfig.json**
-- 2025-07-02 16:37 dce02b6 **step: update node types**
-- 2025-07-02 16:37 8ae5732 **step: update react types**
-- 2025-07-02 16:36 4c834e5 **refactor: remove unused scripts**
-- 2025-07-02 16:36 3181ef8 **step: update packages**
-- 2025-07-02 16:35 a7c39e8 **refactor: update react-router packages**
-- 2025-07-02 16:32 b2598c6 **refactor: pinpoint fe package versions**
-- 2025-07-02 16:31 f0f1063 **step: bump bgord/scripts**
-- 2025-07-02 16:31 ccc4946 **step: bump bgord/scripts**
-- 2025-07-02 16:31 59d818a **step: bump bgord/scripts**
-- 2025-07-02 16:29 468491d **refactor: migrate to bun in frontend**
-- 2025-07-02 16:27 6343bef **step: update packages**
-- 2025-07-02 16:24 713f63d **step: bump bgord/scripts**
-- 2025-07-02 16:01 cad9f85 **feature: add proper seeder**
-- 2025-07-02 15:38 f5759fe **step: bump bgord/scripts**
-- 2025-07-02 15:37 b606d37 **step: bump bgord/scripts**
-- 2025-07-02 15:34 b3150cb **step: clear the database before seeding**
-- 2025-07-02 15:32 f61ccd8 **step: improve scripts/local-db-seed**
-- 2025-07-02 15:17 0aca654 **refactor: rearrange the rating pills**
-- 2025-07-02 15:13 96951d7 **step: display reaction effectiveness**
-- 2025-07-02 15:04 e750edd **step: display reaction description**
-- 2025-07-02 15:00 e766286 **step: display emotions**
-- 2025-07-02 14:59 c2ad659 **step: add rating pills component**
-- 2025-07-02 14:21 c706d83 **step: order by startedAt desc**
-- 2025-07-02 14:19 19ec63c **step: display the situation**
-- 2025-07-02 13:53 7b39d34 **step: display all entries**
-- 2025-07-02 13:30 bbf7d58 **step: bump bgord/scripts**
-- 2025-07-02 13:29 9453281 **refactor: remove about route**
-- 2025-07-02 13:21 7ad0f73 **fix: linting tests**
-- 2025-07-02 13:20 bc8fa06 **feature: add local db seed script**
-- 2025-07-02 13:19 2459fdc **refactor: export situation kind type**
-- 2025-07-02 13:17 c2f8e17 **step: install lodash types**
-- 2025-07-02 12:09 8002697 **step: load entries**
-- 2025-07-02 12:09 74faa93 **step: use revalidate on focus**
-- 2025-07-02 12:08 fd7a194 **step: add list entries route**
-- 2025-07-02 12:05 6dd0b6f **step: add revalidate on focus**
-- 2025-06-30 23:17 3442400 **step: add example route**
-- 2025-06-30 23:15 f34e226 **step: ignore bgord-design styles**
-- 2025-06-30 23:14 4f84f6c **step: use bgord-design**
-- 2025-06-30 23:06 5164275 **refactor: remove tailwind**
-- 2025-06-30 23:01 1facf3d **refactor: cleanup frontend**
-- 2025-06-30 23:00 4c419bd **step: setup frontend**
-- 2025-06-30 22:47 2117aa9 **step: wip remove**
-- 2025-06-30 22:18 2109ddd **step: setup frontend**
-- 2025-06-30 20:11 9279370 **step: use axioms from bgord/bun**
-- 2025-06-30 20:10 ffbf060 **step: update bun**
-- 2025-06-30 20:03 14ee8e1 **step: bump bgord/scripts**
-- 2025-06-30 19:45 a6953a1 **step: define axiom transport**
-- 2025-06-30 19:42 04ff74b **step: add axiom envs**
-- 2025-06-30 19:35 ec7d4f2 **step: install axiom**
-- 2025-06-30 19:35 3b7ad21 **step: switch to local bun**
-- 2025-06-30 19:12 c32a38d **Merge pull request #10 from bgord/weekly_report**
-- 2025-06-30 18:12 6277b6a **docs: generate CHANGELOG**
-- 2025-06-30 18:04 549a2e5 **docs: generate CHANGELOG**
-- 2025-06-30 17:12 835d3d3 **docs: generate CHANGELOG**
-- 2025-06-30 17:12 4bb2c11 **docs: generate readme**
-- 2025-06-30 16:01 154b9a5 **step: add tests**
-- 2025-06-30 15:25 0bc6a00 **step: add handleMarkWeeklyReviewAsFailedCommand**
-- 2025-06-30 15:24 c058558 **step: add WeeklyReview.fail method**
-- 2025-06-30 15:22 b38096f **step: add MARK_WEEKLY_REVIEW_AS_FIELD_COMMAND**
-- 2025-06-30 15:20 863937f **step: add WEEKLY_REVIEW_FAILED_EVENT**
-- 2025-06-30 15:16 dc4f896 **step: prepare for compensatory saga action**
-- 2025-06-30 15:15 1d0f8ed **step: add missing saga event handlers**
-- 2025-06-30 15:09 5df1163 **refactor: cleanup @public declarations**
-- 2025-06-30 13:56 b68dbf4 **step: bump bgord/scripts**
-- 2025-06-30 13:56 3f66288 **step: bump bgord/scripts**
-- 2025-06-30 13:55 2c5fd62 **step: bump bgord/scripts**
-- 2025-06-30 13:53 045f0b5 **refactor: rename deploy workflow**
-- 2025-06-30 13:52 5080438 **step: bump bgord/scripts**
-- 2025-06-30 13:36 27ed481 **step: bump bgord/scripts**
-- 2025-06-30 13:13 1b62b09 **step: test onWeeklyReviewCompletedEvent**
-- 2025-06-30 13:05 10581dc **step: implement onWeeklyReviewCompletedEvent**
-- 2025-06-30 12:57 2646ddf **step: add weekly review notification composer**
-- 2025-06-30 12:47 440b3d3 **step: rename tests setup file**
-- 2025-06-30 12:47 40f2bb9 **step: bump bgord/scripts**
-- 2025-06-29 23:03 cefa076 **refactor: simplify ai advice requester**
-- 2025-06-29 23:03 297bdd5 **fix: deps in tests**
-- 2025-06-29 19:27 84f8054 **step: update packages**
-- 2025-06-29 01:16 91bbb02 **refactor: remove alarm.getAdvice**
-- 2025-06-29 01:16 320f5ff **refactor: rename alarm factory**
-- 2025-06-29 01:14 9f36bb1 **refactor: add weekStartedAt to WEEKLY_REVIEW_COMPLETED_EVENT**
-- 2025-06-29 01:11 4e44a4a **step: test onWeeklyReviewRequestedEvent in saga**
-- 2025-06-29 00:58 46e5f70 **step: add WeeklyReviewCompletedOnce**
-- 2025-06-29 00:57 9c31fdd **step: implement weekly review complete**
-- 2025-06-29 00:53 11d19f1 **step: implement weekly review complete**
-- 2025-06-29 00:49 39614c8 **step: add WEEKLY_REVIEW_COMPLETED_EVENT**
-- 2025-06-29 00:46 5e6dfe9 **step: implement handleCompleteWeeklyReviewCommand**
-- 2025-06-29 00:44 319f61f **step: dispatch complete command**
-- 2025-06-29 00:39 b4afe29 **step: setup complete weekly review command**
-- 2025-06-29 00:31 f7b2c69 **step: add WeeklyReviewInsightsRequester**
-- 2025-06-29 00:26 4ad1c8b **step: inject deps for the saga**
-- 2025-06-29 00:24 8b7cdd2 **step: add weekly review insights prompt**
-- 2025-06-29 00:19 e8b0aa9 **step: setup onWeeklyReviewRequestedEvent on weekly processing**
-- 2025-06-29 00:18 c2f3ac0 **step: remove unnecessary logs**
-- 2025-06-29 00:18 868c0b4 **step: add findInWeek in entries repo**
-- 2025-06-28 23:59 75244ff **step: setup WeeklyReviewProcessing saga**
-- 2025-06-28 23:37 47da979 **step: implement WeeklyReviewSkippedNotificationComposer**
-- 2025-06-28 23:27 235bf23 **step: test weekly review skipped case**
-- 2025-06-28 23:26 088f33c **fix: naming GenericWeeklyReviewRequested**
-- 2025-06-28 23:25 c0e0fd1 **step: define WEEKLY_REVIEW_SKIPPED_EVENT**
-- 2025-06-28 23:08 ccdc2ec **step: test JournalEntriesForWeekExist**
-- 2025-06-28 23:00 298d820 **step: define entries for week exist**
-- 2025-06-28 22:58 672b9a0 **step: test weekly review scheduler**
-- 2025-06-28 22:46 8a32920 **step: use the policy**
-- 2025-06-28 22:45 8a29f67 **step: define weekly review requested once policy**
-- 2025-06-28 22:43 09b4e8f **step: setup aggregate tests**
-- 2025-06-28 22:31 edac5fc **step: use week start in the scheduler**
-- 2025-06-28 22:31 4e22a8f **step: use week start in the aggregate**
-- 2025-06-28 22:29 e14e418 **step: test week start**
-- 2025-06-28 22:27 7c0a64d **step: add week start vo**
-- 2025-06-28 22:09 7bb3339 **step: define weekly review status vo**
-- 2025-06-28 22:05 3226cbe **step: implement handleRequestWeeklyReviewCommand**
-- 2025-06-28 22:03 0e26240 **step: update event store events**
-- 2025-06-28 22:01 dbc0972 **step: setup weekly-review aggregate**
-- 2025-06-28 21:55 8427a79 **step: define WEEKLY_REVIEW_REQUESTED_EVENT**
-- 2025-06-28 21:54 58a9201 **step: add weekly review id**
-- 2025-06-28 21:51 fa242be **step: setup handleRequestWeeklyReviewCommand**
-- 2025-06-28 21:44 9bfa211 **step: implement weekly review scheduler**
-- 2025-06-28 21:43 26b4d47 **step: add REQUEST_WEEKLY_REVIEW_COMMAND**
-- 2025-06-28 21:31 e8b4ffd **step: define WeeklyReviewScheduler**
-- 2025-06-28 21:31 d4066ce **step: wire up the job**
-- 2025-06-28 21:31 70b8d55 **step: add jobs in the prereqs**
-- 2025-06-28 19:19 c11a52d **step: resolve conflicts**
-- 2025-06-28 19:19 41af986 **Merge pull request #9 from bgord/correlations**
-- 2025-06-28 19:17 81c2477 **step: update packages**
-- 2025-06-28 18:40 eadb638 **refactor: adjust tests**
-- 2025-06-28 18:36 46f5c65 **fix: event correlation id in mocks**
-- 2025-06-28 18:30 e482c7a **step: make correlation id not nullable**
-- 2025-06-28 18:29 5459e7d **step: pass correlation id to events**
-- 2025-06-28 18:26 52b6358 **step: define correlationId field for all events**
-- 2025-06-28 18:24 6f1b998 **step: define event.correlationId column**
-- 2025-06-28 18:18 15aee3c **refactor: adjust tests**
-- 2025-06-28 18:11 3afb588 **step: add correlation id to all commands**
-- 2025-06-28 18:09 cbea251 **step: define correlationId in all commands**
-- 2025-06-28 17:20 73f93d3 **docs: generate CHANGELOG**
-- 2025-06-28 17:19 8e8f903 **docs: generate CHANGELOG**
-- 2025-06-28 16:36 4328ac2 **step: restore migrations**
-- 2025-06-28 13:32 abf2be9 **step: update packages**
-- 2025-06-28 12:30 eef11ac **refactor: rename ids to be more specific in commands**
-- 2025-06-28 12:25 df21366 **refactor: rename ids to be more specific**
-- 2025-06-28 11:32 fb74a13 **docs: generate CHANGELOG**
-- 2025-06-28 11:32 eb98f60 **docs: generate readme**
-- 2025-06-28 01:21 cb07e2e **fix: missing event in the saga registration**
-- 2025-06-28 01:20 b86b3cd **refactor: inject event bus in the saga**
-- 2025-06-28 01:15 9cf5c06 **fix: binding issue in the saga**
-- 2025-06-28 01:10 eca7cf8 **refactor: remove aggregate calls from the saga**
-- 2025-06-28 01:00 e253bf4 **refactor: simplify journal repo**
-- 2025-06-28 01:00 d7d56ac **step: create alarm repo type**
-- 2025-06-28 01:00 5a02275 **step: add alarms repo get by id**
-- 2025-06-28 00:56 af1271d **step: restore all tests**
-- 2025-06-28 00:53 624a4c4 **fix: all tests**
-- 2025-06-28 00:48 8201878 **fix: composer tests**
-- 2025-06-28 00:47 e74ebce **fix: prompt tests**
-- 2025-06-28 00:39 48e18ba **step: skip some tests**
-- 2025-06-28 00:37 281e443 **step: do not use summary**
-- 2025-06-28 00:25 e70c456 **step: define EmotionJournalEntryRepository.getById**
-- 2025-06-28 00:25 7b36448 **step: remove entry aggregate summary type**
-- 2025-06-28 00:02 ac0d05a **step: implement handleSaveAlarmAdviceCommand**
-- 2025-06-27 23:54 2838bef **step: implement handleCancelAlarmCommand**
-- 2025-06-27 23:48 4d8401f **step: implement handleSendAlarmNotificationCommand**
-- 2025-06-27 23:43 1bfccdd **refactor: switch to hardcoded alarm id**
-- 2025-06-27 22:26 a562bd4 **fix: isloated testcase**
-- 2025-06-27 22:02 0ea7d34 **refactor: implement handle generate alarm command**
-- 2025-06-27 20:57 b205570 **step: implement handleDeleteEmotionJournalEntryCommand**
-- 2025-06-27 20:53 5d5f06d **step: implement handleEvaluateReactionCommand**
-- 2025-06-27 20:51 2072f1a **step: implement handleReappraiseEmotionHandler**
-- 2025-06-27 20:42 b990ee6 **step: implement handleLogReactionCommand**
-- 2025-06-27 20:38 c946973 **step: implement handleLogEmotionCommand**
-- 2025-06-27 20:26 5f6af03 **step: implement handleLogSituationCommand-n**
-- 2025-06-27 20:22 e9e2b96 **step: change content to html in alarm processing**
-- 2025-06-27 16:10 9a5c61a **refactor: use generic command handler**
-- 2025-06-27 16:05 cdbdc21 **step: connect command handlers to command bus**
-- 2025-06-27 16:00 eccdaeb **step: define command handlers**
-- 2025-06-27 15:52 0737ceb **step: setup command handlers**
-- 2025-06-27 15:36 e86b9e7 **refactor: rename register-event-handlers**
-- 2025-06-27 15:34 72c14c4 **step: define command bus**
-- 2025-06-27 14:52 1669faa **step: switch to local bgord bun**
-- 2025-06-27 14:48 4cfdd91 **refactor: rename handlers to event handlers**
-- 2025-06-27 14:39 ca8ec41 **step: define all commands**
-- 2025-06-27 13:48 e670560 **step: setup command files**
-- 2025-06-27 13:40 703b71a **Revert "refactor: simplify imports"**
-- 2025-06-27 13:35 47704fc **refactor: simplify imports in policies**
-- 2025-06-27 13:32 f2f7a3a **refactor: simplify imports in handlers**
-- 2025-06-27 13:31 8d01533 **refactor: simplify imports in entities**
-- 2025-06-27 13:04 5c6340d **refactor: simplify imports in alarm aggr**
-- 2025-06-27 12:59 e25e8e7 **refactor: simplify imports**
-- 2025-06-27 12:44 4195942 **refactor: move tests to alarm processing**
-- 2025-06-27 12:35 d268d5d **refactor: move alarm creator to alarm processing saga**
-- 2025-06-27 12:35 3ed86d6 **refactor: remove alarm creation from read model event handlers**
-- 2025-06-27 08:58 9f32ece **step: add todos**
-- 2025-06-27 00:26 3eccdea **refactor: test onEmotionReappraisedEvent**
-- 2025-06-27 00:21 39606e1 **refactor: simplify handler tests**
-- 2025-06-27 00:19 46896e6 **refactor: rename alarm generator to alarm detector**
-- 2025-06-27 00:19 3c133a4 **refactor: use alarm creator in onEmotionReappraisedEvent**
-- 2025-06-27 00:13 d5ca171 **step: update packages**
-- 2025-06-27 00:12 ce97ad1 **refactor: remove gemini**
-- 2025-06-27 00:12 9d60234 **step: test alarm creator**
-- 2025-06-27 00:01 c949183 **step: test DailyAlarmLimit in onEmotionLoggedEvent**
-- 2025-06-26 23:56 c0863ce **refactor: use AlarmCreator in onEmotionLoggedEvent event handler**
-- 2025-06-26 23:55 c500aa7 **refactor: make Alarm.generate method internal**
-- 2025-06-26 23:55 167586c **step: setup alarm creator**
-- 2025-06-26 23:48 ad8295f **step: add AlarmRepository.getCreatedTodayCount**
-- 2025-06-26 23:44 22debe0 **step: create daily alarm limit policy**
-- 2025-06-26 23:33 76dcfec **refactor: improve gemini.md**
-- 2025-06-26 22:52 e0f88e4 **step: setup gemini.md**
-- 2025-06-26 22:51 9479084 **step: cancel the alarm if the emotional advice requester fails**
-- 2025-06-26 22:26 e976e5e **docs: generate CHANGELOG**
-- 2025-06-26 22:26 6ff3070 **docs: generate readme**
-- 2025-06-26 22:13 b8cb892 **docs: generate readme**
-- 2025-06-26 22:13 3c34aeb **docs: generate CHANGELOG**
-- 2025-06-26 00:55 954d7aa **refactor: remove get alarms for now**
-- 2025-06-26 00:49 4d6df32 **step: test entry deletion in alarm processing saga**
-- 2025-06-26 00:44 928a8ea **step: handle onEmotionJournalEntryDeletedEvent in alarm processing saga**
-- 2025-06-26 00:43 8748e3c **step: implement Alarm repository getCancellableByEmotionJournalEntryId**
-- 2025-06-26 00:07 8e70159 **step: test alarm.cancel**
-- 2025-06-26 00:06 22c6bcb **step: test onAlarmCancelledEvent**
-- 2025-06-26 00:04 9252ca0 **step: define on alarm cancelled event handler**
-- 2025-06-25 23:58 c4b7cab **step: define alarm is cancellable policy**
-- 2025-06-25 23:58 600ac7a **step: add alarm.cancel method**
-- 2025-06-25 23:57 8500c92 **step: define alarm cancelled event**
-- 2025-06-25 23:37 38476f7 **step: install bun**
-- 2025-06-25 23:14 1bac7ba **step: update node to 24.3.0**
-- 2025-06-25 23:13 2e8eafe **step: update bun to 1.2.17**
-- 2025-06-25 22:57 ef1834e **docs: generate readme**
-- 2025-06-25 22:57 2441afa **docs: generate CHANGELOG**
-- 2025-06-25 22:53 704de72 **step: setup GET /alarms/get tests**
-- 2025-06-25 17:48 18fa2a1 **step: setup get alarms route**
-- 2025-06-25 17:23 14ff8e8 **step: bump bgord/scripts**
-- 2025-06-25 17:13 e7aea68 **step: bump bgord/scripts**
-- 2025-06-25 16:42 c4eb795 **refactor: fix deploy script paths**
-- 2025-06-25 16:40 b0dc1a8 **step: update packages**
-- 2025-06-25 16:39 670fbae **refactor: remove bun_ from validate_environment_file**
-- 2025-06-25 16:39 16f79c3 **step: bump bgord/scripts**
-- 2025-06-25 16:37 64c90f4 **refactor: pinpoint codeql-analysis ubuntu version**
-- 2025-06-25 15:23 aef27ea **docs: generate CHANGELOG**
-- 2025-06-25 14:42 bb408e9 **docs: generate CHANGELOG**
-- 2025-06-25 14:40 d171e28 **docs: generate CHANGELOG**
-- 2025-06-25 14:40 5500048 **docs: generate readme**
-- 2025-06-25 14:27 7bd6945 **step: test alarm read model event handlers**
-- 2025-06-25 14:19 90e4be1 **step: implemet onAlarmNotificationSentEvent**
-- 2025-06-25 14:18 25bc657 **step: implement onAlarmAdviceSavedEvent**
-- 2025-06-25 14:14 f196919 **step: implement onAlarmGeneratedEvent**
-- 2025-06-25 14:14 36e60a1 **step: create alarm repository**
-- 2025-06-25 14:13 c5c2f0a **refactor: adjust alarm schema naming**
-- 2025-06-25 14:02 440cfd2 **step: setup alarm read model event handlers**
-- 2025-06-25 13:56 d9b4fa7 **step: generate alarms migrations**
-- 2025-06-25 13:55 756e97d **step: define alarms schema**
-- 2025-06-25 13:54 a6813cf **step: add alarm generated at vo**
-- 2025-06-25 13:46 e070205 **refactor: extract EmotionJournalEntrySummary**
-- 2025-06-25 00:44 f0c73cc **step: update anthropic sdk**
-- 2025-06-25 00:44 3d5e10b **step: test onAlarmNotificationSentEvent**
-- 2025-06-25 00:39 d2bfe18 **step: implement onAlarmNotificationSentEvent**
-- 2025-06-25 00:37 f02554b **step: add alarm.getAdvice**
-- 2025-06-25 00:31 3c213b0 **step: add EmotionalAdviceNotificationComposer**
-- 2025-06-25 00:16 4ce7d2a **step: add emotionJournalEntryId to alarm notification sent evnet**
-- 2025-06-25 00:03 e763d68 **refactor: use jest.restoreAllMocks**
-- 2025-06-24 23:59 c0aa66d **step: add onAlarmAdviceSavedEvent**
-- 2025-06-24 23:37 140c726 **step: add emotionJournalEntryId to alarm advice saved**
-- 2025-06-24 23:26 e2fb5f6 **refactor: rename EMOTION_JOURNAL_ENTRY_DELETED_EVENT**
-- 2025-06-24 23:24 9cbded4 **step: test Alarm.notify**
-- 2025-06-24 23:12 0589ff8 **step: define AlarmAdviceAvailable**
-- 2025-06-24 23:06 6d84979 **step: test alarm.notify**
-- 2025-06-24 23:04 075ae51 **refactor: rename ALARM_NOTIFICATION_SENT_EVENT**
-- 2025-06-24 22:59 d615e5b **step: define Alarm.notify**
-- 2025-06-24 22:47 9adbef4 **step: define ALARM_NOTIFICATION_SENT_EVENT**
-- 2025-06-24 22:44 e13bf4e **docs: generate readme**
-- 2025-06-24 22:44 c9c7f17 **docs: generate CHANGELOG**
-- 2025-06-24 21:57 0e6b82a **fix: unused exports**
-- 2025-06-24 21:53 e221377 **fix: missing event handler**
-- 2025-06-24 21:49 0f8dbf1 **step: update packages**
-- 2025-06-24 21:46 9908131 **fix: restore mocks**
-- 2025-06-24 20:01 6a8cdfb **docs: generate CHANGELOG**
-- 2025-06-24 19:47 ef99dcf **docs: generate readme**
-- 2025-06-24 19:47 26b1dd9 **docs: generate CHANGELOG**
-- 2025-06-24 19:13 8c73e2b **step: setup onAlarmAdviceSavedEvent-n**
-- 2025-06-24 19:13 2c7b33e **step: test alarm processing first event**
-- 2025-06-24 16:10 d94a7e3 **step: test alarm already generated policy**
-- 2025-06-24 16:08 18749aa **step: use alarm already generated policy**
-- 2025-06-24 16:07 793ee73 **step: add alarm already generated policy**
-- 2025-06-24 16:03 49853a4 **refactor: wire up emotional advice maximum length to ai client**
-- 2025-06-24 15:57 7b4ceaf **step: handle alarm alarm advice saved event internally**
-- 2025-06-24 15:55 aed1ff9 **step: test alarm.generate**
-- 2025-06-24 15:52 134f7dd **step: define alarm.saveAdvice**
-- 2025-06-24 15:50 d9deb36 **step: setup ALARM_ADVICE_SAVED_EVENT**
-- 2025-06-24 15:43 46f8f20 **refactor: wire up emotional advice requester to use emotional advice vo**
-- 2025-06-24 15:42 9a84ec8 **step: define emotional advice vo**
-- 2025-06-24 15:36 f50a602 **refactor: rename emotional advice requester**
-- 2025-06-24 15:27 a74e5c7 **refactor: inject Ai Client into Alarm Processing saga**
-- 2025-06-24 15:26 698f4b6 **step: define EmotionalAdviceType-n**
-- 2025-06-24 10:24 6107aee **step: add AlarmProcessing.onAlarmGeneratedEvent**
-- 2025-06-24 10:20 9023129 **step: setup alarm processing saga**
-- 2025-06-23 23:27 f3e9744 **step: test alarm generator in on emotion reappraised event**
-- 2025-06-23 23:14 a9a08ec **Merge pull request #6 from bgord/alarms**
-- 2025-06-23 23:08 e8e9cd9 **step: update dependencies**
-- 2025-06-23 23:01 29f7480 **step: test emotional-advice**
-- 2025-06-23 22:55 dd37c73 **step: test open-ai-client**
-- 2025-06-23 22:50 37f3218 **step: test anthropic ai client**
-- 2025-06-23 21:54 183e747 **fix: open ai client**
-- 2025-06-23 21:53 c9f4093 **fix: exports**
-- 2025-06-23 21:48 419309d **step: implement ai clients**
-- 2025-06-23 21:14 7752952 **docs: generate CHANGELOG**
-- 2025-06-23 21:14 57678b4 **docs: generate readme**
-- 2025-06-23 16:42 d8182b0 **refactor: move ai clients to infra**
-- 2025-06-23 16:22 2475fbe **step: implement basic emotional advice service**
-- 2025-06-23 16:17 f7f0d99 **step: implement open ai and anthropic clients**
-- 2025-06-23 16:14 d8facf7 **step: define ai client abstract class**
-- 2025-06-23 16:10 8a5bf08 **step: create AnthropicAI in infra**
-- 2025-06-23 16:09 354ff56 **step: add ANTHROPIC_AI_API_KEY env**
-- 2025-06-23 16:07 bca0903 **step: change ai client to open ai client**
-- 2025-06-23 16:07 77bf2a5 **step: install anthropic ai**
-- 2025-06-23 16:00 360a55c **step: add ai-client**
-- 2025-06-23 15:59 f51dcd7 **step: add open ai api key env**
-- 2025-06-23 15:56 ec624ca **step: install openai**
-- 2025-06-23 15:53 ca99e60 **step: test emotional advice prompt**
-- 2025-06-23 15:38 3ff3cfb **feature: implement EmotionalAdvicePrompt**
-- 2025-06-22 23:01 d55a20e **step: test AlarmGeneratedOnce-n**
-- 2025-06-22 22:56 b5e621b **refactor: rename register event handlers**
-- 2025-06-22 22:55 97940b2 **refactor: autoregister events**
-- 2025-06-22 22:49 da72c8c **refactor: rename alarm idempotence error**
-- 2025-06-22 22:47 9dc5f74 **fix: alarm tests**
-- 2025-06-22 22:46 3806f1e **step: add satifies checks for pattern evets**
-- 2025-06-22 22:44 e5ee21b **step: add alarm status**
-- 2025-06-22 22:44 2c81925 **step: add AlarmIdempotence policy**
-- 2025-06-22 22:26 aaa2c9e **feature: extract event bus handlers wiring to a separate file**
-- 2025-06-22 22:25 f4635c6 **step: adjust onEmotionLoggedEvent**
-- 2025-06-22 22:24 792a3ee **step: update GenericAlarmGeneratedEvent**
-- 2025-06-22 22:24 11092dc **step: add alarm to onEmotionLoggedEvent**
-- 2025-06-22 22:23 d570df8 **refactor: update mocks**
-- 2025-06-22 22:03 02f48cb **step: test basic alarm aggregate**
-- 2025-06-22 21:43 484192a **step: export alarm aggregate**
-- 2025-06-22 21:43 43055fd **step: add alarm event to event store**
-- 2025-06-22 19:56 054406a **step: implement alarm generate method**
-- 2025-06-22 19:34 4ca43e1 **feature: setup alarm aggregate**
-- 2025-06-22 19:32 0b8aae2 **refactor: use z.enum for alarm name**
-- 2025-06-22 19:18 218dcdd **refactor: improve imports**
-- 2025-06-22 19:01 ad8b102 **step: test NegativeEmotionExtremeIntensityAlarm**
-- 2025-06-22 18:52 1358cd6 **feature: implement first NegativeEmotionExtremeIntensityAlarm**
-- 2025-06-22 18:09 af74782 **step: implement alarm generator**
-- 2025-06-22 17:55 4ca6cb9 **step: define alarm check output**
-- 2025-06-22 16:51 1f63c5f **step: define ALARM_GENERATED_EVENT**
-- 2025-06-22 16:41 fe741a5 **refactor: make alarm name an enum**
-- 2025-06-22 16:41 bea5c17 **step: define an alarm abstract class**
-- 2025-06-22 16:38 84e6d64 **step: define alarm-id vo**
-- 2025-06-22 16:29 31a1571 **step: add alarm name vo**
-- 2025-06-22 16:07 6155ebc **step: define alarm generator**
-- 2025-06-22 15:58 9b5c0b3 **Merge pull request #5 from bgord/more_patterns**
-- 2025-06-22 13:59 b169965 **docs: generate readme**
-- 2025-06-22 13:59 090a2f0 **docs: generate CHANGELOG**
-- 2025-06-22 00:55 cb84cf7 **feature: add LowCopingEffectivenessPattern**
-- 2025-06-22 00:52 bcde047 **step: define LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT**
-- 2025-06-22 00:34 cb627b0 **step: define pattern kind**
-- 2025-06-22 00:34 56a1c43 **refactor: restore onEmotionLoggedEvent**
-- 2025-06-22 00:15 f541df3 **Merge pull request #4 from bgord/emotion_journal_read_model**
-- 2025-06-22 00:13 cc361ec **step: update bun**
-- 2025-06-22 00:05 06cc6d9 **step: update better-sqlite3**
-- 2025-06-22 00:03 24418b2 **refactor: regenerate migrations**
-- 2025-06-22 00:02 4013c2e **refactor: rewrite tests**
-- 2025-06-21 23:51 3a65056 **refactor: remove circular deps**
-- 2025-06-21 23:43 819e7fa **step: switch to type only imports wherever possible**
-- 2025-06-21 22:15 bb7649f **docs: generate CHANGELOG**
-- 2025-06-21 22:15 607403b **docs: generate readme**
-- 2025-06-21 20:02 fd68f25 **step: setup event handler tests**
-- 2025-06-21 19:50 6d78458 **step: implement other emotion journal entry event handlers**
-- 2025-06-21 19:37 8ee06a0 **step: implement on situation logged event handler**
-- 2025-06-21 19:30 009c69d **step: setup emotion journal entry repository**
-- 2025-06-21 19:15 3b9de27 **feature: define event handlers**
-- 2025-06-21 17:15 dae3c22 **refactor: use to-event-map helper**
-- 2025-06-21 17:01 d19ed5d **step: use imported dispatching event store**
-- 2025-06-21 16:54 2ce5013 **step: switch to local bgord bun**
-- 2025-06-21 16:49 d6d633d **refactor: improve event map**
-- 2025-06-21 16:45 5db9675 **step: create dispatching event store**
-- 2025-06-21 16:45 5d2970d **refactor: simplify event map**
-- 2025-06-21 16:17 f7f4c37 **step: define event bus**
-- 2025-06-21 15:50 c64415a **step: install emittery**
-- 2025-06-21 15:50 7b847e3 **step: update packages**
-- 2025-06-20 19:11 7ec1d16 **refactor: regenerate migrations from scratch**
-- 2025-06-20 19:10 efe7578 **fix: reactionEffectiveness column name**
-- 2025-06-20 19:03 b161697 **step: generate migrations**
-- 2025-06-20 19:03 742455d **step: bump bgord/scripts**
-- 2025-06-20 18:58 50aff3b **refactor: extract enums to be applicable in db schema file**
-- 2025-06-20 18:53 9be36b9 **step: add toEnum helper**
-- 2025-06-20 18:52 46c36b1 **step: define schema**
-- 2025-06-20 18:10 2b8e904 **refactor: extract events to separate files**
-- 2025-06-20 18:02 1cddcb7 **step: define situation kind**
-- 2025-06-20 18:01 c6c8b34 **step: define reaction type other**
-- 2025-06-20 17:57 6e79fd6 **Merge pull request #3 from bgord/emotion-journal-entry-deleted**
-- 2025-06-20 17:38 b629162 **step: apply entry is actionable policy**
-- 2025-06-20 17:28 d2cd631 **step: set deleted status on EMOTION_JOURNAL_ENTRY_DELETED**
-- 2025-06-20 17:25 6a33502 **step: define entry is actionable**
-- 2025-06-20 17:08 65b1f08 **step: define EmotionJournalEntry.status**
-- 2025-06-20 16:56 1a651de **step: define EmotionJournalEntryStatusEnum-n**
-- 2025-06-20 16:10 de33f86 **docs: generate CHANGELOG**
-- 2025-06-20 16:10 ad7e68a **docs: generate readme**
-- 2025-06-20 15:57 dd8eced **docs: generate CHANGELOG**
-- 2025-06-20 15:57 836018c **docs: generate readme**
-- 2025-06-20 12:48 ba5ced7 **fix: route test descriptions**
-- 2025-06-20 12:46 be5ffc8 **step: test delete journal entry route**
-- 2025-06-20 12:40 6422835 **step: test delete method**
-- 2025-06-20 12:35 3fca949 **step: add delete journal entry route**
-- 2025-06-20 12:32 be28d46 **step: add EntryHasBenStarted policy**
-- 2025-06-20 12:31 6663b5d **step: add delete method**
-- 2025-06-20 12:27 8fa40b9 **step: apply EMOTION_JOURNAL_ENTRY_DELETED**
-- 2025-06-20 12:22 59629a1 **step: define EMOTION_JOURNAL_ENTRY_DELETED**
-- 2025-06-20 12:14 c3855bf **step: bump bgord/scripts**
-- 2025-06-20 12:00 6c94686 **refactor: restore correct bgord-bun**
-- 2025-06-20 11:56 2f3f67c **refactor: prepare correct .env.example**
-- 2025-06-20 11:52 54b7fd3 **step: bump bgord/scripts**
-- 2025-06-20 11:40 d4c1003 **refactor: extract healthcheck and prerequisites**
-- 2025-06-20 11:38 028273e **refactor: remove api key shield**
-- 2025-06-20 11:37 e1132dd **refactor: extract tnfra to separate files**
-- 2025-06-20 11:36 7f29326 **step: bump bgord/scripts**
-- 2025-06-20 11:27 9740bb0 **step: bump bgord/scripts**
-- 2025-06-20 11:26 cd8eb76 **refactor: rename docs docs-app**
-- 2025-06-20 10:00 897d7c5 **docs: generate CHANGELOG**
-- 2025-06-20 09:56 bfc7c66 **docs: generate CHANGELOG**
-- 2025-06-20 09:52 65b7929 **docs: generate readme**
-- 2025-06-20 09:52 5ca6758 **docs: generate CHANGELOG**
-- 2025-06-20 09:41 bd181b4 **docs: generate readme**
-- 2025-06-20 09:41 a9e7d31 **docs: generate CHANGELOG**
-- 2025-06-20 09:28 4e6fa36 **docs: generate CHANGELOG**
-- 2025-06-20 09:26 96a358f **docs: generate CHANGELOG**
-- 2025-06-20 00:56 5d8323c **step: improve logs**
-- 2025-06-20 00:25 eafc5a5 **step: switch to local bgord bun**
-- 2025-06-19 22:50 1755670 **step: bump bgord/scripts**
-- 2025-06-19 22:47 c54e76b **refactor: merge changelog and readme**
-- 2025-06-19 22:45 54ebdd0 **fix: add missing readme generate project name arg**
-- 2025-06-19 22:44 3f6a385 **step: bump bgord/scripts**
-- 2025-06-19 22:43 35efd54 **fix: concurrency groups**
-- 2025-06-19 22:40 8aa18f1 **Merge pull request #2 from bgord/drizzle**
-- 2025-06-19 22:38 6b7fcaf **feature: add readme generator**
-- 2025-06-19 21:21 148968c **Merge pull request #1 from bgord/drizzle**
-- 2025-06-19 21:16 0903e35 **refactor: simplify event store save calls**
-- 2025-06-19 21:12 fb13d31 **step: update bgord bun**
-- 2025-06-19 21:06 7f0ca52 **step: bump bgord/scripts**
-- 2025-06-19 21:05 26c6156 **step: bump bgord/scripts**
-- 2025-06-19 21:04 280beba **step: bump bgord/scripts**
-- 2025-06-19 20:54 be84cb6 **refactor: remove unused exports**
-- 2025-06-19 20:52 884fe69 **step: bump bgord/scripts**
-- 2025-06-19 20:50 5a89fac **docs: generate CHANGELOG**
-- 2025-06-19 20:50 01d7404 **docs: generate readme**
-- 2025-06-19 20:47 7ee36cc **docs: generate CHANGELOG**
-- 2025-06-19 20:45 c07d05d **refactor: used external event store**
-- 2025-06-19 20:45 1b60354 **docs: generate readme**
-- 2025-06-19 20:44 9a1566b **docs: generate CHANGELOG**
-- 2025-06-19 20:43 71a798f **docs: generate CHANGELOG**
-- 2025-06-19 20:41 9c86103 **refactor: use generic event schemas from bgord bun**
-- 2025-06-19 20:40 227a35e **docs: generate CHANGELOG**
-- 2025-06-19 20:38 c587689 **step: switch to local bgord bun**
-- 2025-06-19 20:30 2bd5799 **refactor: simplify GenericParsedEventSchema**
-- 2025-06-19 20:27 9bce1ff **feature: extract db calls out of event store**
-- 2025-06-19 20:09 dee7dbb **fix: make events.createdAt not null**
-- 2025-06-19 19:58 0671e75 **refactor: simplify event store**
-- 2025-06-19 19:52 acd7173 **refactor: rename new event store**
-- 2025-06-19 19:49 8efddfc **feature: add event store v2**
-- 2025-06-19 19:49 2958882 **step: remove old event store**
-- 2025-06-19 19:21 c26cfe2 **docs: generate CHANGELOG**
-- 2025-06-19 18:06 77894f2 **refactor: simplify accepted event type**
-- 2025-06-19 18:04 b71aa0b **step: define all accepted events**
-- 2025-06-19 18:02 d18f1f9 **refactor: rename pattern detection event and event types**
-- 2025-06-19 17:48 43bf36c **refactor: simplify JournalEntryEvent**
-- 2025-06-19 17:43 6f5b6cf **refactor: extract pattern detector events to events file**
-- 2025-06-19 17:30 b0016b1 **refactor: extract events to a separate file**
-- 2025-06-19 17:22 07d98a2 **step: adjust tests**
-- 2025-06-19 17:18 724dfd7 **step: simplify accepted event names**
-- 2025-06-19 17:15 98fd722 **step: use proper event store find method**
-- 2025-06-19 17:10 7b14646 **feature: implement type-safe event store**
-- 2025-06-19 16:41 fe201a6 **step: define JournalEntryEvent**
-- 2025-06-19 15:54 ab79cf8 **refactor: regenerate migrations**
-- 2025-06-19 15:53 3d6ffae **step: define event.stream index**
-- 2025-06-19 15:44 e2a63bd **step: add todos**
-- 2025-06-19 15:41 fb574e0 **step: delete helper files**
-- 2025-06-19 15:41 154b7d5 **refactor: remove local bun drizzle scripts**
-- 2025-06-19 15:39 147ebad **step: pin drizzle package versions**
-- 2025-06-19 15:20 0e6dbce **step: test event store**
-- 2025-06-19 14:55 e5e8251 **step: save log-situation event**
-- 2025-06-19 14:55 1386ebc **refactor: remove local drizzle config**
-- 2025-06-19 14:47 eee96c6 **feature: implement EventStore.save**
-- 2025-06-19 14:23 4c2caee **refactor: remove manual migrate script**
-- 2025-06-19 14:23 3567441 **step: bump bgord/scripts**
-- 2025-06-19 14:19 9a8b7c7 **step: install better-sqlite3**
-- 2025-06-19 14:10 2a23aff **step: add bun-drizzle-migrate script**
-- 2025-06-19 14:09 694ee51 **feature: define drizzle.config.ts**
-- 2025-06-19 13:51 34be2f1 **step: add seed**
-- 2025-06-19 13:50 abbb4cf **refactor: regenerate infra/drizzle**
-- 2025-06-19 13:48 1e07a85 **fix: events.createdAt schema**
-- 2025-06-19 13:41 33057c4 **feature: setup events schema**
-- 2025-06-19 13:17 9b0ccdc **step: make a working example**
-- 2025-06-19 13:13 458910f **refactor: regenerate drizzle migrations**
-- 2025-06-19 13:13 12d2aa9 **refactor: remove env SQLITE_DATABASE_FILE_PATH**
-- 2025-06-19 13:12 fab7181 **step: add test file**
-- 2025-06-19 13:12 599fd6d **refactor: remove drizzle migrations**
-- 2025-06-19 13:09 734121b **refactor: revert sqlite env path**
-- 2025-06-19 13:06 3c1ffaa **step: define drizzle migrations**
-- 2025-06-19 13:06 3abf4da **step: bump bgord/scripts**
-- 2025-06-19 13:04 972d428 **step: define bun drizzle generate script**
-- 2025-06-19 13:03 5e7824f **step: define drizzle schema**
-- 2025-06-19 12:56 bda1afa **step: setup infra/db**
-- 2025-06-19 12:49 aa783d6 **step: install drizzle**
-- 2025-06-19 12:49 9e9cc50 **fix: formatting**
-- 2025-06-19 12:38 f329ba5 **step: bump bgord/scripts**
-- 2025-06-19 12:38 574bee9 **step: update biome**
-- 2025-06-19 12:37 7c1f9a1 **step: update bgord packages**
-- 2025-06-19 11:56 5f3dfa8 **step: update knip**
-- 2025-06-19 10:47 892b3fc **docs: generate CHANGELOG**
-- 2025-06-19 09:57 d63463b **docs: generate CHANGELOG**
-- 2025-06-19 01:28 298140f **step: define policy codes**
-- 2025-06-19 01:14 11b54d3 **step: install local bgord-bun**
-- 2025-06-19 01:05 83a3c68 **refactor: simplify domain errors**
-- 2025-06-19 00:40 7e632ad **feature: add evaluate reaction route**
-- 2025-06-19 00:30 aaa4e1e **feature: add reappraise emotion route**
-- 2025-06-19 00:21 6c36e33 **refactor: simplify policies**
-- 2025-06-18 18:13 0b6ba64 **step: add log reaction tests**
-- 2025-06-18 18:01 efbb640 **feature: setup log reaction route**
-- 2025-06-18 17:54 fddb498 **step: test log-emotion route**
-- 2025-06-18 17:32 b089414 **step: define event store**
-- 2025-06-18 17:30 b027113 **step: define id param for log emotion**
-- 2025-06-18 15:48 cdf0455 **feature: setup log emotion endpoint**
-- 2025-06-18 15:22 9da5581 **refactor: unify validation error handling**
-- 2025-06-18 15:14 ef1898a **step: add log situation validation tests**
-- 2025-06-18 01:00 ac52c50 **feature: add log situation route**
-- 2025-06-18 00:56 a588ebe **step: add emotion journal entry create method**
-- 2025-06-18 00:42 305f7ec **feature: add date range for pattern detector**
-- 2025-06-18 00:28 bb5be16 **step: test multiple patterns detected case**
-- 2025-06-18 00:09 29d8b02 **refactor: make pattern detector return events**
-- 2025-06-17 23:55 d3c36d0 **refactor: rename multiple maladaptive reactions pattern**
-- 2025-06-17 23:37 008bb69 **refactor: extract mocks**
-- 2025-06-17 23:20 c3a1ccd **refactor: extract patterns**
-- 2025-06-17 23:13 e0dbe0b **step: add MoreNegativiteThanPositiveEmotionsPattern tests**
-- 2025-06-17 22:59 0d2e154 **feature: implement MoreNegativiteThanPositiveEmotionsPattern**
-- 2025-06-17 20:03 4567129 **feature: add PositiveEmotionWithMaladaptiveReaction**
-- 2025-06-17 19:59 0983ee1 **step: adjust pattern detector rule**
-- 2025-06-17 19:53 b3e03f2 **step: implement emotion label isPositive and isNegative**
-- 2025-06-17 19:37 ff20a33 **feature: implement MultipleMaladaptiveReactionsInWeekPattern-n**
-- 2025-06-17 19:30 00859c9 **step: add summarize method**
-- 2025-06-17 18:30 9672b72 **step: setup pattern detector**
-- 2025-06-17 17:32 07b3e9f **feature: handle started and finished at**
-- 2025-06-17 17:22 4582542 **step: implement Policies.ReactionForEvaluationExists**
-- 2025-06-17 17:14 bdd71c4 **step: add evaluate reaction tests**
-- 2025-06-17 17:09 ccbe328 **feature: implement evaluateReaction**
-- 2025-06-17 17:02 21d823a **step: implement Policies.EmotionCorrespondsToSituation**
-- 2025-06-17 13:39 5d05161 **feature: implement reappraiseEmotion**
-- 2025-06-17 00:55 65f461c **refactor: simplify tests**
-- 2025-06-17 00:47 1da0891 **refactor: rewrite events to match event-store schema**
-- 2025-06-17 00:45 908e5f6 **refactor: export vo schemas**
-- 2025-06-17 00:27 7555991 **refactor: extract event names**
-- 2025-06-16 23:53 c6bafd9 **step: update lefthook**
-- 2025-06-16 23:36 1847773 **feature: add logReaction method**
-- 2025-06-16 23:35 73ff4ad **refactor: export reaction vo types**
-- 2025-06-16 23:28 896b30d **step: improve tests**
-- 2025-06-16 23:14 1696d03 **step: add emotion corresponds to situation policy**
-- 2025-06-16 23:08 e5e491c **feature: add logEmotion method**
-- 2025-06-16 22:24 da9cce5 **step: define OneSituationPerEmotionJournalEntry**
-- 2025-06-16 22:06 7f7376a **step: add emotion journal entry aggregate tests**
-- 2025-06-16 21:58 b17441f **feature: setup emotion journal entry aggregate**
-- 2025-06-16 21:55 9abc228 **fix: situation kind**
-- 2025-06-16 21:55 4c6101e **refactor: export vo value types**
-- 2025-06-16 21:53 0ff5d0e **docs: generate CHANGELOG**
-- 2025-06-15 23:09 7c7d6fd **step: add sources**
-- 2025-06-15 22:42 d27d860 **step: add docs**
-- 2025-06-15 22:21 7596caf **step: define emotions module exports**
-- 2025-06-15 22:17 8b6eff2 **step: add tmp/ to gitignore**
-- 2025-06-15 22:12 e394d02 **feature: define situation, emotion, reaction entities**
-- 2025-06-15 22:08 710e3ba **feature: add journal entry created and updated at**
-- 2025-06-15 22:05 3bfe0de **feature: add journal entry id**
-- 2025-06-15 21:58 d8cbdf8 **feature: add situation kind  vo**
-- 2025-06-15 21:03 9d71d4c **feature: add reaction type vo**
-- 2025-06-15 20:32 faef098 **feature: add reaction effectiveness vo**
-- 2025-06-15 20:25 e278511 **feature: add reaction description vo**
-- 2025-06-15 20:20 2d0029f **feature: add situation location vo**
-- 2025-06-15 20:13 ad9c0e5 **feature: add situation description vo**
-- 2025-06-15 19:47 c3f8e59 **step: improve emotion intensity serializing**
-- 2025-06-15 19:38 f6281bd **feature: add emotion label vo**
-- 2025-06-15 16:16 8cfdb9c **feature: add emotion intensity vo**
-- 2025-06-15 15:33 fef6d7f **step: setup scripts/**
-- 2025-06-15 15:32 03a4980 **step: setup app/**
-- 2025-06-15 15:31 bd5b3ac **step: setup infra/**
-- 2025-06-15 15:30 bee88dd **step: setup server.ts**
-- 2025-06-15 15:29 63aab4b **step: setup index.ts**
-- 2025-06-15 15:27 641728e **step: setup packages**
-- 2025-06-15 15:26 fbce5aa **step: setup readme**
-- 2025-06-15 15:26 8df7ebe **step: setup lefthook**
-- 2025-06-15 15:26 8ba629a **step: setup workflows**
-- 2025-06-15 15:26 439cc63 **step: setup tsconfig**
-- 2025-06-15 15:25 e8c3455 **step: setup envs**
-- 2025-06-15 15:22 de895e0 **step: setup bgord-scripts**
-- 2025-06-15 15:21 0bedf17 **step: add gitignore**
+- 2025-08-21 18:30 5db12be1 **step: add correct translations**
+## 2025-08-21 18:30 
+- 2025-08-21 18:22 98f3cb0a **step: add link stats**
+- 2025-08-21 18:05 4d3dafc4 **step: add relations**
+- 2025-08-21 18:00 4a5cc116 **step: pass user agent header to shared entries**
+- 2025-08-21 17:47 ca96d1d3 **step: add shareble link hit projector**
+- 2025-08-21 17:43 bebf5724 **step: add shareable link hits schema**
+- 2025-08-21 17:37 24021579 **step: test shareable link access**
+- 2025-08-21 17:35 f55448ae **step: calculate reason differently**
+- 2025-08-21 17:29 87f17b07 **step: add event mocks**
+- 2025-08-21 17:29 7d20dfc5 **step: add shareable lnk is empty method**
+- 2025-08-21 17:29 7014141d **step: use is empty in shareable link access adapter**
+- 2025-08-21 17:15 20d6fcdc **step: implement the first test**
+- 2025-08-21 17:12 d3eb0429 **step: setup shareable link accessed event in mocks**
+- 2025-08-21 17:11 15467039 **step: extract visitor id in mocks**
+- 2025-08-21 17:08 d1e972b1 **step: use auditor in shareable link access**
+- 2025-08-21 17:08 c5ae5ae3 **refactor: do not export intermediate adapters**
+- 2025-08-21 17:00 d9b67670 **step: implement auditor adapter**
+- 2025-08-21 17:00 51f78d6a **refactor: extract auditor input type**
+- 2025-08-21 16:55 2b29b2d7 **step: wire up shareable link accessed event**
+- 2025-08-21 16:54 faaad936 **step: improve shareable link accessed event**
+- 2025-08-21 16:54 903ee311 **step: adjust ShareableLinkAccessAuditorPort**
+- 2025-08-21 16:46 ad30ee44 **step: expose status in shareable link summarize method**
+- 2025-08-21 16:43 bbe2806c **step: add access validity**
+- 2025-08-21 16:43 8a0d7e2d **step: add shareable link access auditor**
+- 2025-08-21 16:39 7dfed24b **step: update packages**
+- 2025-08-19 23:44 fc050b42 **step: add shareable link accessed event**
+- 2025-08-19 23:41 57ddddd8 **fix: event naming**
+- 2025-08-19 23:36 4f7e0c74 **step: add shareable link access context**
+- 2025-08-19 23:26 535fec30 **step: add access context vo**
+- 2025-08-19 23:25 676a6aec **step: update packages**
+- 2025-08-19 22:35 35bd2c6c **refactor: remove hcaptcha from fe for now**
+- 2025-08-19 22:19 c4008267 **step: setup better auth hcaptcha**
+- 2025-08-19 22:15 2a2bdad4 **step: install react hcaptcha**
+- 2025-08-19 22:09 33b04b35 **fix: key parsing**
+- 2025-08-19 22:00 321f6961 **step: add captcha shield to weekly review export email**
+- 2025-08-19 21:56 d8b150fc **step: add hcaptcha secret key to env**
+- 2025-08-19 21:55 441b6219 **step: add captcha shield**
+- 2025-08-19 21:50 12e2419c **refactor: use new mailer adapter names**
+- 2025-08-19 21:49 f38b2cf2 **step: update packages**
+- 2025-08-19 20:35 dd0ea225 **docs: generate CHANGELOG**
+- 2025-08-19 20:35 076fb783 **docs: generate readme**
+- 2025-08-19 20:31 141b8c74 **refactor: use data-transform for font variant numeric**
+- 2025-08-19 20:30 7ea1b600 **fix: history projection port type**
+- 2025-08-19 20:30 751b68e9 **step: regenerate bun lock**
+- 2025-08-19 20:27 80b53262 **step: update packages**
+- 2025-08-19 20:25 6f07fb2e **step: update packages**
+- 2025-08-19 20:22 349b5877 **step: update packages**
+- 2025-08-19 20:08 5e19376b **refactor: remove custom css**
+- 2025-08-19 20:05 1f6ec5d5 **fix: remove normalize css call**
+- 2025-08-19 20:01 ffe20409 **refactor: remove unused components**
+- 2025-08-19 19:55 2a1b1e43 **refactor: cleanup styles**
+- 2025-08-19 19:35 ba31c566 **step: bump bgord/scripts**
+- 2025-08-19 18:31 da8cd307 **docs: generate CHANGELOG**
+- 2025-08-19 17:35 50d1b252 **docs: generate CHANGELOG**
+- 2025-08-19 13:03 a9464589 **step: bump bgord/scripts**
+- 2025-08-19 13:00 c35f1698 **step: bump bgord/scripts**
+- 2025-08-19 13:00 06627382 **step: setup depcruise**
+- 2025-08-19 11:03 9ad2f291 **docs: generate readme**
+- 2025-08-19 11:03 92d0181c **docs: generate CHANGELOG**
+- 2025-08-18 23:42 4f425749 **refactor: move hour has passed to modules/system**
+- 2025-08-18 23:23 28941d53 **step: install deps cruiser**
+- 2025-08-18 23:08 8e5a0cc2 **step: use import type in biome**
+- 2025-08-18 22:54 9a9358a9 **step: bump bgord/scripts**
+- 2025-08-18 22:40 a9632cc2 **refactor: clear event store imports**
+- 2025-08-18 22:17 e7027c52 **refactor: clear command bus imports**
+- 2025-08-18 22:04 3d7f2373 **refactor: clear event bus port**
+- 2025-08-18 21:37 3527241f **refactor: make all modules infra imports types**
+- 2025-08-18 20:55 e5601dd2 **docs: generate CHANGELOG**
+- 2025-08-18 20:55 3a1008b0 **docs: generate readme**
+- 2025-08-18 20:42 99d274d1 **docs: generate CHANGELOG**
+- 2025-08-18 16:19 616f8855 **refactor: extract Env.EMAIL_FROM**
+- 2025-08-18 16:14 1ba58457 **refactor: extract command bus types**
+- 2025-08-18 14:19 e40475c0 **docs: generate CHANGELOG**
+- 2025-08-18 14:11 18f26d93 **docs: generate CHANGELOG**
+- 2025-08-18 13:41 5f3d804f **refactor: extract command bus type**
+- 2025-08-18 13:11 e09a55f1 **refactor: cleanup exports**
+- 2025-08-18 13:05 5d85e3fd **fix: frontend typechecks**
+- 2025-08-18 12:48 63d30055 **refactor: simplify adapters**
+- 2025-08-18 12:42 69d2ae91 **refactor: introduce weekly review repo**
+- 2025-08-18 12:36 356b78fd **refactor: introduce alarm repo**
+- 2025-08-18 12:31 d031300d **refactor: use ai gateway port**
+- 2025-08-18 12:27 3da7f523 **step: add entry repo**
+- 2025-08-18 12:20 cc5472ed **refactor: simplify imports**
+- 2025-08-18 12:18 220aeb16 **refactor: make publishing event store free**
+- 2025-08-18 12:09 c8357ba2 **refactor: create shareable link repo port**
+- 2025-08-18 11:14 e442ffab **docs: generate readme**
+- 2025-08-18 11:14 50b83ca1 **docs: generate CHANGELOG**
+- 2025-08-18 10:27 c0aa484a **refactor: simplify adapters method return types**
+- 2025-08-18 10:21 d118c19e **refactor: move emotions routes to app http**
+- 2025-08-18 10:17 d76e428f **refactor: move publishing routes to app http**
+- 2025-08-18 10:14 347fec69 **refactor: rename app/routes to app/http**
+- 2025-08-18 10:05 173deefc **refactor: rextract supported languages**
+- 2025-08-18 09:44 ad7350be **refactor: make ai infra free**
+- 2025-08-18 09:07 53f53734 **refactor: simplify ai gateway**
+- 2025-08-18 08:31 02ff7d9b **docs: generate CHANGELOG**
+- 2025-08-18 08:22 f0cd2da2 **docs: generate readme**
+- 2025-08-18 08:22 d7e7ed2d **docs: generate CHANGELOG**
+- 2025-08-18 07:55 df6d76f8 **docs: generate readme**
+- 2025-08-18 07:55 8ef98deb **docs: generate CHANGELOG**
+- 2025-08-17 23:39 bc576bc4 **refactor: extract sharing entries ohq**
+- 2025-08-17 23:19 803403d3 **refactor: remove schema refs**
+- 2025-08-17 23:13 7858c306 **step: add alarm directory port**
+- 2025-08-17 23:06 ce185c5b **refactor: remove entry repository list for user**
+- 2025-08-17 23:04 66ea3fe7 **step: add getAllForuser**
+- 2025-08-17 22:55 ce5c9532 **refactor: add weekly review export query port**
+- 2025-08-17 22:48 4b904455 **refactor: rename weekly review export**
+- 2025-08-17 22:45 e1ec4238 **refactor: add weekly review snapshot**
+- 2025-08-17 22:40 099f3c74 **refactor: make full alarm snapshot**
+- 2025-08-17 22:37 522dbcfc **refactor: make full pattern detection snapshot**
+- 2025-08-17 22:32 a730b6d7 **refactor: unfiy weekly review export alarm**
+- 2025-08-17 22:24 7e7f8ec1 **refactor: unfiy weekly review export pattern detections**
+- 2025-08-17 22:20 f3507699 **refactor: unfiy weekly review export dto entries**
+- 2025-08-17 22:17 8d12176c **refactor: portify GetLatestEntryTimestampForUser**
+- 2025-08-17 22:09 07db1a34 **refactor: portify entries per week count**
+- 2025-08-17 21:55 0b390a7d **refactor: make publishing query infra free**
+- 2025-08-17 21:35 62236f92 **refactor: rename auth ports to ohq**
+- 2025-08-17 21:32 4aa3cb5a **refactor: remove user repository**
+- 2025-08-17 21:28 82b0f71b **step: define user directory port and adapter**
+- 2025-08-17 21:25 857435c2 **refactor: preare user contact for extension**
+- 2025-08-17 21:20 e0e3edb4 **step: add user contact adapter**
+- 2025-08-17 20:57 f1f2faf8 **step: remove infra references**
+- 2025-08-17 20:36 9a3baff5 **refactor: remove getbyid from entry repository**
+- 2025-08-17 20:23 5d39e11f **step: add entry snapshot**
+- 2025-08-17 20:06 d450c15e **refactor: add entry snapshot**
+- 2025-08-17 20:00 ccaad4ee **step: tighten entries schema**
+- 2025-08-17 19:53 5f410252 **refactor: cleanup entry schema**
+- 2025-08-17 16:46 2313a836 **step: do not use entry repo in projector**
+- 2025-08-17 15:12 9b5c853c **refactor: simplify saga imports**
+- 2025-08-17 15:07 95d2a2d4 **refactor: remove time capsule entry repo**
+- 2025-08-17 14:46 fe93bca2 **docs: generate readme**
+- 2025-08-17 14:46 98491e84 **docs: generate CHANGELOG**
+- 2025-08-17 14:25 b4553a9b **refactor: remove get by id in time capsule entry repo**
+- 2025-08-17 14:24 e3f99530 **refactor: rename history projection**
+- 2025-08-17 14:14 4fb19a88 **refactor: add weekly review snapshot adapter**
+- 2025-08-17 14:05 d1a562e2 **refactor: add ExpiringShareableLinksDrizzle**
+- 2025-08-17 13:30 b4b27655 **refactor: remove unused patterns read model**
+- 2025-08-17 13:27 58eb8895 **refactor: cleanup tests**
+- 2025-08-17 12:58 92183c3a **refactor: pass event handler to policies**
+- 2025-08-17 12:47 c33bbf59 **refactor: cleanup adapter exports**
+- 2025-08-17 12:44 8128d96e **step: introduce AlarmCancellationLookupPort**
+- 2025-08-17 12:23 8bfe5f5f **refactor: improve alarm orchestrator**
+- 2025-08-17 12:17 79984d58 **docs: generate readme**
+- 2025-08-17 12:17 5932894f **docs: generate CHANGELOG**
+- 2025-08-17 12:05 621da5be **docs: generate CHANGELOG**
+- 2025-08-17 12:05 069a7cce **docs: generate readme**
+- 2025-08-17 09:16 23ea1b1c **refactor: add alarm projector**
+- 2025-08-17 09:15 f1f5f458 **step: implement completion flow**
+- 2025-08-17 09:05 c385eb50 **refactor: rename send alarm notification command**
+- 2025-08-17 09:03 d9536601 **step: add complete alarm command**
+- 2025-08-17 08:59 13cce24c **step: add alarm.complete method**
+- 2025-08-17 08:44 af2e226f **refactor: include advice in alarm notification requested**
+- 2025-08-17 08:40 bbd7e8a4 **step: rename alarm notification sent event**
+- 2025-08-17 00:15 a0403ac5 **step: apply event handler handle**
+- 2025-08-16 22:06 82471746 **refactor: unify projectors**
+- 2025-08-16 22:02 49c0c7ad **refactor: extract history projector**
+- 2025-08-16 21:53 4f8ae87d **refactor: migrate ai event handlers**
+- 2025-08-16 21:49 f446049b **refactor: create publishing projectors**
+- 2025-08-16 21:44 973b9ab0 **refactor: introduce projectors**
+- 2025-08-16 20:14 96ffa6f1 **step: write tests**
+- 2025-08-16 20:02 e7fe4a23 **refactor: simplify entry alarm detector test**
+- 2025-08-16 19:53 c813e066 **refactor: extract emotions history publisher**
+- 2025-08-16 18:33 34e8d777 **docs: generate readme**
+- 2025-08-16 18:33 1f5e38c2 **docs: generate CHANGELOG**
+- 2025-08-16 18:29 2c6b00d1 **Merge pull request #31 from bgord/history**
+- 2025-08-16 17:55 d13c4a83 **step: setup entry history dialog**
+- 2025-08-16 17:55 50810882 **step: setup entry history dialog**
+- 2025-08-16 16:55 35552eed **step: set slight delay for history writer event store adapter**
+- 2025-08-16 16:30 bc9e477a **docs: generate readme**
+- 2025-08-16 16:30 55483ffd **docs: generate CHANGELOG**
+- 2025-08-16 12:37 94d49984 **fix: history event stream**
+- 2025-08-16 12:32 9b02087d **refactor: clear history**
+- 2025-08-16 12:20 e49b66bc **refactor: migrate to history from bgord/bun**
+- 2025-08-16 12:19 03803581 **step: update packages**
+- 2025-08-16 11:54 d5ef8291 **step: add history indexes**
+- 2025-08-16 11:47 03fb2aff **refactor: migrate mailer adapter**
+- 2025-08-16 11:45 62bc7d63 **refactor: wire up history writer to event handlers**
+- 2025-08-16 10:59 d2e3dbae **refactor: clean up ai client names**
+- 2025-08-16 10:56 5b4fb3d7 **refactor: other ports**
+- 2025-08-16 10:51 059eaaaa **refactor: clean up emotions adapter**
+- 2025-08-16 10:26 aa41f6f0 **refactor: cleanup adapters**
+- 2025-08-16 10:04 98b003cc **step: wire up event handlers**
+- 2025-08-16 10:01 c5a3a7fa **step: setup infra/adapters**
+- 2025-08-16 09:37 0f8bffdb **step: define a port for history writer**
+- 2025-08-16 09:32 ab7840dd **refactor: improve history writer**
+- 2025-08-16 09:30 797b6332 **refactor: handle payloads better**
+- 2025-08-16 09:23 af984b1f **refactor: rename subject in events**
+- 2025-08-16 09:21 7e3ecbe3 **refactor: extract history repo adapter to infra**
+- 2025-08-16 09:16 1079ee78 **refactor: rename history writer**
+- 2025-08-16 09:14 6b52c15c **refactor: rename history correlation id to subject**
+- 2025-08-16 09:11 8ffa1563 **step: add repo**
+- 2025-08-16 08:58 62df0bd4 **step: add populator**
+- 2025-08-16 08:57 fc90d6d0 **step: adjust events**
+- 2025-08-15 22:04 85eac3de **step: add the repo**
+- 2025-08-15 21:55 7fe23896 **step: add VO**
+- 2025-08-15 21:52 9b38e253 **step: add history alias**
+- 2025-08-15 21:52 3e94efb0 **step: add history events**
+- 2025-08-15 21:41 260d73ca **step: add history schema**
+- 2025-08-15 20:11 533adaa8 **refactor: extract auth notifications**
+- 2025-08-15 19:48 dd4a52c4 **refactor: use tools for notification template**
+- 2025-08-15 19:48 2c2822d0 **step: update packages**
+- 2025-08-15 19:07 a35d475b **fix: pills**
+- 2025-08-15 18:43 b3aa5c4b **docs: generate readme**
+- 2025-08-15 18:43 1f508bff **docs: generate CHANGELOG**
+- 2025-08-15 18:31 c9a96137 **fix: intensity max**
+- 2025-08-15 18:06 9db50d22 **feature: add forgot password page**
+- 2025-08-15 17:53 b7e2d38c **step: add forgot password link**
+- 2025-08-15 17:48 ca36c844 **docs: generate CHANGELOG**
+- 2025-08-15 15:39 a9d0b7c3 **docs: generate CHANGELOG**
+- 2025-08-15 12:37 c9379590 **refactor: rerun migrations**
+- 2025-08-15 12:37 66b3e321 **step: add delete cascades**
+- 2025-08-15 12:08 cf6c3681 **feature: add delete account profile section**
+- 2025-08-15 10:26 2fcf87c3 **step: add haveibeenpwned better auth plugin**
+- 2025-08-15 09:38 ed86f2df **refactor: improve register flow copy**
+- 2025-08-15 09:32 cdf7ae7a **step: add auth events**
+- 2025-08-15 08:21 9c57cdd9 **docs: generate CHANGELOG**
+- 2025-08-15 08:21 16e288d4 **docs: generate readme**
+- 2025-08-15 00:39 a592919c **step: add a placeholder for account deleted**
+- 2025-08-15 00:33 daa8d65b **step: add a placeholder for account created**
+- 2025-08-15 00:08 c6663a3b **feature: add reset password page**
+- 2025-08-14 23:50 75dbf93b **refactor: rename to change password**
+- 2025-08-14 23:00 4f78dcb9 **step: use correct email**
+- 2025-08-14 22:52 5571c401 **step: add send reset password**
+- 2025-08-14 22:49 d6e19feb **docs: generate CHANGELOG**
+- 2025-08-14 22:39 0696959f **feature: add reset password form**
+- 2025-08-14 22:13 19e62970 **docs: generate CHANGELOG**
+- 2025-08-14 22:08 a3e199d5 **step: make the users verified in seeder**
+- 2025-08-14 21:54 5bcb9bda **step: add email verification**
+- 2025-08-14 21:10 ba54c533 **step: update bun**
+- 2025-08-14 21:10 a61a8266 **step: add better auth logger**
+- 2025-08-14 20:55 96e2d469 **step: add no auto sign in in email and password**
+- 2025-08-14 20:54 11ad60cb **step: wire up logger in auth**
+- 2025-08-14 20:36 6852cdc4 **step: add rate limit for auth**
+- 2025-08-14 20:35 79efd4a4 **step: add session duration**
+- 2025-08-14 20:00 716c70cd **refactor: improve icons in profile**
+- 2025-08-14 19:49 06686c21 **fix: biome hints**
+- 2025-08-14 19:48 24234545 **step: bump bgord/scripts**
+- 2025-08-14 19:45 6b382277 **fix: biome hints**
+- 2025-08-14 19:44 ca636293 **step: update packages**
+- 2025-08-14 17:52 8d4fa953 **docs: generate CHANGELOG**
+- 2025-08-14 15:20 f2b8bc51 **refactor: add pluralization**
+- 2025-08-14 01:03 8fa5bcbf **fix: restore bgord-design type checking**
+- 2025-08-14 00:59 a2e212a8 **feature: add ai usage profile section**
+- 2025-08-14 00:27 ebc140f7 **refactor: make ports naming consistent**
+- 2025-08-14 00:24 f9a5c323 **fix: biome hints**
+- 2025-08-14 00:22 cb2b1e53 **step: bump bgord/scripts**
+- 2025-08-14 00:22 464b439f **refactor: format imports**
+- 2025-08-14 00:13 65187914 **Merge pull request #30 from bgord/ai_bc**
+- 2025-08-13 23:33 c50bc812 **step: bump bgord/scripts**
+- 2025-08-13 23:33 2192122c **step: update packages**
+- 2025-08-13 23:17 3f56cbee **step: bump bgord/scripts**
+- 2025-08-13 22:52 1e4079d6 **step: WIP**
+- 2025-08-13 22:38 24429bd0 **refactor: regenerate schema**
+- 2025-08-13 22:33 463d8ad8 **step: update fe packages**
+- 2025-08-13 22:32 1ff67b2e **step: update packages**
+- 2025-08-13 22:25 17a2f78e **docs: generate CHANGELOG**
+- 2025-08-13 22:23 b301dd05 **docs: generate CHANGELOG**
+- 2025-08-13 22:22 ab604f6a **step: pinpoint all packages**
+- 2025-08-13 22:14 576c8b1d **docs: generate readme**
+- 2025-08-13 22:13 d84175e8 **docs: generate CHANGELOG**
+- 2025-08-13 22:11 f80b9db4 **step: update better auth in fe**
+- 2025-08-13 22:00 8b8d97ed **step: update packages**
+- 2025-08-13 21:52 66ac92fe **step: update packages**
+- 2025-08-13 21:52 0555a8b7 **refactor: fix knip errors**
+- 2025-08-13 21:45 6f1d0380 **refactor: remove todo**
+- 2025-08-13 21:42 e28ecc62 **refactor: rename quota specification**
+- 2025-08-13 17:30 83c4fd52 **refactor: use acl in handle generate alarm command**
+- 2025-08-13 17:28 36fc807b **refactor: cleanup ai clients**
+- 2025-08-13 17:15 2c73b39e **refactor: remove abundant inactivity alarms from seed**
+- 2025-08-13 17:12 6d67d0b0 **fix: do not display cancelled alarms in dashboarD**
+- 2025-08-13 17:10 b568fe00 **fix: bucket counter**
+- 2025-08-13 17:02 40943bea **step: add on ai request registered event handler**
+- 2025-08-13 16:46 9f39ccf3 **step: improve mocks**
+- 2025-08-13 16:40 259bbc89 **step: cleanup emotions bc**
+- 2025-08-13 16:33 3cc22d7b **step: clean up auth bc imports**
+- 2025-08-13 16:32 cb4b9197 **refactor: tiyy up ports ai bc**
+- 2025-08-13 16:26 10b76a49 **refactor: make all paths absolute in tests**
+- 2025-08-13 16:10 2b3c45a0 **refactor: move prompt to acl**
+- 2025-08-13 15:19 8c8b01e3 **refactor: inject ai gateway into the alarm orchestrator**
+- 2025-08-13 14:20 6292d5fc **step: create emotions -> ai ACL**
+- 2025-08-13 13:52 5b79871e **refactor: remove unused queries and invariants**
+- 2025-08-13 13:32 64152096 **refactor: rely on ai gateway check for handle generate alarm**
+- 2025-08-13 12:48 55b0291f **step: add ai gateway check in handle generate alarm command**
+- 2025-08-13 12:25 95fb2f1d **refactor: remove alarm factory**
+- 2025-08-13 00:14 bddb8fda **step: add check to ohs**
+- 2025-08-12 23:35 6ff0c4f9 **refactor: adjust weekly review processing testsl**
+- 2025-08-12 23:26 3aefb81d **refactor: make mocks more specific**
+- 2025-08-12 23:25 51614586 **fix: export type**
+- 2025-08-12 23:22 302ff129 **refactor: replace ai client with ai gateway with tests**
+- 2025-08-12 23:20 bf915667 **refactor: register ai gateway from infra**
+- 2025-08-12 23:20 2292d931 **step: add infra ai-gateway**
+- 2025-08-12 23:13 72c1be67 **refactor: make weekly review processing use ai gateway**
+- 2025-08-12 23:12 d14a8b1b **step: rename the ai gateway port method**
+- 2025-08-12 23:09 ab128e26 **step: make ai gateway implement the port**
+- 2025-08-12 23:03 a4291eca **step: add ai gateway ports**
+- 2025-08-12 22:50 98844de7 **step: expose ai gateway error**
+- 2025-08-12 22:50 85ea32b3 **step: add mock events**
+- 2025-08-12 22:50 5f2408a3 **step: add ai gateway tests**
+- 2025-08-12 22:39 4419ed2f **step: fix ai request registered event**
+- 2025-08-12 22:13 de9ad1b1 **feature: implement ai gateway**
+- 2025-08-12 22:11 5d1709be **step: add ai quota exceeded event**
+- 2025-08-12 22:08 bee963df **step: register ai request registered event**
+- 2025-08-12 21:41 6ca2192a **refactor: move ai-client port to ai/ports**
+- 2025-08-12 21:25 8685ef32 **refactor: complete the advice/prompt migration**
+- 2025-08-12 20:54 8b682113 **refactor: export vos from ai bc entrypoint**
+- 2025-08-12 20:53 888af362 **refactor: move prompt and advice to ai**
+- 2025-08-12 20:21 aa8656f4 **refactor: cleanup event handlers**
+- 2025-08-12 20:15 5596b245 **step: update packages fr**
+- 2025-08-12 20:15 48b7aeb0 **step: regenerate migrations**
+- 2025-08-12 20:12 d400a17e **step: update packages**
+- 2025-08-12 16:04 f36c45ea **refactor: move repo calls to event handlers**
+- 2025-08-12 15:53 11608f3c **step: define ai request registered event**
+- 2025-08-12 14:35 9790edc7 **step: rename key to bucket in drizzle**
+- 2025-08-12 14:33 07beb989 **refactor: improve types**
+- 2025-08-12 14:27 9751a5c1 **refactor: add quota usage type**
+- 2025-08-12 14:25 b50e7de3 **step: add quota bucket type**
+- 2025-08-12 14:24 3fa327c4 **refactor: attr order**
+- 2025-08-12 14:23 a9e1d95a **refactor: extract quota rule id**
+- 2025-08-12 14:21 41ed5c85 **refactor: simplify tests**
+- 2025-08-12 14:16 ca211bfb **refactor: extract buckets**
+- 2025-08-12 14:12 5d83aa0a **refactor: extract request contexts**
+- 2025-08-12 14:09 64629bd4 **refactor: use day vo from tools**
+- 2025-08-12 14:04 f34f553d **step: udpate frontend packages**
+- 2025-08-12 14:02 fc21a983 **step: update packages**
+- 2025-08-12 14:01 62e9b1e5 **step: update bgord bun**
+- 2025-08-12 13:44 2e113dab **step: add ai quota specification**
+- 2025-08-12 13:20 74fd1b29 **step: add bucket counter drizzle adapter**
+- 2025-08-12 13:19 2720a1ad **step: add ai alias**
+- 2025-08-12 13:11 05b79d1f **step: add ai usage counters**
+- 2025-08-12 13:03 759bed31 **step: add bucket counter port**
+- 2025-08-12 12:58 34846a87 **step: add quote rule selector**
+- 2025-08-09 00:57 d3b717d0 **step: test the rules**
+- 2025-08-09 00:43 88ee5474 **refactor: reorganize rules**
+- 2025-08-09 00:43 3fb87397 **step: export quota rules**
+- 2025-08-09 00:37 d32f5e74 **step: define rules**
+- 2025-08-09 00:37 5a110627 **refactor: rename usage cateogry**
+- 2025-08-09 00:11 911eab32 **step: ref make CateoryDimensionMap typesafe**
+- 2025-08-09 00:08 3bfd580d **step: add CategoryDimensionMap**
+- 2025-08-09 00:04 5e8219e9 **refactor: switch to enum in usage category**
+- 2025-08-08 23:58 8ae4627f **step: improve quota rule**
+- 2025-08-08 23:57 9ff60d07 **step: add quota limit vo**
+- 2025-08-08 23:56 b0a805e5 **step: add request context dimension**
+- 2025-08-08 23:54 5279b974 **step: make bucket dependant on context**
+- 2025-08-08 23:53 d9d5ab5d **step: make quota appliesTo base on categories**
+- 2025-08-08 23:52 58f5a574 **step: define request context**
+- 2025-08-08 23:50 70d5d346 **step: add usage category**
+- 2025-08-08 23:30 c20a1985 **step: setup quota rule vo**
+- 2025-08-08 21:11 680a11e9 **refactor: use tools.Time.Now().value**
+- 2025-08-08 21:01 cb59a9b2 **refactor: rename policy**
+- 2025-08-08 20:59 938a8087 **step: update packages**
+- 2025-08-08 20:53 f17b9526 **step: set min scheduled for**
+- 2025-08-08 19:26 f9827215 **step: add time capsule entry to seed**
+- 2025-08-08 19:16 1906e2df **docs: generate CHANGELOG**
+- 2025-08-08 19:04 890dce28 **Merge pull request #26 from bgord/time-capsule**
+- 2025-08-08 19:04 23450d95 **refactor: add location icon**
+- 2025-08-08 19:01 8b2d9b9a **step: take into account tz offset into scheduling**
+- 2025-08-08 18:56 0b938af2 **fix: tests**
+- 2025-08-08 18:54 61090960 **step: add origin icon**
+- 2025-08-08 18:49 ce710337 **step: handle time capsules in FE**
+- 2025-08-08 18:19 20281dbc **feature: add entry origin**
+- 2025-08-08 18:11 fa72609a **step: add entry origin to schema**
+- 2025-08-08 18:10 acb017b3 **step: add entry origin option vo**
+- 2025-08-08 17:58 31b63e9b **step: mark as published**
+- 2025-08-08 17:36 a43b5b33 **step: add TimeCapsuleEntryIsPublishable**
+- 2025-08-08 17:33 a424975b **docs: generate CHANGELOG**
+- 2025-08-08 17:29 6f2a65a0 **step: list only scheduled in listDueForScheduling**
+- 2025-08-08 17:28 f34efd6f **step: add publish read model**
+- 2025-08-08 17:25 e63bd47c **step: add time capsule entry status**
+- 2025-08-08 17:23 e10d11e1 **step: add TimeCapsuleEntryStatusEnum**
+- 2025-08-08 17:10 a44f0694 **step: add TimeCapsuleEntryScheduledInFuture**
+- 2025-08-08 17:09 9c575aab **step: export EntryScheduledForType**
+- 2025-08-08 17:05 dd0f963e **docs: generate readme**
+- 2025-08-08 17:05 c47ed9bb **docs: generate CHANGELOG**
+- 2025-08-08 16:38 93ab8fd9 **step: update packages**
+- 2025-08-08 15:04 888a6e80 **step: add listDueForScheduling**
+- 2025-08-08 14:53 1b5512cb **step: add event handler**
+- 2025-08-08 14:51 676417e4 **step: setup time capsule entry read model**
+- 2025-08-08 14:40 0a743c78 **step: setup scheduler tests**
+- 2025-08-08 14:32 929c36d2 **step: test mocks.GenericTimeCapsuleEntryScheduledEvent**
+- 2025-08-08 14:23 2b42c03f **step: implement handleScheduleTimeCapsuleEntryCommand**
+- 2025-08-08 14:12 73a55943 **step: setup time capsule entry scheduled event**
+- 2025-08-08 13:54 cb09601c **step: add proper scheduled for vo**
+- 2025-08-08 13:47 26bed300 **step: add mocks.entryScheduledFor**
+- 2025-08-08 13:42 a7c384e5 **step: wire up command**
+- 2025-08-08 13:41 e4111c52 **step: add command handler**
+- 2025-08-08 13:39 d0cca9a1 **step: setup schedule time capsule entry command**
+- 2025-08-08 13:34 496c1599 **step: setup tests**
+- 2025-08-08 13:32 bda483bc **step: setup schedule time capsule entry route**
+- 2025-08-08 13:29 4557fbfc **step: setup time capsule entries scheduler**
+- 2025-08-07 23:23 41059452 **step: update packages**
+- 2025-08-07 23:19 8e4a5d0d **step: handle errors**
+- 2025-08-07 23:13 6d774844 **step: handle empty shared entries**
+- 2025-08-07 23:10 40ebf17b **feature: implement hide shareable links**
+- 2025-08-07 23:09 6d409920 **step: add hide shareable link read model method**
+- 2025-08-07 22:59 727485b1 **step: add shareablelinks hidden field to query**
+- 2025-08-07 22:59 25e5fe75 **step: rerun projections**
+- 2025-08-07 22:58 3834d3af **step: add shareableLinks hidden field**
+- 2025-08-07 22:34 cb84b47d **step: add shared entries page**
+- 2025-08-07 22:24 69b3dfb9 **step: add shared entries page**
+- 2025-08-07 22:12 5d5dab2d **step: check specification**
+- 2025-08-07 22:05 a9571129 **step: return shared entries**
+- 2025-08-07 22:03 14254a4f **step: expose owner id from ohq**
+- 2025-08-07 21:52 cda65b7b **refactor: remove requester id in validity**
+- 2025-08-07 21:50 178256cb **step: setup tests**
+- 2025-08-07 21:41 b5991fe1 **refactor: make ohq a class**
+- 2025-08-07 21:34 e2f0910d **step: add ohq details**
+- 2025-08-07 21:33 f71aff65 **step: expose summarize() aggregate method so it is readable in ohq**
+- 2025-08-07 21:25 7f63ce20 **refactor: make ohq richer so one aggregate-hop is needed in the final endpoint**
+- 2025-08-07 21:23 6327503c **docs: generate CHANGELOG**
+- 2025-08-07 20:58 d912ebc6 **docs: generate CHANGELOG**
+- 2025-08-07 20:58 30687183 **docs: generate readme**
+- 2025-08-06 23:44 0e4ba4e1 **step: add requester id check**
+- 2025-08-06 23:18 352d8893 **step: add ohq**
+- 2025-08-06 23:14 84c20b3e **step: add is valid to shareable link**
+- 2025-08-06 22:18 5cfeaa22 **step: add limit for the alarms**
+- 2025-08-06 22:17 6115e3d7 **fix: seeder**
+- 2025-08-06 22:12 ea147c17 **Merge pull request #25 from bgord/passage_of_time**
+- 2025-08-06 22:09 d1e7539c **step: update packages**
+- 2025-08-06 21:53 934c48d4 **step: add InactivityAlarmSchedule**
+- 2025-08-06 21:47 4264486f **step: add weekly review schedule**
+- 2025-08-06 21:31 094fa389 **step: bump bgord/scripts**
+- 2025-08-06 21:25 d1964f15 **refactor: make EntryAlarmDetector a policy**
+- 2025-08-06 21:22 3a470863 **refactor: remove saga register**
+- 2025-08-06 20:12 fdf2f1ed **docs: generate readme**
+- 2025-08-06 20:12 d785d199 **docs: generate CHANGELOG**
+- 2025-08-06 18:02 2fed9a59 **refactor: weekly review scheduler**
+- 2025-08-06 17:57 7cf9d021 **refactor: remove scheduler**
+- 2025-08-06 17:56 2295cfa9 **step: define inactivity alarm scheduler policy**
+- 2025-08-06 15:59 7d0f5ad8 **refactor: remove shareable links expirer service**
+- 2025-08-06 15:58 eacee472 **step: define ShareableLinksExpirer policy**
+- 2025-08-06 15:05 f14e1ec5 **step: test passsage of time**
+- 2025-08-06 15:01 0f6ce2e5 **step: define mock hour has passed event**
+- 2025-08-06 14:59 f402aa99 **step: wire up passage of time service**
+- 2025-08-06 14:58 270ada03 **step: add passage of time service**
+- 2025-08-06 14:51 f32f5eda **step: add hour has passed event**
+- 2025-08-06 14:37 5064096b **refactor: rename policies to invariants**
+- 2025-08-06 12:48 321e0b28 **docs: generate CHANGELOG**
+- 2025-08-06 12:48 036894d0 **docs: generate readme**
+- 2025-08-05 22:58 2829e0e5 **refactor: use weekly review export dto**
+- 2025-08-05 22:49 4c81a832 **step: adjut weekly-review-export-pdf-file.ts**
+- 2025-08-05 22:49 3217bdad **step: adjust react pdf adapter to the dto**
+- 2025-08-05 22:45 0463eb16 **step: define weekly review export dto**
+- 2025-08-05 22:15 e2357c15 **refactor: schedule ExportWeeklyReviewByEmailCommand in onWeeklyReviewCompletedEvent**
+- 2025-08-05 22:14 2c96112b **step: remove redundandt notification composer**
+- 2025-08-03 23:28 f88cf892 **step: add basic template**
+- 2025-08-03 23:16 86e14ee6 **step: adjust weekly review export by email**
+- 2025-08-03 23:14 57734101 **step: adjust WeeklyReviewExportPdfFile**
+- 2025-08-03 23:13 a0fe73e8 **step: adjust download weekly review**
+- 2025-08-03 22:58 3057fb50 **step: change weekly review export notification**
+- 2025-08-03 21:28 2f336a38 **docs: generate CHANGELOG**
+- 2025-08-03 21:20 8fc17850 **refactor: remove labels**
+- 2025-08-03 21:18 43cda781 **step: add search**
+- 2025-08-03 19:51 cde98348 **docs: generate CHANGELOG**
+- 2025-08-03 14:21 32b9aba6 **step: add filter UI.useField**
+- 2025-08-03 14:18 4d55b1e1 **step: improve filter**
+- 2025-08-03 14:10 6187416b **fix: label ui**
+- 2025-08-03 14:09 e159a06c **refactor: remove unused form**
+- 2025-08-03 14:09 53b36cc4 **step: add filter ui**
+- 2025-08-03 14:08 f906cb02 **step: remove add entry button margin**
+- 2025-08-03 14:08 09e58dd6 **step: include filter query param in the read model query**
+- 2025-08-03 14:07 d83d2ca7 **step: add read model filters**
+- 2025-08-03 14:07 c8cd3bdd **step: add entry filter translations**
+- 2025-08-03 13:55 be930770 **step: add export weekly review by email button**
+- 2025-08-03 13:44 1c287c7f **step: write missing event handler tests**
+- 2025-08-03 11:56 a48c7210 **docs: generate CHANGELOG**
+- 2025-08-03 00:41 ddcc45fe **step: add insights header**
+- 2025-08-03 00:39 ac038a07 **step: add alarm weekly review translations**
+- 2025-08-03 00:32 8b2def62 **feature: display alarms in weekly review**
+- 2025-08-03 00:27 88f09bbe **fix: userId reference in weekly reviews**
+- 2025-08-03 00:25 bc3b3bfe **step: add alarm weekIsoId field**
+- 2025-08-03 00:23 59148b61 **refactor: rerun migrations**
+- 2025-08-03 00:20 2c052740 **refactor: simplify weekly review read model**
+- 2025-08-03 00:15 476800aa **step: update schema relations**
+- 2025-08-03 00:08 d96c02cc **refactor: restore migrations**
+- 2025-08-02 23:26 35694c1f **fix: set conditional alias to resolve react-dom server to node**
+- 2025-08-02 23:18 6adeb790 **fix: prod build of vite**
+- 2025-08-02 23:16 bca6ab4b **refactor: remove use client in global shortcuts**
+- 2025-08-02 23:16 5fa9a34a **step: update ui**
+- 2025-08-02 23:15 7ec72c9d **step: bump bgord/scripts**
+- 2025-08-02 22:52 272f76f3 **Merge pull request #22 from bgord/react-pdf-generator**
+- 2025-08-02 22:51 67ee8662 **step: resolve conflicts**
+- 2025-08-02 22:47 854f4c7b **Merge pull request #21 from bgord/publishing**
+- 2025-08-02 22:41 de3c3133 **docs: generate CHANGELOG**
+- 2025-08-02 22:34 5ebc77a0 **step: append alarms to weekly review notification**
+- 2025-08-02 22:28 1b77f6e7 **refactor: improve list shareable links read model query**
+- 2025-08-02 22:23 ee08b931 **refactor: use revalidate on focus**
+- 2025-08-02 22:22 5301d621 **step: update packages**
+- 2025-08-02 22:16 bc4d764f **step: clean up insights in tests**
+- 2025-08-02 22:10 9887d15d **step: change links limit to 3 active**
+- 2025-08-02 21:18 67bb1ed9 **docs: generate CHANGELOG**
+- 2025-08-02 20:53 cdf2c6de **docs: generate readme**
+- 2025-08-02 20:53 a686ec5a **docs: generate CHANGELOG**
+- 2025-08-02 20:48 c519dfad **docs: generate CHANGELOG**
+- 2025-08-02 20:48 3dbd9214 **docs: generate readme**
+- 2025-08-02 19:16 6543ceaf **step: add possible prod issue remedy**
+- 2025-08-02 18:57 909ee75d **step: add copy button**
+- 2025-08-02 18:47 1cbd1371 **step: update bun**
+- 2025-08-02 18:41 a63c8947 **fix: restore previous ts version**
+- 2025-08-02 18:37 81a8dbe2 **step: update ts**
+- 2025-08-02 18:34 dc387e46 **fix: stacks**
+- 2025-08-02 18:29 d4edf509 **step: setup rate limiter stores**
+- 2025-08-02 18:23 df51f506 **step: update packages**
+- 2025-08-02 18:19 7dc3be29 **step: regenerate types**
+- 2025-08-02 18:19 0effe9f4 **step: update packages**
+- 2025-08-02 17:18 ced020c7 **step: update packages**
+- 2025-08-02 17:03 58126f41 **refactor: use data-stack**
+- 2025-08-02 16:54 d014551d **step: update design**
+- 2025-08-02 16:35 7a8c26f7 **step: add  translations**
+- 2025-08-02 16:27 f523b0a6 **step: introduce form object**
+- 2025-08-02 16:13 84e21737 **fix: include tz offset**
+- 2025-08-02 15:56 9581b525 **feature: add request to create a link**
+- 2025-08-02 14:38 afcb9169 **step: add missing translations**
+- 2025-08-02 14:36 ee39052c **refactor: sort translations**
+- 2025-08-02 14:35 fb30c31a **step: setup create shareable link dialog**
+- 2025-08-02 14:27 8c92f451 **step: add global shortcut**
+- 2025-08-02 14:23 df1216ff **refactor: improve export all data profile section**
+- 2025-08-02 14:13 6e512166 **step: add translations**
+- 2025-08-02 13:29 f75e90da **step: display shareable links**
+- 2025-08-02 13:08 e1eaf35e **step: create a shareable link in seeder**
+- 2025-08-02 13:02 58d17091 **step: delete shareable links in seed**
+- 2025-08-02 12:54 f304a749 **step: add event handlers**
+- 2025-08-02 12:48 a7744842 **step: add list near expiration repo method**
+- 2025-08-02 12:38 e4346c24 **step: add shareable links schema**
+- 2025-08-02 12:08 c3ed2b5a **step: setup expirer tests**
+- 2025-08-02 12:04 63e06da9 **step: wire up the expirer**
+- 2025-08-02 12:03 1b670512 **feature: add ShareableLinksExpirer**
+- 2025-08-02 12:01 a8ce7861 **step: add shareable link repo**
+- 2025-08-02 10:36 c852f8ff **fix: do not download empty reviews**
+- 2025-08-02 00:25 86e4cf84 **step: add bg to emotion type**
+- 2025-08-02 00:13 20494534 **refactor: cleanup customcss**
+- 2025-08-01 23:53 004655e3 **refactor: improve query**
+- 2025-08-01 23:50 c0734343 **step: test limits**
+- 2025-08-01 23:40 2df5cab4 **step: setup CountShareableLinksPerOwner**
+- 2025-08-01 23:17 97493369 **refactor: simplify tests**
+- 2025-08-01 22:58 347b2b81 **step: check that the requester owns the link when revoking**
+- 2025-08-01 22:50 1bf2481e **step: test revoke shareable link route**
+- 2025-08-01 22:29 24603158 **step: add revoke shareable link route**
+- 2025-08-01 22:10 9e95dac6 **refactor: add created at to aggregate**
+- 2025-08-01 22:08 f4c1916d **step: setup aggregate tests**
+- 2025-08-01 21:25 625aafce **step: test the route**
+- 2025-08-01 21:03 d5fd06d9 **step: setup tests**
+- 2025-08-01 21:02 014d5a12 **step: handle revisions**
+- 2025-08-01 20:56 640d07fd **fix: publishing routing**
+- 2025-08-01 20:56 133aa6a4 **feature: create shareable link route**
+- 2025-08-01 20:39 3f58f983 **refactor: incldue id in create command**
+- 2025-08-01 20:15 992bdbea **step: add command handlers**
+- 2025-08-01 20:02 4c0b1e9b **step: add commands**
+- 2025-08-01 19:41 9436ab92 **feature: add policies**
+- 2025-08-01 19:27 43d37d3d **feature: add shareable link aggregate**
+- 2025-08-01 19:03 61cf60ff **step: define eventS**
+- 2025-08-01 19:02 ea9cc37b **step: setup ts alias**
+- 2025-08-01 18:55 00cbdd52 **step: add publishing vos**
+- 2025-08-01 15:05 af396629 **docs: generate CHANGELOG**
+- 2025-08-01 13:53 9110d297 **step: add prefetches**
+- 2025-08-01 13:36 68257835 **fix: types**
+- 2025-08-01 13:16 e4d95e22 **step: setup react pdf generator**
+- 2025-08-01 13:16 2eaee5dc **step: use react pdf adapter in local env**
+- 2025-08-01 13:14 626b4e8e **step: install react pdf renderer**
+- 2025-08-01 11:13 76b5ca8d **docs: generate CHANGELOG**
+- 2025-07-31 23:40 7c5bf379 **step: improve paddings**
+- 2025-07-31 23:39 0e55e149 **step: bump bgord/scripts**
+- 2025-07-31 23:37 cfa1e812 **step: update design**
+- 2025-07-31 22:33 04491620 **step: update design**
+- 2025-07-31 22:00 aa52dbab **step: update packages**
+- 2025-07-31 21:37 6b889e6d **fix: make selects required**
+- 2025-07-31 17:20 d8966c54 **step: order by desc alarm generated at in read model**
+- 2025-07-31 17:11 064fadb0 **step: bump bgord/scripts**
+- 2025-07-31 16:47 51e1e843 **step: update packages**
+- 2025-07-31 16:46 6dcd1f96 **step: retry after a minute**
+- 2025-07-31 16:29 c9eb6931 **step: update packages**
+- 2025-07-31 15:16 720646cc **docs: generate CHANGELOG**
+- 2025-07-31 14:48 656a6565 **docs: generate CHANGELOG**
+- 2025-07-31 14:48 02eafd67 **docs: generate readme**
+- 2025-07-31 12:46 048b645a **refactor: use assert policy error helper**
+- 2025-07-31 12:03 86fb6a90 **step: add frontend button**
+- 2025-07-31 11:53 d233d0a6 **step: setup DownloadWeeklyReview route**
+- 2025-07-31 11:09 78e3ee80 **step: test retry**
+- 2025-07-31 11:03 0ba30cf1 **step: set correct stream in mocks**
+- 2025-07-31 09:59 8bdc86c4 **step: add retry mechanism**
+- 2025-07-30 23:36 e91e0d53 **step: test failure event**
+- 2025-07-30 23:27 dd48e829 **step: define GenericWeeklyReviewExportByEmailFailedEvent**
+- 2025-07-30 23:26 fc4d877f **step: emit failed event**
+- 2025-07-30 23:12 f6f572ff **step: add attempt to requested event**
+- 2025-07-30 22:56 f1ba1768 **step: add weeklyReviewExportId to event requested event**
+- 2025-07-30 22:52 2c2402e1 **step: define WeeklyReviewExportId VO**
+- 2025-07-30 22:51 d9dbc233 **step: add weeklyReviewExportId to stream name**
+- 2025-07-30 22:48 0d5ab0ec **fix: weekly review query id**
+- 2025-07-30 22:19 1d59ea44 **step: add weekly review export by email failed event**
+- 2025-07-30 17:32 51ef44c2 **step: update packages**
+- 2025-07-30 17:25 92159ee4 **step: test weekly review export pdf file**
+- 2025-07-30 17:21 fd8a11c3 **step: test pdf attachment**
+- 2025-07-30 17:18 fc277bc3 **step: add PDF mock**
+- 2025-07-30 17:15 2e1a7ca7 **step: add WeeklyReviewExportPdfFile**
+- 2025-07-30 17:15 18d7ba48 **step: use WeeklyReviewExportPdfFile in saga**
+- 2025-07-30 15:58 194bdec5 **step: assert notification composer in tests**
+- 2025-07-30 15:47 9ace0fed **fix: tests**
+- 2025-07-30 15:44 f2ad6f98 **step: add WeeklyReviewExportNotificationComposer**
+- 2025-07-30 15:27 18ff877a **step: fetch weekly review**
+- 2025-07-30 15:16 3d9eea0b **step: send export email**
+- 2025-07-30 14:54 32c60ecc **step: test no email case**
+- 2025-07-30 14:30 5ea4bdd8 **step: setup weekly-review-export-by-emai sagal**
+- 2025-07-30 13:54 b3ecdaca **step: emit Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT**
+- 2025-07-30 13:42 23374a4d **step: add WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT-n**
+- 2025-07-30 13:26 750bb9e7 **step: add infra pdf generator noop adapter**
+- 2025-07-30 13:10 e1011e84 **step: setup pdf generator port**
+- 2025-07-30 13:00 c91ee384 **step: test RequesterOwnsWeeklyReview**
+- 2025-07-30 12:59 f2b095e8 **step: add RequesterOwnsWeeklyReview**
+- 2025-07-30 12:57 45caea69 **step: test WeeklyReviewIsCompleted**
+- 2025-07-30 12:54 a1a33d2f **step: add weekly review is completed**
+- 2025-07-30 12:51 ca8f6b63 **step: test WeeklyReviewExists**
+- 2025-07-30 12:47 643c7c15 **step: setup weekly review exists**
+- 2025-07-30 12:45 4732884d **step: setup happy path test**
+- 2025-07-30 12:44 f5097e52 **step: setup weekly review get by id**
+- 2025-07-30 11:18 2006d51b **step: setup export by email command handler**
+- 2025-07-30 11:16 a2348e9f **refactor: rename the route**
+- 2025-07-30 11:12 8558defe **step: setup command**
+- 2025-07-30 11:09 860f9269 **step: setup send weekly review by email command**
+- 2025-07-30 11:05 5201e488 **step: setup test**
+- 2025-07-30 11:03 d8ca91eb **step: setup send weekly review by email**
+- 2025-07-30 09:30 ffa31395 **refactor: move zipped data download to profile**
+- 2025-07-30 09:25 09b11375 **step: setup export data profile section**
+- 2025-07-30 09:22 68e76972 **step: extract separator**
+- 2025-07-30 09:06 b0e450bf **step: add profile link**
+- 2025-07-30 09:04 b853847b **step: update packages**
+- 2025-07-30 08:59 7a6e3e9c **step: setup profile rr route**
+- 2025-07-29 23:20 94d90b84 **step: update packages**
+- 2025-07-29 23:20 2c5c6039 **refactor: udpate drizzle**
+- 2025-07-29 23:18 7e75de53 **refactor: use runtime adapters in saga tests**
+- 2025-07-29 23:13 9d99483b **refactor: rely on mailer port in sagas**
+- 2025-07-29 23:09 f24e0b9a **step: add runtime mailer adapter choosing**
+- 2025-07-29 23:07 b2e8f9d4 **refactor: rename AiClientAdapter**
+- 2025-07-29 23:06 ad4ae912 **step: define mailer adapter**
+- 2025-07-29 23:04 6a4755cd **step: remove unused FF_AI_CLIENT_REAL_RESPONSE**
+- 2025-07-29 23:03 662fb534 **refactor: rename smtp mailer adapter**
+- 2025-07-29 23:02 1ab3370e **refactor: rename rate limit shield**
+- 2025-07-29 23:02 06a74b52 **step: update packages**
+- 2025-07-29 21:22 80f2e595 **docs: generate CHANGELOG**
+- 2025-07-29 21:22 7e438465 **docs: generate readme**
+- 2025-07-29 20:15 7a211e2b **refactor: extract ai client to infra**
+- 2025-07-29 20:13 e588e8a1 **refactor: remove ff**
+- 2025-07-29 20:12 2fd3b899 **step: wireup noop adapter**
+- 2025-07-29 20:11 fd96cff8 **step: add noop adapter**
+- 2025-07-29 19:18 bb856b86 **refactor: switch to ai client port/adapters**
+- 2025-07-29 19:11 4cb7dd7d **refactor: remove old ai client**
+- 2025-07-29 19:11 448b0e89 **step: define ai client port**
+- 2025-07-29 17:29 97c4f404 **docs: generate readme**
+- 2025-07-29 17:29 2c5b1374 **docs: generate CHANGELOG**
+- 2025-07-29 14:58 e8ca9690 **step: unify ai advices in ui**
+- 2025-07-29 13:53 3263c6d3 **refactor: extract dialog component**
+- 2025-07-29 13:46 6c3ecdc5 **refactor: remove view transition**
+- 2025-07-29 13:42 0a01be1b **refactor: restore add entry API connection**
+- 2025-07-29 13:30 9420bd25 **refactor: migrate add entry to home**
+- 2025-07-28 23:16 f46b0a0e **refactor: remove labels**
+- 2025-07-28 23:13 5cf49459 **step: add buttons**
+- 2025-07-28 23:03 3bf7d9c9 **refactor: migrate reaction**
+- 2025-07-28 22:50 903ddc86 **step: add emotion to dialog**
+- 2025-07-28 22:35 fb1838c7 **step: update design**
+- 2025-07-28 17:18 0b22e3c7 **refactor: migrate situation into the dialog**
+- 2025-07-28 17:10 f5687767 **step: change copy**
+- 2025-07-28 16:48 75e4e3c7 **refactor: use dialog from design**
+- 2025-07-28 14:48 14c3fc15 **step: change new entry shortcut**
+- 2025-07-28 14:46 1f2c1d4f **step: setup add entry dialog**
+- 2025-07-28 14:39 3d1cf338 **step: add new entry button**
+- 2025-07-28 12:19 59df5703 **step: make alarm icons smaller**
+- 2025-07-28 12:12 9538862e **refactor: unify dashboard colors secondary**
+- 2025-07-28 12:09 bcd50919 **step: reduce entry card padding**
+- 2025-07-28 12:07 62026e66 **step: improve colors**
+- 2025-07-28 12:02 dca46ec5 **step: improve entry location**
+- 2025-07-28 11:59 36aa7b54 **step: improve alarm emotion label badge**
+- 2025-07-28 11:58 e010b224 **fix: alarm icon color**
+- 2025-07-28 11:57 72c9bb84 **fix: entry emotion alignment**
+- 2025-07-28 11:55 be1329df **fix: colorful calls**
+- 2025-07-28 11:51 e89806bd **step: improve seed**
+- 2025-07-28 11:42 d42b3387 **refactor: extract credentials**
+- 2025-07-27 19:43 332a24c0 **step: add heamap interaction**
+- 2025-07-27 19:38 2a895a69 **step: add pasword manager hints**
+- 2025-07-27 19:33 1824b6cf **refactor: improve secondary action on auth pages**
+- 2025-07-27 19:17 bca62b0c **step: improve dashboard spacing**
+- 2025-07-27 19:10 defcc2b9 **fix: dashboard headers**
+- 2025-07-27 19:03 e5a77afe **step: implement better heatmap**
+- 2025-07-27 18:07 42d5aa04 **refactor: make grid smaller**
+- 2025-07-27 17:45 8151bd7e **refactor: update design syntax**
+- 2025-07-27 17:42 3cea58e3 **step: update design**
+- 2025-07-27 17:32 de6b9906 **refactor: refine weekly reviews in dashboard**
+- 2025-07-27 17:23 2433f3a2 **refactor: refine enetires dashbaord section**
+- 2025-07-27 16:57 36825fc0 **refactor: refine dashboard**
+- 2025-07-27 16:33 7ca46b88 **fix: dashboard shortcut**
+- 2025-07-27 16:29 e7a133a7 **step: add inter font**
+- 2025-07-27 16:29 a564940d **step: improve font weights**
+- 2025-07-27 16:19 7f7ac4c5 **refactor: improve add entry form**
+- 2025-07-27 15:56 7c1545b5 **refactor: unify icons**
+- 2025-07-27 15:48 8758e971 **step: add headers in login and register**
+- 2025-07-27 15:42 06cf64c4 **refactor: extract logo**
+- 2025-07-27 15:39 33505bb8 **fix: badges**
+- 2025-07-27 15:38 229417b0 **refactor: update nav in auth**
+- 2025-07-27 15:24 f903d957 **fix: breakpoint**
+- 2025-07-27 15:17 8173107e **step: update design**
+- 2025-07-27 13:18 5bf4c749 **refactor: improve register page**
+- 2025-07-27 13:06 a7d79e5c **refactor: improve login page**
+- 2025-07-27 00:44 fac0a096 **step: clean up home design**
+- 2025-07-27 00:35 40a18936 **refactor: adjust add entry link**
+- 2025-07-27 00:11 9d50d7fa **fix: lang selector**
+- 2025-07-27 00:08 c5e831ed **refactor: adjust home**
+- 2025-07-26 23:48 bdb5882c **fix: home types**
+- 2025-07-26 23:46 c8f2074c **step: adjust logo**
+- 2025-07-26 23:46 0209aabb **fix: types**
+- 2025-07-26 23:42 d2ee8bf8 **step: remove surface variables**
+- 2025-07-26 23:32 31580693 **step: install bgord/design**
+- 2025-07-26 13:19 7e7b692a **step: add types**
+- 2025-07-26 12:43 b151ff89 **step: update bgord/design**
+- 2025-07-26 11:23 909afa3b **step: install @bgord/design v2**
+- 2025-07-25 17:20 b722104c **step: multilang weekly reviews**
+- 2025-07-25 17:08 d0aa25c4 **refactor: make weekly review insights prompt language aware**
+- 2025-07-25 17:00 6fd70c2e **step: add weekly review translations**
+- 2025-07-25 16:45 a6705eab **step: bump bgord/scripts**
+- 2025-07-25 16:45 3edc70c0 **step: add missing list keys**
+- 2025-07-25 16:37 0419ff79 **step: add patterns**
+- 2025-07-25 16:24 ce76ab1a **step: add entry count**
+- 2025-07-25 16:16 ca7174dd **step: add entries weekIsoId**
+- 2025-07-25 16:12 39c8c87e **step: add basic weekly review line**
+- 2025-07-25 15:58 1f73b0d9 **step: add weekly reviews dashboard section**
+- 2025-07-25 15:46 2763029b **step: implement weekly review event handlers**
+- 2025-07-25 15:40 48822bd2 **step: add weekly review repo**
+- 2025-07-25 15:39 5dc4bbb1 **step: add weekly review status to schema**
+- 2025-07-25 15:33 ee126a52 **docs: generate readme**
+- 2025-07-25 15:33 c2268b8d **docs: generate CHANGELOG**
+- 2025-07-25 15:28 2b008126 **step: register weekly review events**
+- 2025-07-25 15:14 88065b98 **step: rename malapdaptive reactions pattern detected event**
+- 2025-07-25 15:09 aa2f36b4 **fix: patterns repo query**
+- 2025-07-25 14:56 16f57622 **step: add weekly review scheduler to local-db-seed**
+- 2025-07-25 14:41 5d35ec8c **step: hide mailer in weekly review processing under a ff**
+- 2025-07-25 14:38 1ebdc234 **step: add weekly reviews schema**
+- 2025-07-25 14:17 af24fd84 **step: update bun and node**
+- 2025-07-24 20:09 611a8a6c **Merge pull request #20 from bgord/exports**
+- 2025-07-24 20:07 1afcd18c **refactor: resolve conflicts**
+- 2025-07-24 19:53 f750b235 **step: update packages**
+- 2025-07-24 19:51 44337c7d **step: add export rate limiter**
+- 2025-07-24 19:50 3388874c **step: improve icon**
+- 2025-07-24 19:46 42cd1dd0 **step: test export entries**
+- 2025-07-24 19:38 6c245b52 **refactor: use zip draft from bun**
+- 2025-07-24 19:37 b87d3a9e **step: update deps**
+- 2025-07-24 19:36 1ad9bff3 **step: install bun**
+- 2025-07-24 19:11 8922d20f **MVP**
+- 2025-07-24 18:14 ac7e505b **step: add download link**
+- 2025-07-24 18:11 7feb8f20 **step: add bun idle timeout**
+- 2025-07-24 18:09 b0f71b89 **docs: generate readme**
+- 2025-07-24 18:09 8dd110fa **docs: generate CHANGELOG**
+- 2025-07-24 18:09 45b5d3a3 **fix: export method**
+- 2025-07-24 18:04 c0188d94 **step: create zip draft**
+- 2025-07-24 18:01 90759034 **refactor: rename listEntriesForUser**
+- 2025-07-24 17:58 16e021a3 **step: add zip draft**
+- 2025-07-24 17:55 c8f0a60a **docs: generate CHANGELOG**
+- 2025-07-24 17:55 2d334f93 **docs: generate readme**
+- 2025-07-24 17:49 9e15410d **step: update packages**
+- 2025-07-24 17:47 f11a892a **step: intall yazl**
+- 2025-07-24 17:35 117b65c5 **step: add alarm export file**
+- 2025-07-24 17:34 f368c812 **step: rename csv to entryCsv in mocks**
+- 2025-07-24 17:15 065785a0 **step: update bun**
+- 2025-07-24 17:11 11bebed7 **refactor: extract file draft to bgord/bun**
+- 2025-07-24 17:09 3ce6587a **step: update bun**
+- 2025-07-24 17:00 522722ad **step: add file draft toResponse**
+- 2025-07-24 16:39 de7e5ca6 **refactor: rename generate to create**
+- 2025-07-24 16:37 b79c2658 **step: add getHeaders to file draft**
+- 2025-07-24 16:29 20720bbc **step: add file draft**
+- 2025-07-24 16:10 ecc16300 **step: add export entries route**
+- 2025-07-24 15:47 42c18977 **step: add basic csv**
+- 2025-07-24 15:15 99fa4feb **step: setup EntryExportFile**
+- 2025-07-24 15:15 41e6f325 **step: install csv**
+- 2025-07-24 13:38 7100723d **refactor: use jobs.day_time schedule**
+- 2025-07-24 13:38 2b6e859f **refactor: use jobs.day_time schedule**
+- 2025-07-24 13:37 aaf133af **refactor: remove NewUUID calls**
+- 2025-07-24 13:37 07723018 **refactor: remove NewUUID calls**
+- 2025-07-24 13:36 acb8667f **step: update bgord bun**
+- 2025-07-24 13:36 1bcb0fa6 **step: update bgord bun**
+- 2025-07-24 13:24 4025bbe2 **step: remove direct tools dep**
+- 2025-07-24 13:24 2dc1974b **step: remove direct tools dep**
+- 2025-07-24 13:18 c51603d4 **step: test onPatternDetectedEvent**
+- 2025-07-24 13:18 3d4cc0d2 **step: test onPatternDetectedEvent**
+- 2025-07-24 13:01 9aa27051 **refactor: use crypto.randomUUID directly**
+- 2025-07-24 13:01 69e2cca4 **refactor: use crypto.randomUUID directly**
+- 2025-07-24 12:55 6a70e4a4 **refactor: move jest.restoreAllMocks to test setup**
+- 2025-07-24 12:55 35632042 **refactor: move jest.restoreAllMocks to test setup**
+- 2025-07-24 12:49 784a525f **step: cleanup tests**
+- 2025-07-24 12:49 518f1c93 **step: cleanup tests**
+- 2025-07-24 12:38 93628529 **step: pass patterns to WeeklyReviewNotificationComposer**
+- 2025-07-24 12:38 8fc67440 **step: pass patterns to WeeklyReviewNotificationComposer**
+- 2025-07-24 12:34 ea859e5f **step: add pattern detection mock**
+- 2025-07-24 12:34 9136d5a1 **step: read patterns in onWeeklyReviewCompletedEvent**
+- 2025-07-24 12:34 5b6c5543 **step: read patterns in onWeeklyReviewCompletedEvent**
+- 2025-07-24 12:34 08f093ed **step: add pattern detection mock**
+- 2025-07-24 12:16 a86c4599 **step: implement pattern repo findInWeekForUser**
+- 2025-07-24 12:16 8f8ffc4a **step: implement pattern repo findInWeekForUser**
+- 2025-07-24 12:15 d5d2b0d4 **fix: find in week for user entry call in weekly review processing**
+- 2025-07-24 12:15 5e33f860 **fix: find in week for user entry call in weekly review processing**
+- 2025-07-24 12:12 f314c44f **fix: count alarms for entry query filename**
+- 2025-07-24 12:12 cf1f4526 **fix: count alarms for entry query filename**
+- 2025-07-24 12:07 d2125553 **refactor: create one pattern detected event handler**
+- 2025-07-24 12:07 32955bc9 **refactor: create one pattern detected event handler**
+- 2025-07-24 12:03 3df5dad0 **step: add patterns repo create call to event handlers**
+- 2025-07-24 12:03 253a37a7 **step: add patterns repo create call to event handlers**
+- 2025-07-24 12:01 eebb14c5 **step: setup patterns repo**
+- 2025-07-24 12:01 760ff9c4 **step: setup patterns repo**
+- 2025-07-24 11:43 c7a24211 **step: add basic pattern detections rm**
+- 2025-07-24 11:43 77503701 **step: add basic pattern detections rm**
+- 2025-07-24 11:43 6c92274c **step: add basic pattern detections rm**
+- 2025-07-24 09:34 dbed40cf **step: add pattern name option**
+- 2025-07-24 09:34 36635860 **step: add pattern name option**
+- 2025-07-24 00:26 64f7e1c0 **refactor: extract handle detect weekly patterns command**
+- 2025-07-24 00:26 1f293159 **refactor: extract handle detect weekly patterns command**
+- 2025-07-24 00:01 c5741050 **step: detect patterns in weekly review**
+- 2025-07-24 00:01 69a74908 **step: detect patterns in weekly review**
+- 2025-07-23 16:59 20bf3b54 **refactor: replace z.string with tools.WeekIsoId**
+- 2025-07-23 16:59 1d7396a4 **refactor: replace z.string with tools.WeekIsoId**
+- 2025-07-23 16:57 3f5bd5b5 **step: update packages**
+- 2025-07-23 16:57 09c2ee88 **step: update packages**
+- 2025-07-23 00:09 f0aa2606 **step: add related entries to patterns**
+- 2025-07-23 00:09 4b037be7 **step: add related entries to patterns**
+- 2025-07-22 22:06 fc236f9d **refactor: make patterns work on entries**
+- 2025-07-22 21:52 c638ca28 **refactor: remove entry summarize**
+- 2025-07-22 21:40 ae7c85c5 **step: make patterns use user id in stream**
+- 2025-07-22 21:33 82cb5401 **refactor: use tools.Week in weekly review in pattern**
+- 2025-07-22 20:11 8a28c33f **docs: generate CHANGELOG**
+- 2025-07-22 20:11 17dc141a **docs: generate CHANGELOG**
+- 2025-07-22 19:52 f594a679 **docs: generate CHANGELOG**
+- 2025-07-22 19:52 ea6dd4fa **docs: generate readme**
+- 2025-07-22 16:13 8ec9f3c1 **step: switch to local tools**
+- 2025-07-22 16:11 7e4d3b24 **refactor: remove week start**
+- 2025-07-22 16:10 0d875f2d **step: switch to local tools**
+- 2025-07-22 14:17 6f00128c **refactor: make patterns week started at aware**
+- 2025-07-22 14:12 96b23f51 **step: make patterns user aware**
+- 2025-07-21 23:35 49e8675d **step: add response cache for translations**
+- 2025-07-21 23:31 c30e28ba **step: daily alarm limit for inactivity alarm**
+- 2025-07-21 22:59 05f20d14 **refactor: remove entry create**
+- 2025-07-21 22:53 c7ff58d5 **refactor: remove weekly review create**
+- 2025-07-21 22:47 0a326adf **refactor: remove alarm create**
+- 2025-07-21 22:14 3399c061 **refactor: make policies sync**
+- 2025-07-21 22:12 cd0e676d **step: handle empty dashboard states**
+- 2025-07-21 22:05 84cbbf10 **step: update packages**
+- 2025-07-21 21:36 e40e8ee1 **docs: generate CHANGELOG**
+- 2025-07-21 21:36 b627c975 **docs: generate readme**
+- 2025-07-21 15:34 2763f333 **fix: tests**
+- 2025-07-21 15:23 4c74a9fd **step: add zod resolution**
+- 2025-07-21 15:22 3a262722 **step: update anthropic**
+- 2025-07-21 15:21 4d832acd **step: update packages**
+- 2025-07-21 00:55 8fc27912 **Merge pull request #17 from bgord/read_poc**
+- 2025-07-21 00:53 1667c6dc **fix: type errors**
+- 2025-07-21 00:46 fbc8f6ee **step: handle empty alarms state**
+- 2025-07-21 00:41 c7811870 **step: improve colors**
+- 2025-07-21 00:38 b1d4067e **refactor: extract dashboard cell**
+- 2025-07-21 00:36 a602e3fe **refactor: rename read model**
+- 2025-07-21 00:23 d7c4b223 **refactor: return form from repo**
+- 2025-07-21 00:19 11dc0f69 **step: move alarms**
+- 2025-07-21 00:16 649327ca **step: move top five effective**
+- 2025-07-21 00:13 81f90cb2 **step: move getTopEmotions**
+- 2025-07-21 00:11 fda63216 **refactor: move get counts**
+- 2025-07-21 00:07 2fe1ded0 **refactor: move heatmap to repo**
+- 2025-07-21 00:02 03442e3a **refactor: remove list entries route**
+- 2025-07-21 00:01 bfda6ce4 **refactor: derive fe types**
+- 2025-07-21 00:01 03fa201b **step: use entry repo in home routE**
+- 2025-07-21 00:00 82937c65 **step: bump bgord/scripts**
+- 2025-07-21 00:00 0cc5c6cb **step: add fe/db**
+- 2025-07-20 23:31 aa487078 **step: add drizzle to fe**
+- 2025-07-20 23:00 4bcf37a1 **feature: add heatmap**
+- 2025-07-20 22:55 77cffc19 **docs: generate readme**
+- 2025-07-20 22:55 3cb8d5f0 **docs: generate CHANGELOG**
+- 2025-07-20 22:26 58b4023a **refactor: extract dashboard section**
+- 2025-07-20 22:20 ff0b625c **step: add top reactions dashboard section**
+- 2025-07-20 21:49 718d9fbd **step: add top emotions dashboard section**
+- 2025-07-20 21:31 72c6bdec **docs: generate readme**
+- 2025-07-20 21:31 10cdf023 **docs: generate CHANGELOG**
+- 2025-07-20 21:18 78121d84 **step: add get top emotions repo method**
+- 2025-07-20 20:37 4933554d **step: add entry counts to dashboard**
+- 2025-07-20 20:23 c981321e **refactor: make alarms a dashboard section**
+- 2025-07-20 20:14 cd04fd2d **step: rename list-alarms to dashboard**
+- 2025-07-20 20:01 8c55f818 **step: add entry alarms to dashboard**
+- 2025-07-20 16:51 51b5b56a **refactor: rename dashboard**
+- 2025-07-20 16:40 aa916c3b **step: display inactivity alarm advice**
+- 2025-07-20 16:27 c9a7b7b6 **step: simplify alarms dashboard**
+- 2025-07-20 16:03 a1539086 **step: remove todo**
+- 2025-07-20 15:12 a22c7aa5 **step: display alarms**
+- 2025-07-20 14:38 e0c313e2 **step: auto focus login and register emails**
+- 2025-07-20 14:19 980a1f06 **step: seed alarms**
+- 2025-07-20 13:31 20fe5919 **step: improve alarms link**
+- 2025-07-20 13:15 8d8e2c05 **docs: generate CHANGELOG**
+- 2025-07-20 11:27 bfa4d0d7 **docs: generate CHANGELOG**
+- 2025-07-20 10:06 b73bd572 **step: bump bgord/scripts**
+- 2025-07-20 10:06 77023929 **step: bump bgord/scripts**
+- 2025-07-20 10:02 fe41c3ba **step: update react-router**
+- 2025-07-20 10:01 724e02fe **step: update packages**
+- 2025-07-20 09:57 0dfa7df3 **step: update packages**
+- 2025-07-20 09:55 c72c33df **fix: tests**
+- 2025-07-20 08:07 8773c00a **docs: generate CHANGELOG**
+- 2025-07-20 08:05 b85f80ca **docs: generate readme**
+- 2025-07-20 08:05 a613fed0 **docs: generate CHANGELOG**
+- 2025-07-19 21:07 608b6176 **fix: no entries in the last week**
+- 2025-07-19 20:37 399e4b0f **step: setup list alarms route**
+- 2025-07-19 20:33 3b16f4da **step: setup alarms route**
+- 2025-07-19 20:26 4f624c07 **step: handle all alarms in the repository**
+- 2025-07-19 19:29 4a897cc4 **step: improve weekly review processing**
+- 2025-07-19 18:15 590d7b63 **refactor: make ai clients use prompt -> advoice vos**
+- 2025-07-19 18:06 82a13c93 **refactor: move emotion alarm template to services**
+- 2025-07-19 18:01 f3ceb4c8 **refactor: move alarm detection to vo**
+- 2025-07-19 17:29 b2c9cd6f **docs: generate readme**
+- 2025-07-19 17:29 12eeb7d2 **docs: generate CHANGELOG**
+- 2025-07-19 14:03 4428f577 **refactor: move templates to VO**
+- 2025-07-19 13:55 dc8ae007 **refactor: use env.EMAIL_FROM**
+- 2025-07-19 13:44 ad93b0f1 **step: use alarm prompt factory**
+- 2025-07-19 13:39 58acc3c6 **step: add alarm prompt factory**
+- 2025-07-19 13:32 9ddfce67 **step: add finding entry fails testcase in alarm orchestrator**
+- 2025-07-19 13:22 a5e0e0f9 **step: add inactivity alarm advice prompt builder**
+- 2025-07-19 13:21 7afab4b2 **step: adjust tests**
+- 2025-07-19 13:00 5c4e629e **step: add inactivity alarm advice notification composer to alarm notification factory**
+- 2025-07-19 12:42 3cf07381 **refactor: extract mocks.advice**
+- 2025-07-19 12:31 bd2324f4 **refactor: extract alarm notification factory**
+- 2025-07-19 12:17 2f41af00 **refactor: do not duplicate alarm cancel command**
+- 2025-07-19 12:16 a6047ced **step: setup notification template**
+- 2025-07-19 12:05 9396e052 **step: add notification template**
+- 2025-07-19 11:59 2ff87a00 **step: add inactivity alarm advice notification composer**
+- 2025-07-19 11:51 d9333376 **docs: generate CHANGELOG**
+- 2025-07-19 11:51 c9661931 **docs: generate readme**
+- 2025-07-19 11:48 fbe77626 **refactor: rename entry alarm advice notification composer**
+- 2025-07-19 11:32 c3e29ae6 **refactor: rename emotional advice to advice**
+- 2025-07-19 11:20 82dd5772 **step: adjust tests**
+- 2025-07-19 11:19 cff68471 **step: rename prompt builders**
+- 2025-07-19 11:16 a37383f0 **step: make ai clients accept prompt**
+- 2025-07-19 10:42 ff481c5e **step: add prompt template**
+- 2025-07-19 00:39 d78b5f65 **refactor: simplify alarm factory**
+- 2025-07-19 00:09 45bd7649 **step: simplify alarm commands and events**
+- 2025-07-18 23:57 babf6e2f **step: store alarm.detection as an object**
+- 2025-07-18 23:57 50f8225a **step: add alarmName to alarm advice saved and notification sent event**
+- 2025-07-18 23:50 a053f836 **refactor: extract entryDetection to mocks**
+- 2025-07-18 23:49 ed9073c8 **step: use detection in alarm agg**
+- 2025-07-18 23:45 f3f4fff3 **refactor: use detection in genereate alarm command**
+- 2025-07-18 23:41 62830bb2 **refactor: make names more significant**
+- 2025-07-18 23:35 5ef02c68 **refactor: use alarm detection**
+- 2025-07-18 23:24 21df21ce **step: move alarm trigger to vos**
+- 2025-07-18 23:13 2870171d **step: test inactivity alarm scheduler**
+- 2025-07-18 23:11 1f24ffab **feature: implement inactivity alarm scheduler**
+- 2025-07-18 23:00 693dad3e **step: add inactivity_alarm name**
+- 2025-07-18 23:00 556295a1 **refactor: rename last entry timestamp in alarm trigger payload**
+- 2025-07-18 22:24 e1a51382 **step: add NoEntriesInTheLastWeek**
+- 2025-07-18 18:13 9e50ee65 **step: setup inactivity alarm scheduler tests**
+- 2025-07-18 18:10 dc050383 **step: add GetLatestEntryTimestampForUser**
+- 2025-07-18 18:03 9dcad443 **refactor: extract CountEntriesPerWeekForUser query**
+- 2025-07-18 17:58 be4119d2 **refactor: extract CountAlarmsForEntry**
+- 2025-07-18 17:52 a8471dcb **refactor: extract CountTodaysAlarmsForUser**
+- 2025-07-18 16:08 9bef5e23 **step: mark domain queries**
+- 2025-07-18 16:01 ba6c02a0 **refactor: use the same detect method for all events in entry alarm detector**
+- 2025-07-18 15:59 6c4aad40 **refactor: extract alarm detection from alarm processing**
+- 2025-07-18 15:39 109efd18 **refactor: rename alarm orchestrator**
+- 2025-07-18 14:48 4fe63af1 **step: setup inactivity alarm scheduler job**
+- 2025-07-18 14:25 98375eda **refactor: use mocks.trigger in tests**
+- 2025-07-18 14:23 b65c72b7 **refactor: make alarms schema more extendable**
+- 2025-07-18 13:37 33d0d07f **step: replace entry with trigger on all commands**
+- 2025-07-18 13:31 1ff51fb4 **fix: tests**
+- 2025-07-18 13:28 5e9dbe49 **step: replace entryId with trigger in alarm events**
+- 2025-07-18 13:23 9290304a **step: handle trigger in alarm factory**
+- 2025-07-18 13:06 f860dbfa **step: attach alarm trigger to alarm detection result**
+- 2025-07-18 12:43 5f4d6286 **step: define alarm trigger**
+- 2025-07-18 12:24 623a50f6 **step: rename alarm service to alarm template**
+- 2025-07-18 12:11 beb6bb94 **step: make composers include message subject**
+- 2025-07-18 12:07 f01cb71b **step: test weekly review skipped failed cases**
+- 2025-07-18 11:56 8fc3d6e7 **fix: tests**
+- 2025-07-18 11:53 c7234493 **step: handle entries for week exist per user id**
+- 2025-07-18 11:47 fb056b8e **step: adjust weekly review to include userId**
+- 2025-07-18 11:40 d2b957e8 **step: add userId to weekly review events**
+- 2025-07-18 11:38 efd9bbdc **step: add user repo list**
+- 2025-07-18 11:34 efa0f809 **step: add userId to weekly review commands**
+- 2025-07-17 22:07 327fc6b4 **step: bump bgord/scripts**
+- 2025-07-17 22:03 77c89858 **step: bump bgord/scripts**
+- 2025-07-17 22:02 ebb713e8 **step: bump bgord/scripts**
+- 2025-07-17 21:56 2e1d5f07 **step: bump bgord/scripts**
+- 2025-07-17 21:50 4191acc2 **refactor: tighten daily alarms count per user**
+- 2025-07-17 21:45 3fd6cd0b **step: adjust alarm repository read model to include userId**
+- 2025-07-17 21:43 e5725ba4 **step: connect alarms to users**
+- 2025-07-17 21:32 f62b5165 **refactor: rename FF_MAILER_DISABLED**
+- 2025-07-17 21:28 5e66ce9e **step: handle onAlarmNotificationSentEvent - mailer failed**
+- 2025-07-17 21:21 857f063e **step: test onAlarmNotificationSentEvent - missing contact**
+- 2025-07-17 21:17 ee764ed6 **step: send an alarm to a correct recipient**
+- 2025-07-17 21:12 ebc5cb2f **step: add user repo**
+- 2025-07-17 20:52 29f07c96 **step: add userId to all alarm events**
+- 2025-07-17 20:49 ea553572 **step: add userId to alarm generated event**
+- 2025-07-17 20:43 7f3237e4 **step: add userId to generate alarm command**
+- 2025-07-17 20:07 f801c5bd **docs: generate CHANGELOG**
+- 2025-07-17 19:46 4a919b53 **fix: typecheck errors**
+- 2025-07-17 19:42 bf6d9eab **step: update packages**
+- 2025-07-17 19:41 0a4ec714 **fix: entry repo list query**
+- 2025-07-17 19:34 6e17776d **fix: generate uuids in better auth**
+- 2025-07-17 19:34 06dd7544 **fix: seeding**
+- 2025-07-17 19:33 ebed844e **docs: generate readme**
+- 2025-07-17 19:33 7fe777bd **docs: generate CHANGELOG**
+- 2025-07-17 19:24 f3e80b6d **fix: missing userId in repo and mocks**
+- 2025-07-17 19:24 682ca1be **step: change list for user entry repo method**
+- 2025-07-17 19:21 244e6254 **step: add userId to journal**
+- 2025-07-17 19:02 90d98f56 **fix: tests**
+- 2025-07-17 18:41 21838c08 **step: add more auth mocks**
+- 2025-07-17 18:38 180ab3a0 **step: adjust tests**
+- 2025-07-17 18:30 43356244 **step: apply requester owns entry policy**
+- 2025-07-17 18:26 26219700 **step: add requester owns entry policy**
+- 2025-07-17 18:20 bde08f27 **step: add requesterId to all Entry methods**
+- 2025-07-17 18:17 5b2715b3 **step: add userId Entry field**
+- 2025-07-17 18:16 04009cd1 **step: pass userId to all entry events**
+- 2025-07-17 18:15 00a974fb **step: define a userId for all entry events**
+- 2025-07-17 18:12 7ae21c34 **step: add userId to entry commands**
+- 2025-07-17 18:02 37dab295 **step: define user-id vo**
+- 2025-07-17 17:47 486f93dc **docs: generate readme**
+- 2025-07-17 17:47 320f2c07 **docs: generate CHANGELOG**
+- 2025-07-17 16:51 d5600792 **Merge pull request #16 from bgord/better-auth**
+- 2025-07-17 16:47 e10bb33c **step: add translations**
+- 2025-07-17 16:11 e0de2bf3 **step: add auth shield error error handler**
+- 2025-07-17 16:11 77f8df33 **step: handle auth in tests**
+- 2025-07-17 15:49 9eb9412e **step: add user and session mocks**
+- 2025-07-17 15:27 a72168c6 **refactor: use auth guard from bgord-ui**
+- 2025-07-17 15:27 226aef17 **refactor: use auth guard from bgord-ui**
+- 2025-07-17 15:25 f513a2ad **step: move removeSession to auth guard**
+- 2025-07-17 15:23 bc197463 **refactor: use cookies.extract from**
+- 2025-07-17 15:19 2153e68e **refactor: extract auth guard**
+- 2025-07-17 15:16 bd443b24 **refactor: rename auth client to client**
+- 2025-07-17 15:03 32b153d7 **step: switch to local bgord ui**
+- 2025-07-17 15:01 3d4a6298 **step: simplify auth layout**
+- 2025-07-17 14:58 12a2d017 **step: add missing cookies to the BFF calls**
+- 2025-07-17 14:51 f1a62702 **fix: links in auth fe**
+- 2025-07-17 14:51 b4520cd5 **docs: generate CHANGELOG**
+- 2025-07-17 14:51 ab501dbc **docs: generate readme**
+- 2025-07-17 14:51 91947db6 **step: improve auth layout**
+- 2025-07-17 14:41 901a7599 **step: enable auth for entries**
+- 2025-07-17 14:41 8aa0a6b9 **step: update packages**
+- 2025-07-17 14:38 ecc4ba37 **refactor: use bg.auth shield**
+- 2025-07-17 14:32 01627578 **refactor: extract auth shield to an independent class**
+- 2025-07-17 14:29 dea2a50a **refactor: rename read to attach**
+- 2025-07-17 14:29 d8dcfd20 **refactor: group entry routes**
+- 2025-07-16 20:45 0c0d7429 **step: improve auth layout**
+- 2025-07-16 20:37 aa55cfed **fix: home**
+- 2025-07-16 20:35 1c9826f1 **feature: add auth-layout**
+- 2025-07-16 20:31 7ca7279a **refactor: improve routes**
+- 2025-07-16 20:06 d99048e3 **step: require no session at login and register**
+- 2025-07-16 20:05 950e8383 **step: require session at home**
+- 2025-07-16 20:04 2d3e6ca5 **step: add test url to trusted origins**
+- 2025-07-16 20:03 bfe393dc **step: add auth guard**
+- 2025-07-16 20:02 aa0abe0a **step: use only needed icons**
+- 2025-07-16 19:44 2bafbf26 **step: add logout route**
+- 2025-07-16 19:40 27129360 **step: setup logout page**
+- 2025-07-16 19:39 0dd470ed **step: add default login credentials prefilled**
+- 2025-07-16 19:01 e1aa74b0 **step: add logout button**
+- 2025-07-16 18:52 d8c75304 **step: pass cookie to homepage loader**
+- 2025-07-16 18:52 9868e892 **step: navigate to homepage from login if already logged in**
+- 2025-07-16 18:51 b242a36d **step: attach auth shield to entry list**
+- 2025-07-16 18:34 407c49f6 **step: add auth shield**
+- 2025-07-16 17:18 5100fcab **step: wire up auth password lengths**
+- 2025-07-16 17:16 f4aa01b7 **refactor: change auth form name**
+- 2025-07-16 16:49 b9cca282 **step: write up register form into register route fields**
+- 2025-07-16 16:47 a624d835 **refactor: remove app/services/index**
+- 2025-07-16 16:47 9ffed2e5 **step: add auth alias**
+- 2025-07-16 16:47 738fd328 **step: add register form service**
+- 2025-07-16 16:44 3a76b1ea **step: setup auth module**
+- 2025-07-16 16:37 222aef99 **step: add register info boxes**
+- 2025-07-16 16:17 4487cafd **step: style register form**
+- 2025-07-16 16:02 ce046cc8 **step: add two users to seeder**
+- 2025-07-16 16:01 db95bd50 **step: improve seeder**
+- 2025-07-16 15:57 06249bf1 **fix: auth cors**
+- 2025-07-16 15:54 eafb9b58 **step: switch to local bun**
+- 2025-07-16 15:39 a1b67219 **step: simplify register form**
+- 2025-07-16 15:17 e9bbdc05 **step: add register route implementation**
+- 2025-07-16 15:12 6669911b **step: add open api to better auth**
+- 2025-07-16 15:11 86dc3bcb **fix: api/auth routes path**
+- 2025-07-16 14:37 d89647fb **step: setup register route**
+- 2025-07-16 14:04 beb79063 **step: setup login page**
+- 2025-07-16 13:55 0e68214f **step: add frontend/auth exports**
+- 2025-07-16 13:51 308a0685 **step: add FE to trusted origings to auth**
+- 2025-07-16 13:48 e29d93b3 **step: clear auth tables in seed**
+- 2025-07-16 13:47 c143e262 **refactor: use plurals for drizzle table names**
+- 2025-07-16 13:44 da9b809e **step: add auth shield verify**
+- 2025-07-16 13:38 e3484925 **step: add auth sheild apply**
+- 2025-07-16 13:38 2b00a9f3 **step: add auth variables**
+- 2025-07-16 13:10 4775c862 **step: disable auto sign in**
+- 2025-07-16 13:10 23942252 **step: setup better/auth for fe**
+- 2025-07-16 13:07 8b975e94 **step: add better-auth**
+- 2025-07-16 13:05 d073bf17 **step: wire up auth handlers**
+- 2025-07-16 12:56 daa1fa68 **step: defien email and password handler**
+- 2025-07-16 12:56 083e6bc6 **step: define email and password handler**
+- 2025-07-16 12:55 367ce933 **step: define auth schema**
+- 2025-07-16 12:48 723ab6a7 **step: setup auth file**
+- 2025-07-16 12:45 ec80dfc1 **step: add BETTER_AUTH_URL**
+- 2025-07-16 12:44 36b40013 **step: add BETTER_AUTH_SECRET env**
+- 2025-07-16 12:41 79da56a9 **step: install better-auth**
+- 2025-07-15 18:01 33d93226 **step: update packages**
+- 2025-07-15 17:57 a40b8475 **step: udpate packages**
+- 2025-07-15 17:56 ba63208f **step: update ui**
+- 2025-07-15 17:28 dd6ecaac **step: change it to test**
+- 2025-07-15 17:24 f9a97c3d **step: translate the pl prompt**
+- 2025-07-15 17:21 810f51fd **feature: make emotional advice prompt multilang**
+- 2025-07-15 16:59 daae5378 **step: add language to entries schema**
+- 2025-07-15 16:57 b99afca3 **fix: tests**
+- 2025-07-15 16:29 10bf6993 **feature: save entry language**
+- 2025-07-15 15:58 8e6e922f **docs: generate readme**
+- 2025-07-15 15:58 03bd3e71 **docs: generate CHANGELOG**
+- 2025-07-15 15:50 06afc7d6 **step: display emotion label for an alarm**
+- 2025-07-15 15:46 207205b0 **step: save emotion label and intensity for alarms**
+- 2025-07-15 15:32 12079538 **step: add alarm component**
+- 2025-07-15 15:28 804ef665 **fix: types**
+- 2025-07-15 15:26 774ca7a8 **step: add emotion label and intensity db schema**
+- 2025-07-15 15:25 417ab6b5 **fix: migration types**
+- 2025-07-15 15:05 111b6c71 **feature: implement entry alarm limit policy**
+- 2025-07-15 14:59 9d832859 **step: add entry alarm limit policy**
+- 2025-07-15 14:59 391df8ae **step: reformat policies**
+- 2025-07-15 14:52 59ffd380 **step: bump daily alarm limit to 10**
+- 2025-07-15 14:50 6cb90034 **feature: display alarms for entries**
+- 2025-07-15 14:30 621f62e4 **refactor: rewrite entry repo list to include alarms**
+- 2025-07-15 14:26 a9530e46 **step: add relations to schema**
+- 2025-07-15 14:09 54511882 **refactor: switch to drizzle orm**
+- 2025-07-15 13:50 a2bb7999 **step: add FF_MAILER_ENABLED ff**
+- 2025-07-15 13:37 66e91ffa **step: add mock responses from ai clients**
+- 2025-07-15 13:35 b043305c **step: add AI_CLIENT_REAL_RESPONSE ff**
+- 2025-07-14 22:18 303e3ae9 **step: bump bgord/scripts**
+- 2025-07-14 22:17 ae29fcc9 **step: bump bgord/scripts**
+- 2025-07-14 22:15 4b96d9f4 **fix: types**
+- 2025-07-14 22:12 413b72b6 **step: add getByIdRaw**
+- 2025-07-14 22:08 6da8f01d **refactor: change id to entryId in routes**
+- 2025-07-14 22:06 6f529edb **step: handle emotion label update**
+- 2025-07-14 21:49 d90b5804 **step: handle entry emotion intensity change**
+- 2025-07-14 21:49 011cce1a **fix: update entry reaction only when changed**
+- 2025-07-14 21:23 42cd99bc **step: add meta enter submit**
+- 2025-07-14 21:17 d10c88f7 **step: add autofocus to add entry**
+- 2025-07-14 21:17 36fc1f4a **step: add global shortcuts**
+- 2025-07-14 20:50 bae56bec **refactor: extract cancel button**
+- 2025-07-14 20:46 f1cf990d **refactor: extract entry emotion**
+- 2025-07-14 20:30 bed9acab **fix: loader types**
+- 2025-07-14 20:25 455572ea **feature: implement evaluate reaction for reaction type**
+- 2025-07-14 20:19 d50875fb **docs: generate CHANGELOG**
+- 2025-07-14 20:07 032d0782 **feature: implement evaluate reaction for reaction effectiveness**
+- 2025-07-14 19:52 afa3bc94 **feature: implement evaluate reaction for reaction description**
+- 2025-07-14 19:35 9c43af98 **step: add entry delete intent**
+- 2025-07-14 19:30 f8a50715 **refactor: extract reaction**
+- 2025-07-14 14:48 958a9c04 **refactor: rename entry component**
+- 2025-07-14 14:44 68a40c9e **refactor: resign from single entry view**
+- 2025-07-14 14:28 d75a5851 **step: add list entry tests**
+- 2025-07-14 14:26 cd1074e1 **step: add entry list tests**
+- 2025-07-14 14:20 efad4abe **step: add list-entry route**
+- 2025-07-14 14:17 b0fac7a1 **step: improve entry repository**
+- 2025-07-14 00:19 c580dab7 **step: setup single entry route**
+- 2025-07-14 00:11 0b151a7e **refactor: rename home entry**
+- 2025-07-14 00:03 0a00b5b3 **step: improve entry started at formatting**
+- 2025-07-14 00:00 6fc4a6a6 **refactor: switch to local bgord-ui**
+- 2025-07-13 23:44 28571e7b **feature: change color palette**
+- 2025-07-13 22:56 dc96c105 **step: add missing translations**
+- 2025-07-13 22:45 2720049f **step: add language icon**
+- 2025-07-13 22:29 02493fe7 **docs: generate CHANGELOG**
+- 2025-07-13 22:14 e7026dbc **refactor: use ui language selector**
+- 2025-07-13 22:12 a5d0ac5d **Revert "step: install js-cookie"**
+- 2025-07-13 22:10 7e82995f **docs: generate CHANGELOG**
+- 2025-07-13 22:10 7920aa9e **step: add language selector**
+- 2025-07-13 22:07 f1da1906 **step: pass cookie to app/root**
+- 2025-07-13 22:07 318e822e **step: add credentials include**
+- 2025-07-13 22:07 2b5c3533 **step: install js-cookie**
+- 2025-07-13 21:45 36658b11 **docs: generate CHANGELOG**
+- 2025-07-13 20:39 f5e61035 **step: improve emotion label selection**
+- 2025-07-13 20:33 b11e5cad **docs: generate CHANGELOG**
+- 2025-07-13 17:33 0a649308 **step: setup revision mismatch error handler**
+- 2025-07-13 17:17 5d7a1347 **refactor: remove empty file**
+- 2025-07-13 17:15 f054f22a **step: update bgord-bun**
+- 2025-07-13 17:12 58ca278e **fix: data-exit**
+- 2025-07-13 17:11 42da12b8 **step: update bgord ui**
+- 2025-07-13 17:08 91776d81 **step: update bgord desi**
+- 2025-07-13 17:07 06e23c44 **refactor: clean up animations**
+- 2025-07-13 16:54 30092699 **refactor: remove hover for delete entry**
+- 2025-07-13 16:49 a01e276c **refactor: simplify event-store inserter**
+- 2025-07-13 16:40 42b8b3e5 **refactor: rename incoming events**
+- 2025-07-13 16:35 40b8a0c3 **fix: order events by revision**
+- 2025-07-13 16:29 7328b762 **fix: handleRequestWeeklyReviewCommand**
+- 2025-07-13 16:27 10894c36 **feature: resurface processed events in the inserter**
+- 2025-07-13 16:22 11cf6932 **fix: revision in delete entry action**
+- 2025-07-13 15:53 a36a0c07 **fix: save revision in read model**
+- 2025-07-13 15:50 df2b1122 **step: add revision to API requests**
+- 2025-07-13 15:44 364b4293 **step: switch to local bgord ui**
+- 2025-07-13 15:39 9023c877 **fix: tests**
+- 2025-07-13 15:33 a3b9995f **docs: generate CHANGELOG**
+- 2025-07-13 15:29 90e5b818 **step: validate revisions in 3 command handlers**
+- 2025-07-13 15:29 37e9757f **step: update cspell**
+- 2025-07-13 15:25 36e727a0 **fix: revision in route tests**
+- 2025-07-13 15:17 d6ea76ff **docs: generate readme**
+- 2025-07-13 15:17 42dbdcec **docs: generate CHANGELOG**
+- 2025-07-13 15:09 c28d47f6 **step: extract revisions in routes**
+- 2025-07-13 15:02 4a19abcb **fix: tests**
+- 2025-07-13 13:57 a297eec7 **refactor: move EventStoreSaveUniqueStream to bgord-bun**
+- 2025-07-13 13:53 add0e94c **feature: add revisions to inserter**
+- 2025-07-13 13:51 28c5a94c **fix: entry repo list**
+- 2025-07-13 13:37 c973a792 **refactor: merge log* commands into one**
+- 2025-07-13 13:11 a23c3fb4 **feature: add stream_revision_uidx**
+- 2025-07-13 12:14 e691ce18 **fix: revision in tests**
+- 2025-07-13 12:09 024a85b1 **step: use inital revision in all event mocks**
+- 2025-07-13 11:58 18f03554 **step: add missing revisions to events**
+- 2025-07-13 11:57 ff5dfd84 **step: add event revision to mocks**
+- 2025-07-13 11:57 689990b3 **step: add event.revision schema**
+- 2025-07-13 11:46 b778f5b5 **step: add revision to all aggregates**
+- 2025-07-13 11:44 4c959eb6 **step: add revision for entry**
+- 2025-07-13 11:43 6b4dc396 **step: define revision for events**
+- 2025-07-13 11:22 b5feb08b **step: switch to local bgord bun**
+- 2025-07-13 11:22 8454d0f9 **fix: entry revision**
+- 2025-07-12 19:39 1494ca4b **step: add revision to entry schema**
+- 2025-07-12 19:35 fe786446 **step: update packages**
+- 2025-07-12 19:28 d89aaa54 **step: update packages**
+- 2025-07-12 19:22 7d7a92cf **step: setup entry-revision**
+- 2025-07-12 18:29 2d0a9068 **refactor: fix entry translations**
+- 2025-07-12 18:25 4c5062ca **step: update bgord ui**
+- 2025-07-12 18:23 1399e615 **step: update bgord-design**
+- 2025-07-12 18:13 2019ed91 **fix: bg**
+- 2025-07-12 18:11 3e8bf1b7 **refactor: use data-shadow**
+- 2025-07-12 17:56 3d01acaf **feature: add ai client env**
+- 2025-07-12 17:47 9dca44eb **step: update packages**
+- 2025-07-12 17:45 cc2501db **step: update packages**
+- 2025-07-12 16:12 e6776d3f **docs: generate CHANGELOG**
+- 2025-07-12 16:12 66e82d36 **docs: generate readme**
+- 2025-07-12 15:09 407447a7 **fix: entryId in schema**
+- 2025-07-12 14:41 e993b12f **refactor: use bg Translations.build to serve translations**
+- 2025-07-12 14:28 2d394aab **refactor: rename all files**
+- 2025-07-12 14:07 56f5de87 **refactor: rename repo**
+- 2025-07-12 14:06 500fcf48 **refactor: rename entries schema**
+- 2025-07-12 13:48 a757e879 **refactor: rename entryId in events**
+- 2025-07-12 13:46 a2dcedc5 **refactor: rename entry id vo**
+- 2025-07-12 13:44 15b07d32 **refactor: rename entry event**
+- 2025-07-12 13:42 4c35b61f **fix: rename onEntryDeletedEvent**
+- 2025-07-12 13:41 043ab76b **refactor: rename entry deleted event**
+- 2025-07-12 13:38 ef09c916 **fix: test types**
+- 2025-07-12 13:36 1a8c9b8c **refactor: rename entry aggregate**
+- 2025-07-12 13:01 b5d4b4e2 **fix: types**
+- 2025-07-11 18:32 cd8573c7 **refactor: render add journal navigation once**
+- 2025-07-11 18:24 4f0bcf4c **refactor: flatten log entry payload**
+- 2025-07-11 18:18 aebdd8d5 **refactor: use UI.Colorful**
+- 2025-07-11 18:06 1def8e88 **refactor: simplify components**
+- 2025-07-11 16:42 3a3e878e **step: add all translations**
+- 2025-07-11 16:38 35755a58 **refactor: plug-in the translations provider**
+- 2025-07-11 16:25 0dfe1154 **refactor: return language from get translations**
+- 2025-07-11 16:20 882f08ad **step: install local bgord-ui**
+- 2025-07-11 15:53 57565842 **step: add Layout.loader for translations**
+- 2025-07-11 15:45 f13df1da **feature: add get translations route**
+- 2025-07-11 15:32 f320e093 **step: setup translations**
+- 2025-07-11 09:47 0219b0e6 **step: adjust e2e tests**
+- 2025-07-11 09:46 bf0e3f4f **step: improve labels**
+- 2025-07-11 09:42 f2366332 **feature: extract navigation progress**
+- 2025-07-11 00:00 60353b17 **fix: e2e tests**
+- 2025-07-10 23:49 a166fadb **refactor: move test-server-start to bgord-scripts**
+- 2025-07-10 23:48 f35b1a4f **step: bump bgord/scripts**
+- 2025-07-10 23:47 2376992e **refactor: vite svg handling**
+- 2025-07-10 23:38 6e5f4237 **step: improve add entry navigation**
+- 2025-07-10 23:27 1ebd7ba2 **step: add journal navigation**
+- 2025-07-10 23:11 47058e5f **step: optimise svg**
+- 2025-07-10 23:10 e46c5b44 **step: handle empty entries page**
+- 2025-07-10 22:57 d2ff7a41 **refactor: use use exit action from bgord/ui**
+- 2025-07-10 22:56 4be4cf83 **step: update bgord/ui**
+- 2025-07-10 22:20 c458e41d **refactor: improve state handling**
+- 2025-07-10 22:16 fde680d0 **refactor: rename onAnimationEnd**
+- 2025-07-10 22:16 dc407b6c **refactor: improve returned values**
+- 2025-07-10 22:15 3397ce40 **refactor: use object options**
+- 2025-07-10 22:14 0bba2cf4 **refactor: rename animation**
+- 2025-07-10 22:11 75c43033 **refactor: improve event naming**
+- 2025-07-10 22:05 b81e6cb0 **feature: exit action**
+- 2025-07-10 21:56 16ffd4bd **refactor: bring entry delete back into entry**
+- 2025-07-10 19:30 df5a342d **docs: generate readme**
+- 2025-07-10 19:30 5cf6beb5 **docs: generate CHANGELOG**
+- 2025-07-09 16:37 97ef3f53 **feature: add delete entry form**
+- 2025-07-09 16:10 a3d428cd **step: setup delete entry button**
+- 2025-07-09 15:11 e9369a27 **refactor: extract entry**
+- 2025-07-09 15:05 4c9b1a69 **refactor: extract rotate-into-focus interaction**
+- 2025-07-09 12:54 e8db344b **refactor: improve fab styles**
+- 2025-07-09 12:44 e365a574 **step: add fab for add new entry**
+- 2025-07-09 12:34 ec3f9e40 **refactor: use clickable rating pills**
+- 2025-07-09 12:24 12e3f0c0 **refactor: use clickable rating pills for emotion intensity**
+- 2025-07-09 12:01 c9331fa1 **step: test add-journal-entry tests**
+- 2025-07-09 11:41 6c82465b **step: test homepage**
+- 2025-07-09 11:28 fd25bb5e **step: make seeder stable**
+- 2025-07-08 14:19 8a3c34a7 **step: test basic home layout**
+- 2025-07-08 13:55 6ab76604 **fix: import register-{event,command}-handlers in server**
+- 2025-07-08 13:47 4b81078f **fix: test imports**
+- 2025-07-08 13:39 3dd7afe5 **refactor: adjust to barrel file free infra exports**
+- 2025-07-08 13:34 136e795d **refactor: remove infra barrel export**
+- 2025-07-08 13:24 741a355c **step: add drizzle-seed to test-server-start**
+- 2025-07-08 13:23 d252b076 **step: bump bgord/scripts**
+- 2025-07-08 13:23 473f0af1 **step: add drizzle reset to test-server-start**
+- 2025-07-08 13:20 c8a1722b **fix: drizzle schema**
+- 2025-07-08 13:14 d6062595 **feature: setup e2e tests**
+- 2025-07-08 13:12 3f1481b5 **step: bump bgord/scripts**
+- 2025-07-08 13:09 54e64ae1 **step: bump bgord/scripts**
+- 2025-07-08 13:07 fa83c642 **refactor: cleanup test-server-start**
+- 2025-07-08 13:02 25dc9854 **refactor: adjust test-app-start**
+- 2025-07-08 12:59 437dfaf4 **step: bump bgord/scripts**
+- 2025-07-08 12:56 4e62a07d **step: add frontend-serve to test-app-start**
+- 2025-07-08 12:56 3ebcf7b8 **step: bump bgord/scripts**
+- 2025-07-08 12:54 1945ba7e **refactor: adjust playwright config**
+- 2025-07-08 12:44 8a2f2626 **step: add test-results to gitignore**
+- 2025-07-08 12:40 ce8433fc **step: setup home test**
+- 2025-07-08 12:39 edb4813a **step: bump bgord/scripts**
+- 2025-07-08 12:34 167ce97d **step: add playwright config**
+- 2025-07-08 12:33 ecd1af32 **step: install playwright**
+- 2025-07-08 12:31 f25d91a7 **fix: logo link color**
+- 2025-07-07 17:28 c8c7144f **refactor: extract back button**
+- 2025-07-07 17:13 f52a33eb **fix: select empty values**
+- 2025-07-07 17:05 f4976280 **refactor: used improved input.props returned by useField**
+- 2025-07-07 17:03 41a49801 **refactor: switch to real bgord-bun**
+- 2025-07-07 16:53 9a8be272 **fix: typecheck-prune**
+- 2025-07-07 16:50 965d60c7 **fix: typecheck-prune**
+- 2025-07-07 16:50 0179cffd **refactor: remove unused commands**
+- 2025-07-07 16:47 250fc44b **step: update packageS**
+- 2025-07-07 16:44 c336a3fd **step: update packages**
+- 2025-07-07 15:30 93938a07 **docs: generate CHANGELOG**
+- 2025-07-07 14:54 acc2723e **docs: generate CHANGELOG**
+- 2025-07-07 14:54 53750daa **docs: generate readme**
+- 2025-07-07 14:40 489b3f82 **step: bump bgord/scripts**
+- 2025-07-07 14:38 1c7c0998 **refactor: simplify the verify dependencies script**
+- 2025-07-07 14:25 f4148b72 **step: wip**
+- 2025-07-07 14:25 3f4670ad **refactor: switch to real bgord-bun**
+- 2025-07-07 14:25 1374e377 **refactor: fix lodash version**
+- 2025-07-07 14:19 c3de08ac **step: bump bgord/scripts**
+- 2025-07-06 18:18 0e6a1157 **refactor: simplify types**
+- 2025-07-06 18:11 af1f928c **refactor: extract form fields to a service**
+- 2025-07-06 12:29 f4bc18f1 **feature: implement the first server action**
+- 2025-07-06 12:03 d22228e7 **step: setup fetcher**
+- 2025-07-06 12:01 9099b652 **step: setup mock server action**
+- 2025-07-05 17:57 20eb58ed **step: setup add journal entry form**
+- 2025-07-05 17:56 e58cecd1 **step: make fields type safe**
+- 2025-07-05 17:50 c9c45024 **step: apply useField for numeric fields**
+- 2025-07-05 17:44 1663e94d **step: apply useField for select fields**
+- 2025-07-05 17:33 cdf1d86d **step: apply useField for text fields**
+- 2025-07-05 16:03 d8edae9d **refactor: adjust form validations**
+- 2025-07-05 15:29 d1b3af1a **feature: implement the stepper**
+- 2025-07-05 00:23 7cadee68 **step: setup rough form**
+- 2025-07-04 23:04 e95e8ca8 **feature: add view transition**
+- 2025-07-04 23:00 46994980 **fix: form class**
+- 2025-07-04 22:58 578f1bfb **step: add journal entry legend**
+- 2025-07-04 19:37 29b9e444 **step: add stable classes**
+- 2025-07-04 19:32 82004954 **step: setup view transition**
+- 2025-07-04 18:25 a46e94e7 **step: automate validations**
+- 2025-07-04 18:24 9ee95916 **step: extract select component**
+- 2025-07-04 18:16 2bb2f85f **refactor: use rhythm from ui**
+- 2025-07-04 18:12 e98ce9b0 **fix: remove bgord ui from the api**
+- 2025-07-04 18:09 a3d7cc79 **refactor: improve add journal entry form**
+- 2025-07-04 18:08 97acf90b **step: fix logo underline**
+- 2025-07-04 17:58 19cc7a23 **feature: extract add journal entry route**
+- 2025-07-04 17:54 6b311119 **step: add link to journal**
+- 2025-07-04 17:51 cc288894 **refactor: extract header**
+- 2025-07-04 17:49 1b7f072a **feature: setup add journal entry form**
+- 2025-07-04 17:22 75acc08f **step: add journal entry button**
+- 2025-07-04 17:17 b9dad366 **step: install iconoir**
+- 2025-07-04 17:02 142884f8 **step: update packages**
+- 2025-07-04 17:01 dc683cdd **refactor: use policy error handler from bgord-bun**
+- 2025-07-04 16:56 a5394131 **refactor: simplify policy error handling**
+- 2025-07-04 16:01 bb755ecb **refactor: remove separate log situation/emotion/reaction routes**
+- 2025-07-04 15:55 799859a7 **refactor: simplify policy error handling**
+- 2025-07-04 15:51 79622b59 **step: add all log entry tests**
+- 2025-07-04 15:39 7d88ee3e **step: add policy tests to log-entry**
+- 2025-07-04 15:28 612215eb **step: add happy path test**
+- 2025-07-04 13:36 fe44f5af **fix: log entry route path**
+- 2025-07-04 13:36 3c0c2e1e **fix: use optional chaining in log-entry**
+- 2025-07-04 13:35 90b5911d **refactor: extract urls in tests**
+- 2025-07-04 13:25 2c34ea6a **step: implement handleLogEntryCommand**
+- 2025-07-04 13:24 9c806966 **step: add log-entry route**
+- 2025-07-04 13:22 9d558b06 **step: setup log entry command**
+- 2025-07-03 20:07 7ce70d19 **Merge pull request #13 from bgord/bgord-ui**
+- 2025-07-03 20:06 f563760e **step: update packages**
+- 2025-07-03 19:59 23674ed3 **refactor: restore bgord-ui**
+- 2025-07-03 19:57 3402ce66 **step: dedupe react**
+- 2025-07-03 19:50 7e1a15f0 **step: install local bgord-ui**
+- 2025-07-03 19:27 4fb4c6ff **step: install bgord-ui**
+- 2025-07-03 18:07 e3337b20 **docs: generate CHANGELOG**
+- 2025-07-02 23:28 f09627c8 **Merge pull request #12 from bgord/fe**
+- 2025-07-02 23:06 a8798343 **step: replace favicon**
+- 2025-07-02 22:36 c7b39fb7 **step: add schema validator to VITE**
+- 2025-07-02 22:32 ac011c11 **refactor: simplify imports**
+- 2025-07-02 22:09 3f53699a **step: wip**
+- 2025-07-02 21:28 bbc3c9b7 **docs: generate CHANGELOG**
+- 2025-07-02 21:28 aeba99c7 **docs: generate readme**
+- 2025-07-02 21:25 061f6ea7 **step: improve path aliases**
+- 2025-07-02 21:19 e20cd8de **refactor: simplify emotion imports in infra**
+- 2025-07-02 21:11 abc08065 **feature: add infra path alias**
+- 2025-07-02 20:45 9540b369 **step: compress the logo file**
+- 2025-07-02 20:35 5cbf0eb7 **step: setup logo image**
+- 2025-07-02 20:18 7a130c13 **step: improve pills color**
+- 2025-07-02 20:16 7056fe33 **step: apply solid badge for situation kind**
+- 2025-07-02 20:12 61465751 **refactor: improve startedat**
+- 2025-07-02 20:10 3326ee2d **step: add surface card bg**
+- 2025-07-02 20:10 2dbc5275 **step: style entry date**
+- 2025-07-02 20:09 018602d0 **step: set body bg**
+- 2025-07-02 20:08 ce958482 **step: improve logo**
+- 2025-07-02 20:08 a894272a **step: add custom css**
+- 2025-07-02 19:46 20e6577f **step: add list item border radius**
+- 2025-07-02 19:28 df7fe02c **step: bump bgord/scripts**
+- 2025-07-02 19:21 0ffb77ba **step: improve formatting**
+- 2025-07-02 19:17 6b08c8a9 **step: bump bgord/scripts**
+- 2025-07-02 19:08 04ab3004 **step: bump bgord/scripts**
+- 2025-07-02 19:05 dcd95658 **step: bump bgord/scripts**
+- 2025-07-02 19:04 607b4162 **step: bump bgord/scripts**
+- 2025-07-02 19:03 bfa5a943 **refactor: remove unused export**
+- 2025-07-02 18:59 e6816e6a **step: setup api fe service**
+- 2025-07-02 18:54 12ef3ebc **step: add VITE_API_URL**
+- 2025-07-02 18:49 e07cb6de **step: restore isbot**
+- 2025-07-02 18:43 74bbaab0 **refactor: adjust colors**
+- 2025-07-02 18:41 00cda9c1 **step: update vite to v7**
+- 2025-07-02 18:38 c402c683 **step: remove unused isbot package in fe**
+- 2025-07-02 16:39 c5779c4a **fix: exclude frontend from the main tsconfig.json**
+- 2025-07-02 16:37 dce02b68 **step: update node types**
+- 2025-07-02 16:37 8ae57323 **step: update react types**
+- 2025-07-02 16:36 4c834e56 **refactor: remove unused scripts**
+- 2025-07-02 16:36 3181ef88 **step: update packages**
+- 2025-07-02 16:35 a7c39e88 **refactor: update react-router packages**
+- 2025-07-02 16:32 b2598c69 **refactor: pinpoint fe package versions**
+- 2025-07-02 16:31 f0f1063d **step: bump bgord/scripts**
+- 2025-07-02 16:31 ccc49463 **step: bump bgord/scripts**
+- 2025-07-02 16:31 59d818af **step: bump bgord/scripts**
+- 2025-07-02 16:29 468491d7 **refactor: migrate to bun in frontend**
+- 2025-07-02 16:27 6343beff **step: update packages**
+- 2025-07-02 16:24 713f63d9 **step: bump bgord/scripts**
+- 2025-07-02 16:01 cad9f85f **feature: add proper seeder**
+- 2025-07-02 15:38 f5759fee **step: bump bgord/scripts**
+- 2025-07-02 15:37 b606d378 **step: bump bgord/scripts**
+- 2025-07-02 15:34 b3150cb0 **step: clear the database before seeding**
+- 2025-07-02 15:32 f61ccd85 **step: improve scripts/local-db-seed**
+- 2025-07-02 15:17 0aca654c **refactor: rearrange the rating pills**
+- 2025-07-02 15:13 96951d7d **step: display reaction effectiveness**
+- 2025-07-02 15:04 e750edda **step: display reaction description**
+- 2025-07-02 15:00 e7662865 **step: display emotions**
+- 2025-07-02 14:59 c2ad659a **step: add rating pills component**
+- 2025-07-02 14:21 c706d830 **step: order by startedAt desc**
+- 2025-07-02 14:19 19ec63cc **step: display the situation**
+- 2025-07-02 13:53 7b39d34d **step: display all entries**
+- 2025-07-02 13:30 bbf7d58f **step: bump bgord/scripts**
+- 2025-07-02 13:29 94532818 **refactor: remove about route**
+- 2025-07-02 13:21 7ad0f73f **fix: linting tests**
+- 2025-07-02 13:20 bc8fa066 **feature: add local db seed script**
+- 2025-07-02 13:19 2459fdcd **refactor: export situation kind type**
+- 2025-07-02 13:17 c2f8e177 **step: install lodash types**
+- 2025-07-02 12:09 80026978 **step: load entries**
+- 2025-07-02 12:09 74faa93a **step: use revalidate on focus**
+- 2025-07-02 12:08 fd7a1941 **step: add list entries route**
+- 2025-07-02 12:05 6dd0b6f1 **step: add revalidate on focus**
+- 2025-06-30 23:17 34424006 **step: add example route**
+- 2025-06-30 23:15 f34e226f **step: ignore bgord-design styles**
+- 2025-06-30 23:14 4f84f6c2 **step: use bgord-design**
+- 2025-06-30 23:06 5164275d **refactor: remove tailwind**
+- 2025-06-30 23:01 1facf3d2 **refactor: cleanup frontend**
+- 2025-06-30 23:00 4c419bdc **step: setup frontend**
+- 2025-06-30 22:47 2117aa9c **step: wip remove**
+- 2025-06-30 22:18 2109ddde **step: setup frontend**
+- 2025-06-30 20:11 92793706 **step: use axioms from bgord/bun**
+- 2025-06-30 20:10 ffbf060e **step: update bun**
+- 2025-06-30 20:03 14ee8e1d **step: bump bgord/scripts**
+- 2025-06-30 19:45 a6953a1a **step: define axiom transport**
+- 2025-06-30 19:42 04ff74b4 **step: add axiom envs**
+- 2025-06-30 19:35 ec7d4f28 **step: install axiom**
+- 2025-06-30 19:35 3b7ad21a **step: switch to local bun**
+- 2025-06-30 19:12 c32a38de **Merge pull request #10 from bgord/weekly_report**
+- 2025-06-30 18:12 6277b6a6 **docs: generate CHANGELOG**
+- 2025-06-30 18:04 549a2e56 **docs: generate CHANGELOG**
+- 2025-06-30 17:12 835d3d34 **docs: generate CHANGELOG**
+- 2025-06-30 17:12 4bb2c110 **docs: generate readme**
+- 2025-06-30 16:01 154b9a56 **step: add tests**
+- 2025-06-30 15:25 0bc6a005 **step: add handleMarkWeeklyReviewAsFailedCommand**
+- 2025-06-30 15:24 c058558a **step: add WeeklyReview.fail method**
+- 2025-06-30 15:22 b38096fc **step: add MARK_WEEKLY_REVIEW_AS_FIELD_COMMAND**
+- 2025-06-30 15:20 863937fb **step: add WEEKLY_REVIEW_FAILED_EVENT**
+- 2025-06-30 15:16 dc4f8962 **step: prepare for compensatory saga action**
+- 2025-06-30 15:15 1d0f8ed1 **step: add missing saga event handlers**
+- 2025-06-30 15:09 5df1163b **refactor: cleanup @public declarations**
+- 2025-06-30 13:56 b68dbf40 **step: bump bgord/scripts**
+- 2025-06-30 13:56 3f66288f **step: bump bgord/scripts**
+- 2025-06-30 13:55 2c5fd620 **step: bump bgord/scripts**
+- 2025-06-30 13:53 045f0b5b **refactor: rename deploy workflow**
+- 2025-06-30 13:52 5080438f **step: bump bgord/scripts**
+- 2025-06-30 13:36 27ed481c **step: bump bgord/scripts**
+- 2025-06-30 13:13 1b62b099 **step: test onWeeklyReviewCompletedEvent**
+- 2025-06-30 13:05 10581dc9 **step: implement onWeeklyReviewCompletedEvent**
+- 2025-06-30 12:57 2646ddfc **step: add weekly review notification composer**
+- 2025-06-30 12:47 440b3d3c **step: rename tests setup file**
+- 2025-06-30 12:47 40f2bb92 **step: bump bgord/scripts**
+- 2025-06-29 23:03 cefa0768 **refactor: simplify ai advice requester**
+- 2025-06-29 23:03 297bdd51 **fix: deps in tests**
+- 2025-06-29 19:27 84f8054f **step: update packages**
+- 2025-06-29 01:16 91bbb021 **refactor: remove alarm.getAdvice**
+- 2025-06-29 01:16 320f5ff5 **refactor: rename alarm factory**
+- 2025-06-29 01:14 9f36bb1c **refactor: add weekStartedAt to WEEKLY_REVIEW_COMPLETED_EVENT**
+- 2025-06-29 01:11 4e44a4a1 **step: test onWeeklyReviewRequestedEvent in saga**
+- 2025-06-29 00:58 46e5f703 **step: add WeeklyReviewCompletedOnce**
+- 2025-06-29 00:57 9c31fdd6 **step: implement weekly review complete**
+- 2025-06-29 00:53 11d19f12 **step: implement weekly review complete**
+- 2025-06-29 00:49 39614c84 **step: add WEEKLY_REVIEW_COMPLETED_EVENT**
+- 2025-06-29 00:46 5e6dfe9b **step: implement handleCompleteWeeklyReviewCommand**
+- 2025-06-29 00:44 319f61f7 **step: dispatch complete command**
+- 2025-06-29 00:39 b4afe294 **step: setup complete weekly review command**
+- 2025-06-29 00:31 f7b2c69d **step: add WeeklyReviewInsightsRequester**
+- 2025-06-29 00:26 4ad1c8b4 **step: inject deps for the saga**
+- 2025-06-29 00:24 8b7cdd24 **step: add weekly review insights prompt**
+- 2025-06-29 00:19 e8b0aa9b **step: setup onWeeklyReviewRequestedEvent on weekly processing**
+- 2025-06-29 00:18 c2f3ac00 **step: remove unnecessary logs**
+- 2025-06-29 00:18 868c0b4e **step: add findInWeek in entries repo**
+- 2025-06-28 23:59 75244ff9 **step: setup WeeklyReviewProcessing saga**
+- 2025-06-28 23:37 47da9795 **step: implement WeeklyReviewSkippedNotificationComposer**
+- 2025-06-28 23:27 235bf23f **step: test weekly review skipped case**
+- 2025-06-28 23:26 088f33c8 **fix: naming GenericWeeklyReviewRequested**
+- 2025-06-28 23:25 c0e0fd1c **step: define WEEKLY_REVIEW_SKIPPED_EVENT**
+- 2025-06-28 23:08 ccdc2ec8 **step: test JournalEntriesForWeekExist**
+- 2025-06-28 23:00 298d8205 **step: define entries for week exist**
+- 2025-06-28 22:58 672b9a0a **step: test weekly review scheduler**
+- 2025-06-28 22:46 8a329207 **step: use the policy**
+- 2025-06-28 22:45 8a29f671 **step: define weekly review requested once policy**
+- 2025-06-28 22:43 09b4e8fa **step: setup aggregate tests**
+- 2025-06-28 22:31 edac5fcb **step: use week start in the scheduler**
+- 2025-06-28 22:31 4e22a8f3 **step: use week start in the aggregate**
+- 2025-06-28 22:29 e14e4187 **step: test week start**
+- 2025-06-28 22:27 7c0a64dd **step: add week start vo**
+- 2025-06-28 22:09 7bb33398 **step: define weekly review status vo**
+- 2025-06-28 22:05 3226cbe6 **step: implement handleRequestWeeklyReviewCommand**
+- 2025-06-28 22:03 0e26240f **step: update event store events**
+- 2025-06-28 22:01 dbc09726 **step: setup weekly-review aggregate**
+- 2025-06-28 21:55 8427a792 **step: define WEEKLY_REVIEW_REQUESTED_EVENT**
+- 2025-06-28 21:54 58a92011 **step: add weekly review id**
+- 2025-06-28 21:51 fa242bee **step: setup handleRequestWeeklyReviewCommand**
+- 2025-06-28 21:44 9bfa2112 **step: implement weekly review scheduler**
+- 2025-06-28 21:43 26b4d471 **step: add REQUEST_WEEKLY_REVIEW_COMMAND**
+- 2025-06-28 21:31 e8b4ffd7 **step: define WeeklyReviewScheduler**
+- 2025-06-28 21:31 d4066ce8 **step: wire up the job**
+- 2025-06-28 21:31 70b8d551 **step: add jobs in the prereqs**
+- 2025-06-28 19:19 c11a52d9 **step: resolve conflicts**
+- 2025-06-28 19:19 41af986c **Merge pull request #9 from bgord/correlations**
+- 2025-06-28 19:17 81c24775 **step: update packages**
+- 2025-06-28 18:40 eadb6387 **refactor: adjust tests**
+- 2025-06-28 18:36 46f5c654 **fix: event correlation id in mocks**
+- 2025-06-28 18:30 e482c7ab **step: make correlation id not nullable**
+- 2025-06-28 18:29 5459e7d3 **step: pass correlation id to events**
+- 2025-06-28 18:26 52b63581 **step: define correlationId field for all events**
+- 2025-06-28 18:24 6f1b9989 **step: define event.correlationId column**
+- 2025-06-28 18:18 15aee3c8 **refactor: adjust tests**
+- 2025-06-28 18:11 3afb5881 **step: add correlation id to all commands**
+- 2025-06-28 18:09 cbea2516 **step: define correlationId in all commands**
+- 2025-06-28 17:20 73f93d3a **docs: generate CHANGELOG**
+- 2025-06-28 17:19 8e8f903d **docs: generate CHANGELOG**
+- 2025-06-28 16:36 4328ac2e **step: restore migrations**
+- 2025-06-28 13:32 abf2be9c **step: update packages**
+- 2025-06-28 12:30 eef11ac3 **refactor: rename ids to be more specific in commands**
+- 2025-06-28 12:25 df213665 **refactor: rename ids to be more specific**
+- 2025-06-28 11:32 fb74a136 **docs: generate CHANGELOG**
+- 2025-06-28 11:32 eb98f60b **docs: generate readme**
+- 2025-06-28 01:21 cb07e2e5 **fix: missing event in the saga registration**
+- 2025-06-28 01:20 b86b3cdb **refactor: inject event bus in the saga**
+- 2025-06-28 01:15 9cf5c06b **fix: binding issue in the saga**
+- 2025-06-28 01:10 eca7cf84 **refactor: remove aggregate calls from the saga**
+- 2025-06-28 01:00 e253bf4a **refactor: simplify journal repo**
+- 2025-06-28 01:00 d7d56acb **step: create alarm repo type**
+- 2025-06-28 01:00 5a022753 **step: add alarms repo get by id**
+- 2025-06-28 00:56 af1271d3 **step: restore all tests**
+- 2025-06-28 00:53 624a4c40 **fix: all tests**
+- 2025-06-28 00:48 8201878a **fix: composer tests**
+- 2025-06-28 00:47 e74ebce1 **fix: prompt tests**
+- 2025-06-28 00:39 48e18ba2 **step: skip some tests**
+- 2025-06-28 00:37 281e443b **step: do not use summary**
+- 2025-06-28 00:25 e70c4561 **step: define EmotionJournalEntryRepository.getById**
+- 2025-06-28 00:25 7b36448b **step: remove entry aggregate summary type**
+- 2025-06-28 00:02 ac0d05aa **step: implement handleSaveAlarmAdviceCommand**
+- 2025-06-27 23:54 2838bef2 **step: implement handleCancelAlarmCommand**
+- 2025-06-27 23:48 4d8401f4 **step: implement handleSendAlarmNotificationCommand**
+- 2025-06-27 23:43 1bfccdd1 **refactor: switch to hardcoded alarm id**
+- 2025-06-27 22:26 a562bd46 **fix: isloated testcase**
+- 2025-06-27 22:02 0ea7d343 **refactor: implement handle generate alarm command**
+- 2025-06-27 20:57 b205570e **step: implement handleDeleteEmotionJournalEntryCommand**
+- 2025-06-27 20:53 5d5f06dd **step: implement handleEvaluateReactionCommand**
+- 2025-06-27 20:51 2072f1ac **step: implement handleReappraiseEmotionHandler**
+- 2025-06-27 20:42 b990ee6c **step: implement handleLogReactionCommand**
+- 2025-06-27 20:38 c946973e **step: implement handleLogEmotionCommand**
+- 2025-06-27 20:26 5f6af032 **step: implement handleLogSituationCommand-n**
+- 2025-06-27 20:22 e9e2b961 **step: change content to html in alarm processing**
+- 2025-06-27 16:10 9a5c61ab **refactor: use generic command handler**
+- 2025-06-27 16:05 cdbdc218 **step: connect command handlers to command bus**
+- 2025-06-27 16:00 eccdaeb8 **step: define command handlers**
+- 2025-06-27 15:52 0737ceb3 **step: setup command handlers**
+- 2025-06-27 15:36 e86b9e76 **refactor: rename register-event-handlers**
+- 2025-06-27 15:34 72c14c49 **step: define command bus**
+- 2025-06-27 14:52 1669faac **step: switch to local bgord bun**
+- 2025-06-27 14:48 4cfdd91c **refactor: rename handlers to event handlers**
+- 2025-06-27 14:39 ca8ec41b **step: define all commands**
+- 2025-06-27 13:48 e6705604 **step: setup command files**
+- 2025-06-27 13:40 703b71a4 **Revert "refactor: simplify imports"**
+- 2025-06-27 13:35 47704fcf **refactor: simplify imports in policies**
+- 2025-06-27 13:32 f2f7a3a4 **refactor: simplify imports in handlers**
+- 2025-06-27 13:31 8d01533c **refactor: simplify imports in entities**
+- 2025-06-27 13:04 5c6340de **refactor: simplify imports in alarm aggr**
+- 2025-06-27 12:59 e25e8e71 **refactor: simplify imports**
+- 2025-06-27 12:44 41959423 **refactor: move tests to alarm processing**
+- 2025-06-27 12:35 d268d5dc **refactor: move alarm creator to alarm processing saga**
+- 2025-06-27 12:35 3ed86d62 **refactor: remove alarm creation from read model event handlers**
+- 2025-06-27 08:58 9f32eceb **step: add todos**
+- 2025-06-27 00:26 3eccdea1 **refactor: test onEmotionReappraisedEvent**
+- 2025-06-27 00:21 39606e1c **refactor: simplify handler tests**
+- 2025-06-27 00:19 46896e63 **refactor: rename alarm generator to alarm detector**
+- 2025-06-27 00:19 3c133a49 **refactor: use alarm creator in onEmotionReappraisedEvent**
+- 2025-06-27 00:13 d5ca171e **step: update packages**
+- 2025-06-27 00:12 ce97ad18 **refactor: remove gemini**
+- 2025-06-27 00:12 9d60234f **step: test alarm creator**
+- 2025-06-27 00:01 c949183f **step: test DailyAlarmLimit in onEmotionLoggedEvent**
+- 2025-06-26 23:56 c0863ce7 **refactor: use AlarmCreator in onEmotionLoggedEvent event handler**
+- 2025-06-26 23:55 c500aa7e **refactor: make Alarm.generate method internal**
+- 2025-06-26 23:55 167586c7 **step: setup alarm creator**
+- 2025-06-26 23:48 ad8295f1 **step: add AlarmRepository.getCreatedTodayCount**
+- 2025-06-26 23:44 22debe02 **step: create daily alarm limit policy**
+- 2025-06-26 23:33 76dcfecd **refactor: improve gemini.md**
+- 2025-06-26 22:52 e0f88e41 **step: setup gemini.md**
+- 2025-06-26 22:51 94790841 **step: cancel the alarm if the emotional advice requester fails**
+- 2025-06-26 22:26 e976e5e3 **docs: generate CHANGELOG**
+- 2025-06-26 22:26 6ff30709 **docs: generate readme**
+- 2025-06-26 22:13 b8cb8924 **docs: generate readme**
+- 2025-06-26 22:13 3c34aeb9 **docs: generate CHANGELOG**
+- 2025-06-26 00:55 954d7aae **refactor: remove get alarms for now**
+- 2025-06-26 00:49 4d6df320 **step: test entry deletion in alarm processing saga**
+- 2025-06-26 00:44 928a8ea5 **step: handle onEmotionJournalEntryDeletedEvent in alarm processing saga**
+- 2025-06-26 00:43 8748e3c2 **step: implement Alarm repository getCancellableByEmotionJournalEntryId**
+- 2025-06-26 00:07 8e70159b **step: test alarm.cancel**
+- 2025-06-26 00:06 22c6bcbd **step: test onAlarmCancelledEvent**
+- 2025-06-26 00:04 9252ca06 **step: define on alarm cancelled event handler**
+- 2025-06-25 23:58 c4b7cabd **step: define alarm is cancellable policy**
+- 2025-06-25 23:58 600ac7a7 **step: add alarm.cancel method**
+- 2025-06-25 23:57 8500c928 **step: define alarm cancelled event**
+- 2025-06-25 23:37 38476f70 **step: install bun**
+- 2025-06-25 23:14 1bac7ba5 **step: update node to 24.3.0**
+- 2025-06-25 23:13 2e8eafee **step: update bun to 1.2.17**
+- 2025-06-25 22:57 ef1834eb **docs: generate readme**
+- 2025-06-25 22:57 2441afa2 **docs: generate CHANGELOG**
+- 2025-06-25 22:53 704de721 **step: setup GET /alarms/get tests**
+- 2025-06-25 17:48 18fa2a12 **step: setup get alarms route**
+- 2025-06-25 17:23 14ff8e86 **step: bump bgord/scripts**
+- 2025-06-25 17:13 e7aea681 **step: bump bgord/scripts**
+- 2025-06-25 16:42 c4eb7959 **refactor: fix deploy script paths**
+- 2025-06-25 16:40 b0dc1a8f **step: update packages**
+- 2025-06-25 16:39 670fbaeb **refactor: remove bun_ from validate_environment_file**
+- 2025-06-25 16:39 16f79c33 **step: bump bgord/scripts**
+- 2025-06-25 16:37 64c90f4a **refactor: pinpoint codeql-analysis ubuntu version**
+- 2025-06-25 15:23 aef27eaa **docs: generate CHANGELOG**
+- 2025-06-25 14:42 bb408e9a **docs: generate CHANGELOG**
+- 2025-06-25 14:40 d171e28f **docs: generate CHANGELOG**
+- 2025-06-25 14:40 55000482 **docs: generate readme**
+- 2025-06-25 14:27 7bd69457 **step: test alarm read model event handlers**
+- 2025-06-25 14:19 90e4be15 **step: implemet onAlarmNotificationSentEvent**
+- 2025-06-25 14:18 25bc657d **step: implement onAlarmAdviceSavedEvent**
+- 2025-06-25 14:14 f196919e **step: implement onAlarmGeneratedEvent**
+- 2025-06-25 14:14 36e60a14 **step: create alarm repository**
+- 2025-06-25 14:13 c5c2f0ae **refactor: adjust alarm schema naming**
+- 2025-06-25 14:02 440cfd27 **step: setup alarm read model event handlers**
+- 2025-06-25 13:56 d9b4fa72 **step: generate alarms migrations**
+- 2025-06-25 13:55 756e97dc **step: define alarms schema**
+- 2025-06-25 13:54 a6813cfd **step: add alarm generated at vo**
+- 2025-06-25 13:46 e070205a **refactor: extract EmotionJournalEntrySummary**
+- 2025-06-25 00:44 f0c73cc8 **step: update anthropic sdk**
+- 2025-06-25 00:44 3d5e10b5 **step: test onAlarmNotificationSentEvent**
+- 2025-06-25 00:39 d2bfe187 **step: implement onAlarmNotificationSentEvent**
+- 2025-06-25 00:37 f02554b2 **step: add alarm.getAdvice**
+- 2025-06-25 00:31 3c213b08 **step: add EmotionalAdviceNotificationComposer**
+- 2025-06-25 00:16 4ce7d2ab **step: add emotionJournalEntryId to alarm notification sent evnet**
+- 2025-06-25 00:03 e763d685 **refactor: use jest.restoreAllMocks**
+- 2025-06-24 23:59 c0aa66d4 **step: add onAlarmAdviceSavedEvent**
+- 2025-06-24 23:37 140c7264 **step: add emotionJournalEntryId to alarm advice saved**
+- 2025-06-24 23:26 e2fb5f63 **refactor: rename EMOTION_JOURNAL_ENTRY_DELETED_EVENT**
+- 2025-06-24 23:24 9cbded4e **step: test Alarm.notify**
+- 2025-06-24 23:12 0589ff8b **step: define AlarmAdviceAvailable**
+- 2025-06-24 23:06 6d849796 **step: test alarm.notify**
+- 2025-06-24 23:04 075ae51a **refactor: rename ALARM_NOTIFICATION_SENT_EVENT**
+- 2025-06-24 22:59 d615e5be **step: define Alarm.notify**
+- 2025-06-24 22:47 9adbef41 **step: define ALARM_NOTIFICATION_SENT_EVENT**
+- 2025-06-24 22:44 e13bf4e3 **docs: generate readme**
+- 2025-06-24 22:44 c9c7f171 **docs: generate CHANGELOG**
+- 2025-06-24 21:57 0e6b82ac **fix: unused exports**
+- 2025-06-24 21:53 e2213773 **fix: missing event handler**
+- 2025-06-24 21:49 0f8dbf1c **step: update packages**
+- 2025-06-24 21:46 99081311 **fix: restore mocks**
+- 2025-06-24 20:01 6a8cdfbb **docs: generate CHANGELOG**
+- 2025-06-24 19:47 ef99dcf9 **docs: generate readme**
+- 2025-06-24 19:47 26b1dd9d **docs: generate CHANGELOG**
+- 2025-06-24 19:13 8c73e2b9 **step: setup onAlarmAdviceSavedEvent-n**
+- 2025-06-24 19:13 2c7b33eb **step: test alarm processing first event**
+- 2025-06-24 16:10 d94a7e3c **step: test alarm already generated policy**
+- 2025-06-24 16:08 18749aab **step: use alarm already generated policy**
+- 2025-06-24 16:07 793ee734 **step: add alarm already generated policy**
+- 2025-06-24 16:03 49853a42 **refactor: wire up emotional advice maximum length to ai client**
+- 2025-06-24 15:57 7b4ceaf5 **step: handle alarm alarm advice saved event internally**
+- 2025-06-24 15:55 aed1ff9e **step: test alarm.generate**
+- 2025-06-24 15:52 134f7dd5 **step: define alarm.saveAdvice**
+- 2025-06-24 15:50 d9deb36d **step: setup ALARM_ADVICE_SAVED_EVENT**
+- 2025-06-24 15:43 46f8f202 **refactor: wire up emotional advice requester to use emotional advice vo**
+- 2025-06-24 15:42 9a84ec82 **step: define emotional advice vo**
+- 2025-06-24 15:36 f50a602e **refactor: rename emotional advice requester**
+- 2025-06-24 15:27 a74e5c7a **refactor: inject Ai Client into Alarm Processing saga**
+- 2025-06-24 15:26 698f4b60 **step: define EmotionalAdviceType-n**
+- 2025-06-24 10:24 6107aee3 **step: add AlarmProcessing.onAlarmGeneratedEvent**
+- 2025-06-24 10:20 9023129f **step: setup alarm processing saga**
+- 2025-06-23 23:27 f3e97440 **step: test alarm generator in on emotion reappraised event**
+- 2025-06-23 23:14 a9a08ec9 **Merge pull request #6 from bgord/alarms**
+- 2025-06-23 23:08 e8e9cd9c **step: update dependencies**
+- 2025-06-23 23:01 29f74802 **step: test emotional-advice**
+- 2025-06-23 22:55 dd37c730 **step: test open-ai-client**
+- 2025-06-23 22:50 37f3218d **step: test anthropic ai client**
+- 2025-06-23 21:54 183e7477 **fix: open ai client**
+- 2025-06-23 21:53 c9f40932 **fix: exports**
+- 2025-06-23 21:48 419309da **step: implement ai clients**
+- 2025-06-23 21:14 77529527 **docs: generate CHANGELOG**
+- 2025-06-23 21:14 57678b47 **docs: generate readme**
+- 2025-06-23 16:42 d8182b00 **refactor: move ai clients to infra**
+- 2025-06-23 16:22 2475fbe0 **step: implement basic emotional advice service**
+- 2025-06-23 16:17 f7f0d99b **step: implement open ai and anthropic clients**
+- 2025-06-23 16:14 d8facf78 **step: define ai client abstract class**
+- 2025-06-23 16:10 8a5bf08a **step: create AnthropicAI in infra**
+- 2025-06-23 16:09 354ff56a **step: add ANTHROPIC_AI_API_KEY env**
+- 2025-06-23 16:07 bca09031 **step: change ai client to open ai client**
+- 2025-06-23 16:07 77bf2a5e **step: install anthropic ai**
+- 2025-06-23 16:00 360a55cc **step: add ai-client**
+- 2025-06-23 15:59 f51dcd70 **step: add open ai api key env**
+- 2025-06-23 15:56 ec624cac **step: install openai**
+- 2025-06-23 15:53 ca99e60f **step: test emotional advice prompt**
+- 2025-06-23 15:38 3ff3cfb8 **feature: implement EmotionalAdvicePrompt**
+- 2025-06-22 23:01 d55a20ea **step: test AlarmGeneratedOnce-n**
+- 2025-06-22 22:56 b5e621ba **refactor: rename register event handlers**
+- 2025-06-22 22:55 97940b2b **refactor: autoregister events**
+- 2025-06-22 22:49 da72c8cd **refactor: rename alarm idempotence error**
+- 2025-06-22 22:47 9dc5f740 **fix: alarm tests**
+- 2025-06-22 22:46 3806f1e2 **step: add satifies checks for pattern evets**
+- 2025-06-22 22:44 e5ee21ba **step: add alarm status**
+- 2025-06-22 22:44 2c819251 **step: add AlarmIdempotence policy**
+- 2025-06-22 22:26 aaa2c9e2 **feature: extract event bus handlers wiring to a separate file**
+- 2025-06-22 22:25 f4635c69 **step: adjust onEmotionLoggedEvent**
+- 2025-06-22 22:24 792a3ee9 **step: update GenericAlarmGeneratedEvent**
+- 2025-06-22 22:24 11092dc1 **step: add alarm to onEmotionLoggedEvent**
+- 2025-06-22 22:23 d570df80 **refactor: update mocks**
+- 2025-06-22 22:03 02f48cba **step: test basic alarm aggregate**
+- 2025-06-22 21:43 484192ae **step: export alarm aggregate**
+- 2025-06-22 21:43 43055fdd **step: add alarm event to event store**
+- 2025-06-22 19:56 054406ac **step: implement alarm generate method**
+- 2025-06-22 19:34 4ca43e18 **feature: setup alarm aggregate**
+- 2025-06-22 19:32 0b8aae2c **refactor: use z.enum for alarm name**
+- 2025-06-22 19:18 218dcddf **refactor: improve imports**
+- 2025-06-22 19:01 ad8b1027 **step: test NegativeEmotionExtremeIntensityAlarm**
+- 2025-06-22 18:52 1358cd62 **feature: implement first NegativeEmotionExtremeIntensityAlarm**
+- 2025-06-22 18:09 af74782e **step: implement alarm generator**
+- 2025-06-22 17:55 4ca6cb9b **step: define alarm check output**
+- 2025-06-22 16:51 1f63c5f8 **step: define ALARM_GENERATED_EVENT**
+- 2025-06-22 16:41 fe741a5a **refactor: make alarm name an enum**
+- 2025-06-22 16:41 bea5c17d **step: define an alarm abstract class**
+- 2025-06-22 16:38 84e6d640 **step: define alarm-id vo**
+- 2025-06-22 16:29 31a15718 **step: add alarm name vo**
+- 2025-06-22 16:07 6155ebc3 **step: define alarm generator**
+- 2025-06-22 15:58 9b5c0b34 **Merge pull request #5 from bgord/more_patterns**
+- 2025-06-22 13:59 b1699653 **docs: generate readme**
+- 2025-06-22 13:59 090a2f03 **docs: generate CHANGELOG**
+- 2025-06-22 00:55 cb84cf74 **feature: add LowCopingEffectivenessPattern**
+- 2025-06-22 00:52 bcde0471 **step: define LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT**
+- 2025-06-22 00:34 cb627b09 **step: define pattern kind**
+- 2025-06-22 00:34 56a1c430 **refactor: restore onEmotionLoggedEvent**
+- 2025-06-22 00:15 f541df30 **Merge pull request #4 from bgord/emotion_journal_read_model**
+- 2025-06-22 00:13 cc361ec4 **step: update bun**
+- 2025-06-22 00:05 06cc6d9f **step: update better-sqlite3**
+- 2025-06-22 00:03 24418b25 **refactor: regenerate migrations**
+- 2025-06-22 00:02 4013c2ec **refactor: rewrite tests**
+- 2025-06-21 23:51 3a650561 **refactor: remove circular deps**
+- 2025-06-21 23:43 819e7fa3 **step: switch to type only imports wherever possible**
+- 2025-06-21 22:15 bb7649f0 **docs: generate CHANGELOG**
+- 2025-06-21 22:15 607403bd **docs: generate readme**
+- 2025-06-21 20:02 fd68f251 **step: setup event handler tests**
+- 2025-06-21 19:50 6d78458d **step: implement other emotion journal entry event handlers**
+- 2025-06-21 19:37 8ee06a00 **step: implement on situation logged event handler**
+- 2025-06-21 19:30 009c69d2 **step: setup emotion journal entry repository**
+- 2025-06-21 19:15 3b9de27b **feature: define event handlers**
+- 2025-06-21 17:15 dae3c22f **refactor: use to-event-map helper**
+- 2025-06-21 17:01 d19ed5df **step: use imported dispatching event store**
+- 2025-06-21 16:54 2ce5013d **step: switch to local bgord bun**
+- 2025-06-21 16:49 d6d633d3 **refactor: improve event map**
+- 2025-06-21 16:45 5db9675c **step: create dispatching event store**
+- 2025-06-21 16:45 5d2970d6 **refactor: simplify event map**
+- 2025-06-21 16:17 f7f4c37c **step: define event bus**
+- 2025-06-21 15:50 c64415a6 **step: install emittery**
+- 2025-06-21 15:50 7b847e3e **step: update packages**
+- 2025-06-20 19:11 7ec1d166 **refactor: regenerate migrations from scratch**
+- 2025-06-20 19:10 efe7578a **fix: reactionEffectiveness column name**
+- 2025-06-20 19:03 b161697a **step: generate migrations**
+- 2025-06-20 19:03 742455da **step: bump bgord/scripts**
+- 2025-06-20 18:58 50aff3bc **refactor: extract enums to be applicable in db schema file**
+- 2025-06-20 18:53 9be36b9b **step: add toEnum helper**
+- 2025-06-20 18:52 46c36b19 **step: define schema**
+- 2025-06-20 18:10 2b8e9042 **refactor: extract events to separate files**
+- 2025-06-20 18:02 1cddcb70 **step: define situation kind**
+- 2025-06-20 18:01 c6c8b34e **step: define reaction type other**
+- 2025-06-20 17:57 6e79fd6c **Merge pull request #3 from bgord/emotion-journal-entry-deleted**
+- 2025-06-20 17:38 b6291622 **step: apply entry is actionable policy**
+- 2025-06-20 17:28 d2cd6311 **step: set deleted status on EMOTION_JOURNAL_ENTRY_DELETED**
+- 2025-06-20 17:25 6a335026 **step: define entry is actionable**
+- 2025-06-20 17:08 65b1f08c **step: define EmotionJournalEntry.status**
+- 2025-06-20 16:56 1a651de7 **step: define EmotionJournalEntryStatusEnum-n**
+- 2025-06-20 16:10 de33f869 **docs: generate CHANGELOG**
+- 2025-06-20 16:10 ad7e68a6 **docs: generate readme**
+- 2025-06-20 15:57 dd8eced4 **docs: generate CHANGELOG**
+- 2025-06-20 15:57 836018c4 **docs: generate readme**
+- 2025-06-20 12:48 ba5ced77 **fix: route test descriptions**
+- 2025-06-20 12:46 be5ffc89 **step: test delete journal entry route**
+- 2025-06-20 12:40 64228353 **step: test delete method**
+- 2025-06-20 12:35 3fca9491 **step: add delete journal entry route**
+- 2025-06-20 12:32 be28d463 **step: add EntryHasBenStarted policy**
+- 2025-06-20 12:31 6663b5db **step: add delete method**
+- 2025-06-20 12:27 8fa40b9b **step: apply EMOTION_JOURNAL_ENTRY_DELETED**
+- 2025-06-20 12:22 59629a10 **step: define EMOTION_JOURNAL_ENTRY_DELETED**
+- 2025-06-20 12:14 c3855bfb **step: bump bgord/scripts**
+- 2025-06-20 12:00 6c946868 **refactor: restore correct bgord-bun**
+- 2025-06-20 11:56 2f3f67cd **refactor: prepare correct .env.example**
+- 2025-06-20 11:52 54b7fd39 **step: bump bgord/scripts**
+- 2025-06-20 11:40 d4c10036 **refactor: extract healthcheck and prerequisites**
+- 2025-06-20 11:38 028273ed **refactor: remove api key shield**
+- 2025-06-20 11:37 e1132dde **refactor: extract tnfra to separate files**
+- 2025-06-20 11:36 7f293266 **step: bump bgord/scripts**
+- 2025-06-20 11:27 9740bb06 **step: bump bgord/scripts**
+- 2025-06-20 11:26 cd8eb760 **refactor: rename docs docs-app**
+- 2025-06-20 10:00 897d7c5f **docs: generate CHANGELOG**
+- 2025-06-20 09:56 bfc7c666 **docs: generate CHANGELOG**
+- 2025-06-20 09:52 65b7929d **docs: generate readme**
+- 2025-06-20 09:52 5ca67583 **docs: generate CHANGELOG**
+- 2025-06-20 09:41 bd181b45 **docs: generate readme**
+- 2025-06-20 09:41 a9e7d31c **docs: generate CHANGELOG**
+- 2025-06-20 09:28 4e6fa36b **docs: generate CHANGELOG**
+- 2025-06-20 09:26 96a358fe **docs: generate CHANGELOG**
+- 2025-06-20 00:56 5d8323c8 **step: improve logs**
+- 2025-06-20 00:25 eafc5a53 **step: switch to local bgord bun**
+- 2025-06-19 22:50 1755670c **step: bump bgord/scripts**
+- 2025-06-19 22:47 c54e76bc **refactor: merge changelog and readme**
+- 2025-06-19 22:45 54ebdd0f **fix: add missing readme generate project name arg**
+- 2025-06-19 22:44 3f6a385a **step: bump bgord/scripts**
+- 2025-06-19 22:43 35efd54b **fix: concurrency groups**
+- 2025-06-19 22:40 8aa18f13 **Merge pull request #2 from bgord/drizzle**
+- 2025-06-19 22:38 6b7fcaf1 **feature: add readme generator**
+- 2025-06-19 21:21 148968c5 **Merge pull request #1 from bgord/drizzle**
+- 2025-06-19 21:16 0903e35a **refactor: simplify event store save calls**
+- 2025-06-19 21:12 fb13d317 **step: update bgord bun**
+- 2025-06-19 21:06 7f0ca526 **step: bump bgord/scripts**
+- 2025-06-19 21:05 26c61561 **step: bump bgord/scripts**
+- 2025-06-19 21:04 280beba0 **step: bump bgord/scripts**
+- 2025-06-19 20:54 be84cb69 **refactor: remove unused exports**
+- 2025-06-19 20:52 884fe69a **step: bump bgord/scripts**
+- 2025-06-19 20:50 5a89fac0 **docs: generate CHANGELOG**
+- 2025-06-19 20:50 01d74042 **docs: generate readme**
+- 2025-06-19 20:47 7ee36ccd **docs: generate CHANGELOG**
+- 2025-06-19 20:45 c07d05d9 **refactor: used external event store**
+- 2025-06-19 20:45 1b60354e **docs: generate readme**
+- 2025-06-19 20:44 9a1566b4 **docs: generate CHANGELOG**
+- 2025-06-19 20:43 71a798ff **docs: generate CHANGELOG**
+- 2025-06-19 20:41 9c861031 **refactor: use generic event schemas from bgord bun**
+- 2025-06-19 20:40 227a35ea **docs: generate CHANGELOG**
+- 2025-06-19 20:38 c5876890 **step: switch to local bgord bun**
+- 2025-06-19 20:30 2bd57993 **refactor: simplify GenericParsedEventSchema**
+- 2025-06-19 20:27 9bce1ffa **feature: extract db calls out of event store**
+- 2025-06-19 20:09 dee7dbb5 **fix: make events.createdAt not null**
+- 2025-06-19 19:58 0671e75c **refactor: simplify event store**
+- 2025-06-19 19:52 acd71732 **refactor: rename new event store**
+- 2025-06-19 19:49 8efddfcb **feature: add event store v2**
+- 2025-06-19 19:49 2958882a **step: remove old event store**
+- 2025-06-19 19:21 c26cfe24 **docs: generate CHANGELOG**
+- 2025-06-19 18:06 77894f26 **refactor: simplify accepted event type**
+- 2025-06-19 18:04 b71aa0bf **step: define all accepted events**
+- 2025-06-19 18:02 d18f1f96 **refactor: rename pattern detection event and event types**
+- 2025-06-19 17:48 43bf36cd **refactor: simplify JournalEntryEvent**
+- 2025-06-19 17:43 6f5b6cf4 **refactor: extract pattern detector events to events file**
+- 2025-06-19 17:30 b0016b15 **refactor: extract events to a separate file**
+- 2025-06-19 17:22 07d98a20 **step: adjust tests**
+- 2025-06-19 17:18 724dfd7e **step: simplify accepted event names**
+- 2025-06-19 17:15 98fd7221 **step: use proper event store find method**
+- 2025-06-19 17:10 7b146461 **feature: implement type-safe event store**
+- 2025-06-19 16:41 fe201a63 **step: define JournalEntryEvent**
+- 2025-06-19 15:54 ab79cf89 **refactor: regenerate migrations**
+- 2025-06-19 15:53 3d6ffae1 **step: define event.stream index**
+- 2025-06-19 15:44 e2a63bd4 **step: add todos**
+- 2025-06-19 15:41 fb574e0a **step: delete helper files**
+- 2025-06-19 15:41 154b7d5f **refactor: remove local bun drizzle scripts**
+- 2025-06-19 15:39 147ebad4 **step: pin drizzle package versions**
+- 2025-06-19 15:20 0e6dbce3 **step: test event store**
+- 2025-06-19 14:55 e5e82512 **step: save log-situation event**
+- 2025-06-19 14:55 1386ebc5 **refactor: remove local drizzle config**
+- 2025-06-19 14:47 eee96c64 **feature: implement EventStore.save**
+- 2025-06-19 14:23 4c2caeee **refactor: remove manual migrate script**
+- 2025-06-19 14:23 35674410 **step: bump bgord/scripts**
+- 2025-06-19 14:19 9a8b7c7c **step: install better-sqlite3**
+- 2025-06-19 14:10 2a23aff1 **step: add bun-drizzle-migrate script**
+- 2025-06-19 14:09 694ee51c **feature: define drizzle.config.ts**
+- 2025-06-19 13:51 34be2f12 **step: add seed**
+- 2025-06-19 13:50 abbb4cff **refactor: regenerate infra/drizzle**
+- 2025-06-19 13:48 1e07a852 **fix: events.createdAt schema**
+- 2025-06-19 13:41 33057c40 **feature: setup events schema**
+- 2025-06-19 13:17 9b0ccdce **step: make a working example**
+- 2025-06-19 13:13 458910f4 **refactor: regenerate drizzle migrations**
+- 2025-06-19 13:13 12d2aa98 **refactor: remove env SQLITE_DATABASE_FILE_PATH**
+- 2025-06-19 13:12 fab7181f **step: add test file**
+- 2025-06-19 13:12 599fd6dc **refactor: remove drizzle migrations**
+- 2025-06-19 13:09 734121bb **refactor: revert sqlite env path**
+- 2025-06-19 13:06 3c1ffaaf **step: define drizzle migrations**
+- 2025-06-19 13:06 3abf4dae **step: bump bgord/scripts**
+- 2025-06-19 13:04 972d4281 **step: define bun drizzle generate script**
+- 2025-06-19 13:03 5e7824f4 **step: define drizzle schema**
+- 2025-06-19 12:56 bda1afa7 **step: setup infra/db**
+- 2025-06-19 12:49 aa783d6f **step: install drizzle**
+- 2025-06-19 12:49 9e9cc50a **fix: formatting**
+- 2025-06-19 12:38 f329ba56 **step: bump bgord/scripts**
+- 2025-06-19 12:38 574bee96 **step: update biome**
+- 2025-06-19 12:37 7c1f9a13 **step: update bgord packages**
+- 2025-06-19 11:56 5f3dfa85 **step: update knip**
+- 2025-06-19 10:47 892b3fc4 **docs: generate CHANGELOG**
+- 2025-06-19 09:57 d63463b7 **docs: generate CHANGELOG**
+- 2025-06-19 01:28 298140fe **step: define policy codes**
+- 2025-06-19 01:14 11b54d31 **step: install local bgord-bun**
+- 2025-06-19 01:05 83a3c68e **refactor: simplify domain errors**
+- 2025-06-19 00:40 7e632ada **feature: add evaluate reaction route**
+- 2025-06-19 00:30 aaa4e1ea **feature: add reappraise emotion route**
+- 2025-06-19 00:21 6c36e332 **refactor: simplify policies**
+- 2025-06-18 18:13 0b6ba644 **step: add log reaction tests**
+- 2025-06-18 18:01 efbb6408 **feature: setup log reaction route**
+- 2025-06-18 17:54 fddb4980 **step: test log-emotion route**
+- 2025-06-18 17:32 b0894149 **step: define event store**
+- 2025-06-18 17:30 b0271137 **step: define id param for log emotion**
+- 2025-06-18 15:48 cdf04554 **feature: setup log emotion endpoint**
+- 2025-06-18 15:22 9da55817 **refactor: unify validation error handling**
+- 2025-06-18 15:14 ef1898a9 **step: add log situation validation tests**
+- 2025-06-18 01:00 ac52c501 **feature: add log situation route**
+- 2025-06-18 00:56 a588ebe0 **step: add emotion journal entry create method**
+- 2025-06-18 00:42 305f7ecc **feature: add date range for pattern detector**
+- 2025-06-18 00:28 bb5be160 **step: test multiple patterns detected case**
+- 2025-06-18 00:09 29d8b023 **refactor: make pattern detector return events**
+- 2025-06-17 23:55 d3c36d08 **refactor: rename multiple maladaptive reactions pattern**
+- 2025-06-17 23:37 008bb69e **refactor: extract mocks**
+- 2025-06-17 23:20 c3a1ccd9 **refactor: extract patterns**
+- 2025-06-17 23:13 e0dbe0be **step: add MoreNegativiteThanPositiveEmotionsPattern tests**
+- 2025-06-17 22:59 0d2e1541 **feature: implement MoreNegativiteThanPositiveEmotionsPattern**
+- 2025-06-17 20:03 45671299 **feature: add PositiveEmotionWithMaladaptiveReaction**
+- 2025-06-17 19:59 0983ee17 **step: adjust pattern detector rule**
+- 2025-06-17 19:53 b3e03f26 **step: implement emotion label isPositive and isNegative**
+- 2025-06-17 19:37 ff20a336 **feature: implement MultipleMaladaptiveReactionsInWeekPattern-n**
+- 2025-06-17 19:30 00859c90 **step: add summarize method**
+- 2025-06-17 18:30 9672b72e **step: setup pattern detector**
+- 2025-06-17 17:32 07b3e9fd **feature: handle started and finished at**
+- 2025-06-17 17:22 45825427 **step: implement Policies.ReactionForEvaluationExists**
+- 2025-06-17 17:14 bdd71c4f **step: add evaluate reaction tests**
+- 2025-06-17 17:09 ccbe328e **feature: implement evaluateReaction**
+- 2025-06-17 17:02 21d823aa **step: implement Policies.EmotionCorrespondsToSituation**
+- 2025-06-17 13:39 5d051613 **feature: implement reappraiseEmotion**
+- 2025-06-17 00:55 65f461cf **refactor: simplify tests**
+- 2025-06-17 00:47 1da0891c **refactor: rewrite events to match event-store schema**
+- 2025-06-17 00:45 908e5f68 **refactor: export vo schemas**
+- 2025-06-17 00:27 75559912 **refactor: extract event names**
+- 2025-06-16 23:53 c6bafd93 **step: update lefthook**
+- 2025-06-16 23:36 18477739 **feature: add logReaction method**
+- 2025-06-16 23:35 73ff4ad2 **refactor: export reaction vo types**
+- 2025-06-16 23:28 896b30d9 **step: improve tests**
+- 2025-06-16 23:14 1696d038 **step: add emotion corresponds to situation policy**
+- 2025-06-16 23:08 e5e491c3 **feature: add logEmotion method**
+- 2025-06-16 22:24 da9cce56 **step: define OneSituationPerEmotionJournalEntry**
+- 2025-06-16 22:06 7f7376ad **step: add emotion journal entry aggregate tests**
+- 2025-06-16 21:58 b17441ff **feature: setup emotion journal entry aggregate**
+- 2025-06-16 21:55 9abc228d **fix: situation kind**
+- 2025-06-16 21:55 4c6101ef **refactor: export vo value types**
+- 2025-06-16 21:53 0ff5d0e1 **docs: generate CHANGELOG**
+- 2025-06-15 23:09 7c7d6fd5 **step: add sources**
+- 2025-06-15 22:42 d27d8608 **step: add docs**
+- 2025-06-15 22:21 7596caf4 **step: define emotions module exports**
+- 2025-06-15 22:17 8b6eff27 **step: add tmp/ to gitignore**
+- 2025-06-15 22:12 e394d021 **feature: define situation, emotion, reaction entities**
+- 2025-06-15 22:08 710e3bab **feature: add journal entry created and updated at**
+- 2025-06-15 22:05 3bfe0de5 **feature: add journal entry id**
+- 2025-06-15 21:58 d8cbdf81 **feature: add situation kind  vo**
+- 2025-06-15 21:03 9d71d4ca **feature: add reaction type vo**
+- 2025-06-15 20:32 faef0983 **feature: add reaction effectiveness vo**
+- 2025-06-15 20:25 e278511c **feature: add reaction description vo**
+- 2025-06-15 20:20 2d0029f8 **feature: add situation location vo**
+- 2025-06-15 20:13 ad9c0e5c **feature: add situation description vo**
+- 2025-06-15 19:47 c3f8e597 **step: improve emotion intensity serializing**
+- 2025-06-15 19:38 f6281bd3 **feature: add emotion label vo**
+- 2025-06-15 16:16 8cfdb9c5 **feature: add emotion intensity vo**
+- 2025-06-15 15:33 fef6d7f9 **step: setup scripts/**
+- 2025-06-15 15:32 03a4980e **step: setup app/**
+- 2025-06-15 15:31 bd5b3aca **step: setup infra/**
+- 2025-06-15 15:30 bee88dda **step: setup server.ts**
+- 2025-06-15 15:29 63aab4b8 **step: setup index.ts**
+- 2025-06-15 15:27 641728ee **step: setup packages**
+- 2025-06-15 15:26 fbce5aa7 **step: setup readme**
+- 2025-06-15 15:26 8df7ebec **step: setup lefthook**
+- 2025-06-15 15:26 8ba629ae **step: setup workflows**
+- 2025-06-15 15:26 439cc63c **step: setup tsconfig**
+- 2025-06-15 15:25 e8c34559 **step: setup envs**
+- 2025-06-15 15:22 de895e00 **step: setup bgord-scripts**
+- 2025-06-15 15:21 0bedf173 **step: add gitignore**
