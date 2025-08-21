@@ -18,9 +18,10 @@ export const ShareableLinkAccessedEvent = z.object({
     shareableLinkId: VO.ShareableLinkId,
     ownerId: Auth.VO.UserId,
     publicationSpecification: VO.PublicationSpecification,
-    validity: z.enum(["accepted", "rejected"]),
+    validity: z.enum(VO.AccessValidity),
     visitorId: z.string(),
     timestamp: tools.Timestamp,
+    reason: z.string(),
   }),
 });
 
