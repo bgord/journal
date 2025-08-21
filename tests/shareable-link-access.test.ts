@@ -1,15 +1,21 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import { ShareableLinkAccess } from "+infra/adapters/publishing";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
 describe("ShareableLinkAccess", () => {
-  test("true", async () => {
+  test.only("true", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    expect(
-      (await ShareableLinkAccess.check(mocks.shareableLinkId, "entries", mocks.accessContext)).valid,
-    ).toEqual(true);
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+      const result = (await ShareableLinkAccess.check(mocks.shareableLinkId, "entries", mocks.accessContext))
+        .valid;
+      expect(result).toEqual(true);
+    });
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedAcceptedEvent]);
   });
 
   test("false - not found", async () => {
