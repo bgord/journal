@@ -56,6 +56,10 @@ export class ErrorHandler {
       return c.json({ message: "revision.mismatch", _known: true }, 412);
     }
 
+    if (error.message === "Invalid date range") {
+      return c.json({ message: "invalid.date.range", _known: true }, 400);
+    }
+
     if (error instanceof z.ZodError) {
       const validationError = error.issues.find((issue) => validationErrors.includes(issue.message));
 
