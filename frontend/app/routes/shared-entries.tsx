@@ -5,10 +5,11 @@ import NotebookSvg from "../../assets/notebook.svg";
 import * as Components from "../../components";
 import type { Route } from "./+types/shared-entries";
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader({ request, params }: Route.LoaderArgs) {
   try {
     const result = await API(`/shared/entries/${params.shareableLinkId}`, {
       method: "GET",
+      headers: { "user-agent": request.headers.get("user-agent") as string },
     });
 
     if (!result.ok) return [];
