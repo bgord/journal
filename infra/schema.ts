@@ -224,13 +224,14 @@ export const shareableLinks = sqliteTable("shareableLinks", {
 });
 
 /** @public */
-export const shareableLinksRelations = relations(shareableLinks, ({ one }) => ({
-  /** the user who owns / created the link */
+export const shareableLinksRelations = relations(shareableLinks, ({ one, many }) => ({
   owner: one(users, {
     fields: [shareableLinks.ownerId],
     references: [users.id],
-    relationName: "userShareLinks", // optional, helps disambiguate joins
+    relationName: "userShareLinks",
   }),
+
+  hits: many(shareableLinkHits),
 }));
 
 /** @public */
@@ -276,6 +277,20 @@ export const shareableLinkHits = sqliteTable("shareable_link_hits", {
   visitorId: text("visitorId").notNull(),
   timestamp: integer("timestamp", { mode: "number" }).notNull(),
 });
+
+/** @public */
+export const shareableLinkHitsRelations = relations(shareableLinkHits, ({ one }) => ({
+  link: one(shareableLinks, {
+    fields: [shareableLinkHits.shareableLinkId],
+    references: [shareableLinks.id],
+    relationName: "linkHits",
+  }),
+
+  owner: one(users, {
+    fields: [shareableLinkHits.ownerId],
+    references: [users.id],
+  }),
+}));
 
 /** @public */
 export const users = sqliteTable("users", {
