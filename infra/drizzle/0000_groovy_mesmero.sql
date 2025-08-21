@@ -109,6 +109,19 @@ CREATE TABLE `sessions` (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `sessions_token_unique` ON `sessions` (`token`);--> statement-breakpoint
+CREATE TABLE `shareable_link_hits` (
+	`id` text(36) PRIMARY KEY NOT NULL,
+	`shareableLinkId` text(36) NOT NULL,
+	`ownerId` text(36) NOT NULL,
+	`publicationSpecification` text NOT NULL,
+	`validity` text NOT NULL,
+	`reason` text NOT NULL,
+	`visitorId` text NOT NULL,
+	`timestamp` integer NOT NULL,
+	FOREIGN KEY (`shareableLinkId`) REFERENCES `shareableLinks`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`ownerId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
 CREATE TABLE `shareableLinks` (
 	`id` text(36) PRIMARY KEY NOT NULL,
 	`createdAt` integer NOT NULL,

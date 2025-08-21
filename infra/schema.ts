@@ -11,6 +11,7 @@ import { PatternNameOption } from "../modules/emotions/value-objects/pattern-nam
 import { SituationKindOptions } from "../modules/emotions/value-objects/situation-kind-options";
 import { TimeCapsuleEntryStatusEnum } from "../modules/emotions/value-objects/time-capsule-entry-status";
 import { WeeklyReviewStatusEnum } from "../modules/emotions/value-objects/weekly-review-status";
+import { AccessValidity } from "../modules/publishing/value-objects/access-validity";
 import { ShareableLinkStatusEnum } from "../modules/publishing/value-objects/shareable-link-status";
 
 const toEnumList = (value: Record<string, string>) => ({
@@ -260,6 +261,21 @@ export const history = sqliteTable(
     index("history_createdAt").on(desc(table.createdAt)),
   ],
 );
+
+export const shareableLinkHits = sqliteTable("shareable_link_hits", {
+  id,
+  shareableLinkId: text("shareableLinkId", { length: 36 })
+    .notNull()
+    .references(() => shareableLinks.id, { onDelete: "cascade" }),
+  ownerId: text("ownerId", { length: 36 })
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  publicationSpecification: text("publicationSpecification").notNull(),
+  validity: text("validity", toEnumList(AccessValidity)).notNull(),
+  reason: text("reason").notNull(),
+  visitorId: text("visitorId").notNull(),
+  timestamp: integer("timestamp", { mode: "number" }).notNull(),
+});
 
 /** @public */
 export const users = sqliteTable("users", {

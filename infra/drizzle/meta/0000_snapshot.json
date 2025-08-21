@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "fbbcc3cb-38d7-494a-9dda-c7c8faad13f8",
+  "id": "e36e4ed4-f9f1-4c5b-838f-e0418c5ff9f4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -699,6 +699,91 @@
           "tableFrom": "sessions",
           "tableTo": "users",
           "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "shareable_link_hits": {
+      "name": "shareable_link_hits",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text(36)",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "shareableLinkId": {
+          "name": "shareableLinkId",
+          "type": "text(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ownerId": {
+          "name": "ownerId",
+          "type": "text(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "publicationSpecification": {
+          "name": "publicationSpecification",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "validity": {
+          "name": "validity",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "visitorId": {
+          "name": "visitorId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "timestamp": {
+          "name": "timestamp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "shareable_link_hits_shareableLinkId_shareableLinks_id_fk": {
+          "name": "shareable_link_hits_shareableLinkId_shareableLinks_id_fk",
+          "tableFrom": "shareable_link_hits",
+          "tableTo": "shareableLinks",
+          "columnsFrom": ["shareableLinkId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "shareable_link_hits_ownerId_users_id_fk": {
+          "name": "shareable_link_hits_ownerId_users_id_fk",
+          "tableFrom": "shareable_link_hits",
+          "tableTo": "users",
+          "columnsFrom": ["ownerId"],
           "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
