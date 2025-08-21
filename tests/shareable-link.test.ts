@@ -10,6 +10,18 @@ describe("Publishing", () => {
     expect(shareableLink.pullEvents()).toEqual([]);
   });
 
+  test("isEmpty - true", () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, []);
+    expect(shareableLink.isEmpty()).toEqual(true);
+  });
+
+  test("isEmpty - true", () => {
+    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [
+      mocks.GenericShareableLinkCreatedEvent,
+    ]);
+    expect(shareableLink.isEmpty()).toEqual(false);
+  });
+
   test("generate - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Date, "now").mockReturnValue(mocks.shareableLinkCreatedAt);

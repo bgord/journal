@@ -116,6 +116,16 @@ export class ShareableLink {
     );
   }
 
+  isEmpty(): boolean {
+    return !(
+      this.createdAt &&
+      this.duration &&
+      this.ownerId &&
+      this.dateRange &&
+      this.publicationSpecification
+    );
+  }
+
   summarize() {
     return {
       ownerId: this.ownerId as Auth.VO.UserIdType,
