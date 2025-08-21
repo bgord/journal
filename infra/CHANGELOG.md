@@ -1,6 +1,7 @@
 # Changelog
+- 2025-08-21 22:21 ebd8fa44 **refactor: improve mapping**
+## 2025-08-21 22:21 
 - 2025-08-21 22:17 73b9293c **step: adjust tests**
-## 2025-08-21 22:17 
 - 2025-08-21 22:15 84e4ad5f **step: handle invalid date range error**
 - 2025-08-21 22:14 7eac9b4f **step: implement export entries date range**
 - 2025-08-21 21:45 d52b3942 **refactor: shorten server names**
@@ -12,6 +13,8 @@
 - 2025-08-21 21:12 2556bb96 **step: improve english translations**
 - 2025-08-21 21:09 57772b89 **refactor: sort translations**
 - 2025-08-21 21:01 1dc60aa6 **fix: translations**
+- 2025-08-21 20:18 edcdbc25 **docs: generate CHANGELOG**
+- 2025-08-21 20:18 b8f46f50 **docs: generate readme**
 - 2025-08-21 18:44 a4aa0682 **refactor: extract correlation id header helper**
 - 2025-08-21 18:40 6007edbd **step: add missing tests**
 - 2025-08-21 18:30 5db12be1 **step: add correct translations**
