@@ -185,6 +185,18 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
                   <div data-color="neutral-500">
                     {t("profile.shareable_links.hits", {
                       totalHits: link.totalHits,
+                      hits: pluralize({
+                        value: link.totalHits,
+                        singular: t("app.hit.singular"),
+                        plural: t("app.hit.plural"),
+                        genitive: t("app.hit.genitive"),
+                      }),
+                      visitors: pluralize({
+                        value: link.uniqueVisitors,
+                        singular: t("app.visitor.singular"),
+                        plural: t("app.visitor.plural"),
+                        genitive: t("app.visitor.genitive"),
+                      }),
                       uniqueVisitors: link.uniqueVisitors,
                     })}
                   </div>
