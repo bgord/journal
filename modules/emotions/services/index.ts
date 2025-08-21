@@ -4,6 +4,7 @@ export * from "./emotion-alarm-detector";
 export * from "./emotion-alarm-template";
 export * from "./entry-alarm-advice-notification-composer";
 export * from "./entry-export-file-csv";
+export * from "./entry-export-file-text";
 export * from "./inactivity-alarm-advice-notification-composer";
 export * from "./negative-emotion-extreme-intensity-alarm";
 export * from "./pattern-detector";
