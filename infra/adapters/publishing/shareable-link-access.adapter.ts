@@ -15,6 +15,8 @@ class ShareableLinkAccessBg implements Publishing.OHQ.ShareableLinkAccessPort {
   ): Promise<Publishing.OHQ.ShareableLinkAccessValidType | Publishing.OHQ.ShareableLinkAccessInvalidType> {
     const shareableLink = await this.repo.load(id);
 
+    if (shareableLink.isEmpty()) return { valid: false };
+
     const valid = shareableLink.isValid(publicationSpecification);
     const summary = shareableLink.summarize();
 
