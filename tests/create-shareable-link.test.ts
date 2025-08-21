@@ -117,7 +117,7 @@ describe(`POST ${url}`, () => {
           dateRangeStart: 0,
           dateRangeEnd: 1000,
         }),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+        headers: mocks.correlationIdHeaders,
       },
       mocks.ip,
     );
@@ -143,7 +143,7 @@ describe(`POST ${url}`, () => {
           dateRangeStart: 0,
           dateRangeEnd: 1000,
         }),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+        headers: mocks.correlationIdHeaders,
       },
       mocks.ip,
     );

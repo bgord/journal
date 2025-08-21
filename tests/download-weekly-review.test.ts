@@ -70,7 +70,7 @@ describe(`GET ${url}`, () => {
 
     const response = await server.request(
       url,
-      { method: "GET", headers: new Headers({ "x-correlation-id": mocks.correlationId }) },
+      { method: "GET", headers: mocks.correlationIdHeaders },
       mocks.ip,
     );
     expect(response.status).toBe(200);

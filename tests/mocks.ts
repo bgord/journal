@@ -45,6 +45,11 @@ export const correlationId = "00000000-0000-0000-0000-000000000000";
 export const revision = new tools.Revision(0);
 
 export const revisionHeaders = (revision: tools.RevisionValueType = 0) => ({ "if-match": `W/${revision}` });
+export const correlationIdHeaders = { "x-correlation-id": correlationId };
+export const correlationIdAndRevisionHeaders = (revision: tools.RevisionValueType = 0) => ({
+  "if-match": `W/${revision}`,
+  "x-correlation-id": correlationId,
+});
 
 export const entryTrigger = {
   type: Emotions.VO.AlarmTriggerEnum.entry,

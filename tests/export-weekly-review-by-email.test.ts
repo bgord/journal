@@ -64,7 +64,7 @@ describe(`POST ${url}`, () => {
 
     const response = await server.request(
       url,
-      { method: "POST", headers: new Headers({ "x-correlation-id": mocks.correlationId }) },
+      { method: "POST", headers: mocks.correlationIdHeaders },
       mocks.ip,
     );
     expect(response.status).toBe(200);

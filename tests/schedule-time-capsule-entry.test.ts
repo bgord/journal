@@ -187,7 +187,7 @@ describe(`POST ${url}`, () => {
           ...reaction,
           scheduledFor: mocks.scheduledFor,
         }),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+        headers: mocks.correlationIdHeaders,
       },
       mocks.ip,
     );

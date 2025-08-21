@@ -152,7 +152,7 @@ describe("POST /entry/log", () => {
       {
         method: "POST",
         body: JSON.stringify({ ...situation, ...emotion, ...reaction }),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId }),
+        headers: mocks.correlationIdHeaders,
       },
       mocks.ip,
     );

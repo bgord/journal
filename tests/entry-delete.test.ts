@@ -63,10 +63,7 @@ describe("DELETE /entry/:id/delete", () => {
 
     const response = await server.request(
       url,
-      {
-        method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
-      },
+      { method: "DELETE", headers: mocks.correlationIdAndRevisionHeaders() },
       mocks.ip,
     );
     expect(response.status).toBe(200);
@@ -84,10 +81,7 @@ describe("DELETE /entry/:id/delete", () => {
 
     const response = await server.request(
       url,
-      {
-        method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
-      },
+      { method: "DELETE", headers: mocks.correlationIdAndRevisionHeaders() },
       mocks.ip,
     );
     expect(response.status).toBe(200);
@@ -106,10 +100,7 @@ describe("DELETE /entry/:id/delete", () => {
 
     const response = await server.request(
       url,
-      {
-        method: "DELETE",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
-      },
+      { method: "DELETE", headers: mocks.correlationIdAndRevisionHeaders() },
       mocks.ip,
     );
     expect(response.status).toBe(200);

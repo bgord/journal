@@ -237,7 +237,7 @@ describe("POST /entry/:id/evaluate-reaction", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders(3) }),
+        headers: mocks.correlationIdAndRevisionHeaders(3),
       },
       mocks.ip,
     );

@@ -78,7 +78,7 @@ describe(`POST ${url}`, () => {
       url,
       {
         method: "POST",
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        headers: mocks.correlationIdAndRevisionHeaders(),
       },
       mocks.ip,
     );

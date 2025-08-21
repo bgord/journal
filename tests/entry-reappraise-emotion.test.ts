@@ -146,7 +146,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        headers: mocks.correlationIdAndRevisionHeaders(),
       },
       mocks.ip,
     );
@@ -172,7 +172,7 @@ describe("POST /entry/:id/reappraise-emotion", () => {
       {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
+        headers: mocks.correlationIdAndRevisionHeaders(),
       },
       mocks.ip,
     );

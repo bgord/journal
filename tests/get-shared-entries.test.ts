@@ -30,10 +30,7 @@ describe(`GET ${url}`, () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const response = await server.request(
         url,
-        {
-          method: "GET",
-          headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
-        },
+        { method: "GET", headers: mocks.correlationIdAndRevisionHeaders() },
         mocks.ip,
       );
 
@@ -53,10 +50,7 @@ describe(`GET ${url}`, () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const response = await server.request(
         url,
-        {
-          method: "GET",
-          headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
-        },
+        { method: "GET", headers: mocks.correlationIdAndRevisionHeaders() },
         mocks.ip,
       );
       expect(response.status).toBe(403);
@@ -73,10 +67,7 @@ describe(`GET ${url}`, () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const response = await server.request(
         url,
-        {
-          method: "GET",
-          headers: new Headers({ "x-correlation-id": mocks.correlationId, ...mocks.revisionHeaders() }),
-        },
+        { method: "GET", headers: mocks.correlationIdAndRevisionHeaders() },
         mocks.ip,
       );
       expect(response.status).toBe(200);
