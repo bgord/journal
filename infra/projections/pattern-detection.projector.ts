@@ -26,7 +26,6 @@ export class PatternDetectionProjector {
 
   onPatternDetectedEvent = async (event: Emotions.Services.Patterns.PatternDetectionEventType) => {
     await db.insert(Schema.patternDetections).values({
-      id: event.id,
       name: event.payload.name,
       userId: event.payload.userId,
       createdAt: event.createdAt,
