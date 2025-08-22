@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import { SupportedLanguages } from "+languages";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import { Mailer } from "+infra/adapters";
@@ -20,6 +21,7 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { logger } from "+infra/logger";
 import * as Projections from "+infra/projections";
+import * as PreferencesPolicies from "+preferences/policies";
 import * as PublishingPolicies from "+publishing/policies";
 
 const EventHandler = new bg.EventHandler(logger);
@@ -47,6 +49,7 @@ new EmotionsPolicies.InactivityAlarmScheduler(
 );
 new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler, CommandBus, TimeCapsuleDueEntries);
 new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
+new PreferencesPolicies.SetDefaultUserLanguage(EventBus, EventHandler, CommandBus, SupportedLanguages.en);
 
 // Sagas
 new EmotionsSagas.AlarmOrchestrator(
