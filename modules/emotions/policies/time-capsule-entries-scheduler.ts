@@ -21,9 +21,9 @@ export class TimeCapsuleEntriesScheduler {
 
   async onHourHasPassed() {
     const now = tools.Time.Now().value;
-    const entries = await this.timeCapsuleDueEntries.listDue(now);
+    const dueEntries = await this.timeCapsuleDueEntries.listDue(now);
 
-    for (const entry of entries) {
+    for (const entry of dueEntries) {
       if (
         Emotions.Invariants.TimeCapsuleEntryIsPublishable.fails({
           status: entry.status,
