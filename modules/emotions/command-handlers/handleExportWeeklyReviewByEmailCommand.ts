@@ -1,7 +1,6 @@
-import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import type * as Ports from "+app/ports";
+import { createEventEnvelope } from "../../../base";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -24,12 +23,8 @@ export const handleExportWeeklyReviewByEmailCommand =
 
     await EventStore.save([
       Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Time.Now().value,
+        ...createEventEnvelope(`weekly_review_export_by_email_${weeklyReviewExportId}`),
         name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
-        stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
-        version: 1,
         payload: {
           weeklyReviewId: command.payload.weeklyReviewId,
           userId: command.payload.userId,

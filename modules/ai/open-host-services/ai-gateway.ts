@@ -1,9 +1,8 @@
-import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import * as Events from "+ai/events";
 import type * as Ports from "+ai/ports";
 import * as Specs from "+ai/specifications";
 import type * as VO from "+ai/value-objects";
+import { createEventEnvelope } from "../../../base";
 
 /** @public */
 export class AiQuotaExceededError extends Error {
@@ -38,11 +37,7 @@ export class AiGateway implements Ports.AiGatewayPort {
 
     if (verification.violations.length) {
       const event = Events.AiQuotaExceededEvent.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Time.Now().value,
-        stream: `user_ai_usage_${context.userId}`,
-        version: 1,
+        ...createEventEnvelope(`user_ai_usage_${context.userId}`),
         name: Events.AI_QUOTA_EXCEEDED_EVENT,
         payload: { userId: context.userId, timestamp: context.timestamp },
       } satisfies Events.AiQuotaExceededEventType);
@@ -55,11 +50,7 @@ export class AiGateway implements Ports.AiGatewayPort {
     const advice = await this.AiClient.request(prompt);
 
     const event = Events.AiRequestRegisteredEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
-      stream: `user_ai_usage_${context.userId}`,
-      version: 1,
+      ...createEventEnvelope(`user_ai_usage_${context.userId}`),
       name: Events.AI_REQUEST_REGISTERED_EVENT,
       payload: context,
     } satisfies Events.AiRequestRegisteredEventType);

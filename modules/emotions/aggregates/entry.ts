@@ -1,9 +1,9 @@
-import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { z } from "zod/v4";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
+import { createEventEnvelope } from "../../../base";
 
 export type EntryEvent = (typeof Entry)["events"][number];
 type EntryEventType = z.infer<EntryEvent>;
@@ -52,12 +52,8 @@ export class Entry {
     const entry = new Entry(id);
 
     const SituationLoggedEvent = Emotions.Events.SituationLoggedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Entry.getStream(id)),
       name: Emotions.Events.SITUATION_LOGGED_EVENT,
-      stream: Entry.getStream(id),
-      version: 1,
       payload: {
         entryId: id,
         description: situation.description.get(),
@@ -72,12 +68,8 @@ export class Entry {
     entry.record(SituationLoggedEvent);
 
     const EmotionLoggedEvent = Emotions.Events.EmotionLoggedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Entry.getStream(id)),
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
-      stream: Entry.getStream(id),
-      version: 1,
       payload: {
         entryId: id,
         label: emotion.label.get(),
@@ -89,12 +81,8 @@ export class Entry {
     entry.record(EmotionLoggedEvent);
 
     const ReactionLoggedEvent = Emotions.Events.ReactionLoggedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Entry.getStream(id)),
       name: Emotions.Events.REACTION_LOGGED_EVENT,
-      stream: Entry.getStream(id),
-      version: 1,
       payload: {
         entryId: id,
         description: reaction.description.get(),
@@ -116,12 +104,8 @@ export class Entry {
     Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Entry.getStream(this.id)),
       name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
-      stream: Entry.getStream(this.id),
-      version: 1,
       payload: {
         entryId: this.id,
         newLabel: newEmotion.label.get(),
@@ -143,12 +127,8 @@ export class Entry {
     Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Entry.getStream(this.id)),
       name: Emotions.Events.REACTION_EVALUATED_EVENT,
-      stream: Entry.getStream(this.id),
-      version: 1,
       payload: {
         entryId: this.id,
         description: newReaction.description.get(),
@@ -166,12 +146,8 @@ export class Entry {
     Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EntryDeletedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Entry.getStream(this.id)),
       name: Emotions.Events.ENTRY_DELETED_EVENT,
-      stream: Entry.getStream(this.id),
-      version: 1,
       payload: { entryId: this.id, userId: requesterId },
     } satisfies Emotions.Events.EntryDeletedEventType);
 

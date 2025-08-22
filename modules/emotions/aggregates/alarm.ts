@@ -1,11 +1,10 @@
-import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import type { z } from "zod/v4";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
+import { createEventEnvelope } from "../../../base";
 
 export type AlarmEvent = (typeof Alarm)["events"][number];
 type AlarmEventType = z.infer<AlarmEvent>;
@@ -44,12 +43,8 @@ export class Alarm {
     const alarm = new Alarm(id);
 
     const event = Events.AlarmGeneratedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Alarm.getStream(id)),
       name: Events.ALARM_GENERATED_EVENT,
-      stream: Alarm.getStream(id),
-      version: 1,
       payload: {
         alarmId: id,
         alarmName: detection.name,
@@ -67,12 +62,8 @@ export class Alarm {
     Invariants.AlarmAlreadyGenerated.perform({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Alarm.getStream(this.id)),
       name: Events.ALARM_ADVICE_SAVED_EVENT,
-      stream: Alarm.getStream(this.id),
-      version: 1,
       payload: {
         alarmId: this.id,
         advice: advice.get(),
@@ -90,12 +81,8 @@ export class Alarm {
     });
 
     const event = Events.AlarmNotificationRequestedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Alarm.getStream(this.id)),
       name: Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
-      stream: Alarm.getStream(this.id),
-      version: 1,
       payload: {
         alarmId: this.id,
         alarmName: this.detection?.name as VO.AlarmNameType,
@@ -112,12 +99,8 @@ export class Alarm {
     Invariants.AlarmNotificationRequested.perform({ status: this.status });
 
     const event = Events.AlarmNotificationSentEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Alarm.getStream(this.id)),
       name: Events.ALARM_NOTIFICATION_SENT_EVENT,
-      stream: Alarm.getStream(this.id),
-      version: 1,
       payload: { alarmId: this.id },
     } satisfies Events.AlarmNotificationSentEventType);
 
@@ -128,12 +111,8 @@ export class Alarm {
     Invariants.AlarmIsCancellable.perform({ status: this.status });
 
     const event = Events.AlarmCancelledEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: tools.Time.Now().value,
+      ...createEventEnvelope(Alarm.getStream(this.id)),
       name: Events.ALARM_CANCELLED_EVENT,
-      stream: Alarm.getStream(this.id),
-      version: 1,
       payload: { alarmId: this.id, userId: this.userId as Auth.VO.UserIdType },
     } satisfies Events.AlarmCancelledEventType);
 
