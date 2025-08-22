@@ -9,7 +9,7 @@ class UserLanguageHasChangedError extends Error {
   }
 }
 
-type UserLanguageHasChangedConfigType = { current: SupportedLanguages; next: SupportedLanguages };
+type UserLanguageHasChangedConfigType = { current: SupportedLanguages | null; next: SupportedLanguages };
 
 class UserLanguageHasChangedFactory extends bg.Invariant<UserLanguageHasChangedConfigType> {
   fails(config: UserLanguageHasChangedConfigType) {
