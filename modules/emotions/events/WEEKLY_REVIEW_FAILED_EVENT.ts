@@ -1,18 +1,13 @@
-import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
+import { BaseEventData } from "../../../base";
 
 export const WEEKLY_REVIEW_FAILED_EVENT = "WEEKLY_REVIEW_FAILED_EVENT";
 
 export const WeeklyReviewFailedEvent = z.object({
-  id: bg.UUID,
-  correlationId: bg.UUID,
-  createdAt: tools.Timestamp,
-  stream: z.string().min(1),
-  version: z.literal(1),
-  revision: tools.RevisionValue.optional(),
+  ...BaseEventData,
   name: z.literal(WEEKLY_REVIEW_FAILED_EVENT),
   payload: z.object({
     weeklyReviewId: VO.WeeklyReviewId,
