@@ -292,6 +292,28 @@ export const shareableLinkHitsRelations = relations(shareableLinkHits, ({ one })
   }),
 }));
 
+export const userPreferences = sqliteTable(
+  "user_preferences",
+  {
+    id,
+    userId: text("userId", { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    preference: text("preference").notNull(),
+    value: text("value").notNull(),
+    updatedAt: integer("updatedAt", { mode: "number" }).notNull(),
+  },
+  (table) => [
+    uniqueIndex("user_preferences_userId_preference_uidx").on(table.userId, table.preference),
+    index("user_preferences_userId_idx").on(table.userId),
+    index("user_preferences_preference_idx").on(table.preference),
+  ],
+);
+
+export const userPreferencesRelations = relations(userPreferences, ({ one }) => ({
+  user: one(users, { fields: [userPreferences.userId], references: [users.id] }),
+}));
+
 /** @public */
 export const users = sqliteTable("users", {
   id: text("id").primaryKey(),
