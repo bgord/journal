@@ -10,7 +10,7 @@ import {
   WeeklyReviewSnapshot,
 } from "+infra/adapters/emotions";
 import { UserLanguageQueryAdapter } from "+infra/adapters/preferences";
-import { ShareableLinkRepositoryAdapter, ShareableLinksQuota } from "+infra/adapters/publishing";
+import { ShareableLinkRepository, ShareableLinksQuota } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import { EventStore } from "+infra/event-store";
 import * as PreferencesCommandHandler from "+preferences/command-handlers";
@@ -85,20 +85,17 @@ CommandBus.on(
 
 CommandBus.on(
   PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleCreateShareableLinkCommand(
-    ShareableLinkRepositoryAdapter,
-    ShareableLinksQuota,
-  ),
+  PublishingCommandHandlers.handleCreateShareableLinkCommand(ShareableLinkRepository, ShareableLinksQuota),
 );
 
 CommandBus.on(
   PublishingCommands.EXPIRE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleExpireShareableLinkCommand(ShareableLinkRepositoryAdapter),
+  PublishingCommandHandlers.handleExpireShareableLinkCommand(ShareableLinkRepository),
 );
 
 CommandBus.on(
   PublishingCommands.REVOKE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleRevokeShareableLinkCommand(ShareableLinkRepositoryAdapter),
+  PublishingCommandHandlers.handleRevokeShareableLinkCommand(ShareableLinkRepository),
 );
 
 CommandBus.on(

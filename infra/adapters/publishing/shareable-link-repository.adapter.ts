@@ -15,4 +15,4 @@ class ShareableLinkRepositoryAdapterInternal implements Publishing.Ports.Shareab
   }
 }
 
-export const ShareableLinkRepositoryAdapter = new ShareableLinkRepositoryAdapterInternal();
+export const ShareableLinkRepository = new ShareableLinkRepositoryAdapterInternal();
