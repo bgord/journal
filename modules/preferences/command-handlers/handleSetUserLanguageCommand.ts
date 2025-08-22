@@ -1,5 +1,22 @@
-import type * as Preferences from "+preferences";
+import * as bg from "@bgord/bun";
+import * as Preferences from "+preferences";
+import type * as Buses from "+app/ports";
 
-export const handleSetUserLanguageCommand = async (
-  _command: Preferences.Commands.SetUserLanguageCommandType,
-) => {};
+type AcceptedEvent = Preferences.Events.UserLanguageSetEventType;
+
+export const handleSetUserLanguageCommand =
+  (EventStore: Buses.EventStoreLike<AcceptedEvent>, query: Preferences.Ports.UserLanguagePort) =>
+  async (command: Preferences.Commands.SetUserLanguageCommandType) => {
+    const current = await query.get(command.payload.userId);
+
+    if (Preferences.Invariants.UserLanguageHasChanged.fails({ current, next: command.payload.language }))
+      return;
+
+    const event = Preferences.Events.UserLanguageSetEvent.parse({
+      ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),
+      name: Preferences.Events.USER_LANGUAGE_SET_EVENT,
+      payload: command.payload,
+    } satisfies Preferences.Events.UserLanguageSetEventType);
+
+    await EventStore.save([event]);
+  };

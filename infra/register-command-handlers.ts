@@ -9,6 +9,7 @@ import {
   WeeklyReviewRepository,
   WeeklyReviewSnapshot,
 } from "+infra/adapters/emotions";
+import { UserLanguageAdapter } from "+infra/adapters/preferences";
 import { ShareableLinkRepositoryAdapter, ShareableLinksQuota } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import { EventStore } from "+infra/event-store";
@@ -102,5 +103,5 @@ CommandBus.on(
 
 CommandBus.on(
   PreferencesCommand.SET_USER_LANGUAGE_COMMAND,
-  PreferencesCommandHandler.handleSetUserLanguageCommand,
+  PreferencesCommandHandler.handleSetUserLanguageCommand(EventStore, UserLanguageAdapter),
 );
