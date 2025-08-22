@@ -3,8 +3,10 @@ import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
+import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
+import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type * as System from "+system";
 import type * as Schema from "+infra/schema";
@@ -774,6 +776,26 @@ export const GenericEntryHistoryClearedEvent = {
   name: "HISTORY_CLEARED_EVENT",
   payload: { subject: entryId },
 } satisfies bg.History.Events.HistoryClearedEventType;
+
+export const GenericAccountCreatedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `account_${userId}`,
+  version: 1,
+  name: "ACCOUNT_CREATED_EVENT",
+  payload: { userId, timestamp: tools.Time.Now().value },
+} satisfies Auth.Events.AccountCreatedEventType;
+
+export const GenericUserLanguageSetEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `preferences_${userId}`,
+  version: 1,
+  name: "USER_LANGUAGE_SET_EVENT",
+  payload: { userId, language: SupportedLanguages.en },
+} satisfies Preferences.Events.UserLanguageSetEventType;
 
 export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
