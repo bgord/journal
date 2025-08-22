@@ -6,7 +6,7 @@ import * as VO from "+emotions/value-objects";
 export const ENTRY_DELETED_EVENT = "ENTRY_DELETED_EVENT";
 
 export const EntryDeletedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(ENTRY_DELETED_EVENT),
   payload: z.object({ entryId: VO.EntryId, userId: Auth.VO.UserId }),
 });

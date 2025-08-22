@@ -8,7 +8,7 @@ export const LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT =
   "LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT";
 
 export const LowCopingEffectivenessPatternDetectedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT),
   payload: z.object({ userId: Auth.VO.UserId, weekIsoId: tools.WeekIsoId, name: VO.PatternName }),
 });

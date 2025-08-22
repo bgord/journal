@@ -6,7 +6,7 @@ import * as VO from "+emotions/value-objects";
 export const REACTION_EVALUATED_EVENT = "REACTION_EVALUATED_EVENT";
 
 export const ReactionEvaluatedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(REACTION_EVALUATED_EVENT),
   payload: z.object({
     entryId: VO.EntryId,

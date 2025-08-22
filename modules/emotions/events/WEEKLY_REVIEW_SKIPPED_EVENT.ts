@@ -6,7 +6,7 @@ import * as Auth from "+auth";
 export const WEEKLY_REVIEW_SKIPPED_EVENT = "WEEKLY_REVIEW_SKIPPED_EVENT";
 
 export const WeeklyReviewSkippedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(WEEKLY_REVIEW_SKIPPED_EVENT),
   payload: z.object({ weekIsoId: tools.WeekIsoId, userId: Auth.VO.UserId }),
 });

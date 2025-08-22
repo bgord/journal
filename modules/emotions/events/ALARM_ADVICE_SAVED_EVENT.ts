@@ -7,7 +7,7 @@ import * as VO from "+emotions/value-objects";
 export const ALARM_ADVICE_SAVED_EVENT = "ALARM_ADVICE_SAVED_EVENT";
 
 export const AlarmAdviceSavedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(ALARM_ADVICE_SAVED_EVENT),
   payload: z.object({ alarmId: VO.AlarmId, advice: AI.AdviceSchema, userId: Auth.VO.UserId }),
 });

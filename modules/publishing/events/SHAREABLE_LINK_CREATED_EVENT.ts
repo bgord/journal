@@ -7,7 +7,7 @@ import * as VO from "+publishing/value-objects";
 export const SHAREABLE_LINK_CREATED_EVENT = "SHAREABLE_LINK_CREATED_EVENT";
 
 export const ShareableLinkCreatedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(SHAREABLE_LINK_CREATED_EVENT),
   payload: z.object({
     shareableLinkId: VO.ShareableLinkId,

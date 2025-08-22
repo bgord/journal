@@ -7,7 +7,7 @@ import * as VO from "+emotions/value-objects";
 export const WEEKLY_REVIEW_REQUESTED_EVENT = "WEEKLY_REVIEW_REQUESTED_EVENT";
 
 export const WeeklyReviewRequestedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(WEEKLY_REVIEW_REQUESTED_EVENT),
   payload: z.object({
     weeklyReviewId: VO.WeeklyReviewId,

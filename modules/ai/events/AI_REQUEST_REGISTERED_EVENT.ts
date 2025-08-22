@@ -7,7 +7,7 @@ import * as VO from "+ai/value-objects";
 export const AI_REQUEST_REGISTERED_EVENT = "AI_REQUEST_REGISTERED_EVENT";
 
 export const AiRequestRegisteredEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(AI_REQUEST_REGISTERED_EVENT),
   payload: z.object({
     category: z.enum(VO.UsageCategory),

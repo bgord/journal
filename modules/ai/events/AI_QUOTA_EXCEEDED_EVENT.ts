@@ -6,7 +6,7 @@ import * as Auth from "+auth";
 export const AI_QUOTA_EXCEEDED_EVENT = "AI_QUOTA_EXCEEDED_EVENT";
 
 export const AiQuotaExceededEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(AI_QUOTA_EXCEEDED_EVENT),
   payload: z.object({ timestamp: tools.Timestamp, userId: Auth.VO.UserId }),
 });

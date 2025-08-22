@@ -5,7 +5,7 @@ import * as VO from "+emotions/value-objects";
 export const ALARM_NOTIFICATION_SENT_EVENT = "ALARM_NOTIFICATION_SENT_EVENT";
 
 export const AlarmNotificationSentEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(ALARM_NOTIFICATION_SENT_EVENT),
   payload: z.object({ alarmId: VO.AlarmId }),
 });

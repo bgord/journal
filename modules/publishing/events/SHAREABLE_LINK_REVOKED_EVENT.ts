@@ -5,7 +5,7 @@ import * as VO from "+publishing/value-objects";
 export const SHAREABLE_LINK_REVOKED_EVENT = "SHAREABLE_LINK_REVOKED_EVENT";
 
 export const ShareableLinkRevokedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(SHAREABLE_LINK_REVOKED_EVENT),
   payload: z.object({ shareableLinkId: VO.ShareableLinkId }),
 });

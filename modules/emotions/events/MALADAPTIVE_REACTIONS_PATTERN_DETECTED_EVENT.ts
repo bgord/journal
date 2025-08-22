@@ -7,7 +7,7 @@ import * as VO from "+emotions/value-objects";
 export const MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT = "MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT";
 
 export const MaladaptiveReactionsPatternDetectedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT),
   payload: z.object({
     userId: Auth.VO.UserId,

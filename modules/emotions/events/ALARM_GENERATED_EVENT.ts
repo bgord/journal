@@ -6,7 +6,7 @@ import * as VO from "+emotions/value-objects";
 export const ALARM_GENERATED_EVENT = "ALARM_GENERATED_EVENT";
 
 export const AlarmGeneratedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(ALARM_GENERATED_EVENT),
   payload: z.object({
     alarmId: VO.AlarmId,

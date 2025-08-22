@@ -5,7 +5,7 @@ import { z } from "zod/v4";
 export const HOUR_HAS_PASSED_EVENT = "HOUR_HAS_PASSED_EVENT";
 
 export const HourHasPassedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(HOUR_HAS_PASSED_EVENT),
   payload: z.object({ timestamp: tools.Timestamp }),
 });

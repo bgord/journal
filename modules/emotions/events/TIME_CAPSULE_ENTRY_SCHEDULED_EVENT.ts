@@ -8,7 +8,7 @@ import * as VO from "+emotions/value-objects";
 export const TIME_CAPSULE_ENTRY_SCHEDULED_EVENT = "TIME_CAPSULE_ENTRY_SCHEDULED_EVENT";
 
 export const TimeCapsuleEntryScheduledEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(TIME_CAPSULE_ENTRY_SCHEDULED_EVENT),
   payload: z.object({
     entryId: VO.EntryId,

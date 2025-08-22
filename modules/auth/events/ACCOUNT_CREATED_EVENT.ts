@@ -6,7 +6,7 @@ import * as VO from "+auth/value-objects";
 export const ACCOUNT_CREATED_EVENT = "ACCOUNT_CREATED_EVENT";
 
 export const AccountCreatedEvent = z.object({
-  ...bg.BaseEventData,
+  ...bg.EventEnvelopeSchema,
   name: z.literal(ACCOUNT_CREATED_EVENT),
   payload: z.object({ userId: VO.UserId, timestamp: tools.Timestamp }),
 });
