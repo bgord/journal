@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "2da23bcc-d6f2-492d-8fdb-fccfe20b26f3",
+  "id": "fa13e468-9804-4469-b04c-35403ecdf775",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -1006,6 +1006,77 @@
         "timeCapsuleEntries_userId_users_id_fk": {
           "name": "timeCapsuleEntries_userId_users_id_fk",
           "tableFrom": "timeCapsuleEntries",
+          "tableTo": "users",
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "user_preferences": {
+      "name": "user_preferences",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text(36)",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "preference": {
+          "name": "preference",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "value": {
+          "name": "value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "user_preferences_userId_preference_uidx": {
+          "name": "user_preferences_userId_preference_uidx",
+          "columns": ["userId", "preference"],
+          "isUnique": true
+        },
+        "user_preferences_userId_idx": {
+          "name": "user_preferences_userId_idx",
+          "columns": ["userId"],
+          "isUnique": false
+        },
+        "user_preferences_preference_idx": {
+          "name": "user_preferences_preference_idx",
+          "columns": ["preference"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "user_preferences_userId_users_id_fk": {
+          "name": "user_preferences_userId_users_id_fk",
+          "tableFrom": "user_preferences",
           "tableTo": "users",
           "columnsFrom": ["userId"],
           "columnsTo": ["id"],
