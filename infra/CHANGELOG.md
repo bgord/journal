@@ -1,6 +1,17 @@
 # Changelog
+- 2025-08-22 13:59 bf9dee82 **refactor: use create event envelope**
+## 2025-08-22 13:59 
+- 2025-08-22 13:54 8d5449de **refactor: rename event envelope schema**
+- 2025-08-22 13:51 80ddfb3b **step: update packages**
+- 2025-08-22 13:45 0869c4d8 **refactor: add create event envelope**
+- 2025-08-22 11:59 6c992b3f **refactor: use base event data from bg**
+- 2025-08-22 11:53 ce977d47 **refactor: rename shields**
+- 2025-08-22 11:53 cc1a1898 **step: update packages**
+- 2025-08-22 11:47 d403f73b **refactor: simplify event structure**
+- 2025-08-22 11:31 1808955a **refactor: reorder event structure**
+- 2025-08-22 10:53 165384f8 **fix: clickable rating pills**
+- 2025-08-22 09:55 72359c8f **refactor: improve adapter naming**
 - 2025-08-21 23:52 cd3d497d **step: update packages**
-## 2025-08-21 23:52 
 - 2025-08-21 23:51 372e1ed8 **refactor: extract component**
 - 2025-08-21 23:45 9661d4a6 **step: add download entries form**
 - 2025-08-21 23:42 447a0596 **fix: start of and end of date range**
@@ -14,6 +25,8 @@
 - 2025-08-21 22:17 73b9293c **step: adjust tests**
 - 2025-08-21 22:15 84e4ad5f **step: handle invalid date range error**
 - 2025-08-21 22:14 7eac9b4f **step: implement export entries date range**
+- 2025-08-21 21:53 f4c94e09 **docs: generate readme**
+- 2025-08-21 21:53 575731fe **docs: generate CHANGELOG**
 - 2025-08-21 21:45 d52b3942 **refactor: shorten server names**
 - 2025-08-21 21:44 41c5d98f **step: add export entries endpoint**
 - 2025-08-21 21:43 5e6477e9 **refactor: adjust naming**
