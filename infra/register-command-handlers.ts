@@ -103,6 +103,6 @@ CommandBus.on(
   Preferences.CommandHandlers.handleSetUserLanguageCommand(
     EventStore,
     UserLanguageQueryAdapter,
-    new Preferences.VO.SupportedLanguages(SUPPORTED_LANGUAGES),
+    new Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
   ),
 );

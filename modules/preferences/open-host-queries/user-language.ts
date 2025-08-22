@@ -1,6 +1,6 @@
 import type * as Auth from "+auth";
 import type * as Preferences from "+preferences";
-import type { SupportedLanguages } from "../value-objects/supported-languages";
+import type { SupportedLanguagesSet } from "../value-objects/supported-languages";
 
 export class UserLanguagePreferenceMissingError extends Error {
   constructor() {
@@ -16,7 +16,7 @@ export interface UserLanguagePort<L extends readonly string[]> {
 export class UserLanguageAdapter<L extends readonly string[]> implements UserLanguagePort<L> {
   constructor(
     private readonly query: Preferences.Ports.UserLanguageQueryPort,
-    private readonly validator: SupportedLanguages<L>,
+    private readonly validator: SupportedLanguagesSet<L>,
   ) {}
 
   async get(userId: Auth.VO.UserIdType): Promise<L[number]> {

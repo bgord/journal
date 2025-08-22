@@ -4,7 +4,7 @@ import { UserLanguageQueryAdapter } from "./user-language-query.adapter";
 
 export const UserLanguageAdapter = new Preferences.OHQ.UserLanguageAdapter(
   UserLanguageQueryAdapter,
-  new Preferences.VO.SupportedLanguages(SUPPORTED_LANGUAGES),
+  new Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
 );
 
 (async function main() {

@@ -10,26 +10,20 @@ export class LanguageTag {
     Object.freeze(this);
   }
 
-  private static isValid(raw: string): boolean {
-    return /^[a-z]{2}$/i.test(raw);
-  }
-
   static create(raw: string): LanguageTag {
-    const normalized = raw.trim().toLowerCase();
+    const candidate = raw.trim().toLowerCase();
 
-    if (!LanguageTag.isValid(normalized)) throw new InvalidLanguageTagError();
+    if (!/^[a-z]{2}$/i.test(candidate)) throw new InvalidLanguageTagError();
 
-    return new LanguageTag(normalized);
+    return new LanguageTag(candidate);
   }
 
   equals(other: LanguageTag): boolean {
     return this.tag === other.tag;
   }
-
   toString(): string {
     return this.tag;
   }
-
   toJSON(): string {
     return this.tag;
   }
