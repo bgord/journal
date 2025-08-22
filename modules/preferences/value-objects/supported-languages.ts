@@ -7,7 +7,7 @@ export class UnsupportedLanguageError extends Error {
   }
 }
 
-export class SupportedLanguagesVO<L extends readonly string[]> {
+export class SupportedLanguages<L extends readonly string[]> {
   constructor(private readonly allowed: L) {}
 
   list(): L {

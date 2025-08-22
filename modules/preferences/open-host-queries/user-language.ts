@@ -1,28 +1,29 @@
-import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import type * as Preferences from "+preferences";
+import type { SupportedLanguages } from "../value-objects/supported-languages";
 
 export class UserLanguagePreferenceMissingError extends Error {
   constructor() {
-    super();
+    super("user_language_preference_missing");
     Object.setPrototypeOf(this, UserLanguagePreferenceMissingError.prototype);
   }
 }
 
-export interface UserLanguagePort<L extends tools.LanguageType[]> {
+export interface UserLanguagePort<L extends readonly string[]> {
   get(userId: Auth.VO.UserIdType): Promise<L[number]>;
 }
 
-export class UserLanguageAdapter<L extends tools.LanguageType[]>
-  implements UserLanguagePort<tools.LanguageType[]>
-{
-  constructor(private readonly query: Preferences.Ports.UserLanguageQueryPort) {}
+export class UserLanguageAdapter<L extends readonly string[]> implements UserLanguagePort<L> {
+  constructor(
+    private readonly query: Preferences.Ports.UserLanguageQueryPort,
+    private readonly validator: SupportedLanguages<L>,
+  ) {}
 
   async get(userId: Auth.VO.UserIdType): Promise<L[number]> {
-    const language = await this.query.get(userId);
+    const candidate = await this.query.get(userId);
 
-    if (!language) throw new UserLanguagePreferenceMissingError();
+    if (!candidate) throw new UserLanguagePreferenceMissingError();
 
-    return tools.Language.parse(language);
+    return this.validator.ensure(candidate);
   }
 }
