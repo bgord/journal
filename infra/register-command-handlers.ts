@@ -1,4 +1,5 @@
 import { SUPPORTED_LANGUAGES } from "+languages";
+import * as Preferences from "+preferences";
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
 import { AiGateway } from "+infra/adapters/ai";
@@ -14,8 +15,6 @@ import { UserLanguageQueryAdapter } from "+infra/adapters/preferences";
 import { ShareableLinkRepository, ShareableLinksQuota } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import { EventStore } from "+infra/event-store";
-import * as PreferencesCommandHandler from "+preferences/command-handlers";
-import * as PreferencesCommand from "+preferences/commands";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
@@ -100,10 +99,10 @@ CommandBus.on(
 );
 
 CommandBus.on(
-  PreferencesCommand.SET_USER_LANGUAGE_COMMAND,
-  PreferencesCommandHandler.handleSetUserLanguageCommand(
+  Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
+  Preferences.CommandHandlers.handleSetUserLanguageCommand(
     EventStore,
     UserLanguageQueryAdapter,
-    SUPPORTED_LANGUAGES,
+    new Preferences.VO.SupportedLanguages(SUPPORTED_LANGUAGES),
   ),
 );

@@ -8,11 +8,11 @@ class UserLanguageHasChangedError extends Error {
   }
 }
 
-type UserLanguageHasChangedConfigType = { current: string | null; next: string };
+type UserLanguageHasChangedConfigType = { current: string | null; candidate: string };
 
 class UserLanguageHasChangedFactory extends bg.Invariant<UserLanguageHasChangedConfigType> {
   fails(config: UserLanguageHasChangedConfigType) {
-    return config.current === config.next;
+    return config.current === config.candidate;
   }
 
   message = "UserLanguageHasChanged";
