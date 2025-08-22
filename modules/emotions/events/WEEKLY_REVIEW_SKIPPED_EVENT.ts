@@ -1,12 +1,12 @@
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
-import { BaseEventData } from "../../../base";
 
 export const WEEKLY_REVIEW_SKIPPED_EVENT = "WEEKLY_REVIEW_SKIPPED_EVENT";
 
 export const WeeklyReviewSkippedEvent = z.object({
-  ...BaseEventData,
+  ...bg.BaseEventData,
   name: z.literal(WEEKLY_REVIEW_SKIPPED_EVENT),
   payload: z.object({ weekIsoId: tools.WeekIsoId, userId: Auth.VO.UserId }),
 });

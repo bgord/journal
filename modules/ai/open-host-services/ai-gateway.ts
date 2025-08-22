@@ -41,9 +41,9 @@ export class AiGateway implements Ports.AiGatewayPort {
         id: crypto.randomUUID(),
         correlationId: bg.CorrelationStorage.get(),
         createdAt: tools.Time.Now().value,
-        name: Events.AI_QUOTA_EXCEEDED_EVENT,
         stream: `user_ai_usage_${context.userId}`,
         version: 1,
+        name: Events.AI_QUOTA_EXCEEDED_EVENT,
         payload: { userId: context.userId, timestamp: context.timestamp },
       } satisfies Events.AiQuotaExceededEventType);
 
@@ -58,9 +58,9 @@ export class AiGateway implements Ports.AiGatewayPort {
       id: crypto.randomUUID(),
       correlationId: bg.CorrelationStorage.get(),
       createdAt: tools.Time.Now().value,
-      name: Events.AI_REQUEST_REGISTERED_EVENT,
       stream: `user_ai_usage_${context.userId}`,
       version: 1,
+      name: Events.AI_REQUEST_REGISTERED_EVENT,
       payload: context,
     } satisfies Events.AiRequestRegisteredEventType);
 

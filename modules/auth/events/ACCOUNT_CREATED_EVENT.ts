@@ -1,12 +1,12 @@
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as VO from "+auth/value-objects";
-import { BaseEventData } from "../../../base";
 
 export const ACCOUNT_CREATED_EVENT = "ACCOUNT_CREATED_EVENT";
 
 export const AccountCreatedEvent = z.object({
-  ...BaseEventData,
+  ...bg.BaseEventData,
   name: z.literal(ACCOUNT_CREATED_EVENT),
   payload: z.object({ userId: VO.UserId, timestamp: tools.Timestamp }),
 });

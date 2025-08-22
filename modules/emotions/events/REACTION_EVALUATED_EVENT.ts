@@ -1,12 +1,12 @@
+import * as bg from "@bgord/bun";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
-import { BaseEventData } from "../../../base";
 
 export const REACTION_EVALUATED_EVENT = "REACTION_EVALUATED_EVENT";
 
 export const ReactionEvaluatedEvent = z.object({
-  ...BaseEventData,
+  ...bg.BaseEventData,
   name: z.literal(REACTION_EVALUATED_EVENT),
   payload: z.object({
     entryId: VO.EntryId,

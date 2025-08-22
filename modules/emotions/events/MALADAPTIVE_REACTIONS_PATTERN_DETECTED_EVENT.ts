@@ -1,13 +1,13 @@
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
-import { BaseEventData } from "../../../base";
 
 export const MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT = "MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT";
 
 export const MaladaptiveReactionsPatternDetectedEvent = z.object({
-  ...BaseEventData,
+  ...bg.BaseEventData,
   name: z.literal(MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT),
   payload: z.object({
     userId: Auth.VO.UserId,
