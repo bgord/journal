@@ -15,7 +15,7 @@ export const handleSetUserLanguageCommand =
     const candidate = supported.ensure(command.payload.language);
     const current = await query.get(command.payload.userId);
 
-    if (Preferences.Invariants.UserLanguageHasChanged.fails({ current: current?.toString(), candidate }))
+    if (Preferences.Invariants.UserLanguageHasChanged.fails({ current, candidate: command.payload.language }))
       return;
 
     const event = Preferences.Events.UserLanguageSetEvent.parse({
