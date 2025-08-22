@@ -1,8 +1,8 @@
 import type { LanguageTag } from "./language-tag";
 
 export class UnsupportedLanguageError extends Error {
-  constructor(code?: string) {
-    super(`unsupported_language${code ? `: ${code}` : ""}`);
+  constructor() {
+    super();
     Object.setPrototypeOf(this, UnsupportedLanguageError.prototype);
   }
 }
@@ -10,18 +10,15 @@ export class UnsupportedLanguageError extends Error {
 export class SupportedLanguagesSet<L extends readonly string[]> {
   private readonly index: Set<string>;
 
-  constructor(private readonly allowed: L) {
+  constructor(allowed: L) {
     this.index = new Set(allowed.map((x) => x.toString()));
     Object.freeze(this);
   }
 
-  list(): L {
-    return this.allowed;
-  }
   ensure(tag: LanguageTag): L[number] {
     const code = tag.toString();
 
-    if (!this.index.has(code)) throw new UnsupportedLanguageError(code);
+    if (!this.index.has(code)) throw new UnsupportedLanguageError();
 
     return code as L[number];
   }

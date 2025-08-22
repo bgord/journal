@@ -4,7 +4,7 @@ import type { SupportedLanguagesSet } from "../value-objects/supported-languages
 
 export class UserLanguagePreferenceMissingError extends Error {
   constructor() {
-    super("user_language_preference_missing");
+    super();
     Object.setPrototypeOf(this, UserLanguagePreferenceMissingError.prototype);
   }
 }

@@ -13,7 +13,8 @@ type UserLanguageHasChangedConfigType = { current?: VO.LanguageTag | null; candi
 
 class UserLanguageHasChangedFactory extends bg.Invariant<UserLanguageHasChangedConfigType> {
   fails(config: UserLanguageHasChangedConfigType) {
-    return !config.current || config.current.equals(config.candidate);
+    if (!config.current) return false;
+    return config.current.equals(config.candidate);
   }
 
   message = "UserLanguageHasChanged";

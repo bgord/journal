@@ -21,10 +21,8 @@ export class LanguageTag {
   equals(other: LanguageTag): boolean {
     return this.tag === other.tag;
   }
-  toString(): string {
-    return this.tag;
-  }
-  toJSON(): string {
+
+  toString() {
     return this.tag;
   }
 }
