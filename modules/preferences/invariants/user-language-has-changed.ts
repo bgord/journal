@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
+import type * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import type { SupportedLanguages } from "+languages";
 
 class UserLanguageHasChangedError extends Error {
   constructor() {
@@ -9,7 +9,7 @@ class UserLanguageHasChangedError extends Error {
   }
 }
 
-type UserLanguageHasChangedConfigType = { current: SupportedLanguages | null; next: SupportedLanguages };
+type UserLanguageHasChangedConfigType = { current: tools.LanguageType | null; next: tools.LanguageType };
 
 class UserLanguageHasChangedFactory extends bg.Invariant<UserLanguageHasChangedConfigType> {
   fails(config: UserLanguageHasChangedConfigType) {

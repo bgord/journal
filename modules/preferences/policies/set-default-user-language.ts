@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
+import type * as tools from "@bgord/tools";
 import * as Auth from "+auth";
-import type { SupportedLanguages } from "+languages";
 import * as Preferences from "+preferences";
 import type * as Buses from "+app/ports";
 
@@ -9,7 +9,7 @@ export class SetDefaultUserLanguage {
     EventBus: Buses.EventBusLike<Auth.Events.AccountCreatedEventType>,
     EventHandler: bg.EventHandler,
     private readonly CommandBus: Buses.CommandBusLike<any>,
-    private readonly systemDefaultLanguage: SupportedLanguages,
+    private readonly systemDefaultLanguage: tools.LanguageType,
   ) {
     EventBus.on(
       Auth.Events.ACCOUNT_CREATED_EVENT,

@@ -1,6 +1,6 @@
+import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import type { SupportedLanguages } from "+languages";
 
 export interface UserLanguageQueryPort {
-  get(userId: Auth.VO.UserIdType): Promise<SupportedLanguages | null>;
+  get(userId: Auth.VO.UserIdType): Promise<tools.LanguageType | null>;
 }
