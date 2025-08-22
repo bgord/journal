@@ -1,7 +1,7 @@
-import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
+import type * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import type * as Buses from "+app/ports";
+import { createCommandEnvelope } from "../../../base";
 
 type AcceptedEvent = Emotions.Events.EmotionLoggedEventType | Emotions.Events.EmotionReappraisedEventType;
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
@@ -25,10 +25,8 @@ export class EntryAlarmDetector {
     if (!detection) return;
 
     const command = Emotions.Commands.GenerateAlarmCommand.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
+      ...createCommandEnvelope(),
       name: Emotions.Commands.GENERATE_ALARM_COMMAND,
-      createdAt: tools.Time.Now().value,
       payload: { detection, userId: event.payload.userId },
     } satisfies Emotions.Commands.GenerateAlarmCommandType);
 

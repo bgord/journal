@@ -1,10 +1,11 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
 import type * as Buses from "+app/ports";
+import { createCommandEnvelope } from "../../../base";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewSkippedEventType
@@ -72,20 +73,16 @@ export class WeeklyReviewProcessing {
       );
 
       const detectWeeklyPatterns = Emotions.Commands.DetectWeeklyPatternsCommand.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
+        ...createCommandEnvelope(),
         name: Emotions.Commands.DETECT_WEEKLY_PATTERNS_COMMAND,
-        createdAt: tools.Time.Now().value,
         payload: { userId: event.payload.userId, week },
       } satisfies Emotions.Commands.DetectWeeklyPatternsCommandType);
 
       await this.CommandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
 
       const completeWeeklyReview = Emotions.Commands.CompleteWeeklyReviewCommand.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
+        ...createCommandEnvelope(),
         name: Emotions.Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
-        createdAt: tools.Time.Now().value,
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
           insights,
@@ -96,10 +93,8 @@ export class WeeklyReviewProcessing {
       await this.CommandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
     } catch (_error) {
       const command = Emotions.Commands.MarkWeeklyReviewAsFailedCommand.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
+        ...createCommandEnvelope(),
         name: Emotions.Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
-        createdAt: tools.Time.Now().value,
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
           userId: event.payload.userId,
@@ -112,10 +107,8 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewCompletedEvent(event: Emotions.Events.WeeklyReviewCompletedEventType) {
     const command = Emotions.Commands.ExportWeeklyReviewByEmailCommand.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
+      ...createCommandEnvelope(),
       name: Emotions.Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-      createdAt: tools.Time.Now().value,
       payload: { userId: event.payload.userId, weeklyReviewId: event.payload.weeklyReviewId },
     } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommandType);
 

@@ -4,6 +4,7 @@ import type hono from "hono";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
 import { CommandBus } from "+infra/command-bus";
+import { createCommandEnvelope } from "../../../base";
 
 export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
@@ -25,10 +26,8 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _ne
   const shareableLinkId = crypto.randomUUID();
 
   const command = Publishing.Commands.CreateShareableLinkCommand.parse({
-    id: crypto.randomUUID(),
-    correlationId: bg.CorrelationStorage.get(),
+    ...createCommandEnvelope(),
     name: Publishing.Commands.CREATE_SHAREABLE_LINK_COMMAND,
-    createdAt: tools.Time.Now().value,
     payload: {
       shareableLinkId,
       requesterId: user.id,

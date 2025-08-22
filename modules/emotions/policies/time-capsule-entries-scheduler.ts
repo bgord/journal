@@ -1,9 +1,10 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
 import * as System from "+system";
 import type * as Buses from "+app/ports";
+import { createCommandEnvelope } from "../../../base";
 
 type AcceptedEvent = System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.LogEntryCommandType;
@@ -33,10 +34,8 @@ export class TimeCapsuleEntriesScheduler {
         continue;
 
       const command = Emotions.Commands.LogEntryCommand.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
+        ...createCommandEnvelope(),
         name: Emotions.Commands.LOG_ENTRY_COMMAND,
-        createdAt: tools.Time.Now().value,
         payload: {
           entryId: entry.id,
           situation: new Emotions.Entities.Situation(

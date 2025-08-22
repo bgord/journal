@@ -1,9 +1,10 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as System from "+system";
 import type * as Buses from "+app/ports";
+import { createCommandEnvelope } from "../../../base";
 
 type AcceptedEvent = System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
@@ -38,10 +39,8 @@ export class InactivityAlarmScheduler {
       const detection = new Emotions.VO.AlarmDetection(trigger, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM);
 
       const command = Emotions.Commands.GenerateAlarmCommand.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
+        ...createCommandEnvelope(),
         name: Emotions.Commands.GENERATE_ALARM_COMMAND,
-        createdAt: tools.Time.Now().value,
         payload: { detection, userId },
       } satisfies Emotions.Commands.GenerateAlarmCommandType);
 

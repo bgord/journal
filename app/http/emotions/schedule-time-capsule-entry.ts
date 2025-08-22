@@ -4,6 +4,7 @@ import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { CommandBus } from "+infra/command-bus";
+import { createCommandEnvelope } from "../../../base";
 
 export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
@@ -34,10 +35,8 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   const scheduledFor = tools.Timestamp.parse(Number(body.scheduledFor) + timeZoneOffsetMs);
 
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
-    id: crypto.randomUUID(),
-    correlationId: bg.CorrelationStorage.get(),
+    ...createCommandEnvelope(),
     name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
-    createdAt: now,
     payload: {
       entryId,
       situation,

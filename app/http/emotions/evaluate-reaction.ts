@@ -4,6 +4,7 @@ import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { CommandBus } from "+infra/command-bus";
+import { createCommandEnvelope } from "../../../base";
 
 export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
@@ -18,10 +19,8 @@ export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next:
   );
 
   const command = Emotions.Commands.EvaluateReactionCommand.parse({
-    id: crypto.randomUUID(),
-    correlationId: bg.CorrelationStorage.get(),
+    ...createCommandEnvelope(),
     name: Emotions.Commands.EVALUATE_REACTION_COMMAND,
-    createdAt: tools.Time.Now().value,
     revision,
     payload: { entryId, newReaction, userId: user.id },
   } satisfies Emotions.Commands.EvaluateReactionCommandType);

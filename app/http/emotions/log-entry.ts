@@ -1,9 +1,9 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { CommandBus } from "+infra/command-bus";
+import { createCommandEnvelope } from "../../../base";
 
 export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
@@ -30,10 +30,8 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
   );
 
   const command = Emotions.Commands.LogEntryCommand.parse({
-    id: crypto.randomUUID(),
-    correlationId: bg.CorrelationStorage.get(),
+    ...createCommandEnvelope(),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
-    createdAt: tools.Time.Now().value,
     payload: {
       entryId,
       situation,

@@ -14,6 +14,7 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { logger } from "+infra/logger";
 import * as Schema from "+infra/schema";
+import { createCommandEnvelope } from "../base";
 import * as mocks from "../tests/mocks";
 
 import "+infra/register-event-handlers";
@@ -202,10 +203,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     }
 
     const ScheduleTimeCapsuleEntryCommand = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
+      ...createCommandEnvelope(),
       name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
-      createdAt: now,
       payload: {
         entryId: crypto.randomUUID(),
         situation: new Emotions.Entities.Situation(

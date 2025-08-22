@@ -4,6 +4,7 @@ import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { CommandBus } from "+infra/command-bus";
+import { createCommandEnvelope } from "../../../base";
 
 export async function ReappraiseEmotion(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
@@ -17,10 +18,8 @@ export async function ReappraiseEmotion(c: hono.Context<infra.HonoConfig>, _next
   );
 
   const command = Emotions.Commands.ReappraiseEmotionCommand.parse({
-    id: crypto.randomUUID(),
-    correlationId: bg.CorrelationStorage.get(),
+    ...createCommandEnvelope(),
     name: Emotions.Commands.REAPPRAISE_EMOTION_COMMAND,
-    createdAt: tools.Time.Now().value,
     revision,
     payload: { entryId, newEmotion, userId: user.id },
   } satisfies Emotions.Commands.ReappraiseEmotionCommandType);
