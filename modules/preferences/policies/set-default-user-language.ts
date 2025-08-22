@@ -20,7 +20,10 @@ export class SetDefaultUserLanguage<L extends readonly string[]> {
     const command = Preferences.Commands.SetUserLanguageCommand.parse({
       ...bg.createCommandEnvelope(),
       name: Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
-      payload: { userId: event.payload.userId, language: this.systemDefaultLanguage },
+      payload: {
+        userId: event.payload.userId,
+        language: Preferences.VO.LanguageTag.create(this.systemDefaultLanguage),
+      },
     } satisfies Preferences.Commands.SetUserLanguageCommandType);
 
     await this.CommandBus.emit(command.name, command);

@@ -8,7 +8,7 @@ class UserLanguageHasChangedError extends Error {
   }
 }
 
-type UserLanguageHasChangedConfigType = { current: string | null; candidate: string };
+type UserLanguageHasChangedConfigType = { current?: string | null; candidate: string };
 
 class UserLanguageHasChangedFactory extends bg.Invariant<UserLanguageHasChangedConfigType> {
   fails(config: UserLanguageHasChangedConfigType) {

@@ -15,7 +15,8 @@ export const handleSetUserLanguageCommand =
     const candidate = supported.ensure(command.payload.language);
     const current = await query.get(command.payload.userId);
 
-    if (Preferences.Invariants.UserLanguageHasChanged.fails({ current, candidate })) return;
+    if (Preferences.Invariants.UserLanguageHasChanged.fails({ current: current?.toString(), candidate }))
+      return;
 
     const event = Preferences.Events.UserLanguageSetEvent.parse({
       ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),

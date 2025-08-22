@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import type * as Auth from "+auth";
-import type * as Preferences from "+preferences";
+import * as Preferences from "+preferences";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
@@ -13,7 +13,7 @@ class UserLanguageQueryAdapterDrizzle implements Preferences.Ports.UserLanguageQ
       ),
     });
 
-    return row ? row.value : null;
+    return row ? Preferences.VO.LanguageTag.create(row.value) : null;
   }
 }
 

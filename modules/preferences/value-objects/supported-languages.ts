@@ -1,8 +1,8 @@
-import * as tools from "@bgord/tools";
+import type { LanguageTag } from "./language-tag";
 
 export class UnsupportedLanguageError extends Error {
-  constructor(public readonly language: string) {
-    super(`unsupported_language: ${language}`);
+  constructor() {
+    super();
     Object.setPrototypeOf(this, UnsupportedLanguageError.prototype);
   }
 }
@@ -18,11 +18,10 @@ export class SupportedLanguages<L extends readonly string[]> {
     return (this.allowed as readonly string[]).includes(value);
   }
 
-  ensure(value: string): L[number] {
-    const parsed = tools.Language.parse(value);
+  ensure(value: LanguageTag): L[number] {
+    const candidate = value.toString();
+    if (!this.isSupported(candidate)) throw new UnsupportedLanguageError();
 
-    if (!this.isSupported(parsed)) throw new UnsupportedLanguageError(parsed);
-
-    return parsed as L[number];
+    return candidate as L[number];
   }
 }
