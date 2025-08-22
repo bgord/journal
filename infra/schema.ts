@@ -13,6 +13,7 @@ import { TimeCapsuleEntryStatusEnum } from "../modules/emotions/value-objects/ti
 import { WeeklyReviewStatusEnum } from "../modules/emotions/value-objects/weekly-review-status";
 import { AccessValidity } from "../modules/publishing/value-objects/access-validity";
 import { ShareableLinkStatusEnum } from "../modules/publishing/value-objects/shareable-link-status";
+import { SupportedLanguages } from "../modules/supported-languages";
 
 const toEnumList = (value: Record<string, string>) => ({
   enum: Object.keys(value) as [string, ...string[]],
@@ -299,7 +300,7 @@ export const userPreferences = sqliteTable(
     userId: text("userId", { length: 36 })
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    preference: text("preference").notNull(),
+    preference: text("preference", toEnumList(SupportedLanguages)).notNull(),
     value: text("value").notNull(),
     updatedAt: integer("updatedAt", { mode: "number" }).notNull(),
   },
