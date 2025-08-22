@@ -1,10 +1,9 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as System from "+system";
 import type * as Buses from "+app/ports";
 import * as Commands from "+publishing/commands";
 import type * as Ports from "+publishing/ports";
-import { createCommandEnvelope } from "../../../base";
 
 type AcceptedEvent = System.Events.HourHasPassedEventType;
 
@@ -26,7 +25,7 @@ export class ShareableLinksExpirer {
 
       for (const shareableLink of shareableLinks) {
         const command = Commands.ExpireShareableLinkCommand.parse({
-          ...createCommandEnvelope(),
+          ...bg.createCommandEnvelope(),
           name: Commands.EXPIRE_SHAREABLE_LINK_COMMAND,
           revision: new tools.Revision(shareableLink.revision),
           payload: { shareableLinkId: shareableLink.id },

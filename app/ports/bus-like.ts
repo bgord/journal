@@ -1,5 +1,6 @@
 import type { ToEventMap } from "@bgord/bun";
 
+// TODO: Use from bgord/bun
 export type EventBusLike<E extends { name: string }> = {
   on<K extends keyof ToEventMap<E> & string>(
     name: K,

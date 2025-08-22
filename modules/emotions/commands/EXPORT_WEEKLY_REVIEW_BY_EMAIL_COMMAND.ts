@@ -1,12 +1,12 @@
+import * as bg from "@bgord/bun";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
-import { CommandEnvelopeSchema } from "../../../base";
 
 export const EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND = "SEND_WEEKLY_REVIEW_BY_EMAIL_COMMAND";
 
 export const ExportWeeklyReviewByEmailCommand = z.object({
-  ...CommandEnvelopeSchema,
+  ...bg.CommandEnvelopeSchema,
   name: z.literal(EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND),
   payload: z.object({ weeklyReviewId: VO.WeeklyReviewId, userId: Auth.VO.UserId }),
 });

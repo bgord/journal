@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import type * as Buses from "+app/ports";
@@ -8,7 +8,6 @@ import * as Events from "+emotions/events";
 import type * as Ports from "+emotions/ports";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
-import { createCommandEnvelope } from "../../../base";
 
 type AcceptedEvent =
   | Events.AlarmGeneratedEventType
@@ -50,7 +49,7 @@ export class AlarmOrchestrator {
       const advice = await this.AiGateway.query(prompt, context);
 
       const command = Commands.SaveAlarmAdviceCommand.parse({
-        ...createCommandEnvelope(),
+        ...bg.createCommandEnvelope(),
         name: Commands.SAVE_ALARM_ADVICE_COMMAND,
         payload: { alarmId: event.payload.alarmId, advice },
       } satisfies Commands.SaveAlarmAdviceCommandType);
@@ -58,7 +57,7 @@ export class AlarmOrchestrator {
       await this.CommandBus.emit(command.name, command);
     } catch (_error) {
       const command = Commands.CancelAlarmCommand.parse({
-        ...createCommandEnvelope(),
+        ...bg.createCommandEnvelope(),
         name: Commands.CANCEL_ALARM_COMMAND,
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CancelAlarmCommandType);
@@ -69,7 +68,7 @@ export class AlarmOrchestrator {
 
   async onAlarmAdviceSavedEvent(event: Events.AlarmAdviceSavedEventType) {
     const command = Commands.RequestAlarmNotificationCommand.parse({
-      ...createCommandEnvelope(),
+      ...bg.createCommandEnvelope(),
       name: Commands.REQUEST_ALARM_NOTIFICATION_COMMAND,
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.RequestAlarmNotificationCommandType);
@@ -79,7 +78,7 @@ export class AlarmOrchestrator {
 
   async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
     const cancel = Commands.CancelAlarmCommand.parse({
-      ...createCommandEnvelope(),
+      ...bg.createCommandEnvelope(),
       name: Commands.CANCEL_ALARM_COMMAND,
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.CancelAlarmCommandType);
@@ -99,7 +98,7 @@ export class AlarmOrchestrator {
       await this.mailer.send({ from: this.EMAIL_FROM, to: contact.address, ...notification.get() });
 
       const complete = Commands.CompleteAlarmCommand.parse({
-        ...createCommandEnvelope(),
+        ...bg.createCommandEnvelope(),
         name: Commands.COMPLETE_ALARM_COMMAND,
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CompleteAlarmCommandType);
@@ -113,7 +112,7 @@ export class AlarmOrchestrator {
 
     for (const alarmId of cancellableAlarmIds) {
       const command = Commands.CancelAlarmCommand.parse({
-        ...createCommandEnvelope(),
+        ...bg.createCommandEnvelope(),
         name: Commands.CANCEL_ALARM_COMMAND,
         payload: { alarmId },
       } satisfies Commands.CancelAlarmCommandType);

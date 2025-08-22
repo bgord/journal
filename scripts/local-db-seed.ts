@@ -14,7 +14,6 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { logger } from "+infra/logger";
 import * as Schema from "+infra/schema";
-import { createCommandEnvelope } from "../base";
 import * as mocks from "../tests/mocks";
 
 import "+infra/register-event-handlers";
@@ -203,7 +202,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     }
 
     const ScheduleTimeCapsuleEntryCommand = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
-      ...createCommandEnvelope(),
+      ...bg.createCommandEnvelope(),
       name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
       payload: {
         entryId: crypto.randomUUID(),

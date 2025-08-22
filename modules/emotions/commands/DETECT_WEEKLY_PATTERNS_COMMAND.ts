@@ -1,12 +1,12 @@
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
-import { CommandEnvelopeSchema } from "../../../base";
 
 export const DETECT_WEEKLY_PATTERNS_COMMAND = "DETECT_WEEKLY_PATTERNS_COMMAND";
 
 export const DetectWeeklyPatternsCommand = z.object({
-  ...CommandEnvelopeSchema,
+  ...bg.CommandEnvelopeSchema,
   name: z.literal(DETECT_WEEKLY_PATTERNS_COMMAND),
   payload: z.object({ userId: Auth.VO.UserId, week: z.instanceof(tools.Week) }),
 });

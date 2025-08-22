@@ -1,10 +1,9 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as System from "+system";
 import type * as Buses from "+app/ports";
-import { createCommandEnvelope } from "../../../base";
 
 type AcceptedEvent = System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.RequestWeeklyReviewCommandType;
@@ -28,7 +27,7 @@ export class WeeklyReviewScheduler {
 
     for (const userId of userIds) {
       const command = Emotions.Commands.RequestWeeklyReviewCommand.parse({
-        ...createCommandEnvelope(),
+        ...bg.createCommandEnvelope(),
         name: Emotions.Commands.REQUEST_WEEKLY_REVIEW_COMMAND,
         payload: { week, userId },
       } satisfies Emotions.Commands.RequestWeeklyReviewCommandType);
