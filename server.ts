@@ -26,7 +26,7 @@ const startup = new tools.Stopwatch();
 // Healthcheck =================
 server.get(
   "/healthcheck",
-  bg.RateLimitShield({
+  bg.ShieldRateLimit({
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.AnonSubjectResolver,
     store: RateLimiters.HealthcheckStore,
@@ -48,7 +48,7 @@ entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction);
 entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry);
 entry.get(
   "/export-data",
-  bg.RateLimitShield({
+  bg.ShieldRateLimit({
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.EntriesDataStore,
@@ -57,7 +57,7 @@ entry.get(
 );
 entry.get(
   "/export-entries",
-  bg.RateLimitShield({
+  bg.ShieldRateLimit({
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.EntriesEntriesStore,
@@ -76,7 +76,7 @@ const weeklyReview = new Hono();
 weeklyReview.use("*", AuthShield.attach, AuthShield.verify);
 weeklyReview.post(
   "/:weeklyReviewId/export/email",
-  bg.RateLimitShield({
+  bg.ShieldRateLimit({
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.WeeklyReviewExportEmailStore,
@@ -86,7 +86,7 @@ weeklyReview.post(
 );
 weeklyReview.get(
   "/:weeklyReviewId/export/download",
-  bg.RateLimitShield({
+  bg.ShieldRateLimit({
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.WeeklyReviewExportDownloadStore,
@@ -102,7 +102,7 @@ const publishing = new Hono();
 publishing.use("*", AuthShield.attach, AuthShield.verify);
 publishing.post(
   "/link/create",
-  bg.RateLimitShield({
+  bg.ShieldRateLimit({
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
     subject: bg.UserSubjectResolver,
     store: RateLimiters.ShareableLinkCreateStore,

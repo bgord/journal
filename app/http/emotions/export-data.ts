@@ -10,7 +10,7 @@ export async function ExportData(c: hono.Context<infra.HonoConfig>, _next: hono.
   const entries = await EntrySnapshot.getAllForuser(user.id);
   const alarms = await AlarmDirectory.listForUser(user.id);
 
-  return new bg.ZipDraft({
+  return new bg.FileDraftZip({
     filename: `export-${Date.now()}.zip`,
     parts: [
       new Emotions.Services.EntryExportFileCsv(entries),

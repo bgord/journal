@@ -88,4 +88,4 @@ export type AuthVariables = {
   session: typeof auth.$Infer.Session.session;
 };
 
-export const AuthShield = new bg.AuthShield(auth);
+export const AuthShield = new bg.ShieldAuth(auth);
