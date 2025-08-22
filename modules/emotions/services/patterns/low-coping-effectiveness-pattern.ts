@@ -31,12 +31,8 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
 
     if (mean < 3) {
       return Events.LowCopingEffectivenessPatternDetectedEvent.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Time.Now().value,
-        stream: this.getStream(),
+        ...bg.createEventEnvelope(this.getStream()),
         name: Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
-        version: 1,
         payload: { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name },
       } satisfies Events.LowCopingEffectivenessPatternDetectedEventType);
     }

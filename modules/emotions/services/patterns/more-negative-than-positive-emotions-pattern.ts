@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
+import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
@@ -29,12 +29,8 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
 
     if (negativeEmotionsCounter > positiveEmotionsCounter) {
       return Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent.parse({
-        id: crypto.randomUUID(),
-        correlationId: bg.CorrelationStorage.get(),
-        createdAt: tools.Time.Now().value,
+        ...bg.createEventEnvelope(this.getStream()),
         name: Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
-        stream: this.getStream(),
-        version: 1,
         payload: { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name },
       } satisfies Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType);
     }

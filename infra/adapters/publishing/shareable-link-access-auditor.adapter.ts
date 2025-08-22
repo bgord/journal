@@ -1,13 +1,13 @@
+import * as bg from "@bgord/bun";
 import * as Publishing from "+publishing";
 import { EventStore } from "+infra/event-store";
-import { createEventEnvelope } from "../../../base";
 
 class ShareableLinkAccessAuditorInternal implements Publishing.Ports.ShareableLinkAccessAuditorPort {
   constructor() {}
 
   async record(input: Publishing.Ports.ShareableLinkAccessAuditorInput) {
     const event = Publishing.Events.ShareableLinkAccessedEvent.parse({
-      ...createEventEnvelope(`shareable_link_${input.linkId}`),
+      ...bg.createEventEnvelope(`shareable_link_${input.linkId}`),
       name: Publishing.Events.SHAREABLE_LINK_ACCESSED_EVENT,
       payload: {
         shareableLinkId: input.linkId,

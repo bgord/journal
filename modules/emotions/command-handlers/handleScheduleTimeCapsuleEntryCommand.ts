@@ -1,7 +1,7 @@
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import type * as Ports from "+app/ports";
-import { createEventEnvelope } from "../../../base";
 
 type AcceptedEvent = Emotions.Events.TimeCapsuleEntryScheduledEventType;
 
@@ -16,7 +16,7 @@ export const handleScheduleTimeCapsuleEntryCommand =
     });
 
     const event = Emotions.Events.TimeCapsuleEntryScheduledEvent.parse({
-      ...createEventEnvelope(Emotions.Aggregates.Entry.getStream(command.payload.entryId)),
+      ...bg.createEventEnvelope(Emotions.Aggregates.Entry.getStream(command.payload.entryId)),
       name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
       payload: {
         entryId: command.payload.entryId,

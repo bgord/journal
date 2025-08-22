@@ -1,10 +1,10 @@
+import * as bg from "@bgord/bun";
 import type { z } from "zod/v4";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
-import { createEventEnvelope } from "../../../base";
 
 export type AlarmEvent = (typeof Alarm)["events"][number];
 type AlarmEventType = z.infer<AlarmEvent>;
@@ -43,7 +43,7 @@ export class Alarm {
     const alarm = new Alarm(id);
 
     const event = Events.AlarmGeneratedEvent.parse({
-      ...createEventEnvelope(Alarm.getStream(id)),
+      ...bg.createEventEnvelope(Alarm.getStream(id)),
       name: Events.ALARM_GENERATED_EVENT,
       payload: {
         alarmId: id,
@@ -62,7 +62,7 @@ export class Alarm {
     Invariants.AlarmAlreadyGenerated.perform({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
-      ...createEventEnvelope(Alarm.getStream(this.id)),
+      ...bg.createEventEnvelope(Alarm.getStream(this.id)),
       name: Events.ALARM_ADVICE_SAVED_EVENT,
       payload: {
         alarmId: this.id,
@@ -81,7 +81,7 @@ export class Alarm {
     });
 
     const event = Events.AlarmNotificationRequestedEvent.parse({
-      ...createEventEnvelope(Alarm.getStream(this.id)),
+      ...bg.createEventEnvelope(Alarm.getStream(this.id)),
       name: Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
       payload: {
         alarmId: this.id,
@@ -99,7 +99,7 @@ export class Alarm {
     Invariants.AlarmNotificationRequested.perform({ status: this.status });
 
     const event = Events.AlarmNotificationSentEvent.parse({
-      ...createEventEnvelope(Alarm.getStream(this.id)),
+      ...bg.createEventEnvelope(Alarm.getStream(this.id)),
       name: Events.ALARM_NOTIFICATION_SENT_EVENT,
       payload: { alarmId: this.id },
     } satisfies Events.AlarmNotificationSentEventType);
@@ -111,7 +111,7 @@ export class Alarm {
     Invariants.AlarmIsCancellable.perform({ status: this.status });
 
     const event = Events.AlarmCancelledEvent.parse({
-      ...createEventEnvelope(Alarm.getStream(this.id)),
+      ...bg.createEventEnvelope(Alarm.getStream(this.id)),
       name: Events.ALARM_CANCELLED_EVENT,
       payload: { alarmId: this.id, userId: this.userId as Auth.VO.UserIdType },
     } satisfies Events.AlarmCancelledEventType);

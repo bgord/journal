@@ -5,7 +5,6 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { captcha, haveIBeenPwned, openAPI } from "better-auth/plugins";
 import * as Auth from "+auth";
 import { Mailer } from "+infra/adapters";
-import { createEventEnvelope } from "../base";
 import { db } from "./db";
 import { Env } from "./env";
 import { EventStore } from "./event-store";
@@ -21,7 +20,7 @@ export const auth = betterAuth({
       enabled: true,
       async afterDelete(user) {
         const event = Auth.Events.AccountDeletedEvent.parse({
-          ...createEventEnvelope(`account_${user.id}`),
+          ...bg.createEventEnvelope(`account_${user.id}`),
           name: Auth.Events.ACCOUNT_DELETED_EVENT,
           payload: { userId: user.id, timestamp: tools.Time.Now().value },
         } satisfies Auth.Events.AccountDeletedEventType);
@@ -56,7 +55,7 @@ export const auth = betterAuth({
     expiresIn: tools.Time.Hours(1).seconds,
     async afterEmailVerification(user) {
       const event = Auth.Events.AccountCreatedEvent.parse({
-        ...createEventEnvelope(`account_${user.id}`),
+        ...bg.createEventEnvelope(`account_${user.id}`),
         name: Auth.Events.ACCOUNT_CREATED_EVENT,
         payload: { userId: user.id, timestamp: tools.Time.Now().value },
       } satisfies Auth.Events.AccountCreatedEventType);

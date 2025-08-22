@@ -1,10 +1,10 @@
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { z } from "zod/v4";
 import type * as Auth from "+auth";
 import * as Events from "+publishing/events";
 import * as Invariants from "+publishing/invariants";
 import * as VO from "+publishing/value-objects";
-import { createEventEnvelope } from "../../../base";
 
 export type ShareableLinkEvent = (typeof ShareableLink)["events"][number];
 type ShareableLinkEventType = z.infer<ShareableLinkEvent>;
@@ -49,7 +49,7 @@ export class ShareableLink {
     const shareableLink = new ShareableLink(id);
 
     const event = Events.ShareableLinkCreatedEvent.parse({
-      ...createEventEnvelope(ShareableLink.getStream(id)),
+      ...bg.createEventEnvelope(ShareableLink.getStream(id)),
       name: Events.SHAREABLE_LINK_CREATED_EVENT,
       payload: {
         shareableLinkId: id,
@@ -76,7 +76,7 @@ export class ShareableLink {
     });
 
     const event = Events.ShareableLinkExpiredEvent.parse({
-      ...createEventEnvelope(ShareableLink.getStream(this.id)),
+      ...bg.createEventEnvelope(ShareableLink.getStream(this.id)),
       name: Events.SHAREABLE_LINK_EXPIRED_EVENT,
       payload: { shareableLinkId: this.id },
     } satisfies Events.ShareableLinkExpiredEventType);
@@ -89,7 +89,7 @@ export class ShareableLink {
     Invariants.RequesterOwnsShareableLink.perform({ requesterId, ownerId: this.ownerId });
 
     const event = Events.ShareableLinkRevokedEvent.parse({
-      ...createEventEnvelope(ShareableLink.getStream(this.id)),
+      ...bg.createEventEnvelope(ShareableLink.getStream(this.id)),
       name: Events.SHAREABLE_LINK_REVOKED_EVENT,
       payload: { shareableLinkId: this.id },
     } satisfies Events.ShareableLinkRevokedEventType);

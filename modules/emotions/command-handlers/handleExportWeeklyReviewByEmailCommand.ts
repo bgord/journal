@@ -1,6 +1,6 @@
+import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import type * as Ports from "+app/ports";
-import { createEventEnvelope } from "../../../base";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -23,7 +23,7 @@ export const handleExportWeeklyReviewByEmailCommand =
 
     await EventStore.save([
       Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
-        ...createEventEnvelope(`weekly_review_export_by_email_${weeklyReviewExportId}`),
+        ...bg.createEventEnvelope(`weekly_review_export_by_email_${weeklyReviewExportId}`),
         name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
         payload: {
           weeklyReviewId: command.payload.weeklyReviewId,

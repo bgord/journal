@@ -1,6 +1,6 @@
+import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import type * as Ports from "+app/ports";
-import { createEventEnvelope } from "../../../base";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewSkippedEventType;
 
@@ -24,7 +24,7 @@ export const handleRequestWeeklyReviewCommand =
     ) {
       await EventStore.save([
         Emotions.Events.WeeklyReviewSkippedEvent.parse({
-          ...createEventEnvelope("weekly_review_skipped"),
+          ...bg.createEventEnvelope("weekly_review_skipped"),
           name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
           payload: { weekIsoId: command.payload.week.toIsoId(), userId: command.payload.userId },
         } satisfies Emotions.Events.WeeklyReviewSkippedEventType),

@@ -1,3 +1,4 @@
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { z } from "zod/v4";
 import * as AI from "+ai";
@@ -5,7 +6,6 @@ import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
-import { createEventEnvelope } from "../../../base";
 
 export type WeeklyReviewEvent = (typeof WeeklyReview)["events"][number];
 type WeeklyReviewEventType = z.infer<WeeklyReviewEvent>;
@@ -43,7 +43,7 @@ export class WeeklyReview {
     const weeklyReview = new WeeklyReview(id);
 
     const event = Events.WeeklyReviewRequestedEvent.parse({
-      ...createEventEnvelope(WeeklyReview.getStream(id)),
+      ...bg.createEventEnvelope(WeeklyReview.getStream(id)),
       name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
       payload: { weeklyReviewId: id, weekIsoId: week.toIsoId(), userId: requesterId },
     } satisfies Events.WeeklyReviewRequestedEventType);
@@ -57,7 +57,7 @@ export class WeeklyReview {
     Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
-      ...createEventEnvelope(WeeklyReview.getStream(this.id)),
+      ...bg.createEventEnvelope(WeeklyReview.getStream(this.id)),
       name: Events.WEEKLY_REVIEW_COMPLETED_EVENT,
       payload: {
         weeklyReviewId: this.id,
@@ -74,7 +74,7 @@ export class WeeklyReview {
     Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewFailedEvent.parse({
-      ...createEventEnvelope(WeeklyReview.getStream(this.id)),
+      ...bg.createEventEnvelope(WeeklyReview.getStream(this.id)),
       name: Events.WEEKLY_REVIEW_FAILED_EVENT,
       payload: {
         weeklyReviewId: this.id,

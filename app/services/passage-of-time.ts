@@ -12,12 +12,8 @@ export class PassageOfTime {
     const timestamp = tools.Time.Now().value;
 
     const event = System.Events.HourHasPassedEvent.parse({
-      id: crypto.randomUUID(),
-      correlationId: bg.CorrelationStorage.get(),
-      createdAt: timestamp,
+      ...bg.createEventEnvelope("passage_of_time"),
       name: System.Events.HOUR_HAS_PASSED_EVENT,
-      stream: "passage_of_time",
-      version: 1,
       payload: { timestamp },
     } satisfies System.Events.HourHasPassedEventType);
 
