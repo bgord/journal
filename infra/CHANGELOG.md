@@ -1,9 +1,14 @@
 # Changelog
+- 2025-08-22 14:40 6ae650c8 **refactor: use bg command envelope**
+## 2025-08-22 14:40 
+- 2025-08-22 14:33 785665e9 **step: update packages**
+- 2025-08-22 14:21 33a2542f **refactor: introduce command envelope helper**
+- 2025-08-22 14:16 e4e5b5ab **refactor: unify command envelope**
 - 2025-08-22 13:59 bf9dee82 **refactor: use create event envelope**
-## 2025-08-22 13:59 
 - 2025-08-22 13:54 8d5449de **refactor: rename event envelope schema**
 - 2025-08-22 13:51 80ddfb3b **step: update packages**
 - 2025-08-22 13:45 0869c4d8 **refactor: add create event envelope**
+- 2025-08-22 12:08 3bf4639f **docs: generate CHANGELOG**
 - 2025-08-22 11:59 6c992b3f **refactor: use base event data from bg**
 - 2025-08-22 11:53 ce977d47 **refactor: rename shields**
 - 2025-08-22 11:53 cc1a1898 **step: update packages**
