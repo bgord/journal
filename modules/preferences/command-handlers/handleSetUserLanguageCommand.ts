@@ -5,7 +5,7 @@ import type * as Buses from "+app/ports";
 type AcceptedEvent = Preferences.Events.UserLanguageSetEventType;
 
 export const handleSetUserLanguageCommand =
-  (EventStore: Buses.EventStoreLike<AcceptedEvent>, query: Preferences.Ports.UserLanguagePort) =>
+  (EventStore: Buses.EventStoreLike<AcceptedEvent>, query: Preferences.Ports.UserLanguageQueryPort) =>
   async (command: Preferences.Commands.SetUserLanguageCommandType) => {
     const current = await query.get(command.payload.userId);
 

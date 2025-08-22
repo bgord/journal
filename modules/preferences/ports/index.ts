@@ -1,1 +1,1 @@
-export * from "./user-language";
+export * from "./user-language-query";
