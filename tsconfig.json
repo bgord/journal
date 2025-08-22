@@ -21,8 +21,6 @@
       "+publishing/*": ["./modules/publishing/*"],
       "+ai": ["./modules/ai/index"],
       "+ai/*": ["./modules/ai/*"],
-      "+history": ["./modules/history/index"],
-      "+history/*": ["./modules/history/*"],
       "+app": ["./app/index"],
       "+app/*": ["./app/*"],
       "+languages": ["./modules/supported-languages.ts"],
