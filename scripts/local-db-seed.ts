@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import _ from "lodash";
-import type * as Auth from "+auth";
+import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import * as Publishing from "+publishing";
@@ -130,6 +130,14 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         });
 
         await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
+
+        const event = Auth.Events.AccountCreatedEvent.parse({
+          ...bg.createEventEnvelope(`account_${result.user.id}`),
+          name: Auth.Events.ACCOUNT_CREATED_EVENT,
+          payload: { userId: result.user.id, timestamp: tools.Time.Now().value },
+        } satisfies Auth.Events.AccountCreatedEventType);
+
+        await EventStore.save([event]);
 
         console.log(`[✓] User ${index + 1} created`);
 
