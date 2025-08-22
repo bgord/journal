@@ -12,6 +12,8 @@ import {
 import { ShareableLinkRepositoryAdapter, ShareableLinksQuota } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import { EventStore } from "+infra/event-store";
+import * as PreferencesCommandHandler from "+preferences/command-handlers";
+import * as PreferencesCommand from "+preferences/commands";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
@@ -96,4 +98,9 @@ CommandBus.on(
 CommandBus.on(
   PublishingCommands.REVOKE_SHAREABLE_LINK_COMMAND,
   PublishingCommandHandlers.handleRevokeShareableLinkCommand(ShareableLinkRepositoryAdapter),
+);
+
+CommandBus.on(
+  PreferencesCommand.SET_USER_LANGUAGE_COMMAND,
+  PreferencesCommandHandler.handleSetUserLanguageCommand,
 );
