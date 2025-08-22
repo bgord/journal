@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
-import { SupportedLanguages } from "+languages";
+import { type SUPPORTED_LANGUAGES, SupportedLanguages } from "+languages";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import { Mailer } from "+infra/adapters";
@@ -51,11 +50,11 @@ new EmotionsPolicies.InactivityAlarmScheduler(
 );
 new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler, CommandBus, TimeCapsuleDueEntries);
 new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
-new PreferencesPolicies.SetDefaultUserLanguage(
+new PreferencesPolicies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
   EventBus,
   EventHandler,
   CommandBus,
-  tools.Language.parse(SupportedLanguages.en),
+  SupportedLanguages.en,
 );
 
 // Sagas

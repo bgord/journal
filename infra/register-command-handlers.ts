@@ -1,3 +1,4 @@
+import { SUPPORTED_LANGUAGES } from "+languages";
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
 import { AiGateway } from "+infra/adapters/ai";
@@ -100,5 +101,9 @@ CommandBus.on(
 
 CommandBus.on(
   PreferencesCommand.SET_USER_LANGUAGE_COMMAND,
-  PreferencesCommandHandler.handleSetUserLanguageCommand(EventStore, UserLanguageQueryAdapter),
+  PreferencesCommandHandler.handleSetUserLanguageCommand(
+    EventStore,
+    UserLanguageQueryAdapter,
+    SUPPORTED_LANGUAGES,
+  ),
 );
