@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
 import { EventStore } from "+infra/event-store";
 
-class ShareableLinkAccessAuditorBg implements Publishing.Ports.ShareableLinkAccessAuditorPort {
+class ShareableLinkAccessAuditorInternal implements Publishing.Ports.ShareableLinkAccessAuditorPort {
   constructor() {}
 
   async record(input: Publishing.Ports.ShareableLinkAccessAuditorInput) {
@@ -29,4 +29,4 @@ class ShareableLinkAccessAuditorBg implements Publishing.Ports.ShareableLinkAcce
   }
 }
 
-export const ShareableLinkAccessAuditor = new ShareableLinkAccessAuditorBg();
+export const ShareableLinkAccessAuditor = new ShareableLinkAccessAuditorInternal();

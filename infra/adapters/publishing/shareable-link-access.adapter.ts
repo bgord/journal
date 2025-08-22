@@ -2,7 +2,7 @@ import * as Publishing from "+publishing";
 import { ShareableLinkAccessAuditor } from "./shareable-link-access-auditor.adapter";
 import { ShareableLinkRepositoryAdapter } from "./shareable-link-repository.adapter";
 
-class ShareableLinkAccessBg implements Publishing.OHQ.ShareableLinkAccessPort {
+class ShareableLinkAccessInternal implements Publishing.OHQ.ShareableLinkAccessPort {
   constructor(
     private readonly repo: Publishing.Ports.ShareableLinkRepositoryPort,
     private readonly auditor: Publishing.Ports.ShareableLinkAccessAuditorPort,
@@ -43,7 +43,7 @@ class ShareableLinkAccessBg implements Publishing.OHQ.ShareableLinkAccessPort {
   }
 }
 
-export const ShareableLinkAccess = new ShareableLinkAccessBg(
+export const ShareableLinkAccess = new ShareableLinkAccessInternal(
   ShareableLinkRepositoryAdapter,
   ShareableLinkAccessAuditor,
 );

@@ -1,7 +1,7 @@
 import * as Emotions from "+emotions";
 import { EventStore } from "+infra/event-store";
 
-class AlarmRepositoryBg implements Emotions.Ports.AlarmRepositoryPort {
+class AlarmRepositoryInternal implements Emotions.Ports.AlarmRepositoryPort {
   async load(id: Emotions.VO.AlarmIdType) {
     const history = await EventStore.find(
       Emotions.Aggregates.Alarm.events,
@@ -15,4 +15,4 @@ class AlarmRepositoryBg implements Emotions.Ports.AlarmRepositoryPort {
   }
 }
 
-export const AlarmRepository = new AlarmRepositoryBg();
+export const AlarmRepository = new AlarmRepositoryInternal();
