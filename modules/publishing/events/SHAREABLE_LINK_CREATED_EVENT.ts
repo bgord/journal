@@ -11,9 +11,9 @@ export const ShareableLinkCreatedEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(SHAREABLE_LINK_CREATED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(SHAREABLE_LINK_CREATED_EVENT),
   payload: z.object({
     shareableLinkId: VO.ShareableLinkId,
     ownerId: Auth.VO.UserId,

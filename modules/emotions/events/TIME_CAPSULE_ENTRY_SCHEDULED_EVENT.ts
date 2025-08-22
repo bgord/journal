@@ -12,9 +12,9 @@ export const TimeCapsuleEntryScheduledEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(TIME_CAPSULE_ENTRY_SCHEDULED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(TIME_CAPSULE_ENTRY_SCHEDULED_EVENT),
   payload: z.object({
     entryId: VO.EntryId,
     language: z.enum(SupportedLanguages),

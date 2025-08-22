@@ -11,9 +11,9 @@ export const WeeklyReviewFailedEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(WEEKLY_REVIEW_FAILED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(WEEKLY_REVIEW_FAILED_EVENT),
   payload: z.object({
     weeklyReviewId: VO.WeeklyReviewId,
     weekIsoId: tools.WeekIsoId,

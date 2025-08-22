@@ -11,9 +11,9 @@ export const WeeklyReviewExportByEmailRequestedEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT),
   payload: z.object({
     attempt: z.number().int(),
     userId: Auth.VO.UserId,

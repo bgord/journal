@@ -11,9 +11,9 @@ export const ReactionLoggedEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(REACTION_LOGGED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(REACTION_LOGGED_EVENT),
   payload: z.object({
     entryId: VO.EntryId,
     type: VO.ReactionTypeSchema,

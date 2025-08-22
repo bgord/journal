@@ -11,9 +11,9 @@ export const AiRequestRegisteredEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(AI_REQUEST_REGISTERED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(AI_REQUEST_REGISTERED_EVENT),
   payload: z.object({
     category: z.enum(VO.UsageCategory),
     dimensions: z.union([z.object({ entryId: z.uuid() }), z.object({}).strict()]),

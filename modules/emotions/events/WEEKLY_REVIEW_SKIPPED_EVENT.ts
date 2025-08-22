@@ -10,9 +10,9 @@ export const WeeklyReviewSkippedEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(WEEKLY_REVIEW_SKIPPED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(WEEKLY_REVIEW_SKIPPED_EVENT),
   payload: z.object({ weekIsoId: tools.WeekIsoId, userId: Auth.VO.UserId }),
 });
 

@@ -10,9 +10,9 @@ export const AccountDeletedEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(ACCOUNT_DELETED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(ACCOUNT_DELETED_EVENT),
   payload: z.object({ userId: VO.UserId, timestamp: tools.Timestamp }),
 });
 

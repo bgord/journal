@@ -12,9 +12,9 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = z.obje
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT),
   payload: z.object({
     userId: Auth.VO.UserId,
     weekIsoId: tools.WeekIsoId,

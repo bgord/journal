@@ -128,9 +128,9 @@ export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.SITUATION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  name: Emotions.Events.SITUATION_LOGGED_EVENT,
   payload: {
     entryId,
     description: "I finished a project",
@@ -154,9 +154,9 @@ export const GenericEmotionLoggedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  name: Emotions.Events.EMOTION_LOGGED_EVENT,
   payload: {
     entryId,
     label: Emotions.VO.GenevaWheelEmotion.gratitude,
@@ -169,9 +169,9 @@ export const GenericReactionLoggedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.REACTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  name: Emotions.Events.REACTION_LOGGED_EVENT,
   payload: {
     entryId,
     description: "Got drunk",
@@ -185,9 +185,9 @@ export const GenericEmotionReappraisedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   payload: {
     entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.joy,
@@ -200,9 +200,9 @@ export const GenericReactionEvaluatedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.REACTION_EVALUATED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  name: Emotions.Events.REACTION_EVALUATED_EVENT,
   payload: {
     entryId,
     description: "Went to bed",
@@ -216,9 +216,9 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.EMOTION_LOGGED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  name: Emotions.Events.EMOTION_LOGGED_EVENT,
   payload: {
     entryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
@@ -231,9 +231,9 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
   payload: {
     entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.anger,
@@ -246,9 +246,9 @@ export const GenericEntryDeletedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.ENTRY_DELETED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  name: Emotions.Events.ENTRY_DELETED_EVENT,
   payload: { entryId, userId },
 } satisfies Emotions.Events.EntryDeletedEventType;
 
@@ -256,9 +256,9 @@ export const GenericTimeCapsuleEntryScheduledEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: expect.any(Number),
-  name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
   payload: {
     entryId,
     language: SupportedLanguages.en,
@@ -287,8 +287,8 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
-  name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   version: 1,
+  name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
   payload: {
     userId,
     weekIsoId: week.toIsoId(),
@@ -302,8 +302,8 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
-  name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
+  name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   payload: {
     userId,
     weekIsoId: week.toIsoId(),
@@ -316,8 +316,8 @@ export const MaladaptiveReactionsPatternDetectedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
-  name: Emotions.Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   version: 1,
+  name: Emotions.Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
   payload: {
     userId,
     weekIsoId: week.toIsoId(),
@@ -331,8 +331,8 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
-  name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
   version: 1,
+  name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
   payload: {
     userId,
     weekIsoId: week.toIsoId(),
@@ -345,8 +345,8 @@ export const GenericAlarmGeneratedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.ALARM_GENERATED_EVENT,
   version: 1,
+  name: Emotions.Events.ALARM_GENERATED_EVENT,
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     alarmId,
@@ -360,8 +360,8 @@ export const GenericInactivityAlarmGeneratedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.ALARM_GENERATED_EVENT,
   version: 1,
+  name: Emotions.Events.ALARM_GENERATED_EVENT,
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
     alarmId,
@@ -375,8 +375,8 @@ export const GenericAlarmAdviceSavedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
   version: 1,
+  name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
   payload: { advice: advice.get(), alarmId, userId },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
 
@@ -385,8 +385,8 @@ export const GenericAlarmNotificationRequestedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
   version: 1,
+  name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
   payload: {
     alarmId,
     trigger: entryDetection.trigger,
@@ -401,8 +401,8 @@ export const GenericInactivityAlarmNotificationRequestedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
   version: 1,
+  name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
   payload: {
     alarmId,
     trigger: inactivityDetection.trigger,
@@ -417,8 +417,8 @@ export const GenericAlarmNotificationSentEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
   version: 1,
+  name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
   payload: { alarmId },
 } satisfies Emotions.Events.AlarmNotificationSentEventType;
 
@@ -427,8 +427,8 @@ export const GenericAlarmCancelledEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.ALARM_CANCELLED_EVENT,
   version: 1,
+  name: Emotions.Events.ALARM_CANCELLED_EVENT,
   payload: { alarmId, userId },
 } satisfies Emotions.Events.AlarmCancelledEventType;
 
@@ -437,8 +437,8 @@ export const GenericWeeklyReviewRequestedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
   version: 1,
+  name: Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
   payload: { weekIsoId: week.toIsoId(), weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewRequestedEventType;
 
@@ -447,8 +447,8 @@ export const GenericWeeklyReviewSkippedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
   version: 1,
+  name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
   payload: { weekIsoId: week.toIsoId(), userId },
 } satisfies Emotions.Events.WeeklyReviewSkippedEventType;
 
@@ -457,8 +457,8 @@ export const GenericWeeklyReviewCompletedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: "WEEKLY_REVIEW_COMPLETED_EVENT",
   version: 1,
+  name: "WEEKLY_REVIEW_COMPLETED_EVENT",
   payload: { insights: insights.get(), weeklyReviewId, weekIsoId: week.toIsoId(), userId },
 } satisfies Emotions.Events.WeeklyReviewCompletedEventType;
 
@@ -467,8 +467,8 @@ export const GenericWeeklyReviewFailedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: expect.any(String),
-  name: "WEEKLY_REVIEW_FAILED_EVENT",
   version: 1,
+  name: "WEEKLY_REVIEW_FAILED_EVENT",
   payload: { weekIsoId: week.toIsoId(), weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
 
@@ -477,8 +477,8 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
-  name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT",
   version: 1,
+  name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT",
   payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: 1 },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -487,8 +487,8 @@ export const GenericWeeklyReviewExportByEmailFailedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
-  name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT",
   version: 1,
+  name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT",
   payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: 1 },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
@@ -512,8 +512,8 @@ export const GenericShareableLinkCreatedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_CREATED_EVENT",
   version: 1,
+  name: "SHAREABLE_LINK_CREATED_EVENT",
   payload: {
     shareableLinkId,
     ownerId: userId,
@@ -530,8 +530,8 @@ export const GenericShareableLinkExpiredEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_EXPIRED_EVENT",
   version: 1,
+  name: "SHAREABLE_LINK_EXPIRED_EVENT",
   payload: { shareableLinkId },
 } satisfies Publishing.Events.ShareableLinkExpiredEventType;
 
@@ -540,8 +540,8 @@ export const GenericShareableLinkRevokedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_REVOKED_EVENT",
   version: 1,
+  name: "SHAREABLE_LINK_REVOKED_EVENT",
   payload: { shareableLinkId },
 } satisfies Publishing.Events.ShareableLinkRevokedEventType;
 
@@ -550,8 +550,8 @@ export const GenericShareableLinkAccessedAcceptedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_ACCESSED_EVENT",
   version: 1,
+  name: "SHAREABLE_LINK_ACCESSED_EVENT",
   payload: {
     shareableLinkId,
     ownerId: userId,
@@ -568,8 +568,8 @@ export const GenericShareableLinkAccessedExpiredEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_ACCESSED_EVENT",
   version: 1,
+  name: "SHAREABLE_LINK_ACCESSED_EVENT",
   payload: {
     shareableLinkId,
     ownerId: userId,
@@ -586,8 +586,8 @@ export const GenericShareableLinkAccessedRevokedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_ACCESSED_EVENT",
   version: 1,
+  name: "SHAREABLE_LINK_ACCESSED_EVENT",
   payload: {
     shareableLinkId,
     ownerId: userId,
@@ -604,8 +604,8 @@ export const GenericShareableLinkAccessedWrongSpecEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `shareable_link_${shareableLinkId}`,
-  name: "SHAREABLE_LINK_ACCESSED_EVENT",
   version: 1,
+  name: "SHAREABLE_LINK_ACCESSED_EVENT",
   payload: {
     shareableLinkId,
     ownerId: userId,
@@ -622,8 +622,8 @@ export const GenericHourHasPassedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: "passage_of_time",
-  name: "HOUR_HAS_PASSED_EVENT",
   version: 1,
+  name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: hourHasPassedTimestamp },
 } satisfies System.Events.HourHasPassedEventType;
 
@@ -632,8 +632,8 @@ export const GenericHourHasPassedMondayUtc18Event = {
   correlationId,
   createdAt: expect.any(Number),
   stream: "passage_of_time",
-  name: "HOUR_HAS_PASSED_EVENT",
   version: 1,
+  name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: tools.Timestamp.parse(1754330400000) },
 } satisfies System.Events.HourHasPassedEventType;
 
@@ -642,8 +642,8 @@ export const GenericHourHasPassedWednesdayUtc18Event = {
   correlationId,
   createdAt: expect.any(Number),
   stream: "passage_of_time",
-  name: "HOUR_HAS_PASSED_EVENT",
   version: 1,
+  name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: tools.Timestamp.parse(1754503200000) },
 } satisfies System.Events.HourHasPassedEventType;
 
@@ -652,8 +652,8 @@ export const GenericAiRequestRegisteredEmotionsAlarmEntryEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `user_ai_usage_${userId}`,
-  name: "AI_REQUEST_REGISTERED_EVENT",
   version: 1,
+  name: "AI_REQUEST_REGISTERED_EVENT",
   payload: {
     category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
     dimensions: { entryId },
@@ -667,8 +667,8 @@ export const GenericAiQuotaExceededEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `user_ai_usage_${userId}`,
-  name: "AI_QUOTA_EXCEEDED_EVENT",
   version: 1,
+  name: "AI_QUOTA_EXCEEDED_EVENT",
   payload: { userId, timestamp: aiRequestRegisteredTimestamp },
 } satisfies AI.Events.AiQuotaExceededEventType;
 
@@ -677,8 +677,8 @@ export const GenericEntryHistorySituationLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `history_${entryId}`,
-  name: "HISTORY_POPULATED_EVENT",
   version: 1,
+  name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
     operation: "entry.situation.logged",
@@ -696,8 +696,8 @@ export const GenericEntryHistoryEmotionLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `history_${entryId}`,
-  name: "HISTORY_POPULATED_EVENT",
   version: 1,
+  name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
     operation: "entry.emotion.logged",
@@ -714,8 +714,8 @@ export const GenericEntryHistoryReactionLoggedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `history_${entryId}`,
-  name: "HISTORY_POPULATED_EVENT",
   version: 1,
+  name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
     operation: "entry.reaction.logged",
@@ -733,8 +733,8 @@ export const GenericEntryHistoryEmotionReappraisedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `history_${entryId}`,
-  name: "HISTORY_POPULATED_EVENT",
   version: 1,
+  name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
     operation: "entry.emotion.reappraised",
@@ -751,8 +751,8 @@ export const GenericEntryHistoryReactionEvaluatedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `history_${entryId}`,
-  name: "HISTORY_POPULATED_EVENT",
   version: 1,
+  name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
     operation: "entry.reaction.evaluated",
@@ -770,8 +770,8 @@ export const GenericEntryHistoryClearedEvent = {
   correlationId,
   createdAt: expect.any(Number),
   stream: `history_${entryId}`,
-  name: "HISTORY_CLEARED_EVENT",
   version: 1,
+  name: "HISTORY_CLEARED_EVENT",
   payload: { subject: entryId },
 } satisfies bg.History.Events.HistoryClearedEventType;
 

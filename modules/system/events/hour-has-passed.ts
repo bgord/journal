@@ -9,9 +9,9 @@ export const HourHasPassedEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(HOUR_HAS_PASSED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(HOUR_HAS_PASSED_EVENT),
   payload: z.object({ timestamp: tools.Timestamp }),
 });
 

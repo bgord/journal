@@ -10,9 +10,9 @@ export const AiQuotaExceededEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(AI_QUOTA_EXCEEDED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(AI_QUOTA_EXCEEDED_EVENT),
   payload: z.object({ timestamp: tools.Timestamp, userId: Auth.VO.UserId }),
 });
 

@@ -10,9 +10,9 @@ export const ShareableLinkRevokedEvent = z.object({
   correlationId: bg.UUID,
   createdAt: tools.Timestamp,
   stream: z.string().min(1),
-  name: z.literal(SHAREABLE_LINK_REVOKED_EVENT),
   version: z.literal(1),
   revision: tools.RevisionValue.optional(),
+  name: z.literal(SHAREABLE_LINK_REVOKED_EVENT),
   payload: z.object({ shareableLinkId: VO.ShareableLinkId }),
 });
 
