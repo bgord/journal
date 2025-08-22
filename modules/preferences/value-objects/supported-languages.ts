@@ -1,5 +1,3 @@
-import type { LanguageTag } from "./language-tag";
-
 export class UnsupportedLanguageError extends Error {
   constructor() {
     super();
@@ -15,7 +13,7 @@ export class SupportedLanguagesSet<L extends readonly string[]> {
     Object.freeze(this);
   }
 
-  ensure(tag: LanguageTag): L[number] {
+  ensure(tag: string): L[number] {
     const code = tag.toString();
 
     if (!this.index.has(code)) throw new UnsupportedLanguageError();

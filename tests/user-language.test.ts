@@ -11,9 +11,7 @@ export const UserLanguageOHQ = new Preferences.OHQ.UserLanguageAdapter(
 
 describe("UserLanguageOHQ", () => {
   test("happy path", async () => {
-    spyOn(UserLanguageQueryAdapter, "get").mockResolvedValue(
-      Preferences.VO.LanguageTag.create(SupportedLanguages.en),
-    );
+    spyOn(UserLanguageQueryAdapter, "get").mockResolvedValue(SupportedLanguages.en);
 
     const language = await UserLanguageOHQ.get(mocks.userId);
     expect(language).toEqual(SupportedLanguages.en);

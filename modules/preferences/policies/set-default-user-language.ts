@@ -22,7 +22,7 @@ export class SetDefaultUserLanguage<L extends readonly string[]> {
       name: Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
       payload: {
         userId: event.payload.userId,
-        language: Preferences.VO.LanguageTag.create(this.systemDefaultLanguage),
+        language: this.systemDefaultLanguage,
       },
     } satisfies Preferences.Commands.SetUserLanguageCommandType);
 

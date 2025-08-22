@@ -2,6 +2,7 @@ import type * as Auth from "+auth";
 import type * as Preferences from "+preferences";
 import type { SupportedLanguagesSet } from "../value-objects/supported-languages";
 
+/** @public */
 export class UserLanguagePreferenceMissingError extends Error {
   constructor() {
     super();

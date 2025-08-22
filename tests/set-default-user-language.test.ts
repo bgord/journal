@@ -30,9 +30,7 @@ describe("SetDefaultUserLanguage", () => {
   });
 
   test("onAccountCreatedEvent - does not duplicate events", async () => {
-    spyOn(UserLanguageQueryAdapter, "get").mockResolvedValue(
-      Preferences.VO.LanguageTag.create(SupportedLanguages.en),
-    );
+    spyOn(UserLanguageQueryAdapter, "get").mockResolvedValue(SupportedLanguages.en);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {

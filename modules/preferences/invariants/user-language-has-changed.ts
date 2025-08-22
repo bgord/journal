@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import type * as VO from "+preferences/value-objects";
 
 class UserLanguageHasChangedError extends Error {
   constructor() {
@@ -9,12 +8,12 @@ class UserLanguageHasChangedError extends Error {
   }
 }
 
-type UserLanguageHasChangedConfigType = { current?: VO.LanguageTag | null; candidate: VO.LanguageTag };
+type UserLanguageHasChangedConfigType = { current?: string | null; candidate: string };
 
 class UserLanguageHasChangedFactory extends bg.Invariant<UserLanguageHasChangedConfigType> {
   fails(config: UserLanguageHasChangedConfigType) {
     if (!config.current) return false;
-    return config.current.equals(config.candidate);
+    return config.current === config.candidate;
   }
 
   message = "UserLanguageHasChanged";
