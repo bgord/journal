@@ -2,7 +2,6 @@ import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
 import * as mocks from "./mocks";
 
 const situation = new Emotions.Entities.Situation(
@@ -33,8 +32,6 @@ const newReaction = new Emotions.Entities.Reaction(
   new Emotions.VO.ReactionEffectiveness(2),
 );
 
-const language = SupportedLanguages.en;
-
 describe("entry", () => {
   test("build new aggregate", () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, []);
@@ -50,7 +47,6 @@ describe("entry", () => {
         situation,
         emotion,
         reaction,
-        language,
         mocks.userId,
         Emotions.VO.EntryOriginOption.web,
       );

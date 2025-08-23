@@ -137,7 +137,6 @@ export const GenericSituationLoggedEvent = {
     description: "I finished a project",
     kind: Emotions.VO.SituationKindOptions.achievement,
     location: "work",
-    language: SupportedLanguages.en,
     userId,
     origin: Emotions.VO.EntryOriginOption.web,
   },
@@ -262,7 +261,6 @@ export const GenericTimeCapsuleEntryScheduledEvent = {
   name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
   payload: {
     entryId,
-    language: SupportedLanguages.en,
     userId,
     situation: {
       description: "I finished a project",

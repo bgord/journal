@@ -33,7 +33,6 @@ export const handleScheduleTimeCapsuleEntryCommand =
           effectiveness: command.payload.reaction.effectiveness.get(),
           description: command.payload.reaction.description.get(),
         },
-        language: command.payload.language,
         userId: command.payload.userId,
         scheduledAt: command.payload.scheduledAt,
         scheduledFor: command.payload.scheduledFor,

@@ -2,7 +2,6 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
-import { SupportedLanguages } from "+languages";
 import * as Entities from "+emotions/entities";
 import * as VO from "+emotions/value-objects";
 

@@ -47,7 +47,6 @@ export class EntryProjector {
       situationDescription: event.payload.description,
       situationLocation: event.payload.location,
       revision: event.revision,
-      language: event.payload.language,
       weekIsoId: tools.Week.fromTimestamp(event.createdAt).toIsoId(),
       userId: event.payload.userId,
       origin: event.payload.origin,

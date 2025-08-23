@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import type { SupportedLanguages } from "+languages";
 import * as System from "+system";
 
 type AcceptedEvent = System.Events.HourHasPassedEventType;
@@ -53,7 +52,6 @@ export class TimeCapsuleEntriesScheduler {
             new Emotions.VO.ReactionType(entry.reactionType as Emotions.VO.ReactionTypeType),
             new Emotions.VO.ReactionEffectiveness(entry.reactionEffectiveness),
           ),
-          language: entry.language as SupportedLanguages,
           userId: entry.userId,
           origin: Emotions.VO.EntryOriginOption.time_capsule,
         },
