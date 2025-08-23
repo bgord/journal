@@ -299,6 +299,15 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         </a>
       </div>
 
+      <div data-stack="y" data-gap="5">
+        <div data-stack="x" data-cross="center" data-gap="3">
+          <Icons.Language data-size="md" />
+          <div>{t("profile.change_language.header")}</div>
+        </div>
+
+        <Components.LanguageSelector />
+      </div>
+
       <Components.ChangePassword email={session?.user.email as string} />
 
       <Components.DeleteAccount />
