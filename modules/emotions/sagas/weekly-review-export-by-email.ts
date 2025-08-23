@@ -39,6 +39,7 @@ export class WeeklyReviewExportByEmail {
 
       const weeklyReview = await this.weeklyReviewExport.getFull(event.payload.weeklyReviewId);
       if (!weeklyReview) return;
+      const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
 
       const language = await this.userLanguage.get(event.payload.userId);
 
@@ -46,7 +47,7 @@ export class WeeklyReviewExportByEmail {
       const attachment = await pdf.toAttachment();
 
       const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
-      const notification = composer.compose(weeklyReview, language).get();
+      const notification = composer.compose(week, language).get();
 
       await this.mailer.send({
         from: this.EMAIL_FROM,

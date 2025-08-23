@@ -1,6 +1,5 @@
 import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "+languages";
-import type * as Queries from "+emotions/queries";
 
 const notification: Record<SupportedLanguages, (week: tools.Week) => tools.NotificationTemplate> = {
   [SupportedLanguages.en]: (week: tools.Week) =>
@@ -10,12 +9,7 @@ const notification: Record<SupportedLanguages, (week: tools.Week) => tools.Notif
 };
 
 export class WeeklyReviewExportNotificationComposer {
-  compose(
-    weeklyReview: Queries.WeeklyReviewExportDto,
-    language: SupportedLanguages,
-  ): tools.NotificationTemplate {
-    // TODO: accept only the week
-    const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
+  compose(week: tools.Week, language: SupportedLanguages): tools.NotificationTemplate {
     return notification[language](week);
   }
 }

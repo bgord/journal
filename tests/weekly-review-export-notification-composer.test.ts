@@ -7,7 +7,7 @@ import * as mocks from "./mocks";
 describe("WeeklyReviewExportNotificationComposer", () => {
   test("compose - en", () => {
     const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
-    const notification = composer.compose(mocks.weeklyReviewFull, SupportedLanguages.en);
+    const notification = composer.compose(mocks.week, SupportedLanguages.en);
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
@@ -19,7 +19,7 @@ describe("WeeklyReviewExportNotificationComposer", () => {
 
   test("compose - pl", () => {
     const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
-    const notification = composer.compose(mocks.weeklyReviewFull, SupportedLanguages.pl);
+    const notification = composer.compose(mocks.week, SupportedLanguages.pl);
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(`Przegląd tygodnia PDF - ${mocks.week.getStart()}`, "Plik w załączniku"),
