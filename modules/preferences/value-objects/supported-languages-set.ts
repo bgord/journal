@@ -9,15 +9,13 @@ export class SupportedLanguagesSet<L extends readonly string[]> {
   private readonly index: Set<string>;
 
   constructor(allowed: L) {
-    this.index = new Set(allowed.map((x) => x.toString()));
+    this.index = new Set(allowed);
     Object.freeze(this);
   }
 
-  ensure(tag: string): L[number] {
-    const code = tag.toString();
+  ensure(language: string): L[number] {
+    if (!this.index.has(language)) throw new UnsupportedLanguageError();
 
-    if (!this.index.has(code)) throw new UnsupportedLanguageError();
-
-    return code as L[number];
+    return language as L[number];
   }
 }

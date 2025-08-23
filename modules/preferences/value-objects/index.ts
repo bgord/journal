@@ -1,1 +1,1 @@
-export * from "./supported-languages";
+export * from "./supported-languages-set";

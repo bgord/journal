@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as Preferences from "+preferences";
 import type * as Buses from "+app/ports";
-import type { SupportedLanguagesSet } from "../value-objects/supported-languages";
 
 type AcceptedEvent = Preferences.Events.UserLanguageSetEventType;
 
@@ -9,7 +8,7 @@ export const handleSetUserLanguageCommand =
   <L extends readonly string[]>(
     EventStore: Buses.EventStoreLike<AcceptedEvent>,
     query: Preferences.Ports.UserLanguageQueryPort,
-    supported: SupportedLanguagesSet<L>,
+    supported: Preferences.VO.SupportedLanguagesSet<L>,
   ) =>
   async (command: Preferences.Commands.SetUserLanguageCommandType) => {
     const candidate = supported.ensure(command.payload.language);

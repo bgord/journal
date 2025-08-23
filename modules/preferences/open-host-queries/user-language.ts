@@ -1,7 +1,5 @@
 import type * as Auth from "+auth";
 import type * as Preferences from "+preferences";
-import type { UserLanguageResolverPort } from "../ports";
-import type { SupportedLanguagesSet } from "../value-objects/supported-languages";
 
 export interface UserLanguagePort<L extends readonly string[]> {
   get(userId: Auth.VO.UserIdType): Promise<L[number]>;
@@ -10,8 +8,8 @@ export interface UserLanguagePort<L extends readonly string[]> {
 export class UserLanguageAdapter<L extends readonly string[]> implements UserLanguagePort<L> {
   constructor(
     private readonly query: Preferences.Ports.UserLanguageQueryPort,
-    private readonly validator: SupportedLanguagesSet<L>,
-    private readonly resolver: UserLanguageResolverPort,
+    private readonly validator: Preferences.VO.SupportedLanguagesSet<L>,
+    private readonly resolver: Preferences.Ports.UserLanguageResolverPort,
   ) {}
 
   async get(userId: Auth.VO.UserIdType): Promise<L[number]> {

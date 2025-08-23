@@ -119,7 +119,7 @@ server.get("/translations", ResponseCache.handle, ...bg.Translations.build());
 
 //Preferences =================
 server.post(
-  "/preferences/user-language/upate",
+  "/preferences/user-language/update",
   AuthShield.attach,
   AuthShield.verify,
   HTTP.Preferences.UpdateUserLanguage,
