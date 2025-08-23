@@ -22,7 +22,18 @@ describe("AlarmNotificationFactory", () => {
     );
   });
 
-  test.todo("entry - pl");
+  test("entry - pl", async () => {
+    spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+
+    const result = await new Emotions.Services.AlarmNotificationFactory(
+      EntrySnapshot,
+      SupportedLanguages.pl,
+    ).create(mocks.entryDetection, mocks.advice);
+
+    expect(result).toEqual(
+      new tools.NotificationTemplate("Porada emocjonalna", `Porada dla emocji: anger: ${mocks.advice.get()}`),
+    );
+  });
 
   test("inactivity - en", async () => {
     const result = await new Emotions.Services.AlarmNotificationFactory(
@@ -38,5 +49,17 @@ describe("AlarmNotificationFactory", () => {
     );
   });
 
-  test.todo("inactivity - pl");
+  test("inactivity - pl", async () => {
+    const result = await new Emotions.Services.AlarmNotificationFactory(
+      EntrySnapshot,
+      SupportedLanguages.pl,
+    ).create(mocks.inactivityDetection, mocks.advice);
+
+    expect(result).toEqual(
+      new tools.NotificationTemplate(
+        "Porada dla braku aktywności",
+        `Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni, porada: ${mocks.advice.get()}`,
+      ),
+    );
+  });
 });

@@ -22,5 +22,20 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
     );
   });
 
-  test.todo("compose - pl");
+  test("compose - pl", () => {
+    const inactivityAlarmAdviceNotificationComposer =
+      new Emotions.Services.InactivityAlarmAdviceNotificationComposer(
+        mocks.inactivityTrigger,
+        SupportedLanguages.pl,
+      );
+
+    const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
+
+    expect(notification).toEqual(
+      new tools.NotificationTemplate(
+        "Porada dla braku aktywności",
+        `Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni, porada: ${mocks.advice.get()}`,
+      ),
+    );
+  });
 });

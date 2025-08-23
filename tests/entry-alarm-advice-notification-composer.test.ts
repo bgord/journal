@@ -20,5 +20,18 @@ describe("EntryAlarmAdviceNotificationComposer", () => {
     );
   });
 
-  test.todo("compose - pl");
+  test("compose - pl", () => {
+    const entryAlarmAdviceNotificationComposer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(
+      mocks.partialEntry,
+      SupportedLanguages.pl,
+    );
+    const notification = entryAlarmAdviceNotificationComposer.compose(mocks.advice);
+
+    expect(notification).toEqual(
+      new tools.NotificationTemplate(
+        "Porada emocjonalna",
+        `Porada dla emocji: ${mocks.partialEntry.emotionLabel}: ${mocks.advice.get()}`,
+      ),
+    );
+  });
 });

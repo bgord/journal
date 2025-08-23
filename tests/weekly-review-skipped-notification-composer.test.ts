@@ -17,5 +17,15 @@ describe("WeeklyReviewSkippedNotificationComposer", () => {
     );
   });
 
-  test.todo("compose - pl");
+  test("compose - pl", () => {
+    const composer = new Emotions.Services.WeeklyReviewSkippedNotificationComposer();
+    const notification = composer.compose(mocks.week, SupportedLanguages.pl);
+
+    expect(notification).toEqual(
+      new tools.NotificationTemplate(
+        "Przegląd tygodnia - wróć do nas",
+        `Przegapiony tydzień ${mocks.week.getStart()}`,
+      ),
+    );
+  });
 });

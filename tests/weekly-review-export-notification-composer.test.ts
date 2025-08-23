@@ -17,5 +17,12 @@ describe("WeeklyReviewExportNotificationComposer", () => {
     );
   });
 
-  test.todo("compose - pl");
+  test("compose - pl", () => {
+    const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
+    const notification = composer.compose(mocks.weeklyReviewFull, SupportedLanguages.pl);
+
+    expect(notification).toEqual(
+      new tools.NotificationTemplate(`Przegląd tygodnia PDF - ${mocks.week.getStart()}`, "Plik w załączniku"),
+    );
+  });
 });

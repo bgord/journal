@@ -16,5 +16,13 @@ describe("InactivityAlarmAdvicePromptBuilder", () => {
     );
   });
 
-  test.todo("generate - pl");
+  test("generate - pl", () => {
+    const builder = new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(
+      mocks.inactivityTrigger,
+      SupportedLanguages.pl,
+    );
+    expect(builder.generate()).toEqual(
+      new AI.Prompt(`Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni`),
+    );
+  });
 });
