@@ -72,10 +72,7 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewRequestedEvent - en", async () => {
-    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
-      mocks.GenericWeeklyReviewRequestedEvent,
-    ]);
-    spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
+    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
@@ -99,10 +96,7 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewRequestedEvent - pl", async () => {
-    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
-      mocks.GenericWeeklyReviewRequestedEvent,
-    ]);
-    spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
+    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
@@ -126,10 +120,7 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewRequestedEvent - failed", async () => {
-    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [
-      mocks.GenericWeeklyReviewRequestedEvent,
-    ]);
-    spyOn(Emotions.Aggregates.WeeklyReview, "build").mockReturnValue(weeklyReview);
+    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
