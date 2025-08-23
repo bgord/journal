@@ -117,6 +117,15 @@ server.route("/publishing", publishing);
 server.get("/translations", ResponseCache.handle, ...bg.Translations.build());
 // =============================
 
+//Preferences =================
+server.post(
+  "/preferences/user-language/upate",
+  AuthShield.attach,
+  AuthShield.verify,
+  HTTP.Preferences.UpdateUserLanguage,
+);
+// =============================
+
 // Auth ========================
 server.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 // =============================
