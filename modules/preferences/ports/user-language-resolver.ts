@@ -2,6 +2,7 @@ export interface UserLanguageResolverPort {
   resolve(input: string | null): string | Promise<string>;
 }
 
+/** @public */
 export class UserLanguagePreferenceMissingError extends Error {
   constructor() {
     super();
@@ -9,6 +10,7 @@ export class UserLanguagePreferenceMissingError extends Error {
   }
 }
 
+/** @public */
 export class UserLanguageResolverThrowIfMissing implements UserLanguageResolverPort {
   resolve(stored: string | null) {
     if (stored == null) throw new UserLanguagePreferenceMissingError();

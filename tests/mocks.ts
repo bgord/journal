@@ -797,6 +797,16 @@ export const GenericUserLanguageSetEvent = {
   payload: { userId, language: SupportedLanguages.en },
 } satisfies Preferences.Events.UserLanguageSetEventType;
 
+export const GenericUserLanguageSetPLEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `preferences_${userId}`,
+  version: 1,
+  name: "USER_LANGUAGE_SET_EVENT",
+  payload: { userId, language: SupportedLanguages.pl },
+} satisfies Preferences.Events.UserLanguageSetEventType;
+
 export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
   startedAt: tools.Time.Now().value,

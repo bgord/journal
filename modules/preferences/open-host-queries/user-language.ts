@@ -1,6 +1,7 @@
 import type * as Auth from "+auth";
 import type * as Preferences from "+preferences";
 
+/** @public */
 export interface UserLanguagePort<L extends readonly string[]> {
   get(userId: Auth.VO.UserIdType): Promise<L[number]>;
 }
