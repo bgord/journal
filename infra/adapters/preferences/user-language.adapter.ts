@@ -7,5 +7,5 @@ import { UserLanguageQueryAdapter } from "./user-language-query.adapter";
 export const UserLanguage = new Preferences.OHQ.UserLanguageAdapter(
   UserLanguageQueryAdapter,
   new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
-  new Preferences.Ports.UserLanguageResolverSystemDefaultFallback(SupportedLanguages.en),
+  new bg.Preferences.Ports.UserLanguageResolverSystemDefaultFallback(SupportedLanguages.en),
 );

@@ -6,7 +6,7 @@ type AcceptedEvent = Preferences.Events.UserLanguageSetEventType;
 export const handleSetUserLanguageCommand =
   <L extends readonly string[]>(
     EventStore: bg.EventStoreLike<AcceptedEvent>,
-    query: Preferences.Ports.UserLanguageQueryPort,
+    query: bg.Preferences.Ports.UserLanguageQueryPort,
     supported: bg.Preferences.VO.SupportedLanguagesSet<L>,
   ) =>
   async (command: Preferences.Commands.SetUserLanguageCommandType) => {

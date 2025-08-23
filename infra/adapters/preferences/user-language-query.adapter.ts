@@ -1,10 +1,10 @@
+import type * as bg from "@bgord/bun";
 import { and, eq } from "drizzle-orm";
 import type * as Auth from "+auth";
-import type * as Preferences from "+preferences";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class UserLanguageQueryAdapterDrizzle implements Preferences.Ports.UserLanguageQueryPort {
+class UserLanguageQueryAdapterDrizzle implements bg.Preferences.Ports.UserLanguageQueryPort {
   async get(userId: Auth.VO.UserIdType) {
     const row = await db.query.userPreferences.findFirst({
       where: and(
