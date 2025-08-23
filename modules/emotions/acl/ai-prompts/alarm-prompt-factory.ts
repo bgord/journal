@@ -22,7 +22,10 @@ export class AlarmPromptFactory {
       }
 
       case Emotions.VO.AlarmTriggerEnum.inactivity: {
-        return new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(detection.trigger).generate();
+        return new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(
+          detection.trigger,
+          this.language,
+        ).generate();
       }
 
       default:

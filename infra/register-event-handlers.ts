@@ -88,5 +88,6 @@ new EmotionsSagas.WeeklyReviewExportByEmail(
   Adapters.Emotions.PdfGenerator,
   Adapters.Auth.UserContact,
   Adapters.Emotions.WeeklyReviewExport,
+  Adapters.Preferences.UserLanguage,
   Env.EMAIL_FROM,
 );

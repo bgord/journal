@@ -1,12 +1,17 @@
 import { describe, expect, test } from "bun:test";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+languages";
 import * as mocks from "./mocks";
 
 describe("InactivityAlarmAdviceNotificationComposer", () => {
-  test("compose", () => {
+  test("compose - en", () => {
     const inactivityAlarmAdviceNotificationComposer =
-      new Emotions.Services.InactivityAlarmAdviceNotificationComposer(mocks.inactivityTrigger);
+      new Emotions.Services.InactivityAlarmAdviceNotificationComposer(
+        mocks.inactivityTrigger,
+        SupportedLanguages.en,
+      );
+
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual(
@@ -16,4 +21,6 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
       ),
     );
   });
+
+  test.todo("compose - pl");
 });

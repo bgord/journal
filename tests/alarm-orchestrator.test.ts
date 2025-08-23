@@ -123,6 +123,7 @@ describe("AlarmOrchestrator", () => {
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(UserContact, "getPrimary").mockResolvedValue(undefined);
+    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -142,6 +143,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
     spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
       throw new Error("MAILER_FAILED");
     });
@@ -169,6 +171,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
     spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -194,6 +197,7 @@ describe("AlarmOrchestrator", () => {
     ]);
     spyOn(Emotions.Aggregates.Alarm, "build").mockReturnValue(alarm);
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
+    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

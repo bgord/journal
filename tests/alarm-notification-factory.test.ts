@@ -1,17 +1,18 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+languages";
 import { EntrySnapshot } from "+infra/adapters/emotions";
 import * as mocks from "./mocks";
 
 describe("AlarmNotificationFactory", () => {
-  test("entry", async () => {
+  test("entry - en", async () => {
     spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
 
-    const result = await new Emotions.Services.AlarmNotificationFactory(EntrySnapshot).create(
-      mocks.entryDetection,
-      mocks.advice,
-    );
+    const result = await new Emotions.Services.AlarmNotificationFactory(
+      EntrySnapshot,
+      SupportedLanguages.en,
+    ).create(mocks.entryDetection, mocks.advice);
 
     expect(result).toEqual(
       new tools.NotificationTemplate(
@@ -21,11 +22,13 @@ describe("AlarmNotificationFactory", () => {
     );
   });
 
-  test("inactivity", async () => {
-    const result = await new Emotions.Services.AlarmNotificationFactory(EntrySnapshot).create(
-      mocks.inactivityDetection,
-      mocks.advice,
-    );
+  test.todo("entry - pl");
+
+  test("inactivity - en", async () => {
+    const result = await new Emotions.Services.AlarmNotificationFactory(
+      EntrySnapshot,
+      SupportedLanguages.en,
+    ).create(mocks.inactivityDetection, mocks.advice);
 
     expect(result).toEqual(
       new tools.NotificationTemplate(
@@ -34,4 +37,6 @@ describe("AlarmNotificationFactory", () => {
       ),
     );
   });
+
+  test.todo("inactivity - pl");
 });

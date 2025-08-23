@@ -4,6 +4,7 @@ import * as Emotions from "+emotions";
 import { Mailer } from "+infra/adapters";
 import { UserContact } from "+infra/adapters/auth";
 import { PdfGenerator, WeeklyReviewExport } from "+infra/adapters/emotions";
+import { UserLanguage } from "+infra/adapters/preferences";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -19,6 +20,7 @@ const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(
   PdfGenerator,
   UserContact,
   WeeklyReviewExport,
+  UserLanguage,
   Env.EMAIL_FROM,
 );
 

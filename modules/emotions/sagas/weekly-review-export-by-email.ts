@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
+import type { SUPPORTED_LANGUAGES } from "+languages";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewExportByEmailRequestedEventType
@@ -16,6 +17,7 @@ export class WeeklyReviewExportByEmail {
     private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
     private readonly weeklyReviewExport: Emotions.Queries.WeeklyReviewExport,
+    private readonly userLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>,
     private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
     EventBus.on(
@@ -38,11 +40,13 @@ export class WeeklyReviewExportByEmail {
       const weeklyReview = await this.weeklyReviewExport.getFull(event.payload.weeklyReviewId);
       if (!weeklyReview) return;
 
+      const language = await this.userLanguage.get(event.payload.userId);
+
       const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);
       const attachment = await pdf.toAttachment();
 
       const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
-      const notification = composer.compose(weeklyReview).get();
+      const notification = composer.compose(weeklyReview, language).get();
 
       await this.mailer.send({
         from: this.EMAIL_FROM,

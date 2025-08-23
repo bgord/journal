@@ -90,10 +90,12 @@ export class AlarmOrchestrator {
     const contact = await this.userContact.getPrimary(event.payload.userId);
     if (!contact?.address) return this.CommandBus.emit(cancel.name, cancel);
 
+    const language = await this.userLanguage.get(event.payload.userId);
+
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
 
-    const notification = await new Services.AlarmNotificationFactory(this.entrySnapshot).create(
+    const notification = await new Services.AlarmNotificationFactory(this.entrySnapshot, language).create(
       detection,
       advice,
     );

@@ -2,13 +2,19 @@
 import { describe, expect, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+languages";
 import * as mocks from "./mocks";
 
 describe("InactivityAlarmAdvicePromptBuilder", () => {
-  test("generate", () => {
-    const builder = new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(mocks.inactivityTrigger);
+  test("generate - en", () => {
+    const builder = new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(
+      mocks.inactivityTrigger,
+      SupportedLanguages.en,
+    );
     expect(builder.generate()).toEqual(
       new AI.Prompt(`Inactive for ${mocks.inactivityTrigger.inactivityDays} days`),
     );
   });
+
+  test.todo("generate - pl");
 });
