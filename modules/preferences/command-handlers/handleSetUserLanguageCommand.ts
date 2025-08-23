@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as Preferences from "+preferences";
 
-type AcceptedEvent = Preferences.Events.UserLanguageSetEventType;
+type AcceptedEvent = bg.Preferences.Events.UserLanguageSetEventType;
 
 export const handleSetUserLanguageCommand =
   <L extends readonly string[]>(
@@ -16,11 +16,11 @@ export const handleSetUserLanguageCommand =
     if (Preferences.Invariants.UserLanguageHasChanged.fails({ current, candidate: command.payload.language }))
       return;
 
-    const event = Preferences.Events.UserLanguageSetEvent.parse({
+    const event = bg.Preferences.Events.UserLanguageSetEvent.parse({
       ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),
-      name: Preferences.Events.USER_LANGUAGE_SET_EVENT,
+      name: bg.Preferences.Events.USER_LANGUAGE_SET_EVENT,
       payload: { userId: command.payload.userId, language: candidate },
-    } satisfies Preferences.Events.UserLanguageSetEventType);
+    } satisfies bg.Preferences.Events.UserLanguageSetEventType);
 
     await EventStore.save([event]);
   };

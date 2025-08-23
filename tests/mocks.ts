@@ -6,7 +6,6 @@ import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
-import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type * as System from "+system";
 import type * as Schema from "+infra/schema";
@@ -795,7 +794,7 @@ export const GenericUserLanguageSetEvent = {
   version: 1,
   name: "USER_LANGUAGE_SET_EVENT",
   payload: { userId, language: SupportedLanguages.en },
-} satisfies Preferences.Events.UserLanguageSetEventType;
+} satisfies bg.Preferences.Events.UserLanguageSetEventType;
 
 export const GenericUserLanguageSetPLEvent = {
   id: expectAnyId,
@@ -805,7 +804,7 @@ export const GenericUserLanguageSetPLEvent = {
   version: 1,
   name: "USER_LANGUAGE_SET_EVENT",
   payload: { userId, language: SupportedLanguages.pl },
-} satisfies Preferences.Events.UserLanguageSetEventType;
+} satisfies bg.Preferences.Events.UserLanguageSetEventType;
 
 export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
