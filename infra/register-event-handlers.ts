@@ -3,19 +3,8 @@ import { type SUPPORTED_LANGUAGES, SupportedLanguages } from "+languages";
 import * as Preferences from "+preferences";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
+import * as Adapters from "+infra/adapters";
 import { Mailer } from "+infra/adapters";
-import { AiGateway } from "+infra/adapters/ai";
-import { UserContact, UserDirectory } from "+infra/adapters/auth";
-import {
-  AlarmCancellationLookup,
-  EntrySnapshot,
-  GetLatestEntryTimestampForUser,
-  PdfGenerator,
-  TimeCapsuleDueEntries,
-  WeeklyReviewExport,
-} from "+infra/adapters/emotions";
-import { HistoryProjection, HistoryWriter } from "+infra/adapters/history";
-import { ExpiringShareableLinks } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
@@ -33,23 +22,33 @@ new Projections.PatternDetectionProjector(EventBus, EventHandler);
 new Projections.WeeklyReviewProjector(EventBus, EventHandler);
 new Projections.ShareableLinkProjector(EventBus, EventHandler);
 new Projections.AiUsageCounterProjector(EventBus, EventHandler);
-new Projections.HistoryProjector(EventBus, EventHandler, HistoryProjection);
+new Projections.HistoryProjector(EventBus, EventHandler, Adapters.History.HistoryProjection);
 new Projections.ShareableLinkHitProjector(EventBus, EventHandler);
 new Projections.PreferencesProjector(EventBus, EventHandler);
 
 // Policies
-new PublishingPolicies.ShareableLinksExpirer(EventBus, EventHandler, CommandBus, ExpiringShareableLinks);
+new PublishingPolicies.ShareableLinksExpirer(
+  EventBus,
+  EventHandler,
+  CommandBus,
+  Adapters.Publishing.ExpiringShareableLinks,
+);
 new EmotionsPolicies.EntryAlarmDetector(EventBus, EventHandler, CommandBus);
-new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler, CommandBus, UserDirectory);
+new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler, CommandBus, Adapters.Auth.UserDirectory);
 new EmotionsPolicies.InactivityAlarmScheduler(
   EventBus,
   EventHandler,
   CommandBus,
-  UserDirectory,
-  GetLatestEntryTimestampForUser,
+  Adapters.Auth.UserDirectory,
+  Adapters.Emotions.GetLatestEntryTimestampForUser,
 );
-new EmotionsPolicies.TimeCapsuleEntriesScheduler(EventBus, EventHandler, CommandBus, TimeCapsuleDueEntries);
-new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, HistoryWriter);
+new EmotionsPolicies.TimeCapsuleEntriesScheduler(
+  EventBus,
+  EventHandler,
+  CommandBus,
+  Adapters.Emotions.TimeCapsuleDueEntries,
+);
+new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, Adapters.History.HistoryWriter);
 new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
   EventBus,
   EventHandler,
@@ -62,21 +61,21 @@ new EmotionsSagas.AlarmOrchestrator(
   EventBus,
   EventHandler,
   CommandBus,
-  AiGateway,
+  Adapters.AI.AiGateway,
   Mailer,
-  AlarmCancellationLookup,
-  EntrySnapshot,
-  UserContact,
+  Adapters.Emotions.AlarmCancellationLookup,
+  Adapters.Emotions.EntrySnapshot,
+  Adapters.Auth.UserContact,
   Env.EMAIL_FROM,
 );
 new EmotionsSagas.WeeklyReviewProcessing(
   EventBus,
   EventHandler,
   CommandBus,
-  AiGateway,
+  Adapters.AI.AiGateway,
   Mailer,
-  EntrySnapshot,
-  UserContact,
+  Adapters.Emotions.EntrySnapshot,
+  Adapters.Auth.UserContact,
   Env.EMAIL_FROM,
 );
 new EmotionsSagas.WeeklyReviewExportByEmail(
@@ -84,8 +83,8 @@ new EmotionsSagas.WeeklyReviewExportByEmail(
   EventHandler,
   EventStore,
   Mailer,
-  PdfGenerator,
-  UserContact,
-  WeeklyReviewExport,
+  Adapters.Emotions.PdfGenerator,
+  Adapters.Auth.UserContact,
+  Adapters.Emotions.WeeklyReviewExport,
   Env.EMAIL_FROM,
 );
