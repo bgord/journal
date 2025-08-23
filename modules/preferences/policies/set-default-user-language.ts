@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as Auth from "+auth";
-import * as Preferences from "+preferences";
 
 export class SetDefaultUserLanguage<L extends readonly string[]> {
   constructor(
@@ -16,14 +15,11 @@ export class SetDefaultUserLanguage<L extends readonly string[]> {
   }
 
   async onAccountCreatedEvent(event: Auth.Events.AccountCreatedEventType) {
-    const command = Preferences.Commands.SetUserLanguageCommand.parse({
+    const command = bg.Preferences.Commands.SetUserLanguageCommand.parse({
       ...bg.createCommandEnvelope(),
-      name: Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
-      payload: {
-        userId: event.payload.userId,
-        language: this.systemDefaultLanguage,
-      },
-    } satisfies Preferences.Commands.SetUserLanguageCommandType);
+      name: bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
+      payload: { userId: event.payload.userId, language: this.systemDefaultLanguage },
+    } satisfies bg.Preferences.Commands.SetUserLanguageCommandType);
 
     await this.CommandBus.emit(command.name, command);
   }

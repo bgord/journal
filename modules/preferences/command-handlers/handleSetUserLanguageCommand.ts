@@ -9,7 +9,7 @@ export const handleSetUserLanguageCommand =
     query: bg.Preferences.Ports.UserLanguageQueryPort,
     supported: bg.Preferences.VO.SupportedLanguagesSet<L>,
   ) =>
-  async (command: Preferences.Commands.SetUserLanguageCommandType) => {
+  async (command: bg.Preferences.Commands.SetUserLanguageCommandType) => {
     const candidate = supported.ensure(command.payload.language);
     const current = await query.get(command.payload.userId);
 

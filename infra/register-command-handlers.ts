@@ -100,7 +100,7 @@ CommandBus.on(
 );
 
 CommandBus.on(
-  Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
+  bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
   Preferences.CommandHandlers.handleSetUserLanguageCommand(
     EventStore,
     UserLanguageQueryAdapter,
