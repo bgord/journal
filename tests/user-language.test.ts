@@ -7,6 +7,7 @@ import * as mocks from "./mocks";
 export const UserLanguageOHQ = new Preferences.OHQ.UserLanguageAdapter(
   UserLanguageQueryAdapter,
   new Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
+  new Preferences.Ports.UserLanguageResolverThrowIfMissing(),
 );
 
 describe("UserLanguageOHQ", () => {
@@ -21,7 +22,7 @@ describe("UserLanguageOHQ", () => {
     spyOn(UserLanguageQueryAdapter, "get").mockResolvedValue(null);
 
     expect(async () => UserLanguageOHQ.get(mocks.userId)).toThrow(
-      Preferences.OHQ.UserLanguagePreferenceMissingError,
+      Preferences.Ports.UserLanguagePreferenceMissingError,
     );
   });
 });
