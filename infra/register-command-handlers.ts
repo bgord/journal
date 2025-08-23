@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import { SUPPORTED_LANGUAGES } from "+languages";
-import * as Preferences from "+preferences";
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
 import { AiGateway } from "+infra/adapters/ai";
@@ -101,7 +100,7 @@ CommandBus.on(
 
 CommandBus.on(
   bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
-  Preferences.CommandHandlers.handleSetUserLanguageCommand(
+  bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
     EventStore,
     UserLanguageQueryAdapter,
     new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),

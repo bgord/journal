@@ -1,7 +1,8 @@
 import * as bg from "@bgord/bun";
+import type * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 
-export class SetDefaultUserLanguage<L extends readonly string[]> {
+export class SetDefaultUserLanguage<L extends readonly tools.LanguageType[]> {
   constructor(
     EventBus: bg.EventBusLike<Auth.Events.AccountCreatedEventType>,
     EventHandler: bg.EventHandler,
