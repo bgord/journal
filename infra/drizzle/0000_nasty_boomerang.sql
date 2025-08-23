@@ -56,7 +56,6 @@ CREATE TABLE `entries` (
 	`reactionType` text,
 	`reactionEffectiveness` integer,
 	`status` text NOT NULL,
-	`language` text NOT NULL,
 	`weekIsoId` text NOT NULL,
 	`origin` text NOT NULL,
 	`userId` text NOT NULL,

@@ -55,7 +55,6 @@ export const entries = sqliteTable("entries", {
   reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
   reactionEffectiveness: integer("reactionEffectiveness"),
   status: text("status", toEnumList(EntryStatusEnum)).notNull(),
-  language: text("language").notNull(),
   weekIsoId: text("weekIsoId").notNull(),
   origin: text("origin", toEnumList(EntryOriginOption)).notNull(),
   userId: text("userId")
