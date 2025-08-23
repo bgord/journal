@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import type * as Auth from "+auth";
 import * as Publishing from "+publishing";
-import type * as Buses from "+app/ports";
 
 export type ShareableLinkAccessAuditorInput = {
   linkId: Publishing.VO.ShareableLinkIdType;
@@ -18,7 +17,7 @@ export interface ShareableLinkAccessAuditorPort {
 
 export class ShareableLinkAccessAuditorAdapter implements Publishing.Ports.ShareableLinkAccessAuditorPort {
   constructor(
-    private readonly EventStore: Buses.EventStoreLike<Publishing.Events.ShareableLinkAccessedEventType>,
+    private readonly EventStore: bg.EventStoreLike<Publishing.Events.ShareableLinkAccessedEventType>,
   ) {}
 
   async record(input: Publishing.Ports.ShareableLinkAccessAuditorInput) {

@@ -1,12 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as Preferences from "+preferences";
-import type * as Buses from "+app/ports";
 
 type AcceptedEvent = Preferences.Events.UserLanguageSetEventType;
 
 export const handleSetUserLanguageCommand =
   <L extends readonly string[]>(
-    EventStore: Buses.EventStoreLike<AcceptedEvent>,
+    EventStore: bg.EventStoreLike<AcceptedEvent>,
     query: Preferences.Ports.UserLanguageQueryPort,
     supported: Preferences.VO.SupportedLanguagesSet<L>,
   ) =>

@@ -1,5 +1,5 @@
+import type * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import type * as Ports from "+app/ports";
 
 type AcceptedEvent =
   | Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType
@@ -8,7 +8,7 @@ type AcceptedEvent =
   | Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
 export const handleDetectWeeklyPatternsCommand =
-  (EventStore: Ports.EventStoreLike<AcceptedEvent>, EntrySnapshot: Emotions.Ports.EntrySnapshotPort) =>
+  (EventStore: bg.EventStoreLike<AcceptedEvent>, EntrySnapshot: Emotions.Ports.EntrySnapshotPort) =>
   async (command: Emotions.Commands.DetectWeeklyPatternsCommandType) => {
     const entries = await EntrySnapshot.getByWeekForUser(command.payload.week, command.payload.userId);
 
