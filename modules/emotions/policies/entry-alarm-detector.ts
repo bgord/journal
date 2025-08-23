@@ -1,15 +1,14 @@
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import type * as Buses from "+app/ports";
 
 type AcceptedEvent = Emotions.Events.EmotionLoggedEventType | Emotions.Events.EmotionReappraisedEventType;
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
 
 export class EntryAlarmDetector {
   constructor(
-    EventBus: Buses.EventBusLike<AcceptedEvent>,
+    EventBus: bg.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
-    private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
+    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
   ) {
     EventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, EventHandler.handle(this.detect.bind(this)));
     EventBus.on(Emotions.Events.EMOTION_REAPPRAISED_EVENT, EventHandler.handle(this.detect.bind(this)));

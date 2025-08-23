@@ -10,7 +10,7 @@ type AcceptedEvent =
 
 export class WeeklyReviewExportByEmail {
   constructor(
-    EventBus: Ports.EventBusLike<AcceptedEvent>,
+    EventBus: bg.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
     private readonly EventStore: Ports.EventStoreLike<AcceptedEvent>,
     private readonly mailer: bg.MailerPort,

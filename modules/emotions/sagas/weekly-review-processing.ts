@@ -4,7 +4,6 @@ import type * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
-import type * as Buses from "+app/ports";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewSkippedEventType
@@ -20,9 +19,9 @@ type AcceptedCommand =
 
 export class WeeklyReviewProcessing {
   constructor(
-    EventBus: Buses.EventBusLike<AcceptedEvent>,
+    EventBus: bg.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
-    private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
+    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
     private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,

@@ -1,6 +1,5 @@
 import type * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import type { EventBusLike } from "+app/ports";
 
 type AcceptedEvent =
   | Emotions.Events.SituationLoggedEventType
@@ -11,7 +10,7 @@ type AcceptedEvent =
 
 export class EntryHistoryPublisher {
   constructor(
-    EventBus: EventBusLike<AcceptedEvent>,
+    EventBus: bg.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
     private readonly historyWriter: bg.History.Services.HistoryWriterPort,
   ) {
