@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
+import type { SUPPORTED_LANGUAGES } from "+languages";
 import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
@@ -30,6 +31,7 @@ export class AlarmOrchestrator {
     private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
     private readonly entrySnapshot: Ports.EntrySnapshotPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
+    private readonly userLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>,
     private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
     EventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
@@ -42,7 +44,10 @@ export class AlarmOrchestrator {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     try {
-      const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.entrySnapshot).create(detection);
+      const language = await this.userLanguage.get(event.payload.userId);
+      const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.entrySnapshot, language).create(
+        detection,
+      );
       // @ts-expect-error
       const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
       const advice = await this.AiGateway.query(prompt, context);

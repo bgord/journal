@@ -66,6 +66,7 @@ new EmotionsSagas.AlarmOrchestrator(
   Adapters.Emotions.AlarmCancellationLookup,
   Adapters.Emotions.EntrySnapshot,
   Adapters.Auth.UserContact,
+  Adapters.Preferences.UserLanguage,
   Env.EMAIL_FROM,
 );
 new EmotionsSagas.WeeklyReviewProcessing(

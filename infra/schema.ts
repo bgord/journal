@@ -95,7 +95,6 @@ export const timeCapsuleEntries = sqliteTable("timeCapsuleEntries", {
   reactionDescription: text("reactionDescription").notNull(),
   reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)).notNull(),
   reactionEffectiveness: integer("reactionEffectiveness").notNull(),
-  language: text("language").notNull(),
   status: text("status", toEnumList(TimeCapsuleEntryStatusEnum)).notNull(),
   userId: text("userId")
     .notNull()

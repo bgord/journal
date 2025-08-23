@@ -149,7 +149,6 @@ CREATE TABLE `timeCapsuleEntries` (
 	`reactionDescription` text NOT NULL,
 	`reactionType` text NOT NULL,
 	`reactionEffectiveness` integer NOT NULL,
-	`language` text NOT NULL,
 	`status` text NOT NULL,
 	`userId` text NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade

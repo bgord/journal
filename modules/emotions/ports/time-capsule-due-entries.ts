@@ -1,6 +1,5 @@
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import type { SupportedLanguages } from "+languages";
 import type * as VO from "+emotions/value-objects";
 
 export type TimeCapsuleEntrySnapshot = {
@@ -16,7 +15,6 @@ export type TimeCapsuleEntrySnapshot = {
   reactionDescription: VO.ReactionDescriptionType;
   reactionType: VO.ReactionTypeType;
   reactionEffectiveness: VO.ReactionEffectivenessType;
-  language: SupportedLanguages;
 };
 
 export interface TimeCapsuleDueEntriesPort {

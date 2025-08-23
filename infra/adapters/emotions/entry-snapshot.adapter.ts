@@ -1,7 +1,6 @@
 import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 import type * as Auth from "+auth";
-import type { SupportedLanguages } from "+languages";
 import type { EntrySnapshotPort } from "+emotions/ports";
 import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
@@ -22,7 +21,6 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       situationKind: entry.situationKind as VO.SituationKindOptions,
       emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
       reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
-      language: entry.language as SupportedLanguages,
       origin: entry.origin as VO.EntryOriginOption,
     };
   }
@@ -72,7 +70,6 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       situationKind: entry.situationKind as VO.SituationKindOptions,
       emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
       reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
-      language: entry.language as SupportedLanguages,
       origin: entry.origin as VO.EntryOriginOption,
     };
   }

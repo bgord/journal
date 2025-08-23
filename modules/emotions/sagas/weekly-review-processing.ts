@@ -26,7 +26,7 @@ export class WeeklyReviewProcessing {
     private readonly mailer: bg.MailerPort,
     private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
-    private readonly UserLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>,
+    private readonly userLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>,
     private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
     EventBus.on(
@@ -62,7 +62,7 @@ export class WeeklyReviewProcessing {
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const entries = await this.entrySnapshot.getByWeekForUser(week, event.payload.userId);
 
-    const language = await this.UserLanguage.get(event.payload.userId);
+    const language = await this.userLanguage.get(event.payload.userId);
     const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
     try {

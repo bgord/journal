@@ -127,7 +127,6 @@ export class EntryProjector {
       reactionDescription: event.payload.reaction.description,
       reactionType: event.payload.reaction.type,
       reactionEffectiveness: event.payload.reaction.effectiveness,
-      language: event.payload.language,
       status: Emotions.VO.TimeCapsuleEntryStatusEnum.scheduled,
       userId: event.payload.userId,
     });

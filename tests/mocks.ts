@@ -817,7 +817,6 @@ export const partialEntry: Emotions.VO.EntrySnapshot = {
   reactionDescription: null,
   reactionEffectiveness: null,
   reactionType: null,
-  language: SupportedLanguages.en,
   weekIsoId: week.toIsoId(),
   origin: Emotions.VO.EntryOriginOption.web,
   userId,
@@ -836,7 +835,6 @@ export const fullEntry: Emotions.VO.EntrySnapshot = {
   reactionDescription: "Got drunk",
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
   reactionEffectiveness: 1,
-  language: SupportedLanguages.en,
   weekIsoId: week.toIsoId(),
   origin: Emotions.VO.EntryOriginOption.web,
   userId,
@@ -853,7 +851,6 @@ export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
   reactionDescription: "Got drunk",
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
   reactionEffectiveness: 1,
-  language: SupportedLanguages.en,
   status: Emotions.VO.TimeCapsuleEntryStatusEnum.scheduled,
   userId,
 };

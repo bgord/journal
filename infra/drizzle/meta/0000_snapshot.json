@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "892292ce-0129-462a-a2ea-69cc2b6bde0c",
+  "id": "7e3bdd32-f9c4-4b6a-9e24-f1367ad941a5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -968,13 +968,6 @@
         "reactionEffectiveness": {
           "name": "reactionEffectiveness",
           "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "language": {
-          "name": "language",
-          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

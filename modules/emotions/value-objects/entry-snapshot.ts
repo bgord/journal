@@ -1,6 +1,5 @@
 import type * as tools from "@bgord/tools";
 import type * as Auth from "../../auth/value-objects";
-import type { SupportedLanguages } from "../../supported-languages";
 import type { EmotionIntensityType } from "./emotion-intensity";
 import type { EntryIdType } from "./entry-id";
 import type { EntryOriginOption } from "./entry-origin-option";
@@ -26,7 +25,6 @@ export type EntrySnapshot = {
   reactionDescription: ReactionDescriptionType | null;
   reactionType: GrossEmotionRegulationStrategy | null;
   reactionEffectiveness: ReactionEffectivenessType | null;
-  language: SupportedLanguages;
   weekIsoId: tools.WeekIsoIdType;
   origin: EntryOriginOption;
   userId: Auth.UserIdType;

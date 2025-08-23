@@ -7,7 +7,6 @@ import { CommandBus } from "+infra/command-bus";
 export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
-  const language = c.get("language");
 
   const entryId = crypto.randomUUID();
 
@@ -36,7 +35,6 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
       situation,
       emotion,
       reaction,
-      language,
       userId: user.id,
       origin: Emotions.VO.EntryOriginOption.web,
     },

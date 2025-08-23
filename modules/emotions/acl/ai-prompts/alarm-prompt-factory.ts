@@ -4,18 +4,20 @@ import type { SupportedLanguages } from "+languages";
 import type { EntrySnapshotPort } from "+emotions/ports";
 
 export class AlarmPromptFactory {
-  constructor(private readonly entrySnapshot: EntrySnapshotPort) {}
+  constructor(
+    private readonly entrySnapshot: EntrySnapshotPort,
+    private readonly language: SupportedLanguages,
+  ) {}
 
   async create(detection: Emotions.VO.AlarmDetection): Promise<AI.Prompt> {
     switch (detection.trigger.type) {
       case Emotions.VO.AlarmTriggerEnum.entry: {
         const entry = await this.entrySnapshot.getById(detection.trigger.entryId);
-        const language = entry?.language as SupportedLanguages;
 
         return new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
           entry as Emotions.VO.EntrySnapshot,
           detection.name,
-          language,
+          this.language,
         ).generate();
       }
 
