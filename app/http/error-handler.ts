@@ -4,6 +4,7 @@ import type hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
 import * as Emotions from "+emotions";
+import * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import { logger } from "+infra/logger";
 
@@ -19,7 +20,11 @@ const validationErrors = [
   Publishing.VO.PublicationSpecificationErrors.invalid,
 ];
 
-const invariants = Object.values({ ...Emotions.Invariants, ...Publishing.Invariants });
+const invariants = Object.values({
+  ...Emotions.Invariants,
+  ...Publishing.Invariants,
+  ...Preferences.Invariants,
+});
 
 export class ErrorHandler {
   static handle: hono.ErrorHandler = async (error, c) => {
@@ -54,6 +59,10 @@ export class ErrorHandler {
 
     if (error instanceof tools.RevisionMismatchError) {
       return c.json({ message: "revision.mismatch", _known: true }, 412);
+    }
+
+    if (error instanceof Preferences.VO.UnsupportedLanguageError) {
+      return c.json({ message: "unsupported.language", _known: true }, 400);
     }
 
     if (error.message === "Invalid date range") {
