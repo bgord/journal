@@ -76,6 +76,7 @@ new EmotionsSagas.WeeklyReviewProcessing(
   Mailer,
   Adapters.Emotions.EntrySnapshot,
   Adapters.Auth.UserContact,
+  Adapters.Preferences.UserLanguage,
   Env.EMAIL_FROM,
 );
 new EmotionsSagas.WeeklyReviewExportByEmail(

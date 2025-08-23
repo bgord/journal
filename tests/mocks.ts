@@ -865,11 +865,6 @@ export const timeCapsuleEntryPublished: Emotions.Ports.TimeCapsuleEntrySnapshot 
   status: Emotions.VO.TimeCapsuleEntryStatusEnum.published,
 };
 
-export const fullEntryPl: Emotions.VO.EntrySnapshot = {
-  ...fullEntry,
-  language: SupportedLanguages.pl,
-};
-
 export const positiveMaladaptiveEntry: Emotions.VO.EntrySnapshot = {
   ...fullEntry,
 
