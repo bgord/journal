@@ -4,7 +4,6 @@ import type hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
 import * as Emotions from "+emotions";
-import * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import { logger } from "+infra/logger";
 
@@ -23,7 +22,7 @@ const validationErrors = [
 const invariants = Object.values({
   ...Emotions.Invariants,
   ...Publishing.Invariants,
-  ...Preferences.Invariants,
+  ...bg.Preferences.Invariants,
 });
 
 export class ErrorHandler {

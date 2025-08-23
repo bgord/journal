@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import * as Preferences from "+preferences";
 
 type AcceptedEvent = bg.Preferences.Events.UserLanguageSetEventType;
 
@@ -13,8 +12,11 @@ export const handleSetUserLanguageCommand =
     const candidate = supported.ensure(command.payload.language);
     const current = await query.get(command.payload.userId);
 
-    if (Preferences.Invariants.UserLanguageHasChanged.fails({ current, candidate: command.payload.language }))
+    if (
+      bg.Preferences.Invariants.UserLanguageHasChanged.fails({ current, candidate: command.payload.language })
+    ) {
       return;
+    }
 
     const event = bg.Preferences.Events.UserLanguageSetEvent.parse({
       ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),
