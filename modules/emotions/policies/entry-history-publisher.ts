@@ -12,7 +12,7 @@ export class EntryHistoryPublisher {
   constructor(
     EventBus: bg.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
-    private readonly historyWriter: bg.History.Services.HistoryWriterPort,
+    private readonly historyWriter: bg.History.Ports.HistoryWriterPort,
   ) {
     EventBus.on(
       Emotions.Events.SITUATION_LOGGED_EVENT,
