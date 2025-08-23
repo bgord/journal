@@ -1,4 +1,5 @@
 import { describe, expect, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import { SUPPORTED_LANGUAGES, SupportedLanguages } from "+languages";
 import * as Preferences from "+preferences";
 import { UserLanguageQueryAdapter } from "+infra/adapters/preferences";
@@ -10,7 +11,7 @@ describe("UserLanguageOHQ", () => {
 
     const UserLanguageOHQ = new Preferences.OHQ.UserLanguageAdapter(
       UserLanguageQueryAdapter,
-      new Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
+      new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
       new Preferences.Ports.UserLanguageResolverThrowIfMissing(),
     );
 
@@ -23,7 +24,7 @@ describe("UserLanguageOHQ", () => {
 
     const UserLanguageOHQ = new Preferences.OHQ.UserLanguageAdapter(
       UserLanguageQueryAdapter,
-      new Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
+      new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
       new Preferences.Ports.UserLanguageResolverThrowIfMissing(),
     );
 
@@ -37,7 +38,7 @@ describe("UserLanguageOHQ", () => {
 
     const UserLanguageOHQ = new Preferences.OHQ.UserLanguageAdapter(
       UserLanguageQueryAdapter,
-      new Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
+      new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
       new Preferences.Ports.UserLanguageResolverSystemDefaultFallback(SupportedLanguages.en),
     );
 

@@ -8,7 +8,7 @@ import { CommandBus } from "+infra/command-bus";
 export async function UpdateUserLanguage(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
-  const language = new Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES).ensure(body.language);
+  const language = new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES).ensure(body.language);
 
   const command = Preferences.Commands.SetUserLanguageCommand.parse({
     ...bg.createCommandEnvelope(),

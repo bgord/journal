@@ -7,7 +7,7 @@ export const handleSetUserLanguageCommand =
   <L extends readonly string[]>(
     EventStore: bg.EventStoreLike<AcceptedEvent>,
     query: Preferences.Ports.UserLanguageQueryPort,
-    supported: Preferences.VO.SupportedLanguagesSet<L>,
+    supported: bg.Preferences.VO.SupportedLanguagesSet<L>,
   ) =>
   async (command: Preferences.Commands.SetUserLanguageCommandType) => {
     const candidate = supported.ensure(command.payload.language);

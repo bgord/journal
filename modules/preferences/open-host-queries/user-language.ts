@@ -1,3 +1,4 @@
+import type * as bg from "@bgord/bun";
 import type * as Auth from "+auth";
 import type * as Preferences from "+preferences";
 
@@ -9,7 +10,7 @@ export interface UserLanguagePort<L extends readonly string[]> {
 export class UserLanguageAdapter<L extends readonly string[]> implements UserLanguagePort<L> {
   constructor(
     private readonly query: Preferences.Ports.UserLanguageQueryPort,
-    private readonly validator: Preferences.VO.SupportedLanguagesSet<L>,
+    private readonly validator: bg.Preferences.VO.SupportedLanguagesSet<L>,
     private readonly resolver: Preferences.Ports.UserLanguageResolverPort,
   ) {}
 

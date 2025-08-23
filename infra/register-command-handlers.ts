@@ -1,3 +1,4 @@
+import * as bg from "@bgord/bun";
 import { SUPPORTED_LANGUAGES } from "+languages";
 import * as Preferences from "+preferences";
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
@@ -103,6 +104,6 @@ CommandBus.on(
   Preferences.CommandHandlers.handleSetUserLanguageCommand(
     EventStore,
     UserLanguageQueryAdapter,
-    new Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
+    new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
   ),
 );
