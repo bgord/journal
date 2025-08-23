@@ -22,7 +22,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     spyOn(TimeCapsuleDueEntries, "listDue").mockResolvedValue([mocks.timeCapsuleEntryPublished]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassed());
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassedEvent());
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -31,7 +31,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     spyOn(TimeCapsuleDueEntries, "listDue").mockResolvedValue([mocks.timeCapsuleEntry]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassed());
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassedEvent());
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -39,7 +39,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     spyOn(TimeCapsuleDueEntries, "listDue").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassed());
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassedEvent());
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -48,7 +48,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
     spyOn(TimeCapsuleDueEntries, "listDue").mockResolvedValue([mocks.timeCapsuleEntry]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassed());
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => policy.onHourHasPassedEvent());
     expect(eventStoreSave).toHaveBeenCalledWith([
       mocks.GenericSituationLoggedTimeCapsuleEvent,
       mocks.GenericEmotionLoggedEvent,

@@ -14,10 +14,13 @@ export class TimeCapsuleEntriesScheduler {
     private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
     private readonly timeCapsuleDueEntries: Emotions.Ports.TimeCapsuleDueEntriesPort,
   ) {
-    EventBus.on(System.Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
+    EventBus.on(
+      System.Events.HOUR_HAS_PASSED_EVENT,
+      EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+    );
   }
 
-  async onHourHasPassed() {
+  async onHourHasPassedEvent() {
     const now = tools.Time.Now().value;
     const dueEntries = await this.timeCapsuleDueEntries.listDue(now);
 

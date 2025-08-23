@@ -247,7 +247,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       EventHandler,
       CommandBus,
       UserDirectory,
-    ).onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event);
+    ).onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event);
 
     console.log("[✓] Weekly review scheduled");
 

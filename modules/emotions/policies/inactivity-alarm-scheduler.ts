@@ -15,10 +15,13 @@ export class InactivityAlarmScheduler {
     private readonly userDirectory: Auth.OHQ.UserDirectoryOHQ,
     private readonly getLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser,
   ) {
-    EventBus.on(System.Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
+    EventBus.on(
+      System.Events.HOUR_HAS_PASSED_EVENT,
+      EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+    );
   }
 
-  async onHourHasPassed(event: System.Events.HourHasPassedEventType) {
+  async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     if (Emotions.Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
     const userIds = await this.userDirectory.listActiveUserIds();
