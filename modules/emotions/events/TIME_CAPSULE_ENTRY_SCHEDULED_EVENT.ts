@@ -12,7 +12,6 @@ export const TimeCapsuleEntryScheduledEvent = z.object({
   name: z.literal(TIME_CAPSULE_ENTRY_SCHEDULED_EVENT),
   payload: z.object({
     entryId: VO.EntryId,
-    language: z.enum(SupportedLanguages),
     userId: Auth.VO.UserId,
 
     scheduledAt: tools.Timestamp,

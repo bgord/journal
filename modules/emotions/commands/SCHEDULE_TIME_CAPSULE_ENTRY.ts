@@ -16,7 +16,6 @@ export const ScheduleTimeCapsuleEntryCommand = z.object({
     situation: z.instanceof(Entities.Situation),
     emotion: z.instanceof(Entities.Emotion),
     reaction: z.instanceof(Entities.Reaction),
-    language: z.enum(SupportedLanguages),
     userId: Auth.VO.UserId,
     scheduledAt: tools.Timestamp,
     scheduledFor: tools.Timestamp,
