@@ -4,8 +4,7 @@ import type * as VO from "+emotions/value-objects";
 
 export class EntryExportFileText extends bg.FileDraft {
   constructor(private readonly entries: VO.EntrySnapshot[]) {
-    // TODO: replace with tools
-    super({ filename: `entry-export-${Date.now()}.txt`, mime: new tools.Mime("text/plain") });
+    super({ filename: `entry-export-${Date.now()}.txt`, mime: tools.MIMES.text });
   }
 
   create() {

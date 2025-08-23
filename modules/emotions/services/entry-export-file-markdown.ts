@@ -4,8 +4,7 @@ import type * as VO from "+emotions/value-objects";
 
 export class EntryExportFileMarkdown extends bg.FileDraft {
   constructor(private readonly entries: VO.EntrySnapshot[]) {
-    // TODO: replace with tools
-    super({ filename: `entry-export-${Date.now()}.md`, mime: new tools.Mime("text/markdown") });
+    super({ filename: `entry-export-${Date.now()}.md`, mime: tools.MIMES.markdown });
   }
 
   create() {
