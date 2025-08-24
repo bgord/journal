@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 
 export enum AiClientAdapter {
@@ -34,6 +35,7 @@ const EnvironmentSchema = z
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
     BETTER_AUTH_URL: z.url().trim(),
     HCAPTCHA_SECRET_KEY: z.string().trim(),
+    SIGNUP_ENABLED: tools.FeatureFlagValue,
   })
   .strip();
 
