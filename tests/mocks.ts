@@ -85,7 +85,8 @@ export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Tim
 
 export const duration = tools.Time.Seconds(1);
 
-export const visitorId = new bg.VisitorIdHash(ip.server.requestIP().address, "anon");
+const client = bg.Client.from(ip.server.requestIP().address, "anon");
+export const visitorId = new bg.VisitorIdHash(client);
 export const visitorIdRaw = "cbc46a7ff4f622ab";
 
 export const accessContext: Publishing.VO.AccessContext = { timestamp: tools.Time.Now().value, visitorId };

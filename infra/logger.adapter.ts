@@ -3,7 +3,7 @@ import { Env } from "+infra/env";
 
 const app = "lobbygow";
 
-const LoggerWinstonLocalAdapter = new bg.LoggerWinstonLocalAdapter(app).create(Env.LOGS_LEVEL);
+const LoggerWinstonLocalAdapter = new bg.LoggerWinstonLocalAdapter({ app }).create(Env.LOGS_LEVEL);
 
 export const LoggerWinstonProductionAdapter = new bg.LoggerWinstonProductionAdapter({
   app,
