@@ -1,6 +1,82 @@
 # Changelog
+- 2025-08-24 10:48 044ef66a **Merge pull request #38 from bgord/preferences**
+## 2025-08-24 10:48 
+- 2025-08-23 22:44 6201050a **fix: flaky test**
+- 2025-08-23 22:34 426ab219 **refactor: move language selector to profile**
+- 2025-08-23 22:28 20391ed2 **step: test pre-push**
+- 2025-08-23 22:25 ebd37105 **refactor: simplify export notification composer**
+- 2025-08-23 22:05 ba4ef93d **step: add missing pl templates**
+- 2025-08-23 21:11 a9c9549a **step: add todos**
+- 2025-08-23 20:59 fb1b0398 **refactor: use language in all templates**
+- 2025-08-23 20:28 c69a0929 **refactor: remove language from time capsule entries**
+- 2025-08-23 20:25 72a84734 **refactor: use ohq wherever applicable**
+- 2025-08-23 20:23 5af5cef2 **refactor: remove entry language from schemas**
+- 2025-08-23 20:22 a16d2821 **refactor: remove entry.language schema field**
+- 2025-08-23 20:20 af9639bf **refactor: use ohq for user language**
+- 2025-08-23 20:12 d7fbd07c **refactor: cleanup adapters**
+- 2025-08-23 19:28 919b70f0 **refactor: use ohq from bg**
+- 2025-08-23 19:27 abf7ede1 **refactor: use invariants from bg**
+- 2025-08-23 19:26 7288ccb8 **refactor: use commands from bg**
+- 2025-08-23 19:21 bb7dc23f **refactor: use events from bg**
+- 2025-08-23 19:19 e687479b **refactor: use ports from bg**
+- 2025-08-23 19:17 dc1dba9d **refactor: use vos from bg**
+- 2025-08-23 19:13 7af1b099 **refactor: use predefined mimes**
+- 2025-08-23 19:12 348996a4 **refactor: update history module**
+- 2025-08-23 19:11 39b36fb1 **step: update packages**
+- 2025-08-23 18:03 c0f4d0ee **refactor: unify policy event handler names**
+- 2025-08-23 18:01 7f4e7fce **step: use es like from bg**
+- 2025-08-23 18:00 92f76ac8 **step: update packages**
+- 2025-08-23 17:56 9249b99d **step: use bus like from bg**
+- 2025-08-23 17:51 69e687b2 **step: update packages**
+- 2025-08-23 16:59 a5c9a2f6 **step: add tests**
+- 2025-08-23 16:52 39cff214 **step: wire up error handlers**
+- 2025-08-23 16:48 c064bf0a **step: simplify supported languages set**
+- 2025-08-23 16:43 bf41135d **step: setup update user language preferences route**
+- 2025-08-23 16:35 66cc47bd **step: improve tests**
+- 2025-08-23 16:31 a982112a **step: update packages**
+- 2025-08-23 16:18 5d3b11b4 **step: introduce adapters**
+- 2025-08-23 16:11 f9d776f9 **step: add user language resolver port**
+- 2025-08-23 16:07 c56d028e **step: improve tests**
+- 2025-08-22 23:16 81d0a6ab **refactor: remove language tag**
+- 2025-08-22 23:10 30528e01 **step: add ohq tests**
+- 2025-08-22 23:05 daf34071 **step: add policy test**
+- 2025-08-22 22:51 bc5a01d7 **fix: pattern id**
+- 2025-08-22 22:40 2585007e **refactor: simplify vos**
+- 2025-08-22 22:23 0ec7a436 **refactor: improve vos**
+- 2025-08-22 22:10 a67be38f **step: add test**
+- 2025-08-22 22:01 d3a8bca2 **refactor: use VOs in the invariant**
+- 2025-08-22 21:53 dbf6ed6e **step: use language tag**
+- 2025-08-22 21:52 aedf15a6 **step: introduce language tag vo**
+- 2025-08-22 21:12 aa90be0e **refactor: adjust command handler**
+- 2025-08-22 21:09 6f665202 **step: adjust ohq**
+- 2025-08-22 21:07 8db68d3c **step: add supported languages vo**
+- 2025-08-22 21:01 e0f95bb7 **refactor: inject supported languages**
+- 2025-08-22 20:02 5e606060 **refactor: decouple supported languages**
+- 2025-08-22 19:42 df143232 **refactor: make schema tighter**
+- 2025-08-22 19:41 19835f1f **step: add supported languages type**
+- 2025-08-22 19:40 014ea62d **step: create account for seed users**
+- 2025-08-22 19:32 f289c5e0 **step: implement query**
+- 2025-08-22 19:32 eeee1684 **step: clear preferences in db seed**
+- 2025-08-22 19:29 f32c8ede **step: implement projector**
+- 2025-08-22 18:58 9fc75d2e **step: define user preferences schema**
+- 2025-08-22 18:58 3de9dc16 **step: define user preferences**
+- 2025-08-22 18:47 faf02aeb **step: setup projector**
+- 2025-08-22 18:30 455c31fa **refactor: fix adapters placement**
+- 2025-08-22 18:22 28a1b4fc **step: define the ohq**
+- 2025-08-22 18:18 2967f4c5 **refactor: rename user language query**
+- 2025-08-22 18:03 ef71338b **step: wire up the policy**
+- 2025-08-22 18:00 913061e6 **step: implement handleSetUserLanguageCommand**
+- 2025-08-22 17:59 6ddc2f95 **step: setup user language adapter**
+- 2025-08-22 17:48 72cea7b7 **step: add user language port**
+- 2025-08-22 17:34 380a110e **step: add policy**
+- 2025-08-22 17:29 2f52b0bb **step: add user language has changed event**
+- 2025-08-22 16:55 b30b169c **step: add handle set user language command handler**
+- 2025-08-22 16:53 0a7ea075 **step: add set user language command**
+- 2025-08-22 16:50 24e7a4dc **step: wire up the event to event store**
+- 2025-08-22 16:49 658b2553 **step: add user language set event**
+- 2025-08-22 16:48 e1d4c6ab **step: add preferences aliases**
+- 2025-08-22 15:54 62fd03a7 **refactor: remove unused aliases**
 - 2025-08-22 14:40 6ae650c8 **refactor: use bg command envelope**
-## 2025-08-22 14:40 
 - 2025-08-22 14:33 785665e9 **step: update packages**
 - 2025-08-22 14:21 33a2542f **refactor: introduce command envelope helper**
 - 2025-08-22 14:16 e4e5b5ab **refactor: unify command envelope**
@@ -8,6 +84,7 @@
 - 2025-08-22 13:54 8d5449de **refactor: rename event envelope schema**
 - 2025-08-22 13:51 80ddfb3b **step: update packages**
 - 2025-08-22 13:45 0869c4d8 **refactor: add create event envelope**
+- 2025-08-22 12:58 4e989a91 **docs: generate CHANGELOG**
 - 2025-08-22 12:08 3bf4639f **docs: generate CHANGELOG**
 - 2025-08-22 11:59 6c992b3f **refactor: use base event data from bg**
 - 2025-08-22 11:53 ce977d47 **refactor: rename shields**
