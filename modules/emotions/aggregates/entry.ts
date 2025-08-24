@@ -3,7 +3,6 @@ import * as tools from "@bgord/tools";
 import type { z } from "zod/v4";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import type { SupportedLanguages } from "+languages";
 
 export type EntryEvent = (typeof Entry)["events"][number];
 type EntryEventType = z.infer<EntryEvent>;
@@ -45,7 +44,6 @@ export class Entry {
     situation: Emotions.Entities.Situation,
     emotion: Emotions.Entities.Emotion,
     reaction: Emotions.Entities.Reaction,
-    language: SupportedLanguages,
     requesterId: Auth.VO.UserIdType,
     origin: Emotions.VO.EntryOriginOption,
   ) {
@@ -59,7 +57,6 @@ export class Entry {
         description: situation.description.get(),
         location: situation.location.get(),
         kind: situation.kind.get(),
-        language,
         userId: requesterId,
         origin,
       },

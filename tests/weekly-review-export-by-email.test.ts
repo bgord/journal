@@ -1,9 +1,11 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+languages";
 import { Mailer } from "+infra/adapters";
 import { UserContact } from "+infra/adapters/auth";
 import { PdfGenerator, WeeklyReviewExport } from "+infra/adapters/emotions";
+import { UserLanguage } from "+infra/adapters/preferences";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -19,6 +21,7 @@ const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(
   PdfGenerator,
   UserContact,
   WeeklyReviewExport,
+  UserLanguage,
   Env.EMAIL_FROM,
 );
 
@@ -83,6 +86,7 @@ describe("WeeklyReviewExportByEmail", () => {
       throw new Error("FAILURE");
     });
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
+    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     spyOn(WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -95,6 +99,7 @@ describe("WeeklyReviewExportByEmail", () => {
     const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
     spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
+    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     spyOn(WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>

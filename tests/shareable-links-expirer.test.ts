@@ -17,7 +17,7 @@ const policy = new Publishing.Policies.ShareableLinksExpirer(
   ExpiringShareableLinks,
 );
 
-describe("WeeklyReviewScheduler", () => {
+describe("ShareableLinksExpirer", () => {
   test("validation - ShareableLinkIsActive - already revoked", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
@@ -28,7 +28,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      policy.onHourHasPassed(mocks.GenericHourHasPassedEvent),
+      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
@@ -43,7 +43,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      policy.onHourHasPassed(mocks.GenericHourHasPassedEvent),
+      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
@@ -56,7 +56,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      policy.onHourHasPassed(mocks.GenericHourHasPassedEvent),
+      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
@@ -70,7 +70,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      policy.onHourHasPassed(mocks.GenericHourHasPassedEvent),
+      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
@@ -80,7 +80,7 @@ describe("WeeklyReviewScheduler", () => {
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      policy.onHourHasPassed(mocks.GenericHourHasPassedEvent),
+      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();
@@ -90,10 +90,11 @@ describe("WeeklyReviewScheduler", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+    spyOn(Date, "now").mockReturnValue(tools.Time.Now().Minus(tools.Time.Minutes(1)).ms);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
-      policy.onHourHasPassed(mocks.GenericHourHasPassedEvent),
+      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkExpiredEvent]);

@@ -1,9 +1,15 @@
 import * as tools from "@bgord/tools";
-import type * as Queries from "+emotions/queries";
+import { SupportedLanguages } from "+languages";
+
+const notification: Record<SupportedLanguages, (week: tools.Week) => tools.NotificationTemplate> = {
+  [SupportedLanguages.en]: (week: tools.Week) =>
+    new tools.NotificationTemplate(`Weekly Review PDF - ${week.getStart()}`, "Find the file attached"),
+  [SupportedLanguages.pl]: (week: tools.Week) =>
+    new tools.NotificationTemplate(`Przegląd tygodnia PDF - ${week.getStart()}`, "Plik w załączniku"),
+};
 
 export class WeeklyReviewExportNotificationComposer {
-  compose(weeklyReview: Queries.WeeklyReviewExportDto): tools.NotificationTemplate {
-    const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
-    return new tools.NotificationTemplate(`Weekly Review PDF - ${week.getStart()}`, "Find the file attached");
+  compose(week: tools.Week, language: SupportedLanguages): tools.NotificationTemplate {
+    return notification[language](week);
   }
 }

@@ -1,18 +1,28 @@
 import { describe, expect, test } from "bun:test";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
+import { SupportedLanguages } from "+languages";
 import * as mocks from "./mocks";
 
 describe("WeeklyReviewExportNotificationComposer", () => {
-  test("compose", () => {
+  test("compose - en", () => {
     const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
-    const notification = composer.compose(mocks.weeklyReviewFull);
+    const notification = composer.compose(mocks.week, SupportedLanguages.en);
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
         `Weekly Review PDF - ${mocks.week.getStart()}`,
         "Find the file attached",
       ),
+    );
+  });
+
+  test("compose - pl", () => {
+    const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
+    const notification = composer.compose(mocks.week, SupportedLanguages.pl);
+
+    expect(notification).toEqual(
+      new tools.NotificationTemplate(`Przegląd tygodnia PDF - ${mocks.week.getStart()}`, "Plik w załączniku"),
     );
   });
 });

@@ -9,7 +9,7 @@ export class WeeklyReviewExportPdfFile extends bg.FileDraft {
   ) {
     super({
       filename: `weekly-review-export-${data.weekIsoId}.pdf`,
-      mime: new tools.Mime("application/pdf"),
+      mime: tools.MIMES.pdf,
     });
   }
 

@@ -56,7 +56,6 @@ CREATE TABLE `entries` (
 	`reactionType` text,
 	`reactionEffectiveness` integer,
 	`status` text NOT NULL,
-	`language` text NOT NULL,
 	`weekIsoId` text NOT NULL,
 	`origin` text NOT NULL,
 	`userId` text NOT NULL,
@@ -150,12 +149,23 @@ CREATE TABLE `timeCapsuleEntries` (
 	`reactionDescription` text NOT NULL,
 	`reactionType` text NOT NULL,
 	`reactionEffectiveness` integer NOT NULL,
-	`language` text NOT NULL,
 	`status` text NOT NULL,
 	`userId` text NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
+CREATE TABLE `user_preferences` (
+	`id` text(36) PRIMARY KEY NOT NULL,
+	`userId` text(36) NOT NULL,
+	`preference` text NOT NULL,
+	`value` text NOT NULL,
+	`updatedAt` integer NOT NULL,
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `user_preferences_userId_preference_uidx` ON `user_preferences` (`userId`,`preference`);--> statement-breakpoint
+CREATE INDEX `user_preferences_userId_idx` ON `user_preferences` (`userId`);--> statement-breakpoint
+CREATE INDEX `user_preferences_preference_idx` ON `user_preferences` (`preference`);--> statement-breakpoint
 CREATE TABLE `users` (
 	`id` text PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,

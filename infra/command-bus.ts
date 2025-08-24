@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import Emittery from "emittery";
 import type * as EmotionCommands from "+emotions/commands";
 import { logger } from "+infra/logger";
-import type * as PublishngCommands from "+publishing/commands";
+import type * as PublishingCommands from "+publishing/commands";
 
 type AcceptedCommand =
   | EmotionCommands.CancelAlarmCommandType
@@ -20,9 +20,10 @@ type AcceptedCommand =
   | EmotionCommands.DetectWeeklyPatternsCommandType
   | EmotionCommands.ExportWeeklyReviewByEmailCommandType
   | EmotionCommands.ScheduleTimeCapsuleEntryCommandType
-  | PublishngCommands.CreateShareableLinkCommandType
-  | PublishngCommands.ExpireShareableLinkCommandType
-  | PublishngCommands.RevokeShareableLinkCommandType;
+  | PublishingCommands.CreateShareableLinkCommandType
+  | PublishingCommands.ExpireShareableLinkCommandType
+  | PublishingCommands.RevokeShareableLinkCommandType
+  | bg.Preferences.Commands.SetUserLanguageCommandType;
 
 const CommandLogger = new bg.CommandLogger(logger);
 

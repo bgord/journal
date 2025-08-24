@@ -47,7 +47,6 @@ export class EntryProjector {
       situationDescription: event.payload.description,
       situationLocation: event.payload.location,
       revision: event.revision,
-      language: event.payload.language,
       weekIsoId: tools.Week.fromTimestamp(event.createdAt).toIsoId(),
       userId: event.payload.userId,
       origin: event.payload.origin,
@@ -128,7 +127,6 @@ export class EntryProjector {
       reactionDescription: event.payload.reaction.description,
       reactionType: event.payload.reaction.type,
       reactionEffectiveness: event.payload.reaction.effectiveness,
-      language: event.payload.language,
       status: Emotions.VO.TimeCapsuleEntryStatusEnum.scheduled,
       userId: event.payload.userId,
     });

@@ -7,7 +7,6 @@ export const handleLogEntryCommand =
       command.payload.situation,
       command.payload.emotion,
       command.payload.reaction,
-      command.payload.language,
       command.payload.userId,
       command.payload.origin,
     );

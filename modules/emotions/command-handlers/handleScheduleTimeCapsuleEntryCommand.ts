@@ -1,12 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import type * as Ports from "+app/ports";
 
 type AcceptedEvent = Emotions.Events.TimeCapsuleEntryScheduledEventType;
 
 export const handleScheduleTimeCapsuleEntryCommand =
-  (EventStore: Ports.EventStoreLike<AcceptedEvent>) =>
+  (EventStore: bg.EventStoreLike<AcceptedEvent>) =>
   async (command: Emotions.Commands.ScheduleTimeCapsuleEntryCommandType) => {
     const now = tools.Time.Now().value;
 
@@ -34,7 +33,6 @@ export const handleScheduleTimeCapsuleEntryCommand =
           effectiveness: command.payload.reaction.effectiveness.get(),
           description: command.payload.reaction.description.get(),
         },
-        language: command.payload.language,
         userId: command.payload.userId,
         scheduledAt: command.payload.scheduledAt,
         scheduledFor: command.payload.scheduledFor,

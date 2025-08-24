@@ -3,23 +3,25 @@ import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as System from "+system";
-import type * as Buses from "+app/ports";
 
 type AcceptedEvent = System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
 
 export class InactivityAlarmScheduler {
   constructor(
-    EventBus: Buses.EventBusLike<AcceptedEvent>,
+    EventBus: bg.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
-    private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
+    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
     private readonly userDirectory: Auth.OHQ.UserDirectoryOHQ,
     private readonly getLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser,
   ) {
-    EventBus.on(System.Events.HOUR_HAS_PASSED_EVENT, EventHandler.handle(this.onHourHasPassed.bind(this)));
+    EventBus.on(
+      System.Events.HOUR_HAS_PASSED_EVENT,
+      EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+    );
   }
 
-  async onHourHasPassed(event: System.Events.HourHasPassedEventType) {
+  async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     if (Emotions.Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
     const userIds = await this.userDirectory.listActiveUserIds();

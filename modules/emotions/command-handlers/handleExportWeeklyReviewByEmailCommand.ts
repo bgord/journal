@@ -1,12 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import type * as Ports from "+app/ports";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
 export const handleExportWeeklyReviewByEmailCommand =
   (
-    EventStore: Ports.EventStoreLike<AcceptedEvent>,
+    EventStore: bg.EventStoreLike<AcceptedEvent>,
     WeeklyReviewSnapshot: Emotions.Ports.WeeklyReviewSnapshotPort,
   ) =>
   async (command: Emotions.Commands.ExportWeeklyReviewByEmailCommandType) => {

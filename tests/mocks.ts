@@ -3,6 +3,7 @@ import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
+import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import * as Publishing from "+publishing";
@@ -136,7 +137,6 @@ export const GenericSituationLoggedEvent = {
     description: "I finished a project",
     kind: Emotions.VO.SituationKindOptions.achievement,
     location: "work",
-    language: SupportedLanguages.en,
     userId,
     origin: Emotions.VO.EntryOriginOption.web,
   },
@@ -261,7 +261,6 @@ export const GenericTimeCapsuleEntryScheduledEvent = {
   name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
   payload: {
     entryId,
-    language: SupportedLanguages.en,
     userId,
     situation: {
       description: "I finished a project",
@@ -775,6 +774,36 @@ export const GenericEntryHistoryClearedEvent = {
   payload: { subject: entryId },
 } satisfies bg.History.Events.HistoryClearedEventType;
 
+export const GenericAccountCreatedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `account_${userId}`,
+  version: 1,
+  name: "ACCOUNT_CREATED_EVENT",
+  payload: { userId, timestamp: tools.Time.Now().value },
+} satisfies Auth.Events.AccountCreatedEventType;
+
+export const GenericUserLanguageSetEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `preferences_${userId}`,
+  version: 1,
+  name: "USER_LANGUAGE_SET_EVENT",
+  payload: { userId, language: SupportedLanguages.en },
+} satisfies bg.Preferences.Events.UserLanguageSetEventType;
+
+export const GenericUserLanguageSetPLEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `preferences_${userId}`,
+  version: 1,
+  name: "USER_LANGUAGE_SET_EVENT",
+  payload: { userId, language: SupportedLanguages.pl },
+} satisfies bg.Preferences.Events.UserLanguageSetEventType;
+
 export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
   startedAt: tools.Time.Now().value,
@@ -788,7 +817,6 @@ export const partialEntry: Emotions.VO.EntrySnapshot = {
   reactionDescription: null,
   reactionEffectiveness: null,
   reactionType: null,
-  language: SupportedLanguages.en,
   weekIsoId: week.toIsoId(),
   origin: Emotions.VO.EntryOriginOption.web,
   userId,
@@ -807,7 +835,6 @@ export const fullEntry: Emotions.VO.EntrySnapshot = {
   reactionDescription: "Got drunk",
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
   reactionEffectiveness: 1,
-  language: SupportedLanguages.en,
   weekIsoId: week.toIsoId(),
   origin: Emotions.VO.EntryOriginOption.web,
   userId,
@@ -824,7 +851,6 @@ export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
   reactionDescription: "Got drunk",
   reactionType: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
   reactionEffectiveness: 1,
-  language: SupportedLanguages.en,
   status: Emotions.VO.TimeCapsuleEntryStatusEnum.scheduled,
   userId,
 };
@@ -832,11 +858,6 @@ export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
 export const timeCapsuleEntryPublished: Emotions.Ports.TimeCapsuleEntrySnapshot = {
   ...timeCapsuleEntry,
   status: Emotions.VO.TimeCapsuleEntryStatusEnum.published,
-};
-
-export const fullEntryPl: Emotions.VO.EntrySnapshot = {
-  ...fullEntry,
-  language: SupportedLanguages.pl,
 };
 
 export const positiveMaladaptiveEntry: Emotions.VO.EntrySnapshot = {

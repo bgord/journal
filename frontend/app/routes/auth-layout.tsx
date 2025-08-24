@@ -37,8 +37,6 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
           <Icons.ProfileCircle data-size="md" /> {loaderData?.user.email}
         </RR.Link>
 
-        <Components.LanguageSelector />
-
         <Components.LogoutButton />
       </header>
       <RR.Outlet context={loaderData} />

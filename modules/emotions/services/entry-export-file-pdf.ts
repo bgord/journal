@@ -7,8 +7,7 @@ export class EntryExportFilePdf extends bg.FileDraft {
     private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
     private readonly entries: Emotions.VO.EntrySnapshot[],
   ) {
-    // TODO: replace with tools
-    super({ filename: `entry-export-${Date.now()}.pdf`, mime: new tools.Mime("application/pdf") });
+    super({ filename: `entry-export-${Date.now()}.pdf`, mime: tools.MIMES.pdf });
   }
 
   // @ts-expect-error

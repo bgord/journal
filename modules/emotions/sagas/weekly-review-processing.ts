@@ -3,8 +3,7 @@ import * as tools from "@bgord/tools";
 import type * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import type { SupportedLanguages } from "+languages";
-import type * as Buses from "+app/ports";
+import type { SUPPORTED_LANGUAGES } from "+languages";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewSkippedEventType
@@ -20,13 +19,14 @@ type AcceptedCommand =
 
 export class WeeklyReviewProcessing {
   constructor(
-    EventBus: Buses.EventBusLike<AcceptedEvent>,
+    EventBus: bg.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
-    private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
+    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
     private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
+    private readonly userLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>,
     private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
     EventBus.on(
@@ -45,11 +45,12 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewSkippedEvent(event: Emotions.Events.WeeklyReviewSkippedEventType) {
     const contact = await this.userContact.getPrimary(event.payload.userId);
+    const language = await this.userLanguage.get(event.payload.userId);
 
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const composer = new Emotions.Services.WeeklyReviewSkippedNotificationComposer();
 
-    const notification = composer.compose(week);
+    const notification = composer.compose(week, language);
 
     if (!contact?.address) return;
 
@@ -62,7 +63,7 @@ export class WeeklyReviewProcessing {
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const entries = await this.entrySnapshot.getByWeekForUser(week, event.payload.userId);
 
-    const language = entries.at(-1)?.language as SupportedLanguages;
+    const language = await this.userLanguage.get(event.payload.userId);
     const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
     try {

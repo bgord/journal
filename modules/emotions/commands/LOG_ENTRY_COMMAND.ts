@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
-import { SupportedLanguages } from "+languages";
 import * as Entities from "+emotions/entities";
 import * as VO from "+emotions/value-objects";
 
@@ -15,7 +14,6 @@ export const LogEntryCommand = z.object({
     situation: z.instanceof(Entities.Situation),
     emotion: z.instanceof(Entities.Emotion),
     reaction: z.instanceof(Entities.Reaction),
-    language: z.enum(SupportedLanguages),
     userId: Auth.VO.UserId,
     origin: VO.EntryOrigin,
   }),

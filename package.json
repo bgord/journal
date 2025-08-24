@@ -2,7 +2,6 @@
   "name": "journal",
   "version": "2.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow bun"
   },
@@ -14,7 +13,7 @@
   "author": "Bartosz Gordon",
   "license": "ISC",
   "devDependencies": {
-    "@biomejs/biome": "2.2.0",
+    "@biomejs/biome": "2.2.2",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@playwright/test": "1.55.0",
@@ -30,7 +29,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.60.0",
-    "@bgord/bun": "0.19.5",
+    "@bgord/bun": "0.20.0",
     "@react-pdf/renderer": "4.3.0",
     "better-sqlite3": "12.2.0",
     "csv": "6.4.1",

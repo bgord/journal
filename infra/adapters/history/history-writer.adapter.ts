@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { EventStore } from "+infra/event-store";
 
-class HistoryWriterEventStore implements bg.History.Services.HistoryWriterPort {
+class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   constructor(private readonly eventStore: typeof EventStore) {}
 
   async populate(history: Omit<bg.History.VO.HistoryType, "id">) {

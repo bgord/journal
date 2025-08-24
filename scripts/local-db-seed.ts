@@ -2,9 +2,8 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import _ from "lodash";
-import type * as Auth from "+auth";
+import * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
 import * as Publishing from "+publishing";
 import { UserDirectory } from "+infra/adapters/auth/user-directory.adapter";
 import { auth } from "+infra/auth";
@@ -105,6 +104,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     await db.delete(Schema.history);
     console.log("[x] Cleared history");
 
+    await db.delete(Schema.userPreferences);
+    console.log("[x] Cleared userPreferences");
+
     await db.delete(Schema.accounts);
     console.log("[x] Cleared accounts");
 
@@ -127,6 +129,14 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         });
 
         await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
+
+        const event = Auth.Events.AccountCreatedEvent.parse({
+          ...bg.createEventEnvelope(`account_${result.user.id}`),
+          name: Auth.Events.ACCOUNT_CREATED_EVENT,
+          payload: { userId: result.user.id, timestamp: tools.Time.Now().value },
+        } satisfies Auth.Events.AccountCreatedEventType);
+
+        await EventStore.save([event]);
 
         console.log(`[✓] User ${index + 1} created`);
 
@@ -191,7 +201,6 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         situation,
         emotion,
         reaction,
-        SupportedLanguages.en,
         users[0]?.user.id as Auth.VO.UserIdType,
         Emotions.VO.EntryOriginOption.web,
       );
@@ -220,7 +229,6 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
           new Emotions.VO.ReactionType(reactionTypes[0] as Emotions.VO.GrossEmotionRegulationStrategy),
           new Emotions.VO.ReactionEffectiveness(1),
         ),
-        language: SupportedLanguages.en,
         userId: users[0]?.user.id as Auth.VO.UserIdType,
         scheduledAt: now,
         scheduledFor: tools.Timestamp.parse(tools.Time.Now().Add(tools.Time.Minutes(5)).ms),
@@ -236,7 +244,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       EventHandler,
       CommandBus,
       UserDirectory,
-    ).onHourHasPassed(mocks.GenericHourHasPassedMondayUtc18Event);
+    ).onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event);
 
     console.log("[✓] Weekly review scheduled");
 

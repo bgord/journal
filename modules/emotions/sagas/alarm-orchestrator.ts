@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
-import type * as Buses from "+app/ports";
+import type { SUPPORTED_LANGUAGES } from "+languages";
 import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
@@ -23,14 +23,15 @@ type AcceptedCommand =
 
 export class AlarmOrchestrator {
   constructor(
-    EventBus: Buses.EventBusLike<AcceptedEvent>,
+    EventBus: bg.EventBusLike<AcceptedEvent>,
     EventHandler: bg.EventHandler,
-    private readonly CommandBus: Buses.CommandBusLike<AcceptedCommand>,
+    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
     private readonly AiGateway: AI.AiGatewayPort,
     private readonly mailer: bg.MailerPort,
     private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
     private readonly entrySnapshot: Ports.EntrySnapshotPort,
     private readonly userContact: Auth.OHQ.UserContactOHQ,
+    private readonly userLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>,
     private readonly EMAIL_FROM: bg.EmailFromType,
   ) {
     EventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
@@ -43,7 +44,10 @@ export class AlarmOrchestrator {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     try {
-      const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.entrySnapshot).create(detection);
+      const language = await this.userLanguage.get(event.payload.userId);
+      const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.entrySnapshot, language).create(
+        detection,
+      );
       // @ts-expect-error
       const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
       const advice = await this.AiGateway.query(prompt, context);
@@ -86,10 +90,12 @@ export class AlarmOrchestrator {
     const contact = await this.userContact.getPrimary(event.payload.userId);
     if (!contact?.address) return this.CommandBus.emit(cancel.name, cancel);
 
+    const language = await this.userLanguage.get(event.payload.userId);
+
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
 
-    const notification = await new Services.AlarmNotificationFactory(this.entrySnapshot).create(
+    const notification = await new Services.AlarmNotificationFactory(this.entrySnapshot, language).create(
       detection,
       advice,
     );

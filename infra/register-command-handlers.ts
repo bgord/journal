@@ -1,15 +1,8 @@
+import * as bg from "@bgord/bun";
+import { SUPPORTED_LANGUAGES } from "+languages";
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
-import { AiGateway } from "+infra/adapters/ai";
-import {
-  AlarmRepository,
-  EntriesPerWeekCount,
-  EntryRepository,
-  EntrySnapshot,
-  WeeklyReviewRepository,
-  WeeklyReviewSnapshot,
-} from "+infra/adapters/emotions";
-import { ShareableLinkRepositoryAdapter, ShareableLinksQuota } from "+infra/adapters/publishing";
+import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 import { EventStore } from "+infra/event-store";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
@@ -17,63 +10,66 @@ import * as PublishingCommands from "+publishing/commands";
 
 CommandBus.on(
   EmotionCommands.CANCEL_ALARM_COMMAND,
-  EmotionCommandHandlers.handleCancelAlarmCommand(AlarmRepository),
+  EmotionCommandHandlers.handleCancelAlarmCommand(Adapters.Emotions.AlarmRepository),
 );
 CommandBus.on(
   EmotionCommands.DELETE_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleDeleteEntryCommand(EntryRepository),
+  EmotionCommandHandlers.handleDeleteEntryCommand(Adapters.Emotions.EntryRepository),
 );
 CommandBus.on(
   EmotionCommands.EVALUATE_REACTION_COMMAND,
-  EmotionCommandHandlers.handleEvaluateReactionCommand(EntryRepository),
+  EmotionCommandHandlers.handleEvaluateReactionCommand(Adapters.Emotions.EntryRepository),
 );
 CommandBus.on(
   EmotionCommands.GENERATE_ALARM_COMMAND,
-  EmotionCommandHandlers.handleGenerateAlarmCommand(AlarmRepository, AiGateway),
+  EmotionCommandHandlers.handleGenerateAlarmCommand(Adapters.Emotions.AlarmRepository, Adapters.AI.AiGateway),
 );
 CommandBus.on(
   EmotionCommands.LOG_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleLogEntryCommand(EntryRepository),
+  EmotionCommandHandlers.handleLogEntryCommand(Adapters.Emotions.EntryRepository),
 );
 CommandBus.on(
   EmotionCommands.REAPPRAISE_EMOTION_COMMAND,
-  EmotionCommandHandlers.handleReappraiseEmotionCommand(EntryRepository),
+  EmotionCommandHandlers.handleReappraiseEmotionCommand(Adapters.Emotions.EntryRepository),
 );
 CommandBus.on(
   EmotionCommands.SAVE_ALARM_ADVICE_COMMAND,
-  EmotionCommandHandlers.handleSaveAlarmAdviceCommand(AlarmRepository),
+  EmotionCommandHandlers.handleSaveAlarmAdviceCommand(Adapters.Emotions.AlarmRepository),
 );
 CommandBus.on(
   EmotionCommands.REQUEST_ALARM_NOTIFICATION_COMMAND,
-  EmotionCommandHandlers.handleRequestAlarmNotificationCommand(AlarmRepository),
+  EmotionCommandHandlers.handleRequestAlarmNotificationCommand(Adapters.Emotions.AlarmRepository),
 );
 CommandBus.on(
   EmotionCommands.COMPLETE_ALARM_COMMAND,
-  EmotionCommandHandlers.handleCompleteAlarmCommand(AlarmRepository),
+  EmotionCommandHandlers.handleCompleteAlarmCommand(Adapters.Emotions.AlarmRepository),
 );
 CommandBus.on(
   EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
   EmotionCommandHandlers.handleRequestWeeklyReviewCommand(
     EventStore,
-    WeeklyReviewRepository,
-    EntriesPerWeekCount,
+    Adapters.Emotions.WeeklyReviewRepository,
+    Adapters.Emotions.EntriesPerWeekCount,
   ),
 );
 CommandBus.on(
   EmotionCommands.COMPLETE_WEEKLY_REVIEW_COMMAND,
-  EmotionCommandHandlers.handleCompleteWeeklyReviewCommand(WeeklyReviewRepository),
+  EmotionCommandHandlers.handleCompleteWeeklyReviewCommand(Adapters.Emotions.WeeklyReviewRepository),
 );
 CommandBus.on(
   EmotionCommands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
-  EmotionCommandHandlers.handleMarkWeeklyReviewAsFailedCommand(WeeklyReviewRepository),
+  EmotionCommandHandlers.handleMarkWeeklyReviewAsFailedCommand(Adapters.Emotions.WeeklyReviewRepository),
 );
 CommandBus.on(
   EmotionCommands.DETECT_WEEKLY_PATTERNS_COMMAND,
-  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand(EventStore, EntrySnapshot),
+  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand(EventStore, Adapters.Emotions.EntrySnapshot),
 );
 CommandBus.on(
   EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand(EventStore, WeeklyReviewSnapshot),
+  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand(
+    EventStore,
+    Adapters.Emotions.WeeklyReviewSnapshot,
+  ),
 );
 CommandBus.on(
   EmotionCommands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
@@ -83,17 +79,26 @@ CommandBus.on(
 CommandBus.on(
   PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
   PublishingCommandHandlers.handleCreateShareableLinkCommand(
-    ShareableLinkRepositoryAdapter,
-    ShareableLinksQuota,
+    Adapters.Publishing.ShareableLinkRepository,
+    Adapters.Publishing.ShareableLinksQuota,
   ),
 );
 
 CommandBus.on(
   PublishingCommands.EXPIRE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleExpireShareableLinkCommand(ShareableLinkRepositoryAdapter),
+  PublishingCommandHandlers.handleExpireShareableLinkCommand(Adapters.Publishing.ShareableLinkRepository),
 );
 
 CommandBus.on(
   PublishingCommands.REVOKE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleRevokeShareableLinkCommand(ShareableLinkRepositoryAdapter),
+  PublishingCommandHandlers.handleRevokeShareableLinkCommand(Adapters.Publishing.ShareableLinkRepository),
+);
+
+CommandBus.on(
+  bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
+  bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
+    EventStore,
+    Adapters.Preferences.UserLanguageQueryAdapter,
+    new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
+  ),
 );

@@ -1,12 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import type * as Ports from "+app/ports";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewSkippedEventType;
 
 export const handleRequestWeeklyReviewCommand =
   (
-    EventStore: Ports.EventStoreLike<AcceptedEvent>,
+    EventStore: bg.EventStoreLike<AcceptedEvent>,
     repo: Emotions.Ports.WeeklyReviewRepositoryPort,
     EntriesPerWeekCountQuery: Emotions.Queries.EntriesPerWeekCountQuery,
   ) =>

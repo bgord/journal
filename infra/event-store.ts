@@ -34,7 +34,8 @@ export type AcceptedEvent =
   | typeof AccountCreatedEvent
   | typeof AccountDeletedEvent
   | typeof bg.History.Events.HistoryClearedEvent
-  | typeof bg.History.Events.HistoryPopulatedEvent;
+  | typeof bg.History.Events.HistoryPopulatedEvent
+  | typeof bg.Preferences.Events.UserLanguageSetEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {

@@ -13,6 +13,7 @@ import { TimeCapsuleEntryStatusEnum } from "../modules/emotions/value-objects/ti
 import { WeeklyReviewStatusEnum } from "../modules/emotions/value-objects/weekly-review-status";
 import { AccessValidity } from "../modules/publishing/value-objects/access-validity";
 import { ShareableLinkStatusEnum } from "../modules/publishing/value-objects/shareable-link-status";
+import { SupportedLanguages } from "../modules/supported-languages";
 
 const toEnumList = (value: Record<string, string>) => ({
   enum: Object.keys(value) as [string, ...string[]],
@@ -54,7 +55,6 @@ export const entries = sqliteTable("entries", {
   reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
   reactionEffectiveness: integer("reactionEffectiveness"),
   status: text("status", toEnumList(EntryStatusEnum)).notNull(),
-  language: text("language").notNull(),
   weekIsoId: text("weekIsoId").notNull(),
   origin: text("origin", toEnumList(EntryOriginOption)).notNull(),
   userId: text("userId")
@@ -95,7 +95,6 @@ export const timeCapsuleEntries = sqliteTable("timeCapsuleEntries", {
   reactionDescription: text("reactionDescription").notNull(),
   reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)).notNull(),
   reactionEffectiveness: integer("reactionEffectiveness").notNull(),
-  language: text("language").notNull(),
   status: text("status", toEnumList(TimeCapsuleEntryStatusEnum)).notNull(),
   userId: text("userId")
     .notNull()
@@ -290,6 +289,28 @@ export const shareableLinkHitsRelations = relations(shareableLinkHits, ({ one })
     fields: [shareableLinkHits.ownerId],
     references: [users.id],
   }),
+}));
+
+export const userPreferences = sqliteTable(
+  "user_preferences",
+  {
+    id,
+    userId: text("userId", { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    preference: text("preference", toEnumList(SupportedLanguages)).notNull(),
+    value: text("value").notNull(),
+    updatedAt: integer("updatedAt", { mode: "number" }).notNull(),
+  },
+  (table) => [
+    uniqueIndex("user_preferences_userId_preference_uidx").on(table.userId, table.preference),
+    index("user_preferences_userId_idx").on(table.userId),
+    index("user_preferences_preference_idx").on(table.preference),
+  ],
+);
+
+export const userPreferencesRelations = relations(userPreferences, ({ one }) => ({
+  user: one(users, { fields: [userPreferences.userId], references: [users.id] }),
 }));
 
 /** @public */
