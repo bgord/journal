@@ -16,7 +16,7 @@ export enum MailerAdapter {
 const EnvironmentSchema = z
   .object({
     PORT: bg.Port,
-    LOGS_LEVEL: bg.LogLevel,
+    LOGS_LEVEL: z.enum(bg.LogLevelEnum),
     SMTP_HOST: bg.SmtpHost,
     SMTP_PORT: bg.SmtpPort,
     SMTP_USER: bg.SmtpUser,
