@@ -255,6 +255,9 @@ modules/
 │       ├── weekly-review-id.ts
 │       ├── weekly-review-snapshot.ts
 │       └── weekly-review-status.ts
+├── preferences
+│   └── policies
+│       └── set-default-user-language.ts
 ├── publishing
 │   ├── aggregates
 │   │   └── shareable-link.ts
@@ -315,12 +318,11 @@ app/
 │   │   ├── reappraise-emotion.ts
 │   │   └── schedule-time-capsule-entry.ts
 │   ├── error-handler.ts
+│   ├── preferences
+│   │   └── update-user-language.ts
 │   └── publishing
 │       ├── create-shareable-link.ts
 │       └── revoke-shareable-link.ts
-├── ports
-│   ├── bus-like.ts
-│   ├── event-store-like.ts
 └── services
     ├── add-entry-form.ts
     ├── auth-form.ts
@@ -364,6 +366,9 @@ infra/
 │   │   ├── history-projection.adapter.ts
 │   │   ├── history-writer.adapter.ts
 │   ├── mailer.adapter.ts
+│   ├── preferences
+│   │   ├── user-language-query.adapter.ts
+│   │   └── user-language.adapter.ts
 │   └── publishing
 │       ├── expiring-shareable-links.ts
 │       ├── shareable-link-access-auditor.adapter.ts
@@ -394,6 +399,7 @@ infra/
 │   ├── entry.projector.ts
 │   ├── history.projector.ts
 │   ├── pattern-detection.projector.ts
+│   ├── preferences.projector.ts
 │   ├── shareable-link-hits.projector.ts
 │   ├── shareable-link.projector.ts
 │   └── weekly-review.projector.ts
@@ -406,4 +412,3 @@ infra/
     ├── en.json
     └── pl.json
 ```
-
