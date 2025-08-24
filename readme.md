@@ -391,7 +391,7 @@ infra/
 ├── healthcheck.ts
 ├── i18n.ts
 ├── jobs.ts
-├── logger.ts
+├── logger.adapter.ts
 ├── prerequisites.ts
 ├── projections
 │   ├── ai-usage-counter.projector.ts
