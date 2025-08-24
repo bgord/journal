@@ -5,7 +5,7 @@ import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
-import { logger } from "+infra/logger";
+import { logger } from "+infra/logger.adapter";
 
 const validationErrors = [
   Emotions.VO.SituationDescription.Errors.invalid,
@@ -74,6 +74,7 @@ export class ErrorHandler {
       if (validationError) {
         logger.error({
           message: "Expected validation error",
+          component: "http",
           operation: "validation",
           correlationId,
           metadata: {
@@ -81,6 +82,7 @@ export class ErrorHandler {
             body: await bg.safeParseBody(c),
             error: validationError,
           },
+          error: bg.formatError(error),
         });
 
         return c.json({ message: validationError.message, _known: true }, 400);
@@ -88,9 +90,11 @@ export class ErrorHandler {
 
       logger.error({
         message: "Invalid payload",
+        component: "http",
         operation: "invalid_payload",
         correlationId,
         metadata: { url, body: await bg.safeParseBody(c) },
+        error: bg.formatError(error),
       });
 
       return c.json({ message: "payload.invalid.error", _known: true }, 400);
@@ -101,8 +105,10 @@ export class ErrorHandler {
     if (invariantErrorHandler.error) {
       logger.error({
         message: "Domain error",
+        component: "http",
         operation: invariantErrorHandler.error.message,
         correlationId,
+        error: bg.formatError(error),
       });
 
       return c.json(...bg.InvariantErrorHandler.respond(invariantErrorHandler.error));
@@ -110,9 +116,10 @@ export class ErrorHandler {
 
     logger.error({
       message: "Unknown error",
+      component: "http",
       operation: "unknown_error",
       correlationId,
-      metadata: logger.formatError(error),
+      error: bg.formatError(error),
     });
 
     return c.json({ message: "general.unknown" }, 500);

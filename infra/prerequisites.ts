@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "+languages";
 import { Env } from "+infra/env";
 import { jobs } from "+infra/jobs";
-import { logger } from "+infra/logger";
+import { LoggerWinstonProductionAdapter } from "+infra/logger.adapter";
 
 export const prerequisites = [
   new bg.PrerequisitePort({ label: "port", port: Env.PORT }),
@@ -35,7 +35,7 @@ export const prerequisites = [
   }),
   new bg.PrerequisiteLogFile({
     label: "log-file",
-    logger,
+    logger: LoggerWinstonProductionAdapter,
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
   }),
   new bg.PrerequisiteJobs({

@@ -5,7 +5,7 @@ import { AiGateway } from "+infra/adapters/ai";
 import { HistoryWriter } from "+infra/adapters/history";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger";
+import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);

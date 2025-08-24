@@ -10,7 +10,7 @@ import { CaptchaShield } from "+infra/captcha";
 import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
-import { logger } from "+infra/logger";
+import { logger } from "+infra/logger.adapter";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
 

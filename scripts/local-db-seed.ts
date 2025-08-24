@@ -11,7 +11,7 @@ import { CommandBus } from "+infra/command-bus";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger";
+import { logger } from "+infra/logger.adapter";
 import * as Schema from "+infra/schema";
 import * as mocks from "../tests/mocks";
 

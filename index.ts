@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as infra from "+infra";
 import { Env } from "+infra/env";
-import { logger } from "+infra/logger";
+import { logger } from "+infra/logger.adapter";
 import { prerequisites } from "+infra/prerequisites";
 import { server, startup } from "./server";
 
@@ -16,6 +16,7 @@ import { server, startup } from "./server";
 
   logger.info({
     message: "Server has started",
+    component: "infra",
     operation: "server_startup",
     metadata: { port: Env.PORT, startupTimeMs: startup.stop().durationMs },
   });

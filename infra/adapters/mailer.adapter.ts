@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import { Env, MailerAdapter } from "+infra/env";
-import { logger } from "+infra/logger";
+import { logger } from "+infra/logger.adapter";
 
 export const Mailer = {
   [MailerAdapter.smtp]: new bg.MailerSmtpAdapter({
