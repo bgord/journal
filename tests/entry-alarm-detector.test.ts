@@ -10,7 +10,7 @@ import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const policy = new Emotions.Policies.EntryAlarmDetector(EventBus, EventHandler, CommandBus);
+const policy = new Emotions.Policies.EntryAlarmDetector({ EventBus, EventHandler, CommandBus });
 
 describe("EntryAlarmDetector", () => {
   test("onEmotionLoggedEvent", async () => {

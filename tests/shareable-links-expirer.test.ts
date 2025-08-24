@@ -10,12 +10,12 @@ import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const policy = new Publishing.Policies.ShareableLinksExpirer(
+const policy = new Publishing.Policies.ShareableLinksExpirer({
   EventBus,
   EventHandler,
   CommandBus,
   ExpiringShareableLinks,
-);
+});
 
 describe("ShareableLinksExpirer", () => {
   test("validation - ShareableLinkIsActive - already revoked", async () => {

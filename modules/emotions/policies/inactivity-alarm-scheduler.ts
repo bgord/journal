@@ -7,27 +7,29 @@ import * as System from "+system";
 type AcceptedEvent = System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
 
+type Dependencies = {
+  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventHandler: bg.EventHandler;
+  CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  UserDirectory: Auth.OHQ.UserDirectoryOHQ;
+  GetLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser;
+};
+
 export class InactivityAlarmScheduler {
-  constructor(
-    EventBus: bg.EventBusLike<AcceptedEvent>,
-    EventHandler: bg.EventHandler,
-    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
-    private readonly userDirectory: Auth.OHQ.UserDirectoryOHQ,
-    private readonly getLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser,
-  ) {
-    EventBus.on(
+  constructor(private readonly DI: Dependencies) {
+    DI.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
   async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     if (Emotions.Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
-    const userIds = await this.userDirectory.listActiveUserIds();
+    const userIds = await this.DI.UserDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
-      const lastEntryTimestamp = await this.getLatestEntryTimestampForUser.execute(userId);
+      const lastEntryTimestamp = await this.DI.GetLatestEntryTimestampForUser.execute(userId);
 
       if (Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
 
@@ -45,7 +47,7 @@ export class InactivityAlarmScheduler {
         payload: { detection, userId },
       } satisfies Emotions.Commands.GenerateAlarmCommandType);
 
-      await this.CommandBus.emit(command.name, command);
+      await this.DI.CommandBus.emit(command.name, command);
     }
   }
 }

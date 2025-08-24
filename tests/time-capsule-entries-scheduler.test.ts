@@ -10,12 +10,12 @@ import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const policy = new Emotions.Policies.TimeCapsuleEntriesScheduler(
+const policy = new Emotions.Policies.TimeCapsuleEntriesScheduler({
   EventBus,
   EventHandler,
   CommandBus,
   TimeCapsuleDueEntries,
-);
+});
 
 describe("TimeCapsuleEntriesScheduler", () => {
   test("TimeCapsuleEntryIsPublishable - status", async () => {

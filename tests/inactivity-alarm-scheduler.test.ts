@@ -13,13 +13,13 @@ import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const policy = new Emotions.Policies.InactivityAlarmScheduler(
+const policy = new Emotions.Policies.InactivityAlarmScheduler({
   EventBus,
   EventHandler,
   CommandBus,
   UserDirectory,
   GetLatestEntryTimestampForUser,
-);
+});
 
 describe("InactivityAlarmScheduler", () => {
   test("correct path - single user", async () => {

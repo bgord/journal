@@ -7,16 +7,18 @@ import * as System from "+system";
 type AcceptedEvent = System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.RequestWeeklyReviewCommandType;
 
+type Dependencies = {
+  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventHandler: bg.EventHandler;
+  CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  UserDirectory: Auth.OHQ.UserDirectoryOHQ;
+};
+
 export class WeeklyReviewScheduler {
-  constructor(
-    EventBus: bg.EventBusLike<AcceptedEvent>,
-    EventHandler: bg.EventHandler,
-    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
-    private readonly userDirectory: Auth.OHQ.UserDirectoryOHQ,
-  ) {
-    EventBus.on(
+  constructor(private readonly DI: Dependencies) {
+    DI.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
@@ -25,7 +27,7 @@ export class WeeklyReviewScheduler {
 
     const week = tools.Week.fromNow();
 
-    const userIds = await this.userDirectory.listActiveUserIds();
+    const userIds = await this.DI.UserDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
       const command = Emotions.Commands.RequestWeeklyReviewCommand.parse({
@@ -34,7 +36,7 @@ export class WeeklyReviewScheduler {
         payload: { week, userId },
       } satisfies Emotions.Commands.RequestWeeklyReviewCommandType);
 
-      await this.CommandBus.emit(command.name, command);
+      await this.DI.CommandBus.emit(command.name, command);
     }
   }
 }

@@ -27,28 +27,37 @@ new Projections.ShareableLinkHitProjector(EventBus, EventHandler);
 new Projections.PreferencesProjector(EventBus, EventHandler);
 
 // Policies
-new PublishingPolicies.ShareableLinksExpirer(
+new PublishingPolicies.ShareableLinksExpirer({
   EventBus,
   EventHandler,
   CommandBus,
-  Adapters.Publishing.ExpiringShareableLinks,
-);
-new EmotionsPolicies.EntryAlarmDetector(EventBus, EventHandler, CommandBus);
-new EmotionsPolicies.WeeklyReviewScheduler(EventBus, EventHandler, CommandBus, Adapters.Auth.UserDirectory);
-new EmotionsPolicies.InactivityAlarmScheduler(
+  ExpiringShareableLinks: Adapters.Publishing.ExpiringShareableLinks,
+});
+new EmotionsPolicies.EntryAlarmDetector({ EventBus, EventHandler, CommandBus });
+new EmotionsPolicies.WeeklyReviewScheduler({
   EventBus,
   EventHandler,
   CommandBus,
-  Adapters.Auth.UserDirectory,
-  Adapters.Emotions.GetLatestEntryTimestampForUser,
-);
-new EmotionsPolicies.TimeCapsuleEntriesScheduler(
+  UserDirectory: Adapters.Auth.UserDirectory,
+});
+new EmotionsPolicies.InactivityAlarmScheduler({
   EventBus,
   EventHandler,
   CommandBus,
-  Adapters.Emotions.TimeCapsuleDueEntries,
-);
-new EmotionsPolicies.EntryHistoryPublisher(EventBus, EventHandler, Adapters.History.HistoryWriter);
+  UserDirectory: Adapters.Auth.UserDirectory,
+  GetLatestEntryTimestampForUser: Adapters.Emotions.GetLatestEntryTimestampForUser,
+});
+new EmotionsPolicies.TimeCapsuleEntriesScheduler({
+  EventBus,
+  EventHandler,
+  CommandBus,
+  TimeCapsuleDueEntries: Adapters.Emotions.TimeCapsuleDueEntries,
+});
+new EmotionsPolicies.EntryHistoryPublisher({
+  EventBus,
+  EventHandler,
+  HistoryWriter: Adapters.History.HistoryWriter,
+});
 new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
   EventBus,
   EventHandler,

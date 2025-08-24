@@ -8,22 +8,24 @@ type AcceptedEvent = System.Events.HourHasPassedEventType;
 
 type AcceptedCommand = Commands.ExpireShareableLinkCommandType;
 
+type Dependencies = {
+  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventHandler: bg.EventHandler;
+  CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  ExpiringShareableLinks: Ports.ExpiringShareableLinksPort;
+};
+
 export class ShareableLinksExpirer {
-  constructor(
-    EventBus: bg.EventBusLike<AcceptedEvent>,
-    EventHandler: bg.EventHandler,
-    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
-    private readonly expiringShareableLinks: Ports.ExpiringShareableLinksPort,
-  ) {
-    EventBus.on(
+  constructor(private readonly DI: Dependencies) {
+    DI.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
   async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     try {
-      const shareableLinks = await this.expiringShareableLinks.listDue(event.payload.timestamp);
+      const shareableLinks = await this.DI.ExpiringShareableLinks.listDue(event.payload.timestamp);
 
       for (const shareableLink of shareableLinks) {
         const command = Commands.ExpireShareableLinkCommand.parse({
@@ -33,7 +35,7 @@ export class ShareableLinksExpirer {
           payload: { shareableLinkId: shareableLink.id },
         } satisfies Commands.ExpireShareableLinkCommandType);
 
-        await this.CommandBus.emit(command.name, command);
+        await this.DI.CommandBus.emit(command.name, command);
       }
     } catch {}
   }

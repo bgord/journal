@@ -6,22 +6,24 @@ import * as System from "+system";
 type AcceptedEvent = System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.LogEntryCommandType;
 
+type Dependencies = {
+  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventHandler: bg.EventHandler;
+  CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  TimeCapsuleDueEntries: Emotions.Ports.TimeCapsuleDueEntriesPort;
+};
+
 export class TimeCapsuleEntriesScheduler {
-  constructor(
-    EventBus: bg.EventBusLike<AcceptedEvent>,
-    EventHandler: bg.EventHandler,
-    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
-    private readonly timeCapsuleDueEntries: Emotions.Ports.TimeCapsuleDueEntriesPort,
-  ) {
-    EventBus.on(
+  constructor(private readonly DI: Dependencies) {
+    DI.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
   async onHourHasPassedEvent() {
     const now = tools.Time.Now().value;
-    const dueEntries = await this.timeCapsuleDueEntries.listDue(now);
+    const dueEntries = await this.DI.TimeCapsuleDueEntries.listDue(now);
 
     for (const entry of dueEntries) {
       if (
@@ -57,7 +59,7 @@ export class TimeCapsuleEntriesScheduler {
         },
       } satisfies Emotions.Commands.LogEntryCommandType);
 
-      await this.CommandBus.emit(command.name, command);
+      await this.DI.CommandBus.emit(command.name, command);
     }
   }
 }

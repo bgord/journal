@@ -11,7 +11,12 @@ import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const policy = new Emotions.Policies.WeeklyReviewScheduler(EventBus, EventHandler, CommandBus, UserDirectory);
+const policy = new Emotions.Policies.WeeklyReviewScheduler({
+  EventBus,
+  EventHandler,
+  CommandBus,
+  UserDirectory,
+});
 
 describe("WeeklyReviewScheduler", () => {
   test("correct path - single user", async () => {
