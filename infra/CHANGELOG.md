@@ -1,9 +1,11 @@
 # Changelog
+- 2025-08-24 15:52 3ec15a28 **step: update zod**
+## 2025-08-24 15:52 
 - 2025-08-24 15:20 933f8d4b **refactor: add separators in profile**
-## 2025-08-24 15:20 
 - 2025-08-24 14:06 8727df9f **refactor: adjust saga di**
 - 2025-08-24 14:00 aae6e081 **refactor: adjust policy di**
 - 2025-08-24 13:46 a4a00e7e **step: bump bgord/scripts**
+- 2025-08-24 13:35 2eb430f2 **docs: generate CHANGELOG**
 - 2025-08-24 12:45 fdd2d875 **refactor: adjust to bg.Client**
 - 2025-08-24 12:44 70c8353e **step: update packages**
 - 2025-08-24 12:07 001ff8ee **docs: generate CHANGELOG**
