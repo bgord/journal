@@ -1,9 +1,13 @@
 # Changelog
+- 2025-08-24 12:45 fdd2d875 **refactor: adjust to bg.Client**
+## 2025-08-24 12:45 
+- 2025-08-24 12:44 70c8353e **step: update packages**
 - 2025-08-24 11:03 c8015420 **refactor: use the new logger**
-## 2025-08-24 11:03 
 - 2025-08-24 10:50 0aa3db5d **step: adjust logs level**
 - 2025-08-24 10:49 75521310 **step: update packages**
 - 2025-08-24 10:48 044ef66a **Merge pull request #38 from bgord/preferences**
+- 2025-08-24 09:05 2569a5f2 **docs: generate readme**
+- 2025-08-24 09:05 035f0640 **docs: generate CHANGELOG**
 - 2025-08-24 08:49 56429865 **docs: generate CHANGELOG**
 - 2025-08-24 08:49 1d014288 **docs: generate readme**
 - 2025-08-23 22:44 6201050a **fix: flaky test**
