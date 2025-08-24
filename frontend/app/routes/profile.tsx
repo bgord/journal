@@ -63,7 +63,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
   return (
     <main
       data-stack="y"
-      data-gap="12"
+      data-gap="8"
       data-my="8"
       data-mx="auto"
       data-p="8"
@@ -119,6 +119,8 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
           })}
         </div>
       </div>
+
+      <Components.Separator />
 
       <div data-stack="y" data-gap="5">
         <div data-stack="x" data-cross="center" data-gap="3">
@@ -276,6 +278,8 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         </ul>
       </div>
 
+      <Components.Separator />
+
       <div data-stack="y" data-gap="5">
         <div data-stack="x" data-cross="center" data-gap="3">
           <Icons.DownloadCircle data-size="md" />
@@ -299,6 +303,8 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         </a>
       </div>
 
+      <Components.Separator />
+
       <div data-stack="y" data-gap="5">
         <div data-stack="x" data-cross="center" data-gap="3">
           <Icons.Language data-size="md" />
@@ -308,7 +314,11 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         <Components.LanguageSelector />
       </div>
 
+      <Components.Separator />
+
       <Components.ChangePassword email={session?.user.email as string} />
+
+      <Components.Separator />
 
       <Components.DeleteAccount />
     </main>
