@@ -1,10 +1,12 @@
 # Changelog
+- 2025-08-24 15:20 933f8d4b **refactor: add separators in profile**
+## 2025-08-24 15:20 
 - 2025-08-24 14:06 8727df9f **refactor: adjust saga di**
-## 2025-08-24 14:06 
 - 2025-08-24 14:00 aae6e081 **refactor: adjust policy di**
 - 2025-08-24 13:46 a4a00e7e **step: bump bgord/scripts**
 - 2025-08-24 12:45 fdd2d875 **refactor: adjust to bg.Client**
 - 2025-08-24 12:44 70c8353e **step: update packages**
+- 2025-08-24 12:07 001ff8ee **docs: generate CHANGELOG**
 - 2025-08-24 11:46 f12e66d6 **docs: generate CHANGELOG**
 - 2025-08-24 11:03 c8015420 **refactor: use the new logger**
 - 2025-08-24 10:50 0aa3db5d **step: adjust logs level**
