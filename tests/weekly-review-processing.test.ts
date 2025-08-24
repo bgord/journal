@@ -18,7 +18,7 @@ import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
 
-const saga = new Emotions.Sagas.WeeklyReviewProcessing(
+const saga = new Emotions.Sagas.WeeklyReviewProcessing({
   EventBus,
   EventHandler,
   CommandBus,
@@ -27,8 +27,8 @@ const saga = new Emotions.Sagas.WeeklyReviewProcessing(
   EntrySnapshot,
   UserContact,
   UserLanguage,
-  Env.EMAIL_FROM,
-);
+  EMAIL_FROM: Env.EMAIL_FROM,
+});
 
 describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent", async () => {

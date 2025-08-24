@@ -66,37 +66,37 @@ new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
 );
 
 // Sagas
-new EmotionsSagas.AlarmOrchestrator(
+new EmotionsSagas.AlarmOrchestrator({
   EventBus,
   EventHandler,
   CommandBus,
-  Adapters.AI.AiGateway,
+  AiGateway: Adapters.AI.AiGateway,
   Mailer,
-  Adapters.Emotions.AlarmCancellationLookup,
-  Adapters.Emotions.EntrySnapshot,
-  Adapters.Auth.UserContact,
-  Adapters.Preferences.UserLanguage,
-  Env.EMAIL_FROM,
-);
-new EmotionsSagas.WeeklyReviewProcessing(
+  AlarmCancellationLookup: Adapters.Emotions.AlarmCancellationLookup,
+  EntrySnapshot: Adapters.Emotions.EntrySnapshot,
+  UserContact: Adapters.Auth.UserContact,
+  UserLanguage: Adapters.Preferences.UserLanguage,
+  EMAIL_FROM: Env.EMAIL_FROM,
+});
+new EmotionsSagas.WeeklyReviewProcessing({
   EventBus,
   EventHandler,
   CommandBus,
-  Adapters.AI.AiGateway,
+  AiGateway: Adapters.AI.AiGateway,
   Mailer,
-  Adapters.Emotions.EntrySnapshot,
-  Adapters.Auth.UserContact,
-  Adapters.Preferences.UserLanguage,
-  Env.EMAIL_FROM,
-);
-new EmotionsSagas.WeeklyReviewExportByEmail(
+  EntrySnapshot: Adapters.Emotions.EntrySnapshot,
+  UserContact: Adapters.Auth.UserContact,
+  UserLanguage: Adapters.Preferences.UserLanguage,
+  EMAIL_FROM: Env.EMAIL_FROM,
+});
+new EmotionsSagas.WeeklyReviewExportByEmail({
   EventBus,
   EventHandler,
   EventStore,
   Mailer,
-  Adapters.Emotions.PdfGenerator,
-  Adapters.Auth.UserContact,
-  Adapters.Emotions.WeeklyReviewExport,
-  Adapters.Preferences.UserLanguage,
-  Env.EMAIL_FROM,
-);
+  PdfGenerator: Adapters.Emotions.PdfGenerator,
+  UserContact: Adapters.Auth.UserContact,
+  WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport,
+  UserLanguage: Adapters.Preferences.UserLanguage,
+  EMAIL_FROM: Env.EMAIL_FROM,
+});

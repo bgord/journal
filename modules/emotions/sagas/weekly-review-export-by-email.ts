@@ -8,25 +8,27 @@ type AcceptedEvent =
   | Emotions.Events.WeeklyReviewExportByEmailRequestedEventType
   | Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
+type Dependencies = {
+  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventHandler: bg.EventHandler;
+  EventStore: bg.EventStoreLike<AcceptedEvent>;
+  Mailer: bg.MailerPort;
+  PdfGenerator: Emotions.Ports.PdfGeneratorPort;
+  UserContact: Auth.OHQ.UserContactOHQ;
+  WeeklyReviewExport: Emotions.Queries.WeeklyReviewExport;
+  UserLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  EMAIL_FROM: bg.EmailFromType;
+};
+
 export class WeeklyReviewExportByEmail {
-  constructor(
-    EventBus: bg.EventBusLike<AcceptedEvent>,
-    EventHandler: bg.EventHandler,
-    private readonly EventStore: bg.EventStoreLike<AcceptedEvent>,
-    private readonly mailer: bg.MailerPort,
-    private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
-    private readonly userContact: Auth.OHQ.UserContactOHQ,
-    private readonly weeklyReviewExport: Emotions.Queries.WeeklyReviewExport,
-    private readonly userLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>,
-    private readonly EMAIL_FROM: bg.EmailFromType,
-  ) {
-    EventBus.on(
+  constructor(private readonly DI: Dependencies) {
+    DI.EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
-      EventHandler.handle(this.onWeeklyReviewExportByEmailRequestedEvent.bind(this)),
+      DI.EventHandler.handle(this.onWeeklyReviewExportByEmailRequestedEvent.bind(this)),
     );
-    EventBus.on(
+    DI.EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
-      EventHandler.handle(this.onWeeklyReviewExportByEmailFailedEvent.bind(this)),
+      DI.EventHandler.handle(this.onWeeklyReviewExportByEmailFailedEvent.bind(this)),
     );
   }
 
@@ -34,29 +36,29 @@ export class WeeklyReviewExportByEmail {
     event: Emotions.Events.WeeklyReviewExportByEmailRequestedEventType,
   ) {
     try {
-      const contact = await this.userContact.getPrimary(event.payload.userId);
+      const contact = await this.DI.UserContact.getPrimary(event.payload.userId);
       if (!contact?.address) return;
 
-      const weeklyReview = await this.weeklyReviewExport.getFull(event.payload.weeklyReviewId);
+      const weeklyReview = await this.DI.WeeklyReviewExport.getFull(event.payload.weeklyReviewId);
       if (!weeklyReview) return;
       const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
 
-      const language = await this.userLanguage.get(event.payload.userId);
+      const language = await this.DI.UserLanguage.get(event.payload.userId);
 
-      const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(this.pdfGenerator, weeklyReview);
+      const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(this.DI.PdfGenerator, weeklyReview);
       const attachment = await pdf.toAttachment();
 
       const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
       const notification = composer.compose(week, language).get();
 
-      await this.mailer.send({
-        from: this.EMAIL_FROM,
+      await this.DI.Mailer.send({
+        from: this.DI.EMAIL_FROM,
         to: contact.address,
         attachments: [attachment],
         ...notification,
       });
     } catch {
-      await this.EventStore.save([
+      await this.DI.EventStore.save([
         Emotions.Events.WeeklyReviewExportByEmailFailedEvent.parse({
           ...bg.createEventEnvelope(`weekly_review_export_by_email_${event.payload.weeklyReviewExportId}`),
           name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
@@ -76,7 +78,7 @@ export class WeeklyReviewExportByEmail {
   ) {
     if (event.payload.attempt > 3) return;
 
-    await this.EventStore.saveAfter(
+    await this.DI.EventStore.saveAfter(
       [
         Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
           ...bg.createEventEnvelope(event.stream),

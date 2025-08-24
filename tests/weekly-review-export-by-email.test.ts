@@ -13,7 +13,7 @@ import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(
+const saga = new Emotions.Sagas.WeeklyReviewExportByEmail({
   EventBus,
   EventHandler,
   EventStore,
@@ -22,8 +22,8 @@ const saga = new Emotions.Sagas.WeeklyReviewExportByEmail(
   UserContact,
   WeeklyReviewExport,
   UserLanguage,
-  Env.EMAIL_FROM,
-);
+  EMAIL_FROM: Env.EMAIL_FROM,
+});
 
 describe("WeeklyReviewExportByEmail", () => {
   test("onWeeklyReviewExportByEmailRequestedEvent - no email", async () => {

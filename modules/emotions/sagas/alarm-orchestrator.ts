@@ -21,36 +21,44 @@ type AcceptedCommand =
   | Commands.RequestAlarmNotificationCommandType
   | Commands.CompleteAlarmCommandType;
 
+type Dependencies = {
+  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventHandler: bg.EventHandler;
+  CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  AiGateway: AI.AiGatewayPort;
+  Mailer: bg.MailerPort;
+  AlarmCancellationLookup: Ports.AlarmCancellationLookupPort;
+  EntrySnapshot: Ports.EntrySnapshotPort;
+  UserContact: Auth.OHQ.UserContactOHQ;
+  UserLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  EMAIL_FROM: bg.EmailFromType;
+};
+
 export class AlarmOrchestrator {
-  constructor(
-    EventBus: bg.EventBusLike<AcceptedEvent>,
-    EventHandler: bg.EventHandler,
-    private readonly CommandBus: bg.CommandBusLike<AcceptedCommand>,
-    private readonly AiGateway: AI.AiGatewayPort,
-    private readonly mailer: bg.MailerPort,
-    private readonly alarmCancellationLookup: Ports.AlarmCancellationLookupPort,
-    private readonly entrySnapshot: Ports.EntrySnapshotPort,
-    private readonly userContact: Auth.OHQ.UserContactOHQ,
-    private readonly userLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>,
-    private readonly EMAIL_FROM: bg.EmailFromType,
-  ) {
-    EventBus.on(Events.ALARM_GENERATED_EVENT, EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)));
-    EventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
-    EventBus.on(Events.ALARM_NOTIFICATION_REQUESTED_EVENT, this.onAlarmNotificationRequestedEvent.bind(this));
-    EventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
+  constructor(private readonly DI: Dependencies) {
+    DI.EventBus.on(
+      Events.ALARM_GENERATED_EVENT,
+      DI.EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)),
+    );
+    DI.EventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
+    DI.EventBus.on(
+      Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
+      this.onAlarmNotificationRequestedEvent.bind(this),
+    );
+    DI.EventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     try {
-      const language = await this.userLanguage.get(event.payload.userId);
-      const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.entrySnapshot, language).create(
+      const language = await this.DI.UserLanguage.get(event.payload.userId);
+      const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.DI.EntrySnapshot, language).create(
         detection,
       );
       // @ts-expect-error
       const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
-      const advice = await this.AiGateway.query(prompt, context);
+      const advice = await this.DI.AiGateway.query(prompt, context);
 
       const command = Commands.SaveAlarmAdviceCommand.parse({
         ...bg.createCommandEnvelope(),
@@ -58,7 +66,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId, advice },
       } satisfies Commands.SaveAlarmAdviceCommandType);
 
-      await this.CommandBus.emit(command.name, command);
+      await this.DI.CommandBus.emit(command.name, command);
     } catch (_error) {
       const command = Commands.CancelAlarmCommand.parse({
         ...bg.createCommandEnvelope(),
@@ -66,7 +74,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
-      await this.CommandBus.emit(command.name, command);
+      await this.DI.CommandBus.emit(command.name, command);
     }
   }
 
@@ -77,7 +85,7 @@ export class AlarmOrchestrator {
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.RequestAlarmNotificationCommandType);
 
-    await this.CommandBus.emit(command.name, command);
+    await this.DI.CommandBus.emit(command.name, command);
   }
 
   async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
@@ -87,21 +95,21 @@ export class AlarmOrchestrator {
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.CancelAlarmCommandType);
 
-    const contact = await this.userContact.getPrimary(event.payload.userId);
-    if (!contact?.address) return this.CommandBus.emit(cancel.name, cancel);
+    const contact = await this.DI.UserContact.getPrimary(event.payload.userId);
+    if (!contact?.address) return this.DI.CommandBus.emit(cancel.name, cancel);
 
-    const language = await this.userLanguage.get(event.payload.userId);
+    const language = await this.DI.UserLanguage.get(event.payload.userId);
 
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
 
-    const notification = await new Services.AlarmNotificationFactory(this.entrySnapshot, language).create(
+    const notification = await new Services.AlarmNotificationFactory(this.DI.EntrySnapshot, language).create(
       detection,
       advice,
     );
 
     try {
-      await this.mailer.send({ from: this.EMAIL_FROM, to: contact.address, ...notification.get() });
+      await this.DI.Mailer.send({ from: this.DI.EMAIL_FROM, to: contact.address, ...notification.get() });
 
       const complete = Commands.CompleteAlarmCommand.parse({
         ...bg.createCommandEnvelope(),
@@ -109,12 +117,12 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CompleteAlarmCommandType);
 
-      await this.CommandBus.emit(complete.name, complete);
+      await this.DI.CommandBus.emit(complete.name, complete);
     } catch {}
   }
 
   async onEntryDeletedEvent(event: Events.EntryDeletedEventType) {
-    const cancellableAlarmIds = await this.alarmCancellationLookup.listIdsForEntry(event.payload.entryId);
+    const cancellableAlarmIds = await this.DI.AlarmCancellationLookup.listIdsForEntry(event.payload.entryId);
 
     for (const alarmId of cancellableAlarmIds) {
       const command = Commands.CancelAlarmCommand.parse({
@@ -123,7 +131,7 @@ export class AlarmOrchestrator {
         payload: { alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
-      await this.CommandBus.emit(command.name, command);
+      await this.DI.CommandBus.emit(command.name, command);
     }
   }
 }

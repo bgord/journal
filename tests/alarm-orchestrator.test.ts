@@ -16,7 +16,7 @@ import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);
-const saga = new Emotions.Sagas.AlarmOrchestrator(
+const saga = new Emotions.Sagas.AlarmOrchestrator({
   EventBus,
   EventHandler,
   CommandBus,
@@ -26,8 +26,8 @@ const saga = new Emotions.Sagas.AlarmOrchestrator(
   EntrySnapshot,
   UserContact,
   UserLanguage,
-  Env.EMAIL_FROM,
-);
+  EMAIL_FROM: Env.EMAIL_FROM,
+});
 
 describe("AlarmOrchestrator", () => {
   test("onAlarmGeneratedEvent - entry", async () => {
