@@ -5,6 +5,8 @@ import * as EmotionCommands from "+emotions/commands";
 import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 import { EventStore } from "+infra/event-store";
+import * as PreferencesCommandHandlers from "+preferences/command-handlers";
+import * as PreferencesCommands from "+preferences/commands";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
@@ -101,4 +103,9 @@ CommandBus.on(
     Adapters.Preferences.UserLanguageQueryAdapter,
     new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
   ),
+);
+
+CommandBus.on(
+  PreferencesCommands.UPDATE_PROFILE_AVATAR_COMMAND,
+  PreferencesCommandHandlers.handleUpdateProfileAvatarCommand,
 );
