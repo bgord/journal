@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
-import * as Preferences from "+preferences";
 import type * as tools from "@bgord/tools";
+import * as Preferences from "+preferences";
 
 type AcceptedEvent = Preferences.Events.ProfileAvatarUpdatedEventType;
 
