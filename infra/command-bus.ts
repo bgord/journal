@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import Emittery from "emittery";
 import type * as EmotionCommands from "+emotions/commands";
 import { logger } from "+infra/logger.adapter";
+import type * as PreferencesCommands from "+preferences/commands";
 import type * as PublishingCommands from "+publishing/commands";
 
 type AcceptedCommand =
@@ -23,7 +24,9 @@ type AcceptedCommand =
   | PublishingCommands.CreateShareableLinkCommandType
   | PublishingCommands.ExpireShareableLinkCommandType
   | PublishingCommands.RevokeShareableLinkCommandType
-  | bg.Preferences.Commands.SetUserLanguageCommandType;
+  | bg.Preferences.Commands.SetUserLanguageCommandType
+  | PreferencesCommands.UpdateProfileAvatarCommandType
+  | PreferencesCommands.RemoveProfileAvatarCommandType;
 
 const CommandLogger = new bg.CommandLogger(logger);
 
