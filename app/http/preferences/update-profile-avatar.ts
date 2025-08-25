@@ -1,16 +1,17 @@
+import path from "node:path";
 import type hono from "hono";
 import type * as infra from "+infra";
-import { logger } from "+infra/logger.adapter";
 
-export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+// TODO Filename VO
+export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>) {
+  const userId = "xxx";
+  const body = await c.req.formData();
+  const file = body.get("file") as File;
 
-  logger.info({
-    message: "Profile avatar payload",
-    component: "http",
-    operation: "read",
-    metadata: { user },
-  });
+  const current = path.parse(file.name);
+  const temporary = `infra/profile-avatars/${userId}${current.ext}`;
+
+  await Bun.write(temporary, file);
 
   return new Response();
 }

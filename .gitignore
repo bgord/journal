@@ -20,3 +20,5 @@ tsconfig.tsbuildinfo
 tmp/
 sqlite.db
 test-results/
+infra/profile-avatars/*
+!infra/profile-avatars/.gitkeep

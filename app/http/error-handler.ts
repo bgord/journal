@@ -56,6 +56,10 @@ export class ErrorHandler {
       return error.getResponse();
     }
 
+    if (error instanceof tools.InvalidMimeError) {
+      return c.json({ message: "invalid.mime", _known: true }, 400);
+    }
+
     if (error instanceof tools.RevisionMismatchError) {
       return c.json({ message: "revision.mismatch", _known: true }, 412);
     }

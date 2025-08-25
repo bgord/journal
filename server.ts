@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
 import * as infra from "+infra";
+import * as Preferences from "+preferences";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { CaptchaShield } from "+infra/captcha";
@@ -128,6 +129,10 @@ server.post(
   "/preferences/profile-avatar/update",
   // AuthShield.attach,
   // AuthShield.verify,
+  ...bg.FileUploader.validate({
+    mimeTypes: Preferences.VO.ProfileAvatarMimeTypes.map((mime) => mime.raw),
+    maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
+  }),
   HTTP.Preferences.UpdateProfileAvatar,
 );
 // =============================
