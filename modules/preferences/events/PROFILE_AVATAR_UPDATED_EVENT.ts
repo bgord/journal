@@ -10,7 +10,6 @@ export const ProfileAvatarUpdatedEvent = z.object({
   name: z.literal(PROFILE_AVATAR_UPDATED_EVENT),
   payload: z.object({
     userId: Auth.VO.UserId,
-    avatarId: bg.UUID,
     height: tools.Height,
     width: tools.Width,
     extension: z.string().min(1).max(4),
