@@ -1,1 +1,2 @@
+export * from "./update-profile-avatar";
 export * from "./update-user-language";

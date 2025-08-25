@@ -124,6 +124,12 @@ server.post(
   AuthShield.verify,
   HTTP.Preferences.UpdateUserLanguage,
 );
+server.post(
+  "/preferences/profile-avatar/update",
+  // AuthShield.attach,
+  // AuthShield.verify,
+  HTTP.Preferences.UpdateProfileAvatar,
+);
 // =============================
 
 // Auth ========================
