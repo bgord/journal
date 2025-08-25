@@ -5,16 +5,17 @@ import type * as infra from "+infra";
 import * as Preferences from "+preferences";
 import { CommandBus } from "+infra/command-bus";
 
-// TODO Filename VO
+// TODO Filename VO to @bgord/bun?
 export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>) {
   const userId = "xxx";
   const body = await c.req.formData();
   const file = body.get("file") as File;
 
   const current = path.parse(file.name);
-  // TODO add dir to prereq
+  // TODO add the dir to prerequisites
   const temporary = `infra/profile-avatars/${userId}${current.ext}`;
 
+  // TODO: extract to an adapter - reusable part that will be used to bgord/bun
   await Bun.write(temporary, file);
 
   const command = Preferences.Commands.UpdateProfileAvatarCommand.parse({
