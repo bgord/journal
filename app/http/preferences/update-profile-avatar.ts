@@ -7,12 +7,13 @@ import { CommandBus } from "+infra/command-bus";
 import { temporaryFile } from "+infra/temporary-file.adapter";
 
 export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>) {
-  const userId = "xxx";
+  // const user = c.get("user"); // below is for local test only
+  const userId = crypto.randomUUID();
   const body = await c.req.formData();
   const file = body.get("file") as File;
 
   const uploaded = tools.Filename.fromString(file.name);
-  const filename = uploaded.withBasename(tools.BasenameSchema.parse(userId));
+  const filename = uploaded.withBasename(tools.BasenameSchema.parse(userId)).withSuffix("-temp");
 
   const temporary = await temporaryFile.write(filename, file);
 
