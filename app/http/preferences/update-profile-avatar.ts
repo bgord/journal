@@ -13,7 +13,7 @@ export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>) {
   const file = body.get("file") as File;
 
   const uploaded = tools.Filename.fromString(file.name);
-  const filename = uploaded.withBasename(tools.BasenameSchema.parse(userId)).withSuffix("-temp");
+  const filename = uploaded.withBasename(tools.BasenameSchema.parse(userId));
 
   const temporary = await temporaryFile.write(filename, file);
 
