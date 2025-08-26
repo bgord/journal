@@ -8,3 +8,4 @@ export * from "./image-processor.adapter";
 export * from "./mailer.adapter";
 export * as Preferences from "./preferences";
 export * as Publishing from "./publishing";
+export * from "./remote-file-storage";
