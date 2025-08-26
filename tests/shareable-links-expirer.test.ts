@@ -63,9 +63,7 @@ describe("ShareableLinksExpirer", () => {
 
   test("repository failure", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(ExpiringShareableLinks, "listDue").mockImplementation(() => {
-      throw new Error("FAILURE");
-    });
+    spyOn(ExpiringShareableLinks, "listDue").mockRejectedValue(new Error("FAILURE"));
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

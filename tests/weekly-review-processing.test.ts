@@ -61,9 +61,7 @@ describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent - mailer failed", async () => {
     spyOn(UserContact, "getPrimary").mockResolvedValue(undefined);
     spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
-    const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
-      throw new Error("MAILER_FAILED");
-    });
+    const mailerSend = spyOn(Mailer, "send").mockRejectedValue(new Error("MAILER_FAILED"));
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
@@ -124,9 +122,7 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
-    spyOn(AiGateway, "query").mockImplementation(() => {
-      throw new Error("Failure");
-    });
+    spyOn(AiGateway, "query").mockRejectedValue(new Error("Failure"));
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>

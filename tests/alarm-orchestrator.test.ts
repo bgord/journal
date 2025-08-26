@@ -62,9 +62,7 @@ describe("AlarmOrchestrator", () => {
   test("onAlarmGeneratedEvent - entry - finding entry fails", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(EntrySnapshot, "getById").mockImplementation(() => {
-      throw new Error("Failed");
-    });
+    spyOn(EntrySnapshot, "getById").mockRejectedValue(new Error("Failed"));
     spyOn(AiGateway, "query").mockResolvedValue(mocks.advice);
     spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -80,9 +78,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
-    spyOn(AiGateway, "query").mockImplementation(() => {
-      throw new Error();
-    });
+    spyOn(AiGateway, "query").mockRejectedValue(new Error());
     spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -135,9 +131,7 @@ describe("AlarmOrchestrator", () => {
     spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
     spyOn(EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
-    const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
-      throw new Error("MAILER_FAILED");
-    });
+    const mailerSend = spyOn(Mailer, "send").mockRejectedValue(new Error("MAILER_FAILED"));
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
