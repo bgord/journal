@@ -8,7 +8,7 @@ export const handleUpdateProfileAvatarCommand =
   (
     EventStore: bg.EventStoreLike<AcceptedEvent>,
     ImageInfo: bg.ImageInfoPort,
-    ImageFormatter: bg.ImageFormatterPort,
+    ImageProcessor: bg.ImageProcessorPort,
   ) =>
   async (command: Preferences.Commands.UpdateProfileAvatarCommandType) => {
     const extension = tools.ExtensionSchema.parse("webp");
@@ -19,7 +19,12 @@ export const handleUpdateProfileAvatarCommand =
 
     // run invariants here
 
-    await ImageFormatter.format({ strategy: "in_place", input: temporary, to: extension });
+    await ImageProcessor.process({
+      strategy: "in_place",
+      input: temporary,
+      to: extension,
+      maxSide: Preferences.VO.ProfileAvatarMaxSide,
+    });
 
     const event = Preferences.Events.ProfileAvatarUpdatedEvent.parse({
       ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),

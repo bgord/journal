@@ -110,6 +110,6 @@ CommandBus.on(
   PreferencesCommandHandlers.handleUpdateProfileAvatarCommand(
     EventStore,
     Adapters.ImageInfo,
-    Adapters.ImageFormatter,
+    Adapters.ImageProcessor,
   ),
 );
