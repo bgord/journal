@@ -113,5 +113,6 @@ CommandBus.on(
     Adapters.ImageInfo,
     Adapters.ImageProcessor,
     TemporaryFile,
+    Adapters.RemoteFileStorage,
   ),
 );

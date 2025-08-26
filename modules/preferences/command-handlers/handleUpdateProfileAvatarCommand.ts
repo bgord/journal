@@ -10,6 +10,7 @@ export const handleUpdateProfileAvatarCommand =
     ImageInfo: bg.ImageInfoPort,
     ImageProcessor: bg.ImageProcessorPort,
     TemporaryFile: bg.TemporaryFilePort,
+    RemoteFileStorage: bg.RemoteFileStoragePort,
   ) =>
   async (command: Preferences.Commands.UpdateProfileAvatarCommandType) => {
     const extension = tools.ExtensionSchema.parse("webp");
@@ -21,12 +22,15 @@ export const handleUpdateProfileAvatarCommand =
       return TemporaryFile.cleanup(temporary.getFilename());
     }
 
-    await ImageProcessor.process({
+    const final = await ImageProcessor.process({
       strategy: "in_place",
       input: temporary,
       to: extension,
       maxSide: Preferences.VO.ProfileAvatarSide,
     });
+
+    const key = Preferences.VO.ProfileAvatarKeyFactory.stable(command.payload.userId);
+    await RemoteFileStorage.putFromPath({ key, path: final });
 
     const event = Preferences.Events.ProfileAvatarUpdatedEvent.parse({
       ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),
