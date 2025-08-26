@@ -6,7 +6,7 @@ const local = tools.DirectoryPathAbsoluteSchema.parse(`${__dirname}/profile-avat
 const prod = tools.DirectoryPathAbsoluteSchema.parse("/tmp/journal/avatars");
 
 // TODO add the dir to prerequisites
-export const temporaryFile: bg.TemporaryFilePort = {
+export const TemporaryFile: bg.TemporaryFilePort = {
   [bg.NodeEnvironmentEnum.local]: new bg.TemporaryFileAbsolute(local),
   [bg.NodeEnvironmentEnum.test]: new bg.TemporaryFileNoop(local),
   [bg.NodeEnvironmentEnum.staging]: new bg.TemporaryFileNoop(local),

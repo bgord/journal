@@ -5,6 +5,7 @@ import * as EmotionCommands from "+emotions/commands";
 import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 import { EventStore } from "+infra/event-store";
+import { TemporaryFile } from "+infra/temporary-file.adapter";
 import * as PreferencesCommandHandlers from "+preferences/command-handlers";
 import * as PreferencesCommands from "+preferences/commands";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
@@ -111,5 +112,6 @@ CommandBus.on(
     EventStore,
     Adapters.ImageInfo,
     Adapters.ImageProcessor,
+    TemporaryFile,
   ),
 );

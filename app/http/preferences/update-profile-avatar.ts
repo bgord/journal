@@ -4,7 +4,7 @@ import type hono from "hono";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
 import { CommandBus } from "+infra/command-bus";
-import { temporaryFile } from "+infra/temporary-file.adapter";
+import { TemporaryFile } from "+infra/temporary-file.adapter";
 
 export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>) {
   // const user = c.get("user"); // below is for local test only
@@ -15,7 +15,7 @@ export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>) {
   const uploaded = tools.Filename.fromString(file.name);
   const filename = uploaded.withBasename(tools.BasenameSchema.parse(userId));
 
-  const temporary = await temporaryFile.write(filename, file);
+  const temporary = await TemporaryFile.write(filename, file);
 
   const command = Preferences.Commands.UpdateProfileAvatarCommand.parse({
     ...bg.createCommandEnvelope(),

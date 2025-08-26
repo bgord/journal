@@ -9,21 +9,23 @@ export const handleUpdateProfileAvatarCommand =
     EventStore: bg.EventStoreLike<AcceptedEvent>,
     ImageInfo: bg.ImageInfoPort,
     ImageProcessor: bg.ImageProcessorPort,
+    TemporaryFile: bg.TemporaryFilePort,
   ) =>
   async (command: Preferences.Commands.UpdateProfileAvatarCommandType) => {
     const extension = tools.ExtensionSchema.parse("webp");
     const temporary = tools.FilePathAbsolute.fromString(command.payload.absoluteFilePath);
 
     const info = await ImageInfo.inspect(temporary);
-    console.log(info);
 
-    // run invariants here
+    if (Preferences.Invariants.ProfileAvatarConstraints.fails(info)) {
+      return TemporaryFile.cleanup(temporary.getFilename());
+    }
 
     await ImageProcessor.process({
       strategy: "in_place",
       input: temporary,
       to: extension,
-      maxSide: Preferences.VO.ProfileAvatarMaxSide,
+      maxSide: Preferences.VO.ProfileAvatarSide,
     });
 
     const event = Preferences.Events.ProfileAvatarUpdatedEvent.parse({
