@@ -1,6 +1,7 @@
 export * as AI from "./ai";
 export * as Auth from "./auth";
 export * as Emotions from "./emotions";
+export * from "./file-hash.adapter";
 export * as History from "./history";
 export * from "./image-info.adapter";
 export * from "./image-processor.adapter";
