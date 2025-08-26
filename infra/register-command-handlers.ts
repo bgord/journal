@@ -107,5 +107,9 @@ CommandBus.on(
 
 CommandBus.on(
   PreferencesCommands.UPDATE_PROFILE_AVATAR_COMMAND,
-  PreferencesCommandHandlers.handleUpdateProfileAvatarCommand,
+  PreferencesCommandHandlers.handleUpdateProfileAvatarCommand(
+    EventStore,
+    Adapters.ImageInfo,
+    Adapters.ImageFormatter,
+  ),
 );
