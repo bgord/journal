@@ -19,7 +19,8 @@ export const handleUpdateProfileAvatarCommand =
     const info = await ImageInfo.inspect(temporary);
 
     if (Preferences.Invariants.ProfileAvatarConstraints.fails(info)) {
-      return TemporaryFile.cleanup(temporary.getFilename());
+      await TemporaryFile.cleanup(temporary.getFilename());
+      throw new Preferences.Invariants.ProfileAvatarConstraints.error();
     }
 
     const final = await ImageProcessor.process({

@@ -6,6 +6,7 @@ import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
+import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type * as System from "+system";
 import type * as Schema from "+infra/schema";
@@ -804,6 +805,16 @@ export const GenericUserLanguageSetPLEvent = {
   name: "USER_LANGUAGE_SET_EVENT",
   payload: { userId, language: SupportedLanguages.pl },
 } satisfies bg.Preferences.Events.UserLanguageSetEventType;
+
+export const GenericProfileAvatarUpdatedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `preferences_${userId}`,
+  version: 1,
+  name: "PROFILE_AVATAR_UPDATED_EVENT",
+  payload: { userId, key: tools.ObjectKey.parse(`users/${userId}/avatar.webp`) },
+} satisfies Preferences.Events.ProfileAvatarUpdatedEventType;
 
 export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
