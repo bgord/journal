@@ -127,8 +127,8 @@ server.post(
 );
 server.post(
   "/preferences/profile-avatar/update",
-  // AuthShield.attach,
-  // AuthShield.verify,
+  AuthShield.attach,
+  AuthShield.verify,
   ...bg.FileUploader.validate({
     mimeTypes: Preferences.VO.ProfileAvatarMimeTypes.map((mime) => mime.raw),
     maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
