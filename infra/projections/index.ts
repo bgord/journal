@@ -4,6 +4,7 @@ export * from "./entry.projector";
 export * from "./history.projector";
 export * from "./pattern-detection.projector";
 export * from "./preferences.projector";
+export * from "./profile-avatars.projector";
 export * from "./shareable-link.projector";
 export * from "./shareable-link-hits.projector";
 export * from "./weekly-review.projector";

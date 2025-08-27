@@ -14,8 +14,6 @@ export const RemoteFileStorage: bg.RemoteFileStoragePort = {
   [bg.NodeEnvironmentEnum.test]: new bg.RemoteFileStorageNoopAdapter({
     logger: LoggerWinstonLocalAdapter,
   }),
-  [bg.NodeEnvironmentEnum.staging]: new bg.RemoteFileStorageNoopAdapter({
-    logger: LoggerWinstonLocalAdapter,
-  }),
+  [bg.NodeEnvironmentEnum.staging]: tmpFileStorage,
   [bg.NodeEnvironmentEnum.production]: tmpFileStorage,
 }[Env.type];

@@ -25,6 +25,7 @@ new Projections.AiUsageCounterProjector(EventBus, EventHandler);
 new Projections.HistoryProjector(EventBus, EventHandler, Adapters.History.HistoryProjection);
 new Projections.ShareableLinkHitProjector(EventBus, EventHandler);
 new Projections.PreferencesProjector(EventBus, EventHandler);
+new Projections.ProfileAvatarsProjector(EventBus, EventHandler);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer({
