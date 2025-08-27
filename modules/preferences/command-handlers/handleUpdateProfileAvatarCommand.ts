@@ -31,12 +31,12 @@ export const handleUpdateProfileAvatarCommand =
     });
 
     const key = Preferences.VO.ProfileAvatarKeyFactory.stable(command.payload.userId);
-    await RemoteFileStorage.putFromPath({ key, path: final });
+    const object = await RemoteFileStorage.putFromPath({ key, path: final });
 
     const event = Preferences.Events.ProfileAvatarUpdatedEvent.parse({
       ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),
       name: Preferences.Events.PROFILE_AVATAR_UPDATED_EVENT,
-      payload: { userId: command.payload.userId, key },
+      payload: { userId: command.payload.userId, key, etag: object.etag },
     } satisfies Preferences.Events.ProfileAvatarUpdatedEventType);
 
     await EventStore.save([event]);

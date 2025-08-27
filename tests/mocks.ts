@@ -813,7 +813,7 @@ export const GenericProfileAvatarUpdatedEvent = {
   stream: `preferences_${userId}`,
   version: 1,
   name: "PROFILE_AVATAR_UPDATED_EVENT",
-  payload: { userId, key: tools.ObjectKey.parse(`users/${userId}/avatar.webp`) },
+  payload: { userId, key: tools.ObjectKey.parse(`users/${userId}/avatar.webp`), etag: "noop" },
 } satisfies Preferences.Events.ProfileAvatarUpdatedEventType;
 
 export const partialEntry: Emotions.VO.EntrySnapshot = {
