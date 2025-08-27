@@ -35,13 +35,7 @@ export const handleUpdateProfileAvatarCommand =
     const event = Preferences.Events.ProfileAvatarUpdatedEvent.parse({
       ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),
       name: Preferences.Events.PROFILE_AVATAR_UPDATED_EVENT,
-      payload: {
-        userId: command.payload.userId,
-        extension,
-        height: info.height,
-        width: info.width,
-        sizeBytes: info.size.toBytes(),
-      },
+      payload: { userId: command.payload.userId, key },
     } satisfies Preferences.Events.ProfileAvatarUpdatedEventType);
 
     await EventStore.save([event]);
