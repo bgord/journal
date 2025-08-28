@@ -320,11 +320,14 @@ export const userProfileAvatars = sqliteTable(
     userId: text("userId", { length: 36 })
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    key: text("key", toEnumList(SupportedLanguages)).notNull(),
+    key: text("key").notNull(),
     etag: text("etag").notNull(),
     createdAt: integer("createdAt", { mode: "number" }).notNull(),
   },
-  (table) => [index("user_profile_avatars_userId_idx").on(table.userId)],
+  (table) => [
+    index("user_profile_avatars_userId_idx").on(table.userId),
+    uniqueIndex("user_profile_avatars_userId_uniq").on(table.userId),
+  ],
 );
 
 export const userProfileAvatarsRelations = relations(userProfileAvatars, ({ one }) => ({

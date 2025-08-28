@@ -176,6 +176,7 @@ CREATE TABLE `user_profile_avatars` (
 );
 --> statement-breakpoint
 CREATE INDEX `user_profile_avatars_userId_idx` ON `user_profile_avatars` (`userId`);--> statement-breakpoint
+CREATE UNIQUE INDEX `user_profile_avatars_userId_uniq` ON `user_profile_avatars` (`userId`);--> statement-breakpoint
 CREATE TABLE `users` (
 	`id` text PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,

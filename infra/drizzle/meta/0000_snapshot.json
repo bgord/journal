@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "56ca38a2-0dae-4fdd-9742-a7d140cd317d",
+  "id": "90de497c-5f37-49b1-bfc5-d596cbf0f022",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -1118,6 +1118,11 @@
           "name": "user_profile_avatars_userId_idx",
           "columns": ["userId"],
           "isUnique": false
+        },
+        "user_profile_avatars_userId_uniq": {
+          "name": "user_profile_avatars_userId_uniq",
+          "columns": ["userId"],
+          "isUnique": true
         }
       },
       "foreignKeys": {
