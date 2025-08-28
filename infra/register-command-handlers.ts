@@ -116,3 +116,8 @@ CommandBus.on(
     Adapters.RemoteFileStorage,
   ),
 );
+
+CommandBus.on(
+  PreferencesCommands.REMOVE_PROFILE_AVATAR_COMMAND,
+  PreferencesCommandHandlers.handleRemoveProfileAvatarCommand(EventStore),
+);
