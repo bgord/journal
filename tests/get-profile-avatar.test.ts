@@ -1,5 +1,5 @@
 import { describe, expect, spyOn, test } from "bun:test";
-import { RemoteFileStorage } from "+infra/adapters/remote-file-storage";
+import * as Adapters from "+infra/adapters";
 import { auth } from "+infra/auth";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -16,7 +16,7 @@ describe(`GET ${url}`, () => {
 
   test("404 when object does not exist (head.exists=false)", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const headSpy = spyOn(RemoteFileStorage, "head").mockResolvedValue({ exists: false });
+    const headSpy = spyOn(Adapters.RemoteFileStorage, "head").mockResolvedValue({ exists: false });
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     expect(headSpy).toHaveBeenCalledTimes(1);
     expect(response.status).toBe(404);
@@ -24,8 +24,8 @@ describe(`GET ${url}`, () => {
 
   test("304 when If-None-Match matches current ETag", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(RemoteFileStorage, "head").mockResolvedValue(mocks.head);
-    const getStreamSpy = spyOn(RemoteFileStorage, "getStream");
+    spyOn(Adapters.RemoteFileStorage, "head").mockResolvedValue(mocks.head);
+    const getStreamSpy = spyOn(Adapters.RemoteFileStorage, "getStream");
 
     const response = await server.request(
       url,
@@ -39,7 +39,7 @@ describe(`GET ${url}`, () => {
 
   test("200 streams avatar with correct headers", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(RemoteFileStorage, "head").mockResolvedValue(mocks.head);
+    spyOn(Adapters.RemoteFileStorage, "head").mockResolvedValue(mocks.head);
 
     const fakeStream = new ReadableStream({
       start(controller) {
@@ -47,7 +47,7 @@ describe(`GET ${url}`, () => {
         controller.close();
       },
     });
-    spyOn(RemoteFileStorage, "getStream").mockResolvedValue(fakeStream);
+    spyOn(Adapters.RemoteFileStorage, "getStream").mockResolvedValue(fakeStream);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
@@ -64,8 +64,8 @@ describe(`GET ${url}`, () => {
 
   test("404 when stream is not available even if head.exists=true", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(RemoteFileStorage, "head").mockResolvedValue(mocks.head);
-    spyOn(RemoteFileStorage, "getStream").mockResolvedValue(null);
+    spyOn(Adapters.RemoteFileStorage, "head").mockResolvedValue(mocks.head);
+    spyOn(Adapters.RemoteFileStorage, "getStream").mockResolvedValue(null);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     expect(response.status).toBe(404);
