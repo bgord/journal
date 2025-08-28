@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { stringify } from "csv";
 import type * as VO from "+emotions/value-objects";
+import * as Adapters from "+infra/adapters";
 
 export class EntryExportFileCsv extends bg.FileDraft {
   constructor(private readonly entries: VO.EntrySnapshot[]) {
@@ -9,6 +9,6 @@ export class EntryExportFileCsv extends bg.FileDraft {
   }
 
   create() {
-    return stringify(this.entries, { header: true, columns: ["id", "situationDescription"] });
+    return Adapters.CsvStringifier.process(["id", "situationDescription"], this.entries);
   }
 }

@@ -1,5 +1,6 @@
 export * as AI from "./ai";
 export * as Auth from "./auth";
+export * from "./csv-stringifier.adapter";
 export * as Emotions from "./emotions";
 export * from "./file-hash.adapter";
 export * as History from "./history";

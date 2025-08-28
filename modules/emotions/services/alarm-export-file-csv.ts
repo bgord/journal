@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { stringify } from "csv";
 import type * as VO from "+emotions/value-objects";
+import * as Adapters from "+infra/adapters";
 
 export class AlarmExportFileCsv extends bg.FileDraft {
   constructor(private readonly alarms: VO.AlarmSnapshot[]) {
@@ -9,6 +9,6 @@ export class AlarmExportFileCsv extends bg.FileDraft {
   }
 
   create() {
-    return stringify(this.alarms, { header: true, columns: ["id", "name"] });
+    return Adapters.CsvStringifier.process(["id", "name"], this.alarms);
   }
 }
