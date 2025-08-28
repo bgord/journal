@@ -4,7 +4,7 @@ import type hono from "hono";
 import { z } from "zod/v4";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import { EntrySnapshot, PdfGenerator } from "+infra/adapters/emotions";
+import * as Adapters from "+infra/adapters";
 
 enum ExportEntriesStrategy {
   text = "text",
@@ -29,13 +29,13 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
 
   const strategy = StrategySchema.parse(c.req.query("strategy"));
 
-  const entries = await EntrySnapshot.getByDateRangeForUser(user.id, dateRange);
+  const entries = await Adapters.Emotions.EntrySnapshot.getByDateRangeForUser(user.id, dateRange);
 
   const file = {
-    csv: new Emotions.Services.EntryExportFileCsv(entries),
+    csv: new Emotions.Services.EntryExportFileCsv(Adapters.CsvStringifier, entries),
     text: new Emotions.Services.EntryExportFileText(entries),
     markdown: new Emotions.Services.EntryExportFileMarkdown(entries),
-    pdf: new Emotions.Services.EntryExportFilePdf(PdfGenerator, entries),
+    pdf: new Emotions.Services.EntryExportFilePdf(Adapters.Emotions.PdfGenerator, entries),
   };
 
   return file[strategy].toResponse();
