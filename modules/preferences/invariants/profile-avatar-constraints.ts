@@ -14,7 +14,7 @@ type ProfileAvatarConstraintsConfigType = bg.ImageInfoType;
 class ProfileAvatarConstraintsFactory extends bg.Invariant<ProfileAvatarConstraintsConfigType> {
   fails(config: ProfileAvatarConstraintsConfigType) {
     if (config.height > VO.ProfileAvatarMaxSide) return true;
-    if (config.width > VO.ProfileAvatarMaxSide) return false;
+    if (config.width > VO.ProfileAvatarMaxSide) return true;
     if (config.size.isGreaterThan(VO.ProfileAvatarMaxSize)) return true;
     return VO.ProfileAvatarMimeTypes.every((allowed) => !allowed.isSatisfiedBy(config.mime));
   }
