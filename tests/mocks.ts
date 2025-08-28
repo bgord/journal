@@ -824,6 +824,16 @@ export const GenericProfileAvatarUpdatedEvent = {
   payload: { userId, key: tools.ObjectKey.parse(`users/${userId}/avatar.webp`), etag: "noop" },
 } satisfies Preferences.Events.ProfileAvatarUpdatedEventType;
 
+export const GenericProfileAvatarRemovedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: expect.any(Number),
+  stream: `preferences_${userId}`,
+  version: 1,
+  name: "PROFILE_AVATAR_REMOVED_EVENT",
+  payload: { userId },
+} satisfies Preferences.Events.ProfileAvatarRemovedEventType;
+
 export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
   startedAt: tools.Time.Now().value,

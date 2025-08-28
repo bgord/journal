@@ -28,7 +28,7 @@ const file = new TextEncoder().encode(content);
 
 const form = { "Content-Type": `multipart/form-data; boundary=${boundary}` };
 
-describe("POST /entry/:id/reappraise-emotion", () => {
+describe(`POST ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
