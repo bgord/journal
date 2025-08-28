@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as VO from "+preferences/value-objects";
 
@@ -10,13 +9,7 @@ class ProfileAvatarConstraintsError extends Error {
   }
 }
 
-// TODO: use from bgord/bun
-type ProfileAvatarConstraintsConfigType = {
-  height: tools.HeightType;
-  width: tools.WidthType;
-  mime: tools.Mime;
-  size: tools.Size;
-};
+type ProfileAvatarConstraintsConfigType = bg.ImageInfoType;
 
 class ProfileAvatarConstraintsFactory extends bg.Invariant<ProfileAvatarConstraintsConfigType> {
   fails(config: ProfileAvatarConstraintsConfigType) {
