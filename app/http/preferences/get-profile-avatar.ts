@@ -1,3 +1,4 @@
+import * as bg from "@bgord/bun";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
@@ -14,29 +15,11 @@ export async function GetProfileAvatar(c: hono.Context<infra.HonoConfig>) {
   const ifNoneMatchHeader = c.req.header("if-none-match");
 
   if (ifNoneMatchHeader && ifNoneMatchHeader === head.etag) {
-    return new Response(null, {
-      status: 304,
-      headers: new Headers({
-        ETag: head.etag,
-        "Cache-Control": "private, max-age=0, must-revalidate",
-        "Last-Modified": new Date(head.lastModified).toUTCString(),
-        Vary: "Authorization, Cookie",
-      }),
-    });
+    return bg.CacheFileMustRevalidate.notModified(head);
   }
 
   const stream = await RemoteFileStorage.getStream(key);
   if (!stream) return c.notFound();
 
-  const headers = new Headers({
-    "Content-Type": head.mime.raw,
-    "Cache-Control": "private, max-age=0, must-revalidate",
-    ETag: head.etag,
-    "Content-Length": head.size.toBytes().toString(),
-    "Last-Modified": new Date(head.lastModified).toUTCString(),
-    "Accept-Ranges": "bytes",
-    Vary: "Authorization, Cookie",
-  });
-
-  return new Response(stream, { status: 200, headers });
+  return new Response(stream, { headers: bg.CacheFileMustRevalidate.fresh(head) });
 }
