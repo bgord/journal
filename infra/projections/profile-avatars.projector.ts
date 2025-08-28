@@ -13,7 +13,7 @@ export class ProfileAvatarsProjector {
     );
     eventBus.on(
       Preferences.Events.PROFILE_AVATAR_REMOVED_EVENT,
-      EventHandler.handle(this.onProfileAvatarRemovedEvent).bind(this),
+      EventHandler.handle(this.onProfileAvatarRemovedEvent.bind(this)),
     );
   }
 
