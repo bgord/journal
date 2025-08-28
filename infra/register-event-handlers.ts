@@ -65,6 +65,7 @@ new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
   CommandBus,
   SupportedLanguages.en,
 );
+new Preferences.Policies.ProfileAvatarCleaner(EventBus, EventHandler, Adapters.RemoteFileStorage);
 
 // Sagas
 new EmotionsSagas.AlarmOrchestrator({
