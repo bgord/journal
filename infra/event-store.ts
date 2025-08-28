@@ -14,7 +14,7 @@ import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import * as schema from "+infra/schema";
-import type { ProfileAvatarUpdatedEvent } from "+preferences/events";
+import type { ProfileAvatarRemovedEvent, ProfileAvatarUpdatedEvent } from "+preferences/events";
 import type { ShareableLinkEvent } from "+publishing/aggregates";
 import type { ShareableLinkAccessedEvent } from "+publishing/events";
 import type { HourHasPassedEvent } from "+system/events";
@@ -37,7 +37,8 @@ export type AcceptedEvent =
   | typeof bg.History.Events.HistoryClearedEvent
   | typeof bg.History.Events.HistoryPopulatedEvent
   | typeof bg.Preferences.Events.UserLanguageSetEvent
-  | typeof ProfileAvatarUpdatedEvent;
+  | typeof ProfileAvatarUpdatedEvent
+  | typeof ProfileAvatarRemovedEvent;
 
 export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
   {
