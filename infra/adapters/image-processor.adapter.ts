@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import { Env } from "+infra/env";
 
-export const ImageProcessorSharp = new bg.ImageProcessorSharpAdapter();
+const ImageProcessorSharp = new bg.ImageProcessorSharpAdapter();
 
 export const ImageProcessor: bg.ImageProcessorPort = {
   [bg.NodeEnvironmentEnum.local]: ImageProcessorSharp,

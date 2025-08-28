@@ -18,7 +18,13 @@ export class ProfileAvatarsProjector {
   }
 
   async onProfileAvatarUpdatedEvent(event: Preferences.Events.ProfileAvatarUpdatedEventType) {
-    await db.insert(Schema.userProfileAvatars).values({ ...event.payload, createdAt: event.createdAt });
+    await db
+      .insert(Schema.userProfileAvatars)
+      .values({ ...event.payload, createdAt: event.createdAt })
+      .onConflictDoUpdate({
+        target: Schema.userProfileAvatars.userId,
+        set: { key: event.payload.key, etag: event.payload.etag, createdAt: event.createdAt },
+      });
   }
 
   async onProfileAvatarRemovedEvent(event: Preferences.Events.ProfileAvatarRemovedEventType) {
