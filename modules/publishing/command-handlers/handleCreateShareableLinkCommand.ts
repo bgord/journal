@@ -1,12 +1,13 @@
 import * as Publishing from "+publishing";
 
+type Dependencies = {
+  repo: Publishing.Ports.ShareableLinkRepositoryPort;
+  ShareableLinksQuotaQuery: Publishing.Queries.ShareableLinksQuotaQuery;
+};
+
 export const handleCreateShareableLinkCommand =
-  (
-    repo: Publishing.Ports.ShareableLinkRepositoryPort,
-    ShareableLinksQuotaQuery: Publishing.Queries.ShareableLinksQuotaQuery,
-  ) =>
-  async (command: Publishing.Commands.CreateShareableLinkCommandType) => {
-    const shareableActiveLinksPerOwnerCount = await ShareableLinksQuotaQuery.execute(
+  (deps: Dependencies) => async (command: Publishing.Commands.CreateShareableLinkCommandType) => {
+    const shareableActiveLinksPerOwnerCount = await deps.ShareableLinksQuotaQuery.execute(
       command.payload.requesterId,
     );
 
@@ -20,5 +21,5 @@ export const handleCreateShareableLinkCommand =
       command.payload.requesterId,
     );
 
-    await repo.save(shareableLink);
+    await deps.repo.save(shareableLink);
   };

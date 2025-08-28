@@ -4,26 +4,27 @@ import * as Preferences from "+preferences";
 
 type AcceptedEvent = Preferences.Events.ProfileAvatarUpdatedEventType;
 
+type Dependencies = {
+  EventStore: bg.EventStoreLike<AcceptedEvent>;
+  ImageInfo: bg.ImageInfoPort;
+  ImageProcessor: bg.ImageProcessorPort;
+  TemporaryFile: bg.TemporaryFilePort;
+  RemoteFileStorage: bg.RemoteFileStoragePort;
+};
+
 export const handleUpdateProfileAvatarCommand =
-  (
-    EventStore: bg.EventStoreLike<AcceptedEvent>,
-    ImageInfo: bg.ImageInfoPort,
-    ImageProcessor: bg.ImageProcessorPort,
-    TemporaryFile: bg.TemporaryFilePort,
-    RemoteFileStorage: bg.RemoteFileStoragePort,
-  ) =>
-  async (command: Preferences.Commands.UpdateProfileAvatarCommandType) => {
+  (deps: Dependencies) => async (command: Preferences.Commands.UpdateProfileAvatarCommandType) => {
     const extension = tools.ExtensionSchema.parse("webp");
     const temporary = tools.FilePathAbsolute.fromString(command.payload.absoluteFilePath);
 
-    const info = await ImageInfo.inspect(temporary);
+    const info = await deps.ImageInfo.inspect(temporary);
 
     if (Preferences.Invariants.ProfileAvatarConstraints.fails(info)) {
-      await TemporaryFile.cleanup(temporary.getFilename());
+      await deps.TemporaryFile.cleanup(temporary.getFilename());
       throw new Preferences.Invariants.ProfileAvatarConstraints.error();
     }
 
-    const final = await ImageProcessor.process({
+    const final = await deps.ImageProcessor.process({
       strategy: "in_place",
       input: temporary,
       to: extension,
@@ -31,7 +32,7 @@ export const handleUpdateProfileAvatarCommand =
     });
 
     const key = Preferences.VO.ProfileAvatarKeyFactory.stable(command.payload.userId);
-    const object = await RemoteFileStorage.putFromPath({ key, path: final });
+    const object = await deps.RemoteFileStorage.putFromPath({ key, path: final });
 
     const event = Preferences.Events.ProfileAvatarUpdatedEvent.parse({
       ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),
@@ -39,5 +40,5 @@ export const handleUpdateProfileAvatarCommand =
       payload: { userId: command.payload.userId, key, etag: object.etag },
     } satisfies Preferences.Events.ProfileAvatarUpdatedEventType);
 
-    await EventStore.save([event]);
+    await deps.EventStore.save([event]);
   };

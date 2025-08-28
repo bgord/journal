@@ -25,7 +25,10 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.GENERATE_ALARM_COMMAND,
-  EmotionCommandHandlers.handleGenerateAlarmCommand(Adapters.Emotions.AlarmRepository, Adapters.AI.AiGateway),
+  EmotionCommandHandlers.handleGenerateAlarmCommand({
+    repo: Adapters.Emotions.AlarmRepository,
+    AiGateway: Adapters.AI.AiGateway,
+  }),
 );
 CommandBus.on(
   EmotionCommands.LOG_ENTRY_COMMAND,
@@ -49,11 +52,11 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
-  EmotionCommandHandlers.handleRequestWeeklyReviewCommand(
+  EmotionCommandHandlers.handleRequestWeeklyReviewCommand({
     EventStore,
-    Adapters.Emotions.WeeklyReviewRepository,
-    Adapters.Emotions.EntriesPerWeekCount,
-  ),
+    repo: Adapters.Emotions.WeeklyReviewRepository,
+    EntriesPerWeekCountQuery: Adapters.Emotions.EntriesPerWeekCount,
+  }),
 );
 CommandBus.on(
   EmotionCommands.COMPLETE_WEEKLY_REVIEW_COMMAND,
@@ -65,14 +68,17 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.DETECT_WEEKLY_PATTERNS_COMMAND,
-  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand(EventStore, Adapters.Emotions.EntrySnapshot),
+  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand({
+    EventStore,
+    EntrySnapshot: Adapters.Emotions.EntrySnapshot,
+  }),
 );
 CommandBus.on(
   EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand(
+  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand({
     EventStore,
-    Adapters.Emotions.WeeklyReviewSnapshot,
-  ),
+    WeeklyReviewSnapshot: Adapters.Emotions.WeeklyReviewSnapshot,
+  }),
 );
 CommandBus.on(
   EmotionCommands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
@@ -81,10 +87,10 @@ CommandBus.on(
 
 CommandBus.on(
   PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleCreateShareableLinkCommand(
-    Adapters.Publishing.ShareableLinkRepository,
-    Adapters.Publishing.ShareableLinksQuota,
-  ),
+  PublishingCommandHandlers.handleCreateShareableLinkCommand({
+    repo: Adapters.Publishing.ShareableLinkRepository,
+    ShareableLinksQuotaQuery: Adapters.Publishing.ShareableLinksQuota,
+  }),
 );
 
 CommandBus.on(
@@ -108,16 +114,19 @@ CommandBus.on(
 
 CommandBus.on(
   PreferencesCommands.UPDATE_PROFILE_AVATAR_COMMAND,
-  PreferencesCommandHandlers.handleUpdateProfileAvatarCommand(
+  PreferencesCommandHandlers.handleUpdateProfileAvatarCommand({
     EventStore,
-    Adapters.ImageInfo,
-    Adapters.ImageProcessor,
+    ImageInfo: Adapters.ImageInfo,
+    ImageProcessor: Adapters.ImageProcessor,
     TemporaryFile,
-    Adapters.RemoteFileStorage,
-  ),
+    RemoteFileStorage: Adapters.RemoteFileStorage,
+  }),
 );
 
 CommandBus.on(
   PreferencesCommands.REMOVE_PROFILE_AVATAR_COMMAND,
-  PreferencesCommandHandlers.handleRemoveProfileAvatarCommand(EventStore, Adapters.RemoteFileStorage),
+  PreferencesCommandHandlers.handleRemoveProfileAvatarCommand({
+    EventStore,
+    RemoteFileStorage: Adapters.RemoteFileStorage,
+  }),
 );

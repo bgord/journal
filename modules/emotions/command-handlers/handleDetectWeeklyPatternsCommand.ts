@@ -7,10 +7,14 @@ type AcceptedEvent =
   | Emotions.Events.MaladaptiveReactionsPatternDetectedEventType
   | Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
+type Dependencies = {
+  EventStore: bg.EventStoreLike<AcceptedEvent>;
+  EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
+};
+
 export const handleDetectWeeklyPatternsCommand =
-  (EventStore: bg.EventStoreLike<AcceptedEvent>, EntrySnapshot: Emotions.Ports.EntrySnapshotPort) =>
-  async (command: Emotions.Commands.DetectWeeklyPatternsCommandType) => {
-    const entries = await EntrySnapshot.getByWeekForUser(command.payload.week, command.payload.userId);
+  (deps: Dependencies) => async (command: Emotions.Commands.DetectWeeklyPatternsCommandType) => {
+    const entries = await deps.EntrySnapshot.getByWeekForUser(command.payload.week, command.payload.userId);
 
     const patterns = Emotions.Services.PatternDetector.detect({
       entries,
@@ -24,5 +28,5 @@ export const handleDetectWeeklyPatternsCommand =
       ],
     });
 
-    await EventStore.save(patterns);
+    await deps.EventStore.save(patterns);
   };

@@ -1,10 +1,11 @@
 import * as Emotions from "+emotions";
 import type { AiGateway } from "+ai/open-host-services";
 
+type Dependencies = { repo: Emotions.Ports.AlarmRepositoryPort; AiGateway: AiGateway };
+
 export const handleGenerateAlarmCommand =
-  (repo: Emotions.Ports.AlarmRepositoryPort, aiGateway: AiGateway) =>
-  async (command: Emotions.Commands.GenerateAlarmCommandType) => {
-    const check = await aiGateway.check(
+  (deps: Dependencies) => async (command: Emotions.Commands.GenerateAlarmCommandType) => {
+    const check = await deps.AiGateway.check(
       Emotions.ACL.createAlarmRequestContext(
         command.payload.userId,
         // @ts-expect-error
@@ -20,5 +21,5 @@ export const handleGenerateAlarmCommand =
       command.payload.userId,
     );
 
-    await repo.save(alarm);
+    await deps.repo.save(alarm);
   };
