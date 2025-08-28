@@ -15,31 +15,31 @@ type Dependencies = {
 };
 
 export class EntryHistoryPublisher {
-  constructor(private readonly DI: Dependencies) {
-    DI.EventBus.on(
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(
       Emotions.Events.SITUATION_LOGGED_EVENT,
-      DI.EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
+      deps.EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
     );
-    DI.EventBus.on(
+    deps.EventBus.on(
       Emotions.Events.EMOTION_LOGGED_EVENT,
-      DI.EventHandler.handle(this.onEmotionLoggedEvent.bind(this)),
+      deps.EventHandler.handle(this.onEmotionLoggedEvent.bind(this)),
     );
-    DI.EventBus.on(
+    deps.EventBus.on(
       Emotions.Events.REACTION_LOGGED_EVENT,
-      DI.EventHandler.handle(this.onReactionLoggedEvent.bind(this)),
+      deps.EventHandler.handle(this.onReactionLoggedEvent.bind(this)),
     );
-    DI.EventBus.on(
+    deps.EventBus.on(
       Emotions.Events.EMOTION_REAPPRAISED_EVENT,
-      DI.EventHandler.handle(this.onEmotionReappraisedEvent.bind(this)),
+      deps.EventHandler.handle(this.onEmotionReappraisedEvent.bind(this)),
     );
-    DI.EventBus.on(
+    deps.EventBus.on(
       Emotions.Events.REACTION_EVALUATED_EVENT,
-      DI.EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
+      deps.EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
     );
   }
 
   async onSituationLoggedEvent(event: Emotions.Events.SituationLoggedEventType) {
-    await this.DI.HistoryWriter.populate({
+    await this.deps.HistoryWriter.populate({
       operation: "entry.situation.logged",
       subject: event.payload.entryId,
       payload: {
@@ -51,7 +51,7 @@ export class EntryHistoryPublisher {
   }
 
   async onEmotionLoggedEvent(event: Emotions.Events.EmotionLoggedEventType) {
-    await this.DI.HistoryWriter.populate({
+    await this.deps.HistoryWriter.populate({
       operation: "entry.emotion.logged",
       subject: event.payload.entryId,
       payload: {
@@ -62,7 +62,7 @@ export class EntryHistoryPublisher {
   }
 
   async onReactionLoggedEvent(event: Emotions.Events.ReactionLoggedEventType) {
-    await this.DI.HistoryWriter.populate({
+    await this.deps.HistoryWriter.populate({
       operation: "entry.reaction.logged",
       subject: event.payload.entryId,
       payload: {
@@ -74,7 +74,7 @@ export class EntryHistoryPublisher {
   }
 
   async onEmotionReappraisedEvent(event: Emotions.Events.EmotionReappraisedEventType) {
-    await this.DI.HistoryWriter.populate({
+    await this.deps.HistoryWriter.populate({
       operation: "entry.emotion.reappraised",
       subject: event.payload.entryId,
       payload: {
@@ -85,7 +85,7 @@ export class EntryHistoryPublisher {
   }
 
   async onReactionEvaluatedEvent(event: Emotions.Events.ReactionEvaluatedEventType) {
-    await this.DI.HistoryWriter.populate({
+    await this.deps.HistoryWriter.populate({
       operation: "entry.reaction.evaluated",
       subject: event.payload.entryId,
       payload: {
@@ -97,6 +97,6 @@ export class EntryHistoryPublisher {
   }
 
   async onEntryDeletedEvent(event: Emotions.Events.EntryDeletedEventType) {
-    await this.DI.HistoryWriter.clear(event.payload.entryId);
+    await this.deps.HistoryWriter.clear(event.payload.entryId);
   }
 }

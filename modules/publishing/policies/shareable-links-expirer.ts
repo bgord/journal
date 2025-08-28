@@ -16,16 +16,16 @@ type Dependencies = {
 };
 
 export class ShareableLinksExpirer {
-  constructor(private readonly DI: Dependencies) {
-    DI.EventBus.on(
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
   async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     try {
-      const shareableLinks = await this.DI.ExpiringShareableLinks.listDue(event.payload.timestamp);
+      const shareableLinks = await this.deps.ExpiringShareableLinks.listDue(event.payload.timestamp);
 
       for (const shareableLink of shareableLinks) {
         const command = Commands.ExpireShareableLinkCommand.parse({
@@ -35,7 +35,7 @@ export class ShareableLinksExpirer {
           payload: { shareableLinkId: shareableLink.id },
         } satisfies Commands.ExpireShareableLinkCommandType);
 
-        await this.DI.CommandBus.emit(command.name, command);
+        await this.deps.CommandBus.emit(command.name, command);
       }
     } catch {}
   }

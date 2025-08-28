@@ -15,10 +15,10 @@ type Dependencies = {
 };
 
 export class WeeklyReviewScheduler {
-  constructor(private readonly DI: Dependencies) {
-    DI.EventBus.on(
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
@@ -27,7 +27,7 @@ export class WeeklyReviewScheduler {
 
     const week = tools.Week.fromNow();
 
-    const userIds = await this.DI.UserDirectory.listActiveUserIds();
+    const userIds = await this.deps.UserDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
       const command = Emotions.Commands.RequestWeeklyReviewCommand.parse({
@@ -36,7 +36,7 @@ export class WeeklyReviewScheduler {
         payload: { week, userId },
       } satisfies Emotions.Commands.RequestWeeklyReviewCommandType);
 
-      await this.DI.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command.name, command);
     }
   }
 }

@@ -35,30 +35,30 @@ type Dependencies = {
 };
 
 export class AlarmOrchestrator {
-  constructor(private readonly DI: Dependencies) {
-    DI.EventBus.on(
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(
       Events.ALARM_GENERATED_EVENT,
-      DI.EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)),
+      deps.EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)),
     );
-    DI.EventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
-    DI.EventBus.on(
+    deps.EventBus.on(Events.ALARM_ADVICE_SAVED_EVENT, this.onAlarmAdviceSavedEvent.bind(this));
+    deps.EventBus.on(
       Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
       this.onAlarmNotificationRequestedEvent.bind(this),
     );
-    DI.EventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
+    deps.EventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
   }
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     try {
-      const language = await this.DI.UserLanguage.get(event.payload.userId);
-      const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.DI.EntrySnapshot, language).create(
+      const language = await this.deps.UserLanguage.get(event.payload.userId);
+      const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.deps.EntrySnapshot, language).create(
         detection,
       );
       // @ts-expect-error
       const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
-      const advice = await this.DI.AiGateway.query(prompt, context);
+      const advice = await this.deps.AiGateway.query(prompt, context);
 
       const command = Commands.SaveAlarmAdviceCommand.parse({
         ...bg.createCommandEnvelope(),
@@ -66,7 +66,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId, advice },
       } satisfies Commands.SaveAlarmAdviceCommandType);
 
-      await this.DI.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command.name, command);
     } catch (_error) {
       const command = Commands.CancelAlarmCommand.parse({
         ...bg.createCommandEnvelope(),
@@ -74,7 +74,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
-      await this.DI.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command.name, command);
     }
   }
 
@@ -85,7 +85,7 @@ export class AlarmOrchestrator {
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.RequestAlarmNotificationCommandType);
 
-    await this.DI.CommandBus.emit(command.name, command);
+    await this.deps.CommandBus.emit(command.name, command);
   }
 
   async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
@@ -95,21 +95,21 @@ export class AlarmOrchestrator {
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.CancelAlarmCommandType);
 
-    const contact = await this.DI.UserContact.getPrimary(event.payload.userId);
-    if (!contact?.address) return this.DI.CommandBus.emit(cancel.name, cancel);
+    const contact = await this.deps.UserContact.getPrimary(event.payload.userId);
+    if (!contact?.address) return this.deps.CommandBus.emit(cancel.name, cancel);
 
-    const language = await this.DI.UserLanguage.get(event.payload.userId);
+    const language = await this.deps.UserLanguage.get(event.payload.userId);
 
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
 
-    const notification = await new Services.AlarmNotificationFactory(this.DI.EntrySnapshot, language).create(
-      detection,
-      advice,
-    );
+    const notification = await new Services.AlarmNotificationFactory(
+      this.deps.EntrySnapshot,
+      language,
+    ).create(detection, advice);
 
     try {
-      await this.DI.Mailer.send({ from: this.DI.EMAIL_FROM, to: contact.address, ...notification.get() });
+      await this.deps.Mailer.send({ from: this.deps.EMAIL_FROM, to: contact.address, ...notification.get() });
 
       const complete = Commands.CompleteAlarmCommand.parse({
         ...bg.createCommandEnvelope(),
@@ -117,12 +117,14 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CompleteAlarmCommandType);
 
-      await this.DI.CommandBus.emit(complete.name, complete);
+      await this.deps.CommandBus.emit(complete.name, complete);
     } catch {}
   }
 
   async onEntryDeletedEvent(event: Events.EntryDeletedEventType) {
-    const cancellableAlarmIds = await this.DI.AlarmCancellationLookup.listIdsForEntry(event.payload.entryId);
+    const cancellableAlarmIds = await this.deps.AlarmCancellationLookup.listIdsForEntry(
+      event.payload.entryId,
+    );
 
     for (const alarmId of cancellableAlarmIds) {
       const command = Commands.CancelAlarmCommand.parse({
@@ -131,7 +133,7 @@ export class AlarmOrchestrator {
         payload: { alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
-      await this.DI.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command.name, command);
     }
   }
 }

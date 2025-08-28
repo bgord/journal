@@ -14,16 +14,16 @@ type Dependencies = {
 };
 
 export class TimeCapsuleEntriesScheduler {
-  constructor(private readonly DI: Dependencies) {
-    DI.EventBus.on(
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
   async onHourHasPassedEvent() {
     const now = tools.Time.Now().value;
-    const dueEntries = await this.DI.TimeCapsuleDueEntries.listDue(now);
+    const dueEntries = await this.deps.TimeCapsuleDueEntries.listDue(now);
 
     for (const entry of dueEntries) {
       if (
@@ -59,7 +59,7 @@ export class TimeCapsuleEntriesScheduler {
         },
       } satisfies Emotions.Commands.LogEntryCommandType);
 
-      await this.DI.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command.name, command);
     }
   }
 }

@@ -16,20 +16,20 @@ type Dependencies = {
 };
 
 export class InactivityAlarmScheduler {
-  constructor(private readonly DI: Dependencies) {
-    DI.EventBus.on(
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
   async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     if (Emotions.Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
-    const userIds = await this.DI.UserDirectory.listActiveUserIds();
+    const userIds = await this.deps.UserDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
-      const lastEntryTimestamp = await this.DI.GetLatestEntryTimestampForUser.execute(userId);
+      const lastEntryTimestamp = await this.deps.GetLatestEntryTimestampForUser.execute(userId);
 
       if (Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
 
@@ -47,7 +47,7 @@ export class InactivityAlarmScheduler {
         payload: { detection, userId },
       } satisfies Emotions.Commands.GenerateAlarmCommandType);
 
-      await this.DI.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command.name, command);
     }
   }
 }
