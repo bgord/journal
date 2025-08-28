@@ -4,6 +4,7 @@ import { SupportedLanguages } from "+languages";
 import { Env } from "+infra/env";
 import { jobs } from "+infra/jobs";
 import { LoggerWinstonProductionAdapter } from "+infra/logger.adapter";
+import { TemporaryFileDirectory } from "+infra/temporary-file.adapter";
 
 export const prerequisites = [
   new bg.PrerequisitePort({ label: "port", port: Env.PORT }),
@@ -37,6 +38,10 @@ export const prerequisites = [
     label: "log-file",
     logger: LoggerWinstonProductionAdapter,
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
+  }),
+  new bg.PrerequisitePath({
+    label: "temporary-files dir",
+    path: TemporaryFileDirectory,
   }),
   new bg.PrerequisiteJobs({
     label: "jobs",
