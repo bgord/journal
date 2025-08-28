@@ -56,7 +56,7 @@ describe(`GET ${url}`, () => {
     expect(response.headers.get("ETag")).toBe(mocks.head.etag);
     expect(response.headers.get("Content-Length")).toBe(mocks.head.size.toBytes().toString());
     expect(response.headers.get("Last-Modified")).toBe(new Date(mocks.head.lastModified).toUTCString());
-    expect(response.headers.get("Cache-Control")).toBe("public, max-age=31536000, immutable");
+    +expect(response.headers.get("Cache-Control")).toBe("private, max-age=0, must-revalidate");
 
     const arrBuf = await response.arrayBuffer();
     expect(new Uint8Array(arrBuf)).toEqual(new Uint8Array([1, 2, 3, 4, 5]));

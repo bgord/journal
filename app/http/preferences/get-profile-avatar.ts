@@ -11,10 +11,18 @@ export async function GetProfileAvatar(c: hono.Context<infra.HonoConfig>) {
   const head = await RemoteFileStorage.head(key);
   if (!head.exists) return c.notFound();
 
-  const ifNoneMatch = c.req.header("if-none-match");
+  const ifNoneMatchHeader = c.req.header("if-none-match");
 
-  if (ifNoneMatch && ifNoneMatch === head.etag) {
-    return new Response(null, { status: 304 });
+  if (ifNoneMatchHeader && ifNoneMatchHeader === head.etag) {
+    return new Response(null, {
+      status: 304,
+      headers: new Headers({
+        ETag: head.etag,
+        "Cache-Control": "private, max-age=0, must-revalidate",
+        "Last-Modified": new Date(head.lastModified).toUTCString(),
+        Vary: "Authorization, Cookie",
+      }),
+    });
   }
 
   const stream = await RemoteFileStorage.getStream(key);
@@ -22,10 +30,12 @@ export async function GetProfileAvatar(c: hono.Context<infra.HonoConfig>) {
 
   const headers = new Headers({
     "Content-Type": head.mime.raw,
-    "Cache-Control": "public, max-age=31536000, immutable",
+    "Cache-Control": "private, max-age=0, must-revalidate",
     ETag: head.etag,
     "Content-Length": head.size.toBytes().toString(),
     "Last-Modified": new Date(head.lastModified).toUTCString(),
+    "Accept-Ranges": "bytes",
+    Vary: "Authorization, Cookie",
   });
 
   return new Response(stream, { status: 200, headers });
