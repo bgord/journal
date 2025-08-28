@@ -7,7 +7,7 @@ export const PROFILE_AVATAR_REMOVED_EVENT = "PROFILE_AVATAR_REMOVED_EVENT";
 export const ProfileAvatarRemovedEvent = z.object({
   ...bg.EventEnvelopeSchema,
   name: z.literal(PROFILE_AVATAR_REMOVED_EVENT),
-  payload: z.object({ userId: Auth.VO.UserId, avatarId: bg.UUID }),
+  payload: z.object({ userId: Auth.VO.UserId }),
 });
 
 export type ProfileAvatarRemovedEventType = z.infer<typeof ProfileAvatarRemovedEvent>;
