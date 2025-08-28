@@ -119,5 +119,5 @@ CommandBus.on(
 
 CommandBus.on(
   PreferencesCommands.REMOVE_PROFILE_AVATAR_COMMAND,
-  PreferencesCommandHandlers.handleRemoveProfileAvatarCommand(EventStore),
+  PreferencesCommandHandlers.handleRemoveProfileAvatarCommand(EventStore, Adapters.RemoteFileStorage),
 );
