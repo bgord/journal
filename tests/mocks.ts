@@ -135,6 +135,8 @@ export const head = {
   mime: new tools.Mime("image/webp"),
 };
 
+export const objectKey = tools.ObjectKey.parse(`users/${userId}/avatar.webp`);
+
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
@@ -821,7 +823,7 @@ export const GenericProfileAvatarUpdatedEvent = {
   stream: `preferences_${userId}`,
   version: 1,
   name: "PROFILE_AVATAR_UPDATED_EVENT",
-  payload: { userId, key: tools.ObjectKey.parse(`users/${userId}/avatar.webp`), etag: "noop" },
+  payload: { userId, key: objectKey, etag: "noop" },
 } satisfies Preferences.Events.ProfileAvatarUpdatedEventType;
 
 export const GenericProfileAvatarRemovedEvent = {
