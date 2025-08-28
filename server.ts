@@ -135,6 +135,7 @@ server.post(
   }),
   HTTP.Preferences.UpdateProfileAvatar,
 );
+server.get("/profile-avatar/get", AuthShield.attach, AuthShield.verify, HTTP.Preferences.GetProfileAvatar);
 // =============================
 
 // Auth ========================
