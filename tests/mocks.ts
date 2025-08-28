@@ -127,6 +127,14 @@ export const emotionsAlarmEntryBucket = `user:${userId}:entry:${entryId}:alarms`
 export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_weekly_review_insight`;
 export const emotionsAlarmInactivityWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_alarm_inactivity`;
 
+export const head = {
+  exists: true,
+  etag: "etag-123",
+  size: tools.Size.fromBytes(1234),
+  lastModified: tools.Timestamp.parse(Date.UTC(2024, 1, 2, 3, 4, 5)),
+  mime: new tools.Mime("image/webp"),
+};
+
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
