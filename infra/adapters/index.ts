@@ -7,6 +7,7 @@ export * as History from "./history";
 export * from "./id-provider.adapter";
 export * from "./image-info.adapter";
 export * from "./image-processor.adapter";
+export * from "./logger.adapter";
 export * from "./mailer.adapter";
 export * as Preferences from "./preferences";
 export * as Publishing from "./publishing";
