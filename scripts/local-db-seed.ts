@@ -76,7 +76,7 @@ const reactionDescriptions = [
 const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
 (async function main() {
-  const correlationId = crypto.randomUUID();
+  const correlationId = Adapters.IdProvider.generate();
 
   await bg.CorrelationStorage.run(correlationId, async () => {
     await db.delete(Schema.events);
@@ -158,7 +158,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     ];
 
     for (const [index, detection] of Object.entries(inactivityDetections)) {
-      const alarmId = crypto.randomUUID();
+      const alarmId = Adapters.IdProvider.generate();
       const alarm = Emotions.Aggregates.Alarm.generate(
         alarmId,
         detection,
@@ -200,7 +200,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       );
 
       const entry = Emotions.Aggregates.Entry.log(
-        crypto.randomUUID(),
+        Adapters.IdProvider.generate(),
         situation,
         emotion,
         reaction,
@@ -218,7 +218,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       ...bg.createCommandEnvelope(Adapters.IdProvider),
       name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
       payload: {
-        entryId: crypto.randomUUID(),
+        entryId: Adapters.IdProvider.generate(),
         situation: new Emotions.Entities.Situation(
           new Emotions.VO.SituationDescription(situationDescriptions[0] as string),
           new Emotions.VO.SituationLocation(situationLocations[0] as string),
@@ -254,7 +254,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     console.log("[✓] Weekly review scheduled");
 
     const shareableLink = Publishing.Aggregates.ShareableLink.create(
-      crypto.randomUUID(),
+      Adapters.IdProvider.generate(),
       "entries",
       new tools.DateRange(
         tools.Time.Now().Minus(tools.Time.Days(7)).ms as tools.TimestampType,
