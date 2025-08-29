@@ -186,7 +186,6 @@ modules/
 │   │   ├── alarm-repository.ts
 │   │   ├── entry-repository.ts
 │   │   ├── entry-snapshot.ts
-│   │   ├── pdf-generator.ts
 │   │   ├── time-capsule-due-entries.ts
 │   │   ├── weekly-review-repository.ts
 │   │   └── weekly-review-snapshot.ts
@@ -256,8 +255,25 @@ modules/
 │       ├── weekly-review-snapshot.ts
 │       └── weekly-review-status.ts
 ├── preferences
-│   └── policies
-│       └── set-default-user-language.ts
+│   ├── command-handlers
+│   │   ├── handleRemoveProfileAvatarCommand.ts
+│   │   ├── handleUpdateProfileAvatarCommand.ts
+│   ├── commands
+│   │   ├── REMOVE_PROFILE_AVATAR_COMMAND.ts
+│   │   ├── UPDATE_PROFILE_AVATAR_COMMAND.ts
+│   ├── events
+│   │   ├── PROFILE_AVATAR_REMOVED_EVENT.ts
+│   │   ├── PROFILE_AVATAR_UPDATED_EVENT.ts
+│   ├── invariants
+│   │   └── profile-avatar-constraints.ts
+│   ├── policies
+│   │   └── set-default-user-language.ts
+│   └── value-objects
+│       ├── profile-avatar-key.ts
+│       ├── profile-avatar-max-side.ts
+│       ├── profile-avatar-max-size.ts
+│       ├── profile-avatar-mime-types.ts
+│       └── profile-avatar-side.ts
 ├── publishing
 │   ├── aggregates
 │   │   └── shareable-link.ts
@@ -319,6 +335,9 @@ app/
 │   │   └── schedule-time-capsule-entry.ts
 │   ├── error-handler.ts
 │   ├── preferences
+│   │   ├── get-profile-avatar.ts
+│   │   ├── remove-profile-avatar.ts
+│   │   ├── update-profile-avatar.ts
 │   │   └── update-user-language.ts
 │   └── publishing
 │       ├── create-shareable-link.ts
@@ -346,6 +365,7 @@ infra/
 │   ├── auth
 │   │   ├── user-contact.adapter.ts
 │   │   └── user-directory.adapter.ts
+│   ├── csv-stringifier.adapter.ts
 │   ├── emotions
 │   │   ├── alarm-cancellation-lookup.adapter.ts
 │   │   ├── alarm-directory.adapter.ts
@@ -355,26 +375,31 @@ infra/
 │   │   ├── entry-repository.adapter.ts
 │   │   ├── entry-snapshot.adapter.ts
 │   │   ├── get-latest-entry-timestamp-for-user.adapter.ts
-│   │   ├── pdf-generator-noop.adapter.ts
 │   │   ├── pdf-generator-react.adapter.tsx
 │   │   ├── pdf-generator.adapter.ts
 │   │   ├── time-capsule-due-entries.adapter.ts
 │   │   ├── weekly-review-export.adapter.ts
 │   │   ├── weekly-review-repository.adapter.ts
 │   │   └── weekly-review-snapshot.adapter.ts
+│   ├── file-hash.adapter.ts
 │   ├── history
 │   │   ├── history-projection.adapter.ts
 │   │   ├── history-writer.adapter.ts
+│   ├── id-provider.adapter.ts
+│   ├── image-info.adapter.ts
+│   ├── image-processor.adapter.ts
+│   ├── logger.adapter.ts
 │   ├── mailer.adapter.ts
 │   ├── preferences
 │   │   ├── user-language-query.adapter.ts
 │   │   └── user-language.adapter.ts
-│   └── publishing
-│       ├── expiring-shareable-links.ts
-│       ├── shareable-link-access-auditor.adapter.ts
-│       ├── shareable-link-access.adapter.ts
-│       ├── shareable-link-repository.adapter.ts
-│       └── shareable-links-quota.adapter.ts
+│   ├── publishing
+│   │   ├── expiring-shareable-links.ts
+│   │   ├── shareable-link-access-auditor.adapter.ts
+│   │   ├── shareable-link-access.adapter.ts
+│   │   ├── shareable-link-repository.adapter.ts
+│   │   └── shareable-links-quota.adapter.ts
+│   └── remote-file-storage.adapter.ts
 ├── auth.ts
 ├── basic-auth-shield.ts
 ├── cache.ts
@@ -393,6 +418,7 @@ infra/
 ├── jobs.ts
 ├── logger.adapter.ts
 ├── prerequisites.ts
+├── profile-avatars
 ├── projections
 │   ├── ai-usage-counter.projector.ts
 │   ├── alarm.projector.ts
@@ -400,6 +426,7 @@ infra/
 │   ├── history.projector.ts
 │   ├── pattern-detection.projector.ts
 │   ├── preferences.projector.ts
+│   ├── profile-avatars.projector.ts
 │   ├── shareable-link-hits.projector.ts
 │   ├── shareable-link.projector.ts
 │   └── weekly-review.projector.ts
@@ -408,6 +435,7 @@ infra/
 ├── register-event-handlers.ts
 ├── response-cache.ts
 ├── schema.ts
+├── temporary-file.adapter.ts
 └── translations
     ├── en.json
     └── pl.json
