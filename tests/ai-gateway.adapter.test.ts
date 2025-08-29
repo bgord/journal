@@ -2,22 +2,27 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
 import * as VO from "+ai/value-objects";
-import { AiClient, AiEventStorePublisher, BucketCounter } from "+infra/adapters/ai";
+import * as Adapters from "+infra/adapters";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
-const gateway = new AiGateway(AiEventStorePublisher, AiClient, BucketCounter);
+const gateway = new AiGateway(
+  Adapters.AI.AiEventStorePublisher,
+  Adapters.AI.AiClient,
+  Adapters.IdProvider,
+  Adapters.AI.BucketCounter,
+);
 
 const prompt = new VO.Prompt("Give me some insights");
 
 describe("AiGateway", () => {
   test("happy path", async () => {
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
-    spyOn(BucketCounter, "getMany").mockResolvedValue({
+    spyOn(Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsAlarmEntryBucket]: 0,
     });
-    spyOn(AiClient, "request").mockResolvedValue(mocks.advice);
+    spyOn(Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -30,11 +35,11 @@ describe("AiGateway", () => {
 
   test("quota exceeded", async () => {
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
-    spyOn(BucketCounter, "getMany").mockResolvedValue({
+    spyOn(Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 11,
       [mocks.emotionsAlarmEntryBucket]: 3,
     });
-    spyOn(AiClient, "request").mockResolvedValue(mocks.advice);
+    spyOn(Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {

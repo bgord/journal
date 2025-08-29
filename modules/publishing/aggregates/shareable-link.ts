@@ -9,6 +9,8 @@ import * as VO from "+publishing/value-objects";
 export type ShareableLinkEvent = (typeof ShareableLink)["events"][number];
 type ShareableLinkEventType = z.infer<ShareableLinkEvent>;
 
+type Dependencies = { IdProvider: bg.IdProviderPort };
+
 export class ShareableLink {
   static events = [
     Events.ShareableLinkCreatedEvent,
@@ -27,12 +29,19 @@ export class ShareableLink {
 
   private readonly pending: ShareableLinkEventType[] = [];
 
-  private constructor(id: VO.ShareableLinkIdType) {
+  private constructor(
+    id: VO.ShareableLinkIdType,
+    private readonly deps: Dependencies,
+  ) {
     this.id = id;
   }
 
-  static build(id: VO.ShareableLinkIdType, events: ShareableLinkEventType[]): ShareableLink {
-    const shareableLink = new ShareableLink(id);
+  static build(
+    id: VO.ShareableLinkIdType,
+    events: ShareableLinkEventType[],
+    deps: Dependencies,
+  ): ShareableLink {
+    const shareableLink = new ShareableLink(id, deps);
 
     events.forEach((event) => shareableLink.apply(event));
 
@@ -45,11 +54,12 @@ export class ShareableLink {
     dateRange: tools.DateRange,
     duration: tools.TimeResult,
     requesterId: Auth.VO.UserIdType,
+    deps: Dependencies,
   ) {
-    const shareableLink = new ShareableLink(id);
+    const shareableLink = new ShareableLink(id, deps);
 
     const event = Events.ShareableLinkCreatedEvent.parse({
-      ...bg.createEventEnvelope(ShareableLink.getStream(id)),
+      ...bg.createEventEnvelope(deps.IdProvider, ShareableLink.getStream(id)),
       name: Events.SHAREABLE_LINK_CREATED_EVENT,
       payload: {
         shareableLinkId: id,
@@ -76,7 +86,7 @@ export class ShareableLink {
     });
 
     const event = Events.ShareableLinkExpiredEvent.parse({
-      ...bg.createEventEnvelope(ShareableLink.getStream(this.id)),
+      ...bg.createEventEnvelope(this.deps.IdProvider, ShareableLink.getStream(this.id)),
       name: Events.SHAREABLE_LINK_EXPIRED_EVENT,
       payload: { shareableLinkId: this.id },
     } satisfies Events.ShareableLinkExpiredEventType);
@@ -89,7 +99,7 @@ export class ShareableLink {
     Invariants.RequesterOwnsShareableLink.perform({ requesterId, ownerId: this.ownerId });
 
     const event = Events.ShareableLinkRevokedEvent.parse({
-      ...bg.createEventEnvelope(ShareableLink.getStream(this.id)),
+      ...bg.createEventEnvelope(this.deps.IdProvider, ShareableLink.getStream(this.id)),
       name: Events.SHAREABLE_LINK_REVOKED_EVENT,
       payload: { shareableLinkId: this.id },
     } satisfies Events.ShareableLinkRevokedEventType);
