@@ -4,6 +4,7 @@ export * from "./csv-stringifier.adapter";
 export * as Emotions from "./emotions";
 export * from "./file-hash.adapter";
 export * as History from "./history";
+export * from "./id-provider.adapter";
 export * from "./image-info.adapter";
 export * from "./image-processor.adapter";
 export * from "./mailer.adapter";
