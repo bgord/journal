@@ -54,6 +54,7 @@ CommandBus.on(
   EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
   EmotionCommandHandlers.handleRequestWeeklyReviewCommand({
     EventStore,
+    IdProvider: Adapters.IdProvider,
     repo: Adapters.Emotions.WeeklyReviewRepository,
     EntriesPerWeekCountQuery: Adapters.Emotions.EntriesPerWeekCount,
   }),
@@ -77,12 +78,16 @@ CommandBus.on(
   EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
   EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand({
     EventStore,
+    IdProvider: Adapters.IdProvider,
     WeeklyReviewSnapshot: Adapters.Emotions.WeeklyReviewSnapshot,
   }),
 );
 CommandBus.on(
   EmotionCommands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand(EventStore),
+  EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand({
+    EventStore,
+    IdProvider: Adapters.IdProvider,
+  }),
 );
 
 CommandBus.on(
@@ -107,6 +112,7 @@ CommandBus.on(
   bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
   bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
     EventStore,
+    Adapters.IdProvider,
     Adapters.Preferences.UserLanguageQueryAdapter,
     new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
   ),
@@ -117,6 +123,7 @@ CommandBus.on(
   PreferencesCommandHandlers.handleUpdateProfileAvatarCommand({
     EventStore,
     ImageInfo: Adapters.ImageInfo,
+    IdProvider: Adapters.IdProvider,
     ImageProcessor: Adapters.ImageProcessor,
     TemporaryFile,
     RemoteFileStorage: Adapters.RemoteFileStorage,
@@ -127,6 +134,7 @@ CommandBus.on(
   PreferencesCommands.REMOVE_PROFILE_AVATAR_COMMAND,
   PreferencesCommandHandlers.handleRemoveProfileAvatarCommand({
     EventStore,
+    IdProvider: Adapters.IdProvider,
     RemoteFileStorage: Adapters.RemoteFileStorage,
   }),
 );

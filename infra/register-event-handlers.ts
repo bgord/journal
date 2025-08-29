@@ -31,19 +31,27 @@ new Projections.ProfileAvatarsProjector(EventBus, EventHandler);
 new PublishingPolicies.ShareableLinksExpirer({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   ExpiringShareableLinks: Adapters.Publishing.ExpiringShareableLinks,
 });
-new EmotionsPolicies.EntryAlarmDetector({ EventBus, EventHandler, CommandBus });
+new EmotionsPolicies.EntryAlarmDetector({
+  EventBus,
+  EventHandler,
+  IdProvider: Adapters.IdProvider,
+  CommandBus,
+});
 new EmotionsPolicies.WeeklyReviewScheduler({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   UserDirectory: Adapters.Auth.UserDirectory,
 });
 new EmotionsPolicies.InactivityAlarmScheduler({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   UserDirectory: Adapters.Auth.UserDirectory,
   GetLatestEntryTimestampForUser: Adapters.Emotions.GetLatestEntryTimestampForUser,
@@ -51,6 +59,7 @@ new EmotionsPolicies.InactivityAlarmScheduler({
 new EmotionsPolicies.TimeCapsuleEntriesScheduler({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   TimeCapsuleDueEntries: Adapters.Emotions.TimeCapsuleDueEntries,
 });
@@ -62,6 +71,7 @@ new EmotionsPolicies.EntryHistoryPublisher({
 new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
   EventBus,
   EventHandler,
+  Adapters.IdProvider,
   CommandBus,
   SupportedLanguages.en,
 );
@@ -70,6 +80,7 @@ new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
 new EmotionsSagas.AlarmOrchestrator({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   AiGateway: Adapters.AI.AiGateway,
   Mailer,
@@ -82,6 +93,7 @@ new EmotionsSagas.AlarmOrchestrator({
 new EmotionsSagas.WeeklyReviewProcessing({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   AiGateway: Adapters.AI.AiGateway,
   Mailer,
@@ -93,6 +105,7 @@ new EmotionsSagas.WeeklyReviewProcessing({
 new EmotionsSagas.WeeklyReviewExportByEmail({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   EventStore,
   Mailer,
   PdfGenerator: Adapters.Emotions.PdfGenerator,
