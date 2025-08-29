@@ -2,8 +2,7 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
-import { IdProvider } from "+infra/adapters/id-provider.adapter";
-import { ExpiringShareableLinks } from "+infra/adapters/publishing";
+import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
@@ -15,14 +14,14 @@ const policy = new Publishing.Policies.ShareableLinksExpirer({
   EventBus,
   EventHandler,
   CommandBus,
-  ExpiringShareableLinks,
-  IdProvider,
+  ExpiringShareableLinks: Adapters.Publishing.ExpiringShareableLinks,
+  IdProvider: Adapters.IdProvider,
 });
 
 describe("ShareableLinksExpirer", () => {
   test("validation - ShareableLinkIsActive - already revoked", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
+    spyOn(Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
     spyOn(EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
@@ -37,7 +36,7 @@ describe("ShareableLinksExpirer", () => {
 
   test("validation - ShareableLinkIsActive - already expired", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
+    spyOn(Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
     spyOn(EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
@@ -53,7 +52,7 @@ describe("ShareableLinksExpirer", () => {
   test("validation - ShareableLinkExpirationTimePassed", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Date, "now").mockReturnValue(Date.now() + mocks.duration.ms + 1);
-    spyOn(ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
+    spyOn(Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -65,7 +64,7 @@ describe("ShareableLinksExpirer", () => {
 
   test("repository failure", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(ExpiringShareableLinks, "listDue").mockRejectedValue(new Error("FAILURE"));
+    spyOn(Adapters.Publishing.ExpiringShareableLinks, "listDue").mockRejectedValue(new Error("FAILURE"));
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -76,7 +75,7 @@ describe("ShareableLinksExpirer", () => {
   });
 
   test("correct path - no links", async () => {
-    spyOn(ExpiringShareableLinks, "listDue").mockResolvedValue([]);
+    spyOn(Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -88,7 +87,7 @@ describe("ShareableLinksExpirer", () => {
 
   test("correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
+    spyOn(Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     spyOn(Date, "now").mockReturnValue(tools.Time.Now().Minus(tools.Time.Minutes(1)).ms);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());

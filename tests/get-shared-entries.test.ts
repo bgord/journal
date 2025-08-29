@@ -1,6 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { EntriesSharing } from "+infra/adapters/emotions";
+import * as Adapters from "+infra/adapters";
 import { EventStore } from "+infra/event-store";
 import { server } from "../server";
 import * as mocks from "./mocks";
@@ -59,7 +59,7 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path", async () => {
-    spyOn(EntriesSharing, "listForOwnerInRange").mockResolvedValue([]);
+    spyOn(Adapters.Emotions.EntriesSharing, "listForOwnerInRange").mockResolvedValue([]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     spyOn(Date, "now").mockReturnValue(mocks.accessContext.timestamp);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());

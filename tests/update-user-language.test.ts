@@ -1,7 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { SupportedLanguages } from "+languages";
-import { UserLanguageQueryAdapter } from "+infra/adapters/preferences";
+import * as Adapters from "+infra/adapters";
 import { auth } from "+infra/auth";
 import { EventStore } from "+infra/event-store";
 import { server } from "../server";
@@ -27,7 +27,7 @@ describe(`POST ${url}`, () => {
 
   test("UserLanguageHasChanged", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(UserLanguageQueryAdapter, "get").mockResolvedValue(SupportedLanguages.en);
+    spyOn(Adapters.Preferences.UserLanguageQueryAdapter, "get").mockResolvedValue(SupportedLanguages.en);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
@@ -41,7 +41,7 @@ describe(`POST ${url}`, () => {
 
   test("happy path", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(UserLanguageQueryAdapter, "get").mockResolvedValue(SupportedLanguages.en);
+    spyOn(Adapters.Preferences.UserLanguageQueryAdapter, "get").mockResolvedValue(SupportedLanguages.en);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(

@@ -3,7 +3,6 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
 import * as Adapters from "+infra/adapters";
-import { ShareableLinksQuota } from "+infra/adapters/publishing";
 import { auth } from "+infra/auth";
 import { EventStore } from "+infra/event-store";
 import { server } from "../server";
@@ -107,7 +106,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - ShareableLinksPerOwnerLimit", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(ShareableLinksQuota, "execute").mockResolvedValue({ count: 50 });
+    spyOn(Adapters.Publishing.ShareableLinksQuota, "execute").mockResolvedValue({ count: 50 });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
@@ -135,7 +134,7 @@ describe(`POST ${url}`, () => {
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Date, "now").mockReturnValue(mocks.shareableLinkCreatedAt);
-    spyOn(ShareableLinksQuota, "execute").mockResolvedValue({ count: 0 });
+    spyOn(Adapters.Publishing.ShareableLinksQuota, "execute").mockResolvedValue({ count: 0 });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(

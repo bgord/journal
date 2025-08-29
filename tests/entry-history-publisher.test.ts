@@ -2,8 +2,6 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import * as Adapters from "+infra/adapters";
-import { AiGateway } from "+infra/adapters/ai";
-import { HistoryWriter } from "+infra/adapters/history";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import { logger } from "+infra/logger.adapter";
@@ -13,14 +11,14 @@ const EventHandler = new bg.EventHandler(logger);
 const policy = new Emotions.Policies.EntryHistoryPublisher({
   EventBus,
   EventHandler,
-  HistoryWriter,
+  HistoryWriter: Adapters.History.HistoryWriter,
 });
 
 describe("EntryAlarmDetector", () => {
   test("onEmotionLoggedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
+    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -32,7 +30,7 @@ describe("EntryAlarmDetector", () => {
   test("onEmotionLoggedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
+    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -44,7 +42,7 @@ describe("EntryAlarmDetector", () => {
   test("onReactionLoggedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
+    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -56,7 +54,7 @@ describe("EntryAlarmDetector", () => {
   test("onEmotionReappraisedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
+    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -68,7 +66,7 @@ describe("EntryAlarmDetector", () => {
   test("onReactionEvaluatedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
+    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -80,7 +78,7 @@ describe("EntryAlarmDetector", () => {
   test("onEntryDeletedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
+    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
