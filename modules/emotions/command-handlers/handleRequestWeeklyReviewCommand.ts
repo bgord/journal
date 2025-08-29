@@ -5,6 +5,7 @@ type AcceptedEvent = Emotions.Events.WeeklyReviewSkippedEventType;
 
 type Dependencies = {
   EventStore: bg.EventStoreLike<AcceptedEvent>;
+  IdProvider: bg.IdProviderPort;
   repo: Emotions.Ports.WeeklyReviewRepositoryPort;
   EntriesPerWeekCountQuery: Emotions.Queries.EntriesPerWeekCountQuery;
 };
@@ -24,7 +25,7 @@ export const handleRequestWeeklyReviewCommand =
     ) {
       await deps.EventStore.save([
         Emotions.Events.WeeklyReviewSkippedEvent.parse({
-          ...bg.createEventEnvelope("weekly_review_skipped"),
+          ...bg.createEventEnvelope(deps.IdProvider, "weekly_review_skipped"),
           name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
           payload: { weekIsoId: command.payload.week.toIsoId(), userId: command.payload.userId },
         } satisfies Emotions.Events.WeeklyReviewSkippedEventType),

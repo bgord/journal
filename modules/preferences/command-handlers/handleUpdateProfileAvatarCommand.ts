@@ -6,6 +6,7 @@ type AcceptedEvent = Preferences.Events.ProfileAvatarUpdatedEventType;
 
 type Dependencies = {
   EventStore: bg.EventStoreLike<AcceptedEvent>;
+  IdProvider: bg.IdProviderPort;
   ImageInfo: bg.ImageInfoPort;
   ImageProcessor: bg.ImageProcessorPort;
   TemporaryFile: bg.TemporaryFilePort;
@@ -35,7 +36,7 @@ export const handleUpdateProfileAvatarCommand =
     const object = await deps.RemoteFileStorage.putFromPath({ key, path: final });
 
     const event = Preferences.Events.ProfileAvatarUpdatedEvent.parse({
-      ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),
+      ...bg.createEventEnvelope(deps.IdProvider, `preferences_${command.payload.userId}`),
       name: Preferences.Events.PROFILE_AVATAR_UPDATED_EVENT,
       payload: { userId: command.payload.userId, key, etag: object.etag },
     } satisfies Preferences.Events.ProfileAvatarUpdatedEventType);

@@ -5,6 +5,7 @@ type AcceptedEvent = Preferences.Events.ProfileAvatarRemovedEventType;
 
 type Dependencies = {
   EventStore: bg.EventStoreLike<AcceptedEvent>;
+  IdProvider: bg.IdProviderPort;
   RemoteFileStorage: bg.RemoteFileStoragePort;
 };
 
@@ -15,7 +16,7 @@ export const handleRemoveProfileAvatarCommand =
     await deps.RemoteFileStorage.delete(key);
 
     const event = Preferences.Events.ProfileAvatarRemovedEvent.parse({
-      ...bg.createEventEnvelope(`preferences_${command.payload.userId}`),
+      ...bg.createEventEnvelope(deps.IdProvider, `preferences_${command.payload.userId}`),
       name: Preferences.Events.PROFILE_AVATAR_REMOVED_EVENT,
       payload: { userId: command.payload.userId },
     } satisfies Preferences.Events.ProfileAvatarRemovedEventType);
