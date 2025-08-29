@@ -1,3 +1,4 @@
+import type * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import type * as Patterns from "+emotions/services/patterns";
@@ -12,9 +13,11 @@ type PatternDetectorConfigType = {
 
 /** @public */
 export class PatternDetector {
-  static detect(config: PatternDetectorConfigType): Patterns.PatternDetectionEventType[] {
+  constructor(private readonly IdProvider: bg.IdProviderPort) {}
+
+  detect(config: PatternDetectorConfigType): Patterns.PatternDetectionEventType[] {
     return config.patterns
-      .map((Pattern) => new Pattern(config.week, config.userId).check(config.entries))
+      .map((Pattern) => new Pattern(this.IdProvider, config.week, config.userId).check(config.entries))
       .filter((result) => result !== null);
   }
 }

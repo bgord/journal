@@ -76,6 +76,7 @@ CommandBus.on(
   EmotionCommandHandlers.handleDetectWeeklyPatternsCommand({
     EventStore,
     EntrySnapshot: Adapters.Emotions.EntrySnapshot,
+    IdProvider: Adapters.IdProvider,
   }),
 );
 CommandBus.on(

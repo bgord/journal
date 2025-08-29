@@ -10,13 +10,14 @@ type AcceptedEvent =
 type Dependencies = {
   EventStore: bg.EventStoreLike<AcceptedEvent>;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
+  IdProvider: bg.IdProviderPort;
 };
 
 export const handleDetectWeeklyPatternsCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.DetectWeeklyPatternsCommandType) => {
     const entries = await deps.EntrySnapshot.getByWeekForUser(command.payload.week, command.payload.userId);
 
-    const patterns = Emotions.Services.PatternDetector.detect({
+    const patterns = new Emotions.Services.PatternDetector(deps.IdProvider).detect({
       entries,
       week: command.payload.week,
       userId: command.payload.userId,
