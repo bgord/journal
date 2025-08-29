@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import Emittery from "emittery";
 import type * as EmotionCommands from "+emotions/commands";
-import { logger } from "+infra/logger.adapter";
+import { logger } from "+infra/adapters/logger.adapter";
 import type * as PreferencesCommands from "+preferences/commands";
 import type * as PublishingCommands from "+publishing/commands";
 

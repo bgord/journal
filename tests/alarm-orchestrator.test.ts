@@ -8,10 +8,9 @@ import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(logger);
+const EventHandler = new bg.EventHandler(Adapters.logger);
 const saga = new Emotions.Sagas.AlarmOrchestrator({
   EventBus,
   EventHandler,

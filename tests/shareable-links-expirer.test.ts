@@ -6,10 +6,9 @@ import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(logger);
+const EventHandler = new bg.EventHandler(Adapters.logger);
 const policy = new Publishing.Policies.ShareableLinksExpirer({
   EventBus,
   EventHandler,

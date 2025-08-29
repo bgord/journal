@@ -4,11 +4,10 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { captcha, haveIBeenPwned, openAPI } from "better-auth/plugins";
 import * as Auth from "+auth";
-import { IdProvider, Mailer } from "+infra/adapters";
+import { IdProvider, logger, Mailer } from "+infra/adapters";
 import { db } from "./db";
 import { Env } from "./env";
 import { EventStore } from "./event-store";
-import { logger } from "./logger.adapter";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),

@@ -1,9 +1,9 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "+languages";
+import { LoggerWinstonProductionAdapter } from "+infra/adapters/logger.adapter";
 import { Env } from "+infra/env";
 import { jobs } from "+infra/jobs";
-import { LoggerWinstonProductionAdapter } from "+infra/logger.adapter";
 import { TemporaryFileDirectory } from "+infra/temporary-file.adapter";
 
 export const prerequisites = [
@@ -11,7 +11,7 @@ export const prerequisites = [
   new bg.PrerequisiteTimezoneUTC({ label: "timezone", timezone: tools.Timezone.parse(Env.TZ) }),
   new bg.PrerequisiteRAM({
     label: "RAM",
-    enabled: Env.type !== bg.NodeEnvironmentEnum.local,
+    enabled: Env.type === bg.NodeEnvironmentEnum.production,
     minimum: new tools.Size({ unit: tools.SizeUnit.MB, value: 128 }),
   }),
   new bg.PrerequisiteSpace({

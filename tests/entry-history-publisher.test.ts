@@ -4,10 +4,9 @@ import * as Emotions from "+emotions";
 import * as Adapters from "+infra/adapters";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(logger);
+const EventHandler = new bg.EventHandler(Adapters.logger);
 const policy = new Emotions.Policies.EntryHistoryPublisher({
   EventBus,
   EventHandler,

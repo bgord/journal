@@ -9,11 +9,10 @@ import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
 
-const EventHandler = new bg.EventHandler(logger);
+const EventHandler = new bg.EventHandler(Adapters.logger);
 
 // Projections
 new Projections.EntryProjector(EventBus, EventHandler);

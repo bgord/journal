@@ -3,10 +3,10 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import * as Adapters from "+infra/adapters";
+import { logger } from "+infra/adapters/logger.adapter";
 import { CommandBus } from "+infra/command-bus";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
 const EventHandler = new bg.EventHandler(logger);

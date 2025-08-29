@@ -11,7 +11,6 @@ import { CommandBus } from "+infra/command-bus";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 import * as Schema from "+infra/schema";
 import * as mocks from "../tests/mocks";
 
@@ -20,7 +19,7 @@ import "+infra/register-command-handlers";
 
 const deps = { IdProvider: Adapters.IdProvider };
 
-const EventHandler = new bg.EventHandler(logger);
+const EventHandler = new bg.EventHandler(Adapters.logger);
 const now = tools.Time.Now().value;
 
 const situationDescriptions = [
