@@ -12,8 +12,8 @@ type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
-  ExpiringShareableLinks: Ports.ExpiringShareableLinksPort;
   IdProvider: bg.IdProviderPort;
+  ExpiringShareableLinks: Ports.ExpiringShareableLinksPort;
 };
 
 export class ShareableLinksExpirer {

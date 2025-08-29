@@ -10,6 +10,7 @@ type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  IdProvider: bg.IdProviderPort;
   TimeCapsuleDueEntries: Emotions.Ports.TimeCapsuleDueEntriesPort;
 };
 
@@ -36,7 +37,7 @@ export class TimeCapsuleEntriesScheduler {
         continue;
 
       const command = Emotions.Commands.LogEntryCommand.parse({
-        ...bg.createCommandEnvelope(),
+        ...bg.createCommandEnvelope(this.deps.IdProvider),
         name: Emotions.Commands.LOG_ENTRY_COMMAND,
         payload: {
           entryId: entry.id,

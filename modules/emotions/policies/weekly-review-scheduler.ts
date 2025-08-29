@@ -11,6 +11,7 @@ type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  IdProvider: bg.IdProviderPort;
   UserDirectory: Auth.OHQ.UserDirectoryOHQ;
 };
 
@@ -31,7 +32,7 @@ export class WeeklyReviewScheduler {
 
     for (const userId of userIds) {
       const command = Emotions.Commands.RequestWeeklyReviewCommand.parse({
-        ...bg.createCommandEnvelope(),
+        ...bg.createCommandEnvelope(this.deps.IdProvider),
         name: Emotions.Commands.REQUEST_WEEKLY_REVIEW_COMMAND,
         payload: { week, userId },
       } satisfies Emotions.Commands.RequestWeeklyReviewCommandType);
