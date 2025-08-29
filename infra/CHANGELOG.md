@@ -1,6 +1,7 @@
 # Changelog
+- 2025-08-30 00:51 2d1a6e37 **step: update packages fe**
+## 2025-08-30 00:51 
 - 2025-08-30 00:34 03646787 **refactor: improve deps**
-## 2025-08-30 00:34 
 - 2025-08-30 00:23 3df7f0bf **Merge pull request #46 from bgord/avatar**
 - 2025-08-30 00:17 14ae1295 **refactor: logger to adapters**
 - 2025-08-30 00:07 f5a9fea0 **refactor: copy logger to adapters**
@@ -11,6 +12,7 @@
 - 2025-08-29 22:56 6ffae50b **refactor: adjust aggregates**
 - 2025-08-29 22:44 81630909 **refactor: adjust tests**
 - 2025-08-29 22:35 9574abb9 **refactor: adjust adapters**
+- 2025-08-29 22:34 75203e45 **docs: generate CHANGELOG**
 - 2025-08-29 22:27 ff01c39a **refactor: adjust sagas**
 - 2025-08-29 22:24 18a575fc **refactor: adjust command handlers**
 - 2025-08-29 22:23 af1cd794 **docs: generate readme**
