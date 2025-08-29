@@ -2,6 +2,7 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
+import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import { ExpiringShareableLinks } from "+infra/adapters/publishing";
 import { CommandBus } from "+infra/command-bus";
 import { EventBus } from "+infra/event-bus";
@@ -15,6 +16,7 @@ const policy = new Publishing.Policies.ShareableLinksExpirer({
   EventHandler,
   CommandBus,
   ExpiringShareableLinks,
+  IdProvider,
 });
 
 describe("ShareableLinksExpirer", () => {
