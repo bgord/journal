@@ -1,6 +1,7 @@
 # Changelog
+- 2025-08-30 00:34 03646787 **refactor: improve deps**
+## 2025-08-30 00:34 
 - 2025-08-30 00:23 3df7f0bf **Merge pull request #46 from bgord/avatar**
-## 2025-08-30 00:23 
 - 2025-08-30 00:17 14ae1295 **refactor: logger to adapters**
 - 2025-08-30 00:07 f5a9fea0 **refactor: copy logger to adapters**
 - 2025-08-29 23:51 230fb79a **refactor: simplify adapters imports**
@@ -12,6 +13,8 @@
 - 2025-08-29 22:35 9574abb9 **refactor: adjust adapters**
 - 2025-08-29 22:27 ff01c39a **refactor: adjust sagas**
 - 2025-08-29 22:24 18a575fc **refactor: adjust command handlers**
+- 2025-08-29 22:23 af1cd794 **docs: generate readme**
+- 2025-08-29 22:23 21b243af **docs: generate CHANGELOG**
 - 2025-08-29 22:20 c2960f0f **refactor: adjust policies**
 - 2025-08-29 22:18 70b669d2 **refactor: adjust routes**
 - 2025-08-29 22:15 4d26d1ce **refactor: adjust shareable links expirer**
