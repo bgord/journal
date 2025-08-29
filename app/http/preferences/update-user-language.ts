@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import type hono from "hono";
 import type * as infra from "+infra";
 import { SUPPORTED_LANGUAGES } from "+languages";
+import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import { CommandBus } from "+infra/command-bus";
 
 export async function UpdateUserLanguage(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
@@ -10,7 +11,7 @@ export async function UpdateUserLanguage(c: hono.Context<infra.HonoConfig>, _nex
   const language = new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES).ensure(body.language);
 
   const command = bg.Preferences.Commands.SetUserLanguageCommand.parse({
-    ...bg.createCommandEnvelope(),
+    ...bg.createCommandEnvelope(IdProvider),
     name: bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
     payload: { userId: user.id, language },
   } satisfies bg.Preferences.Commands.SetUserLanguageCommandType);

@@ -3,6 +3,7 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
+import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import { CommandBus } from "+infra/command-bus";
 
 export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
@@ -25,7 +26,7 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _ne
   const shareableLinkId = crypto.randomUUID();
 
   const command = Publishing.Commands.CreateShareableLinkCommand.parse({
-    ...bg.createCommandEnvelope(),
+    ...bg.createCommandEnvelope(IdProvider),
     name: Publishing.Commands.CREATE_SHAREABLE_LINK_COMMAND,
     payload: {
       shareableLinkId,

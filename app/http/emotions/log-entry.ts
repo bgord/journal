@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import { CommandBus } from "+infra/command-bus";
 
 export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
@@ -28,7 +29,7 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
   );
 
   const command = Emotions.Commands.LogEntryCommand.parse({
-    ...bg.createCommandEnvelope(),
+    ...bg.createCommandEnvelope(IdProvider),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
     payload: {
       entryId,
