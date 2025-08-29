@@ -5,7 +5,7 @@ import _ from "lodash";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
-import { UserDirectory } from "+infra/adapters/auth/user-directory.adapter";
+import * as Adapters from "+infra/adapters";
 import { auth } from "+infra/auth";
 import { CommandBus } from "+infra/command-bus";
 import { db } from "+infra/db";
@@ -131,7 +131,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
 
         const event = Auth.Events.AccountCreatedEvent.parse({
-          ...bg.createEventEnvelope(`account_${result.user.id}`),
+          ...bg.createEventEnvelope(Adapters.IdProvider, `account_${result.user.id}`),
           name: Auth.Events.ACCOUNT_CREATED_EVENT,
           payload: { userId: result.user.id, timestamp: tools.Time.Now().value },
         } satisfies Auth.Events.AccountCreatedEventType);
@@ -211,7 +211,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     }
 
     const ScheduleTimeCapsuleEntryCommand = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
-      ...bg.createCommandEnvelope(),
+      ...bg.createCommandEnvelope(Adapters.IdProvider),
       name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
       payload: {
         entryId: crypto.randomUUID(),
@@ -243,7 +243,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       EventBus,
       EventHandler,
       CommandBus,
-      UserDirectory,
+      UserDirectory: Adapters.Auth.UserDirectory,
     }).onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event);
 
     console.log("[✓] Weekly review scheduled");
