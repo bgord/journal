@@ -4,7 +4,7 @@ import type * as Emotions from "+emotions";
 
 export class EntryExportFilePdf extends bg.FileDraft {
   constructor(
-    private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
+    private readonly pdfGenerator: bg.PdfGeneratorPort,
     private readonly entries: Emotions.VO.EntrySnapshot[],
   ) {
     super({ filename: `entry-export-${Date.now()}.pdf`, mime: tools.MIMES.pdf });

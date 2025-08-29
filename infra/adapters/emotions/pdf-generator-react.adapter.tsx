@@ -1,3 +1,4 @@
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import {
   Document,
@@ -10,7 +11,6 @@ import {
 } from "@react-pdf/renderer";
 // biome-ignore lint: lint/suspicious/noConsole
 import React from "react";
-import type * as Ports from "+emotions/ports";
 import type * as Queries from "+emotions/queries";
 
 type TemplateFn = (data: Record<string, any>) => React.ReactElement<DocumentProps>;
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   prose: { whiteSpace: "pre-wrap" },
 });
 
-const templates: Record<Ports.PdfGeneratorTemplateType, TemplateFn> = {
+const templates: Record<bg.PdfGeneratorTemplateType, TemplateFn> = {
   weekly_review_export: (data) => {
     const { entries, patternDetections, alarms, ...weeklyReview } = data as Queries.WeeklyReviewExportDto;
 
@@ -108,8 +108,8 @@ const templates: Record<Ports.PdfGeneratorTemplateType, TemplateFn> = {
   ),
 };
 
-export class PdfGeneratorReact implements Ports.PdfGeneratorPort {
-  async request(template: Ports.PdfGeneratorTemplateType, data: Record<string, unknown> = {}) {
+export class PdfGeneratorReact implements bg.PdfGeneratorPort {
+  async request(template: bg.PdfGeneratorTemplateType, data: Record<string, unknown> = {}) {
     const build = templates[template];
 
     if (!build) throw new Error(`Unknown PDF template: ${template}`);

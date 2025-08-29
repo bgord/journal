@@ -13,7 +13,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   EventStore: bg.EventStoreLike<AcceptedEvent>;
   Mailer: bg.MailerPort;
-  PdfGenerator: Emotions.Ports.PdfGeneratorPort;
+  PdfGenerator: bg.PdfGeneratorPort;
   UserContact: Auth.OHQ.UserContactOHQ;
   WeeklyReviewExport: Emotions.Queries.WeeklyReviewExport;
   UserLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
