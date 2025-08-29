@@ -12,6 +12,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
   kind = Patterns.PatternKindOptions.negative;
 
   constructor(
+    private readonly IdProvider: bg.IdProviderPort,
     public week: tools.Week,
     public userId: Auth.VO.UserIdType,
   ) {
@@ -30,7 +31,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
 
     if (matches.length >= 3) {
       return Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent.parse({
-        ...bg.createEventEnvelope(this.getStream()),
+        ...bg.createEventEnvelope(this.IdProvider, this.getStream()),
         name: Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
         payload: {
           userId: this.userId,

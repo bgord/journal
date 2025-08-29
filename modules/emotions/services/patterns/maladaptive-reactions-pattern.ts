@@ -12,6 +12,7 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
   kind = Patterns.PatternKindOptions.negative;
 
   constructor(
+    private readonly IdProvider: bg.IdProviderPort,
     public week: tools.Week,
     public userId: Auth.VO.UserIdType,
   ) {
@@ -25,7 +26,7 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
 
     if (matches.length >= 3) {
       return Events.MaladaptiveReactionsPatternDetectedEvent.parse({
-        ...bg.createEventEnvelope(this.getStream()),
+        ...bg.createEventEnvelope(this.IdProvider, this.getStream()),
         name: Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         payload: {
           userId: this.userId,
