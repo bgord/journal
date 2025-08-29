@@ -1,8 +1,100 @@
 # Changelog
+- 2025-08-30 00:23 3df7f0bf **Merge pull request #46 from bgord/avatar**
+## 2025-08-30 00:23 
+- 2025-08-30 00:17 14ae1295 **refactor: logger to adapters**
+- 2025-08-30 00:07 f5a9fea0 **refactor: copy logger to adapters**
+- 2025-08-29 23:51 230fb79a **refactor: simplify adapters imports**
+- 2025-08-29 23:29 8cf65ccb **refactor: replace crypto with provider**
+- 2025-08-29 23:24 eacfd6b2 **refactor: adjust db seed**
+- 2025-08-29 23:18 8ec6de71 **refactor: adjust pattern detector**
+- 2025-08-29 22:56 6ffae50b **refactor: adjust aggregates**
+- 2025-08-29 22:44 81630909 **refactor: adjust tests**
+- 2025-08-29 22:35 9574abb9 **refactor: adjust adapters**
+- 2025-08-29 22:27 ff01c39a **refactor: adjust sagas**
+- 2025-08-29 22:24 18a575fc **refactor: adjust command handlers**
+- 2025-08-29 22:20 c2960f0f **refactor: adjust policies**
+- 2025-08-29 22:18 70b669d2 **refactor: adjust routes**
+- 2025-08-29 22:15 4d26d1ce **refactor: adjust shareable links expirer**
+- 2025-08-29 22:11 971b2bf9 **refactor: adjust local db seed**
+- 2025-08-29 22:08 266be773 **step: add id provider adapter**
+- 2025-08-29 22:04 892d7bf4 **refactor: update bun**
+- 2025-08-29 16:11 b5365ef5 **step: add av binary prereq**
+- 2025-08-29 15:33 dc3a6d17 **refactor: use pdf generator adapter**
+- 2025-08-29 15:30 371845fc **step: update packages**
+- 2025-08-28 23:52 6a6e2976 **step: bump bgord/scripts**
+- 2025-08-28 23:43 5c305de4 **refactor: use csv adapters**
+- 2025-08-28 23:23 d1910308 **refactor: rename remote file storage**
+- 2025-08-28 23:20 2e6a457e **refactor: use csv adapter**
+- 2025-08-28 23:01 c29945b0 **step: remove csv**
+- 2025-08-28 23:00 e995b58a **step: update packages**
+- 2025-08-28 22:02 db35e6db **step: add temporary file directory path**
+- 2025-08-28 21:49 71de91fa **refactor: rename di to deps**
+- 2025-08-28 21:47 f5781cab **refactor: unify deps in command handlers**
+- 2025-08-28 21:32 e19633eb **refactor: use cache file must revalidate**
+- 2025-08-28 21:31 c4d84789 **step: update packages**
+- 2025-08-28 20:21 cea25637 **refactor: update cache**
+- 2025-08-28 20:05 3f94a3e6 **refactor: move remote file storage delete to the command handler**
+- 2025-08-28 19:57 b6842659 **fix: projector**
+- 2025-08-28 19:53 5ac3fd45 **fix: invariant check**
+- 2025-08-28 19:31 479c750b **step: add profile avatar cleaner tests**
+- 2025-08-28 19:24 5b1dcf3c **step: add remove profile avatar tests**
+- 2025-08-28 19:20 e2fa5c6e **step: add handle remove profile avatar command**
+- 2025-08-28 18:24 34e6c36c **step: setup profile avatar cleaner policy**
+- 2025-08-28 18:17 641fbb5a **refactor: update projector**
+- 2025-08-28 18:13 b6479c69 **refactor: update schema**
+- 2025-08-28 18:01 ef022b7d **step: wire up removed projector**
+- 2025-08-28 17:58 0cb16239 **step: add remove profile avatar endpoint**
+- 2025-08-28 17:55 b4c69780 **refactor: adjust remove command and event**
+- 2025-08-28 17:48 93f656ef **refactor: use image info type**
+- 2025-08-28 17:44 8771accf **step: update packages**
+- 2025-08-28 17:41 ad5b2099 **refactor: improve tests**
+- 2025-08-28 17:31 c45cb42f **step: write tests for get profile avatar**
+- 2025-08-28 17:14 0c84acdf **step: update packages**
+- 2025-08-28 00:27 d3fe23ce **step: user profile avatars**
+- 2025-08-27 23:54 5b8d64a2 **step: add etag**
+- 2025-08-27 23:00 b133bda4 **refactor: implement the whole flow**
+- 2025-08-27 14:26 ff5da71f **step: setup update profile avatar tests**
+- 2025-08-27 14:24 d19cc1a1 **refactor: restore userId**
+- 2025-08-27 14:17 79af6492 **step: add profile avatar key tests**
+- 2025-08-27 14:14 e71c92dc **refactor: adjust event structure**
+- 2025-08-27 14:12 15cac4cb **step: add tmp file storage**
+- 2025-08-27 13:59 bf9454af **step: update packages**
+- 2025-08-26 23:56 9b0fa596 **step: wireup noop remote file storage**
+- 2025-08-26 23:44 f827940f **step: add remote file storage**
+- 2025-08-26 23:43 c9f81030 **step: update packages**
+- 2025-08-26 23:28 a70d5213 **step: add file hash**
+- 2025-08-26 23:27 0e898413 **step: update packages**
+- 2025-08-26 20:26 19a13f08 **step: add cleanup**
+- 2025-08-26 20:22 837923a0 **step: add profile avatar constraints invariant**
+- 2025-08-26 20:14 4d56e718 **step: add image processor**
+- 2025-08-26 20:13 a3facdf5 **step: add profile avatar max side**
+- 2025-08-26 20:09 c9bb6146 **step: update packages**
+- 2025-08-26 16:42 8fb232df **step: update packages**
+- 2025-08-26 16:40 b9505ced **step: add test adapter**
+- 2025-08-26 16:35 49a097e0 **refactor: use adapters**
+- 2025-08-26 16:18 ceec6ffe **step: setup adapters**
+- 2025-08-26 16:11 29b73721 **step: update packages**
+- 2025-08-26 14:56 0ecd064e **refactor: improve mock rejected value**
+- 2025-08-26 12:36 ba613333 **step: update packages**
+- 2025-08-26 00:36 dd09297a **step: update packages**
+- 2025-08-25 23:55 adf77334 **step: update packages**
+- 2025-08-25 23:54 438db159 **refactor: update the command**
+- 2025-08-25 23:41 9a467b84 **step: add temporary file adapter**
+- 2025-08-25 23:15 fdd8afcc **step: update packages**
+- 2025-08-25 22:33 ddb93db7 **step: update packages**
+- 2025-08-25 22:32 521e1ff6 **step: wip**
+- 2025-08-25 14:05 50062436 **step: add command handler**
+- 2025-08-25 13:56 d695af6c **step: wire up update profile avatar command**
+- 2025-08-25 13:52 90a2a568 **step: add remove profile avatar command**
+- 2025-08-25 13:51 42909ce4 **step: add update profile avatar command**
+- 2025-08-25 13:21 9eaf783b **step: add file uploader**
+- 2025-08-25 13:17 664b5444 **step: add profile avatar max size**
+- 2025-08-25 13:15 ea127e0e **step: route**
+- 2025-08-25 11:54 f26644ab **step: add profile avatar events**
 - 2025-08-24 16:08 7d9830ad **feature: hide signup behind a ff**
-## 2025-08-24 16:08 
 - 2025-08-24 15:52 3ec15a28 **step: update zod**
 - 2025-08-24 15:20 933f8d4b **refactor: add separators in profile**
+- 2025-08-24 14:26 ace20d9b **docs: generate CHANGELOG**
 - 2025-08-24 14:06 8727df9f **refactor: adjust saga di**
 - 2025-08-24 14:00 aae6e081 **refactor: adjust policy di**
 - 2025-08-24 13:53 47524a71 **docs: generate CHANGELOG**
