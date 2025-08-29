@@ -2,6 +2,7 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
+import * as Adapters from "+infra/adapters";
 import { ShareableLinksQuota } from "+infra/adapters/publishing";
 import { auth } from "+infra/auth";
 import { EventStore } from "+infra/event-store";
@@ -129,8 +130,9 @@ describe(`POST ${url}`, () => {
   });
 
   test("happy path", async () => {
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.shareableLinkId]);
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.shareableLinkId);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Date, "now").mockReturnValue(mocks.shareableLinkCreatedAt);
     spyOn(ShareableLinksQuota, "execute").mockResolvedValue({ count: 0 });

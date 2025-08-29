@@ -1,6 +1,8 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
+import { IdProvider } from "+infra/adapters";
 import { auth } from "+infra/auth";
 import { EventStore } from "+infra/event-store";
 import { server } from "../server";
@@ -27,7 +29,7 @@ const reaction = {
 
 describe("POST /entry/log", () => {
   test("situation - validation - empty payload", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
     expect(response.status).toBe(400);
@@ -38,7 +40,7 @@ describe("POST /entry/log", () => {
   });
 
   test("situation - validation - missing kind and location", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -53,7 +55,7 @@ describe("POST /entry/log", () => {
   });
 
   test("situation - validation - missing kind", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -68,7 +70,7 @@ describe("POST /entry/log", () => {
   });
 
   test("emotion - validation - empty payload", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(
       url,
       { method: "POST", body: JSON.stringify({ ...situation }) },
@@ -80,7 +82,7 @@ describe("POST /entry/log", () => {
   });
 
   test("emotion - validation - missing intensity", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -95,7 +97,7 @@ describe("POST /entry/log", () => {
   });
 
   test("reaction - validation - empty payload", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(
       url,
       { method: "POST", body: JSON.stringify({ ...situation, ...emotion }) },
@@ -107,7 +109,7 @@ describe("POST /entry/log", () => {
   });
 
   test("reaction - validation - missing type", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -122,7 +124,7 @@ describe("POST /entry/log", () => {
   });
 
   test("reaction - validation - missing effectiveness", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(
       url,
       {
@@ -142,10 +144,11 @@ describe("POST /entry/log", () => {
   });
 
   test("happy path", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.entryId);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.entryId]);
+    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
+    spyOn(tools.Revision.prototype, "next").mockImplementationOnce(() => mocks.revision);
+    spyOn(IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementationOnce(jest.fn());
 
     const response = await server.request(
       url,

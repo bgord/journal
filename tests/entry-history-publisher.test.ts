@@ -1,6 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
+import * as Adapters from "+infra/adapters";
 import { AiGateway } from "+infra/adapters/ai";
 import { HistoryWriter } from "+infra/adapters/history";
 import { EventBus } from "+infra/event-bus";
@@ -17,7 +18,8 @@ const policy = new Emotions.Policies.EntryHistoryPublisher({
 
 describe("EntryAlarmDetector", () => {
   test("onEmotionLoggedEvent", async () => {
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.historyId);
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -28,7 +30,8 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onEmotionLoggedEvent", async () => {
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.historyId);
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -39,7 +42,8 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onReactionLoggedEvent", async () => {
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.historyId);
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -50,7 +54,8 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onEmotionReappraisedEvent", async () => {
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.historyId);
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -61,7 +66,8 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onReactionEvaluatedEvent", async () => {
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.historyId);
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -72,7 +78,8 @@ describe("EntryAlarmDetector", () => {
   });
 
   test("onEntryDeletedEvent", async () => {
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.historyId);
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

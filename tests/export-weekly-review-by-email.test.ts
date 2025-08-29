@@ -1,6 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
+import * as Adapters from "+infra/adapters";
 import { WeeklyReviewSnapshot } from "+infra/adapters/emotions";
 import { EventStore } from "+infra/event-store";
 import { auth } from "../infra/auth";
@@ -55,10 +56,11 @@ describe(`POST ${url}`, () => {
   });
 
   test("happy path", async () => {
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewExportId);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
 
     const response = await server.request(
       url,

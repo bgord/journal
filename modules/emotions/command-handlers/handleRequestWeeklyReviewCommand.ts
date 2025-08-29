@@ -35,7 +35,7 @@ export const handleRequestWeeklyReviewCommand =
     }
 
     const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
-      crypto.randomUUID(),
+      deps.IdProvider.generate(),
       command.payload.week,
       command.payload.userId,
       { IdProvider: deps.IdProvider },

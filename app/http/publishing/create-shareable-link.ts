@@ -23,7 +23,7 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _ne
 
   const dateRange = new tools.DateRange(dateRangeStart, dateRangeEnd);
 
-  const shareableLinkId = crypto.randomUUID();
+  const shareableLinkId = IdProvider.generate();
 
   const command = Publishing.Commands.CreateShareableLinkCommand.parse({
     ...bg.createCommandEnvelope(IdProvider),

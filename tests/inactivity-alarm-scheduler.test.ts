@@ -22,11 +22,12 @@ const policy = new Emotions.Policies.InactivityAlarmScheduler({
 
 describe("InactivityAlarmScheduler", () => {
   test("correct path - single user", async () => {
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     spyOn(Adapters.Auth.UserDirectory, "listActiveUserIds").mockResolvedValue([mocks.userId]);
     spyOn(Adapters.Emotions.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -37,6 +38,7 @@ describe("InactivityAlarmScheduler", () => {
   });
 
   test("USER_DAILY", async () => {
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     spyOn(Adapters.Auth.UserDirectory, "listActiveUserIds").mockResolvedValue([mocks.userId]);
     spyOn(Adapters.Emotions.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
@@ -46,7 +48,7 @@ describe("InactivityAlarmScheduler", () => {
         { bucket: mocks.userDailyBucket, limit: AI.QuotaLimit.parse(10), id: "USER_DAILY", used: 10 },
       ],
     });
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -56,6 +58,7 @@ describe("InactivityAlarmScheduler", () => {
   });
 
   test("EMOTIONS_ALARM_INACTIVITY_WEEKLY", async () => {
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     spyOn(Adapters.Auth.UserDirectory, "listActiveUserIds").mockResolvedValue([mocks.userId]);
     spyOn(Adapters.Emotions.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
@@ -70,7 +73,7 @@ describe("InactivityAlarmScheduler", () => {
         },
       ],
     });
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -80,12 +83,13 @@ describe("InactivityAlarmScheduler", () => {
   });
 
   test("DailyAlarmLimit - failure", async () => {
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     spyOn(Adapters.Auth.UserDirectory, "listActiveUserIds").mockResolvedValue([mocks.userId]);
     spyOn(Adapters.Emotions.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
     spyOn(Adapters.AI.AiGateway, "check").mockRejectedValue(new Error("FAILURE"));
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.alarmId);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {

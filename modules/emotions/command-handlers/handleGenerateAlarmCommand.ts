@@ -21,7 +21,7 @@ export const handleGenerateAlarmCommand =
     if (check.violations.length > 0) return;
 
     const alarm = Emotions.Aggregates.Alarm.generate(
-      crypto.randomUUID(),
+      deps.IdProvider.generate(),
       command.payload.detection,
       command.payload.userId,
       { IdProvider: deps.IdProvider },

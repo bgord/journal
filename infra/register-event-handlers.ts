@@ -23,7 +23,11 @@ new Projections.WeeklyReviewProjector(EventBus, EventHandler);
 new Projections.ShareableLinkProjector(EventBus, EventHandler);
 new Projections.AiUsageCounterProjector(EventBus, EventHandler);
 new Projections.HistoryProjector(EventBus, EventHandler, Adapters.History.HistoryProjection);
-new Projections.ShareableLinkHitProjector(EventBus, EventHandler);
+new Projections.ShareableLinkHitProjector({
+  EventBus,
+  EventHandler,
+  IdProvider: Adapters.IdProvider,
+});
 new Projections.PreferencesProjector(EventBus, EventHandler);
 new Projections.ProfileAvatarsProjector(EventBus, EventHandler);
 

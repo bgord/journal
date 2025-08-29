@@ -9,6 +9,7 @@ import { SupportedLanguages } from "+languages";
 import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type * as System from "+system";
+import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import type * as Schema from "+infra/schema";
 
 export const expectAnyId = expect.stringMatching(
@@ -21,21 +22,21 @@ export const ip = {
   },
 };
 
-export const entryId = crypto.randomUUID();
+export const entryId = IdProvider.generate();
 
-export const alarmId = crypto.randomUUID();
+export const alarmId = IdProvider.generate();
 
 export const email = "user@example.com";
 export const anotherEmail = "another@example.com";
 
-export const userId = crypto.randomUUID();
-export const anotherUserId = crypto.randomUUID();
+export const userId = IdProvider.generate();
+export const anotherUserId = IdProvider.generate();
 
-export const weeklyReviewId = crypto.randomUUID();
+export const weeklyReviewId = IdProvider.generate();
 
-export const weeklyReviewExportId = crypto.randomUUID();
+export const weeklyReviewExportId = IdProvider.generate();
 
-export const historyId = crypto.randomUUID();
+export const historyId = IdProvider.generate();
 
 export const week = tools.Week.fromNow();
 export const day = tools.Day.fromNow();
@@ -76,7 +77,7 @@ export const inactivityDetection = new Emotions.VO.AlarmDetection(
 
 export const advice = new AI.Advice("You should do something");
 
-export const shareableLinkId = crypto.randomUUID();
+export const shareableLinkId = IdProvider.generate();
 export const shareableLinkCreatedAt = tools.Time.Now().value;
 
 export const publicationSpecification = "entries";
@@ -965,7 +966,7 @@ export const alarm: Emotions.VO.AlarmSnapshot = {
 };
 
 export const patternDetection: Emotions.VO.PatternDetectionSnapshot = {
-  id: crypto.randomUUID(),
+  id: IdProvider.generate(),
   createdAt: tools.Time.Now().value,
   name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
   weekIsoId: week.toIsoId(),

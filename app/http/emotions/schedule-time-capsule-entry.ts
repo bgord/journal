@@ -11,7 +11,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   const body = await bg.safeParseBody(c);
   const timeZoneOffsetMs = c.get("timeZoneOffset").miliseconds;
 
-  const entryId = crypto.randomUUID();
+  const entryId = IdProvider.generate();
 
   const situation = new Emotions.Entities.Situation(
     new Emotions.VO.SituationDescription(body.situationDescription),

@@ -4,17 +4,23 @@ import { db } from "+infra/db";
 import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
+type Dependencies = {
+  EventBus: typeof EventBus;
+  EventHandler: bg.EventHandler;
+  IdProvider: bg.IdProviderPort;
+};
+
 export class ShareableLinkHitProjector {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
-    eventBus.on(
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(
       Publishing.Events.SHAREABLE_LINK_ACCESSED_EVENT,
-      EventHandler.handle(this.onShareableLinkAccessedEvent.bind(this)),
+      deps.EventHandler.handle(this.onShareableLinkAccessedEvent.bind(this)),
     );
   }
 
   async onShareableLinkAccessedEvent(event: Publishing.Events.ShareableLinkAccessedEventType) {
     await db.insert(Schema.shareableLinkHits).values({
-      id: crypto.randomUUID(),
+      id: this.deps.IdProvider.generate(),
       shareableLinkId: event.payload.shareableLinkId,
       ownerId: event.payload.ownerId,
       publicationSpecification: event.payload.publicationSpecification,

@@ -20,7 +20,7 @@ export const handleExportWeeklyReviewByEmailCommand =
       ownerId: weeklyReview?.userId,
     });
 
-    const weeklyReviewExportId = crypto.randomUUID();
+    const weeklyReviewExportId = deps.IdProvider.generate();
 
     await deps.EventStore.save([
       Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({

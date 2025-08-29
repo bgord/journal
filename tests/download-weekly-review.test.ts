@@ -1,6 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
+import * as Adapters from "+infra/adapters";
 import { WeeklyReviewExport } from "+infra/adapters/emotions";
 import { auth } from "+infra/auth";
 import { server } from "../server";
@@ -62,9 +63,10 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path", async () => {
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewExportId);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
 
     const response = await server.request(
       url,

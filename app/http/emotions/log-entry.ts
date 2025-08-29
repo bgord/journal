@@ -9,7 +9,7 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
 
-  const entryId = crypto.randomUUID();
+  const entryId = IdProvider.generate();
 
   const situation = new Emotions.Entities.Situation(
     new Emotions.VO.SituationDescription(body.situationDescription),
