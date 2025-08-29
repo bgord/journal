@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "7e3bdd32-f9c4-4b6a-9e24-f1367ad941a5",
+  "id": "90de497c-5f37-49b1-bfc5-d596cbf0f022",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -1063,6 +1063,72 @@
         "user_preferences_userId_users_id_fk": {
           "name": "user_preferences_userId_users_id_fk",
           "tableFrom": "user_preferences",
+          "tableTo": "users",
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "user_profile_avatars": {
+      "name": "user_profile_avatars",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text(36)",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "key": {
+          "name": "key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "etag": {
+          "name": "etag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "user_profile_avatars_userId_idx": {
+          "name": "user_profile_avatars_userId_idx",
+          "columns": ["userId"],
+          "isUnique": false
+        },
+        "user_profile_avatars_userId_uniq": {
+          "name": "user_profile_avatars_userId_uniq",
+          "columns": ["userId"],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "user_profile_avatars_userId_users_id_fk": {
+          "name": "user_profile_avatars_userId_users_id_fk",
+          "tableFrom": "user_profile_avatars",
           "tableTo": "users",
           "columnsFrom": ["userId"],
           "columnsTo": ["id"],

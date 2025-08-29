@@ -11,25 +11,26 @@ type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  IdProvider: bg.IdProviderPort;
   UserDirectory: Auth.OHQ.UserDirectoryOHQ;
   GetLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser;
 };
 
 export class InactivityAlarmScheduler {
-  constructor(private readonly DI: Dependencies) {
-    DI.EventBus.on(
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
   async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     if (Emotions.Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
-    const userIds = await this.DI.UserDirectory.listActiveUserIds();
+    const userIds = await this.deps.UserDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
-      const lastEntryTimestamp = await this.DI.GetLatestEntryTimestampForUser.execute(userId);
+      const lastEntryTimestamp = await this.deps.GetLatestEntryTimestampForUser.execute(userId);
 
       if (Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
 
@@ -42,12 +43,12 @@ export class InactivityAlarmScheduler {
       const detection = new Emotions.VO.AlarmDetection(trigger, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM);
 
       const command = Emotions.Commands.GenerateAlarmCommand.parse({
-        ...bg.createCommandEnvelope(),
+        ...bg.createCommandEnvelope(this.deps.IdProvider),
         name: Emotions.Commands.GENERATE_ALARM_COMMAND,
         payload: { detection, userId },
       } satisfies Emotions.Commands.GenerateAlarmCommandType);
 
-      await this.DI.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command.name, command);
     }
   }
 }

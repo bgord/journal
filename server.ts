@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
 import * as infra from "+infra";
+import * as Preferences from "+preferences";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { CaptchaShield } from "+infra/captcha";
@@ -123,6 +124,23 @@ server.post(
   AuthShield.attach,
   AuthShield.verify,
   HTTP.Preferences.UpdateUserLanguage,
+);
+server.post(
+  "/preferences/profile-avatar/update",
+  AuthShield.attach,
+  AuthShield.verify,
+  ...bg.FileUploader.validate({
+    mimeTypes: Preferences.VO.ProfileAvatarMimeTypes.map((mime) => mime.raw),
+    maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
+  }),
+  HTTP.Preferences.UpdateProfileAvatar,
+);
+server.get("/profile-avatar/get", AuthShield.attach, AuthShield.verify, HTTP.Preferences.GetProfileAvatar);
+server.delete(
+  "/preferences/profile-avatar",
+  AuthShield.attach,
+  AuthShield.verify,
+  HTTP.Preferences.RemoveProfileAvatar,
 );
 // =============================
 

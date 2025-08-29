@@ -4,37 +4,33 @@ import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
-import { Mailer } from "+infra/adapters";
-import { AiGateway } from "+infra/adapters/ai";
-import { UserContact } from "+infra/adapters/auth";
-import { EntrySnapshot, WeeklyReviewSnapshot } from "+infra/adapters/emotions";
-import { UserLanguage } from "+infra/adapters/preferences";
+import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(logger);
+const EventHandler = new bg.EventHandler(Adapters.logger);
 
 const saga = new Emotions.Sagas.WeeklyReviewProcessing({
   EventBus,
   EventHandler,
   CommandBus,
-  AiGateway,
-  Mailer,
-  EntrySnapshot,
-  UserContact,
-  UserLanguage,
+  AiGateway: Adapters.AI.AiGateway,
+  Mailer: Adapters.Mailer,
+  EntrySnapshot: Adapters.Emotions.EntrySnapshot,
+  UserContact: Adapters.Auth.UserContact,
+  UserLanguage: Adapters.Preferences.UserLanguage,
+  IdProvider: Adapters.IdProvider,
   EMAIL_FROM: Env.EMAIL_FROM,
 });
 
 describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent", async () => {
-    spyOn(UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
-    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
-    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
+    spyOn(Adapters.Auth.UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
+    spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
+    const mailerSend = spyOn(Adapters.Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
@@ -48,9 +44,9 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewSkippedEvent - no email", async () => {
-    spyOn(UserContact, "getPrimary").mockResolvedValue(undefined);
-    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
-    const mailerSend = spyOn(Mailer, "send").mockImplementation(jest.fn());
+    spyOn(Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(undefined);
+    spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
+    const mailerSend = spyOn(Adapters.Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
@@ -59,11 +55,9 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewSkippedEvent - mailer failed", async () => {
-    spyOn(UserContact, "getPrimary").mockResolvedValue(undefined);
-    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
-    const mailerSend = spyOn(Mailer, "send").mockImplementation(() => {
-      throw new Error("MAILER_FAILED");
-    });
+    spyOn(Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(undefined);
+    spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
+    const mailerSend = spyOn(Adapters.Mailer, "send").mockRejectedValue(new Error("MAILER_FAILED"));
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
@@ -74,10 +68,10 @@ describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewRequestedEvent - en", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
-    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
-    const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(mocks.insights);
+    spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
+    const aiGatewayQuery = spyOn(Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -98,10 +92,10 @@ describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewRequestedEvent - pl", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
-    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.pl);
-    const aiGatewayQuery = spyOn(AiGateway, "query").mockResolvedValue(mocks.insights);
+    spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.pl);
+    const aiGatewayQuery = spyOn(Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -122,11 +116,9 @@ describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewRequestedEvent - failed", async () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
-    spyOn(AiGateway, "query").mockImplementation(() => {
-      throw new Error("Failure");
-    });
+    spyOn(Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
+    spyOn(Adapters.AI.AiGateway, "query").mockRejectedValue(new Error("Failure"));
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -136,8 +128,9 @@ describe("WeeklyReviewProcessing", () => {
   });
 
   test("onWeeklyReviewCompletedEvent", async () => {
-    spyOn(WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
-    spyOn(crypto, "randomUUID").mockReturnValue(mocks.weeklyReviewExportId);
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
+    spyOn(Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
+    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>

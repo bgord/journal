@@ -1,8 +1,8 @@
 import * as bg from "@bgord/bun";
 import Emittery from "emittery";
 import type z from "zod/v4";
+import { logger } from "+infra/adapters/logger.adapter";
 import type { AcceptedEvent } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 
 const EventLogger = new bg.EventLogger(logger);
 

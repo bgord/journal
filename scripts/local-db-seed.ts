@@ -5,20 +5,21 @@ import _ from "lodash";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
-import { UserDirectory } from "+infra/adapters/auth/user-directory.adapter";
+import * as Adapters from "+infra/adapters";
 import { auth } from "+infra/auth";
 import { CommandBus } from "+infra/command-bus";
 import { db } from "+infra/db";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 import * as Schema from "+infra/schema";
 import * as mocks from "../tests/mocks";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
-const EventHandler = new bg.EventHandler(logger);
+const deps = { IdProvider: Adapters.IdProvider };
+
+const EventHandler = new bg.EventHandler(Adapters.logger);
 const now = tools.Time.Now().value;
 
 const situationDescriptions = [
@@ -74,7 +75,7 @@ const reactionDescriptions = [
 const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
 (async function main() {
-  const correlationId = crypto.randomUUID();
+  const correlationId = Adapters.IdProvider.generate();
 
   await bg.CorrelationStorage.run(correlationId, async () => {
     await db.delete(Schema.events);
@@ -131,7 +132,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
 
         const event = Auth.Events.AccountCreatedEvent.parse({
-          ...bg.createEventEnvelope(`account_${result.user.id}`),
+          ...bg.createEventEnvelope(Adapters.IdProvider, `account_${result.user.id}`),
           name: Auth.Events.ACCOUNT_CREATED_EVENT,
           payload: { userId: result.user.id, timestamp: tools.Time.Now().value },
         } satisfies Auth.Events.AccountCreatedEventType);
@@ -156,11 +157,12 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     ];
 
     for (const [index, detection] of Object.entries(inactivityDetections)) {
-      const alarmId = crypto.randomUUID();
+      const alarmId = Adapters.IdProvider.generate();
       const alarm = Emotions.Aggregates.Alarm.generate(
         alarmId,
         detection,
         users[0]?.user.id as Auth.VO.UserIdType,
+        deps,
       );
 
       await EventStore.save(alarm.pullEvents());
@@ -197,12 +199,13 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       );
 
       const entry = Emotions.Aggregates.Entry.log(
-        crypto.randomUUID(),
+        Adapters.IdProvider.generate(),
         situation,
         emotion,
         reaction,
         users[0]?.user.id as Auth.VO.UserIdType,
         Emotions.VO.EntryOriginOption.web,
+        deps,
       );
 
       await EventStore.save(entry.pullEvents());
@@ -211,10 +214,10 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     }
 
     const ScheduleTimeCapsuleEntryCommand = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
-      ...bg.createCommandEnvelope(),
+      ...bg.createCommandEnvelope(Adapters.IdProvider),
       name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
       payload: {
-        entryId: crypto.randomUUID(),
+        entryId: Adapters.IdProvider.generate(),
         situation: new Emotions.Entities.Situation(
           new Emotions.VO.SituationDescription(situationDescriptions[0] as string),
           new Emotions.VO.SituationLocation(situationLocations[0] as string),
@@ -243,13 +246,14 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       EventBus,
       EventHandler,
       CommandBus,
-      UserDirectory,
+      IdProvider: Adapters.IdProvider,
+      UserDirectory: Adapters.Auth.UserDirectory,
     }).onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event);
 
     console.log("[✓] Weekly review scheduled");
 
     const shareableLink = Publishing.Aggregates.ShareableLink.create(
-      crypto.randomUUID(),
+      Adapters.IdProvider.generate(),
       "entries",
       new tools.DateRange(
         tools.Time.Now().Minus(tools.Time.Days(7)).ms as tools.TimestampType,
@@ -257,6 +261,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       ),
       tools.Time.Days(3),
       users[0]?.user.id as Auth.VO.UserIdType,
+      deps,
     );
 
     await EventStore.save(shareableLink.pullEvents());

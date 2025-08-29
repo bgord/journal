@@ -8,12 +8,16 @@ type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  IdProvider: bg.IdProviderPort;
 };
 
 export class EntryAlarmDetector {
-  constructor(private readonly DI: Dependencies) {
-    DI.EventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, DI.EventHandler.handle(this.detect.bind(this)));
-    DI.EventBus.on(Emotions.Events.EMOTION_REAPPRAISED_EVENT, DI.EventHandler.handle(this.detect.bind(this)));
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, deps.EventHandler.handle(this.detect.bind(this)));
+    deps.EventBus.on(
+      Emotions.Events.EMOTION_REAPPRAISED_EVENT,
+      deps.EventHandler.handle(this.detect.bind(this)),
+    );
   }
 
   async detect(event: Emotions.Events.EmotionLoggedEventType | Emotions.Events.EmotionReappraisedEventType) {
@@ -25,11 +29,11 @@ export class EntryAlarmDetector {
     if (!detection) return;
 
     const command = Emotions.Commands.GenerateAlarmCommand.parse({
-      ...bg.createCommandEnvelope(),
+      ...bg.createCommandEnvelope(this.deps.IdProvider),
       name: Emotions.Commands.GENERATE_ALARM_COMMAND,
       payload: { detection, userId: event.payload.userId },
     } satisfies Emotions.Commands.GenerateAlarmCommandType);
 
-    await this.DI.CommandBus.emit(command.name, command);
+    await this.deps.CommandBus.emit(command.name, command);
   }
 }

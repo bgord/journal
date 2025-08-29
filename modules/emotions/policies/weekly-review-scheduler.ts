@@ -11,14 +11,15 @@ type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  IdProvider: bg.IdProviderPort;
   UserDirectory: Auth.OHQ.UserDirectoryOHQ;
 };
 
 export class WeeklyReviewScheduler {
-  constructor(private readonly DI: Dependencies) {
-    DI.EventBus.on(
+  constructor(private readonly deps: Dependencies) {
+    deps.EventBus.on(
       System.Events.HOUR_HAS_PASSED_EVENT,
-      DI.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
+      deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
@@ -27,16 +28,16 @@ export class WeeklyReviewScheduler {
 
     const week = tools.Week.fromNow();
 
-    const userIds = await this.DI.UserDirectory.listActiveUserIds();
+    const userIds = await this.deps.UserDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
       const command = Emotions.Commands.RequestWeeklyReviewCommand.parse({
-        ...bg.createCommandEnvelope(),
+        ...bg.createCommandEnvelope(this.deps.IdProvider),
         name: Emotions.Commands.REQUEST_WEEKLY_REVIEW_COMMAND,
         payload: { week, userId },
       } satisfies Emotions.Commands.RequestWeeklyReviewCommandType);
 
-      await this.DI.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command.name, command);
     }
   }
 }

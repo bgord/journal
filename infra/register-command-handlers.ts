@@ -5,6 +5,9 @@ import * as EmotionCommands from "+emotions/commands";
 import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 import { EventStore } from "+infra/event-store";
+import { TemporaryFile } from "+infra/temporary-file.adapter";
+import * as PreferencesCommandHandlers from "+preferences/command-handlers";
+import * as PreferencesCommands from "+preferences/commands";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
@@ -22,11 +25,18 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.GENERATE_ALARM_COMMAND,
-  EmotionCommandHandlers.handleGenerateAlarmCommand(Adapters.Emotions.AlarmRepository, Adapters.AI.AiGateway),
+  EmotionCommandHandlers.handleGenerateAlarmCommand({
+    repo: Adapters.Emotions.AlarmRepository,
+    AiGateway: Adapters.AI.AiGateway,
+    IdProvider: Adapters.IdProvider,
+  }),
 );
 CommandBus.on(
   EmotionCommands.LOG_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleLogEntryCommand(Adapters.Emotions.EntryRepository),
+  EmotionCommandHandlers.handleLogEntryCommand({
+    repo: Adapters.Emotions.EntryRepository,
+    IdProvider: Adapters.IdProvider,
+  }),
 );
 CommandBus.on(
   EmotionCommands.REAPPRAISE_EMOTION_COMMAND,
@@ -46,11 +56,12 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
-  EmotionCommandHandlers.handleRequestWeeklyReviewCommand(
+  EmotionCommandHandlers.handleRequestWeeklyReviewCommand({
     EventStore,
-    Adapters.Emotions.WeeklyReviewRepository,
-    Adapters.Emotions.EntriesPerWeekCount,
-  ),
+    IdProvider: Adapters.IdProvider,
+    repo: Adapters.Emotions.WeeklyReviewRepository,
+    EntriesPerWeekCountQuery: Adapters.Emotions.EntriesPerWeekCount,
+  }),
 );
 CommandBus.on(
   EmotionCommands.COMPLETE_WEEKLY_REVIEW_COMMAND,
@@ -62,26 +73,35 @@ CommandBus.on(
 );
 CommandBus.on(
   EmotionCommands.DETECT_WEEKLY_PATTERNS_COMMAND,
-  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand(EventStore, Adapters.Emotions.EntrySnapshot),
+  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand({
+    EventStore,
+    EntrySnapshot: Adapters.Emotions.EntrySnapshot,
+    IdProvider: Adapters.IdProvider,
+  }),
 );
 CommandBus.on(
   EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand(
+  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand({
     EventStore,
-    Adapters.Emotions.WeeklyReviewSnapshot,
-  ),
+    IdProvider: Adapters.IdProvider,
+    WeeklyReviewSnapshot: Adapters.Emotions.WeeklyReviewSnapshot,
+  }),
 );
 CommandBus.on(
   EmotionCommands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand(EventStore),
+  EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand({
+    EventStore,
+    IdProvider: Adapters.IdProvider,
+  }),
 );
 
 CommandBus.on(
   PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleCreateShareableLinkCommand(
-    Adapters.Publishing.ShareableLinkRepository,
-    Adapters.Publishing.ShareableLinksQuota,
-  ),
+  PublishingCommandHandlers.handleCreateShareableLinkCommand({
+    repo: Adapters.Publishing.ShareableLinkRepository,
+    ShareableLinksQuotaQuery: Adapters.Publishing.ShareableLinksQuota,
+    IdProvider: Adapters.IdProvider,
+  }),
 );
 
 CommandBus.on(
@@ -98,7 +118,29 @@ CommandBus.on(
   bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
   bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
     EventStore,
+    Adapters.IdProvider,
     Adapters.Preferences.UserLanguageQueryAdapter,
     new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
   ),
+);
+
+CommandBus.on(
+  PreferencesCommands.UPDATE_PROFILE_AVATAR_COMMAND,
+  PreferencesCommandHandlers.handleUpdateProfileAvatarCommand({
+    EventStore,
+    ImageInfo: Adapters.ImageInfo,
+    IdProvider: Adapters.IdProvider,
+    ImageProcessor: Adapters.ImageProcessor,
+    TemporaryFile,
+    RemoteFileStorage: Adapters.RemoteFileStorage,
+  }),
+);
+
+CommandBus.on(
+  PreferencesCommands.REMOVE_PROFILE_AVATAR_COMMAND,
+  PreferencesCommandHandlers.handleRemoveProfileAvatarCommand({
+    EventStore,
+    IdProvider: Adapters.IdProvider,
+    RemoteFileStorage: Adapters.RemoteFileStorage,
+  }),
 );

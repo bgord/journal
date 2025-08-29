@@ -4,9 +4,13 @@ import * as Emotions from "+emotions";
 
 type AcceptedEvent = Emotions.Events.TimeCapsuleEntryScheduledEventType;
 
+type Dependencies = {
+  EventStore: bg.EventStoreLike<AcceptedEvent>;
+  IdProvider: bg.IdProviderPort;
+};
+
 export const handleScheduleTimeCapsuleEntryCommand =
-  (EventStore: bg.EventStoreLike<AcceptedEvent>) =>
-  async (command: Emotions.Commands.ScheduleTimeCapsuleEntryCommandType) => {
+  (deps: Dependencies) => async (command: Emotions.Commands.ScheduleTimeCapsuleEntryCommandType) => {
     const now = tools.Time.Now().value;
 
     Emotions.Invariants.TimeCapsuleEntryScheduledInFuture.perform({
@@ -15,7 +19,10 @@ export const handleScheduleTimeCapsuleEntryCommand =
     });
 
     const event = Emotions.Events.TimeCapsuleEntryScheduledEvent.parse({
-      ...bg.createEventEnvelope(Emotions.Aggregates.Entry.getStream(command.payload.entryId)),
+      ...bg.createEventEnvelope(
+        deps.IdProvider,
+        Emotions.Aggregates.Entry.getStream(command.payload.entryId),
+      ),
       name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
       payload: {
         entryId: command.payload.entryId,
@@ -39,5 +46,5 @@ export const handleScheduleTimeCapsuleEntryCommand =
       },
     } satisfies Emotions.Events.TimeCapsuleEntryScheduledEventType);
 
-    await EventStore.save([event]);
+    await deps.EventStore.save([event]);
   };

@@ -9,11 +9,10 @@ import { CommandBus } from "+infra/command-bus";
 import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
-import { logger } from "+infra/logger.adapter";
 import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
 
-const EventHandler = new bg.EventHandler(logger);
+const EventHandler = new bg.EventHandler(Adapters.logger);
 
 // Projections
 new Projections.EntryProjector(EventBus, EventHandler);
@@ -23,26 +22,39 @@ new Projections.WeeklyReviewProjector(EventBus, EventHandler);
 new Projections.ShareableLinkProjector(EventBus, EventHandler);
 new Projections.AiUsageCounterProjector(EventBus, EventHandler);
 new Projections.HistoryProjector(EventBus, EventHandler, Adapters.History.HistoryProjection);
-new Projections.ShareableLinkHitProjector(EventBus, EventHandler);
+new Projections.ShareableLinkHitProjector({
+  EventBus,
+  EventHandler,
+  IdProvider: Adapters.IdProvider,
+});
 new Projections.PreferencesProjector(EventBus, EventHandler);
+new Projections.ProfileAvatarsProjector(EventBus, EventHandler);
 
 // Policies
 new PublishingPolicies.ShareableLinksExpirer({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   ExpiringShareableLinks: Adapters.Publishing.ExpiringShareableLinks,
 });
-new EmotionsPolicies.EntryAlarmDetector({ EventBus, EventHandler, CommandBus });
+new EmotionsPolicies.EntryAlarmDetector({
+  EventBus,
+  EventHandler,
+  IdProvider: Adapters.IdProvider,
+  CommandBus,
+});
 new EmotionsPolicies.WeeklyReviewScheduler({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   UserDirectory: Adapters.Auth.UserDirectory,
 });
 new EmotionsPolicies.InactivityAlarmScheduler({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   UserDirectory: Adapters.Auth.UserDirectory,
   GetLatestEntryTimestampForUser: Adapters.Emotions.GetLatestEntryTimestampForUser,
@@ -50,6 +62,7 @@ new EmotionsPolicies.InactivityAlarmScheduler({
 new EmotionsPolicies.TimeCapsuleEntriesScheduler({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   TimeCapsuleDueEntries: Adapters.Emotions.TimeCapsuleDueEntries,
 });
@@ -61,6 +74,7 @@ new EmotionsPolicies.EntryHistoryPublisher({
 new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
   EventBus,
   EventHandler,
+  Adapters.IdProvider,
   CommandBus,
   SupportedLanguages.en,
 );
@@ -69,6 +83,7 @@ new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
 new EmotionsSagas.AlarmOrchestrator({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   AiGateway: Adapters.AI.AiGateway,
   Mailer,
@@ -81,6 +96,7 @@ new EmotionsSagas.AlarmOrchestrator({
 new EmotionsSagas.WeeklyReviewProcessing({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   CommandBus,
   AiGateway: Adapters.AI.AiGateway,
   Mailer,
@@ -92,6 +108,7 @@ new EmotionsSagas.WeeklyReviewProcessing({
 new EmotionsSagas.WeeklyReviewExportByEmail({
   EventBus,
   EventHandler,
+  IdProvider: Adapters.IdProvider,
   EventStore,
   Mailer,
   PdfGenerator: Adapters.Emotions.PdfGenerator,

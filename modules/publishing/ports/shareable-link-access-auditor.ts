@@ -18,11 +18,12 @@ export interface ShareableLinkAccessAuditorPort {
 export class ShareableLinkAccessAuditorAdapter implements Publishing.Ports.ShareableLinkAccessAuditorPort {
   constructor(
     private readonly EventStore: bg.EventStoreLike<Publishing.Events.ShareableLinkAccessedEventType>,
+    private readonly IdProvider: bg.IdProviderPort,
   ) {}
 
   async record(input: Publishing.Ports.ShareableLinkAccessAuditorInput) {
     const event = Publishing.Events.ShareableLinkAccessedEvent.parse({
-      ...bg.createEventEnvelope(`shareable_link_${input.linkId}`),
+      ...bg.createEventEnvelope(this.IdProvider, `shareable_link_${input.linkId}`),
       name: Publishing.Events.SHAREABLE_LINK_ACCESSED_EVENT,
       payload: {
         shareableLinkId: input.linkId,

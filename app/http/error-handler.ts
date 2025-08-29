@@ -4,6 +4,7 @@ import type hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import z from "zod/v4";
 import * as Emotions from "+emotions";
+import * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import { logger } from "+infra/logger.adapter";
 
@@ -23,6 +24,7 @@ const invariants = Object.values({
   ...Emotions.Invariants,
   ...Publishing.Invariants,
   ...bg.Preferences.Invariants,
+  ...Preferences.Invariants,
 });
 
 export class ErrorHandler {
@@ -54,6 +56,10 @@ export class ErrorHandler {
       }
 
       return error.getResponse();
+    }
+
+    if (error instanceof tools.InvalidMimeError) {
+      return c.json({ message: "invalid.mime", _known: true }, 400);
     }
 
     if (error instanceof tools.RevisionMismatchError) {

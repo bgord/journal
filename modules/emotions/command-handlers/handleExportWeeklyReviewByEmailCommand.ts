@@ -3,13 +3,15 @@ import * as Emotions from "+emotions";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
+type Dependencies = {
+  EventStore: bg.EventStoreLike<AcceptedEvent>;
+  IdProvider: bg.IdProviderPort;
+  WeeklyReviewSnapshot: Emotions.Ports.WeeklyReviewSnapshotPort;
+};
+
 export const handleExportWeeklyReviewByEmailCommand =
-  (
-    EventStore: bg.EventStoreLike<AcceptedEvent>,
-    WeeklyReviewSnapshot: Emotions.Ports.WeeklyReviewSnapshotPort,
-  ) =>
-  async (command: Emotions.Commands.ExportWeeklyReviewByEmailCommandType) => {
-    const weeklyReview = await WeeklyReviewSnapshot.getById(command.payload.weeklyReviewId);
+  (deps: Dependencies) => async (command: Emotions.Commands.ExportWeeklyReviewByEmailCommandType) => {
+    const weeklyReview = await deps.WeeklyReviewSnapshot.getById(command.payload.weeklyReviewId);
 
     Emotions.Invariants.WeeklyReviewExists.perform({ weeklyReview });
     Emotions.Invariants.WeeklyReviewIsCompleted.perform({ status: weeklyReview?.status });
@@ -18,11 +20,11 @@ export const handleExportWeeklyReviewByEmailCommand =
       ownerId: weeklyReview?.userId,
     });
 
-    const weeklyReviewExportId = crypto.randomUUID();
+    const weeklyReviewExportId = deps.IdProvider.generate();
 
-    await EventStore.save([
+    await deps.EventStore.save([
       Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
-        ...bg.createEventEnvelope(`weekly_review_export_by_email_${weeklyReviewExportId}`),
+        ...bg.createEventEnvelope(deps.IdProvider, `weekly_review_export_by_email_${weeklyReviewExportId}`),
         name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
         payload: {
           weeklyReviewId: command.payload.weeklyReviewId,

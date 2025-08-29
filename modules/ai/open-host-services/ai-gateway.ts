@@ -18,6 +18,7 @@ export class AiGateway implements Ports.AiGatewayPort {
   constructor(
     private readonly publisher: Ports.AiEventPublisherPort,
     private readonly AiClient: Ports.AiClientPort,
+    private readonly IdProvider: bg.IdProviderPort,
     bucketCounter: Ports.BucketCounterPort,
   ) {
     this.specification = new Specs.QuotaSpecification(bucketCounter);
@@ -37,7 +38,7 @@ export class AiGateway implements Ports.AiGatewayPort {
 
     if (verification.violations.length) {
       const event = Events.AiQuotaExceededEvent.parse({
-        ...bg.createEventEnvelope(`user_ai_usage_${context.userId}`),
+        ...bg.createEventEnvelope(this.IdProvider, `user_ai_usage_${context.userId}`),
         name: Events.AI_QUOTA_EXCEEDED_EVENT,
         payload: { userId: context.userId, timestamp: context.timestamp },
       } satisfies Events.AiQuotaExceededEventType);
@@ -50,7 +51,7 @@ export class AiGateway implements Ports.AiGatewayPort {
     const advice = await this.AiClient.request(prompt);
 
     const event = Events.AiRequestRegisteredEvent.parse({
-      ...bg.createEventEnvelope(`user_ai_usage_${context.userId}`),
+      ...bg.createEventEnvelope(this.IdProvider, `user_ai_usage_${context.userId}`),
       name: Events.AI_REQUEST_REGISTERED_EVENT,
       payload: context,
     } satisfies Events.AiRequestRegisteredEventType);

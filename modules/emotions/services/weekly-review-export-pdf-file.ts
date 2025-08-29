@@ -4,7 +4,7 @@ import type * as Emotions from "+emotions";
 
 export class WeeklyReviewExportPdfFile extends bg.FileDraft {
   constructor(
-    private readonly pdfGenerator: Emotions.Ports.PdfGeneratorPort,
+    private readonly pdfGenerator: bg.PdfGeneratorPort,
     private readonly data: Emotions.Queries.WeeklyReviewExportDto,
   ) {
     super({

@@ -313,6 +313,27 @@ export const userPreferencesRelations = relations(userPreferences, ({ one }) => 
   user: one(users, { fields: [userPreferences.userId], references: [users.id] }),
 }));
 
+export const userProfileAvatars = sqliteTable(
+  "user_profile_avatars",
+  {
+    id,
+    userId: text("userId", { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    key: text("key").notNull(),
+    etag: text("etag").notNull(),
+    createdAt: integer("createdAt", { mode: "number" }).notNull(),
+  },
+  (table) => [
+    index("user_profile_avatars_userId_idx").on(table.userId),
+    uniqueIndex("user_profile_avatars_userId_uniq").on(table.userId),
+  ],
+);
+
+export const userProfileAvatarsRelations = relations(userProfileAvatars, ({ one }) => ({
+  user: one(users, { fields: [userProfileAvatars.userId], references: [users.id] }),
+}));
+
 /** @public */
 export const users = sqliteTable("users", {
   id: text("id").primaryKey(),

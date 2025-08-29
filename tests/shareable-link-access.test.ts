@@ -1,6 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { ShareableLinkAccess } from "+infra/adapters/publishing";
+import * as Adapters from "+infra/adapters";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
@@ -11,7 +11,7 @@ describe("ShareableLinkAccess", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const result = (
-        await ShareableLinkAccess.check(
+        await Adapters.Publishing.ShareableLinkAccess.check(
           mocks.shareableLinkId,
           mocks.publicationSpecification,
           mocks.accessContext,
@@ -29,7 +29,7 @@ describe("ShareableLinkAccess", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
-        await ShareableLinkAccess.check(
+        await Adapters.Publishing.ShareableLinkAccess.check(
           mocks.shareableLinkId,
           mocks.publicationSpecification,
           mocks.accessContext,
@@ -51,7 +51,7 @@ describe("ShareableLinkAccess", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
-        await ShareableLinkAccess.check(
+        await Adapters.Publishing.ShareableLinkAccess.check(
           mocks.shareableLinkId,
           mocks.publicationSpecification,
           mocks.accessContext,
@@ -73,7 +73,7 @@ describe("ShareableLinkAccess", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
-        await ShareableLinkAccess.check(
+        await Adapters.Publishing.ShareableLinkAccess.check(
           mocks.shareableLinkId,
           mocks.publicationSpecification,
           mocks.accessContext,
@@ -92,7 +92,7 @@ describe("ShareableLinkAccess", () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
-        await ShareableLinkAccess.check(
+        await Adapters.Publishing.ShareableLinkAccess.check(
           mocks.shareableLinkId,
           mocks.anotherPublicationSpecification,
           mocks.accessContext,
