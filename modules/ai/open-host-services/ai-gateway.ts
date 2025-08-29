@@ -12,16 +12,18 @@ export class AiQuotaExceededError extends Error {
   }
 }
 
+type Dependencies = {
+  Publisher: Ports.AiEventPublisherPort;
+  AiClient: Ports.AiClientPort;
+  IdProvider: bg.IdProviderPort;
+  BucketCounter: Ports.BucketCounterPort;
+};
+
 export class AiGateway implements Ports.AiGatewayPort {
   private readonly specification: Specs.QuotaSpecification;
 
-  constructor(
-    private readonly publisher: Ports.AiEventPublisherPort,
-    private readonly AiClient: Ports.AiClientPort,
-    private readonly IdProvider: bg.IdProviderPort,
-    bucketCounter: Ports.BucketCounterPort,
-  ) {
-    this.specification = new Specs.QuotaSpecification(bucketCounter);
+  constructor(private readonly deps: Dependencies) {
+    this.specification = new Specs.QuotaSpecification(deps.BucketCounter);
   }
 
   async check<C extends VO.UsageCategory>(
@@ -38,25 +40,25 @@ export class AiGateway implements Ports.AiGatewayPort {
 
     if (verification.violations.length) {
       const event = Events.AiQuotaExceededEvent.parse({
-        ...bg.createEventEnvelope(this.IdProvider, `user_ai_usage_${context.userId}`),
+        ...bg.createEventEnvelope(this.deps.IdProvider, `user_ai_usage_${context.userId}`),
         name: Events.AI_QUOTA_EXCEEDED_EVENT,
         payload: { userId: context.userId, timestamp: context.timestamp },
       } satisfies Events.AiQuotaExceededEventType);
 
-      await this.publisher.publish([event]);
+      await this.deps.Publisher.publish([event]);
 
       throw new AiQuotaExceededError();
     }
 
-    const advice = await this.AiClient.request(prompt);
+    const advice = await this.deps.AiClient.request(prompt);
 
     const event = Events.AiRequestRegisteredEvent.parse({
-      ...bg.createEventEnvelope(this.IdProvider, `user_ai_usage_${context.userId}`),
+      ...bg.createEventEnvelope(this.deps.IdProvider, `user_ai_usage_${context.userId}`),
       name: Events.AI_REQUEST_REGISTERED_EVENT,
       payload: context,
     } satisfies Events.AiRequestRegisteredEventType);
 
-    await this.publisher.publish([event]);
+    await this.deps.Publisher.publish([event]);
 
     return advice;
   }

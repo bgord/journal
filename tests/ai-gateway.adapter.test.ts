@@ -6,12 +6,12 @@ import * as Adapters from "+infra/adapters";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
-const gateway = new AiGateway(
-  Adapters.AI.AiEventStorePublisher,
-  Adapters.AI.AiClient,
-  Adapters.IdProvider,
-  Adapters.AI.BucketCounter,
-);
+const gateway = new AiGateway({
+  Publisher: Adapters.AI.AiEventStorePublisher,
+  AiClient: Adapters.AI.AiClient,
+  IdProvider: Adapters.IdProvider,
+  BucketCounter: Adapters.AI.BucketCounter,
+});
 
 const prompt = new VO.Prompt("Give me some insights");
 
