@@ -38,6 +38,7 @@ export const handleRequestWeeklyReviewCommand =
       crypto.randomUUID(),
       command.payload.week,
       command.payload.userId,
+      { IdProvider: deps.IdProvider },
     );
 
     await deps.repo.save(weeklyReview);

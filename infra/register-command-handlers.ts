@@ -28,11 +28,15 @@ CommandBus.on(
   EmotionCommandHandlers.handleGenerateAlarmCommand({
     repo: Adapters.Emotions.AlarmRepository,
     AiGateway: Adapters.AI.AiGateway,
+    IdProvider: Adapters.IdProvider,
   }),
 );
 CommandBus.on(
   EmotionCommands.LOG_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleLogEntryCommand(Adapters.Emotions.EntryRepository),
+  EmotionCommandHandlers.handleLogEntryCommand({
+    repo: Adapters.Emotions.EntryRepository,
+    IdProvider: Adapters.IdProvider,
+  }),
 );
 CommandBus.on(
   EmotionCommands.REAPPRAISE_EMOTION_COMMAND,
@@ -95,6 +99,7 @@ CommandBus.on(
   PublishingCommandHandlers.handleCreateShareableLinkCommand({
     repo: Adapters.Publishing.ShareableLinkRepository,
     ShareableLinksQuotaQuery: Adapters.Publishing.ShareableLinksQuota,
+    IdProvider: Adapters.IdProvider,
   }),
 );
 

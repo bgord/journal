@@ -1,7 +1,9 @@
+import type * as bg from "@bgord/bun";
 import * as Publishing from "+publishing";
 
 type Dependencies = {
   repo: Publishing.Ports.ShareableLinkRepositoryPort;
+  IdProvider: bg.IdProviderPort;
   ShareableLinksQuotaQuery: Publishing.Queries.ShareableLinksQuotaQuery;
 };
 
@@ -19,6 +21,7 @@ export const handleCreateShareableLinkCommand =
       command.payload.dateRange,
       command.payload.duration,
       command.payload.requesterId,
+      { IdProvider: deps.IdProvider },
     );
 
     await deps.repo.save(shareableLink);

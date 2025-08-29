@@ -10,6 +10,8 @@ import * as VO from "+emotions/value-objects";
 export type WeeklyReviewEvent = (typeof WeeklyReview)["events"][number];
 type WeeklyReviewEventType = z.infer<WeeklyReviewEvent>;
 
+type Dependencies = { IdProvider: bg.IdProviderPort };
+
 export class WeeklyReview {
   static events = [
     Events.WeeklyReviewRequestedEvent,
@@ -27,23 +29,31 @@ export class WeeklyReview {
 
   private readonly pending: WeeklyReviewEventType[] = [];
 
-  private constructor(id: VO.WeeklyReviewIdType) {
+  private constructor(
+    id: VO.WeeklyReviewIdType,
+    private readonly deps: Dependencies,
+  ) {
     this.id = id;
   }
 
-  static build(id: VO.WeeklyReviewIdType, events: WeeklyReviewEventType[]): WeeklyReview {
-    const entry = new WeeklyReview(id);
+  static build(id: VO.WeeklyReviewIdType, events: WeeklyReviewEventType[], deps: Dependencies): WeeklyReview {
+    const entry = new WeeklyReview(id, deps);
 
     events.forEach((event) => entry.apply(event));
 
     return entry;
   }
 
-  static request(id: VO.WeeklyReviewIdType, week: tools.Week, requesterId: Auth.VO.UserIdType) {
-    const weeklyReview = new WeeklyReview(id);
+  static request(
+    id: VO.WeeklyReviewIdType,
+    week: tools.Week,
+    requesterId: Auth.VO.UserIdType,
+    deps: Dependencies,
+  ) {
+    const weeklyReview = new WeeklyReview(id, deps);
 
     const event = Events.WeeklyReviewRequestedEvent.parse({
-      ...bg.createEventEnvelope(WeeklyReview.getStream(id)),
+      ...bg.createEventEnvelope(deps.IdProvider, WeeklyReview.getStream(id)),
       name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
       payload: { weeklyReviewId: id, weekIsoId: week.toIsoId(), userId: requesterId },
     } satisfies Events.WeeklyReviewRequestedEventType);
@@ -57,7 +67,7 @@ export class WeeklyReview {
     Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
-      ...bg.createEventEnvelope(WeeklyReview.getStream(this.id)),
+      ...bg.createEventEnvelope(this.deps.IdProvider, WeeklyReview.getStream(this.id)),
       name: Events.WEEKLY_REVIEW_COMPLETED_EVENT,
       payload: {
         weeklyReviewId: this.id,
@@ -74,7 +84,7 @@ export class WeeklyReview {
     Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewFailedEvent.parse({
-      ...bg.createEventEnvelope(WeeklyReview.getStream(this.id)),
+      ...bg.createEventEnvelope(this.deps.IdProvider, WeeklyReview.getStream(this.id)),
       name: Events.WEEKLY_REVIEW_FAILED_EVENT,
       payload: {
         weeklyReviewId: this.id,

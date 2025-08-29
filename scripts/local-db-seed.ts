@@ -18,6 +18,8 @@ import * as mocks from "../tests/mocks";
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
+const deps = { IdProvider: Adapters.IdProvider };
+
 const EventHandler = new bg.EventHandler(logger);
 const now = tools.Time.Now().value;
 
@@ -161,6 +163,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         alarmId,
         detection,
         users[0]?.user.id as Auth.VO.UserIdType,
+        deps,
       );
 
       await EventStore.save(alarm.pullEvents());
@@ -203,6 +206,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         reaction,
         users[0]?.user.id as Auth.VO.UserIdType,
         Emotions.VO.EntryOriginOption.web,
+        deps,
       );
 
       await EventStore.save(entry.pullEvents());
@@ -258,6 +262,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       ),
       tools.Time.Days(3),
       users[0]?.user.id as Auth.VO.UserIdType,
+      deps,
     );
 
     await EventStore.save(shareableLink.pullEvents());
