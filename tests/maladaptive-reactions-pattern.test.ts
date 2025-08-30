@@ -4,10 +4,12 @@ import * as Emotions from "+emotions";
 import * as Adapters from "+infra/adapters";
 import * as mocks from "./mocks";
 
+const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
+
 describe("MaladaptiveReactionsInWeekPattern", () => {
   test("true", () => {
     bg.CorrelationStorage.run(mocks.correlationId, () => {
-      const result = new Emotions.Services.PatternDetector(Adapters.IdProvider).detect({
+      const result = new Emotions.Services.PatternDetector(deps).detect({
         entries: [
           mocks.positiveMaladaptiveEntry,
           mocks.positiveMaladaptiveEntry,
@@ -22,7 +24,7 @@ describe("MaladaptiveReactionsInWeekPattern", () => {
   });
 
   test("false", () => {
-    const result = new Emotions.Services.PatternDetector(Adapters.IdProvider).detect({
+    const result = new Emotions.Services.PatternDetector(deps).detect({
       entries: [mocks.positiveMaladaptiveEntry, mocks.positiveMaladaptiveEntry],
       patterns: [Emotions.Services.Patterns.MaladaptiveReactionsPattern],
       week: mocks.week,

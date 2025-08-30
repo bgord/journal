@@ -4,6 +4,8 @@ import type * as Auth from "+auth";
 import type * as Patterns from "+emotions/services/patterns";
 import type * as VO from "+emotions/value-objects";
 
+type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+
 type PatternDetectorConfigType = {
   userId: Auth.VO.UserIdType;
   entries: VO.EntrySnapshot[];
@@ -13,11 +15,11 @@ type PatternDetectorConfigType = {
 
 /** @public */
 export class PatternDetector {
-  constructor(private readonly IdProvider: bg.IdProviderPort) {}
+  constructor(private readonly deps: Dependencies) {}
 
   detect(config: PatternDetectorConfigType): Patterns.PatternDetectionEventType[] {
     return config.patterns
-      .map((Pattern) => new Pattern(this.IdProvider, config.week, config.userId).check(config.entries))
+      .map((Pattern) => new Pattern(config.week, config.userId, this.deps).check(config.entries))
       .filter((result) => result !== null);
   }
 }
