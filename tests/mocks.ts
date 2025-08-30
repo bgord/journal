@@ -12,6 +12,8 @@ import type * as System from "+system";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import type * as Schema from "+infra/schema";
 
+export const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
+
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
 );
