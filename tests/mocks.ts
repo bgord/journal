@@ -12,40 +12,34 @@ import type * as System from "+system";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import type * as Schema from "+infra/schema";
 
+// IDs
+export const correlationId = "00000000-0000-0000-0000-000000000000";
+export const entryId = IdProvider.generate();
+export const alarmId = IdProvider.generate();
+export const userId = IdProvider.generate();
+export const anotherUserId = IdProvider.generate();
+export const weeklyReviewId = IdProvider.generate();
+export const weeklyReviewExportId = IdProvider.generate();
+export const shareableLinkId = IdProvider.generate();
+export const historyId = IdProvider.generate();
+const patternDetectionId = IdProvider.generate();
+
+// Timestamps
 export const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
 );
 
-export const ip = {
-  server: {
-    requestIP: () => ({ address: "127.0.0.1", family: "foo", port: "123" }),
-  },
-};
-
-export const entryId = IdProvider.generate();
-
-export const alarmId = IdProvider.generate();
+export const ip = { server: { requestIP: () => ({ address: "127.0.0.1", family: "foo", port: "123" }) } };
 
 export const email = "user@example.com";
 export const anotherEmail = "another@example.com";
-
-export const userId = IdProvider.generate();
-export const anotherUserId = IdProvider.generate();
-
-export const weeklyReviewId = IdProvider.generate();
-
-export const weeklyReviewExportId = IdProvider.generate();
-
-export const historyId = IdProvider.generate();
 
 export const week = tools.Week.fromNow(T0);
 export const day = tools.Day.fromNow(T0);
 
 export const insights = new AI.Advice("Good job");
-
-export const correlationId = "00000000-0000-0000-0000-000000000000";
 
 export const revision = new tools.Revision(0);
 
@@ -56,10 +50,7 @@ export const correlationIdAndRevisionHeaders = (revision: tools.RevisionValueTyp
   "x-correlation-id": correlationId,
 });
 
-export const entryTrigger = {
-  type: Emotions.VO.AlarmTriggerEnum.entry,
-  entryId,
-} as const;
+export const entryTrigger = { type: Emotions.VO.AlarmTriggerEnum.entry, entryId } as const;
 
 export const entryDetection = new Emotions.VO.AlarmDetection(
   entryTrigger,
@@ -79,7 +70,6 @@ export const inactivityDetection = new Emotions.VO.AlarmDetection(
 
 export const advice = new AI.Advice("You should do something");
 
-export const shareableLinkId = IdProvider.generate();
 export const shareableLinkCreatedAt = tools.Time.Now().value;
 
 export const publicationSpecification = "entries";
@@ -968,7 +958,7 @@ export const alarm: Emotions.VO.AlarmSnapshot = {
 };
 
 export const patternDetection: Emotions.VO.PatternDetectionSnapshot = {
-  id: IdProvider.generate(),
+  id: patternDetectionId,
   createdAt: T0,
   name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
   weekIsoId: week.toIsoId(),
