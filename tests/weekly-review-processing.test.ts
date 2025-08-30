@@ -69,7 +69,7 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
+    spyOn(Date, "now").mockReturnValue(mocks.T0);
     spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     const aiGatewayQuery = spyOn(Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -93,7 +93,7 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
+    spyOn(Date, "now").mockReturnValue(mocks.T0);
     spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.pl);
     const aiGatewayQuery = spyOn(Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());

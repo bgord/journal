@@ -133,7 +133,7 @@ describe(`POST ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Date, "now").mockReturnValue(mocks.shareableLinkCreatedAt);
+    spyOn(Date, "now").mockReturnValue(mocks.T0);
     spyOn(Adapters.Publishing.ShareableLinksQuota, "execute").mockResolvedValue({ count: 0 });
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
