@@ -20,7 +20,7 @@ import "+infra/register-command-handlers";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-const EventHandler = new bg.EventHandler(Adapters.logger);
+const EventHandler = new bg.EventHandler(Adapters.Logger);
 const currentMs = Clock.nowMs();
 
 const situationDescriptions = [

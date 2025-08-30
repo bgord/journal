@@ -10,7 +10,7 @@ export const LoggerWinstonProductionAdapter = new bg.LoggerWinstonProductionAdap
   AXIOM_API_TOKEN: Env.AXIOM_API_TOKEN,
 });
 
-export const logger: bg.LoggerPort = {
+export const Logger: bg.LoggerPort = {
   [bg.NodeEnvironmentEnum.local]: LoggerWinstonLocalAdapter,
   [bg.NodeEnvironmentEnum.test]: new bg.LoggerNoopAdapter(),
   [bg.NodeEnvironmentEnum.staging]: new bg.LoggerNoopAdapter(),

@@ -12,7 +12,7 @@ import { EventStore } from "+infra/event-store";
 import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
 
-const EventHandler = new bg.EventHandler(Adapters.logger);
+const EventHandler = new bg.EventHandler(Adapters.Logger);
 
 // Projections
 new Projections.EntryProjector(EventBus, EventHandler);

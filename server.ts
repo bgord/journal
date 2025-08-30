@@ -7,13 +7,13 @@ import * as infra from "+infra";
 import * as Preferences from "+preferences";
 import { Clock } from "+infra/adapters/clock.adapter";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
+import { Logger } from "+infra/adapters/logger.adapter";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { CaptchaShield } from "+infra/captcha";
 import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
-import { Logger } from "+infra/logger.adapter";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
 

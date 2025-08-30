@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as infra from "+infra";
+import { Logger } from "+infra/adapters/logger.adapter";
 import { Env } from "+infra/env";
-import { Logger } from "+infra/logger.adapter";
 import { prerequisites } from "+infra/prerequisites";
 import { server, startup } from "./server";
 

@@ -4,7 +4,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { captcha, haveIBeenPwned, openAPI } from "better-auth/plugins";
 import * as Auth from "+auth";
-import { Clock, IdProvider, logger, Mailer } from "+infra/adapters";
+import { Clock, IdProvider, Logger, Mailer } from "+infra/adapters";
 import { db } from "./db";
 import { Env } from "./env";
 import { EventStore } from "./event-store";
@@ -74,7 +74,7 @@ export const auth = betterAuth({
       : undefined,
     Env.type === bg.NodeEnvironmentEnum.production ? haveIBeenPwned() : undefined,
   ].filter((plugin) => plugin !== undefined),
-  logger: new bg.BetterAuthLogger(logger).attach(),
+  logger: new bg.BetterAuthLogger(Logger).attach(),
 });
 
 export type AuthVariables = {

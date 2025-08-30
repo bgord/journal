@@ -6,7 +6,7 @@ import z from "zod/v4";
 import * as Emotions from "+emotions";
 import * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
-import { Logger } from "+infra/logger.adapter";
+import { Logger } from "+infra/adapters";
 
 const validationErrors = [
   Emotions.VO.SituationDescription.Errors.invalid,
