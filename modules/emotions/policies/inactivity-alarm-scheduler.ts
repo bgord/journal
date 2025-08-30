@@ -33,7 +33,10 @@ export class InactivityAlarmScheduler {
     for (const userId of userIds) {
       const lastEntryTimestamp = await this.deps.GetLatestEntryTimestampForUser.execute(userId);
 
-      if (Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
+      if (
+        Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp, now: this.deps.Clock.nowMs() })
+      )
+        continue;
 
       const trigger = {
         type: Emotions.VO.AlarmTriggerEnum.inactivity,
