@@ -14,6 +14,7 @@ import type * as Schema from "+infra/schema";
 
 // IDs
 export const correlationId = "00000000-0000-0000-0000-000000000000";
+
 export const entryId = IdProvider.generate();
 export const alarmId = IdProvider.generate();
 export const userId = IdProvider.generate();
@@ -26,6 +27,12 @@ const patternDetectionId = IdProvider.generate();
 
 // Timestamps
 export const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
+
+export const shareableLinkCreatedAt = T0;
+export const hourHasPassedTimestamp = T0;
+export const timeCapsuleEntryScheduledAt = T0;
+
+//
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
@@ -70,8 +77,6 @@ export const inactivityDetection = new Emotions.VO.AlarmDetection(
 
 export const advice = new AI.Advice("You should do something");
 
-export const shareableLinkCreatedAt = T0;
-
 export const publicationSpecification = "entries";
 export const anotherPublicationSpecification = "other";
 
@@ -85,9 +90,6 @@ export const visitorIdRaw = "cbc46a7ff4f622ab";
 
 export const accessContext: Publishing.VO.AccessContext = { timestamp: T0, visitorId };
 
-export const hourHasPassedTimestamp = T0;
-
-export const scheduledAt = T0;
 export const scheduledFor = tools.Time.Now().Add(tools.Time.Hours(2)).ms;
 
 export const aiRequestRegisteredTimestamp = tools.Time.Now().value;
@@ -282,7 +284,7 @@ export const GenericTimeCapsuleEntryScheduledEvent = {
       effectiveness: 1,
     },
     scheduledFor,
-    scheduledAt,
+    scheduledAt: timeCapsuleEntryScheduledAt,
   },
 } satisfies Emotions.Events.TimeCapsuleEntryScheduledEventType;
 
@@ -985,8 +987,8 @@ export const user = {
   email: email,
   emailVerified: false,
   image: null,
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  createdAt: new Date(T0),
+  updatedAt: new Date(T0),
   id: userId,
 };
 
@@ -995,16 +997,16 @@ export const anotherUser = {
   email: anotherEmail,
   emailVerified: false,
   image: null,
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  createdAt: new Date(T0),
+  updatedAt: new Date(T0),
   id: anotherUserId,
 };
 
 export const session = {
-  expiresAt: new Date(),
+  expiresAt: new Date(T0),
   token: "wyNm82TTSvBtxXSh1mb7lZJ4WF557tv4",
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  createdAt: new Date(T0),
+  updatedAt: new Date(T0),
   ipAddress: "",
   userAgent: "Mozilla/5.0",
   userId,
@@ -1012,10 +1014,10 @@ export const session = {
 };
 
 export const anotherSession = {
-  expiresAt: new Date(),
+  expiresAt: new Date(T0),
   token: "XFgejTtN28QI8cDEmE9Yb09yxRwQuGj0",
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  createdAt: new Date(T0),
+  updatedAt: new Date(T0),
   ipAddress: "",
   userAgent: "Mozilla/5.0",
   userId,
