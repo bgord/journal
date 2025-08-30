@@ -23,9 +23,9 @@ export class TimeCapsuleEntriesScheduler {
     );
   }
 
-  async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
-    // TODO here?
-    const now = event.payload.timestamp;
+  async onHourHasPassedEvent(_event: System.Events.HourHasPassedEventType) {
+    // TODO here
+    const now = this.deps.Clock.nowMs();
 
     const dueEntries = await this.deps.TimeCapsuleDueEntries.listDue(now);
 
