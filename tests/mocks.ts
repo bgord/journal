@@ -40,8 +40,8 @@ export const weeklyReviewExportId = IdProvider.generate();
 
 export const historyId = IdProvider.generate();
 
-export const week = tools.Week.fromNow();
-export const day = tools.Day.fromNow();
+export const week = tools.Week.fromNow(T0);
+export const day = tools.Day.fromNow(T0);
 
 export const insights = new AI.Advice("Good job");
 
@@ -93,11 +93,11 @@ const client = bg.Client.from(ip.server.requestIP().address, "anon");
 export const visitorId = new bg.VisitorIdHash(client);
 export const visitorIdRaw = "cbc46a7ff4f622ab";
 
-export const accessContext: Publishing.VO.AccessContext = { timestamp: tools.Time.Now().value, visitorId };
+export const accessContext: Publishing.VO.AccessContext = { timestamp: T0, visitorId };
 
-export const hourHasPassedTimestamp = tools.Time.Now().value;
+export const hourHasPassedTimestamp = T0;
 
-export const scheduledAt = tools.Time.Now().value;
+export const scheduledAt = T0;
 export const scheduledFor = tools.Time.Now().Add(tools.Time.Hours(2)).ms;
 
 export const aiRequestRegisteredTimestamp = tools.Time.Now().value;
@@ -134,7 +134,7 @@ export const head = {
   exists: true,
   etag: "etag-123",
   size: tools.Size.fromBytes(1234),
-  lastModified: tools.Timestamp.parse(Date.UTC(2024, 1, 2, 3, 4, 5)),
+  lastModified: T0,
   mime: new tools.Mime("image/webp"),
 };
 
@@ -841,7 +841,7 @@ export const GenericProfileAvatarRemovedEvent = {
 
 export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
-  startedAt: tools.Time.Now().value,
+  startedAt: T0,
   status: Emotions.VO.EntryStatusEnum.actionable,
   id: entryId,
   situationDescription: "I finished a project",
@@ -859,7 +859,7 @@ export const partialEntry: Emotions.VO.EntrySnapshot = {
 
 export const fullEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
-  startedAt: tools.Time.Now().value,
+  startedAt: T0,
   status: Emotions.VO.EntryStatusEnum.actionable,
   id: entryId,
   situationDescription: "I finished a project",
@@ -935,7 +935,7 @@ export const weeklyReview: Emotions.VO.WeeklyReviewSnapshot = {
   id: weeklyReviewId,
   userId,
   weekIsoId: week.toIsoId(),
-  createdAt: tools.Time.Now().value,
+  createdAt: T0,
   insights: insights.get(),
   status: Emotions.VO.WeeklyReviewStatusEnum.completed,
 };
@@ -954,7 +954,7 @@ export const weeklyReviewFull: Emotions.Queries.WeeklyReviewExportDto = {
 
 export const alarm: Emotions.VO.AlarmSnapshot = {
   id: alarmId,
-  generatedAt: tools.Time.Now().value,
+  generatedAt: T0,
   entryId,
   status: Emotions.VO.AlarmStatusEnum.notification_requested,
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
@@ -969,7 +969,7 @@ export const alarm: Emotions.VO.AlarmSnapshot = {
 
 export const patternDetection: Emotions.VO.PatternDetectionSnapshot = {
   id: IdProvider.generate(),
-  createdAt: tools.Time.Now().value,
+  createdAt: T0,
   name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
   weekIsoId: week.toIsoId(),
   userId,
@@ -977,16 +977,16 @@ export const patternDetection: Emotions.VO.PatternDetectionSnapshot = {
 
 export const shareableLink: Schema.SelectShareableLinks = {
   id: shareableLinkId,
-  createdAt: Date.now(),
-  updatedAt: Date.now(),
+  createdAt: T0,
+  updatedAt: T0,
   status: Publishing.VO.ShareableLinkStatusEnum.active,
   revision: 0,
   ownerId: userId,
   publicationSpecification: "entries",
-  dateRangeStart: Date.now(),
-  dateRangeEnd: Date.now(),
-  durationMs: Date.now(),
-  expiresAt: Date.now(),
+  dateRangeStart: T0,
+  dateRangeEnd: T0,
+  durationMs: T0,
+  expiresAt: T0,
   hidden: false,
 };
 
