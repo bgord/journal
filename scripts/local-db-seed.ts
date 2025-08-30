@@ -259,7 +259,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       "entries",
       new tools.DateRange(
         tools.Time.Now(currentMs).Minus(tools.Time.Days(7)).ms as tools.TimestampType,
-        Date.now() as tools.TimestampType,
+        deps.Clock.nowMs(),
       ),
       tools.Time.Days(3),
       users[0]?.user.id as Auth.VO.UserIdType,
