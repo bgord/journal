@@ -13,6 +13,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   ExpiringShareableLinks: Ports.ExpiringShareableLinksPort;
 };
 
@@ -30,7 +31,7 @@ export class ShareableLinksExpirer {
 
       for (const shareableLink of shareableLinks) {
         const command = Commands.ExpireShareableLinkCommand.parse({
-          ...bg.createCommandEnvelope(this.deps.IdProvider),
+          ...bg.createCommandEnvelope(this.deps),
           name: Commands.EXPIRE_SHAREABLE_LINK_COMMAND,
           revision: new tools.Revision(shareableLink.revision),
           payload: { shareableLinkId: shareableLink.id },

@@ -15,6 +15,7 @@ const policy = new Publishing.Policies.ShareableLinksExpirer({
   CommandBus,
   ExpiringShareableLinks: Adapters.Publishing.ExpiringShareableLinks,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
 });
 
 describe("ShareableLinksExpirer", () => {

@@ -5,7 +5,7 @@ import * as Publishing from "+publishing";
 import * as Adapters from "+infra/adapters";
 import * as mocks from "./mocks";
 
-const deps = { IdProvider: Adapters.IdProvider };
+const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 describe("ShareableLink", () => {
   test("build new aggregate", () => {

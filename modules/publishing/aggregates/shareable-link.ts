@@ -9,7 +9,7 @@ import * as VO from "+publishing/value-objects";
 export type ShareableLinkEvent = (typeof ShareableLink)["events"][number];
 type ShareableLinkEventType = z.infer<ShareableLinkEvent>;
 
-type Dependencies = { IdProvider: bg.IdProviderPort };
+type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class ShareableLink {
   static events = [
@@ -59,7 +59,7 @@ export class ShareableLink {
     const shareableLink = new ShareableLink(id, deps);
 
     const event = Events.ShareableLinkCreatedEvent.parse({
-      ...bg.createEventEnvelope(deps.IdProvider, ShareableLink.getStream(id)),
+      ...bg.createEventEnvelope(ShareableLink.getStream(id), deps),
       name: Events.SHAREABLE_LINK_CREATED_EVENT,
       payload: {
         shareableLinkId: id,
@@ -68,7 +68,7 @@ export class ShareableLink {
         dateRangeEnd: dateRange.getEnd(),
         publicationSpecification,
         durationMs: tools.Timestamp.parse(duration.ms),
-        createdAt: tools.Time.Now().value,
+        createdAt: deps.Clock.nowMs(),
       },
     } satisfies Events.ShareableLinkCreatedEventType);
 
@@ -86,7 +86,7 @@ export class ShareableLink {
     });
 
     const event = Events.ShareableLinkExpiredEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, ShareableLink.getStream(this.id)),
+      ...bg.createEventEnvelope(ShareableLink.getStream(this.id), this.deps),
       name: Events.SHAREABLE_LINK_EXPIRED_EVENT,
       payload: { shareableLinkId: this.id },
     } satisfies Events.ShareableLinkExpiredEventType);
@@ -99,7 +99,7 @@ export class ShareableLink {
     Invariants.RequesterOwnsShareableLink.perform({ requesterId, ownerId: this.ownerId });
 
     const event = Events.ShareableLinkRevokedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, ShareableLink.getStream(this.id)),
+      ...bg.createEventEnvelope(ShareableLink.getStream(this.id), this.deps),
       name: Events.SHAREABLE_LINK_REVOKED_EVENT,
       payload: { shareableLinkId: this.id },
     } satisfies Events.ShareableLinkRevokedEventType);
