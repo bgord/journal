@@ -58,8 +58,12 @@ export class AlarmOrchestrator {
       const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.deps.EntrySnapshot, language).create(
         detection,
       );
-      // @ts-expect-error
-      const context = ACL.createAlarmRequestContext(event.payload.userId, event.payload.trigger.entryId);
+      const context = ACL.createAlarmRequestContext(
+        this.deps,
+        event.payload.userId,
+        // @ts-expect-error
+        event.payload.trigger.entryId,
+      );
       const advice = await this.deps.AiGateway.query(prompt, context);
 
       const command = Commands.SaveAlarmAdviceCommand.parse({
