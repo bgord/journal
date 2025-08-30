@@ -28,7 +28,7 @@ const server = new Hono<infra.HonoConfig>();
 
 server.use(...bg.Setup.essentials(ServerDeps, { cors: AuthShield.cors }));
 
-const startup = new tools.Stopwatch();
+const startup = new tools.Stopwatch(Clock.nowMs());
 
 // Healthcheck =================
 server.get(
