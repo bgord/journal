@@ -5,6 +5,8 @@ import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
 import * as infra from "+infra";
 import * as Preferences from "+preferences";
+import { Clock } from "+infra/adapters/clock.adapter";
+import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { CaptchaShield } from "+infra/captcha";
@@ -18,23 +20,30 @@ import { ResponseCache } from "+infra/response-cache";
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
+const ServerDeps = { Logger, I18n: I18nConfig, IdProvider, Clock };
+const ShieldRateLimitDeps = { Clock };
+const HealthcheckDeps = { Clock };
+
 const server = new Hono<infra.HonoConfig>();
 
-server.use(...bg.Setup.essentials(Logger, I18nConfig, { cors: AuthShield.cors }));
+server.use(...bg.Setup.essentials(ServerDeps, { cors: AuthShield.cors }));
 
 const startup = new tools.Stopwatch();
 
 // Healthcheck =================
 server.get(
   "/healthcheck",
-  bg.ShieldRateLimit({
-    enabled: Env.type === bg.NodeEnvironmentEnum.production,
-    subject: bg.AnonSubjectResolver,
-    store: RateLimiters.HealthcheckStore,
-  }),
+  bg.ShieldRateLimit(
+    {
+      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      subject: bg.AnonSubjectResolver,
+      store: RateLimiters.HealthcheckStore,
+    },
+    ShieldRateLimitDeps,
+  ),
   timeout(tools.Time.Seconds(15).ms, infra.requestTimeoutError),
   BasicAuthShield,
-  ...bg.Healthcheck.build(healthcheck),
+  ...bg.Healthcheck.build(healthcheck, HealthcheckDeps),
 );
 // =============================
 
@@ -49,20 +58,26 @@ entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction);
 entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry);
 entry.get(
   "/export-data",
-  bg.ShieldRateLimit({
-    enabled: Env.type === bg.NodeEnvironmentEnum.production,
-    subject: bg.UserSubjectResolver,
-    store: RateLimiters.EntriesDataStore,
-  }),
+  bg.ShieldRateLimit(
+    {
+      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      subject: bg.UserSubjectResolver,
+      store: RateLimiters.EntriesDataStore,
+    },
+    ShieldRateLimitDeps,
+  ),
   HTTP.Emotions.ExportData,
 );
 entry.get(
   "/export-entries",
-  bg.ShieldRateLimit({
-    enabled: Env.type === bg.NodeEnvironmentEnum.production,
-    subject: bg.UserSubjectResolver,
-    store: RateLimiters.EntriesEntriesStore,
-  }),
+  bg.ShieldRateLimit(
+    {
+      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      subject: bg.UserSubjectResolver,
+      store: RateLimiters.EntriesEntriesStore,
+    },
+    ShieldRateLimitDeps,
+  ),
   HTTP.Emotions.ExportEntries,
 );
 server.route("/entry", entry);
@@ -77,21 +92,27 @@ const weeklyReview = new Hono();
 weeklyReview.use("*", AuthShield.attach, AuthShield.verify);
 weeklyReview.post(
   "/:weeklyReviewId/export/email",
-  bg.ShieldRateLimit({
-    enabled: Env.type === bg.NodeEnvironmentEnum.production,
-    subject: bg.UserSubjectResolver,
-    store: RateLimiters.WeeklyReviewExportEmailStore,
-  }),
+  bg.ShieldRateLimit(
+    {
+      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      subject: bg.UserSubjectResolver,
+      store: RateLimiters.WeeklyReviewExportEmailStore,
+    },
+    ShieldRateLimitDeps,
+  ),
   CaptchaShield.verify,
   HTTP.Emotions.ExportWeeklyReviewByEmail,
 );
 weeklyReview.get(
   "/:weeklyReviewId/export/download",
-  bg.ShieldRateLimit({
-    enabled: Env.type === bg.NodeEnvironmentEnum.production,
-    subject: bg.UserSubjectResolver,
-    store: RateLimiters.WeeklyReviewExportDownloadStore,
-  }),
+  bg.ShieldRateLimit(
+    {
+      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      subject: bg.UserSubjectResolver,
+      store: RateLimiters.WeeklyReviewExportDownloadStore,
+    },
+    ShieldRateLimitDeps,
+  ),
   HTTP.Emotions.DownloadWeeklyReview,
 );
 server.route("/weekly-review", weeklyReview);
@@ -103,11 +124,14 @@ const publishing = new Hono();
 publishing.use("*", AuthShield.attach, AuthShield.verify);
 publishing.post(
   "/link/create",
-  bg.ShieldRateLimit({
-    enabled: Env.type === bg.NodeEnvironmentEnum.production,
-    subject: bg.UserSubjectResolver,
-    store: RateLimiters.ShareableLinkCreateStore,
-  }),
+  bg.ShieldRateLimit(
+    {
+      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      subject: bg.UserSubjectResolver,
+      store: RateLimiters.ShareableLinkCreateStore,
+    },
+    ShieldRateLimitDeps,
+  ),
   HTTP.Publishing.CreateShareableLink,
 );
 publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink);
