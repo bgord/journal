@@ -23,16 +23,18 @@ export class ReadModel {
   static async listEntriesForUser(userId: UserIdType, filter?: string | null, search?: string | null) {
     const where = [eq(Schema.entries.userId, userId)];
 
+    const now = Date.now() as tools.TimestampType;
+
     if (filter === "today") {
-      where.push(gte(Schema.entries.startedAt, tools.Time.Now().Minus(tools.Time.Days(1)).ms));
+      where.push(gte(Schema.entries.startedAt, tools.Time.Now(now).Minus(tools.Time.Days(1)).ms));
     }
 
     if (filter === "last_week") {
-      where.push(gte(Schema.entries.startedAt, tools.Time.Now().Minus(tools.Time.Days(7)).ms));
+      where.push(gte(Schema.entries.startedAt, tools.Time.Now(now).Minus(tools.Time.Days(7)).ms));
     }
 
     if (filter === "last_month") {
-      where.push(gte(Schema.entries.startedAt, tools.Time.Now().Minus(tools.Time.Days(30)).ms));
+      where.push(gte(Schema.entries.startedAt, tools.Time.Now(now).Minus(tools.Time.Days(30)).ms));
     }
 
     if (search?.trim()) {
@@ -75,8 +77,10 @@ export class ReadModel {
   }
 
   static async getEntryCounts(userId: UserIdType) {
-    const todayStart = tools.Time.Now().Minus(tools.Time.Days(1)).ms;
-    const weekStart = tools.Time.Now().Minus(tools.Time.Days(7)).ms;
+    const now = Date.now() as tools.TimestampType;
+
+    const todayStart = tools.Time.Now(now).Minus(tools.Time.Days(1)).ms;
+    const weekStart = tools.Time.Now(now).Minus(tools.Time.Days(7)).ms;
 
     const [today] = await db
       .select({ c: count(Schema.entries.id).mapWith(Number) })
@@ -97,8 +101,10 @@ export class ReadModel {
   }
 
   static async getTopEmotions(userId: UserIdType) {
-    const todayStart = tools.Time.Now().Minus(tools.Time.Days(1)).ms;
-    const weekStart = tools.Time.Now().Minus(tools.Time.Days(7)).ms;
+    const now = Date.now() as tools.TimestampType;
+
+    const todayStart = tools.Time.Now(now).Minus(tools.Time.Days(1)).ms;
+    const weekStart = tools.Time.Now(now).Minus(tools.Time.Days(7)).ms;
 
     const today = await db
       .select({ label: Schema.entries.emotionLabel, hits: count(Schema.entries.id).mapWith(Number) })
@@ -246,7 +252,7 @@ export class ReadModel {
   }
 
   static async getAiUsageToday(userId: UserIdType) {
-    const now = tools.Time.Now().value;
+    const now = Date.now() as tools.TimestampType;
     const day = tools.Day.fromNow(now);
 
     const bucket = `user:${userId}:day:${day.toIsoId()}`;
