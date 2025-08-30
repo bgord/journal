@@ -3,9 +3,12 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
+import { Clock } from "+infra/adapters/clock.adapter";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import { CommandBus } from "+infra/command-bus";
 import { TemporaryFile } from "+infra/temporary-file.adapter";
+
+const deps = { IdProvider, Clock };
 
 export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>) {
   const user = c.get("user");
@@ -18,7 +21,7 @@ export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>) {
   const temporary = await TemporaryFile.write(filename, file);
 
   const command = Preferences.Commands.UpdateProfileAvatarCommand.parse({
-    ...bg.createCommandEnvelope(IdProvider),
+    ...bg.createCommandEnvelope(deps),
     name: Preferences.Commands.UPDATE_PROFILE_AVATAR_COMMAND,
     payload: { userId: user.id, absoluteFilePath: temporary.path.get() },
   } satisfies Preferences.Commands.UpdateProfileAvatarCommandType);

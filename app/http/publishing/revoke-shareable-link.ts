@@ -3,8 +3,11 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
+import { Clock } from "+infra/adapters/clock.adapter";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import { CommandBus } from "+infra/command-bus";
+
+const deps = { IdProvider, Clock };
 
 export async function RevokeShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
@@ -12,7 +15,7 @@ export async function RevokeShareableLink(c: hono.Context<infra.HonoConfig>, _ne
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
 
   const command = Publishing.Commands.RevokeShareableLinkCommand.parse({
-    ...bg.createCommandEnvelope(IdProvider),
+    ...bg.createCommandEnvelope(deps),
     name: Publishing.Commands.REVOKE_SHAREABLE_LINK_COMMAND,
     revision,
     payload: { shareableLinkId, requesterId: user.id },

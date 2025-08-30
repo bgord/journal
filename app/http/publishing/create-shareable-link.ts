@@ -3,8 +3,11 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
+import { Clock } from "+infra/adapters/clock.adapter";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import { CommandBus } from "+infra/command-bus";
+
+const deps = { IdProvider, Clock };
 
 export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
@@ -26,7 +29,7 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _ne
   const shareableLinkId = IdProvider.generate();
 
   const command = Publishing.Commands.CreateShareableLinkCommand.parse({
-    ...bg.createCommandEnvelope(IdProvider),
+    ...bg.createCommandEnvelope(deps),
     name: Publishing.Commands.CREATE_SHAREABLE_LINK_COMMAND,
     payload: {
       shareableLinkId,
