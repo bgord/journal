@@ -6,6 +6,7 @@ import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
 import * as Adapters from "+infra/adapters";
+import { Clock } from "+infra/adapters/clock.adapter";
 import { auth } from "+infra/auth";
 import { CommandBus } from "+infra/command-bus";
 import { db } from "+infra/db";
@@ -17,10 +18,10 @@ import * as mocks from "../tests/mocks";
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
-const deps = { IdProvider: Adapters.IdProvider };
+const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 const EventHandler = new bg.EventHandler(Adapters.logger);
-const now = tools.Time.Now().value;
+const currentMs = Clock.nowMs();
 
 const situationDescriptions = [
   "I missed an important appointment because I confused the time zones while traveling, which made me feel embarrassed and deeply irresponsible",
@@ -132,9 +133,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
 
         const event = Auth.Events.AccountCreatedEvent.parse({
-          ...bg.createEventEnvelope(Adapters.IdProvider, `account_${result.user.id}`),
+          ...bg.createEventEnvelope(`account_${result.user.id}`, deps),
           name: Auth.Events.ACCOUNT_CREATED_EVENT,
-          payload: { userId: result.user.id, timestamp: tools.Time.Now().value },
+          payload: { userId: result.user.id, timestamp: currentMs },
         } satisfies Auth.Events.AccountCreatedEventType);
 
         await EventStore.save([event]);
@@ -150,7 +151,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         Emotions.VO.AlarmTrigger.parse({
           type: Emotions.VO.AlarmTriggerEnum.inactivity,
           inactivityDays: 7,
-          lastEntryTimestamp: tools.Time.Now().Minus(tools.Time.Days(10)).ms,
+          lastEntryTimestamp: tools.Time.Now(currentMs).Minus(tools.Time.Days(10)).ms,
         }),
         Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
       ),
@@ -214,7 +215,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     }
 
     const ScheduleTimeCapsuleEntryCommand = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
-      ...bg.createCommandEnvelope(Adapters.IdProvider),
+      ...bg.createCommandEnvelope(deps),
       name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
       payload: {
         entryId: Adapters.IdProvider.generate(),
@@ -233,8 +234,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
           new Emotions.VO.ReactionEffectiveness(1),
         ),
         userId: users[0]?.user.id as Auth.VO.UserIdType,
-        scheduledAt: now,
-        scheduledFor: tools.Timestamp.parse(tools.Time.Now().Add(tools.Time.Minutes(5)).ms),
+        scheduledAt: currentMs,
+        scheduledFor: tools.Timestamp.parse(tools.Time.Now(currentMs).Add(tools.Time.Minutes(5)).ms),
       },
     } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
@@ -256,7 +257,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       Adapters.IdProvider.generate(),
       "entries",
       new tools.DateRange(
-        tools.Time.Now().Minus(tools.Time.Days(7)).ms as tools.TimestampType,
+        tools.Time.Now(currentMs).Minus(tools.Time.Days(7)).ms as tools.TimestampType,
         Date.now() as tools.TimestampType,
       ),
       tools.Time.Days(3),
