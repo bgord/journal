@@ -118,8 +118,8 @@ export const EmotionsAlarmInactivityWeeklyContext: AI.RequestContext<AI.UsageCat
 
 export const userDailyBucket = `user:${userId}:day:${tools.Day.fromNow(T0).toIsoId()}`;
 export const emotionsAlarmEntryBucket = `user:${userId}:entry:${entryId}:alarms`;
-export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now(T0).value).toIsoId()}:emotions_weekly_review_insight`;
-export const emotionsAlarmInactivityWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now(T0).value).toIsoId()}:emotions_alarm_inactivity`;
+export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(T0).toIsoId()}:emotions_weekly_review_insight`;
+export const emotionsAlarmInactivityWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(T0).toIsoId()}:emotions_alarm_inactivity`;
 
 export const head = {
   exists: true,

@@ -1,6 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import * as Adapters from "+infra/adapters";
@@ -113,9 +112,7 @@ describe("InactivityAlarmScheduler", () => {
 
   test("NoEntriesInTheLastWeek", async () => {
     spyOn(Adapters.Auth.UserDirectory, "listActiveUserIds").mockResolvedValue([mocks.userId]);
-    spyOn(Adapters.Emotions.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
-      tools.Time.Now().value,
-    );
+    spyOn(Adapters.Emotions.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(mocks.T0);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(

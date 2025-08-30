@@ -164,7 +164,7 @@ describe(`POST ${url}`, () => {
           ...situation,
           ...emotion,
           ...reaction,
-          scheduledFor: tools.Time.Now().Minus(tools.Time.Days(1)).ms,
+          scheduledFor: tools.Time.Now(mocks.T0).Minus(tools.Time.Days(1)).ms,
         }),
       },
       mocks.ip,
