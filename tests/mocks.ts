@@ -68,7 +68,7 @@ export const entryDetection = new Emotions.VO.AlarmDetection(
 export const inactivityTrigger = {
   type: Emotions.VO.AlarmTriggerEnum.inactivity,
   inactivityDays: 7,
-  lastEntryTimestamp: tools.Timestamp.parse(1000),
+  lastEntryTimestamp: T0,
 } as const;
 
 export const inactivityDetection = new Emotions.VO.AlarmDetection(
@@ -91,12 +91,12 @@ export const visitorIdRaw = "cbc46a7ff4f622ab";
 
 export const accessContext: Publishing.VO.AccessContext = { timestamp: T0, visitorId };
 
-export const aiRequestRegisteredTimestamp = tools.Time.Now().value;
+export const aiRequestRegisteredTimestamp = T0;
 
 export const EmotionsAlarmEntryContext: AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
   userId: userId,
   category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
-  timestamp: tools.Time.Now().value,
+  timestamp: T0,
   dimensions: { entryId: entryId },
 };
 
@@ -104,7 +104,7 @@ export const EmotionsWeeklyReviewInsightContext: AI.RequestContext<AI.UsageCateg
   {
     userId: userId,
     category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
-    timestamp: tools.Time.Now().value,
+    timestamp: T0,
     dimensions: {},
   };
 
@@ -112,14 +112,14 @@ export const EmotionsAlarmInactivityWeeklyContext: AI.RequestContext<AI.UsageCat
   {
     userId: userId,
     category: AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
-    timestamp: tools.Time.Now().value,
+    timestamp: T0,
     dimensions: {},
   };
 
-export const userDailyBucket = `user:${userId}:day:${tools.Day.fromNow().toIsoId()}`;
+export const userDailyBucket = `user:${userId}:day:${tools.Day.fromNow(T0).toIsoId()}`;
 export const emotionsAlarmEntryBucket = `user:${userId}:entry:${entryId}:alarms`;
-export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_weekly_review_insight`;
-export const emotionsAlarmInactivityWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now().value).toIsoId()}:emotions_alarm_inactivity`;
+export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now(T0).value).toIsoId()}:emotions_weekly_review_insight`;
+export const emotionsAlarmInactivityWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(tools.Time.Now(T0).value).toIsoId()}:emotions_alarm_inactivity`;
 
 export const head = {
   exists: true,
@@ -787,7 +787,7 @@ export const GenericAccountCreatedEvent = {
   stream: `account_${userId}`,
   version: 1,
   name: "ACCOUNT_CREATED_EVENT",
-  payload: { userId, timestamp: tools.Time.Now().value },
+  payload: { userId, timestamp: T0 },
 } satisfies Auth.Events.AccountCreatedEventType;
 
 export const GenericUserLanguageSetEvent = {
