@@ -6,6 +6,7 @@ type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType
 type Dependencies = {
   EventStore: bg.EventStoreLike<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   WeeklyReviewSnapshot: Emotions.Ports.WeeklyReviewSnapshotPort;
 };
 
@@ -24,7 +25,7 @@ export const handleExportWeeklyReviewByEmailCommand =
 
     await deps.EventStore.save([
       Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
-        ...bg.createEventEnvelope(deps.IdProvider, `weekly_review_export_by_email_${weeklyReviewExportId}`),
+        ...bg.createEventEnvelope(`weekly_review_export_by_email_${weeklyReviewExportId}`, deps),
         name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
         payload: {
           weeklyReviewId: command.payload.weeklyReviewId,

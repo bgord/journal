@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 
 type AcceptedEvent = Emotions.Events.TimeCapsuleEntryScheduledEventType;
@@ -7,11 +6,12 @@ type AcceptedEvent = Emotions.Events.TimeCapsuleEntryScheduledEventType;
 type Dependencies = {
   EventStore: bg.EventStoreLike<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
 };
 
 export const handleScheduleTimeCapsuleEntryCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.ScheduleTimeCapsuleEntryCommandType) => {
-    const now = tools.Time.Now().value;
+    const now = deps.Clock.nowMs();
 
     Emotions.Invariants.TimeCapsuleEntryScheduledInFuture.perform({
       now,
@@ -19,10 +19,7 @@ export const handleScheduleTimeCapsuleEntryCommand =
     });
 
     const event = Emotions.Events.TimeCapsuleEntryScheduledEvent.parse({
-      ...bg.createEventEnvelope(
-        deps.IdProvider,
-        Emotions.Aggregates.Entry.getStream(command.payload.entryId),
-      ),
+      ...bg.createEventEnvelope(Emotions.Aggregates.Entry.getStream(command.payload.entryId), deps),
       name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
       payload: {
         entryId: command.payload.entryId,
