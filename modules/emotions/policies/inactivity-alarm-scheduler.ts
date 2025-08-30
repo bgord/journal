@@ -12,6 +12,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   UserDirectory: Auth.OHQ.UserDirectoryOHQ;
   GetLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser;
 };
@@ -43,7 +44,7 @@ export class InactivityAlarmScheduler {
       const detection = new Emotions.VO.AlarmDetection(trigger, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM);
 
       const command = Emotions.Commands.GenerateAlarmCommand.parse({
-        ...bg.createCommandEnvelope(this.deps.IdProvider),
+        ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.GENERATE_ALARM_COMMAND,
         payload: { detection, userId },
       } satisfies Emotions.Commands.GenerateAlarmCommandType);

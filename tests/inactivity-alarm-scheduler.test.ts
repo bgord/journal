@@ -16,6 +16,7 @@ const policy = new Emotions.Policies.InactivityAlarmScheduler({
   UserDirectory: Adapters.Auth.UserDirectory,
   GetLatestEntryTimestampForUser: Adapters.Emotions.GetLatestEntryTimestampForUser,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
 });
 
 describe("InactivityAlarmScheduler", () => {
