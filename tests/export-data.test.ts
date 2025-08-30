@@ -19,7 +19,6 @@ describe("GET /entry/export-data", () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Adapters.Emotions.EntrySnapshot, "getAllForuser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Adapters.Emotions.AlarmDirectory, "listForUser").mockResolvedValue([mocks.alarm]);
-    spyOn(Date, "now").mockReturnValue(mocks.T0);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 

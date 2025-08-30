@@ -36,7 +36,6 @@ describe("GET /entry/export-entries ", () => {
   test("happy path - csv", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(mocks.T0);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02`,
@@ -55,7 +54,6 @@ describe("GET /entry/export-entries ", () => {
   test("happy path - text", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(mocks.T0);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=text`,
@@ -74,7 +72,6 @@ describe("GET /entry/export-entries ", () => {
   test("happy path - markdown", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(mocks.T0);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=markdown`,
@@ -93,7 +90,6 @@ describe("GET /entry/export-entries ", () => {
   test("happy path - pdf", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(mocks.T0);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=pdf`,

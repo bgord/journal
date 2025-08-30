@@ -2,16 +2,18 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Emotions from "+emotions";
 
+type Dependencies = { PdfGenerator: bg.PdfGeneratorPort; Clock: bg.ClockPort };
+
 export class EntryExportFilePdf extends bg.FileDraft {
   constructor(
-    private readonly pdfGenerator: bg.PdfGeneratorPort,
     private readonly entries: Emotions.VO.EntrySnapshot[],
+    private readonly deps: Dependencies,
   ) {
-    super({ filename: `entry-export-${Date.now()}.pdf`, mime: tools.MIMES.pdf });
+    super({ filename: `entry-export-${deps.Clock.nowMs()}.pdf`, mime: tools.MIMES.pdf });
   }
 
   // @ts-expect-error
   create() {
-    return this.pdfGenerator.request("entry_export", { entries: this.entries });
+    return this.deps.PdfGenerator.request("entry_export", { entries: this.entries });
   }
 }

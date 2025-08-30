@@ -4,6 +4,8 @@ import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import * as Adapters from "+infra/adapters";
 
+const deps = { Stringifier: Adapters.CsvStringifier, Clock: Adapters.Clock };
+
 export async function ExportData(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
 
@@ -15,8 +17,8 @@ export async function ExportData(c: hono.Context<infra.HonoConfig>, _next: hono.
   return new bg.FileDraftZip({
     filename: `export-${timestamp}.zip`,
     parts: [
-      new Emotions.Services.EntryExportFileCsv(Adapters.CsvStringifier, entries),
-      new Emotions.Services.AlarmExportFileCsv(Adapters.CsvStringifier, alarms),
+      new Emotions.Services.EntryExportFileCsv(entries, deps),
+      new Emotions.Services.AlarmExportFileCsv(alarms, deps),
     ],
   }).toResponse();
 }
