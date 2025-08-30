@@ -15,6 +15,7 @@ const policy = new Emotions.Policies.WeeklyReviewScheduler({
   EventHandler,
   CommandBus,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   UserDirectory: Adapters.Auth.UserDirectory,
 });
 

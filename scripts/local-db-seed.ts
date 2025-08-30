@@ -248,6 +248,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       EventHandler,
       CommandBus,
       IdProvider: Adapters.IdProvider,
+      Clock: Adapters.Clock,
       UserDirectory: Adapters.Auth.UserDirectory,
     }).onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event);
 
