@@ -13,6 +13,7 @@ const policy = new Preferences.Policies.SetDefaultUserLanguage(
   EventBus,
   EventHandler,
   Adapters.IdProvider,
+  Adapters.Clock,
   CommandBus,
   SupportedLanguages.en,
 );

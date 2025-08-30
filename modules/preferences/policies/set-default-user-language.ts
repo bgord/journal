@@ -7,6 +7,7 @@ export class SetDefaultUserLanguage<L extends readonly tools.LanguageType[]> {
     EventBus: bg.EventBusLike<Auth.Events.AccountCreatedEventType>,
     EventHandler: bg.EventHandler,
     private readonly IdProvider: bg.IdProviderPort,
+    private readonly Clock: bg.ClockPort,
     private readonly CommandBus: bg.CommandBusLike<any>,
     private readonly systemDefaultLanguage: L[number],
   ) {
@@ -18,7 +19,7 @@ export class SetDefaultUserLanguage<L extends readonly tools.LanguageType[]> {
 
   async onAccountCreatedEvent(event: Auth.Events.AccountCreatedEventType) {
     const command = bg.Preferences.Commands.SetUserLanguageCommand.parse({
-      ...bg.createCommandEnvelope(this.IdProvider),
+      ...bg.createCommandEnvelope({ IdProvider: this.IdProvider, Clock: this.Clock }),
       name: bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
       payload: { userId: event.payload.userId, language: this.systemDefaultLanguage },
     } satisfies bg.Preferences.Commands.SetUserLanguageCommandType);
