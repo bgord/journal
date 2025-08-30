@@ -6,7 +6,7 @@ import z from "zod/v4";
 import * as Emotions from "+emotions";
 import * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
-import { logger } from "+infra/logger.adapter";
+import { Logger } from "+infra/logger.adapter";
 
 const validationErrors = [
   Emotions.VO.SituationDescription.Errors.invalid,
@@ -78,7 +78,7 @@ export class ErrorHandler {
       const validationError = error.issues.find((issue) => validationErrors.includes(issue.message));
 
       if (validationError) {
-        logger.error({
+        Logger.error({
           message: "Expected validation error",
           component: "http",
           operation: "validation",
@@ -94,7 +94,7 @@ export class ErrorHandler {
         return c.json({ message: validationError.message, _known: true }, 400);
       }
 
-      logger.error({
+      Logger.error({
         message: "Invalid payload",
         component: "http",
         operation: "invalid_payload",
@@ -109,7 +109,7 @@ export class ErrorHandler {
     const invariantErrorHandler = new bg.InvariantErrorHandler(invariants).detect(error);
 
     if (invariantErrorHandler.error) {
-      logger.error({
+      Logger.error({
         message: "Domain error",
         component: "http",
         operation: invariantErrorHandler.error.message,
@@ -120,7 +120,7 @@ export class ErrorHandler {
       return c.json(...bg.InvariantErrorHandler.respond(invariantErrorHandler.error));
     }
 
-    logger.error({
+    Logger.error({
       message: "Unknown error",
       component: "http",
       operation: "unknown_error",

@@ -11,7 +11,7 @@ import { CaptchaShield } from "+infra/captcha";
 import { Env } from "+infra/env";
 import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
-import { logger } from "+infra/logger.adapter";
+import { Logger } from "+infra/logger.adapter";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
 
@@ -20,7 +20,7 @@ import "+infra/register-command-handlers";
 
 const server = new Hono<infra.HonoConfig>();
 
-server.use(...bg.Setup.essentials(logger, I18nConfig, { cors: AuthShield.cors }));
+server.use(...bg.Setup.essentials(Logger, I18nConfig, { cors: AuthShield.cors }));
 
 const startup = new tools.Stopwatch();
 
