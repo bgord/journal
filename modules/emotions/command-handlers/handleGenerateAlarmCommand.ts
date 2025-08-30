@@ -13,6 +13,7 @@ export const handleGenerateAlarmCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.GenerateAlarmCommandType) => {
     const check = await deps.AiGateway.check(
       Emotions.ACL.createAlarmRequestContext(
+        deps,
         command.payload.userId,
         // @ts-expect-error
         command.payload.detection.trigger.entryId,

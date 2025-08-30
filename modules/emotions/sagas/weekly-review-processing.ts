@@ -77,7 +77,7 @@ export class WeeklyReviewProcessing {
     try {
       const insights = await this.deps.AiGateway.query(
         prompt,
-        Emotions.ACL.createWeeklyReviewInsightRequestContext(event.payload.userId),
+        Emotions.ACL.createWeeklyReviewInsightRequestContext(this.deps, event.payload.userId),
       );
 
       const detectWeeklyPatterns = Emotions.Commands.DetectWeeklyPatternsCommand.parse({

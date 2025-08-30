@@ -10,6 +10,7 @@ const gateway = new AiGateway({
   Publisher: Adapters.AI.AiEventStorePublisher,
   AiClient: Adapters.AI.AiClient,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   BucketCounter: Adapters.AI.BucketCounter,
 });
 
