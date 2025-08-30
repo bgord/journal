@@ -34,7 +34,7 @@ export class InactivityAlarmScheduler {
       const lastEntryTimestamp = await this.deps.GetLatestEntryTimestampForUser.execute(userId);
 
       if (
-        Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp, now: this.deps.Clock.nowMs() })
+        Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp, now: event.payload.timestamp })
       )
         continue;
 

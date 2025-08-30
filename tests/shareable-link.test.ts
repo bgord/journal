@@ -29,7 +29,6 @@ describe("ShareableLink", () => {
 
   test("generate - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Date, "now").mockReturnValue(mocks.T0);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const shareableLink = Publishing.Aggregates.ShareableLink.create(
@@ -46,6 +45,7 @@ describe("ShareableLink", () => {
 
   test("expire - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    spyOn(Adapters.Clock, "nowMs").mockReturnValue(tools.Time.Now(mocks.T0).Add(tools.Time.Hours(1)).ms);
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.shareableLinkId,
       [mocks.GenericShareableLinkCreatedEvent],

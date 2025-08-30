@@ -1,3 +1,12 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
+import { Env } from "+infra/env";
 
-export const Clock = new bg.ClockSystemAdapter();
+export const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
+
+export const Clock: bg.ClockPort = {
+  [bg.NodeEnvironmentEnum.local]: new bg.ClockSystemAdapter(),
+  [bg.NodeEnvironmentEnum.test]: new bg.ClockFixedAdapter(T0),
+  [bg.NodeEnvironmentEnum.staging]: new bg.ClockSystemAdapter(),
+  [bg.NodeEnvironmentEnum.production]: new bg.ClockSystemAdapter(),
+}[Env.type];

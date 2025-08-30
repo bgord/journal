@@ -113,8 +113,9 @@ describe("InactivityAlarmScheduler", () => {
 
   test("NoEntriesInTheLastWeek", async () => {
     spyOn(Adapters.Auth.UserDirectory, "listActiveUserIds").mockResolvedValue([mocks.userId]);
-    spyOn(Adapters.Emotions.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(mocks.T0);
-    spyOn(Date, "now").mockReturnValue(mocks.T0);
+    spyOn(Adapters.Emotions.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
+      mocks.GenericHourHasPassedWednesdayUtc18Event.payload.timestamp,
+    );
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
