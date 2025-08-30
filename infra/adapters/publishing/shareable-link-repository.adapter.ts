@@ -1,17 +1,20 @@
 import type * as bg from "@bgord/bun";
 import * as Publishing from "+publishing";
+import { Clock } from "+infra/adapters/clock.adapter";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import { EventStore } from "+infra/event-store";
 
+type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+
 class ShareableLinkRepositoryAdapterInternal implements Publishing.Ports.ShareableLinkRepositoryPort {
-  constructor(private readonly IdProvider: bg.IdProviderPort) {}
+  constructor(private readonly deps: Dependencies) {}
 
   async load(id: Publishing.VO.ShareableLinkIdType) {
     const history = await EventStore.find(
       Publishing.Aggregates.ShareableLink.events,
       Publishing.Aggregates.ShareableLink.getStream(id),
     );
-    return Publishing.Aggregates.ShareableLink.build(id, history, { IdProvider: this.IdProvider });
+    return Publishing.Aggregates.ShareableLink.build(id, history, this.deps);
   }
 
   async save(aggregate: Publishing.Aggregates.ShareableLink) {
@@ -19,4 +22,4 @@ class ShareableLinkRepositoryAdapterInternal implements Publishing.Ports.Shareab
   }
 }
 
-export const ShareableLinkRepository = new ShareableLinkRepositoryAdapterInternal(IdProvider);
+export const ShareableLinkRepository = new ShareableLinkRepositoryAdapterInternal({ IdProvider, Clock });

@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import * as System from "+system";
-import { IdProvider } from "+infra/adapters";
+import { Clock, IdProvider } from "+infra/adapters";
 import { EventStore } from "+infra/event-store";
 
 export class PassageOfTime {
@@ -10,10 +9,10 @@ export class PassageOfTime {
   static label = "PassageOfTime";
 
   static async process() {
-    const timestamp = tools.Time.Now().value;
+    const timestamp = Clock.nowMs();
 
     const event = System.Events.HourHasPassedEvent.parse({
-      ...bg.createEventEnvelope(IdProvider, "passage_of_time"),
+      ...bg.createEventEnvelope("passage_of_time", { IdProvider, Clock }),
       name: System.Events.HOUR_HAS_PASSED_EVENT,
       payload: { timestamp },
     } satisfies System.Events.HourHasPassedEventType);
