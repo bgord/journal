@@ -22,6 +22,7 @@ const saga = new Emotions.Sagas.AlarmOrchestrator({
   UserContact: Adapters.Auth.UserContact,
   UserLanguage: Adapters.Preferences.UserLanguage,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   EMAIL_FROM: Env.EMAIL_FROM,
 });
 
