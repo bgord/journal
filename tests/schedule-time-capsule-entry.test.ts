@@ -188,7 +188,7 @@ describe(`POST ${url}`, () => {
           ...situation,
           ...emotion,
           ...reaction,
-          scheduledFor: mocks.scheduledFor,
+          scheduledFor: mocks.timeCapsuleEntryScheduledFor,
         }),
         headers: mocks.correlationIdHeaders,
       },

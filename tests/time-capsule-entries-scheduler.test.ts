@@ -29,7 +29,9 @@ describe("TimeCapsuleEntriesScheduler", () => {
   });
 
   test("TimeCapsuleEntryIsPublishable - scheduledFor", async () => {
-    spyOn(Date, "now").mockReturnValue(tools.Timestamp.parse(mocks.scheduledFor - tools.Time.Days(1).ms));
+    spyOn(Date, "now").mockReturnValue(
+      tools.Timestamp.parse(mocks.timeCapsuleEntryScheduledFor - tools.Time.Days(1).ms),
+    );
     spyOn(Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([mocks.timeCapsuleEntry]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
@@ -46,7 +48,9 @@ describe("TimeCapsuleEntriesScheduler", () => {
   });
 
   test("correct path", async () => {
-    spyOn(Date, "now").mockReturnValue(tools.Timestamp.parse(mocks.scheduledFor + tools.Time.Days(1).ms));
+    spyOn(Date, "now").mockReturnValue(
+      tools.Timestamp.parse(mocks.timeCapsuleEntryScheduledFor + tools.Time.Days(1).ms),
+    );
     spyOn(Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([mocks.timeCapsuleEntry]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

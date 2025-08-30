@@ -31,6 +31,7 @@ export const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
 export const timeCapsuleEntryScheduledAt = T0;
+export const timeCapsuleEntryScheduledFor = tools.Time.Now(T0).Add(tools.Time.Hours(2)).ms;
 
 //
 
@@ -89,8 +90,6 @@ export const visitorId = new bg.VisitorIdHash(client);
 export const visitorIdRaw = "cbc46a7ff4f622ab";
 
 export const accessContext: Publishing.VO.AccessContext = { timestamp: T0, visitorId };
-
-export const scheduledFor = tools.Time.Now().Add(tools.Time.Hours(2)).ms;
 
 export const aiRequestRegisteredTimestamp = tools.Time.Now().value;
 
@@ -283,7 +282,7 @@ export const GenericTimeCapsuleEntryScheduledEvent = {
       type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
       effectiveness: 1,
     },
-    scheduledFor,
+    scheduledFor: timeCapsuleEntryScheduledFor,
     scheduledAt: timeCapsuleEntryScheduledAt,
   },
 } satisfies Emotions.Events.TimeCapsuleEntryScheduledEventType;
@@ -868,7 +867,7 @@ export const fullEntry: Emotions.VO.EntrySnapshot = {
 };
 
 export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
-  scheduledFor,
+  scheduledFor: timeCapsuleEntryScheduledFor,
   id: entryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
