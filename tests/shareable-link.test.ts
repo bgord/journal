@@ -7,7 +7,7 @@ import * as mocks from "./mocks";
 
 const deps = { IdProvider: Adapters.IdProvider };
 
-describe("Publishing", () => {
+describe("ShareableLink", () => {
   test("build new aggregate", () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], deps);
     expect(shareableLink.pullEvents()).toEqual([]);
@@ -71,7 +71,8 @@ describe("Publishing", () => {
   });
 
   test("expire - ShareableLinkExpirationTimePassed", async () => {
-    spyOn(Date, "now").mockReturnValue(Date.now() + mocks.duration.ms + 1);
+    // Link created at T0, duration 1s, should not be expired at T0 - 1 hour
+    spyOn(Date, "now").mockReturnValue(mocks.T0 - tools.Time.Hours(1).ms);
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent],

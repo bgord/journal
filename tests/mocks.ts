@@ -70,7 +70,7 @@ export const inactivityDetection = new Emotions.VO.AlarmDetection(
 
 export const advice = new AI.Advice("You should do something");
 
-export const shareableLinkCreatedAt = tools.Time.Now().value;
+export const shareableLinkCreatedAt = T0;
 
 export const publicationSpecification = "entries";
 export const anotherPublicationSpecification = "other";
