@@ -29,6 +29,7 @@ CommandBus.on(
     repo: Adapters.Emotions.AlarmRepository,
     AiGateway: Adapters.AI.AiGateway,
     IdProvider: Adapters.IdProvider,
+    Clock: Adapters.Clock,
   }),
 );
 CommandBus.on(
@@ -36,6 +37,7 @@ CommandBus.on(
   EmotionCommandHandlers.handleLogEntryCommand({
     repo: Adapters.Emotions.EntryRepository,
     IdProvider: Adapters.IdProvider,
+    Clock: Adapters.Clock,
   }),
 );
 CommandBus.on(
@@ -59,6 +61,7 @@ CommandBus.on(
   EmotionCommandHandlers.handleRequestWeeklyReviewCommand({
     EventStore,
     IdProvider: Adapters.IdProvider,
+    Clock: Adapters.Clock,
     repo: Adapters.Emotions.WeeklyReviewRepository,
     EntriesPerWeekCountQuery: Adapters.Emotions.EntriesPerWeekCount,
   }),
@@ -77,6 +80,7 @@ CommandBus.on(
     EventStore,
     EntrySnapshot: Adapters.Emotions.EntrySnapshot,
     IdProvider: Adapters.IdProvider,
+    Clock: Adapters.Clock,
   }),
 );
 CommandBus.on(
@@ -84,6 +88,7 @@ CommandBus.on(
   EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand({
     EventStore,
     IdProvider: Adapters.IdProvider,
+    Clock: Adapters.Clock,
     WeeklyReviewSnapshot: Adapters.Emotions.WeeklyReviewSnapshot,
   }),
 );
@@ -92,6 +97,7 @@ CommandBus.on(
   EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand({
     EventStore,
     IdProvider: Adapters.IdProvider,
+    Clock: Adapters.Clock,
   }),
 );
 
@@ -101,6 +107,7 @@ CommandBus.on(
     repo: Adapters.Publishing.ShareableLinkRepository,
     ShareableLinksQuotaQuery: Adapters.Publishing.ShareableLinksQuota,
     IdProvider: Adapters.IdProvider,
+    Clock: Adapters.Clock,
   }),
 );
 
@@ -119,6 +126,7 @@ CommandBus.on(
   bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
     EventStore,
     Adapters.IdProvider,
+    Adapters.Clock,
     Adapters.Preferences.UserLanguageQueryAdapter,
     new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
   ),
@@ -130,6 +138,7 @@ CommandBus.on(
     EventStore,
     ImageInfo: Adapters.ImageInfo,
     IdProvider: Adapters.IdProvider,
+    Clock: Adapters.Clock,
     ImageProcessor: Adapters.ImageProcessor,
     TemporaryFile,
     RemoteFileStorage: Adapters.RemoteFileStorage,
@@ -141,6 +150,7 @@ CommandBus.on(
   PreferencesCommandHandlers.handleRemoveProfileAvatarCommand({
     EventStore,
     IdProvider: Adapters.IdProvider,
+    Clock: Adapters.Clock,
     RemoteFileStorage: Adapters.RemoteFileStorage,
   }),
 );
