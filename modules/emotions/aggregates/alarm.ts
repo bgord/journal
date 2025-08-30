@@ -9,7 +9,7 @@ import * as VO from "+emotions/value-objects";
 export type AlarmEvent = (typeof Alarm)["events"][number];
 type AlarmEventType = z.infer<AlarmEvent>;
 
-type Dependencies = { IdProvider: bg.IdProviderPort };
+type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class Alarm {
   static events = [
@@ -53,7 +53,7 @@ export class Alarm {
     const alarm = new Alarm(id, deps);
 
     const event = Events.AlarmGeneratedEvent.parse({
-      ...bg.createEventEnvelope(deps.IdProvider, Alarm.getStream(id)),
+      ...bg.createEventEnvelope(Alarm.getStream(id), deps),
       name: Events.ALARM_GENERATED_EVENT,
       payload: {
         alarmId: id,
@@ -72,7 +72,7 @@ export class Alarm {
     Invariants.AlarmAlreadyGenerated.perform({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, Alarm.getStream(this.id)),
+      ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
       name: Events.ALARM_ADVICE_SAVED_EVENT,
       payload: {
         alarmId: this.id,
@@ -91,7 +91,7 @@ export class Alarm {
     });
 
     const event = Events.AlarmNotificationRequestedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, Alarm.getStream(this.id)),
+      ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
       name: Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
       payload: {
         alarmId: this.id,
@@ -109,7 +109,7 @@ export class Alarm {
     Invariants.AlarmNotificationRequested.perform({ status: this.status });
 
     const event = Events.AlarmNotificationSentEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, Alarm.getStream(this.id)),
+      ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
       name: Events.ALARM_NOTIFICATION_SENT_EVENT,
       payload: { alarmId: this.id },
     } satisfies Events.AlarmNotificationSentEventType);
@@ -121,7 +121,7 @@ export class Alarm {
     Invariants.AlarmIsCancellable.perform({ status: this.status });
 
     const event = Events.AlarmCancelledEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, Alarm.getStream(this.id)),
+      ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
       name: Events.ALARM_CANCELLED_EVENT,
       payload: { alarmId: this.id, userId: this.userId as Auth.VO.UserIdType },
     } satisfies Events.AlarmCancelledEventType);
