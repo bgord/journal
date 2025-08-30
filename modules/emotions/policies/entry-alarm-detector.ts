@@ -9,6 +9,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
 };
 
 export class EntryAlarmDetector {
@@ -29,7 +30,7 @@ export class EntryAlarmDetector {
     if (!detection) return;
 
     const command = Emotions.Commands.GenerateAlarmCommand.parse({
-      ...bg.createCommandEnvelope(this.deps.IdProvider),
+      ...bg.createCommandEnvelope(this.deps),
       name: Emotions.Commands.GENERATE_ALARM_COMMAND,
       payload: { detection, userId: event.payload.userId },
     } satisfies Emotions.Commands.GenerateAlarmCommandType);

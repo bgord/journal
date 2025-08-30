@@ -14,6 +14,7 @@ const policy = new Emotions.Policies.EntryAlarmDetector({
   EventHandler,
   CommandBus,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
 });
 
 describe("EntryAlarmDetector", () => {
