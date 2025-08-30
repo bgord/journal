@@ -81,7 +81,7 @@ export class ShareableLink {
     Invariants.ShareableLinkIsActive.perform({ status: this.status });
     Invariants.ShareableLinkExpirationTimePassed.perform({
       duration: this.duration,
-      now: Date.now(),
+      now: this.deps.Clock.nowMs(),
       createdAt: this.createdAt,
     });
 
