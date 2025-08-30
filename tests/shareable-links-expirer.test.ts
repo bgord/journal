@@ -91,7 +91,9 @@ describe("ShareableLinksExpirer", () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-    spyOn(Adapters.Clock, "nowMs").mockReturnValue(tools.Time.Now(mocks.T0).Add(tools.Time.Hours(1)).ms);
+    spyOn(Adapters.Clock, "nowMs")
+      .mockReturnValueOnce(mocks.T0)
+      .mockReturnValueOnce(tools.Time.Now(mocks.T0).Add(tools.Time.Hours(1)).ms);
 
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
