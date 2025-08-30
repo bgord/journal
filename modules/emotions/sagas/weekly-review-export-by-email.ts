@@ -13,6 +13,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   EventStore: bg.EventStoreLike<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   Mailer: bg.MailerPort;
   PdfGenerator: bg.PdfGeneratorPort;
   UserContact: Auth.OHQ.UserContactOHQ;
@@ -62,8 +63,8 @@ export class WeeklyReviewExportByEmail {
       await this.deps.EventStore.save([
         Emotions.Events.WeeklyReviewExportByEmailFailedEvent.parse({
           ...bg.createEventEnvelope(
-            this.deps.IdProvider,
             `weekly_review_export_by_email_${event.payload.weeklyReviewExportId}`,
+            this.deps,
           ),
           name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
           payload: {
@@ -85,7 +86,7 @@ export class WeeklyReviewExportByEmail {
     await this.deps.EventStore.saveAfter(
       [
         Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
-          ...bg.createEventEnvelope(this.deps.IdProvider, event.stream),
+          ...bg.createEventEnvelope(event.stream, this.deps),
           name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
           payload: {
             weeklyReviewId: event.payload.weeklyReviewId,

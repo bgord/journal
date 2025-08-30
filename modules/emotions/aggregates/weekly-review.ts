@@ -10,7 +10,7 @@ import * as VO from "+emotions/value-objects";
 export type WeeklyReviewEvent = (typeof WeeklyReview)["events"][number];
 type WeeklyReviewEventType = z.infer<WeeklyReviewEvent>;
 
-type Dependencies = { IdProvider: bg.IdProviderPort };
+type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class WeeklyReview {
   static events = [
@@ -53,7 +53,7 @@ export class WeeklyReview {
     const weeklyReview = new WeeklyReview(id, deps);
 
     const event = Events.WeeklyReviewRequestedEvent.parse({
-      ...bg.createEventEnvelope(deps.IdProvider, WeeklyReview.getStream(id)),
+      ...bg.createEventEnvelope(WeeklyReview.getStream(id), deps),
       name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
       payload: { weeklyReviewId: id, weekIsoId: week.toIsoId(), userId: requesterId },
     } satisfies Events.WeeklyReviewRequestedEventType);
@@ -67,7 +67,7 @@ export class WeeklyReview {
     Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, WeeklyReview.getStream(this.id)),
+      ...bg.createEventEnvelope(WeeklyReview.getStream(this.id), this.deps),
       name: Events.WEEKLY_REVIEW_COMPLETED_EVENT,
       payload: {
         weeklyReviewId: this.id,
@@ -84,7 +84,7 @@ export class WeeklyReview {
     Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
 
     const event = Events.WeeklyReviewFailedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, WeeklyReview.getStream(this.id)),
+      ...bg.createEventEnvelope(WeeklyReview.getStream(this.id), this.deps),
       name: Events.WEEKLY_REVIEW_FAILED_EVENT,
       payload: {
         weeklyReviewId: this.id,

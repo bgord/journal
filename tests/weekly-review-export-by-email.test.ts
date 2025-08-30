@@ -19,6 +19,7 @@ const saga = new Emotions.Sagas.WeeklyReviewExportByEmail({
   WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport,
   UserLanguage: Adapters.Preferences.UserLanguage,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   EMAIL_FROM: Env.EMAIL_FROM,
 });
 
