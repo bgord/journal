@@ -365,6 +365,7 @@ infra/
 │   ├── auth
 │   │   ├── user-contact.adapter.ts
 │   │   └── user-directory.adapter.ts
+│   ├── captcha.adapter.ts
 │   ├── clock.adapter.ts
 │   ├── csv-stringifier.adapter.ts
 │   ├── emotions
@@ -404,7 +405,6 @@ infra/
 ├── auth.ts
 ├── basic-auth-shield.ts
 ├── cache.ts
-├── captcha.ts
 ├── command-bus.ts
 ├── db.ts
 ├── depcruise.webpack.cjs
