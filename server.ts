@@ -5,10 +5,7 @@ import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
 import * as infra from "+infra";
 import * as Preferences from "+preferences";
-import { CaptchaShield } from "+infra/adapters/captcha.adapter";
-import { Clock } from "+infra/adapters/clock.adapter";
-import { IdProvider } from "+infra/adapters/id-provider.adapter";
-import { Logger } from "+infra/adapters/logger.adapter";
+import * as Adapters from "+infra/adapters";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
@@ -20,15 +17,20 @@ import { ResponseCache } from "+infra/response-cache";
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
-const ServerDeps = { Logger, I18n: I18nConfig, IdProvider, Clock };
-const ShieldRateLimitDeps = { Clock };
-const HealthcheckDeps = { Clock };
+const ServerDeps = {
+  Logger: Adapters.Logger,
+  I18n: I18nConfig,
+  IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
+};
+const ShieldRateLimitDeps = { Clock: Adapters.Clock };
+const HealthcheckDeps = { Clock: Adapters.Clock };
 
 const server = new Hono<infra.HonoConfig>();
 
 server.use(...bg.Setup.essentials(ServerDeps, { cors: AuthShield.cors }));
 
-const startup = new tools.Stopwatch(Clock.nowMs());
+const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 
 // Healthcheck =================
 server.get(
@@ -100,7 +102,7 @@ weeklyReview.post(
     },
     ShieldRateLimitDeps,
   ),
-  CaptchaShield.verify,
+  Adapters.CaptchaShield.verify,
   HTTP.Emotions.ExportWeeklyReviewByEmail,
 );
 weeklyReview.get(
