@@ -365,6 +365,7 @@ infra/
 │   ├── auth
 │   │   ├── user-contact.adapter.ts
 │   │   └── user-directory.adapter.ts
+│   ├── clock.adapter.ts
 │   ├── csv-stringifier.adapter.ts
 │   ├── emotions
 │   │   ├── alarm-cancellation-lookup.adapter.ts
@@ -416,7 +417,6 @@ infra/
 ├── healthcheck.ts
 ├── i18n.ts
 ├── jobs.ts
-├── logger.adapter.ts
 ├── prerequisites.ts
 ├── profile-avatars
 ├── projections
