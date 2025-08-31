@@ -3,11 +3,10 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
-import { Clock } from "+infra/adapters/clock.adapter";
-import { IdProvider } from "+infra/adapters/id-provider.adapter";
+import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 
-const deps = { IdProvider, Clock };
+const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function RevokeShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
