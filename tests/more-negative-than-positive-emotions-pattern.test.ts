@@ -4,10 +4,12 @@ import * as Emotions from "+emotions";
 import * as Adapters from "+infra/adapters";
 import * as mocks from "./mocks";
 
+const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
+
 describe("MoreNegativeThanPositiveEmotionsPattern", () => {
   test("true", () => {
     bg.CorrelationStorage.run(mocks.correlationId, () => {
-      const result = new Emotions.Services.PatternDetector(Adapters.IdProvider).detect({
+      const result = new Emotions.Services.PatternDetector(deps).detect({
         entries: [mocks.negativeEmotionEntry, mocks.negativeEmotionEntry, mocks.positiveEmotionEntry],
         patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
         week: mocks.week,
@@ -18,7 +20,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
   });
 
   test("false", () => {
-    const result = new Emotions.Services.PatternDetector(Adapters.IdProvider).detect({
+    const result = new Emotions.Services.PatternDetector(deps).detect({
       entries: [mocks.negativeEmotionEntry, mocks.positiveEmotionEntry, mocks.positiveEmotionEntry],
       patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
       week: mocks.week,
@@ -28,7 +30,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
   });
 
   test("false - equal amount", () => {
-    const result = new Emotions.Services.PatternDetector(Adapters.IdProvider).detect({
+    const result = new Emotions.Services.PatternDetector(deps).detect({
       entries: [mocks.negativeEmotionEntry, mocks.positiveEmotionEntry],
       patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
       week: mocks.week,

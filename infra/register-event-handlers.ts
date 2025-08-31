@@ -12,7 +12,7 @@ import { EventStore } from "+infra/event-store";
 import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
 
-const EventHandler = new bg.EventHandler(Adapters.logger);
+const EventHandler = new bg.EventHandler(Adapters.Logger);
 
 // Projections
 new Projections.EntryProjector(EventBus, EventHandler);
@@ -35,6 +35,7 @@ new PublishingPolicies.ShareableLinksExpirer({
   EventBus,
   EventHandler,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   CommandBus,
   ExpiringShareableLinks: Adapters.Publishing.ExpiringShareableLinks,
 });
@@ -42,12 +43,14 @@ new EmotionsPolicies.EntryAlarmDetector({
   EventBus,
   EventHandler,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   CommandBus,
 });
 new EmotionsPolicies.WeeklyReviewScheduler({
   EventBus,
   EventHandler,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   CommandBus,
   UserDirectory: Adapters.Auth.UserDirectory,
 });
@@ -55,6 +58,7 @@ new EmotionsPolicies.InactivityAlarmScheduler({
   EventBus,
   EventHandler,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   CommandBus,
   UserDirectory: Adapters.Auth.UserDirectory,
   GetLatestEntryTimestampForUser: Adapters.Emotions.GetLatestEntryTimestampForUser,
@@ -63,6 +67,7 @@ new EmotionsPolicies.TimeCapsuleEntriesScheduler({
   EventBus,
   EventHandler,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   CommandBus,
   TimeCapsuleDueEntries: Adapters.Emotions.TimeCapsuleDueEntries,
 });
@@ -75,6 +80,7 @@ new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
   EventBus,
   EventHandler,
   Adapters.IdProvider,
+  Adapters.Clock,
   CommandBus,
   SupportedLanguages.en,
 );
@@ -84,6 +90,7 @@ new EmotionsSagas.AlarmOrchestrator({
   EventBus,
   EventHandler,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   CommandBus,
   AiGateway: Adapters.AI.AiGateway,
   Mailer,
@@ -97,6 +104,7 @@ new EmotionsSagas.WeeklyReviewProcessing({
   EventBus,
   EventHandler,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   CommandBus,
   AiGateway: Adapters.AI.AiGateway,
   Mailer,
@@ -109,6 +117,7 @@ new EmotionsSagas.WeeklyReviewExportByEmail({
   EventBus,
   EventHandler,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   EventStore,
   Mailer,
   PdfGenerator: Adapters.Emotions.PdfGenerator,

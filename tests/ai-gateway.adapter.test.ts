@@ -10,6 +10,7 @@ const gateway = new AiGateway({
   Publisher: Adapters.AI.AiEventStorePublisher,
   AiClient: Adapters.AI.AiClient,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   BucketCounter: Adapters.AI.BucketCounter,
 });
 
@@ -17,7 +18,6 @@ const prompt = new VO.Prompt("Give me some insights");
 
 describe("AiGateway", () => {
   test("happy path", async () => {
-    spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
     spyOn(Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsAlarmEntryBucket]: 0,
@@ -34,7 +34,6 @@ describe("AiGateway", () => {
   });
 
   test("quota exceeded", async () => {
-    spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
     spyOn(Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 11,
       [mocks.emotionsAlarmEntryBucket]: 3,

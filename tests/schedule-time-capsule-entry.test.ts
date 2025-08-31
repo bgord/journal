@@ -164,7 +164,7 @@ describe(`POST ${url}`, () => {
           ...situation,
           ...emotion,
           ...reaction,
-          scheduledFor: tools.Time.Now().Minus(tools.Time.Days(1)).ms,
+          scheduledFor: tools.Time.Now(mocks.T0).Minus(tools.Time.Days(1)).ms,
         }),
       },
       mocks.ip,
@@ -177,7 +177,6 @@ describe(`POST ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(Date, "now").mockReturnValue(mocks.scheduledAt);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
@@ -188,7 +187,7 @@ describe(`POST ${url}`, () => {
           ...situation,
           ...emotion,
           ...reaction,
-          scheduledFor: mocks.scheduledFor,
+          scheduledFor: mocks.timeCapsuleEntryScheduledFor,
         }),
         headers: mocks.correlationIdHeaders,
       },

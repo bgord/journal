@@ -6,6 +6,7 @@ import { EventStore } from "+infra/event-store";
 type Dependencies = {
   EventStore: typeof EventStore;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
 };
 
 class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
@@ -13,7 +14,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
 
   async populate(history: Omit<bg.History.VO.HistoryType, "id">) {
     const event = bg.History.Events.HistoryPopulatedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, `history_${history.subject}`),
+      ...bg.createEventEnvelope(`history_${history.subject}`, this.deps),
       name: bg.History.Events.HISTORY_POPULATED_EVENT,
       payload: { ...history, id: this.deps.IdProvider.generate() },
     } satisfies bg.History.Events.HistoryPopulatedEventType);
@@ -23,7 +24,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
 
   async clear(subject: bg.History.VO.HistorySubjectType) {
     const event = bg.History.Events.HistoryClearedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, `history_${subject}`),
+      ...bg.createEventEnvelope(`history_${subject}`, this.deps),
       name: bg.History.Events.HISTORY_CLEARED_EVENT,
       payload: { subject },
     }) satisfies bg.History.Events.HistoryClearedEventType;
@@ -32,4 +33,8 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   }
 }
 
-export const HistoryWriter = new HistoryWriterEventStore({ EventStore, IdProvider: Adapters.IdProvider });
+export const HistoryWriter = new HistoryWriterEventStore({
+  EventStore,
+  IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
+});

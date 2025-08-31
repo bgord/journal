@@ -4,6 +4,7 @@ import * as Publishing from "+publishing";
 type Dependencies = {
   repo: Publishing.Ports.ShareableLinkRepositoryPort;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   ShareableLinksQuotaQuery: Publishing.Queries.ShareableLinksQuotaQuery;
 };
 
@@ -21,7 +22,7 @@ export const handleCreateShareableLinkCommand =
       command.payload.dateRange,
       command.payload.duration,
       command.payload.requesterId,
-      { IdProvider: deps.IdProvider },
+      deps,
     );
 
     await deps.repo.save(shareableLink);

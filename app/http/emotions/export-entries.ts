@@ -13,6 +13,12 @@ enum ExportEntriesStrategy {
   pdf = "pdf",
 }
 
+const deps = {
+  Clock: Adapters.Clock,
+  Stringifier: Adapters.CsvStringifier,
+  PdfGenerator: Adapters.Emotions.PdfGenerator,
+};
+
 const StrategySchema = z.enum(ExportEntriesStrategy).default(ExportEntriesStrategy.csv);
 
 export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
@@ -32,10 +38,10 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
   const entries = await Adapters.Emotions.EntrySnapshot.getByDateRangeForUser(user.id, dateRange);
 
   const file = {
-    csv: new Emotions.Services.EntryExportFileCsv(Adapters.CsvStringifier, entries),
-    text: new Emotions.Services.EntryExportFileText(entries),
-    markdown: new Emotions.Services.EntryExportFileMarkdown(entries),
-    pdf: new Emotions.Services.EntryExportFilePdf(Adapters.Emotions.PdfGenerator, entries),
+    csv: new Emotions.Services.EntryExportFileCsv(entries, deps),
+    text: new Emotions.Services.EntryExportFileText(entries, deps),
+    markdown: new Emotions.Services.EntryExportFileMarkdown(entries, deps),
+    pdf: new Emotions.Services.EntryExportFilePdf(entries, deps),
   };
 
   return file[strategy].toResponse();

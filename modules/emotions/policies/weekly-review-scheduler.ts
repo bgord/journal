@@ -12,6 +12,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   UserDirectory: Auth.OHQ.UserDirectoryOHQ;
 };
 
@@ -26,13 +27,14 @@ export class WeeklyReviewScheduler {
   async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     if (Emotions.Invariants.WeeklyReviewSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
-    const week = tools.Week.fromNow();
+    // TODO here?
+    const week = tools.Week.fromNow(event.payload.timestamp);
 
     const userIds = await this.deps.UserDirectory.listActiveUserIds();
 
     for (const userId of userIds) {
       const command = Emotions.Commands.RequestWeeklyReviewCommand.parse({
-        ...bg.createCommandEnvelope(this.deps.IdProvider),
+        ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.REQUEST_WEEKLY_REVIEW_COMMAND,
         payload: { week, userId },
       } satisfies Emotions.Commands.RequestWeeklyReviewCommandType);

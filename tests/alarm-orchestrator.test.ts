@@ -10,7 +10,7 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(Adapters.logger);
+const EventHandler = new bg.EventHandler(Adapters.Logger);
 const saga = new Emotions.Sagas.AlarmOrchestrator({
   EventBus,
   EventHandler,
@@ -22,6 +22,7 @@ const saga = new Emotions.Sagas.AlarmOrchestrator({
   UserContact: Adapters.Auth.UserContact,
   UserLanguage: Adapters.Preferences.UserLanguage,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   EMAIL_FROM: Env.EMAIL_FROM,
 });
 

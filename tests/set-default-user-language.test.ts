@@ -8,11 +8,12 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(Adapters.logger);
+const EventHandler = new bg.EventHandler(Adapters.Logger);
 const policy = new Preferences.Policies.SetDefaultUserLanguage(
   EventBus,
   EventHandler,
   Adapters.IdProvider,
+  Adapters.Clock,
   CommandBus,
   SupportedLanguages.en,
 );

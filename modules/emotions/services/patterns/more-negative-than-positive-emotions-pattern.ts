@@ -5,6 +5,8 @@ import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
 import * as VO from "+emotions/value-objects";
 
+type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+
 /** @public */
 export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
   name = VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern;
@@ -12,9 +14,9 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
   kind = Patterns.PatternKindOptions.negative;
 
   constructor(
-    private readonly IdProvider: bg.IdProviderPort,
     public week: tools.Week,
     public userId: Auth.VO.UserIdType,
+    private readonly deps: Dependencies,
   ) {
     super();
   }
@@ -30,7 +32,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
 
     if (negativeEmotionsCounter > positiveEmotionsCounter) {
       return Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent.parse({
-        ...bg.createEventEnvelope(this.IdProvider, this.getStream()),
+        ...bg.createEventEnvelope(this.getStream(), this.deps),
         name: Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
         payload: { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name },
       } satisfies Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType);

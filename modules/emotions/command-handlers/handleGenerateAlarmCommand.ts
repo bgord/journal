@@ -6,12 +6,14 @@ type Dependencies = {
   repo: Emotions.Ports.AlarmRepositoryPort;
   AiGateway: AiGateway;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
 };
 
 export const handleGenerateAlarmCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.GenerateAlarmCommandType) => {
     const check = await deps.AiGateway.check(
       Emotions.ACL.createAlarmRequestContext(
+        deps,
         command.payload.userId,
         // @ts-expect-error
         command.payload.detection.trigger.entryId,
@@ -24,7 +26,7 @@ export const handleGenerateAlarmCommand =
       deps.IdProvider.generate(),
       command.payload.detection,
       command.payload.userId,
-      { IdProvider: deps.IdProvider },
+      deps,
     );
 
     await deps.repo.save(alarm);

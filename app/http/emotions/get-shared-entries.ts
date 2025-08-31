@@ -1,8 +1,8 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
+import { Clock } from "+infra/adapters/clock.adapter";
 import { EntriesSharing } from "+infra/adapters/emotions";
 import { ShareableLinkAccess } from "+infra/adapters/publishing";
 
@@ -10,7 +10,7 @@ export async function GetSharedEntries(c: hono.Context<infra.HonoConfig>, _next:
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
 
   const context = {
-    timestamp: tools.Time.Now().value,
+    timestamp: Clock.nowMs(),
     visitorId: new bg.VisitorIdHashHono(c),
   };
 

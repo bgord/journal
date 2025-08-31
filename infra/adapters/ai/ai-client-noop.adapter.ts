@@ -1,9 +1,9 @@
 import * as AI from "+ai";
-import { logger } from "+infra/logger.adapter";
+import { Logger } from "+infra/adapters/logger.adapter";
 
 export class AiClientNoopAdapter implements AI.AiClientPort {
   async request(prompt: AI.Prompt) {
-    logger.info({
+    Logger.info({
       message: "[NOOP] AI Client adapter",
       component: "infra",
       operation: "write",

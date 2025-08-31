@@ -12,6 +12,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   UserDirectory: Auth.OHQ.UserDirectoryOHQ;
   GetLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser;
 };
@@ -32,7 +33,10 @@ export class InactivityAlarmScheduler {
     for (const userId of userIds) {
       const lastEntryTimestamp = await this.deps.GetLatestEntryTimestampForUser.execute(userId);
 
-      if (Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp })) continue;
+      if (
+        Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp, now: event.payload.timestamp })
+      )
+        continue;
 
       const trigger = {
         type: Emotions.VO.AlarmTriggerEnum.inactivity,
@@ -43,7 +47,7 @@ export class InactivityAlarmScheduler {
       const detection = new Emotions.VO.AlarmDetection(trigger, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM);
 
       const command = Emotions.Commands.GenerateAlarmCommand.parse({
-        ...bg.createCommandEnvelope(this.deps.IdProvider),
+        ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.GENERATE_ALARM_COMMAND,
         payload: { detection, userId },
       } satisfies Emotions.Commands.GenerateAlarmCommandType);

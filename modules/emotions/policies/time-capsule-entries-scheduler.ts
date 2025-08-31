@@ -11,6 +11,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   TimeCapsuleDueEntries: Emotions.Ports.TimeCapsuleDueEntriesPort;
 };
 
@@ -22,8 +23,10 @@ export class TimeCapsuleEntriesScheduler {
     );
   }
 
-  async onHourHasPassedEvent() {
-    const now = tools.Time.Now().value;
+  async onHourHasPassedEvent(_event: System.Events.HourHasPassedEventType) {
+    // TODO here
+    const now = this.deps.Clock.nowMs();
+
     const dueEntries = await this.deps.TimeCapsuleDueEntries.listDue(now);
 
     for (const entry of dueEntries) {
@@ -37,7 +40,7 @@ export class TimeCapsuleEntriesScheduler {
         continue;
 
       const command = Emotions.Commands.LogEntryCommand.parse({
-        ...bg.createCommandEnvelope(this.deps.IdProvider),
+        ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.LOG_ENTRY_COMMAND,
         payload: {
           entryId: entry.id,

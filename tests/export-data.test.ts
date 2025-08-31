@@ -19,17 +19,18 @@ describe("GET /entry/export-data", () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Adapters.Emotions.EntrySnapshot, "getAllForuser").mockResolvedValue([mocks.fullEntry]);
     spyOn(Adapters.Emotions.AlarmDirectory, "listForUser").mockResolvedValue([mocks.alarm]);
-    spyOn(Date, "now").mockReturnValue(1000);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toEqual("application/zip");
-    expect(response.headers.get("content-disposition")).toEqual(`attachment; filename="export-1000.zip"`);
+    expect(response.headers.get("content-disposition")).toEqual(
+      `attachment; filename="export-${mocks.T0}.zip"`,
+    );
 
     const zip = Buffer.from(await response.arrayBuffer()).toString("utf-8");
 
-    expect(zip).toContain("entry-export-1000.csv");
-    expect(zip).toContain("alarm-export-1000.csv");
+    expect(zip).toContain(`entry-export-${mocks.T0}.csv`);
+    expect(zip).toContain(`alarm-export-${mocks.T0}.csv`);
   });
 });

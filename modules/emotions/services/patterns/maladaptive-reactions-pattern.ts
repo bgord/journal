@@ -5,6 +5,8 @@ import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
 import * as VO from "+emotions/value-objects";
 
+type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+
 /** @public */
 export class MaladaptiveReactionsPattern extends Patterns.Pattern {
   name = VO.PatternNameOption.MaladaptiveReactionsPattern;
@@ -12,9 +14,9 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
   kind = Patterns.PatternKindOptions.negative;
 
   constructor(
-    private readonly IdProvider: bg.IdProviderPort,
     public week: tools.Week,
     public userId: Auth.VO.UserIdType,
+    private readonly deps: Dependencies,
   ) {
     super();
   }
@@ -26,7 +28,7 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
 
     if (matches.length >= 3) {
       return Events.MaladaptiveReactionsPatternDetectedEvent.parse({
-        ...bg.createEventEnvelope(this.IdProvider, this.getStream()),
+        ...bg.createEventEnvelope(this.getStream(), this.deps),
         name: Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         payload: {
           userId: this.userId,

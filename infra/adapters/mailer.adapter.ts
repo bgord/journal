@@ -9,5 +9,5 @@ export const Mailer = {
     SMTP_USER: Env.SMTP_USER,
     SMTP_PASS: Env.SMTP_PASS,
   }),
-  [MailerAdapter.noop]: new bg.MailerNoopAdapter(Adapters.logger),
+  [MailerAdapter.noop]: new bg.MailerNoopAdapter(Adapters.Logger),
 }[Env.MAILER_ADAPTER];

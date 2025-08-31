@@ -1,7 +1,11 @@
 import type * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 
-type Dependencies = { repo: Emotions.Ports.EntryRepositoryPort; IdProvider: bg.IdProviderPort };
+type Dependencies = {
+  repo: Emotions.Ports.EntryRepositoryPort;
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+};
 
 export const handleLogEntryCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.LogEntryCommandType) => {
@@ -12,7 +16,7 @@ export const handleLogEntryCommand =
       command.payload.reaction,
       command.payload.userId,
       command.payload.origin,
-      { IdProvider: deps.IdProvider },
+      deps,
     );
 
     await deps.repo.save(entry);

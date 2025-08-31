@@ -11,7 +11,7 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(Adapters.logger);
+const EventHandler = new bg.EventHandler(Adapters.Logger);
 
 const saga = new Emotions.Sagas.WeeklyReviewProcessing({
   EventBus,
@@ -23,6 +23,7 @@ const saga = new Emotions.Sagas.WeeklyReviewProcessing({
   UserContact: Adapters.Auth.UserContact,
   UserLanguage: Adapters.Preferences.UserLanguage,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
   EMAIL_FROM: Env.EMAIL_FROM,
 });
 
@@ -69,7 +70,6 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
     spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     const aiGatewayQuery = spyOn(Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
@@ -93,7 +93,6 @@ describe("WeeklyReviewProcessing", () => {
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(mocks.aiRequestRegisteredTimestamp);
     spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.pl);
     const aiGatewayQuery = spyOn(Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());

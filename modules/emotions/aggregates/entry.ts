@@ -7,7 +7,7 @@ import * as Emotions from "+emotions";
 export type EntryEvent = (typeof Entry)["events"][number];
 type EntryEventType = z.infer<EntryEvent>;
 
-type Dependencies = { IdProvider: bg.IdProviderPort };
+type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class Entry {
   static events = [
@@ -56,7 +56,7 @@ export class Entry {
     const entry = new Entry(id, deps);
 
     const SituationLoggedEvent = Emotions.Events.SituationLoggedEvent.parse({
-      ...bg.createEventEnvelope(deps.IdProvider, Entry.getStream(id)),
+      ...bg.createEventEnvelope(Entry.getStream(id), deps),
       name: Emotions.Events.SITUATION_LOGGED_EVENT,
       payload: {
         entryId: id,
@@ -71,7 +71,7 @@ export class Entry {
     entry.record(SituationLoggedEvent);
 
     const EmotionLoggedEvent = Emotions.Events.EmotionLoggedEvent.parse({
-      ...bg.createEventEnvelope(deps.IdProvider, Entry.getStream(id)),
+      ...bg.createEventEnvelope(Entry.getStream(id), deps),
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
       payload: {
         entryId: id,
@@ -84,7 +84,7 @@ export class Entry {
     entry.record(EmotionLoggedEvent);
 
     const ReactionLoggedEvent = Emotions.Events.ReactionLoggedEvent.parse({
-      ...bg.createEventEnvelope(deps.IdProvider, Entry.getStream(id)),
+      ...bg.createEventEnvelope(Entry.getStream(id), deps),
       name: Emotions.Events.REACTION_LOGGED_EVENT,
       payload: {
         entryId: id,
@@ -107,7 +107,7 @@ export class Entry {
     Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, Entry.getStream(this.id)),
+      ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
       name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
       payload: {
         entryId: this.id,
@@ -130,7 +130,7 @@ export class Entry {
     Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, Entry.getStream(this.id)),
+      ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
       name: Emotions.Events.REACTION_EVALUATED_EVENT,
       payload: {
         entryId: this.id,
@@ -149,7 +149,7 @@ export class Entry {
     Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EntryDeletedEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, Entry.getStream(this.id)),
+      ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
       name: Emotions.Events.ENTRY_DELETED_EVENT,
       payload: { entryId: this.id, userId: requesterId },
     } satisfies Emotions.Events.EntryDeletedEventType);

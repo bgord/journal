@@ -4,9 +4,11 @@ import * as Emotions from "+emotions";
 import * as Adapters from "+infra/adapters";
 import * as mocks from "./mocks";
 
+const deps = { Clock: Adapters.Clock, Stringifier: Adapters.CsvStringifier };
+
 describe("AlarmExportFileCsv", () => {
   test("generates a CSV", async () => {
-    const file = new Emotions.Services.AlarmExportFileCsv(Adapters.CsvStringifier, [mocks.alarm]);
+    const file = new Emotions.Services.AlarmExportFileCsv([mocks.alarm], deps);
     const result = await text(file.create());
 
     expect(result).toEqualIgnoringWhitespace(mocks.alarmCsv);

@@ -22,6 +22,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   AiGateway: AI.AiGatewayPort;
   Mailer: bg.MailerPort;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
@@ -76,11 +77,11 @@ export class WeeklyReviewProcessing {
     try {
       const insights = await this.deps.AiGateway.query(
         prompt,
-        Emotions.ACL.createWeeklyReviewInsightRequestContext(event.payload.userId),
+        Emotions.ACL.createWeeklyReviewInsightRequestContext(this.deps, event.payload.userId),
       );
 
       const detectWeeklyPatterns = Emotions.Commands.DetectWeeklyPatternsCommand.parse({
-        ...bg.createCommandEnvelope(this.deps.IdProvider),
+        ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.DETECT_WEEKLY_PATTERNS_COMMAND,
         payload: { userId: event.payload.userId, week },
       } satisfies Emotions.Commands.DetectWeeklyPatternsCommandType);
@@ -88,7 +89,7 @@ export class WeeklyReviewProcessing {
       await this.deps.CommandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
 
       const completeWeeklyReview = Emotions.Commands.CompleteWeeklyReviewCommand.parse({
-        ...bg.createCommandEnvelope(this.deps.IdProvider),
+        ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
@@ -100,7 +101,7 @@ export class WeeklyReviewProcessing {
       await this.deps.CommandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
     } catch (_error) {
       const command = Emotions.Commands.MarkWeeklyReviewAsFailedCommand.parse({
-        ...bg.createCommandEnvelope(this.deps.IdProvider),
+        ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
         payload: {
           weeklyReviewId: event.payload.weeklyReviewId,
@@ -114,7 +115,7 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewCompletedEvent(event: Emotions.Events.WeeklyReviewCompletedEventType) {
     const command = Emotions.Commands.ExportWeeklyReviewByEmailCommand.parse({
-      ...bg.createCommandEnvelope(this.deps.IdProvider),
+      ...bg.createCommandEnvelope(this.deps),
       name: Emotions.Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
       payload: { userId: event.payload.userId, weeklyReviewId: event.payload.weeklyReviewId },
     } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommandType);

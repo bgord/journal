@@ -19,7 +19,7 @@ class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLin
   fails(config: ShareableLinkExpirationTimePassedConfigType) {
     if (!config.createdAt) return true;
     if (!config.duration) return true;
-    return config.createdAt + config.duration.ms < config.now;
+    return config.createdAt + config.duration.ms > config.now;
   }
 
   message = "ShareableLinkExpirationTimePassed";

@@ -1,6 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import * as Adapters from "+infra/adapters";
@@ -9,7 +8,7 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(Adapters.logger);
+const EventHandler = new bg.EventHandler(Adapters.Logger);
 const policy = new Emotions.Policies.InactivityAlarmScheduler({
   EventBus,
   EventHandler,
@@ -17,6 +16,7 @@ const policy = new Emotions.Policies.InactivityAlarmScheduler({
   UserDirectory: Adapters.Auth.UserDirectory,
   GetLatestEntryTimestampForUser: Adapters.Emotions.GetLatestEntryTimestampForUser,
   IdProvider: Adapters.IdProvider,
+  Clock: Adapters.Clock,
 });
 
 describe("InactivityAlarmScheduler", () => {
@@ -114,7 +114,7 @@ describe("InactivityAlarmScheduler", () => {
   test("NoEntriesInTheLastWeek", async () => {
     spyOn(Adapters.Auth.UserDirectory, "listActiveUserIds").mockResolvedValue([mocks.userId]);
     spyOn(Adapters.Emotions.GetLatestEntryTimestampForUser, "execute").mockResolvedValue(
-      tools.Time.Now().value,
+      mocks.GenericHourHasPassedWednesdayUtc18Event.payload.timestamp,
     );
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

@@ -5,9 +5,9 @@ import * as Publishing from "+publishing";
 import * as Adapters from "+infra/adapters";
 import * as mocks from "./mocks";
 
-const deps = { IdProvider: Adapters.IdProvider };
+const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-describe("Publishing", () => {
+describe("ShareableLink", () => {
   test("build new aggregate", () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], deps);
     expect(shareableLink.pullEvents()).toEqual([]);
@@ -29,7 +29,6 @@ describe("Publishing", () => {
 
   test("generate - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Date, "now").mockReturnValue(mocks.shareableLinkCreatedAt);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const shareableLink = Publishing.Aggregates.ShareableLink.create(
@@ -46,6 +45,7 @@ describe("Publishing", () => {
 
   test("expire - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    spyOn(Adapters.Clock, "nowMs").mockReturnValueOnce(tools.Time.Now(mocks.T0).Add(tools.Time.Hours(1)).ms);
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.shareableLinkId,
       [mocks.GenericShareableLinkCreatedEvent],
@@ -71,7 +71,11 @@ describe("Publishing", () => {
   });
 
   test("expire - ShareableLinkExpirationTimePassed", async () => {
-    spyOn(Date, "now").mockReturnValue(Date.now() + mocks.duration.ms + 1);
+    // Link created at T0, duration 1s, should not be expired at T0 - 1 hour
+    spyOn(Adapters.Clock, "nowMs").mockReturnValueOnce(
+      tools.Time.Now(mocks.T0).Minus(tools.Time.Hours(1)).ms,
+    );
+
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent],

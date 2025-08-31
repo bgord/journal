@@ -36,7 +36,6 @@ describe("GET /entry/export-entries ", () => {
   test("happy path - csv", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(1000);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02`,
@@ -47,7 +46,7 @@ describe("GET /entry/export-entries ", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toEqual("text/csv");
     expect(response.headers.get("content-disposition")).toEqual(
-      `attachment; filename="entry-export-1000.csv"`,
+      `attachment; filename="entry-export-${mocks.T0}.csv"`,
     );
     expect(await response.text()).toEqualIgnoringWhitespace(mocks.entryCsv);
   });
@@ -55,7 +54,6 @@ describe("GET /entry/export-entries ", () => {
   test("happy path - text", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(1000);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=text`,
@@ -66,7 +64,7 @@ describe("GET /entry/export-entries ", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toEqual("text/plain");
     expect(response.headers.get("content-disposition")).toEqual(
-      `attachment; filename="entry-export-1000.txt"`,
+      `attachment; filename="entry-export-${mocks.T0}.txt"`,
     );
     expect(await response.text()).toEqualIgnoringWhitespace(mocks.entryText);
   });
@@ -74,7 +72,6 @@ describe("GET /entry/export-entries ", () => {
   test("happy path - markdown", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(1000);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=markdown`,
@@ -85,7 +82,7 @@ describe("GET /entry/export-entries ", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toEqual("text/markdown");
     expect(response.headers.get("content-disposition")).toEqual(
-      `attachment; filename="entry-export-1000.md"`,
+      `attachment; filename="entry-export-${mocks.T0}.md"`,
     );
     expect(await response.text()).toEqualIgnoringWhitespace(mocks.entryMarkdown);
   });
@@ -93,7 +90,6 @@ describe("GET /entry/export-entries ", () => {
   test("happy path - pdf", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Date, "now").mockReturnValue(1000);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=pdf`,
@@ -104,7 +100,7 @@ describe("GET /entry/export-entries ", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toEqual("application/pdf");
     expect(response.headers.get("content-disposition")).toEqual(
-      `attachment; filename="entry-export-1000.pdf"`,
+      `attachment; filename="entry-export-${mocks.T0}.pdf"`,
     );
   });
 });

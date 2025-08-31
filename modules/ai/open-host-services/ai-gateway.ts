@@ -16,6 +16,7 @@ type Dependencies = {
   Publisher: Ports.AiEventPublisherPort;
   AiClient: Ports.AiClientPort;
   IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
   BucketCounter: Ports.BucketCounterPort;
 };
 
@@ -40,7 +41,7 @@ export class AiGateway implements Ports.AiGatewayPort {
 
     if (verification.violations.length) {
       const event = Events.AiQuotaExceededEvent.parse({
-        ...bg.createEventEnvelope(this.deps.IdProvider, `user_ai_usage_${context.userId}`),
+        ...bg.createEventEnvelope(`user_ai_usage_${context.userId}`, this.deps),
         name: Events.AI_QUOTA_EXCEEDED_EVENT,
         payload: { userId: context.userId, timestamp: context.timestamp },
       } satisfies Events.AiQuotaExceededEventType);
@@ -53,7 +54,7 @@ export class AiGateway implements Ports.AiGatewayPort {
     const advice = await this.deps.AiClient.request(prompt);
 
     const event = Events.AiRequestRegisteredEvent.parse({
-      ...bg.createEventEnvelope(this.deps.IdProvider, `user_ai_usage_${context.userId}`),
+      ...bg.createEventEnvelope(`user_ai_usage_${context.userId}`, this.deps),
       name: Events.AI_REQUEST_REGISTERED_EVENT,
       payload: context,
     } satisfies Events.AiRequestRegisteredEventType);

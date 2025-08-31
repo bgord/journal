@@ -5,7 +5,7 @@ import * as Emotions from "+emotions";
 import * as Adapters from "+infra/adapters";
 import * as mocks from "./mocks";
 
-const deps = { IdProvider: Adapters.IdProvider };
+const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 const situation = new Emotions.Entities.Situation(
   new Emotions.VO.SituationDescription("I finished a project"),

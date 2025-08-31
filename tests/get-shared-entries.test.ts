@@ -24,7 +24,6 @@ describe(`GET ${url}`, () => {
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
     ]);
-    spyOn(Date, "now").mockReturnValue(mocks.accessContext.timestamp);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -44,7 +43,6 @@ describe(`GET ${url}`, () => {
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
     ]);
-    spyOn(Date, "now").mockReturnValue(mocks.accessContext.timestamp);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -61,7 +59,6 @@ describe(`GET ${url}`, () => {
   test("happy path", async () => {
     spyOn(Adapters.Emotions.EntriesSharing, "listForOwnerInRange").mockResolvedValue([]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-    spyOn(Date, "now").mockReturnValue(mocks.accessContext.timestamp);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
