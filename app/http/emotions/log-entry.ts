@@ -2,17 +2,16 @@ import * as bg from "@bgord/bun";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import { Clock } from "+infra/adapters/clock.adapter";
-import { IdProvider } from "+infra/adapters/id-provider.adapter";
+import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 
-const deps = { IdProvider, Clock };
+const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
 
-  const entryId = IdProvider.generate();
+  const entryId = deps.IdProvider.generate();
 
   const situation = new Emotions.Entities.Situation(
     new Emotions.VO.SituationDescription(body.situationDescription),

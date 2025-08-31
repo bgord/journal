@@ -1,13 +1,13 @@
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import { PdfGenerator, WeeklyReviewExport } from "+infra/adapters/emotions";
+import * as Adapters from "+infra/adapters";
 
 export async function DownloadWeeklyReview(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
   const weeklyReviewId = Emotions.VO.WeeklyReviewId.parse(c.req.param("weeklyReviewId"));
 
-  const weeklyReview = await WeeklyReviewExport.getFull(weeklyReviewId);
+  const weeklyReview = await Adapters.Emotions.WeeklyReviewExport.getFull(weeklyReviewId);
 
   Emotions.Invariants.WeeklyReviewExists.perform({ weeklyReview });
   Emotions.Invariants.WeeklyReviewIsCompleted.perform({ status: weeklyReview?.status });
@@ -17,7 +17,7 @@ export async function DownloadWeeklyReview(c: hono.Context<infra.HonoConfig>, _n
   });
 
   const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(
-    PdfGenerator,
+    Adapters.Emotions.PdfGenerator,
     weeklyReview as Emotions.Queries.WeeklyReviewExportDto,
   );
 

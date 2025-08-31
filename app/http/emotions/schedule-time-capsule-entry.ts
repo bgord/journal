@@ -3,18 +3,17 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import { Clock } from "+infra/adapters/clock.adapter";
-import { IdProvider } from "+infra/adapters/id-provider.adapter";
+import * as Adapters from "+infra/adapters";
 import { CommandBus } from "+infra/command-bus";
 
-const deps = { IdProvider, Clock };
+const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
   const timeZoneOffsetMs = c.get("timeZoneOffset").miliseconds;
 
-  const entryId = IdProvider.generate();
+  const entryId = deps.IdProvider.generate();
 
   const situation = new Emotions.Entities.Situation(
     new Emotions.VO.SituationDescription(body.situationDescription),
@@ -33,7 +32,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
     new Emotions.VO.ReactionEffectiveness(Number(body.reactionEffectiveness)),
   );
 
-  const now = Clock.nowMs();
+  const now = deps.Clock.nowMs();
   const scheduledFor = tools.Timestamp.parse(Number(body.scheduledFor) + timeZoneOffsetMs);
 
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
