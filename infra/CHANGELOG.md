@@ -1,6 +1,13 @@
 # Changelog
+- 2025-08-31 10:07 5b54ff6e **refactor: cleanup test imports**
+## 2025-08-31 10:07 
+- 2025-08-31 10:02 44cc2852 **refactor: simplify adapters http pub**
+- 2025-08-31 10:01 5931089b **refactor: simplify adapters http emo**
+- 2025-08-31 09:57 30aba267 **refactor: simplify adapters server**
+- 2025-08-31 09:55 765e1200 **refactor: move captcha adapter to infra/adapters**
 - 2025-08-31 09:53 28a0477a **Merge pull request #47 from bgord/clock**
-## 2025-08-31 09:53 
+- 2025-08-31 07:53 5af2b419 **docs: generate CHANGELOG**
+- 2025-08-31 07:53 38aaf7e7 **docs: generate readme**
 - 2025-08-31 00:00 7a57110f **refactor: cleanup loggers**
 - 2025-08-30 23:58 0877f7d7 **refactor: adjust stopwatch**
 - 2025-08-30 23:37 e2ddf3fc **fix: read model**
