@@ -1,6 +1,57 @@
 # Changelog
+- 2025-08-31 09:53 28a0477a **Merge pull request #47 from bgord/clock**
+## 2025-08-31 09:53 
+- 2025-08-31 00:00 7a57110f **refactor: cleanup loggers**
+- 2025-08-30 23:58 0877f7d7 **refactor: adjust stopwatch**
+- 2025-08-30 23:37 e2ddf3fc **fix: read model**
+- 2025-08-30 23:36 804e8060 **step: update packages**
+- 2025-08-30 23:24 cec9177c **refactor: tighten event mocks**
+- 2025-08-30 23:16 6517af61 **refactor: files**
+- 2025-08-30 22:53 5e5afea6 **refactor: remove unused spies**
+- 2025-08-30 22:38 1a2fc93d **refactor: use fixed clock in tests**
+- 2025-08-30 22:17 5fd5469d **fix: alarm orch**
+- 2025-08-30 22:13 a02617ec **fix: timecaps ent sch**
+- 2025-08-30 22:12 1918426e **refactor: remove direct data.now**
+- 2025-08-30 22:10 a8eda9ac **refactor: fix inac al sch**
+- 2025-08-30 22:08 39ec09f1 **refactor: remove date.now in shareable link**
+- 2025-08-30 22:07 f57001c1 **refactor: http**
+- 2025-08-30 22:02 791494a9 **refactor: repos**
+- 2025-08-30 22:00 29bab113 **refactor: remo fi st ad**
+- 2025-08-30 21:59 6ccd2836 **refactor: auth**
+- 2025-08-30 21:58 1a3fe227 **refactor: regi coma handl**
+- 2025-08-30 21:57 d5eddcb8 **refactor: regi ev handl**
+- 2025-08-30 21:56 1fe527fa **refactor: ai**
+- 2025-08-30 21:53 77741db9 **refactor: command handlers**
+- 2025-08-30 21:51 c1547fbf **refactor: no ent in the last week**
+- 2025-08-30 21:50 e82c35ba **refactor: en al dete**
+- 2025-08-30 21:49 ff940889 **refactor: inac alarm sch**
+- 2025-08-30 21:49 83c05781 **refactor: time capsu entr sch**
+- 2025-08-30 21:47 acb18f01 **refactor: we resch**
+- 2025-08-30 21:46 0950a46b **refactor: alarm orch**
+- 2025-08-30 21:45 12c91378 **refactor: weekly review**
+- 2025-08-30 21:43 47ff3e95 **refactor: patterns**
+- 2025-08-30 21:40 3dc2f076 **refactor: handle profile avatar commands**
+- 2025-08-30 21:39 2785b0e1 **refactor: set default user lang**
+- 2025-08-30 21:38 4ec61045 **refactor: shareable link**
+- 2025-08-30 21:35 87befd79 **refactor: alarm**
+- 2025-08-30 21:34 f39312b7 **refactor: entry**
+- 2025-08-30 21:33 9e6880ff **refactor: local db seed**
+- 2025-08-30 21:32 ad940fc8 **refactor: server**
+- 2025-08-30 21:30 ad322594 **step: define clock adapter**
+- 2025-08-30 21:28 03f0fec6 **refactor: make Logger uppercased**
+- 2025-08-30 21:26 cbc04b70 **refactor: remove tools.time.now**
+- 2025-08-30 21:26 b1538c10 **step: update packages**
+- 2025-08-30 21:11 4ab54dfb **refactor: do not use date.now at all**
+- 2025-08-30 21:08 779671c0 **refactor: spyons to T0**
+- 2025-08-30 21:05 7098b5b2 **refactor: replace all mocks with t0**
+- 2025-08-30 21:01 63df18ae **step: cleanup scheduled for**
+- 2025-08-30 20:58 8158b5ce **step: set t0 in export data**
+- 2025-08-30 20:57 d603e367 **refactor: cleanup new Date()**
+- 2025-08-30 20:53 7f7c4c15 **fix: shareable links expirer**
+- 2025-08-30 20:42 fdcc9669 **step: group ids**
+- 2025-08-30 20:39 fdbf53fa **refactor: introduce t0 usage**
+- 2025-08-30 20:35 0e966bee **step: add t0**
 - 2025-08-30 00:51 2d1a6e37 **step: update packages fe**
-## 2025-08-30 00:51 
 - 2025-08-30 00:34 03646787 **refactor: improve deps**
 - 2025-08-30 00:23 3df7f0bf **Merge pull request #46 from bgord/avatar**
 - 2025-08-30 00:17 14ae1295 **refactor: logger to adapters**
@@ -10,6 +61,7 @@
 - 2025-08-29 23:24 eacfd6b2 **refactor: adjust db seed**
 - 2025-08-29 23:18 8ec6de71 **refactor: adjust pattern detector**
 - 2025-08-29 22:56 6ffae50b **refactor: adjust aggregates**
+- 2025-08-29 22:51 9b639536 **docs: generate CHANGELOG**
 - 2025-08-29 22:44 81630909 **refactor: adjust tests**
 - 2025-08-29 22:35 9574abb9 **refactor: adjust adapters**
 - 2025-08-29 22:34 75203e45 **docs: generate CHANGELOG**
