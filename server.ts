@@ -28,7 +28,12 @@ const HealthcheckDeps = { Clock: Adapters.Clock };
 
 const server = new Hono<infra.HonoConfig>();
 
-server.use(...bg.Setup.essentials(ServerDeps, { cors: AuthShield.cors }));
+server.use(
+  ...bg.Setup.essentials(ServerDeps, {
+    cors: AuthShield.cors,
+    secureHeaders: { crossOriginResourcePolicy: "cross-origin" },
+  }),
+);
 
 const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 
