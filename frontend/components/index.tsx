@@ -12,6 +12,7 @@ export * from "./export-entries";
 export * from "./language-selector";
 export * from "./logo";
 export * from "./logout-button";
+export * from "./profile-avatar";
 export * from "./rating-pills";
 export * from "./read-only-entry";
 export * from "./select";

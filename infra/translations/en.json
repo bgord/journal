@@ -218,5 +218,6 @@
   "profile.shareable_links.status.active.value": "active",
   "profile.shareable_links.status.expired.value": "expired",
   "profile.shareable_links.status.revoked.value": "revoked",
-  "shared_entries.list.empty": "No entries match this link"
+  "shared_entries.list.empty": "No entries match this link",
+  "profile.avatar.header": "Profile avatar"
 }

@@ -86,6 +86,8 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         <Icons.ProfileCircle data-size="md" data-color="brand-300" /> {t("profile.header")}
       </h2>
 
+      <Components.ProfileAvatar />
+
       <div data-stack="y" data-gap="5">
         <div data-stack="x" data-cross="center" data-gap="3">
           <Icons.EnergyUsageWindow data-size="md" />
