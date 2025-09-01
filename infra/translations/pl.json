@@ -219,5 +219,9 @@
   "profile.shareable_links.status.expired.value": "wygasły",
   "profile.shareable_links.status.revoked.value": "wycofany",
   "shared_entries.list.empty": "Brak wpisów dla tego linku",
-  "profile.avatar.header": "Zdjęcie profilowe"
+  "profile.avatar.header": "Zdjęcie profilowe",
+  "profile.avatar.alt": "Zdjęcie",
+  "profile.avatar.select_file.cta": "Wybierz zdjęcie",
+  "profile.avatar.upload.cta": "Wyślij",
+  "profile.avatar.hint": "Maksymalny rozmiar to 10 MB"
 }

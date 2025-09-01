@@ -13,7 +13,6 @@ export function ProfileAvatar() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [cacheBuster, setCacheBuster] = useState<number>(Date.now());
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -22,13 +21,6 @@ export function ProfileAvatar() {
     const formElement = event.currentTarget;
     const selectedFile = fileInputRef.current?.files?.[0];
     if (!selectedFile) return;
-
-    // Optional client-side validation (server still validates)
-    if (!ALLOWED_MIME_TYPES.includes(selectedFile.type as any)) {
-      setErrorMessage(translations("profile.avatar.validation.unsupported_type"));
-      formElement.reset();
-      return;
-    }
 
     const formData = new FormData();
     formData.set("file", selectedFile, selectedFile.name);
@@ -48,7 +40,6 @@ export function ProfileAvatar() {
       }
 
       // Bust caches on the <img>, and revalidate the route if it reads avatar-related data
-      setCacheBuster(Date.now());
       revalidator.revalidate();
 
       // Clear the file input
@@ -83,15 +74,20 @@ export function ProfileAvatar() {
         {/* Direct-to-API form */}
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div data-stack="x" data-gap="3" data-cross="center">
-            <label className="c-button" data-variant="secondary">
-              <Icons.Upload data-size="md" />
-              <span data-ml="2">{translations("profile.avatar.select_file.cta")}</span>
+            <label
+              data-disp="flex"
+              data-main="center"
+              data-cross="center"
+              className="c-button"
+              data-variant="secondary"
+            >
+              <span>{translations("profile.avatar.select_file.cta")}</span>
               <input
                 ref={fileInputRef}
                 name="file"
                 type="file"
                 accept={ALLOWED_MIME_TYPES.join(",")}
-                style={{ display: "none" }}
+                className="c-file-explorer"
                 required
               />
             </label>
@@ -102,9 +98,7 @@ export function ProfileAvatar() {
               data-variant="primary"
               disabled={isSubmitting || !fileInputRef.current?.files?.length}
             >
-              {isSubmitting
-                ? translations("profile.avatar.uploading")
-                : translations("profile.avatar.upload.cta")}
+              {translations("profile.avatar.upload.cta")}
             </button>
           </div>
 
