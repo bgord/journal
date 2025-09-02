@@ -1,4 +1,4 @@
-import * as Icons from "iconoir-react";
+import * as UI from "@bgord/ui";
 import * as RR from "react-router";
 import * as Auth from "../../auth";
 import * as Components from "../../components";
@@ -9,6 +9,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export default function AuthLayout({ loaderData }: Route.ComponentProps) {
+  const t = UI.useTranslations();
+
   return (
     <div data-stack="y">
       <header data-stack="x" data-cross="center" data-gap="6" data-p="3">
@@ -34,7 +36,15 @@ export default function AuthLayout({ loaderData }: Route.ComponentProps) {
           data-fs="base"
           data-fw="medium"
         >
-          <Icons.ProfileCircle data-size="md" /> {loaderData?.user.email}
+          <img
+            src={`${import.meta.env.VITE_API_URL}/profile-avatar/get`}
+            alt={t("profile.avatar.alt")}
+            width={48}
+            height={48}
+            style={{ borderRadius: 9999, objectFit: "cover" }}
+            data-bc="neutral-700"
+            data-bwb="hairline"
+          />
         </RR.Link>
 
         <Components.LogoutButton />
