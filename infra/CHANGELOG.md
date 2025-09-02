@@ -1,11 +1,21 @@
 # Changelog
+- 2025-09-02 10:56 69d98362 **refactor: remove clamav prereq**
+## 2025-09-02 10:56 
+- 2025-09-02 10:36 cc5f1e76 **refactor: improve t**
+- 2025-09-02 10:34 b504001b **step: add profile avatar to nav**
+- 2025-09-02 00:17 300c34ed **feature: add profile avatar ui**
+- 2025-09-02 00:07 fca71880 **step: update packages**
+- 2025-09-02 00:07 50964cd8 **step: adjust secure headers**
+- 2025-09-01 23:25 4766cd96 **feature: add profile avatar**
+- 2025-09-01 22:27 f29cacbb **step: update packages**
 - 2025-08-31 10:07 5b54ff6e **refactor: cleanup test imports**
-## 2025-08-31 10:07 
 - 2025-08-31 10:02 44cc2852 **refactor: simplify adapters http pub**
 - 2025-08-31 10:01 5931089b **refactor: simplify adapters http emo**
 - 2025-08-31 09:57 30aba267 **refactor: simplify adapters server**
 - 2025-08-31 09:55 765e1200 **refactor: move captcha adapter to infra/adapters**
 - 2025-08-31 09:53 28a0477a **Merge pull request #47 from bgord/clock**
+- 2025-08-31 08:08 7e3d9c1b **docs: generate readme**
+- 2025-08-31 08:08 2f851e75 **docs: generate CHANGELOG**
 - 2025-08-31 07:53 5af2b419 **docs: generate CHANGELOG**
 - 2025-08-31 07:53 38aaf7e7 **docs: generate readme**
 - 2025-08-31 00:00 7a57110f **refactor: cleanup loggers**
