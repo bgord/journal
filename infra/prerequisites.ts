@@ -40,5 +40,4 @@ export const prerequisites = [
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
   }),
   new bg.PrerequisiteTranslations({ label: "translations", supportedLanguages: SupportedLanguages }),
-  new bg.PrerequisiteBinary({ label: "clamav", binary: "clamscan" }),
 ];
