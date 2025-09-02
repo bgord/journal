@@ -1,22 +1,18 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import { useRef, useState } from "react";
-import * as RR from "react-router";
 
 const ALLOWED_MIME_TYPES = ["image/png", "image/jpeg", "image/webp"] as const;
 
 export function ProfileAvatar() {
-  const translations = UI.useTranslations();
-  const revalidator = RR.useRevalidator();
+  const t = UI.useTranslations();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setErrorMessage(null);
 
     const formElement = event.currentTarget;
     const selectedFile = fileInputRef.current?.files?.[0];
@@ -26,12 +22,12 @@ export function ProfileAvatar() {
     formData.set("file", selectedFile, selectedFile.name);
 
     setIsSubmitting(true);
+
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/preferences/profile-avatar/update`, {
         method: "POST",
         body: formData,
-        // IMPORTANT: do NOT set Content-Type. Let the browser set the multipart boundary.
-        credentials: "include", // ensure session cookies are sent to API origin
+        credentials: "include",
       });
 
       if (!response.ok) {
@@ -39,14 +35,9 @@ export function ProfileAvatar() {
         throw new Error(responseText || `Upload failed with status ${response.status}`);
       }
 
-      // Bust caches on the <img>, and revalidate the route if it reads avatar-related data
-      revalidator.revalidate();
-
-      // Clear the file input
       if (fileInputRef.current) fileInputRef.current.value = "";
       formElement.reset();
-    } catch (problem) {
-      setErrorMessage(problem instanceof Error ? problem.message : translations("app.unknown_error"));
+    } catch {
     } finally {
       setIsSubmitting(false);
     }
@@ -56,14 +47,13 @@ export function ProfileAvatar() {
     <section data-stack="y" data-gap="4">
       <div data-stack="x" data-cross="center" data-gap="3">
         <Icons.UserCircle data-size="md" />
-        <div>{translations("profile.avatar.header")}</div>
+        <div>{t("profile.avatar.header")}</div>
       </div>
 
       <div data-stack="x" data-gap="6" data-cross="center">
-        {/* Current avatar; server should set ETag/Last-Modified, we also add ?cb= to bypass stubborn caches */}
         <img
           src={`${import.meta.env.VITE_API_URL}/profile-avatar/get`}
-          alt={translations("profile.avatar.alt")}
+          alt={t("profile.avatar.alt")}
           width={88}
           height={88}
           style={{ borderRadius: 9999, objectFit: "cover" }}
@@ -71,7 +61,6 @@ export function ProfileAvatar() {
           data-bwb="hairline"
         />
 
-        {/* Direct-to-API form */}
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div data-stack="x" data-gap="3" data-cross="center">
             <label
@@ -81,7 +70,7 @@ export function ProfileAvatar() {
               className="c-button"
               data-variant="secondary"
             >
-              <span>{translations("profile.avatar.select_file.cta")}</span>
+              <span>{t("profile.avatar.select_file.cta")}</span>
               <input
                 ref={fileInputRef}
                 name="file"
@@ -98,19 +87,13 @@ export function ProfileAvatar() {
               data-variant="primary"
               disabled={isSubmitting || !fileInputRef.current?.files?.length}
             >
-              {translations("profile.avatar.upload.cta")}
+              {t("profile.avatar.upload.cta")}
             </button>
           </div>
 
           <div data-fs="xs" data-color="neutral-500" data-mt="2">
-            {translations("profile.avatar.hint", { types: "PNG, JPEG, WEBP" })}
+            {t("profile.avatar.hint")}
           </div>
-
-          {errorMessage && (
-            <div role="status" data-fs="xs" data-color="danger-400" data-mt="2">
-              {errorMessage}
-            </div>
-          )}
         </form>
       </div>
     </section>
