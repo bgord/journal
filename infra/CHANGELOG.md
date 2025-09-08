@@ -1,10 +1,12 @@
 # Changelog
+- 2025-09-08 17:23 48cdb38d **step: update packages**
+## 2025-09-08 17:23 
 - 2025-09-08 17:19 f57947fc **step: bump bgord/scripts**
 - 2025-09-08 17:19 3064fc33 **step: update packages**
 - 2025-09-08 17:19 2f71d649 **refactor: remove dependabot workflow**
-## 2025-09-08 17:19 
 - 2025-09-08 17:12 34b0c2db **step: update packages**
 - 2025-09-08 17:11 5e0245b3 **step: update packages**
+- 2025-09-08 15:20 e4047cc4 **docs: generate CHANGELOG**
 - 2025-09-02 10:56 69d98362 **refactor: remove clamav prereq**
 - 2025-09-02 10:36 cc5f1e76 **refactor: improve t**
 - 2025-09-02 10:34 b504001b **step: add profile avatar to nav**
