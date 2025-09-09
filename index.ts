@@ -6,7 +6,7 @@ import { prerequisites } from "+infra/prerequisites";
 import { server, startup } from "./server";
 
 (async function main() {
-  await bg.Prerequisites.check(prerequisites);
+  await new bg.Prerequisites(Logger).check(prerequisites);
 
   const app = Bun.serve({
     fetch: server.fetch,
