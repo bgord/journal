@@ -11,13 +11,10 @@ export const prerequisites = [
   new bg.PrerequisiteTimezoneUTC({ label: "timezone", timezone: tools.Timezone.parse(Env.TZ) }),
   new bg.PrerequisiteRAM({
     label: "RAM",
+    minimum: tools.Size.fromMB(128),
     enabled: Env.type === bg.NodeEnvironmentEnum.production,
-    minimum: new tools.Size({ unit: tools.SizeUnit.MB, value: 128 }),
   }),
-  new bg.PrerequisiteSpace({
-    label: "disk-space",
-    minimum: new tools.Size({ unit: tools.SizeUnit.MB, value: 512 }),
-  }),
+  new bg.PrerequisiteSpace({ label: "disk-space", minimum: tools.Size.fromMB(512) }),
   new bg.PrerequisiteNode({
     label: "node",
     version: tools.PackageVersion.fromStringWithV("v24.3.0"),
@@ -28,10 +25,7 @@ export const prerequisites = [
     version: tools.PackageVersion.fromString("1.2.19"),
     current: Bun.version,
   }),
-  new bg.PrerequisiteMemory({
-    label: "memory-consumption",
-    maximum: new tools.Size({ value: 300, unit: tools.SizeUnit.MB }),
-  }),
+  new bg.PrerequisiteMemory({ label: "memory-consumption", maximum: tools.Size.fromMB(300) }),
   new bg.PrerequisiteLogFile({
     label: "log-file",
     logger: LoggerWinstonProductionAdapter,
