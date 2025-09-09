@@ -1,11 +1,20 @@
 # Changelog
+- 2025-09-09 14:48 9bbeb087 **refactor: remove better auth from fe**
+- 2025-09-09 14:48 363ea444 **refactor: adjust node**
+## 2025-09-09 14:48 
+- 2025-09-09 14:44 adc96942 **refactor: pass logger to prereqs**
+- 2025-09-09 14:44 1c34377b **step: update packages**
+- 2025-09-09 14:40 cee31a11 **step: update packages**
+- 2025-09-09 14:20 f7936eea **refactor: adjust prereqs**
+- 2025-09-09 14:15 be55e1fd **step: update packages**
+- 2025-09-09 14:14 3aec737d **refactor: update packages**
 - 2025-09-08 17:23 48cdb38d **step: update packages**
-## 2025-09-08 17:23 
 - 2025-09-08 17:19 f57947fc **step: bump bgord/scripts**
 - 2025-09-08 17:19 3064fc33 **step: update packages**
 - 2025-09-08 17:19 2f71d649 **refactor: remove dependabot workflow**
 - 2025-09-08 17:12 34b0c2db **step: update packages**
 - 2025-09-08 17:11 5e0245b3 **step: update packages**
+- 2025-09-08 15:23 f2749553 **docs: generate CHANGELOG**
 - 2025-09-08 15:20 e4047cc4 **docs: generate CHANGELOG**
 - 2025-09-02 10:56 69d98362 **refactor: remove clamav prereq**
 - 2025-09-02 10:36 cc5f1e76 **refactor: improve t**
