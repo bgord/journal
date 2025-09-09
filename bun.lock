@@ -5,7 +5,7 @@
       "name": "journal",
       "dependencies": {
         "@anthropic-ai/sdk": "0.61.0",
-        "@bgord/bun": "0.26.1",
+        "@bgord/bun": "0.26.2",
         "@react-pdf/renderer": "4.3.0",
         "better-sqlite3": "12.2.0",
         "drizzle-orm": "0.44.5",
@@ -128,7 +128,7 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.18", "", {}, "sha512-rEFOE1MYIsBmoMJtQbl32PGHHXuG2hDxvEd7rUHE0vCBoFQVSDqaVs9hkZEtHCxRoY+CljXKFCOuJ8uxqw1LcA=="],
 
-    "@bgord/bun": ["@bgord/bun@0.26.1", "", { "dependencies": { "@axiomhq/winston": "1.3.1", "@bgord/tools": "0.12.25", "@hono/ua-blocker": "0.1.9", "better-auth": "1.3.9", "check-disk-space": "3.4.0", "croner": "9.1.0", "csv": "6.4.1", "hcaptcha": "0.2.0", "hono": "4.9.6", "lodash": "4.17.21", "mime-types": "3.0.1", "node-cache": "5.1.2", "nodemailer": "7.0.6", "sharp": "0.34.3", "ssl-checker": "2.0.10", "winston": "3.17.0", "yazl": "3.3.1" }, "peerDependencies": { "zod": "4.1.5" } }, "sha512-0vHCyF2RApijUMs8p3GCgI3Nyxb5wm7e+rEwglBv/B92PmrYcq+mdCSS3+jnFKXi2IpF3XOReSk8ndNOu4POfA=="],
+    "@bgord/bun": ["@bgord/bun@0.26.2", "", { "dependencies": { "@axiomhq/winston": "1.3.1", "@bgord/tools": "0.12.25", "@hono/ua-blocker": "0.1.9", "better-auth": "1.3.9", "check-disk-space": "3.4.0", "croner": "9.1.0", "csv": "6.4.1", "hcaptcha": "0.2.0", "hono": "4.9.6", "lodash": "4.17.21", "mime-types": "3.0.1", "node-cache": "5.1.2", "nodemailer": "7.0.6", "sharp": "0.34.3", "ssl-checker": "2.0.10", "winston": "3.17.0", "yazl": "3.3.1" }, "peerDependencies": { "zod": "4.1.5" } }, "sha512-h+ysskJvRx6DgTtzEBPwEmrlpc0EafHzG0O4WPVqnVhenRqGkVgE/KXeqDws8vlYu/cfLFaCzylfo/mktmwD4g=="],
 
     "@bgord/design": ["@bgord/design@1.4.2", "", { "dependencies": { "culori": "4.0.2", "lodash": "4.17.21" } }, "sha512-b582jaqpyetIC+352HFwNEvua1L21l6Phi0a789s8AkRFtbH7ioAsY6+MGp1O/bRelMxxLcX4FRFGiSD02c80g=="],
 
