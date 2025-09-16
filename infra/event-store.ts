@@ -69,9 +69,7 @@ export const EventStore = new bg.DispatchingEventStore<AcceptedEvent>(
           await tx.insert(schema.events).values(rows);
           return rows;
         } catch (e: any) {
-          if (e.code === "SQLITE_CONSTRAINT") {
-            throw new tools.RevisionMismatchError();
-          }
+          if (e.code === "SQLITE_CONSTRAINT") throw new tools.RevisionMismatchError();
           throw e;
         }
       });
