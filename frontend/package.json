@@ -8,8 +8,8 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@bgord/design": "1.4.2",
-    "@bgord/ui": "0.5.10",
+    "@bgord/design": "1.4.3",
+    "@bgord/ui": "0.5.11",
     "@react-router/node": "7.9.1",
     "@react-router/serve": "7.9.1",
     "iconoir-react": "7.11.0",
