@@ -21,5 +21,5 @@ import { server, startup } from "./server";
     metadata: { port: Env.PORT, startupTimeMs: startup.stop().durationMs },
   });
 
-  bg.GracefulShutdown.applyTo(app);
+  new bg.GracefulShutdown(Logger).applyTo(app);
 })();
