@@ -24,20 +24,14 @@ export class TimeCapsuleEntriesScheduler {
   }
 
   async onHourHasPassedEvent(_event: System.Events.HourHasPassedEventType) {
-    // TODO here
     const now = this.deps.Clock.nowMs();
 
     const dueEntries = await this.deps.TimeCapsuleDueEntries.listDue(now);
 
     for (const entry of dueEntries) {
-      if (
-        Emotions.Invariants.TimeCapsuleEntryIsPublishable.fails({
-          status: entry.status,
-          now,
-          scheduledFor: tools.Timestamp.parse(entry.scheduledFor),
-        })
-      )
-        continue;
+      const config = { status: entry.status, now, scheduledFor: tools.Timestamp.parse(entry.scheduledFor) };
+
+      if (Emotions.Invariants.TimeCapsuleEntryIsPublishable.fails(config)) continue;
 
       const command = Emotions.Commands.LogEntryCommand.parse({
         ...bg.createCommandEnvelope(this.deps),

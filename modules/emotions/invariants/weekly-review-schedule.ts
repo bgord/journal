@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import type * as tools from "@bgord/tools";
+import * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 class WeeklyReviewScheduleError extends Error {
@@ -13,9 +13,12 @@ type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampType };
 
 class WeeklyReviewScheduleFactory extends bg.Invariant<WeeklyReviewScheduleConfigType> {
   fails(config: WeeklyReviewScheduleConfigType) {
-    const date = new Date(config.timestamp);
+    const weekday = tools.Weekday.fromUtcTimestamp(config.timestamp);
+    const hour = tools.Hour.fromUtcTimestamp(config.timestamp);
 
-    return !(date.getUTCDay() === bg.UTC_DAY_OF_THE_WEEK.Monday && date.getUTCHours() === 18);
+    const sixPM = new tools.Hour(18);
+
+    return !(weekday.equals(tools.Weekday.MONDAY) && hour.equals(sixPM));
   }
 
   message = "WeeklyReviewSchedule";
