@@ -1,9 +1,11 @@
 # Changelog
+- 2025-09-16 13:16 d6ab8585 **refactor: update graceful shutdown**
 - 2025-09-16 13:16 89dab258 **refactor: update graceful shutdown**
 ## 2025-09-16 13:16 
 - 2025-09-16 13:15 d6e43f39 **step: update packages**
 - 2025-09-16 11:53 9df9b1a3 **step: update packages**
 - 2025-09-16 11:49 6f33ebd1 **step: update packages**
+- 2025-09-16 11:28 4ea01621 **docs: generate CHANGELOG**
 - 2025-09-16 09:54 e912eb6c **docs: generate CHANGELOG**
 - 2025-09-16 09:50 7961cd7c **step: update packages**
 - 2025-09-16 09:42 05100a22 **step: update packages**
