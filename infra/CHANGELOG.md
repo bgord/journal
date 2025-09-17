@@ -1,6 +1,12 @@
 # Changelog
+- 2025-09-17 17:34 ed3ab5bb **step: update packages**
+## 2025-09-17 17:34 
+- 2025-09-17 17:31 a224f05d **refactor: update prereqs**
+- 2025-09-17 17:22 56b9c45d **refactor: adjust node prereq**
+- 2025-09-17 17:18 ee11b07b **step: update bun**
+- 2025-09-17 17:17 fe425728 **step: bump bgord/scripts**
 - 2025-09-17 12:32 66327a35 **step: update packages**
-## 2025-09-17 12:32 
+- 2025-09-17 10:32 ff590847 **docs: generate CHANGELOG**
 - 2025-09-16 20:48 995119e1 **refactor: simplify schedulers**
 - 2025-09-16 20:46 d4f7fe6b **step: update packages**
 - 2025-09-16 18:55 1198e679 **docs: generate CHANGELOG**
