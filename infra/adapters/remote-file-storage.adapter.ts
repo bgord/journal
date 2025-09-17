@@ -5,17 +5,19 @@ import { Clock } from "../adapters/clock.adapter";
 import { LoggerWinstonLocalAdapter } from "../adapters/logger.adapter";
 import { FileHash } from "./file-hash.adapter";
 
-const tmpFileStorage = new bg.RemoteFileStorageDiskAdapter({
+export const RemoteFileStorageTmpRootDir = tools.DirectoryPathAbsoluteSchema.parse("/tmp");
+
+const RemoteFileStorageTmp = new bg.RemoteFileStorageDiskAdapter({
   hasher: FileHash,
-  root: tools.DirectoryPathAbsoluteSchema.parse("/tmp"),
+  root: RemoteFileStorageTmpRootDir,
 });
 
 export const RemoteFileStorage: bg.RemoteFileStoragePort = {
-  [bg.NodeEnvironmentEnum.local]: tmpFileStorage,
+  [bg.NodeEnvironmentEnum.local]: RemoteFileStorageTmp,
   [bg.NodeEnvironmentEnum.test]: new bg.RemoteFileStorageNoopAdapter({
     Logger: LoggerWinstonLocalAdapter,
     Clock,
   }),
-  [bg.NodeEnvironmentEnum.staging]: tmpFileStorage,
-  [bg.NodeEnvironmentEnum.production]: tmpFileStorage,
+  [bg.NodeEnvironmentEnum.staging]: RemoteFileStorageTmp,
+  [bg.NodeEnvironmentEnum.production]: RemoteFileStorageTmp,
 }[Env.type];
