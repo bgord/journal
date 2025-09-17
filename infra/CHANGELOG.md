@@ -1,7 +1,9 @@
 # Changelog
+- 2025-09-17 12:32 66327a35 **step: update packages**
+## 2025-09-17 12:32 
 - 2025-09-16 20:48 995119e1 **refactor: simplify schedulers**
-## 2025-09-16 20:48 
 - 2025-09-16 20:46 d4f7fe6b **step: update packages**
+- 2025-09-16 18:55 1198e679 **docs: generate CHANGELOG**
 - 2025-09-16 17:35 f1b5c088 **docs: generate CHANGELOG**
 - 2025-09-16 13:16 d6ab8585 **refactor: update graceful shutdown**
 - 2025-09-16 13:16 89dab258 **refactor: update graceful shutdown**
