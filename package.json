@@ -23,12 +23,12 @@
     "dependency-cruiser": "17.0.1",
     "drizzle-kit": "0.31.4",
     "knip": "5.63.1",
-    "lefthook": "1.13.0",
+    "lefthook": "1.13.1",
     "shellcheck": "4.1.0",
     "typescript": "5.9.2"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.62.0",
+    "@anthropic-ai/sdk": "0.63.0",
     "@bgord/bun": "0.28.1",
     "@react-pdf/renderer": "4.3.0",
     "better-sqlite3": "12.2.0",
