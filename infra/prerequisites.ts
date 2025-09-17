@@ -17,7 +17,7 @@ export const prerequisites = [
   new bg.PrerequisiteSpace({ label: "disk-space", minimum: tools.Size.fromMB(512) }),
   new bg.PrerequisiteNode({
     label: "node",
-    version: tools.PackageVersion.fromStringWithV("v24.3.0"),
+    version: tools.PackageVersion.fromString("24.3.0"),
     current: process.version,
   }),
   new bg.PrerequisiteBun({
