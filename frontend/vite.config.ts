@@ -9,7 +9,10 @@ export default defineConfig(({ command }) => {
     plugins: [
       reactRouter(),
       tsconfigPaths(),
-      ValidateEnv({ validator: "builtin", schema: { VITE_API_URL: Schema.string() } }),
+      ValidateEnv({
+        validator: "builtin",
+        schema: { VITE_API_URL: Schema.string(), VITE_HCAPTCHA_SITE_KEY: Schema.string() },
+      }),
     ],
     resolve: {
       dedupe: ["react", "react-dom", "react/jsx-runtime"],
