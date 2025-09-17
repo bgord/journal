@@ -1,10 +1,17 @@
 # Changelog
+- 2025-09-17 23:44 9853fdd4 **fix: e2e test**
+## 2025-09-17 23:44 
+- 2025-09-17 23:40 d4ce7b7d **fix: ignore production.local fe env**
+- 2025-09-17 23:40 30f270b0 **step: bump bgord/scripts**
+- 2025-09-17 23:09 c7bc896b **step: add hcaptcha site key to vite env**
+- 2025-09-17 17:38 dd0e0a95 **refactor: cleanup e2e tests**
+- 2025-09-17 17:38 c98d5ca6 **step: bump bgord/scripts**
 - 2025-09-17 17:34 ed3ab5bb **step: update packages**
-## 2025-09-17 17:34 
 - 2025-09-17 17:31 a224f05d **refactor: update prereqs**
 - 2025-09-17 17:22 56b9c45d **refactor: adjust node prereq**
 - 2025-09-17 17:18 ee11b07b **step: update bun**
 - 2025-09-17 17:17 fe425728 **step: bump bgord/scripts**
+- 2025-09-17 15:34 d0f251c7 **docs: generate CHANGELOG**
 - 2025-09-17 12:32 66327a35 **step: update packages**
 - 2025-09-17 10:32 ff590847 **docs: generate CHANGELOG**
 - 2025-09-16 20:48 995119e1 **refactor: simplify schedulers**
