@@ -409,7 +409,6 @@ infra/
 ├── db.ts
 ├── depcruise.webpack.cjs
 ├── e2e
-│   ├── add-entry.spec.ts
 │   └── home.spec.ts
 ├── env.ts
 ├── event-bus.ts
