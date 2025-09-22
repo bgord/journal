@@ -1,10 +1,12 @@
 # Changelog
+- 2025-09-22 14:41 50496785 **fix: biome warnings**
+## 2025-09-22 14:41 
 - 2025-09-22 14:26 aac8b01a **fix: mocks.auth types**
-## 2025-09-22 14:26 
 - 2025-09-22 14:17 00650af6 **refactor: suppress ts warning**
 - 2025-09-22 14:15 5c93760c **refactor: regenerate packages**
 - 2025-09-22 14:14 1c3eb3e6 **step: update packages**
 - 2025-09-22 14:13 44d45136 **step: update packages**
+- 2025-09-22 12:27 853cf5e1 **docs: generate CHANGELOG**
 - 2025-09-17 23:44 9853fdd4 **fix: e2e test**
 - 2025-09-17 23:40 d4ce7b7d **fix: ignore production.local fe env**
 - 2025-09-17 23:40 30f270b0 **step: bump bgord/scripts**
