@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@bgord/design": "1.4.3",
-    "@bgord/ui": "0.5.12",
+    "@bgord/ui": "0.5.13",
     "@react-router/node": "7.9.1",
     "@react-router/serve": "7.9.1",
     "iconoir-react": "7.11.0",
