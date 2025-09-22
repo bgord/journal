@@ -3,11 +3,16 @@ import { Env } from "+infra/env";
 
 const app = "lobbygow";
 
-export const LoggerWinstonLocalAdapter = new bg.LoggerWinstonLocalAdapter({ app }).create(Env.LOGS_LEVEL);
+const redactor = new bg.RedactorMaskAdapter(bg.RedactorMaskAdapter.DEFAULT_KEYS);
+
+export const LoggerWinstonLocalAdapter = new bg.LoggerWinstonLocalAdapter({ app, redactor }).create(
+  Env.LOGS_LEVEL,
+);
 
 export const LoggerWinstonProductionAdapter = new bg.LoggerWinstonProductionAdapter({
   app,
   AXIOM_API_TOKEN: Env.AXIOM_API_TOKEN,
+  redactor,
 });
 
 export const Logger: bg.LoggerPort = {
