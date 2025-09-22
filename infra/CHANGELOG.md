@@ -1,9 +1,16 @@
 # Changelog
+- 2025-09-22 14:26 aac8b01a **fix: mocks.auth types**
+## 2025-09-22 14:26 
+- 2025-09-22 14:17 00650af6 **refactor: suppress ts warning**
+- 2025-09-22 14:15 5c93760c **refactor: regenerate packages**
+- 2025-09-22 14:14 1c3eb3e6 **step: update packages**
+- 2025-09-22 14:13 44d45136 **step: update packages**
 - 2025-09-17 23:44 9853fdd4 **fix: e2e test**
-## 2025-09-17 23:44 
 - 2025-09-17 23:40 d4ce7b7d **fix: ignore production.local fe env**
 - 2025-09-17 23:40 30f270b0 **step: bump bgord/scripts**
 - 2025-09-17 23:09 c7bc896b **step: add hcaptcha site key to vite env**
+- 2025-09-17 21:45 9affd90d **docs: generate readme**
+- 2025-09-17 21:45 1b7a8fe0 **docs: generate CHANGELOG**
 - 2025-09-17 17:38 dd0e0a95 **refactor: cleanup e2e tests**
 - 2025-09-17 17:38 c98d5ca6 **step: bump bgord/scripts**
 - 2025-09-17 17:34 ed3ab5bb **step: update packages**
