@@ -5,8 +5,8 @@ import * as Components from "../components";
 export function ExportEntries() {
   const t = UI.useTranslations();
 
-  const dateRangeStart = UI.useField<number>({ name: "dateRangeStart", defaultValue: new Date().getTime() });
-  const dateRangeEnd = UI.useField<number>({ name: "dateRangeEnd", defaultValue: new Date().getTime() });
+  const dateRangeStart = UI.useField<number>({ name: "dateRangeStart", defaultValue: Date.now() });
+  const dateRangeEnd = UI.useField<number>({ name: "dateRangeEnd", defaultValue: Date.now() });
   const strategy = UI.useField<string>({ name: "strategy", defaultValue: "text" });
 
   const dateRangeError = dateRangeStart.value > dateRangeEnd.value;
