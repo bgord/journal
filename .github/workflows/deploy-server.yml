@@ -18,7 +18,7 @@ jobs:
       - name: Setup Bun environment
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.2.20
+          bun-version: 1.2.22
 
       - name: Bun install
         run: bun install --exact --frozen-lockfile --no-summary
@@ -26,46 +26,49 @@ jobs:
       - name: Create .env.test file
         run: echo "${{ secrets.ENV_TEST }}" > .env.test
 
-      - name: Create .env.production file
-        run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
+      - name: Create frontend/.env.production file
+        run: echo "${{ secrets.FE_ENV_TEST }}" > frontend/.env.production
 
       - name: Run build prechecks
         run: ./bgord-scripts/build-prechecks.sh
 
-      - name: Build the app
-        run: ./scripts/production-server-build.sh
+      # - name: Create .env.production file
+      #   run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
 
-      - name: Inspect the app size
-        run: ./bgord-scripts/production-server-inspect.sh ${{ secrets.PROJECT_NAME }}
+      # - name: Build the app
+      #   run: ./scripts/production-server-build.sh
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/production.key
-          chmod 600 ~/.ssh/production.key
-          cat >>~/.ssh/config <<END
-          Host production
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/production.key
-            StrictHostKeyChecking no
-          END
-        env:
-          SSH_USER: ${{ secrets.USER }}
-          SSH_KEY: ${{ secrets.PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.HOSTNAME }}
+      # - name: Inspect the app size
+      #   run: ./bgord-scripts/production-server-inspect.sh ${{ secrets.PROJECT_NAME }}
 
-      - name: Sync source code
-        run: rsync -azP build/ production:/var/www/${{ secrets.PROJECT_NAME }}
+      # - name: Configure SSH
+      #   run: |
+      #     mkdir -p ~/.ssh/
+      #     echo "$SSH_KEY" > ~/.ssh/production.key
+      #     chmod 600 ~/.ssh/production.key
+      #     cat >>~/.ssh/config <<END
+      #     Host production
+      #       HostName $SSH_HOST
+      #       User $SSH_USER
+      #       IdentityFile ~/.ssh/production.key
+      #       StrictHostKeyChecking no
+      #     END
+      #   env:
+      #     SSH_USER: ${{ secrets.USER }}
+      #     SSH_KEY: ${{ secrets.PRIVATE_KEY }}
+      #     SSH_HOST: ${{ secrets.HOSTNAME }}
 
-      - name: Remove package.json
-        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && rm -rf package.json"
+      # - name: Sync source code
+      #   run: rsync -azP build/ production:/var/www/${{ secrets.PROJECT_NAME }}
 
-      - name: Install sharp
-        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install --platform=linux --arch=x64 sharp"
+      # - name: Remove package.json
+      #   run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && rm -rf package.json"
 
-      - name: Sync package.json
-        run: rsync -azP package.json production:/var/www/${{ secrets.PROJECT_NAME }}
+      # - name: Install sharp
+      #   run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install --platform=linux --arch=x64 sharp"
 
-      - name: Restart server
-        run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}.service
+      # - name: Sync package.json
+      #   run: rsync -azP package.json production:/var/www/${{ secrets.PROJECT_NAME }}
+
+      # - name: Restart server
+      #   run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}.service
