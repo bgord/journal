@@ -8,4 +8,5 @@ export const { useSession, signIn, signUp, signOut } = client;
 export type Session = typeof client.$Infer.Session;
 export type User = typeof client.$Infer.Session.user;
 
+// @ts-expect-error as string to guard against undefined
 export const guard = new UI.AuthGuard<Session>(import.meta.env.VITE_API_URL);
