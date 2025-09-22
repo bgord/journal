@@ -1,6 +1,9 @@
 # Changelog
+- 2025-09-22 22:45 2f44e2b2 **step: add logger redactor**
+## 2025-09-22 22:45 
+- 2025-09-22 22:43 b537fe37 **step: update packages**
+- 2025-09-22 22:36 2f712b44 **step: update packages**
 - 2025-09-22 15:15 315816af **step: bump bgord/scripts**
-## 2025-09-22 15:15 
 - 2025-09-22 15:13 de6b3f15 **refactor: rename seed script**
 - 2025-09-22 15:12 01303e1a **step: bump bgord/scripts**
 - 2025-09-22 15:01 8d9e4b0a **step: bump bgord/scripts**
@@ -11,6 +14,7 @@
 - 2025-09-22 14:15 5c93760c **refactor: regenerate packages**
 - 2025-09-22 14:14 1c3eb3e6 **step: update packages**
 - 2025-09-22 14:13 44d45136 **step: update packages**
+- 2025-09-22 13:15 0e69d916 **docs: generate CHANGELOG**
 - 2025-09-22 13:13 8b042de7 **docs: generate CHANGELOG**
 - 2025-09-22 13:02 eb7238e5 **docs: generate CHANGELOG**
 - 2025-09-22 13:00 5b95e96d **docs: generate CHANGELOG**
