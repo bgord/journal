@@ -2,6 +2,7 @@
 import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import type { Session, User } from "better-auth";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
@@ -981,7 +982,7 @@ export const shareableLink: Schema.SelectShareableLinks = {
   hidden: false,
 };
 
-export const user = {
+export const user: User = {
   name: email,
   email: email,
   emailVerified: false,
@@ -991,7 +992,7 @@ export const user = {
   id: userId,
 };
 
-export const anotherUser = {
+export const anotherUser: User = {
   name: anotherEmail,
   email: anotherEmail,
   emailVerified: false,
@@ -1001,7 +1002,7 @@ export const anotherUser = {
   id: anotherUserId,
 };
 
-export const session = {
+export const session: Session = {
   expiresAt: new Date(T0),
   token: "wyNm82TTSvBtxXSh1mb7lZJ4WF557tv4",
   createdAt: new Date(T0),
@@ -1012,7 +1013,7 @@ export const session = {
   id: "JUFCrqCBwFT3MCJV0mAVYSXtLJOkNBVN",
 };
 
-export const anotherSession = {
+export const anotherSession: Session = {
   expiresAt: new Date(T0),
   token: "XFgejTtN28QI8cDEmE9Yb09yxRwQuGj0",
   createdAt: new Date(T0),
@@ -1023,9 +1024,14 @@ export const anotherSession = {
   id: "xXHd0LUChE6NiYnQXc8mwij7jjp5kUhs",
 };
 
-export const auth = { user, session };
+export const auth = { user, session, path: "/get-session", options: {} as any } as const;
 
-export const anotherAuth = { user: anotherUser, session: anotherSession };
+export const anotherAuth = {
+  user: anotherUser,
+  session: anotherSession,
+  path: "/get-session",
+  options: {} as any,
+} as const;
 
 export const entryCsv = ["id,situationDescription", `${fullEntry.id},${fullEntry.situationDescription}`].join(
   "",
