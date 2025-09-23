@@ -1,10 +1,16 @@
 # Changelog
+- 2025-09-23 12:57 1e1e8037 **step: bump bgord/scripts**
+## 2025-09-23 12:57 
+- 2025-09-23 12:38 a814ab24 **step: bump bgord/scripts**
+- 2025-09-23 12:20 58e7a57f **step: bump bgord/scripts**
+- 2025-09-23 12:19 91ba4701 **step: update packages**
+- 2025-09-23 12:17 f7c4d081 **step: bump bgord/scripts**
 - 2025-09-23 12:14 730ee33a **step: bump bgord/scripts**
-## 2025-09-23 12:14 
 - 2025-09-23 11:08 f854ebb4 **fix: logger creation**
 - 2025-09-23 11:07 3af65256 **step: add logger compact adapter**
 - 2025-09-23 11:07 36247977 **step: update packages**
 - 2025-09-23 11:04 8edb4be1 **step: update packages**
+- 2025-09-23 10:14 c6d10223 **docs: generate CHANGELOG**
 - 2025-09-23 09:09 6f98cf97 **docs: generate CHANGELOG**
 - 2025-09-22 22:45 2f44e2b2 **step: add logger redactor**
 - 2025-09-22 22:43 b537fe37 **step: update packages**
