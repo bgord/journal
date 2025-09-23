@@ -16,7 +16,7 @@
     "@biomejs/biome": "2.2.4",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
-    "@playwright/test": "1.55.0",
+    "@playwright/test": "1.55.1",
     "@types/bun": "1.2.22",
     "@types/lodash": "4.17.20",
     "cspell": "9.2.1",
