@@ -35,7 +35,7 @@ server.use(
       credentials: true,
       allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       allowHeaders: ["content-type", "x-requested-with", "x-correlation-id", "authorization"],
-      // exposeHeaders: ["Set-Cookie"],
+      exposeHeaders: ["Set-Cookie"],
       maxAge: 86400,
     },
     secureHeaders: { crossOriginResourcePolicy: "cross-origin" },
