@@ -1,7 +1,9 @@
 # Changelog
+- 2025-09-26 12:44 1a0eb8a2 **step: add list files for output dir**
+## 2025-09-26 12:44 
+- 2025-09-26 12:43 1fefaed1 **step: change output directory**
 - 2025-09-26 12:41 fe107539 **step: add list files**
 - 2025-09-26 12:41 4f03b634 **step: temporarily disable build prechecks**
-## 2025-09-26 12:41 
 - 2025-09-26 12:35 2f11614c **refactor: restore server build**
 - 2025-09-26 12:29 481520ed **step: create .env.production file**
 - 2025-09-26 12:24 8d9bce27 **step: remove unused email_to env var**
@@ -10,6 +12,7 @@
 - 2025-09-26 12:07 7b6de8f9 **step: bump bgord/scripts**
 - 2025-09-26 11:36 cfbff3fd **step: update fepackages**
 - 2025-09-26 11:34 e3f6690b **step: update packages**
+- 2025-09-26 10:42 b54cddeb **docs: generate CHANGELOG**
 - 2025-09-26 10:41 5ec8de16 **docs: generate CHANGELOG**
 - 2025-09-26 10:36 2aeda305 **docs: generate CHANGELOG**
 - 2025-09-26 10:29 b948544e **docs: generate CHANGELOG**
