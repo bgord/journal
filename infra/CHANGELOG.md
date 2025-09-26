@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 16:28 57e6fc12 **fix: temporarily disable captcha**
+## 2025-09-26 16:28 
 - 2025-09-26 16:25 bcfdb558 **fix: auth cors origin**
-## 2025-09-26 16:25 
 - 2025-09-26 16:02 69e47e32 **fix: temporarily change to local logger**
 - 2025-09-26 16:00 392d9f71 **fix: add prod to trusted origins**
 - 2025-09-26 15:49 7718a56b **fix: prod fe start script**
@@ -13,6 +14,7 @@
 - 2025-09-26 15:29 d76a10a3 **fix: public dir path**
 - 2025-09-26 14:43 589e2d06 **refactor: remove list files step**
 - 2025-09-26 14:35 98e8c71e **refactor: migrate in index.ts**
+- 2025-09-26 14:25 15dcec77 **docs: generate CHANGELOG**
 - 2025-09-26 14:24 2362ff47 **fix: paths**
 - 2025-09-26 14:19 911227eb **step: prepare database on startup**
 - 2025-09-26 14:15 2bea5394 **step: add install drizzle kit step**
