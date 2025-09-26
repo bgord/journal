@@ -3,7 +3,7 @@
 source bgord-scripts/base.sh
 setup_base_config
 
-OUTPUT_DIRECTORY="build"
+OUTPUT_DIRECTORY="output"
 
 info "Environment: production"
 export NODE_ENV="production"
