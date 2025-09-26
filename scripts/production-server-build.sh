@@ -37,6 +37,10 @@ step_start "App compile"
 bun build --compile --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"
 
+step_start "CSS copy"
+cp node_modules/@bgord/design/dist/main.min.css frontend/public/
+step_end "CSS copy"
+
 step_start "List files"
 ls -alh "$OUTPUT_DIRECTORY"
 step_end "List files"
