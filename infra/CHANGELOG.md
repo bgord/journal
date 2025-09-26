@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 15:37 35b916d7 **refactor: remove sync package.json step**
+## 2025-09-26 15:37 
 - 2025-09-26 15:32 9a4b48c2 **fix: bunx in prod fe start script**
-## 2025-09-26 15:32 
 - 2025-09-26 15:30 6cd71312 **step: update packages**
 - 2025-09-26 15:30 60ef66d9 **step: add restart fe step**
 - 2025-09-26 15:29 d76a10a3 **fix: public dir path**
@@ -16,6 +17,7 @@
 - 2025-09-26 13:42 ff98742a **fix: running user prereq**
 - 2025-09-26 13:38 b6d65964 **refactor: disable ssl cert prereq**
 - 2025-09-26 13:37 7b77426b **fix: sync code path**
+- 2025-09-26 13:33 902fa88f **docs: generate CHANGELOG**
 - 2025-09-26 13:31 87c10d65 **docs: generate CHANGELOG**
 - 2025-09-26 13:30 268b7596 **step: stkip prechecks**
 - 2025-09-26 13:25 e12c6a71 **step: sync source code**
