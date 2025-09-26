@@ -75,3 +75,6 @@ jobs:
 
       - name: Restart server
         run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}.service
+
+      - name: Restart fe
+        run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}-fe.service
