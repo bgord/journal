@@ -47,6 +47,10 @@ NODE_ENV=production bunx --bun react-router build --mode production
 cd ../
 step_end "Frontend build"
 
+step_start "Frontend files move"
+mv frontend/build "$OUTPUT_DIRECTORY/frontend"
+step_end "Frontend files move"
+
 step_start "List files"
 ls -alh "$OUTPUT_DIRECTORY"
 step_end "List files"
