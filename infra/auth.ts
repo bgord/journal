@@ -17,14 +17,20 @@ export const auth = betterAuth({
   session: {
     expiresIn: tools.Time.Days(30).seconds,
     updateAge: tools.Time.Days(1).seconds,
-    cookie: {
+  },
+  cookies: {
+    // Name must match what Better-Auth emits (default is "better-auth.session_token")
+    sessionToken: {
       name: "better-auth.session_token",
-      domain: ".bgord.dev",
+      domain: ".bgord.dev", // make it visible to both subdomains
       path: "/",
       httpOnly: true,
-      secure: true,
+      secure: true, // MUST be true when sent over HTTPS
       sameSite: "lax",
+      maxAge: tools.Time.Days(30).seconds,
     },
+    // (optional) explicitly set other cookies too, if your version uses them:
+    // csrfToken: { secure: true, sameSite: "lax", path: "/" },
   },
   rateLimit: { enabled: true, window: tools.Time.Minutes(5).seconds, max: 100 },
   user: {
