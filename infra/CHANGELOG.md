@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 16:25 bcfdb558 **fix: auth cors origin**
+## 2025-09-26 16:25 
 - 2025-09-26 16:02 69e47e32 **fix: temporarily change to local logger**
-## 2025-09-26 16:02 
 - 2025-09-26 16:00 392d9f71 **fix: add prod to trusted origins**
 - 2025-09-26 15:49 7718a56b **fix: prod fe start script**
 - 2025-09-26 15:46 754a99b7 **fix: sync entire fe directory**
@@ -17,6 +18,7 @@
 - 2025-09-26 14:15 2bea5394 **step: add install drizzle kit step**
 - 2025-09-26 14:10 de17e837 **step: add migrations copy**
 - 2025-09-26 14:04 bbc319e5 **fix: logger adapter app name**
+- 2025-09-26 14:03 99b317cc **docs: generate CHANGELOG**
 - 2025-09-26 14:01 24dc63ae **refactor: remove unused transports**
 - 2025-09-26 14:00 72129a6d **docs: generate CHANGELOG**
 - 2025-09-26 14:00 27990993 **fix: prereqs for avatars**
