@@ -43,6 +43,10 @@ step_start "Translations copy"
 cp -r infra/translations "$OUTPUT_DIRECTORY/infra"
 step_end "Translations copy"
 
+step_start "Migrations copy"
+cp -r infra/drizzle "$OUTPUT_DIRECTORY/infra"
+step_end "Migrations copy"
+
 step_start "Remote file storage directory create"
 mkdir -p "$OUTPUT_DIRECTORY/infra/avatars"
 step_end "Remote file storage directory create"
