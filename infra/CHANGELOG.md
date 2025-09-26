@@ -1,7 +1,9 @@
 # Changelog
+- 2025-09-26 19:57 e92750cb **step: add crossSubDomainCookies**
+## 2025-09-26 19:57 
 - 2025-09-26 19:44 8d6b4fb8 **fix: set base url**
 - 2025-09-26 19:44 2f8d5ede **step: update packages**
-## 2025-09-26 19:44 
+- 2025-09-26 17:45 25fcc6f3 **docs: generate CHANGELOG**
 - 2025-09-26 17:09 c1187f10 **fix: cookies**
 - 2025-09-26 17:04 f8ad6d6c **step: add expose headers**
 - 2025-09-26 17:02 fb10cc84 **refactor: change cors settings**
