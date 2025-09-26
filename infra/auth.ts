@@ -22,8 +22,6 @@ export const auth = betterAuth({
     expiresIn: tools.Time.Days(30).seconds,
     updateAge: tools.Time.Days(1).seconds,
   },
-  // TODO set env
-  baseURL: "https://journal-api.bgord.dev",
   rateLimit: { enabled: true, window: tools.Time.Minutes(5).seconds, max: 100 },
   user: {
     deleteUser: {
