@@ -30,7 +30,14 @@ const server = new Hono<infra.HonoConfig>();
 
 server.use(
   ...bg.Setup.essentials(ServerDeps, {
-    cors: { ...AuthShield.cors, origin: [...AuthShield.cors.origin, "https://journal.bgord.dev"] },
+    cors: {
+      origin: ["http://localhost:5173", "http://localhost:3000", "https://journal.bgord.dev"],
+      credentials: true,
+      allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      allowHeaders: ["content-type", "x-requested-with", "x-correlation-id", "authorization"],
+      // exposeHeaders: ["Set-Cookie"],
+      maxAge: 86400,
+    },
     secureHeaders: { crossOriginResourcePolicy: "cross-origin" },
   }),
 );
