@@ -13,6 +13,8 @@ check_if_directory_exists node_modules
 check_if_file_exists scripts/production-server-start.sh
 validate_environment_file
 
+# SERVER
+
 step_start "Build cache clean"
 rm -rf $OUTPUT_DIRECTORY
 step_end "Build cache clean"
@@ -33,9 +35,15 @@ step_start "scripts/production-server-start.sh copy"
 cp scripts/production-server-start.sh $OUTPUT_DIRECTORY
 step_end "scripts/production-server-start.sh copy"
 
+step_start "Create infra directory"
+mkdir -p "$OUTPUT_DIRECTORY/infra"
+step_end "Create infra directory"
+
 step_start "App compile"
 bun build --compile --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"
+
+# FRONTEND
 
 step_start "CSS copy"
 cp node_modules/@bgord/design/dist/main.min.css frontend/public/
