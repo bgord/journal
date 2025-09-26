@@ -1,6 +1,8 @@
 # Changelog
+- 2025-09-26 14:01 24dc63ae **refactor: remove unused transports**
+## 2025-09-26 14:01 
+- 2025-09-26 14:00 27990993 **fix: prereqs for avatars**
 - 2025-09-26 13:42 ff98742a **fix: running user prereq**
-## 2025-09-26 13:42 
 - 2025-09-26 13:38 b6d65964 **refactor: disable ssl cert prereq**
 - 2025-09-26 13:37 7b77426b **fix: sync code path**
 - 2025-09-26 13:30 268b7596 **step: stkip prechecks**
@@ -29,6 +31,7 @@
 - 2025-09-26 12:09 7c1b7a14 **step: update packages**
 - 2025-09-26 12:08 cb66a062 **step: update packages**
 - 2025-09-26 12:07 7b6de8f9 **step: bump bgord/scripts**
+- 2025-09-26 11:42 b594108a **docs: generate CHANGELOG**
 - 2025-09-26 11:39 fdfd3492 **docs: generate CHANGELOG**
 - 2025-09-26 11:37 9d568bd1 **docs: generate CHANGELOG**
 - 2025-09-26 11:36 cfbff3fd **step: update fepackages**
