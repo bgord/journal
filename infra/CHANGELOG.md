@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 16:00 392d9f71 **fix: add prod to trusted origins**
+## 2025-09-26 16:00 
 - 2025-09-26 15:49 7718a56b **fix: prod fe start script**
-## 2025-09-26 15:49 
 - 2025-09-26 15:46 754a99b7 **fix: sync entire fe directory**
 - 2025-09-26 15:39 b22e425d **step: add install react-router step**
 - 2025-09-26 15:37 35b916d7 **refactor: remove sync package.json step**
@@ -17,6 +18,7 @@
 - 2025-09-26 14:04 bbc319e5 **fix: logger adapter app name**
 - 2025-09-26 14:01 24dc63ae **refactor: remove unused transports**
 - 2025-09-26 14:00 27990993 **fix: prereqs for avatars**
+- 2025-09-26 13:50 88e3fd68 **docs: generate CHANGELOG**
 - 2025-09-26 13:47 4575797a **docs: generate CHANGELOG**
 - 2025-09-26 13:42 ff98742a **fix: running user prereq**
 - 2025-09-26 13:40 d11835aa **docs: generate CHANGELOG**
