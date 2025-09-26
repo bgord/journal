@@ -14,8 +14,8 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
-    "@commitlint/cli": "19.8.1",
-    "@commitlint/config-conventional": "19.8.1",
+    "@commitlint/cli": "20.0.0",
+    "@commitlint/config-conventional": "20.0.0",
     "@playwright/test": "1.55.1",
     "@types/bun": "1.2.22",
     "@types/lodash": "4.17.20",
@@ -23,19 +23,19 @@
     "dependency-cruiser": "17.0.1",
     "drizzle-kit": "0.31.4",
     "knip": "5.64.0",
-    "lefthook": "1.13.3",
+    "lefthook": "1.13.4",
     "shellcheck": "4.1.0",
     "typescript": "5.9.2"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.63.0",
+    "@anthropic-ai/sdk": "0.63.1",
     "@bgord/bun": "0.29.2",
-    "@react-pdf/renderer": "4.3.0",
+    "@react-pdf/renderer": "4.3.1",
     "better-sqlite3": "12.4.1",
     "drizzle-orm": "0.44.5",
     "emittery": "1.2.0",
     "node-cache": "5.1.2",
-    "openai": "5.22.1",
+    "openai": "5.23.0",
     "react": "19.1.1",
     "zod": "4.1.11"
   }
