@@ -86,9 +86,3 @@ step_end "Public directory move"
 step_start "scripts/production-frontend-start.sh copy"
 cp scripts/production-frontend-start.sh $OUTPUT_DIRECTORY
 step_end "scripts/production-frontend-start.sh copy"
-
-step_start "List files"
-ls -alh "$OUTPUT_DIRECTORY"
-ls -alh "$OUTPUT_DIRECTORY/infra"
-ls -alh "$OUTPUT_DIRECTORY/frontend"
-step_end "List files"
