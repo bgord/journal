@@ -38,7 +38,7 @@ export const prerequisites = [
   new bg.PrerequisiteTranslations({ label: "translations", supportedLanguages: SupportedLanguages }),
   new bg.PrerequisiteMailer({ label: "mailer", mailer: Mailer, enabled: production }),
   new bg.PrerequisiteOutsideConnectivity({ label: "outside-connectivity", enabled: production }),
-  new bg.PrerequisiteRunningUser({ label: "user", username: "bartosz", enabled: production }),
+  new bg.PrerequisiteRunningUser({ label: "user", username: "bgord", enabled: production }),
   new bg.PrerequisiteSQLite({ label: "sqlite", sqlite, enabled: production }),
   // new bg.PrerequisiteSSLCertificateExpiry({
   //   label: "certificate",
