@@ -40,10 +40,10 @@ export const prerequisites = [
   new bg.PrerequisiteOutsideConnectivity({ label: "outside-connectivity", enabled: production }),
   new bg.PrerequisiteRunningUser({ label: "user", username: "bartosz", enabled: production }),
   new bg.PrerequisiteSQLite({ label: "sqlite", sqlite, enabled: production }),
-  new bg.PrerequisiteSSLCertificateExpiry({
-    label: "certificate",
-    host: "journal.bgord.dev",
-    validDaysMinimum: 7,
-    enabled: production,
-  }),
+  // new bg.PrerequisiteSSLCertificateExpiry({
+  //   label: "certificate",
+  //   host: "journal.bgord.dev",
+  //   validDaysMinimum: 7,
+  //   enabled: production,
+  // }),
 ];
