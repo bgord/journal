@@ -13,24 +13,14 @@ const deps = { IdProvider, Clock };
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
-  advanced: { database: { generateId: () => crypto.randomUUID() } },
+  advanced: {
+    database: { generateId: () => crypto.randomUUID() },
+    crossSubDomainCookies: { enabled: true, domain: "journal.bgord.dev" },
+    // useSecureCookies: true,
+  },
   session: {
     expiresIn: tools.Time.Days(30).seconds,
     updateAge: tools.Time.Days(1).seconds,
-  },
-  cookies: {
-    // Name must match what Better-Auth emits (default is "better-auth.session_token")
-    sessionToken: {
-      name: "better-auth.session_token",
-      domain: ".bgord.dev", // make it visible to both subdomains
-      path: "/",
-      httpOnly: true,
-      secure: true, // MUST be true when sent over HTTPS
-      sameSite: "lax",
-      maxAge: tools.Time.Days(30).seconds,
-    },
-    // (optional) explicitly set other cookies too, if your version uses them:
-    // csrfToken: { secure: true, sameSite: "lax", path: "/" },
   },
   // TODO set env
   baseURL: "https://journal-api.bgord.dev",
