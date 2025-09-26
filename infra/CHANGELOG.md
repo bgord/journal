@@ -1,7 +1,8 @@
 # Changelog
+- 2025-09-26 13:00 2a26e619 **step: list infra**
+## 2025-09-26 13:00 
 - 2025-09-26 12:59 ceddb28a **step: add infra/translations directory**
 - 2025-09-26 12:59 a7049b7c **step: add create infra directory**
-## 2025-09-26 12:59 
 - 2025-09-26 12:56 b44d7ca9 **step: add list files frontend**
 - 2025-09-26 12:53 c86759f0 **step: add prod frontend start script**
 - 2025-09-26 12:50 342f7a10 **step: add frontend files move step**
@@ -20,6 +21,7 @@
 - 2025-09-26 12:07 7b6de8f9 **step: bump bgord/scripts**
 - 2025-09-26 11:36 cfbff3fd **step: update fepackages**
 - 2025-09-26 11:34 e3f6690b **step: update packages**
+- 2025-09-26 11:00 159dc2fb **docs: generate CHANGELOG**
 - 2025-09-26 10:57 5fdaf5a4 **docs: generate CHANGELOG**
 - 2025-09-26 10:53 a42b4f65 **docs: generate CHANGELOG**
 - 2025-09-26 10:50 5d8b7b0f **docs: generate CHANGELOG**
