@@ -1,7 +1,8 @@
 # Changelog
+- 2025-09-26 12:46 a705b3dd **refactor: exit frontend dir**
+## 2025-09-26 12:46 
 - 2025-09-26 12:45 5124e2ef **step: add css copy**
 - 2025-09-26 12:45 478e58f8 **step: add frontend build step**
-## 2025-09-26 12:45 
 - 2025-09-26 12:44 1a0eb8a2 **step: add list files for output dir**
 - 2025-09-26 12:43 1fefaed1 **step: change output directory**
 - 2025-09-26 12:41 fe107539 **step: add list files**
@@ -14,6 +15,7 @@
 - 2025-09-26 12:07 7b6de8f9 **step: bump bgord/scripts**
 - 2025-09-26 11:36 cfbff3fd **step: update fepackages**
 - 2025-09-26 11:34 e3f6690b **step: update packages**
+- 2025-09-26 10:46 4770bdab **docs: generate CHANGELOG**
 - 2025-09-26 10:44 7d34679e **docs: generate CHANGELOG**
 - 2025-09-26 10:42 b54cddeb **docs: generate CHANGELOG**
 - 2025-09-26 10:41 5ec8de16 **docs: generate CHANGELOG**
