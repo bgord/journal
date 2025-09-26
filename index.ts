@@ -1,12 +1,16 @@
 import * as bg from "@bgord/bun";
+import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import * as infra from "+infra";
 import { Logger } from "+infra/adapters/logger.adapter";
+import { db } from "+infra/db";
 import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
 import { server, startup } from "./server";
 
 (async function main() {
   await new bg.Prerequisites(Logger).check(prerequisites);
+
+  migrate(db, { migrationsFolder: "infra/drizzle" });
 
   const app = Bun.serve({
     fetch: server.fetch,
