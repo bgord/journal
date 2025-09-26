@@ -5,20 +5,18 @@ import { Clock } from "../adapters/clock.adapter";
 import { LoggerWinstonLocalAdapter } from "../adapters/logger.adapter";
 import { FileHash } from "./file-hash.adapter";
 
-export const RemoteFileStorageTmpRootDir = tools.DirectoryPathAbsoluteSchema.parse("/tmp");
-
 export const RemoteFileStorageProductionDir = tools.DirectoryPathAbsoluteSchema.parse(
   "/var/www/journal/infra/avatars",
 );
 
 const RemoteFileStorageTmp = new bg.RemoteFileStorageDiskAdapter({
   hasher: FileHash,
-  root: RemoteFileStorageTmpRootDir,
+  root: tools.DirectoryPathAbsoluteSchema.parse("/tmp"),
 });
 
 const RemoteFileStorageProduction = new bg.RemoteFileStorageDiskAdapter({
   hasher: FileHash,
-  root: RemoteFileStorageTmpRootDir,
+  root: RemoteFileStorageProductionDir,
 });
 
 export const RemoteFileStorage: bg.RemoteFileStoragePort = {
