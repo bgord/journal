@@ -32,6 +32,8 @@ export const auth = betterAuth({
     // (optional) explicitly set other cookies too, if your version uses them:
     // csrfToken: { secure: true, sameSite: "lax", path: "/" },
   },
+  // TODO set env
+  baseURL: "https://journal-api.bgord.dev",
   rateLimit: { enabled: true, window: tools.Time.Minutes(5).seconds, max: 100 },
   user: {
     deleteUser: {
