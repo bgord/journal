@@ -51,6 +51,10 @@ step_start "Frontend files move"
 mv frontend/build "$OUTPUT_DIRECTORY/frontend"
 step_end "Frontend files move"
 
+step_start "scripts/production-frontend-start.sh copy"
+cp scripts/production-frontend-start.sh $OUTPUT_DIRECTORY
+step_end "scripts/production-frontend-start.sh copy"
+
 step_start "List files"
 ls -alh "$OUTPUT_DIRECTORY"
 step_end "List files"
