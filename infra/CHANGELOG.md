@@ -1,6 +1,10 @@
 # Changelog
+- 2025-09-26 15:30 6cd71312 **step: update packages**
+- 2025-09-26 15:30 60ef66d9 **step: add restart fe step**
+## 2025-09-26 15:30 
+- 2025-09-26 15:29 d76a10a3 **fix: public dir path**
+- 2025-09-26 14:43 589e2d06 **refactor: remove list files step**
 - 2025-09-26 14:35 98e8c71e **refactor: migrate in index.ts**
-## 2025-09-26 14:35 
 - 2025-09-26 14:24 2362ff47 **fix: paths**
 - 2025-09-26 14:19 911227eb **step: prepare database on startup**
 - 2025-09-26 14:15 2bea5394 **step: add install drizzle kit step**
@@ -31,6 +35,7 @@
 - 2025-09-26 12:43 1fefaed1 **step: change output directory**
 - 2025-09-26 12:41 fe107539 **step: add list files**
 - 2025-09-26 12:41 4f03b634 **step: temporarily disable build prechecks**
+- 2025-09-26 12:35 332d3b31 **docs: generate CHANGELOG**
 - 2025-09-26 12:35 2f11614c **refactor: restore server build**
 - 2025-09-26 12:29 481520ed **step: create .env.production file**
 - 2025-09-26 12:25 f8535533 **docs: generate CHANGELOG**
