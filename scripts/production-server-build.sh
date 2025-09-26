@@ -35,9 +35,13 @@ step_start "scripts/production-server-start.sh copy"
 cp scripts/production-server-start.sh $OUTPUT_DIRECTORY
 step_end "scripts/production-server-start.sh copy"
 
-step_start "Create infra directory"
+step_start "Infra directory create"
 mkdir -p "$OUTPUT_DIRECTORY/infra"
-step_end "Create infra directory"
+step_end "Infra directory create"
+
+step_start "Translations copy"
+cp -r infra/translations "$OUTPUT_DIRECTORY/infra"
+step_end "Translations copy"
 
 step_start "App compile"
 bun build --compile --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
