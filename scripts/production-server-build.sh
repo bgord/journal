@@ -36,3 +36,7 @@ step_end "scripts/production-server-start.sh copy"
 step_start "App compile"
 bun build --compile --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"
+
+step_start "List files"
+ls -alh
+step_end "List files"
