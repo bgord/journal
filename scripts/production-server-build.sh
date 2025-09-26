@@ -44,6 +44,7 @@ step_end "CSS copy"
 step_start "Frontend build"
 cd frontend/
 NODE_ENV=production bunx --bun react-router build --mode production
+cd ../
 step_end "Frontend build"
 
 step_start "List files"
