@@ -1,6 +1,8 @@
 # Changelog
+- 2025-09-26 19:44 8d6b4fb8 **fix: set base url**
+- 2025-09-26 19:44 2f8d5ede **step: update packages**
+## 2025-09-26 19:44 
 - 2025-09-26 17:09 c1187f10 **fix: cookies**
-## 2025-09-26 17:09 
 - 2025-09-26 17:04 f8ad6d6c **step: add expose headers**
 - 2025-09-26 17:02 fb10cc84 **refactor: change cors settings**
 - 2025-09-26 17:01 a3114359 **fix: auth session cookies**
@@ -17,6 +19,7 @@
 - 2025-09-26 15:30 6cd71312 **step: update packages**
 - 2025-09-26 15:30 60ef66d9 **step: add restart fe step**
 - 2025-09-26 15:29 d76a10a3 **fix: public dir path**
+- 2025-09-26 15:10 753f8400 **docs: generate CHANGELOG**
 - 2025-09-26 15:04 a9c28b9c **docs: generate CHANGELOG**
 - 2025-09-26 15:02 9762225f **docs: generate CHANGELOG**
 - 2025-09-26 14:43 589e2d06 **refactor: remove list files step**
