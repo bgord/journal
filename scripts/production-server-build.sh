@@ -57,4 +57,5 @@ step_end "scripts/production-frontend-start.sh copy"
 
 step_start "List files"
 ls -alh "$OUTPUT_DIRECTORY"
+ls -alh "$OUTPUT_DIRECTORY/frontend"
 step_end "List files"
