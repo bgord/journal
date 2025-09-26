@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { Env } from "+infra/env";
 
 const local = tools.DirectoryPathAbsoluteSchema.parse(`${__dirname}/profile-avatars`);
-const prod = tools.DirectoryPathAbsoluteSchema.parse("/tmp/journal/avatars");
+const prod = tools.DirectoryPathAbsoluteSchema.parse("/var/www/journal/infra/tmp-avatars");
 
 export const TemporaryFile: bg.TemporaryFilePort = {
   [bg.NodeEnvironmentEnum.local]: new bg.TemporaryFileAbsolute(local),

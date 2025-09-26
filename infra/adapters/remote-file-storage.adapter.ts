@@ -7,7 +7,16 @@ import { FileHash } from "./file-hash.adapter";
 
 export const RemoteFileStorageTmpRootDir = tools.DirectoryPathAbsoluteSchema.parse("/tmp");
 
+export const RemoteFileStorageProductionDir = tools.DirectoryPathAbsoluteSchema.parse(
+  "/var/www/journal/infra/avatars",
+);
+
 const RemoteFileStorageTmp = new bg.RemoteFileStorageDiskAdapter({
+  hasher: FileHash,
+  root: RemoteFileStorageTmpRootDir,
+});
+
+const RemoteFileStorageProduction = new bg.RemoteFileStorageDiskAdapter({
   hasher: FileHash,
   root: RemoteFileStorageTmpRootDir,
 });
@@ -19,5 +28,5 @@ export const RemoteFileStorage: bg.RemoteFileStoragePort = {
     Clock,
   }),
   [bg.NodeEnvironmentEnum.staging]: RemoteFileStorageTmp,
-  [bg.NodeEnvironmentEnum.production]: RemoteFileStorageTmp,
+  [bg.NodeEnvironmentEnum.production]: RemoteFileStorageProduction,
 }[Env.type];

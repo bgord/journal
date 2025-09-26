@@ -43,6 +43,14 @@ step_start "Translations copy"
 cp -r infra/translations "$OUTPUT_DIRECTORY/infra"
 step_end "Translations copy"
 
+step_start "Remote file storage directory create"
+mkdir -p "$OUTPUT_DIRECTORY/infra/avatars"
+step_end "Remote file storage directory create"
+
+step_start "Temporary file directory directory create"
+mkdir -p "$OUTPUT_DIRECTORY/infra/tmp-avatars"
+step_end "Temporary file directory directory create"
+
 step_start "App compile"
 bun build --compile --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"

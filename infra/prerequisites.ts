@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "+languages";
 import { LoggerWinstonProductionAdapter } from "+infra/adapters/logger.adapter";
 import { Mailer } from "+infra/adapters/mailer.adapter";
-import { RemoteFileStorageTmpRootDir } from "+infra/adapters/remote-file-storage.adapter";
+import { RemoteFileStorageProductionDir } from "+infra/adapters/remote-file-storage.adapter";
 import { sqlite } from "+infra/db";
 import { Env } from "+infra/env";
 import { jobs } from "+infra/jobs";
@@ -33,7 +33,11 @@ export const prerequisites = [
     enabled: production,
   }),
   new bg.PrerequisiteDirectory({ label: "temporary-files dir", directory: TemporaryFileDirectory }),
-  new bg.PrerequisiteDirectory({ label: "remote-file-storage dir", directory: RemoteFileStorageTmpRootDir }),
+  new bg.PrerequisiteDirectory({
+    label: "remote-file-storage dir",
+    directory: RemoteFileStorageProductionDir,
+    enabled: production,
+  }),
   new bg.PrerequisiteJobs({ label: "jobs", jobs }),
   new bg.PrerequisiteTranslations({ label: "translations", supportedLanguages: SupportedLanguages }),
   new bg.PrerequisiteMailer({ label: "mailer", mailer: Mailer, enabled: production }),
