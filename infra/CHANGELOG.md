@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 14:24 2362ff47 **fix: paths**
+## 2025-09-26 14:24 
 - 2025-09-26 14:19 911227eb **step: prepare database on startup**
-## 2025-09-26 14:19 
 - 2025-09-26 14:15 2bea5394 **step: add install drizzle kit step**
 - 2025-09-26 14:10 de17e837 **step: add migrations copy**
 - 2025-09-26 14:04 bbc319e5 **fix: logger adapter app name**
@@ -32,6 +33,7 @@
 - 2025-09-26 12:35 2f11614c **refactor: restore server build**
 - 2025-09-26 12:29 481520ed **step: create .env.production file**
 - 2025-09-26 12:24 8d9bce27 **step: remove unused email_to env var**
+- 2025-09-26 12:19 c8b2fe2a **docs: generate CHANGELOG**
 - 2025-09-26 12:15 b64fda6d **docs: generate CHANGELOG**
 - 2025-09-26 12:10 d7390b1b **docs: generate CHANGELOG**
 - 2025-09-26 12:09 7c1b7a14 **step: update packages**
