@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 12:41 fe107539 **step: add list files**
+## 2025-09-26 12:41 
 - 2025-09-26 12:35 2f11614c **refactor: restore server build**
-## 2025-09-26 12:35 
 - 2025-09-26 12:29 481520ed **step: create .env.production file**
 - 2025-09-26 12:24 8d9bce27 **step: remove unused email_to env var**
 - 2025-09-26 12:09 7c1b7a14 **step: update packages**
@@ -8,6 +9,7 @@
 - 2025-09-26 12:07 7b6de8f9 **step: bump bgord/scripts**
 - 2025-09-26 11:36 cfbff3fd **step: update fepackages**
 - 2025-09-26 11:34 e3f6690b **step: update packages**
+- 2025-09-26 10:36 2aeda305 **docs: generate CHANGELOG**
 - 2025-09-26 10:29 b948544e **docs: generate CHANGELOG**
 - 2025-09-26 10:24 8c5e96cf **docs: generate CHANGELOG**
 - 2025-09-26 10:09 73fa26ef **docs: generate CHANGELOG**
