@@ -6,4 +6,6 @@ echo "Starting project..."
 export NODE_ENV="production"
 
 cd /var/www/journal || exit
+bunx drizzle-kit generate
+bunx drizzle-kit migrate
 ./journal

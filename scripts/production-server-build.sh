@@ -47,6 +47,10 @@ step_start "Migrations copy"
 cp -r infra/drizzle "$OUTPUT_DIRECTORY/infra"
 step_end "Migrations copy"
 
+step_start "Drizzle config copy"
+cp bgord-scripts/templates/drizzle.config.ts "$OUTPUT_DIRECTORY"
+step_end "Drizzle config copy"
+
 step_start "Remote file storage directory create"
 mkdir -p "$OUTPUT_DIRECTORY/infra/avatars"
 step_end "Remote file storage directory create"
