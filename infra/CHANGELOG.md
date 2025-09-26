@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 13:22 bf1c6a9f **step: restore setup ssh connection step**
+## 2025-09-26 13:22 
 - 2025-09-26 13:15 6c570b11 **step: bump bgord/scripts**
-## 2025-09-26 13:15 
 - 2025-09-26 13:13 c272e70a **step: add fe prod env file**
 - 2025-09-26 13:10 b668e067 **step: restore inspect app size**
 - 2025-09-26 13:10 7590619a **step: add public dir move**
@@ -25,6 +26,7 @@
 - 2025-09-26 12:07 7b6de8f9 **step: bump bgord/scripts**
 - 2025-09-26 11:36 cfbff3fd **step: update fepackages**
 - 2025-09-26 11:34 e3f6690b **step: update packages**
+- 2025-09-26 11:15 b5a8e2a8 **docs: generate CHANGELOG**
 - 2025-09-26 11:14 19c13978 **docs: generate CHANGELOG**
 - 2025-09-26 11:11 82822f67 **docs: generate CHANGELOG**
 - 2025-09-26 11:00 4b8d174d **docs: generate CHANGELOG**
