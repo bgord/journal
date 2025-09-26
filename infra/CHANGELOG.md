@@ -1,7 +1,8 @@
 # Changelog
+- 2025-09-26 13:13 c272e70a **step: add fe prod env file**
+## 2025-09-26 13:13 
 - 2025-09-26 13:10 b668e067 **step: restore inspect app size**
 - 2025-09-26 13:10 7590619a **step: add public dir move**
-## 2025-09-26 13:10 
 - 2025-09-26 13:00 2a26e619 **step: list infra**
 - 2025-09-26 12:59 ceddb28a **step: add infra/translations directory**
 - 2025-09-26 12:59 a7049b7c **step: add create infra directory**
@@ -23,6 +24,7 @@
 - 2025-09-26 12:07 7b6de8f9 **step: bump bgord/scripts**
 - 2025-09-26 11:36 cfbff3fd **step: update fepackages**
 - 2025-09-26 11:34 e3f6690b **step: update packages**
+- 2025-09-26 11:11 82822f67 **docs: generate CHANGELOG**
 - 2025-09-26 11:00 4b8d174d **docs: generate CHANGELOG**
 - 2025-09-26 11:00 159dc2fb **docs: generate CHANGELOG**
 - 2025-09-26 10:57 5fdaf5a4 **docs: generate CHANGELOG**
