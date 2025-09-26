@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 17:04 f8ad6d6c **step: add expose headers**
+## 2025-09-26 17:04 
 - 2025-09-26 17:02 fb10cc84 **refactor: change cors settings**
-## 2025-09-26 17:02 
 - 2025-09-26 17:01 a3114359 **fix: auth session cookies**
 - 2025-09-26 16:34 b17f0d9c **fix: trusted origins auth**
 - 2025-09-26 16:28 57e6fc12 **fix: temporarily disable captcha**
@@ -15,6 +16,7 @@
 - 2025-09-26 15:30 6cd71312 **step: update packages**
 - 2025-09-26 15:30 60ef66d9 **step: add restart fe step**
 - 2025-09-26 15:29 d76a10a3 **fix: public dir path**
+- 2025-09-26 15:02 9762225f **docs: generate CHANGELOG**
 - 2025-09-26 14:43 589e2d06 **refactor: remove list files step**
 - 2025-09-26 14:36 28b702b3 **docs: generate CHANGELOG**
 - 2025-09-26 14:35 98e8c71e **refactor: migrate in index.ts**
