@@ -23,7 +23,6 @@ const EnvironmentSchema = z
     SMTP_USER: bg.SmtpUser,
     SMTP_PASS: bg.SmtpPass,
     EMAIL_FROM: bg.EmailFrom,
-    EMAIL_TO: bg.EmailTo,
     TZ: bg.TimezoneUtc,
     BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
