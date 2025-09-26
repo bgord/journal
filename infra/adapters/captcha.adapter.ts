@@ -7,5 +7,5 @@ export const CaptchaShield = {
   [bg.NodeEnvironmentEnum.local]: new bg.ShieldCaptchaHcaptchaLocal(HCAPTCHA_SECRET_KEY),
   [bg.NodeEnvironmentEnum.test]: new bg.ShieldCaptchaNoop(),
   [bg.NodeEnvironmentEnum.staging]: new bg.ShieldCaptchaHcaptcha(HCAPTCHA_SECRET_KEY),
-  [bg.NodeEnvironmentEnum.production]: new bg.ShieldCaptchaHcaptcha(HCAPTCHA_SECRET_KEY),
+  [bg.NodeEnvironmentEnum.production]: new bg.ShieldCaptchaNoop(),
 }[Env.type];
