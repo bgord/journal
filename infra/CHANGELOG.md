@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 13:37 7b77426b **fix: sync code path**
+## 2025-09-26 13:37 
 - 2025-09-26 13:30 268b7596 **step: stkip prechecks**
-## 2025-09-26 13:30 
 - 2025-09-26 13:25 e12c6a71 **step: sync source code**
 - 2025-09-26 13:22 bf1c6a9f **step: restore setup ssh connection step**
 - 2025-09-26 13:15 6c570b11 **step: bump bgord/scripts**
@@ -28,6 +29,7 @@
 - 2025-09-26 12:07 7b6de8f9 **step: bump bgord/scripts**
 - 2025-09-26 11:36 cfbff3fd **step: update fepackages**
 - 2025-09-26 11:34 e3f6690b **step: update packages**
+- 2025-09-26 11:30 a2a525b9 **docs: generate CHANGELOG**
 - 2025-09-26 11:26 388cc17c **docs: generate CHANGELOG**
 - 2025-09-26 11:23 b92c37cf **docs: generate CHANGELOG**
 - 2025-09-26 11:15 b5a8e2a8 **docs: generate CHANGELOG**
