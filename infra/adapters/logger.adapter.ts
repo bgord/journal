@@ -22,5 +22,6 @@ export const Logger: bg.LoggerPort = {
   [bg.NodeEnvironmentEnum.local]: LoggerWinstonLocalAdapter,
   [bg.NodeEnvironmentEnum.test]: new bg.LoggerNoopAdapter(),
   [bg.NodeEnvironmentEnum.staging]: new bg.LoggerNoopAdapter(),
-  [bg.NodeEnvironmentEnum.production]: LoggerWinstonProductionAdapter.create(Env.LOGS_LEVEL),
+  //TODO
+  [bg.NodeEnvironmentEnum.production]: LoggerWinstonLocalAdapter,
 }[Env.type];
