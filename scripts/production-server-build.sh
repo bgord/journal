@@ -76,12 +76,8 @@ cd ../
 step_end "Frontend build"
 
 step_start "Frontend files move"
-mv frontend/build "$OUTPUT_DIRECTORY/frontend"
+mv frontend "$OUTPUT_DIRECTORY"
 step_end "Frontend files move"
-
-step_start "Public directory move"
-mv frontend/public "$OUTPUT_DIRECTORY"
-step_end "Public directory move"
 
 step_start "scripts/production-frontend-start.sh copy"
 cp scripts/production-frontend-start.sh $OUTPUT_DIRECTORY
