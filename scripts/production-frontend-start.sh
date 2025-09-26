@@ -6,4 +6,4 @@ echo "Starting frontend..."
 export NODE_ENV="production"
 
 cd /var/www/journal || exit
-bunx --bun react-router-serve ./frontend/server/index.js
+/home/bgord/.bun/bin/bunx --bun react-router-serve ./frontend/server/index.js
