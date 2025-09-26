@@ -1,6 +1,7 @@
 # Changelog
+- 2025-09-26 15:46 754a99b7 **fix: sync entire fe directory**
+## 2025-09-26 15:46 
 - 2025-09-26 15:39 b22e425d **step: add install react-router step**
-## 2025-09-26 15:39 
 - 2025-09-26 15:37 35b916d7 **refactor: remove sync package.json step**
 - 2025-09-26 15:32 9a4b48c2 **fix: bunx in prod fe start script**
 - 2025-09-26 15:30 6cd71312 **step: update packages**
@@ -16,6 +17,7 @@
 - 2025-09-26 14:01 24dc63ae **refactor: remove unused transports**
 - 2025-09-26 14:00 27990993 **fix: prereqs for avatars**
 - 2025-09-26 13:42 ff98742a **fix: running user prereq**
+- 2025-09-26 13:40 d11835aa **docs: generate CHANGELOG**
 - 2025-09-26 13:38 b6d65964 **refactor: disable ssl cert prereq**
 - 2025-09-26 13:37 7b77426b **fix: sync code path**
 - 2025-09-26 13:37 491f1782 **docs: generate CHANGELOG**
