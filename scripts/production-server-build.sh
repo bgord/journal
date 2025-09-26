@@ -38,5 +38,5 @@ bun build --compile --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/
 step_end "App compile"
 
 step_start "List files"
-ls -alh
+ls -alh "$OUTPUT_DIRECTORY"
 step_end "List files"
