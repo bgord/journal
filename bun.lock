@@ -5,7 +5,7 @@
       "name": "journal",
       "dependencies": {
         "@anthropic-ai/sdk": "0.64.0",
-        "@bgord/bun": "0.29.3",
+        "@bgord/bun": "0.29.4",
         "@react-pdf/renderer": "4.3.1",
         "better-sqlite3": "12.4.1",
         "drizzle-orm": "0.44.5",
@@ -127,7 +127,7 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.18", "", {}, "sha512-rEFOE1MYIsBmoMJtQbl32PGHHXuG2hDxvEd7rUHE0vCBoFQVSDqaVs9hkZEtHCxRoY+CljXKFCOuJ8uxqw1LcA=="],
 
-    "@bgord/bun": ["@bgord/bun@0.29.3", "", { "dependencies": { "@axiomhq/winston": "1.3.1", "@bgord/tools": "0.13.3", "@hono/ua-blocker": "0.1.11", "better-auth": "1.3.18", "check-disk-space": "3.4.0", "croner": "9.1.0", "csv": "6.4.1", "hcaptcha": "0.2.0", "hono": "4.9.8", "lodash": "4.17.21", "mime-types": "3.0.1", "node-cache": "5.1.2", "nodemailer": "7.0.6", "sharp": "0.34.4", "ssl-checker": "2.0.10", "winston": "3.17.0", "yazl": "3.3.1" }, "peerDependencies": { "zod": "4.1.11" } }, "sha512-dAFqCsMKXfNH5233iPh1PKkAW/zBZchRL65UM8bIT1SGnWVC3Q0qDAcJ+D//9fWnvmVc6H/oP7O5lx1vQVXLWw=="],
+    "@bgord/bun": ["@bgord/bun@0.29.4", "", { "dependencies": { "@axiomhq/winston": "1.3.1", "@bgord/tools": "0.13.3", "@hono/ua-blocker": "0.1.11", "better-auth": "1.3.18", "check-disk-space": "3.4.0", "croner": "9.1.0", "csv": "6.4.1", "hcaptcha": "0.2.0", "hono": "4.9.9", "lodash": "4.17.21", "mime-types": "3.0.1", "node-cache": "5.1.2", "nodemailer": "7.0.6", "sharp": "0.34.4", "ssl-checker": "2.0.10", "winston": "3.17.0", "yazl": "3.3.1" }, "peerDependencies": { "zod": "4.1.11" } }, "sha512-F30wU+ta5XV7zSfqrFpURvE/dSmnDekZbAc1LQ5Fk+UR/HCXXj8J0nnYWUbV+SM1PEWpBFWWdXu+qh/ai2K4EQ=="],
 
     "@bgord/design": ["@bgord/design@1.4.4", "", { "dependencies": { "culori": "4.0.2", "lodash": "4.17.21" } }, "sha512-obE1BK/JNNDYx+/vUMczEKHdsoTEj52W9yTSYTleotBCQ6HzvU6gl2IJlGXLhR4odKv09clFzkBjbCfO+kUBqw=="],
 
@@ -1103,7 +1103,7 @@
 
     "hcaptcha": ["hcaptcha@0.2.0", "", {}, "sha512-x25z3RoEa9oqfyuQsgk2olc+LCNVDAJaGKUP1qFhpAybB6qjqOf4qB2y1E3LJpXDvM229JWEywc6iWnzWvGjNw=="],
 
-    "hono": ["hono@4.9.8", "", {}, "sha512-JW8Bb4RFWD9iOKxg5PbUarBYGM99IcxFl2FPBo2gSJO11jjUDqlP1Bmfyqt8Z/dGhIQ63PMA9LdcLefXyIasyg=="],
+    "hono": ["hono@4.9.9", "", {}, "sha512-Hxw4wT6zjJGZJdkJzAx9PyBdf7ZpxaTSA0NfxqjLghwMrLBX8p33hJBzoETRakF3UJu6OdNQBZAlNSkGqKFukw=="],
 
     "hosted-git-info": ["hosted-git-info@6.1.3", "", { "dependencies": { "lru-cache": "^7.5.1" } }, "sha512-HVJyzUrLIL1c0QmviVh5E8VGyUS7xCFPS6yydaVd1UegW+ibV/CohqTH9MkOLDp5o+rb82DMo77PTuc9F/8GKw=="],
 
