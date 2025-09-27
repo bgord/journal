@@ -51,15 +51,6 @@ export async function action({ request }: Route.ActionArgs) {
     return { ok: true };
   }
 
-  if (intent === "profile_avatar_update") {
-    await API("/preferences/profile-avatar/update", {
-      method: "POST",
-      body: form,
-      headers: { cookie },
-    });
-    return { ok: true };
-  }
-
   throw new Error("Intent unknown");
 }
 
