@@ -1,47 +1,26 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
-import { useRef, useState } from "react";
+import * as RR from "react-router";
+import { useEffect, useRef, useState } from "react";
 
 const ALLOWED_MIME_TYPES = ["image/png", "image/jpeg", "image/webp"] as const;
 
 export function ProfileAvatar() {
   const t = UI.useTranslations();
+  const navigation = RR.useNavigation();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [hasFileSelected, setHasFileSelected] = useState(false);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmitting =
+    navigation.state === "submitting" && navigation.formData?.get("intent") === "profile_avatar_update";
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const formElement = event.currentTarget;
-    const selectedFile = fileInputRef.current?.files?.[0];
-    if (!selectedFile) return;
-
-    const formData = new FormData();
-    formData.set("file", selectedFile, selectedFile.name);
-
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/preferences/profile-avatar/update`, {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      });
-
-      if (!response.ok) {
-        const responseText = await response.text().catch(() => "");
-        throw new Error(responseText || `Upload failed with status ${response.status}`);
-      }
-
-      if (fileInputRef.current) fileInputRef.current.value = "";
-      formElement.reset();
-    } catch {
-    } finally {
-      setIsSubmitting(false);
+  useEffect(() => {
+    if (navigation.state === "idle" && fileInputRef.current) {
+      fileInputRef.current.value = "";
+      setHasFileSelected(false);
     }
-  }
+  }, [navigation.state]);
 
   return (
     <section data-stack="y" data-gap="4">
@@ -61,7 +40,8 @@ export function ProfileAvatar() {
           data-bwb="hairline"
         />
 
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        {/* Use RR.Form to hit the route action */}
+        <RR.Form method="post" encType="multipart/form-data">
           <div data-stack="x" data-gap="3" data-cross="center">
             <label
               data-disp="flex"
@@ -78,14 +58,17 @@ export function ProfileAvatar() {
                 accept={ALLOWED_MIME_TYPES.join(",")}
                 className="c-file-explorer"
                 required
+                onChange={(e) => setHasFileSelected(Boolean(e.currentTarget.files?.length))}
               />
             </label>
+
+            <input type="hidden" name="intent" value="profile_avatar_update" />
 
             <button
               type="submit"
               className="c-button"
               data-variant="primary"
-              disabled={isSubmitting || !fileInputRef.current?.files?.length}
+              disabled={isSubmitting || !hasFileSelected}
             >
               {t("profile.avatar.upload.cta")}
             </button>
@@ -94,7 +77,7 @@ export function ProfileAvatar() {
           <div data-fs="xs" data-color="neutral-500" data-mt="2">
             {t("profile.avatar.hint")}
           </div>
-        </form>
+        </RR.Form>
       </div>
     </section>
   );
