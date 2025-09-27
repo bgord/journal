@@ -1,9 +1,12 @@
 # Changelog
+- 2025-09-27 09:10 b9ff48ba **step: update packages**
+## 2025-09-27 09:10 
+- 2025-09-26 20:26 99b548ff **refactor: disable xsubdomaincookies in auth**
 - 2025-09-26 20:03 25771fbe **refactor: adjust base url in auth**
-## 2025-09-26 20:03 
 - 2025-09-26 19:57 e92750cb **step: add crossSubDomainCookies**
 - 2025-09-26 19:44 8d6b4fb8 **fix: set base url**
 - 2025-09-26 19:44 2f8d5ede **step: update packages**
+- 2025-09-26 18:04 aa0b4a32 **docs: generate CHANGELOG**
 - 2025-09-26 17:57 0c7dc919 **docs: generate CHANGELOG**
 - 2025-09-26 17:45 25fcc6f3 **docs: generate CHANGELOG**
 - 2025-09-26 17:09 c1187f10 **fix: cookies**
