@@ -1,8 +1,14 @@
 # Changelog
+- 2025-09-30 12:19 2dde8726 **step: update fe packages**
+## 2025-09-30 12:19 
+- 2025-09-30 12:15 6efa7721 **refactor: update image dimensions**
+- 2025-09-30 12:14 cae73e4a **step: update packages**
+- 2025-09-27 09:41 1b0b687f **step: update packages**
+- 2025-09-27 09:40 b2512398 **Revert "step: update packages"**
 - 2025-09-27 09:31 02e6ea9b **step: update packages**
-## 2025-09-27 09:31 
 - 2025-09-27 09:12 090f0515 **refactor: adjust translations**
 - 2025-09-27 09:10 b9ff48ba **step: update packages**
+- 2025-09-27 07:38 4ed69f53 **docs: generate CHANGELOG**
 - 2025-09-27 07:12 c2e94ca7 **docs: generate CHANGELOG**
 - 2025-09-27 07:11 c70c955e **docs: generate CHANGELOG**
 - 2025-09-26 20:26 99b548ff **refactor: disable xsubdomaincookies in auth**
