@@ -46,8 +46,8 @@ describe(`POST ${url}`, () => {
     const temporaryFileWrite = spyOn(TemporaryFile, "write");
     const temporaryFileCleanup = spyOn(TemporaryFile, "cleanup");
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
-      width: tools.Width.parse(3100),
-      height: tools.Height.parse(3100),
+      width: tools.ImageWidth.parse(3100),
+      height: tools.ImageHeight.parse(3100),
       mime: new tools.Mime("image/png"),
       size: tools.Size.fromKb(100),
     });
@@ -63,8 +63,8 @@ describe(`POST ${url}`, () => {
     const temporaryFileWrite = spyOn(TemporaryFile, "write");
     const temporaryFileCleanup = spyOn(TemporaryFile, "cleanup");
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
-      width: tools.Width.parse(100),
-      height: tools.Height.parse(100),
+      width: tools.ImageWidth.parse(100),
+      height: tools.ImageHeight.parse(100),
       mime: new tools.Mime("image/png"),
       size: tools.Size.fromMB(100),
     });
@@ -80,8 +80,8 @@ describe(`POST ${url}`, () => {
     const temporaryFileWrite = spyOn(TemporaryFile, "write");
     const temporaryFileCleanup = spyOn(TemporaryFile, "cleanup");
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
-      width: tools.Width.parse(100),
-      height: tools.Height.parse(100),
+      width: tools.ImageWidth.parse(100),
+      height: tools.ImageHeight.parse(100),
       mime: new tools.Mime("text/plain"),
       size: tools.Size.fromKb(100),
     });
@@ -95,8 +95,8 @@ describe(`POST ${url}`, () => {
 
   test("happy path - png", async () => {
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
-      width: tools.Width.parse(100),
-      height: tools.Height.parse(100),
+      width: tools.ImageWidth.parse(100),
+      height: tools.ImageHeight.parse(100),
       mime: new tools.Mime("image/png"),
       size: tools.Size.fromKb(100),
     });
@@ -115,8 +115,8 @@ describe(`POST ${url}`, () => {
 
   test("happy path - jpeg", async () => {
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
-      width: tools.Width.parse(100),
-      height: tools.Height.parse(100),
+      width: tools.ImageWidth.parse(100),
+      height: tools.ImageHeight.parse(100),
       mime: new tools.Mime("image/jpeg"),
       size: tools.Size.fromKb(100),
     });
@@ -135,8 +135,8 @@ describe(`POST ${url}`, () => {
 
   test("happy path - webp", async () => {
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
-      width: tools.Width.parse(100),
-      height: tools.Height.parse(100),
+      width: tools.ImageWidth.parse(100),
+      height: tools.ImageHeight.parse(100),
       mime: new tools.Mime("image/jpeg"),
       size: tools.Size.fromKb(100),
     });
