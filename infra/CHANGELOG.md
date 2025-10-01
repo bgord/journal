@@ -1,8 +1,12 @@
 # Changelog
+- 2025-10-01 11:50 0d4f998a **fix: weekly review on monday to run for the previous week**
+## 2025-10-01 11:50 
+- 2025-10-01 11:23 39ce4542 **step: update fe packages**
+- 2025-10-01 11:22 6afe062a **step: update packages**
 - 2025-09-30 12:19 2dde8726 **step: update fe packages**
-## 2025-09-30 12:19 
 - 2025-09-30 12:15 6efa7721 **refactor: update image dimensions**
 - 2025-09-30 12:14 cae73e4a **step: update packages**
+- 2025-09-30 10:19 d9407c52 **docs: generate CHANGELOG**
 - 2025-09-27 09:41 1b0b687f **step: update packages**
 - 2025-09-27 09:40 b2512398 **Revert "step: update packages"**
 - 2025-09-27 09:31 02e6ea9b **step: update packages**
