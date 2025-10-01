@@ -8,8 +8,8 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@bgord/design": "1.4.4",
-    "@bgord/ui": "0.5.14",
+    "@bgord/design": "1.4.5",
+    "@bgord/ui": "0.5.15",
     "@react-router/node": "7.9.3",
     "@react-router/serve": "7.9.3",
     "iconoir-react": "7.11.0",
@@ -21,10 +21,10 @@
   "devDependencies": {
     "@julr/vite-plugin-validate-env": "2.2.0",
     "@react-router/dev": "7.9.3",
-    "@types/node": "24.6.0",
+    "@types/node": "24.6.1",
     "@types/react": "19.1.16",
     "@types/react-dom": "19.1.9",
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "vite": "7.1.7",
     "vite-tsconfig-paths": "5.1.4"
   }
