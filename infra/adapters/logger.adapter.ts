@@ -5,7 +5,8 @@ const app = "journal";
 
 const redactor = new bg.RedactorCompositeAdapter([
   new bg.RedactorMaskAdapter(bg.RedactorMaskAdapter.DEFAULT_KEYS),
-  new bg.RedactorCompactAdapter(),
+  new bg.RedactorCompactArrayAdapter(),
+  new bg.RedactorCompactObjectAdapter(),
 ]);
 
 export const LoggerWinstonLocalAdapter = new bg.LoggerWinstonLocalAdapter({ app, redactor }).create(
