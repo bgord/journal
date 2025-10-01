@@ -46,6 +46,7 @@ export const email = "user@example.com";
 export const anotherEmail = "another@example.com";
 
 export const week = tools.Week.fromNow(T0);
+export const previousWeek = week.previous();
 export const day = tools.Day.fromNow(T0);
 
 export const insights = new AI.Advice("Good job");
@@ -307,12 +308,12 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
   createdAt: T0,
-  stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
+  stream: `weekly_pattern_detection_${userId}_${previousWeek.toIsoId()}`,
   version: 1,
   name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
   payload: {
     userId,
-    weekIsoId: week.toIsoId(),
+    weekIsoId: previousWeek.toIsoId(),
     name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
   },
 } satisfies Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
@@ -445,7 +446,7 @@ export const GenericWeeklyReviewRequestedEvent = {
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
-  payload: { weekIsoId: week.toIsoId(), weeklyReviewId, userId },
+  payload: { weekIsoId: previousWeek.toIsoId(), weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewRequestedEventType;
 
 export const GenericWeeklyReviewSkippedEvent = {
@@ -455,7 +456,7 @@ export const GenericWeeklyReviewSkippedEvent = {
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
-  payload: { weekIsoId: week.toIsoId(), userId },
+  payload: { weekIsoId: previousWeek.toIsoId(), userId },
 } satisfies Emotions.Events.WeeklyReviewSkippedEventType;
 
 export const GenericWeeklyReviewCompletedEvent = {
@@ -465,7 +466,7 @@ export const GenericWeeklyReviewCompletedEvent = {
   stream: expect.any(String),
   version: 1,
   name: "WEEKLY_REVIEW_COMPLETED_EVENT",
-  payload: { insights: insights.get(), weeklyReviewId, weekIsoId: week.toIsoId(), userId },
+  payload: { insights: insights.get(), weeklyReviewId, weekIsoId: previousWeek.toIsoId(), userId },
 } satisfies Emotions.Events.WeeklyReviewCompletedEventType;
 
 export const GenericWeeklyReviewFailedEvent = {
@@ -475,7 +476,7 @@ export const GenericWeeklyReviewFailedEvent = {
   stream: expect.any(String),
   version: 1,
   name: "WEEKLY_REVIEW_FAILED_EVENT",
-  payload: { weekIsoId: week.toIsoId(), weeklyReviewId, userId },
+  payload: { weekIsoId: previousWeek.toIsoId(), weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
 
 export const GenericWeeklyReviewExportByEmailRequestedEvent = {

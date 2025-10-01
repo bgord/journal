@@ -27,7 +27,7 @@ export class WeeklyReviewScheduler {
   async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     if (Emotions.Invariants.WeeklyReviewSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
-    const week = tools.Week.fromNow(event.payload.timestamp);
+    const week = tools.Week.fromNow(event.payload.timestamp).previous();
 
     const userIds = await this.deps.UserDirectory.listActiveUserIds();
 

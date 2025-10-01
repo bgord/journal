@@ -40,7 +40,7 @@ describe("WeeklyReviewProcessing", () => {
       from: Env.EMAIL_FROM,
       to: mocks.email,
       subject: "Weekly Review - come back and journal",
-      html: `Week you missed ${mocks.week.getStart()}`,
+      html: `Week you missed ${mocks.previousWeek.getStart()}`,
     });
   });
 

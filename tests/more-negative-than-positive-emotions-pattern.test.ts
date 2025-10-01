@@ -12,7 +12,7 @@ describe("MoreNegativeThanPositiveEmotionsPattern", () => {
       const result = new Emotions.Services.PatternDetector(deps).detect({
         entries: [mocks.negativeEmotionEntry, mocks.negativeEmotionEntry, mocks.positiveEmotionEntry],
         patterns: [Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern],
-        week: mocks.week,
+        week: mocks.previousWeek,
         userId: mocks.userId,
       });
       expect(result).toEqual([mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent]);

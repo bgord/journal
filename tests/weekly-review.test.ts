@@ -17,7 +17,7 @@ describe("WeeklyReview", () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
         mocks.weeklyReviewId,
-        mocks.week,
+        mocks.previousWeek,
         mocks.userId,
         deps,
       );
