@@ -39,7 +39,7 @@ server.use(
       maxAge: 86400,
     },
     secureHeaders: { crossOriginResourcePolicy: "cross-origin" },
-    httpLogger: { skip: ["/translations"] },
+    httpLogger: { skip: ["/translations", "/profile-avatar/get", "/api/auth/get-session"] },
   }),
 );
 
