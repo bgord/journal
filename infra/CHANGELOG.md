@@ -1,8 +1,10 @@
 # Changelog
+- 2025-10-01 22:22 31d64627 **step: skip profile avatar and get-session logs**
+## 2025-10-01 22:22 
 - 2025-10-01 22:08 830e7a38 **step: skip translations in logs**
-## 2025-10-01 22:08 
 - 2025-10-01 22:06 8266469c **step: update packages**
 - 2025-10-01 22:06 0b0e57d0 **refactor: rename redactors**
+- 2025-10-01 20:08 3b2347cd **docs: generate CHANGELOG**
 - 2025-10-01 11:56 202bf48d **step: remove codeql analysis**
 - 2025-10-01 11:50 0d4f998a **fix: weekly review on monday to run for the previous week**
 - 2025-10-01 11:23 39ce4542 **step: update fe packages**
