@@ -17,12 +17,11 @@ export const LoggerWinstonProductionAdapter = new bg.LoggerWinstonProductionAdap
   app,
   AXIOM_API_TOKEN: Env.AXIOM_API_TOKEN,
   redactor,
-});
+}).create(Env.LOGS_LEVEL);
 
 export const Logger: bg.LoggerPort = {
   [bg.NodeEnvironmentEnum.local]: LoggerWinstonLocalAdapter,
   [bg.NodeEnvironmentEnum.test]: new bg.LoggerNoopAdapter(),
   [bg.NodeEnvironmentEnum.staging]: new bg.LoggerNoopAdapter(),
-  //TODO
-  [bg.NodeEnvironmentEnum.production]: LoggerWinstonLocalAdapter,
+  [bg.NodeEnvironmentEnum.production]: LoggerWinstonProductionAdapter,
 }[Env.type];
