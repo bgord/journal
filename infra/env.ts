@@ -13,7 +13,6 @@ export enum MailerAdapter {
   noop = "noop",
 }
 
-// TODO: Extract known API keys to bgord/bun schema
 const EnvironmentSchema = z
   .object({
     PORT: bg.Port,
