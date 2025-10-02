@@ -1,11 +1,14 @@
 # Changelog
+- 2025-10-02 14:51 a227e196 **step: update packages**
+## 2025-10-02 14:51 
+- 2025-10-02 12:15 0717ed6b **refactor: remove todos**
 - 2025-10-02 10:55 e3f67c7a **step: bump bgord/scripts**
-## 2025-10-02 10:55 
 - 2025-10-02 10:53 56aaffa2 **fix: logger prereq**
 - 2025-10-02 10:50 c8b354de **step: bump bgord/scripts**
 - 2025-10-02 10:48 4e9ed894 **step: update fe packages**
 - 2025-10-02 10:46 76638c32 **step: update packages**
 - 2025-10-02 10:30 c7b6dbd4 **fix: restore the production logger**
+- 2025-10-02 08:55 28d01ec4 **docs: generate CHANGELOG**
 - 2025-10-01 22:22 31d64627 **step: skip profile avatar and get-session logs**
 - 2025-10-01 22:08 830e7a38 **step: skip translations in logs**
 - 2025-10-01 22:06 8266469c **step: update packages**
