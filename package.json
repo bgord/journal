@@ -13,7 +13,7 @@
   "author": "Bartosz Gordon",
   "license": "ISC",
   "devDependencies": {
-    "@biomejs/biome": "2.2.4",
+    "@biomejs/biome": "2.2.5",
     "@commitlint/cli": "20.1.0",
     "@commitlint/config-conventional": "20.0.0",
     "@playwright/test": "1.55.1",
@@ -32,7 +32,7 @@
     "@bgord/bun": "0.29.9",
     "@react-pdf/renderer": "4.3.1",
     "better-sqlite3": "12.4.1",
-    "drizzle-orm": "0.44.5",
+    "drizzle-orm": "0.44.6",
     "emittery": "1.2.0",
     "node-cache": "5.1.2",
     "openai": "6.0.1",
