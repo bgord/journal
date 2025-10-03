@@ -1,6 +1,9 @@
 # Changelog
+- 2025-10-03 11:50 5cd0f490 **refactor: adjust shcedules**
+## 2025-10-03 11:50 
+- 2025-10-03 11:49 402961af **step: update packages**
 - 2025-10-02 14:51 a227e196 **step: update packages**
-## 2025-10-02 14:51 
+- 2025-10-02 12:52 b1fd74e6 **docs: generate CHANGELOG**
 - 2025-10-02 12:15 0717ed6b **refactor: remove todos**
 - 2025-10-02 10:55 e3f67c7a **step: bump bgord/scripts**
 - 2025-10-02 10:53 56aaffa2 **fix: logger prereq**
