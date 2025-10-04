@@ -20,7 +20,7 @@
     "@types/bun": "1.2.23",
     "@types/lodash": "4.17.20",
     "cspell": "9.2.1",
-    "dependency-cruiser": "17.0.1",
+    "dependency-cruiser": "17.0.2",
     "drizzle-kit": "0.31.5",
     "knip": "5.64.1",
     "lefthook": "1.13.6",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.65.0",
-    "@bgord/bun": "0.29.10",
+    "@bgord/bun": "0.29.12",
     "@react-pdf/renderer": "4.3.1",
     "better-sqlite3": "12.4.1",
     "drizzle-orm": "0.44.6",
