@@ -23,7 +23,7 @@ export class ShareableLink {
   public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);
   private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.active;
   private createdAt?: tools.TimestampType;
-  private duration?: tools.TimeResult;
+  private duration?: tools.TimeResultInterface;
   private dateRange?: tools.DateRange;
   private publicationSpecification?: VO.PublicationSpecificationType;
 
@@ -52,7 +52,7 @@ export class ShareableLink {
     id: VO.ShareableLinkIdType,
     publicationSpecification: VO.PublicationSpecificationType,
     dateRange: tools.DateRange,
-    duration: tools.TimeResult,
+    duration: tools.TimeResultInterface,
     requesterId: Auth.VO.UserIdType,
     deps: Dependencies,
   ) {
