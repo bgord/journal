@@ -20,7 +20,7 @@ export class Entry {
   ];
 
   readonly id: Emotions.VO.EntryIdType;
-  public revision: tools.Revision = new tools.Revision(tools.Revision.initial);
+  public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);
   private userId?: Auth.VO.UserIdType;
   private situation?: Emotions.Entities.Situation;
   private emotion?: Emotions.Entities.Emotion;
