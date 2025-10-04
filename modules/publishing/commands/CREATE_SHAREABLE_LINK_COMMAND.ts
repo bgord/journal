@@ -14,7 +14,7 @@ export const CreateShareableLinkCommand = z.object({
     requesterId: Auth.VO.UserId,
     publicationSpecification: VO.PublicationSpecification,
     dateRange: z.instanceof(tools.DateRange),
-    duration: z.instanceof(tools.TimeResult),
+    durationMs: tools.Timestamp,
   }),
 });
 

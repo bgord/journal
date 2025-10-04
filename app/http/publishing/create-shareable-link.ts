@@ -18,7 +18,6 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _ne
   );
 
   const durationMs = tools.Timestamp.parse(Number(body.durationMs));
-  const duration = tools.Time.Ms(durationMs);
 
   const dateRangeStart = tools.Timestamp.parse(Number(body.dateRangeStart) + timeZoneOffsetMs);
   const dateRangeEnd = tools.Timestamp.parse(Number(body.dateRangeEnd) + timeZoneOffsetMs);
@@ -33,7 +32,7 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _ne
     payload: {
       shareableLinkId,
       requesterId: user.id,
-      duration,
+      durationMs,
       publicationSpecification,
       dateRange,
     },

@@ -12,14 +12,14 @@ class ShareableLinkExpirationTimePassedError extends Error {
 type ShareableLinkExpirationTimePassedConfigType = {
   now: number;
   createdAt?: tools.TimestampType;
-  duration?: tools.TimeResultInterface;
+  durationMs?: tools.TimestampType;
 };
 
 class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLinkExpirationTimePassedConfigType> {
   fails(config: ShareableLinkExpirationTimePassedConfigType) {
     if (!config.createdAt) return true;
-    if (!config.duration) return true;
-    return config.createdAt + config.duration.ms > config.now;
+    if (!config.durationMs) return true;
+    return config.createdAt + config.durationMs > config.now;
   }
 
   message = "ShareableLinkExpirationTimePassed";

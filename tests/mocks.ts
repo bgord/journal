@@ -85,7 +85,7 @@ export const anotherPublicationSpecification = "other";
 
 export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Timestamp.parse(1000));
 
-export const duration = tools.Time.Seconds(1);
+export const durationMs = tools.Time.Seconds(1).ms;
 
 const client = bg.Client.from(ip.server.requestIP().address, "anon");
 export const visitorId = new bg.VisitorIdHash(client);
@@ -525,7 +525,7 @@ export const GenericShareableLinkCreatedEvent = {
     shareableLinkId,
     ownerId: userId,
     publicationSpecification,
-    durationMs: duration.ms as tools.TimestampType,
+    durationMs,
     dateRangeStart: dateRange.getStart(),
     dateRangeEnd: dateRange.getEnd(),
     createdAt: shareableLinkCreatedAt,

@@ -23,7 +23,7 @@ export class ShareableLink {
   public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);
   private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.active;
   private createdAt?: tools.TimestampType;
-  private duration?: tools.TimeResultInterface;
+  private durationMs?: tools.TimestampType;
   private dateRange?: tools.DateRange;
   private publicationSpecification?: VO.PublicationSpecificationType;
 
@@ -52,7 +52,7 @@ export class ShareableLink {
     id: VO.ShareableLinkIdType,
     publicationSpecification: VO.PublicationSpecificationType,
     dateRange: tools.DateRange,
-    duration: tools.TimeResultInterface,
+    durationMs: tools.TimestampType,
     requesterId: Auth.VO.UserIdType,
     deps: Dependencies,
   ) {
@@ -67,7 +67,7 @@ export class ShareableLink {
         dateRangeStart: dateRange.getStart(),
         dateRangeEnd: dateRange.getEnd(),
         publicationSpecification,
-        durationMs: tools.Timestamp.parse(duration.ms),
+        durationMs: tools.Timestamp.parse(durationMs),
         createdAt: deps.Clock.nowMs(),
       },
     } satisfies Events.ShareableLinkCreatedEventType);
@@ -80,7 +80,7 @@ export class ShareableLink {
   expire() {
     Invariants.ShareableLinkIsActive.perform({ status: this.status });
     Invariants.ShareableLinkExpirationTimePassed.perform({
-      duration: this.duration,
+      durationMs: this.durationMs,
       now: this.deps.Clock.nowMs(),
       createdAt: this.createdAt,
     });
@@ -117,7 +117,7 @@ export class ShareableLink {
   isEmpty(): boolean {
     return !(
       this.createdAt &&
-      this.duration &&
+      this.durationMs &&
       this.ownerId &&
       this.dateRange &&
       this.publicationSpecification
@@ -150,7 +150,7 @@ export class ShareableLink {
     switch (event.name) {
       case Events.SHAREABLE_LINK_CREATED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.duration = tools.Time.Ms(event.payload.durationMs);
+        this.durationMs = event.payload.durationMs;
         this.createdAt = tools.Timestamp.parse(event.payload.createdAt);
         this.ownerId = event.payload.ownerId;
         this.status = VO.ShareableLinkStatusEnum.active;

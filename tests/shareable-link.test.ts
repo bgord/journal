@@ -35,7 +35,7 @@ describe("ShareableLink", () => {
         mocks.shareableLinkId,
         mocks.publicationSpecification,
         mocks.dateRange,
-        mocks.duration,
+        mocks.durationMs,
         mocks.userId,
         deps,
       );

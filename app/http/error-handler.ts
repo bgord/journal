@@ -70,7 +70,7 @@ export class ErrorHandler {
       return c.json({ message: "unsupported.language", _known: true }, 400);
     }
 
-    if (error.message === "Invalid date range") {
+    if (error.message === tools.DateRangeInvalidError) {
       return c.json({ message: "invalid.date.range", _known: true }, 400);
     }
 

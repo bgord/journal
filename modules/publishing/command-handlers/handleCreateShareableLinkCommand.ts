@@ -20,7 +20,7 @@ export const handleCreateShareableLinkCommand =
       command.payload.shareableLinkId,
       command.payload.publicationSpecification,
       command.payload.dateRange,
-      command.payload.duration,
+      command.payload.durationMs,
       command.payload.requesterId,
       deps,
     );

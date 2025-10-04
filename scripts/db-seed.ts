@@ -261,7 +261,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         tools.Time.Now(currentMs).Minus(tools.Time.Days(7)).ms as tools.TimestampType,
         deps.Clock.nowMs(),
       ),
-      tools.Time.Days(3),
+      tools.Time.Days(3).ms,
       users[0]?.user.id as Auth.VO.UserIdType,
       deps,
     );
