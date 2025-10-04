@@ -16,7 +16,7 @@ type Dependencies = {
 
 export const handleUpdateProfileAvatarCommand =
   (deps: Dependencies) => async (command: Preferences.Commands.UpdateProfileAvatarCommandType) => {
-    const extension = tools.ExtensionSchema.parse("webp");
+    const extension = tools.Extension.parse("webp");
     const temporary = tools.FilePathAbsolute.fromString(command.payload.absoluteFilePath);
 
     const info = await deps.ImageInfo.inspect(temporary);
