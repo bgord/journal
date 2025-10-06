@@ -170,8 +170,6 @@
   "entry.situation.kind.value.unexpected_change": "niespodziewana zmiana",
   "entry.situation.kind.value.waiting": "oczekiwanie",
   "entry.situation.kind.value.work": "praca",
-  "entry.situation.location.label": "Lokalizacja",
-  "entry.situation.location.placeholder": "Dom",
   "entry.situation.logged": "Dodano sytuację",
   "entry.situation.value": "SYTUACJA",
   "pattern.LowCopingEffectivenessPattern.name": "Niska skuteczność radzenia sobie",

@@ -69,18 +69,6 @@ export function Entry(props: EntryType) {
             {t("entry.situation.description.label")}
           </div>
 
-          <div
-            data-stack="x"
-            data-cross="center"
-            data-gap="2"
-            data-ml="auto"
-            data-color="neutral-300"
-            data-fs="sm"
-          >
-            <Icons.MapPin data-size="sm" data-color="brand-300" />
-            {props.situationLocation}
-          </div>
-
           <div className="c-badge" data-variant="outline">
             {t(`entry.situation.kind.value.${props.situationKind}`)}
           </div>

@@ -12,7 +12,6 @@ const url = "/entry/log";
 
 const situation = {
   situationDescription: mocks.GenericSituationLoggedEvent.payload.description,
-  situationLocation: mocks.GenericSituationLoggedEvent.payload.location,
   situationKind: mocks.GenericSituationLoggedEvent.payload.kind,
 };
 
@@ -37,21 +36,6 @@ describe("POST /entry/log", () => {
       message: Emotions.VO.SituationDescription.Errors.invalid,
       _known: true,
     });
-  });
-
-  test("situation - validation - missing kind and location", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
-    const response = await server.request(
-      url,
-      {
-        method: "POST",
-        body: JSON.stringify({ situationDescription: "Something happened" }),
-      },
-      mocks.ip,
-    );
-    const json = await response.json();
-    expect(response.status).toBe(400);
-    expect(json).toEqual({ message: Emotions.VO.SituationLocation.Errors.invalid, _known: true });
   });
 
   test("situation - validation - missing kind", async () => {

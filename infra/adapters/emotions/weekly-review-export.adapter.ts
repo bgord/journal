@@ -15,7 +15,6 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
           columns: {
             id: true,
             situationDescription: true,
-            situationLocation: true,
             situationKind: true,
             emotionLabel: true,
             emotionIntensity: true,

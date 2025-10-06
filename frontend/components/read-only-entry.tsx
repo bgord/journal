@@ -34,10 +34,6 @@ export function ReadOnlyEntry(props: EntryType) {
             {t("entry.situation.description.label")}
           </div>
 
-          <div data-ml="auto" data-color="neutral-300" data-fs="sm">
-            @{props.situationLocation}
-          </div>
-
           <div className="c-badge" data-variant="outline">
             {t(`entry.situation.kind.value.${props.situationKind}`)}
           </div>

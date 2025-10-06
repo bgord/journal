@@ -61,7 +61,6 @@ export class Entry {
       payload: {
         entryId: id,
         description: situation.description.get(),
-        location: situation.location.get(),
         kind: situation.kind.get(),
         userId: requesterId,
         origin,
@@ -177,7 +176,6 @@ export class Entry {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.situation = new Emotions.Entities.Situation(
           new Emotions.VO.SituationDescription(event.payload.description),
-          new Emotions.VO.SituationLocation(event.payload.location),
           new Emotions.VO.SituationKind(event.payload.kind),
         );
         break;

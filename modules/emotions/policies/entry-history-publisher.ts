@@ -42,11 +42,7 @@ export class EntryHistoryPublisher {
     await this.deps.HistoryWriter.populate({
       operation: "entry.situation.logged",
       subject: event.payload.entryId,
-      payload: {
-        kind: event.payload.kind,
-        description: event.payload.description,
-        location: event.payload.location,
-      },
+      payload: { kind: event.payload.kind, description: event.payload.description },
     });
   }
 

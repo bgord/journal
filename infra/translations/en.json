@@ -170,8 +170,6 @@
   "entry.situation.kind.value.unexpected_change": "unexpected change",
   "entry.situation.kind.value.waiting": "waiting",
   "entry.situation.kind.value.work": "work",
-  "entry.situation.location.label": "Location",
-  "entry.situation.location.placeholder": "Home",
   "entry.situation.logged": "Situation logged",
   "entry.situation.value": "SITUATION",
   "pattern.LowCopingEffectivenessPattern.name": "Low coping effectiveness",

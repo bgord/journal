@@ -5,7 +5,6 @@ export type WeeklyReviewExportDto = VO.WeeklyReviewSnapshot & {
     VO.EntrySnapshot,
     | "id"
     | "situationDescription"
-    | "situationLocation"
     | "situationKind"
     | "emotionLabel"
     | "emotionIntensity"

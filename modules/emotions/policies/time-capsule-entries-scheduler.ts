@@ -40,7 +40,6 @@ export class TimeCapsuleEntriesScheduler {
           entryId: entry.id,
           situation: new Emotions.Entities.Situation(
             new Emotions.VO.SituationDescription(entry.situationDescription),
-            new Emotions.VO.SituationLocation(entry.situationLocation),
             new Emotions.VO.SituationKind(entry.situationKind as Emotions.VO.SituationKindOptions),
           ),
           emotion: new Emotions.Entities.Emotion(

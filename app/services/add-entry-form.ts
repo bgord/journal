@@ -5,7 +5,6 @@ import { ReactionEffectiveness } from "../../modules/emotions/value-objects/reac
 import { ReactionType } from "../../modules/emotions/value-objects/reaction-type";
 import { SituationDescription } from "../../modules/emotions/value-objects/situation-description";
 import { SituationKind } from "../../modules/emotions/value-objects/situation-kind";
-import { SituationLocation } from "../../modules/emotions/value-objects/situation-location";
 
 export type * as types from "../../modules/emotions/value-objects";
 
@@ -16,10 +15,6 @@ export class AddEntryForm {
       situationDescription: {
         min: SituationDescription.MinimumLength,
         max: SituationDescription.MaximumLength,
-      },
-      situationLocation: {
-        min: SituationLocation.MinimumLength,
-        max: SituationLocation.MaximumLength,
       },
       situationKinds: SituationKind.all(),
       emotionLabels: EmotionLabel.all(),

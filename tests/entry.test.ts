@@ -9,7 +9,6 @@ const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 const situation = new Emotions.Entities.Situation(
   new Emotions.VO.SituationDescription("I finished a project"),
-  new Emotions.VO.SituationLocation("work"),
   new Emotions.VO.SituationKind(Emotions.VO.SituationKindOptions.achievement),
 );
 

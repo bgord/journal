@@ -10,7 +10,6 @@ import type { ReactionDescriptionType } from "./reaction-description";
 import type { ReactionEffectivenessType } from "./reaction-effectiveness";
 import type { SituationDescriptionType } from "./situation-description";
 import type { SituationKindOptions } from "./situation-kind-options";
-import type { SituationLocationType } from "./situation-location";
 
 export type EntrySnapshot = {
   revision: tools.RevisionValueType;
@@ -19,7 +18,6 @@ export type EntrySnapshot = {
   id: EntryIdType;
   situationDescription: SituationDescriptionType;
   situationKind: SituationKindOptions;
-  situationLocation: SituationLocationType;
   emotionLabel: GenevaWheelEmotion | null;
   emotionIntensity: EmotionIntensityType | null;
   reactionDescription: ReactionDescriptionType | null;

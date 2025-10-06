@@ -11,7 +11,6 @@ export const SituationLoggedEvent = z.object({
   payload: z.object({
     entryId: VO.EntryId,
     description: VO.SituationDescriptionSchema,
-    location: VO.SituationLocationSchema,
     kind: VO.SituationKindSchema,
     userId: Auth.VO.UserId,
     origin: VO.EntryOrigin,

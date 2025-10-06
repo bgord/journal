@@ -20,7 +20,6 @@ export function AddEntry() {
   const timeCapsuleMode = UI.useToggle({ name: "time-capsule-mode" });
 
   const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situation-description" });
-  const situationLocation = UI.useField<types.SituationLocationType>({ name: "situation-location" });
   const situationKind = UI.useField<types.SituationKindType>({ name: "situation-kind" });
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
@@ -41,7 +40,6 @@ export function AddEntry() {
 
   const payload = {
     situationDescription: situationDescription.value,
-    situationLocation: situationLocation.value,
     situationKind: situationKind.value,
     emotionLabel: emotionLabel.value,
     emotionIntensity: emotionIntensity.value,
@@ -107,17 +105,6 @@ export function AddEntry() {
                 </option>
               ))}
             </Select>
-
-            <div data-stack="x" data-cross="center" data-gap="2">
-              <Icons.MapPin data-size="md" data-color="neutral-400" />
-
-              <input
-                className="c-input"
-                placeholder={t("entry.situation.location.placeholder")}
-                {...situationLocation.input.props}
-                {...UI.Form.inputPattern(loader.form.situationLocation)}
-              />
-            </div>
           </div>
 
           <Separator />

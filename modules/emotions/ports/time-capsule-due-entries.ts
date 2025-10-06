@@ -8,7 +8,6 @@ export type TimeCapsuleEntrySnapshot = {
   scheduledFor: tools.TimestampType;
   status: VO.TimeCapsuleEntryStatusEnum;
   situationDescription: VO.SituationDescriptionType;
-  situationLocation: VO.SituationLocationType;
   situationKind: VO.SituationKindOptions;
   emotionLabel: VO.GenevaWheelEmotion;
   emotionIntensity: VO.EmotionIntensityType;

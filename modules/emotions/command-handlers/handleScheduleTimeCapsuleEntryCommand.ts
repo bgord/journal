@@ -25,7 +25,6 @@ export const handleScheduleTimeCapsuleEntryCommand =
         entryId: command.payload.entryId,
         situation: {
           description: command.payload.situation.description.get(),
-          location: command.payload.situation.location.get(),
           kind: command.payload.situation.kind.get(),
         },
         emotion: {

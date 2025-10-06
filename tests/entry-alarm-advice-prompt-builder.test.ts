@@ -15,7 +15,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
 
     expect(builder.generate()).toEqual(
       new AI.Prompt(
-        "Here is a summary of an entry from my AI journal app, it triggered an NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM alarm. Situation (achievement): I finished a project, at work. Emotion: anger, intensity 5/5. As a compassionate mental health coach, please suggest two brief coping strategies for this situation.",
+        "Here is a summary of an entry from my AI journal app, it triggered an NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM alarm. Situation (achievement): I finished a project. Emotion: anger, intensity 5/5. As a compassionate mental health coach, please suggest two brief coping strategies for this situation.",
       ),
     );
   });
@@ -29,7 +29,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
 
     expect(builder.generate()).toEqual(
       new AI.Prompt(
-        "Here is a summary of an entry from my AI journal app, it triggered an NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM alarm. Situation (achievement): I finished a project, at work. Emotion: anger, intensity 5/5. Reaction (avoidance): Got drunk, intensity 1/5. As a compassionate mental health coach, please suggest two brief coping strategies for this situation.",
+        "Here is a summary of an entry from my AI journal app, it triggered an NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM alarm. Situation (achievement): I finished a project. Emotion: anger, intensity 5/5. Reaction (avoidance): Got drunk, intensity 1/5. As a compassionate mental health coach, please suggest two brief coping strategies for this situation.",
       ),
     );
   });
@@ -43,7 +43,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
 
     expect(builder.generate()).toEqual(
       new AI.Prompt(
-        "Oto podsumowanie wpisu z mojej aplikacji dziennika AI, który wywołał alarm NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM. Sytuacja (achievement): I finished a project, w work. Emocja: anger, intensywność 5/5. Jako współczujący coach zdrowia psychicznego, proszę, zasugeruj dwie krótkie strategie radzenia sobie z tą sytuacją.",
+        "Oto podsumowanie wpisu z mojej aplikacji dziennika AI, który wywołał alarm NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM. Sytuacja (achievement): I finished a project. Emocja: anger, intensywność 5/5. Jako współczujący coach zdrowia psychicznego, proszę, zasugeruj dwie krótkie strategie radzenia sobie z tą sytuacją.",
       ),
     );
   });
@@ -57,7 +57,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
 
     expect(builder.generate()).toEqual(
       new AI.Prompt(
-        "Oto podsumowanie wpisu z mojej aplikacji dziennika AI, który wywołał alarm NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM. Sytuacja (achievement): I finished a project, w work. Emocja: anger, intensywność 5/5. Reakcja (avoidance): Got drunk, skuteczność 1/5. Jako współczujący coach zdrowia psychicznego, proszę, zasugeruj dwie krótkie strategie radzenia sobie z tą sytuacją.",
+        "Oto podsumowanie wpisu z mojej aplikacji dziennika AI, który wywołał alarm NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM. Sytuacja (achievement): I finished a project. Emocja: anger, intensywność 5/5. Reakcja (avoidance): Got drunk, skuteczność 1/5. Jako współczujący coach zdrowia psychicznego, proszę, zasugeruj dwie krótkie strategie radzenia sobie z tą sytuacją.",
       ),
     );
   });

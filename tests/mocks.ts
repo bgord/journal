@@ -144,7 +144,6 @@ export const GenericSituationLoggedEvent = {
     entryId,
     description: "I finished a project",
     kind: Emotions.VO.SituationKindOptions.achievement,
-    location: "work",
     userId,
     origin: Emotions.VO.EntryOriginOption.web,
   },
@@ -270,15 +269,8 @@ export const GenericTimeCapsuleEntryScheduledEvent = {
   payload: {
     entryId,
     userId,
-    situation: {
-      description: "I finished a project",
-      kind: Emotions.VO.SituationKindOptions.achievement,
-      location: "work",
-    },
-    emotion: {
-      label: Emotions.VO.GenevaWheelEmotion.gratitude,
-      intensity: 3,
-    },
+    situation: { description: "I finished a project", kind: Emotions.VO.SituationKindOptions.achievement },
+    emotion: { label: Emotions.VO.GenevaWheelEmotion.gratitude, intensity: 3 },
     reaction: {
       description: "Got drunk",
       type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
@@ -693,7 +685,6 @@ export const GenericEntryHistorySituationLoggedEvent = {
     payload: {
       description: "I finished a project",
       kind: Emotions.VO.SituationKindOptions.achievement,
-      location: "work",
     },
   },
 } satisfies bg.History.Events.HistoryPopulatedEventType;
@@ -839,7 +830,6 @@ export const partialEntry: Emotions.VO.EntrySnapshot = {
   id: entryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
-  situationLocation: "work",
   emotionLabel: Emotions.VO.GenevaWheelEmotion.anger,
   emotionIntensity: 5,
   reactionDescription: null,
@@ -857,7 +847,6 @@ export const fullEntry: Emotions.VO.EntrySnapshot = {
   id: entryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
-  situationLocation: "work",
   emotionLabel: Emotions.VO.GenevaWheelEmotion.anger,
   emotionIntensity: 5,
   reactionDescription: "Got drunk",
@@ -873,7 +862,6 @@ export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
   id: entryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
-  situationLocation: "work",
   emotionLabel: Emotions.VO.GenevaWheelEmotion.gratitude,
   emotionIntensity: 3,
   reactionDescription: "Got drunk",

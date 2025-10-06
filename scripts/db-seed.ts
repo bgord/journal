@@ -46,7 +46,6 @@ const situationDescriptions = [
   "I was suddenly asked to explain a complex topic in front of unfamiliar executives without any preparation, leading to visible stress and hesitation",
 ];
 const situationKinds = Object.keys(Emotions.VO.SituationKindOptions);
-const situationLocations = ["Home", "Office", "Park", "Restaurant", "Car"];
 
 const emotionLabels = Object.keys(Emotions.VO.GenevaWheelEmotion);
 
@@ -176,7 +175,6 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         new Emotions.VO.SituationDescription(
           situationDescriptions[counter % situationDescriptions.length] as string,
         ),
-        new Emotions.VO.SituationLocation(situationLocations[counter % situationLocations.length] as string),
         new Emotions.VO.SituationKind(
           situationKinds[counter % situationKinds.length] as Emotions.VO.SituationKindOptions,
         ),
@@ -221,7 +219,6 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         entryId: Adapters.IdProvider.generate(),
         situation: new Emotions.Entities.Situation(
           new Emotions.VO.SituationDescription(situationDescriptions[0] as string),
-          new Emotions.VO.SituationLocation(situationLocations[0] as string),
           new Emotions.VO.SituationKind(situationKinds[0] as Emotions.VO.SituationKindOptions),
         ),
         emotion: new Emotions.Entities.Emotion(

@@ -10,7 +10,7 @@ const content: Record<
   [SupportedLanguages.en]: (entry: Emotions.VO.EntrySnapshot, alarmName: Emotions.VO.AlarmNameOption) => {
     let content = `Here is a summary of an entry from my AI journal app, it triggered an ${alarmName} alarm. `;
 
-    content += `Situation (${entry.situationKind}): ${entry.situationDescription}, at ${entry.situationLocation}. `;
+    content += `Situation (${entry.situationKind}): ${entry.situationDescription}. `;
     content += `Emotion: ${entry.emotionLabel}, intensity ${entry.emotionIntensity}/5. `;
     if (entry.reactionType) {
       content += `Reaction (${entry.reactionType}): ${entry.reactionDescription}, intensity ${entry.reactionEffectiveness}/5. `;
@@ -25,7 +25,7 @@ const content: Record<
   [SupportedLanguages.pl]: (entry: Emotions.VO.EntrySnapshot, alarmName: Emotions.VO.AlarmNameOption) => {
     let content = `Oto podsumowanie wpisu z mojej aplikacji dziennika AI, który wywołał alarm ${alarmName}. `;
 
-    content += `Sytuacja (${entry.situationKind}): ${entry.situationDescription}, w ${entry.situationLocation}. `;
+    content += `Sytuacja (${entry.situationKind}): ${entry.situationDescription}. `;
     content += `Emocja: ${entry.emotionLabel}, intensywność ${entry.emotionIntensity}/5. `;
     if (entry.reactionType) {
       content += `Reakcja (${entry.reactionType}): ${entry.reactionDescription}, skuteczność ${entry.reactionEffectiveness}/5. `;

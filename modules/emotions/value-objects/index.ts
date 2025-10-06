@@ -26,7 +26,6 @@ export * from "./reaction-type";
 export * from "./situation-description";
 export * from "./situation-kind";
 export * from "./situation-kind-options";
-export * from "./situation-location";
 export * from "./time-capsule-entry-status";
 export * from "./weekly-review-export-id";
 export * from "./weekly-review-id";

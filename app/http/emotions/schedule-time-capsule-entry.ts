@@ -17,7 +17,6 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
 
   const situation = new Emotions.Entities.Situation(
     new Emotions.VO.SituationDescription(body.situationDescription),
-    new Emotions.VO.SituationLocation(body.situationLocation),
     new Emotions.VO.SituationKind(body.situationKind),
   );
 
