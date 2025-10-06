@@ -1,6 +1,9 @@
 # Changelog
+- 2025-10-06 12:31 0eedfa2e **refactor: remove situation location**
+## 2025-10-06 12:31 
+- 2025-10-06 12:17 7621a081 **refactor: remove situation location from db schema**
 - 2025-10-06 12:12 b253852b **fix: deploy from scratch**
-## 2025-10-06 12:12 
+- 2025-10-06 10:13 4596aee1 **docs: generate CHANGELOG**
 - 2025-10-06 10:12 a4a68d85 **refactor: restore sync package.json step**
 - 2025-10-06 10:06 fe215b11 **step: update packages**
 - 2025-10-06 10:05 9be48d09 **refactor: restore build prechecks**
