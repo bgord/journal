@@ -1,7 +1,18 @@
 # Changelog
+- 2025-10-06 09:44 14c25e2c **refactor: adjust durations**
+## 2025-10-06 09:44 
+- 2025-10-06 09:32 81e89611 **step: update packages**
+- 2025-10-05 00:12 7aa77744 **refactor: use durationMs for shareable links**
+- 2025-10-04 19:44 d958d6cf **fix: time result interface**
+- 2025-10-04 19:43 3bd98414 **fix: basename schema variable name**
+- 2025-10-04 19:42 cba520d8 **fix: extension schema variable name**
+- 2025-10-04 19:42 59773671 **fix: revision initial**
+- 2025-10-04 19:40 c7ee2cdc **step: update packages**
+- 2025-10-04 19:25 c2eb8b32 **step: update fe packages**
+- 2025-10-04 19:24 f5455df2 **step: update packages**
 - 2025-10-03 11:50 5cd0f490 **refactor: adjust shcedules**
-## 2025-10-03 11:50 
 - 2025-10-03 11:49 402961af **step: update packages**
+- 2025-10-03 09:50 b17e9d5b **docs: generate CHANGELOG**
 - 2025-10-02 14:51 a227e196 **step: update packages**
 - 2025-10-02 12:52 b1fd74e6 **docs: generate CHANGELOG**
 - 2025-10-02 12:15 0717ed6b **refactor: remove todos**
