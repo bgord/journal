@@ -248,7 +248,6 @@ modules/
 │       ├── situation-description.ts
 │       ├── situation-kind-options.ts
 │       ├── situation-kind.ts
-│       ├── situation-location.ts
 │       ├── time-capsule-entry-status.ts
 │       ├── weekly-review-export-id.ts
 │       ├── weekly-review-id.ts
