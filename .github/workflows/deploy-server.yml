@@ -73,6 +73,9 @@ jobs:
       - name: Install react-router
         run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install react-router"
 
+      - name: Sync package.json
+        run: rsync -azP package.json production:/var/www/${{ secrets.PROJECT_NAME }}
+
       - name: Restart server
         run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}.service
 
