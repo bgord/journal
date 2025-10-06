@@ -32,7 +32,7 @@ export const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
 export const timeCapsuleEntryScheduledAt = T0;
-export const timeCapsuleEntryScheduledFor = tools.Time.Now(T0).Add(tools.Time.Hours(2)).ms;
+export const timeCapsuleEntryScheduledFor = tools.Time.Now(T0).Add(tools.Duration.Hours(2));
 
 //
 
@@ -85,7 +85,7 @@ export const anotherPublicationSpecification = "other";
 
 export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Timestamp.parse(1000));
 
-export const durationMs = tools.Time.Seconds(1).ms;
+export const durationMs = tools.Duration.Seconds(1).ms;
 
 const client = bg.Client.from(ip.server.requestIP().address, "anon");
 export const visitorId = new bg.VisitorIdHash(client);

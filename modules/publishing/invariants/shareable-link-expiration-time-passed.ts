@@ -12,7 +12,7 @@ class ShareableLinkExpirationTimePassedError extends Error {
 type ShareableLinkExpirationTimePassedConfigType = {
   now: number;
   createdAt?: tools.TimestampType;
-  durationMs?: tools.TimestampType;
+  durationMs?: tools.DurationMsType;
 };
 
 class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLinkExpirationTimePassedConfigType> {

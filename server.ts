@@ -56,7 +56,7 @@ server.get(
     },
     ShieldRateLimitDeps,
   ),
-  timeout(tools.Time.Seconds(15).ms, infra.requestTimeoutError),
+  timeout(tools.Duration.Seconds(15).ms, infra.requestTimeoutError),
   BasicAuthShield,
   ...bg.Healthcheck.build(healthcheck, HealthcheckDeps),
 );

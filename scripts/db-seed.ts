@@ -151,7 +151,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         Emotions.VO.AlarmTrigger.parse({
           type: Emotions.VO.AlarmTriggerEnum.inactivity,
           inactivityDays: 7,
-          lastEntryTimestamp: tools.Time.Now(currentMs).Minus(tools.Time.Days(10)).ms,
+          lastEntryTimestamp: tools.Time.Now(currentMs).Minus(tools.Duration.Days(10)),
         }),
         Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
       ),
@@ -235,7 +235,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         ),
         userId: users[0]?.user.id as Auth.VO.UserIdType,
         scheduledAt: currentMs,
-        scheduledFor: tools.Timestamp.parse(tools.Time.Now(currentMs).Add(tools.Time.Minutes(5)).ms),
+        scheduledFor: tools.Timestamp.parse(tools.Time.Now(currentMs).Add(tools.Duration.Minutes(5))),
       },
     } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
@@ -257,11 +257,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     const shareableLink = Publishing.Aggregates.ShareableLink.create(
       Adapters.IdProvider.generate(),
       "entries",
-      new tools.DateRange(
-        tools.Time.Now(currentMs).Minus(tools.Time.Days(7)).ms as tools.TimestampType,
-        deps.Clock.nowMs(),
-      ),
-      tools.Time.Days(3).ms,
+      new tools.DateRange(tools.Time.Now(currentMs).Minus(tools.Duration.Days(7)), deps.Clock.nowMs()),
+      tools.Duration.Days(3).ms,
       users[0]?.user.id as Auth.VO.UserIdType,
       deps,
     );

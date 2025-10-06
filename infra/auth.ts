@@ -20,8 +20,8 @@ export const auth = betterAuth({
         ? { enabled: true, domain: "journal.bgord.dev" }
         : undefined,
   },
-  session: { expiresIn: tools.Time.Days(30).seconds, updateAge: tools.Time.Days(1).seconds },
-  rateLimit: { enabled: true, window: tools.Time.Minutes(5).seconds, max: 100 },
+  session: { expiresIn: tools.Duration.Days(30).seconds, updateAge: tools.Duration.Days(1).seconds },
+  rateLimit: { enabled: true, window: tools.Duration.Minutes(5).seconds, max: 100 },
   user: {
     deleteUser: {
       enabled: true,
@@ -60,7 +60,7 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     sendOnSignIn: true,
     autoSignInAfterVerification: false,
-    expiresIn: tools.Time.Hours(1).seconds,
+    expiresIn: tools.Duration.Hours(1).seconds,
     async afterEmailVerification(user) {
       const event = Auth.Events.AccountCreatedEvent.parse({
         ...bg.createEventEnvelope(`account_${user.id}`, deps),

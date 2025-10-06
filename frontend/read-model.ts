@@ -26,15 +26,15 @@ export class ReadModel {
     const now = Date.now() as tools.TimestampType;
 
     if (filter === "today") {
-      where.push(gte(Schema.entries.startedAt, tools.Time.Now(now).Minus(tools.Time.Days(1)).ms));
+      where.push(gte(Schema.entries.startedAt, tools.Time.Now(now).Minus(tools.Duration.Days(1))));
     }
 
     if (filter === "last_week") {
-      where.push(gte(Schema.entries.startedAt, tools.Time.Now(now).Minus(tools.Time.Days(7)).ms));
+      where.push(gte(Schema.entries.startedAt, tools.Time.Now(now).Minus(tools.Duration.Days(7))));
     }
 
     if (filter === "last_month") {
-      where.push(gte(Schema.entries.startedAt, tools.Time.Now(now).Minus(tools.Time.Days(30)).ms));
+      where.push(gte(Schema.entries.startedAt, tools.Time.Now(now).Minus(tools.Duration.Days(30))));
     }
 
     if (search?.trim()) {
@@ -79,8 +79,8 @@ export class ReadModel {
   static async getEntryCounts(userId: UserIdType) {
     const now = Date.now() as tools.TimestampType;
 
-    const todayStart = tools.Time.Now(now).Minus(tools.Time.Days(1)).ms;
-    const weekStart = tools.Time.Now(now).Minus(tools.Time.Days(7)).ms;
+    const todayStart = tools.Time.Now(now).Minus(tools.Duration.Days(1));
+    const weekStart = tools.Time.Now(now).Minus(tools.Duration.Days(7));
 
     const [today] = await db
       .select({ c: count(Schema.entries.id).mapWith(Number) })
@@ -103,8 +103,8 @@ export class ReadModel {
   static async getTopEmotions(userId: UserIdType) {
     const now = Date.now() as tools.TimestampType;
 
-    const todayStart = tools.Time.Now(now).Minus(tools.Time.Days(1)).ms;
-    const weekStart = tools.Time.Now(now).Minus(tools.Time.Days(7)).ms;
+    const todayStart = tools.Time.Now(now).Minus(tools.Duration.Days(1));
+    const weekStart = tools.Time.Now(now).Minus(tools.Duration.Days(7));
 
     const today = await db
       .select({ label: Schema.entries.emotionLabel, hits: count(Schema.entries.id).mapWith(Number) })
@@ -265,7 +265,7 @@ export class ReadModel {
     const count = result?.count ?? 0;
     const limit = 10;
 
-    const resetsInHours = tools.Time.Ms(day.getEnd() - now).hours;
+    const resetsInHours = tools.Duration.Ms(day.getEnd() - now).hours;
 
     return {
       consumed: count >= limit,

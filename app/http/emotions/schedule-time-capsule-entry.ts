@@ -11,7 +11,7 @@ const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
-  const timeZoneOffsetMs = c.get("timeZoneOffset").miliseconds;
+  const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 
   const entryId = deps.IdProvider.generate();
 

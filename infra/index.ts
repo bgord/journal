@@ -23,4 +23,4 @@ export const BODY_LIMIT_MAX_SIZE = new tools.Size({
   unit: tools.SizeUnit.kB,
 }).toBytes();
 
-export const IDLE_TIMEOUT = tools.Time.Seconds(10).seconds;
+export const IDLE_TIMEOUT = tools.Duration.Seconds(10).seconds;

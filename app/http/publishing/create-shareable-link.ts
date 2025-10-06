@@ -11,13 +11,13 @@ const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
   const body = await bg.safeParseBody(c);
-  const timeZoneOffsetMs = c.get("timeZoneOffset").miliseconds;
+  const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 
   const publicationSpecification = Publishing.VO.PublicationSpecification.parse(
     body.publicationSpecification,
   );
 
-  const durationMs = tools.Timestamp.parse(Number(body.durationMs));
+  const durationMs = tools.Duration.Ms(Number(body.durationMs)).ms;
 
   const dateRangeStart = tools.Timestamp.parse(Number(body.dateRangeStart) + timeZoneOffsetMs);
   const dateRangeEnd = tools.Timestamp.parse(Number(body.dateRangeEnd) + timeZoneOffsetMs);

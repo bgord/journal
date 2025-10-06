@@ -23,7 +23,7 @@ export class ShareableLink {
   public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);
   private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.active;
   private createdAt?: tools.TimestampType;
-  private durationMs?: tools.TimestampType;
+  private durationMs?: tools.DurationMsType;
   private dateRange?: tools.DateRange;
   private publicationSpecification?: VO.PublicationSpecificationType;
 
@@ -52,7 +52,7 @@ export class ShareableLink {
     id: VO.ShareableLinkIdType,
     publicationSpecification: VO.PublicationSpecificationType,
     dateRange: tools.DateRange,
-    durationMs: tools.TimestampType,
+    durationMs: tools.DurationMsType,
     requesterId: Auth.VO.UserIdType,
     deps: Dependencies,
   ) {
@@ -67,7 +67,7 @@ export class ShareableLink {
         dateRangeStart: dateRange.getStart(),
         dateRangeEnd: dateRange.getEnd(),
         publicationSpecification,
-        durationMs: tools.Timestamp.parse(durationMs),
+        durationMs,
         createdAt: deps.Clock.nowMs(),
       },
     } satisfies Events.ShareableLinkCreatedEventType);

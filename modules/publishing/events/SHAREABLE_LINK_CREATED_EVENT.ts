@@ -15,7 +15,7 @@ export const ShareableLinkCreatedEvent = z.object({
     publicationSpecification: VO.PublicationSpecification,
     dateRangeStart: tools.Timestamp,
     dateRangeEnd: tools.Timestamp,
-    durationMs: tools.Timestamp,
+    durationMs: tools.DurationMsSchema,
     createdAt: tools.Timestamp,
   }),
 });

@@ -19,7 +19,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
       payload: { ...history, id: this.deps.IdProvider.generate() },
     } satisfies bg.History.Events.HistoryPopulatedEventType);
 
-    await this.deps.EventStore.saveAfter([event], tools.Time.Ms(10));
+    await this.deps.EventStore.saveAfter([event], tools.Duration.Ms(10));
   }
 
   async clear(subject: bg.History.VO.HistorySubjectType) {
@@ -29,7 +29,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
       payload: { subject },
     }) satisfies bg.History.Events.HistoryClearedEventType;
 
-    await this.deps.EventStore.saveAfter([event], tools.Time.Ms(10));
+    await this.deps.EventStore.saveAfter([event], tools.Duration.Ms(10));
   }
 }
 

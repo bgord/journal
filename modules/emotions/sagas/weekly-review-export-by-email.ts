@@ -96,7 +96,7 @@ export class WeeklyReviewExportByEmail {
           },
         } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType),
       ],
-      tools.Time.Minutes(1),
+      tools.Duration.Minutes(1),
     );
   }
 }

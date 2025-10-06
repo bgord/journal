@@ -23,7 +23,7 @@ const StrategySchema = z.enum(ExportEntriesStrategy).default(ExportEntriesStrate
 
 export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
   const user = c.get("user");
-  const timeZoneOffsetMs = c.get("timeZoneOffset").miliseconds;
+  const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 
   const dateRangeStart = tools.Timestamp.parse(
     startOfDay(new Date(c.req.query("dateRangeStart") as string).getTime() + timeZoneOffsetMs).getTime(),
