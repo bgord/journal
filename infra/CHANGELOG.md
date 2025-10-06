@@ -1,7 +1,9 @@
 # Changelog
+- 2025-10-06 09:59 4f6e2ec6 **step: update packages**
+## 2025-10-06 09:59 
 - 2025-10-06 09:44 14c25e2c **refactor: adjust durations**
-## 2025-10-06 09:44 
 - 2025-10-06 09:32 81e89611 **step: update packages**
+- 2025-10-06 07:49 fc80040a **docs: generate CHANGELOG**
 - 2025-10-05 00:12 7aa77744 **refactor: use durationMs for shareable links**
 - 2025-10-04 19:44 d958d6cf **fix: time result interface**
 - 2025-10-04 19:43 3bd98414 **fix: basename schema variable name**
