@@ -1,8 +1,12 @@
 # Changelog
+- 2025-10-07 23:05 2d2cad37 **refactor: restore ssl prereq**
+## 2025-10-07 23:05 
+- 2025-10-07 23:03 5ce3e0f5 **step: add certificate inspector adapter**
+- 2025-10-07 22:59 59b171fb **step: update packages**
 - 2025-10-07 21:20 4616475a **refactor: simplify const user**
-## 2025-10-07 21:20 
 - 2025-10-07 21:09 c88c9229 **fix: journal date**
 - 2025-10-07 20:36 8e300235 **step: update packages**
+- 2025-10-07 19:29 dfd9a530 **docs: generate CHANGELOG**
 - 2025-10-07 19:09 b86b7b54 **docs: generate CHANGELOG**
 - 2025-10-07 18:37 4338f7e8 **docs: generate CHANGELOG**
 - 2025-10-07 15:37 4515239e **step: update packages**
