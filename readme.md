@@ -365,6 +365,7 @@ infra/
 │   │   ├── user-contact.adapter.ts
 │   │   └── user-directory.adapter.ts
 │   ├── captcha.adapter.ts
+│   ├── certificate-inspector.adapter.ts
 │   ├── clock.adapter.ts
 │   ├── csv-stringifier.adapter.ts
 │   ├── emotions
