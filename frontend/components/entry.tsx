@@ -43,7 +43,7 @@ export function Entry(props: EntryType) {
         {props.origin === "time_capsule" && <Icons.Timer data-size="sm" data-color="neutral-300" />}
 
         <div data-fs="base" data-fw="regular" data-color="neutral-300" data-mr="auto">
-          {props.startedAt}
+          {new Date(props.startedAt).toLocaleString()}
         </div>
 
         <EntryHistory {...props} />

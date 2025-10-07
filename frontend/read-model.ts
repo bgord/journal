@@ -49,13 +49,11 @@ export class ReadModel {
       where.push(or(...clauses) as SQL<unknown>);
     }
 
-    const entries = await db.query.entries.findMany({
+    return await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
       where: and(...where),
       with: { alarms: true },
     });
-
-    return entries.map(ReadModel.formatFull);
   }
 
   static async getHeatmap(userId: UserIdType) {
@@ -241,10 +239,6 @@ export class ReadModel {
       entryCount: review.entries.length,
       week: tools.Week.fromIsoId(review.weekIsoId).toRange().map(tools.DateFormatters.datetime),
     }));
-  }
-
-  static formatFull(entry: Schema.SelectEntriesWithAlarms) {
-    return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
   }
 
   static async hideShareableLink(linkId: Schema.SelectShareableLinks["id"]) {
