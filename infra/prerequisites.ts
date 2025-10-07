@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "+languages";
+import { CertificateInspector } from "+infra/adapters/certificate-inspector.adapter";
 import { LoggerWinstonProductionAdapter } from "+infra/adapters/logger.adapter";
 import { Mailer } from "+infra/adapters/mailer.adapter";
 import { RemoteFileStorageProductionDir } from "+infra/adapters/remote-file-storage.adapter";
@@ -44,10 +45,11 @@ export const prerequisites = [
   new bg.PrerequisiteOutsideConnectivity({ label: "outside-connectivity", enabled: production }),
   new bg.PrerequisiteRunningUser({ label: "user", username: "bgord", enabled: production }),
   new bg.PrerequisiteSQLite({ label: "sqlite", sqlite, enabled: production }),
-  // new bg.PrerequisiteSSLCertificateExpiry({
-  //   label: "certificate",
-  //   host: "journal.bgord.dev",
-  //   validDaysMinimum: 7,
-  //   enabled: production,
-  // }),
+  new bg.PrerequisiteSSLCertificateExpiry({
+    label: "ssl",
+    host: "journal.bgord.dev",
+    validDaysMinimum: 7,
+    enabled: production,
+    inspector: CertificateInspector,
+  }),
 ];
