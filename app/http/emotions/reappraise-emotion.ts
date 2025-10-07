@@ -9,7 +9,7 @@ import { CommandBus } from "+infra/command-bus";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function ReappraiseEmotion(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
@@ -23,7 +23,7 @@ export async function ReappraiseEmotion(c: hono.Context<infra.HonoConfig>, _next
     ...bg.createCommandEnvelope(deps),
     name: Emotions.Commands.REAPPRAISE_EMOTION_COMMAND,
     revision,
-    payload: { entryId, newEmotion, userId: user.id },
+    payload: { entryId, newEmotion, userId },
   } satisfies Emotions.Commands.ReappraiseEmotionCommandType);
 
   await CommandBus.emit(command.name, command);

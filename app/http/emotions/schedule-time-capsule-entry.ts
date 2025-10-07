@@ -9,7 +9,7 @@ import { CommandBus } from "+infra/command-bus";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 
@@ -37,15 +37,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
     ...bg.createCommandEnvelope(deps),
     name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
-    payload: {
-      entryId,
-      situation,
-      emotion,
-      reaction,
-      userId: user.id,
-      scheduledAt: now,
-      scheduledFor,
-    },
+    payload: { entryId, situation, emotion, reaction, userId, scheduledAt: now, scheduledFor },
   } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
   await CommandBus.emit(command.name, command);

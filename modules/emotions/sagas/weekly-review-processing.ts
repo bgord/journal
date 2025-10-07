@@ -91,11 +91,7 @@ export class WeeklyReviewProcessing {
       const completeWeeklyReview = Emotions.Commands.CompleteWeeklyReviewCommand.parse({
         ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.COMPLETE_WEEKLY_REVIEW_COMMAND,
-        payload: {
-          weeklyReviewId: event.payload.weeklyReviewId,
-          insights,
-          userId: event.payload.userId,
-        },
+        payload: { weeklyReviewId: event.payload.weeklyReviewId, insights, userId: event.payload.userId },
       } satisfies Emotions.Commands.CompleteWeeklyReviewCommandType);
 
       await this.deps.CommandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
@@ -103,10 +99,7 @@ export class WeeklyReviewProcessing {
       const command = Emotions.Commands.MarkWeeklyReviewAsFailedCommand.parse({
         ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
-        payload: {
-          weeklyReviewId: event.payload.weeklyReviewId,
-          userId: event.payload.userId,
-        },
+        payload: { weeklyReviewId: event.payload.weeklyReviewId, userId: event.payload.userId },
       } satisfies Emotions.Commands.MarkWeeklyReviewAsFailedCommandType);
 
       await this.deps.CommandBus.emit(command.name, command);

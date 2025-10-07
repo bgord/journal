@@ -7,10 +7,10 @@ import * as Adapters from "+infra/adapters";
 const deps = { Stringifier: Adapters.CsvStringifier, Clock: Adapters.Clock };
 
 export async function ExportData(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const userId = c.get("user").id;
 
-  const entries = await Adapters.Emotions.EntrySnapshot.getAllForuser(user.id);
-  const alarms = await Adapters.Emotions.AlarmDirectory.listForUser(user.id);
+  const entries = await Adapters.Emotions.EntrySnapshot.getAllForuser(userId);
+  const alarms = await Adapters.Emotions.AlarmDirectory.listForUser(userId);
 
   const timestamp = Adapters.Clock.nowMs();
 

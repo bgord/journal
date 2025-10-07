@@ -32,10 +32,7 @@ export class AiUsageCounterProjector {
       )
       .onConflictDoUpdate({
         target: Schema.aiUsageCounters.bucket,
-        set: {
-          count: sql`${Schema.aiUsageCounters.count} + 1`,
-          lastEventAt: event.payload.timestamp,
-        },
+        set: { count: sql`${Schema.aiUsageCounters.count} + 1`, lastEventAt: event.payload.timestamp },
       });
   }
 }

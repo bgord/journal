@@ -13,9 +13,7 @@ export class EmotionAlarmDetector {
       .filter((result) => result !== null);
 
     if (!result.length) return null;
-
     if (!result[0]) return null;
-
     return result[0];
   }
 }

@@ -9,7 +9,7 @@ import { CommandBus } from "+infra/command-bus";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function DeleteEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const userId = c.get("user").id;
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
 
@@ -17,7 +17,7 @@ export async function DeleteEntry(c: hono.Context<infra.HonoConfig>, _next: hono
     ...bg.createCommandEnvelope(deps),
     name: Emotions.Commands.DELETE_ENTRY_COMMAND,
     revision,
-    payload: { entryId, userId: user.id },
+    payload: { entryId, userId },
   } satisfies Emotions.Commands.DeleteEntryCommandType);
 
   await CommandBus.emit(command.name, command);

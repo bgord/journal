@@ -9,7 +9,7 @@ import { CommandBus } from "+infra/command-bus";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function RevokeShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const requesterId = c.get("user").id;
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
 
@@ -17,7 +17,7 @@ export async function RevokeShareableLink(c: hono.Context<infra.HonoConfig>, _ne
     ...bg.createCommandEnvelope(deps),
     name: Publishing.Commands.REVOKE_SHAREABLE_LINK_COMMAND,
     revision,
-    payload: { shareableLinkId, requesterId: user.id },
+    payload: { shareableLinkId, requesterId },
   } satisfies Publishing.Commands.RevokeShareableLinkCommandType);
 
   await CommandBus.emit(command.name, command);

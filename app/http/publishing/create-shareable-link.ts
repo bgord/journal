@@ -9,7 +9,7 @@ import { CommandBus } from "+infra/command-bus";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const requesterId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 
@@ -29,13 +29,7 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _ne
   const command = Publishing.Commands.CreateShareableLinkCommand.parse({
     ...bg.createCommandEnvelope(deps),
     name: Publishing.Commands.CREATE_SHAREABLE_LINK_COMMAND,
-    payload: {
-      shareableLinkId,
-      requesterId: user.id,
-      durationMs,
-      publicationSpecification,
-      dateRange,
-    },
+    payload: { shareableLinkId, requesterId, durationMs, publicationSpecification, dateRange },
   } satisfies Publishing.Commands.CreateShareableLinkCommandType);
 
   await CommandBus.emit(command.name, command);

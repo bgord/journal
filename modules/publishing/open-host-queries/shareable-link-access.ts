@@ -12,9 +12,7 @@ export type ShareableLinkAccessValidType = {
 };
 
 /** @public */
-export type ShareableLinkAccessInvalidType = {
-  valid: false;
-};
+export type ShareableLinkAccessInvalidType = { valid: false };
 
 export interface ShareableLinkAccessPort {
   check(

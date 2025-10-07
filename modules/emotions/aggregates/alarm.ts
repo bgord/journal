@@ -55,12 +55,7 @@ export class Alarm {
     const event = Events.AlarmGeneratedEvent.parse({
       ...bg.createEventEnvelope(Alarm.getStream(id), deps),
       name: Events.ALARM_GENERATED_EVENT,
-      payload: {
-        alarmId: id,
-        alarmName: detection.name,
-        trigger: detection.trigger,
-        userId: requesterId,
-      },
+      payload: { alarmId: id, alarmName: detection.name, trigger: detection.trigger, userId: requesterId },
     } satisfies Events.AlarmGeneratedEventType);
 
     alarm.record(event);
@@ -74,11 +69,7 @@ export class Alarm {
     const event = Events.AlarmAdviceSavedEvent.parse({
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
       name: Events.ALARM_ADVICE_SAVED_EVENT,
-      payload: {
-        alarmId: this.id,
-        advice: advice.get(),
-        userId: this.userId as Auth.VO.UserIdType,
-      },
+      payload: { alarmId: this.id, advice: advice.get(), userId: this.userId as Auth.VO.UserIdType },
     } satisfies Events.AlarmAdviceSavedEventType);
 
     this.record(event);

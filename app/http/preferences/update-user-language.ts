@@ -8,14 +8,14 @@ import { CommandBus } from "+infra/command-bus";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function UpdateUserLanguage(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const language = new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES).ensure(body.language);
 
   const command = bg.Preferences.Commands.SetUserLanguageCommand.parse({
     ...bg.createCommandEnvelope(deps),
     name: bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
-    payload: { userId: user.id, language },
+    payload: { userId, language },
   } satisfies bg.Preferences.Commands.SetUserLanguageCommandType);
 
   await CommandBus.emit(command.name, command);

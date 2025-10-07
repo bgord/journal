@@ -22,7 +22,7 @@ const deps = {
 const StrategySchema = z.enum(ExportEntriesStrategy).default(ExportEntriesStrategy.csv);
 
 export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const userId = c.get("user").id;
   const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 
   const dateRangeStart = tools.Timestamp.parse(
@@ -35,7 +35,7 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: ho
 
   const strategy = StrategySchema.parse(c.req.query("strategy"));
 
-  const entries = await Adapters.Emotions.EntrySnapshot.getByDateRangeForUser(user.id, dateRange);
+  const entries = await Adapters.Emotions.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
 
   const file = {
     csv: new Emotions.Services.EntryExportFileCsv(entries, deps),

@@ -8,7 +8,7 @@ import { CommandBus } from "+infra/command-bus";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
 
   const entryId = deps.IdProvider.generate();
@@ -32,14 +32,7 @@ export async function LogEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Ne
   const command = Emotions.Commands.LogEntryCommand.parse({
     ...bg.createCommandEnvelope(deps),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
-    payload: {
-      entryId,
-      situation,
-      emotion,
-      reaction,
-      userId: user.id,
-      origin: Emotions.VO.EntryOriginOption.web,
-    },
+    payload: { entryId, situation, emotion, reaction, userId, origin: Emotions.VO.EntryOriginOption.web },
   } satisfies Emotions.Commands.LogEntryCommandType);
 
   await CommandBus.emit(command.name, command);

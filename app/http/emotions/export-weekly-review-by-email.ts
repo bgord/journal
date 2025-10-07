@@ -8,13 +8,13 @@ import { CommandBus } from "+infra/command-bus";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function ExportWeeklyReviewByEmail(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
-  const user = c.get("user");
+  const userId = c.get("user").id;
   const weeklyReviewId = Emotions.VO.WeeklyReviewId.parse(c.req.param("weeklyReviewId"));
 
   const command = Emotions.Commands.ExportWeeklyReviewByEmailCommand.parse({
     ...bg.createCommandEnvelope(deps),
     name: Emotions.Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-    payload: { userId: user.id, weeklyReviewId },
+    payload: { userId, weeklyReviewId },
   } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommandType);
 
   await CommandBus.emit(command.name, command);

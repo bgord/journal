@@ -8,12 +8,12 @@ import { CommandBus } from "+infra/command-bus";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 export async function RemoveProfileAvatar(c: hono.Context<infra.HonoConfig>) {
-  const user = c.get("user");
+  const userId = c.get("user").id;
 
   const command = Preferences.Commands.RemoveProfileAvatarCommand.parse({
     ...bg.createCommandEnvelope(deps),
     name: Preferences.Commands.REMOVE_PROFILE_AVATAR_COMMAND,
-    payload: { userId: user.id },
+    payload: { userId },
   } satisfies Preferences.Commands.RemoveProfileAvatarCommandType);
 
   await CommandBus.emit(command.name, command);
