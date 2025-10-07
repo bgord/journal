@@ -1,6 +1,7 @@
 export * as AI from "./ai";
 export * as Auth from "./auth";
 export * from "./captcha.adapter";
+export * from "./certificate-inspector.adapter";
 export * from "./clock.adapter";
 export * from "./csv-stringifier.adapter";
 export * as Emotions from "./emotions";
