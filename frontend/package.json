@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@bgord/design": "1.4.5",
-    "@bgord/ui": "0.5.18",
+    "@bgord/ui": "0.5.19",
     "@react-router/node": "7.9.3",
     "@react-router/serve": "7.9.3",
     "iconoir-react": "7.11.0",
@@ -22,8 +22,8 @@
     "@julr/vite-plugin-validate-env": "2.2.0",
     "@react-router/dev": "7.9.3",
     "@types/node": "24.7.0",
-    "@types/react": "19.2.0",
-    "@types/react-dom": "19.2.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.1",
     "typescript": "5.9.3",
     "vite": "7.1.9",
     "vite-tsconfig-paths": "5.1.4"
