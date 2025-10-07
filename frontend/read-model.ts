@@ -20,7 +20,12 @@ export class ReadModel {
 
   static CreateShareableLinkForm = CreateShareableLinkForm.get();
 
-  static async listEntriesForUser(userId: UserIdType, filter?: string | null, search?: string | null) {
+  static async listEntriesForUser(
+    userId: UserIdType,
+    offsetMs: number,
+    filter?: string | null,
+    search?: string | null,
+  ) {
     const where = [eq(Schema.entries.userId, userId)];
 
     const now = Date.now() as tools.TimestampType;
@@ -55,7 +60,7 @@ export class ReadModel {
       with: { alarms: true },
     });
 
-    return entries.map(ReadModel.formatFull);
+    return entries.map((entry) => ReadModel.formatFull(entry, offsetMs));
   }
 
   static async getHeatmap(userId: UserIdType) {
@@ -243,8 +248,8 @@ export class ReadModel {
     }));
   }
 
-  static formatFull(entry: Schema.SelectEntriesWithAlarms) {
-    return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt) };
+  static formatFull(entry: Schema.SelectEntriesWithAlarms, offsetMs: number) {
+    return { ...entry, startedAt: tools.DateFormatters.datetime(entry.startedAt + offsetMs) };
   }
 
   static async hideShareableLink(linkId: Schema.SelectShareableLinks["id"]) {

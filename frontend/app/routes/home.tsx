@@ -67,6 +67,8 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
+  const offsetMs = Number(new Date().getTimezoneOffset().toString()) * 60_000;
+
   const session = await Auth.guard.getServerSession(request);
   const userId = session?.user.id as string;
 
@@ -75,7 +77,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   const search = url.searchParams.get("search");
   const historyFor = url.searchParams.get("historyFor");
 
-  const entries = await ReadModel.listEntriesForUser(userId, filter, search);
+  const entries = await ReadModel.listEntriesForUser(userId, offsetMs, filter, search);
 
   const entryHistory = historyFor ? await ReadModel.listHistoryForEntry(historyFor) : [];
 
