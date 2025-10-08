@@ -15,10 +15,13 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
   advanced: {
     database: { generateId: () => crypto.randomUUID() },
-    crossSubDomainCookies: {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
-      domain: "bgord.dev",
+    crossSubDomainCookies: { enabled: Env.type === bg.NodeEnvironmentEnum.production, domain: "bgord.dev" },
+    cookies: {
+      session_token: {
+        attributes: { domain: "bgord.dev", path: "/", sameSite: "lax", secure: true, httpOnly: true },
+      },
     },
+    useSecureCookies: true,
   },
   session: { expiresIn: tools.Duration.Days(30).seconds, updateAge: tools.Duration.Days(1).seconds },
   rateLimit: { enabled: true, window: tools.Duration.Minutes(5).seconds, max: 100 },
