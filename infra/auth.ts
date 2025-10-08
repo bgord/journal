@@ -11,18 +11,22 @@ import { EventStore } from "./event-store";
 
 const deps = { IdProvider, Clock };
 
+const production = Env.type === bg.NodeEnvironmentEnum.production;
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
   advanced: {
     database: { generateId: () => crypto.randomUUID() },
-    crossSubDomainCookies: { enabled: Env.type === bg.NodeEnvironmentEnum.production, domain: "bgord.dev" },
+    crossSubDomainCookies: { enabled: production, domain: "bgord.dev" },
     cookiePrefix: "journal_v1",
-    cookies: {
-      session_token: {
-        attributes: { domain: "bgord.dev", path: "/", sameSite: "lax", secure: true, httpOnly: true },
-      },
-    },
-    useSecureCookies: true,
+    cookies: production
+      ? {
+          session_token: {
+            attributes: { domain: "bgord.dev", path: "/", sameSite: "lax", secure: true, httpOnly: true },
+          },
+        }
+      : undefined,
+    useSecureCookies: production ? true : undefined,
   },
   session: { expiresIn: tools.Duration.Days(30).seconds, updateAge: tools.Duration.Days(1).seconds },
   rateLimit: { enabled: true, window: tools.Duration.Minutes(5).seconds, max: 100 },
@@ -82,7 +86,7 @@ export const auth = betterAuth({
     // Env.type === bg.NodeEnvironmentEnum.production
     //   ? captcha({ provider: "hcaptcha", secretKey: Env.HCAPTCHA_SECRET_KEY })
     //   : undefined,
-    Env.type === bg.NodeEnvironmentEnum.production ? haveIBeenPwned() : undefined,
+    production ? haveIBeenPwned() : undefined,
   ].filter((plugin) => plugin !== undefined),
   logger: new bg.BetterAuthLogger(Logger).attach(),
 });
