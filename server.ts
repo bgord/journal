@@ -38,7 +38,6 @@ server.use(
       exposeHeaders: ["Set-Cookie"],
       maxAge: 86400,
     },
-    secureHeaders: { crossOriginResourcePolicy: "cross-origin" },
     httpLogger: { skip: ["/translations", "/profile-avatar/get", "/api/auth/get-session"] },
   }),
 );
