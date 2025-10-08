@@ -32,7 +32,11 @@ server.use(
   ...bg.Setup.essentials(ServerDeps, {
     cors: {
       origin: ["http://localhost:5173", "http://localhost:3000", "https://journal.bgord.dev"],
-      // credentials: true,
+      credentials: true,
+      // allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      // allowHeaders: ["content-type", "x-requested-with", "x-correlation-id", "authorization"],
+      // exposeHeaders: ["Set-Cookie"],
+      // maxAge: 86400,
     },
     httpLogger: { skip: ["/translations", "/profile-avatar/get", "/api/auth/get-session"] },
   }),
