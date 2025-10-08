@@ -16,6 +16,7 @@ export const auth = betterAuth({
   advanced: {
     database: { generateId: () => crypto.randomUUID() },
     crossSubDomainCookies: { enabled: Env.type === bg.NodeEnvironmentEnum.production, domain: "bgord.dev" },
+    cookiePrefix: "journal_v1",
     cookies: {
       session_token: {
         attributes: { domain: "bgord.dev", path: "/", sameSite: "lax", secure: true, httpOnly: true },
