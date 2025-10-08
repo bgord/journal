@@ -5,16 +5,8 @@ import { GlobalShortcuts } from "../components/global-shortcuts";
 import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
-  {
-    as: "style",
-    rel: "stylesheet preload",
-    href: "/main.min.css",
-  },
-  {
-    as: "style",
-    rel: "stylesheet preload",
-    href: "/custom.css",
-  },
+  { as: "style", rel: "stylesheet preload", href: "/main.min.css" },
+  { as: "style", rel: "stylesheet preload", href: "/custom.css" },
 ];
 
 export async function loader({ request }: Route.LoaderArgs) {
