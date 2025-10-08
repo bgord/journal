@@ -38,10 +38,10 @@ export function ExportEntries() {
           onChange={(event) => dateRangeEnd.set(event.currentTarget.valueAsNumber)}
         />
         <Components.Select {...strategy.input.props}>
-          <option value="text">Text</option>
-          <option value="csv">CSV</option>
-          <option value="markdown">Markdown</option>
-          <option value="pdf">PDF</option>
+          <option value="text">{t("entries.export.format.text")}</option>
+          <option value="csv">{t("entries.export.format.csv")}</option>
+          <option value="markdown">{t("entries.export.format.markdown")}</option>
+          <option value="pdf">{t("entries.export.format.pdf")}</option>
         </Components.Select>
         <a
           type="button"
@@ -56,7 +56,7 @@ export function ExportEntries() {
           data-cross="center"
           data-mr="auto"
         >
-          Export
+          {t("entries.export.cta")}
         </a>
       </div>
 
