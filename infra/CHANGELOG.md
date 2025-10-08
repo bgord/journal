@@ -1,6 +1,11 @@
 # Changelog
+- 2025-10-08 11:16 bc55631e **refactor: change ssl cert expiry config**
+## 2025-10-08 11:16 
+- 2025-10-08 11:15 4baea18c **step: update packages**
+- 2025-10-08 11:15 2052cc9b **refactor: use default secure headers config**
+- 2025-10-08 11:06 0221abda **refactor: cleanup translations**
+- 2025-10-08 10:58 c3e50c79 **refactor: improve formatting**
 - 2025-10-08 10:56 75879db7 **fix: cookies in local env**
-## 2025-10-08 10:56 
 - 2025-10-08 10:52 ab75bb37 **step: update packages**
 - 2025-10-08 10:43 d5bae419 **refactor: set cookie prefix**
 - 2025-10-08 10:36 1631cb97 **fix: pinpoint cookie names**
@@ -9,6 +14,7 @@
 - 2025-10-08 10:14 14157b7a **fix: remove the ***
 - 2025-10-08 10:07 8fea4568 **fix: profile upload 403**
 - 2025-10-08 09:20 84a33a1e **fix: type issues**
+- 2025-10-08 08:58 5b91660d **docs: generate CHANGELOG**
 - 2025-10-08 08:43 fc832c36 **docs: generate CHANGELOG**
 - 2025-10-08 08:37 8df579cf **docs: generate CHANGELOG**
 - 2025-10-08 08:32 538cc368 **docs: generate CHANGELOG**
