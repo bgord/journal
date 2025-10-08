@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-08 11:25 36959cf2 **Revert "step: try cors wo credentials true"**
+## 2025-10-08 11:25 
 - 2025-10-08 11:22 1863cb2b **step: try cors wo credentials true**
-## 2025-10-08 11:22 
 - 2025-10-08 11:19 f5d3c9be **step: try leaner cors config**
 - 2025-10-08 11:18 fae6d564 **refactor: use only one browser for e2e**
 - 2025-10-08 11:16 bc55631e **refactor: change ssl cert expiry config**
@@ -16,6 +17,7 @@
 - 2025-10-08 10:17 17236cb4 **step: increase playwright timeout**
 - 2025-10-08 10:14 14157b7a **fix: remove the ***
 - 2025-10-08 10:07 8fea4568 **fix: profile upload 403**
+- 2025-10-08 09:22 b39c4ea6 **docs: generate CHANGELOG**
 - 2025-10-08 09:20 84a33a1e **fix: type issues**
 - 2025-10-08 09:19 40dcd116 **docs: generate CHANGELOG**
 - 2025-10-08 09:16 62f9fe3b **docs: generate CHANGELOG**
