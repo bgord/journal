@@ -15,8 +15,10 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
   advanced: {
     database: { generateId: () => crypto.randomUUID() },
-    crossSubDomainCookies:
-      Env.type === bg.NodeEnvironmentEnum.production ? { enabled: true, domain: ".bgord.dev" } : undefined,
+    crossSubDomainCookies: {
+      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      domain: "bgord.dev",
+    },
   },
   session: { expiresIn: tools.Duration.Days(30).seconds, updateAge: tools.Duration.Days(1).seconds },
   rateLimit: { enabled: true, window: tools.Duration.Minutes(5).seconds, max: 100 },
