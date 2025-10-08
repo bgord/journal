@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-08 11:44 d240062a **refactor: use smtp mailer with logger adapter**
+## 2025-10-08 11:44 
 - 2025-10-08 11:32 b6ebdae9 **fix: missing translations in export entries**
-## 2025-10-08 11:32 
 - 2025-10-08 11:27 ddaf2bf9 **refactor: restore server config**
 - 2025-10-08 11:25 36959cf2 **Revert "step: try cors wo credentials true"**
 - 2025-10-08 11:22 1863cb2b **step: try cors wo credentials true**
@@ -19,6 +20,7 @@
 - 2025-10-08 10:17 17236cb4 **step: increase playwright timeout**
 - 2025-10-08 10:14 14157b7a **fix: remove the ***
 - 2025-10-08 10:07 8fea4568 **fix: profile upload 403**
+- 2025-10-08 09:33 755aaeab **docs: generate CHANGELOG**
 - 2025-10-08 09:27 5ad2e29c **docs: generate CHANGELOG**
 - 2025-10-08 09:25 32018688 **docs: generate CHANGELOG**
 - 2025-10-08 09:22 b39c4ea6 **docs: generate CHANGELOG**
