@@ -1,7 +1,9 @@
 # Changelog
+- 2025-10-08 10:14 14157b7a **fix: remove the ***
+## 2025-10-08 10:14 
 - 2025-10-08 10:07 8fea4568 **fix: profile upload 403**
-## 2025-10-08 10:07 
 - 2025-10-08 09:20 84a33a1e **fix: type issues**
+- 2025-10-08 08:08 777cc262 **docs: generate CHANGELOG**
 - 2025-10-08 07:21 22ae6ab3 **docs: generate CHANGELOG**
 - 2025-10-07 23:39 fcf842a2 **fix: entry started at formatting**
 - 2025-10-07 23:35 d2fbf610 **refactor: revert offsetms**
