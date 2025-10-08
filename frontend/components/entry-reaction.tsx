@@ -2,7 +2,6 @@ import * as UI from "@bgord/ui";
 import React from "react";
 import * as RR from "react-router";
 import type { types } from "../../app/services/add-entry-form";
-import type { SelectEntriesFormatted } from "../../infra/schema";
 import type { loader } from "../app/routes/home";
 import { CancelButton } from "./cancel-button";
 import { ClickableRatingPills } from "./clickable-rating-pills";
@@ -10,7 +9,7 @@ import { Select } from "./select";
 
 type LoaderData = Awaited<ReturnType<typeof loader>>;
 
-export function EntryReaction(props: SelectEntriesFormatted) {
+export function EntryReaction(props: LoaderData["entries"][0]) {
   const t = UI.useTranslations();
   const loader = RR.useLoaderData<LoaderData>();
   const fetcher = RR.useFetcher();

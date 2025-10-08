@@ -24,7 +24,7 @@ export function ReadOnlyEntry(props: EntryType) {
         {...UI.Rhythm().times(3).style.height}
       >
         <div data-fs="base" data-fw="regular" data-color="neutral-300">
-          {props.startedAt}
+          {new Date(props.startedAt).toLocaleString()}
         </div>
       </header>
 

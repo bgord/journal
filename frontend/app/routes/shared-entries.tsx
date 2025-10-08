@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import type { SelectEntriesFullWithAlarms } from "../../../infra/schema";
+import type { SelectEntriesWithAlarms } from "../../../infra/schema";
 import { API } from "../../api";
 import NotebookSvg from "../../assets/notebook.svg";
 import * as Components from "../../components";
@@ -16,7 +16,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
 
     const entries = await result.json();
 
-    return entries as SelectEntriesFullWithAlarms[];
+    return entries as SelectEntriesWithAlarms[];
   } catch {
     return [];
   }
