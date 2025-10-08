@@ -19,7 +19,7 @@ export default defineConfig({
       stderr: "pipe",
       port: 3333,
       name: "bun-backend",
-      timeout: 10_000, // 10s
+      timeout: 20_000,
       gracefulShutdown: { signal: "SIGTERM", timeout: 1_000 },
     },
     {
@@ -28,7 +28,7 @@ export default defineConfig({
       stderr: "pipe",
       port: 3000,
       name: "vite-frontend",
-      timeout: 10_000, // 10s
+      timeout: 20_000,
       gracefulShutdown: { signal: "SIGTERM", timeout: 1_000 },
     },
   ],
