@@ -48,7 +48,7 @@ export const prerequisites = [
   new bg.PrerequisiteSSLCertificateExpiry({
     label: "ssl",
     host: "journal.bgord.dev",
-    validDaysMinimum: 7,
+    days: 7,
     enabled: production,
     inspector: CertificateInspector,
   }),
