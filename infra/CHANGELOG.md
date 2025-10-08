@@ -1,11 +1,13 @@
 # Changelog
+- 2025-10-08 10:43 d5bae419 **refactor: set cookie prefix**
+## 2025-10-08 10:43 
 - 2025-10-08 10:36 1631cb97 **fix: pinpoint cookie names**
-## 2025-10-08 10:36 
 - 2025-10-08 10:32 5b29e827 **refactor: simplify xsubdomain cookies**
 - 2025-10-08 10:17 17236cb4 **step: increase playwright timeout**
 - 2025-10-08 10:14 14157b7a **fix: remove the ***
 - 2025-10-08 10:07 8fea4568 **fix: profile upload 403**
 - 2025-10-08 09:20 84a33a1e **fix: type issues**
+- 2025-10-08 08:37 8df579cf **docs: generate CHANGELOG**
 - 2025-10-08 08:32 538cc368 **docs: generate CHANGELOG**
 - 2025-10-08 08:18 f6bfde18 **docs: generate CHANGELOG**
 - 2025-10-08 08:14 c5bd8920 **docs: generate CHANGELOG**
