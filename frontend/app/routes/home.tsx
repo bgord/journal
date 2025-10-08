@@ -119,7 +119,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             onClick={UI.exec([filter.clear, search.clear])}
             disabled={filter.unchanged && search.unchanged}
           >
-            Clear
+            {t("app.clear")}
           </button>
         </div>
 

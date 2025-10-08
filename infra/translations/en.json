@@ -1,7 +1,6 @@
 {
   "alarm.name.INACTIVITY_ALARM": "Inactivity",
   "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negative emotion — extreme intensity",
-  "app.add": "Add",
   "app.back": "Back",
   "app.cancel": "Cancel",
   "app.clear": "Clear",
@@ -10,8 +9,7 @@
   "app.hit.plural": "views",
   "app.hit.singular": "view",
   "app.login": "Sign in",
-  "app.name": "Journal",
-  "app.next": "Next",
+  "app.name": "JOURNAL",
   "app.prompt.genitive": "prompts",
   "app.prompt.plural": "prompts",
   "app.prompt.singular": "prompt",
