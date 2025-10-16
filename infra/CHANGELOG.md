@@ -1,7 +1,10 @@
 # Changelog
+- 2025-10-16 20:53 a849f48c **fix: bun-version in workflow**
+## 2025-10-16 20:53 
 - 2025-10-16 20:48 4acd8c5f **step: update packages**
-## 2025-10-16 20:48 
 - 2025-10-16 20:47 cb8e7256 **step: bump bgord/scripts**
+- 2025-10-16 18:51 d68090b4 **docs: generate CHANGELOG**
+- 2025-10-16 18:51 a4d4563a **docs: generate readme**
 - 2025-10-16 15:31 436ff021 **step: update fe packages**
 - 2025-10-16 15:27 7375f15e **fix: fe**
 - 2025-10-16 15:14 27cb5c45 **fix: attachment type error**
