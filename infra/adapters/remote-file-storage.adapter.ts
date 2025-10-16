@@ -1,23 +1,30 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import {
+  Clock,
+  FileCleaner,
+  FileHash,
+  FileRenamer,
+  JsonFileReader,
+  LoggerWinstonLocalAdapter,
+} from "+infra/adapters";
 import { Env } from "+infra/env";
-import { Clock } from "../adapters/clock.adapter";
-import { LoggerWinstonLocalAdapter } from "../adapters/logger.adapter";
-import { FileHash } from "./file-hash.adapter";
 
 export const RemoteFileStorageProductionDir = tools.DirectoryPathAbsoluteSchema.parse(
   "/var/www/journal/infra/avatars",
 );
 
-const RemoteFileStorageTmp = new bg.RemoteFileStorageDiskAdapter({
-  hasher: FileHash,
-  root: tools.DirectoryPathAbsoluteSchema.parse("/tmp"),
-});
+const deps = { FileHash, FileCleaner, FileRenamer, JsonFileReader };
 
-const RemoteFileStorageProduction = new bg.RemoteFileStorageDiskAdapter({
-  hasher: FileHash,
-  root: RemoteFileStorageProductionDir,
-});
+const RemoteFileStorageTmp = new bg.RemoteFileStorageDiskAdapter(
+  { root: tools.DirectoryPathAbsoluteSchema.parse("/tmp") },
+  deps,
+);
+
+const RemoteFileStorageProduction = new bg.RemoteFileStorageDiskAdapter(
+  { root: RemoteFileStorageProductionDir },
+  deps,
+);
 
 export const RemoteFileStorage: bg.RemoteFileStoragePort = {
   [bg.NodeEnvironmentEnum.local]: RemoteFileStorageTmp,
