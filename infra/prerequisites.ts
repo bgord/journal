@@ -2,7 +2,8 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "+languages";
 import { CertificateInspector } from "+infra/adapters/certificate-inspector.adapter";
-import { LoggerWinstonProductionAdapter } from "+infra/adapters/logger.adapter";
+import { JsonFileReader } from "+infra/adapters/json-file-reader.adapter";
+import { Logger, LoggerWinstonProductionAdapter } from "+infra/adapters/logger.adapter";
 import { Mailer } from "+infra/adapters/mailer.adapter";
 import { RemoteFileStorageProductionDir } from "+infra/adapters/remote-file-storage.adapter";
 import { sqlite } from "+infra/db";
@@ -40,7 +41,12 @@ export const prerequisites = [
     enabled: production,
   }),
   new bg.PrerequisiteJobs({ label: "jobs", jobs }),
-  new bg.PrerequisiteTranslations({ label: "translations", supportedLanguages: SupportedLanguages }),
+  new bg.PrerequisiteTranslations({
+    label: "translations",
+    supportedLanguages: SupportedLanguages,
+    Logger,
+    JsonFileReader,
+  }),
   new bg.PrerequisiteMailer({ label: "mailer", mailer: Mailer, enabled: production }),
   new bg.PrerequisiteOutsideConnectivity({ label: "outside-connectivity", enabled: production }),
   new bg.PrerequisiteRunningUser({ label: "user", username: "bgord", enabled: production }),
