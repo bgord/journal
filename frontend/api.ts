@@ -1,5 +1,5 @@
 export const API: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response> = (input, init) =>
-  fetch(`${import.meta.env.VITE_API_URL}${input}`, {
+  fetch(`${import.meta.env.VITE_API_URL}/api${input}`, {
     credentials: "include",
     ...init,
     headers: {

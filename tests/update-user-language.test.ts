@@ -7,7 +7,7 @@ import { EventStore } from "+infra/event-store";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = "/preferences/user-language/update";
+const url = "/api/preferences/user-language/update";
 
 describe(`POST ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {

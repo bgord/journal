@@ -8,7 +8,7 @@ import { EventStore } from "+infra/event-store";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = "/entry/log";
+const url = "/api/entry/log";
 
 const situation = {
   situationDescription: mocks.GenericSituationLoggedEvent.payload.description,
