@@ -18,9 +18,6 @@ type Variables = TimingVariables &
 
 export type HonoConfig = { Variables: Variables; startup: tools.Stopwatch };
 
-export const BODY_LIMIT_MAX_SIZE = new tools.Size({
-  value: 128,
-  unit: tools.SizeUnit.kB,
-}).toBytes();
+export const BODY_LIMIT_MAX_SIZE = tools.Size.fromKb(128).toBytes();
 
 export const IDLE_TIMEOUT = tools.Duration.Seconds(10).seconds;
