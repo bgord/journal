@@ -383,13 +383,16 @@ infra/
 │   │   ├── weekly-review-export.adapter.ts
 │   │   ├── weekly-review-repository.adapter.ts
 │   │   └── weekly-review-snapshot.adapter.ts
+│   ├── file-cleaner.adapter.ts
 │   ├── file-hash.adapter.ts
+│   ├── file-renamer.adapter.ts
 │   ├── history
 │   │   ├── history-projection.adapter.ts
 │   │   ├── history-writer.adapter.ts
 │   ├── id-provider.adapter.ts
 │   ├── image-info.adapter.ts
 │   ├── image-processor.adapter.ts
+│   ├── json-file-reader.adapter.ts
 │   ├── logger.adapter.ts
 │   ├── mailer.adapter.ts
 │   ├── preferences
