@@ -1,7 +1,10 @@
 import * as bg from "@bgord/bun";
+import { FileCleaner, FileRenamer, JsonFileReader } from "+infra/adapters";
 import { Env } from "+infra/env";
 
-const ImageProcessorSharp = new bg.ImageProcessorSharpAdapter();
+const deps = { FileCleaner, FileRenamer, JsonFileReader };
+
+const ImageProcessorSharp = new bg.ImageProcessorSharpAdapter(deps);
 
 export const ImageProcessor: bg.ImageProcessorPort = {
   [bg.NodeEnvironmentEnum.local]: ImageProcessorSharp,
