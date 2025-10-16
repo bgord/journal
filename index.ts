@@ -3,8 +3,9 @@ import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import * as infra from "+infra";
 import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
-import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
+import index from "./index.html";
+import { Env } from "./infra/env";
 import { server, startup } from "./server";
 
 (async function main() {
@@ -13,9 +14,10 @@ import { server, startup } from "./server";
   migrate(db, { migrationsFolder: "infra/drizzle" });
 
   const app = Bun.serve({
-    fetch: server.fetch,
     maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
     idleTimeout: infra.IDLE_TIMEOUT,
+    routes: { "/api/*": server.fetch, "/*": index },
+    development: Env.type !== bg.NodeEnvironmentEnum.production && { hmr: true, console: true },
   });
 
   Logger.info({
