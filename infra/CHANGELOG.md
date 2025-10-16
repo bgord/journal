@@ -1,9 +1,11 @@
 # Changelog
+- 2025-10-16 20:58 64121ceb **fix: main css in production server build**
+## 2025-10-16 20:58 
 - 2025-10-16 20:55 5240059e **refactor: ts-expect-error to ts-ignore**
-## 2025-10-16 20:55 
 - 2025-10-16 20:53 a849f48c **fix: bun-version in workflow**
 - 2025-10-16 20:48 4acd8c5f **step: update packages**
 - 2025-10-16 20:47 cb8e7256 **step: bump bgord/scripts**
+- 2025-10-16 18:56 c31f0124 **docs: generate CHANGELOG**
 - 2025-10-16 18:53 69949a29 **docs: generate CHANGELOG**
 - 2025-10-16 18:51 d68090b4 **docs: generate CHANGELOG**
 - 2025-10-16 18:51 a4d4563a **docs: generate readme**
