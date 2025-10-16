@@ -1,6 +1,40 @@
 # Changelog
+- 2025-10-16 20:48 4acd8c5f **step: update packages**
+## 2025-10-16 20:48 
+- 2025-10-16 20:47 cb8e7256 **step: bump bgord/scripts**
+- 2025-10-16 15:31 436ff021 **step: update fe packages**
+- 2025-10-16 15:27 7375f15e **fix: fe**
+- 2025-10-16 15:14 27cb5c45 **fix: attachment type error**
+- 2025-10-16 15:07 7999077d **step: update packages**
+- 2025-10-16 15:01 ba7c300c **fix: test json file reader**
+- 2025-10-16 14:43 39546db4 **fix: temporary file**
+- 2025-10-16 14:42 b3e5bbdd **fix: remote file storage**
+- 2025-10-16 14:42 51cef6c4 **fix: image processor**
+- 2025-10-16 14:39 9c305302 **step: add file cleaner adapter**
+- 2025-10-16 14:38 bd87c374 **step: add file renamer adapter**
+- 2025-10-16 14:36 0fccfbeb **fix: entries sharing types**
+- 2025-10-16 14:36 0fb1e569 **fix: alarm directory types**
+- 2025-10-16 13:59 787f4163 **fix: prereqs**
+- 2025-10-16 13:58 3a67e040 **fix: server.ts deps**
+- 2025-10-16 13:56 19409214 **step: add json file reader adapter**
+- 2025-10-16 13:54 a058bff3 **fix: weekly review snapshot types**
+- 2025-10-16 13:51 012fab10 **fix: entry snapshot types**
+- 2025-10-16 12:17 1972e6e3 **fix: error handler**
+- 2025-10-16 12:13 6dbaa9fc **fix: revision mismatch error**
+- 2025-10-16 12:13 290966c5 **fix: pdf generator adapter naming**
+- 2025-10-16 12:13 217ca25b **fix: captcha adapter**
+- 2025-10-16 12:11 4296e99c **fix: rate limiters**
+- 2025-10-16 12:10 5b1143d5 **fix: size unit**
+- 2025-10-16 12:09 9fde366f **fix: mime.raw**
+- 2025-10-16 12:09 7b3f9df4 **fix: temporary file adapter names**
+- 2025-10-16 12:08 78eb51bf **fix: name VisitorIdHashAdapter**
+- 2025-10-16 12:08 433f319c **fix: week iso id type casting in weekly review aggregate**
+- 2025-10-16 12:08 0062b950 **fix: duration ms schema**
+- 2025-10-16 12:00 3d2ae3a5 **step: install missing packages because of bun 1.3**
+- 2025-10-16 11:59 0e5c8e7f **refactor: regenerate bun lock**
+- 2025-10-16 11:57 6d7fa730 **step: update fe packages**
+- 2025-10-16 11:56 8ad3c9a8 **step: update packages**
 - 2025-10-08 11:51 74f9dd65 **step: enable react pdf generator in prod**
-## 2025-10-08 11:51 
 - 2025-10-08 11:44 d240062a **refactor: use smtp mailer with logger adapter**
 - 2025-10-08 11:32 b6ebdae9 **fix: missing translations in export entries**
 - 2025-10-08 11:27 ddaf2bf9 **refactor: restore server config**
@@ -21,6 +55,7 @@
 - 2025-10-08 10:17 17236cb4 **step: increase playwright timeout**
 - 2025-10-08 10:14 14157b7a **fix: remove the ***
 - 2025-10-08 10:07 8fea4568 **fix: profile upload 403**
+- 2025-10-08 09:52 6bc47b3b **docs: generate CHANGELOG**
 - 2025-10-08 09:45 94855952 **docs: generate CHANGELOG**
 - 2025-10-08 09:33 755aaeab **docs: generate CHANGELOG**
 - 2025-10-08 09:27 5ad2e29c **docs: generate CHANGELOG**
