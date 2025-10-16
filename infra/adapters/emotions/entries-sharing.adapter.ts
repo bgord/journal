@@ -27,6 +27,7 @@ class EntriesSharingDrizzle implements EntriesSharingPort {
       emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
       reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
       origin: entry.origin as VO.EntryOriginOption,
+      weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
       alarms: entry.alarms.map((alarm) => ({
         ...alarm,
         entryId: alarm.entryId as bg.UUIDType,
@@ -36,6 +37,7 @@ class EntriesSharingDrizzle implements EntriesSharingPort {
         generatedAt: alarm.generatedAt as tools.TimestampType,
         lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampType | null,
         emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
+        weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
       })),
     }));
   }
