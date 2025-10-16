@@ -4,11 +4,12 @@
     "**/.server/**/*",
     "**/.client/**/*",
     ".react-router/types/**/*",
-    "../node_modules/@bgord/design/dist/index.d.ts"
+    "./node_modules/@bgord/design/dist/index.d.ts",
+    "./node_modules/@types/bun/index.d.ts"
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["node", "vite/client", "bun-types"],
+    "types": ["node", "vite/client"],
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",

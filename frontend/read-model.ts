@@ -237,7 +237,9 @@ export class ReadModel {
     return reviews.map((review) => ({
       ...review,
       entryCount: review.entries.length,
-      week: tools.Week.fromIsoId(review.weekIsoId).toRange().map(tools.DateFormatters.datetime),
+      week: tools.Week.fromIsoId(tools.WeekIsoId.parse(review.weekIsoId))
+        .toRange()
+        .map(tools.DateFormatters.datetime),
     }));
   }
 
