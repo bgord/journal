@@ -67,6 +67,9 @@ jobs:
       - name: Remove package.json
         run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && rm -rf package.json"
 
+      - name: Remove fe package.json
+        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }}/frontend && rm -rf package.json"
+
       - name: Install sharp
         run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install --platform=linux --arch=x64 sharp"
 
@@ -75,6 +78,9 @@ jobs:
 
       - name: Sync package.json
         run: rsync -azP package.json production:/var/www/${{ secrets.PROJECT_NAME }}
+
+      - name: Sync frontend/package.json
+        run: rsync -azP frontend/package.json production:/var/www/${{ secrets.PROJECT_NAME }}/frontend
 
       - name: Install FE packages
         run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install --ignore-scripts"
