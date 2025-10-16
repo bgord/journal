@@ -1,5 +1,5 @@
 import type * as bg from "@bgord/bun";
-import type * as tools from "@bgord/tools";
+import * as tools from "@bgord/tools";
 import { and, desc, eq } from "drizzle-orm";
 import type * as Auth from "+auth";
 import type { AlarmDirectoryPort } from "+emotions/ports";
@@ -23,6 +23,7 @@ class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
       generatedAt: alarm.generatedAt as tools.TimestampType,
       lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampType | null,
       emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
+      weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
     }));
   }
 }
