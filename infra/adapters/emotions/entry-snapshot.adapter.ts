@@ -16,6 +16,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
 
     return {
       ...entry,
+      weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
       startedAt: tools.Timestamp.parse(entry.startedAt),
       status: entry.status as VO.EntryStatusEnum,
       situationKind: entry.situationKind as VO.SituationKindOptions,
@@ -71,6 +72,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
       reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
       origin: entry.origin as VO.EntryOriginOption,
+      weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
     };
   }
 }
