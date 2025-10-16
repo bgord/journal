@@ -29,7 +29,7 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.66.0",
+    "@anthropic-ai/sdk": "0.67.0",
     "@bgord/bun": "1.0.1",
     "@bgord/tools": "1.0.1",
     "@react-pdf/renderer": "4.3.1",
@@ -40,8 +40,9 @@
     "drizzle-orm": "0.44.6",
     "emittery": "1.2.0",
     "hono": "4.9.12",
+    "lodash": "4.17.21",
     "node-cache": "5.1.2",
-    "openai": "6.3.0",
+    "openai": "6.4.0",
     "react": "19.2.0",
     "zod": "4.1.12"
   }
