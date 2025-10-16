@@ -6,6 +6,7 @@ export * from "./clock.adapter";
 export * from "./csv-stringifier.adapter";
 export * as Emotions from "./emotions";
 export * from "./file-hash.adapter";
+export * from "./file-renamer.adapter";
 export * as History from "./history";
 export * from "./id-provider.adapter";
 export * from "./image-info.adapter";
