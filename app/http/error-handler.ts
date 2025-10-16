@@ -57,19 +57,19 @@ export class ErrorHandler {
       return error.getResponse();
     }
 
-    if (error instanceof tools.InvalidMimeError) {
+    if (error.message === tools.MimeValueError.Invalid) {
       return c.json({ message: "invalid.mime", _known: true }, 400);
     }
 
-    if (error instanceof tools.RevisionMismatchError) {
+    if (error.message === tools.RevisionError.Mismatch) {
       return c.json({ message: "revision.mismatch", _known: true }, 412);
     }
 
-    if (error instanceof bg.Preferences.VO.UnsupportedLanguageError) {
+    if (error.message === bg.Preferences.VO.SupportedLanguagesSetError.Missing) {
       return c.json({ message: "unsupported.language", _known: true }, 400);
     }
 
-    if (error.message === tools.DateRangeInvalidError) {
+    if (error.message === tools.DateRangeError.Invalid) {
       return c.json({ message: "invalid.date.range", _known: true }, 400);
     }
 
