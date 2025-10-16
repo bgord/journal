@@ -49,6 +49,7 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
       ...result,
       createdAt: result.createdAt as tools.TimestampType,
       status: result.status as VO.WeeklyReviewStatusEnum,
+      weekIsoId: tools.WeekIsoId.parse(result.weekIsoId),
       entries: result.entries.map((entry) => ({
         ...entry,
         startedAt: tools.Timestamp.parse(entry.startedAt),
