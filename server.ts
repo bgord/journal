@@ -22,9 +22,15 @@ const ServerDeps = {
   I18n: I18nConfig,
   IdProvider: Adapters.IdProvider,
   Clock: Adapters.Clock,
+  JsonFileReader: Adapters.JsonFileReader,
 };
 const ShieldRateLimitDeps = { Clock: Adapters.Clock };
-const HealthcheckDeps = { Clock: Adapters.Clock };
+const HealthcheckDeps = {
+  Clock: Adapters.Clock,
+  JsonFileReader: Adapters.JsonFileReader,
+  Logger: Adapters.Logger,
+};
+const TranslationsDeps = { JsonFileReader: Adapters.JsonFileReader, Logger: Adapters.Logger };
 
 const server = new Hono<infra.HonoConfig>();
 
@@ -153,7 +159,7 @@ server.route("/publishing", publishing);
 // =============================
 
 //Translations =================
-server.get("/translations", ResponseCache.handle, ...bg.Translations.build());
+server.get("/translations", ResponseCache.handle, ...bg.Translations.build(TranslationsDeps));
 // =============================
 
 //Preferences =================
