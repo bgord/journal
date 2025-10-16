@@ -6,10 +6,10 @@ const local = tools.DirectoryPathAbsoluteSchema.parse(`${__dirname}/profile-avat
 const prod = tools.DirectoryPathAbsoluteSchema.parse("/var/www/journal/infra/tmp-avatars");
 
 export const TemporaryFile: bg.TemporaryFilePort = {
-  [bg.NodeEnvironmentEnum.local]: new bg.TemporaryFileAbsolute(local),
-  [bg.NodeEnvironmentEnum.test]: new bg.TemporaryFileNoop(local),
-  [bg.NodeEnvironmentEnum.staging]: new bg.TemporaryFileNoop(local),
-  [bg.NodeEnvironmentEnum.production]: new bg.TemporaryFileAbsolute(prod),
+  [bg.NodeEnvironmentEnum.local]: new bg.TemporaryFileAbsoluteAdapter(local),
+  [bg.NodeEnvironmentEnum.test]: new bg.TemporaryFileNoopAdapter(local),
+  [bg.NodeEnvironmentEnum.staging]: new bg.TemporaryFileNoopAdapter(local),
+  [bg.NodeEnvironmentEnum.production]: new bg.TemporaryFileAbsoluteAdapter(prod),
 }[Env.type];
 
 export const TemporaryFileDirectory: tools.DirectoryPathAbsoluteType = {
