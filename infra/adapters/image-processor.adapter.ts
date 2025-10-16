@@ -1,5 +1,7 @@
 import * as bg from "@bgord/bun";
-import { FileCleaner, FileRenamer, JsonFileReader } from "+infra/adapters";
+import { FileCleaner } from "+infra/adapters/file-cleaner.adapter";
+import { FileRenamer } from "+infra/adapters/file-renamer.adapter";
+import { JsonFileReader } from "+infra/adapters/json-file-reader.adapter";
 import { Env } from "+infra/env";
 
 const deps = { FileCleaner, FileRenamer, JsonFileReader };
