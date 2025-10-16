@@ -2,7 +2,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "incremental": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": ["ESNext", "DOM"],
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
+    "module": "Preserve",
     "paths": {
       "+infra": ["./infra/index"],
       "+infra/*": ["./infra/*"],
