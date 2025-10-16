@@ -71,7 +71,7 @@ export class WeeklyReview {
       name: Events.WEEKLY_REVIEW_COMPLETED_EVENT,
       payload: {
         weeklyReviewId: this.id,
-        weekIsoId: this.week?.toIsoId() as string,
+        weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
         insights: insights.get(),
         userId: this.userId as Auth.VO.UserIdType,
       },
@@ -88,7 +88,7 @@ export class WeeklyReview {
       name: Events.WEEKLY_REVIEW_FAILED_EVENT,
       payload: {
         weeklyReviewId: this.id,
-        weekIsoId: this.week?.toIsoId() as string,
+        weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
         userId: this.userId as Auth.VO.UserIdType,
       },
     } satisfies Events.WeeklyReviewFailedEventType);
