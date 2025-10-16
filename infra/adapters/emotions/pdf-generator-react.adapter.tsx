@@ -108,7 +108,7 @@ const templates: Record<bg.PdfGeneratorTemplateType, TemplateFn> = {
   ),
 };
 
-export class PdfGeneratorReact implements bg.PdfGeneratorPort {
+export class PdfGeneratorReactAdapter implements bg.PdfGeneratorPort {
   async request(template: bg.PdfGeneratorTemplateType, data: Record<string, unknown> = {}) {
     const build = templates[template];
 
