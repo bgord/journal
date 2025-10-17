@@ -4,13 +4,12 @@ import {
   HeadContent,
   Outlet,
   Router,
+  redirect,
   Scripts,
 } from "@tanstack/react-router";
 import { Home } from "./home";
 
-export type RouterContext = {
-  user: { email: string } | null;
-};
+export type RouterContext = { user: { email?: string } | null };
 
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
@@ -43,12 +42,39 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   ),
 });
 
-const indexRoute = createRoute({ getParentRoute: () => rootRoute, path: "/", component: Home });
+const protectedRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  id: "protected",
+  beforeLoad: ({ context, location }) => {
+    if (!context.user) {
+      throw redirect({ to: "/login", search: { from: location.href }, replace: true });
+    }
+  },
+  component: () => <Outlet />,
+});
 
-const routeTree = rootRoute.addChildren([indexRoute]);
+const homeRoute = createRoute({ getParentRoute: () => protectedRoute, path: "/", component: Home });
 
-export function createRouter(context: RouterContext) {
-  return new Router({ routeTree, context });
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/login",
+  beforeLoad: ({ context, search }) => {
+    if (context.user) {
+      const from = typeof search?.from === "string" && search.from.startsWith("/") ? search.from : "/";
+      throw redirect({ to: from, replace: true });
+    }
+  },
+  component: () => (
+    <main>
+      <h1 data-mb="4">Sign in</h1>
+    </main>
+  ),
+});
+
+const routeTree = rootRoute.addChildren([loginRoute, protectedRoute.addChildren([homeRoute])]);
+
+export function createRouter(ctx: RouterContext) {
+  return new Router({ routeTree, context: ctx });
 }
 
 declare module "@tanstack/react-router" {
