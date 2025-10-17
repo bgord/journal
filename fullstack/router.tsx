@@ -8,7 +8,9 @@ import {
 } from "@tanstack/react-router";
 import { Home } from "./home";
 
-export type RouterContext = Record<string, never>;
+export type RouterContext = {
+  user: { email: string } | null;
+};
 
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
