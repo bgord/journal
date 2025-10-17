@@ -3,6 +3,7 @@ import { Home } from "./home";
 import Login, * as loginRoute from "./login";
 import Protected, * as protectedRoute from "./protected";
 import Root, * as rootRoute from "./root";
+import { Header } from "./header";
 
 function NotFound() {
   return <h1>404</h1>;
@@ -12,7 +13,12 @@ export const routes: RouteObject[] = [
   {
     id: "root",
     loader: rootRoute.loader,
-    element: <Root />,
+    element: (
+      <>
+        <Header />
+        <Root />
+      </>
+    ),
     children: [
       {
         path: "/login",
