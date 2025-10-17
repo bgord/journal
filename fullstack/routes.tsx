@@ -1,5 +1,8 @@
 import type { RouteObject } from "react-router";
 import { Header } from "./header";
+import { Home } from "./home";
+import Login, * as login from "./login";
+import Protected, * as protectedRoute from "./protected";
 import Root, * as root from "./root";
 
 export const routes: RouteObject[] = [
@@ -13,19 +16,18 @@ export const routes: RouteObject[] = [
       </>
     ),
     children: [
+      { path: "/login", element: <Login />, loader: login.loader, action: login.action },
       {
-        path: "/login",
-        lazy: () =>
-          import("./login").then((m) => ({ Component: m.default, loader: m.loader, action: m.action })),
+        element: <Protected />,
+        loader: protectedRoute.loader,
+        children: [{ path: "/", element: <Home /> }],
       },
+
       {
         path: "/logout",
-        lazy: () => import("./logout").then((m) => ({ action: m.action, Component: () => null })),
+        lazy: () => import("./logout").then((module) => ({ action: module.action, Component: () => null })),
       },
-      {
-        lazy: () => import("./protected").then((m) => ({ Component: m.default, loader: m.loader })),
-        children: [{ path: "/", lazy: () => import("./home").then((m) => ({ Component: m.Home })) }],
-      },
+
       {
         path: "*",
         element: (
