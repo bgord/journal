@@ -1,11 +1,9 @@
 import { Link } from "react-router";
-import { SessionWidget } from "./session-widget";
 
 export function Home() {
   return (
     <main>
-      <header>Home here</header>
-      <SessionWidget />
+      <header>Home</header>
       <Link to="/login">Login</Link>
     </main>
   );
