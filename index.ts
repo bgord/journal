@@ -10,14 +10,11 @@ import { server, startup } from "./server";
 
 const serveAsset = (req: Request) => {
   const url = new URL(req.url);
+
   const file = Bun.file(new URL(`./public${url.pathname}`, import.meta.url));
+
   return file.size
-    ? new Response(file, {
-        headers: {
-          // dev: prevent caching so reload picks up new bundle
-          "Cache-Control": "no-store",
-        },
-      })
+    ? new Response(file, { headers: { "Cache-Control": "no-store" } })
     : new Response("Not Found", { status: 404 });
 };
 
@@ -34,7 +31,6 @@ const serveAsset = (req: Request) => {
       "/api/*": server.fetch,
       "/*": (request) => handleSsr(request),
     },
-    development: Env.type !== bg.NodeEnvironmentEnum.production && { hmr: true, console: true },
   });
 
   Logger.info({
