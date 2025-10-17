@@ -26,7 +26,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
           <HeadContent />
         </head>
         <body>
-          <div id="root" data-p="4">
+          <div id="root">
             <Outlet />
           </div>
           <Scripts />
