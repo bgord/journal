@@ -11,7 +11,6 @@ export async function handleSsr(request: Request): Promise<Response> {
   const staticHandler = createStaticHandler(routes as RouteObject[]);
   const contextOrResponse = await staticHandler.query(request);
 
-  // Redirects / thrown responses (404, etc.)
   if (contextOrResponse instanceof Response) return contextOrResponse;
 
   const staticRouter = createStaticRouter(staticHandler.dataRoutes, contextOrResponse);

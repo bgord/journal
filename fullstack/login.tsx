@@ -3,6 +3,7 @@ import { getSession, signInEmail } from "./auth.server";
 
 function pickRedirect(url: URL, fallback = "/") {
   const from = url.searchParams.get("from");
+
   if (from && from.startsWith("/")) return from;
   return fallback;
 }
@@ -10,6 +11,7 @@ function pickRedirect(url: URL, fallback = "/") {
 export async function loader({ request }: RR.LoaderFunctionArgs) {
   const { json } = await getSession(request);
   const user = json?.data?.user ?? null;
+
   if (user) throw RR.redirect(pickRedirect(new URL(request.url), "/"));
   return null;
 }
@@ -25,15 +27,14 @@ export async function action({ request }: RR.ActionFunctionArgs) {
     return Response.json({ error: "missing_credentials" }, { status: 400 });
   }
 
-  const authRes = await signInEmail(request, form);
+  const response = await signInEmail(request, form);
 
-  if (!authRes.ok) {
-    return Response.json({ error: "invalid_credentials" }, { status: 401 });
-  }
+  if (!response.ok) return Response.json({ error: "invalid_credentials" }, { status: 401 });
 
-  const setCookie = authRes.headers.get("set-cookie") ?? "";
+  const cookie = response.headers.get("set-cookie") ?? "";
+
   throw RR.redirect(pickRedirect(url, "/"), {
-    headers: setCookie ? { "set-cookie": setCookie } : undefined,
+    headers: cookie ? { "set-cookie": cookie } : undefined,
   });
 }
 

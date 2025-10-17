@@ -17,7 +17,7 @@ export const routes = [
     ),
     children: [
       { path: "/login", loader: login.loader, action: login.action, element: <Login /> },
-      { path: "/logout", action: logout.action },
+      { path: "/logout", action: logout.action, element: null },
       {
         loader: protectedRoute.loader,
         element: <Protected />,

@@ -3,7 +3,7 @@ import { getSession } from "./auth.server";
 
 function redirectTarget(request: Request) {
   const url = new URL(request.url);
-  // send them back to where they tried to go
+
   return `/login?from=${encodeURIComponent(url.pathname + url.search)}`;
 }
 
