@@ -1,6 +1,6 @@
 import { Link, type RouteObject } from "react-router";
 import { Home } from "./home";
-import { Login } from "./login";
+import Login, * as login from "./login";
 
 function NotFound() {
   return (
@@ -13,6 +13,6 @@ function NotFound() {
 
 export const routes: RouteObject[] = [
   { path: "/", element: <Home /> },
-  { path: "/login", element: <Login /> },
+  { path: "/login", loader: login.loader, action: login.action, element: <Login /> },
   { path: "*", element: <NotFound /> },
 ];
