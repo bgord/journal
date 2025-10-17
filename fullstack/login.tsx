@@ -10,7 +10,7 @@ function pickRedirect(url: URL, fallback = "/") {
 
 export async function loader({ request }: RR.LoaderFunctionArgs) {
   const { json } = await getSession(request);
-  const user = json?.data?.user ?? null;
+  const user = json?.user ?? null;
 
   if (user) throw RR.redirect(pickRedirect(new URL(request.url), "/"));
   return null;
