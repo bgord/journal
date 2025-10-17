@@ -50,7 +50,7 @@ function renderHtml(appHtml: string, state: unknown) {
         <script>
           window.__RR_STATE__ = ${JSON.stringify(state)};
         </script>
-        <script type="module" src="/fullstack/entry-client.tsx"></script>
+        <script type="module" src="/assets/entry-client.js"></script>
       </body>
     </html>`;
 }
