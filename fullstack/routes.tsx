@@ -1,7 +1,6 @@
-import { RouteObject, Link } from "react-router";
-
-import { Login } from "./login";
+import { Link, type RouteObject } from "react-router";
 import { Home } from "./home";
+import { Login } from "./login";
 
 function NotFound() {
   return (
