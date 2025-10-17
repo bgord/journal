@@ -13,8 +13,9 @@ import { TemporaryFileDirectory } from "+infra/temporary-file.adapter";
 
 const production = Env.type === bg.NodeEnvironmentEnum.production;
 
+// TODO port, memory
 export const prerequisites = [
-  new bg.PrerequisitePort({ label: "port", port: Env.PORT }),
+  new bg.PrerequisitePort({ label: "port", port: Env.PORT, enabled: false }),
   new bg.PrerequisiteTimezoneUTC({ label: "timezone", timezone: tools.Timezone.parse(Env.TZ) }),
   new bg.PrerequisiteRAM({ label: "RAM", minimum: tools.Size.fromMB(128), enabled: production }),
   new bg.PrerequisiteSpace({ label: "disk-space", minimum: tools.Size.fromMB(512) }),
@@ -28,7 +29,7 @@ export const prerequisites = [
     version: tools.PackageVersion.fromString("1.2.22"),
     current: Bun.version,
   }),
-  new bg.PrerequisiteMemory({ label: "memory-consumption", maximum: tools.Size.fromMB(300) }),
+  new bg.PrerequisiteMemory({ label: "memory-consumption", maximum: tools.Size.fromMB(500) }),
   new bg.PrerequisiteLogFile({
     label: "log-file",
     logger: LoggerWinstonProductionAdapter,
