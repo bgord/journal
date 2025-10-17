@@ -4,4 +4,4 @@ import { createRouter, type RouterContext } from "./router";
 
 const router = createRouter({} as RouterContext);
 
-hydrateRoot(document.getElementById("root")!, <RouterClient router={router} />);
+hydrateRoot(document, <RouterClient router={router} />);
