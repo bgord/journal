@@ -1,18 +1,34 @@
-import { Link, type RouteObject } from "react-router";
+import type { RouteObject } from "react-router";
 import { Home } from "./home";
-import Login, * as login from "./login";
+import Login, * as loginRoute from "./login";
+import Protected, * as protectedRoute from "./protected";
+import Root, * as rootRoute from "./root";
 
 function NotFound() {
-  return (
-    <main>
-      <h1>404</h1>
-      <Link to="/">Go home</Link>
-    </main>
-  );
+  return <h1>404</h1>;
 }
 
 export const routes: RouteObject[] = [
-  { path: "/", element: <Home /> },
-  { path: "/login", loader: login.loader, action: login.action, element: <Login /> },
-  { path: "*", element: <NotFound /> },
+  {
+    id: "root",
+    loader: rootRoute.loader,
+    element: <Root />,
+    children: [
+      {
+        path: "/login",
+        loader: loginRoute.loader,
+        action: loginRoute.action,
+        element: <Login />,
+      },
+      {
+        loader: protectedRoute.loader,
+        element: <Protected />,
+        children: [{ path: "/", element: <Home /> }],
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
 ];
