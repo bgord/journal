@@ -32,7 +32,7 @@ const HealthcheckDeps = {
 };
 const TranslationsDeps = { JsonFileReader: Adapters.JsonFileReader, Logger: Adapters.Logger };
 
-const server = new Hono<infra.HonoConfig>();
+const server = new Hono<infra.HonoConfig>().basePath("/api");
 
 server.use(
   ...bg.Setup.essentials(ServerDeps, {
@@ -189,7 +189,7 @@ server.delete(
 // =============================
 
 // Auth ========================
-server.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
+server.on(["POST", "GET"], "/auth/*", (c) => auth.handler(c.req.raw));
 // =============================
 
 server.onError(HTTP.ErrorHandler.handle);

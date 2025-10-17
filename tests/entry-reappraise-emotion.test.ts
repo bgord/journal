@@ -8,7 +8,7 @@ import { server } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
-const url = `/entry/${mocks.entryId}/reappraise-emotion`;
+const url = `/api/entry/${mocks.entryId}/reappraise-emotion`;
 
 describe("POST /entry/:id/reappraise-emotion", () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
@@ -52,10 +52,10 @@ describe("POST /entry/:id/reappraise-emotion", () => {
     });
   });
 
-  test("validation - incorrect id", async () => {
+  test("validation - invalid id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
-      "/entry/id/reappraise-emotion",
+      "/api/entry/id/reappraise-emotion",
       {
         method: "POST",
         headers: mocks.revisionHeaders(),

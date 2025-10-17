@@ -13,7 +13,7 @@ import { server, startup } from "./server";
   migrate(db, { migrationsFolder: "infra/drizzle" });
 
   const app = Bun.serve({
-    fetch: server.fetch,
+    routes: { "/api/*": server.fetch },
     maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
     idleTimeout: infra.IDLE_TIMEOUT,
   });
