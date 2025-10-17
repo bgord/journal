@@ -4,7 +4,7 @@ import * as infra from "+infra";
 import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
 import { prerequisites } from "+infra/prerequisites";
-import index from "./index.html";
+import { handleSsr } from "./fullstack/entry-server";
 import { Env } from "./infra/env";
 import { server, startup } from "./server";
 
@@ -16,7 +16,7 @@ import { server, startup } from "./server";
   const app = Bun.serve({
     maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
     idleTimeout: infra.IDLE_TIMEOUT,
-    routes: { "/api/*": server.fetch, "/*": index },
+    routes: { "/api/*": server.fetch, "/*": (request) => handleSsr(request) },
     development: Env.type !== bg.NodeEnvironmentEnum.production && { hmr: true, console: true },
   });
 

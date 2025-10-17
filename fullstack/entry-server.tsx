@@ -2,8 +2,8 @@ import { renderToReadableStream } from "react-dom/server";
 import {
   createStaticHandler,
   createStaticRouter,
-  StaticRouterProvider,
   type RouteObject,
+  StaticRouterProvider,
 } from "react-router";
 import { routes } from "./routes";
 
