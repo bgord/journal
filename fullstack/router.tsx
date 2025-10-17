@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { z } from "zod/v4";
+import { Header } from "./header";
 import { Home } from "./home";
 
 export type RouterContext = { user: { email?: string } | null };
@@ -29,6 +30,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
         </head>
         <body>
           <div id="root">
+            <Header />
             <Outlet />
           </div>
           <Scripts />
