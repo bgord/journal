@@ -10,7 +10,7 @@ function redirectTarget(request: Request) {
 export async function loader({ request }: RR.LoaderFunctionArgs) {
   const { json } = await getSession(request);
 
-  const user = json?.data?.user ?? null;
+  const user = json?.user ?? null;
 
   if (!user) throw RR.redirect(redirectTarget(request));
 
