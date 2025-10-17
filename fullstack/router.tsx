@@ -7,6 +7,7 @@ import {
   redirect,
   Scripts,
 } from "@tanstack/react-router";
+import { z } from "zod/v4";
 import { Home } from "./home";
 
 export type RouterContext = { user: { email?: string } | null };
@@ -55,13 +56,15 @@ const protectedRoute = createRoute({
 
 const homeRoute = createRoute({ getParentRoute: () => protectedRoute, path: "/", component: Home });
 
+const LoginSearch = z.object({ from: z.string().startsWith("/").default("/") });
+
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
+  validateSearch: (search) => LoginSearch.parse(search),
   beforeLoad: ({ context, search }) => {
     if (context.user) {
-      const from = typeof search?.from === "string" && search.from.startsWith("/") ? search.from : "/";
-      throw redirect({ to: from, replace: true });
+      throw redirect({ to: search.from, replace: true });
     }
   },
   component: () => (
