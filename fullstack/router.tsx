@@ -1,34 +1,46 @@
-import { createRootRouteWithContext, createRoute, Outlet, Router } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  createRoute,
+  HeadContent,
+  Outlet,
+  Router,
+  Scripts,
+} from "@tanstack/react-router";
 import { Home } from "./home";
 
 /**
- * Step 1: empty context. We’ll add { user } in a later step.
+ * Step 2: still empty context (we’ll add { user } later).
  * Docs: Router Context
- * https://tanstack.com/router/v1/docs/framework/react/guide/router-context
  */
 export type RouterContext = Record<string, never>;
 
 /**
- * Root route renders an <Outlet/> for children.
- * Docs: createRootRouteWithContext + Outlets
- * https://tanstack.com/router/v1/docs/framework/react/api/router/createRootRouteWithContextFunction
- * https://tanstack.com/router/v1/docs/framework/react/guide/outlets
+ * Root route renders the full HTML document for SSR.
+ * Include <HeadContent /> and <Scripts /> so dehydration/hydration works.
  */
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
-  component: () => (
-    <div data-p="4">
-      <Outlet />
-    </div>
-  ),
-  // Minimal notFound so we see something on unknown paths
-  // Docs: Not Found Errors
-  // https://tanstack.com/router/v1/docs/framework/react/guide/not-found-errors
+  component: function RootDocument() {
+    return (
+      <html lang="en">
+        <head>
+          <HeadContent />
+        </head>
+        <body>
+          <div id="root" data-p="4">
+            <Outlet />
+          </div>
+          <Scripts />
+        </body>
+      </html>
+    );
+  },
   notFoundComponent: () => (
     <main>
       <h1>404</h1>
       <p>Nothing to see here (yet).</p>
     </main>
   ),
+  scripts: () => [{ type: "module", src: "/assets/entry-client.js" }],
 });
 
 /**
@@ -42,8 +54,6 @@ const indexRoute = createRoute({
 
 /**
  * Compose the route tree.
- * Docs: Creating a Router / RouterOptions.routeTree
- * https://tanstack.com/router/v1/docs/framework/react/guide/creating-a-router
  */
 const routeTree = rootRoute.addChildren([indexRoute]);
 
@@ -59,8 +69,6 @@ export function createRouter(ctx: RouterContext) {
 
 /**
  * Type augmentation for full type-safety with this router.
- * Docs: Type Safety (Register.router)
- * https://tanstack.com/router/v1/docs/framework/react/guide/type-safety
  */
 declare module "@tanstack/react-router" {
   interface Register {
