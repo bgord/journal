@@ -1,8 +1,9 @@
-import { useSearch } from "@tanstack/react-router";
+import { useSearch, useNavigate } from "@tanstack/react-router";
 import * as React from "react";
 
 export function Login() {
   const search = useSearch({ from: "/login" });
+  const navigate = useNavigate();
 
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -15,20 +16,20 @@ export function Login() {
     const form = new FormData(event.currentTarget);
 
     try {
-      const res = await fetch("/api/auth/sign-in/email", {
+      const response = await fetch("/api/auth/sign-in/email", {
         method: "POST",
         body: form,
         credentials: "include",
       });
 
-      if (!res.ok) {
-        setError(res.status === 401 ? "Invalid email or password." : "Login failed.");
+      if (!response.ok) {
+        setError(response.status === 401 ? "Invalid email or password." : "Login failed.");
         setSubmitting(false);
         return;
       }
 
       // Hard navigation to let SSR rebuild with context.user
-      location.replace(search.from);
+      navigate({ to: search.from });
     } catch {
       setError("Network error. Try again.");
       setSubmitting(false);

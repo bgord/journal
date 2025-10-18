@@ -54,7 +54,6 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
     </html>
   ),
   loader: async ({ context }) => ({ user: await loadUser(context.request) }),
-
   notFoundComponent: () => (
     <main>
       <h1>404</h1>
@@ -100,7 +99,6 @@ const logoutRoute = createRoute({
 
     throw redirect({ to: "/login", search: { from: "/" }, replace: true });
   },
-  component: () => null,
 });
 
 const routeTree = rootRoute.addChildren([loginRoute, protectedRoute.addChildren([homeRoute]), logoutRoute]);
