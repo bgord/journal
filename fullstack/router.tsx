@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { z } from "zod/v4";
+import { signOut } from "./auth.server";
 import { Header } from "./header";
 import { Home } from "./home";
 
@@ -74,10 +75,21 @@ const loginRoute = createRoute({
   ),
 });
 
-const routeTree = rootRoute.addChildren([loginRoute, protectedRoute.addChildren([homeRoute])]);
+const logoutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/logout",
+  beforeLoad: async ({ context }) => {
+    if (context.request) await signOut(context.request);
+    else await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" }).catch(() => {});
 
-export function createRouter(ctx: RouterContext) {
-  return new Router({ routeTree, context: ctx });
+    throw redirect({ to: "/login", search: { from: "/" }, replace: true });
+  },
+});
+
+const routeTree = rootRoute.addChildren([loginRoute, protectedRoute.addChildren([homeRoute]), logoutRoute]);
+
+export function createRouter(context: RouterContext) {
+  return new Router({ routeTree, context });
 }
 
 declare module "@tanstack/react-router" {
