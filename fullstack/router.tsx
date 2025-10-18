@@ -8,7 +8,6 @@ import {
   redirect,
   Scripts,
 } from "@tanstack/react-router";
-import { z } from "zod/mini";
 import { getSession, signOut } from "./auth.server";
 import { Header } from "./header";
 
@@ -81,12 +80,12 @@ const homeRoute = createRoute({
   component: lazyRouteComponent(() => import("./home"), "Home"),
 });
 
-const LoginSearch = z.object({ from: z.string() });
-
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
-  validateSearch: LoginSearch.parse,
+  validateSearch: function parseLoginSearch(s: Record<string, unknown>) {
+    return { from: typeof s.from === "string" && s.from.startsWith("/") ? s.from : "/" };
+  },
   loader: async ({ context }) => {
     const user = await loadUser(context.request);
 
