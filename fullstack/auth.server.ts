@@ -7,15 +7,6 @@ export async function getSession(request: Request) {
   return { res, json };
 }
 
-export async function signInEmail(request: Request, form: FormData) {
-  return fetch(new URL("/api/auth/sign-in/email", request.url), {
-    method: "POST",
-    headers: { cookie: request.headers.get("cookie") ?? "" },
-    body: form,
-    credentials: "include",
-  });
-}
-
 export async function signOut(request: Request) {
   return fetch(new URL("/api/auth/sign-out", request.url), {
     method: "POST",

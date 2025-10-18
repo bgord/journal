@@ -20,13 +20,16 @@ type UserType = { email: string };
 async function loadUser(request: Request | null): Promise<UserType | null> {
   if (request) {
     const { json } = await getSession(request);
+
     return json?.user ?? null;
   }
+
   const response = await fetch("/api/auth/get-session", { credentials: "include" }).catch(() => null);
 
   if (!response?.ok) return null;
 
-  const json = await response.json().catch(() => ({}));
+  const json = await response.json();
+
   return json?.user ?? null;
 }
 
