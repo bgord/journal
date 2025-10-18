@@ -2,6 +2,7 @@ import {
   createRootRouteWithContext,
   createRoute,
   HeadContent,
+  lazyRouteComponent,
   Outlet,
   Router,
   redirect,
@@ -11,7 +12,6 @@ import { z } from "zod/mini";
 import { getSession, signOut } from "./auth.server";
 import { Header } from "./header";
 import { Home } from "./home";
-import { Login } from "./login";
 
 export type RouterContext = { request: Request | null };
 
@@ -76,7 +76,11 @@ const protectedRoute = createRoute({
   component: () => <Outlet />,
 });
 
-const homeRoute = createRoute({ getParentRoute: () => protectedRoute, path: "/", component: Home });
+const homeRoute = createRoute({
+  getParentRoute: () => protectedRoute,
+  path: "/",
+  component: lazyRouteComponent(() => import("./home"), "Home"),
+});
 
 const LoginSearch = z.object({ from: z.string() });
 
@@ -90,7 +94,7 @@ const loginRoute = createRoute({
     if (user) throw redirect({ to: "/", replace: true });
     return null;
   },
-  component: Login,
+  component: lazyRouteComponent(() => import("./login"), "Login"),
 });
 
 const logoutRoute = createRoute({
