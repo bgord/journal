@@ -7,7 +7,7 @@ import {
   redirect,
   Scripts,
 } from "@tanstack/react-router";
-import { z } from "zod/v4";
+import { z } from "zod/mini";
 import { getSession, signOut } from "./auth.server";
 import { Header } from "./header";
 import { Home } from "./home";
@@ -78,7 +78,7 @@ const protectedRoute = createRoute({
 
 const homeRoute = createRoute({ getParentRoute: () => protectedRoute, path: "/", component: Home });
 
-const LoginSearch = z.object({ from: z.string().startsWith("/").default("/") });
+const LoginSearch = z.object({ from: z.string() });
 
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
