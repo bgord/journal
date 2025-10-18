@@ -64,7 +64,7 @@ const LoginSearch = z.object({ from: z.string().startsWith("/").default("/") });
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
-  validateSearch: (search) => LoginSearch.parse(search),
+  validateSearch: LoginSearch.parse,
   beforeLoad: ({ context, search }) => {
     if (context.user) throw redirect({ to: search.from, replace: true });
   },
