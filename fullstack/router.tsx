@@ -11,6 +11,7 @@ import { z } from "zod/v4";
 import { signOut } from "./auth.server";
 import { Header } from "./header";
 import { Home } from "./home";
+import { Login } from "./login";
 
 export type RouterContext = { user: { email?: string } | null; request: Request | null };
 
@@ -68,11 +69,7 @@ const loginRoute = createRoute({
   beforeLoad: ({ context, search }) => {
     if (context.user) throw redirect({ to: search.from, replace: true });
   },
-  component: () => (
-    <main>
-      <h1 data-mb="4">Sign in</h1>
-    </main>
-  ),
+  component: Login,
 });
 
 const logoutRoute = createRoute({
