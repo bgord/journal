@@ -109,7 +109,7 @@ const logoutRoute = createRoute({
 const routeTree = rootRoute.addChildren([loginRoute, protectedRoute.addChildren([homeRoute]), logoutRoute]);
 
 export function createRouter(context: RouterContext) {
-  return new Router({ routeTree, context });
+  return new Router({ routeTree, context, defaultPreload: "intent" });
 }
 
 declare module "@tanstack/react-router" {
