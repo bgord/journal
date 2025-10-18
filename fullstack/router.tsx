@@ -11,7 +11,6 @@ import {
 import { z } from "zod/mini";
 import { getSession, signOut } from "./auth.server";
 import { Header } from "./header";
-import { Home } from "./home";
 
 export type RouterContext = { request: Request | null };
 
