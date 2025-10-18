@@ -8,12 +8,27 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { z } from "zod/v4";
-import { signOut } from "./auth.server";
+import { getSession, signOut } from "./auth.server";
 import { Header } from "./header";
 import { Home } from "./home";
 import { Login } from "./login";
 
-export type RouterContext = { user: { email?: string } | null; request: Request | null };
+export type RouterContext = { request: Request | null };
+
+type UserType = { email: string };
+
+async function loadUser(request: Request | null): Promise<UserType | null> {
+  if (request) {
+    const { json } = await getSession(request);
+    return json?.user ?? null;
+  }
+  const response = await fetch("/api/auth/get-session", { credentials: "include" }).catch(() => null);
+
+  if (!response?.ok) return null;
+
+  const json = await response.json().catch(() => ({}));
+  return json?.user ?? null;
+}
 
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
@@ -24,22 +39,22 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
     ],
     scripts: [{ type: "module", src: "/assets/entry-client.js" }],
   }),
-  component: function RootDocument() {
-    return (
-      <html lang="en">
-        <head>
-          <HeadContent />
-        </head>
-        <body>
-          <div id="root">
-            <Header />
-            <Outlet />
-          </div>
-          <Scripts />
-        </body>
-      </html>
-    );
-  },
+  component: () => (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <div id="root">
+          <Header />
+          <Outlet />
+        </div>
+        <Scripts />
+      </body>
+    </html>
+  ),
+  loader: async ({ context }) => ({ user: await loadUser(context.request) }),
+
   notFoundComponent: () => (
     <main>
       <h1>404</h1>
@@ -50,10 +65,11 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
 const protectedRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "protected",
-  beforeLoad: ({ context, location }) => {
-    if (!context.user) {
-      throw redirect({ to: "/login", search: { from: location.href }, replace: true });
-    }
+  loader: async ({ context, location }) => {
+    const user = await loadUser(context.request);
+
+    if (!user) throw redirect({ to: "/login", search: { from: location.href }, replace: true });
+    return { user };
   },
   component: () => <Outlet />,
 });
@@ -66,8 +82,11 @@ const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
   validateSearch: LoginSearch.parse,
-  beforeLoad: ({ context, search }) => {
-    if (context.user) throw redirect({ to: search.from, replace: true });
+  loader: async ({ context }) => {
+    const user = await loadUser(context.request);
+
+    if (user) throw redirect({ to: "/", replace: true });
+    return null;
   },
   component: Login,
 });
@@ -75,12 +94,13 @@ const loginRoute = createRoute({
 const logoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/logout",
-  beforeLoad: async ({ context }) => {
+  loader: async ({ context }) => {
     if (context.request) await signOut(context.request);
     else await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" }).catch(() => {});
 
     throw redirect({ to: "/login", search: { from: "/" }, replace: true });
   },
+  component: () => null,
 });
 
 const routeTree = rootRoute.addChildren([loginRoute, protectedRoute.addChildren([homeRoute]), logoutRoute]);

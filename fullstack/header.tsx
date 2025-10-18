@@ -1,8 +1,8 @@
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link, useLoaderData } from "@tanstack/react-router";
+import { rootRoute } from "./router";
 
 export function Header() {
-  const router = useRouter();
-  const user = router.options.context.user;
+  const { user } = useLoaderData({ from: rootRoute.id });
 
   return (
     <header>

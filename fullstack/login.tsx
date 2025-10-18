@@ -3,7 +3,6 @@ import * as React from "react";
 
 export function Login() {
   const search = useSearch({ from: "/login" });
-  const target = typeof search.from === "string" && search.from.startsWith("/") ? search.from : "/";
 
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -29,7 +28,7 @@ export function Login() {
       }
 
       // Hard navigation to let SSR rebuild with context.user
-      location.replace(target);
+      location.replace(search.from);
     } catch {
       setError("Network error. Try again.");
       setSubmitting(false);
