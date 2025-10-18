@@ -5,7 +5,7 @@ import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
 import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
-import { handleSsr } from "./fullstack/entry-server";
+import { handler } from "./fullstack/entry-server";
 import { server, startup } from "./server";
 
 // Minimal static asset responder for /assets/*
@@ -28,7 +28,7 @@ function serveAsset(req: Request) {
     routes: {
       "/assets/*": serveAsset,
       "/api/*": server.fetch,
-      "/*": (request) => handleSsr(request),
+      "/*": handler,
     },
   });
 
