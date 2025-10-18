@@ -11,7 +11,7 @@ import { z } from "zod/v4";
 import { Header } from "./header";
 import { Home } from "./home";
 
-export type RouterContext = { user: { email?: string } | null };
+export type RouterContext = { user: { email?: string } | null; request: Request | null };
 
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
@@ -65,9 +65,7 @@ const loginRoute = createRoute({
   path: "/login",
   validateSearch: (search) => LoginSearch.parse(search),
   beforeLoad: ({ context, search }) => {
-    if (context.user) {
-      throw redirect({ to: search.from, replace: true });
-    }
+    if (context.user) throw redirect({ to: search.from, replace: true });
   },
   component: () => (
     <main>

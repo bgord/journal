@@ -6,7 +6,7 @@ export async function handleSsr(request: Request): Promise<Response> {
   const { json } = await getSession(request);
   const user = json?.user ?? null;
 
-  const handler = createRequestHandler({ request, createRouter: () => createRouter({ user }) });
+  const handler = createRequestHandler({ request, createRouter: () => createRouter({ user, request }) });
 
   return handler(defaultRenderHandler);
 }
