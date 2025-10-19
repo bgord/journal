@@ -98,6 +98,7 @@ const loginRoute = createRoute({
 const logoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/logout",
+  preload: false,
   loader: async ({ context }) => {
     if (context.request) await signOut(context.request);
     else await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" }).catch(() => {});
