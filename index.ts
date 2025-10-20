@@ -8,6 +8,7 @@ import { prerequisites } from "+infra/prerequisites";
 import forgotPasswordHtml from "./forgot-password.html";
 import loginHtml from "./login.html";
 import registerHtml from "./register.html";
+import resetPassword from "./reset-password.html";
 import { server, startup } from "./server";
 
 (async function main() {
@@ -21,6 +22,7 @@ import { server, startup } from "./server";
       "/login": loginHtml,
       "/register": registerHtml,
       "/forgot-password": forgotPasswordHtml,
+      "/reset-password": resetPassword,
     },
     development: { hmr: true, console: true },
     fetch: server.fetch,
