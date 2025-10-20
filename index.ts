@@ -5,6 +5,7 @@ import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
 import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
+import forgotPasswordHtml from "./forgot-password.html";
 import loginHtml from "./login.html";
 import registerHtml from "./register.html";
 import { server, startup } from "./server";
@@ -15,7 +16,7 @@ import { server, startup } from "./server";
   migrate(db, { migrationsFolder: "infra/drizzle" });
 
   const app = Bun.serve({
-    routes: { "/login": loginHtml, "/register": registerHtml },
+    routes: { "/login": loginHtml, "/register": registerHtml, "/forgot-password": forgotPasswordHtml },
     development: { hmr: true, console: true },
     fetch: server.fetch,
     maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
