@@ -1,0 +1,21 @@
+html,
+body {
+  font-family: Inter !important;
+}
+
+.logo a,
+.logo a:visited,
+.logo a:hover,
+.logo a:active {
+  text-shadow: -10px -8px var(--color-brand-800);
+  color: var(--color-brand-300);
+  text-decoration: none;
+}
+
+/* Show a clear outline only on keyboard focus */
+button[data-rating-pill]:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-neutral-950),
+    0 0 0 4px var(--color-neutral-400);
+}
