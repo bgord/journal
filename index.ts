@@ -6,6 +6,7 @@ import { db } from "+infra/db";
 import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
 import loginHtml from "./login.html";
+import registerHtml from "./register.html";
 import { server, startup } from "./server";
 
 (async function main() {
@@ -14,7 +15,7 @@ import { server, startup } from "./server";
   migrate(db, { migrationsFolder: "infra/drizzle" });
 
   const app = Bun.serve({
-    routes: { "/login": loginHtml },
+    routes: { "/login": loginHtml, "/register": registerHtml },
     development: { hmr: true, console: true },
     fetch: server.fetch,
     maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,

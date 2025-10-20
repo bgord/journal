@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="description" content="Journal" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link as="style" rel="stylesheet preload" href="./node_modules/@bgord/design/dist/main.min.css" />
+    <link as="style" rel="stylesheet preload" href="./public/custom.css" />
+
+    <title>Journal</title>
+  </head>
+
+  <body data-mx="auto" data-bg="neutral-950">
+    <main data-stack="y">
+      <header data-stack="x" data-main="between" data-cross="center" data-p="3">
+        <div class="logo" data-fs="4xl" data-fw="bold" data-ls="wider" data-color="brand-600">
+          <a href="/">Journal</a>
+        </div>
+      </header>
+
+      <form
+        data-stack="y"
+        data-gap="4"
+        data-mt="8"
+        data-mx="auto"
+        data-p="8"
+        data-bg="neutral-900"
+        data-br="xs"
+        style="width: 400px"
+      >
+        <legend data-fs="xl" data-color="neutral-200" data-mb="5">Sign up</legend>
+
+        <div data-stack="y">
+          <label class="c-label">Email</label>
+          <input autofocus class="c-input" type="email" placeholder="user@example.com" />
+        </div>
+
+        <div data-stack="y">
+          <label class="c-label">Password</label>
+          <input class="c-input" type="password" placeholder="*********" />
+        </div>
+
+        <button class="c-button" data-variant="primary" type="submit">Register</button>
+
+        <p data-transform="center" data-color="neutral-400" data-mt="5" data-fs="sm">
+          Already have an account?
+          <a class="c-link" href="/login" data-decoration="underline">Login</a>
+        </p>
+
+        <a class="c-link" href="/forgot-password" data-decoration="underline" data-mx="auto">
+          Forgot password?
+        </a>
+      </form>
+    </main>
+  </body>
+</html>
