@@ -16,7 +16,12 @@ import { server, startup } from "./server";
   migrate(db, { migrationsFolder: "infra/drizzle" });
 
   const app = Bun.serve({
-    routes: { "/login": loginHtml, "/register": registerHtml, "/forgot-password": forgotPasswordHtml },
+    routes: {
+      "/favicon.ico": Bun.file("public/favicon.ico"),
+      "/login": loginHtml,
+      "/register": registerHtml,
+      "/forgot-password": forgotPasswordHtml,
+    },
     development: { hmr: true, console: true },
     fetch: server.fetch,
     maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
