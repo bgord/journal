@@ -50,6 +50,10 @@ server.use(
 
 const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 
+server.get("/home", AuthShield.attach, AuthShield.verify, async (context) => {
+  return context.html(await Bun.file("./home.html").text());
+});
+
 // Healthcheck =================
 server.get(
   "/healthcheck",
