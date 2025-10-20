@@ -19,3 +19,19 @@ button[data-rating-pill]:focus-visible {
     0 0 0 2px var(--color-neutral-950),
     0 0 0 4px var(--color-neutral-400);
 }
+
+[data-when] {
+  display: none;
+}
+[data-status="initial"] [data-when~="initial"] {
+  display: initial;
+}
+[data-status="pending"] [data-when~="pending"] {
+  display: initial;
+}
+[data-status="success"] [data-when~="success"] {
+  display: initial;
+}
+[data-status="error"] [data-when~="error"] {
+  display: initial;
+}
