@@ -4,7 +4,9 @@ import { Navigation } from "./navigation";
 const Home = lazy(() => import("./home").then((module) => module.Home));
 const Weekly = lazy(() => import("./weekly").then((module) => module.Weekly));
 
-export function App() {
+export type AppProps = { translations: Record<string, string>; language: string };
+
+export function App(_props: AppProps) {
   return (
     <LocationProvider>
       <ErrorBoundary>

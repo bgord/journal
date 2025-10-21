@@ -55,11 +55,17 @@ const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 server.use("/public/*", serveStatic({ root: "./" }));
 
 server.get("/", AuthShield.attach, AuthShield.verify, async (c) => {
-  return c.html(await ssr(c.req.path));
+  const language = c.get("language");
+  const translations = await new bg.I18n(TranslationsDeps).getTranslations(language);
+
+  return c.html(await ssr(c.req.path, { language, translations }));
 });
 
 server.get("/weekly", AuthShield.attach, AuthShield.verify, async (c) => {
-  return c.html(await ssr(c.req.path));
+  const language = c.get("language");
+  const translations = await new bg.I18n(TranslationsDeps).getTranslations(language);
+
+  return c.html(await ssr(c.req.path, { language, translations }));
 });
 
 // Healthcheck =================

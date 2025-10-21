@@ -1,11 +1,11 @@
 import { prerender } from "preact-iso";
 // @ts-expect-error
 import { locationStub } from "preact-iso/prerender";
-import { App } from "./app";
+import { App, type AppProps } from "./app";
 
-export async function ssr(path: string) {
+export async function ssr(path: string, props: AppProps) {
   locationStub(path);
-  const { html } = await prerender(<App />);
+  const { html } = await prerender(<App {...props} />);
 
   return /* HTML */ `<!doctype html>
     <html lang="en">
@@ -32,6 +32,10 @@ export async function ssr(path: string) {
 
       <body data-mx="auto" data-bg="neutral-950">
         <div id="root">${html}</div>
+
+        <script>
+          window.__STATE__ = ${JSON.stringify(props)};
+        </script>
         <script type="module" src="/public/client-entry.js"></script>
       </body>
     </html>`;

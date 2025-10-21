@@ -1,4 +1,7 @@
 import { hydrate } from "preact-iso";
-import { App } from "./app";
+import { App, type AppProps } from "./app";
 
-hydrate(<App />, document.getElementById("root")!);
+// @ts-expect-error
+const state = window?.__STATE__ as AppProps;
+
+hydrate(<App {...state} />, document.querySelector("#root")!);
