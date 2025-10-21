@@ -1,8 +1,8 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
-import { timeout } from "hono/timeout";
 import { serveStatic } from "hono/bun";
+import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
 import * as infra from "+infra";
 import * as Preferences from "+preferences";
@@ -33,7 +33,7 @@ const HealthcheckDeps = {
 };
 const TranslationsDeps = { JsonFileReader: Adapters.JsonFileReader, Logger: Adapters.Logger };
 
-const server = new Hono<infra.HonoConfig>();
+const server = new Hono<infra.HonoConfig>().basePath("/api");
 
 server.use(
   ...bg.Setup.essentials(ServerDeps, {
@@ -196,7 +196,7 @@ server.delete(
 // =============================
 
 // Auth ========================
-server.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
+server.on(["POST", "GET"], "/auth/*", (c) => auth.handler(c.req.raw));
 // =============================
 
 server.onError(HTTP.ErrorHandler.handle);

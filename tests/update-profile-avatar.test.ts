@@ -10,7 +10,7 @@ import { server } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
-const url = "/preferences/profile-avatar/update";
+const url = "/api/preferences/profile-avatar/update";
 
 const boundary = "----bun-test-boundary";
 

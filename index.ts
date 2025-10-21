@@ -23,9 +23,9 @@ import { server, startup } from "./server";
       "/register": registerHtml,
       "/forgot-password": forgotPasswordHtml,
       "/reset-password": resetPassword,
+      "/api/*": server.fetch,
     },
     development: { hmr: true, console: true },
-    fetch: server.fetch,
     maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
     idleTimeout: infra.IDLE_TIMEOUT,
   });

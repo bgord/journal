@@ -7,7 +7,7 @@ import { server } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
-const url = `/weekly-review/${mocks.weeklyReviewId}/export/download`;
+const url = `/api/weekly-review/${mocks.weeklyReviewId}/export/download`;
 
 describe(`GET ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
@@ -20,7 +20,11 @@ describe(`GET ${url}`, () => {
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
 
-    const response = await server.request("/weekly-review/id/export/download", { method: "GET" }, mocks.ip);
+    const response = await server.request(
+      "/api/weekly-review/id/export/download",
+      { method: "GET" },
+      mocks.ip,
+    );
     const json = await response.json();
     expect(response.status).toBe(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
