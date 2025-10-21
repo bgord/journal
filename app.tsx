@@ -1,6 +1,7 @@
-import { ErrorBoundary, LocationProvider, Route, Router } from "preact-iso";
-import { Home } from "./home";
-import { Weekly } from "./weekly";
+import { ErrorBoundary, LocationProvider, lazy, Route, Router } from "preact-iso";
+
+const Home = lazy(() => import("./home").then((m) => m.Home));
+const Weekly = lazy(() => import("./weekly").then((m) => m.Weekly));
 
 export function AppShell() {
   return (
