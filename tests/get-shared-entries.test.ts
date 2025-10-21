@@ -5,12 +5,12 @@ import { EventStore } from "+infra/event-store";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = `/api/shared/entries/${mocks.shareableLinkId}`;
+const url = `/shared/entries/${mocks.shareableLinkId}`;
 
 describe(`GET ${url}`, () => {
   test("validation - incorrect id", async () => {
     const response = await server.request(
-      "/api/shared/entries/id",
+      "/shared/entries/id",
       { method: "GET", headers: mocks.revisionHeaders() },
       mocks.ip,
     );

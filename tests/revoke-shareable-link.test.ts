@@ -8,7 +8,7 @@ import { server } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
-const url = `/api/publishing/link/${mocks.shareableLinkId}/revoke`;
+const url = `/publishing/link/${mocks.shareableLinkId}/revoke`;
 
 describe(`POST ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
@@ -21,7 +21,7 @@ describe(`POST ${url}`, () => {
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
-      "/api/publishing/link/id/revoke",
+      "/publishing/link/id/revoke",
       { method: "POST", headers: mocks.revisionHeaders() },
       mocks.ip,
     );

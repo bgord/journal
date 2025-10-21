@@ -9,7 +9,7 @@ import { server } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
-const url = "/api/publishing/link/create";
+const url = "/publishing/link/create";
 
 describe(`POST ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {

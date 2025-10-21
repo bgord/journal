@@ -6,7 +6,7 @@ import { EventStore } from "+infra/event-store";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = "/api/preferences/profile-avatar";
+const url = "/preferences/profile-avatar";
 
 describe(`DELETE ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {

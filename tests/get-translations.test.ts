@@ -3,7 +3,7 @@ import { SupportedLanguages } from "+languages";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = "/api/translations";
+const url = "/translations";
 
 const en = Bun.file("infra/translations/en.json");
 const pl = Bun.file("infra/translations/pl.json");

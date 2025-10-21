@@ -5,7 +5,7 @@ import { auth } from "+infra/auth";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = "/api/entry/export-data";
+const url = "/entry/export-data";
 
 describe("GET /entry/export-data", () => {
   test("validation - AccessDeniedAuthShieldError", async () => {

@@ -4,7 +4,7 @@ import { auth } from "+infra/auth";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = "/api/profile-avatar/get";
+const url = "/profile-avatar/get";
 
 describe(`GET ${url}`, () => {
   test("AccessDeniedAuthShieldError", async () => {
