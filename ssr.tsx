@@ -1,5 +1,5 @@
-import { locationStub } from "preact-iso/prerender";
 import { prerender as ssr } from "preact-iso";
+import { locationStub } from "preact-iso/prerender";
 import { AppShell } from "./app";
 
 export async function renderHtml(path: string) {

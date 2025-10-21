@@ -2,7 +2,8 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "incremental": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "lib": ["ESNext", "DOM"],
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
@@ -27,7 +28,10 @@
       "+system": ["./modules/system/index"],
       "+system/*": ["./modules/system/*"],
       "+preferences": ["./modules/preferences/index"],
-      "+preferences/*": ["./modules/preferences/*"]
+      "+preferences/*": ["./modules/preferences/*"],
+      "react": ["./node_modules/preact/compat"],
+      "react-dom": ["./node_modules/preact/compat"],
+      "react-dom/*": ["./node_modules/preact/compat/*"]
     }
   },
   "exclude": ["bgord-scripts", "frontend"]
