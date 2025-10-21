@@ -1,3 +1,8 @@
 export function Weekly() {
-  return <div>Weekly</div>;
+  return (
+    <div>
+      Weekly
+      <a href="/">home</a>
+    </div>
+  );
 }
