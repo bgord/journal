@@ -46,7 +46,7 @@ server.use(
       exposeHeaders: ["Set-Cookie"],
       maxAge: 86400,
     },
-    httpLogger: { skip: ["/translations", "/profile-avatar/get", "/api/auth/get-session"] },
+    httpLogger: { skip: ["/translations", "/profile-avatar/get", "/api/auth/get-session", "/public"] },
   }),
 );
 
