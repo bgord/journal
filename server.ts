@@ -54,9 +54,7 @@ const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 
 server.use("/public/*", serveStatic({ root: "./" }));
 
-server.get("/home", AuthShield.attach, AuthShield.verify, async (context) => {
-  return context.html(Bun.file(homeHtml.index).text());
-});
+server.get("/home", AuthShield.attach, AuthShield.verify, (c) => c.html(Bun.file(homeHtml.index).text()));
 
 // Healthcheck =================
 server.get(
