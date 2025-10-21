@@ -1,8 +1,8 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
-import { timeout } from "hono/timeout";
 import { serveStatic } from "hono/bun";
+import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
 import * as infra from "+infra";
 import * as Preferences from "+preferences";
@@ -14,6 +14,7 @@ import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
+import homeHtml from "./home.html";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
@@ -51,10 +52,10 @@ server.use(
 
 const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 
-server.use("/public/*", serveStatic({ root: "./public" }));
+server.use("/public/*", serveStatic({ root: "./" }));
 
 server.get("/home", AuthShield.attach, AuthShield.verify, async (context) => {
-  return context.html(await Bun.file("./home.html").text());
+  return context.html(Bun.file(homeHtml.index).text());
 });
 
 // Healthcheck =================
