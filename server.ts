@@ -14,7 +14,7 @@ import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
-import { renderHtml } from "./ssr";
+import { ssr } from "./fullstack/ssr";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
@@ -55,13 +55,11 @@ const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 server.use("/public/*", serveStatic({ root: "./" }));
 
 server.get("/", AuthShield.attach, AuthShield.verify, async (c) => {
-  const page = await renderHtml(c.req.path);
-  return c.html(page);
+  return c.html(await ssr(c.req.path));
 });
 
 server.get("/weekly", AuthShield.attach, AuthShield.verify, async (c) => {
-  const page = await renderHtml(c.req.path);
-  return c.html(page);
+  return c.html(await ssr(c.req.path));
 });
 
 // Healthcheck =================

@@ -1,11 +1,11 @@
-import { prerender as ssr } from "preact-iso";
+import { prerender } from "preact-iso";
 // @ts-expect-error
 import { locationStub } from "preact-iso/prerender";
-import { AppShell } from "./app";
+import { App } from "./app";
 
-export async function renderHtml(path: string) {
+export async function ssr(path: string) {
   locationStub(path);
-  const { html } = await ssr(<AppShell />);
+  const { html } = await prerender(<App />);
 
   return /* HTML */ `<!doctype html>
     <html lang="en">

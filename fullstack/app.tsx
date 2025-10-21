@@ -3,7 +3,7 @@ import { ErrorBoundary, LocationProvider, lazy, Route, Router } from "preact-iso
 const Home = lazy(() => import("./home").then((module) => module.Home));
 const Weekly = lazy(() => import("./weekly").then((module) => module.Weekly));
 
-export function AppShell() {
+export function App() {
   return (
     <LocationProvider>
       <ErrorBoundary>

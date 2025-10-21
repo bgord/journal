@@ -5,10 +5,10 @@ import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
 import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
-import forgotPasswordHtml from "./forgot-password.html";
-import loginHtml from "./login.html";
-import registerHtml from "./register.html";
-import resetPassword from "./reset-password.html";
+import forgotPasswordHtml from "./fullstack/pages/forgot-password.html";
+import loginHtml from "./fullstack/pages/login.html";
+import registerHtml from "./fullstack/pages/register.html";
+import resetPassword from "./fullstack/pages/reset-password.html";
 import { server, startup } from "./server";
 
 (async function main() {
