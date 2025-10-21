@@ -17,6 +17,26 @@ export function AppShell() {
               Dashboard
             </a>
 
+            <a
+              href="/profile"
+              className="c-link"
+              data-disp="flex"
+              data-cross="center"
+              data-gap="2"
+              data-fs="base"
+              data-fw="medium"
+            >
+              <img
+                src="/profile-avatar/get"
+                alt="Image"
+                width={48}
+                height={48}
+                style={{ borderRadius: 9999, objectFit: "cover" }}
+                data-bc="neutral-700"
+                data-bwb="hairline"
+              />
+            </a>
+
             <form action="/api/auth/sign-out" method="post">
               <button class="c-link" type="submit">
                 Logout
