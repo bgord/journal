@@ -80,7 +80,7 @@ export const auth = betterAuth({
     },
   },
   autoSignIn: false,
-  trustedOrigins: ["http://localhost:5173", "http://localhost:3000", "https://journal.bgord.dev"],
+  trustedOrigins: ["http://localhost:5173", "http://localhost:3000", "https://journal.bgord.dev", "*"],
   plugins: [
     openAPI(),
     // Env.type === bg.NodeEnvironmentEnum.production
