@@ -22,3 +22,4 @@ sqlite.db
 test-results/
 infra/profile-avatars/*
 !infra/profile-avatars/.gitkeep
+public/main.min.css

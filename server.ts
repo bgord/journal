@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
+import { serveStatic } from "hono/bun";
 import { HTTP } from "+app";
 import * as infra from "+infra";
 import * as Preferences from "+preferences";
@@ -49,6 +50,8 @@ server.use(
 );
 
 const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
+
+server.use("/public/*", serveStatic({ root: "./public" }));
 
 server.get("/home", AuthShield.attach, AuthShield.verify, async (context) => {
   return context.html(await Bun.file("./home.html").text());
