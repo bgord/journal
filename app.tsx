@@ -1,12 +1,6 @@
 import { ErrorBoundary, LocationProvider, Route, Router } from "preact-iso";
-
-function Home() {
-  return <div>Home</div>;
-}
-
-function Weekly() {
-  return <div>Weekly</div>;
-}
+import { Home } from "./home";
+import { Weekly } from "./weekly";
 
 export function AppShell() {
   return (
