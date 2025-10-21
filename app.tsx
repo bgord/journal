@@ -10,7 +10,7 @@ function Weekly() {
 
 export function AppShell() {
   return (
-    <LocationProvider scope="/">
+    <LocationProvider>
       <ErrorBoundary>
         <Router>
           <Route path="/" component={Home} />

@@ -14,7 +14,7 @@ import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
-import homeHtml from "./home.html";
+import { renderHtml } from "./ssr";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
@@ -54,7 +54,15 @@ const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 
 server.use("/public/*", serveStatic({ root: "./" }));
 
-server.get("/home", AuthShield.attach, AuthShield.verify, (c) => c.html(Bun.file(homeHtml.index).text()));
+server.get("/", AuthShield.attach, AuthShield.verify, async (c) => {
+  const page = await renderHtml(c.req.path);
+  return c.html(page);
+});
+
+server.get("/weekly", AuthShield.attach, AuthShield.verify, async (c) => {
+  const page = await renderHtml(c.req.path);
+  return c.html(page);
+});
 
 // Healthcheck =================
 server.get(
