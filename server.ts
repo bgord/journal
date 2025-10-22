@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Hono } from "hono";
+import { serveStatic } from "hono/bun";
 import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
 import * as infra from "+infra";
@@ -47,6 +48,8 @@ server.use(
     httpLogger: { skip: ["/translations", "/profile-avatar/get", "/api/auth/get-session"] },
   }),
 );
+
+server.use("/public/*", serveStatic({ root: "./" }));
 
 const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 

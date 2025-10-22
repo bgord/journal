@@ -1,9 +1,10 @@
-rm -rf public/assets/*
+rm -f public/*.js
+
+cp node_modules/@bgord/design/dist/main.min.css public
 
 bun build ./fullstack/entry-client.tsx \
-  --outdir ./public/assets \
+  --outdir ./public \
   --target browser \
   --splitting \
   --sourcemap \
-  --public-path /assets/ \
   --watch
