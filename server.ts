@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { and, desc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { timeout } from "hono/timeout";
@@ -15,6 +16,8 @@ import { I18nConfig } from "+infra/i18n";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
 import { ssr } from "./fullstack/ssr";
+import { db } from "./infra/db";
+import * as Schema from "./infra/schema";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
@@ -53,6 +56,18 @@ server.use(
 const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 
 server.use("/public/*", serveStatic({ root: "./" }));
+
+server.get("/qc/entry-list", AuthShield.attach, AuthShield.verify, async (c) => {
+  const userId = c.get("user").id;
+
+  const result = await db.query.entries.findMany({
+    orderBy: desc(Schema.entries.startedAt),
+    where: and(eq(Schema.entries.userId, userId)),
+    with: { alarms: true },
+  });
+
+  return c.json(result);
+});
 
 server.get("/", AuthShield.attach, AuthShield.verify, async (c) => {
   const language = c.get("language");

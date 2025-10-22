@@ -21,7 +21,7 @@ export function Navigation() {
         >
           <img
             src="/profile-avatar/get"
-            alt="Image"
+            alt="Profile avatar"
             width={48}
             height={48}
             style={{ borderRadius: 9999, objectFit: "cover" }}
