@@ -1,12 +1,22 @@
-import { prerender } from "preact-iso";
 // @ts-expect-error
 import { locationStub } from "preact-iso/prerender";
+
+import { prerender } from "preact-iso";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { App, type AppProps } from "./app";
 
 export async function ssr(path: string, props: AppProps, rq: Record<string, any>) {
   locationStub(path);
 
-  const { html } = await prerender(<App {...props} />);
+  const queryClient = new QueryClient();
+
+  const Skeleton = (
+    <QueryClientProvider client={queryClient}>
+      <App {...props} />
+    </QueryClientProvider>
+  );
+
+  const html = await prerender(Skeleton);
 
   return /* HTML */ `<!doctype html>
     <html lang="en">
