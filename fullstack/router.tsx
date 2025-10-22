@@ -38,7 +38,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Journal" },
     ],
-    scripts: [{ type: "module", src: "/assets/entry-client.js" }],
+    scripts: [{ type: "module", src: "/public/entry-client.js" }],
   }),
   component: () => (
     <html lang="en">
