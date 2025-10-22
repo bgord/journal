@@ -67,10 +67,6 @@
       },
     },
   },
-  "overrides": {
-    "preact": "10.27.2",
-    "preact-render-to-string": "6.6.2",
-  },
   "packages": {
     "@anthropic-ai/sdk": ["@anthropic-ai/sdk@0.67.0", "", { "dependencies": { "json-schema-to-ts": "^3.1.1" }, "peerDependencies": { "zod": "^3.25.0 || ^4.0.0" }, "optionalPeers": ["zod"], "bin": { "anthropic-ai-sdk": "bin/cli" } }, "sha512-Buxbf6jYJ+pPtfCgXe1pcFtZmdXPrbdqhBjiscFt9irS1G0hCsmR/fPA+DwKTk4GPjqeNnnCYNecXH6uVZ4G/A=="],
 
