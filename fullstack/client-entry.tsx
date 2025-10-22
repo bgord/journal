@@ -2,7 +2,9 @@ import { HydrationBoundary, QueryClient, QueryClientProvider } from "@tanstack/r
 import { hydrate } from "preact";
 import { App, type AppProps } from "./app";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { staleTime: 60_000, refetchOnWindowFocus: false, retry: 1 } },
+});
 
 // @ts-expect-error
 const state = window?.__STATE__ as AppProps;
