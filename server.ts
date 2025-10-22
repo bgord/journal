@@ -73,18 +73,14 @@ server.get("/", AuthShield.attach, AuthShield.verify, async (c) => {
   const language = c.get("language");
   const translations = await new bg.I18n(TranslationsDeps).getTranslations(language);
 
-  const rq = { entries: [{ id: 123 }] };
-
-  return c.html(await ssr(c.req.path, { language, translations }, rq));
+  return c.html(await ssr(c.req.path, { language, translations }));
 });
 
 server.get("/weekly", AuthShield.attach, AuthShield.verify, async (c) => {
   const language = c.get("language");
   const translations = await new bg.I18n(TranslationsDeps).getTranslations(language);
 
-  const rq = { entries: [] };
-
-  return c.html(await ssr(c.req.path, { language, translations }, rq));
+  return c.html(await ssr(c.req.path, { language, translations }));
 });
 
 // Healthcheck =================

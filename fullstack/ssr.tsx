@@ -1,21 +1,12 @@
-import { QueryClient, QueryClientContext } from "@tanstack/react-query";
 import { prerender } from "preact-iso";
 // @ts-expect-error
 import { locationStub } from "preact-iso/prerender";
 import { App, type AppProps } from "./app";
 
-export async function ssr(path: string, props: AppProps, rq: Record<string, any>) {
+export async function ssr(path: string, props: AppProps) {
   locationStub(path);
 
-  const queryClient = new QueryClient();
-
-  const Skeleton = (
-    <QueryClientContext.Provider value={queryClient}>
-      <App {...props} />
-    </QueryClientContext.Provider>
-  );
-
-  const html = await prerender(Skeleton);
+  const html = await prerender(<App {...props} />);
 
   return /* HTML */ `<!doctype html>
     <html lang="en">
@@ -45,7 +36,6 @@ export async function ssr(path: string, props: AppProps, rq: Record<string, any>
 
         <script>
           window.__STATE__ = ${JSON.stringify(props)};
-          window.__RQ__ = ${JSON.stringify(rq)};
         </script>
         <script type="module" src="/public/client-entry.js"></script>
       </body>
