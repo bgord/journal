@@ -192,7 +192,19 @@ server.delete(
 // =============================
 
 // Auth ========================
-server.on(["POST", "GET"], "/auth/*", (c) => auth.handler(c.req.raw));
+server.on(["POST", "GET"], "/auth/*", async (c) => {
+  const response = await auth.handler(c.req.raw);
+
+  if (
+    c.req.method === "POST" &&
+    c.req.path === "/api/auth/sign-out" &&
+    [200, 302].includes(response.status)
+  ) {
+    return c.redirect("/login");
+  }
+
+  return response;
+});
 // =============================
 
 server.onError(HTTP.ErrorHandler.handle);

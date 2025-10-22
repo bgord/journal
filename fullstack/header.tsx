@@ -12,15 +12,16 @@ export function Header() {
         {user && (
           <>
             <span>{user.email}</span>
-            <Link to="/logout">Sign out</Link>
+
+            <form action="/api/auth/sign-out" method="post">
+              <button className="c-link" type="submit">
+                Logout
+              </button>
+            </form>
           </>
         )}
 
-        {!user && (
-          <Link to="/login" search={{ from: "/" }}>
-            Sign in
-          </Link>
-        )}
+        {!user && <a href="/login">Sign in</a>}
       </nav>
     </header>
   );
