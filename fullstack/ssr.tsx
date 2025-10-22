@@ -1,15 +1,10 @@
-import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { prerender } from "preact-iso";
 // @ts-expect-error
 import { locationStub } from "preact-iso/prerender";
 import { App, type AppProps } from "./app";
 
-export async function ssr(path: string, props: AppProps) {
-  const queryClient = new QueryClient();
-
+export async function ssr(path: string, props: AppProps, rq: Record<string, any>) {
   locationStub(path);
-
-  const dehydratedState = dehydrate(queryClient);
 
   const { html } = await prerender(<App {...props} />);
 
@@ -41,7 +36,7 @@ export async function ssr(path: string, props: AppProps) {
 
         <script>
           window.__STATE__ = ${JSON.stringify(props)};
-          window.__RQ__ = ${JSON.stringify(dehydratedState)};
+          window.__RQ__ = ${JSON.stringify(rq)};
         </script>
         <script type="module" src="/public/client-entry.js"></script>
       </body>
