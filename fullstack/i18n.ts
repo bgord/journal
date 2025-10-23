@@ -1,7 +1,4 @@
-type TranslationsType = Record<string, string>;
-type LanguageType = string;
-
-type I18nType = { translations: TranslationsType; language: LanguageType };
+import type { TranslationsContextValueType } from "@bgord/ui";
 
 async function getI18nServer(request: Request) {
   const cookie = request.headers.get("cookie") ?? "";
@@ -24,7 +21,7 @@ async function getI18nClient() {
   return await response.json().catch();
 }
 
-export async function getI18n(request: Request | null): Promise<I18nType | null> {
+export async function getI18n(request: Request | null): Promise<TranslationsContextValueType | null> {
   if (request) return getI18nServer(request);
   return getI18nClient();
 }
