@@ -62,7 +62,13 @@ const profileRoute = createRoute({
   component: lazyRouteComponent(() => import("./pages/profile"), "Profile"),
 });
 
-const routeTree = rootRoute.addChildren([homeRoute, profileRoute]);
+const dashboardRoute = createRoute({
+  path: "/dashboard",
+  getParentRoute: () => rootRoute,
+  component: lazyRouteComponent(() => import("./pages/dashboard"), "Dashboard"),
+});
+
+const routeTree = rootRoute.addChildren([homeRoute, profileRoute, dashboardRoute]);
 
 export function createRouter(context: RouterContext) {
   return new Router({ routeTree, context, defaultPreload: "intent" });

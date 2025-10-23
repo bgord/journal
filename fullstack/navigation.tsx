@@ -13,9 +13,9 @@ export function Navigation() {
           <Link to="/">{t("app.name")}</Link>
         </div>
 
-        <a href="/dashboard" className="c-link" data-transform="uppercase" data-ml="auto">
+        <Link to="/dashboard" className="c-link" data-transform="uppercase" data-ml="auto">
           {t("app.dashboard")}
-        </a>
+        </Link>
 
         <Link
           to="/profile"

@@ -4,16 +4,16 @@ import { Navigation } from "./navigation";
 import { rootRoute } from "./router";
 
 export function Shell() {
-  const data = useLoaderData({ from: rootRoute.id });
+  const { i18n } = useLoaderData({ from: rootRoute.id });
 
   return (
-    <html lang="en">
+    <html lang={i18n.language}>
       <head>
         <HeadContent />
       </head>
       <body data-mx="auto" data-bg="neutral-950">
         <div id="root">
-          <TranslationsContext.Provider value={data.i18n}>
+          <TranslationsContext.Provider value={i18n}>
             <Navigation />
             <Outlet />
           </TranslationsContext.Provider>
