@@ -1,4 +1,6 @@
-export type UserType = { email: string };
+import type { auth } from "../infra/auth";
+
+export type SessionType = typeof auth.$Infer.Session;
 
 export async function getSessionServer(request: Request) {
   const cookie = request.headers.get("cookie") ?? "";
@@ -21,8 +23,7 @@ export async function getSessionClient() {
   return await response.json().catch();
 }
 
-export async function getSession(request: Request | null): Promise<UserType | null> {
-  if (request) return await getSessionServer(request);
-
-  return await getSessionClient();
+export async function getSession(request: Request | null): Promise<SessionType | null> {
+  if (request) return getSessionServer(request);
+  return getSessionClient();
 }

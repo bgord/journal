@@ -36,7 +36,14 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
       </body>
     </html>
   ),
-  loader: async ({ context }) => ({ user: await auth.getSession(context.request) }),
+  loader: async ({ context }) => {
+    const session = await auth.getSession(context.request);
+    console.log("rootRoute", "loader", session);
+
+    // @ts-expect-error
+    if (!session) throw redirect({ to: "/login" });
+    return { session };
+  },
   notFoundComponent: () => (
     <main>
       <h1>404</h1>
@@ -45,21 +52,22 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
 });
 
 const protectedRoute = createRoute({
-  getParentRoute: () => rootRoute,
   id: "protected",
+  getParentRoute: () => rootRoute,
   loader: async ({ context }) => {
-    const user = await auth.getSession(context.request);
+    const session = await auth.getSession(context.request);
+    console.log("protectedRoute", "loader", session);
 
     // @ts-expect-error
-    if (!user) throw redirect({ to: "/login" });
-    return { user };
+    if (!session) throw redirect({ to: "/login" });
+    return session;
   },
   component: () => <Outlet />,
 });
 
 const homeRoute = createRoute({
-  getParentRoute: () => protectedRoute,
   path: "/",
+  getParentRoute: () => protectedRoute,
   component: lazyRouteComponent(() => import("./home"), "Home"),
 });
 
