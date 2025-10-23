@@ -9,7 +9,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import * as auth from "./auth";
-import { Header } from "./header";
+import { Navigation } from "./navigation";
 
 export type RouterContext = { request: Request | null };
 
@@ -35,7 +35,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
       </head>
       <body>
         <div id="root">
-          <Header />
+          <Navigation />
           <Outlet />
         </div>
         <Scripts />
