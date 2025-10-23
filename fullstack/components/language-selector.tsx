@@ -11,9 +11,8 @@ export function LanguageSelector() {
   const t = useTranslations();
 
   return (
-    <div data-stack="x" data-cross="center" data-gap="3">
+    <div data-stack="x">
       <Select
-        data-disp="flex"
         defaultValue={language}
         onChange={async (event) => {
           Cookie.set("language", event.target.value);

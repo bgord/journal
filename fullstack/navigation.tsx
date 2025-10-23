@@ -7,41 +7,39 @@ export function Navigation() {
   const t = useTranslations();
 
   return (
-    <nav data-stack="y">
-      <header data-stack="x" data-cross="center" data-gap="6" data-p="3">
-        <div className="logo" data-fs="4xl" data-fw="bold" data-ls="wider" data-color="brand-600">
-          <Link to="/">{t("app.name")}</Link>
-        </div>
+    <nav data-stack="x" data-cross="center" data-gap="6" data-p="3">
+      <div className="logo" data-fs="4xl" data-fw="bold" data-ls="wider" data-color="brand-600">
+        <Link to="/">{t("app.name")}</Link>
+      </div>
 
-        <Link to="/dashboard" className="c-link" data-transform="uppercase" data-ml="auto">
-          {t("app.dashboard")}
-        </Link>
+      <Link to="/dashboard" className="c-link" data-transform="uppercase" data-ml="auto">
+        {t("app.dashboard")}
+      </Link>
 
-        <Link
-          to="/profile"
-          className="c-link"
-          data-disp="flex"
-          data-cross="center"
-          data-gap="2"
-          data-fs="base"
-          data-fw="medium"
-        >
-          <img
-            src="/profile-avatar/get"
-            title={session.user.email}
-            alt={t("profile.avatar.alt")}
-            style={{ borderRadius: 9999, objectFit: "cover", ...Rhythm().times(4).square }}
-            data-bc="neutral-700"
-            data-bwb="hairline"
-          />
-        </Link>
+      <Link
+        to="/profile"
+        className="c-link"
+        data-disp="flex"
+        data-cross="center"
+        data-gap="2"
+        data-fs="base"
+        data-fw="medium"
+      >
+        <img
+          src="/profile-avatar/get"
+          title={session.user.email}
+          alt=""
+          data-bc="neutral-700"
+          data-bwb="hairline"
+          style={{ borderRadius: 9999, objectFit: "cover", ...Rhythm().times(4).square }}
+        />
+      </Link>
 
-        <form action="/api/auth/sign-out" method="post">
-          <button className="c-link" type="submit">
-            {t("auth.logout.cta")}
-          </button>
-        </form>
-      </header>
+      <form action="/api/auth/sign-out" method="post">
+        <button className="c-link" type="submit">
+          {t("auth.logout.cta")}
+        </button>
+      </form>
     </nav>
   );
 }
