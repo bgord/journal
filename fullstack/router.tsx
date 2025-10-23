@@ -16,13 +16,13 @@ const CSS = (href: string) => [
   { rel: "stylesheet", href },
 ];
 
+const JS = (src: string) => ({ type: "module", src });
+
+const META = [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }];
+
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Journal" },
-    ],
+    meta: [...META, { title: "Journal" }],
     links: [
       ...CSS("/public/main.min.css"),
       ...CSS("/public/custom.css"),
@@ -34,7 +34,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
         href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
       },
     ],
-    scripts: [{ type: "module", src: "/public/entry-client.js" }],
+    scripts: [JS("/public/entry-client.js")],
   }),
   component: Shell,
   loader: async ({ context }) => {
