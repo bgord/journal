@@ -2,6 +2,7 @@ import { useTranslations } from "@bgord/ui";
 import { DownloadCircle, Language, ProfileCircle } from "iconoir-react";
 import { LanguageSelector } from "../components/language-selector";
 import { Separator } from "../components/separator";
+import { ProfileAccountDelete } from "../sections/profile-account-delete";
 
 export function Profile() {
   const t = useTranslations();
@@ -61,6 +62,8 @@ export function Profile() {
       </div>
 
       <Separator />
+
+      <ProfileAccountDelete />
     </main>
   );
 }
