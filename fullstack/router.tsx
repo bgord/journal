@@ -8,6 +8,7 @@ import {
 import * as Auth from "./auth";
 import * as HEAD from "./head";
 import * as I18n from "./i18n";
+import { NotFound } from "./not-found";
 import { Shell } from "./shell";
 
 export type RouterContext = { request: Request | null };
@@ -38,11 +39,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
 
     return { session, i18n };
   },
-  notFoundComponent: () => (
-    <main>
-      <h1>404</h1>
-    </main>
-  ),
+  notFoundComponent: NotFound,
 });
 
 const homeRoute = createRoute({
