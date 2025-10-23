@@ -1,16 +1,13 @@
 import {
   createRootRouteWithContext,
   createRoute,
-  HeadContent,
   lazyRouteComponent,
-  Outlet,
   Router,
   redirect,
-  Scripts,
 } from "@tanstack/react-router";
 import * as Auth from "./auth";
 import * as I18n from "./i18n";
-import { Navigation } from "./navigation";
+import { Shell } from "./shell";
 
 export type RouterContext = { request: Request | null };
 
@@ -36,26 +33,13 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
     ],
     scripts: [{ type: "module", src: "/public/entry-client.js" }],
   }),
-  component: () => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body data-mx="auto" data-bg="neutral-950">
-        <div id="root">
-          <Navigation />
-          <Outlet />
-        </div>
-        <Scripts />
-      </body>
-    </html>
-  ),
+  component: Shell,
   loader: async ({ context }) => {
     const session = await Auth.getSession(context.request);
     const i18n = await I18n.getI18n(context.request);
 
     // @ts-expect-error
-    if (!(session && translations)) throw redirect({ to: "/login" });
+    if (!(session && i18n)) throw redirect({ to: "/login" });
 
     return { session, i18n };
   },
