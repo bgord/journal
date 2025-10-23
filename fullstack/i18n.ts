@@ -1,9 +1,9 @@
 type TranslationsType = Record<string, string>;
 type LanguageType = string;
 
-type TranslationsResponseType = { translations: TranslationsType; language: LanguageType };
+type I18nType = { translations: TranslationsType; language: LanguageType };
 
-export async function getTranslationsServer(request: Request) {
+async function getI18nServer(request: Request) {
   const cookie = request.headers.get("cookie") ?? "";
 
   const response = await fetch(new URL("/api/translations", request.url), {
@@ -16,7 +16,7 @@ export async function getTranslationsServer(request: Request) {
   return await response.json().catch();
 }
 
-export async function getTranslationsClient() {
+async function getI18nClient() {
   const response = await fetch("/api/translations", { credentials: "include" });
 
   if (!response?.ok) return null;
@@ -24,7 +24,7 @@ export async function getTranslationsClient() {
   return await response.json().catch();
 }
 
-export async function getTranslations(request: Request | null): Promise<TranslationsResponseType | null> {
-  if (request) return getTranslationsServer(request);
-  return getTranslationsClient();
+export async function getI18n(request: Request | null): Promise<I18nType | null> {
+  if (request) return getI18nServer(request);
+  return getI18nClient();
 }

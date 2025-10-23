@@ -9,8 +9,8 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import * as Auth from "./auth";
+import * as I18n from "./i18n";
 import { Navigation } from "./navigation";
-import * as Translations from "./translations";
 
 export type RouterContext = { request: Request | null };
 
@@ -52,12 +52,12 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   ),
   loader: async ({ context }) => {
     const session = await Auth.getSession(context.request);
-    const translations = await Translations.getTranslations(context.request);
+    const i18n = await I18n.getI18n(context.request);
 
     // @ts-expect-error
     if (!(session && translations)) throw redirect({ to: "/login" });
 
-    return { session, translations };
+    return { session, i18n };
   },
   notFoundComponent: () => (
     <main>
