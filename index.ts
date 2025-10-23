@@ -1,5 +1,7 @@
 import * as bg from "@bgord/bun";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
+import { Hono } from "hono";
+import { serveStatic } from "hono/bun";
 import * as infra from "+infra";
 import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
@@ -21,6 +23,7 @@ import { server, startup } from "./server";
     idleTimeout: infra.IDLE_TIMEOUT,
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
+      "/public/*": new Hono().use("/public/*", serveStatic({ root: "./" })).fetch,
       "/login": loginHtml,
       "/register": registerHtml,
       "/forgot-password": forgotPasswordHtml,
