@@ -5,8 +5,8 @@ import {
   lazyRouteComponent,
   Outlet,
   Router,
-  Scripts,
   redirect,
+  Scripts,
 } from "@tanstack/react-router";
 import { getSession } from "./auth.server";
 import { Header } from "./header";
