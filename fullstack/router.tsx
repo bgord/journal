@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-router";
 import * as Auth from "./auth.api";
 import * as HEAD from "./head";
-import * as I18n from "./i18n";
+import * as I18n from "./i18n.api";
 import { NotFound } from "./not-found";
 import { Shell } from "./shell";
 

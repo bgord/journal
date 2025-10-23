@@ -10,7 +10,7 @@ async function getI18nServer(request: Request) {
 
   if (!response?.ok) return null;
 
-  return await response.json().catch();
+  return response.json().catch();
 }
 
 async function getI18nClient() {
@@ -18,7 +18,7 @@ async function getI18nClient() {
 
   if (!response?.ok) return null;
 
-  return await response.json().catch();
+  return response.json().catch();
 }
 
 export async function getI18n(request: Request | null): Promise<TranslationsContextValueType | null> {

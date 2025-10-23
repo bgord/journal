@@ -49,7 +49,7 @@ export class ReadModel {
       where.push(or(...clauses) as SQL<unknown>);
     }
 
-    return await db.query.entries.findMany({
+    return db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
       where: and(...where),
       with: { alarms: true },
