@@ -57,30 +57,30 @@ export function ProfileAccountDelete() {
         {t("profile.delete_account.cta_primary")}
       </button>
 
-      <UI.Dialog data-mt="12" {...UI.Rhythm().times(50).style.width} {...dialog}>
+      <UI.Dialog data-gap="8" data-mt="12" {...UI.Rhythm().times(50).style.width} {...dialog}>
+        <div data-stack="x" data-main="between" data-cross="center">
+          <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
+            <UserXmark data-size="md" data-color="neutral-300" />
+            {t("profile.delete_account.header")}
+          </strong>
+
+          <button
+            className="c-button"
+            data-variant="with-icon"
+            type="button"
+            data-interaction="subtle-scale"
+            onClick={dialog.disable}
+          >
+            <Xmark data-size="md" />
+          </button>
+        </div>
+
+        <div data-stack="x" data-cross="center" data-gap="1" data-color="danger-400" data-fs="sm">
+          <WarningCircle data-size="sm" />
+          {t("profile.delete_account.info")}
+        </div>
+
         <form data-stack="y" data-gap="8" onSubmit={accountDelete}>
-          <div data-stack="x" data-main="between" data-cross="center">
-            <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
-              <UserXmark data-size="md" data-color="neutral-300" />
-              {t("profile.delete_account.header")}
-            </strong>
-
-            <button
-              className="c-button"
-              data-variant="with-icon"
-              type="button"
-              data-interaction="subtle-scale"
-              onClick={dialog.disable}
-            >
-              <Xmark data-size="md" />
-            </button>
-          </div>
-
-          <div data-stack="x" data-cross="center" data-gap="1" data-color="danger-400" data-fs="sm">
-            <WarningCircle data-size="sm" />
-            {t("profile.delete_account.info")}
-          </div>
-
           <div data-stack="y" data-gap="3" data-cross="start">
             <label data-color="neutral-200" data-fs="sm" htmlFor="challenge">
               {t("profile.delete_account.challenge")}
@@ -114,7 +114,12 @@ export function ProfileAccountDelete() {
           <div data-stack="x" data-main="end" data-gap="5">
             <ButtonCancel onClick={dialog.disable} />
 
-            <button type="submit" className="c-button" data-variant="primary">
+            <button
+              type="submit"
+              className="c-button"
+              data-variant="primary"
+              disabled={state === RequestState.loading}
+            >
               {t("profile.delete_account.cta_primary")}
             </button>
           </div>
