@@ -11,6 +11,11 @@ import { Shell } from "./shell";
 
 export type RouterContext = { request: Request | null };
 
+const CSS = (href: string) => [
+  { rel: "preload", as: "style", href },
+  { rel: "stylesheet", href },
+];
+
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
     meta: [
@@ -19,10 +24,8 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
       { title: "Journal" },
     ],
     links: [
-      { rel: "preload", as: "style", href: "/public/main.min.css" },
-      { rel: "stylesheet", href: "/public/main.min.css" },
-      { rel: "preload", as: "style", href: "/public/custom.css" },
-      { rel: "stylesheet", href: "/public/custom.css" },
+      ...CSS("/public/main.min.css"),
+      ...CSS("/public/custom.css"),
 
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
