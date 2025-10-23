@@ -42,6 +42,7 @@
     "drizzle-orm": "0.44.6",
     "emittery": "1.2.0",
     "hono": "4.9.12",
+    "iconoir-react": "7.11.0",
     "lodash": "4.17.21",
     "node-cache": "5.1.2",
     "openai": "6.4.0",
