@@ -10,7 +10,7 @@ export function ProfileAccountDelete() {
   const dialog = UI.useToggle({ name: "delete-account" });
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
-  const accountDelete = async (event: React.FormEvent) => {
+  async function accountDelete(event: React.FormEvent) {
     event.preventDefault();
 
     if (state === RequestState.loading) return;
@@ -28,7 +28,7 @@ export function ProfileAccountDelete() {
 
     setState(RequestState.done);
     window.location.replace("/login");
-  };
+  }
 
   return (
     <section data-stack="y" data-gap="5" data-p="5" data-bc="danger-600" data-bw="thin">
@@ -89,17 +89,21 @@ export function ProfileAccountDelete() {
               {t("profile.delete_account.challenge")}
             </label>
             <input
+              className="c-input"
               id="challenge"
               name="challenge"
-              className="c-input"
               type="text"
               required
+              title={t("profile.delete_account.challenge")}
               pattern="delete"
+              autoComplete="off"
+              spellCheck={false}
             />
           </div>
 
           {state === RequestState.error && (
             <div
+              role="alert"
               data-stack="x"
               data-cross="center"
               data-gap="3"
