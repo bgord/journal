@@ -10,7 +10,7 @@ export async function GetAiUsageToday(c: hono.Context<infra.HonoConfig>) {
 
   const context = {
     userId,
-    category: AI.UsageCategory.ANY,
+    category: AI.UsageCategory.INSPECT,
     timestamp: deps.Clock.nowMs(),
     dimensions: {},
   };
