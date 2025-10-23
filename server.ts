@@ -193,6 +193,10 @@ server.delete(
 );
 // =============================
 
+// AI ==========================
+server.get("/ai-usage-today/get", AuthShield.attach, AuthShield.verify, HTTP.AI.GetAiUsageToday);
+// =============================
+
 // Auth ========================
 server.on(["POST", "GET"], "/auth/*", async (c) => {
   const response = await auth.handler(c.req.raw);

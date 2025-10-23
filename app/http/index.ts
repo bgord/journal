@@ -1,3 +1,4 @@
+export * as AI from "./ai";
 export * as Emotions from "./emotions";
 export * from "./error-handler";
 export * as Preferences from "./preferences";
