@@ -13,6 +13,7 @@ import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
+import { SupportedLanguages } from "./modules/supported-languages";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
@@ -159,7 +160,11 @@ server.route("/publishing", publishing);
 // =============================
 
 //Translations =================
-server.get("/translations", ResponseCache.handle, ...bg.Translations.build(TranslationsDeps));
+server.get(
+  "/translations",
+  ResponseCache.handle,
+  ...bg.Translations.build(SupportedLanguages, TranslationsDeps),
+);
 // =============================
 
 //Preferences =================

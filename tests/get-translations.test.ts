@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { SupportedLanguages } from "+languages";
+import { SupportedLanguages } from "../modules/supported-languages";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
@@ -13,7 +13,11 @@ describe("GET /translations", () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
     expect(response.status).toBe(200);
-    expect(json).toEqual({ translations: await en.json(), language: "en" });
+    expect(json).toEqual({
+      translations: await en.json(),
+      language: "en",
+      supportedLanguages: SupportedLanguages,
+    });
   });
 
   test("happy path - en", async () => {
@@ -24,7 +28,11 @@ describe("GET /translations", () => {
     );
     const json = await response.json();
     expect(response.status).toBe(200);
-    expect(json).toEqual({ translations: await en.json(), language: "en" });
+    expect(json).toEqual({
+      translations: await en.json(),
+      language: "en",
+      supportedLanguages: SupportedLanguages,
+    });
   });
 
   test("happy path - pl", async () => {
@@ -35,7 +43,11 @@ describe("GET /translations", () => {
     );
     const json = await response.json();
     expect(response.status).toBe(200);
-    expect(json).toEqual({ translations: await pl.json(), language: "pl" });
+    expect(json).toEqual({
+      translations: await pl.json(),
+      language: "pl",
+      supportedLanguages: SupportedLanguages,
+    });
   });
 
   test("happy path - other", async () => {
@@ -46,6 +58,10 @@ describe("GET /translations", () => {
     );
     const json = await response.json();
     expect(response.status).toBe(200);
-    expect(json).toEqual({ translations: await en.json(), language: "en" });
+    expect(json).toEqual({
+      translations: await en.json(),
+      language: "en",
+      supportedLanguages: SupportedLanguages,
+    });
   });
 });
