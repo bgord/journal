@@ -38,7 +38,6 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   ),
   loader: async ({ context }) => {
     const session = await auth.getSession(context.request);
-    console.log("rootRoute", "loader", session);
 
     // @ts-expect-error
     if (!session) throw redirect({ to: "/login" });
@@ -51,27 +50,13 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   ),
 });
 
-const protectedRoute = createRoute({
-  id: "protected",
-  getParentRoute: () => rootRoute,
-  loader: async ({ context }) => {
-    const session = await auth.getSession(context.request);
-    console.log("protectedRoute", "loader", session);
-
-    // @ts-expect-error
-    if (!session) throw redirect({ to: "/login" });
-    return session;
-  },
-  component: () => <Outlet />,
-});
-
 const homeRoute = createRoute({
   path: "/",
-  getParentRoute: () => protectedRoute,
+  getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./home"), "Home"),
 });
 
-const routeTree = rootRoute.addChildren([protectedRoute.addChildren([homeRoute])]);
+const routeTree = rootRoute.addChildren([homeRoute]);
 
 export function createRouter(context: RouterContext) {
   return new Router({ routeTree, context, defaultPreload: "intent" });
