@@ -20,6 +20,12 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Journal" },
     ],
+    links: [
+      { rel: "preload", as: "style", href: "/public/main.min.css" },
+      { rel: "stylesheet", href: "/public/main.min.css" },
+      { rel: "preload", as: "style", href: "/public/custom.css" },
+      { rel: "stylesheet", href: "/public/custom.css" },
+    ],
     scripts: [{ type: "module", src: "/public/entry-client.js" }],
   }),
   component: () => (
