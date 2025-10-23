@@ -11,20 +11,18 @@ export function LanguageSelector() {
   const t = useTranslations();
 
   return (
-    <div data-stack="x">
-      <Select
-        defaultValue={language}
-        onChange={async (event) => {
-          Cookie.set("language", event.target.value);
-          await router.invalidate({ filter: (r) => r.routeId === rootRoute.id, sync: true });
-        }}
-      >
-        {Object.keys(supportedLanguages).map((language) => (
-          <option key={language} value={language}>
-            {t(`profile.change_language.${language}.value`)}
-          </option>
-        ))}
-      </Select>
-    </div>
+    <Select
+      defaultValue={language}
+      onChange={async (event) => {
+        Cookie.set("language", event.target.value);
+        await router.invalidate({ filter: (r) => r.routeId === rootRoute.id, sync: true });
+      }}
+    >
+      {Object.keys(supportedLanguages).map((language) => (
+        <option key={language} value={language}>
+          {t(`profile.change_language.${language}.value`)}
+        </option>
+      ))}
+    </Select>
   );
 }
