@@ -6,26 +6,18 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import * as Auth from "./auth";
+import * as HEAD from "./head";
 import * as I18n from "./i18n";
 import { Shell } from "./shell";
 
 export type RouterContext = { request: Request | null };
 
-const CSS = (href: string) => [
-  { rel: "preload", as: "style", href },
-  { rel: "stylesheet", href },
-];
-
-const JS = (src: string) => ({ type: "module", src });
-
-const META = [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }];
-
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
-    meta: [...META, { title: "Journal" }],
+    meta: [...HEAD.META, { title: "Journal" }],
     links: [
-      ...CSS("/public/main.min.css"),
-      ...CSS("/public/custom.css"),
+      ...HEAD.CSS("/public/main.min.css"),
+      ...HEAD.CSS("/public/custom.css"),
 
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -34,7 +26,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
         href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
       },
     ],
-    scripts: [JS("/public/entry-client.js")],
+    scripts: [HEAD.JS("/public/entry-client.js")],
   }),
   component: Shell,
   loader: async ({ context }) => {
