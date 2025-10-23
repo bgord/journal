@@ -5,7 +5,7 @@ import {
   Router,
   redirect,
 } from "@tanstack/react-router";
-import * as Auth from "./auth";
+import * as Auth from "./auth.api";
 import * as HEAD from "./head";
 import * as I18n from "./i18n";
 import { NotFound } from "./not-found";
