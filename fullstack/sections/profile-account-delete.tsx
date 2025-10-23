@@ -12,6 +12,9 @@ export function ProfileAccountDelete() {
 
   const accountDelete = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (state === RequestState.loading) return;
+
     setState(RequestState.loading);
 
     const response = await fetch("/api/auth/delete-user", {
