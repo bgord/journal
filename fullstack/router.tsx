@@ -16,17 +16,7 @@ export type RouterContext = { request: Request | null };
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
     meta: [...HEAD.META, { title: "Journal" }],
-    links: [
-      ...HEAD.CSS("/public/main.min.css"),
-      ...HEAD.CSS("/public/custom.css"),
-
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-      },
-    ],
+    links: [...HEAD.CSS("/public/main.min.css"), ...HEAD.CSS("/public/custom.css"), ...HEAD.FONT],
     scripts: [HEAD.JS("/public/entry-client.js")],
   }),
   component: Shell,
@@ -34,7 +24,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
     const session = await Auth.getSession(context.request);
     const i18n = await I18n.getI18n(context.request);
 
-    // @ts-expect-error
+    // @ts-expect-error Login stays out as a separate HTML page
     if (!(session && i18n)) throw redirect({ to: "/login" });
 
     return { session, i18n };
