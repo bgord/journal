@@ -16,7 +16,7 @@ export async function getSessionServer(request: Request) {
 }
 
 export async function getSessionClient() {
-  const response = await fetch("/api/auth/get-session", { credentials: "include" }).catch(() => null);
+  const response = await fetch("/api/auth/get-session", { credentials: "include" });
 
   if (!response?.ok) return null;
 
