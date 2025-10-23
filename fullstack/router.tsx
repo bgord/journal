@@ -8,7 +8,7 @@ import {
   redirect,
   Scripts,
 } from "@tanstack/react-router";
-import { getSession } from "./auth.server";
+import { getSessionServer } from "./auth";
 import { Header } from "./header";
 
 export type RouterContext = { request: Request | null };
@@ -17,7 +17,7 @@ type UserType = { email: string };
 
 async function loadUser(request: Request | null): Promise<UserType | null> {
   if (request) {
-    const { json } = await getSession(request);
+    const { json } = await getSessionServer(request);
 
     return json?.user ?? null;
   }
