@@ -26,7 +26,8 @@ export function Navigation() {
         >
           <img
             src="/profile-avatar/get"
-            alt={session.user.email}
+            title={session.user.email}
+            alt=""
             width={48}
             height={48}
             style={{ borderRadius: 9999, objectFit: "cover" }}

@@ -25,6 +25,13 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
       { rel: "stylesheet", href: "/public/main.min.css" },
       { rel: "preload", as: "style", href: "/public/custom.css" },
       { rel: "stylesheet", href: "/public/custom.css" },
+
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+      },
     ],
     scripts: [{ type: "module", src: "/public/entry-client.js" }],
   }),
@@ -33,7 +40,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body data-mx="auto" data-bg="neutral-950">
         <div id="root">
           <Navigation />
           <Outlet />
