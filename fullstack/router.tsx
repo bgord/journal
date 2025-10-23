@@ -66,7 +66,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
 const homeRoute = createRoute({
   path: "/",
   getParentRoute: () => rootRoute,
-  component: lazyRouteComponent(() => import("./home"), "Home"),
+  component: lazyRouteComponent(() => import("./pages/home"), "Home"),
 });
 
 const profileRoute = createRoute({
