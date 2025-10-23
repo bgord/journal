@@ -8,7 +8,7 @@ import { CommandBus } from "+infra/command-bus";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>) {
   const requesterId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const timeZoneOffsetMs = c.get("timeZoneOffset").ms;

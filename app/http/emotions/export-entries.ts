@@ -21,7 +21,7 @@ const deps = {
 
 const StrategySchema = z.enum(ExportEntriesStrategy).default(ExportEntriesStrategy.csv);
 
-export async function ExportEntries(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
   const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 

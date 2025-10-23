@@ -7,7 +7,7 @@ import { CommandBus } from "+infra/command-bus";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-export async function ExportWeeklyReviewByEmail(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function ExportWeeklyReviewByEmail(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
   const weeklyReviewId = Emotions.VO.WeeklyReviewId.parse(c.req.param("weeklyReviewId"));
 

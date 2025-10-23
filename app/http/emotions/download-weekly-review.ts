@@ -3,7 +3,7 @@ import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import * as Adapters from "+infra/adapters";
 
-export async function DownloadWeeklyReview(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function DownloadWeeklyReview(c: hono.Context<infra.HonoConfig>) {
   const requesterId = c.get("user").id;
   const weeklyReviewId = Emotions.VO.WeeklyReviewId.parse(c.req.param("weeklyReviewId"));
 

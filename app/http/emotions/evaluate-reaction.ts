@@ -8,7 +8,7 @@ import { CommandBus } from "+infra/command-bus";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function EvaluateReaction(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));

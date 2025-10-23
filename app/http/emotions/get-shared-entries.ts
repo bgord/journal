@@ -4,7 +4,7 @@ import type * as infra from "+infra";
 import * as Publishing from "+publishing";
 import * as Adapters from "+infra/adapters";
 
-export async function GetSharedEntries(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function GetSharedEntries(c: hono.Context<infra.HonoConfig>) {
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
 
   const context = { timestamp: Adapters.Clock.nowMs(), visitorId: new bg.VisitorIdHashHonoAdapter(c) };

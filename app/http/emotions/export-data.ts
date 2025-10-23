@@ -6,7 +6,7 @@ import * as Adapters from "+infra/adapters";
 
 const deps = { Stringifier: Adapters.CsvStringifier, Clock: Adapters.Clock };
 
-export async function ExportData(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function ExportData(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
 
   const entries = await Adapters.Emotions.EntrySnapshot.getAllForuser(userId);
