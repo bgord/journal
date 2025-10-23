@@ -3,6 +3,7 @@ import { DownloadCircle, Language, ProfileCircle } from "iconoir-react";
 import { LanguageSelector } from "../components/language-selector";
 import { Separator } from "../components/separator";
 import { ProfileAccountDelete } from "../sections/profile-account-delete";
+import { ProfilePasswordChange } from "../sections/profile-password-change";
 
 export function Profile() {
   const t = useTranslations();
@@ -60,6 +61,10 @@ export function Profile() {
 
         <LanguageSelector />
       </div>
+
+      <Separator />
+
+      <ProfilePasswordChange />
 
       <Separator />
 

@@ -83,7 +83,7 @@ export function ProfileAccountDelete() {
           {t("profile.delete_account.info")}
         </div>
 
-        <form data-stack="y" data-gap="8" onSubmit={accountDelete}>
+        <form data-stack="y" data-gap="8" onSubmit={accountDelete} aria-busy={state === RequestState.loading}>
           <div data-stack="y" data-gap="3" data-cross="start">
             <label data-color="neutral-200" data-fs="sm" htmlFor="challenge">
               {t("profile.delete_account.challenge")}
@@ -102,8 +102,8 @@ export function ProfileAccountDelete() {
           </div>
 
           {state === RequestState.error && (
-            <div
-              role="alert"
+            <output
+              aria-live="assertive"
               data-stack="x"
               data-cross="center"
               data-gap="3"
@@ -115,7 +115,7 @@ export function ProfileAccountDelete() {
             >
               <WarningCircle data-size="md" />
               {t("profile.delete_account.error")}
-            </div>
+            </output>
           )}
 
           <div data-stack="x" data-main="end" data-gap="5">

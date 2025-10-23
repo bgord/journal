@@ -1,4 +1,4 @@
-import { useTranslations } from "@bgord/ui";
+import { Rhythm, useTranslations } from "@bgord/ui";
 import { Link, useLoaderData } from "@tanstack/react-router";
 import { rootRoute } from "./router";
 
@@ -30,9 +30,7 @@ export function Navigation() {
             src="/profile-avatar/get"
             title={session.user.email}
             alt={t("profile.avatar.alt")}
-            width={48}
-            height={48}
-            style={{ borderRadius: 9999, objectFit: "cover" }}
+            style={{ borderRadius: 9999, objectFit: "cover", ...Rhythm().times(4).square }}
             data-bc="neutral-700"
             data-bwb="hairline"
           />
