@@ -1,6 +1,10 @@
-import { ProfileCircle } from "iconoir-react";
+import { useTranslations } from "@bgord/ui";
+import { Language, ProfileCircle } from "iconoir-react";
+import { LanguageSelector } from "../components/language-selector";
 
 export function Profile() {
+  const t = useTranslations();
+
   return (
     <main
       data-stack="y"
@@ -20,6 +24,15 @@ export function Profile() {
           Profile
         </h2>
       </header>
+
+      <div data-stack="y" data-gap="5">
+        <div data-stack="x" data-cross="center" data-gap="3">
+          <Language data-size="md" />
+          <div>{t("profile.change_language.header")}</div>
+        </div>
+
+        <LanguageSelector />
+      </div>
     </main>
   );
 }
