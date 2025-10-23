@@ -68,7 +68,7 @@ export function ProfileAccountDelete() {
             <button
               className="c-button"
               data-variant="with-icon"
-              type="submit"
+              type="button"
               data-interaction="subtle-scale"
               onClick={dialog.disable}
             >
