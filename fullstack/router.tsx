@@ -8,28 +8,10 @@ import {
   redirect,
   Scripts,
 } from "@tanstack/react-router";
-import { getSessionServer } from "./auth";
+import * as auth from "./auth";
 import { Header } from "./header";
 
 export type RouterContext = { request: Request | null };
-
-type UserType = { email: string };
-
-async function loadUser(request: Request | null): Promise<UserType | null> {
-  if (request) {
-    const { json } = await getSessionServer(request);
-
-    return json?.user ?? null;
-  }
-
-  const response = await fetch("/api/auth/get-session", { credentials: "include" }).catch(() => null);
-
-  if (!response?.ok) return null;
-
-  const json = await response.json();
-
-  return json?.user ?? null;
-}
 
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
@@ -54,7 +36,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
       </body>
     </html>
   ),
-  loader: async ({ context }) => ({ user: await loadUser(context.request) }),
+  loader: async ({ context }) => ({ user: await auth.getSession(context.request) }),
   notFoundComponent: () => (
     <main>
       <h1>404</h1>
@@ -66,9 +48,9 @@ const protectedRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "protected",
   loader: async ({ context }) => {
-    const user = await loadUser(context.request);
+    const user = await auth.getSession(context.request);
 
-    // @ts-expect-errorg
+    // @ts-expect-error
     if (!user) throw redirect({ to: "/login" });
     return { user };
   },
