@@ -1,9 +1,8 @@
-import { Rhythm, useTranslations } from "@bgord/ui";
-import { Link, useLoaderData } from "@tanstack/react-router";
-import { rootRoute } from "../router";
+import { useTranslations } from "@bgord/ui";
+import { Link } from "@tanstack/react-router";
+import { Avatar, AvatarSize } from "../components/avatar";
 
 export function Navigation() {
-  const { session } = useLoaderData({ from: rootRoute.id });
   const t = useTranslations();
 
   return (
@@ -25,14 +24,7 @@ export function Navigation() {
         data-fs="base"
         data-fw="medium"
       >
-        <img
-          src="/api/profile-avatar/get"
-          title={session.user.email}
-          alt=""
-          data-bc="neutral-700"
-          data-bwb="hairline"
-          style={{ borderRadius: 9999, objectFit: "cover", ...Rhythm().times(4).square }}
-        />
+        <Avatar size={AvatarSize.small} />
       </Link>
 
       <form action="/api/auth/sign-out" method="post">

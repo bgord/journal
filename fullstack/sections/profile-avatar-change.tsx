@@ -1,8 +1,9 @@
-import * as UI from "@bgord/ui";
+import { useTranslations } from "@bgord/ui";
 import * as Icons from "iconoir-react";
+import { Avatar, AvatarSize } from "../components/avatar";
 
 export function ProfileAvatarChange() {
-  const t = UI.useTranslations();
+  const t = useTranslations();
 
   return (
     <section data-stack="y" data-gap="4">
@@ -12,15 +13,7 @@ export function ProfileAvatarChange() {
       </div>
 
       <div data-stack="x" data-gap="6" data-cross="center">
-        <img
-          src="/api/profile-avatar/get"
-          alt=""
-          data-bc="neutral-700"
-          data-bwb="hairline"
-          data-br="pill"
-          data-object-fit="cover"
-          {...UI.Rhythm().times(8).style.square}
-        />
+        <Avatar size={AvatarSize.large} />
       </div>
     </section>
   );
