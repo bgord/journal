@@ -35,6 +35,17 @@ export function Profile() {
 
       <div data-stack="y" data-gap="5">
         <div data-stack="x" data-cross="center" data-gap="3">
+          <Language data-size="md" />
+          <div>{t("profile.change_language.header")}</div>
+        </div>
+
+        <LanguageSelector />
+      </div>
+
+      <Separator />
+
+      <div data-stack="y" data-gap="5">
+        <div data-stack="x" data-cross="center" data-gap="3">
           <DownloadCircle data-size="md" />
           <div>{t("profile.export_all_data.header")}</div>
         </div>
@@ -54,17 +65,6 @@ export function Profile() {
         >
           {t("profile.export_all_data.cta")}
         </a>
-      </div>
-
-      <Separator />
-
-      <div data-stack="y" data-gap="5">
-        <div data-stack="x" data-cross="center" data-gap="3">
-          <Language data-size="md" />
-          <div>{t("profile.change_language.header")}</div>
-        </div>
-
-        <LanguageSelector />
       </div>
 
       <Separator />
