@@ -8,7 +8,7 @@ const url = "/api/translations";
 const en = Bun.file("infra/translations/en.json");
 const pl = Bun.file("infra/translations/pl.json");
 
-describe("GET /translations", () => {
+describe(`GET ${url}`, () => {
   test("happy path - no language specified", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();

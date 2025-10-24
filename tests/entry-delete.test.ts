@@ -10,7 +10,7 @@ import * as testcases from "./testcases";
 
 const url = `/api/entry/${mocks.entryId}/delete`;
 
-describe("DELETE /entry/:id/delete", () => {
+describe(`DELETE ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "DELETE" }, mocks.ip);
     const json = await response.json();

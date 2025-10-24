@@ -10,7 +10,7 @@ import * as testcases from "./testcases";
 
 const url = `/api/entry/${mocks.entryId}/reappraise-emotion`;
 
-describe("POST /entry/:id/reappraise-emotion", () => {
+describe(`POST ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();

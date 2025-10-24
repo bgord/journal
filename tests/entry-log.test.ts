@@ -26,7 +26,7 @@ const reaction = {
   reactionEffectiveness: mocks.GenericReactionLoggedEvent.payload.effectiveness,
 };
 
-describe("POST /entry/log", () => {
+describe(`POST ${url}`, () => {
   test("situation - validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(url, { method: "POST" }, mocks.ip);

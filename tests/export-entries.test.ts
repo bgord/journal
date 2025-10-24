@@ -7,7 +7,7 @@ import * as mocks from "./mocks";
 
 const url = "/api/entry/export-entries";
 
-describe("GET /entry/export-entries ", () => {
+describe(`GET ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
