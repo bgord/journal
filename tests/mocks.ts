@@ -130,6 +130,7 @@ export const ruleInspection = {
   count: 3,
   remaining: 7,
   resetsInMs: tools.DurationMs.parse(0),
+  resetsInHours: 0,
 };
 
 export const head = {

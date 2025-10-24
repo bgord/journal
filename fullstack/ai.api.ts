@@ -21,7 +21,9 @@ async function getAiUsageTodayClient() {
   return response.json().catch();
 }
 
-export async function getAiUsageToday(request: Request | null): Promise<QuotaRuleInspectionType | null> {
+export async function getAiUsageToday(
+  request: Request | null,
+): Promise<(QuotaRuleInspectionType & { resetsInHours: number }) | null> {
   if (request) return getAiUsageTodayServer(request);
   return getAiUsageTodayClient();
 }

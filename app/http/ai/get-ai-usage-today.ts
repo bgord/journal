@@ -1,3 +1,4 @@
+import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as AI from "+ai";
 import type * as infra from "+infra";
@@ -17,5 +18,8 @@ export async function GetAiUsageToday(c: hono.Context<infra.HonoConfig>) {
 
   const inspection = await deps.RuleInspector.inspect(AI.USER_DAILY_RULE, context);
 
-  return c.json(inspection);
+  return c.json({
+    ...inspection,
+    resetsInHours: new tools.RoundToNearest().round(tools.Duration.Ms(inspection.resetsInMs).hours),
+  });
 }
