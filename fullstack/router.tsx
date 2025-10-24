@@ -20,6 +20,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
     scripts: [HEAD.JS("/public/entry-client.js")],
   }),
   component: Shell,
+  staleTime: Number.POSITIVE_INFINITY,
   loader: async ({ context }) => {
     const session = await Auth.getSession(context.request);
     const i18n = await I18n.getI18n(context.request);
