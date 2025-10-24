@@ -3,6 +3,7 @@ import { DownloadCircle, Language, ProfileCircle } from "iconoir-react";
 import { LanguageSelector } from "../components/language-selector";
 import { Separator } from "../components/separator";
 import { ProfileAccountDelete } from "../sections/profile-account-delete";
+import { ProfileAiUsage } from "../sections/profile-ai-usage";
 import { ProfilePasswordChange } from "../sections/profile-password-change";
 
 export function Profile() {
@@ -27,6 +28,10 @@ export function Profile() {
           Profile
         </h2>
       </header>
+
+      <ProfileAiUsage />
+
+      <Separator />
 
       <div data-stack="y" data-gap="5">
         <div data-stack="x" data-cross="center" data-gap="3">
