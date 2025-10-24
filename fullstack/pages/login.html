@@ -112,8 +112,6 @@
       const form = document.querySelector("#login");
       form.dataset.status = "initial";
 
-      form.addEventListener("formdata", (event) => {});
-
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
@@ -134,7 +132,7 @@
           } else {
             form.dataset.status = "error";
           }
-        } catch (error) {
+        } catch {
           form.dataset.status = "error";
         }
       });
