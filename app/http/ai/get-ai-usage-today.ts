@@ -3,7 +3,7 @@ import * as AI from "+ai";
 import type * as infra from "+infra";
 import * as Adapters from "+infra/adapters";
 
-const deps = { Clock: Adapters.Clock, BucketCounter: Adapters.AI.BucketCounter };
+const deps = { Clock: Adapters.Clock, RuleInspector: Adapters.AI.RuleInspector };
 
 export async function GetAiUsageToday(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
@@ -15,7 +15,7 @@ export async function GetAiUsageToday(c: hono.Context<infra.HonoConfig>) {
     dimensions: {},
   };
 
-  const result = await deps.BucketCounter.getMany([AI.USER_DAILY_RULE.bucket(context)]);
+  const inspection = await deps.RuleInspector.inspect(AI.USER_DAILY_RULE, context);
 
-  return c.json(result);
+  return c.json(inspection);
 }

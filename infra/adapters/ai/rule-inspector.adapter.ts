@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import type { RuleInspectorPort } from "+ai/ports";
 import type * as VO from "+ai/value-objects";
 import { db } from "+infra/db";
@@ -8,7 +8,7 @@ class RuleInspectorDrizzle implements RuleInspectorPort {
   async inspect(rule: VO.QuotaRule, context: VO.RequestContext) {
     const result = await db.query.aiUsageCounters.findFirst({
       columns: { count: true },
-      where: and(eq(Schema.aiUsageCounters.bucket, rule.bucket(context))),
+      where: eq(Schema.aiUsageCounters.bucket, rule.bucket(context)),
     });
 
     const count = result?.count ?? 0;
