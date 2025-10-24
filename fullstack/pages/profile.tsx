@@ -5,6 +5,7 @@ import { Separator } from "../components/separator";
 import { ProfileAccountDelete } from "../sections/profile-account-delete";
 import { ProfileAiUsage } from "../sections/profile-ai-usage";
 import { ProfilePasswordChange } from "../sections/profile-password-change";
+import { ProfileShareableLinks } from "../sections/profile-shareable-links";
 
 export function Profile() {
   const t = useTranslations();
@@ -30,6 +31,10 @@ export function Profile() {
       </header>
 
       <ProfileAiUsage />
+
+      <Separator />
+
+      <ProfileShareableLinks />
 
       <Separator />
 
