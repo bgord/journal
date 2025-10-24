@@ -4,6 +4,7 @@ import { LanguageSelector } from "../components/language-selector";
 import { Separator } from "../components/separator";
 import { ProfileAccountDelete } from "../sections/profile-account-delete";
 import { ProfileAiUsage } from "../sections/profile-ai-usage";
+import { ProfileAvatar } from "../sections/profile-avatar";
 import { ProfilePasswordChange } from "../sections/profile-password-change";
 import { ProfileShareableLinks } from "../sections/profile-shareable-links";
 
@@ -29,6 +30,10 @@ export function Profile() {
           Profile
         </h2>
       </header>
+
+      <ProfileAvatar />
+
+      <Separator />
 
       <ProfileAiUsage />
 
