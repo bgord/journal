@@ -123,6 +123,14 @@ export const emotionsAlarmEntryBucket = `user:${userId}:entry:${entryId}:alarms`
 export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(T0).toIsoId()}:emotions_weekly_review_insight`;
 export const emotionsAlarmInactivityWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(T0).toIsoId()}:emotions_alarm_inactivity`;
 
+export const ruleInspection = {
+  id: AI.USER_DAILY_RULE.id,
+  consumed: false,
+  limit: AI.USER_DAILY_RULE.limit,
+  count: 3,
+  remaining: 7,
+};
+
 export const head = {
   exists: true,
   etag: "etag-123",
