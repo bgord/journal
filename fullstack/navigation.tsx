@@ -26,7 +26,7 @@ export function Navigation() {
         data-fw="medium"
       >
         <img
-          src="/profile-avatar/get"
+          src="/api/profile-avatar/get"
           title={session.user.email}
           alt=""
           data-bc="neutral-700"
