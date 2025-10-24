@@ -1,4 +1,4 @@
-import { useTranslations } from "@bgord/ui";
+import { exec, useTranslations } from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import React from "react";
 import { Avatar, AvatarSize } from "../components/avatar";
@@ -80,7 +80,8 @@ export function ProfileAvatarChange() {
                 type="button"
                 className="c-button"
                 data-variant="secondary"
-                onClick={avatar.actions.clearFile}
+                onClick={exec([avatar.actions.clearFile, () => setState(RequestState.idle)])}
+                disabled={state === RequestState.loading}
                 data-animation="grow-fade-in"
               >
                 {t("app.clear")}
@@ -93,8 +94,26 @@ export function ProfileAvatarChange() {
           </div>
 
           {avatar.isSelected && (
-            <output data-fs="xs" data-color="neutral-300" data-mt="2" data-animation="grow-fade-in">
+            <output
+              data-disp="flex"
+              data-fs="xs"
+              data-color="neutral-300"
+              data-mt="2"
+              data-animation="grow-fade-in"
+            >
               {t("profile.avatar.selected", { name: avatar.data.name })}
+            </output>
+          )}
+
+          {state === RequestState.error && (
+            <output
+              data-disp="flex"
+              data-fs="xs"
+              data-color="danger-400"
+              data-mt="2"
+              data-animation="grow-fade-in"
+            >
+              {t("profile.avatar.upload.error")}
             </output>
           )}
         </form>

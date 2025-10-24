@@ -196,6 +196,7 @@
   "profile.avatar.select_file.cta": "Select file",
   "profile.avatar.upload.cta": "Upload",
   "profile.avatar.upload.cta.loading": "Uploading...",
+  "profile.avatar.upload.error": "Could not upload the avatar, please try again",
   "profile.change_language.en.value": "English",
   "profile.change_language.header": "Change language",
   "profile.change_language.pl.value": "Polish",
