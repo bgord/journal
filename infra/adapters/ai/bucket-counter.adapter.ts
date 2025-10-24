@@ -31,6 +31,7 @@ class BucketCounterDrizzle implements BucketCounterPort {
     const count = result?.count ?? 0;
 
     return {
+      id: rule.id,
       consumed: count >= rule.limit,
       limit: rule.limit,
       count,
