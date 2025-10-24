@@ -225,5 +225,6 @@
   "profile.shareable_links.status.active.value": "aktywny",
   "profile.shareable_links.status.expired.value": "wygasły",
   "profile.shareable_links.status.revoked.value": "wycofany",
-  "shared_entries.list.empty": "Brak wpisów dla tego linku"
+  "shared_entries.list.empty": "Brak wpisów dla tego linku",
+  "profile.ai_limits.empty": "Bład poczas ładowania użycia AI"
 }

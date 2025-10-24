@@ -225,5 +225,6 @@
   "profile.shareable_links.status.active.value": "active",
   "profile.shareable_links.status.expired.value": "expired",
   "profile.shareable_links.status.revoked.value": "revoked",
-  "shared_entries.list.empty": "No entries match this link"
+  "shared_entries.list.empty": "No entries match this link",
+  "profile.ai_limits.empty": "Could not load AI usage data"
 }
