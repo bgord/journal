@@ -1,4 +1,4 @@
-import { and, eq, inArray } from "drizzle-orm";
+import { inArray } from "drizzle-orm";
 import type { BucketCounterPort } from "+ai/ports/bucket-counter";
 import type * as VO from "+ai/value-objects";
 import { db } from "+infra/db";
@@ -20,23 +20,6 @@ class BucketCounterDrizzle implements BucketCounterPort {
     for (const row of rows) usage[row.bucket] = row.count;
 
     return usage;
-  }
-
-  async inspect(rule: VO.QuotaRule, context: VO.RequestContext) {
-    const result = await db.query.aiUsageCounters.findFirst({
-      columns: { count: true },
-      where: and(eq(Schema.aiUsageCounters.bucket, rule.bucket(context))),
-    });
-
-    const count = result?.count ?? 0;
-
-    return {
-      id: rule.id,
-      consumed: count >= rule.limit,
-      limit: rule.limit,
-      count,
-      remaining: rule.limit - count,
-    };
   }
 }
 
