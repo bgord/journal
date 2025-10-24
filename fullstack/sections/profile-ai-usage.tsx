@@ -16,7 +16,17 @@ export function ProfileAiUsage() {
 
         <div data-stack="x" data-cross="center" data-gap="2" data-ml="auto">
           <InfoCircle data-size="sm" />
-          <span data-fs="xs">{t("profile.ai_limits.resets_in", { hours: "todo" })}</span>
+          <span data-fs="xs">
+            {t("profile.ai_limits.resets_in", {
+              count: 2,
+              noun: pluralize({
+                value: 2,
+                singular: t("app.hour.singular"),
+                plural: t("app.hour.plural"),
+                genitive: t("app.hour.genitive"),
+              }),
+            })}
+          </span>
         </div>
       </div>
 

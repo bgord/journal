@@ -11,9 +11,15 @@
   "app.hit.singular": "view",
   "app.login": "Sign in",
   "app.name": "JOURNAL",
+
   "app.prompt.genitive": "prompts",
   "app.prompt.plural": "prompts",
   "app.prompt.singular": "prompt",
+
+  "app.hour.genitive": "hours",
+  "app.hour.plural": "hours",
+  "app.hour.singular": "hour",
+
   "app.register": "Sign up",
   "app.save": "Save",
   "app.visitor.genitive": "visitors",
@@ -181,7 +187,7 @@
   "pattern.MoreNegativeThanPositiveEmotionsPattern.name": "More negative than positive emotions",
   "pattern.PositiveEmotionWithMaladaptiveReactionPattern.name": "Positive emotion with maladaptive reaction",
   "profile.ai_limits.header": "AI limits",
-  "profile.ai_limits.resets_in": "Resets in {{hours}} hours",
+  "profile.ai_limits.resets_in": "Resets in {{count}} {{noun}}",
   "profile.ai_limits.usage": "{{count}} out of {{limit}} {{noun}} used",
   "profile.avatar.alt": "Image",
   "profile.avatar.header": "Profile avatar",
