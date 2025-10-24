@@ -34,6 +34,7 @@ export function ProfileAiUsage() {
               value: usage.count,
               singular: t("app.prompt.singular"),
               plural: t("app.prompt.plural"),
+              genitive: t("app.prompt.genitive"),
             }),
           })}
         </div>
