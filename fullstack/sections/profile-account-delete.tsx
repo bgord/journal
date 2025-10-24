@@ -96,8 +96,7 @@ export function ProfileAccountDelete() {
               required
               title={t("profile.delete_account.challenge")}
               pattern="delete"
-              autoComplete="off"
-              spellCheck={false}
+              {...UI.Autocomplete.off}
             />
           </div>
 
