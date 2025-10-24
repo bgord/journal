@@ -5,6 +5,7 @@ import {
   Router,
   redirect,
 } from "@tanstack/react-router";
+import * as AI from "./ai.api";
 import * as Auth from "./auth.api";
 import * as HEAD from "./head";
 import * as I18n from "./i18n.api";
@@ -39,10 +40,11 @@ const homeRoute = createRoute({
   component: lazyRouteComponent(() => import("./pages/home"), "Home"),
 });
 
-const profileRoute = createRoute({
+export const profileRoute = createRoute({
   path: "/profile",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/profile"), "Profile"),
+  loader: async ({ context }) => ({ usage: await AI.getAiUsageToday(context.request) }),
 });
 
 const dashboardRoute = createRoute({
