@@ -1,6 +1,6 @@
 import { Rhythm, useTranslations } from "@bgord/ui";
 import { Link, useLoaderData } from "@tanstack/react-router";
-import { rootRoute } from "./router";
+import { rootRoute } from "../router";
 
 export function Navigation() {
   const { session } = useLoaderData({ from: rootRoute.id });
