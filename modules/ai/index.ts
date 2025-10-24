@@ -9,5 +9,6 @@ export { Prompt } from "./value-objects/prompt";
 /** @public */
 export { QuotaLimit } from "./value-objects/quota-limit";
 export { RULES, USER_DAILY_RULE } from "./value-objects/quota-rules";
+export { QuotaWindow, QuotaWindowEnum } from "./value-objects/quota-window";
 export type { RequestContext } from "./value-objects/request-context";
 export { UsageCategory } from "./value-objects/usage-category";

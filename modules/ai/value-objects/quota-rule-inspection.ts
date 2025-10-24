@@ -1,3 +1,4 @@
+import type * as tools from "@bgord/tools";
 import type { QuotaLimitType } from "./quota-limit";
 import type { QuotaRuleId } from "./quota-rule-id";
 
@@ -7,4 +8,5 @@ export type QuotaRuleInspectionType = {
   limit: QuotaLimitType;
   count: number;
   remaining: number;
+  resetsInMs: tools.DurationMsType;
 };

@@ -129,6 +129,7 @@ export const ruleInspection = {
   limit: AI.USER_DAILY_RULE.limit,
   count: 3,
   remaining: 7,
+  resetsInMs: tools.DurationMs.parse(0),
 };
 
 export const head = {

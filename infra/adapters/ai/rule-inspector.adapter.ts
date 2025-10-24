@@ -1,8 +1,11 @@
 import { eq } from "drizzle-orm";
 import type { RuleInspectorPort } from "+ai/ports";
 import type * as VO from "+ai/value-objects";
+import { Clock } from "+infra/adapters/clock.adapter";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+
+const deps = { Clock };
 
 class RuleInspectorDrizzle implements RuleInspectorPort {
   async inspect(rule: VO.QuotaRule, context: VO.RequestContext) {
@@ -19,6 +22,7 @@ class RuleInspectorDrizzle implements RuleInspectorPort {
       limit: rule.limit,
       count,
       remaining: rule.limit - count,
+      resetsInMs: rule.window.resetsIn(deps.Clock).ms,
     };
   }
 }
