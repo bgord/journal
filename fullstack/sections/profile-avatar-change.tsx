@@ -1,8 +1,8 @@
 import { exec, useTranslations } from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import React from "react";
-import { Avatar, AvatarSize } from "../components/avatar";
 import { RequestState } from "../ui";
+import { ProfileAvatarDelete } from "./profile-avatar-delete";
 import { useFile } from "./use-file";
 
 const ALLOWED_MIME_TYPES = ["image/png", "image/jpeg", "image/webp"] as const;
@@ -40,7 +40,7 @@ export function ProfileAvatarChange() {
       </div>
 
       <div data-stack="x" data-gap="6">
-        <Avatar size={AvatarSize.large} />
+        <ProfileAvatarDelete />
 
         <form onSubmit={changeProfileAvatar} encType="multipart/form-data" data-mt="3">
           <div data-stack="x" data-gap="3" data-cross="center">
