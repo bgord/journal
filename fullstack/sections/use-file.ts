@@ -27,8 +27,8 @@ type UseFileIdle = {
       id: UseFileNameType;
       name: UseFileNameType;
       multiple: false;
-      key: React.Key;
     };
+    key: React.Key;
   };
 };
 
@@ -50,8 +50,8 @@ type UseFileSelected = {
       id: UseFileNameType;
       name: UseFileNameType;
       multiple: false;
-      key: React.Key;
     };
+    key: React.Key;
   };
 };
 
@@ -72,8 +72,8 @@ type UseFileError = {
       id: UseFileNameType;
       name: UseFileNameType;
       multiple: false;
-      key: React.Key;
     };
+    key: React.Key;
   };
 };
 
@@ -126,9 +126,7 @@ export function useFile(name: UseFileNameType, config?: UseFileConfigType): UseF
       data: null,
       actions: { selectFile, clearFile },
       label: { props: { htmlFor: name } },
-      input: {
-        props: { id: name, name, multiple: false, key },
-      },
+      input: { props: { id: name, name, multiple: false }, key },
     };
   }
 
@@ -143,9 +141,7 @@ export function useFile(name: UseFileNameType, config?: UseFileConfigType): UseF
       actions: { selectFile, clearFile },
       preview,
       label: { props: { htmlFor: name } },
-      input: {
-        props: { id: name, name, multiple: false, key },
-      },
+      input: { props: { id: name, name, multiple: false }, key },
     };
   }
 
@@ -158,8 +154,6 @@ export function useFile(name: UseFileNameType, config?: UseFileConfigType): UseF
     isError: true,
     actions: { selectFile, clearFile },
     label: { props: { htmlFor: name } },
-    input: {
-      props: { id: name, name, multiple: false, key },
-    },
+    input: { props: { id: name, name, multiple: false }, key },
   };
 }
