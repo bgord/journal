@@ -29,6 +29,7 @@ export function ProfileAvatarChange() {
 
     if (!response.ok) return setState(RequestState.error);
     setState(RequestState.done);
+    avatar.actions.clearFile();
   }
 
   return (
@@ -69,7 +70,9 @@ export function ProfileAvatarChange() {
               data-variant="primary"
               disabled={!avatar.isSelected || state === RequestState.loading}
             >
-              {t("profile.avatar.upload.cta")}
+              {state === RequestState.loading
+                ? t("profile.avatar.upload.cta.loading")
+                : t("profile.avatar.upload.cta")}
             </button>
 
             {avatar.isSelected && (

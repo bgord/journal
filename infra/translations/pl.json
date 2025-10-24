@@ -195,6 +195,7 @@
   "profile.avatar.hint": "Maksymalny rozmiar to 10 MB",
   "profile.avatar.select_file.cta": "Wybierz zdjęcie",
   "profile.avatar.upload.cta": "Wyślij",
+  "profile.avatar.upload.cta.loading": "Wysyłanie...",
   "profile.change_language.en.value": "Angielski",
   "profile.change_language.header": "Zmiana języka",
   "profile.change_language.pl.value": "Polski",
