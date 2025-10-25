@@ -7,10 +7,12 @@ import { ButtonCancel } from "../components/button-cancel";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
 import { Separator } from "../components/separator";
+import { RequestState } from "../ui";
 import { useField } from "./use-field";
 
 export function HomeEntryAdd() {
   const t = UI.useTranslations();
+  const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
   const dialog = UI.useToggle({ name: "dialog" });
 
@@ -51,23 +53,32 @@ export function HomeEntryAdd() {
       reactionEffectiveness: reactionEffectiveness.value,
     };
 
-    console.log(payload);
+    if (state === RequestState.loading) return;
 
-    // if (state === RequestState.loading) return;
+    setState(RequestState.loading);
 
-    // setState(RequestState.loading);
+    if (payload.intent === "entry_add") {
+      const response = await fetch("/api/entry/log", {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(payload),
+      });
 
-    // const response = await fetch("/api/auth/delete-user", {
-    //   method: "POST",
-    //   credentials: "include",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({}),
-    // });
+      if (!response.ok) return setState(RequestState.error);
+    }
 
-    // if (!response.ok) return setState(RequestState.error);
+    if (payload.intent === "time_capsule_entry_add") {
+      const response = await fetch("/api/entry/time-capsule-entry/schedule", {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(payload),
+      });
 
-    // setState(RequestState.done);
-    // window.location.replace("/login");
+      if (!response.ok) return setState(RequestState.error);
+    }
+
+    setState(RequestState.done);
+    dialog.disable();
   }
 
   return (
