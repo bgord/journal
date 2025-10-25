@@ -5,6 +5,6 @@ import {
 
 export type * as types from "../../modules/emotions/value-objects";
 
-export const HomeEntryAdd = {
+export const HomeEntryAddForm = {
   situationDescription: { min: SituationDescriptionMin, max: SituationDescriptionMax },
 };
