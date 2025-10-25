@@ -249,12 +249,6 @@ export function HomeEntryAdd() {
           </div>
 
           <div data-stack="x" data-main="end" data-gap="5">
-            {state === RequestState.loading && (
-              <output data-mr="auto" data-color="neutral-300">
-                {t("entry.new.loading")}
-              </output>
-            )}
-
             {state === RequestState.error && (
               <output data-mr="auto" data-color="danger-400">
                 {t("entry.new.error")}

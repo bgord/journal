@@ -134,7 +134,6 @@
   "entry.new.cta_primary": "Save",
   "entry.new.cta_secondary": "New entry",
   "entry.new.label": "Add entry",
-  "entry.new.loading": "Adding...",
   "entry.new.error": "Error while adding an entry",
   "entry.reaction.call_to_action": "Describe your reaction",
   "entry.reaction.description.label": "How did you react?",
