@@ -1,9 +1,10 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import React from "react";
+import type { types } from "../../app/services/home-entry-add-form";
 import { HomeEntryAddForm } from "../../app/services/home-entry-add-form";
 import { ButtonCancel } from "../components/button-cancel";
-// import { RatingPillsClickable } from "../components/rating-pills-clickable";
+import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
 import { Separator } from "../components/separator";
 import { useField } from "./use-field";
@@ -14,9 +15,13 @@ export function HomeEntryAdd() {
   const dialog = UI.useToggle({ name: "dialog" });
   const timeCapsuleMode = UI.useToggle({ name: "time-capsule-mode" });
 
-  const situationDescription = useField({ name: "situationDescription" });
+  const situationDescription = useField<types.SituationDescriptionType>({ name: "situationDescription" });
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
+  const emotionIntensity = useField<types.EmotionIntensityType>({
+    name: "emotionIntensity",
+    defaultValue: HomeEntryAddForm.emotionIntensity.max,
+  });
 
   UI.useShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
@@ -25,6 +30,7 @@ export function HomeEntryAdd() {
 
     const payload = {
       situationDescription: situationDescription.value,
+      emotionIntensity: emotionIntensity.value,
     };
 
     console.log(payload);
@@ -123,7 +129,7 @@ export function HomeEntryAdd() {
               )}
             </div>
 
-            {/* <RatingPillsClickable {...emotionIntensity} /> */}
+            <RatingPillsClickable {...emotionIntensity} />
           </div>
           <Separator />
           <textarea
