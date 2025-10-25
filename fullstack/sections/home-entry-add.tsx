@@ -8,7 +8,6 @@ import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
 import { Separator } from "../components/separator";
 import { RequestState } from "../ui";
-import { useField } from "./use-field";
 
 export function HomeEntryAdd() {
   const t = UI.useTranslations();
@@ -17,21 +16,21 @@ export function HomeEntryAdd() {
   const dialog = UI.useToggle({ name: "dialog" });
 
   const timeCapsuleMode = UI.useToggle({ name: "time-capsule-mode" });
-  const scheduledFor = useField<number | null>({ name: "scheduledFor" });
+  const scheduledFor = UI.useField<number | null>({ name: "scheduledFor" });
 
-  const situationDescription = useField<types.SituationDescriptionType>({ name: "situationDescription" });
-  const situationKind = useField<types.SituationKindType>({ name: "situationKind" });
+  const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situationDescription" });
+  const situationKind = UI.useField<types.SituationKindType>({ name: "situationKind" });
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
-  const emotionLabel = useField<types.EmotionLabelType>({ name: "emotionLabel" });
-  const emotionIntensity = useField<types.EmotionIntensityType>({
+  const emotionLabel = UI.useField<types.EmotionLabelType>({ name: "emotionLabel" });
+  const emotionIntensity = UI.useField<types.EmotionIntensityType>({
     name: "emotionIntensity",
     defaultValue: HomeEntryAddForm.emotionIntensity.min,
   });
 
-  const reactionDescription = useField<types.ReactionDescriptionType>({ name: "reactionDescription" });
-  const reactionType = useField<types.ReactionTypeType>({ name: "reactionType" });
-  const reactionEffectiveness = useField<types.ReactionEffectivenessType>({
+  const reactionDescription = UI.useField<types.ReactionDescriptionType>({ name: "reactionDescription" });
+  const reactionType = UI.useField<types.ReactionTypeType>({ name: "reactionType" });
+  const reactionEffectiveness = UI.useField<types.ReactionEffectivenessType>({
     name: "reactionEffectiveness",
     defaultValue: HomeEntryAddForm.reactionEffectiveness.min,
   });
@@ -108,8 +107,6 @@ export function HomeEntryAdd() {
         </div>
 
         <form data-stack="y" data-gap="5" data-mt="5" onSubmit={addEntry}>
-          {/* TODO */}
-          {/* @ts-expect-error */}
           <textarea
             className="c-textarea"
             placeholder={t("entry.situation.description.label")}
@@ -179,8 +176,6 @@ export function HomeEntryAdd() {
 
           <Separator />
 
-          {/* TODO */}
-          {/* @ts-expect-error */}
           <textarea
             className="c-textarea"
             placeholder={t("entry.reaction.description.label")}
