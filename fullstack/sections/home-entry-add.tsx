@@ -20,7 +20,12 @@ export function HomeEntryAdd() {
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
   const emotionIntensity = useField<types.EmotionIntensityType>({
     name: "emotionIntensity",
-    defaultValue: HomeEntryAddForm.emotionIntensity.max,
+    defaultValue: HomeEntryAddForm.emotionIntensity.min,
+  });
+
+  const reactionEffectiveness = useField<types.ReactionEffectivenessType>({
+    name: "reactionEffectiveness",
+    defaultValue: HomeEntryAddForm.reactionEffectiveness.min,
   });
 
   UI.useShortcuts({ "$mod+Control+KeyN": dialog.enable });
@@ -31,6 +36,7 @@ export function HomeEntryAdd() {
     const payload = {
       situationDescription: situationDescription.value,
       emotionIntensity: emotionIntensity.value,
+      reactionEffectiveness: reactionEffectiveness.value,
     };
 
     console.log(payload);
@@ -153,7 +159,7 @@ export function HomeEntryAdd() {
             >
               {t("entry.reaction.effectiveness.label")}
             </label>
-            {/* <RatingPillsClickable {...reactionEffectiveness} /> */}
+            <RatingPillsClickable {...reactionEffectiveness} />
           </div>
           <div data-stack="x" data-gap="3">
             {timeCapsuleMode.off && (

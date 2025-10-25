@@ -16,5 +16,5 @@ export type * as types from "../../modules/emotions/value-objects";
 export const HomeEntryAddForm = {
   situationDescription: { min: SituationDescriptionMin, max: SituationDescriptionMax },
   emotionIntensity: { min: EmotionIntensityMin, max: EmotionIntensityMax },
-  ReactionEffectiveness: { min: ReactionEffectivenessMin, max: ReactionEffectivenessMax },
+  reactionEffectiveness: { min: ReactionEffectivenessMin, max: ReactionEffectivenessMax },
 };
