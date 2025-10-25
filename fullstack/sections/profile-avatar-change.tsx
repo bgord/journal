@@ -1,18 +1,17 @@
-import { exec, useTranslations } from "@bgord/ui";
+import { exec, useFile, useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
 import { rootRoute } from "../router";
 import { RequestState } from "../ui";
 import { ProfileAvatarDelete } from "./profile-avatar-delete";
-import { useFile } from "./use-file";
 
-const ALLOWED_MIME_TYPES = ["image/png", "image/jpeg", "image/webp"] as const;
+const mimeTypes = ["image/png", "image/jpeg", "image/webp"];
 
 export function ProfileAvatarChange() {
   const router = useRouter();
   const t = useTranslations();
-  const avatar = useFile("avatar");
+  const avatar = useFile("avatar", { mimeTypes, maxSizeBytes: 10_000_000 });
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
   async function changeProfileAvatar(event: React.FormEvent) {
@@ -61,7 +60,6 @@ export function ProfileAvatarChange() {
                 className="c-file-explorer"
                 type="file"
                 required
-                accept={ALLOWED_MIME_TYPES.join(",")}
                 onChange={avatar.actions.selectFile}
                 disabled={avatar.isSelected}
                 {...avatar.input.props}
