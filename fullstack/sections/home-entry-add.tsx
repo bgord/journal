@@ -26,6 +26,7 @@ export function HomeEntryAdd() {
   });
 
   const reactionDescription = useField<types.ReactionDescriptionType>({ name: "reactionDescription" });
+  const reactionType = useField<types.ReactionTypeType>({ name: "reactionType" });
   const reactionEffectiveness = useField<types.ReactionEffectivenessType>({
     name: "reactionEffectiveness",
     defaultValue: HomeEntryAddForm.reactionEffectiveness.min,
@@ -39,9 +40,10 @@ export function HomeEntryAdd() {
     const payload = {
       situationDescription: situationDescription.value,
       situationKind: situationKind.value,
-      emotionIntensity: emotionIntensity.value,
       emotionLabel: emotionLabel.value,
+      emotionIntensity: emotionIntensity.value,
       reactionDescription: reactionDescription.value,
+      reactionType: reactionType.value,
       reactionEffectiveness: reactionEffectiveness.value,
     };
 
@@ -171,8 +173,13 @@ export function HomeEntryAdd() {
           />
 
           <div data-stack="x" data-cross="center">
-            <Select required>
+            <Select required {...reactionType.input.props}>
               <option value="">{t("entry.reaction.type.default.value")}</option>
+              {HomeEntryAddForm.reactionType.options.map((type) => (
+                <option key={type} value={type}>
+                  {t(`entry.reaction.type.value.${type}`)}
+                </option>
+              ))}
             </Select>
 
             <label
@@ -185,7 +192,6 @@ export function HomeEntryAdd() {
             >
               {t("entry.reaction.effectiveness.label")}
             </label>
-
             <RatingPillsClickable {...reactionEffectiveness} />
           </div>
 

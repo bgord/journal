@@ -7,6 +7,7 @@ import {
   NegativeEmotions,
   PositiveEmotions,
 } from "../../modules/emotions/value-objects/geneva-wheel-emotion.enum";
+import { GrossEmotionRegulationStrategy } from "../../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
 import {
   ReactionDescriptionMax,
   ReactionDescriptionMin,
@@ -25,13 +26,14 @@ export type * as types from "../../modules/emotions/value-objects";
 
 export const HomeEntryAddForm = {
   situationDescription: { min: SituationDescriptionMin, max: SituationDescriptionMax },
-  emotionIntensity: { min: EmotionIntensityMin, max: EmotionIntensityMax },
-  reactionEffectiveness: { min: ReactionEffectivenessMin, max: ReactionEffectivenessMax },
-  reactionDescription: { min: ReactionDescriptionMax, max: ReactionDescriptionMin },
   situationKind: { options: Object.keys(SituationKindOptions) },
+  emotionIntensity: { min: EmotionIntensityMin, max: EmotionIntensityMax },
   emotionLabel: {
     positive: PositiveEmotions,
     negative: NegativeEmotions,
     options: Object.keys(GenevaWheelEmotion),
   },
+  reactionDescription: { min: ReactionDescriptionMax, max: ReactionDescriptionMin },
+  reactionType: { options: Object.keys(GrossEmotionRegulationStrategy) },
+  reactionEffectiveness: { min: ReactionEffectivenessMin, max: ReactionEffectivenessMax },
 };
