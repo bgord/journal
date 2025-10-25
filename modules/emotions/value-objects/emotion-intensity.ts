@@ -1,9 +1,7 @@
 import { z } from "zod/v4";
+import { EmotionIntensityMax, EmotionIntensityMin } from "./emotion-intensity.validation";
 
 const EmotionIntensityErrors = { min_max: "emotion.intensity.min.max" };
-
-const EmotionIntensityMin = 1;
-const EmotionIntensityMax = 5;
 
 export const EmotionIntensitySchema = z
   .int({ message: EmotionIntensityErrors.min_max })
