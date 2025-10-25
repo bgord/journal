@@ -1,5 +1,5 @@
-import { useFieldReturnType } from "../sections/use-field";
 import type { types } from "../../app/services/home-entry-add-form";
+import type { useFieldReturnType } from "../sections/use-field";
 
 type ClickableRatingPillsProps = { total?: number } & useFieldReturnType<types.EmotionIntensityType>;
 
