@@ -3,6 +3,11 @@ import {
   EmotionIntensityMin,
 } from "../../modules/emotions/value-objects/emotion-intensity.validation";
 import {
+  GenevaWheelEmotion,
+  NegativeEmotions,
+  PositiveEmotions,
+} from "../../modules/emotions/value-objects/geneva-wheel-emotion.enum";
+import {
   ReactionDescriptionMax,
   ReactionDescriptionMin,
 } from "../../modules/emotions/value-objects/reaction-description.validation";
@@ -24,4 +29,9 @@ export const HomeEntryAddForm = {
   reactionEffectiveness: { min: ReactionEffectivenessMin, max: ReactionEffectivenessMax },
   reactionDescription: { min: ReactionDescriptionMax, max: ReactionDescriptionMin },
   situationKind: { options: Object.keys(SituationKindOptions) },
+  emotionLabel: {
+    positive: PositiveEmotions,
+    negative: NegativeEmotions,
+    options: Object.keys(GenevaWheelEmotion),
+  },
 };

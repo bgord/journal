@@ -19,6 +19,7 @@ export function HomeEntryAdd() {
   const situationKind = useField<types.SituationKindType>({ name: "situationKind" });
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
+  const emotionLabel = useField<types.EmotionLabelType>({ name: "emotionLabel" });
   const emotionIntensity = useField<types.EmotionIntensityType>({
     name: "emotionIntensity",
     defaultValue: HomeEntryAddForm.emotionIntensity.min,
@@ -39,8 +40,9 @@ export function HomeEntryAdd() {
       situationDescription: situationDescription.value,
       situationKind: situationKind.value,
       emotionIntensity: emotionIntensity.value,
-      reactionEffectiveness: reactionEffectiveness.value,
+      emotionLabel: emotionLabel.value,
       reactionDescription: reactionDescription.value,
+      reactionEffectiveness: reactionEffectiveness.value,
     };
 
     console.log(payload);
@@ -139,8 +141,16 @@ export function HomeEntryAdd() {
               </button>
 
               {emotionType && (
-                <Select required data-ml="3" data-animation="grow-fade-in">
+                <Select required data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
                   <option value="">{t("entry.emotion.label.default.value")}</option>
+                  {(emotionType === "positive"
+                    ? HomeEntryAddForm.emotionLabel.positive
+                    : HomeEntryAddForm.emotionLabel.negative
+                  ).map((emotion) => (
+                    <option key={emotion} value={emotion}>
+                      {t(`entry.emotion.label.value.${emotion}`)}
+                    </option>
+                  ))}
                 </Select>
               )}
             </div>
