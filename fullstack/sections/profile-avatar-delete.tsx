@@ -1,10 +1,13 @@
 import { useHover } from "@bgord/ui";
+import { useRouter } from "@tanstack/react-router";
 import { Xmark } from "iconoir-react";
 import React from "react";
 import { Avatar, AvatarSize } from "../components/avatar";
+import { rootRoute } from "../router";
 import { RequestState } from "../ui";
 
 export function ProfileAvatarDelete() {
+  const router = useRouter();
   const hover = useHover();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
@@ -20,6 +23,7 @@ export function ProfileAvatarDelete() {
 
     if (!response.ok) return setState(RequestState.error);
     setState(RequestState.done);
+    router.invalidate({ filter: (r) => r.id === rootRoute.id, sync: true });
   }
 
   return (

@@ -10,11 +10,13 @@ export enum AvatarSize {
 const dimension: Record<AvatarSize, number> = { [AvatarSize.small]: 4, [AvatarSize.large]: 8 };
 
 export function Avatar(props: { size: AvatarSize }) {
-  const { session } = useLoaderData({ from: rootRoute.id });
+  const { session, avatarEtag } = useLoaderData({ from: rootRoute.id });
+
+  const url = avatarEtag ? `/api/profile-avatar/get?etag=${avatarEtag}` : undefined;
 
   return (
     <img
-      src="/api/profile-avatar/get"
+      src={url}
       alt=""
       title={session.user.email}
       data-bc="neutral-700"

@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-router";
 import * as AI from "./ai.api";
 import * as Auth from "./auth.api";
+import * as Avatar from "./avatar.api";
 import * as HEAD from "./head";
 import * as I18n from "./i18n.api";
 import { NotFound } from "./not-found";
@@ -23,13 +24,16 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   component: Shell,
   staleTime: Number.POSITIVE_INFINITY,
   loader: async ({ context }) => {
-    const session = await Auth.getSession(context.request);
-    const i18n = await I18n.getI18n(context.request);
+    const [session, i18n, avatarEtag] = await Promise.all([
+      await Auth.getSession(context.request),
+      await I18n.getI18n(context.request),
+      await Avatar.getAvatarEtag(context.request),
+    ]);
 
     // @ts-expect-error Login stays out as a separate HTML page
     if (!(session && i18n)) throw redirect({ to: "/login" });
 
-    return { session, i18n };
+    return { session, i18n, avatarEtag };
   },
   notFoundComponent: NotFound,
 });

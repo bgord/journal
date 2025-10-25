@@ -1,6 +1,8 @@
 import { exec, useTranslations } from "@bgord/ui";
+import { useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
+import { rootRoute } from "../router";
 import { RequestState } from "../ui";
 import { ProfileAvatarDelete } from "./profile-avatar-delete";
 import { useFile } from "./use-file";
@@ -8,6 +10,7 @@ import { useFile } from "./use-file";
 const ALLOWED_MIME_TYPES = ["image/png", "image/jpeg", "image/webp"] as const;
 
 export function ProfileAvatarChange() {
+  const router = useRouter();
   const t = useTranslations();
   const avatar = useFile("avatar");
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
@@ -29,6 +32,7 @@ export function ProfileAvatarChange() {
 
     if (!response.ok) return setState(RequestState.error);
     setState(RequestState.done);
+    router.invalidate({ filter: (r) => r.id === rootRoute.id, sync: true });
     avatar.actions.clearFile();
   }
 
