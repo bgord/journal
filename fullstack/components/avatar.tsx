@@ -12,11 +12,12 @@ const dimension: Record<AvatarSize, number> = { [AvatarSize.small]: 4, [AvatarSi
 export function Avatar(props: { size: AvatarSize }) {
   const { session, avatarEtag } = useLoaderData({ from: rootRoute.id });
 
-  const url = avatarEtag ? `/api/profile-avatar/get?etag=${avatarEtag}` : undefined;
+  const placeholder = "/public/avatar-placeholder.webp";
+  const src = avatarEtag ? `/api/profile-avatar/get?etag=${avatarEtag}` : placeholder;
 
   return (
     <img
-      src={url}
+      src={src}
       alt=""
       title={session.user.email}
       data-bc="neutral-700"
