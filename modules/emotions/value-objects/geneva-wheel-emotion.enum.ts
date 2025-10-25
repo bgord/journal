@@ -21,3 +21,29 @@ export enum GenevaWheelEmotion {
   boredom = "boredom",
   surprise_negative = "surprise_negative",
 }
+
+export const PositiveEmotions = [
+  GenevaWheelEmotion.joy,
+  GenevaWheelEmotion.pleasure,
+  GenevaWheelEmotion.pride,
+  GenevaWheelEmotion.gratitude,
+  GenevaWheelEmotion.admiration,
+  GenevaWheelEmotion.love,
+  GenevaWheelEmotion.relief,
+  GenevaWheelEmotion.interest,
+  GenevaWheelEmotion.hope,
+  GenevaWheelEmotion.surprise_positive,
+];
+
+export const NegativeEmotions = [
+  GenevaWheelEmotion.anger,
+  GenevaWheelEmotion.disgust,
+  GenevaWheelEmotion.contempt,
+  GenevaWheelEmotion.hate,
+  GenevaWheelEmotion.sadness,
+  GenevaWheelEmotion.fear,
+  GenevaWheelEmotion.shame,
+  GenevaWheelEmotion.guilt,
+  GenevaWheelEmotion.boredom,
+  GenevaWheelEmotion.surprise_negative,
+];

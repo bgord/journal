@@ -1,5 +1,5 @@
 import { z } from "zod/v4";
-import { GenevaWheelEmotion } from "./geneva-wheel-emotion.enum";
+import { GenevaWheelEmotion, NegativeEmotions, PositiveEmotions } from "./geneva-wheel-emotion.enum";
 
 const EmotionLabelErrors = { invalid: "emotion.label.invalid" };
 
@@ -28,33 +28,11 @@ export class EmotionLabel {
   }
 
   isPositive() {
-    return [
-      GenevaWheelEmotion.joy,
-      GenevaWheelEmotion.pleasure,
-      GenevaWheelEmotion.pride,
-      GenevaWheelEmotion.gratitude,
-      GenevaWheelEmotion.admiration,
-      GenevaWheelEmotion.love,
-      GenevaWheelEmotion.relief,
-      GenevaWheelEmotion.interest,
-      GenevaWheelEmotion.hope,
-      GenevaWheelEmotion.surprise_positive,
-    ].includes(this.get());
+    return PositiveEmotions.includes(this.get());
   }
 
   isNegative() {
-    return [
-      GenevaWheelEmotion.anger,
-      GenevaWheelEmotion.disgust,
-      GenevaWheelEmotion.contempt,
-      GenevaWheelEmotion.hate,
-      GenevaWheelEmotion.sadness,
-      GenevaWheelEmotion.fear,
-      GenevaWheelEmotion.shame,
-      GenevaWheelEmotion.guilt,
-      GenevaWheelEmotion.boredom,
-      GenevaWheelEmotion.surprise_negative,
-    ].includes(this.get());
+    return NegativeEmotions.includes(this.get());
   }
 
   static all(): { positive: boolean; option: EmotionLabelType }[] {
