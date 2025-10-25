@@ -33,7 +33,7 @@ export const HomeEntryAddForm = {
     negative: NegativeEmotions,
     options: Object.keys(GenevaWheelEmotion),
   },
-  reactionDescription: { min: ReactionDescriptionMax, max: ReactionDescriptionMin },
+  reactionDescription: { min: ReactionDescriptionMin, max: ReactionDescriptionMax },
   reactionType: { options: Object.keys(GrossEmotionRegulationStrategy) },
   reactionEffectiveness: { min: ReactionEffectivenessMin, max: ReactionEffectivenessMax },
 };
