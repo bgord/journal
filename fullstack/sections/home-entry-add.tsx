@@ -100,6 +100,7 @@ export function HomeEntryAdd() {
             data-variant="with-icon"
             type="submit"
             data-interaction="subtle-scale"
+            disabled={state === RequestState.loading}
             onClick={dialog.disable}
           >
             <Icons.Xmark data-size="md" />
@@ -218,6 +219,7 @@ export function HomeEntryAdd() {
                 <Icons.TimerOff data-size="md" data-color="neutral-300" />
               </button>
             )}
+
             {timeCapsuleMode.on && (
               <>
                 <button
@@ -247,12 +249,25 @@ export function HomeEntryAdd() {
           </div>
 
           <div data-stack="x" data-main="end" data-gap="5">
-            <ButtonCancel onClick={dialog.disable} />
+            {state === RequestState.loading && (
+              <output data-mr="auto" data-color="neutral-300">
+                {t("entry.new.loading")}
+              </output>
+            )}
+
+            {state === RequestState.error && (
+              <output data-mr="auto" data-color="danger-400">
+                {t("entry.new.error")}
+              </output>
+            )}
+
+            <ButtonCancel disabled={state === RequestState.loading} onClick={dialog.disable} />
 
             <button
               type="submit"
               className="c-button"
               data-variant="primary"
+              disabled={state === RequestState.loading}
               {...UI.Rhythm().times(10).style.width}
             >
               {t("entry.new.cta_primary")}

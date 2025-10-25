@@ -134,6 +134,8 @@
   "entry.new.cta_primary": "Zapisz",
   "entry.new.cta_secondary": "Dodaj wpis",
   "entry.new.label": "Dodaj wpis",
+  "entry.new.loading": "Dodawanie...",
+  "entry.new.error": "Bład przy dodawaniu wpisu",
   "entry.reaction.call_to_action": "Uzupełnij reakcję",
   "entry.reaction.description.label": "Jaka była Twoja reakcja?",
   "entry.reaction.description.placeholder": "Wróciłem(-am) do domu",
