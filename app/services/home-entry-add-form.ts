@@ -14,6 +14,7 @@ import {
   SituationDescriptionMax,
   SituationDescriptionMin,
 } from "../../modules/emotions/value-objects/situation-description.validation";
+import { SituationKindOptions } from "../../modules/emotions/value-objects/situation-kind-options";
 
 export type * as types from "../../modules/emotions/value-objects";
 
@@ -22,4 +23,5 @@ export const HomeEntryAddForm = {
   emotionIntensity: { min: EmotionIntensityMin, max: EmotionIntensityMax },
   reactionEffectiveness: { min: ReactionEffectivenessMin, max: ReactionEffectivenessMax },
   reactionDescription: { min: ReactionDescriptionMax, max: ReactionDescriptionMin },
+  situationKind: { options: Object.keys(SituationKindOptions) },
 };

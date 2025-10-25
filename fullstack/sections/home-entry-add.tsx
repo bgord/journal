@@ -16,6 +16,7 @@ export function HomeEntryAdd() {
   const timeCapsuleMode = UI.useToggle({ name: "time-capsule-mode" });
 
   const situationDescription = useField<types.SituationDescriptionType>({ name: "situationDescription" });
+  const situationKind = useField<types.SituationKindType>({ name: "situationKind" });
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
   const emotionIntensity = useField<types.EmotionIntensityType>({
@@ -36,6 +37,7 @@ export function HomeEntryAdd() {
 
     const payload = {
       situationDescription: situationDescription.value,
+      situationKind: situationKind.value,
       emotionIntensity: emotionIntensity.value,
       reactionEffectiveness: reactionEffectiveness.value,
       reactionDescription: reactionDescription.value,
@@ -96,9 +98,15 @@ export function HomeEntryAdd() {
             {...UI.Form.textarea(HomeEntryAddForm.situationDescription)}
             {...UI.Autocomplete.off}
           />
+
           <div data-stack="x" data-gap="8" data-cross="end">
-            <Select required>
+            <Select required {...situationKind.input.props}>
               <option value="">{t("entry.situation.kind.value.default")}</option>
+              {HomeEntryAddForm.situationKind.options.map((kind) => (
+                <option key={kind} value={kind}>
+                  {t(`entry.situation.kind.value.${kind}`)}
+                </option>
+              ))}
             </Select>
           </div>
 
@@ -151,6 +159,7 @@ export function HomeEntryAdd() {
             {...UI.Form.textarea(HomeEntryAddForm.reactionDescription)}
             {...UI.Autocomplete.off}
           />
+
           <div data-stack="x" data-cross="center">
             <Select required>
               <option value="">{t("entry.reaction.type.default.value")}</option>
@@ -166,6 +175,7 @@ export function HomeEntryAdd() {
             >
               {t("entry.reaction.effectiveness.label")}
             </label>
+
             <RatingPillsClickable {...reactionEffectiveness} />
           </div>
 
