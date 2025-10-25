@@ -13,7 +13,9 @@ export function HomeEntryAdd() {
   const t = UI.useTranslations();
 
   const dialog = UI.useToggle({ name: "dialog" });
+
   const timeCapsuleMode = UI.useToggle({ name: "time-capsule-mode" });
+  const scheduledFor = useField<number | null>({ name: "scheduledFor" });
 
   const situationDescription = useField<types.SituationDescriptionType>({ name: "situationDescription" });
   const situationKind = useField<types.SituationKindType>({ name: "situationKind" });
@@ -38,6 +40,8 @@ export function HomeEntryAdd() {
     event.preventDefault();
 
     const payload = {
+      intent: timeCapsuleMode.on ? "time_capsule_entry_add" : "entry_add",
+      scheduledFor: timeCapsuleMode.on ? scheduledFor.value : null,
       situationDescription: situationDescription.value,
       situationKind: situationKind.value,
       emotionLabel: emotionLabel.value,
@@ -92,6 +96,7 @@ export function HomeEntryAdd() {
         </div>
 
         <form data-stack="y" data-gap="5" data-mt="5" onSubmit={addEntry}>
+          {/* TODO */}
           {/* @ts-expect-error */}
           <textarea
             className="c-textarea"
@@ -162,6 +167,7 @@ export function HomeEntryAdd() {
 
           <Separator />
 
+          {/* TODO */}
           {/* @ts-expect-error */}
           <textarea
             className="c-textarea"
@@ -215,8 +221,15 @@ export function HomeEntryAdd() {
                   className="c-input"
                   required
                   type="date"
+                  // TODO
                   min={new Date().toISOString().split("T")[0]}
                   {...timeCapsuleMode.props.target}
+                  {...scheduledFor.input.props}
+                  // TODO
+                  value={
+                    scheduledFor.value ? new Date(scheduledFor.value).toISOString().split("T")[0] : undefined
+                  }
+                  onChange={(event) => scheduledFor.set(event.currentTarget.valueAsNumber)}
                 />
               </>
             )}
