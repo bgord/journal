@@ -23,6 +23,7 @@ export function HomeEntryAdd() {
     defaultValue: HomeEntryAddForm.emotionIntensity.min,
   });
 
+  const reactionDescription = useField<types.ReactionDescriptionType>({ name: "reactionDescription" });
   const reactionEffectiveness = useField<types.ReactionEffectivenessType>({
     name: "reactionEffectiveness",
     defaultValue: HomeEntryAddForm.reactionEffectiveness.min,
@@ -37,6 +38,7 @@ export function HomeEntryAdd() {
       situationDescription: situationDescription.value,
       emotionIntensity: emotionIntensity.value,
       reactionEffectiveness: reactionEffectiveness.value,
+      reactionDescription: reactionDescription.value,
     };
 
     console.log(payload);
@@ -137,12 +139,17 @@ export function HomeEntryAdd() {
 
             <RatingPillsClickable {...emotionIntensity} />
           </div>
+
           <Separator />
+
+          {/* @ts-expect-error */}
           <textarea
             className="c-textarea"
             placeholder={t("entry.reaction.description.label")}
             rows={3}
-            // {...UI.Form.textarea(loader.form.reactionDescription)}
+            {...reactionDescription.input.props}
+            {...UI.Form.textarea(HomeEntryAddForm.reactionDescription)}
+            {...UI.Autocomplete.off}
           />
           <div data-stack="x" data-cross="center">
             <Select required>
@@ -161,6 +168,7 @@ export function HomeEntryAdd() {
             </label>
             <RatingPillsClickable {...reactionEffectiveness} />
           </div>
+
           <div data-stack="x" data-gap="3">
             {timeCapsuleMode.off && (
               <button type="button" className="c-button" onClick={timeCapsuleMode.enable}>
@@ -187,6 +195,7 @@ export function HomeEntryAdd() {
               </>
             )}
           </div>
+
           <div data-stack="x" data-main="end" data-gap="5">
             <ButtonCancel onClick={dialog.disable} />
 
