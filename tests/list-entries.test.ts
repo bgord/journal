@@ -42,7 +42,7 @@ describe(`GET ${url}`, () => {
     const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
-      `${url}?filter=${Emotions.VO.EntryFilterOptions.last_week}`,
+      `${url}?filter=${Emotions.VO.EntryListFilterOptions.last_week}`,
       { method: "GET" },
       mocks.ip,
     );
@@ -58,7 +58,7 @@ describe(`GET ${url}`, () => {
     const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
-      `${url}?filter=${Emotions.VO.EntryFilterOptions.last_month}`,
+      `${url}?filter=${Emotions.VO.EntryListFilterOptions.last_month}`,
       { method: "GET" },
       mocks.ip,
     );
@@ -77,7 +77,7 @@ describe(`GET ${url}`, () => {
     const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
-      `${url}?filter=${Emotions.VO.EntryFilterOptions.all_time}`,
+      `${url}?filter=${Emotions.VO.EntryListFilterOptions.all_time}`,
       { method: "GET" },
       mocks.ip,
     );

@@ -23,7 +23,7 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
     tools.Timestamp.parse(end + timeZoneOffsetMs),
   );
 
-  const strategy = Emotions.VO.ExportEntriesStrategySchema.parse(c.req.query("strategy"));
+  const strategy = Emotions.VO.EntryExportStrategy.parse(c.req.query("strategy"));
 
   const entries = await deps.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
 

@@ -1,4 +1,4 @@
-export enum ExportEntriesStrategy {
+export enum EntryExportStrategyOptions {
   text = "text",
   csv = "csv",
   markdown = "markdown",

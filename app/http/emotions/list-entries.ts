@@ -9,12 +9,12 @@ const deps = { Clock: Adapters.Clock, EntrySnapshot: Adapters.Emotions.EntrySnap
 export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
 
-  const filter = Emotions.VO.EntryFilterSchema.parse(c.req.query("filter"));
-  const options = Emotions.VO.EntryFilterOptions;
+  const filter = Emotions.VO.EntryListFilter.parse(c.req.query("filter"));
+  const options = Emotions.VO.EntryListFilterOptions;
 
   const today = tools.Day.fromNow(deps.Clock.nowMs());
 
-  const range: Record<Emotions.VO.EntryFilterOptions, (today: tools.Day) => tools.DateRange> = {
+  const range: Record<Emotions.VO.EntryListFilterOptions, (today: tools.Day) => tools.DateRange> = {
     [options.today]: (today) => today,
     [options.last_week]: (today) =>
       new tools.DateRange(tools.Timestamp.parse(today.getEnd() - tools.Duration.Days(7).ms), today.getEnd()),

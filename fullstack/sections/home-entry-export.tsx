@@ -12,7 +12,7 @@ export function HomeEntryExport() {
   });
   const dateRangeEnd = UI.useDateField({ name: "dateRangeEnd", defaultValue: UI.Form.date.min.today() });
 
-  const strategy = UI.useTextField<types.ExportEntriesStrategyType>({
+  const strategy = UI.useTextField<types.EntryExportStrategyType>({
     name: "strategy",
     defaultValue: HomeEntryExportForm.strategy.defaultValue,
   });

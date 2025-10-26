@@ -1,6 +1,6 @@
 import { z } from "zod/v4";
-import { EntryFilterOptions } from "./entry-list-filter-options";
+import { EntryListFilterOptions } from "./entry-list-filter-options";
 
-export const EntryFilterSchema = z.enum(EntryFilterOptions).default(EntryFilterOptions.today);
+export const EntryListFilter = z.enum(EntryListFilterOptions).default(EntryListFilterOptions.today);
 
-export type EntryFilterType = z.infer<typeof EntryFilterSchema>;
+export type EntryListFilterType = z.infer<typeof EntryListFilter>;
