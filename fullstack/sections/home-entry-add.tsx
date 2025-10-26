@@ -16,7 +16,7 @@ export function HomeEntryAdd() {
   const dialog = UI.useToggle({ name: "dialog" });
 
   const timeCapsuleMode = UI.useToggle({ name: "time-capsule-mode" });
-  const scheduledFor = UI.useNumberField({ name: "scheduledFor" });
+  const scheduledFor = UI.useDateField({ name: "scheduledFor" });
 
   const situationDescription = UI.useTextField<types.SituationDescriptionType>({
     name: "situationDescription",
@@ -73,6 +73,7 @@ export function HomeEntryAdd() {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(payload),
+        headers: { "time-zone-offset": new Date().getTimezoneOffset().toString() },
       });
 
       if (!response.ok) return setState(RequestState.error);
@@ -231,15 +232,9 @@ export function HomeEntryAdd() {
                   className="c-input"
                   required
                   type="date"
-                  // TODO
-                  min={UI.Form.date.min.today()}
+                  min={UI.Form.date.min.tomorrow()}
                   {...timeCapsuleMode.props.target}
                   {...scheduledFor.input.props}
-                  // TODO
-                  value={
-                    scheduledFor.value ? new Date(scheduledFor.value).toISOString().split("T")[0] : undefined
-                  }
-                  onChange={(event) => scheduledFor.set(event.currentTarget.valueAsNumber)}
                 />
               </>
             )}
