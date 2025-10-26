@@ -7,7 +7,7 @@ import { auth } from "+infra/auth";
 import { server } from "../server";
 import * as mocks from "./mocks";
 
-const url = "/api/entry/list-entries";
+const url = "/api/entry/list";
 
 const today = tools.Day.fromTimestamp(mocks.T0);
 

@@ -2,7 +2,7 @@ import { Cookies } from "@bgord/ui";
 import type { EntrySnapshot } from "../modules/emotions/value-objects";
 
 async function getEntryListServer(request: Request) {
-  const response = await fetch(new URL("/api/entry/list-entries", request.url), {
+  const response = await fetch(new URL("/api/entry/entries", request.url), {
     headers: { cookie: Cookies.extractFrom(request) },
     credentials: "include",
   });
@@ -13,7 +13,7 @@ async function getEntryListServer(request: Request) {
 }
 
 async function getEntryListClient() {
-  const response = await fetch("/api/entry/list-entries", { credentials: "include" });
+  const response = await fetch("/api/entry/entries", { credentials: "include" });
 
   if (!response?.ok) return [];
 

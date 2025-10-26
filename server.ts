@@ -101,7 +101,7 @@ entry.get(
   ),
   HTTP.Emotions.ExportEntries,
 );
-entry.get("/list-entries", HTTP.Emotions.ListEntries);
+entry.get("/list", HTTP.Emotions.ListEntries);
 server.route("/entry", entry);
 // =============================
 
