@@ -73,7 +73,7 @@ export function HomeEntryAdd() {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(payload),
-        headers: { "time-zone-offset": new Date().getTimezoneOffset().toString() },
+        headers: UI.TimeZoneOffset.get(),
       });
 
       if (!response.ok) return setState(RequestState.error);
