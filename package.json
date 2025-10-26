@@ -47,7 +47,6 @@
     "hono": "4.10.3",
     "iconoir-react": "7.11.0",
     "js-cookie": "3.0.5",
-    "lodash": "4.17.21",
     "node-cache": "5.1.2",
     "openai": "6.7.0",
     "react": "19.2.0",

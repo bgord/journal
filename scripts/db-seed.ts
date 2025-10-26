@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
-import _ from "lodash";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
@@ -170,7 +169,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       console.log(`[✓] Alarm ${Number(index) + 1} created`);
     }
 
-    for (const counter of _.range(0, 20)) {
+    for (const counter of Array.from({ length: 20 }).map((_, i) => i + 1)) {
       const situation = new Emotions.Entities.Situation(
         new Emotions.VO.SituationDescription(
           situationDescriptions[counter % situationDescriptions.length] as string,
