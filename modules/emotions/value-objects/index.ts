@@ -10,6 +10,8 @@ export * from "./emotion-intensity";
 export * from "./emotion-label";
 export * from "./entry-finished-at";
 export * from "./entry-id";
+export * from "./entry-list-filter";
+export * from "./entry-list-filter-options";
 export * from "./entry-origin";
 export * from "./entry-origin-option";
 export * from "./entry-snapshot";

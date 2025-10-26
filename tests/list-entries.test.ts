@@ -1,6 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as Emotions from "+emotions";
 import { EntrySnapshot } from "+infra/adapters/emotions";
 import { auth } from "+infra/auth";
 import { server } from "../server";
@@ -40,7 +41,11 @@ describe(`GET ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
-    const response = await server.request(`${url}?filter=last_week`, { method: "GET" }, mocks.ip);
+    const response = await server.request(
+      `${url}?filter=${Emotions.VO.EntryFilterOptions.last_week}`,
+      { method: "GET" },
+      mocks.ip,
+    );
     const json = await response.json();
 
     expect(response.status).toBe(200);
@@ -52,7 +57,11 @@ describe(`GET ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
-    const response = await server.request(`${url}?filter=last_month`, { method: "GET" }, mocks.ip);
+    const response = await server.request(
+      `${url}?filter=${Emotions.VO.EntryFilterOptions.last_month}`,
+      { method: "GET" },
+      mocks.ip,
+    );
     const json = await response.json();
 
     expect(response.status).toBe(200);
@@ -67,7 +76,11 @@ describe(`GET ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
-    const response = await server.request(`${url}?filter=all_time`, { method: "GET" }, mocks.ip);
+    const response = await server.request(
+      `${url}?filter=${Emotions.VO.EntryFilterOptions.all_time}`,
+      { method: "GET" },
+      mocks.ip,
+    );
     const json = await response.json();
 
     expect(response.status).toBe(200);
