@@ -3,6 +3,7 @@ import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { Session, User } from "better-auth";
+import { format } from "date-fns";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
@@ -32,9 +33,10 @@ export const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
 export const timeCapsuleEntryScheduledAt = T0;
-export const timeCapsuleEntryScheduledFor = tools.Time.Now(T0).Add(tools.Duration.Hours(2));
-
-//
+export const timeCapsuleEntryScheduledFor = tools.Time.Now(T0).Add(tools.Duration.Days(2));
+export const timeCapsuleEntryScheduledForDate = format(timeCapsuleEntryScheduledFor, "yyyy-MM-dd");
+export const timeCapsuleEntryScheduledForPast = tools.Time.Now(T0).Minus(tools.Duration.Days(1));
+export const timeCapsuleEntryScheduledForPastDate = format(timeCapsuleEntryScheduledForPast, "yyyy-MM-dd");
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
