@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "+languages";
 import { CertificateInspector } from "+infra/adapters/certificate-inspector.adapter";
+import { DiskSpaceChecker } from "+infra/adapters/disk-space-checker.adapter";
 import { JsonFileReader } from "+infra/adapters/json-file-reader.adapter";
 import { Logger, LoggerWinstonProductionAdapter } from "+infra/adapters/logger.adapter";
 import { Mailer } from "+infra/adapters/mailer.adapter";
@@ -17,7 +18,11 @@ export const prerequisites = [
   new bg.PrerequisitePort({ label: "port", port: Env.PORT }),
   new bg.PrerequisiteTimezoneUTC({ label: "timezone", timezone: tools.Timezone.parse(Env.TZ) }),
   new bg.PrerequisiteRAM({ label: "RAM", minimum: tools.Size.fromMB(128), enabled: production }),
-  new bg.PrerequisiteSpace({ label: "disk-space", minimum: tools.Size.fromMB(512) }),
+  new bg.PrerequisiteSpace({
+    label: "disk-space",
+    minimum: tools.Size.fromMB(512),
+    checker: DiskSpaceChecker,
+  }),
   new bg.PrerequisiteNode({
     label: "node",
     version: tools.PackageVersion.fromString("24.3.0"),
