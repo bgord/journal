@@ -1,5 +1,4 @@
 import * as tools from "@bgord/tools";
-import { endOfDay, startOfDay } from "date-fns";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
@@ -15,24 +14,22 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
   const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 
-  const dateRangeStart = tools.Timestamp.parse(
-    startOfDay(new Date(c.req.query("dateRangeStart") as string).getTime() + timeZoneOffsetMs).getTime(),
+  const start = tools.Day.fromIsoId(tools.DayIsoId.parse(c.req.query("dateRangeStart"))).getStart();
+  const end = tools.Day.fromIsoId(tools.DayIsoId.parse(c.req.query("dateRangeEnd"))).getEnd();
+
+  const dateRange = new tools.DateRange(
+    tools.Timestamp.parse(start + timeZoneOffsetMs),
+    tools.Timestamp.parse(end + timeZoneOffsetMs),
   );
-  const dateRangeEnd = tools.Timestamp.parse(
-    endOfDay(new Date(c.req.query("dateRangeEnd") as string).getTime() + timeZoneOffsetMs).getTime(),
-  );
-  const dateRange = new tools.DateRange(dateRangeStart, dateRangeEnd);
 
   const strategy = Emotions.VO.ExportEntriesStrategySchema.parse(c.req.query("strategy"));
 
   const entries = await Adapters.Emotions.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
 
-  const file = {
+  return {
     csv: new Emotions.Services.EntryExportFileCsv(entries, deps),
     text: new Emotions.Services.EntryExportFileText(entries, deps),
     markdown: new Emotions.Services.EntryExportFileMarkdown(entries, deps),
     pdf: new Emotions.Services.EntryExportFilePdf(entries, deps),
-  };
-
-  return file[strategy].toResponse();
+  }[strategy].toResponse();
 }
