@@ -15,6 +15,7 @@ export * from "./entry-origin-option";
 export * from "./entry-snapshot";
 export * from "./entry-started-at";
 export * from "./entry-status";
+export * from "./export-entries-strategy";
 export * from "./geneva-wheel-emotion.enum";
 export * from "./gross-emotion-regulation-strategy.enum";
 export * from "./pattern-detection-snapshot";

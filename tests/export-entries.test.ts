@@ -33,7 +33,7 @@ describe(`GET ${url}`, () => {
     expect(json).toEqual({ message: "invalid.date.range", _known: true });
   });
 
-  test("happy path - csv", async () => {
+  test("happy path - text", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
@@ -44,29 +44,29 @@ describe(`GET ${url}`, () => {
     );
 
     expect(response.status).toBe(200);
-    expect(response.headers.get("content-type")).toEqual("text/csv");
-    expect(response.headers.get("content-disposition")).toEqual(
-      `attachment; filename="entry-export-${mocks.T0}.csv"`,
-    );
-    expect(await response.text()).toEqualIgnoringWhitespace(mocks.entryCsv);
-  });
-
-  test("happy path - text", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
-
-    const response = await server.request(
-      `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=text`,
-      { method: "GET" },
-      mocks.ip,
-    );
-
-    expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toEqual("text/plain");
     expect(response.headers.get("content-disposition")).toEqual(
       `attachment; filename="entry-export-${mocks.T0}.txt"`,
     );
     expect(await response.text()).toEqualIgnoringWhitespace(mocks.entryText);
+  });
+
+  test("happy path - csv", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+
+    const response = await server.request(
+      `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=csv`,
+      { method: "GET" },
+      mocks.ip,
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toEqual("text/csv");
+    expect(response.headers.get("content-disposition")).toEqual(
+      `attachment; filename="entry-export-${mocks.T0}.csv"`,
+    );
+    expect(await response.text()).toEqualIgnoringWhitespace(mocks.entryCsv);
   });
 
   test("happy path - markdown", async () => {

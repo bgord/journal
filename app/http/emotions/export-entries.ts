@@ -6,20 +6,15 @@ import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import * as Adapters from "+infra/adapters";
 
-enum ExportEntriesStrategy {
-  text = "text",
-  csv = "csv",
-  markdown = "markdown",
-  pdf = "pdf",
-}
-
 const deps = {
   Clock: Adapters.Clock,
   Stringifier: Adapters.CsvStringifier,
   PdfGenerator: Adapters.Emotions.PdfGenerator,
 };
 
-const StrategySchema = z.enum(ExportEntriesStrategy).default(ExportEntriesStrategy.csv);
+const StrategySchema = z
+  .enum(Emotions.VO.ExportEntriesStrategy)
+  .default(Emotions.VO.ExportEntriesStrategy.text);
 
 export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
