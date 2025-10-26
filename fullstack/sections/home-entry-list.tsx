@@ -7,7 +7,15 @@ export function HomeEntryList() {
   const { entries } = useLoaderData({ from: homeRoute.id });
 
   return (
-    <div>
+    <>
+      {entries.length > 0 && (
+        <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto" data-mt="6">
+          {entries.map((entry) => (
+            <li key={entry.id}>{entry.situationDescription}</li>
+          ))}
+        </ul>
+      )}
+
       {entries.length === 0 && (
         <div data-stack="y" data-cross="center">
           <img
@@ -19,6 +27,6 @@ export function HomeEntryList() {
           <div data-color="brand-300">{t("entry.list.empty")}</div>
         </div>
       )}
-    </div>
+    </>
   );
 }
