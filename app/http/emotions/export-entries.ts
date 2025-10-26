@@ -8,6 +8,7 @@ const deps = {
   Clock: Adapters.Clock,
   Stringifier: Adapters.CsvStringifier,
   PdfGenerator: Adapters.Emotions.PdfGenerator,
+  EntrySnapshot: Adapters.Emotions.EntrySnapshot,
 };
 
 export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
@@ -24,7 +25,7 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
 
   const strategy = Emotions.VO.ExportEntriesStrategySchema.parse(c.req.query("strategy"));
 
-  const entries = await Adapters.Emotions.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
+  const entries = await deps.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
 
   return {
     csv: new Emotions.Services.EntryExportFileCsv(entries, deps),

@@ -3,11 +3,13 @@ import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import * as Adapters from "+infra/adapters";
 
+const deps = { WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport };
+
 export async function DownloadWeeklyReview(c: hono.Context<infra.HonoConfig>) {
   const requesterId = c.get("user").id;
   const weeklyReviewId = Emotions.VO.WeeklyReviewId.parse(c.req.param("weeklyReviewId"));
 
-  const weeklyReview = await Adapters.Emotions.WeeklyReviewExport.getFull(weeklyReviewId);
+  const weeklyReview = await deps.WeeklyReviewExport.getFull(weeklyReviewId);
 
   Emotions.Invariants.WeeklyReviewExists.perform({ weeklyReview });
   Emotions.Invariants.WeeklyReviewIsCompleted.perform({ status: weeklyReview?.status });
