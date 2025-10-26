@@ -232,7 +232,7 @@ export function HomeEntryAdd() {
                   required
                   type="date"
                   // TODO
-                  min={new Date().toISOString().split("T")[0]}
+                  min={UI.Form.date.min.today()}
                   {...timeCapsuleMode.props.target}
                   {...scheduledFor.input.props}
                   // TODO
