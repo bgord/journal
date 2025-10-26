@@ -2,6 +2,7 @@ import * as UI from "@bgord/ui";
 import { MoreHoriz } from "iconoir-react";
 import { HomeEntryAdd } from "../sections/home-entry-add";
 import { HomeEntryExport } from "../sections/home-entry-export";
+import { HomeEntryList } from "../sections/home-entry-list";
 
 export function Home() {
   const exportEntries = UI.useToggle({ name: "entry-export" });
@@ -22,6 +23,8 @@ export function Home() {
       </div>
 
       {exportEntries.on && <HomeEntryExport />}
+
+      <HomeEntryList />
     </main>
   );
 }

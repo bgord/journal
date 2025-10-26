@@ -38,10 +38,13 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   notFoundComponent: NotFound,
 });
 
-const homeRoute = createRoute({
+export const homeRoute = createRoute({
   path: "/",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/home"), "Home"),
+  loader: async () => {
+    return { entries: [] };
+  },
 });
 
 export const profileRoute = createRoute({
