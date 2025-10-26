@@ -1,7 +1,6 @@
 import * as tools from "@bgord/tools";
 import { endOfDay, startOfDay } from "date-fns";
 import type hono from "hono";
-import { z } from "zod/v4";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import * as Adapters from "+infra/adapters";
@@ -11,10 +10,6 @@ const deps = {
   Stringifier: Adapters.CsvStringifier,
   PdfGenerator: Adapters.Emotions.PdfGenerator,
 };
-
-const StrategySchema = z
-  .enum(Emotions.VO.ExportEntriesStrategy)
-  .default(Emotions.VO.ExportEntriesStrategy.text);
 
 export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
@@ -28,7 +23,7 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
   );
   const dateRange = new tools.DateRange(dateRangeStart, dateRangeEnd);
 
-  const strategy = StrategySchema.parse(c.req.query("strategy"));
+  const strategy = Emotions.VO.ExportEntriesStrategySchema.parse(c.req.query("strategy"));
 
   const entries = await Adapters.Emotions.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
 
