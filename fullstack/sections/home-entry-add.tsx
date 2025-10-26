@@ -16,21 +16,23 @@ export function HomeEntryAdd() {
   const dialog = UI.useToggle({ name: "dialog" });
 
   const timeCapsuleMode = UI.useToggle({ name: "time-capsule-mode" });
-  const scheduledFor = UI.useField<number | null>({ name: "scheduledFor" });
+  const scheduledFor = UI.useNumberField({ name: "scheduledFor" });
 
-  const situationDescription = UI.useField<types.SituationDescriptionType>({ name: "situationDescription" });
-  const situationKind = UI.useField<types.SituationKindType>({ name: "situationKind" });
+  const situationDescription = UI.useTextField<types.SituationDescriptionType>({
+    name: "situationDescription",
+  });
+  const situationKind = UI.useTextField<types.SituationKindType>({ name: "situationKind" });
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
-  const emotionLabel = UI.useField<types.EmotionLabelType>({ name: "emotionLabel" });
-  const emotionIntensity = UI.useField<types.EmotionIntensityType>({
+  const emotionLabel = UI.useTextField<types.EmotionLabelType>({ name: "emotionLabel" });
+  const emotionIntensity = UI.useNumberField<types.EmotionIntensityType>({
     name: "emotionIntensity",
     defaultValue: HomeEntryAddForm.emotionIntensity.min,
   });
 
-  const reactionDescription = UI.useField<types.ReactionDescriptionType>({ name: "reactionDescription" });
-  const reactionType = UI.useField<types.ReactionTypeType>({ name: "reactionType" });
-  const reactionEffectiveness = UI.useField<types.ReactionEffectivenessType>({
+  const reactionDescription = UI.useTextField<types.ReactionDescriptionType>({ name: "reactionDescription" });
+  const reactionType = UI.useTextField<types.ReactionTypeType>({ name: "reactionType" });
+  const reactionEffectiveness = UI.useNumberField<types.ReactionEffectivenessType>({
     name: "reactionEffectiveness",
     defaultValue: HomeEntryAddForm.reactionEffectiveness.min,
   });
