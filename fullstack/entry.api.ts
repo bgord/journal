@@ -24,3 +24,5 @@ export async function getEntryList(request: Request | null): Promise<EntrySnapsh
   if (request) return getEntryListServer(request);
   return getEntryListClient();
 }
+
+export type { EntrySnapshot } from "../modules/emotions/value-objects";
