@@ -1,5 +1,6 @@
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import { z } from "zod/v4";
 import type * as infra from "+infra";
 import * as Adapters from "+infra/adapters";
 
@@ -12,9 +13,11 @@ enum EntryFilter {
   all_time = "all_time",
 }
 
+export const EntryFilterSchema = z.enum(EntryFilter).default(EntryFilter.today);
+
 export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
-  const filter = c.req.query("filter") as EntryFilter;
+  const filter = EntryFilterSchema.parse(c.req.query("filter"));
 
   const today = tools.Day.fromNow(deps.Clock.nowMs());
 
