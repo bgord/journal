@@ -8,6 +8,7 @@ import {
 import * as AI from "./ai.api";
 import * as Auth from "./auth.api";
 import * as Avatar from "./avatar.api";
+import * as Entry from "./entry.api";
 import * as HEAD from "./head";
 import * as I18n from "./i18n.api";
 import { NotFound } from "./not-found";
@@ -42,9 +43,7 @@ export const homeRoute = createRoute({
   path: "/",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/home"), "Home"),
-  loader: async () => {
-    return { entries: [] };
-  },
+  loader: async ({ context }) => ({ entries: await Entry.getEntryList(context.request) }),
 });
 
 export const profileRoute = createRoute({
