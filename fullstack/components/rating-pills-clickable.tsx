@@ -1,7 +1,7 @@
-import type { useFieldReturnType } from "@bgord/ui";
+import type { UseNumberFieldReturnType } from "@bgord/ui";
 import type { types } from "../../app/services/home-entry-add-form";
 
-type ClickableRatingPillsProps = { total?: number } & useFieldReturnType<types.EmotionIntensityType>;
+type ClickableRatingPillsProps = { total?: number } & UseNumberFieldReturnType<types.EmotionIntensityType>;
 
 export function RatingPillsClickable(props: ClickableRatingPillsProps) {
   const { value, total = 5 } = props;
@@ -12,7 +12,7 @@ export function RatingPillsClickable(props: ClickableRatingPillsProps) {
     <div data-stack="x" data-gap="2" data-cross="center">
       {Array.from({ length: total }).map((_, index) => {
         const rating = index + 1;
-        const filled = value !== null && rating <= value;
+        const filled = value !== null && rating <= Number(value);
 
         return (
           <button
@@ -27,8 +27,8 @@ export function RatingPillsClickable(props: ClickableRatingPillsProps) {
             data-bg={filled ? "brand-600" : undefined}
             data-size="sm"
             data-testid={`rating-${rating}`}
-            data-rating-pill="" // ← add this hook
-            aria-label={`${rating} of ${total}`} // ← no visual change, better SR text
+            data-rating-pill=""
+            aria-label={`${rating} of ${total}`}
           />
         );
       })}
