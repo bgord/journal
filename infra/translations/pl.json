@@ -211,6 +211,7 @@
   "profile.export_all_data.header": "Eksport wszystkich danych",
   "profile.header": "Profil",
   "profile.shareable_links.create.cta_primary": "Utwórz link",
+  "profile.shareable_links.create.error": "Błąd przy tworzeniu linka",
   "profile.shareable_links.create.cta_secondary": "Utwórz",
   "profile.shareable_links.create.date_range.error": "Niepoprawny zakres dat",
   "profile.shareable_links.create.date_range.label": "Zakres dat",

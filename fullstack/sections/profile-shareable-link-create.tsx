@@ -144,17 +144,30 @@ export function ProfileShareableLinkCreate() {
             </div>
           </div>
 
-          <div data-stack="x" data-main="end" data-gap="5">
-            <ButtonCancel onClick={dialog.disable} disabled={state === RequestState.loading} />
+          <div data-stack="x" data-main="between" data-cross="center" data-gap="5">
+            {state === RequestState.error && (
+              <output
+                aria-live="assertive"
+                data-fs="sm"
+                data-color="danger-400"
+                data-animation="grow-fade-in"
+              >
+                {t("profile.delete_account.error")}
+              </output>
+            )}
 
-            <button
-              type="submit"
-              className="c-button"
-              data-variant="primary"
-              disabled={state === RequestState.loading}
-            >
-              {t("profile.shareable_links.create.cta_secondary")}
-            </button>
+            <div data-stack="x" data-gap="5" data-ml="auto">
+              <ButtonCancel onClick={dialog.disable} disabled={state === RequestState.loading} />
+
+              <button
+                type="submit"
+                className="c-button"
+                data-variant="primary"
+                disabled={state === RequestState.loading}
+              >
+                {t("profile.shareable_links.create.cta_secondary")}
+              </button>
+            </div>
           </div>
         </form>
       </UI.Dialog>

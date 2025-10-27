@@ -211,6 +211,7 @@
   "profile.export_all_data.header": "Export all data",
   "profile.header": "Profile",
   "profile.shareable_links.create.cta_primary": "Create link",
+  "profile.shareable_links.create.error": "Error while creating the link",
   "profile.shareable_links.create.cta_secondary": "Create",
   "profile.shareable_links.create.date_range.error": "Invalid date range",
   "profile.shareable_links.create.date_range.label": "Date range",
