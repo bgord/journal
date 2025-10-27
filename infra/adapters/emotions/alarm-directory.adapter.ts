@@ -14,7 +14,11 @@ class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
       orderBy: desc(Schema.alarms.generatedAt),
     });
 
-    return alarms.map((alarm) => ({
+    return alarms.map(AlarmDirectoryDrizzle.format);
+  }
+
+  static format(alarm: Schema.SelectAlarms) {
+    return {
       ...alarm,
       entryId: alarm.entryId as bg.UUIDType,
       status: alarm.status as VO.AlarmStatusEnum,
@@ -24,7 +28,7 @@ class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
       lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampType | null,
       emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
       weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
-    }));
+    };
   }
 }
 

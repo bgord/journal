@@ -38,7 +38,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
         ),
       );
 
-    return entries.map((entry) => this.format(entry));
+    return entries.map(EntrySnapshotDrizzle.format);
   }
 
   async getAllForuser(userId: Auth.VO.UserIdType) {
@@ -47,7 +47,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       where: eq(Schema.entries.userId, userId),
     });
 
-    return entries.map((entry) => this.format(entry));
+    return entries.map(EntrySnapshotDrizzle.format);
   }
 
   async getByDateRangeForUser(userId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
@@ -60,7 +60,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       ),
     });
 
-    return entries.map((entry) => this.format(entry));
+    return entries.map(EntrySnapshotDrizzle.format);
   }
 
   async getByDateRangeForUserWithAlarms(userId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
@@ -73,10 +73,13 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       ),
     });
 
-    return entries.map((entry) => ({ ...this.format(entry), alarms: [] as VO.AlarmSnapshot[] }));
+    return entries.map((entry) => ({
+      ...EntrySnapshotDrizzle.format(entry),
+      alarms: [] as VO.AlarmSnapshot[],
+    }));
   }
 
-  format(entry: Schema.SelectEntries) {
+  static format(entry: Schema.SelectEntries) {
     return {
       ...entry,
       startedAt: tools.Timestamp.parse(entry.startedAt),
