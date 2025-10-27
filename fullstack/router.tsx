@@ -1,6 +1,7 @@
 import {
   createRootRouteWithContext,
   createRoute,
+  createRouteMask,
   lazyRouteComponent,
   Router,
   redirect,
@@ -46,6 +47,13 @@ export const homeRoute = createRoute({
   loader: async ({ context }) => ({ entries: await Entry.getEntryList(context.request) }),
 });
 
+export const homeEntryHistoryRoute = createRoute({
+  getParentRoute: () => homeRoute,
+  path: "entry/$entryId/history",
+  component: lazyRouteComponent(() => import("./pages/home-entry-history"), "HomeEntryHistory"),
+  loader: async () => ({ history: [] }),
+});
+
 export const profileRoute = createRoute({
   path: "/profile",
   getParentRoute: () => rootRoute,
@@ -59,10 +67,21 @@ const dashboardRoute = createRoute({
   component: lazyRouteComponent(() => import("./pages/dashboard"), "Dashboard"),
 });
 
-const routeTree = rootRoute.addChildren([homeRoute, profileRoute, dashboardRoute]);
+const routeTree = rootRoute.addChildren([
+  homeRoute.addChildren([homeEntryHistoryRoute]),
+  profileRoute,
+  dashboardRoute,
+]);
+
+const homeEntryHistoryRouteMask = createRouteMask({ routeTree, from: "/entry/$entryId/history", to: "/" });
 
 export function createRouter(context: RouterContext) {
-  return new Router({ routeTree, context, defaultPreload: "intent" });
+  return new Router({
+    routeTree,
+    context,
+    routeMasks: [homeEntryHistoryRouteMask],
+    defaultPreload: "intent",
+  });
 }
 
 declare module "@tanstack/react-router" {
