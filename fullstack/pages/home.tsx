@@ -1,4 +1,5 @@
 import * as UI from "@bgord/ui";
+import { Outlet } from "@tanstack/react-router";
 import { MoreHoriz } from "iconoir-react";
 import { HomeEntryAdd } from "../sections/home-entry-add";
 import { HomeEntryExport } from "../sections/home-entry-export";
@@ -25,6 +26,8 @@ export function Home() {
       {exportEntries.on && <HomeEntryExport />}
 
       <HomeEntryList />
+
+      <Outlet />
     </main>
   );
 }
