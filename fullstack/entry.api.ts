@@ -1,5 +1,7 @@
 import { Cookies } from "@bgord/ui";
-import type { EntrySnapshot } from "../modules/emotions/value-objects";
+import type { AlarmSnapshot, EntrySnapshot } from "../modules/emotions/value-objects";
+
+export type EntryType = EntrySnapshot & { alarms: AlarmSnapshot[] };
 
 async function getEntryListServer(request: Request) {
   const response = await fetch(new URL("/api/entry/list", request.url), {
@@ -20,12 +22,10 @@ async function getEntryListClient() {
   return response.json().catch(() => {});
 }
 
-export async function getEntryList(request: Request | null): Promise<EntrySnapshot[]> {
+export async function getEntryList(request: Request | null): Promise<EntryType[]> {
   if (request) return getEntryListServer(request);
   return getEntryListClient();
 }
-
-export type { EntrySnapshot } from "../modules/emotions/value-objects";
 
 async function getEntryHistoryServer(request: Request, entryId: EntrySnapshot["id"]) {
   const response = await fetch(new URL(`/api/history/${entryId}/list`, request.url), {

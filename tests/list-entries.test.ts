@@ -27,19 +27,23 @@ describe(`GET ${url}`, () => {
 
   test("happy path - default - today", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUserWithAlarms").mockResolvedValue([
+      mocks.fullEntryWithAlarms,
+    ]);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
 
     expect(response.status).toBe(200);
-    expect(json).toEqual([mocks.fullEntry]);
+    expect(json).toEqual([mocks.fullEntryWithAlarms]);
     expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, today);
   });
 
   test("happy path - last_week", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUserWithAlarms").mockResolvedValue([
+      mocks.fullEntryWithAlarms,
+    ]);
 
     const response = await server.request(
       `${url}?filter=${Emotions.VO.EntryListFilterOptions.last_week}`,
@@ -49,13 +53,15 @@ describe(`GET ${url}`, () => {
     const json = await response.json();
 
     expect(response.status).toBe(200);
-    expect(json).toEqual([mocks.fullEntry]);
+    expect(json).toEqual([mocks.fullEntryWithAlarms]);
     expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, new tools.DateRange(lastWeekStart, endOfToday));
   });
 
   test("happy path - last_month", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUserWithAlarms").mockResolvedValue([
+      mocks.fullEntryWithAlarms,
+    ]);
 
     const response = await server.request(
       `${url}?filter=${Emotions.VO.EntryListFilterOptions.last_month}`,
@@ -65,7 +71,7 @@ describe(`GET ${url}`, () => {
     const json = await response.json();
 
     expect(response.status).toBe(200);
-    expect(json).toEqual([mocks.fullEntry]);
+    expect(json).toEqual([mocks.fullEntryWithAlarms]);
     expect(entrySnapshot).toHaveBeenCalledWith(
       mocks.user.id,
       new tools.DateRange(lastMonthStart, endOfToday),
@@ -74,7 +80,9 @@ describe(`GET ${url}`, () => {
 
   test("happy path - all_time", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUserWithAlarms").mockResolvedValue([
+      mocks.fullEntryWithAlarms,
+    ]);
 
     const response = await server.request(
       `${url}?filter=${Emotions.VO.EntryListFilterOptions.all_time}`,
@@ -84,7 +92,7 @@ describe(`GET ${url}`, () => {
     const json = await response.json();
 
     expect(response.status).toBe(200);
-    expect(json).toEqual([mocks.fullEntry]);
+    expect(json).toEqual([mocks.fullEntryWithAlarms]);
     expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, new tools.DateRange(allTimeStart, endOfToday));
   });
 });

@@ -869,6 +869,11 @@ export const fullEntry: Emotions.VO.EntrySnapshot = {
   userId,
 };
 
+export const fullEntryWithAlarms: Emotions.VO.EntrySnapshot & { alarms: Emotions.VO.AlarmSnapshot[] } = {
+  ...fullEntry,
+  alarms: [] as Emotions.VO.AlarmSnapshot[],
+};
+
 export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
   scheduledFor: timeCapsuleEntryScheduledFor,
   id: entryId,

@@ -63,6 +63,19 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
     return entries.map((entry) => this.format(entry));
   }
 
+  async getByDateRangeForUserWithAlarms(userId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
+    const entries = await db.query.entries.findMany({
+      orderBy: desc(Schema.entries.startedAt),
+      where: and(
+        eq(Schema.entries.userId, userId),
+        gte(Schema.entries.startedAt, dateRange.getStart()),
+        lte(Schema.entries.startedAt, dateRange.getEnd()),
+      ),
+    });
+
+    return entries.map((entry) => ({ ...this.format(entry), alarms: [] as VO.AlarmSnapshot[] }));
+  }
+
   format(entry: Schema.SelectEntries) {
     return {
       ...entry,

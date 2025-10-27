@@ -6,11 +6,11 @@ import { HomeEntryAddForm } from "../../app/services/home-entry-add-form";
 import { ButtonCancel } from "../components/button-cancel";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
-import type { EntrySnapshot } from "../entry.api";
+import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
-export function HomeEntryReaction(props: EntrySnapshot) {
+export function HomeEntryReaction(props: EntryType) {
   const router = useRouter();
   const t = UI.useTranslations();
   const metaEnterSubmit = UI.useMetaEnterSubmit();

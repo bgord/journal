@@ -10,4 +10,9 @@ export interface EntrySnapshotPort {
   getAllForuser(userId: Auth.VO.UserIdType): Promise<VO.EntrySnapshot[]>;
 
   getByDateRangeForUser(userId: Auth.VO.UserIdType, dateRange: tools.DateRange): Promise<VO.EntrySnapshot[]>;
+
+  getByDateRangeForUserWithAlarms(
+    userId: Auth.VO.UserIdType,
+    dateRange: tools.DateRange,
+  ): Promise<(VO.EntrySnapshot & { alarms: VO.AlarmSnapshot[] })[]>;
 }

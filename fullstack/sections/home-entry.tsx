@@ -2,14 +2,14 @@ import { Rhythm, useExitAction, useTranslations, WeakETag } from "@bgord/ui";
 import { Link, useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
-import type { EntrySnapshot } from "../entry.api";
+import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 // import { Alarm } from "./alarm";
 import { EntryEmotion } from "./home-entry-emotion";
 import { HomeEntryReaction } from "./home-entry-reaction";
 
-export function HomeEntry(props: EntrySnapshot) {
+export function HomeEntry(props: EntryType) {
   const t = useTranslations();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
   const router = useRouter();

@@ -23,7 +23,7 @@ export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
     [options.all_time]: (today) => new tools.DateRange(tools.Timestamp.parse(0), today.getEnd()),
   };
 
-  const entries = await deps.EntrySnapshot.getByDateRangeForUser(userId, range[filter](today));
+  const entries = await deps.EntrySnapshot.getByDateRangeForUserWithAlarms(userId, range[filter](today));
 
   return c.json(entries);
 }
