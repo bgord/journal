@@ -1,21 +1,14 @@
-import { exec, Fields, Form, useDateField, useTextField, useTranslations } from "@bgord/ui";
+import * as bg from "@bgord/ui";
 import type { types } from "../../app/services/home-entry-add-form";
-import { HomeEntryExportForm } from "../../app/services/home-entry-export-form";
+import { Form } from "../../app/services/home-entry-export-form";
 import { Select } from "../components/select";
 
 export function HomeEntryExport() {
-  const t = useTranslations();
+  const t = bg.useTranslations();
 
-  const dateRangeStart = useDateField({
-    name: "dateRangeStart",
-    defaultValue: Form.date.min.yesterday(),
-  });
-  const dateRangeEnd = useDateField({ name: "dateRangeEnd", defaultValue: Form.date.min.today() });
-
-  const strategy = useTextField<types.EntryExportStrategyType>({
-    name: "strategy",
-    defaultValue: HomeEntryExportForm.strategy.defaultValue,
-  });
+  const dateRangeStart = bg.useDateField(Form.dateRangeStart.field);
+  const dateRangeEnd = bg.useDateField(Form.dateRangeEnd.field);
+  const strategy = bg.useTextField<types.EntryExportStrategyType>(Form.strategy.field);
 
   const url = `/api/entry/export-entries?dateRangeStart=${dateRangeStart.value}&dateRangeEnd=${dateRangeEnd.value}&strategy=${strategy.value}`;
 
@@ -33,11 +26,11 @@ export function HomeEntryExport() {
         className="c-input"
         required
         type="date"
-        max={Form.date.max.today()}
+        max={bg.Form.date.max.today()}
         {...dateRangeEnd.input.props}
       />
       <Select {...strategy.input.props}>
-        {HomeEntryExportForm.strategy.options.map((strategy) => (
+        {Form.strategy.options.map((strategy) => (
           <option value={strategy}>{t(`entries.export.format.${strategy}`)}</option>
         ))}
       </Select>
@@ -58,8 +51,8 @@ export function HomeEntryExport() {
         className="c-button"
         data-variant="bare"
         type="button"
-        disabled={Fields.allUnchanged([dateRangeStart, dateRangeEnd, strategy])}
-        onClick={exec([dateRangeStart.clear, dateRangeEnd.clear, strategy.clear])}
+        disabled={bg.Fields.allUnchanged([dateRangeStart, dateRangeEnd, strategy])}
+        onClick={bg.exec([dateRangeStart.clear, dateRangeEnd.clear, strategy.clear])}
       >
         {t("app.clear")}
       </button>
