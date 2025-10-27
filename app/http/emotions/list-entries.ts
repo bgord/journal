@@ -17,7 +17,7 @@ export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
   const range: Record<Emotions.VO.EntryListFilterOptions, (today: tools.Day) => tools.DateRange> = {
     [options.today]: (today) => today,
     [options.last_week]: (today) =>
-      new tools.DateRange(tools.Timestamp.parse(today.getEnd() - tools.Duration.Days(7).ms), today.getEnd()),
+      new tools.DateRange(tools.Timestamp.parse(today.getEnd() - tools.Duration.Weeks(1).ms), today.getEnd()),
     [options.last_month]: (today) =>
       new tools.DateRange(tools.Timestamp.parse(today.getEnd() - tools.Duration.Days(30).ms), today.getEnd()),
     [options.all_time]: (today) => new tools.DateRange(tools.Timestamp.parse(0), today.getEnd()),

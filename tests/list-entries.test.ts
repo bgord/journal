@@ -13,7 +13,7 @@ const today = tools.Day.fromTimestamp(mocks.T0);
 
 const endOfToday = today.getEnd();
 
-const lastWeekStart = tools.Timestamp.parse(today.getEnd() - tools.Duration.Days(7).ms);
+const lastWeekStart = tools.Timestamp.parse(today.getEnd() - tools.Duration.Weeks(1).ms);
 const lastMonthStart = tools.Timestamp.parse(today.getEnd() - tools.Duration.Days(30).ms);
 const allTimeStart = tools.Timestamp.parse(0);
 
