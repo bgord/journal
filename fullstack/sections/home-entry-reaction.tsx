@@ -4,6 +4,7 @@ import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import { ButtonCancel } from "../components/button-cancel";
+import { EntryReactionDescription } from "../components/entry-reaction-description";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
 import type { EntryType } from "../entry.api";
@@ -106,9 +107,10 @@ export function HomeEntryReaction(props: EntryType) {
       </div>
 
       {reactionDescriptionEdit.off && (
-        <div data-color="neutral-200" onClick={reactionDescriptionEdit.enable}>
-          {reactionDescription.value}
-        </div>
+        <EntryReactionDescription
+          reactionDescription={reactionDescription.value ?? null}
+          onClick={reactionDescriptionEdit.enable}
+        />
       )}
 
       {reactionDescriptionEdit.on && (
