@@ -1,6 +1,11 @@
 import * as UI from "@bgord/ui";
+import { useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
+import React from "react";
 import type { EntrySnapshot } from "../entry.api";
+import { homeRoute } from "../router";
+import { RequestState } from "../ui";
+import { useExitAction } from "./wip";
 // import type { EntryType } from "../app/routes/home";
 // import { Alarm } from "./alarm";
 // import { EntryEmotion } from "./entry-emotion";
@@ -9,9 +14,27 @@ import type { EntrySnapshot } from "../entry.api";
 
 export function HomeEntry(props: EntrySnapshot) {
   const t = UI.useTranslations();
+  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const router = useRouter();
 
-  const deleteEntry = () => {};
-  const exit = UI.useExitAction({ action: deleteEntry, animation: "shrink-fade-out" });
+  async function homeEntryDelete() {
+    if (state === RequestState.loading) return;
+
+    setState(RequestState.loading);
+
+    const response = await fetch(`/api/entry/${props.id}/delete`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: UI.WeakETag.fromRevision(props.revision),
+    });
+
+    if (!response.ok) return setState(RequestState.error);
+
+    setState(RequestState.done);
+    router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
+  }
+
+  const exit = useExitAction({ action: homeEntryDelete, animation: "shrink-fade-out" });
 
   if (!exit.visible) return null;
 
