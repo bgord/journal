@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import { useRouter } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
 import type { EntrySnapshot } from "../entry.api";
@@ -8,7 +8,6 @@ import { RequestState } from "../ui";
 // import type { EntryType } from "../app/routes/home";
 // import { Alarm } from "./alarm";
 import { EntryEmotion } from "./home-entry-emotion";
-// import { EntryHistory } from "./entry-history";
 import { HomeEntryReaction } from "./home-entry-reaction";
 
 export function HomeEntry(props: EntrySnapshot) {
@@ -61,7 +60,18 @@ export function HomeEntry(props: EntrySnapshot) {
           {props.startedAt}
         </div>
 
-        {/* <EntryHistory {...props} /> */}
+        <Link
+          to="/entry/$entryId/history"
+          params={{ entryId: props.id }}
+          className="c-button"
+          data-disp="flex"
+          data-cross="center"
+          data-variant="bare"
+          data-interaction="subtle-scale"
+          title={t("entry.history")}
+        >
+          {t("app.history")}
+        </Link>
 
         <form method="delete">
           <button
