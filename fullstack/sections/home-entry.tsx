@@ -62,7 +62,6 @@ export function HomeEntry(props: EntrySnapshot) {
         <Link
           to="/entry/$entryId/history"
           params={{ entryId: props.id }}
-          mask={{ to: "/", search: { historyFor: props.id } }}
           className="c-button"
           data-disp="flex"
           data-cross="center"
