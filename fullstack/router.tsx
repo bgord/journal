@@ -68,10 +68,18 @@ const dashboardRoute = createRoute({
   component: lazyRouteComponent(() => import("./pages/dashboard"), "Dashboard"),
 });
 
+const sharedEntries = createRoute({
+  path: "/shared-entries/$shareableLinkId",
+  getParentRoute: () => rootRoute,
+  component: lazyRouteComponent(() => import("./pages/shared-entries"), "SharedEntries"),
+  loader: async () => ({ entries: [] }),
+});
+
 const routeTree = rootRoute.addChildren([
   homeRoute.addChildren([homeEntryHistoryRoute]),
   profileRoute,
   dashboardRoute,
+  sharedEntries,
 ]);
 
 export function createRouter(context: RouterContext) {
