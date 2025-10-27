@@ -1,7 +1,6 @@
 import {
   createRootRouteWithContext,
   createRoute,
-  createRouteMask,
   lazyRouteComponent,
   Router,
   redirect,
@@ -73,15 +72,8 @@ const routeTree = rootRoute.addChildren([
   dashboardRoute,
 ]);
 
-const homeEntryHistoryRouteMask = createRouteMask({ routeTree, from: "/entry/$entryId/history", to: "/" });
-
 export function createRouter(context: RouterContext) {
-  return new Router({
-    routeTree,
-    context,
-    routeMasks: [homeEntryHistoryRouteMask],
-    defaultPreload: "intent",
-  });
+  return new Router({ routeTree, context, defaultPreload: "intent" });
 }
 
 declare module "@tanstack/react-router" {

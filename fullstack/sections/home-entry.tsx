@@ -5,7 +5,6 @@ import React from "react";
 import type { EntrySnapshot } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
-// import type { EntryType } from "../app/routes/home";
 // import { Alarm } from "./alarm";
 import { EntryEmotion } from "./home-entry-emotion";
 import { HomeEntryReaction } from "./home-entry-reaction";
@@ -63,6 +62,7 @@ export function HomeEntry(props: EntrySnapshot) {
         <Link
           to="/entry/$entryId/history"
           params={{ entryId: props.id }}
+          mask={{ to: "/", search: { historyFor: props.id } }}
           className="c-button"
           data-disp="flex"
           data-cross="center"
