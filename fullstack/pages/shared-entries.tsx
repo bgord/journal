@@ -1,3 +1,26 @@
+import { EntryListEmpty } from "../components/entry-list-empty";
+import { LanguageSelector } from "../components/language-selector";
+import { Logo } from "../components/logo";
+import { sharedEntries } from "../router";
+import { SharedEntry } from "../sections/shared-entry";
+
 export function SharedEntries() {
-  return <div>Shared entry</div>;
+  const { entries } = sharedEntries.useLoaderData();
+
+  return (
+    <main data-stack="y" data-pb="5">
+      <header data-stack="x" data-main="between" data-cross="center" data-p="3">
+        <Logo />
+        <LanguageSelector />
+      </header>
+
+      <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto" data-mt="6">
+        {entries.map((entry) => (
+          <SharedEntry key={entry.id} {...entry} />
+        ))}
+      </ul>
+
+      {!entries[0] && <EntryListEmpty />}
+    </main>
+  );
 }

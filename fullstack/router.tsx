@@ -68,7 +68,7 @@ const dashboardRoute = createRoute({
   component: lazyRouteComponent(() => import("./pages/dashboard"), "Dashboard"),
 });
 
-const sharedEntries = createRoute({
+export const sharedEntries = createRoute({
   path: "/shared-entries/$shareableLinkId",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/shared-entries"), "SharedEntries"),
