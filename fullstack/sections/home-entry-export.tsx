@@ -1,18 +1,18 @@
-import * as UI from "@bgord/ui";
+import { exec, Fields, Form, useDateField, useTextField, useTranslations } from "@bgord/ui";
 import type { types } from "../../app/services/home-entry-add-form";
 import { HomeEntryExportForm } from "../../app/services/home-entry-export-form";
 import { Select } from "../components/select";
 
 export function HomeEntryExport() {
-  const t = UI.useTranslations();
+  const t = useTranslations();
 
-  const dateRangeStart = UI.useDateField({
+  const dateRangeStart = useDateField({
     name: "dateRangeStart",
-    defaultValue: UI.Form.date.min.yesterday(),
+    defaultValue: Form.date.min.yesterday(),
   });
-  const dateRangeEnd = UI.useDateField({ name: "dateRangeEnd", defaultValue: UI.Form.date.min.today() });
+  const dateRangeEnd = useDateField({ name: "dateRangeEnd", defaultValue: Form.date.min.today() });
 
-  const strategy = UI.useTextField<types.EntryExportStrategyType>({
+  const strategy = useTextField<types.EntryExportStrategyType>({
     name: "strategy",
     defaultValue: HomeEntryExportForm.strategy.defaultValue,
   });
@@ -33,7 +33,7 @@ export function HomeEntryExport() {
         className="c-input"
         required
         type="date"
-        max={UI.Form.date.max.today()}
+        max={Form.date.max.today()}
         {...dateRangeEnd.input.props}
       />
       <Select {...strategy.input.props}>
@@ -59,8 +59,8 @@ export function HomeEntryExport() {
         className="c-button"
         data-variant="bare"
         type="button"
-        disabled={UI.Fields.allUnchanged([dateRangeStart, dateRangeEnd, strategy])}
-        onClick={UI.exec([dateRangeStart.clear, dateRangeEnd.clear, strategy.clear])}
+        disabled={Fields.allUnchanged([dateRangeStart, dateRangeEnd, strategy])}
+        onClick={exec([dateRangeStart.clear, dateRangeEnd.clear, strategy.clear])}
       >
         {t("app.clear")}
       </button>

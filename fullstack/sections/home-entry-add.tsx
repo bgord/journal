@@ -1,4 +1,4 @@
-import * as UI from "@bgord/ui";
+import * as bg from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { Book, Plus, Timer, TimerOff, Xmark } from "iconoir-react";
 import React from "react";
@@ -13,34 +13,34 @@ import { RequestState } from "../ui";
 
 export function HomeEntryAdd() {
   const router = useRouter();
-  const t = UI.useTranslations();
+  const t = bg.useTranslations();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
-  const dialog = UI.useToggle({ name: "dialog" });
+  const dialog = bg.useToggle({ name: "dialog" });
 
-  const timeCapsuleMode = UI.useToggle({ name: "time-capsule-mode" });
-  const scheduledFor = UI.useDateField({ name: "scheduledFor" });
+  const timeCapsuleMode = bg.useToggle({ name: "time-capsule-mode" });
+  const scheduledFor = bg.useDateField({ name: "scheduledFor" });
 
-  const situationDescription = UI.useTextField<types.SituationDescriptionType>({
+  const situationDescription = bg.useTextField<types.SituationDescriptionType>({
     name: "situationDescription",
   });
-  const situationKind = UI.useTextField<types.SituationKindType>({ name: "situationKind" });
+  const situationKind = bg.useTextField<types.SituationKindType>({ name: "situationKind" });
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
-  const emotionLabel = UI.useTextField<types.EmotionLabelType>({ name: "emotionLabel" });
-  const emotionIntensity = UI.useNumberField<types.EmotionIntensityType>({
+  const emotionLabel = bg.useTextField<types.EmotionLabelType>({ name: "emotionLabel" });
+  const emotionIntensity = bg.useNumberField<types.EmotionIntensityType>({
     name: "emotionIntensity",
     defaultValue: HomeEntryAddForm.emotionIntensity.min,
   });
 
-  const reactionDescription = UI.useTextField<types.ReactionDescriptionType>({ name: "reactionDescription" });
-  const reactionType = UI.useTextField<types.ReactionTypeType>({ name: "reactionType" });
-  const reactionEffectiveness = UI.useNumberField<types.ReactionEffectivenessType>({
+  const reactionDescription = bg.useTextField<types.ReactionDescriptionType>({ name: "reactionDescription" });
+  const reactionType = bg.useTextField<types.ReactionTypeType>({ name: "reactionType" });
+  const reactionEffectiveness = bg.useNumberField<types.ReactionEffectivenessType>({
     name: "reactionEffectiveness",
     defaultValue: HomeEntryAddForm.reactionEffectiveness.min,
   });
 
-  UI.useShortcuts({ "$mod+Control+KeyN": dialog.enable });
+  bg.useShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
   async function addEntry(event: React.FormEvent) {
     event.preventDefault();
@@ -67,7 +67,7 @@ export function HomeEntryAdd() {
       method: "POST",
       credentials: "include",
       body: JSON.stringify(payload),
-      headers: UI.TimeZoneOffset.get(),
+      headers: bg.TimeZoneOffset.get(),
     });
 
     if (!response.ok) return setState(RequestState.error);
@@ -84,10 +84,10 @@ export function HomeEntryAdd() {
         {t("entry.new.cta_secondary")}
       </button>
 
-      <UI.Dialog
+      <bg.Dialog
         data-mt="12"
         // locked={state === RequestState.loading}
-        {...UI.Rhythm().times(50).style.square}
+        {...bg.Rhythm().times(50).style.square}
         {...dialog}
       >
         <div data-stack="x" data-main="between" data-cross="center">
@@ -115,8 +115,8 @@ export function HomeEntryAdd() {
             rows={3}
             autoFocus
             {...situationDescription.input.props}
-            {...UI.Form.textarea(HomeEntryAddForm.situationDescription)}
-            {...UI.Autocomplete.off}
+            {...bg.Form.textarea(HomeEntryAddForm.situationDescription)}
+            {...bg.Autocomplete.off}
           />
 
           <div data-stack="x" data-gap="8" data-cross="end">
@@ -141,7 +141,7 @@ export function HomeEntryAdd() {
                 data-bg={emotionType === "positive" ? "positive-900" : undefined}
                 data-variant={emotionType === "positive" ? undefined : "bare"}
                 onClick={() => setEmotionType("positive")}
-                {...UI.Rhythm().times(9).style.width}
+                {...bg.Rhythm().times(9).style.width}
               >
                 {t("entry.emotion.label.type.positive")}
               </button>
@@ -153,7 +153,7 @@ export function HomeEntryAdd() {
                 data-bg={emotionType === "negative" ? "danger-900" : undefined}
                 data-variant={emotionType === "negative" ? undefined : "bare"}
                 onClick={() => setEmotionType("negative")}
-                {...UI.Rhythm().times(9).style.width}
+                {...bg.Rhythm().times(9).style.width}
               >
                 {t("entry.emotion.label.type.negative")}
               </button>
@@ -183,8 +183,8 @@ export function HomeEntryAdd() {
             placeholder={t("entry.reaction.description.label")}
             rows={3}
             {...reactionDescription.input.props}
-            {...UI.Form.textarea(HomeEntryAddForm.reactionDescription)}
-            {...UI.Autocomplete.off}
+            {...bg.Form.textarea(HomeEntryAddForm.reactionDescription)}
+            {...bg.Autocomplete.off}
           />
 
           <div data-stack="x" data-cross="center">
@@ -231,7 +231,7 @@ export function HomeEntryAdd() {
                   className="c-input"
                   required
                   type="date"
-                  min={UI.Form.date.min.tomorrow()}
+                  min={bg.Form.date.min.tomorrow()}
                   {...timeCapsuleMode.props.target}
                   {...scheduledFor.input.props}
                 />
@@ -253,13 +253,13 @@ export function HomeEntryAdd() {
               className="c-button"
               data-variant="primary"
               disabled={state === RequestState.loading}
-              {...UI.Rhythm().times(10).style.width}
+              {...bg.Rhythm().times(10).style.width}
             >
               {t("entry.new.cta_primary")}
             </button>
           </div>
         </form>
-      </UI.Dialog>
+      </bg.Dialog>
     </>
   );
 }

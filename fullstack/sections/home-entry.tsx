@@ -1,4 +1,4 @@
-import * as UI from "@bgord/ui";
+import { Rhythm, useExitAction, useTranslations, WeakETag } from "@bgord/ui";
 import { Link, useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
@@ -10,7 +10,7 @@ import { EntryEmotion } from "./home-entry-emotion";
 import { HomeEntryReaction } from "./home-entry-reaction";
 
 export function HomeEntry(props: EntrySnapshot) {
-  const t = UI.useTranslations();
+  const t = useTranslations();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
   const router = useRouter();
 
@@ -22,7 +22,7 @@ export function HomeEntry(props: EntrySnapshot) {
     const response = await fetch(`/api/entry/${props.id}/delete`, {
       method: "DELETE",
       credentials: "include",
-      headers: UI.WeakETag.fromRevision(props.revision),
+      headers: WeakETag.fromRevision(props.revision),
     });
 
     if (!response.ok) return setState(RequestState.error);
@@ -31,7 +31,7 @@ export function HomeEntry(props: EntrySnapshot) {
     router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
   }
 
-  const exit = UI.useExitAction({ action: homeEntryDelete, animation: "shrink-fade-out" });
+  const exit = useExitAction({ action: homeEntryDelete, animation: "shrink-fade-out" });
 
   if (!exit.visible) return null;
 
@@ -46,13 +46,7 @@ export function HomeEntry(props: EntrySnapshot) {
       data-br="xs"
       data-shadow="sm"
     >
-      <header
-        data-stack="x"
-        data-gap="3"
-        data-cross="center"
-        data-mt="2"
-        {...UI.Rhythm().times(3).style.height}
-      >
+      <header data-stack="x" data-gap="3" data-cross="center" data-mt="2" {...Rhythm().times(3).style.height}>
         {props.origin === "time_capsule" && <Icons.Timer data-size="sm" data-color="neutral-300" />}
 
         <div data-fs="base" data-fw="regular" data-color="neutral-300" data-mr="auto">

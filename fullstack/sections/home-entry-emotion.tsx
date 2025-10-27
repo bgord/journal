@@ -1,4 +1,4 @@
-import * as UI from "@bgord/ui";
+import { exec, useNumberField, useTextField, useToggle, useTranslations, WeakETag } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
@@ -12,16 +12,16 @@ import { RequestState } from "../ui";
 
 export function EntryEmotion(props: EntrySnapshot) {
   const router = useRouter();
-  const t = UI.useTranslations();
+  const t = useTranslations();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
-  const emotionLabel = UI.useTextField<types.EmotionLabelType>({
+  const emotionLabel = useTextField<types.EmotionLabelType>({
     name: "label",
     defaultValue: props.emotionLabel as types.EmotionLabelType,
   });
-  const emotionLabelEdit = UI.useToggle({ name: "emotion-label" });
+  const emotionLabelEdit = useToggle({ name: "emotion-label" });
 
-  const emotionIntensity = UI.useNumberField<types.EmotionIntensityType>({
+  const emotionIntensity = useNumberField<types.EmotionIntensityType>({
     name: "intensity",
     defaultValue: props.emotionIntensity as types.EmotionIntensityType,
   });
@@ -34,7 +34,7 @@ export function EntryEmotion(props: EntrySnapshot) {
     const response = await fetch(`/api/entry/${props.id}/reappraise-emotion`, {
       method: "POST",
       credentials: "include",
-      headers: UI.WeakETag.fromRevision(props.revision),
+      headers: WeakETag.fromRevision(props.revision),
       body: JSON.stringify({ label: emotionLabel.value, intensity: emotionIntensity.value }),
     });
 
@@ -81,7 +81,7 @@ export function EntryEmotion(props: EntrySnapshot) {
           <ButtonCancel
             type="submit"
             disabled={state === RequestState.loading}
-            onClick={UI.exec([emotionLabel.clear, emotionLabelEdit.disable])}
+            onClick={exec([emotionLabel.clear, emotionLabelEdit.disable])}
           />
         </div>
       )}

@@ -1,13 +1,13 @@
-import * as UI from "@bgord/ui";
+import { Autocomplete, Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
 import { UserXmark, WarningCircle, Xmark } from "iconoir-react";
 import React from "react";
 import { ButtonCancel } from "../components/button-cancel";
 import { RequestState } from "../ui";
 
 export function ProfileAccountDelete() {
-  const t = UI.useTranslations();
+  const t = useTranslations();
 
-  const dialog = UI.useToggle({ name: "delete-account" });
+  const dialog = useToggle({ name: "delete-account" });
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
   async function accountDelete(event: React.FormEvent) {
@@ -60,7 +60,7 @@ export function ProfileAccountDelete() {
         {t("profile.delete_account.cta_primary")}
       </button>
 
-      <UI.Dialog data-gap="8" data-mt="12" {...UI.Rhythm().times(50).style.width} {...dialog}>
+      <Dialog data-gap="8" data-mt="12" {...Rhythm().times(50).style.width} {...dialog}>
         <div data-stack="x" data-main="between" data-cross="center">
           <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
             <UserXmark data-size="md" data-color="neutral-300" />
@@ -96,7 +96,7 @@ export function ProfileAccountDelete() {
               required
               title={t("profile.delete_account.challenge")}
               pattern="delete"
-              {...UI.Autocomplete.off}
+              {...Autocomplete.off}
             />
           </div>
 
@@ -130,7 +130,7 @@ export function ProfileAccountDelete() {
             </button>
           </div>
         </form>
-      </UI.Dialog>
+      </Dialog>
     </section>
   );
 }

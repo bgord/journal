@@ -1,7 +1,7 @@
-import * as UI from "@bgord/ui";
+import { useTranslations } from "@bgord/ui";
 
 export function ButtonCancel(props: React.JSX.IntrinsicElements["button"]) {
-  const t = UI.useTranslations();
+  const t = useTranslations();
 
   return (
     <button {...props} type="button" className="c-button" data-variant="bare">
