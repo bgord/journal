@@ -5,7 +5,6 @@ import React from "react";
 import type { EntrySnapshot } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
-import { useExitAction } from "./wip";
 // import type { EntryType } from "../app/routes/home";
 // import { Alarm } from "./alarm";
 // import { EntryEmotion } from "./entry-emotion";
@@ -34,7 +33,7 @@ export function HomeEntry(props: EntrySnapshot) {
     router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
   }
 
-  const exit = useExitAction({ action: homeEntryDelete, animation: "shrink-fade-out" });
+  const exit = UI.useExitAction({ action: homeEntryDelete, animation: "shrink-fade-out" });
 
   if (!exit.visible) return null;
 
@@ -70,7 +69,7 @@ export function HomeEntry(props: EntrySnapshot) {
             data-variant="with-icon"
             type="submit"
             title={t("entry.delete.title")}
-            // disabled={fetcher.state !== "idle"}
+            disabled={state === RequestState.loading}
             data-interaction="subtle-scale"
             onClick={exit.trigger}
           >
