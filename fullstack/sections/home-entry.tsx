@@ -2,6 +2,7 @@ import { Rhythm, useExitAction, useTranslations, WeakETag } from "@bgord/ui";
 import { Link, useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
+import { EntrySituationDescription } from "../components/entry-situation-description";
 import { EntryStartedAt } from "../components/entry-started-at";
 import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
@@ -90,7 +91,7 @@ export function HomeEntry(props: EntryType) {
           </div>
         </div>
 
-        <div data-color="neutral-200">{props.situationDescription}</div>
+        <EntrySituationDescription situationDescription={props.situationDescription} />
 
         <EntryEmotion {...props} />
       </section>
