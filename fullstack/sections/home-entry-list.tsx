@@ -1,11 +1,10 @@
 import { useTranslations } from "@bgord/ui";
-import { useLoaderData } from "@tanstack/react-router";
 import { homeRoute } from "../router";
 import { HomeEntry } from "./home-entry";
 
 export function HomeEntryList() {
   const t = useTranslations();
-  const { entries } = useLoaderData({ from: homeRoute.id });
+  const { entries } = homeRoute.useLoaderData();
 
   return (
     <div data-stacky="y">

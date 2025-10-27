@@ -1,5 +1,4 @@
 import { useTranslations } from "@bgord/ui";
-import { useLoaderData } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
 import { rootRoute } from "../router";
@@ -8,7 +7,7 @@ import { RequestState } from "../ui";
 export function ProfilePasswordChange() {
   const t = useTranslations();
 
-  const { session } = useLoaderData({ from: rootRoute.id });
+  const { session } = rootRoute.useLoaderData();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
   async function passwordChange(event: React.FormEvent) {

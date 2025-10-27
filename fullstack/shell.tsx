@@ -1,10 +1,10 @@
 import { TranslationsContext } from "@bgord/ui";
-import { HeadContent, Outlet, Scripts, useLoaderData } from "@tanstack/react-router";
+import { HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { rootRoute } from "./router";
 import { Navigation } from "./sections/navigation";
 
 export function Shell() {
-  const { i18n } = useLoaderData({ from: rootRoute.id });
+  const { i18n } = rootRoute.useLoaderData();
 
   return (
     <html lang={i18n.language}>

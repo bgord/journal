@@ -1,5 +1,5 @@
 import { useHover } from "@bgord/ui";
-import { useLoaderData, useRouter } from "@tanstack/react-router";
+import { useRouter } from "@tanstack/react-router";
 import { Xmark } from "iconoir-react";
 import React from "react";
 import { Avatar, AvatarSize } from "../components/avatar";
@@ -8,7 +8,7 @@ import { RequestState } from "../ui";
 
 export function ProfileAvatarDelete() {
   const router = useRouter();
-  const { avatarEtag } = useLoaderData({ from: rootRoute.id });
+  const { avatarEtag } = rootRoute.useLoaderData();
   const hover = useHover();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
   const enabled = avatarEtag !== null;

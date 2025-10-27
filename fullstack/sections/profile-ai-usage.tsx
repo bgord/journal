@@ -1,12 +1,11 @@
 import { usePluralize, useTranslations } from "@bgord/ui";
-import { useLoaderData } from "@tanstack/react-router";
 import { CheckSquare, EnergyUsageWindow, InfoCircle } from "iconoir-react";
 import { profileRoute } from "../router";
 
 export function ProfileAiUsage() {
   const t = useTranslations();
   const pluralize = usePluralize();
-  const { usage } = useLoaderData({ from: profileRoute.id });
+  const { usage } = profileRoute.useLoaderData();
 
   return (
     <div data-stack="y" data-gap="5">
