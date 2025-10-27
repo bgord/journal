@@ -17,12 +17,15 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>) {
     body.publicationSpecification,
   );
 
-  const durationMs = tools.Duration.Ms(Number(body.durationMs)).ms;
+  const durationMs = tools.Duration.Ms(body.durationMs).ms;
 
-  const dateRangeStart = tools.Timestamp.parse(Number(body.dateRangeStart) + timeZoneOffsetMs);
-  const dateRangeEnd = tools.Timestamp.parse(Number(body.dateRangeEnd) + timeZoneOffsetMs);
+  const start = tools.Day.fromIsoId(tools.DayIsoId.parse(body.dateRangeStart)).getStart();
+  const end = tools.Day.fromIsoId(tools.DayIsoId.parse(body.dateRangeEnd)).getEnd();
 
-  const dateRange = new tools.DateRange(dateRangeStart, dateRangeEnd);
+  const dateRange = new tools.DateRange(
+    tools.Timestamp.parse(start + timeZoneOffsetMs),
+    tools.Timestamp.parse(end + timeZoneOffsetMs),
+  );
 
   const shareableLinkId = deps.IdProvider.generate();
 

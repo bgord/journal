@@ -85,7 +85,12 @@ export const advice = new AI.Advice("You should do something");
 export const publicationSpecification = "entries";
 export const anotherPublicationSpecification = "other";
 
-export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Timestamp.parse(1000));
+export const dateRangeStart = "2025-01-01";
+export const dateRangeEnd = "2025-01-01";
+export const dateRange = new tools.DateRange(
+  tools.Timestamp.parse(T0),
+  tools.Timestamp.parse(T0 + tools.Duration.Days(1).ms - 1),
+);
 
 export const durationMs = tools.Duration.Seconds(1).ms;
 

@@ -93,8 +93,8 @@ describe(`POST ${url}`, () => {
         body: JSON.stringify({
           publicationSpecification: "entries",
           durationMs: 1000,
-          dateRangeStart: 10,
-          dateRangeEnd: 0,
+          dateRangeStart: mocks.dateRangeStart,
+          dateRangeEnd: "2000-01-01",
         }),
       },
       mocks.ip,
@@ -116,8 +116,8 @@ describe(`POST ${url}`, () => {
         body: JSON.stringify({
           publicationSpecification: "entries",
           durationMs: 1000,
-          dateRangeStart: 0,
-          dateRangeEnd: 1000,
+          dateRangeStart: mocks.dateRangeStart,
+          dateRangeEnd: mocks.dateRangeEnd,
         }),
         headers: mocks.correlationIdHeaders,
       },
@@ -143,8 +143,8 @@ describe(`POST ${url}`, () => {
         body: JSON.stringify({
           publicationSpecification: "entries",
           durationMs: 1000,
-          dateRangeStart: 0,
-          dateRangeEnd: 1000,
+          dateRangeStart: mocks.dateRangeStart,
+          dateRangeEnd: mocks.dateRangeEnd,
         }),
         headers: mocks.correlationIdHeaders,
       },
