@@ -50,7 +50,9 @@ export const homeEntryHistoryRoute = createRoute({
   getParentRoute: () => homeRoute,
   path: "entry/$entryId/history",
   component: lazyRouteComponent(() => import("./pages/home-entry-history"), "HomeEntryHistory"),
-  loader: async () => ({ history: [] as Entry.HistoryParsedType[] }),
+  loader: async ({ context, params }) => ({
+    history: await Entry.getEntryHistory(context.request, params.entryId),
+  }),
 });
 
 export const profileRoute = createRoute({

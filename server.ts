@@ -212,7 +212,12 @@ server.get("/history/:subject/list", AuthShield.attach, AuthShield.verify, async
     .orderBy(desc(Schema.history.createdAt))
     .limit(15);
 
-  return c.json(result);
+  return c.json(
+    result.map((entry) => ({
+      ...entry,
+      payload: entry.payload ? JSON.parse(entry.payload as string) : {},
+    })),
+  );
 });
 // =============================
 
