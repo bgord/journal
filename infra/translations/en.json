@@ -124,6 +124,7 @@
   "entry.emotion.reappraised": "Emotion reappraised",
   "entry.emotion.value": "EMOTION",
   "entry.history": "Entry history",
+  "entry.history.empty": "No history available",
   "entry.list.empty": "New entries will appear here",
   "entry.list.empty.alt": "No entries",
   "entry.list.filter.all_time": "All time",

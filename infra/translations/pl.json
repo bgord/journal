@@ -124,6 +124,7 @@
   "entry.emotion.reappraised": "Zmieniono ocenę emocji",
   "entry.emotion.value": "EMOCJA",
   "entry.history": "Historia wpisu",
+  "entry.history.empty": "Brak historii wpisu",
   "entry.list.empty": "Nowe wpisy pojawią się tutaj",
   "entry.list.empty.alt": "Brak wpisów",
   "entry.list.filter.all_time": "Cały czas",

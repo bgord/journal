@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import * as Icons from "iconoir-react";
+import { Book, Plus, Timer, TimerOff, Xmark } from "iconoir-react";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { HomeEntryAddForm } from "../../app/services/home-entry-add-form";
@@ -80,7 +80,7 @@ export function HomeEntryAdd() {
   return (
     <>
       <button type="button" className="c-button" data-variant="with-icon" onClick={dialog.enable}>
-        <Icons.Plus data-size="md" />
+        <Plus data-size="md" />
         {t("entry.new.cta_secondary")}
       </button>
 
@@ -92,7 +92,7 @@ export function HomeEntryAdd() {
       >
         <div data-stack="x" data-main="between" data-cross="center">
           <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
-            <Icons.Book data-size="md" data-color="neutral-300" />
+            <Book data-size="md" data-color="neutral-300" />
             {t("entry.new.label")}
           </strong>
 
@@ -104,7 +104,7 @@ export function HomeEntryAdd() {
             disabled={state === RequestState.loading}
             onClick={dialog.disable}
           >
-            <Icons.Xmark data-size="md" />
+            <Xmark data-size="md" />
           </button>
         </div>
 
@@ -213,7 +213,7 @@ export function HomeEntryAdd() {
           <div data-stack="x" data-gap="3">
             {timeCapsuleMode.off && (
               <button type="button" className="c-button" onClick={timeCapsuleMode.enable}>
-                <Icons.TimerOff data-size="md" data-color="neutral-300" />
+                <TimerOff data-size="md" data-color="neutral-300" />
               </button>
             )}
 
@@ -225,7 +225,7 @@ export function HomeEntryAdd() {
                   onClick={timeCapsuleMode.disable}
                   {...timeCapsuleMode.props.controller}
                 >
-                  <Icons.Timer data-size="md" data-color="neutral-300" />
+                  <Timer data-size="md" data-color="neutral-300" />
                 </button>
                 <input
                   className="c-input"
