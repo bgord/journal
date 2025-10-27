@@ -1,5 +1,6 @@
 import { Cookies } from "@bgord/ui";
 import type { AlarmSnapshot, EntrySnapshot } from "../modules/emotions/value-objects";
+import type { ShareableLinkIdType } from "../modules/publishing/value-objects/";
 
 export type EntryType = EntrySnapshot & { alarms: AlarmSnapshot[] };
 
@@ -61,3 +62,30 @@ export type HistoryParsedType = {
   subject: string;
   createdAt: number;
 };
+
+async function getSharedEntriesServer(request: Request, shareableLinkId: ShareableLinkIdType) {
+  const response = await fetch(new URL(`/api/shared/entries/${shareableLinkId}`, request.url), {
+    headers: { cookie: Cookies.extractFrom(request) },
+    credentials: "include",
+  });
+
+  if (!response?.ok) return [];
+
+  return response.json().catch(() => {});
+}
+
+async function getSharedEntriesClient(shareableLinkId: ShareableLinkIdType) {
+  const response = await fetch(`/api/shared/entries/${shareableLinkId}`, { credentials: "include" });
+
+  if (!response?.ok) return [];
+
+  return response.json().catch(() => {});
+}
+
+export async function getSharedEntries(
+  request: Request | null,
+  shareableLinkId: ShareableLinkIdType,
+): Promise<EntryType[]> {
+  if (request) return getSharedEntriesServer(request, shareableLinkId);
+  return getSharedEntriesClient(shareableLinkId);
+}

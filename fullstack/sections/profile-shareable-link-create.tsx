@@ -1,5 +1,5 @@
 import * as UI from "@bgord/ui";
-import * as Icons from "iconoir-react";
+import { HelpCircle, Plus, ShareIos, Xmark } from "iconoir-react";
 import React from "react";
 import {
   Form,
@@ -56,14 +56,14 @@ export function ProfileShareableLinkCreate() {
         data-ml="auto"
         onClick={dialog.enable}
       >
-        <Icons.Plus data-size="md" />
+        <Plus data-size="md" />
         {t("profile.shareable_links.create.cta_primary")}
       </button>
 
       <UI.Dialog data-mt="12" data-gap="3" style={{ ...UI.Rhythm().times(50).width }} {...dialog}>
         <div data-stack="x" data-main="between">
           <strong data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
-            <Icons.ShareIos data-size="md" data-color="neutral-300" />
+            <ShareIos data-size="md" data-color="neutral-300" />
             {t("profile.shareable_links.create.label")}
           </strong>
 
@@ -75,7 +75,7 @@ export function ProfileShareableLinkCreate() {
             disabled={state === RequestState.loading}
             onClick={dialog.disable}
           >
-            <Icons.Xmark data-size="md" />
+            <Xmark data-size="md" />
           </button>
         </div>
 
@@ -115,7 +115,7 @@ export function ProfileShareableLinkCreate() {
               </Select>
 
               <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-300">
-                <Icons.HelpCircle data-size="sm" />
+                <HelpCircle data-size="sm" />
                 {t("profile.shareable_links.create.specification.legend")}
               </div>
             </div>
