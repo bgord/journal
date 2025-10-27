@@ -1,9 +1,8 @@
-import { useTranslations } from "@bgord/ui";
+import { EntryListEmpty } from "../components/entry-list-empty";
 import { homeRoute } from "../router";
 import { HomeEntry } from "./home-entry";
 
 export function HomeEntryList() {
-  const t = useTranslations();
   const { entries } = homeRoute.useLoaderData();
 
   return (
@@ -16,17 +15,7 @@ export function HomeEntryList() {
         </ul>
       )}
 
-      {!entries[0] && (
-        <div data-stack="y" data-cross="center">
-          <img
-            src="/public/notebook.svg"
-            data-animation="grow-fade-in"
-            height="300px"
-            alt={t("entry.list.empty.alt")}
-          />
-          <div data-color="brand-300">{t("entry.list.empty")}</div>
-        </div>
-      )}
+      {!entries[0] && <EntryListEmpty />}
     </div>
   );
 }
