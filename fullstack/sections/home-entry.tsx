@@ -2,6 +2,7 @@ import { Rhythm, useExitAction, useTranslations, WeakETag } from "@bgord/ui";
 import { Link, useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
+import { EntryStartedAt } from "../components/entry-started-at";
 import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
@@ -48,9 +49,7 @@ export function HomeEntry(props: EntryType) {
       <header data-stack="x" data-gap="3" data-cross="center" data-mt="2" {...Rhythm().times(3).style.height}>
         {props.origin === "time_capsule" && <Icons.Timer data-size="sm" data-color="neutral-300" />}
 
-        <div data-fs="base" data-fw="regular" data-color="neutral-300" data-mr="auto">
-          {props.startedAt}
-        </div>
+        <EntryStartedAt startedAt={props.startedAt} data-mr="auto" />
 
         <Link
           to="/entry/$entryId/history"

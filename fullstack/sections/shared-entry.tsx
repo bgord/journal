@@ -1,4 +1,6 @@
 import * as UI from "@bgord/ui";
+import { Timer } from "iconoir-react";
+import { EntryStartedAt } from "../components/entry-started-at";
 import { RatingPills } from "../components/rating-pills";
 import type { EntryType } from "../entry.api";
 import { EntryAlarms } from "../sections/entry-alarms";
@@ -23,9 +25,9 @@ export function SharedEntry(props: EntryType) {
         data-mt="2"
         {...UI.Rhythm().times(3).style.height}
       >
-        <div data-fs="base" data-fw="regular" data-color="neutral-300">
-          {new Date(props.startedAt).toLocaleString()}
-        </div>
+        {props.origin === "time_capsule" && <Timer data-size="sm" data-color="neutral-300" />}
+
+        <EntryStartedAt startedAt={props.startedAt} />
       </header>
 
       <section data-stack="y" data-gap="5" data-py="5" data-bcb="neutral-700" data-bwb="hairline">
