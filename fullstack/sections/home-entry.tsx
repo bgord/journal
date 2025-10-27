@@ -42,13 +42,14 @@ export function HomeEntry(props: EntryType) {
     <li
       {...exit.attach}
       data-stack="y"
+      data-py="3"
       data-px="4"
       data-bg="neutral-900"
       data-fs="base"
       data-br="xs"
       data-shadow="sm"
     >
-      <header data-stack="x" data-gap="3" data-cross="center" data-mt="2" {...Rhythm().times(3).style.height}>
+      <header data-stack="x" data-gap="3" data-cross="center" {...Rhythm().times(3).style.height}>
         {props.origin === "time_capsule" && <Icons.Timer data-size="sm" data-color="neutral-300" />}
 
         <EntryStartedAt startedAt={props.startedAt} data-mr="auto" />

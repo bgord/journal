@@ -1,5 +1,6 @@
 import * as UI from "@bgord/ui";
 import { Timer } from "iconoir-react";
+import { Form } from "../../app/services/home-entry-add-form";
 import { EntryReactionDescription } from "../components/entry-reaction-description";
 import { EntrySituationDescription } from "../components/entry-situation-description";
 import { EntrySituationKind } from "../components/entry-situation-kind";
@@ -13,21 +14,16 @@ export function SharedEntry(props: EntryType) {
 
   return (
     <li
-      data-testid="entry"
       data-stack="y"
+      data-gap="3"
+      data-py="3"
       data-px="4"
       data-bg="neutral-900"
       data-fs="base"
       data-br="xs"
       data-shadow="sm"
     >
-      <header
-        data-stack="x"
-        data-main="between"
-        data-cross="center"
-        data-mt="2"
-        {...UI.Rhythm().times(3).style.height}
-      >
+      <header data-stack="x" data-main="between" data-cross="center" {...UI.Rhythm().times(3).style.height}>
         {props.origin === "time_capsule" && <Timer data-size="sm" data-color="neutral-300" />}
 
         <EntryStartedAt startedAt={props.startedAt} />
@@ -49,15 +45,17 @@ export function SharedEntry(props: EntryType) {
             {t(`entry.emotion.label.value.${props.emotionLabel}`)}
           </div>
 
-          <RatingPills rating={props.emotionIntensity as number} total={5} />
+          <RatingPills rating={props.emotionIntensity as number} total={Form.emotionIntensity.pattern.max} />
         </div>
       </section>
 
-      <div data-color="neutral-400" data-fs="sm" data-mr="auto">
-        {t("entry.reaction.description.label")}
-      </div>
+      <section data-stack="y" data-gap="5">
+        <div data-color="neutral-400" data-fs="sm">
+          {t("entry.reaction.description.label")}
+        </div>
 
-      <EntryReactionDescription reactionDescription={props.reactionDescription} />
+        <EntryReactionDescription reactionDescription={props.reactionDescription} />
+      </section>
 
       {props.alarms[0] && <EntryAlarms {...props} />}
     </li>

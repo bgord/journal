@@ -61,7 +61,7 @@ export function HomeEntryReaction(props: EntryType) {
   }, [reactionEffectiveness.value, reactionEffectiveness.changed, reactionType.value, reactionType.changed]);
 
   return (
-    <section data-stack="y" data-gap="3" data-py="3">
+    <section data-stack="y" data-gap="3">
       <div data-stack="x" data-cross="center" data-gap="5" {...UI.Rhythm().times(3).style.minHeight}>
         <div data-color="neutral-400" data-fs="sm" data-mr="auto">
           {t("entry.reaction.description.label")}

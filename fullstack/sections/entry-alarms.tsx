@@ -6,7 +6,7 @@ export function EntryAlarms(props: EntryType) {
   const t = UI.useTranslations();
 
   return (
-    <ul data-stack="y" data-gap="5" data-mb="5">
+    <ul data-stack="y" data-gap="5">
       {props.alarms.map((alarm) => (
         <li key={alarm.id} data-stack="y" data-gap="2" data-mt="3">
           <div data-stack="x" data-cross="center" data-gap="2" data-fs="sm" data-color="neutral-300">
