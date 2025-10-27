@@ -94,7 +94,12 @@ export function HomeEntryAdd() {
         {t("entry.new.cta_secondary")}
       </button>
 
-      <UI.Dialog data-mt="12" {...UI.Rhythm().times(50).style.square} {...dialog}>
+      <UI.Dialog
+        data-mt="12"
+        locked={state === RequestState.loading}
+        {...UI.Rhythm().times(50).style.square}
+        {...dialog}
+      >
         <div data-stack="x" data-main="between" data-cross="center">
           <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
             <Icons.Book data-size="md" data-color="neutral-300" />
