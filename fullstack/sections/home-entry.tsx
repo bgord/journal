@@ -3,6 +3,7 @@ import { Link, useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
 import { EntrySituationDescription } from "../components/entry-situation-description";
+import { EntrySituationKind } from "../components/entry-situation-kind";
 import { EntryStartedAt } from "../components/entry-started-at";
 import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
@@ -86,9 +87,7 @@ export function HomeEntry(props: EntryType) {
             {t("entry.situation.description.label")}
           </div>
 
-          <div className="c-badge" data-variant="outline">
-            {t(`entry.situation.kind.value.${props.situationKind}`)}
-          </div>
+          <EntrySituationKind situationKind={props.situationKind} />
         </div>
 
         <EntrySituationDescription situationDescription={props.situationDescription} />

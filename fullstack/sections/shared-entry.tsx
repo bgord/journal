@@ -1,6 +1,7 @@
 import * as UI from "@bgord/ui";
 import { Timer } from "iconoir-react";
 import { EntrySituationDescription } from "../components/entry-situation-description";
+import { EntrySituationKind } from "../components/entry-situation-kind";
 import { EntryStartedAt } from "../components/entry-started-at";
 import { RatingPills } from "../components/rating-pills";
 import type { EntryType } from "../entry.api";
@@ -37,9 +38,7 @@ export function SharedEntry(props: EntryType) {
             {t("entry.situation.description.label")}
           </div>
 
-          <div className="c-badge" data-variant="outline">
-            {t(`entry.situation.kind.value.${props.situationKind}`)}
-          </div>
+          <EntrySituationKind situationKind={props.situationKind} />
         </div>
 
         <EntrySituationDescription situationDescription={props.situationDescription} />
@@ -52,6 +51,10 @@ export function SharedEntry(props: EntryType) {
           <RatingPills rating={props.emotionIntensity as number} total={5} />
         </div>
       </section>
+
+      <div data-color="neutral-400" data-fs="sm" data-mr="auto">
+        {t("entry.reaction.description.label")}
+      </div>
 
       <div data-stack="x" data-main="between" data-cross="center" data-py="5" data-color="neutral-200">
         {props.reactionDescription}
