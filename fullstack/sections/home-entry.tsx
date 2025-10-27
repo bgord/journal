@@ -9,7 +9,7 @@ import { RequestState } from "../ui";
 // import { Alarm } from "./alarm";
 import { EntryEmotion } from "./home-entry-emotion";
 // import { EntryHistory } from "./entry-history";
-// import { EntryReaction } from "./entry-reaction";
+import { HomeEntryReaction } from "./home-entry-reaction";
 
 export function HomeEntry(props: EntrySnapshot) {
   const t = UI.useTranslations();
@@ -96,7 +96,7 @@ export function HomeEntry(props: EntrySnapshot) {
         <EntryEmotion {...props} />
       </section>
 
-      {/* <EntryReaction {...props} /> */}
+      <HomeEntryReaction {...props} />
 
       {/* {props.alarms[0] && ( */}
       {/*   <ul data-stack="y" data-gap="5" data-mb="5"> */}
