@@ -61,26 +61,16 @@ export function HomeEntryAdd() {
 
     setState(RequestState.loading);
 
-    if (payload.intent === "entry_add") {
-      const response = await fetch("/api/entry/log", {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(payload),
-      });
+    const url = payload.intent === "entry_add" ? "/api/entry/log" : "/api/entry/time-capsule-entry/schedule";
 
-      if (!response.ok) return setState(RequestState.error);
-    }
+    const response = await fetch(url, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(payload),
+      headers: UI.TimeZoneOffset.get(),
+    });
 
-    if (payload.intent === "time_capsule_entry_add") {
-      const response = await fetch("/api/entry/time-capsule-entry/schedule", {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(payload),
-        headers: UI.TimeZoneOffset.get(),
-      });
-
-      if (!response.ok) return setState(RequestState.error);
-    }
+    if (!response.ok) return setState(RequestState.error);
 
     setState(RequestState.done);
     router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
