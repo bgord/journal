@@ -2,7 +2,7 @@ import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import type { EntryType } from "../entry.api";
 
-export function HomeEntryAlarms(props: EntryType) {
+export function EntryAlarms(props: EntryType) {
   const t = UI.useTranslations();
 
   return (

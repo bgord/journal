@@ -5,7 +5,7 @@ import React from "react";
 import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
-import { HomeEntryAlarms } from "./home-entry-alarms";
+import { EntryAlarms } from "./entry-alarms";
 import { EntryEmotion } from "./home-entry-emotion";
 import { HomeEntryReaction } from "./home-entry-reaction";
 
@@ -98,7 +98,7 @@ export function HomeEntry(props: EntryType) {
 
       <HomeEntryReaction {...props} />
 
-      {props.alarms[0] && <HomeEntryAlarms {...props} />}
+      {props.alarms[0] && <EntryAlarms {...props} />}
     </li>
   );
 }
