@@ -26,3 +26,11 @@ export async function getEntryList(request: Request | null): Promise<EntrySnapsh
 }
 
 export type { EntrySnapshot } from "../modules/emotions/value-objects";
+
+export type HistoryParsedType = {
+  id: string;
+  operation: string;
+  payload: Record<string, any>;
+  subject: string;
+  createdAt: number;
+};
