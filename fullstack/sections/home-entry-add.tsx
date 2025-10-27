@@ -1,4 +1,5 @@
 import * as UI from "@bgord/ui";
+import { useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
@@ -7,9 +8,11 @@ import { ButtonCancel } from "../components/button-cancel";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
 import { Separator } from "../components/separator";
+import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
 export function HomeEntryAdd() {
+  const router = useRouter();
   const t = UI.useTranslations();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
@@ -80,6 +83,7 @@ export function HomeEntryAdd() {
     }
 
     setState(RequestState.done);
+    router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
     dialog.disable();
   }
 
