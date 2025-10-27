@@ -49,7 +49,7 @@ export function EntryEmotion(props: EntryType) {
   }, [emotionIntensity.value, emotionIntensity.changed, emotionLabel.value, emotionIntensity.changed]);
 
   return (
-    <div data-stack="x" data-cross="center" data-gap="5" data-mt="2">
+    <div data-stack="x" data-gap="5" data-mt="2">
       {emotionLabelEdit.off && (
         <div
           className="c-badge"

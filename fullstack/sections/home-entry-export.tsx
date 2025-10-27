@@ -46,7 +46,6 @@ export function HomeEntryExport() {
         href={url}
         download
         target="_blank"
-        rel="noopener noreferer"
         className="c-button"
         data-variant="secondary"
         data-disp="flex"

@@ -32,9 +32,10 @@ export function ProfileAccountDelete() {
 
   return (
     <section data-stack="y" data-gap="5" data-p="5" data-bc="danger-600" data-bw="thin">
-      <div data-stack="x" data-cross="center" data-gap="3">
+      <div data-stack="x" data-gap="3">
         <UserXmark data-size="md" />
         <div>{t("profile.delete_account.header")}</div>
+
         <div
           data-stack="x"
           data-cross="center"
@@ -61,7 +62,7 @@ export function ProfileAccountDelete() {
       </button>
 
       <Dialog data-gap="8" data-mt="12" {...Rhythm().times(50).style.width} {...dialog}>
-        <div data-stack="x" data-main="between" data-cross="center">
+        <div data-stack="x" data-main="between">
           <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
             <UserXmark data-size="md" data-color="neutral-300" />
             {t("profile.delete_account.header")}

@@ -8,15 +8,15 @@ export function HomeEntryList() {
 
   return (
     <div data-stacky="y">
-      {entries.length > 0 && (
-        <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto" data-mt="6">
+      {entries[0] && (
+        <ul data-stack="y" data-gap="5" data-mt="6">
           {entries.map((entry) => (
             <HomeEntry key={entry.id} {...entry} />
           ))}
         </ul>
       )}
 
-      {entries.length === 0 && (
+      {!entries[0] && (
         <div data-stack="y" data-cross="center">
           <img
             src="/public/notebook.svg"

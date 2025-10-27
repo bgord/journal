@@ -15,15 +15,7 @@ export function Navigation() {
         {t("app.dashboard")}
       </Link>
 
-      <Link
-        to="/profile"
-        className="c-link"
-        data-disp="flex"
-        data-cross="center"
-        data-gap="2"
-        data-fs="base"
-        data-fw="medium"
-      >
+      <Link to="/profile" data-fs="base" data-fw="medium">
         <Avatar size={AvatarSize.small} />
       </Link>
 

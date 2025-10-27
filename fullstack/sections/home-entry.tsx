@@ -5,7 +5,7 @@ import React from "react";
 import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
-// import { Alarm } from "./alarm";
+import { HomeEntryAlarms } from "./home-entry-alarms";
 import { EntryEmotion } from "./home-entry-emotion";
 import { HomeEntryReaction } from "./home-entry-reaction";
 
@@ -38,7 +38,6 @@ export function HomeEntry(props: EntryType) {
   return (
     <li
       {...exit.attach}
-      data-testid="entry"
       data-stack="y"
       data-px="4"
       data-bg="neutral-900"
@@ -92,22 +91,14 @@ export function HomeEntry(props: EntryType) {
           </div>
         </div>
 
-        <div data-stack="x" data-main="between" data-cross="center" data-gap="12" data-color="neutral-200">
-          {props.situationDescription}
-        </div>
+        <div data-color="neutral-200">{props.situationDescription}</div>
 
         <EntryEmotion {...props} />
       </section>
 
       <HomeEntryReaction {...props} />
 
-      {/* {props.alarms[0] && ( */}
-      {/*   <ul data-stack="y" data-gap="5" data-mb="5"> */}
-      {/*     {props.alarms.map((alarm) => ( */}
-      {/*       <Alarm key={alarm.id} {...alarm} /> */}
-      {/*     ))} */}
-      {/*   </ul> */}
-      {/* )} */}
+      {props.alarms[0] && <HomeEntryAlarms {...props} />}
     </li>
   );
 }

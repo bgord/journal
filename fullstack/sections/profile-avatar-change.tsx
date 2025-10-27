@@ -46,7 +46,7 @@ export function ProfileAvatarChange() {
         <ProfileAvatarDelete />
 
         <form onSubmit={changeProfileAvatar} encType="multipart/form-data" data-mt="3">
-          <div data-stack="x" data-gap="3" data-cross="center">
+          <div data-stack="x" data-gap="3">
             <label
               data-disp="flex"
               data-main="center"
@@ -96,25 +96,13 @@ export function ProfileAvatarChange() {
           </div>
 
           {avatar.isSelected && (
-            <output
-              data-disp="flex"
-              data-fs="xs"
-              data-color="neutral-300"
-              data-mt="2"
-              data-animation="grow-fade-in"
-            >
+            <output data-fs="xs" data-color="neutral-300" data-animation="grow-fade-in">
               {t("profile.avatar.selected", { name: avatar.data.name })}
             </output>
           )}
 
           {state === RequestState.error && (
-            <output
-              data-disp="flex"
-              data-fs="xs"
-              data-color="danger-400"
-              data-mt="2"
-              data-animation="grow-fade-in"
-            >
+            <output data-fs="xs" data-color="danger-400" data-animation="grow-fade-in">
               {t("profile.avatar.upload.error")}
             </output>
           )}

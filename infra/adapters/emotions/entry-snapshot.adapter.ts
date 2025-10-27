@@ -5,6 +5,7 @@ import type { EntrySnapshotPort } from "+emotions/ports";
 import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+import { AlarmDirectoryDrizzle } from "./alarm-directory.adapter";
 
 class EntrySnapshotDrizzle implements EntrySnapshotPort {
   async getById(entryId: VO.EntryIdType) {
@@ -71,11 +72,12 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
         gte(Schema.entries.startedAt, dateRange.getStart()),
         lte(Schema.entries.startedAt, dateRange.getEnd()),
       ),
+      with: { alarms: true },
     });
 
     return entries.map((entry) => ({
       ...EntrySnapshotDrizzle.format(entry),
-      alarms: [] as VO.AlarmSnapshot[],
+      alarms: entry.alarms.map(AlarmDirectoryDrizzle.format),
     }));
   }
 

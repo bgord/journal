@@ -34,7 +34,7 @@ export function ProfileAiUsage() {
       {!usage && <div data-color="neutral-400">{t("profile.ai_limits.empty")}</div>}
 
       {usage && (
-        <div data-stack="x" data-cross="center" data-gap="3" data-color="neutral-400">
+        <div data-stack="x" data-gap="3" data-color="neutral-400">
           {!usage.consumed && <CheckSquare data-size="md" data-color="positive-400" />}
           {usage.consumed && <CheckSquare data-size="md" data-color="danger-400" />}
 

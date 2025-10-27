@@ -7,7 +7,7 @@ import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
+export class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
   async listForUser(userId: Auth.VO.UserIdType) {
     const alarms = await db.query.alarms.findMany({
       where: and(eq(Schema.alarms.userId, userId)),

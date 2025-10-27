@@ -62,14 +62,7 @@ export function HomeEntryReaction(props: EntryType) {
   return (
     <section data-stack="y" data-gap="3" data-py="3">
       <div data-stack="x" data-cross="center" data-gap="5" {...UI.Rhythm().times(3).style.minHeight}>
-        <div
-          data-stack="x"
-          data-cross="center"
-          data-gap="5"
-          data-color="neutral-400"
-          data-fs="sm"
-          data-mr="auto"
-        >
+        <div data-color="neutral-400" data-fs="sm" data-mr="auto">
           {t("entry.reaction.description.label")}
         </div>
 
@@ -147,8 +140,8 @@ export function HomeEntryReaction(props: EntryType) {
             />
 
             <button
-              className="c-button"
               type="submit"
+              className="c-button"
               data-variant="primary"
               disabled={reactionDescription.unchanged || state === RequestState.loading}
               {...UI.Rhythm().times(8).style.minWidth}
