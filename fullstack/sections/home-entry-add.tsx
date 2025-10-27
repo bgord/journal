@@ -96,7 +96,7 @@ export function HomeEntryAdd() {
 
       <UI.Dialog
         data-mt="12"
-        locked={state === RequestState.loading}
+        // locked={state === RequestState.loading}
         {...UI.Rhythm().times(50).style.square}
         {...dialog}
       >

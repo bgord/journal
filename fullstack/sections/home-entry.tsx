@@ -7,7 +7,7 @@ import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 // import type { EntryType } from "../app/routes/home";
 // import { Alarm } from "./alarm";
-// import { EntryEmotion } from "./entry-emotion";
+import { EntryEmotion } from "./home-entry-emotion";
 // import { EntryHistory } from "./entry-history";
 // import { EntryReaction } from "./entry-reaction";
 
@@ -93,7 +93,7 @@ export function HomeEntry(props: EntrySnapshot) {
           {props.situationDescription}
         </div>
 
-        {/* <EntryEmotion {...props} /> */}
+        <EntryEmotion {...props} />
       </section>
 
       {/* <EntryReaction {...props} /> */}
