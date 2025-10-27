@@ -2,7 +2,7 @@ import * as UI from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
-import { HomeEntryAddForm } from "../../app/services/home-entry-add-form";
+import { Form } from "../../app/services/home-entry-add-form";
 import { ButtonCancel } from "../components/button-cancel";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
@@ -11,25 +11,25 @@ import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
 export function HomeEntryReaction(props: EntryType) {
-  const router = useRouter();
   const t = UI.useTranslations();
+  const router = useRouter();
   const metaEnterSubmit = UI.useMetaEnterSubmit();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
+  const reactionDescriptionEdit = UI.useToggle({ name: "reaction-description" });
   const reactionDescription = UI.useTextField<types.ReactionDescriptionType>({
-    name: "description",
+    ...Form.reactionDescription.field,
     defaultValue: props.reactionDescription as types.ReactionDescriptionType,
   });
-  const reactionDescriptionEdit = UI.useToggle({ name: "reaction-description" });
 
   const reactionType = UI.useTextField<types.ReactionTypeType>({
-    name: "type",
+    ...Form.reactionDescription.field,
     defaultValue: props.reactionType as types.ReactionTypeType,
   });
   const reactionTypeEdit = UI.useToggle({ name: "reaction-type" });
 
   const reactionEffectiveness = UI.useNumberField<types.ReactionEffectivenessType>({
-    name: "effectiveness",
+    ...Form.reactionDescription.field,
     defaultValue: props.reactionEffectiveness as types.ReactionEffectivenessType,
   });
 
@@ -87,7 +87,7 @@ export function HomeEntryReaction(props: EntryType) {
                 reactionTypeEdit.disable();
               }}
             >
-              {HomeEntryAddForm.reactionType.options.map((type) => (
+              {Form.reactionType.options.map((type) => (
                 <option key={type} value={type}>
                   {t(`entry.reaction.type.value.${type}`)}
                 </option>
@@ -129,7 +129,7 @@ export function HomeEntryReaction(props: EntryType) {
             rows={3}
             disabled={state === RequestState.loading}
             {...reactionDescription.input.props}
-            {...UI.Form.textarea(HomeEntryAddForm.reactionDescription)}
+            {...UI.Form.textarea(Form.reactionDescription.pattern)}
             {...metaEnterSubmit}
           />
 

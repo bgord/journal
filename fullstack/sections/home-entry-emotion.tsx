@@ -2,7 +2,7 @@ import { exec, useNumberField, useTextField, useToggle, useTranslations, WeakETa
 import { useRouter } from "@tanstack/react-router";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
-import { HomeEntryAddForm } from "../../app/services/home-entry-add-form";
+import { Form } from "../../app/services/home-entry-add-form";
 import { ButtonCancel } from "../components/button-cancel";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
@@ -11,18 +11,18 @@ import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
 export function EntryEmotion(props: EntryType) {
-  const router = useRouter();
   const t = useTranslations();
+  const router = useRouter();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
+  const emotionLabelEdit = useToggle({ name: "emotion-label" });
   const emotionLabel = useTextField<types.EmotionLabelType>({
-    name: "label",
+    ...Form.emotionLabel.field,
     defaultValue: props.emotionLabel as types.EmotionLabelType,
   });
-  const emotionLabelEdit = useToggle({ name: "emotion-label" });
 
   const emotionIntensity = useNumberField<types.EmotionIntensityType>({
-    name: "intensity",
+    ...Form.emotionIntensity.field,
     defaultValue: props.emotionIntensity as types.EmotionIntensityType,
   });
 
@@ -71,7 +71,7 @@ export function EntryEmotion(props: EntryType) {
               emotionLabelEdit.disable();
             }}
           >
-            {HomeEntryAddForm.emotionLabel.options.map((emotion) => (
+            {Form.emotionLabel.options.map((emotion) => (
               <option key={emotion} value={emotion}>
                 {t(`entry.emotion.label.value.${emotion}`)}
               </option>

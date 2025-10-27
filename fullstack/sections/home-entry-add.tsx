@@ -3,7 +3,7 @@ import { useRouter } from "@tanstack/react-router";
 import { Book, Plus, Timer, TimerOff, Xmark } from "iconoir-react";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
-import { HomeEntryAddForm } from "../../app/services/home-entry-add-form";
+import { Form } from "../../app/services/home-entry-add-form";
 import { ButtonCancel } from "../components/button-cancel";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
@@ -12,33 +12,24 @@ import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
 export function HomeEntryAdd() {
-  const router = useRouter();
   const t = bg.useTranslations();
+  const router = useRouter();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
-
   const dialog = bg.useToggle({ name: "dialog" });
 
-  const timeCapsuleMode = bg.useToggle({ name: "time-capsule-mode" });
-  const scheduledFor = bg.useDateField({ name: "scheduledFor" });
+  const timeCapsuleMode = bg.useToggle({ name: "timeCapsuleMode" });
+  const scheduledFor = bg.useDateField(Form.schedueldFor.field);
 
-  const situationDescription = bg.useTextField<types.SituationDescriptionType>({
-    name: "situationDescription",
-  });
-  const situationKind = bg.useTextField<types.SituationKindType>({ name: "situationKind" });
+  const situationDescription = bg.useTextField(Form.situationDescription.field);
+  const situationKind = bg.useTextField<types.SituationKindType>(Form.situationKind.field);
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
-  const emotionLabel = bg.useTextField<types.EmotionLabelType>({ name: "emotionLabel" });
-  const emotionIntensity = bg.useNumberField<types.EmotionIntensityType>({
-    name: "emotionIntensity",
-    defaultValue: HomeEntryAddForm.emotionIntensity.min,
-  });
+  const emotionLabel = bg.useTextField<types.EmotionLabelType>(Form.emotionLabel.field);
+  const emotionIntensity = bg.useNumberField(Form.emotionIntensity.field);
 
-  const reactionDescription = bg.useTextField<types.ReactionDescriptionType>({ name: "reactionDescription" });
-  const reactionType = bg.useTextField<types.ReactionTypeType>({ name: "reactionType" });
-  const reactionEffectiveness = bg.useNumberField<types.ReactionEffectivenessType>({
-    name: "reactionEffectiveness",
-    defaultValue: HomeEntryAddForm.reactionEffectiveness.min,
-  });
+  const reactionDescription = bg.useTextField(Form.reactionDescription.field);
+  const reactionType = bg.useTextField<types.ReactionTypeType>(Form.reactionType.field);
+  const reactionEffectiveness = bg.useNumberField(Form.reactionEffectiveness.field);
 
   bg.useShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
@@ -115,14 +106,14 @@ export function HomeEntryAdd() {
             rows={3}
             autoFocus
             {...situationDescription.input.props}
-            {...bg.Form.textarea(HomeEntryAddForm.situationDescription)}
+            {...bg.Form.textarea(Form.situationDescription.pattern)}
             {...bg.Autocomplete.off}
           />
 
           <div data-stack="x" data-gap="8" data-cross="end">
             <Select required {...situationKind.input.props}>
               <option value="">{t("entry.situation.kind.value.default")}</option>
-              {HomeEntryAddForm.situationKind.options.map((kind) => (
+              {Form.situationKind.options.map((kind) => (
                 <option key={kind} value={kind}>
                   {t(`entry.situation.kind.value.${kind}`)}
                 </option>
@@ -161,14 +152,13 @@ export function HomeEntryAdd() {
               {emotionType && (
                 <Select required data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
                   <option value="">{t("entry.emotion.label.default.value")}</option>
-                  {(emotionType === "positive"
-                    ? HomeEntryAddForm.emotionLabel.positive
-                    : HomeEntryAddForm.emotionLabel.negative
-                  ).map((emotion) => (
-                    <option key={emotion} value={emotion}>
-                      {t(`entry.emotion.label.value.${emotion}`)}
-                    </option>
-                  ))}
+                  {(emotionType === "positive" ? Form.emotionLabel.positive : Form.emotionLabel.negative).map(
+                    (emotion) => (
+                      <option key={emotion} value={emotion}>
+                        {t(`entry.emotion.label.value.${emotion}`)}
+                      </option>
+                    ),
+                  )}
                 </Select>
               )}
             </div>
@@ -183,14 +173,14 @@ export function HomeEntryAdd() {
             placeholder={t("entry.reaction.description.label")}
             rows={3}
             {...reactionDescription.input.props}
-            {...bg.Form.textarea(HomeEntryAddForm.reactionDescription)}
+            {...bg.Form.textarea(Form.reactionDescription.pattern)}
             {...bg.Autocomplete.off}
           />
 
           <div data-stack="x" data-cross="center">
             <Select required {...reactionType.input.props}>
               <option value="">{t("entry.reaction.type.default.value")}</option>
-              {HomeEntryAddForm.reactionType.options.map((type) => (
+              {Form.reactionType.options.map((type) => (
                 <option key={type} value={type}>
                   {t(`entry.reaction.type.value.${type}`)}
                 </option>

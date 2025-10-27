@@ -22,18 +22,37 @@ import {
 } from "../../modules/emotions/value-objects/situation-description.validation";
 import { SituationKindOptions } from "../../modules/emotions/value-objects/situation-kind-options";
 
-export const HomeEntryAddForm = {
-  situationDescription: { min: SituationDescriptionMin, max: SituationDescriptionMax },
-  situationKind: { options: Object.keys(SituationKindOptions) },
-  emotionIntensity: { min: EmotionIntensityMin, max: EmotionIntensityMax },
+export const Form = {
+  schedueldFor: { field: { name: "scheduledFor" } },
+  situationDescription: {
+    pattern: { min: SituationDescriptionMin, max: SituationDescriptionMax },
+    field: { name: "situationDescription" },
+  },
+  situationKind: { options: Object.keys(SituationKindOptions), field: { name: "situationKind" } },
+  emotionIntensity: {
+    pattern: { min: EmotionIntensityMin, max: EmotionIntensityMax },
+    field: { name: "emotionIntensity", defaultValue: EmotionIntensityMin },
+  },
   emotionLabel: {
     positive: PositiveEmotions,
     negative: NegativeEmotions,
     options: Object.keys(GenevaWheelEmotion),
+    field: { name: "emotionLabel" },
   },
-  reactionDescription: { min: ReactionDescriptionMin, max: ReactionDescriptionMax },
-  reactionType: { options: Object.keys(GrossEmotionRegulationStrategy) },
-  reactionEffectiveness: { min: ReactionEffectivenessMin, max: ReactionEffectivenessMax },
+  reactionDescription: {
+    pattern: { min: ReactionDescriptionMin, max: ReactionDescriptionMax },
+    field: { name: "reactionDescription" },
+  },
+  reactionType: { options: Object.keys(GrossEmotionRegulationStrategy), field: { name: "reactionType" } },
+  reactionEffectiveness: {
+    pattern: { min: ReactionEffectivenessMin, max: ReactionEffectivenessMax },
+    min: ReactionEffectivenessMin,
+    max: ReactionEffectivenessMax,
+    field: {
+      name: "reactionEffectiveness",
+      defaultValue: ReactionDescriptionMin,
+    },
+  },
 };
 
 export type * as types from "../../modules/emotions/value-objects";
