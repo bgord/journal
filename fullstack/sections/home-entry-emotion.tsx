@@ -4,6 +4,7 @@ import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import { ButtonCancel } from "../components/button-cancel";
+import { EntryEmotionLabel } from "../components/entry-emotion-label";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
 import type { EntryType } from "../entry.api";
@@ -51,14 +52,11 @@ export function EntryEmotion(props: EntryType) {
   return (
     <div data-stack="x" data-gap="5" data-mt="2">
       {emotionLabelEdit.off && (
-        <div
-          className="c-badge"
-          data-variant="primary"
+        <EntryEmotionLabel
+          emotionLabel={props.emotionLabel}
           data-cursor="pointer"
           onClick={emotionLabelEdit.enable}
-        >
-          {t(`entry.emotion.label.value.${emotionLabel.value}`)}
-        </div>
+        />
       )}
 
       {emotionLabelEdit.on && (

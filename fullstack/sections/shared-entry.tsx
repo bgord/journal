@@ -1,6 +1,7 @@
 import * as UI from "@bgord/ui";
 import { Timer } from "iconoir-react";
 import { Form } from "../../app/services/home-entry-add-form";
+import { EntryEmotionLabel } from "../components/entry-emotion-label";
 import { EntryReactionDescription } from "../components/entry-reaction-description";
 import { EntrySituationDescription } from "../components/entry-situation-description";
 import { EntrySituationKind } from "../components/entry-situation-kind";
@@ -41,10 +42,7 @@ export function SharedEntry(props: EntryType) {
         <EntrySituationDescription situationDescription={props.situationDescription} />
 
         <div data-stack="x" data-cross="center" data-gap="5" data-mt="2">
-          <div className="c-badge" data-variant="primary">
-            {t(`entry.emotion.label.value.${props.emotionLabel}`)}
-          </div>
-
+          <EntryEmotionLabel emotionLabel={props.emotionLabel} />
           <RatingPills rating={props.emotionIntensity as number} total={Form.emotionIntensity.pattern.max} />
         </div>
       </section>
