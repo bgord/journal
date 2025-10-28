@@ -4,6 +4,7 @@ import { Clock, OpenInWindow } from "iconoir-react";
 import { ShareableLinkStatusEnum } from "../../app/services/create-shareable-link-form";
 import { ButtonCopy } from "../components";
 import type { ShareableLinkSnapshot } from "../publishing.api";
+import { ProfileShareableLinkHide } from "./profile-shareable-link-hide";
 import { ProfileShareableLinkRevoke } from "./profile-shareable-link-revoke";
 
 export function ProfileShareableLink(props: ShareableLinkSnapshot) {
@@ -108,17 +109,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
           </div>
         )}
 
-        {[ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status) && (
-          <div data-stack="x" data-gap="3" data-ml="auto">
-            <form method="POST" action=".">
-              <input name="shareableLinkId" type="hidden" value={props.id} />
-              <input name="intent" type="hidden" value="shareable_link_hide" />
-              <button type="submit" className="c-button" data-variant="secondary">
-                {t("profile.shareable_links.hide.cta")}
-              </button>
-            </form>
-          </div>
-        )}
+        <ProfileShareableLinkHide {...props} />
       </div>
     </li>
   );

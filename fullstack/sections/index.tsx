@@ -15,6 +15,7 @@ export * from "./profile-language-selector";
 export * from "./profile-password-change";
 export * from "./profile-shareable-link";
 export * from "./profile-shareable-link-create";
+export * from "./profile-shareable-link-hide";
 export * from "./profile-shareable-link-list";
 export * from "./profile-shareable-link-revoke";
 export * from "./shared-entry";
