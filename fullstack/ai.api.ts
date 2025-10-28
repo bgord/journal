@@ -1,29 +1,18 @@
+import { Cookies } from "@bgord/ui";
 import type { QuotaRuleInspectionType } from "../modules/ai/value-objects";
 
-async function getAiUsageTodayServer(request: Request) {
-  const cookie = request.headers.get("cookie") ?? "";
+export class AI {
+  private static readonly BASE = "/api/ai-usage-today/get";
 
-  const response = await fetch(new URL("/api/ai-usage-today/get", request.url), {
-    headers: { cookie },
-    credentials: "include",
-  });
+  static async getUsageToday(
+    request: Request | null,
+  ): Promise<(QuotaRuleInspectionType & { resetsInHours: number }) | null> {
+    const url = request ? new URL(AI.BASE, request.url) : AI.BASE;
+    const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
-  if (!response?.ok) return null;
+    const response = await fetch(url, { headers, credentials: "include" });
 
-  return response.json().catch();
-}
-
-async function getAiUsageTodayClient() {
-  const response = await fetch("/api/ai-usage-today/get", { credentials: "include" });
-
-  if (!response?.ok) return null;
-
-  return response.json().catch();
-}
-
-export async function getAiUsageToday(
-  request: Request | null,
-): Promise<(QuotaRuleInspectionType & { resetsInHours: number }) | null> {
-  if (request) return getAiUsageTodayServer(request);
-  return getAiUsageTodayClient();
+    if (!response?.ok) return null;
+    return response.json().catch();
+  }
 }

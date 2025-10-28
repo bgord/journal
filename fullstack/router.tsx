@@ -59,7 +59,7 @@ export const profileRoute = createRoute({
   path: "/profile",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/profile"), "Profile"),
-  loader: async ({ context }) => ({ usage: await AI.getAiUsageToday(context.request) }),
+  loader: async ({ context }) => ({ usage: await AI.AI.getUsageToday(context.request) }),
 });
 
 const dashboardRoute = createRoute({
