@@ -230,7 +230,7 @@
   "profile.shareable_links.header": "Shareable links",
   "profile.shareable_links.hide.cta": "Hide",
   "profile.shareable_links.hits": "{{totalHits}} {{hits}} by {{uniqueVisitors}} {{visitors}}",
-  "profile.shareable_links.no_hits": "No visitors yet",
+  "profile.shareable_links.no_hits": "No views",
   "profile.shareable_links.revoke.cta": "Revoke",
   "profile.shareable_links.revoked_at": "Revoked at {{date}}",
   "profile.shareable_links.specification.entries.value": "Entries from date range",

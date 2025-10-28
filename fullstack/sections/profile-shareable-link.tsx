@@ -1,4 +1,4 @@
-import { useTranslations } from "@bgord/ui";
+import { usePluralize, useTranslations } from "@bgord/ui";
 import { Link } from "@tanstack/react-router";
 import { Clock, OpenInWindow } from "iconoir-react";
 import { ShareableLinkStatusEnum } from "../../app/services/create-shareable-link-form";
@@ -9,6 +9,7 @@ import { ProfileShareableLinkRevoke } from "./profile-shareable-link-revoke";
 
 export function ProfileShareableLink(props: ShareableLinkSnapshot) {
   const t = useTranslations();
+  const pluralize = usePluralize();
 
   const copyURL = (id: string) => {
     if (typeof window === "undefined") return "";
@@ -44,30 +45,32 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
           {props.dateRangeStart} - {props.dateRangeEnd}
         </div>
 
-        {/* {!(link.totalHits && link.uniqueVisitors) && ( */}
-        {/*   <div data-color="neutral-500">{t("profile.shareable_links.no_hits")}</div> */}
-        {/* )} */}
+        {!(props.hits && props.uniqueVisitors) && (
+          <div data-color="neutral-500" data-fs="xs">
+            {t("profile.shareable_links.no_hits")}
+          </div>
+        )}
 
-        {/* {link.totalHits > 0 && link.uniqueVisitors > 0 && ( */}
-        {/*   <div data-color="neutral-500"> */}
-        {/*     {t("profile.shareable_links.hits", { */}
-        {/*       totalHits: link.totalHits, */}
-        {/*       hits: pluralize({ */}
-        {/*         value: link.totalHits, */}
-        {/*         singular: t("app.hit.singular"), */}
-        {/*         plural: t("app.hit.plural"), */}
-        {/*         genitive: t("app.hit.genitive"), */}
-        {/*       }), */}
-        {/*       visitors: pluralize({ */}
-        {/*         value: link.uniqueVisitors, */}
-        {/*         singular: t("app.visitor.singular"), */}
-        {/*         plural: t("app.visitor.plural"), */}
-        {/*         genitive: t("app.visitor.genitive"), */}
-        {/*       }), */}
-        {/*       uniqueVisitors: link.uniqueVisitors, */}
-        {/*     })} */}
-        {/*   </div> */}
-        {/* )} */}
+        {props.hits > 0 && props.uniqueVisitors > 0 && (
+          <div data-color="neutral-500" data-fs="xs">
+            {t("profile.shareable_links.hits", {
+              totalHits: props.hits,
+              hits: pluralize({
+                value: props.hits,
+                singular: t("app.hit.singular"),
+                plural: t("app.hit.plural"),
+                genitive: t("app.hit.genitive"),
+              }),
+              visitors: pluralize({
+                value: props.uniqueVisitors,
+                singular: t("app.visitor.singular"),
+                plural: t("app.visitor.plural"),
+                genitive: t("app.visitor.genitive"),
+              }),
+              uniqueVisitors: props.uniqueVisitors,
+            })}
+          </div>
+        )}
       </div>
 
       <div data-stack="y" data-gap="3" data-ml="auto">

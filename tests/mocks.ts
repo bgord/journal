@@ -28,7 +28,7 @@ export const historyId = IdProvider.generate();
 const patternDetectionId = IdProvider.generate();
 
 // Timestamps
-export const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
+export const T0 = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
 
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
@@ -1002,6 +1002,8 @@ export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
   dateRangeStart: tools.DateFormatters.datetime(T0),
   dateRangeEnd: tools.DateFormatters.datetime(T0),
   expiresAt: tools.DateFormatters.datetime(T0),
+  hits: 1,
+  uniqueVisitors: 1,
 };
 
 export const user: User = {

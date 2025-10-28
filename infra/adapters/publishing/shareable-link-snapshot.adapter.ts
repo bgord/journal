@@ -11,6 +11,8 @@ class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
     userId: Auth.VO.UserIdType,
     timeZoneOffsetMs: tools.DurationMsType,
   ): Promise<VO.ShareableLinkSnapshot[]> {
+    const result: VO.ShareableLinkSnapshot[] = [];
+
     const shareableLinks = await db.query.shareableLinks.findMany({
       where: and(eq(Schema.shareableLinks.ownerId, userId), eq(Schema.shareableLinks.hidden, false)),
       orderBy: [
@@ -20,9 +22,30 @@ class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
       limit: 5,
     });
 
-    return shareableLinks.map((shareableLink) =>
-      ShareableLinkSnapshotDrizzle.format(shareableLink, timeZoneOffsetMs),
-    );
+    for (const shareableLink of shareableLinks) {
+      const hits = await db.$count(
+        Schema.shareableLinkHits,
+        and(
+          eq(Schema.shareableLinkHits.ownerId, userId),
+          eq(Schema.shareableLinkHits.shareableLinkId, shareableLink.id),
+        ),
+      );
+
+      const uniqueVisitorsResult = await db
+        .select({ count: sql<number>`count(distinct ${Schema.shareableLinkHits.visitorId})` })
+        .from(Schema.shareableLinkHits)
+        .where(eq(Schema.shareableLinkHits.shareableLinkId, shareableLink.id));
+
+      const uniqueVisitors = uniqueVisitorsResult[0]?.count ?? 0;
+
+      result.push({
+        ...ShareableLinkSnapshotDrizzle.format(shareableLink, timeZoneOffsetMs),
+        hits,
+        uniqueVisitors,
+      });
+    }
+
+    return result;
   }
 
   static format(shareableLink: Schema.SelectShareableLinks, timeZoneOffsetMs: tools.DurationMsType) {

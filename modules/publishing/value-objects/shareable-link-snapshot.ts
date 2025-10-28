@@ -12,4 +12,6 @@ export type ShareableLinkSnapshot = {
   expiresAt: string;
   updatedAt: string;
   revision: tools.RevisionValueType;
+  hits: number;
+  uniqueVisitors: number;
 };
