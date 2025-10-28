@@ -2,26 +2,16 @@ import { Cookies, type ETagValueType } from "@bgord/ui";
 
 export type AvatarEtagType = ETagValueType;
 
-async function getAvatarEtagServer(request: Request) {
-  const response = await fetch(new URL("/api/profile-avatar/get", request.url), {
-    headers: { cookie: Cookies.extractFrom(request) },
-    credentials: "include",
-  });
+export class Avatar {
+  private static readonly BASE = "/api/profile-avatar/get";
 
-  if (!response?.ok) return null;
+  static async getEtag(request: Request | null): Promise<AvatarEtagType | null> {
+    const url = request ? new URL(Avatar.BASE, request.url) : Avatar.BASE;
+    const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
-  return response.headers.get("etag");
-}
+    const response = await fetch(url, { headers, credentials: "include" });
 
-async function getAvatarEtagClient() {
-  const response = await fetch("/api/profile-avatar/get", { credentials: "include" });
-
-  if (!response?.ok) return null;
-
-  return response.headers.get("etag");
-}
-
-export async function getAvatarEtag(request: Request | null): Promise<AvatarEtagType | null> {
-  if (request) return getAvatarEtagServer(request);
-  return getAvatarEtagClient();
+    if (!response?.ok) return null;
+    return response.headers.get("etag");
+  }
 }

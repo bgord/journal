@@ -28,7 +28,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
     const [session, i18n, avatarEtag] = await Promise.all([
       await Auth.Session.get(context.request),
       await I18n.getI18n(context.request),
-      await Avatar.getAvatarEtag(context.request),
+      await Avatar.Avatar.getEtag(context.request),
     ]);
 
     // @ts-expect-error Login stays out as a separate HTML page
