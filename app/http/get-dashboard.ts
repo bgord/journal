@@ -60,7 +60,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
   const entryAlarmsResponse = await db.query.alarms.findMany({
     where: and(
       eq(Schema.alarms.userId, userId),
-      eq(Schema.alarms.name, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM),
+      eq(Schema.alarms.name, Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM),
       not(eq(Schema.alarms.status, "cancelled")),
       not(isNull(Schema.alarms.advice)),
       not(isNull(Schema.alarms.emotionLabel)),

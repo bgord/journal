@@ -9,11 +9,11 @@ export function DashboardHeatmap() {
       {dashboard?.heatmap.map((point, index) => (
         <li
           key={`heatmap-${point}-${index}`}
-          data-bg={point.t ? `positive-${point.c}` : `danger-${point.c}`}
           data-br="xs"
-          style={Rhythm(10).times(1).square}
           data-interaction="subtle-scale"
           data-animation="grow-fade-in"
+          data-bg={point.t ? `positive-${point.c}` : `danger-${point.c}`}
+          {...Rhythm(10).times(1).style.square}
         />
       ))}
     </ul>
