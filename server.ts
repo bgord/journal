@@ -31,6 +31,7 @@ const Deps = {
 };
 const TranslationsDeps = { JsonFileReader: Adapters.JsonFileReader, Logger: Adapters.Logger };
 
+const production = Env.type === bg.NodeEnvironmentEnum.production;
 const server = new Hono<infra.HonoConfig>().basePath("/api");
 
 server.use(
@@ -53,11 +54,7 @@ const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 server.get(
   "/healthcheck",
   bg.ShieldRateLimit(
-    {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
-      subject: bg.AnonSubjectResolver,
-      store: RateLimiters.HealthcheckStore,
-    },
+    { enabled: production, subject: bg.AnonSubjectResolver, store: RateLimiters.HealthcheckStore },
     Deps,
   ),
   timeout(tools.Duration.Seconds(15).ms, infra.requestTimeoutError),
@@ -78,11 +75,7 @@ entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry);
 entry.get(
   "/export-data",
   bg.ShieldRateLimit(
-    {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
-      subject: bg.UserSubjectResolver,
-      store: RateLimiters.EntriesDataStore,
-    },
+    { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesDataStore },
     Deps,
   ),
   HTTP.Emotions.ExportData,
@@ -90,11 +83,7 @@ entry.get(
 entry.get(
   "/export-entries",
   bg.ShieldRateLimit(
-    {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
-      subject: bg.UserSubjectResolver,
-      store: RateLimiters.EntriesEntriesStore,
-    },
+    { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesEntriesStore },
     Deps,
   ),
   HTTP.Emotions.ExportEntries,
@@ -114,7 +103,7 @@ weeklyReview.post(
   "/:weeklyReviewId/export/email",
   bg.ShieldRateLimit(
     {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      enabled: production,
       subject: bg.UserSubjectResolver,
       store: RateLimiters.WeeklyReviewExportEmailStore,
     },
@@ -127,7 +116,7 @@ weeklyReview.get(
   "/:weeklyReviewId/export/download",
   bg.ShieldRateLimit(
     {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      enabled: production,
       subject: bg.UserSubjectResolver,
       store: RateLimiters.WeeklyReviewExportDownloadStore,
     },
@@ -146,11 +135,7 @@ publishing.get("/links/list", HTTP.Publishing.ListShareableLinks);
 publishing.post(
   "/link/create",
   bg.ShieldRateLimit(
-    {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
-      subject: bg.UserSubjectResolver,
-      store: RateLimiters.ShareableLinkCreateStore,
-    },
+    { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.ShareableLinkCreateStore },
     Deps,
   ),
   HTTP.Publishing.CreateShareableLink,
