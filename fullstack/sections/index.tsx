@@ -14,3 +14,4 @@ export * from "./profile-password-change";
 export * from "./profile-shareable-link-create";
 export * from "./profile-shareable-links";
 export * from "./shared-entry";
+export * from "./profile-data-export";
