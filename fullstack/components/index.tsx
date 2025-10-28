@@ -1,6 +1,7 @@
 export * from "./avatar";
 export * from "./button-cancel";
 export * from "./button-copy";
+export * from "./dashboard-cell";
 export * from "./description-label";
 export * from "./entry-emotion-label";
 export * from "./entry-list-empty";

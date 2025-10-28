@@ -193,7 +193,7 @@
   "profile.ai_limits.usage": "{{count}} out of {{limit}} {{noun}} used",
   "profile.avatar.alt": "Image",
   "profile.avatar.selected": "Selected file: {{name}}",
-  "profile.avatar.header": "Profile avatar",
+  "profile.avatar.header": "Avatar",
   "profile.avatar.hint": "Max file size up to 10 MB",
   "profile.avatar.select_file.cta": "Select file",
   "profile.avatar.upload.cta": "Upload",
