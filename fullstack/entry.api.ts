@@ -63,29 +63,19 @@ export type HistoryParsedType = {
   createdAt: number;
 };
 
-async function getSharedEntriesServer(request: Request, shareableLinkId: ShareableLinkIdType) {
-  const response = await fetch(new URL(`/api/shared/entries/${shareableLinkId}`, request.url), {
-    headers: { cookie: Cookies.extractFrom(request) },
-    credentials: "include",
-  });
+export class Entry {
+  static async getSharedEntries(
+    request: Request | null,
+    shareableLinkId: ShareableLinkIdType,
+  ): Promise<Promise<EntryType[]>> {
+    const BASE = `/api/shared/entries/${shareableLinkId}`;
 
-  if (!response?.ok) return [];
+    const url = request ? new URL(BASE, request.url) : BASE;
+    const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
-  return response.json().catch(() => {});
-}
+    const response = await fetch(url, { headers, credentials: "include" });
 
-async function getSharedEntriesClient(shareableLinkId: ShareableLinkIdType) {
-  const response = await fetch(`/api/shared/entries/${shareableLinkId}`, { credentials: "include" });
-
-  if (!response?.ok) return [];
-
-  return response.json().catch(() => {});
-}
-
-export async function getSharedEntries(
-  request: Request | null,
-  shareableLinkId: ShareableLinkIdType,
-): Promise<EntryType[]> {
-  if (request) return getSharedEntriesServer(request, shareableLinkId);
-  return getSharedEntriesClient(shareableLinkId);
+    if (!response?.ok) return [];
+    return response.json().catch();
+  }
 }

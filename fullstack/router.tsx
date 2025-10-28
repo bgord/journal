@@ -5,12 +5,12 @@ import {
   Router,
   redirect,
 } from "@tanstack/react-router";
-import * as AI from "./ai.api";
-import * as Auth from "./auth.api";
-import * as Avatar from "./avatar.api";
+import { AI } from "./ai.api";
+import { Session } from "./auth.api";
+import { Avatar } from "./avatar.api";
 import * as Entry from "./entry.api";
 import * as HEAD from "./head";
-import * as I18n from "./i18n.api";
+import { I18N } from "./i18n.api";
 import { NotFound } from "./not-found";
 import { Shell } from "./shell";
 
@@ -26,9 +26,9 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   staleTime: Number.POSITIVE_INFINITY,
   loader: async ({ context }) => {
     const [session, i18n, avatarEtag] = await Promise.all([
-      await Auth.Session.get(context.request),
-      await I18n.I18N.get(context.request),
-      await Avatar.Avatar.getEtag(context.request),
+      await Session.get(context.request),
+      await I18N.get(context.request),
+      await Avatar.getEtag(context.request),
     ]);
 
     // @ts-expect-error Login stays out as a separate HTML page
@@ -59,7 +59,7 @@ export const profileRoute = createRoute({
   path: "/profile",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/profile"), "Profile"),
-  loader: async ({ context }) => ({ usage: await AI.AI.getUsageToday(context.request) }),
+  loader: async ({ context }) => ({ usage: await AI.getUsageToday(context.request) }),
 });
 
 const dashboardRoute = createRoute({
@@ -73,7 +73,7 @@ export const sharedEntries = createRoute({
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/shared-entries"), "SharedEntries"),
   loader: async ({ context, params }) => ({
-    entries: await Entry.getSharedEntries(context.request, params.shareableLinkId),
+    entries: await Entry.Entry.getSharedEntries(context.request, params.shareableLinkId),
   }),
 });
 

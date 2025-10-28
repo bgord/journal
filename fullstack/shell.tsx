@@ -1,7 +1,7 @@
 import { TranslationsContext } from "@bgord/ui";
 import { HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { rootRoute } from "./router";
-import { Navigation } from "./sections/navigation";
+import { Navigation } from "./sections";
 
 export function Shell() {
   const { i18n } = rootRoute.useLoaderData();
