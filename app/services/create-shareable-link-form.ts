@@ -21,3 +21,5 @@ export const Form = {
   dateRangeStart: { field: { name: "dateRangeStart" } },
   dateRangeEnd: { field: { name: "dateRangeEnd" } },
 };
+
+export { ShareableLinkStatusEnum } from "../../modules/publishing/value-objects/shareable-link-status";

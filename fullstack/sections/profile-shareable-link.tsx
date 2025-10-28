@@ -1,6 +1,7 @@
 import { useTranslations } from "@bgord/ui";
 import { Link } from "@tanstack/react-router";
 import { Clock, OpenInWindow } from "iconoir-react";
+import { ShareableLinkStatusEnum } from "../../app/services/create-shareable-link-form";
 import { ButtonCopy } from "../components";
 import type { ShareableLinkSnapshot } from "../publishing.api";
 import { ProfileShareableLinkRevoke } from "./profile-shareable-link-revoke";
@@ -23,13 +24,13 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
       data-fs="sm"
       data-bg="neutral-800"
     >
-      {props.status === "active" && (
+      {props.status === ShareableLinkStatusEnum.active && (
         <div className="c-badge" data-variant="primary" data-bc="positive-600" data-color="positive-400">
           {t("profile.shareable_links.status.active.value")}
         </div>
       )}
 
-      {["revoked", "expired"].includes(props.status) && (
+      {[ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status) && (
         <div className="c-badge" data-variant="outline" data-bc="danger-600" data-color="danger-400">
           {t(`profile.shareable_links.status.${props.status}.value`)}
         </div>
@@ -69,27 +70,27 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
       </div>
 
       <div data-stack="y" data-gap="3" data-ml="auto">
-        {props.status === "active" && (
+        {props.status === ShareableLinkStatusEnum.active && (
           <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-400">
             <Clock data-size="xs" />
             {t("profile.shareable_links.expires_at", { date: props.expiresAt })}
           </div>
         )}
 
-        {props.status === "revoked" && (
+        {props.status === ShareableLinkStatusEnum.revoked && (
           <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-400">
             <Clock data-size="xs" />
             {t("profile.shareable_links.revoked_at", { date: props.updatedAt })}
           </div>
         )}
 
-        {props.status === "expired" && (
+        {props.status === ShareableLinkStatusEnum.expired && (
           <div data-fs="xs" data-color="neutral-400">
             {t("profile.shareable_links.expired_at", { date: props.expiresAt })}
           </div>
         )}
 
-        {props.status === "active" && (
+        {props.status === ShareableLinkStatusEnum.active && (
           <div data-stack="x" data-gap="3" data-ml="auto">
             <Link
               to="/shared-entries/$shareableLinkId"
@@ -107,7 +108,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
           </div>
         )}
 
-        {["revoked", "expired"].includes(props.status) && (
+        {[ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status) && (
           <div data-stack="x" data-gap="3" data-ml="auto">
             <form method="POST" action=".">
               <input name="shareableLinkId" type="hidden" value={props.id} />
