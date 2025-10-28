@@ -8,7 +8,7 @@ import {
 import { AI } from "./ai.api";
 import { Session } from "./auth.api";
 import { Avatar } from "./avatar.api";
-import * as Entry from "./entry.api";
+import { Entry } from "./entry.api";
 import * as HEAD from "./head";
 import { I18N } from "./i18n.api";
 import { NotFound } from "./not-found";
@@ -43,7 +43,7 @@ export const homeRoute = createRoute({
   path: "/",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/home"), "Home"),
-  loader: async ({ context }) => ({ entries: await Entry.getEntryList(context.request) }),
+  loader: async ({ context }) => ({ entries: await Entry.getList(context.request) }),
 });
 
 export const homeEntryHistoryRoute = createRoute({
@@ -51,7 +51,7 @@ export const homeEntryHistoryRoute = createRoute({
   path: "entry/$entryId/history",
   component: lazyRouteComponent(() => import("./pages/home-entry-history"), "HomeEntryHistory"),
   loader: async ({ context, params }) => ({
-    history: await Entry.getEntryHistory(context.request, params.entryId),
+    history: await Entry.getHistory(context.request, params.entryId),
   }),
 });
 
@@ -73,7 +73,7 @@ export const sharedEntries = createRoute({
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/shared-entries"), "SharedEntries"),
   loader: async ({ context, params }) => ({
-    entries: await Entry.Entry.getSharedEntries(context.request, params.shareableLinkId),
+    entries: await Entry.getSharedEntries(context.request, params.shareableLinkId),
   }),
 });
 
