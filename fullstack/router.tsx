@@ -71,6 +71,7 @@ export const sharedEntries = createRoute({
   path: "/shared-entries/$shareableLinkId",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/shared-entries"), "SharedEntries"),
+  preload: false,
   loader: async ({ context, params }) => ({
     entries: await API.Entry.getSharedEntries(context.request, params.shareableLinkId),
   }),
