@@ -32,7 +32,12 @@ export function ProfileShareableLinkRevoke(props: ShareableLinkSnapshot) {
 
   return (
     <form onSubmit={revokeShareableLink} aria-busy={state === RequestState.loading}>
-      <button type="submit" className="c-button" data-variant="secondary">
+      <button
+        type="submit"
+        className="c-button"
+        data-variant="secondary"
+        disabled={state === RequestState.loading}
+      >
         {t("profile.shareable_links.revoke.cta")}
       </button>
     </form>
