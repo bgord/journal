@@ -14,7 +14,7 @@ class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
     const shareableLinks = await db.query.shareableLinks.findMany({
       where: and(eq(Schema.shareableLinks.ownerId, userId), eq(Schema.shareableLinks.hidden, false)),
       orderBy: [
-        sql`CASE ${Schema.shareableLinks.status} WHEN '${VO.ShareableLinkStatusEnum.active}' THEN 0 ELSE 1 END`,
+        sql`CASE ${Schema.shareableLinks.status} WHEN ${VO.ShareableLinkStatusEnum.active} THEN 0 ELSE 1 END`,
         desc(Schema.shareableLinks.createdAt),
       ],
     });
