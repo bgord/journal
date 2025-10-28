@@ -16,44 +16,7 @@ export function Dashboard() {
             <Icons.Alarm data-size="md" data-color="brand-300" /> {t("dashboard.alarm.header")}
           </h2>
 
-          <Components.DashboardCell data-mt="3">
-            <h2 data-stack="x" data-gap="3" data-fs="base">
-              {t("dashboard.alarm.inactivity")}
-              <div className="c-badge" data-variant="primary">
-                {/* {loaderData.alarms.inactivity.length} */}2
-              </div>
-            </h2>
-
-            {/* {!loaderData.alarms.inactivity[0] && ( */}
-            {/*   <div data-mt="5" data-fs="sm" data-color="neutral-400"> */}
-            {/*     {t("dashboard.alarm.inactivity.empty")} */}
-            {/*   </div> */}
-            {/* )} */}
-
-            {/* {loaderData.alarms.inactivity[0] && ( */}
-            {/*   <ul data-stack="y" data-gap="5" data-mt="5"> */}
-            {/*     {loaderData.alarms.inactivity.map((alarm) => ( */}
-            {/*       <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3"> */}
-            {/*         <div data-stack="x" data-gap="3"> */}
-            {/*           <div data-fs="sm" data-color="neutral-500"> */}
-            {/*             {alarm.generatedAt} */}
-            {/*           </div> */}
-
-            {/*           <div data-color="neutral-300"> */}
-            {/*             {t("dashboard.alarm.inactivity.duration", { */}
-            {/*               inactivityDays: String(alarm.inactivityDays), */}
-            {/*             })} */}
-            {/*           </div> */}
-
-            {/*           <div data-color="neutral-100"> */}
-            {/*             <Icons.Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{alarm.advice}" */}
-            {/*           </div> */}
-            {/*         </div> */}
-            {/*       </li> */}
-            {/*     ))} */}
-            {/*   </ul> */}
-            {/* )} */}
-          </Components.DashboardCell>
+          <Sections.DashboardAlarmsInactivity />
 
           <Components.DashboardCell data-mt="5">
             <h2 data-stack="x" data-gap="3" data-fs="base">
