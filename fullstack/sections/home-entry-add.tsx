@@ -4,10 +4,7 @@ import { Book, Plus, Timer, TimerOff, Xmark } from "iconoir-react";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
-import { ButtonCancel } from "../components/button-cancel";
-import { RatingPillsClickable } from "../components/rating-pills-clickable";
-import { Select } from "../components/select";
-import { Separator } from "../components/separator";
+import * as UI from "../components";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
@@ -111,17 +108,17 @@ export function HomeEntryAdd() {
           />
 
           <div data-stack="x" data-gap="8" data-cross="end">
-            <Select required {...situationKind.input.props}>
+            <UI.Select required {...situationKind.input.props}>
               <option value="">{t("entry.situation.kind.value.default")}</option>
               {Form.situationKind.options.map((kind) => (
                 <option key={kind} value={kind}>
                   {t(`entry.situation.kind.value.${kind}`)}
                 </option>
               ))}
-            </Select>
+            </UI.Select>
           </div>
 
-          <Separator />
+          <UI.Separator />
 
           <div data-stack="x" data-main="between">
             <div data-stack="x" data-cross="end">
@@ -150,7 +147,7 @@ export function HomeEntryAdd() {
               </button>
 
               {emotionType && (
-                <Select required data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
+                <UI.Select required data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
                   <option value="">{t("entry.emotion.label.default.value")}</option>
                   {(emotionType === "positive" ? Form.emotionLabel.positive : Form.emotionLabel.negative).map(
                     (emotion) => (
@@ -159,14 +156,14 @@ export function HomeEntryAdd() {
                       </option>
                     ),
                   )}
-                </Select>
+                </UI.Select>
               )}
             </div>
 
-            <RatingPillsClickable {...emotionIntensity} />
+            <UI.RatingPillsClickable {...emotionIntensity} />
           </div>
 
-          <Separator />
+          <UI.Separator />
 
           <textarea
             className="c-textarea"
@@ -178,14 +175,14 @@ export function HomeEntryAdd() {
           />
 
           <div data-stack="x" data-cross="center">
-            <Select required {...reactionType.input.props}>
+            <UI.Select required {...reactionType.input.props}>
               <option value="">{t("entry.reaction.type.default.value")}</option>
               {Form.reactionType.options.map((type) => (
                 <option key={type} value={type}>
                   {t(`entry.reaction.type.value.${type}`)}
                 </option>
               ))}
-            </Select>
+            </UI.Select>
 
             <label
               data-fs="xs"
@@ -197,7 +194,7 @@ export function HomeEntryAdd() {
             >
               {t("entry.reaction.effectiveness.label")}
             </label>
-            <RatingPillsClickable {...reactionEffectiveness} />
+            <UI.RatingPillsClickable {...reactionEffectiveness} />
           </div>
 
           <div data-stack="x" data-gap="3">
@@ -236,7 +233,7 @@ export function HomeEntryAdd() {
               </output>
             )}
 
-            <ButtonCancel disabled={state === RequestState.loading} onClick={dialog.disable} />
+            <UI.ButtonCancel disabled={state === RequestState.loading} onClick={dialog.disable} />
 
             <button
               type="submit"

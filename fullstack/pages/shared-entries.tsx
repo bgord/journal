@@ -1,6 +1,4 @@
-import { EntryListEmpty } from "../components/entry-list-empty";
-import { LanguageSelector } from "../components/language-selector";
-import { Logo } from "../components/logo";
+import * as UI from "../components";
 import { sharedEntries } from "../router";
 import { SharedEntry } from "../sections/shared-entry";
 
@@ -10,8 +8,8 @@ export function SharedEntries() {
   return (
     <main data-stack="y" data-pb="5">
       <header data-stack="x" data-main="between" data-cross="center" data-p="3">
-        <Logo />
-        <LanguageSelector />
+        <UI.Logo />
+        <UI.LanguageSelector />
       </header>
 
       <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto" data-mt="6">
@@ -20,7 +18,7 @@ export function SharedEntries() {
         ))}
       </ul>
 
-      {!entries[0] && <EntryListEmpty />}
+      {!entries[0] && <UI.EntryListEmpty />}
     </main>
   );
 }

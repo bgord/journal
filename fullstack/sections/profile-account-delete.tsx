@@ -1,7 +1,7 @@
 import { Autocomplete, Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
 import { UserXmark, WarningCircle, Xmark } from "iconoir-react";
 import React from "react";
-import { ButtonCancel } from "../components/button-cancel";
+import * as UI from "../components";
 import { RequestState } from "../ui";
 
 export function ProfileAccountDelete() {
@@ -119,7 +119,7 @@ export function ProfileAccountDelete() {
           )}
 
           <div data-stack="x" data-main="end" data-gap="5">
-            <ButtonCancel onClick={dialog.disable} />
+            <UI.ButtonCancel onClick={dialog.disable} />
 
             <button
               type="submit"

@@ -1,37 +1,32 @@
-import * as UI from "@bgord/ui";
+import * as bg from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
-import { ButtonCancel } from "../components/button-cancel";
-import { DescriptionLabel } from "../components/description-label";
-import { EntryReactionDescription } from "../components/entry-reaction-description";
-import { EntryReactionType } from "../components/entry-reaction-type";
-import { RatingPillsClickable } from "../components/rating-pills-clickable";
-import { Select } from "../components/select";
+import * as UI from "../components";
 import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
 export function HomeEntryReaction(props: EntryType) {
-  const t = UI.useTranslations();
+  const t = bg.useTranslations();
   const router = useRouter();
-  const metaEnterSubmit = UI.useMetaEnterSubmit();
+  const metaEnterSubmit = bg.useMetaEnterSubmit();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
-  const reactionDescriptionEdit = UI.useToggle({ name: "reaction-description" });
-  const reactionDescription = UI.useTextField<types.ReactionDescriptionType>({
+  const reactionDescriptionEdit = bg.useToggle({ name: "reaction-description" });
+  const reactionDescription = bg.useTextField<types.ReactionDescriptionType>({
     ...Form.reactionDescription.field,
     defaultValue: props.reactionDescription as types.ReactionDescriptionType,
   });
 
-  const reactionType = UI.useTextField<types.ReactionTypeType>({
+  const reactionType = bg.useTextField<types.ReactionTypeType>({
     ...Form.reactionDescription.field,
     defaultValue: props.reactionType as types.ReactionTypeType,
   });
-  const reactionTypeEdit = UI.useToggle({ name: "reaction-type" });
+  const reactionTypeEdit = bg.useToggle({ name: "reaction-type" });
 
-  const reactionEffectiveness = UI.useNumberField<types.ReactionEffectivenessType>({
+  const reactionEffectiveness = bg.useNumberField<types.ReactionEffectivenessType>({
     ...Form.reactionDescription.field,
     defaultValue: props.reactionEffectiveness as types.ReactionEffectivenessType,
   });
@@ -44,7 +39,7 @@ export function HomeEntryReaction(props: EntryType) {
     const response = await fetch(`/api/entry/${props.id}/evaluate-reaction`, {
       method: "POST",
       credentials: "include",
-      headers: UI.WeakETag.fromRevision(props.revision),
+      headers: bg.WeakETag.fromRevision(props.revision),
       body: JSON.stringify({
         description: reactionDescription.value,
         type: reactionType.value,
@@ -64,11 +59,11 @@ export function HomeEntryReaction(props: EntryType) {
 
   return (
     <section data-stack="y" data-gap="3">
-      <div data-stack="x" data-cross="center" data-gap="5" {...UI.Rhythm().times(3).style.minHeight}>
-        <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
+      <div data-stack="x" data-cross="center" data-gap="5" {...bg.Rhythm().times(3).style.minHeight}>
+        <UI.DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</UI.DescriptionLabel>
 
         {reactionTypeEdit.off && (
-          <EntryReactionType
+          <UI.EntryReactionType
             reactionType={reactionType.value as EntryType["reactionType"]}
             data-cursor="pointer"
             onClick={reactionTypeEdit.enable}
@@ -77,7 +72,7 @@ export function HomeEntryReaction(props: EntryType) {
 
         {reactionTypeEdit.on && (
           <div data-stack="x" data-gap="2" data-mr="2">
-            <Select
+            <UI.Select
               {...reactionType.input.props}
               disabled={state === RequestState.loading}
               onChange={(event) => {
@@ -90,21 +85,21 @@ export function HomeEntryReaction(props: EntryType) {
                   {t(`entry.reaction.type.value.${type}`)}
                 </option>
               ))}
-            </Select>
+            </UI.Select>
 
-            <ButtonCancel
+            <UI.ButtonCancel
               type="submit"
               disabled={state === RequestState.loading}
-              onClick={UI.exec([reactionType.clear, reactionTypeEdit.disable])}
+              onClick={bg.exec([reactionType.clear, reactionTypeEdit.disable])}
             />
           </div>
         )}
 
-        <RatingPillsClickable {...reactionEffectiveness} />
+        <UI.RatingPillsClickable {...reactionEffectiveness} />
       </div>
 
       {reactionDescriptionEdit.off && (
-        <EntryReactionDescription
+        <UI.EntryReactionDescription
           reactionDescription={reactionDescription.value ?? null}
           onClick={reactionDescriptionEdit.enable}
         />
@@ -128,14 +123,14 @@ export function HomeEntryReaction(props: EntryType) {
             rows={3}
             disabled={state === RequestState.loading}
             {...reactionDescription.input.props}
-            {...UI.Form.textarea(Form.reactionDescription.pattern)}
+            {...bg.Form.textarea(Form.reactionDescription.pattern)}
             {...metaEnterSubmit}
           />
 
           <div data-stack="x" data-main="end" data-gap="5">
-            <ButtonCancel
+            <UI.ButtonCancel
               disabled={state === RequestState.loading}
-              onClick={UI.exec([reactionDescription.clear, reactionDescriptionEdit.disable])}
+              onClick={bg.exec([reactionDescription.clear, reactionDescriptionEdit.disable])}
             />
 
             <button
@@ -143,7 +138,7 @@ export function HomeEntryReaction(props: EntryType) {
               className="c-button"
               data-variant="primary"
               disabled={reactionDescription.unchanged || state === RequestState.loading}
-              {...UI.Rhythm().times(8).style.minWidth}
+              {...bg.Rhythm().times(8).style.minWidth}
             >
               {t("app.save")}
             </button>

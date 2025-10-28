@@ -2,7 +2,7 @@ import { useHover } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { Xmark } from "iconoir-react";
 import React from "react";
-import { Avatar, AvatarSize } from "../components/avatar";
+import * as UI from "../components";
 import { rootRoute } from "../router";
 import { RequestState } from "../ui";
 
@@ -30,7 +30,7 @@ export function ProfileAvatarDelete() {
 
   return (
     <div data-position="relative" {...hover.attach}>
-      <Avatar size={AvatarSize.large} />
+      <UI.Avatar size={UI.AvatarSize.large} />
 
       {hover.hovering && enabled && (
         <div data-position="absolute" data-inset="0" data-bg="neutral-900" data-opacity="high" />

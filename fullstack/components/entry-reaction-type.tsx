@@ -1,11 +1,11 @@
-import * as UI from "@bgord/ui";
+import { useTranslations } from "@bgord/ui";
 import type React from "react";
 import type { EntryType } from "../entry.api";
 
 export function EntryReactionType(
   props: Pick<EntryType, "reactionType"> & React.JSX.IntrinsicElements["div"],
 ) {
-  const t = UI.useTranslations();
+  const t = useTranslations();
   const { reactionType, ...rest } = props;
 
   return (

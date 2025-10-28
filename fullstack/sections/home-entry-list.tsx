@@ -1,4 +1,4 @@
-import { EntryListEmpty } from "../components/entry-list-empty";
+import * as UI from "../components";
 import { homeRoute } from "../router";
 import { HomeEntry } from "./home-entry";
 
@@ -15,7 +15,7 @@ export function HomeEntryList() {
         </ul>
       )}
 
-      {!entries[0] && <EntryListEmpty />}
+      {!entries[0] && <UI.EntryListEmpty />}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import * as UI from "@bgord/ui";
+import * as bg from "@bgord/ui";
 import { HelpCircle, Plus, ShareIos, Xmark } from "iconoir-react";
 import React from "react";
 import {
@@ -6,20 +6,19 @@ import {
   type ShareableLinkDuration,
   type ShareableLinkSpecification,
 } from "../../app/services/create-shareable-link-form";
-import { ButtonCancel } from "../components/button-cancel";
-import { Select } from "../components/select";
+import * as UI from "../components";
 import { RequestState } from "../ui";
 
 export function ProfileShareableLinkCreate() {
-  const t = UI.useTranslations();
+  const t = bg.useTranslations();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
-  const dialog = UI.useToggle({ name: "dialog" });
+  const dialog = bg.useToggle({ name: "dialog" });
 
-  const specification = UI.useTextField<ShareableLinkSpecification>(Form.specification.field);
-  const duration = UI.useTextField<ShareableLinkDuration>(Form.duration.field);
-  const dateRangeStart = UI.useDateField(Form.dateRangeStart.field);
-  const dateRangeEnd = UI.useDateField(Form.dateRangeEnd.field);
+  const specification = bg.useTextField<ShareableLinkSpecification>(Form.specification.field);
+  const duration = bg.useTextField<ShareableLinkDuration>(Form.duration.field);
+  const dateRangeStart = bg.useDateField(Form.dateRangeStart.field);
+  const dateRangeEnd = bg.useDateField(Form.dateRangeEnd.field);
 
   async function createShareableLink(event: React.FormEvent) {
     event.preventDefault();
@@ -45,7 +44,7 @@ export function ProfileShareableLinkCreate() {
     dialog.disable();
   }
 
-  UI.useShortcuts({ "$mod+Control+KeyN": dialog.enable });
+  bg.useShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
   return (
     <>
@@ -60,7 +59,7 @@ export function ProfileShareableLinkCreate() {
         {t("profile.shareable_links.create.cta_primary")}
       </button>
 
-      <UI.Dialog data-mt="12" data-gap="3" style={{ ...UI.Rhythm().times(50).width }} {...dialog}>
+      <bg.Dialog data-mt="12" data-gap="3" style={{ ...bg.Rhythm().times(50).width }} {...dialog}>
         <div data-stack="x" data-main="between">
           <strong data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
             <ShareIos data-size="md" data-color="neutral-300" />
@@ -92,7 +91,7 @@ export function ProfileShareableLinkCreate() {
                   data-variant={duration.value === option ? "secondary" : "bare"}
                   onClick={() => duration.set(option as ShareableLinkDuration)}
                   disabled={state === RequestState.loading}
-                  {...UI.Rhythm().times(9).style.width}
+                  {...bg.Rhythm().times(9).style.width}
                 >
                   {t(`profile.shareable_links.create.duration.${option}.value`)}
                 </button>
@@ -106,13 +105,13 @@ export function ProfileShareableLinkCreate() {
             </label>
 
             <div data-stack="x" data-gap="5">
-              <Select required disabled={state === RequestState.loading} {...specification.input.props}>
+              <UI.Select required disabled={state === RequestState.loading} {...specification.input.props}>
                 {Form.specification.options.map((specification) => (
                   <option key={specification} value={specification}>
                     {t(`profile.shareable_links.create.specification.${specification}.value`)}
                   </option>
                 ))}
-              </Select>
+              </UI.Select>
 
               <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-300">
                 <HelpCircle data-size="sm" />
@@ -157,7 +156,7 @@ export function ProfileShareableLinkCreate() {
             )}
 
             <div data-stack="x" data-gap="5" data-ml="auto">
-              <ButtonCancel onClick={dialog.disable} disabled={state === RequestState.loading} />
+              <UI.ButtonCancel onClick={dialog.disable} disabled={state === RequestState.loading} />
 
               <button
                 type="submit"
@@ -170,7 +169,7 @@ export function ProfileShareableLinkCreate() {
             </div>
           </div>
         </form>
-      </UI.Dialog>
+      </bg.Dialog>
     </>
   );
 }

@@ -1,7 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import { DownloadCircle, Language, ProfileCircle } from "iconoir-react";
-import { LanguageSelector } from "../components/language-selector";
-import { Separator } from "../components/separator";
+import * as UI from "../components";
 import { ProfileAccountDelete } from "../sections/profile-account-delete";
 import { ProfileAiUsage } from "../sections/profile-ai-usage";
 import { ProfileAvatarChange } from "../sections/profile-avatar-change";
@@ -33,15 +32,15 @@ export function Profile() {
 
       <ProfileAvatarChange />
 
-      <Separator />
+      <UI.Separator />
 
       <ProfileAiUsage />
 
-      <Separator />
+      <UI.Separator />
 
       <ProfileShareableLinks />
 
-      <Separator />
+      <UI.Separator />
 
       <div data-stack="y" data-gap="5">
         <div data-stack="x" data-cross="center" data-gap="3">
@@ -49,10 +48,10 @@ export function Profile() {
           <div>{t("profile.change_language.header")}</div>
         </div>
 
-        <LanguageSelector />
+        <UI.LanguageSelector />
       </div>
 
-      <Separator />
+      <UI.Separator />
 
       <div data-stack="y" data-gap="5">
         <div data-stack="x" data-cross="center" data-gap="3">
@@ -77,11 +76,11 @@ export function Profile() {
         </a>
       </div>
 
-      <Separator />
+      <UI.Separator />
 
       <ProfilePasswordChange />
 
-      <Separator />
+      <UI.Separator />
 
       <ProfileAccountDelete />
     </main>

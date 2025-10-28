@@ -2,10 +2,7 @@ import { Rhythm, useExitAction, useTranslations, WeakETag } from "@bgord/ui";
 import { Link, useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
-import { DescriptionLabel } from "../components/description-label";
-import { EntrySituationDescription } from "../components/entry-situation-description";
-import { EntrySituationKind } from "../components/entry-situation-kind";
-import { EntryStartedAt } from "../components/entry-started-at";
+import * as UI from "../components";
 import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
@@ -52,7 +49,7 @@ export function HomeEntry(props: EntryType) {
     >
       <header data-stack="x" data-gap="3" data-cross="center" {...Rhythm().times(3).style.height}>
         {props.origin === "time_capsule" && <Icons.Timer data-size="sm" data-color="neutral-300" />}
-        <EntryStartedAt startedAt={props.startedAt} data-mr="auto" />
+        <UI.EntryStartedAt startedAt={props.startedAt} data-mr="auto" />
         <Link
           to="/entry/$entryId/history"
           params={{ entryId: props.id }}
@@ -82,10 +79,10 @@ export function HomeEntry(props: EntryType) {
 
       <section data-stack="y" data-gap="5" data-py="2" data-pb="5" data-bcb="neutral-700" data-bwb="hairline">
         <div data-stack="x" data-cross="center" data-gap="4">
-          <DescriptionLabel>{t("entry.situation.description.label")}</DescriptionLabel>
-          <EntrySituationKind situationKind={props.situationKind} />
+          <UI.DescriptionLabel>{t("entry.situation.description.label")}</UI.DescriptionLabel>
+          <UI.EntrySituationKind situationKind={props.situationKind} />
         </div>
-        <EntrySituationDescription situationDescription={props.situationDescription} />
+        <UI.EntrySituationDescription situationDescription={props.situationDescription} />
         <EntryEmotion {...props} />
       </section>
       <HomeEntryReaction {...props} />

@@ -3,10 +3,7 @@ import { useRouter } from "@tanstack/react-router";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
-import { ButtonCancel } from "../components/button-cancel";
-import { EntryEmotionLabel } from "../components/entry-emotion-label";
-import { RatingPillsClickable } from "../components/rating-pills-clickable";
-import { Select } from "../components/select";
+import * as UI from "../components";
 import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
@@ -52,7 +49,7 @@ export function EntryEmotion(props: EntryType) {
   return (
     <div data-stack="x" data-gap="5" data-mt="2">
       {emotionLabelEdit.off && (
-        <EntryEmotionLabel
+        <UI.EntryEmotionLabel
           emotionLabel={props.emotionLabel}
           data-cursor="pointer"
           onClick={emotionLabelEdit.enable}
@@ -61,7 +58,7 @@ export function EntryEmotion(props: EntryType) {
 
       {emotionLabelEdit.on && (
         <div data-stack="x" data-gap="2" data-mr="2">
-          <Select
+          <UI.Select
             {...emotionLabel.input.props}
             disabled={state === RequestState.loading}
             onChange={(event) => {
@@ -74,9 +71,9 @@ export function EntryEmotion(props: EntryType) {
                 {t(`entry.emotion.label.value.${emotion}`)}
               </option>
             ))}
-          </Select>
+          </UI.Select>
 
-          <ButtonCancel
+          <UI.ButtonCancel
             type="submit"
             disabled={state === RequestState.loading}
             onClick={exec([emotionLabel.clear, emotionLabelEdit.disable])}
@@ -84,7 +81,7 @@ export function EntryEmotion(props: EntryType) {
         </div>
       )}
 
-      <RatingPillsClickable {...emotionIntensity} />
+      <UI.RatingPillsClickable {...emotionIntensity} />
     </div>
   );
 }
