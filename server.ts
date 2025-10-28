@@ -202,6 +202,10 @@ server.get("/history/:subject/list", AuthShield.attach, AuthShield.verify, async
 });
 // =============================
 
+// Dashboard ===================
+server.get("/dashboard/get", AuthShield.attach, AuthShield.verify, HTTP.GetDashboard);
+// =============================
+
 // Auth ========================
 server.on(["POST", "GET"], "/auth/*", async (c) => {
   const response = await auth.handler(c.req.raw);

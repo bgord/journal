@@ -65,7 +65,7 @@ export const dashboardRoute = createRoute({
   path: "/dashboard",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/dashboard"), "Dashboard"),
-  loader: async () => ({ heatmap: [] as { t: boolean; c: "200" | "400" | "600" }[] }),
+  loader: async ({ context }) => await API.Dashboard.get(context.request),
 });
 
 export const sharedEntries = createRoute({

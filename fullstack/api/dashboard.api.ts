@@ -1,8 +1,5 @@
 import { Cookies } from "@bgord/ui";
-
-export type DashboardDataType = {
-  heatmap: { t: boolean; c: "200" | "400" | "600" }[];
-};
+import type { DashboardDataType } from "../../app/http/get-dashboard";
 
 export class Dashboard {
   private static readonly BASE = "/api/dashboard/get";
