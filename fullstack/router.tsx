@@ -61,10 +61,11 @@ export const profileRoute = createRoute({
   }),
 });
 
-const dashboardRoute = createRoute({
+export const dashboardRoute = createRoute({
   path: "/dashboard",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/dashboard"), "Dashboard"),
+  loader: async () => ({ heatmap: [] as { t: boolean; c: "200" | "400" | "600" }[] }),
 });
 
 export const sharedEntries = createRoute({

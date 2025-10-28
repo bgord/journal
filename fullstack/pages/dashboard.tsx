@@ -1,25 +1,14 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
 import * as Components from "../components";
+import * as Sections from "../sections";
 
 export function Dashboard() {
   const t = UI.useTranslations();
 
   return (
     <main data-stack="y" data-gap="8">
-      <ul data-stack="x" data-p="5" data-gap="1">
-        {/* {heatmap.map((point, index) => ( */}
-        {/*   // @ts-expect-error */}
-        {/*   <li */}
-        {/*     key={`heatmap-${point}-${index}`} */}
-        {/*     data-bg={point.t ? `positive-${point.c}` : `danger-${point.c}`} */}
-        {/*     data-br="xs" */}
-        {/*     style={UI.Rhythm(10).times(1).square} */}
-        {/*     data-interaction="subtle-scale" */}
-        {/*     data-animation="grow-fade-in" */}
-        {/*   /> */}
-        {/* ))} */}
-      </ul>
+      <Sections.DashboardHeatmap />
 
       <div data-stack="x" data-gap="5" data-mx="auto" data-color="neutral-200" data-px="1">
         <section data-fs="sm" {...UI.Rhythm(450).times(1).style.width}>
