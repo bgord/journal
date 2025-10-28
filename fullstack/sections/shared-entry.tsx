@@ -4,6 +4,7 @@ import { Form } from "../../app/services/home-entry-add-form";
 import { DescriptionLabel } from "../components/description-label";
 import { EntryEmotionLabel } from "../components/entry-emotion-label";
 import { EntryReactionDescription } from "../components/entry-reaction-description";
+import { EntryReactionType } from "../components/entry-reaction-type";
 import { EntrySituationDescription } from "../components/entry-situation-description";
 import { EntrySituationKind } from "../components/entry-situation-kind";
 import { EntryStartedAt } from "../components/entry-started-at";
@@ -30,7 +31,7 @@ export function SharedEntry(props: EntryType) {
         <EntryStartedAt startedAt={props.startedAt} />
       </header>
 
-      <section data-stack="y" data-gap="5" data-py="5" data-bcb="neutral-700" data-bwb="hairline">
+      <section data-stack="y" data-gap="5" data-py="2" data-pb="5" data-bcb="neutral-700" data-bwb="hairline">
         <div data-stack="x" data-cross="center" data-gap="4">
           <DescriptionLabel>{t("entry.situation.description.label")}</DescriptionLabel>
           <EntrySituationKind situationKind={props.situationKind} />
@@ -45,7 +46,15 @@ export function SharedEntry(props: EntryType) {
       </section>
 
       <section data-stack="y" data-gap="5">
-        <DescriptionLabel>{t("entry.reaction.description.label")}</DescriptionLabel>
+        <div data-stack="x" data-gap="5">
+          <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
+
+          <EntryReactionType reactionType={props.reactionType} />
+          <RatingPills
+            rating={props.reactionEffectiveness as number}
+            total={Form.reactionEffectiveness.pattern.max}
+          />
+        </div>
         <EntryReactionDescription reactionDescription={props.reactionDescription} />
       </section>
 

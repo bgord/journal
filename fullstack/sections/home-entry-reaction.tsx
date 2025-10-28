@@ -6,6 +6,7 @@ import { Form } from "../../app/services/home-entry-add-form";
 import { ButtonCancel } from "../components/button-cancel";
 import { DescriptionLabel } from "../components/description-label";
 import { EntryReactionDescription } from "../components/entry-reaction-description";
+import { EntryReactionType } from "../components/entry-reaction-type";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
 import type { EntryType } from "../entry.api";
@@ -67,14 +68,11 @@ export function HomeEntryReaction(props: EntryType) {
         <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
 
         {reactionTypeEdit.off && (
-          <div
-            className="c-badge"
-            data-variant="primary"
+          <EntryReactionType
+            reactionType={reactionType.value as EntryType["reactionType"]}
             data-cursor="pointer"
             onClick={reactionTypeEdit.enable}
-          >
-            {t(`entry.reaction.type.value.${reactionType.value}`)}
-          </div>
+          />
         )}
 
         {reactionTypeEdit.on && (
