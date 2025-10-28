@@ -1,4 +1,5 @@
 import * as bg from "@bgord/ui";
+import { useRouter } from "@tanstack/react-router";
 import { HelpCircle, Plus, ShareIos, Xmark } from "iconoir-react";
 import React from "react";
 import {
@@ -7,10 +8,12 @@ import {
   type ShareableLinkSpecification,
 } from "../../app/services/create-shareable-link-form";
 import * as UI from "../components";
+import { profileRoute } from "../router";
 import { RequestState } from "../ui";
 
 export function ProfileShareableLinkCreate() {
   const t = bg.useTranslations();
+  const router = useRouter();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
   const dialog = bg.useToggle({ name: "dialog" });
@@ -40,6 +43,7 @@ export function ProfileShareableLinkCreate() {
 
     if (!response.ok) return setState(RequestState.error);
 
+    router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true });
     setState(RequestState.done);
     dialog.disable();
   }
