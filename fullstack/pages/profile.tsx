@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import { DownloadCircle, Language, ProfileCircle } from "iconoir-react";
+import { ProfileCircle } from "iconoir-react";
 import * as UI from "../components";
 import * as Sections from "../sections";
 
@@ -19,44 +19,25 @@ export function Profile() {
       data-color="neutral-100"
       data-bg="neutral-900"
     >
-      <header data-stack="x" data-gap="3" data-pb="5" data-bwb="hairline" data-bcb="neutral-800">
+      <header data-stack="x" data-gap="3">
         <ProfileCircle data-size="md" data-color="brand-300" />
         <h2 data-fw="bold" data-fs="base">
-          Profile
+          {t("profile.header")}
         </h2>
       </header>
-
+      <UI.Separator />
       <Sections.ProfileAvatarChange />
-
       <UI.Separator />
-
       <Sections.ProfileAiUsage />
-
       <UI.Separator />
-
       <Sections.ProfileShareableLinks />
-
       <UI.Separator />
-
-      <div data-stack="y" data-gap="5">
-        <div data-stack="x" data-cross="center" data-gap="3">
-          <Language data-size="md" />
-          <div>{t("profile.change_language.header")}</div>
-        </div>
-
-        <UI.LanguageSelector />
-      </div>
-
+      <Sections.ProfileLanguageSelector />
       <UI.Separator />
-
       <Sections.ProfileDataExport />
-
       <UI.Separator />
-
       <Sections.ProfilePasswordChange />
-
       <UI.Separator />
-
       <Sections.ProfileAccountDelete />
     </main>
   );
