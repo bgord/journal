@@ -21,25 +21,19 @@ import { SupportedLanguages } from "./modules/supported-languages";
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
-const ServerDeps = {
+const Deps = {
   Logger: Adapters.Logger,
   I18n: I18nConfig,
   IdProvider: Adapters.IdProvider,
   Clock: Adapters.Clock,
   JsonFileReader: Adapters.JsonFileReader,
 };
-const ShieldRateLimitDeps = { Clock: Adapters.Clock };
-const HealthcheckDeps = {
-  Clock: Adapters.Clock,
-  JsonFileReader: Adapters.JsonFileReader,
-  Logger: Adapters.Logger,
-};
 const TranslationsDeps = { JsonFileReader: Adapters.JsonFileReader, Logger: Adapters.Logger };
 
 const server = new Hono<infra.HonoConfig>().basePath("/api");
 
 server.use(
-  ...bg.Setup.essentials(ServerDeps, {
+  ...bg.Setup.essentials(Deps, {
     cors: {
       origin: ["http://localhost:5173", "http://localhost:3000", "https://journal.bgord.dev"],
       credentials: true,
@@ -63,11 +57,11 @@ server.get(
       subject: bg.AnonSubjectResolver,
       store: RateLimiters.HealthcheckStore,
     },
-    ShieldRateLimitDeps,
+    Deps,
   ),
   timeout(tools.Duration.Seconds(15).ms, infra.requestTimeoutError),
   BasicAuthShield,
-  ...bg.Healthcheck.build(healthcheck, HealthcheckDeps),
+  ...bg.Healthcheck.build(healthcheck, Deps),
 );
 // =============================
 
@@ -88,7 +82,7 @@ entry.get(
       subject: bg.UserSubjectResolver,
       store: RateLimiters.EntriesDataStore,
     },
-    ShieldRateLimitDeps,
+    Deps,
   ),
   HTTP.Emotions.ExportData,
 );
@@ -100,7 +94,7 @@ entry.get(
       subject: bg.UserSubjectResolver,
       store: RateLimiters.EntriesEntriesStore,
     },
-    ShieldRateLimitDeps,
+    Deps,
   ),
   HTTP.Emotions.ExportEntries,
 );
@@ -123,7 +117,7 @@ weeklyReview.post(
       subject: bg.UserSubjectResolver,
       store: RateLimiters.WeeklyReviewExportEmailStore,
     },
-    ShieldRateLimitDeps,
+    Deps,
   ),
   Adapters.CaptchaShield.verify,
   HTTP.Emotions.ExportWeeklyReviewByEmail,
@@ -136,7 +130,7 @@ weeklyReview.get(
       subject: bg.UserSubjectResolver,
       store: RateLimiters.WeeklyReviewExportDownloadStore,
     },
-    ShieldRateLimitDeps,
+    Deps,
   ),
   HTTP.Emotions.DownloadWeeklyReview,
 );
@@ -156,7 +150,7 @@ publishing.post(
       subject: bg.UserSubjectResolver,
       store: RateLimiters.ShareableLinkCreateStore,
     },
-    ShieldRateLimitDeps,
+    Deps,
   ),
   HTTP.Publishing.CreateShareableLink,
 );
