@@ -1,11 +1,12 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { desc, eq } from "drizzle-orm";
-import { Hono } from "hono";
+import { and, desc, eq } from "drizzle-orm";
+import { type Context, Hono } from "hono";
 import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
 import * as infra from "+infra";
 import * as Preferences from "+preferences";
+import * as Publishing from "+publishing";
 import * as Adapters from "+infra/adapters";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
@@ -155,6 +156,23 @@ publishing.post(
   HTTP.Publishing.CreateShareableLink,
 );
 publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink);
+publishing.post("/link/:shareableLinkId/hide", async (c: Context<infra.HonoConfig>) => {
+  const userId = c.get("user").id;
+  const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
+
+  await db
+    .update(Schema.shareableLinks)
+    .set({ hidden: true })
+    .where(
+      and(
+        eq(Schema.shareableLinks.id, shareableLinkId),
+        eq(Schema.shareableLinks.ownerId, userId),
+        eq(Schema.shareableLinks.hidden, false),
+      ),
+    );
+
+  return new Response();
+});
 server.route("/publishing", publishing);
 // =============================
 
