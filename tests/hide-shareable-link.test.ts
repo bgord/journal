@@ -1,0 +1,43 @@
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
+import { auth } from "+infra/auth";
+import { db } from "+infra/db";
+import { server } from "../server";
+import * as mocks from "./mocks";
+
+const url = `/api/publishing/link/${mocks.shareableLinkId}/hide`;
+
+describe(`POST ${url}`, () => {
+  test("validation - AccessDeniedAuthShieldError", async () => {
+    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const json = await response.json();
+    expect(response.status).toBe(403);
+    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+  });
+
+  test("validation - incorrect id", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      "/api/publishing/link/id/revoke",
+      { method: "POST", headers: mocks.revisionHeaders() },
+      mocks.ip,
+    );
+    const json = await response.json();
+    expect(response.status).toBe(400);
+    expect(json).toEqual({ message: "payload.invalid.error", _known: true });
+  });
+
+  test("happy path", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    // @ts-expect-error
+    spyOn(db, "update").mockReturnValue({ set: jest.fn().mockReturnValue({ where: jest.fn() }) });
+
+    const response = await server.request(
+      url,
+      { method: "POST", headers: mocks.correlationIdAndRevisionHeaders() },
+      mocks.ip,
+    );
+
+    expect(response.status).toBe(200);
+  });
+});
