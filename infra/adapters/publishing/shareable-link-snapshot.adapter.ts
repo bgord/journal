@@ -7,7 +7,10 @@ import type { ShareableLinkSnapshotPort } from "+publishing/ports";
 import * as VO from "+publishing/value-objects";
 
 class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
-  async getByUserId(userId: Auth.VO.UserIdType, timeZoneOffsetMs: tools.DurationMsType) {
+  async getByUserId(
+    userId: Auth.VO.UserIdType,
+    timeZoneOffsetMs: tools.DurationMsType,
+  ): Promise<VO.ShareableLinkSnapshot[]> {
     const shareableLinks = await db.query.shareableLinks.findMany({
       where: and(eq(Schema.shareableLinks.ownerId, userId), eq(Schema.shareableLinks.hidden, false)),
       orderBy: [

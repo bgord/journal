@@ -147,6 +147,7 @@ server.route("/weekly-review", weeklyReview);
 const publishing = new Hono();
 
 publishing.use("*", AuthShield.attach, AuthShield.verify);
+publishing.get("/links/list", HTTP.Publishing.ListShareableLinks);
 publishing.post(
   "/link/create",
   bg.ShieldRateLimit(

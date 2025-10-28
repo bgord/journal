@@ -993,6 +993,17 @@ export const shareableLink: Schema.SelectShareableLinks = {
   hidden: false,
 };
 
+export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
+  id: shareableLinkId,
+  updatedAt: tools.DateFormatters.datetime(T0),
+  status: Publishing.VO.ShareableLinkStatusEnum.active,
+  revision: 0,
+  publicationSpecification: "entries",
+  dateRangeStart: tools.DateFormatters.datetime(T0),
+  dateRangeEnd: tools.DateFormatters.datetime(T0),
+  expiresAt: tools.DateFormatters.datetime(T0),
+};
+
 export const user: User = {
   name: email,
   email: email,
