@@ -1,6 +1,7 @@
 import * as UI from "@bgord/ui";
 import { Timer } from "iconoir-react";
 import { Form } from "../../app/services/home-entry-add-form";
+import { DescriptionLabel } from "../components/description-label";
 import { EntryEmotionLabel } from "../components/entry-emotion-label";
 import { EntryReactionDescription } from "../components/entry-reaction-description";
 import { EntrySituationDescription } from "../components/entry-situation-description";
@@ -26,16 +27,12 @@ export function SharedEntry(props: EntryType) {
     >
       <header data-stack="x" data-main="between" data-cross="center" {...UI.Rhythm().times(3).style.height}>
         {props.origin === "time_capsule" && <Timer data-size="sm" data-color="neutral-300" />}
-
         <EntryStartedAt startedAt={props.startedAt} />
       </header>
 
       <section data-stack="y" data-gap="5" data-py="5" data-bcb="neutral-700" data-bwb="hairline">
         <div data-stack="x" data-cross="center" data-gap="4">
-          <div data-fs="sm" data-color="neutral-400">
-            {t("entry.situation.description.label")}
-          </div>
-
+          <DescriptionLabel>{t("entry.situation.description.label")}</DescriptionLabel>
           <EntrySituationKind situationKind={props.situationKind} />
         </div>
 
@@ -48,10 +45,7 @@ export function SharedEntry(props: EntryType) {
       </section>
 
       <section data-stack="y" data-gap="5">
-        <div data-color="neutral-400" data-fs="sm">
-          {t("entry.reaction.description.label")}
-        </div>
-
+        <DescriptionLabel>{t("entry.reaction.description.label")}</DescriptionLabel>
         <EntryReactionDescription reactionDescription={props.reactionDescription} />
       </section>
 

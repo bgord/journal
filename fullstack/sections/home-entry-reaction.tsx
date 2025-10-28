@@ -4,6 +4,7 @@ import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import { ButtonCancel } from "../components/button-cancel";
+import { DescriptionLabel } from "../components/description-label";
 import { EntryReactionDescription } from "../components/entry-reaction-description";
 import { RatingPillsClickable } from "../components/rating-pills-clickable";
 import { Select } from "../components/select";
@@ -63,9 +64,7 @@ export function HomeEntryReaction(props: EntryType) {
   return (
     <section data-stack="y" data-gap="3">
       <div data-stack="x" data-cross="center" data-gap="5" {...UI.Rhythm().times(3).style.minHeight}>
-        <div data-color="neutral-400" data-fs="sm" data-mr="auto">
-          {t("entry.reaction.description.label")}
-        </div>
+        <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
 
         {reactionTypeEdit.off && (
           <div
