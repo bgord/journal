@@ -29,16 +29,6 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     .where(eq(Schema.entries.userId, userId))
     .orderBy(desc(Schema.entries.startedAt));
 
-  const heatmap = heatmapResponse.map((row) => {
-    const label = new Emotions.VO.EmotionLabel(row.label as Emotions.VO.EmotionLabelType);
-    const intensity = new Emotions.VO.EmotionIntensity(row.intensity as Emotions.VO.EmotionIntensityType);
-
-    return {
-      t: label.isPositive() ? 1 : 0,
-      c: intensity.isExtreme() ? "600" : intensity.isIntensive() ? "400" : "200",
-    } as const;
-  });
-
   const inactivityAlarmsResponse = await db.query.alarms.findMany({
     where: and(
       eq(Schema.alarms.userId, userId),
@@ -50,12 +40,6 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     limit: 5,
     columns: { id: true, generatedAt: true, advice: true, inactivityDays: true },
   });
-
-  const inactivity = inactivityAlarmsResponse.map((alarm) => ({
-    ...alarm,
-    advice: alarm.advice as AI.AdviceType,
-    generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
-  }));
 
   const entryAlarmsResponse = await db.query.alarms.findMany({
     where: and(
@@ -70,17 +54,30 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     columns: { id: true, generatedAt: true, advice: true, emotionLabel: true, name: true },
   });
 
-  const entry = entryAlarmsResponse.map((alarm) => ({
-    ...alarm,
-    advice: alarm.advice as AI.AdviceType,
-    name: Emotions.VO.AlarmName.parse(alarm.name),
-    emotionLabel: Emotions.VO.EmotionLabelSchema.parse(alarm.emotionLabel),
-    generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
-  }));
-
   const result: DashboardDataType = {
-    heatmap,
-    alarms: { inactivity, entry },
+    heatmap: heatmapResponse.map((row) => {
+      const label = new Emotions.VO.EmotionLabel(row.label as Emotions.VO.EmotionLabelType);
+      const intensity = new Emotions.VO.EmotionIntensity(row.intensity as Emotions.VO.EmotionIntensityType);
+
+      return {
+        t: label.isPositive() ? 1 : 0,
+        c: intensity.isExtreme() ? "600" : intensity.isIntensive() ? "400" : "200",
+      } as const;
+    }),
+    alarms: {
+      inactivity: inactivityAlarmsResponse.map((alarm) => ({
+        ...alarm,
+        advice: alarm.advice as AI.AdviceType,
+        generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
+      })),
+      entry: entryAlarmsResponse.map((alarm) => ({
+        ...alarm,
+        advice: alarm.advice as AI.AdviceType,
+        name: Emotions.VO.AlarmName.parse(alarm.name),
+        emotionLabel: Emotions.VO.EmotionLabelSchema.parse(alarm.emotionLabel),
+        generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
+      })),
+    },
   };
 
   return c.json(result);
