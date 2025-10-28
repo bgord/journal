@@ -1,5 +1,5 @@
 import { Cookies } from "@bgord/ui";
-import type { QuotaRuleInspectionType } from "../modules/ai/value-objects";
+import type { QuotaRuleInspectionType } from "../../modules/ai/value-objects";
 
 export class AI {
   private static readonly BASE = "/api/ai-usage-today/get";

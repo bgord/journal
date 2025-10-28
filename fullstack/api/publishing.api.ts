@@ -1,5 +1,5 @@
 import { Cookies } from "@bgord/ui";
-import type { ShareableLinkSnapshot } from "../modules/publishing/value-objects";
+import type { ShareableLinkSnapshot } from "../../modules/publishing/value-objects";
 
 export class Publishing {
   private static readonly BASE = "/api/publishing/links/list";
@@ -15,4 +15,4 @@ export class Publishing {
   }
 }
 
-export type { ShareableLinkSnapshot } from "../modules/publishing/value-objects";
+export type { ShareableLinkSnapshot } from "../../modules/publishing/value-objects";

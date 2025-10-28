@@ -1,5 +1,5 @@
 import { Cookies } from "@bgord/ui";
-import type { auth } from "../infra/auth";
+import type { auth } from "../../infra/auth";
 
 export type SessionType = typeof auth.$Infer.Session;
 

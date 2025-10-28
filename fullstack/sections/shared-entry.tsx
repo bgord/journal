@@ -1,8 +1,8 @@
 import * as bg from "@bgord/ui";
 import { Timer } from "iconoir-react";
 import { Form } from "../../app/services/home-entry-add-form";
+import type { EntryType } from "../api";
 import * as UI from "../components";
-import type { EntryType } from "../entry.api";
 import { EntryAlarms } from "../sections/entry-alarms";
 
 export function SharedEntry(props: EntryType) {

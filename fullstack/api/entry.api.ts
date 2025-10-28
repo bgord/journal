@@ -1,6 +1,6 @@
 import { Cookies } from "@bgord/ui";
-import type { AlarmSnapshot, EntrySnapshot } from "../modules/emotions/value-objects";
-import type { ShareableLinkIdType } from "../modules/publishing/value-objects/";
+import type { AlarmSnapshot, EntrySnapshot } from "../../modules/emotions/value-objects";
+import type { ShareableLinkIdType } from "../../modules/publishing/value-objects/";
 
 export type EntryType = EntrySnapshot & { alarms: AlarmSnapshot[] };
 

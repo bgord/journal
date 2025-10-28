@@ -1,6 +1,6 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
-import type { EntryType } from "../entry.api";
+import type { EntryType } from "../api";
 
 export function EntryAlarms(props: EntryType) {
   const t = UI.useTranslations();

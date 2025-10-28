@@ -1,4 +1,4 @@
-import type { EntryType } from "../entry.api";
+import type { EntryType } from "../api";
 
 export function EntrySituationDescription(
   props: Pick<EntryType, "situationDescription"> & React.JSX.IntrinsicElements["div"],

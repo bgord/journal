@@ -1,4 +1,4 @@
-import type { EntryType } from "../entry.api";
+import type { EntryType } from "../api";
 
 export function EntryReactionDescription(
   props: Pick<EntryType, "reactionDescription"> & React.JSX.IntrinsicElements["div"],

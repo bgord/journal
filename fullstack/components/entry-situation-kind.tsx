@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import type { EntryType } from "../entry.api";
+import type { EntryType } from "../api";
 
 export function EntrySituationKind(
   props: Pick<EntryType, "situationKind"> & React.JSX.IntrinsicElements["div"],

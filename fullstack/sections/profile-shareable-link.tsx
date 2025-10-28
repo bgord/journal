@@ -2,8 +2,8 @@ import { useTranslations } from "@bgord/ui";
 import { Link } from "@tanstack/react-router";
 import { Clock, OpenInWindow } from "iconoir-react";
 import { ShareableLinkStatusEnum } from "../../app/services/create-shareable-link-form";
+import type { ShareableLinkSnapshot } from "../api";
 import { ButtonCopy } from "../components";
-import type { ShareableLinkSnapshot } from "../publishing.api";
 import { ProfileShareableLinkHide } from "./profile-shareable-link-hide";
 import { ProfileShareableLinkRevoke } from "./profile-shareable-link-revoke";
 

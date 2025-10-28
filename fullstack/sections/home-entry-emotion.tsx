@@ -3,8 +3,8 @@ import { useRouter } from "@tanstack/react-router";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
+import type { EntryType } from "../api";
 import * as UI from "../components";
-import type { EntryType } from "../entry.api";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 

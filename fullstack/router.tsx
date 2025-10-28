@@ -5,14 +5,9 @@ import {
   Router,
   redirect,
 } from "@tanstack/react-router";
-import { AI } from "./ai.api";
-import { Session } from "./auth.api";
-import { Avatar } from "./avatar.api";
-import { Entry } from "./entry.api";
+import * as API from "./api";
 import * as HEAD from "./head";
-import { I18N } from "./i18n.api";
 import { NotFound } from "./not-found";
-import { Publishing } from "./publishing.api";
 import { Shell } from "./shell";
 
 export type RouterContext = { request: Request | null };
@@ -27,9 +22,9 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   staleTime: Number.POSITIVE_INFINITY,
   loader: async ({ context }) => {
     const [session, i18n, avatarEtag] = await Promise.all([
-      await Session.get(context.request),
-      await I18N.get(context.request),
-      await Avatar.getEtag(context.request),
+      await API.Session.get(context.request),
+      await API.I18N.get(context.request),
+      await API.Avatar.getEtag(context.request),
     ]);
 
     // @ts-expect-error Login stays out as a separate HTML page
@@ -44,7 +39,7 @@ export const homeRoute = createRoute({
   path: "/",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/home"), "Home"),
-  loader: async ({ context }) => ({ entries: await Entry.getList(context.request) }),
+  loader: async ({ context }) => ({ entries: await API.Entry.getList(context.request) }),
 });
 
 export const homeEntryHistoryRoute = createRoute({
@@ -52,7 +47,7 @@ export const homeEntryHistoryRoute = createRoute({
   path: "entry/$entryId/history",
   component: lazyRouteComponent(() => import("./pages/home-entry-history"), "HomeEntryHistory"),
   loader: async ({ context, params }) => ({
-    history: await Entry.getHistory(context.request, params.entryId),
+    history: await API.Entry.getHistory(context.request, params.entryId),
   }),
 });
 
@@ -61,8 +56,8 @@ export const profileRoute = createRoute({
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/profile"), "Profile"),
   loader: async ({ context }) => ({
-    usage: await AI.getUsageToday(context.request),
-    shareableLinks: await Publishing.listShareableLinks(context.request),
+    usage: await API.AI.getUsageToday(context.request),
+    shareableLinks: await API.Publishing.listShareableLinks(context.request),
   }),
 });
 
@@ -77,7 +72,7 @@ export const sharedEntries = createRoute({
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/shared-entries"), "SharedEntries"),
   loader: async ({ context, params }) => ({
-    entries: await Entry.getSharedEntries(context.request, params.shareableLinkId),
+    entries: await API.Entry.getSharedEntries(context.request, params.shareableLinkId),
   }),
 });
 

@@ -1,4 +1,4 @@
-import type { EntryType } from "../entry.api";
+import type { EntryType } from "../api";
 
 export function EntryStartedAt(props: Pick<EntryType, "startedAt"> & React.JSX.IntrinsicElements["div"]) {
   const { startedAt, ...rest } = props;

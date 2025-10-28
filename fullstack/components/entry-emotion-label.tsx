@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import type { EntryType } from "../entry.api";
+import type { EntryType } from "../api";
 
 export function EntryEmotionLabel(
   props: Pick<EntryType, "emotionLabel"> & React.JSX.IntrinsicElements["div"],

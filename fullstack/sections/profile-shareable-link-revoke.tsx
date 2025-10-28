@@ -1,7 +1,7 @@
 import { useTranslations, WeakETag } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import React from "react";
-import type { ShareableLinkSnapshot } from "../publishing.api";
+import type { ShareableLinkSnapshot } from "../api";
 import { profileRoute } from "../router";
 import { RequestState } from "../ui";
 
