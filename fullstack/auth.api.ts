@@ -3,26 +3,16 @@ import type { auth } from "../infra/auth";
 
 export type SessionType = typeof auth.$Infer.Session;
 
-async function getSessionServer(request: Request) {
-  const response = await fetch(new URL("/api/auth/get-session", request.url), {
-    headers: { cookie: Cookies.extractFrom(request) },
-    credentials: "include",
-  });
+export class Session {
+  private static readonly BASE = "/api/auth/get-session";
 
-  if (!response?.ok) return null;
+  static async get(request: Request | null): Promise<SessionType | null> {
+    const url = request ? new URL(Session.BASE, request.url) : Session.BASE;
+    const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
-  return response.json().catch();
-}
+    const response = await fetch(url, { headers, credentials: "include" });
 
-async function getSessionClient() {
-  const response = await fetch("/api/auth/get-session", { credentials: "include" });
-
-  if (!response?.ok) return null;
-
-  return response.json().catch();
-}
-
-export async function getSession(request: Request | null): Promise<SessionType | null> {
-  if (request) return getSessionServer(request);
-  return getSessionClient();
+    if (!response?.ok) return null;
+    return response.json().catch();
+  }
 }

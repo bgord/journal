@@ -26,7 +26,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   staleTime: Number.POSITIVE_INFINITY,
   loader: async ({ context }) => {
     const [session, i18n, avatarEtag] = await Promise.all([
-      await Auth.getSession(context.request),
+      await Auth.Session.get(context.request),
       await I18n.getI18n(context.request),
       await Avatar.getAvatarEtag(context.request),
     ]);
