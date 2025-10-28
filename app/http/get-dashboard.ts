@@ -1,9 +1,10 @@
 import * as tools from "@bgord/tools";
-import { and, desc, eq, isNull, not } from "drizzle-orm";
+import { and, desc, eq, gte, isNull, lte, not } from "drizzle-orm";
 import type hono from "hono";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+import * as Adapters from "+infra/adapters";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
@@ -18,7 +19,10 @@ type DashboardAlarmEntryType = Pick<Emotions.VO.AlarmSnapshot, "id" | "advice" |
 export type DashboardDataType = {
   heatmap: { t: 0 | 1; c: "200" | "400" | "600" }[];
   alarms: { inactivity: DashboardAlarmInactivityType[]; entry: DashboardAlarmEntryType[] };
+  entries: { counts: { today: number; lastWeek: number; allTime: number } };
 };
+
+const deps = { Clock: Adapters.Clock };
 
 export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
@@ -54,6 +58,33 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     columns: { id: true, generatedAt: true, advice: true, emotionLabel: true, name: true },
   });
 
+  const entryCountToday = await db.$count(
+    Schema.entries,
+    and(
+      gte(Schema.entries.startedAt, tools.Day.fromNow(deps.Clock.nowMs()).getStart()),
+      lte(Schema.entries.startedAt, deps.Clock.nowMs()),
+      eq(Schema.entries.userId, userId),
+    ),
+  );
+
+  const entryCountLastWeek = await db.$count(
+    Schema.entries,
+    and(
+      gte(Schema.entries.startedAt, deps.Clock.nowMs() - tools.Duration.Weeks(1).ms),
+      lte(Schema.entries.startedAt, deps.Clock.nowMs()),
+      eq(Schema.entries.userId, userId),
+    ),
+  );
+
+  const entryCountAllTime = await db.$count(
+    Schema.entries,
+    and(
+      gte(Schema.entries.startedAt, 0),
+      lte(Schema.entries.startedAt, deps.Clock.nowMs()),
+      eq(Schema.entries.userId, userId),
+    ),
+  );
+
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {
       const label = new Emotions.VO.EmotionLabel(row.label as Emotions.VO.EmotionLabelType);
@@ -78,6 +109,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
         generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
       })),
     },
+    entries: { counts: { today: entryCountToday, lastWeek: entryCountLastWeek, allTime: entryCountAllTime } },
   };
 
   return c.json(result);

@@ -24,40 +24,7 @@ export function Dashboard() {
             <Icons.Notes data-size="md" data-color="brand-300" /> {t("dashboard.entries.header")}
           </h2>
 
-          <Components.DashboardCell data-mt="3">
-            <h2 data-stack="x" data-gap="3" data-fs="base">
-              {t("dashboard.entries.counts")}
-            </h2>
-
-            <div data-stack="x" data-main="between" data-mt="5" data-px="8">
-              <div data-stack="y" data-cross="center" data-gap="2">
-                <div data-color="neutral-500" data-transform="center">
-                  {t("dashboard.entries.today")}
-                </div>
-                <div data-fs="3xl" data-fw="bold">
-                  {/* {loaderData.entries.counts.today} */} 2
-                </div>
-              </div>
-
-              <div data-stack="y" data-cross="center" data-gap="2">
-                <div data-color="neutral-500" data-transform="center">
-                  {t("dashboard.entries.last_week")}
-                </div>
-                <div data-fs="3xl" data-fw="bold">
-                  {/* {loaderData.entries.counts.lastWeek} */} 2
-                </div>
-              </div>
-
-              <div data-stack="y" data-cross="center" data-gap="2">
-                <div data-color="neutral-500" data-transform="center">
-                  {t("dashboard.entries.all")}
-                </div>
-                <div data-fs="3xl" data-fw="bold">
-                  {/* {loaderData.entries.counts.all} */} 2
-                </div>
-              </div>
-            </div>
-          </Components.DashboardCell>
+          <Sections.DashboardEntryCounts />
 
           {/* {loaderData.entries.topEmotions.today[0] && */}
           {/*   loaderData.entries.topEmotions.lastWeek[0] && */}

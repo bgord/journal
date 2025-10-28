@@ -1,5 +1,6 @@
 export * from "./dashboard-alarms-entry";
 export * from "./dashboard-alarms-inactivity";
+export * from "./dashboard-entry-counts";
 export * from "./dashboard-heatmap";
 export * from "./entry-alarms";
 export * from "./home-entry";
