@@ -14,3 +14,5 @@ export class Publishing {
     return response.json().catch();
   }
 }
+
+export type { ShareableLinkSnapshot } from "../modules/publishing/value-objects";

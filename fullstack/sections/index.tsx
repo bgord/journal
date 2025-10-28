@@ -13,6 +13,7 @@ export * from "./profile-avatar-delete";
 export * from "./profile-data-export";
 export * from "./profile-language-selector";
 export * from "./profile-password-change";
+export * from "./profile-shareable-link";
 export * from "./profile-shareable-link-create";
-export * from "./profile-shareable-links";
+export * from "./profile-shareable-link-list";
 export * from "./shared-entry";

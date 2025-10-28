@@ -30,7 +30,7 @@ export function Profile() {
       <UI.Separator />
       <Sections.ProfileAiUsage />
       <UI.Separator />
-      <Sections.ProfileShareableLinks />
+      <Sections.ProfileShareableLinkList />
       <UI.Separator />
       <Sections.ProfileLanguageSelector />
       <UI.Separator />
