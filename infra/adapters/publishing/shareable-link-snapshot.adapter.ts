@@ -7,7 +7,7 @@ import type { ShareableLinkSnapshotPort } from "+publishing/ports";
 import * as VO from "+publishing/value-objects";
 
 class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
-  async getByUserId(userId: Auth.VO.UserIdType, _timeZoneOffsetMs: tools.DurationMsType) {
+  async getByUserId(userId: Auth.VO.UserIdType, timeZoneOffsetMs: tools.DurationMsType) {
     const shareableLinks = await db.query.shareableLinks.findMany({
       where: and(eq(Schema.shareableLinks.ownerId, userId), eq(Schema.shareableLinks.hidden, false)),
       orderBy: [
@@ -16,17 +16,19 @@ class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
       ],
     });
 
-    return shareableLinks.map(ShareableLinkSnapshotDrizzle.format);
+    return shareableLinks.map((shareableLink) =>
+      ShareableLinkSnapshotDrizzle.format(shareableLink, timeZoneOffsetMs),
+    );
   }
 
-  static format(shareableLink: Schema.SelectShareableLinks) {
+  static format(shareableLink: Schema.SelectShareableLinks, timeZoneOffsetMs: tools.DurationMsType) {
     return {
       ...shareableLink,
       status: shareableLink.status as VO.ShareableLinkStatusEnum,
-      dateRangeStart: tools.Timestamp.parse(shareableLink.dateRangeStart),
-      dateRangeEnd: tools.Timestamp.parse(shareableLink.dateRangeEnd),
-      expiresAt: tools.Timestamp.parse(shareableLink.expiresAt),
-      updatedAt: tools.Timestamp.parse(shareableLink.updatedAt),
+      dateRangeStart: tools.DateFormatters.datetime(shareableLink.dateRangeStart + timeZoneOffsetMs),
+      dateRangeEnd: tools.DateFormatters.datetime(shareableLink.dateRangeEnd + timeZoneOffsetMs),
+      expiresAt: tools.DateFormatters.datetime(shareableLink.expiresAt + timeZoneOffsetMs),
+      updatedAt: tools.DateFormatters.datetime(shareableLink.updatedAt + timeZoneOffsetMs),
     };
   }
 }

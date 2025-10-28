@@ -7,9 +7,9 @@ export type ShareableLinkSnapshot = {
   id: ShareableLinkIdType;
   status: ShareableLinkStatusEnum;
   publicationSpecification: PublicationSpecificationType;
-  dateRangeStart: tools.TimestampType;
-  dateRangeEnd: tools.TimestampType;
-  expiresAt: tools.TimestampType;
-  updatedAt: tools.TimestampType;
+  dateRangeStart: string;
+  dateRangeEnd: string;
+  expiresAt: string;
+  updatedAt: string;
   revision: tools.RevisionValueType;
 };
