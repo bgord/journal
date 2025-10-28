@@ -17,6 +17,7 @@ class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
         sql`CASE ${Schema.shareableLinks.status} WHEN ${VO.ShareableLinkStatusEnum.active} THEN 0 ELSE 1 END`,
         desc(Schema.shareableLinks.createdAt),
       ],
+      limit: 5,
     });
 
     return shareableLinks.map((shareableLink) =>
