@@ -12,6 +12,7 @@ import { Entry } from "./entry.api";
 import * as HEAD from "./head";
 import { I18N } from "./i18n.api";
 import { NotFound } from "./not-found";
+import { Publishing } from "./publishing.api";
 import { Shell } from "./shell";
 
 export type RouterContext = { request: Request | null };
@@ -59,7 +60,10 @@ export const profileRoute = createRoute({
   path: "/profile",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/profile"), "Profile"),
-  loader: async ({ context }) => ({ usage: await AI.getUsageToday(context.request) }),
+  loader: async ({ context }) => ({
+    usage: await AI.getUsageToday(context.request),
+    shareableLinks: await Publishing.listShareableLinks(context.request),
+  }),
 });
 
 const dashboardRoute = createRoute({
