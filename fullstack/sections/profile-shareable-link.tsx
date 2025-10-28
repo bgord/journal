@@ -1,16 +1,41 @@
-import { useTranslations } from "@bgord/ui";
-import { Link } from "@tanstack/react-router";
+import { useTranslations, WeakETag } from "@bgord/ui";
+import { Link, useRouter } from "@tanstack/react-router";
 import { Clock, OpenInWindow } from "iconoir-react";
+import React from "react";
 import { ButtonCopy } from "../components";
 import type { ShareableLinkSnapshot } from "../publishing.api";
+import { profileRoute } from "../router";
+import { RequestState } from "../ui";
 
 export function ProfileShareableLink(props: ShareableLinkSnapshot) {
   const t = useTranslations();
+  const router = useRouter();
+  const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
   const copyURL = (id: string) => {
     if (typeof window === "undefined") return "";
     return `${window.location.origin}/shared-entries/${id}`;
   };
+
+  async function revokeShareableLink(event: React.FormEvent) {
+    event.preventDefault();
+
+    if (state === RequestState.loading) return;
+
+    setState(RequestState.loading);
+
+    const response = await fetch(`/api/publishing/link/${props.id}/revoke`, {
+      method: "POST",
+      credentials: "include",
+      headers: WeakETag.fromRevision(props.revision),
+      body: JSON.stringify({}),
+    });
+
+    if (!response.ok) return setState(RequestState.error);
+
+    setState(RequestState.done);
+    router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true });
+  }
 
   return (
     <li
@@ -102,10 +127,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
 
             <ButtonCopy text={copyURL(props.id)} />
 
-            <form method="POST" action=".">
-              <input name="id" type="hidden" value={props.id} />
-              <input name="revision" type="hidden" value={props.revision} />
-              <input name="intent" type="hidden" value="shareable_link_revoke" />
+            <form onSubmit={revokeShareableLink} aria-busy={state === RequestState.loading}>
               <button type="submit" className="c-button" data-variant="secondary">
                 {t("profile.shareable_links.revoke.cta")}
               </button>
@@ -114,7 +136,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
         )}
 
         {["revoked", "expired"].includes(props.status) && (
-          <div data-stack="x" data-gap="3">
+          <div data-stack="x" data-gap="3" data-ml="auto">
             <form method="POST" action=".">
               <input name="shareableLinkId" type="hidden" value={props.id} />
               <input name="intent" type="hidden" value="shareable_link_hide" />
