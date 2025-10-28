@@ -1,27 +1,16 @@
 import type { TranslationsContextValueType } from "@bgord/ui";
+import { Cookies } from "@bgord/ui";
 
-async function getI18nServer(request: Request) {
-  const cookie = request.headers.get("cookie") ?? "";
+export class I18N {
+  private static readonly BASE = "/api/translations";
 
-  const response = await fetch(new URL("/api/translations", request.url), {
-    headers: { cookie },
-    credentials: "include",
-  });
+  static async get(request: Request | null): Promise<TranslationsContextValueType | null> {
+    const url = request ? new URL(I18N.BASE, request.url) : I18N.BASE;
+    const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
-  if (!response?.ok) return null;
+    const response = await fetch(url, { headers, credentials: "include" });
 
-  return response.json().catch();
-}
-
-async function getI18nClient() {
-  const response = await fetch("/api/translations", { credentials: "include" });
-
-  if (!response?.ok) return null;
-
-  return response.json().catch();
-}
-
-export async function getI18n(request: Request | null): Promise<TranslationsContextValueType | null> {
-  if (request) return getI18nServer(request);
-  return getI18nClient();
+    if (!response?.ok) return null;
+    return response.json().catch();
+  }
 }
