@@ -4,7 +4,7 @@ import type { DashboardDataType } from "../api";
 export function DashboardWeeklyReviewDownload(props: DashboardDataType["weeklyReviews"][number]) {
   return (
     <a
-      href={`/weekly-review/${props.id}/export/download`}
+      href={`/api/weekly-review/${props.id}/export/download`}
       download
       target="_blank"
       data-pt="2"

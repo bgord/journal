@@ -108,7 +108,6 @@ weeklyReview.post(
     },
     Deps,
   ),
-  Adapters.CaptchaShield.verify,
   HTTP.Emotions.ExportWeeklyReviewByEmail,
 );
 weeklyReview.get(
