@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { and, desc, eq, gte, isNotNull, lte, not } from "drizzle-orm";
+import { and, count, desc, eq, gte, isNotNull, lte, not, sql } from "drizzle-orm";
 import type hono from "hono";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
@@ -16,17 +16,26 @@ type DashboardAlarmEntryType = Pick<Emotions.VO.AlarmSnapshot, "id" | "advice" |
   generatedAt: string;
 };
 
-type DashboardTopReactionsType = Pick<
+type DashboardTopReactionType = Pick<
   Emotions.VO.EntrySnapshot,
   "id" | "reactionDescription" | "reactionType" | "reactionEffectiveness"
 >;
+
+type DashboardTopEmotionType = Pick<Emotions.VO.EntrySnapshot, "id" | "emotionLabel"> & { hits: number };
 
 export type DashboardDataType = {
   heatmap: { t: 0 | 1; c: "200" | "400" | "600" }[];
   alarms: { inactivity: DashboardAlarmInactivityType[]; entry: DashboardAlarmEntryType[] };
   entries: {
     counts: { today: number; lastWeek: number; allTime: number };
-    top: { reactions: DashboardTopReactionsType[] };
+    top: {
+      reactions: DashboardTopReactionType[];
+      emotions: {
+        today: DashboardTopEmotionType[];
+        lastWeek: DashboardTopEmotionType[];
+        allTime: DashboardTopEmotionType[];
+      };
+    };
   };
 };
 
@@ -84,14 +93,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     ),
   );
 
-  const entryCountAllTime = await db.$count(
-    Schema.entries,
-    and(
-      gte(Schema.entries.startedAt, 0),
-      lte(Schema.entries.startedAt, deps.Clock.nowMs()),
-      eq(Schema.entries.userId, userId),
-    ),
-  );
+  const entryCountAllTime = await db.$count(Schema.entries, and(eq(Schema.entries.userId, userId)));
 
   const topReactionsResponse = await db
     .select({
@@ -111,6 +113,55 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     )
     .orderBy(desc(Schema.entries.reactionEffectiveness))
     .limit(5);
+
+  const topEmotionsTodayResponse = await db
+    .select({
+      id: Schema.entries.id,
+      label: Schema.entries.emotionLabel,
+      hits: count(Schema.entries.id).mapWith(Number),
+    })
+    .from(Schema.entries)
+    .where(
+      and(
+        eq(Schema.entries.userId, userId),
+        gte(Schema.entries.startedAt, tools.Day.fromNow(deps.Clock.nowMs()).getStart()),
+      ),
+    )
+    .groupBy(Schema.entries.emotionLabel)
+    .orderBy(sql`count(${Schema.entries.id}) DESC`)
+    .limit(3);
+
+  const topEmotionsLastWeekResponse = await db
+    .select({
+      id: Schema.entries.id,
+      label: Schema.entries.emotionLabel,
+      hits: count(Schema.entries.id).mapWith(Number),
+    })
+    .from(Schema.entries)
+    .where(
+      and(
+        eq(Schema.entries.userId, userId),
+        gte(
+          Schema.entries.startedAt,
+          tools.Day.fromNow(deps.Clock.nowMs()).getStart() - tools.Duration.Weeks(1).ms,
+        ),
+      ),
+    )
+    .groupBy(Schema.entries.emotionLabel)
+    .orderBy(sql`count(${Schema.entries.id}) DESC`)
+    .limit(3);
+
+  const topEmotionsAllTimeResponse = await db
+    .select({
+      id: Schema.entries.id,
+      label: Schema.entries.emotionLabel,
+      hits: count(Schema.entries.id).mapWith(Number),
+    })
+    .from(Schema.entries)
+    .where(and(eq(Schema.entries.userId, userId)))
+    .groupBy(Schema.entries.emotionLabel)
+    .orderBy(sql`count(${Schema.entries.id}) DESC`)
+    .limit(3);
 
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {
@@ -145,6 +196,20 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
           reactionType: entry.reactionType as Emotions.VO.ReactionTypeType,
           reactionEffectiveness: entry.reactionEffectiveness as Emotions.VO.ReactionEffectivenessType,
         })),
+        emotions: {
+          today: topEmotionsTodayResponse.map((emotion) => ({
+            ...emotion,
+            emotionLabel: Emotions.VO.EmotionLabelSchema.parse(emotion.label),
+          })),
+          lastWeek: topEmotionsLastWeekResponse.map((emotion) => ({
+            ...emotion,
+            emotionLabel: Emotions.VO.EmotionLabelSchema.parse(emotion.label),
+          })),
+          allTime: topEmotionsAllTimeResponse.map((emotion) => ({
+            ...emotion,
+            emotionLabel: Emotions.VO.EmotionLabelSchema.parse(emotion.label),
+          })),
+        },
       },
     },
   };

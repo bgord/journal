@@ -23,72 +23,8 @@ export function Dashboard() {
           <h2 data-stack="x" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
             <Icons.Notes data-size="md" data-color="brand-300" /> {t("dashboard.entries.header")}
           </h2>
-
           <Sections.DashboardEntryCounts />
-
-          {/* {loaderData.entries.topEmotions.today[0] && */}
-          {/*   loaderData.entries.topEmotions.lastWeek[0] && */}
-          {/*   loaderData.entries.topEmotions.all[0] && ( */}
-          {/*     <Components.DashboardCell data-mt="5"> */}
-          {/*       <h2 data-stack="x" data-gap="3" data-fs="base"> */}
-          {/*         {t("dashboard.entries.top_emotions")} */}
-          {/*       </h2> */}
-
-          {/*       <div data-stack="x" data-main="between" data-mt="5"> */}
-          {/*         <div data-stack="y" data-cross="center" data-fs="sm"> */}
-          {/*           <div data-color="neutral-500" data-transform="center"> */}
-          {/*             {t("dashboard.entries.today")} */}
-          {/*           </div> */}
-
-          {/*           <ul data-stack="y" data-mt="3" data-gap="2"> */}
-          {/*             {loaderData.entries.topEmotions.today.map((stat, index) => ( */}
-          {/*               <li key={`top-emotions-today-${stat.hits}-${index}`} data-stack="x" data-gap="2"> */}
-          {/*                 <div className="c-badge" data-variant="primary"> */}
-          {/*                   {stat.hits} */}
-          {/*                 </div> */}
-          {/*                 <div data-fs="xs">{t(`entry.emotion.label.value.${stat.label}`)}</div> */}
-          {/*               </li> */}
-          {/*             ))} */}
-          {/*           </ul> */}
-          {/*         </div> */}
-
-          {/*         <div data-stack="y" data-cross="center" data-fs="sm"> */}
-          {/*           <div data-color="neutral-500" data-transform="center"> */}
-          {/*             {t("dashboard.entries.last_week")} */}
-          {/*           </div> */}
-
-          {/*           <ul data-stack="y" data-mt="3" data-gap="2"> */}
-          {/*             {loaderData.entries.topEmotions.lastWeek.map((stat, index) => ( */}
-          {/*               <li key={`top-emotions-last-week-${stat}-${index}`} data-stack="x" data-gap="2"> */}
-          {/*                 <div className="c-badge" data-variant="primary"> */}
-          {/*                   {stat.hits} */}
-          {/*                 </div> */}
-          {/*                 <div data-fs="xs">{t(`entry.emotion.label.value.${stat.label}`)}</div> */}
-          {/*               </li> */}
-          {/*             ))} */}
-          {/*           </ul> */}
-          {/*         </div> */}
-
-          {/*         <div data-stack="y" data-cross="center" data-fs="sm"> */}
-          {/*           <div data-color="neutral-500" data-transform="center"> */}
-          {/*             {t("dashboard.entries.all")} */}
-          {/*           </div> */}
-
-          {/*           <ul data-stack="y" data-mt="3" data-gap="2"> */}
-          {/*             {loaderData.entries.topEmotions.all.map((stat, index) => ( */}
-          {/*               <li key={`top-emotions-all-${stat}-${index}`} data-stack="x" data-gap="2"> */}
-          {/*                 <div className="c-badge" data-variant="primary"> */}
-          {/*                   {stat.hits} */}
-          {/*                 </div> */}
-          {/*                 <div data-fs="xs">{t(`entry.emotion.label.value.${stat.label}`)}</div> */}
-          {/*               </li> */}
-          {/*             ))} */}
-          {/*           </ul> */}
-          {/*         </div> */}
-          {/*       </div> */}
-          {/*     </Components.DashboardCell> */}
-          {/*   )} */}
-
+          <Sections.DashboardEmotionsTop />
           <Sections.DashboardReactionsTop />
         </section>
 
