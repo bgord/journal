@@ -1,6 +1,7 @@
 import { Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
 import { useNavigate } from "@tanstack/react-router";
 import { List, Xmark } from "iconoir-react";
+import { Form } from "../../app/services/home-entry-list-form";
 import { homeEntryHistoryRoute, homeRoute } from "../router";
 
 export function HomeEntryHistory() {
@@ -10,7 +11,11 @@ export function HomeEntryHistory() {
   const params = homeEntryHistoryRoute.useParams();
 
   const builder = useToggle({ name: `entry-history-${params.entryId}` });
-  const dialog = { ...builder, on: true, disable: () => navigate({ to: homeRoute.to }) };
+  const dialog = {
+    ...builder,
+    on: true,
+    disable: () => navigate({ to: homeRoute.to, search: { filter: Form.filter.field.defaultValue } }),
+  };
 
   return (
     <Dialog data-mt="12" {...Rhythm().times(50).style.width} {...dialog}>

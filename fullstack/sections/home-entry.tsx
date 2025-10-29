@@ -2,6 +2,7 @@ import { Rhythm, useExitAction, useTranslations, WeakETag } from "@bgord/ui";
 import { Link, useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
+import { Form } from "../../app/services/home-entry-list-form";
 import type { EntryType } from "../api";
 import * as UI from "../components";
 import { homeRoute } from "../router";
@@ -53,6 +54,7 @@ export function HomeEntry(props: EntryType) {
         <Link
           to="/entry/$entryId/history"
           params={{ entryId: props.id }}
+          search={{ filter: Form.filter.field.defaultValue }}
           className="c-button"
           data-disp="flex"
           data-cross="center"
