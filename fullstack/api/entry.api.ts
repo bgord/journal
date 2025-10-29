@@ -16,9 +16,9 @@ export type HistoryParsedType = {
 export class Entry {
   static async getList(
     request: Request | null,
-    deps: { filter: types.EntryListFilterType },
+    deps: { filter: types.EntryListFilterType; query: string },
   ): Promise<EntryType[]> {
-    const BASE = `/api/entry/list?filter=${deps.filter}`;
+    const BASE = `/api/entry/list?filter=${deps.filter}&query=${deps.query ?? ""}`;
 
     const url = request ? new URL(BASE, request.url) : BASE;
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;

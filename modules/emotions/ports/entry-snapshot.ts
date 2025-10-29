@@ -14,5 +14,6 @@ export interface EntrySnapshotPort {
   getByDateRangeForUserWithAlarms(
     userId: Auth.VO.UserIdType,
     dateRange: tools.DateRange,
+    query: string,
   ): Promise<(VO.EntrySnapshot & { alarms: VO.AlarmSnapshot[] })[]>;
 }

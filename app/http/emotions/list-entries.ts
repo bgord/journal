@@ -10,6 +10,7 @@ export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
 
   const filter = Emotions.VO.EntryListFilter.parse(c.req.query("filter"));
+  const query = c.req.query("query") ?? "";
   const options = Emotions.VO.EntryListFilterOptions;
 
   const today = tools.Day.fromNow(deps.Clock.nowMs());
@@ -23,7 +24,11 @@ export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
     [options.all_time]: (today) => new tools.DateRange(tools.Timestamp.parse(0), today.getEnd()),
   };
 
-  const entries = await deps.EntrySnapshot.getByDateRangeForUserWithAlarms(userId, range[filter](today));
+  const entries = await deps.EntrySnapshot.getByDateRangeForUserWithAlarms(
+    userId,
+    range[filter](today),
+    query,
+  );
 
   return c.json(entries);
 }

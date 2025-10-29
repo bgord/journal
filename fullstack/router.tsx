@@ -46,7 +46,7 @@ export const homeRoute = createRoute({
       : HomeEntryListForm.Form.filter.field.defaultValue,
     query: typeof value.query === "string" ? value.query : "",
   }),
-  loaderDeps: ({ search }) => ({ filter: search.filter }),
+  loaderDeps: ({ search }) => search,
   loader: async ({ context, deps }) => ({ entries: await API.Entry.getList(context.request, deps) }),
 });
 
