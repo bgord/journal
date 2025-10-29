@@ -1,4 +1,5 @@
 import { Cookies } from "@bgord/ui";
+import type { types } from "../../app/services/home-entry-list-form";
 import type { AlarmSnapshot, EntrySnapshot } from "../../modules/emotions/value-objects";
 import type { ShareableLinkIdType } from "../../modules/publishing/value-objects/";
 
@@ -13,8 +14,11 @@ export type HistoryParsedType = {
 };
 
 export class Entry {
-  static async getList(request: Request | null): Promise<EntryType[]> {
-    const BASE = "/api/entry/list";
+  static async getList(
+    request: Request | null,
+    deps: { filter: types.EntryListFilterType },
+  ): Promise<EntryType[]> {
+    const BASE = `/api/entry/list?filter=${deps.filter}`;
 
     const url = request ? new URL(BASE, request.url) : BASE;
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;

@@ -5,6 +5,7 @@ import {
   Router,
   redirect,
 } from "@tanstack/react-router";
+import * as HomeEntryListForm from "../app/services/home-entry-list-form";
 import * as API from "./api";
 import * as HEAD from "./head";
 import { NotFound } from "./not-found";
@@ -39,7 +40,13 @@ export const homeRoute = createRoute({
   path: "/",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/home"), "Home"),
-  loader: async ({ context }) => ({ entries: await API.Entry.getList(context.request) }),
+  validateSearch: (value) => ({
+    filter: HomeEntryListForm.Form.filter.options.includes(value.filter as string)
+      ? (value.filter as HomeEntryListForm.types.EntryListFilterType)
+      : HomeEntryListForm.Form.filter.field.defaultValue,
+  }),
+  loaderDeps: ({ search }) => ({ filter: search.filter }),
+  loader: async ({ context, deps }) => ({ entries: await API.Entry.getList(context.request, deps) }),
 });
 
 export const homeEntryHistoryRoute = createRoute({
