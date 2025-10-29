@@ -7,7 +7,7 @@ export function Logo() {
 
   return (
     <div className="logo" data-fs="4xl" data-fw="bold" data-ls="wider" data-color="brand-600">
-      <Link to="/" search={{ filter: Form.filter.field.defaultValue }}>
+      <Link to="/" search={{ filter: Form.filter.field.defaultValue, query: Form.query.field.defaultValue }}>
         {t("app.name")}
       </Link>
     </div>
