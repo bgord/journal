@@ -653,6 +653,26 @@ export const GenericHourHasPassedMondayUtc18Event = {
   payload: { timestamp: tools.Timestamp.parse(1754330400000) },
 } satisfies System.Events.HourHasPassedEventType;
 
+export function getNextMonday1800UTC(now: Date = new Date()): number {
+  const daysUntilMonday = (8 - now.getUTCDay()) % 7;
+
+  const y = now.getUTCFullYear();
+  const m = now.getUTCMonth();
+  const d = now.getUTCDate() + daysUntilMonday;
+
+  return Date.UTC(y, m, d, 18, 0, 0, 0);
+}
+
+export const HourHasPassedNextMondayUtc18Event = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: T0,
+  stream: "passage_of_time",
+  version: 1,
+  name: "HOUR_HAS_PASSED_EVENT",
+  payload: { timestamp: tools.Timestamp.parse(getNextMonday1800UTC()) },
+} satisfies System.Events.HourHasPassedEventType;
+
 export const GenericHourHasPassedWednesdayUtc18Event = {
   id: expectAnyId,
   correlationId,
