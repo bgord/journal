@@ -11,25 +11,58 @@ export function HomeEntryList() {
   const navigate = homeRoute.useNavigate();
 
   const search = homeRoute.useSearch();
+
   const filter = useTextField<HomeEntryListForm.types.EntryListFilterType>({
     name: HomeEntryListForm.Form.filter.field.name,
     defaultValue: search.filter as HomeEntryListForm.types.EntryListFilterType,
   });
+  const query = useTextField({ name: HomeEntryListForm.Form.query.field.name, defaultValue: search.query });
 
   return (
     <div data-stacky="y">
-      <Components.Select
-        value={filter.input.props.value}
-        onChange={(event) =>
-          navigate({ to: "/", search: { filter: event.currentTarget.value }, replace: true })
-        }
-      >
-        {HomeEntryListForm.Form.filter.options.map((option) => (
-          <option key={option} value={option}>
-            {t(`entry.list.filter.${option}`)}
-          </option>
-        ))}
-      </Components.Select>
+      <div data-stack="x" data-gap="5">
+        <input
+          className="c-input"
+          placeholder={t("entry.list.search.placeholder")}
+          value={query.input.props.value}
+          onChange={(event) =>
+            navigate({
+              to: "/",
+              search: { query: event.currentTarget.value, filter: filter.value },
+            })
+          }
+        />
+        <Components.Select
+          value={filter.input.props.value}
+          onChange={(event) =>
+            navigate({ to: "/", search: { filter: event.currentTarget.value, query: query.value } })
+          }
+        >
+          {HomeEntryListForm.Form.filter.options.map((option) => (
+            <option key={option} value={option}>
+              {t(`entry.list.filter.${option}`)}
+            </option>
+          ))}
+        </Components.Select>
+
+        <button
+          className="c-button"
+          type="button"
+          data-variant="bare"
+          disabled={filter.value === HomeEntryListForm.Form.filter.field.defaultValue && !query.value}
+          onClick={() =>
+            navigate({
+              to: "/",
+              params: {
+                filter: HomeEntryListForm.Form.filter.field.defaultValue,
+                query: HomeEntryListForm.Form.query.field.defaultValue,
+              },
+            })
+          }
+        >
+          {t("app.clear")}
+        </button>
+      </div>
 
       {entries[0] && (
         <ul data-stack="y" data-gap="5" data-mt="6">
