@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { and, desc, eq, gte, isNull, lte, not } from "drizzle-orm";
+import { and, desc, eq, gte, isNotNull, lte, not } from "drizzle-orm";
 import type hono from "hono";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
@@ -16,10 +16,18 @@ type DashboardAlarmEntryType = Pick<Emotions.VO.AlarmSnapshot, "id" | "advice" |
   generatedAt: string;
 };
 
+type DashboardTopReactionsType = Pick<
+  Emotions.VO.EntrySnapshot,
+  "id" | "reactionDescription" | "reactionType" | "reactionEffectiveness"
+>;
+
 export type DashboardDataType = {
   heatmap: { t: 0 | 1; c: "200" | "400" | "600" }[];
   alarms: { inactivity: DashboardAlarmInactivityType[]; entry: DashboardAlarmEntryType[] };
-  entries: { counts: { today: number; lastWeek: number; allTime: number } };
+  entries: {
+    counts: { today: number; lastWeek: number; allTime: number };
+    top: { reactions: DashboardTopReactionsType[] };
+  };
 };
 
 const deps = { Clock: Adapters.Clock };
@@ -38,7 +46,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
       eq(Schema.alarms.userId, userId),
       eq(Schema.alarms.name, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM),
       not(eq(Schema.alarms.status, "cancelled")),
-      not(isNull(Schema.alarms.advice)),
+      isNotNull(Schema.alarms.advice),
     ),
     orderBy: desc(Schema.alarms.generatedAt),
     limit: 5,
@@ -50,8 +58,8 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
       eq(Schema.alarms.userId, userId),
       eq(Schema.alarms.name, Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM),
       not(eq(Schema.alarms.status, "cancelled")),
-      not(isNull(Schema.alarms.advice)),
-      not(isNull(Schema.alarms.emotionLabel)),
+      isNotNull(Schema.alarms.advice),
+      isNotNull(Schema.alarms.emotionLabel),
     ),
     orderBy: desc(Schema.alarms.generatedAt),
     limit: 5,
@@ -85,6 +93,25 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     ),
   );
 
+  const topReactionsResponse = await db
+    .select({
+      id: Schema.entries.id,
+      reactionDescription: Schema.entries.reactionDescription,
+      reactionType: Schema.entries.reactionType,
+      reactionEffectiveness: Schema.entries.reactionEffectiveness,
+    })
+    .from(Schema.entries)
+    .where(
+      and(
+        eq(Schema.entries.userId, userId),
+        isNotNull(Schema.entries.reactionDescription),
+        isNotNull(Schema.entries.reactionType),
+        isNotNull(Schema.entries.reactionEffectiveness),
+      ),
+    )
+    .orderBy(desc(Schema.entries.reactionEffectiveness))
+    .limit(5);
+
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {
       const label = new Emotions.VO.EmotionLabel(row.label as Emotions.VO.EmotionLabelType);
@@ -109,7 +136,17 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
         generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
       })),
     },
-    entries: { counts: { today: entryCountToday, lastWeek: entryCountLastWeek, allTime: entryCountAllTime } },
+    entries: {
+      counts: { today: entryCountToday, lastWeek: entryCountLastWeek, allTime: entryCountAllTime },
+      top: {
+        reactions: topReactionsResponse.map((entry) => ({
+          id: entry.id,
+          reactionDescription: entry.reactionDescription as Emotions.VO.ReactionDescriptionType,
+          reactionType: entry.reactionType as Emotions.VO.ReactionTypeType,
+          reactionEffectiveness: entry.reactionEffectiveness as Emotions.VO.ReactionEffectivenessType,
+        })),
+      },
+    },
   };
 
   return c.json(result);
