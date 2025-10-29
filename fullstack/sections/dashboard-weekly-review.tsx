@@ -25,12 +25,14 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         </div>
       </div>
 
-      <div data-stack="x" data-gap="2" data-fs="sm">
-        <div className="c-badge" data-variant="primary">
-          {props.entries.length}
+      {props.status === WeeklyReviewStatusEnum.completed && (
+        <div data-stack="x" data-gap="2" data-fs="sm">
+          <div className="c-badge" data-variant="primary">
+            {props.entries.length}
+          </div>
+          {t("dashboard.weekly_review.entries.count")}
         </div>
-        {t("dashboard.weekly_review.entries.count")}
-      </div>
+      )}
 
       {props.status === WeeklyReviewStatusEnum.completed && (
         <div data-stack="y" data-gap="3">
