@@ -1,10 +1,21 @@
 import * as tools from "@bgord/tools";
 import { desc, eq } from "drizzle-orm";
 import type * as Auth from "+auth";
-import type { WeeklyReviewExport as WeeklyReviewExportQuery } from "+emotions/queries";
+import type {
+  WeeklyReviewExportDtoAlarmFields,
+  WeeklyReviewExportDtoEntryFields,
+  WeeklyReviewExportDtoPatternDetectionFields,
+  WeeklyReviewExport as WeeklyReviewExportQuery,
+} from "+emotions/queries";
 import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+
+type WeeklyReviewExportDrizzleResultType = Schema.SelectWeeklyReviews & {
+  entries: Pick<Schema.SelectEntries, WeeklyReviewExportDtoEntryFields>[];
+  alarms: Pick<Schema.SelectAlarms, WeeklyReviewExportDtoAlarmFields>[];
+  patternDetections: Pick<Schema.SelectPatternDetections, WeeklyReviewExportDtoPatternDetectionFields>[];
+};
 
 class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
   async getFull(id: VO.WeeklyReviewIdType) {
@@ -46,31 +57,7 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
     });
 
     if (!result) return undefined;
-    return {
-      ...result,
-      createdAt: result.createdAt as tools.TimestampType,
-      status: result.status as VO.WeeklyReviewStatusEnum,
-      weekIsoId: tools.WeekIsoId.parse(result.weekIsoId),
-      entries: result.entries.map((entry) => ({
-        ...entry,
-        startedAt: tools.Timestamp.parse(entry.startedAt),
-        situationKind: entry.situationKind as VO.SituationKindOptions,
-        emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
-        reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
-      })),
-      patternDetections: result.patternDetections.map((pattern) => ({
-        id: pattern.id,
-        name: pattern.name as VO.PatternNameOption,
-      })),
-      alarms: result.alarms.map((alarm) => ({
-        ...alarm,
-        name: alarm.name as VO.AlarmNameOption,
-        advice: alarm.advice as VO.AlarmSnapshot["advice"],
-        generatedAt: alarm.generatedAt as tools.TimestampType,
-        lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampType | null,
-        emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
-      })),
-    };
+    return WeeklyReviewExportDrizzle.format(result);
   }
 
   async listFull(userId: Auth.VO.UserIdType, limit: number) {
@@ -112,7 +99,11 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
       limit,
     });
 
-    return weeklyReviews.map((result) => ({
+    return weeklyReviews.map((result) => WeeklyReviewExportDrizzle.format(result));
+  }
+
+  static format(result: WeeklyReviewExportDrizzleResultType) {
+    return {
       ...result,
       createdAt: result.createdAt as tools.TimestampType,
       status: result.status as VO.WeeklyReviewStatusEnum,
@@ -136,7 +127,7 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
         lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampType | null,
         emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
       })),
-    }));
+    };
   }
 }
 

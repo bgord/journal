@@ -415,3 +415,7 @@ export type SelectEntriesWithAlarms = SelectEntries & { alarms: SelectAlarms[] }
 export type SelectAlarms = typeof alarms.$inferSelect;
 /** @public */
 export type SelectShareableLinks = typeof shareableLinks.$inferSelect;
+/** @public */
+export type SelectWeeklyReviews = typeof weeklyReviews.$inferSelect;
+/** @public */
+export type SelectPatternDetections = typeof patternDetections.$inferSelect;
