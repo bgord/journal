@@ -1,9 +1,8 @@
-import { useTranslations } from "@bgord/ui";
+import { useTextField, useTranslations } from "@bgord/ui";
 import * as HomeEntryListForm from "../../app/services/home-entry-list-form";
 import * as Components from "../components";
 import { homeRoute } from "../router";
 import { HomeEntry } from "./home-entry";
-import { useTextField } from "./wip";
 
 export function HomeEntryList() {
   const t = useTranslations();
