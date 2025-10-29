@@ -2,6 +2,7 @@ export * from "./dashboard-alarms-entry";
 export * from "./dashboard-alarms-inactivity";
 export * from "./dashboard-entry-counts";
 export * from "./dashboard-heatmap";
+export * from "./dashboard-reactions-top";
 export * from "./entry-alarms";
 export * from "./home-entry";
 export * from "./home-entry-add";

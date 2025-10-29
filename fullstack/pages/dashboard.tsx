@@ -89,40 +89,7 @@ export function Dashboard() {
           {/*     </Components.DashboardCell> */}
           {/*   )} */}
 
-          {/* {loaderData.entries.topReactions[0] && ( */}
-          {/*   <Components.DashboardCell data-mt="5"> */}
-          {/*     <h2 data-stack="x" data-gap="3" data-fs="base"> */}
-          {/*       {t("dashboard.entries.reactions")} */}
-          {/*     </h2> */}
-
-          {/*     <ul data-stack="y" data-mt="5" data-gap="5"> */}
-          {/*       {loaderData.entries.topReactions.map((reaction) => ( */}
-          {/*         <li */}
-          {/*           key={reaction.id} */}
-          {/*           data-stack="y" */}
-          {/*           data-bct="neutral-800" */}
-          {/*           data-bwt="hairline" */}
-          {/*           data-pt="3" */}
-          {/*           data-gap="3" */}
-          {/*         > */}
-          {/*           <div data-stack="x" data-gap="3"> */}
-          {/*             <div className="c-badge" data-variant="primary"> */}
-          {/*               {reaction.reactionEffectiveness} / 5 */}
-          {/*             </div> */}
-
-          {/*             <div data-color="neutral-500"> */}
-          {/*               {t(`entry.reaction.type.value.${reaction.reactionType}`)} */}
-          {/*             </div> */}
-          {/*           </div> */}
-
-          {/*           <div data-ml="3" data-color="neutral-100"> */}
-          {/*             "{reaction.reactionDescription}" */}
-          {/*           </div> */}
-          {/*         </li> */}
-          {/*       ))} */}
-          {/*     </ul> */}
-          {/*   </Components.DashboardCell> */}
-          {/* )} */}
+          <Sections.DashboardReactionsTop />
         </section>
 
         <section data-fs="sm" {...Rhythm(450).times(1).style.width}>
