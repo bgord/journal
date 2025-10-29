@@ -17,6 +17,8 @@ const lastWeekStart = tools.Timestamp.parse(today.getEnd() - tools.Duration.Week
 const lastMonthStart = tools.Timestamp.parse(today.getEnd() - tools.Duration.Days(30).ms);
 const allTimeStart = tools.Timestamp.parse(0);
 
+const emptyQuery = "";
+
 describe(`GET ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
@@ -36,7 +38,7 @@ describe(`GET ${url}`, () => {
 
     expect(response.status).toBe(200);
     expect(json).toEqual([mocks.fullEntryWithAlarms]);
-    expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, today);
+    expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, today, emptyQuery);
   });
 
   test("happy path - last_week", async () => {
@@ -54,7 +56,11 @@ describe(`GET ${url}`, () => {
 
     expect(response.status).toBe(200);
     expect(json).toEqual([mocks.fullEntryWithAlarms]);
-    expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, new tools.DateRange(lastWeekStart, endOfToday));
+    expect(entrySnapshot).toHaveBeenCalledWith(
+      mocks.user.id,
+      new tools.DateRange(lastWeekStart, endOfToday),
+      emptyQuery,
+    );
   });
 
   test("happy path - last_month", async () => {
@@ -75,6 +81,7 @@ describe(`GET ${url}`, () => {
     expect(entrySnapshot).toHaveBeenCalledWith(
       mocks.user.id,
       new tools.DateRange(lastMonthStart, endOfToday),
+      emptyQuery,
     );
   });
 
@@ -85,7 +92,7 @@ describe(`GET ${url}`, () => {
     ]);
 
     const response = await server.request(
-      `${url}?filter=${Emotions.VO.EntryListFilterOptions.all_time}`,
+      `${url}?filter=${Emotions.VO.EntryListFilterOptions.all_time}&query=abc`,
       { method: "GET" },
       mocks.ip,
     );
@@ -93,6 +100,10 @@ describe(`GET ${url}`, () => {
 
     expect(response.status).toBe(200);
     expect(json).toEqual([mocks.fullEntryWithAlarms]);
-    expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, new tools.DateRange(allTimeStart, endOfToday));
+    expect(entrySnapshot).toHaveBeenCalledWith(
+      mocks.user.id,
+      new tools.DateRange(allTimeStart, endOfToday),
+      "abc",
+    );
   });
 });
