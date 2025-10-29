@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { and, count, desc, eq, gte, isNotNull, lte, not, sql } from "drizzle-orm";
+import { and, count, desc, eq, gte, isNotNull, not, sql } from "drizzle-orm";
 import type hono from "hono";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
@@ -44,6 +44,12 @@ const deps = { Clock: Adapters.Clock };
 export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
 
+  const today = tools.Day.fromNow(deps.Clock.nowMs()).getStart();
+  const lastWeek = tools.Timestamp.parse(
+    tools.Day.fromNow(deps.Clock.nowMs()).getStart() - tools.Duration.Weeks(1).ms,
+  );
+  const allTime = tools.Timestamp.parse(0);
+
   const heatmapResponse = await db
     .select({ label: Schema.entries.emotionLabel, intensity: Schema.entries.emotionIntensity })
     .from(Schema.entries)
@@ -75,25 +81,18 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     columns: { id: true, generatedAt: true, advice: true, emotionLabel: true, name: true },
   });
 
-  const entryCountToday = await db.$count(
-    Schema.entries,
-    and(
-      gte(Schema.entries.startedAt, tools.Day.fromNow(deps.Clock.nowMs()).getStart()),
-      lte(Schema.entries.startedAt, deps.Clock.nowMs()),
-      eq(Schema.entries.userId, userId),
-    ),
-  );
+  async function getEntryCountSince(start: tools.TimestampType) {
+    return db.$count(
+      Schema.entries,
+      and(gte(Schema.entries.startedAt, start), eq(Schema.entries.userId, userId)),
+    );
+  }
 
-  const entryCountLastWeek = await db.$count(
-    Schema.entries,
-    and(
-      gte(Schema.entries.startedAt, deps.Clock.nowMs() - tools.Duration.Weeks(1).ms),
-      lte(Schema.entries.startedAt, deps.Clock.nowMs()),
-      eq(Schema.entries.userId, userId),
-    ),
-  );
-
-  const entryCountAllTime = await db.$count(Schema.entries, and(eq(Schema.entries.userId, userId)));
+  const [entryCountToday, entryCountLastWeek, entryCountAllTime] = await Promise.all([
+    await getEntryCountSince(today),
+    await getEntryCountSince(lastWeek),
+    await getEntryCountSince(allTime),
+  ]);
 
   const topReactionsResponse = await db
     .select({
@@ -114,54 +113,30 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     .orderBy(desc(Schema.entries.reactionEffectiveness))
     .limit(5);
 
-  const topEmotionsTodayResponse = await db
-    .select({
-      id: Schema.entries.id,
-      label: Schema.entries.emotionLabel,
-      hits: count(Schema.entries.id).mapWith(Number),
-    })
-    .from(Schema.entries)
-    .where(
-      and(
-        eq(Schema.entries.userId, userId),
-        gte(Schema.entries.startedAt, tools.Day.fromNow(deps.Clock.nowMs()).getStart()),
-      ),
-    )
-    .groupBy(Schema.entries.emotionLabel)
-    .orderBy(sql`count(${Schema.entries.id}) DESC`)
-    .limit(3);
+  async function getTopEmotionsSince(start: tools.TimestampType) {
+    const response = await db
+      .select({
+        id: Schema.entries.id,
+        label: Schema.entries.emotionLabel,
+        hits: count(Schema.entries.id).mapWith(Number),
+      })
+      .from(Schema.entries)
+      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, start)))
+      .groupBy(Schema.entries.emotionLabel)
+      .orderBy(sql`count(${Schema.entries.id}) DESC`)
+      .limit(3);
 
-  const topEmotionsLastWeekResponse = await db
-    .select({
-      id: Schema.entries.id,
-      label: Schema.entries.emotionLabel,
-      hits: count(Schema.entries.id).mapWith(Number),
-    })
-    .from(Schema.entries)
-    .where(
-      and(
-        eq(Schema.entries.userId, userId),
-        gte(
-          Schema.entries.startedAt,
-          tools.Day.fromNow(deps.Clock.nowMs()).getStart() - tools.Duration.Weeks(1).ms,
-        ),
-      ),
-    )
-    .groupBy(Schema.entries.emotionLabel)
-    .orderBy(sql`count(${Schema.entries.id}) DESC`)
-    .limit(3);
+    return response.map((emotion) => ({
+      ...emotion,
+      emotionLabel: Emotions.VO.EmotionLabelSchema.parse(emotion.label),
+    }));
+  }
 
-  const topEmotionsAllTimeResponse = await db
-    .select({
-      id: Schema.entries.id,
-      label: Schema.entries.emotionLabel,
-      hits: count(Schema.entries.id).mapWith(Number),
-    })
-    .from(Schema.entries)
-    .where(and(eq(Schema.entries.userId, userId)))
-    .groupBy(Schema.entries.emotionLabel)
-    .orderBy(sql`count(${Schema.entries.id}) DESC`)
-    .limit(3);
+  const [topEmotionsToday, topEmotionsLastWeek, topEmotionsAllTime] = await Promise.all([
+    await getTopEmotionsSince(today),
+    await getTopEmotionsSince(lastWeek),
+    await getTopEmotionsSince(allTime),
+  ]);
 
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {
@@ -196,20 +171,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
           reactionType: entry.reactionType as Emotions.VO.ReactionTypeType,
           reactionEffectiveness: entry.reactionEffectiveness as Emotions.VO.ReactionEffectivenessType,
         })),
-        emotions: {
-          today: topEmotionsTodayResponse.map((emotion) => ({
-            ...emotion,
-            emotionLabel: Emotions.VO.EmotionLabelSchema.parse(emotion.label),
-          })),
-          lastWeek: topEmotionsLastWeekResponse.map((emotion) => ({
-            ...emotion,
-            emotionLabel: Emotions.VO.EmotionLabelSchema.parse(emotion.label),
-          })),
-          allTime: topEmotionsAllTimeResponse.map((emotion) => ({
-            ...emotion,
-            emotionLabel: Emotions.VO.EmotionLabelSchema.parse(emotion.label),
-          })),
-        },
+        emotions: { today: topEmotionsToday, lastWeek: topEmotionsLastWeek, allTime: topEmotionsAllTime },
       },
     },
   };
