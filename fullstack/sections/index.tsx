@@ -6,6 +6,7 @@ export * from "./dashboard-heatmap";
 export * from "./dashboard-reactions-top";
 export * from "./dashboard-weekly-review";
 export * from "./dashboard-weekly-review-download";
+export * from "./dashboard-weekly-review-email-send";
 export * from "./dashboard-weekly-review-list";
 export * from "./entry-alarms";
 export * from "./home-entry";

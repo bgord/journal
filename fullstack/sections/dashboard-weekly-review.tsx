@@ -1,8 +1,9 @@
 import { useTranslations } from "@bgord/ui";
-import { SendMail, Sparks } from "iconoir-react";
+import { Sparks } from "iconoir-react";
 import { WeeklyReviewStatusEnum } from "../../app/services/weekly-review-form";
 import type { DashboardDataType } from "../api";
 import { DashboardWeeklyReviewDownload } from "./dashboard-weekly-review-download";
+import { DashboardWeeklyReviewEmailSend } from "./dashboard-weekly-review-email-send";
 
 export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][number]) {
   const t = useTranslations();
@@ -16,20 +17,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         {props.status === WeeklyReviewStatusEnum.completed && (
           <>
             <DashboardWeeklyReviewDownload {...props} />
-
-            <form method="POST" action=".">
-              <input type="hidden" name="intent" value="export_weekly_review_by_email" />
-              <input type="hidden" name="weeklyReviewId" value={props.id} />
-              <button
-                type="submit"
-                className="c-button"
-                data-variant="bare"
-                data-pt="2"
-                data-color="brand-500"
-              >
-                <SendMail data-size="lg" />
-              </button>
-            </form>
+            <DashboardWeeklyReviewEmailSend {...props} />
           </>
         )}
         <div className="c-badge" data-variant="outline">
