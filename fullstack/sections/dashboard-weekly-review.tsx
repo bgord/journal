@@ -1,5 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import { DownloadCircle, SendMail, Sparks } from "iconoir-react";
+import { WeeklyReviewStatusEnum } from "../../app/services/weekly-review-form";
 import type { DashboardDataType } from "../api";
 
 export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][number]) {
@@ -11,7 +12,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         <div data-mr="auto">
           {props.weekStart} - {props.weekEnd}
         </div>
-        {props.status === "completed" && (
+        {props.status === WeeklyReviewStatusEnum.completed && (
           <>
             <a
               href={`/weekly-review/${props.id}/export/download`}
@@ -50,7 +51,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         {t("dashboard.weekly_review.entries.count")}
       </div>
 
-      {props.status === "completed" && (
+      {props.status === WeeklyReviewStatusEnum.completed && (
         <div data-stack="y" data-gap="3">
           <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
 
@@ -64,7 +65,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         </div>
       )}
 
-      {props.status === "completed" && (
+      {props.status === WeeklyReviewStatusEnum.completed && (
         <div data-stack="y" data-gap="3">
           <div data-fs="base">{t("dashboard.weekly_review.entries.alarms")}:</div>
 
@@ -78,7 +79,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         </div>
       )}
 
-      {props.status === "completed" && (
+      {props.status === WeeklyReviewStatusEnum.completed && (
         <div data-stack="y" data-gap="3">
           <div data-fs="base">{t("dashboard.weekly_review.insights")}:</div>
 
