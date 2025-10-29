@@ -11,6 +11,7 @@ import { SupportedLanguages } from "+languages";
 import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type * as System from "+system";
+import type { EntryType } from "+app/http/emotions/list-entries";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import type * as Schema from "+infra/schema";
 
@@ -894,9 +895,10 @@ export const fullEntry: Emotions.VO.EntrySnapshot = {
   userId,
 };
 
-export const fullEntryWithAlarms: Emotions.VO.EntrySnapshot & { alarms: Emotions.VO.AlarmSnapshot[] } = {
+export const fullEntryWithAlarms: EntryType = {
   ...fullEntry,
   alarms: [] as Emotions.VO.AlarmSnapshot[],
+  startedAt: tools.DateFormatters.datetime(fullEntry.startedAt),
 };
 
 export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {

@@ -1,9 +1,7 @@
 import { Cookies } from "@bgord/ui";
+import type { EntryType } from "../../app/http/emotions/list-entries";
 import type { types } from "../../app/services/home-entry-list-form";
-import type { AlarmSnapshot, EntrySnapshot } from "../../modules/emotions/value-objects";
 import type { ShareableLinkIdType } from "../../modules/publishing/value-objects/";
-
-export type EntryType = EntrySnapshot & { alarms: AlarmSnapshot[] };
 
 export type HistoryParsedType = {
   id: string;
@@ -44,10 +42,7 @@ export class Entry {
     return response.json().catch();
   }
 
-  static async getHistory(
-    request: Request | null,
-    entryId: EntrySnapshot["id"],
-  ): Promise<HistoryParsedType[]> {
+  static async getHistory(request: Request | null, entryId: EntryType["id"]): Promise<HistoryParsedType[]> {
     const BASE = `/api/history/${entryId}/list`;
 
     const url = request ? new URL(BASE, request.url) : BASE;

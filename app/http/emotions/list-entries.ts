@@ -4,6 +4,11 @@ import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import * as Adapters from "+infra/adapters";
 
+export type EntryType = Omit<Emotions.VO.EntrySnapshot, "startedAt"> & {
+  alarms: Emotions.VO.AlarmSnapshot[];
+  startedAt: string;
+};
+
 const deps = { Clock: Adapters.Clock, EntrySnapshot: Adapters.Emotions.EntrySnapshot };
 
 export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
@@ -30,5 +35,10 @@ export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
     query,
   );
 
-  return c.json(entries);
+  const result: EntryType[] = entries.map((entry) => ({
+    ...entry,
+    startedAt: tools.DateFormatters.datetime(entry.startedAt),
+  }));
+
+  return c.json(result);
 }
