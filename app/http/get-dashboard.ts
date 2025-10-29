@@ -37,9 +37,10 @@ export type DashboardDataType = {
       };
     };
   };
+  weeklyReviews: Emotions.Queries.WeeklyReviewExportDto[];
 };
 
-const deps = { Clock: Adapters.Clock };
+const deps = { Clock: Adapters.Clock, WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport };
 
 export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
@@ -138,6 +139,8 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     await getTopEmotionsSince(allTime),
   ]);
 
+  const weeklyReviews = await deps.WeeklyReviewExport.listFull(userId, 5);
+
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {
       const label = new Emotions.VO.EmotionLabel(row.label as Emotions.VO.EmotionLabelType);
@@ -174,6 +177,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
         emotions: { today: topEmotionsToday, lastWeek: topEmotionsLastWeek, allTime: topEmotionsAllTime },
       },
     },
+    weeklyReviews,
   };
 
   return c.json(result);
