@@ -1,3 +1,4 @@
+import type * as Auth from "+auth";
 import type * as VO from "+emotions/value-objects";
 
 export type WeeklyReviewExportDto = VO.WeeklyReviewSnapshot & {
@@ -29,4 +30,6 @@ export type WeeklyReviewExportDto = VO.WeeklyReviewSnapshot & {
 
 export interface WeeklyReviewExport {
   getFull(id: VO.WeeklyReviewIdType): Promise<WeeklyReviewExportDto | undefined>;
+
+  listFull(userId: Auth.VO.UserIdType, limit: number): Promise<WeeklyReviewExportDto[]>;
 }
