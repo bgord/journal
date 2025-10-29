@@ -23,6 +23,11 @@ type DashboardTopReactionType = Pick<
 
 type DashboardTopEmotionType = Pick<Emotions.VO.EntrySnapshot, "id" | "emotionLabel"> & { hits: number };
 
+type DashboardWeeklyReviewType = Emotions.Queries.WeeklyReviewExportDto & {
+  weekStart: string;
+  weekEnd: string;
+};
+
 export type DashboardDataType = {
   heatmap: { t: 0 | 1; c: "200" | "400" | "600" }[];
   alarms: { inactivity: DashboardAlarmInactivityType[]; entry: DashboardAlarmEntryType[] };
@@ -37,7 +42,7 @@ export type DashboardDataType = {
       };
     };
   };
-  weeklyReviews: Emotions.Queries.WeeklyReviewExportDto[];
+  weeklyReviews: DashboardWeeklyReviewType[];
 };
 
 const deps = { Clock: Adapters.Clock, WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport };
@@ -177,7 +182,11 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
         emotions: { today: topEmotionsToday, lastWeek: topEmotionsLastWeek, allTime: topEmotionsAllTime },
       },
     },
-    weeklyReviews,
+    weeklyReviews: weeklyReviews.map((review) => ({
+      ...review,
+      weekStart: tools.DateFormatters.date(tools.Week.fromIsoId(review.weekIsoId).getStart()),
+      weekEnd: tools.DateFormatters.date(tools.Week.fromIsoId(review.weekIsoId).getEnd()),
+    })),
   };
 
   return c.json(result);

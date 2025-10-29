@@ -24,7 +24,9 @@ export function DashboardWeeklyReviewList() {
           {dashboard?.weeklyReviews.map((review) => (
             <li key={review.id} data-stack="y" data-gap="5">
               <div data-stack="x" data-cross="center" data-gap="4" data-color="neutral-500">
-                <div data-mr="auto">{review.weekIsoId}</div>
+                <div data-mr="auto">
+                  {review.weekStart} - {review.weekEnd}
+                </div>
                 {review.status === "completed" && (
                   <>
                     <a
