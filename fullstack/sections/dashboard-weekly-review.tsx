@@ -1,7 +1,8 @@
 import { useTranslations } from "@bgord/ui";
-import { DownloadCircle, SendMail, Sparks } from "iconoir-react";
+import { SendMail, Sparks } from "iconoir-react";
 import { WeeklyReviewStatusEnum } from "../../app/services/weekly-review-form";
 import type { DashboardDataType } from "../api";
+import { DashboardWeeklyReviewDownload } from "./dashboard-weekly-review-download";
 
 export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][number]) {
   const t = useTranslations();
@@ -14,15 +15,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         </div>
         {props.status === WeeklyReviewStatusEnum.completed && (
           <>
-            <a
-              href={`/weekly-review/${props.id}/export/download`}
-              download
-              target="_blank"
-              data-pt="2"
-              data-color="brand-500"
-            >
-              <DownloadCircle data-size="lg" />
-            </a>
+            <DashboardWeeklyReviewDownload {...props} />
 
             <form method="POST" action=".">
               <input type="hidden" name="intent" value="export_weekly_review_by_email" />
