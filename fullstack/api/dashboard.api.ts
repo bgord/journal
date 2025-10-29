@@ -14,3 +14,5 @@ export class Dashboard {
     return response.json().catch();
   }
 }
+
+export type { DashboardDataType } from "../../app/http/get-dashboard";

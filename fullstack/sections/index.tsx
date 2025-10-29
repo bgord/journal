@@ -4,6 +4,7 @@ export * from "./dashboard-emotions-top";
 export * from "./dashboard-entry-counts";
 export * from "./dashboard-heatmap";
 export * from "./dashboard-reactions-top";
+export * from "./dashboard-weekly-review";
 export * from "./dashboard-weekly-review-list";
 export * from "./entry-alarms";
 export * from "./home-entry";
