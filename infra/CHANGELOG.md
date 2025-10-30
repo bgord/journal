@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 15:57 4db9318a **refactor: remove auth routes**
+## 2025-10-30 15:57 
 - 2025-10-30 15:16 3b9e69b1 **step: try another path**
-## 2025-10-30 15:16 
 - 2025-10-30 15:09 d3d53ebf **fix: email verification composer**
 - 2025-10-30 14:57 73c0bffe **fix: register**
 - 2025-10-30 14:56 e858d2e1 **step: opt-out out of bun html parsing**
@@ -9,6 +10,7 @@
 - 2025-10-30 14:37 1f16fbfe **step: tmp remove haveibeenpwned**
 - 2025-10-30 14:34 b67fc732 **step: add inspect cwd**
 - 2025-10-30 14:26 528f87fe **step: add production flag to compile**
+- 2025-10-30 14:19 90a67628 **docs: generate CHANGELOG**
 - 2025-10-30 14:14 70f9a59f **step: restore sharp installs scripts**
 - 2025-10-30 14:13 6ca88277 **step: restore restart server step**
 - 2025-10-30 14:13 376c4c50 **step: remove fe steps**
