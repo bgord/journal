@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 15:16 3b9e69b1 **step: try another path**
+## 2025-10-30 15:16 
 - 2025-10-30 15:09 d3d53ebf **fix: email verification composer**
-## 2025-10-30 15:09 
 - 2025-10-30 14:57 73c0bffe **fix: register**
 - 2025-10-30 14:56 e858d2e1 **step: opt-out out of bun html parsing**
 - 2025-10-30 14:46 f012d6b6 **step: add loaders**
@@ -11,6 +12,7 @@
 - 2025-10-30 14:14 70f9a59f **step: restore sharp installs scripts**
 - 2025-10-30 14:13 6ca88277 **step: restore restart server step**
 - 2025-10-30 14:13 376c4c50 **step: remove fe steps**
+- 2025-10-30 14:10 356d086c **docs: generate CHANGELOG**
 - 2025-10-30 14:09 6a3f65b8 **step: restore sync source code step**
 - 2025-10-30 14:04 32d2dd02 **step: bump bun prereq version**
 - 2025-10-30 14:01 de062982 **step: restore configure ssh step**
