@@ -1,6 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import { Sparks } from "iconoir-react";
-import * as Components from "../components";
+import { DashboardCell } from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardAlarmsEntry() {
@@ -8,7 +8,7 @@ export function DashboardAlarmsEntry() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <Components.DashboardCell data-mt="5">
+    <DashboardCell data-mt="5">
       <h2 data-stack="x" data-gap="3" data-fs="base">
         {t("dashboard.alarm.entry")}
         <div className="c-badge" data-variant="primary">
@@ -45,6 +45,6 @@ export function DashboardAlarmsEntry() {
           ))}
         </ul>
       )}
-    </Components.DashboardCell>
+    </DashboardCell>
   );
 }

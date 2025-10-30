@@ -1,6 +1,6 @@
 import { Rhythm, useExitAction, useTranslations, WeakETag } from "@bgord/ui";
 import { Link, useRouter } from "@tanstack/react-router";
-import * as Icons from "iconoir-react";
+import { Timer, Xmark } from "iconoir-react";
 import React from "react";
 import { Form } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotWithAlarmsFormatted } from "../api";
@@ -49,7 +49,7 @@ export function HomeEntry(props: EntrySnapshotWithAlarmsFormatted) {
       data-shadow="sm"
     >
       <header data-stack="x" data-gap="3" data-cross="center" {...Rhythm().times(3).style.height}>
-        {props.origin === "time_capsule" && <Icons.Timer data-size="sm" data-color="neutral-300" />}
+        {props.origin === "time_capsule" && <Timer data-size="sm" data-color="neutral-300" />}
         <UI.EntryStartedAt startedAt={props.startedAt} data-mr="auto" />
         <Link
           to="/entry/$entryId/history"
@@ -74,7 +74,7 @@ export function HomeEntry(props: EntrySnapshotWithAlarmsFormatted) {
             data-interaction="subtle-scale"
             onClick={exit.trigger}
           >
-            <Icons.Xmark data-size="md" />
+            <Xmark data-size="md" />
           </button>
         </form>
       </header>

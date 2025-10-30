@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import * as Icons from "iconoir-react";
+import { CheckCircle, WarningCircle } from "iconoir-react";
 import React from "react";
 import { rootRoute } from "../router";
 import { RequestState } from "../ui";
@@ -59,7 +59,7 @@ export function ProfilePasswordChange() {
             data-color="positive-400"
             data-fs="sm"
           >
-            <Icons.CheckCircle data-size="sm" />
+            <CheckCircle data-size="sm" />
             {t("auth.change_password.sent")}
           </output>
         )}
@@ -73,7 +73,7 @@ export function ProfilePasswordChange() {
             data-color="danger-400"
             data-fs="sm"
           >
-            <Icons.WarningCircle data-size="sm" />
+            <WarningCircle data-size="sm" />
             {t("auth.change_password.error")}
           </output>
         )}

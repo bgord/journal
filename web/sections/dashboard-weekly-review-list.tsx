@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import * as Components from "../components";
+import { DashboardCell } from "../components";
 import { dashboardRoute } from "../router";
 import { DashboardWeeklyReview } from "./dashboard-weekly-review";
 
@@ -8,7 +8,7 @@ export function DashboardWeeklyReviewList() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <Components.DashboardCell data-mt="3">
+    <DashboardCell data-mt="3">
       <h2 data-stack="x" data-fs="base">
         {t("dashboard.weekly_reviews.history")}
       </h2>
@@ -26,6 +26,6 @@ export function DashboardWeeklyReviewList() {
           ))}
         </ul>
       )}
-    </Components.DashboardCell>
+    </DashboardCell>
   );
 }

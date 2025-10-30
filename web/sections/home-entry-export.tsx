@@ -1,7 +1,7 @@
 import * as bg from "@bgord/ui";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-export-form";
-import * as UI from "../components";
+import { Select } from "../components";
 
 export function HomeEntryExport() {
   const t = bg.useTranslations();
@@ -29,11 +29,11 @@ export function HomeEntryExport() {
         max={bg.Form.date.max.today()}
         {...dateRangeEnd.input.props}
       />
-      <UI.Select {...strategy.input.props}>
+      <Select {...strategy.input.props}>
         {Form.strategy.options.map((strategy) => (
           <option value={strategy}>{t(`entries.export.format.${strategy}`)}</option>
         ))}
-      </UI.Select>
+      </Select>
       <a
         type="button"
         href={url}

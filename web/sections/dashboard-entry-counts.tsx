@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import * as Components from "../components";
+import { DashboardCell } from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardEntryCounts() {
@@ -7,7 +7,7 @@ export function DashboardEntryCounts() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <Components.DashboardCell data-mt="3">
+    <DashboardCell data-mt="3">
       <h2 data-stack="x" data-gap="3" data-fs="base">
         {t("dashboard.entries.counts")}
       </h2>
@@ -40,6 +40,6 @@ export function DashboardEntryCounts() {
           </div>
         </div>
       </div>
-    </Components.DashboardCell>
+    </DashboardCell>
   );
 }

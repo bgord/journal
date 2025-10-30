@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import * as Components from "../components";
+import { DashboardCell } from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardEmotionsTop() {
@@ -11,7 +11,7 @@ export function DashboardEmotionsTop() {
   if (!((top?.today || top?.lastWeek) && top.allTime)) return null;
 
   return (
-    <Components.DashboardCell data-mt="5">
+    <DashboardCell data-mt="5">
       <h2 data-stack="x" data-gap="3" data-fs="base">
         {t("dashboard.entries.top_emotions")}
       </h2>
@@ -74,6 +74,6 @@ export function DashboardEmotionsTop() {
           </div>
         )}
       </div>
-    </Components.DashboardCell>
+    </DashboardCell>
   );
 }

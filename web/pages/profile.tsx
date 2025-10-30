@@ -1,6 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import { ProfileCircle } from "iconoir-react";
-import * as UI from "../components";
+import { Separator } from "../components";
 import * as Sections from "../sections";
 
 /** @public */
@@ -26,19 +26,19 @@ export function Profile() {
           {t("profile.header")}
         </h2>
       </header>
-      <UI.Separator />
+      <Separator />
       <Sections.ProfileAvatarChange />
-      <UI.Separator />
+      <Separator />
       <Sections.ProfileAiUsage />
-      <UI.Separator />
+      <Separator />
       <Sections.ProfileShareableLinkList />
-      <UI.Separator />
+      <Separator />
       <Sections.ProfileLanguageSelector />
-      <UI.Separator />
+      <Separator />
       <Sections.ProfileDataExport />
-      <UI.Separator />
+      <Separator />
       <Sections.ProfilePasswordChange />
-      <UI.Separator />
+      <Separator />
       <Sections.ProfileAccountDelete />
     </main>
   );

@@ -1,6 +1,6 @@
 import { exec, useFile, useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import * as Icons from "iconoir-react";
+import { UserCircle } from "iconoir-react";
 import React from "react";
 import { rootRoute } from "../router";
 import { RequestState } from "../ui";
@@ -38,7 +38,7 @@ export function ProfileAvatarChange() {
   return (
     <section data-stack="y" data-gap="4">
       <div data-stack="x" data-cross="center" data-gap="3">
-        <Icons.UserCircle data-size="md" />
+        <UserCircle data-size="md" />
         <div>{t("profile.avatar.header")}</div>
       </div>
 

@@ -1,6 +1,6 @@
 import { useTextField, useTranslations } from "@bgord/ui";
 import * as HomeEntryListForm from "../../app/services/home-entry-list-form";
-import * as Components from "../components";
+import { EntryListEmpty, Select } from "../components";
 import { homeRoute } from "../router";
 import { HomeEntry } from "./home-entry";
 
@@ -32,7 +32,7 @@ export function HomeEntryList() {
             })
           }
         />
-        <Components.Select
+        <Select
           value={filter.input.props.value}
           onChange={(event) =>
             navigate({ to: "/", search: { filter: event.currentTarget.value, query: query.value } })
@@ -43,7 +43,7 @@ export function HomeEntryList() {
               {t(`entry.list.filter.${option}`)}
             </option>
           ))}
-        </Components.Select>
+        </Select>
 
         <button
           className="c-button"
@@ -72,7 +72,7 @@ export function HomeEntryList() {
         </ul>
       )}
 
-      {!entries[0] && <Components.EntryListEmpty />}
+      {!entries[0] && <EntryListEmpty />}
     </div>
   );
 }

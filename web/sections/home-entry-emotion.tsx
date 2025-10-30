@@ -4,7 +4,7 @@ import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import type { EntrySnapshotWithAlarmsFormatted } from "../api";
-import * as UI from "../components";
+import { ButtonCancel, EntryEmotionLabel, RatingPillsClickable, Select } from "../components";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
@@ -50,7 +50,7 @@ export function EntryEmotion(props: EntrySnapshotWithAlarmsFormatted) {
   return (
     <div data-stack="x" data-gap="5" data-mt="2">
       {emotionLabelEdit.off && (
-        <UI.EntryEmotionLabel
+        <EntryEmotionLabel
           emotionLabel={props.emotionLabel}
           data-cursor="pointer"
           onClick={emotionLabelEdit.enable}
@@ -59,7 +59,7 @@ export function EntryEmotion(props: EntrySnapshotWithAlarmsFormatted) {
 
       {emotionLabelEdit.on && (
         <div data-stack="x" data-gap="2" data-mr="2">
-          <UI.Select
+          <Select
             {...emotionLabel.input.props}
             disabled={state === RequestState.loading}
             onChange={(event) => {
@@ -72,9 +72,9 @@ export function EntryEmotion(props: EntrySnapshotWithAlarmsFormatted) {
                 {t(`entry.emotion.label.value.${emotion}`)}
               </option>
             ))}
-          </UI.Select>
+          </Select>
 
-          <UI.ButtonCancel
+          <ButtonCancel
             type="submit"
             disabled={state === RequestState.loading}
             onClick={exec([emotionLabel.clear, emotionLabelEdit.disable])}
@@ -82,7 +82,7 @@ export function EntryEmotion(props: EntrySnapshotWithAlarmsFormatted) {
         </div>
       )}
 
-      <UI.RatingPillsClickable {...emotionIntensity} />
+      <RatingPillsClickable {...emotionIntensity} />
     </div>
   );
 }

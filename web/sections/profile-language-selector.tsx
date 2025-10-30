@@ -1,6 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import { Language } from "iconoir-react";
-import * as UI from "../components";
+import { LanguageSelector } from "../components";
 
 export function ProfileLanguageSelector() {
   const t = useTranslations();
@@ -12,7 +12,7 @@ export function ProfileLanguageSelector() {
         <div>{t("profile.change_language.header")}</div>
       </div>
 
-      <UI.LanguageSelector />
+      <LanguageSelector />
     </div>
   );
 }
