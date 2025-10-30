@@ -1,9 +1,12 @@
 # Changelog
+- 2025-10-30 19:28 d550ca59 **refactor: do not skip any logs**
+## 2025-10-30 19:28 
+- 2025-10-30 19:27 c6053c2d **fix: logout redirect**
 - 2025-10-30 16:07 acbb2278 **fix: login replace url**
-## 2025-10-30 16:07 
 - 2025-10-30 15:57 4db9318a **refactor: remove auth routes**
 - 2025-10-30 15:16 3b9e69b1 **step: try another path**
 - 2025-10-30 15:09 d3d53ebf **fix: email verification composer**
+- 2025-10-30 15:07 06dd331e **docs: generate CHANGELOG**
 - 2025-10-30 15:01 9d98c7a4 **docs: generate CHANGELOG**
 - 2025-10-30 14:57 73c0bffe **fix: register**
 - 2025-10-30 14:56 e858d2e1 **step: opt-out out of bun html parsing**
