@@ -9,6 +9,7 @@ export * from "./dashboard-cell-empty";
 export * from "./dashboard-column-header";
 export * from "./dashboard-count";
 export * from "./dashboard-date";
+export * from "./dashboard-section";
 export * from "./dashboard-subheader";
 export * from "./description-label";
 export * from "./entry-emotion-label";

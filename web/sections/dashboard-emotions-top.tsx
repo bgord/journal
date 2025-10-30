@@ -15,9 +15,9 @@ export function DashboardEmotionsTop(
         {props.label}
       </div>
 
-      <ul data-stack="y" data-gap="2">
+      <ul data-stack="y" data-gap="3">
         {props.emotions.map((stat, index) => (
-          <li key={`top-emotions-all-${stat}-${index}`} data-stack="x" data-gap="2">
+          <li key={`top-emotions-all-${stat}-${index}`} data-stack="x" data-gap="3">
             <div className="c-badge" data-variant="primary">
               {stat.hits}
             </div>

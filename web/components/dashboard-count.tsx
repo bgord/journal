@@ -2,7 +2,7 @@ export function DashboardCount(props: React.JSX.IntrinsicElements["div"] & { lab
   const { label, children, ...rest } = props;
 
   return (
-    <div data-stack="y" data-cross="center" data-gap="2" {...rest}>
+    <div data-stack="y" data-cross="center" data-gap="3" {...rest}>
       <div data-color="neutral-500" data-transform="center">
         {label}
       </div>
