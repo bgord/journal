@@ -7,12 +7,12 @@ import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
 import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
-import { handler } from "./fullstack/entry-server";
-import forgotPasswordHtml from "./fullstack/pages/forgot-password.html";
-import loginHtml from "./fullstack/pages/login.html";
-import registerHtml from "./fullstack/pages/register.html";
-import resetPassword from "./fullstack/pages/reset-password.html";
 import { server, startup } from "./server";
+import { handler } from "./web/entry-server";
+import forgotPasswordHtml from "./web/pages/forgot-password.html";
+import loginHtml from "./web/pages/login.html";
+import registerHtml from "./web/pages/register.html";
+import resetPassword from "./web/pages/reset-password.html";
 
 (async function main() {
   await new bg.Prerequisites(Logger).check(prerequisites);
