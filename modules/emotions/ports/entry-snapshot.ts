@@ -2,7 +2,7 @@ import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import type * as VO from "+emotions/value-objects";
 
-export type EntrySnapshotWithAlarms = VO.EntrySnapshot & { alarms: VO.AlarmSnapshot[] };
+type EntrySnapshotWithAlarms = VO.EntrySnapshot & { alarms: VO.AlarmSnapshot[] };
 
 export type EntrySnapshotWithAlarmsFormatted = Omit<EntrySnapshotWithAlarms, "startedAt"> & {
   startedAt: string;

@@ -11,7 +11,7 @@ import * as HEAD from "./head";
 import { NotFound } from "./not-found";
 import { Shell } from "./shell";
 
-export type RouterContext = { request: Request | null };
+type RouterContext = { request: Request | null };
 
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({

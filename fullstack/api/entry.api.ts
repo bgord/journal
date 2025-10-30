@@ -3,6 +3,7 @@ import type { types } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotWithAlarmsFormatted } from "../../modules/emotions/ports";
 import type { ShareableLinkIdType } from "../../modules/publishing/value-objects/";
 
+/** @public */
 export type HistoryParsedType = {
   id: string;
   operation: string;

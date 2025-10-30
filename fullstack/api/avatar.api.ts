@@ -1,5 +1,6 @@
 import { Cookies, type ETagValueType } from "@bgord/ui";
 
+/** @public */
 export type AvatarEtagType = ETagValueType;
 
 export class Avatar {
