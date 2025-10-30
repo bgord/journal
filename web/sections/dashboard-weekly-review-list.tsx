@@ -8,7 +8,7 @@ export function DashboardWeeklyReviewList() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <DashboardCell data-mt="3">
+    <DashboardCell>
       <DashboardSubheader>{t("dashboard.weekly_reviews.history")}</DashboardSubheader>
 
       {!dashboard?.weeklyReviews[0] && <DashboardSectionEmpty />}

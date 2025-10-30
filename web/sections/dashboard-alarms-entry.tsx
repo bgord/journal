@@ -7,7 +7,7 @@ export function DashboardAlarmsEntry() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <UI.DashboardCell data-mt="5">
+    <UI.DashboardCell>
       <UI.DashboardSubheader>
         {t("dashboard.alarm.entry")}
         <div className="c-badge" data-variant="primary">

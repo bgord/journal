@@ -7,7 +7,7 @@ export function DashboardEntryCounts() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <DashboardCell data-mt="3">
+    <DashboardCell>
       <DashboardSubheader>{t("dashboard.entries.counts")}</DashboardSubheader>
 
       <div data-stack="x" data-main="between" data-px="8">

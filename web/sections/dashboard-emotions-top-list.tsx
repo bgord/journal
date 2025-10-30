@@ -12,7 +12,7 @@ export function DashboardEmotionsTopList() {
   if (!((top?.today || top?.lastWeek) && top.allTime)) return null;
 
   return (
-    <DashboardCell data-mt="5">
+    <DashboardCell>
       <DashboardSubheader>{t("dashboard.entries.top_emotions")}</DashboardSubheader>
 
       <div data-stack="x" data-main="between">

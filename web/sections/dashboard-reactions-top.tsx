@@ -11,7 +11,7 @@ export function DashboardReactionsTop() {
   if (!dashboard?.entries.top.reactions[0]) return null;
 
   return (
-    <DashboardCell data-mt="5">
+    <DashboardCell>
       <DashboardSubheader>{t("dashboard.entries.reactions")}</DashboardSubheader>
 
       {!dashboard?.entries.top.reactions[0] && <DashboardSectionEmpty />}

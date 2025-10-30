@@ -9,11 +9,11 @@ export function Dashboard() {
   const column = Rhythm(450).times(1).style.width;
 
   return (
-    <main data-stack="y" data-gap="8">
+    <main data-stack="y" data-gap="5">
       <Sections.DashboardHeatmap />
 
       <div data-stack="x" data-gap="5" data-mx="auto" data-color="neutral-200">
-        <section data-fs="sm" {...column}>
+        <section data-stack="y" data-gap="5" data-fs="sm" {...column}>
           <DashboardColumnHeader>
             <Alarm data-size="md" data-color="brand-300" /> {t("dashboard.alarm.header")}
           </DashboardColumnHeader>
@@ -21,7 +21,7 @@ export function Dashboard() {
           <Sections.DashboardAlarmsEntry />
         </section>
 
-        <section data-fs="sm" {...column}>
+        <section data-stack="y" data-gap="5" data-fs="sm" {...column}>
           <DashboardColumnHeader>
             <Notes data-size="md" data-color="brand-300" /> {t("dashboard.entries.header")}
           </DashboardColumnHeader>
@@ -30,7 +30,7 @@ export function Dashboard() {
           <Sections.DashboardReactionsTop />
         </section>
 
-        <section data-fs="sm" {...column}>
+        <section data-stack="y" data-gap="5" data-fs="sm" {...column}>
           <DashboardColumnHeader>
             <Calendar data-size="md" data-color="brand-300" /> {t("dashboard.weekly_reviews.header")}
           </DashboardColumnHeader>

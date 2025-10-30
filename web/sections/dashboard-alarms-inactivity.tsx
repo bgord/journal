@@ -7,7 +7,7 @@ export function DashboardAlarmsInactivity() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <UI.DashboardCell data-mt="3">
+    <UI.DashboardCell>
       <UI.DashboardSubheader>
         {t("dashboard.alarm.inactivity")}
         <div className="c-badge" data-variant="primary">
