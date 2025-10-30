@@ -1,4 +1,5 @@
 import { Cookies, type ETagValueType } from "@bgord/ui";
+import { absoluteUrl } from "./url";
 
 /** @public */
 export type AvatarEtagType = ETagValueType;
@@ -8,15 +9,12 @@ export class Avatar {
 
   static async getEtag(request: Request | null): Promise<AvatarEtagType | null> {
     console.log(request);
-    const url = request ? new URL(Avatar.BASE, request.url) : Avatar.BASE;
+    const url = absoluteUrl(Avatar.BASE, request);
     console.log(url);
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
     console.log(headers);
 
-    const response = await fetch(url.toString().replace("http", "https"), {
-      headers,
-      credentials: "include",
-    });
+    const response = await fetch(url, { headers, credentials: "include" });
     console.log(response);
 
     if (!response?.ok) return null;
