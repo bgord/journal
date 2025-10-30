@@ -6,6 +6,7 @@ export * from "./button-close";
 export * from "./button-copy";
 export * from "./dashboard-cell";
 export * from "./dashboard-column-header";
+export * from "./dashboard-count";
 export * from "./description-label";
 export * from "./entry-emotion-label";
 export * from "./entry-list-empty";

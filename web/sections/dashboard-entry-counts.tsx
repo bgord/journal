@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import { DashboardCell } from "../components";
+import { DashboardCell, DashboardCount } from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardEntryCounts() {
@@ -13,32 +13,17 @@ export function DashboardEntryCounts() {
       </h2>
 
       <div data-stack="x" data-main="between" data-mt="5" data-px="8">
-        <div data-stack="y" data-cross="center" data-gap="2">
-          <div data-color="neutral-500" data-transform="center">
-            {t("dashboard.entries.today")}
-          </div>
-          <div data-fs="3xl" data-fw="bold">
-            {dashboard?.entries.counts.today}
-          </div>
-        </div>
+        <DashboardCount label={t("dashboard.entries.today")}>
+          {dashboard?.entries.counts.today}
+        </DashboardCount>
 
-        <div data-stack="y" data-cross="center" data-gap="2">
-          <div data-color="neutral-500" data-transform="center">
-            {t("dashboard.entries.last_week")}
-          </div>
-          <div data-fs="3xl" data-fw="bold">
-            {dashboard?.entries.counts.lastWeek}
-          </div>
-        </div>
+        <DashboardCount label={t("dashboard.entries.last_week")}>
+          {dashboard?.entries.counts.lastWeek}
+        </DashboardCount>
 
-        <div data-stack="y" data-cross="center" data-gap="2">
-          <div data-color="neutral-500" data-transform="center">
-            {t("dashboard.entries.all")}
-          </div>
-          <div data-fs="3xl" data-fw="bold">
-            {dashboard?.entries.counts.allTime}
-          </div>
-        </div>
+        <DashboardCount label={t("dashboard.entries.all")}>
+          {dashboard?.entries.counts.allTime}
+        </DashboardCount>
       </div>
     </DashboardCell>
   );
