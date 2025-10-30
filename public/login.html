@@ -122,7 +122,7 @@
           const response = await fetch(form.action, {
             method: form.method,
             body: new FormData(form),
-            credentials: include,
+            credentials: "include",
           });
 
           form.dataset.status = response.ok ? "success" : "error";
