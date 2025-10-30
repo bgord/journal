@@ -35,9 +35,6 @@ jobs:
       - name: Inspect root
         run: ls -alh /
 
-      - name: Inspect public
-        run: ls -alh /public
-
       - name: Build app
         run: ./scripts/production-server-build.sh
 
