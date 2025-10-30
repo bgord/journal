@@ -16,13 +16,13 @@ export function ProfileDataExport() {
         href="/api/entry/export-data"
         download
         target="_blank"
-        rel="noopener noreferer"
         className="c-button"
         data-variant="secondary"
         data-disp="flex"
         data-main="center"
         data-cross="center"
         data-mr="auto"
+        rel="noopener"
       >
         {t("profile.export_all_data.cta")}
       </a>
