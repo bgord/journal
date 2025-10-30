@@ -9,10 +9,10 @@ import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
 import { server, startup } from "./server";
 import { handler } from "./web/entry-server";
-import forgotPasswordHtml from "./web/pages/forgot-password.html";
-import loginHtml from "./web/pages/login.html";
-import registerHtml from "./web/pages/register.html";
-import resetPassword from "./web/pages/reset-password.html";
+import forgotPasswordHtml from "./web/pages/forgot-password.html" with { loader: "text" };
+import loginHtml from "./web/pages/login.html" with { loader: "text" };
+import registerHtml from "./web/pages/register.html" with { loader: "text" };
+import resetPassword from "./web/pages/reset-password.html" with { loader: "text" };
 
 (async function main() {
   await new bg.Prerequisites(Logger).check(prerequisites);
