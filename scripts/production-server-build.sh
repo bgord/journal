@@ -13,8 +13,6 @@ check_if_directory_exists node_modules
 check_if_file_exists scripts/production-server-start.sh
 validate_environment_file
 
-# SERVER
-
 step_start "Build cache clean"
 rm -rf $OUTPUT_DIRECTORY
 step_end "Build cache clean"
@@ -59,12 +57,25 @@ step_start "Temporary file directory directory create"
 mkdir -p "$OUTPUT_DIRECTORY/infra/tmp-avatars"
 step_end "Temporary file directory directory create"
 
+step_start "Remove public artifacts"
+rm -f public/*.js
+rm -f public/*.js.map
+step_end "Remove public artifacts"
+
+step_start "CSS copy"
+cp node_modules/@bgord/design/dist/main.min.css public
+step_end "CSS copy"
+
+step_start "Web build"
+bun build web/entry-client.tsx \
+  --outdir ./public \
+  --target browser \
+  --splitting \
+  --minify \
+  --production \
+  --define process.env.NODE_ENV=\"production\"
+step_end "Web build"
+
 step_start "App compile"
 bun build --compile --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"
-
-# FRONTEND
-
-step_start "CSS copy"
-cp node_modules/@bgord/design/dist/main.min.css "$OUTPUT_DIRECTORY"
-step_end "CSS copy"
