@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 22:05 3f5d6738 **step: use absolute url everywhere**
+## 2025-10-30 22:05 
 - 2025-10-30 21:59 c27daa8e **step: improve url**
-## 2025-10-30 21:59 
 - 2025-10-30 21:55 a044b6e9 **step: add absolute url**
 - 2025-10-30 21:42 e782e3a7 **step: try upgrade**
 - 2025-10-30 21:38 95ecba2a **step: try secure false**
@@ -10,6 +11,7 @@
 - 2025-10-30 21:18 9709fbe3 **step: remove clientside form**
 - 2025-10-30 21:12 626cd95a **fix: config**
 - 2025-10-30 21:09 1f5899a1 **step: set cookies**
+- 2025-10-30 21:00 9b311d4a **docs: generate CHANGELOG**
 - 2025-10-30 20:56 4cf0e7bc **docs: generate CHANGELOG**
 - 2025-10-30 20:54 32c1d16e **step: add http origins**
 - 2025-10-30 20:52 9f7bef06 **step: disable everything in auth**
