@@ -1,6 +1,8 @@
 # Changelog
+- 2025-10-30 13:47 b0f4f3ac **fix: css path**
+## 2025-10-30 13:47 
+- 2025-10-30 13:46 88101898 **step: tmp disable build prechecks**
 - 2025-10-30 13:45 92e03cf7 **step: inspect step**
-## 2025-10-30 13:45 
 - 2025-10-30 13:44 deb3743c **step: restore build app step**
 - 2025-10-30 13:44 1071ca71 **refactor: adjust prod server build**
 - 2025-10-30 13:42 99415193 **step: remove fe env prod file**
@@ -16,6 +18,7 @@
 - 2025-10-30 13:18 e550fd1c **step: update packages**
 - 2025-10-30 13:15 4b125585 **refactor: extract history list**
 - 2025-10-30 13:12 3fa99073 **step: update packages**
+- 2025-10-30 12:45 404243f7 **docs: generate CHANGELOG**
 - 2025-10-30 12:40 b45126b9 **docs: generate CHANGELOG**
 - 2025-10-30 12:33 e4b08158 **docs: generate CHANGELOG**
 - 2025-10-30 12:29 b86adfdb **docs: generate CHANGELOG**
