@@ -13,7 +13,7 @@ export default defineConfig({
       command: "bash bgord-scripts/test-server-start.sh",
       stdout: "pipe",
       stderr: "pipe",
-      port: 3333,
+      port: 3000,
       name: "bun-backend",
       timeout: 20_000,
       gracefulShutdown: { signal: "SIGTERM", timeout: 1_000 },
