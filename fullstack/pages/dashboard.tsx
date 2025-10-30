@@ -2,6 +2,7 @@ import { Rhythm, useTranslations } from "@bgord/ui";
 import { Alarm, Calendar, Notes } from "iconoir-react";
 import * as Sections from "../sections";
 
+/** @public */
 export function Dashboard() {
   const t = useTranslations();
   const column = Rhythm(450).times(1).style.width;

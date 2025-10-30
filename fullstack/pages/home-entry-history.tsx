@@ -4,6 +4,7 @@ import { List, Xmark } from "iconoir-react";
 import { Form } from "../../app/services/home-entry-list-form";
 import { homeEntryHistoryRoute, homeRoute } from "../router";
 
+/** @public */
 export function HomeEntryHistory() {
   const t = useTranslations();
   const navigate = useNavigate();

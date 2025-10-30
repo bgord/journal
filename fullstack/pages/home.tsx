@@ -3,6 +3,7 @@ import { Outlet } from "@tanstack/react-router";
 import { MoreHoriz } from "iconoir-react";
 import * as Sections from "../sections";
 
+/** @public */
 export function Home() {
   const exportEntries = useToggle({ name: "entry-export" });
 

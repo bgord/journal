@@ -3,6 +3,7 @@ import { ProfileCircle } from "iconoir-react";
 import * as UI from "../components";
 import * as Sections from "../sections";
 
+/** @public */
 export function Profile() {
   const t = useTranslations();
 
