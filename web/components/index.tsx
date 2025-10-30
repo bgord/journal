@@ -1,5 +1,6 @@
 export * from "./avatar";
 export * from "./button-cancel";
+export * from "./button-clear";
 export * from "./button-close";
 export * from "./button-copy";
 export * from "./dashboard-cell";
@@ -17,4 +18,3 @@ export * from "./rating-pills";
 export * from "./rating-pills-clickable";
 export * from "./select";
 export * from "./separator";
-export * from "./button-clear";

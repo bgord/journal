@@ -16,11 +16,7 @@ export function HomeEntryHistory() {
   const dialog = {
     ...builder,
     on: true,
-    disable: () =>
-      navigate({
-        to: homeRoute.to,
-        search: { filter: Form.filter.field.defaultValue, query: Form.query.field.defaultValue },
-      }),
+    disable: () => navigate({ to: homeRoute.to, search: Form.default }),
   };
 
   return (

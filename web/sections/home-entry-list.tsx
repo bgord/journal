@@ -7,9 +7,7 @@ import { HomeEntry } from "./home-entry";
 export function HomeEntryList() {
   const t = useTranslations();
   const { entries } = homeRoute.useLoaderData();
-
   const navigate = homeRoute.useNavigate();
-
   const search = homeRoute.useSearch();
 
   const filter = useTextField<HomeEntryListForm.types.EntryListFilterType>({
@@ -26,10 +24,7 @@ export function HomeEntryList() {
           placeholder={t("entry.list.search.placeholder")}
           value={query.input.props.value}
           onChange={(event) =>
-            navigate({
-              to: "/",
-              search: { query: event.currentTarget.value, filter: filter.value },
-            })
+            navigate({ to: "/", search: { query: event.currentTarget.value, filter: filter.value } })
           }
         />
         <Select
@@ -46,16 +41,8 @@ export function HomeEntryList() {
         </Select>
 
         <ButtonClear
-          disabled={filter.value === HomeEntryListForm.Form.filter.field.defaultValue && !query.value}
-          onClick={() =>
-            navigate({
-              to: "/",
-              params: {
-                filter: HomeEntryListForm.Form.filter.field.defaultValue,
-                query: HomeEntryListForm.Form.query.field.defaultValue,
-              },
-            })
-          }
+          disabled={HomeEntryListForm.Form.isDefault(search)}
+          onClick={() => navigate({ to: "/", params: HomeEntryListForm.Form.default })}
         />
       </div>
 

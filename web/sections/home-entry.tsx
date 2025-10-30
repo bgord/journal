@@ -54,7 +54,7 @@ export function HomeEntry(props: EntrySnapshotWithAlarmsFormatted) {
         <Link
           to="/entry/$entryId/history"
           params={{ entryId: props.id }}
-          search={{ filter: Form.filter.field.defaultValue, query: Form.query.field.defaultValue }}
+          search={Form.default}
           className="c-button"
           data-disp="flex"
           data-cross="center"
