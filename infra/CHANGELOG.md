@@ -1,10 +1,12 @@
 # Changelog
+- 2025-10-30 19:52 f0948982 **fix: string**
+## 2025-10-30 19:52 
 - 2025-10-30 19:51 13f1a775 **step: include credentials in login**
-## 2025-10-30 19:51 
 - 2025-10-30 19:45 871aa90c **refactor: remove old config**
 - 2025-10-30 19:36 6bb2bd49 **refactor: remove default login values**
 - 2025-10-30 19:28 d550ca59 **refactor: do not skip any logs**
 - 2025-10-30 19:27 c6053c2d **fix: logout redirect**
+- 2025-10-30 18:51 8f28859e **docs: generate CHANGELOG**
 - 2025-10-30 18:36 3ce1fa4f **docs: generate CHANGELOG**
 - 2025-10-30 18:29 80ae4c81 **docs: generate CHANGELOG**
 - 2025-10-30 16:07 acbb2278 **fix: login replace url**
