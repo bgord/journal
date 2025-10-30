@@ -2,7 +2,7 @@ import { useTranslations } from "@bgord/ui";
 import { DashboardCell, DashboardSubheader } from "../components";
 import { dashboardRoute } from "../router";
 
-export function DashboardEmotionsTop() {
+export function DashboardEmotionsTopList() {
   const t = useTranslations();
   const dashboard = dashboardRoute.useLoaderData();
 

@@ -26,7 +26,7 @@ export function Dashboard() {
             <Notes data-size="md" data-color="brand-300" /> {t("dashboard.entries.header")}
           </DashboardColumnHeader>
           <Sections.DashboardEntryCounts />
-          <Sections.DashboardEmotionsTop />
+          <Sections.DashboardEmotionsTopList />
           <Sections.DashboardReactionsTop />
         </section>
 
