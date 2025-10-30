@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import { Advice, DashboardCell, DashboardSectionEmpty, DashboardSubheader } from "../components";
+import * as UI from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardAlarmsEntry() {
@@ -7,24 +7,22 @@ export function DashboardAlarmsEntry() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <DashboardCell data-mt="5">
-      <DashboardSubheader>
+    <UI.DashboardCell data-mt="5">
+      <UI.DashboardSubheader>
         {t("dashboard.alarm.entry")}
         <div className="c-badge" data-variant="primary">
           {dashboard?.alarms.entry.length}
         </div>
-      </DashboardSubheader>
+      </UI.DashboardSubheader>
 
-      {!dashboard?.alarms.entry[0] && <DashboardSectionEmpty />}
+      {!dashboard?.alarms.entry[0] && <UI.DashboardSectionEmpty />}
 
       {dashboard?.alarms.entry[0] && (
         <ul data-stack="y" data-gap="5" data-mt="5">
           {dashboard?.alarms.entry.map((alarm) => (
             <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
               <div data-stack="x" data-gap="3">
-                <div data-fs="sm" data-color="neutral-500">
-                  {alarm.generatedAt}
-                </div>
+                <UI.DashboardDate>{alarm.generatedAt}</UI.DashboardDate>
 
                 <div data-color="neutral-300">
                   {t(`dashboard.alarm.entry.${alarm.name}.description`, {
@@ -32,12 +30,12 @@ export function DashboardAlarmsEntry() {
                   })}
                 </div>
 
-                <Advice>{alarm.advice}</Advice>
+                <UI.Advice>{alarm.advice}</UI.Advice>
               </div>
             </li>
           ))}
         </ul>
       )}
-    </DashboardCell>
+    </UI.DashboardCell>
   );
 }

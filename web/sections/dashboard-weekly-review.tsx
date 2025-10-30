@@ -1,7 +1,7 @@
 import { useTranslations } from "@bgord/ui";
 import { WeeklyReviewStatusEnum } from "../../app/services/weekly-review-form";
 import type { DashboardDataType } from "../api";
-import { Advice } from "../components";
+import { Advice, DashboardDate } from "../components";
 import { DashboardWeeklyReviewDownload } from "./dashboard-weekly-review-download";
 import { DashboardWeeklyReviewEmailSend } from "./dashboard-weekly-review-email-send";
 
@@ -11,9 +11,10 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
   return (
     <li key={props.id} data-stack="y" data-gap="5">
       <div data-stack="x" data-cross="center" data-gap="4" data-color="neutral-500">
-        <div data-mr="auto">
+        <DashboardDate data-mr="auto">
           {props.weekStart} - {props.weekEnd}
-        </div>
+        </DashboardDate>
+
         {props.status === WeeklyReviewStatusEnum.completed && (
           <>
             <DashboardWeeklyReviewDownload {...props} />

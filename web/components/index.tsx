@@ -7,6 +7,7 @@ export * from "./button-copy";
 export * from "./dashboard-cell";
 export * from "./dashboard-column-header";
 export * from "./dashboard-count";
+export * from "./dashboard-date";
 export * from "./dashboard-section-empty";
 export * from "./dashboard-subheader";
 export * from "./description-label";
