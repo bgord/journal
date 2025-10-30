@@ -104,6 +104,41 @@
           Forgot password?
         </a>
       </form>
+
+      <script>
+        const form = document.querySelector("#login");
+
+        form.dataset.status = "initial";
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          if (form.dataset.status === "pending") return;
+          if (!form.reportValidity()) return;
+
+          form.dataset.status = "pending";
+
+          try {
+            const response = await fetch(form.action, {
+              method: form.method,
+              body: new FormData(form),
+              credentials: "include",
+            });
+
+            form.dataset.status = response.ok ? "success" : "error";
+
+            if (response.ok) {
+              form.reset();
+              form.dataset.status = "success";
+              location.replace("/?filter=today&query=");
+            } else {
+              form.dataset.status = "error";
+            }
+          } catch {
+            form.dataset.status = "error";
+          }
+        });
+      </script>
     </main>
   </body>
 </html>

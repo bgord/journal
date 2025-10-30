@@ -181,26 +181,15 @@ server.get("/dashboard/get", AuthShield.attach, AuthShield.verify, HTTP.GetDashb
 // Auth ========================
 server.on(["POST", "GET"], "/auth/*", async (c) => {
   const response = await auth.handler(c.req.raw);
-  const redirectPreservingCookies = (to: string, status = 302) => {
-    const headers = new Headers(response.headers);
-    headers.set("Location", to);
-    return new Response(null, { status, headers });
-  };
 
-  if (
-    c.req.method === "POST" &&
-    c.req.path === "/api/auth/sign-in/email" &&
-    [200, 204, 302].includes(response.status)
-  ) {
-    return redirectPreservingCookies("/?filter=today&query=");
-  }
   if (
     c.req.method === "POST" &&
     c.req.path === "/api/auth/sign-out" &&
     [200, 302].includes(response.status)
   ) {
-    return redirectPreservingCookies("/public/login.html");
+    return c.redirect("/public/login.html");
   }
+
   return response;
 });
 // =============================
