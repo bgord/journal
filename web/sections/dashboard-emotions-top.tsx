@@ -10,12 +10,12 @@ export function DashboardEmotionsTop(
   const t = useTranslations();
 
   return (
-    <div data-stack="y" data-cross="center" data-fs="sm">
+    <div data-stack="y" data-gap="5" data-cross="center" data-fs="sm">
       <div data-color="neutral-500" data-transform="center">
         {props.label}
       </div>
 
-      <ul data-stack="y" data-mt="3" data-gap="2">
+      <ul data-stack="y" data-gap="2">
         {props.emotions.map((stat, index) => (
           <li key={`top-emotions-all-${stat}-${index}`} data-stack="x" data-gap="2">
             <div className="c-badge" data-variant="primary">

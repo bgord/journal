@@ -15,7 +15,7 @@ export function DashboardEmotionsTopList() {
     <DashboardCell data-mt="5">
       <DashboardSubheader>{t("dashboard.entries.top_emotions")}</DashboardSubheader>
 
-      <div data-stack="x" data-main="between" data-mt="5">
+      <div data-stack="x" data-main="between">
         {top.today[0] && <DashboardEmotionsTop label={t("dashboard.entries.today")} emotions={top.today} />}
         {top.lastWeek[0] && (
           <DashboardEmotionsTop label={t("dashboard.entries.last_week")} emotions={top.lastWeek} />

@@ -10,7 +10,7 @@ export function DashboardEntryCounts() {
     <DashboardCell data-mt="3">
       <DashboardSubheader>{t("dashboard.entries.counts")}</DashboardSubheader>
 
-      <div data-stack="x" data-main="between" data-mt="5" data-px="8">
+      <div data-stack="x" data-main="between" data-px="8">
         <DashboardCount label={t("dashboard.entries.today")}>
           {dashboard?.entries.counts.today}
         </DashboardCount>

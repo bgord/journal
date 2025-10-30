@@ -16,7 +16,7 @@ export function DashboardReactionsTop() {
 
       {!dashboard?.entries.top.reactions[0] && <DashboardSectionEmpty />}
 
-      <ul data-stack="y" data-mt="5" data-gap="5">
+      <ul data-stack="y" data-gap="5">
         {dashboard?.entries.top.reactions.map((reaction) => (
           <li
             key={reaction.id}
