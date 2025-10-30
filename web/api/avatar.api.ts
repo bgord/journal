@@ -13,7 +13,10 @@ export class Avatar {
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
     console.log(headers);
 
-    const response = await fetch(url, { headers, credentials: "include" });
+    const response = await fetch(url.toString().replace("http", "https"), {
+      headers,
+      credentials: "include",
+    });
     console.log(response);
 
     if (!response?.ok) return null;
