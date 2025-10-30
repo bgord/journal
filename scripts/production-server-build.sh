@@ -79,3 +79,7 @@ step_end "Web build"
 step_start "App compile"
 bun build --compile --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"
+
+step_start "Copy public"
+cp -r public "$OUTPUT_DIRECTORY"
+step_end "Copy public"
