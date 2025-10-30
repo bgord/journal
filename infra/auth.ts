@@ -15,11 +15,7 @@ const production = Env.type === bg.NodeEnvironmentEnum.production;
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
-  advanced: {
-    database: { generateId: () => crypto.randomUUID() },
-    useSecureCookies: production,
-    cookiePrefix: "journal_v1",
-  },
+  advanced: { database: { generateId: () => crypto.randomUUID() }, useSecureCookies: production },
   session: { expiresIn: tools.Duration.Days(30).seconds, updateAge: tools.Duration.Days(1).seconds },
   rateLimit: { enabled: true, window: tools.Duration.Minutes(5).seconds, max: 100 },
   user: {
