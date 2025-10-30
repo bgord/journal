@@ -66,5 +66,5 @@ step_end "App compile"
 # FRONTEND
 
 step_start "CSS copy"
-cp frontend/node_modules/@bgord/design/dist/main.min.css frontend/public/
+cp node_modules/@bgord/design/dist/main.min.css "$OUTPUT_DIRECTORY"
 step_end "CSS copy"
