@@ -26,9 +26,6 @@ jobs:
       - name: Create .env.test file
         run: echo "${{ secrets.ENV_TEST }}" > .env.test
 
-      # - name: Create frontend/.env.production file for tests
-      #   run: echo "${{ secrets.FE_ENV_TEST }}" > frontend/.env.production
-
       # - name: Run build prechecks
       #   run: ./bgord-scripts/build-prechecks.sh
 
