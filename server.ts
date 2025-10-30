@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { desc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
@@ -14,8 +13,6 @@ import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
-import { db } from "./infra/db";
-import * as Schema from "./infra/schema";
 import { SupportedLanguages } from "./modules/supported-languages";
 
 import "+infra/register-event-handlers";
@@ -182,23 +179,7 @@ server.get("/ai-usage-today/get", AuthShield.attach, AuthShield.verify, HTTP.AI.
 // =============================
 
 // History =====================
-server.get("/history/:subject/list", AuthShield.attach, AuthShield.verify, async (c) => {
-  const subject = bg.History.VO.HistorySubject.parse(c.req.param("subject"));
-
-  const result = await db
-    .select()
-    .from(Schema.history)
-    .where(eq(Schema.history.subject, subject))
-    .orderBy(desc(Schema.history.createdAt))
-    .limit(15);
-
-  return c.json(
-    result.map((entry) => ({
-      ...entry,
-      payload: entry.payload ? JSON.parse(entry.payload as string) : {},
-    })),
-  );
-});
+server.get("/history/:subject/list", AuthShield.attach, AuthShield.verify, HTTP.History.HistoryList);
 // =============================
 
 // Dashboard ===================
