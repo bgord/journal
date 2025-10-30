@@ -1,12 +1,385 @@
 # Changelog
+- 2025-10-30 13:27 12783ae4 **Merge pull request #49 from bgord/fullstack-tanstack**
+## 2025-10-30 13:27 
+- 2025-10-30 13:26 d469007f **step: include history created at**
+- 2025-10-30 13:26 99182b45 **step: define history reader adapter**
+- 2025-10-30 13:18 e550fd1c **step: update packages**
+- 2025-10-30 13:15 4b125585 **refactor: extract history list**
+- 2025-10-30 13:12 3fa99073 **step: update packages**
+- 2025-10-30 11:32 266ce1ed **refactor: rename get formatted entry snapshot**
+- 2025-10-30 11:30 2957f543 **step: display email in profile**
+- 2025-10-30 11:27 1523c88d **step: wireup design types**
+- 2025-10-30 11:20 2609739a **step: remove frontend prod start script**
+- 2025-10-30 11:16 7eb4715b **refactor: extract head to ui**
+- 2025-10-30 11:15 4aab16aa **step: update packages**
+- 2025-10-30 11:07 679c343b **refactor: extract dashboard section**
+- 2025-10-30 11:04 401bfb92 **refactor: rename dashboard cell empty**
+- 2025-10-30 11:03 00564774 **refactor: centralize gaps**
+- 2025-10-30 11:01 1ad17a55 **refactor: unify margins**
+- 2025-10-30 10:57 531a2a1f **refactor: extract dashboard date**
+- 2025-10-30 10:54 ceb2f457 **refactor: extract dashboard emotions top**
+- 2025-10-30 10:46 bd7b778f **refactor: rename dashboard emotions top list**
+- 2025-10-30 10:43 e5762340 **refactor: extract dashboard section empty**
+- 2025-10-30 10:38 e6576164 **refactor: extract dashboard subheader**
+- 2025-10-30 10:32 dc8f5332 **refactor: extract dashboard count**
+- 2025-10-30 10:27 789164fe **refactor: extract advice component**
+- 2025-10-30 10:21 5cb65fdc **step: exract dash col head**
+- 2025-10-30 10:15 7055a0cc **refactor: improve home entry export ui**
+- 2025-10-30 10:11 13c67479 **refactor: simplify entry add form**
+- 2025-10-30 10:06 265d68fe **refactor: unify home entry list form**
+- 2025-10-30 10:01 20eeba49 **refactor: extract button clear**
+- 2025-10-30 09:58 dec7f69a **refactor: cleanup imports**
+- 2025-10-30 09:52 79bc828e **refactor: extract button close**
+- 2025-10-30 09:42 cc84903a **refactor: remove redundant noopener noreferer**
+- 2025-10-30 09:42 4f7adbde **refactor: remove localhost:5173**
+- 2025-10-30 09:41 b10f616c **step: bump bgord/scripts**
+- 2025-10-30 09:37 be14fb41 **step: remove web* scripts**
+- 2025-10-30 09:37 6fdf90d7 **step: bump bgord/scripts**
+- 2025-10-30 09:34 e9534098 **fix: biome checks**
+- 2025-10-30 09:28 8ec69c77 **refactor: simplify hooks deps**
+- 2025-10-30 09:25 fb2cfc86 **fix: post rename errors**
+- 2025-10-30 09:24 c6baeee5 **refactor: rename fullstack to web**
+- 2025-10-30 09:24 083d8085 **step: bump bgord/scripts**
+- 2025-10-30 09:22 7f9fa196 **fix: exports**
+- 2025-10-30 09:20 d851368f **refactor: unify types**
+- 2025-10-30 09:07 d6c6bb06 **fix: missing entry type export**
+- 2025-10-30 09:05 cf9efb0d **step: mark exports as public**
+- 2025-10-30 09:03 f6053bfa **step: update packages**
+- 2025-10-30 08:40 7d28845d **step: reinstall packages wo fe workspace**
+- 2025-10-30 08:39 9af5e08e **step: remove rr fe**
+- 2025-10-29 22:46 c9888292 **step: display formatted date**
+- 2025-10-29 22:39 49b2c862 **fix: list entries tests**
+- 2025-10-29 22:32 c7379a1d **fix: types**
+- 2025-10-29 22:31 a8ada0bf **refactor: add query to request**
+- 2025-10-29 17:08 31bf913a **step: add query to entry list**
+- 2025-10-29 16:57 b531b4bc **fix: default links**
+- 2025-10-29 16:55 36ac4ac0 **step: update packages**
+- 2025-10-29 16:54 5fb616d5 **step: update packages**
+- 2025-10-29 16:53 c5ecdb70 **step: update packages**
+- 2025-10-29 16:49 5c253709 **step: migrate entry list filter**
+- 2025-10-29 16:16 d16a4f88 **step: render entry filter list options**
+- 2025-10-29 12:11 0242516f **step: migrate weekly review export**
+- 2025-10-29 11:49 8482f5d8 **fix: download url**
+- 2025-10-29 11:48 482b3f44 **step: make seed create a real weekly review**
+- 2025-10-29 11:41 b03eddfa **step: hide entries in skipped**
+- 2025-10-29 11:40 65338f8a **refactor: extract dashboard weekly review email send**
+- 2025-10-29 11:38 7a7fa49e **refactor: extract dashboard weekly review download**
+- 2025-10-29 11:36 4e896ea9 **refactor: use weekly review status enum**
+- 2025-10-29 11:34 eb76f349 **refactor: extract dashboard weekly review**
+- 2025-10-29 11:31 becd4420 **step: format dates properly**
+- 2025-10-29 11:26 4a8086b3 **step: migrate weekly reviews**
+- 2025-10-29 11:20 a91db552 **step: add weekly reviews to get dashboard**
+- 2025-10-29 11:18 d98e6596 **refactor: unify export dto formatting**
+- 2025-10-29 11:10 e753cd6e **step: implement list full to weekly review export**
+- 2025-10-29 11:06 73c9ec50 **step: define list full to weekly review export**
+- 2025-10-29 10:12 161cd509 **refactor: remove duplicates in get dashboard route**
+- 2025-10-29 09:54 2db03530 **step: migrate top emotions**
+- 2025-10-29 09:33 69c8273a **step: migrate top reactions**
+- 2025-10-29 09:25 e8ec5650 **step: add top reactions response**
+- 2025-10-28 22:25 1741c263 **step: migrate entry counts**
+- 2025-10-28 22:16 08087f90 **refactor: unify get dashboard queries**
+- 2025-10-28 22:06 8191c5d3 **step: migrate entry alarms**
+- 2025-10-28 20:43 119b8ee2 **step: return entry alarms**
+- 2025-10-28 20:38 5ec907a3 **step: migrate inactivity alarms**
+- 2025-10-28 20:34 bd135365 **step: return inactivity alarms**
+- 2025-10-28 20:16 4c266005 **step: migrate dashboard heatmap section**
+- 2025-10-28 20:14 7d967d67 **feature: create dashboard get route**
+- 2025-10-28 20:07 a0a85874 **step: define dashboard api**
+- 2025-10-28 20:02 b3119ed6 **step: extract dashboard heatmap**
+- 2025-10-28 19:52 72759b05 **refactor: migrate empty dashboard**
+- 2025-10-28 19:48 493205f3 **step: migrate dashboard cell**
+- 2025-10-28 19:45 fbe86396 **step: add tests for hide shareable link**
+- 2025-10-28 19:39 12d2413f **refactor: extract hide shareable link route**
+- 2025-10-28 19:34 31f697bb **refactor: production in server**
+- 2025-10-28 15:40 a4fb908b **fix: invalid visitors counting**
+- 2025-10-28 15:37 276e6a9a **step: migrate shareable link analytics**
+- 2025-10-28 14:54 4c7aa8f2 **refactor: move api to one dir**
+- 2025-10-28 14:48 d67d8e53 **step: migrate shareable link hide**
+- 2025-10-28 14:42 958eb864 **step: setup shareable link hide route**
+- 2025-10-28 14:27 48e17803 **refactor: unify deps**
+- 2025-10-28 13:42 70331d93 **step: add sh link snap limit**
+- 2025-10-28 13:41 7d4ded6c **refactor: use ShareableLinkStatusEnum**
+- 2025-10-28 13:24 dafb1fc1 **step: disable revoke button on loading**
+- 2025-10-28 13:22 7c11611d **fix: invalidate profile route on shareable link create**
+- 2025-10-28 13:19 71c64a95 **refactor: extract profile shareable link revoke**
+- 2025-10-28 13:17 802ae82e **step: add revoke shareable link**
+- 2025-10-28 13:13 910f12a8 **refactor: extract profile shareable link section**
+- 2025-10-28 13:07 d467fd18 **step: migrate shareable links**
+- 2025-10-28 12:51 8d7af9b0 **step: extract button copy**
+- 2025-10-28 12:43 5d97d6b9 **fix: orderby in sh link snapshot**
+- 2025-10-28 12:35 4a5dec51 **step: add shareable links to profile loader**
+- 2025-10-28 12:32 2f23f48b **step: setup list shareable links route**
+- 2025-10-28 12:24 4a57d124 **refactor: format daterangestart/end exires/updated at as date time**
+- 2025-10-28 12:21 0abf382d **refactor: define tzo in shareable link snapshot**
+- 2025-10-28 12:14 56ddc97f **step: add shareable link snapshot drizzle adapter**
+- 2025-10-28 12:06 b247a644 **step: define shareable link snapshot port**
+- 2025-10-28 12:05 b9472a1b **step: define shareable link snapshot**
+- 2025-10-28 11:06 0366e515 **refactor: unify entry api**
+- 2025-10-28 11:01 aa8a094b **refactor: unify entry api**
+- 2025-10-28 10:57 0e003878 **refactor: unify i18n api**
+- 2025-10-28 10:55 79383b36 **refactor: unify ai api**
+- 2025-10-28 10:53 5a6898c5 **refactor: unify avatar api**
+- 2025-10-28 10:50 c9c09b0c **refactor: unify auth api**
+- 2025-10-28 10:44 70d74825 **refactor: extract profile language selector section**
+- 2025-10-28 10:41 e552193c **refactor: extract profile data export**
+- 2025-10-28 10:39 2de3732c **refactor: extract sections**
+- 2025-10-28 10:36 2c294443 **refactor: extract UI from components**
+- 2025-10-28 10:18 ac1775f3 **refactor: extract entry reaction type**
+- 2025-10-28 09:59 54e6274d **refactor: extract description label**
+- 2025-10-28 00:18 bf8b12af **refactor: extract emotion label**
+- 2025-10-27 23:54 1e685a76 **refactor: simplify styles**
+- 2025-10-27 23:45 55bc9601 **refactor: extract reaction description**
+- 2025-10-27 23:40 8a2c1da5 **refactor: extract entry situ kind**
+- 2025-10-27 23:34 688a50cf **refactor: extract entry situ desc**
+- 2025-10-27 23:30 16585a92 **refactor: extract entry started at**
+- 2025-10-27 23:16 d62ede62 **step: migrate shared entries**
+- 2025-10-27 23:14 9e219c07 **refactor: rename entry alarms**
+- 2025-10-27 23:13 e376c42a **step: add rating pills component**
+- 2025-10-27 23:07 da26a497 **refactor: extract entry list empty**
+- 2025-10-27 23:06 f5a3cc36 **refactor: reduce bundle size**
+- 2025-10-27 23:06 ddda33e5 **refactor: extract logo component**
+- 2025-10-27 22:52 ae2eec07 **step: load shared entries**
+- 2025-10-27 22:20 e201036d **step: setup shared entries page**
+- 2025-10-27 22:11 ef159c68 **step: update packages**
+- 2025-10-27 22:00 e7ee6bc5 **step: add error handler**
+- 2025-10-27 21:40 9bc1db17 **refactor: unify home entry exprot form**
+- 2025-10-27 21:36 96a03c2e **refactor: unify home entry add form**
+- 2025-10-27 21:21 e4cf0700 **step: restore create shareable link**
+- 2025-10-27 18:02 e716dd41 **refactor: adjust create shareable link route validation**
+- 2025-10-27 16:30 d89ab6eb **step: setup profile shareable link create section**
+- 2025-10-27 15:55 e2ab0374 **step: restore alarms**
+- 2025-10-27 15:48 d053a732 **refactor: extract alarm directory and entry snapshot adapter format methods to static**
+- 2025-10-27 15:39 724c8f22 **step: define entry snapshot getByDateRangeForUserWithAlarms**
+- 2025-10-27 14:30 2e580512 **refactor: simplify imports**
+- 2025-10-27 14:19 22a7255a **feature: migrate home entry history**
+- 2025-10-27 14:12 9e29c280 **refactor: remove masking**
+- 2025-10-27 14:07 29a0b66c **refactor: imports**
+- 2025-10-27 14:01 606ce91a **step: render outlet**
+- 2025-10-27 13:56 7ac121f4 **refactor: remove masking**
+- 2025-10-27 13:36 1ce7d07c **step: add mock history type**
+- 2025-10-27 13:30 53393c7e **step: add entry history link**
+- 2025-10-27 13:24 c62c8f24 **step: add history list route**
+- 2025-10-27 13:06 70ac4f74 **refactor: simplify useLoaderData usage**
+- 2025-10-27 13:03 c5109c3b **step: clear public build output**
+- 2025-10-27 13:01 4460a512 **step: setup home entry history route and mask**
+- 2025-10-27 12:25 3831c1d5 **step: restore home entry reaction**
+- 2025-10-27 12:20 73c06e3c **step: wire up home entry reactions**
+- 2025-10-27 12:10 0147840c **step: restore home entry emotion**
+- 2025-10-27 11:52 bb918fc2 **refactor: simplify home entry add**
+- 2025-10-27 11:41 9eae207f **step: wire up entry emotion**
+- 2025-10-27 11:34 52da111b **step: add duration weeks list entries**
+- 2025-10-27 11:33 c78e2321 **step: update packages**
+- 2025-10-27 11:23 c6654478 **step: update packages**
+- 2025-10-27 11:15 66032801 **step: lock dialog when home entry add request is pending**
+- 2025-10-27 11:13 65ea31d1 **step: restore home entry delete**
+- 2025-10-27 11:02 eb3ceebb **step: invalidate home route loader on home entry add**
+- 2025-10-26 18:51 56bbd487 **step: wire up home entry**
+- 2025-10-26 18:41 ac5669ae **step: load entries**
+- 2025-10-26 18:38 b433235a **refactor: unify naming**
+- 2025-10-26 18:33 17c6dda0 **refactor: adjust endpoint**
+- 2025-10-26 18:31 06883946 **step: add entry api**
+- 2025-10-26 17:34 e86c02c6 **step: add home entry list form**
+- 2025-10-26 17:23 a64662f0 **step: define entry filter options**
+- 2025-10-26 17:21 3cee289b **refactor: remove auth form**
+- 2025-10-26 17:20 22a7c196 **step: add list entries test**
+- 2025-10-26 16:07 8830ea9e **step: add list entries**
+- 2025-10-26 15:47 94b89741 **refactor: tidy up deps in app/http**
+- 2025-10-26 15:32 94e2da06 **step: update packages**
+- 2025-10-26 14:08 a0e58d02 **step: add home entry list empty state**
+- 2025-10-26 14:08 72c75688 **step: wireup home entry list seciton**
+- 2025-10-26 14:08 2151fb27 **step: add notebook svg**
+- 2025-10-26 13:59 b5cfb716 **refactor: simplify export entries**
+- 2025-10-26 13:52 538fa115 **feature: migrate home entry export section**
+- 2025-10-26 13:40 c7009782 **step: define home entry export form**
+- 2025-10-26 13:38 833e042a **refactor: extract export entries strategy**
+- 2025-10-26 13:22 d1b42084 **step: wire up home entry export section**
+- 2025-10-26 13:15 993b1e4e **step: update packages**
+- 2025-10-26 13:13 d081aaa8 **refactor: use bun disk space checker adapter**
+- 2025-10-26 13:09 ebdce7ff **refactor: use disk space checker in prereqs**
+- 2025-10-26 13:09 890446e6 **step: add disk space checker adapter**
+- 2025-10-26 13:06 e89b8af9 **step: update packages**
+- 2025-10-26 12:10 8a78b3cc **refactor: adjust time capsule tests**
+- 2025-10-26 11:27 81956950 **refactor: use ui tzo**
+- 2025-10-26 11:27 627f2272 **step: update packages**
+- 2025-10-26 11:21 d562c324 **step: use date field for  scheduledFor**
+- 2025-10-26 11:11 e250b51b **fix: types**
+- 2025-10-26 11:09 4d361936 **step: update packages**
+- 2025-10-26 11:09 39ff5e00 **refactor: remove lodash**
+- 2025-10-26 11:05 3e81a8bf **step: update packages**
+- 2025-10-26 10:23 507a0285 **refactor: use form.date.min.today function**
+- 2025-10-26 09:48 a9c2b11d **refactor: use text/number fields**
+- 2025-10-26 09:46 5341fe9a **refactor: remove wip**
+- 2025-10-26 09:45 66486138 **step: update packages**
+- 2025-10-25 23:20 5fc904be **step: wip**
+- 2025-10-25 22:51 0d0ad701 **refactor: adjust types**
+- 2025-10-25 22:48 6a454c38 **step: update packages**
+- 2025-10-25 19:15 f8b11252 **refactor: remove loading state**
+- 2025-10-25 19:13 cf7a458e **step: add loading and error handlers**
+- 2025-10-25 19:00 a8f2a3f2 **fix: reaction description validations**
+- 2025-10-25 18:56 fc45e05f **step: restore add entry requests**
+- 2025-10-25 18:50 18d774c3 **step: restore scheduled for**
+- 2025-10-25 18:43 591b3615 **step: restore reaction type**
+- 2025-10-25 18:39 87788ce9 **step: restore emotion label**
+- 2025-10-25 18:32 371acc02 **refactor: extract emotion labels validation**
+- 2025-10-25 18:27 b459c636 **step: restore reaction kind**
+- 2025-10-25 18:17 3b572593 **step: restore reaction description**
+- 2025-10-25 18:16 4a219644 **refactor: extract reaction description validation**
+- 2025-10-25 18:14 44cce60a **step: restore reaction effectiveness**
+- 2025-10-25 18:12 af92d8b7 **refactor: extract reaction effectiveness validation**
+- 2025-10-25 18:10 d3b9456a **refactor: extract emotion intensity validation**
+- 2025-10-25 18:10 cb9e8f48 **step: restore emotion intensity**
+- 2025-10-25 18:03 6fbcc612 **step: setup home entry add section**
+- 2025-10-25 18:02 b8b089c4 **step: wire up home entry add section**
+- 2025-10-25 18:01 b832f23e **step: extract situation description validation**
+- 2025-10-25 18:01 b70b2aa0 **refactor: create new home entry add form**
+- 2025-10-25 18:01 497ee700 **step: setup use field hook**
+- 2025-10-25 18:00 d18eacb2 **step: add rating pills clickable component**
+- 2025-10-25 16:11 397ab1ce **step: update packages**
+- 2025-10-25 16:07 2344158e **refactor: use file from ui**
+- 2025-10-25 16:05 1d1d7c40 **step: update packages**
+- 2025-10-25 10:15 e88edf6b **step: allow provile avatar delete only if an avatar exists**
+- 2025-10-25 10:10 ce5c9fdb **step: add avatar placeholder**
+- 2025-10-25 09:54 942acc6b **step: add profile avatar revalidation**
+- 2025-10-25 00:52 e1db72bb **step: setup profile avatar delete**
+- 2025-10-25 00:11 641b06cf **step: add error handler**
+- 2025-10-25 00:05 f5f8d581 **step: add loading**
+- 2025-10-24 23:55 d039a6e3 **step: implement profile avatar change request**
+- 2025-10-24 23:28 76952e1e **refactor: extract avatar component**
+- 2025-10-24 23:24 50927fdd **refactor: move navigation to sections**
+- 2025-10-24 23:21 c238318a **step: setup profile avatar**
+- 2025-10-24 23:13 ac5dd307 **fix: avatar url in navigation**
+- 2025-10-24 23:13 6d070801 **step: wire up profile avatar**
+- 2025-10-24 22:59 1269f9f7 **step: add resets in hours**
+- 2025-10-24 22:30 fc12fb87 **feature: add quota window resetsIn**
+- 2025-10-24 16:49 a6964052 **refactor: convert quota window into a class**
+- 2025-10-24 14:48 6294de5a **step: add profile shareable links section**
+- 2025-10-24 14:34 0db62b1d **fix: biome warnings**
+- 2025-10-24 14:33 2fef370d **step: update packages**
+- 2025-10-24 14:30 cd1fadb4 **step: improve resets_in translations**
+- 2025-10-24 14:26 db98e26b **fix: genitive prompt usage translation**
+- 2025-10-24 14:24 376140c4 **feature: add profile ai usage**
+- 2025-10-24 14:23 c603791e **refactor: reorder sections in profile**
+- 2025-10-24 14:14 2604c2fe **step: wire up profile ai usage section**
+- 2025-10-24 14:12 d99b0749 **step: add profile route loader**
+- 2025-10-24 14:12 26f10fb6 **step: add ai api ts**
+- 2025-10-24 13:57 4277cffb **step: add get ai usage today tests**
+- 2025-10-24 13:47 527c5bc4 **refactor: unify test names**
+- 2025-10-24 13:42 30ebf807 **step: adapt get ai usage today**
+- 2025-10-24 13:40 588e7e13 **refactor: extract rule inspector port and adapter**
+- 2025-10-24 13:38 469c49c9 **refactor: rename quota rule inspection**
+- 2025-10-24 13:37 46c6a36f **step: add rule id**
+- 2025-10-24 13:35 c9c2312b **step: implement bucket counter inspect**
+- 2025-10-24 13:26 6ae1fa7e **step: define bucket counter port inspect method**
+- 2025-10-24 13:25 723b37a2 **step: add quota bucket inspection type**
+- 2025-10-24 12:53 a4e7b792 **refactor: use autocomplete off**
+- 2025-10-24 12:51 44d4b3a2 **fix: request context types**
+- 2025-10-24 12:50 986d7d88 **step: update packages**
+- 2025-10-24 09:39 d07fbdff **step: add stale time in root route**
+- 2025-10-24 00:20 ebad301b **refactor: simplify i18n.api**
+- 2025-10-24 00:16 49f9f82f **step: add auth api**
+- 2025-10-24 00:13 f2c5ee3a **step: add inspect category**
+- 2025-10-24 00:13 2555896d **step: add any usage category**
+- 2025-10-24 00:12 0b4b7a96 **step: add get ai usage today route**
+- 2025-10-23 23:48 70b8f144 **step: add get-ai-usage-today**
+- 2025-10-23 23:47 c5987aa1 **refactor: simplify router handlers**
+- 2025-10-23 23:25 cc9ea26d **fix: http logger skip paths**
+- 2025-10-23 23:24 867038fc **step: install design**
+- 2025-10-23 23:23 5543df2d **refactor: simplify language selector**
+- 2025-10-23 23:15 00f80e26 **refactor: simplify navigation**
+- 2025-10-23 23:00 83c407a4 **step: add profile password change section**
+- 2025-10-23 22:23 9f5c341a **step: improve accessability**
+- 2025-10-23 22:22 42eb8962 **fix: double submit**
+- 2025-10-23 21:56 c13e5626 **refactor: improve structure**
+- 2025-10-23 21:51 bed2df29 **fix: close button type**
+- 2025-10-23 21:36 75893a02 **step: add profile account delete**
+- 2025-10-23 21:31 12f437ff **refactor: extract request state**
+- 2025-10-23 21:30 372a0468 **step: add profile account delete**
+- 2025-10-23 20:36 40865b0d **step: add button cancel**
+- 2025-10-23 17:14 62f5a3dc **step: add export data**
+- 2025-10-23 17:13 97888e01 **step: add separator**
+- 2025-10-23 17:10 d8bd6f74 **refactor: implement language change**
+- 2025-10-23 17:03 9d322370 **step: install js-cookie**
+- 2025-10-23 16:32 d38b4a7a **step: add select component**
+- 2025-10-23 16:32 598b8d55 **step: setup language selector**
+- 2025-10-23 16:32 17275926 **step: use language selector**
+- 2025-10-23 16:26 0ea999f3 **step: update packages**
+- 2025-10-23 16:11 47aa8a5d **refactor: adjust translations**
+- 2025-10-23 16:09 9f488f8e **step: update packages**
+- 2025-10-23 15:54 7de8ac4c **refactor: extract font**
+- 2025-10-23 15:52 da30256a **refactor: extract not found**
+- 2025-10-23 15:51 a89ace10 **refactor: extract head**
+- 2025-10-23 15:50 a3e5b6e7 **step: add js and meta**
+- 2025-10-23 15:47 1cdd3a42 **step: extract css link**
+- 2025-10-23 15:45 ebc0f4b6 **step: setup dashboard page**
+- 2025-10-23 15:43 a14727b5 **step: add translations context**
+- 2025-10-23 15:42 305e89cc **step: add missing translations**
+- 2025-10-23 15:35 4db7b31e **refactor: extract shell**
+- 2025-10-23 15:33 c1d98114 **step: install bgord/ui**
+- 2025-10-23 15:32 620713fa **refactor: rename translations to i18n**
+- 2025-10-23 15:28 856b592c **step: wire up translations in root loader**
+- 2025-10-23 15:26 7fc47405 **step: add translations request**
+- 2025-10-23 15:01 208f6239 **step: setup profile card**
+- 2025-10-23 14:58 d75d1169 **refactor: move home to pages**
+- 2025-10-23 14:58 3acc176f **step: add profile page**
+- 2025-10-23 14:25 bf8eda62 **step: install iconoir**
+- 2025-10-23 14:15 6bb359d5 **fix: add missing font**
+- 2025-10-23 14:14 1fdd6d32 **refactor: use real navigation component**
+- 2025-10-23 14:09 342f99b7 **step: add css links**
+- 2025-10-23 14:07 d2d8bfc4 **fix: static files**
+- 2025-10-23 13:42 6e1c59b5 **refactor: remove protected route**
+- 2025-10-23 13:39 a694bf51 **refactor: simplify session types**
+- 2025-10-23 13:27 38ff6846 **refactor: unify auth**
+- 2025-10-23 13:19 1931769b **refactor: rename auth**
+- 2025-10-23 13:17 c8f47384 **refactor: cleanup auth.server.ts**
+- 2025-10-22 23:01 818d0f96 **refactor: remove unused tse**
+- 2025-10-22 23:01 6290320f **refactor: remove custom login page**
+- 2025-10-22 22:40 c4f2ebd0 **step: serve static html files**
+- 2025-10-22 22:40 a6a80b5b **step: refine public path for assets**
+- 2025-10-22 22:40 685aa77e **step: add custom css**
+- 2025-10-22 22:39 1cd725a8 **step: add favicon**
+- 2025-10-22 22:30 fdde23a3 **step: add auth pages**
+- 2025-10-22 22:20 43fd4671 **step: bump bgord/scripts**
+- 2025-10-19 10:36 4390115a **refactor: remove logout preload**
+- 2025-10-18 19:53 bc1f55dc **step: add default preload to intent**
+- 2025-10-18 17:29 487298fe **step: pinpoint version**
+- 2025-10-18 17:28 d39b6a7b **refactor: remove zod**
+- 2025-10-18 16:55 80bda26c **refactor: improve build script**
+- 2025-10-18 16:49 98e9be6d **step: add lazy loading**
+- 2025-10-18 16:46 a88dfae3 **refactor: use zod mini**
+- 2025-10-18 16:44 a6e0a891 **step: add prod build scsript**
+- 2025-10-18 15:15 7fa61d6c **refactor: cleanup auth.serveR**
+- 2025-10-18 14:57 72f37cfd **refactor: simplify**
+- 2025-10-18 14:52 114cf432 **refactor: adjust navigation**
+- 2025-10-18 14:45 a1106357 **refactor: use loader to store user data**
+- 2025-10-18 11:50 2a144402 **step: add login component**
+- 2025-10-18 11:30 828a9912 **refactor: remove old logout**
+- 2025-10-18 11:22 ff71c8fa **step: add logout route**
+- 2025-10-18 11:19 adc822fc **step: include request in server context**
+- 2025-10-18 00:23 88cc026d **step: add header**
+- 2025-10-18 00:20 d848aef1 **step: validate search.from**
+- 2025-10-18 00:14 fa2d53ad **step: setup login page and protected route**
+- 2025-10-18 00:11 60cda5de **step: add router context**
+- 2025-10-18 00:11 316383b8 **step: pass user to handler**
+- 2025-10-18 00:06 cbc20b28 **step: add auth server**
+- 2025-10-17 23:36 d03cdc3e **refactor: simplify router**
+- 2025-10-17 23:35 c55c1de3 **fix: hydration error**
+- 2025-10-17 23:24 2a09150e **step: add fullstack watch script**
+- 2025-10-17 23:23 f1cf81b3 **step: add entry client**
+- 2025-10-17 23:21 c950358b **step: add index.ts wiring**
+- 2025-10-17 23:09 8b911e66 **step: add entry server**
+- 2025-10-17 23:09 6fb95b47 **fix: router**
+- 2025-10-17 22:28 7814f962 **step: setup router**
+- 2025-10-17 22:09 8b21176e **step: add tsconfig changes**
+- 2025-10-17 22:08 9cce63ea **step: install tanstack react-router**
+- 2025-10-17 22:07 c162e057 **refactor: add /api prefix**
 - 2025-10-16 21:06 e7ce2f79 **fix: remove/sync fe package.json**
-## 2025-10-16 21:06 
 - 2025-10-16 21:03 a3fff6f4 **fix: change install react-router path**
 - 2025-10-16 20:58 64121ceb **fix: main css in production server build**
 - 2025-10-16 20:55 5240059e **refactor: ts-expect-error to ts-ignore**
 - 2025-10-16 20:53 a849f48c **fix: bun-version in workflow**
 - 2025-10-16 20:48 4acd8c5f **step: update packages**
 - 2025-10-16 20:47 cb8e7256 **step: bump bgord/scripts**
+- 2025-10-16 19:07 03a07f4f **docs: generate CHANGELOG**
 - 2025-10-16 19:03 50c868d6 **docs: generate CHANGELOG**
 - 2025-10-16 18:58 8979b874 **docs: generate CHANGELOG**
 - 2025-10-16 18:56 c31f0124 **docs: generate CHANGELOG**
