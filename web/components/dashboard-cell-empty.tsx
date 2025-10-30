@@ -1,6 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 
-export function DashboardSectionEmpty(props: React.JSX.IntrinsicElements["div"]) {
+export function DashboardCellEmpty(props: React.JSX.IntrinsicElements["div"]) {
   const t = useTranslations();
 
   return (

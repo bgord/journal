@@ -15,7 +15,7 @@ export function DashboardAlarmsInactivity() {
         </div>
       </UI.DashboardSubheader>
 
-      {!dashboard?.alarms.inactivity[0] && <UI.DashboardSectionEmpty />}
+      {!dashboard?.alarms.inactivity[0] && <UI.DashboardCellEmpty />}
 
       {dashboard?.alarms.inactivity[0] && (
         <ul data-stack="y" data-gap="5">

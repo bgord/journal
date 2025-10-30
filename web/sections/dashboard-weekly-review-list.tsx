@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import { DashboardCell, DashboardSectionEmpty, DashboardSubheader } from "../components";
+import { DashboardCell, DashboardCellEmpty, DashboardSubheader } from "../components";
 import { dashboardRoute } from "../router";
 import { DashboardWeeklyReview } from "./dashboard-weekly-review";
 
@@ -11,7 +11,7 @@ export function DashboardWeeklyReviewList() {
     <DashboardCell>
       <DashboardSubheader>{t("dashboard.weekly_reviews.history")}</DashboardSubheader>
 
-      {!dashboard?.weeklyReviews[0] && <DashboardSectionEmpty />}
+      {!dashboard?.weeklyReviews[0] && <DashboardCellEmpty />}
 
       {dashboard?.weeklyReviews[0] && (
         <ul data-stack="y" data-gap="5">

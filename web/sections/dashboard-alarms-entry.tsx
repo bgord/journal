@@ -15,7 +15,7 @@ export function DashboardAlarmsEntry() {
         </div>
       </UI.DashboardSubheader>
 
-      {!dashboard?.alarms.entry[0] && <UI.DashboardSectionEmpty />}
+      {!dashboard?.alarms.entry[0] && <UI.DashboardCellEmpty />}
 
       {dashboard?.alarms.entry[0] && (
         <ul data-stack="y" data-gap="5">
