@@ -32,11 +32,17 @@ jobs:
       - name: Create .env.production file
         run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
 
+      - name: Inspect output
+        run: ls -alh output/
+
+      - name: Inspect root
+        run: ls -alh /
+
+      - name: Inspect public
+        run: ls -alh /public
+
       - name: Build app
         run: ./scripts/production-server-build.sh
-
-      - name: Inspect
-        run: ls -alh output/
 
       # - name: Inspect the app size
       #   run: ./bgord-scripts/production-server-inspect.sh ${{ secrets.PROJECT_NAME }}
