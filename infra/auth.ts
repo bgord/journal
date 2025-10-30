@@ -17,7 +17,7 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
   advanced: {
     database: { generateId: () => crypto.randomUUID() },
-    useSecureCookies: production ? true : false,
+    useSecureCookies: production,
     cookiePrefix: "journal_v1",
     cookies: {
       session_token: { attributes: { path: "/", sameSite: "lax", secure: production, httpOnly: true } },

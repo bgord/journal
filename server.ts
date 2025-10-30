@@ -192,6 +192,14 @@ server.on(["POST", "GET"], "/auth/*", async (c) => {
 
   if (
     c.req.method === "POST" &&
+    c.req.path === "/api/auth/sign-in/email" &&
+    [200, 204, 302].includes(response.status)
+  ) {
+    return c.redirect("/?filter=today&query=");
+  }
+
+  if (
+    c.req.method === "POST" &&
     c.req.path === "/api/auth/sign-out" &&
     [200, 302].includes(response.status)
   ) {
