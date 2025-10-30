@@ -83,3 +83,11 @@ step_end "App compile"
 step_start "Copy public"
 cp -r public "$OUTPUT_DIRECTORY"
 step_end "Copy public"
+
+step_start "Compress public assets"
+bunx gzip output/public/*.js --extension=gz --extension=br
+bunx gzip output/public/*.css --extension=gz --extension=br
+bunx gzip output/public/*.png --extension=gz --extension=br
+bunx gzip output/public/*.html --extension=gz --extension=br
+bunx gzip output/public/*.ico --extension=gz --extension=br
+step_end "Compress public assets"
