@@ -18,14 +18,5 @@ export default defineConfig({
       timeout: 20_000,
       gracefulShutdown: { signal: "SIGTERM", timeout: 1_000 },
     },
-    {
-      command: "bash bgord-scripts/test-frontend-serve.sh",
-      stdout: "pipe",
-      stderr: "pipe",
-      port: 3000,
-      name: "vite-frontend",
-      timeout: 20_000,
-      gracefulShutdown: { signal: "SIGTERM", timeout: 1_000 },
-    },
   ],
 });

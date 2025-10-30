@@ -4,6 +4,7 @@ export * from "./quota-bucket";
 export * from "./quota-limit";
 export * from "./quota-rule";
 export * from "./quota-rule-id";
+export * from "./quota-rule-inspection";
 export * from "./quota-rules";
 export * from "./quota-usage";
 export * from "./quota-window";

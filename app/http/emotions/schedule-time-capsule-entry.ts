@@ -8,7 +8,7 @@ import { CommandBus } from "+infra/command-bus";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
@@ -32,7 +32,9 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   );
 
   const now = deps.Clock.nowMs();
-  const scheduledFor = tools.Timestamp.parse(Number(body.scheduledFor) + timeZoneOffsetMs);
+  const scheduledFor = tools.Timestamp.parse(
+    tools.Day.fromIsoId(body.scheduledFor).getStart() + timeZoneOffsetMs,
+  );
 
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
     ...bg.createCommandEnvelope(deps),

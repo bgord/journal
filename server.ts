@@ -13,38 +13,34 @@ import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
+import { SupportedLanguages } from "./modules/supported-languages";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
 
-const ServerDeps = {
+const Deps = {
   Logger: Adapters.Logger,
   I18n: I18nConfig,
   IdProvider: Adapters.IdProvider,
   Clock: Adapters.Clock,
   JsonFileReader: Adapters.JsonFileReader,
 };
-const ShieldRateLimitDeps = { Clock: Adapters.Clock };
-const HealthcheckDeps = {
-  Clock: Adapters.Clock,
-  JsonFileReader: Adapters.JsonFileReader,
-  Logger: Adapters.Logger,
-};
 const TranslationsDeps = { JsonFileReader: Adapters.JsonFileReader, Logger: Adapters.Logger };
 
-const server = new Hono<infra.HonoConfig>();
+const production = Env.type === bg.NodeEnvironmentEnum.production;
+const server = new Hono<infra.HonoConfig>().basePath("/api");
 
 server.use(
-  ...bg.Setup.essentials(ServerDeps, {
+  ...bg.Setup.essentials(Deps, {
     cors: {
-      origin: ["http://localhost:5173", "http://localhost:3000", "https://journal.bgord.dev"],
+      origin: ["http://localhost:3000", "https://journal.bgord.dev"],
       credentials: true,
       allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       allowHeaders: ["content-type", "x-requested-with", "x-correlation-id", "authorization"],
       exposeHeaders: ["Set-Cookie"],
       maxAge: 86400,
     },
-    httpLogger: { skip: ["/translations", "/profile-avatar/get", "/api/auth/get-session"] },
+    httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
   }),
 );
 
@@ -54,16 +50,12 @@ const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
 server.get(
   "/healthcheck",
   bg.ShieldRateLimit(
-    {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
-      subject: bg.AnonSubjectResolver,
-      store: RateLimiters.HealthcheckStore,
-    },
-    ShieldRateLimitDeps,
+    { enabled: production, subject: bg.AnonSubjectResolver, store: RateLimiters.HealthcheckStore },
+    Deps,
   ),
   timeout(tools.Duration.Seconds(15).ms, infra.requestTimeoutError),
   BasicAuthShield,
-  ...bg.Healthcheck.build(healthcheck, HealthcheckDeps),
+  ...bg.Healthcheck.build(healthcheck, Deps),
 );
 // =============================
 
@@ -79,27 +71,20 @@ entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry);
 entry.get(
   "/export-data",
   bg.ShieldRateLimit(
-    {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
-      subject: bg.UserSubjectResolver,
-      store: RateLimiters.EntriesDataStore,
-    },
-    ShieldRateLimitDeps,
+    { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesDataStore },
+    Deps,
   ),
   HTTP.Emotions.ExportData,
 );
 entry.get(
   "/export-entries",
   bg.ShieldRateLimit(
-    {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
-      subject: bg.UserSubjectResolver,
-      store: RateLimiters.EntriesEntriesStore,
-    },
-    ShieldRateLimitDeps,
+    { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesEntriesStore },
+    Deps,
   ),
   HTTP.Emotions.ExportEntries,
 );
+entry.get("/list", HTTP.Emotions.ListEntries);
 server.route("/entry", entry);
 // =============================
 
@@ -114,24 +99,23 @@ weeklyReview.post(
   "/:weeklyReviewId/export/email",
   bg.ShieldRateLimit(
     {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      enabled: production,
       subject: bg.UserSubjectResolver,
       store: RateLimiters.WeeklyReviewExportEmailStore,
     },
-    ShieldRateLimitDeps,
+    Deps,
   ),
-  Adapters.CaptchaShield.verify,
   HTTP.Emotions.ExportWeeklyReviewByEmail,
 );
 weeklyReview.get(
   "/:weeklyReviewId/export/download",
   bg.ShieldRateLimit(
     {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
+      enabled: production,
       subject: bg.UserSubjectResolver,
       store: RateLimiters.WeeklyReviewExportDownloadStore,
     },
-    ShieldRateLimitDeps,
+    Deps,
   ),
   HTTP.Emotions.DownloadWeeklyReview,
 );
@@ -142,24 +126,26 @@ server.route("/weekly-review", weeklyReview);
 const publishing = new Hono();
 
 publishing.use("*", AuthShield.attach, AuthShield.verify);
+publishing.get("/links/list", HTTP.Publishing.ListShareableLinks);
 publishing.post(
   "/link/create",
   bg.ShieldRateLimit(
-    {
-      enabled: Env.type === bg.NodeEnvironmentEnum.production,
-      subject: bg.UserSubjectResolver,
-      store: RateLimiters.ShareableLinkCreateStore,
-    },
-    ShieldRateLimitDeps,
+    { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.ShareableLinkCreateStore },
+    Deps,
   ),
   HTTP.Publishing.CreateShareableLink,
 );
 publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink);
+publishing.post("/link/:shareableLinkId/hide", HTTP.Publishing.HideShareableLink);
 server.route("/publishing", publishing);
 // =============================
 
 //Translations =================
-server.get("/translations", ResponseCache.handle, ...bg.Translations.build(TranslationsDeps));
+server.get(
+  "/translations",
+  ResponseCache.handle,
+  ...bg.Translations.build(SupportedLanguages, TranslationsDeps),
+);
 // =============================
 
 //Preferences =================
@@ -188,8 +174,32 @@ server.delete(
 );
 // =============================
 
+// AI ==========================
+server.get("/ai-usage-today/get", AuthShield.attach, AuthShield.verify, HTTP.AI.GetAiUsageToday);
+// =============================
+
+// History =====================
+server.get("/history/:subject/list", AuthShield.attach, AuthShield.verify, HTTP.History.HistoryList);
+// =============================
+
+// Dashboard ===================
+server.get("/dashboard/get", AuthShield.attach, AuthShield.verify, HTTP.GetDashboard);
+// =============================
+
 // Auth ========================
-server.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
+server.on(["POST", "GET"], "/auth/*", async (c) => {
+  const response = await auth.handler(c.req.raw);
+
+  if (
+    c.req.method === "POST" &&
+    c.req.path === "/api/auth/sign-out" &&
+    [200, 302].includes(response.status)
+  ) {
+    return c.redirect("/login");
+  }
+
+  return response;
+});
 // =============================
 
 server.onError(HTTP.ErrorHandler.handle);

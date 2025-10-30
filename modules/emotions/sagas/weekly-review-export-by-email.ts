@@ -56,7 +56,6 @@ export class WeeklyReviewExportByEmail {
       await this.deps.Mailer.send({
         from: this.deps.EMAIL_FROM,
         to: contact.address,
-        // @ts-ignore
         attachments: [attachment],
         ...notification,
       });

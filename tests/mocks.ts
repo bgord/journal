@@ -3,6 +3,7 @@ import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { Session, User } from "better-auth";
+import { format } from "date-fns";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
@@ -10,6 +11,7 @@ import { SupportedLanguages } from "+languages";
 import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type * as System from "+system";
+import type { EntrySnapshotFormatted } from "+app/http/emotions/list-entries";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import type * as Schema from "+infra/schema";
 
@@ -27,14 +29,15 @@ export const historyId = IdProvider.generate();
 const patternDetectionId = IdProvider.generate();
 
 // Timestamps
-export const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
+export const T0 = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
 
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
 export const timeCapsuleEntryScheduledAt = T0;
-export const timeCapsuleEntryScheduledFor = tools.Time.Now(T0).Add(tools.Duration.Hours(2));
-
-//
+export const timeCapsuleEntryScheduledFor = tools.Time.Now(T0).Add(tools.Duration.Days(2));
+export const timeCapsuleEntryScheduledForDate = format(timeCapsuleEntryScheduledFor, "yyyy-MM-dd");
+export const timeCapsuleEntryScheduledForPast = tools.Time.Now(T0).Minus(tools.Duration.Days(1));
+export const timeCapsuleEntryScheduledForPastDate = format(timeCapsuleEntryScheduledForPast, "yyyy-MM-dd");
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
@@ -83,7 +86,12 @@ export const advice = new AI.Advice("You should do something");
 export const publicationSpecification = "entries";
 export const anotherPublicationSpecification = "other";
 
-export const dateRange = new tools.DateRange(tools.Timestamp.parse(0), tools.Timestamp.parse(1000));
+export const dateRangeStart = "2025-01-01";
+export const dateRangeEnd = "2025-01-01";
+export const dateRange = new tools.DateRange(
+  tools.Timestamp.parse(T0),
+  tools.Timestamp.parse(T0 + tools.Duration.Days(1).ms - 1),
+);
 
 export const durationMs = tools.Duration.Seconds(1).ms;
 
@@ -122,6 +130,16 @@ export const userDailyBucket = `user:${userId}:day:${tools.Day.fromNow(T0).toIso
 export const emotionsAlarmEntryBucket = `user:${userId}:entry:${entryId}:alarms`;
 export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(T0).toIsoId()}:emotions_weekly_review_insight`;
 export const emotionsAlarmInactivityWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(T0).toIsoId()}:emotions_alarm_inactivity`;
+
+export const ruleInspection = {
+  id: AI.USER_DAILY_RULE.id,
+  consumed: false,
+  limit: AI.USER_DAILY_RULE.limit,
+  count: 3,
+  remaining: 7,
+  resetsInMs: tools.DurationMs.parse(0),
+  resetsInHours: 0,
+};
 
 export const head = {
   exists: true,
@@ -636,6 +654,26 @@ export const GenericHourHasPassedMondayUtc18Event = {
   payload: { timestamp: tools.Timestamp.parse(1754330400000) },
 } satisfies System.Events.HourHasPassedEventType;
 
+export function getNextMonday1800UTC(now: Date = new Date()): number {
+  const daysUntilMonday = (8 - now.getUTCDay()) % 7;
+
+  const y = now.getUTCFullYear();
+  const m = now.getUTCMonth();
+  const d = now.getUTCDate() + daysUntilMonday;
+
+  return Date.UTC(y, m, d, 18, 0, 0, 0);
+}
+
+export const HourHasPassedNextMondayUtc18Event = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: T0,
+  stream: "passage_of_time",
+  version: 1,
+  name: "HOUR_HAS_PASSED_EVENT",
+  payload: { timestamp: tools.Timestamp.parse(getNextMonday1800UTC()) },
+} satisfies System.Events.HourHasPassedEventType;
+
 export const GenericHourHasPassedWednesdayUtc18Event = {
   id: expectAnyId,
   correlationId,
@@ -857,6 +895,17 @@ export const fullEntry: Emotions.VO.EntrySnapshot = {
   userId,
 };
 
+export const fullEntryWithAlarms: Emotions.Ports.EntrySnapshotWithAlarms = {
+  ...fullEntry,
+  alarms: [] as Emotions.VO.AlarmSnapshot[],
+};
+
+export const fullEntryWithAlarmsFormatted: EntrySnapshotFormatted = {
+  ...fullEntry,
+  alarms: [] as Emotions.VO.AlarmSnapshot[],
+  startedAt: tools.DateFormatters.datetime(fullEntry.startedAt),
+};
+
 export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
   scheduledFor: timeCapsuleEntryScheduledFor,
   id: entryId,
@@ -969,6 +1018,19 @@ export const shareableLink: Schema.SelectShareableLinks = {
   durationMs: T0,
   expiresAt: T0,
   hidden: false,
+};
+
+export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
+  id: shareableLinkId,
+  updatedAt: tools.DateFormatters.datetime(T0),
+  status: Publishing.VO.ShareableLinkStatusEnum.active,
+  revision: 0,
+  publicationSpecification: "entries",
+  dateRangeStart: tools.DateFormatters.datetime(T0),
+  dateRangeEnd: tools.DateFormatters.datetime(T0),
+  expiresAt: tools.DateFormatters.datetime(T0),
+  hits: 1,
+  uniqueVisitors: 1,
 };
 
 export const user: User = {

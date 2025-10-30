@@ -23,7 +23,7 @@ export class AiUsageCounterProjector {
         rules.map((rule) => ({
           bucket: rule.bucket,
           ruleId: rule.id,
-          window: rule.window,
+          window: rule.window.value,
           userId: event.payload.userId,
           count: 1,
           firstEventAt: event.payload.timestamp,

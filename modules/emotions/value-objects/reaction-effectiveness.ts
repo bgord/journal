@@ -1,11 +1,7 @@
 import { z } from "zod/v4";
+import { ReactionEffectivenessMax, ReactionEffectivenessMin } from "./reaction-effectiveness.validation";
 
-const ReactionEffectivenessErrors = {
-  min_max: "reaction.effectiveness.min.max",
-};
-
-const ReactionEffectivenessMin = 1;
-const ReactionEffectivenessMax = 5;
+const ReactionEffectivenessErrors = { min_max: "reaction.effectiveness.min.max" };
 
 export const ReactionEffectivenessSchema = z
   .int({ message: ReactionEffectivenessErrors.min_max })

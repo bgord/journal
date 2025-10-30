@@ -12,6 +12,7 @@ type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
   EventHandler: bg.EventHandler;
   HistoryWriter: bg.History.Ports.HistoryWriterPort;
+  Clock: bg.ClockPort;
 };
 
 export class EntryHistoryPublisher {
@@ -43,6 +44,7 @@ export class EntryHistoryPublisher {
       operation: "entry.situation.logged",
       subject: event.payload.entryId,
       payload: { kind: event.payload.kind, description: event.payload.description },
+      createdAt: this.deps.Clock.nowMs(),
     });
   }
 
@@ -51,6 +53,7 @@ export class EntryHistoryPublisher {
       operation: "entry.emotion.logged",
       subject: event.payload.entryId,
       payload: { label: event.payload.label, intensity: event.payload.intensity as number },
+      createdAt: this.deps.Clock.nowMs(),
     });
   }
 
@@ -63,6 +66,7 @@ export class EntryHistoryPublisher {
         type: event.payload.type,
         effectiveness: event.payload.effectiveness,
       },
+      createdAt: this.deps.Clock.nowMs(),
     });
   }
 
@@ -71,6 +75,7 @@ export class EntryHistoryPublisher {
       operation: "entry.emotion.reappraised",
       subject: event.payload.entryId,
       payload: { label: event.payload.newLabel, intensity: event.payload.newIntensity as number },
+      createdAt: this.deps.Clock.nowMs(),
     });
   }
 
@@ -83,6 +88,7 @@ export class EntryHistoryPublisher {
         type: event.payload.type,
         effectiveness: event.payload.effectiveness,
       },
+      createdAt: this.deps.Clock.nowMs(),
     });
   }
 

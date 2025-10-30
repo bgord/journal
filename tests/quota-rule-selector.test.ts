@@ -12,13 +12,13 @@ describe("QuotaRuleSelector", () => {
         bucket: mocks.userDailyBucket,
         id: "USER_DAILY",
         limit: VO.QuotaLimit.parse(10),
-        window: VO.QuotaWindow.DAY,
+        window: new VO.QuotaWindow(VO.QuotaWindowEnum.DAY),
       },
       {
         bucket: mocks.emotionsAlarmEntryBucket,
         id: "EMOTIONS_ALARM_ENTRY",
         limit: VO.QuotaLimit.parse(2),
-        window: VO.QuotaWindow.ALL_TIME,
+        window: new VO.QuotaWindow(VO.QuotaWindowEnum.ALL_TIME),
       },
     ]);
   });
@@ -31,13 +31,13 @@ describe("QuotaRuleSelector", () => {
         bucket: mocks.userDailyBucket,
         id: "USER_DAILY",
         limit: VO.QuotaLimit.parse(10),
-        window: VO.QuotaWindow.DAY,
+        window: new VO.QuotaWindow(VO.QuotaWindowEnum.DAY),
       },
       {
         bucket: mocks.emotionsWeeklyReviewInsightWeeklyBucket,
         id: "EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY",
         limit: VO.QuotaLimit.parse(1),
-        window: VO.QuotaWindow.WEEK,
+        window: new VO.QuotaWindow(VO.QuotaWindowEnum.WEEK),
       },
     ]);
   });
@@ -50,13 +50,13 @@ describe("QuotaRuleSelector", () => {
         bucket: mocks.userDailyBucket,
         id: "USER_DAILY",
         limit: VO.QuotaLimit.parse(10),
-        window: VO.QuotaWindow.DAY,
+        window: new VO.QuotaWindow(VO.QuotaWindowEnum.DAY),
       },
       {
         bucket: mocks.emotionsAlarmInactivityWeeklyBucket,
         id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
         limit: VO.QuotaLimit.parse(1),
-        window: VO.QuotaWindow.WEEK,
+        window: new VO.QuotaWindow(VO.QuotaWindowEnum.WEEK),
       },
     ]);
   });

@@ -9,7 +9,7 @@ import { server } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
-const url = "/entry/time-capsule-entry/schedule";
+const url = "/api/entry/time-capsule-entry/schedule";
 
 const situation = {
   situationDescription: mocks.GenericSituationLoggedEvent.payload.description,
@@ -148,7 +148,7 @@ describe(`POST ${url}`, () => {
           ...situation,
           ...emotion,
           ...reaction,
-          scheduledFor: tools.Time.Now(mocks.T0).Minus(tools.Duration.Days(1)),
+          scheduledFor: mocks.timeCapsuleEntryScheduledForPastDate,
         }),
       },
       mocks.ip,
@@ -171,7 +171,7 @@ describe(`POST ${url}`, () => {
           ...situation,
           ...emotion,
           ...reaction,
-          scheduledFor: mocks.timeCapsuleEntryScheduledFor,
+          scheduledFor: mocks.timeCapsuleEntryScheduledForDate,
         }),
         headers: mocks.correlationIdHeaders,
       },

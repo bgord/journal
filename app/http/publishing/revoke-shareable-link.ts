@@ -8,7 +8,7 @@ import { CommandBus } from "+infra/command-bus";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-export async function RevokeShareableLink(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function RevokeShareableLink(c: hono.Context<infra.HonoConfig>) {
   const requesterId = c.get("user").id;
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));

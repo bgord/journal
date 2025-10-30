@@ -1,24 +1,25 @@
-import * as tools from "@bgord/tools";
+export enum ShareableLinkSpecification {
+  entries = "entries",
+}
 
-const specifications = ["entries"] as const;
+export enum ShareableLinkDuration {
+  one_day = "one_day",
+  one_week = "one_week",
+  one_month = "one_month",
+}
 
-/** @public */
-export type SpecificationType = (typeof specifications)[number];
-/** @public */
-export type DurationType = "one_day" | "one_week" | "one_month";
-
-const durations: Record<DurationType, number> = {
-  one_day: tools.Duration.Days(1).ms,
-  one_week: tools.Duration.Days(7).ms,
-  one_month: tools.Duration.Days(30).ms,
+export const Form = {
+  specification: {
+    field: { name: "specification", defaultValue: ShareableLinkSpecification.entries },
+    options: Object.keys(ShareableLinkSpecification),
+  },
+  duration: {
+    field: { name: "duration", defaultValue: ShareableLinkDuration.one_day },
+    options: Object.keys(ShareableLinkDuration),
+    map: { one_day: 86_400_000, one_week: 604_800_000, one_month: 2_592_000_000 },
+  },
+  dateRangeStart: { field: { name: "dateRangeStart" } },
+  dateRangeEnd: { field: { name: "dateRangeEnd" } },
 };
 
-/** @public */
-export class CreateShareableLinkForm {
-  static get() {
-    return {
-      specifications,
-      durations,
-    };
-  }
-}
+export { ShareableLinkStatusEnum } from "../../modules/publishing/value-objects/shareable-link-status";

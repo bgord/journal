@@ -7,14 +7,18 @@ import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
+export class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
   async listForUser(userId: Auth.VO.UserIdType) {
     const alarms = await db.query.alarms.findMany({
       where: and(eq(Schema.alarms.userId, userId)),
       orderBy: desc(Schema.alarms.generatedAt),
     });
 
-    return alarms.map((alarm) => ({
+    return alarms.map(AlarmDirectoryDrizzle.format);
+  }
+
+  static format(alarm: Schema.SelectAlarms) {
+    return {
       ...alarm,
       entryId: alarm.entryId as bg.UUIDType,
       status: alarm.status as VO.AlarmStatusEnum,
@@ -24,7 +28,7 @@ class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
       lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampType | null,
       emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
       weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
-    }));
+    };
   }
 }
 

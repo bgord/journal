@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="description" content="Journal" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link as="style" rel="stylesheet preload" href="/public/main.min.css" />
+    <link as="style" rel="stylesheet preload" href="/public/custom.css" />
+
+    <title>Journal</title>
+  </head>
+
+  <body data-mx="auto" data-bg="neutral-950">
+    <main data-stack="y">
+      <header data-stack="x" data-main="between" data-cross="center" data-p="3">
+        <div class="logo" data-fs="4xl" data-fw="bold" data-ls="wider" data-color="brand-600">
+          <a href="/">Journal</a>
+        </div>
+      </header>
+
+      <form
+        id="register"
+        action="/api/auth/sign-up/email"
+        method="post"
+        data-status="initial"
+        data-stack="y"
+        data-gap="4"
+        data-mt="8"
+        data-mx="auto"
+        data-p="8"
+        data-bg="neutral-900"
+        data-br="xs"
+        style="width: 400px"
+      >
+        <legend data-fs="xl" data-color="neutral-200" data-mb="5">Register</legend>
+
+        <div data-stack="y">
+          <label class="c-label" for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            class="c-input"
+            autofocus
+            required
+            placeholder="user@example.com"
+            inputmode="email"
+            autocomplete="email"
+            autocapitalize="none"
+            spellcheck="false"
+          />
+        </div>
+
+        <div data-stack="y">
+          <label class="c-label" for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            class="c-input"
+            type="password"
+            placeholder="*********"
+            autocomplete="new-password"
+          />
+        </div>
+
+        <button data-when="initial error" class="c-button" data-variant="primary" type="submit">
+          Register
+        </button>
+        <button data-when="pending" class="c-button" data-variant="primary" type="submit" disabled>
+          Registering...
+        </button>
+        <button data-when="success" class="c-button" data-variant="primary" type="submit" disabled>
+          Register
+        </button>
+
+        <div
+          data-when="error"
+          data-stack="x"
+          data-cross="center"
+          data-gap="3"
+          data-mt="3"
+          data-bg="neutral-700"
+          data-color="neutral-200"
+          data-p="3"
+          data-fs="sm"
+        >
+          Something went wrong
+        </div>
+
+        <div
+          data-when="success"
+          data-stack="x"
+          data-cross="center"
+          data-gap="2"
+          data-mt="3"
+          data-p="2"
+          data-fs="base"
+          data-bg="positive-200"
+          data-color="positive-800"
+          data-br="xs"
+        >
+          Check your inbox
+        </div>
+
+        <p data-transform="center" data-color="neutral-400" data-mt="5" data-fs="sm">
+          Already have an account?
+          <a class="c-link" href="/login" data-decoration="underline">Login</a>
+        </p>
+      </form>
+    </main>
+
+    <script>
+      const form = document.querySelector("#register");
+      form.dataset.status = "initial";
+
+      form.addEventListener("formdata", (event) => {
+        event.formData.set("name", event.formData.get("email"));
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (form.dataset.status === "pending") return;
+        if (!form.reportValidity()) return;
+
+        form.dataset.status = "pending";
+
+        try {
+          const response = await fetch(form.action, { method: form.method, body: new FormData(form) });
+
+          form.dataset.status = response.ok ? "success" : "error";
+          form.reset();
+        } catch {
+          form.dataset.status = "error";
+        }
+      });
+    </script>
+  </body>
+</html>

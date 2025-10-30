@@ -4,13 +4,18 @@ import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import * as Adapters from "+infra/adapters";
 
-const deps = { Stringifier: Adapters.CsvStringifier, Clock: Adapters.Clock };
+const deps = {
+  Stringifier: Adapters.CsvStringifier,
+  Clock: Adapters.Clock,
+  EntrySnapshot: Adapters.Emotions.EntrySnapshot,
+  AlarmDirectory: Adapters.Emotions.AlarmDirectory,
+};
 
-export async function ExportData(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function ExportData(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
 
-  const entries = await Adapters.Emotions.EntrySnapshot.getAllForuser(userId);
-  const alarms = await Adapters.Emotions.AlarmDirectory.listForUser(userId);
+  const entries = await deps.EntrySnapshot.getAllForuser(userId);
+  const alarms = await deps.AlarmDirectory.listForUser(userId);
 
   const timestamp = Adapters.Clock.nowMs();
 

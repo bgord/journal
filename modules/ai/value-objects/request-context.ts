@@ -3,6 +3,7 @@ import type * as Auth from "../../auth/value-objects";
 import { UsageCategory } from "./usage-category";
 
 const CategoryDimensionMap = {
+  [UsageCategory.INSPECT]: {} as Record<string, never>,
   [UsageCategory.EMOTIONS_ALARM_ENTRY]: { entryId: "" as string },
   [UsageCategory.EMOTIONS_ALARM_INACTIVITY]: {} as Record<string, never>,
   [UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT]: {} as Record<string, never>,

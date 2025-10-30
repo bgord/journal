@@ -8,9 +8,9 @@ import { server } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
-const url = `/entry/${mocks.entryId}/delete`;
+const url = `/api/entry/${mocks.entryId}/delete`;
 
-describe("DELETE /entry/:id/delete", () => {
+describe(`DELETE ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "DELETE" }, mocks.ip);
     const json = await response.json();
@@ -21,7 +21,7 @@ describe("DELETE /entry/:id/delete", () => {
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(
-      "/entry/id/delete",
+      "/api/entry/id/delete",
       { method: "DELETE", headers: mocks.revisionHeaders() },
       mocks.ip,
     );

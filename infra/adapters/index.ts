@@ -4,6 +4,7 @@ export * from "./captcha.adapter";
 export * from "./certificate-inspector.adapter";
 export * from "./clock.adapter";
 export * from "./csv-stringifier.adapter";
+export * from "./disk-space-checker.adapter";
 export * as Emotions from "./emotions";
 export * from "./file-cleaner.adapter";
 export * from "./file-hash.adapter";

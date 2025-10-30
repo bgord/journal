@@ -8,7 +8,7 @@ import { CommandBus } from "+infra/command-bus";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-export async function DeleteEntry(c: hono.Context<infra.HonoConfig>, _next: hono.Next) {
+export async function DeleteEntry(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));

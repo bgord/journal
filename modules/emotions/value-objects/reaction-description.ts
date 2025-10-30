@@ -1,11 +1,7 @@
 import { z } from "zod/v4";
+import { ReactionDescriptionMax, ReactionDescriptionMin } from "./reaction-description.validation";
 
-const ReactionDescriptionErrors = {
-  invalid: "reaction.description.invalid",
-};
-
-const ReactionDescriptionMin = 1;
-const ReactionDescriptionMax = 256;
+const ReactionDescriptionErrors = { invalid: "reaction.description.invalid" };
 
 export const ReactionDescriptionSchema = z
   .string({ message: ReactionDescriptionErrors.invalid })

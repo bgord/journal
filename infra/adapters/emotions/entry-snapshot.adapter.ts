@@ -1,10 +1,11 @@
 import * as tools from "@bgord/tools";
-import { and, desc, eq, gte, lte } from "drizzle-orm";
+import { and, desc, eq, gte, like, lte, or, type SQL } from "drizzle-orm";
 import type * as Auth from "+auth";
 import type { EntrySnapshotPort } from "+emotions/ports";
 import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+import { AlarmDirectoryDrizzle } from "./alarm-directory.adapter";
 
 class EntrySnapshotDrizzle implements EntrySnapshotPort {
   async getById(entryId: VO.EntryIdType) {
@@ -38,7 +39,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
         ),
       );
 
-    return entries.map((entry) => this.format(entry));
+    return entries.map(EntrySnapshotDrizzle.format);
   }
 
   async getAllForuser(userId: Auth.VO.UserIdType) {
@@ -47,7 +48,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       where: eq(Schema.entries.userId, userId),
     });
 
-    return entries.map((entry) => this.format(entry));
+    return entries.map(EntrySnapshotDrizzle.format);
   }
 
   async getByDateRangeForUser(userId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
@@ -60,10 +61,41 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       ),
     });
 
-    return entries.map((entry) => this.format(entry));
+    return entries.map(EntrySnapshotDrizzle.format);
   }
 
-  format(entry: Schema.SelectEntries) {
+  async getFormatted(userId: Auth.VO.UserIdType, dateRange: tools.DateRange, query: string) {
+    const where = [
+      eq(Schema.entries.userId, userId),
+      gte(Schema.entries.startedAt, dateRange.getStart()),
+      lte(Schema.entries.startedAt, dateRange.getEnd()),
+    ];
+
+    if (query !== "") {
+      const pattern = `%${query}%`;
+
+      const clauses: SQL[] = [
+        Schema.entries.situationDescription,
+        Schema.entries.reactionDescription,
+        Schema.entries.emotionLabel,
+      ].map((col) => like(col, pattern));
+
+      where.push(or(...clauses) as SQL<unknown>);
+    }
+
+    const entries = await db.query.entries.findMany({
+      orderBy: desc(Schema.entries.startedAt),
+      where: and(...where),
+      with: { alarms: true },
+    });
+
+    return entries.map((entry) => ({
+      ...EntrySnapshotDrizzle.format(entry),
+      alarms: entry.alarms.map(AlarmDirectoryDrizzle.format),
+    }));
+  }
+
+  static format(entry: Schema.SelectEntries) {
     return {
       ...entry,
       startedAt: tools.Timestamp.parse(entry.startedAt),
