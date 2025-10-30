@@ -1,6 +1,8 @@
 # Changelog
+- 2025-10-30 23:23 4412c464 **step: add compression**
+## 2025-10-30 23:23 
+- 2025-10-30 23:17 1c8f8157 **step: install gzip**
 - 2025-10-30 23:10 258c301b **step: try restoring script**
-## 2025-10-30 23:10 
 - 2025-10-30 23:01 b4ab1483 **refactor: remove cookie prefix**
 - 2025-10-30 23:00 c3ece45f **refactor: remove advanced.cookies**
 - 2025-10-30 22:57 9ae61e56 **step: try removing advanced.cookies config**
@@ -11,6 +13,7 @@
 - 2025-10-30 22:48 0f399006 **step: try removing cors config**
 - 2025-10-30 22:20 3d6cfe13 **step: patch url**
 - 2025-10-30 22:11 21206804 **step: add entry api**
+- 2025-10-30 22:10 cebf5e0a **docs: generate CHANGELOG**
 - 2025-10-30 22:10 0f25c146 **refactor: restore hash and search**
 - 2025-10-30 22:08 940d8dc6 **step: comment serach and hash commit**
 - 2025-10-30 22:05 3f5d6738 **step: use absolute url everywhere**
