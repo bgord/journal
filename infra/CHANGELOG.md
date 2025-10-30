@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 23:10 258c301b **step: try restoring script**
+## 2025-10-30 23:10 
 - 2025-10-30 23:01 b4ab1483 **refactor: remove cookie prefix**
-## 2025-10-30 23:01 
 - 2025-10-30 23:00 c3ece45f **refactor: remove advanced.cookies**
 - 2025-10-30 22:57 9ae61e56 **step: try removing advanced.cookies config**
 - 2025-10-30 22:54 bfa45b02 **step: try use secure cookies**
@@ -13,6 +14,7 @@
 - 2025-10-30 22:10 0f25c146 **refactor: restore hash and search**
 - 2025-10-30 22:08 940d8dc6 **step: comment serach and hash commit**
 - 2025-10-30 22:05 3f5d6738 **step: use absolute url everywhere**
+- 2025-10-30 22:01 d355894a **docs: generate CHANGELOG**
 - 2025-10-30 21:59 c27daa8e **step: improve url**
 - 2025-10-30 21:57 830aacf7 **docs: generate CHANGELOG**
 - 2025-10-30 21:55 a044b6e9 **step: add absolute url**
