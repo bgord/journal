@@ -1,7 +1,9 @@
 # Changelog
+- 2025-10-30 20:54 32c1d16e **step: add http origins**
+## 2025-10-30 20:54 
 - 2025-10-30 20:52 9f7bef06 **step: disable everything in auth**
-## 2025-10-30 20:52 
 - 2025-10-30 19:53 967a42c0 **refactor: improve wording**
+- 2025-10-30 19:53 6bb2fe58 **docs: generate CHANGELOG**
 - 2025-10-30 19:52 f0948982 **fix: string**
 - 2025-10-30 19:51 13f1a775 **step: include credentials in login**
 - 2025-10-30 19:49 e7743b1f **docs: generate CHANGELOG**
