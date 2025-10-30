@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 14:37 1f16fbfe **step: tmp remove haveibeenpwned**
+## 2025-10-30 14:37 
 - 2025-10-30 14:34 b67fc732 **step: add inspect cwd**
-## 2025-10-30 14:34 
 - 2025-10-30 14:26 528f87fe **step: add production flag to compile**
 - 2025-10-30 14:14 70f9a59f **step: restore sharp installs scripts**
 - 2025-10-30 14:13 6ca88277 **step: restore restart server step**
@@ -24,6 +25,7 @@
 - 2025-10-30 13:42 99415193 **step: remove fe env prod file**
 - 2025-10-30 13:41 e716d287 **step: restore prod env file**
 - 2025-10-30 13:39 420b66ec **step: bump bgord/scripts**
+- 2025-10-30 13:35 0a20a1f5 **docs: generate CHANGELOG**
 - 2025-10-30 13:33 83625ae3 **step: restore build prechecks**
 - 2025-10-30 13:32 b9906af0 **fix: e2e**
 - 2025-10-30 13:30 aaa39dda **refactor: remove frontent env prod file setup**
