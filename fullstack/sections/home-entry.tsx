@@ -3,7 +3,7 @@ import { Link, useRouter } from "@tanstack/react-router";
 import * as Icons from "iconoir-react";
 import React from "react";
 import { Form } from "../../app/services/home-entry-list-form";
-import type { EntryType } from "../api";
+import type { EntrySnapshotWithAlarmsFormatted } from "../api";
 import * as UI from "../components";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
@@ -11,7 +11,7 @@ import { EntryAlarms } from "./entry-alarms";
 import { EntryEmotion } from "./home-entry-emotion";
 import { HomeEntryReaction } from "./home-entry-reaction";
 
-export function HomeEntry(props: EntryType) {
+export function HomeEntry(props: EntrySnapshotWithAlarmsFormatted) {
   const t = useTranslations();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
   const router = useRouter();

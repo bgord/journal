@@ -1,6 +1,8 @@
-import type { EntryType } from "../api";
+import type { EntrySnapshotWithAlarmsFormatted } from "../api";
 
-export function EntryStartedAt(props: Pick<EntryType, "startedAt"> & React.JSX.IntrinsicElements["div"]) {
+export function EntryStartedAt(
+  props: Pick<EntrySnapshotWithAlarmsFormatted, "startedAt"> & React.JSX.IntrinsicElements["div"],
+) {
   const { startedAt, ...rest } = props;
 
   return (

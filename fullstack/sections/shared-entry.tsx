@@ -1,11 +1,11 @@
 import * as bg from "@bgord/ui";
 import { Timer } from "iconoir-react";
 import { Form } from "../../app/services/home-entry-add-form";
-import type { EntryType } from "../api";
+import type { EntrySnapshotWithAlarmsFormatted } from "../api";
 import * as UI from "../components";
 import { EntryAlarms } from "../sections/entry-alarms";
 
-export function SharedEntry(props: EntryType) {
+export function SharedEntry(props: EntrySnapshotWithAlarmsFormatted) {
   const t = bg.useTranslations();
 
   return (

@@ -37,7 +37,7 @@ describe(`GET ${url}`, () => {
     const json = await response.json();
 
     expect(response.status).toBe(200);
-    expect(json).toEqual([mocks.fullEntryWithAlarms]);
+    expect(json).toEqual([mocks.fullEntryWithAlarmsFormatted]);
     expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, today, emptyQuery);
   });
 
@@ -55,7 +55,7 @@ describe(`GET ${url}`, () => {
     const json = await response.json();
 
     expect(response.status).toBe(200);
-    expect(json).toEqual([mocks.fullEntryWithAlarms]);
+    expect(json).toEqual([mocks.fullEntryWithAlarmsFormatted]);
     expect(entrySnapshot).toHaveBeenCalledWith(
       mocks.user.id,
       new tools.DateRange(lastWeekStart, endOfToday),
@@ -77,7 +77,7 @@ describe(`GET ${url}`, () => {
     const json = await response.json();
 
     expect(response.status).toBe(200);
-    expect(json).toEqual([mocks.fullEntryWithAlarms]);
+    expect(json).toEqual([mocks.fullEntryWithAlarmsFormatted]);
     expect(entrySnapshot).toHaveBeenCalledWith(
       mocks.user.id,
       new tools.DateRange(lastMonthStart, endOfToday),
@@ -99,7 +99,7 @@ describe(`GET ${url}`, () => {
     const json = await response.json();
 
     expect(response.status).toBe(200);
-    expect(json).toEqual([mocks.fullEntryWithAlarms]);
+    expect(json).toEqual([mocks.fullEntryWithAlarmsFormatted]);
     expect(entrySnapshot).toHaveBeenCalledWith(
       mocks.user.id,
       new tools.DateRange(allTimeStart, endOfToday),

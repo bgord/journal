@@ -1,8 +1,8 @@
 import * as UI from "@bgord/ui";
 import * as Icons from "iconoir-react";
-import type { EntryType } from "../api";
+import type { EntrySnapshotWithAlarmsFormatted } from "../api";
 
-export function EntryAlarms(props: EntryType) {
+export function EntryAlarms(props: EntrySnapshotWithAlarmsFormatted) {
   const t = UI.useTranslations();
 
   return (

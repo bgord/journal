@@ -2,12 +2,8 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+import type { EntrySnapshotWithAlarmsFormatted } from "+emotions/ports";
 import * as Adapters from "+infra/adapters";
-
-export type EntryType = Omit<Emotions.VO.EntrySnapshot, "startedAt"> & {
-  alarms: Emotions.VO.AlarmSnapshot[];
-  startedAt: string;
-};
 
 const deps = { Clock: Adapters.Clock, EntrySnapshot: Adapters.Emotions.EntrySnapshot };
 
@@ -35,10 +31,12 @@ export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
     query,
   );
 
-  const result: EntryType[] = entries.map((entry) => ({
+  const result: EntrySnapshotWithAlarmsFormatted[] = entries.map((entry) => ({
     ...entry,
     startedAt: tools.DateFormatters.datetime(entry.startedAt),
   }));
 
   return c.json(result);
 }
+
+export type { EntrySnapshotWithAlarmsFormatted } from "+emotions/ports";

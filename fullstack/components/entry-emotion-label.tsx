@@ -1,8 +1,8 @@
 import { useTranslations } from "@bgord/ui";
-import type { EntryType } from "../api";
+import type { EntrySnapshotWithAlarmsFormatted } from "../api";
 
 export function EntryEmotionLabel(
-  props: Pick<EntryType, "emotionLabel"> & React.JSX.IntrinsicElements["div"],
+  props: Pick<EntrySnapshotWithAlarmsFormatted, "emotionLabel"> & React.JSX.IntrinsicElements["div"],
 ) {
   const t = useTranslations();
   const { emotionLabel, ...rest } = props;

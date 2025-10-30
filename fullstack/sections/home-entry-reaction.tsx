@@ -3,12 +3,12 @@ import { useRouter } from "@tanstack/react-router";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
-import type { EntryType } from "../api";
+import type { EntrySnapshotWithAlarmsFormatted } from "../api";
 import * as UI from "../components";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
-export function HomeEntryReaction(props: EntryType) {
+export function HomeEntryReaction(props: EntrySnapshotWithAlarmsFormatted) {
   const t = bg.useTranslations();
   const router = useRouter();
   const metaEnterSubmit = bg.useMetaEnterSubmit();
@@ -64,7 +64,7 @@ export function HomeEntryReaction(props: EntryType) {
 
         {reactionTypeEdit.off && (
           <UI.EntryReactionType
-            reactionType={reactionType.value as EntryType["reactionType"]}
+            reactionType={reactionType.value as EntrySnapshotWithAlarmsFormatted["reactionType"]}
             data-cursor="pointer"
             onClick={reactionTypeEdit.enable}
           />
