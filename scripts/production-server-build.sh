@@ -68,17 +68,3 @@ step_end "App compile"
 step_start "CSS copy"
 cp frontend/node_modules/@bgord/design/dist/main.min.css frontend/public/
 step_end "CSS copy"
-
-step_start "Frontend build"
-cd frontend/
-NODE_ENV=production bunx --bun react-router build --mode production
-cd ../
-step_end "Frontend build"
-
-step_start "Frontend files move"
-mv frontend "$OUTPUT_DIRECTORY"
-step_end "Frontend files move"
-
-step_start "scripts/production-frontend-start.sh copy"
-cp scripts/production-frontend-start.sh $OUTPUT_DIRECTORY
-step_end "scripts/production-frontend-start.sh copy"
