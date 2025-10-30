@@ -2,7 +2,7 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import type { EntrySnapshotWithAlarmsFormatted } from "+emotions/ports";
+import type { EntrySnapshotFormatted } from "+emotions/ports";
 import * as Adapters from "+infra/adapters";
 
 const deps = { Clock: Adapters.Clock, EntrySnapshot: Adapters.Emotions.EntrySnapshot };
@@ -25,13 +25,9 @@ export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
     [options.all_time]: (today) => new tools.DateRange(tools.Timestamp.parse(0), today.getEnd()),
   };
 
-  const entries = await deps.EntrySnapshot.getByDateRangeForUserWithAlarms(
-    userId,
-    range[filter](today),
-    query,
-  );
+  const entries = await deps.EntrySnapshot.getFormatted(userId, range[filter](today), query);
 
-  const result: EntrySnapshotWithAlarmsFormatted[] = entries.map((entry) => ({
+  const result: EntrySnapshotFormatted[] = entries.map((entry) => ({
     ...entry,
     startedAt: tools.DateFormatters.datetime(entry.startedAt),
   }));
@@ -39,4 +35,4 @@ export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
   return c.json(result);
 }
 
-export type { EntrySnapshotWithAlarmsFormatted } from "+emotions/ports";
+export type { EntrySnapshotFormatted } from "+emotions/ports";

@@ -1,8 +1,8 @@
 import { useTranslations } from "@bgord/ui";
-import type { EntrySnapshotWithAlarmsFormatted } from "../api";
+import type { EntrySnapshotFormatted } from "../api";
 
 export function EntrySituationKind(
-  props: Pick<EntrySnapshotWithAlarmsFormatted, "situationKind"> & React.JSX.IntrinsicElements["div"],
+  props: Pick<EntrySnapshotFormatted, "situationKind"> & React.JSX.IntrinsicElements["div"],
 ) {
   const t = useTranslations();
   const { situationKind, ...rest } = props;

@@ -1,7 +1,7 @@
-import type { EntrySnapshotWithAlarmsFormatted } from "../api";
+import type { EntrySnapshotFormatted } from "../api";
 
 export function EntryReactionDescription(
-  props: Pick<EntrySnapshotWithAlarmsFormatted, "reactionDescription"> & React.JSX.IntrinsicElements["div"],
+  props: Pick<EntrySnapshotFormatted, "reactionDescription"> & React.JSX.IntrinsicElements["div"],
 ) {
   const { reactionDescription, ...rest } = props;
 

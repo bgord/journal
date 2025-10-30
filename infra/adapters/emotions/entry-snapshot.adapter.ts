@@ -64,11 +64,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
     return entries.map(EntrySnapshotDrizzle.format);
   }
 
-  async getByDateRangeForUserWithAlarms(
-    userId: Auth.VO.UserIdType,
-    dateRange: tools.DateRange,
-    query: string,
-  ) {
+  async getFormatted(userId: Auth.VO.UserIdType, dateRange: tools.DateRange, query: string) {
     const where = [
       eq(Schema.entries.userId, userId),
       gte(Schema.entries.startedAt, dateRange.getStart()),

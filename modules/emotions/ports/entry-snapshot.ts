@@ -5,7 +5,7 @@ import type * as VO from "+emotions/value-objects";
 /** @public */
 export type EntrySnapshotWithAlarms = VO.EntrySnapshot & { alarms: VO.AlarmSnapshot[] };
 
-export type EntrySnapshotWithAlarmsFormatted = Omit<EntrySnapshotWithAlarms, "startedAt"> & {
+export type EntrySnapshotFormatted = Omit<EntrySnapshotWithAlarms, "startedAt"> & {
   startedAt: string;
 };
 
@@ -18,7 +18,7 @@ export interface EntrySnapshotPort {
 
   getByDateRangeForUser(userId: Auth.VO.UserIdType, dateRange: tools.DateRange): Promise<VO.EntrySnapshot[]>;
 
-  getByDateRangeForUserWithAlarms(
+  getFormatted(
     userId: Auth.VO.UserIdType,
     dateRange: tools.DateRange,
     query: string,

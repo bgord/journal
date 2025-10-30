@@ -29,9 +29,7 @@ describe(`GET ${url}`, () => {
 
   test("happy path - default - today", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUserWithAlarms").mockResolvedValue([
-      mocks.fullEntryWithAlarms,
-    ]);
+    const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
@@ -43,9 +41,7 @@ describe(`GET ${url}`, () => {
 
   test("happy path - last_week", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUserWithAlarms").mockResolvedValue([
-      mocks.fullEntryWithAlarms,
-    ]);
+    const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
 
     const response = await server.request(
       `${url}?filter=${Emotions.VO.EntryListFilterOptions.last_week}`,
@@ -65,9 +61,7 @@ describe(`GET ${url}`, () => {
 
   test("happy path - last_month", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUserWithAlarms").mockResolvedValue([
-      mocks.fullEntryWithAlarms,
-    ]);
+    const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
 
     const response = await server.request(
       `${url}?filter=${Emotions.VO.EntryListFilterOptions.last_month}`,
@@ -87,9 +81,7 @@ describe(`GET ${url}`, () => {
 
   test("happy path - all_time", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getByDateRangeForUserWithAlarms").mockResolvedValue([
-      mocks.fullEntryWithAlarms,
-    ]);
+    const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
 
     const response = await server.request(
       `${url}?filter=${Emotions.VO.EntryListFilterOptions.all_time}&query=abc`,

@@ -1,6 +1,6 @@
 import { Cookies } from "@bgord/ui";
 import type { types } from "../../app/services/home-entry-list-form";
-import type { EntrySnapshotWithAlarmsFormatted } from "../../modules/emotions/ports";
+import type { EntrySnapshotFormatted } from "../../modules/emotions/ports";
 import type { ShareableLinkIdType } from "../../modules/publishing/value-objects/";
 
 /** @public */
@@ -16,7 +16,7 @@ export class Entry {
   static async getList(
     request: Request | null,
     deps: { filter: types.EntryListFilterType; query: string },
-  ): Promise<EntrySnapshotWithAlarmsFormatted[]> {
+  ): Promise<EntrySnapshotFormatted[]> {
     const BASE = `/api/entry/list?filter=${deps.filter}&query=${deps.query ?? ""}`;
 
     const url = request ? new URL(BASE, request.url) : BASE;
@@ -31,7 +31,7 @@ export class Entry {
   static async getSharedEntries(
     request: Request | null,
     shareableLinkId: ShareableLinkIdType,
-  ): Promise<Promise<EntrySnapshotWithAlarmsFormatted[]>> {
+  ): Promise<Promise<EntrySnapshotFormatted[]>> {
     const BASE = `/api/shared/entries/${shareableLinkId}`;
 
     const url = request ? new URL(BASE, request.url) : BASE;
@@ -45,7 +45,7 @@ export class Entry {
 
   static async getHistory(
     request: Request | null,
-    entryId: EntrySnapshotWithAlarmsFormatted["id"],
+    entryId: EntrySnapshotFormatted["id"],
   ): Promise<HistoryParsedType[]> {
     const BASE = `/api/history/${entryId}/list`;
 
@@ -59,4 +59,4 @@ export class Entry {
   }
 }
 
-export type { EntrySnapshotWithAlarmsFormatted } from "../../app/http/emotions/list-entries";
+export type { EntrySnapshotFormatted } from "../../app/http/emotions/list-entries";

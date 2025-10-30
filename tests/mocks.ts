@@ -11,7 +11,7 @@ import { SupportedLanguages } from "+languages";
 import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type * as System from "+system";
-import type { EntrySnapshotWithAlarmsFormatted } from "+app/http/emotions/list-entries";
+import type { EntrySnapshotFormatted } from "+app/http/emotions/list-entries";
 import { IdProvider } from "+infra/adapters/id-provider.adapter";
 import type * as Schema from "+infra/schema";
 
@@ -900,7 +900,7 @@ export const fullEntryWithAlarms: Emotions.Ports.EntrySnapshotWithAlarms = {
   alarms: [] as Emotions.VO.AlarmSnapshot[],
 };
 
-export const fullEntryWithAlarmsFormatted: EntrySnapshotWithAlarmsFormatted = {
+export const fullEntryWithAlarmsFormatted: EntrySnapshotFormatted = {
   ...fullEntry,
   alarms: [] as Emotions.VO.AlarmSnapshot[],
   startedAt: tools.DateFormatters.datetime(fullEntry.startedAt),

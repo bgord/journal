@@ -1,9 +1,9 @@
 import { useTranslations } from "@bgord/ui";
 import { Alarm } from "iconoir-react";
-import type { EntrySnapshotWithAlarmsFormatted } from "../api";
+import type { EntrySnapshotFormatted } from "../api";
 import { Advice } from "../components";
 
-export function EntryAlarms(props: EntrySnapshotWithAlarmsFormatted) {
+export function EntryAlarms(props: EntrySnapshotFormatted) {
   const t = useTranslations();
 
   return (

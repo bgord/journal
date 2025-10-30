@@ -3,12 +3,12 @@ import { useRouter } from "@tanstack/react-router";
 import React from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
-import type { EntrySnapshotWithAlarmsFormatted } from "../api";
+import type { EntrySnapshotFormatted } from "../api";
 import { ButtonCancel, EntryEmotionLabel, RatingPillsClickable, Select } from "../components";
 import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
-export function EntryEmotion(props: EntrySnapshotWithAlarmsFormatted) {
+export function EntryEmotion(props: EntrySnapshotFormatted) {
   const t = useTranslations();
   const router = useRouter();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);

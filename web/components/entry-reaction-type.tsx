@@ -1,9 +1,9 @@
 import { useTranslations } from "@bgord/ui";
 import type React from "react";
-import type { EntrySnapshotWithAlarmsFormatted } from "../api";
+import type { EntrySnapshotFormatted } from "../api";
 
 export function EntryReactionType(
-  props: Pick<EntrySnapshotWithAlarmsFormatted, "reactionType"> & React.JSX.IntrinsicElements["div"],
+  props: Pick<EntrySnapshotFormatted, "reactionType"> & React.JSX.IntrinsicElements["div"],
 ) {
   const t = useTranslations();
   const { reactionType, ...rest } = props;
