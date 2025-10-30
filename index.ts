@@ -19,7 +19,7 @@ import { handler } from "./web/entry-server";
     idleTimeout: infra.IDLE_TIMEOUT,
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
-      "/public/*": new Hono().use("/public/*", serveStatic({ root: "./" })).fetch,
+      "/public/*": new Hono().use("/public/*", serveStatic({ root: "./", precompressed: true })).fetch,
       "/api/*": server.fetch,
       "/*": handler,
     },

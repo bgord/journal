@@ -22,6 +22,7 @@
     "cspell": "9.2.2",
     "dependency-cruiser": "17.2.0",
     "drizzle-kit": "0.31.6",
+    "gzip-cli": "1.2.0",
     "knip": "5.66.4",
     "lefthook": "2.0.2",
     "shellcheck": "4.1.0",
