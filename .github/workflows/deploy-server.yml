@@ -35,10 +35,10 @@ jobs:
       - name: Build app
         run: ./scripts/production-server-build.sh
 
-      - name: Inspect the cwd
+      - name: Inspect cwd
         run: ls -alh
 
-      - name: Inspect the app size
+      - name: Inspect app size
         run: ./bgord-scripts/production-server-inspect.sh ${{ secrets.PROJECT_NAME }}
 
       - name: Configure SSH
