@@ -4,6 +4,7 @@ export * from "./button-clear";
 export * from "./button-close";
 export * from "./button-copy";
 export * from "./dashboard-cell";
+export * from "./dashboard-column-header";
 export * from "./description-label";
 export * from "./entry-emotion-label";
 export * from "./entry-list-empty";

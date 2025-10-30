@@ -1,5 +1,6 @@
 import { Rhythm, useTranslations } from "@bgord/ui";
 import { Alarm, Calendar, Notes } from "iconoir-react";
+import { DashboardColumnHeader } from "../components";
 import * as Sections from "../sections";
 
 /** @public */
@@ -13,26 +14,26 @@ export function Dashboard() {
 
       <div data-stack="x" data-gap="5" data-mx="auto" data-color="neutral-200">
         <section data-fs="sm" {...column}>
-          <h2 data-stack="x" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
+          <DashboardColumnHeader>
             <Alarm data-size="md" data-color="brand-300" /> {t("dashboard.alarm.header")}
-          </h2>
+          </DashboardColumnHeader>
           <Sections.DashboardAlarmsInactivity />
           <Sections.DashboardAlarmsEntry />
         </section>
 
         <section data-fs="sm" {...column}>
-          <h2 data-stack="x" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
+          <DashboardColumnHeader>
             <Notes data-size="md" data-color="brand-300" /> {t("dashboard.entries.header")}
-          </h2>
+          </DashboardColumnHeader>
           <Sections.DashboardEntryCounts />
           <Sections.DashboardEmotionsTop />
           <Sections.DashboardReactionsTop />
         </section>
 
         <section data-fs="sm" {...column}>
-          <h2 data-stack="x" data-cross="center" data-gap="3" data-fw="regular" data-fs="base">
+          <DashboardColumnHeader>
             <Calendar data-size="md" data-color="brand-300" /> {t("dashboard.weekly_reviews.header")}
-          </h2>
+          </DashboardColumnHeader>
           <Sections.DashboardWeeklyReviewList />
         </section>
       </div>
