@@ -1,7 +1,8 @@
 import { Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
 import { useNavigate } from "@tanstack/react-router";
-import { List, Xmark } from "iconoir-react";
+import { List } from "iconoir-react";
 import { Form } from "../../app/services/home-entry-list-form";
+import { ButtonClose } from "../components";
 import { homeEntryHistoryRoute, homeRoute } from "../router";
 
 /** @public */
@@ -29,16 +30,7 @@ export function HomeEntryHistory() {
           <List data-size="md" data-color="neutral-300" />
           {t("entry.history")}
         </strong>
-
-        <button
-          className="c-button"
-          data-variant="with-icon"
-          type="button"
-          data-interaction="subtle-scale"
-          onClick={dialog.disable}
-        >
-          <Xmark data-size="md" />
-        </button>
+        <ButtonClose onClick={dialog.disable} />
       </div>
 
       <ul data-stack="y" data-gap="2" data-mt="5">

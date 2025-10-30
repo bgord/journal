@@ -1,13 +1,13 @@
 import * as bg from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import { HelpCircle, Plus, ShareIos, Xmark } from "iconoir-react";
+import { HelpCircle, Plus, ShareIos } from "iconoir-react";
 import React from "react";
 import {
   Form,
   type ShareableLinkDuration,
   type ShareableLinkSpecification,
 } from "../../app/services/create-shareable-link-form";
-import * as UI from "../components";
+import { ButtonCancel, ButtonClose, Select } from "../components";
 import { profileRoute } from "../router";
 import { RequestState } from "../ui";
 
@@ -69,17 +69,7 @@ export function ProfileShareableLinkCreate() {
             <ShareIos data-size="md" data-color="neutral-300" />
             {t("profile.shareable_links.create.label")}
           </strong>
-
-          <button
-            className="c-button"
-            data-variant="with-icon"
-            type="button"
-            data-interaction="subtle-scale"
-            disabled={state === RequestState.loading}
-            onClick={dialog.disable}
-          >
-            <Xmark data-size="md" />
-          </button>
+          <ButtonClose disabled={state === RequestState.loading} onClick={dialog.disable} />
         </div>
 
         <form onSubmit={createShareableLink} data-stack="y" data-gap="8" data-color="neutral-100">
@@ -109,13 +99,13 @@ export function ProfileShareableLinkCreate() {
             </label>
 
             <div data-stack="x" data-gap="5">
-              <UI.Select required disabled={state === RequestState.loading} {...specification.input.props}>
+              <Select required disabled={state === RequestState.loading} {...specification.input.props}>
                 {Form.specification.options.map((specification) => (
                   <option key={specification} value={specification}>
                     {t(`profile.shareable_links.create.specification.${specification}.value`)}
                   </option>
                 ))}
-              </UI.Select>
+              </Select>
 
               <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-300">
                 <HelpCircle data-size="sm" />
@@ -160,7 +150,7 @@ export function ProfileShareableLinkCreate() {
             )}
 
             <div data-stack="x" data-gap="5" data-ml="auto">
-              <UI.ButtonCancel onClick={dialog.disable} disabled={state === RequestState.loading} />
+              <ButtonCancel onClick={dialog.disable} disabled={state === RequestState.loading} />
 
               <button
                 type="submit"

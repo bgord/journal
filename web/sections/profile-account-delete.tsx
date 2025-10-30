@@ -1,7 +1,7 @@
 import { Autocomplete, Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
-import { UserXmark, WarningCircle, Xmark } from "iconoir-react";
+import { UserXmark, WarningCircle } from "iconoir-react";
 import React from "react";
-import * as UI from "../components";
+import { ButtonCancel, ButtonClose } from "../components";
 import { RequestState } from "../ui";
 
 export function ProfileAccountDelete() {
@@ -67,16 +67,7 @@ export function ProfileAccountDelete() {
             <UserXmark data-size="md" data-color="neutral-300" />
             {t("profile.delete_account.header")}
           </strong>
-
-          <button
-            className="c-button"
-            data-variant="with-icon"
-            type="button"
-            data-interaction="subtle-scale"
-            onClick={dialog.disable}
-          >
-            <Xmark data-size="md" />
-          </button>
+          <ButtonClose onClick={dialog.disable} disabled={state === RequestState.loading} />
         </div>
 
         <div data-stack="x" data-cross="center" data-gap="1" data-color="danger-400" data-fs="sm">
@@ -119,7 +110,7 @@ export function ProfileAccountDelete() {
           )}
 
           <div data-stack="x" data-main="end" data-gap="5">
-            <UI.ButtonCancel onClick={dialog.disable} />
+            <ButtonCancel onClick={dialog.disable} />
 
             <button
               type="submit"

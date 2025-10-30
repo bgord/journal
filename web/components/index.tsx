@@ -1,5 +1,6 @@
 export * from "./avatar";
 export * from "./button-cancel";
+export * from "./button-close";
 export * from "./button-copy";
 export * from "./dashboard-cell";
 export * from "./description-label";
