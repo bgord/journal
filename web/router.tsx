@@ -1,3 +1,4 @@
+import { CSS, JS, META } from "@bgord/ui";
 import {
   createRootRouteWithContext,
   createRoute,
@@ -7,7 +8,6 @@ import {
 } from "@tanstack/react-router";
 import * as HomeEntryListForm from "../app/services/home-entry-list-form";
 import * as API from "./api";
-import * as HEAD from "./head";
 import { NotFound } from "./not-found";
 import { Shell } from "./shell";
 
@@ -15,9 +15,18 @@ type RouterContext = { request: Request | null };
 
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
-    meta: [...HEAD.META, { title: "Journal" }],
-    links: [...HEAD.CSS("/public/main.min.css"), ...HEAD.CSS("/public/custom.css"), ...HEAD.FONT],
-    scripts: [HEAD.JS("/public/entry-client.js")],
+    meta: [...META, { title: "Journal" }],
+    links: [
+      ...CSS("/public/main.min.css"),
+      ...CSS("/public/custom.css"),
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+      },
+    ],
+    scripts: [JS("/public/entry-client.js")],
   }),
   component: Shell,
   staleTime: Number.POSITIVE_INFINITY,
