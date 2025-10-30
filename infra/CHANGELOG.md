@@ -1,11 +1,14 @@
 # Changelog
+- 2025-10-30 13:29 43c9f613 **step: disable most of the deploy-server**
+## 2025-10-30 13:29 
 - 2025-10-30 13:27 12783ae4 **Merge pull request #49 from bgord/fullstack-tanstack**
-## 2025-10-30 13:27 
 - 2025-10-30 13:26 d469007f **step: include history created at**
 - 2025-10-30 13:26 99182b45 **step: define history reader adapter**
 - 2025-10-30 13:18 e550fd1c **step: update packages**
 - 2025-10-30 13:15 4b125585 **refactor: extract history list**
 - 2025-10-30 13:12 3fa99073 **step: update packages**
+- 2025-10-30 12:27 c72e3a23 **docs: generate readme**
+- 2025-10-30 12:27 ad2e1065 **docs: generate CHANGELOG**
 - 2025-10-30 11:32 266ce1ed **refactor: rename get formatted entry snapshot**
 - 2025-10-30 11:30 2957f543 **step: display email in profile**
 - 2025-10-30 11:27 1523c88d **step: wireup design types**
