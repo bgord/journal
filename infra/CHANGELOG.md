@@ -1,7 +1,9 @@
 # Changelog
+- 2025-10-30 19:36 6bb2bd49 **refactor: remove default login values**
+## 2025-10-30 19:36 
 - 2025-10-30 19:28 d550ca59 **refactor: do not skip any logs**
-## 2025-10-30 19:28 
 - 2025-10-30 19:27 c6053c2d **fix: logout redirect**
+- 2025-10-30 18:29 80ae4c81 **docs: generate CHANGELOG**
 - 2025-10-30 16:07 acbb2278 **fix: login replace url**
 - 2025-10-30 15:57 4db9318a **refactor: remove auth routes**
 - 2025-10-30 15:16 3b9e69b1 **step: try another path**
