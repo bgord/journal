@@ -1,24 +1,17 @@
 import * as bg from "@bgord/bun";
-import { desc, eq } from "drizzle-orm";
+import * as tools from "@bgord/tools";
 import type hono from "hono";
 import type * as infra from "+infra";
-import { db } from "+infra/db";
-import * as Schema from "+infra/schema";
+import * as Adapters from "+infra/adapters";
+
+const deps = { HistoryReader: Adapters.History.HistoryReader };
 
 export async function HistoryList(c: hono.Context<infra.HonoConfig>) {
   const subject = bg.History.VO.HistorySubject.parse(c.req.param("subject"));
 
-  const result = await db
-    .select()
-    .from(Schema.history)
-    .where(eq(Schema.history.subject, subject))
-    .orderBy(desc(Schema.history.createdAt))
-    .limit(15);
+  const list = await deps.HistoryReader.read(subject);
 
-  return c.json(
-    result.map((entry) => ({
-      ...entry,
-      payload: entry.payload ? JSON.parse(entry.payload as string) : {},
-    })),
-  );
+  return c.json(list.map((item) => ({ ...item, createdAt: tools.DateFormatters.datetime(item.createdAt) })));
 }
+
+export type HistoryType = Omit<bg.History.VO.HistoryType, "createdAt"> & { createdAt: string };

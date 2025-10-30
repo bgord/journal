@@ -1,16 +1,8 @@
 import { Cookies } from "@bgord/ui";
+import type { HistoryType } from "../../app/http/history";
 import type { types } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotFormatted } from "../../modules/emotions/ports";
 import type { ShareableLinkIdType } from "../../modules/publishing/value-objects/";
-
-/** @public */
-export type HistoryParsedType = {
-  id: string;
-  operation: string;
-  payload: Record<string, any>;
-  subject: string;
-  createdAt: number;
-};
 
 export class Entry {
   static async getList(
@@ -46,7 +38,7 @@ export class Entry {
   static async getHistory(
     request: Request | null,
     entryId: EntrySnapshotFormatted["id"],
-  ): Promise<HistoryParsedType[]> {
+  ): Promise<HistoryType[]> {
     const BASE = `/api/history/${entryId}/list`;
 
     const url = request ? new URL(BASE, request.url) : BASE;

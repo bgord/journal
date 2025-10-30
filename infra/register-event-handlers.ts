@@ -75,6 +75,7 @@ new EmotionsPolicies.EntryHistoryPublisher({
   EventBus,
   EventHandler,
   HistoryWriter: Adapters.History.HistoryWriter,
+  Clock: Adapters.Clock,
 });
 new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(
   EventBus,

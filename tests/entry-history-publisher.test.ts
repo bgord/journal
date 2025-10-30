@@ -11,6 +11,7 @@ const policy = new Emotions.Policies.EntryHistoryPublisher({
   EventBus,
   EventHandler,
   HistoryWriter: Adapters.History.HistoryWriter,
+  Clock: Adapters.Clock,
 });
 
 describe("EntryAlarmDetector", () => {
