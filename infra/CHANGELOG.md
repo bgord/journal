@@ -1,6 +1,8 @@
 # Changelog
+- 2025-10-30 23:32 a3628df5 **refactor: remove google font**
+## 2025-10-30 23:32 
+- 2025-10-30 23:29 d14ff158 **step: minify favicon**
 - 2025-10-30 23:23 4412c464 **step: add compression**
-## 2025-10-30 23:23 
 - 2025-10-30 23:17 1c8f8157 **step: install gzip**
 - 2025-10-30 23:10 258c301b **step: try restoring script**
 - 2025-10-30 23:01 b4ab1483 **refactor: remove cookie prefix**
@@ -11,6 +13,7 @@
 - 2025-10-30 22:52 120cadcf **step: restore have i been pwned**
 - 2025-10-30 22:51 f323e66f **refactor: remove cors**
 - 2025-10-30 22:48 0f399006 **step: try removing cors config**
+- 2025-10-30 22:24 3cb76df8 **docs: generate CHANGELOG**
 - 2025-10-30 22:20 3d6cfe13 **step: patch url**
 - 2025-10-30 22:11 21206804 **step: add entry api**
 - 2025-10-30 22:10 cebf5e0a **docs: generate CHANGELOG**
