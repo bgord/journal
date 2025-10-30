@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 14:56 e858d2e1 **step: opt-out out of bun html parsing**
+## 2025-10-30 14:56 
 - 2025-10-30 14:46 f012d6b6 **step: add loaders**
-## 2025-10-30 14:46 
 - 2025-10-30 14:40 36e7ff11 **step: tmp enable sign up**
 - 2025-10-30 14:37 1f16fbfe **step: tmp remove haveibeenpwned**
 - 2025-10-30 14:34 b67fc732 **step: add inspect cwd**
@@ -20,6 +21,7 @@
 - 2025-10-30 13:49 43ed718d **step: add inspectors**
 - 2025-10-30 13:49 056f2d09 **step: wip**
 - 2025-10-30 13:47 b0f4f3ac **fix: css path**
+- 2025-10-30 13:47 a9736702 **docs: generate CHANGELOG**
 - 2025-10-30 13:46 88101898 **step: tmp disable build prechecks**
 - 2025-10-30 13:45 92e03cf7 **step: inspect step**
 - 2025-10-30 13:44 deb3743c **step: restore build app step**
