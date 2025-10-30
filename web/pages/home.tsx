@@ -22,9 +22,7 @@ export function Home() {
         <Sections.HomeEntryAdd />
       </div>
 
-      {exportEntries.on && <Sections.HomeEntryExport />}
-
-      <Sections.HomeEntryList />
+      <Sections.HomeEntryList children={exportEntries.on ? <Sections.HomeEntryExport /> : null} />
 
       <Outlet />
     </main>

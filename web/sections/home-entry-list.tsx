@@ -4,7 +4,7 @@ import { ButtonClear, EntryListEmpty, Select } from "../components";
 import { homeRoute } from "../router";
 import { HomeEntry } from "./home-entry";
 
-export function HomeEntryList() {
+export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
   const t = useTranslations();
   const { entries } = homeRoute.useLoaderData();
   const navigate = homeRoute.useNavigate();
@@ -45,6 +45,8 @@ export function HomeEntryList() {
           onClick={() => navigate({ to: "/", params: HomeEntryListForm.Form.default })}
         />
       </div>
+
+      {props.children}
 
       {entries[0] && (
         <ul data-stack="y" data-gap="5" data-mt="6">
