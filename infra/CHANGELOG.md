@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 13:57 e04e99fb **step: restore inspect app size**
+## 2025-10-30 13:57 
 - 2025-10-30 13:55 b95df2fe **step: add web build steps**
-## 2025-10-30 13:55 
 - 2025-10-30 13:51 0bd00223 **step: remove inspector**
 - 2025-10-30 13:50 fef95c93 **step: remove public inspector**
 - 2025-10-30 13:49 43ed718d **step: add inspectors**
@@ -23,6 +24,7 @@
 - 2025-10-30 13:18 e550fd1c **step: update packages**
 - 2025-10-30 13:15 4b125585 **refactor: extract history list**
 - 2025-10-30 13:12 3fa99073 **step: update packages**
+- 2025-10-30 12:56 0a6222f8 **docs: generate CHANGELOG**
 - 2025-10-30 12:50 dc43401f **docs: generate CHANGELOG**
 - 2025-10-30 12:50 51ad1ccf **docs: generate CHANGELOG**
 - 2025-10-30 12:49 b739b817 **docs: generate CHANGELOG**
