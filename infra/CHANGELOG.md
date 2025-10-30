@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 14:34 b67fc732 **step: add inspect cwd**
+## 2025-10-30 14:34 
 - 2025-10-30 14:26 528f87fe **step: add production flag to compile**
-## 2025-10-30 14:26 
 - 2025-10-30 14:14 70f9a59f **step: restore sharp installs scripts**
 - 2025-10-30 14:13 6ca88277 **step: restore restart server step**
 - 2025-10-30 14:13 376c4c50 **step: remove fe steps**
@@ -30,6 +31,7 @@
 - 2025-10-30 13:27 12783ae4 **Merge pull request #49 from bgord/fullstack-tanstack**
 - 2025-10-30 13:26 d469007f **step: include history created at**
 - 2025-10-30 13:26 99182b45 **step: define history reader adapter**
+- 2025-10-30 13:26 3760f6df **docs: generate CHANGELOG**
 - 2025-10-30 13:18 e550fd1c **step: update packages**
 - 2025-10-30 13:15 7f2eca13 **docs: generate CHANGELOG**
 - 2025-10-30 13:15 4b125585 **refactor: extract history list**
