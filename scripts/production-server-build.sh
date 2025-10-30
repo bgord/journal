@@ -77,7 +77,7 @@ bun build web/entry-client.tsx \
 step_end "Web build"
 
 step_start "App compile"
-bun build --compile --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
+bun build --compile --production --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"
 
 step_start "Copy public"
