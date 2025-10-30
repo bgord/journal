@@ -32,9 +32,6 @@ jobs:
       - name: Create .env.production file
         run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
 
-      # - name: Create frontend/.env.production file for production
-      #   run: echo "${{ secrets.FE_ENV_PRODUCTION }}" > frontend/.env.production
-
       # - name: Build the app
       #   run: ./scripts/production-server-build.sh
 
