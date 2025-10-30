@@ -1,6 +1,11 @@
 # Changelog
+- 2025-10-30 13:45 92e03cf7 **step: inspect step**
+## 2025-10-30 13:45 
+- 2025-10-30 13:44 deb3743c **step: restore build app step**
+- 2025-10-30 13:44 1071ca71 **refactor: adjust prod server build**
+- 2025-10-30 13:42 99415193 **step: remove fe env prod file**
+- 2025-10-30 13:41 e716d287 **step: restore prod env file**
 - 2025-10-30 13:39 420b66ec **step: bump bgord/scripts**
-## 2025-10-30 13:39 
 - 2025-10-30 13:33 83625ae3 **step: restore build prechecks**
 - 2025-10-30 13:32 b9906af0 **fix: e2e**
 - 2025-10-30 13:30 aaa39dda **refactor: remove frontent env prod file setup**
@@ -11,6 +16,7 @@
 - 2025-10-30 13:18 e550fd1c **step: update packages**
 - 2025-10-30 13:15 4b125585 **refactor: extract history list**
 - 2025-10-30 13:12 3fa99073 **step: update packages**
+- 2025-10-30 12:40 b45126b9 **docs: generate CHANGELOG**
 - 2025-10-30 12:33 e4b08158 **docs: generate CHANGELOG**
 - 2025-10-30 12:29 b86adfdb **docs: generate CHANGELOG**
 - 2025-10-30 12:27 c72e3a23 **docs: generate readme**
