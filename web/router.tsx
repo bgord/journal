@@ -31,11 +31,9 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   component: Shell,
   staleTime: Number.POSITIVE_INFINITY,
   loader: async ({ context }) => {
-    const [session, i18n, avatarEtag] = await Promise.all([
-      await API.Session.get(context.request),
-      await API.I18N.get(context.request),
-      await API.Avatar.getEtag(context.request),
-    ]);
+    const session = await API.Session.get(context.request);
+    const i18n = await API.I18N.get(context.request);
+    const avatarEtag = await API.Avatar.getEtag(context.request);
 
     // @ts-expect-error Login stays out as a separate HTML page
     if (!(session && i18n)) throw redirect({ to: "/public/login.html" });
