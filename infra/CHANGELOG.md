@@ -1,7 +1,8 @@
 # Changelog
+- 2025-10-30 14:14 70f9a59f **step: restore sharp installs scripts**
+## 2025-10-30 14:14 
 - 2025-10-30 14:13 6ca88277 **step: restore restart server step**
 - 2025-10-30 14:13 376c4c50 **step: remove fe steps**
-## 2025-10-30 14:13 
 - 2025-10-30 14:09 6a3f65b8 **step: restore sync source code step**
 - 2025-10-30 14:04 32d2dd02 **step: bump bun prereq version**
 - 2025-10-30 14:01 de062982 **step: restore configure ssh step**
@@ -30,6 +31,7 @@
 - 2025-10-30 13:26 99182b45 **step: define history reader adapter**
 - 2025-10-30 13:18 e550fd1c **step: update packages**
 - 2025-10-30 13:15 4b125585 **refactor: extract history list**
+- 2025-10-30 13:13 dfe264be **docs: generate CHANGELOG**
 - 2025-10-30 13:12 3fa99073 **step: update packages**
 - 2025-10-30 13:10 4d77ac70 **docs: generate CHANGELOG**
 - 2025-10-30 13:01 495221cf **docs: generate CHANGELOG**
