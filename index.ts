@@ -20,10 +20,6 @@ import { handler } from "./web/entry-server";
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
       "/public/*": new Hono().use("/public/*", serveStatic({ root: "./" })).fetch,
-      // "/auth/login": Bun.file("public/login.html"),
-      // "/auth/register": Bun.file("public/register.html"),
-      // "/auth/forgot-password": Bun.file("public/forgot-password.html"),
-      // "/auth/reset-password": Bun.file("public/reset-password.html"),
       "/api/*": server.fetch,
       "/*": handler,
     },
