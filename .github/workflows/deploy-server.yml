@@ -18,7 +18,7 @@ jobs:
       - name: Setup Bun environment
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.3.0
+          bun-version: 1.3.1
 
       - name: Bun install
         run: bun install --exact --frozen-lockfile --no-summary
@@ -55,8 +55,8 @@ jobs:
           SSH_KEY: ${{ secrets.PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.HOSTNAME }}
 
-      # - name: Sync source code
-      #   run: rsync -azP output/ production:/var/www/${{ secrets.PROJECT_NAME }}
+      - name: Sync source code
+        run: rsync -azP output/ production:/var/www/${{ secrets.PROJECT_NAME }}
 
       # - name: Remove package.json
       #   run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && rm -rf package.json"
