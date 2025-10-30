@@ -1,9 +1,10 @@
 import * as tools from "@bgord/tools";
+import { Env } from "+infra/env";
 
 export class EmailVerificationNotificationComposer {
   compose(url: string): tools.NotificationTemplate {
     const callbackUrl = new URL(url);
-    callbackUrl.searchParams.set("callbackURL", "http://localhost:5173");
+    callbackUrl.searchParams.set("callbackURL", Env.BETTER_AUTH_URL);
 
     return new tools.NotificationTemplate(
       "Verify your Journal account",
