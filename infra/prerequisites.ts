@@ -30,7 +30,7 @@ export const prerequisites = [
   }),
   new bg.PrerequisiteBun({
     label: "bun",
-    version: tools.PackageVersion.fromString("1.2.22"),
+    version: tools.PackageVersion.fromString("1.3.1"),
     current: Bun.version,
   }),
   new bg.PrerequisiteMemory({ label: "memory-consumption", maximum: tools.Size.fromMB(300) }),
