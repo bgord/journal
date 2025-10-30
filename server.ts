@@ -188,6 +188,11 @@ server.get("/dashboard/get", AuthShield.attach, AuthShield.verify, HTTP.GetDashb
 
 // Auth ========================
 server.on(["POST", "GET"], "/auth/*", async (c) => {
+  function redirectPreservingCookies(target: string, status = 302) {
+    const headers = new Headers(response.headers);
+    headers.set("Location", target);
+    return new Response(null, { status, headers });
+  }
   const response = await auth.handler(c.req.raw);
 
   if (
@@ -195,7 +200,7 @@ server.on(["POST", "GET"], "/auth/*", async (c) => {
     c.req.path === "/api/auth/sign-in/email" &&
     [200, 204, 302].includes(response.status)
   ) {
-    return c.redirect("/?filter=today&query=");
+    return redirectPreservingCookies("/?filter=today&query=");
   }
 
   if (
@@ -203,7 +208,7 @@ server.on(["POST", "GET"], "/auth/*", async (c) => {
     c.req.path === "/api/auth/sign-out" &&
     [200, 302].includes(response.status)
   ) {
-    return c.redirect("/public/login.html");
+    return redirectPreservingCookies("/public/login.html");
   }
 
   return response;
