@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { openAPI } from "better-auth/plugins";
+import { haveIBeenPwned, openAPI } from "better-auth/plugins";
 import * as Auth from "+auth";
 import { Clock, IdProvider, Logger, Mailer } from "+infra/adapters";
 import { db } from "./db";
@@ -79,11 +79,10 @@ export const auth = betterAuth({
   trustedOrigins: ["http://localhost:3000", "https://journal.bgord.dev", "http://journal.bgord.dev", "*"],
   plugins: [
     production ? openAPI() : undefined,
-    // TODO
     // Env.type === bg.NodeEnvironmentEnum.production
     //   ? captcha({ provider: "hcaptcha", secretKey: Env.HCAPTCHA_SECRET_KEY })
     //   : undefined,
-    // production ? haveIBeenPwned() : undefined,
+    production ? haveIBeenPwned() : undefined,
   ].filter((plugin) => plugin !== undefined),
   logger: new bg.BetterAuthLogger(Logger).attach(),
 });
