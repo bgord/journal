@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 14:00 1a9b8d60 **step: bump bgord/scripts**
+## 2025-10-30 14:00 
 - 2025-10-30 13:58 4900057e **step: add copy public step**
-## 2025-10-30 13:58 
 - 2025-10-30 13:57 e04e99fb **step: restore inspect app size**
 - 2025-10-30 13:55 b95df2fe **step: add web build steps**
 - 2025-10-30 13:51 0bd00223 **step: remove inspector**
@@ -25,6 +26,7 @@
 - 2025-10-30 13:18 e550fd1c **step: update packages**
 - 2025-10-30 13:15 4b125585 **refactor: extract history list**
 - 2025-10-30 13:12 3fa99073 **step: update packages**
+- 2025-10-30 12:59 fd4100d1 **docs: generate CHANGELOG**
 - 2025-10-30 12:57 80a09430 **docs: generate CHANGELOG**
 - 2025-10-30 12:56 0a6222f8 **docs: generate CHANGELOG**
 - 2025-10-30 12:50 dc43401f **docs: generate CHANGELOG**
