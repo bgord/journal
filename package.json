@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.68.0",
-    "@bgord/bun": "1.0.8",
+    "@bgord/bun": "1.0.9",
     "@bgord/design": "1.4.9",
     "@bgord/tools": "1.0.5",
     "@bgord/ui": "0.7.6",
