@@ -1,11 +1,13 @@
 import { useTranslations } from "@bgord/ui";
 import { ProfileCircle } from "iconoir-react";
 import { Separator } from "../components";
+import { rootRoute } from "../router";
 import * as Sections from "../sections";
 
 /** @public */
 export function Profile() {
   const t = useTranslations();
+  const { session } = rootRoute.useLoaderData();
 
   return (
     <main
@@ -22,9 +24,12 @@ export function Profile() {
     >
       <header data-stack="x" data-gap="3">
         <ProfileCircle data-size="md" data-color="brand-300" />
-        <h2 data-fw="bold" data-fs="base">
+        <h2 data-fw="bold" data-fs="base" data-mr="auto">
           {t("profile.header")}
         </h2>
+        <div data-fs="sm" data-color="neutral-200">
+          {session.user.email}
+        </div>
       </header>
       <Separator />
       <Sections.ProfileAvatarChange />
