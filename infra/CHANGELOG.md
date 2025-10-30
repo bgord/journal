@@ -1,11 +1,13 @@
 # Changelog
+- 2025-10-30 21:27 37026732 **step: add console logs**
+## 2025-10-30 21:27 
 - 2025-10-30 21:24 8f839462 **step: remove promise all**
-## 2025-10-30 21:24 
 - 2025-10-30 21:18 9709fbe3 **step: remove clientside form**
 - 2025-10-30 21:12 626cd95a **fix: config**
 - 2025-10-30 21:09 1f5899a1 **step: set cookies**
 - 2025-10-30 20:54 32c1d16e **step: add http origins**
 - 2025-10-30 20:52 9f7bef06 **step: disable everything in auth**
+- 2025-10-30 20:24 0776016c **docs: generate CHANGELOG**
 - 2025-10-30 20:18 b0556dc7 **docs: generate CHANGELOG**
 - 2025-10-30 20:13 fa2d4d2a **docs: generate CHANGELOG**
 - 2025-10-30 20:10 963620fc **docs: generate CHANGELOG**
