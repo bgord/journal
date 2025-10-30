@@ -1,23 +1,18 @@
 export function absoluteUrl(path: string, request: Request | null): string | URL {
   if (!request) return path;
 
-  const url = new URL(request.url);
+  const incoming = new URL(request.url);
 
-  const proto = request.headers.get("x-forwarded-proto");
-
-  if (proto === "https" && url.protocol !== "https:") {
-    url.protocol = "https:";
-  }
-
+  // Respect reverse-proxy TLS
+  const xfproto = request.headers.get("x-forwarded-proto");
   const forwarded = request.headers.get("forwarded");
+  const isHttps = xfproto === "https" || (forwarded && /proto=https/i.test(forwarded));
 
-  if (forwarded && /proto=https/i.test(forwarded)) {
-    url.protocol = "https:";
-  }
+  // Build a clean origin (protocol + host), no path/search/hash
+  const origin = `${isHttps ? "https:" : incoming.protocol}//${incoming.host}`;
 
-  url.pathname = path;
-  url.search = "";
-  url.hash = "";
-
-  return url;
+  // Let WHATWG URL do the right thing:
+  // - if `path` is relative with "?...", it becomes pathname + search (NO %3F)
+  // - if `path` is absolute, it’s used as-is
+  return new URL(path, origin);
 }
