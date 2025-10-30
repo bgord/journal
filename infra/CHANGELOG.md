@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 22:48 0f399006 **step: try removing cors config**
+## 2025-10-30 22:48 
 - 2025-10-30 22:20 3d6cfe13 **step: patch url**
-## 2025-10-30 22:20 
 - 2025-10-30 22:11 21206804 **step: add entry api**
 - 2025-10-30 22:10 0f25c146 **refactor: restore hash and search**
 - 2025-10-30 22:08 940d8dc6 **step: comment serach and hash commit**
@@ -12,6 +13,7 @@
 - 2025-10-30 21:30 08faa41d **step: add helper**
 - 2025-10-30 21:27 37026732 **step: add console logs**
 - 2025-10-30 21:24 8f839462 **step: remove promise all**
+- 2025-10-30 21:20 5f1e5e2b **docs: generate CHANGELOG**
 - 2025-10-30 21:18 9709fbe3 **step: remove clientside form**
 - 2025-10-30 21:12 626cd95a **fix: config**
 - 2025-10-30 21:11 16016a13 **docs: generate CHANGELOG**
