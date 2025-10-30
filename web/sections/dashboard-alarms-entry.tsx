@@ -1,6 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import { Sparks } from "iconoir-react";
-import { DashboardCell } from "../components";
+import { Advice, DashboardCell } from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardAlarmsEntry() {
@@ -37,9 +36,7 @@ export function DashboardAlarmsEntry() {
                   })}
                 </div>
 
-                <div data-color="neutral-100">
-                  <Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{alarm.advice}"
-                </div>
+                <Advice>{alarm.advice}</Advice>
               </div>
             </li>
           ))}

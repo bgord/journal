@@ -1,7 +1,7 @@
 import { useTranslations } from "@bgord/ui";
-import { Sparks } from "iconoir-react";
 import { WeeklyReviewStatusEnum } from "../../app/services/weekly-review-form";
 import type { DashboardDataType } from "../api";
+import { Advice } from "../components";
 import { DashboardWeeklyReviewDownload } from "./dashboard-weekly-review-download";
 import { DashboardWeeklyReviewEmailSend } from "./dashboard-weekly-review-email-send";
 
@@ -65,10 +65,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
       {props.status === WeeklyReviewStatusEnum.completed && (
         <div data-stack="y" data-gap="3">
           <div data-fs="base">{t("dashboard.weekly_review.insights")}:</div>
-
-          <div data-color="neutral-100">
-            <Sparks data-size="sm" data-color="brand-100" data-mr="1" /> "{props.insights}"
-          </div>
+          <Advice>{props.insights}</Advice>
         </div>
       )}
     </li>
