@@ -19,10 +19,6 @@ export const auth = betterAuth({
     database: { generateId: () => crypto.randomUUID() },
     useSecureCookies: production,
     cookiePrefix: "journal_v1",
-    // cookies: {
-    //   session_token: { attributes: { path: "/", sameSite: "lax", secure: false, httpOnly: true } },
-    //   csrf_token: { attributes: { path: "/", sameSite: "lax", secure: false, httpOnly: true } },
-    // },
   },
   session: { expiresIn: tools.Duration.Days(30).seconds, updateAge: tools.Duration.Days(1).seconds },
   rateLimit: { enabled: true, window: tools.Duration.Minutes(5).seconds, max: 100 },
