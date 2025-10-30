@@ -1,7 +1,7 @@
 import * as bg from "@bgord/ui";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-export-form";
-import { Select } from "../components";
+import { ButtonClear, Select } from "../components";
 
 export function HomeEntryExport() {
   const t = bg.useTranslations();
@@ -47,15 +47,10 @@ export function HomeEntryExport() {
       >
         {t("entries.export.cta")}
       </a>
-      <button
-        className="c-button"
-        data-variant="bare"
-        type="button"
+      <ButtonClear
         disabled={bg.Fields.allUnchanged([dateRangeStart, dateRangeEnd, strategy])}
         onClick={bg.exec([dateRangeStart.clear, dateRangeEnd.clear, strategy.clear])}
-      >
-        {t("app.clear")}
-      </button>
+      />
     </div>
   );
 }

@@ -17,3 +17,4 @@ export * from "./rating-pills";
 export * from "./rating-pills-clickable";
 export * from "./select";
 export * from "./separator";
+export * from "./button-clear";

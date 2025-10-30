@@ -1,6 +1,6 @@
 import { useTextField, useTranslations } from "@bgord/ui";
 import * as HomeEntryListForm from "../../app/services/home-entry-list-form";
-import { EntryListEmpty, Select } from "../components";
+import { ButtonClear, EntryListEmpty, Select } from "../components";
 import { homeRoute } from "../router";
 import { HomeEntry } from "./home-entry";
 
@@ -45,10 +45,7 @@ export function HomeEntryList() {
           ))}
         </Select>
 
-        <button
-          className="c-button"
-          type="button"
-          data-variant="bare"
+        <ButtonClear
           disabled={filter.value === HomeEntryListForm.Form.filter.field.defaultValue && !query.value}
           onClick={() =>
             navigate({
@@ -59,9 +56,7 @@ export function HomeEntryList() {
               },
             })
           }
-        >
-          {t("app.clear")}
-        </button>
+        />
       </div>
 
       {entries[0] && (
