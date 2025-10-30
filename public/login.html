@@ -128,7 +128,7 @@
           if (response.ok) {
             form.reset();
             form.dataset.status = "success";
-            location.replace("/");
+            location.replace("/?filter=today&query=");
           } else {
             form.dataset.status = "error";
           }
