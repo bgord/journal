@@ -1,6 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import { Form } from "../../app/services/home-entry-add-form";
-import { DashboardCell, DashboardSubheader } from "../components";
+import { DashboardCell, DashboardSectionEmpty, DashboardSubheader } from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardReactionsTop() {
@@ -13,6 +13,8 @@ export function DashboardReactionsTop() {
   return (
     <DashboardCell data-mt="5">
       <DashboardSubheader>{t("dashboard.entries.reactions")}</DashboardSubheader>
+
+      {!dashboard?.entries.top.reactions[0] && <DashboardSectionEmpty />}
 
       <ul data-stack="y" data-mt="5" data-gap="5">
         {dashboard?.entries.top.reactions.map((reaction) => (
@@ -28,7 +30,6 @@ export function DashboardReactionsTop() {
               <div className="c-badge" data-variant="primary">
                 {reaction.reactionEffectiveness} / {Form.reactionEffectiveness.max}
               </div>
-
               <div data-color="neutral-500">{t(`entry.reaction.type.value.${reaction.reactionType}`)}</div>
             </div>
 

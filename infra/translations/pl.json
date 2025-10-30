@@ -60,6 +60,7 @@
   "auth.reset.error.generic": "Niepoprawny lub wygasły link",
   "auth.reset.header": "Ustaw nowe hasło",
   "auth.reset.in_progress": "Ładowanie...",
+  "dashboard.section.empty": "Brak danych",
   "dashboard.alarm.entries.empty": "Alarmy dotyczące wpisów pojawią się tutaj",
   "dashboard.alarm.entry": "Wpisy",
   "dashboard.alarm.entry.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM.description": "Negatywna emocja o ekstremalnej intensywności: {{emotionLabel}}",

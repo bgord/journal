@@ -60,6 +60,7 @@
   "auth.reset.error.generic": "The link is expired or invalid",
   "auth.reset.header": "Set new password",
   "auth.reset.in_progress": "Loading...",
+  "dashboard.section.empty": "No related records yet",
   "dashboard.alarm.entries.empty": "Entry alarms will appear here",
   "dashboard.alarm.entry": "Entries",
   "dashboard.alarm.entry.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM.description": "Negative emotion at extreme intensity: {{emotionLabel}}",
