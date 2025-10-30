@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 13:49 43ed718d **step: add inspectors**
+## 2025-10-30 13:49 
 - 2025-10-30 13:47 b0f4f3ac **fix: css path**
-## 2025-10-30 13:47 
 - 2025-10-30 13:46 88101898 **step: tmp disable build prechecks**
 - 2025-10-30 13:45 92e03cf7 **step: inspect step**
 - 2025-10-30 13:44 deb3743c **step: restore build app step**
@@ -18,6 +19,7 @@
 - 2025-10-30 13:18 e550fd1c **step: update packages**
 - 2025-10-30 13:15 4b125585 **refactor: extract history list**
 - 2025-10-30 13:12 3fa99073 **step: update packages**
+- 2025-10-30 12:47 239904e1 **docs: generate CHANGELOG**
 - 2025-10-30 12:45 404243f7 **docs: generate CHANGELOG**
 - 2025-10-30 12:40 b45126b9 **docs: generate CHANGELOG**
 - 2025-10-30 12:33 e4b08158 **docs: generate CHANGELOG**
