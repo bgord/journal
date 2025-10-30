@@ -195,7 +195,7 @@ server.on(["POST", "GET"], "/auth/*", async (c) => {
     c.req.path === "/api/auth/sign-out" &&
     [200, 302].includes(response.status)
   ) {
-    return c.redirect("/login");
+    return c.redirect("/public/login.html");
   }
 
   return response;
