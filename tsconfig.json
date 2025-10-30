@@ -31,5 +31,5 @@
       "+preferences/*": ["./modules/preferences/*"]
     }
   },
-  "exclude": ["bgord-scripts", "frontend"]
+  "exclude": ["bgord-scripts"]
 }
