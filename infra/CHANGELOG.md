@@ -1,8 +1,10 @@
 # Changelog
+- 2025-10-30 20:52 9f7bef06 **step: disable everything in auth**
+## 2025-10-30 20:52 
 - 2025-10-30 19:53 967a42c0 **refactor: improve wording**
-## 2025-10-30 19:53 
 - 2025-10-30 19:52 f0948982 **fix: string**
 - 2025-10-30 19:51 13f1a775 **step: include credentials in login**
+- 2025-10-30 19:49 e7743b1f **docs: generate CHANGELOG**
 - 2025-10-30 19:45 871aa90c **refactor: remove old config**
 - 2025-10-30 19:36 6bb2bd49 **refactor: remove default login values**
 - 2025-10-30 19:28 d550ca59 **refactor: do not skip any logs**
