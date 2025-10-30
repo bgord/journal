@@ -44,7 +44,7 @@ export function EntryEmotion(props: EntrySnapshotWithAlarmsFormatted) {
 
   React.useEffect(() => {
     if (emotionIntensity.changed || emotionLabel.changed) reappraiseEmotion();
-  }, [emotionIntensity.value, emotionIntensity.changed, emotionLabel.value, emotionIntensity.changed]);
+  }, [emotionIntensity.changed, emotionLabel.changed]);
 
   return (
     <div data-stack="x" data-gap="5" data-mt="2">

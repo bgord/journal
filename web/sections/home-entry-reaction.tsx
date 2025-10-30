@@ -55,7 +55,7 @@ export function HomeEntryReaction(props: EntrySnapshotWithAlarmsFormatted) {
 
   React.useEffect(() => {
     if (reactionEffectiveness.changed || reactionType.changed) evaluateReaction();
-  }, [reactionEffectiveness.value, reactionEffectiveness.changed, reactionType.value, reactionType.changed]);
+  }, [reactionEffectiveness.changed, reactionType.changed]);
 
   return (
     <section data-stack="y" data-gap="3">
