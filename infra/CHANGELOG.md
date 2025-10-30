@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 22:20 3d6cfe13 **step: patch url**
+## 2025-10-30 22:20 
 - 2025-10-30 22:11 21206804 **step: add entry api**
-## 2025-10-30 22:11 
 - 2025-10-30 22:10 0f25c146 **refactor: restore hash and search**
 - 2025-10-30 22:08 940d8dc6 **step: comment serach and hash commit**
 - 2025-10-30 22:05 3f5d6738 **step: use absolute url everywhere**
@@ -13,6 +14,7 @@
 - 2025-10-30 21:24 8f839462 **step: remove promise all**
 - 2025-10-30 21:18 9709fbe3 **step: remove clientside form**
 - 2025-10-30 21:12 626cd95a **fix: config**
+- 2025-10-30 21:11 16016a13 **docs: generate CHANGELOG**
 - 2025-10-30 21:09 1f5899a1 **step: set cookies**
 - 2025-10-30 21:08 4eb86e87 **docs: generate CHANGELOG**
 - 2025-10-30 21:05 b8e39aa4 **docs: generate CHANGELOG**
