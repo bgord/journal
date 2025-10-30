@@ -1,7 +1,8 @@
 # Changelog
+- 2025-10-30 22:54 bfa45b02 **step: try use secure cookies**
+## 2025-10-30 22:54 
 - 2025-10-30 22:52 6b6f9b33 **refactor: restore disable sign up**
 - 2025-10-30 22:52 120cadcf **step: restore have i been pwned**
-## 2025-10-30 22:52 
 - 2025-10-30 22:51 f323e66f **refactor: remove cors**
 - 2025-10-30 22:48 0f399006 **step: try removing cors config**
 - 2025-10-30 22:20 3d6cfe13 **step: patch url**
@@ -11,6 +12,7 @@
 - 2025-10-30 22:05 3f5d6738 **step: use absolute url everywhere**
 - 2025-10-30 21:59 c27daa8e **step: improve url**
 - 2025-10-30 21:55 a044b6e9 **step: add absolute url**
+- 2025-10-30 21:53 45a50827 **docs: generate CHANGELOG**
 - 2025-10-30 21:49 6f219b73 **docs: generate CHANGELOG**
 - 2025-10-30 21:42 e782e3a7 **step: try upgrade**
 - 2025-10-30 21:38 95ecba2a **step: try secure false**
