@@ -27,7 +27,7 @@ export function ProfileAccountDelete() {
     if (!response.ok) return setState(RequestState.error);
 
     setState(RequestState.done);
-    window.location.replace("/login");
+    window.location.replace("/auth/login");
   }
 
   return (

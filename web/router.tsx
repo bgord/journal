@@ -38,7 +38,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
     ]);
 
     // @ts-expect-error Login stays out as a separate HTML page
-    if (!(session && i18n)) throw redirect({ to: "/login" });
+    if (!(session && i18n)) throw redirect({ to: "/auth/login" });
 
     return { session, i18n, avatarEtag };
   },

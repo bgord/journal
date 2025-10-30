@@ -10,7 +10,7 @@ describe("EmailVerificationNotificationComposer", () => {
     expect(notification).toEqual(
       new tools.NotificationTemplate(
         "Verify your Journal account",
-        `<p>Click to verify: <a href="http://example.com/?callbackURL=http%3A%2F%2Flocalhost%3A3000">Verify</a></p>`,
+        `<p>Click to verify: <a href="http://example.com/?callbackURL=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Flogin">Verify</a></p>`,
       ),
     );
   });
