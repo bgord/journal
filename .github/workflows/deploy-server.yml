@@ -26,67 +26,67 @@ jobs:
       - name: Create .env.test file
         run: echo "${{ secrets.ENV_TEST }}" > .env.test
 
-      - name: Create frontend/.env.production file for tests
-        run: echo "${{ secrets.FE_ENV_TEST }}" > frontend/.env.production
+      # - name: Create frontend/.env.production file for tests
+      #   run: echo "${{ secrets.FE_ENV_TEST }}" > frontend/.env.production
 
-      - name: Run build prechecks
-        run: ./bgord-scripts/build-prechecks.sh
+      # - name: Run build prechecks
+      #   run: ./bgord-scripts/build-prechecks.sh
 
-      - name: Create .env.production file
-        run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
+      # - name: Create .env.production file
+      #   run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
 
-      - name: Create frontend/.env.production file for production
-        run: echo "${{ secrets.FE_ENV_PRODUCTION }}" > frontend/.env.production
+      # - name: Create frontend/.env.production file for production
+      #   run: echo "${{ secrets.FE_ENV_PRODUCTION }}" > frontend/.env.production
 
-      - name: Build the app
-        run: ./scripts/production-server-build.sh
+      # - name: Build the app
+      #   run: ./scripts/production-server-build.sh
 
-      - name: Inspect the app size
-        run: ./bgord-scripts/production-server-inspect.sh ${{ secrets.PROJECT_NAME }}
+      # - name: Inspect the app size
+      #   run: ./bgord-scripts/production-server-inspect.sh ${{ secrets.PROJECT_NAME }}
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/production.key
-          chmod 600 ~/.ssh/production.key
-          cat >>~/.ssh/config <<END
-          Host production
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/production.key
-            StrictHostKeyChecking no
-          END
-        env:
-          SSH_USER: ${{ secrets.USER }}
-          SSH_KEY: ${{ secrets.PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.HOSTNAME }}
+      # - name: Configure SSH
+      #   run: |
+      #     mkdir -p ~/.ssh/
+      #     echo "$SSH_KEY" > ~/.ssh/production.key
+      #     chmod 600 ~/.ssh/production.key
+      #     cat >>~/.ssh/config <<END
+      #     Host production
+      #       HostName $SSH_HOST
+      #       User $SSH_USER
+      #       IdentityFile ~/.ssh/production.key
+      #       StrictHostKeyChecking no
+      #     END
+      #   env:
+      #     SSH_USER: ${{ secrets.USER }}
+      #     SSH_KEY: ${{ secrets.PRIVATE_KEY }}
+      #     SSH_HOST: ${{ secrets.HOSTNAME }}
 
-      - name: Sync source code
-        run: rsync -azP output/ production:/var/www/${{ secrets.PROJECT_NAME }}
+      # - name: Sync source code
+      #   run: rsync -azP output/ production:/var/www/${{ secrets.PROJECT_NAME }}
 
-      - name: Remove package.json
-        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && rm -rf package.json"
+      # - name: Remove package.json
+      #   run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && rm -rf package.json"
 
-      - name: Remove fe package.json
-        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }}/frontend && rm -rf package.json"
+      # - name: Remove fe package.json
+      #   run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }}/frontend && rm -rf package.json"
 
-      - name: Install sharp
-        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install --platform=linux --arch=x64 sharp"
+      # - name: Install sharp
+      #   run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install --platform=linux --arch=x64 sharp"
 
-      - name: Install react-router
-        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }}/frontend && /home/${{ secrets.USER }}/.bun/bin/bun install react-router"
+      # - name: Install react-router
+      #   run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }}/frontend && /home/${{ secrets.USER }}/.bun/bin/bun install react-router"
 
-      - name: Sync package.json
-        run: rsync -azP package.json production:/var/www/${{ secrets.PROJECT_NAME }}
+      # - name: Sync package.json
+      #   run: rsync -azP package.json production:/var/www/${{ secrets.PROJECT_NAME }}
 
-      - name: Sync frontend/package.json
-        run: rsync -azP frontend/package.json production:/var/www/${{ secrets.PROJECT_NAME }}/frontend
+      # - name: Sync frontend/package.json
+      #   run: rsync -azP frontend/package.json production:/var/www/${{ secrets.PROJECT_NAME }}/frontend
 
-      - name: Install FE packages
-        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install --ignore-scripts"
+      # - name: Install FE packages
+      #   run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && /home/${{ secrets.USER }}/.bun/bin/bun install --ignore-scripts"
 
-      - name: Restart server
-        run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}.service
+      # - name: Restart server
+      #   run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}.service
 
-      - name: Restart fe
-        run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}-fe.service
+      # - name: Restart fe
+      #   run: ssh production sudo systemctl restart ${{ secrets.PROJECT_NAME }}-fe.service
