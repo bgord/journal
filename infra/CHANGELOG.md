@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 14:57 73c0bffe **fix: register**
+## 2025-10-30 14:57 
 - 2025-10-30 14:56 e858d2e1 **step: opt-out out of bun html parsing**
-## 2025-10-30 14:56 
 - 2025-10-30 14:46 f012d6b6 **step: add loaders**
 - 2025-10-30 14:40 36e7ff11 **step: tmp enable sign up**
 - 2025-10-30 14:37 1f16fbfe **step: tmp remove haveibeenpwned**
@@ -15,6 +16,7 @@
 - 2025-10-30 14:00 1a9b8d60 **step: bump bgord/scripts**
 - 2025-10-30 13:58 4900057e **step: add copy public step**
 - 2025-10-30 13:57 e04e99fb **step: restore inspect app size**
+- 2025-10-30 13:56 8a175201 **docs: generate CHANGELOG**
 - 2025-10-30 13:55 b95df2fe **step: add web build steps**
 - 2025-10-30 13:51 0bd00223 **step: remove inspector**
 - 2025-10-30 13:50 fef95c93 **step: remove public inspector**
