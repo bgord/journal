@@ -9,10 +9,6 @@ import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
 import { server, startup } from "./server";
 import { handler } from "./web/entry-server";
-import forgotPasswordHtml from "./web/pages/forgot-password.html" with { loader: "text" };
-import loginHtml from "./web/pages/login.html" with { loader: "text" };
-import registerHtml from "./web/pages/register.html" with { loader: "text" };
-import resetPassword from "./web/pages/reset-password.html" with { loader: "text" };
 
 (async function main() {
   await new bg.Prerequisites(Logger).check(prerequisites);
@@ -24,10 +20,10 @@ import resetPassword from "./web/pages/reset-password.html" with { loader: "text
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
       "/public/*": new Hono().use("/public/*", serveStatic({ root: "./" })).fetch,
-      "/login": loginHtml,
-      "/register": registerHtml,
-      "/forgot-password": forgotPasswordHtml,
-      "/reset-password": resetPassword,
+      "/login": Bun.file("public/login.html"),
+      "/register": Bun.file("public/register.html"),
+      "/forgot-password": Bun.file("public/forgot-password.html"),
+      "/reset-password": Bun.file("public/reset-password.html"),
       "/api/*": server.fetch,
       "/*": handler,
     },
