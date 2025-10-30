@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import { Advice, DashboardCell } from "../components";
+import { Advice, DashboardCell, DashboardSubheader } from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardAlarmsEntry() {
@@ -8,12 +8,12 @@ export function DashboardAlarmsEntry() {
 
   return (
     <DashboardCell data-mt="5">
-      <h2 data-stack="x" data-gap="3" data-fs="base">
+      <DashboardSubheader>
         {t("dashboard.alarm.entry")}
         <div className="c-badge" data-variant="primary">
           {dashboard?.alarms.entry.length}
         </div>
-      </h2>
+      </DashboardSubheader>
 
       {!dashboard?.alarms.entry[0] && (
         <div data-mt="5" data-fs="sm" data-color="neutral-400">

@@ -1,6 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import { Form } from "../../app/services/home-entry-add-form";
-import { DashboardCell } from "../components";
+import { DashboardCell, DashboardSubheader } from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardReactionsTop() {
@@ -12,9 +12,7 @@ export function DashboardReactionsTop() {
 
   return (
     <DashboardCell data-mt="5">
-      <h2 data-stack="x" data-gap="3" data-fs="base">
-        {t("dashboard.entries.reactions")}
-      </h2>
+      <DashboardSubheader>{t("dashboard.entries.reactions")}</DashboardSubheader>
 
       <ul data-stack="y" data-mt="5" data-gap="5">
         {dashboard?.entries.top.reactions.map((reaction) => (
