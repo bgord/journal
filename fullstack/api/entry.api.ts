@@ -54,3 +54,5 @@ export class Entry {
     return response.json().catch(() => {});
   }
 }
+
+export type { EntryType } from "../../app/http/emotions/list-entries";
