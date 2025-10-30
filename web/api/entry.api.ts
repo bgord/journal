@@ -12,10 +12,14 @@ export class Entry {
   ): Promise<EntrySnapshotFormatted[]> {
     const BASE = `/api/entry/list?filter=${deps.filter}&query=${deps.query ?? ""}`;
 
+    console.log({ BASE });
     const url = absoluteUrl(BASE, request);
+    console.log({ url });
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
+    console.log({ headers });
 
     const response = await fetch(url, { headers, credentials: "include" });
+    console.log(response);
 
     if (!response?.ok) return [];
     return response.json().catch();
