@@ -1,6 +1,7 @@
 # Changelog
+- 2025-10-30 21:55 a044b6e9 **step: add absolute url**
+## 2025-10-30 21:55 
 - 2025-10-30 21:42 e782e3a7 **step: try upgrade**
-## 2025-10-30 21:42 
 - 2025-10-30 21:38 95ecba2a **step: try secure false**
 - 2025-10-30 21:30 08faa41d **step: add helper**
 - 2025-10-30 21:27 37026732 **step: add console logs**
@@ -10,6 +11,7 @@
 - 2025-10-30 21:09 1f5899a1 **step: set cookies**
 - 2025-10-30 20:54 32c1d16e **step: add http origins**
 - 2025-10-30 20:52 9f7bef06 **step: disable everything in auth**
+- 2025-10-30 20:43 ec43d01e **docs: generate CHANGELOG**
 - 2025-10-30 20:39 50bcd9e5 **docs: generate CHANGELOG**
 - 2025-10-30 20:31 6a513fc2 **docs: generate CHANGELOG**
 - 2025-10-30 20:27 0d546d38 **docs: generate CHANGELOG**
