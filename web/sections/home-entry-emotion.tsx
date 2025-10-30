@@ -42,6 +42,7 @@ export function EntryEmotion(props: EntrySnapshotWithAlarmsFormatted) {
     router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
   }
 
+  // biome-ignore lint: lint/correctness/useExhaustiveDependencies
   React.useEffect(() => {
     if (emotionIntensity.changed || emotionLabel.changed) reappraiseEmotion();
   }, [emotionIntensity.changed, emotionLabel.changed]);

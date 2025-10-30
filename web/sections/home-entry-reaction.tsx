@@ -53,6 +53,7 @@ export function HomeEntryReaction(props: EntrySnapshotWithAlarmsFormatted) {
     router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
   }
 
+  // biome-ignore lint: lint/correctness/useExhaustiveDependencies
   React.useEffect(() => {
     if (reactionEffectiveness.changed || reactionType.changed) evaluateReaction();
   }, [reactionEffectiveness.changed, reactionType.changed]);
