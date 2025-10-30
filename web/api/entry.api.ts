@@ -3,6 +3,7 @@ import type { HistoryType } from "../../app/http/history";
 import type { types } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotFormatted } from "../../modules/emotions/ports";
 import type { ShareableLinkIdType } from "../../modules/publishing/value-objects/";
+import { absoluteUrl } from "./url";
 
 export class Entry {
   static async getList(
@@ -11,7 +12,7 @@ export class Entry {
   ): Promise<EntrySnapshotFormatted[]> {
     const BASE = `/api/entry/list?filter=${deps.filter}&query=${deps.query ?? ""}`;
 
-    const url = request ? new URL(BASE, request.url) : BASE;
+    const url = absoluteUrl(BASE, request);
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
     const response = await fetch(url, { headers, credentials: "include" });
@@ -26,7 +27,7 @@ export class Entry {
   ): Promise<Promise<EntrySnapshotFormatted[]>> {
     const BASE = `/api/shared/entries/${shareableLinkId}`;
 
-    const url = request ? new URL(BASE, request.url) : BASE;
+    const url = absoluteUrl(BASE, request);
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
     const response = await fetch(url, { headers, credentials: "include" });
@@ -41,7 +42,7 @@ export class Entry {
   ): Promise<HistoryType[]> {
     const BASE = `/api/history/${entryId}/list`;
 
-    const url = request ? new URL(BASE, request.url) : BASE;
+    const url = absoluteUrl(BASE, request);
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
     const response = await fetch(url, { headers, credentials: "include" });

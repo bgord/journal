@@ -1,5 +1,6 @@
 import { Cookies } from "@bgord/ui";
 import type { QuotaRuleInspectionType } from "../../modules/ai/value-objects";
+import { absoluteUrl } from "./url";
 
 export class AI {
   private static readonly BASE = "/api/ai-usage-today/get";
@@ -7,7 +8,7 @@ export class AI {
   static async getUsageToday(
     request: Request | null,
   ): Promise<(QuotaRuleInspectionType & { resetsInHours: number }) | null> {
-    const url = request ? new URL(AI.BASE, request.url) : AI.BASE;
+    const url = absoluteUrl(AI.BASE, request);
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
     const response = await fetch(url, { headers, credentials: "include" });
