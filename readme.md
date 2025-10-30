@@ -50,6 +50,7 @@ modules/
 │   │   ├── ai-event-publisher.ts
 │   │   ├── ai-gateway.ts
 │   │   ├── bucket-counter.ts
+│   │   └── rule-inspector.ts
 │   ├── services
 │   │   └── quota-rule-selector.ts
 │   ├── specifications
@@ -60,6 +61,7 @@ modules/
 │       ├── quota-bucket.ts
 │       ├── quota-limit.ts
 │       ├── quota-rule-id.ts
+│       ├── quota-rule-inspection.ts
 │       ├── quota-rule.ts
 │       ├── quota-rules.ts
 │       ├── quota-usage.ts
@@ -229,9 +231,14 @@ modules/
 │       ├── alarm-status.ts
 │       ├── alarm-trigger.ts
 │       ├── emotion-intensity.ts
+│       ├── emotion-intensity.validation.ts
 │       ├── emotion-label.ts
+│       ├── entry-export-strategy-options.ts
+│       ├── entry-export-strategy.ts
 │       ├── entry-finished-at.ts
 │       ├── entry-id.ts
+│       ├── entry-list-filter-options.ts
+│       ├── entry-list-filter.ts
 │       ├── entry-origin-option.ts
 │       ├── entry-origin.ts
 │       ├── entry-snapshot.ts
@@ -243,9 +250,12 @@ modules/
 │       ├── pattern-name-option.ts
 │       ├── pattern-name.ts
 │       ├── reaction-description.ts
+│       ├── reaction-description.validation.ts
 │       ├── reaction-effectiveness.ts
+│       ├── reaction-effectiveness.validation.ts
 │       ├── reaction-type.ts
 │       ├── situation-description.ts
+│       ├── situation-description.validation.ts
 │       ├── situation-kind-options.ts
 │       ├── situation-kind.ts
 │       ├── time-capsule-entry-status.ts
@@ -301,7 +311,8 @@ modules/
 │   ├── ports
 │   │   ├── expiring-shareable-links.ts
 │   │   ├── shareable-link-access-auditor.ts
-│   │   └── shareable-link-repository.ts
+│   │   ├── shareable-link-repository.ts
+│   │   └── shareable-link-snapshot.ts
 │   ├── queries
 │   │   └── shareable-links-quota.ts
 │   └── value-objects
@@ -309,6 +320,7 @@ modules/
 │       ├── access-validity.ts
 │       ├── publication-specification.ts
 │       ├── shareable-link-id.ts
+│       ├── shareable-link-snapshot.ts
 │       └── shareable-link-status.ts
 ├── supported-languages.ts
 └── system
@@ -321,6 +333,8 @@ modules/
 ```
 app/
 ├── http
+│   ├── ai
+│   │   ├── get-ai-usage-today.ts
 │   ├── emotions
 │   │   ├── delete-entry.ts
 │   │   ├── download-weekly-review.ts
@@ -329,10 +343,14 @@ app/
 │   │   ├── export-entries.ts
 │   │   ├── export-weekly-review-by-email.ts
 │   │   ├── get-shared-entries.ts
+│   │   ├── list-entries.ts
 │   │   ├── log-entry.ts
 │   │   ├── reappraise-emotion.ts
 │   │   └── schedule-time-capsule-entry.ts
 │   ├── error-handler.ts
+│   ├── get-dashboard.ts
+│   ├── history
+│   │   ├── history-list.ts
 │   ├── preferences
 │   │   ├── get-profile-avatar.ts
 │   │   ├── remove-profile-avatar.ts
@@ -340,12 +358,16 @@ app/
 │   │   └── update-user-language.ts
 │   └── publishing
 │       ├── create-shareable-link.ts
+│       ├── hide-shareable-link.ts
+│       ├── list-shareable-links.ts
 │       └── revoke-shareable-link.ts
 └── services
-    ├── add-entry-form.ts
-    ├── auth-form.ts
     ├── create-shareable-link-form.ts
-    └── passage-of-time.ts
+    ├── home-entry-add-form.ts
+    ├── home-entry-export-form.ts
+    ├── home-entry-list-form.ts
+    ├── passage-of-time.ts
+    └── weekly-review-form.ts
 ```
 
 ## Infra:
@@ -361,6 +383,7 @@ infra/
 │   │   ├── ai-event-publisher.adapter.ts
 │   │   ├── ai-gateway.adapter.ts
 │   │   ├── bucket-counter.adapter.ts
+│   │   └── rule-inspector.adapter.ts
 │   ├── auth
 │   │   ├── user-contact.adapter.ts
 │   │   └── user-directory.adapter.ts
@@ -368,6 +391,7 @@ infra/
 │   ├── certificate-inspector.adapter.ts
 │   ├── clock.adapter.ts
 │   ├── csv-stringifier.adapter.ts
+│   ├── disk-space-checker.adapter.ts
 │   ├── emotions
 │   │   ├── alarm-cancellation-lookup.adapter.ts
 │   │   ├── alarm-directory.adapter.ts
@@ -388,6 +412,7 @@ infra/
 │   ├── file-renamer.adapter.ts
 │   ├── history
 │   │   ├── history-projection.adapter.ts
+│   │   ├── history-reader.adapter.ts
 │   │   ├── history-writer.adapter.ts
 │   ├── id-provider.adapter.ts
 │   ├── image-info.adapter.ts
@@ -403,6 +428,7 @@ infra/
 │   │   ├── shareable-link-access-auditor.adapter.ts
 │   │   ├── shareable-link-access.adapter.ts
 │   │   ├── shareable-link-repository.adapter.ts
+│   │   ├── shareable-link-snapshot.adapter.ts
 │   │   └── shareable-links-quota.adapter.ts
 │   └── remote-file-storage.adapter.ts
 ├── auth.ts
