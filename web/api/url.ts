@@ -16,8 +16,8 @@ export function absoluteUrl(path: string, request: Request | null): string | URL
   }
 
   url.pathname = path;
-  url.search = "";
-  url.hash = "";
+  // url.search = "";
+  // url.hash = "";
 
   return url;
 }
