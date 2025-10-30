@@ -29,7 +29,8 @@
       "+system/*": ["./modules/system/*"],
       "+preferences": ["./modules/preferences/index"],
       "+preferences/*": ["./modules/preferences/*"]
-    }
+    },
+    "types": ["./node_modules/@bgord/design/dist/index.d.ts", "@types/bun"]
   },
   "exclude": ["bgord-scripts"]
 }

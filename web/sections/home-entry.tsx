@@ -38,6 +38,7 @@ export function HomeEntry(props: EntrySnapshotWithAlarmsFormatted) {
   if (!exit.visible) return null;
 
   return (
+    // @ts-expect-error
     <li
       {...exit.attach}
       data-stack="y"
