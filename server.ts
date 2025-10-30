@@ -32,15 +32,7 @@ const server = new Hono<infra.HonoConfig>().basePath("/api");
 
 server.use(
   ...bg.Setup.essentials(Deps, {
-    // cors: {
-    //   origin: ["http://localhost:3000", "https://journal.bgord.dev", "http://journal.bgord.dev"],
-    //   credentials: true,
-    //   allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    //   allowHeaders: ["content-type", "x-requested-with", "x-correlation-id", "authorization"],
-    //   exposeHeaders: ["Set-Cookie"],
-    //   maxAge: 86400,
-    // },
-    // httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
+    httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
   }),
 );
 
