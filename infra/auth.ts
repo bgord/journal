@@ -82,7 +82,7 @@ export const auth = betterAuth({
     },
   },
   autoSignIn: false,
-  trustedOrigins: ["http://localhost:3000", "https://journal.bgord.dev", "*"],
+  trustedOrigins: ["http://localhost:3000", "https://journal.bgord.dev", "http://journal.bgord.dev", "*"],
   plugins: [
     production ? openAPI() : undefined,
     // TODO

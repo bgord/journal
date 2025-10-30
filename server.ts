@@ -33,7 +33,7 @@ const server = new Hono<infra.HonoConfig>().basePath("/api");
 server.use(
   ...bg.Setup.essentials(Deps, {
     cors: {
-      origin: ["http://localhost:3000", "https://journal.bgord.dev"],
+      origin: ["http://localhost:3000", "https://journal.bgord.dev", "http://journal.bgord.dev"],
       credentials: true,
       allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       allowHeaders: ["content-type", "x-requested-with", "x-correlation-id", "authorization"],
