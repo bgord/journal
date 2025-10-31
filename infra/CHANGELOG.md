@@ -1,8 +1,10 @@
 # Changelog
+- 2025-10-31 23:04 d4dd0082 **fix: home entry add form width**
+## 2025-10-31 23:04 
 - 2025-10-31 22:58 1aa6f975 **step: tmp disable build prechecks**
-## 2025-10-31 22:58 
 - 2025-10-31 22:46 f09daa79 **step: update packages**
 - 2025-10-31 22:45 3e9f1b03 **step: add must revalidate in 5 minutes public assets path**
+- 2025-10-31 21:59 32cbbf1f **docs: generate CHANGELOG**
 - 2025-10-31 21:47 76d4ed13 **docs: generate CHANGELOG**
 - 2025-10-31 15:49 6fadc97d **refactor: restore build prechecks**
 - 2025-10-31 15:49 1a25f539 **step: bump bgord/scripts**
