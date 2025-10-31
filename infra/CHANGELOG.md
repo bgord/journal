@@ -1,8 +1,11 @@
 # Changelog
+- 2025-10-31 15:49 6fadc97d **refactor: restore build prechecks**
+- 2025-10-31 15:49 1a25f539 **step: bump bgord/scripts**
+## 2025-10-31 15:49 
 - 2025-10-31 15:42 bcff90e1 **step: use web build vite**
-## 2025-10-31 15:42 
 - 2025-10-31 15:40 5df732f7 **step: install vite**
 - 2025-10-31 15:40 107ee1e0 **step: bump bgord/scripts**
+- 2025-10-31 14:43 2f2801ed **docs: generate CHANGELOG**
 - 2025-10-31 14:42 bcd03601 **refactor: direct use hooks import**
 - 2025-10-31 14:35 fa6ae02a **refactor: remove default imports from libs**
 - 2025-10-31 12:35 8e3203d4 **step: enable sign up tmp**
