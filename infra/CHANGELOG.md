@@ -1,6 +1,8 @@
 # Changelog
+- 2025-10-31 23:43 b501a06c **step: adjust history projection**
+## 2025-10-31 23:43 
+- 2025-10-31 23:42 6192bace **step: update packages**
 - 2025-10-31 23:30 cc3233cd **step: bump bgord/scripts**
-## 2025-10-31 23:30 
 - 2025-10-31 23:21 96f261d5 **step: bump bgord/scripts**
 - 2025-10-31 23:13 d6ae7cf8 **step: improve empty state**
 - 2025-10-31 23:08 ebfdeaf8 **fix: home entry history empty layout**
@@ -8,6 +10,7 @@
 - 2025-10-31 22:58 1aa6f975 **step: tmp disable build prechecks**
 - 2025-10-31 22:46 f09daa79 **step: update packages**
 - 2025-10-31 22:45 3e9f1b03 **step: add must revalidate in 5 minutes public assets path**
+- 2025-10-31 22:30 851ea15c **docs: generate CHANGELOG**
 - 2025-10-31 22:22 b3a768cf **docs: generate CHANGELOG**
 - 2025-10-31 22:09 7858be1e **docs: generate CHANGELOG**
 - 2025-10-31 22:05 a3084220 **docs: generate CHANGELOG**
