@@ -80,11 +80,11 @@ step_start "App compile"
 bun build --compile --production --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"
 
+./bgord-scripts/css-purge.sh
+
 step_start "Copy public"
 cp -r public "$OUTPUT_DIRECTORY"
 step_end "Copy public"
-
-./bgord-scripts/css-purge.sh
 
 step_start "Compress public assets"
 bunx gzip output/public/*.js --extension=gz --extension=br
