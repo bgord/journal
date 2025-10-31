@@ -20,7 +20,7 @@ export function HomeEntryHistory() {
   };
 
   return (
-    <Dialog data-mt="12" {...Rhythm().times(50).style.width} {...dialog}>
+    <Dialog data-dir="column" data-mt="12" {...Rhythm().times(50).style.width} {...dialog}>
       <div data-stack="x" data-main="between" data-cross="center">
         <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
           <List data-size="md" data-color="neutral-300" />
@@ -29,9 +29,9 @@ export function HomeEntryHistory() {
         <ButtonClose onClick={dialog.disable} />
       </div>
 
-      <ul data-stack="y" data-gap="2" data-mt="5">
-        {history.length === 0 && <li data-color="neutral-300">{t("entry.history.empty")}</li>}
+      {history.length === 0 && <div data-color="neutral-300">{t("entry.history.empty")}</div>}
 
+      <ul data-stack="y" data-gap="2" data-mt="5">
         {history.map((item) => (
           <li key={item.id} data-stack="x" data-main="between" data-color="neutral-300">
             <div>- {t(item.operation, item.payload)}</div>
