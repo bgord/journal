@@ -1,7 +1,9 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
+import { etag } from "hono/etag";
 import * as infra from "+infra";
 import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
@@ -19,7 +21,17 @@ import { handler } from "./web/entry-server";
     idleTimeout: infra.IDLE_TIMEOUT,
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
-      "/public/*": new Hono().use("/public/*", serveStatic({ root: "./", precompressed: true })).fetch,
+      "/public/*": new Hono().use(
+        "/public/*",
+        etag(),
+        serveStatic({
+          root: "./",
+          precompressed: true,
+          onFound: (_path, c) => {
+            c.header("Cache-Control", `public, max-age=${tools.Duration.Minutes(5).ms}, must-revalidate`);
+          },
+        }),
+      ).fetch,
       "/api/*": server.fetch,
       "/*": handler,
     },

@@ -126,7 +126,7 @@
   "entry.emotion.value": "EMOTION",
   "entry.history": "Entry history",
   "entry.history.empty": "No history available",
-  "entry.list.empty": "New entries will appear here",
+  "entry.list.empty": "New entries will appear here...",
   "entry.list.empty.alt": "No entries",
   "entry.list.filter.all_time": "All time",
   "entry.list.filter.last_month": "Last month",
