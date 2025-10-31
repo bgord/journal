@@ -20,6 +20,7 @@
     "@types/lodash": "4.17.20",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "5.1.0",
     "cspell": "9.2.2",
     "dependency-cruiser": "17.2.0",
     "drizzle-kit": "0.31.6",
@@ -29,7 +30,9 @@
     "postcss": "8.5.6",
     "postcss-cli": "11.0.1",
     "shellcheck": "4.1.0",
-    "typescript": "5.9.3"
+    "terser": "5.44.0",
+    "typescript": "5.9.3",
+    "vite": "7.1.12"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.68.0",
