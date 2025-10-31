@@ -57,24 +57,7 @@ step_start "Temporary file directory directory create"
 mkdir -p "$OUTPUT_DIRECTORY/infra/tmp-avatars"
 step_end "Temporary file directory directory create"
 
-step_start "Remove public artifacts"
-rm -f public/*.js
-rm -f public/*.js.map
-step_end "Remove public artifacts"
-
-step_start "CSS copy"
-cp node_modules/@bgord/design/dist/main.min.css public
-step_end "CSS copy"
-
-step_start "Web build"
-bun build web/entry-client.tsx \
-  --outdir ./public \
-  --target browser \
-  --splitting \
-  --minify \
-  --production \
-  --define process.env.NODE_ENV=\"production\"
-step_end "Web build"
+./bgord-scripts/web-build-vite.sh
 
 step_start "App compile"
 bun build --compile --production --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
