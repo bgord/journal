@@ -1,12 +1,11 @@
 import type * as bg from "@bgord/bun";
-import type * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class HistoryProjectionDrizzle implements bg.History.Ports.HistoryProjectionPort {
-  async append(data: bg.History.VO.HistoryParsedType, createdAt: tools.TimestampType) {
-    await db.insert(Schema.history).values([{ ...data, createdAt }]);
+  async append(data: bg.History.VO.HistoryParsedType) {
+    await db.insert(Schema.history).values([data]);
   }
 
   async clear(subject: bg.History.VO.HistoryParsedType["subject"]) {
