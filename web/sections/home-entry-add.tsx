@@ -98,7 +98,7 @@ export function HomeEntryAdd() {
           <ButtonClose disabled={state === RequestState.loading} onClick={dialog.disable} />
         </div>
 
-        <form data-stack="y" data-gap="5" data-mt="5" onSubmit={addEntry}>
+        <form data-stack="y" data-gap="5" data-mt="5" data-width="100%" onSubmit={addEntry}>
           <textarea
             className="c-textarea"
             placeholder={t("entry.situation.description.label")}
