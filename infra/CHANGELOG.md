@@ -1,12 +1,14 @@
 # Changelog
+- 2025-10-31 12:31 dd7d6a8d **step: compress favicon**
+## 2025-10-31 12:31 
 - 2025-10-31 12:23 b3fca044 **step: bump bgord/scripts**
-## 2025-10-31 12:23 
 - 2025-10-31 12:09 b98f6542 **step: bump bgord/scripts**
 - 2025-10-31 12:05 97a10d71 **step: remove inspect cwd script**
 - 2025-10-31 12:03 32b0819a **step: install postcss-cli**
 - 2025-10-31 11:59 7b62516f **step: purge css before copy public**
 - 2025-10-31 11:55 dc7e5544 **step: define css-purge in prod server build**
 - 2025-10-31 11:54 96761fb9 **step: bump bgord/scripts**
+- 2025-10-31 11:24 267a985d **docs: generate CHANGELOG**
 - 2025-10-31 11:04 7eee7940 **docs: generate CHANGELOG**
 - 2025-10-31 11:00 460a86b9 **docs: generate CHANGELOG**
 - 2025-10-31 10:55 f16ef712 **docs: generate CHANGELOG**
