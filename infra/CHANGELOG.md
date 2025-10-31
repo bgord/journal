@@ -1,7 +1,9 @@
 # Changelog
+- 2025-10-31 11:59 7b62516f **step: purge css before copy public**
+## 2025-10-31 11:59 
 - 2025-10-31 11:55 dc7e5544 **step: define css-purge in prod server build**
-## 2025-10-31 11:55 
 - 2025-10-31 11:54 96761fb9 **step: bump bgord/scripts**
+- 2025-10-31 10:55 f16ef712 **docs: generate CHANGELOG**
 - 2025-10-30 23:50 af935dec **step: install purge**
 - 2025-10-30 23:32 a3628df5 **refactor: remove google font**
 - 2025-10-30 23:29 d14ff158 **step: minify favicon**
