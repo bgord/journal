@@ -29,7 +29,11 @@ export function HomeEntryHistory() {
         <ButtonClose onClick={dialog.disable} />
       </div>
 
-      {history.length === 0 && <div data-color="neutral-300">{t("entry.history.empty")}</div>}
+      {history.length === 0 && (
+        <div data-mt="5" data-color="neutral-500" data-fs="sm">
+          {t("entry.history.empty")}
+        </div>
+      )}
 
       <ul data-stack="y" data-gap="2" data-mt="5">
         {history.map((item) => (
