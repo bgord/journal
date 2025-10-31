@@ -1,10 +1,13 @@
 # Changelog
+- 2025-10-31 22:46 f09daa79 **step: update packages**
+## 2025-10-31 22:46 
+- 2025-10-31 22:45 3e9f1b03 **step: add must revalidate in 5 minutes public assets path**
 - 2025-10-31 15:49 6fadc97d **refactor: restore build prechecks**
 - 2025-10-31 15:49 1a25f539 **step: bump bgord/scripts**
-## 2025-10-31 15:49 
 - 2025-10-31 15:42 bcff90e1 **step: use web build vite**
 - 2025-10-31 15:40 5df732f7 **step: install vite**
 - 2025-10-31 15:40 107ee1e0 **step: bump bgord/scripts**
+- 2025-10-31 14:50 c83cd582 **docs: generate CHANGELOG**
 - 2025-10-31 14:43 2f2801ed **docs: generate CHANGELOG**
 - 2025-10-31 14:42 bcd03601 **refactor: direct use hooks import**
 - 2025-10-31 14:35 fa6ae02a **refactor: remove default imports from libs**
