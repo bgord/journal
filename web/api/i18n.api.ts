@@ -1,5 +1,4 @@
-import type { TranslationsContextValueType } from "@bgord/ui";
-import { Cookies } from "@bgord/ui";
+import { Cookies, type TranslationsContextValueType } from "@bgord/ui";
 import { absoluteUrl } from "./url";
 
 export class I18N {

@@ -1,7 +1,7 @@
 import { exec, useFile, useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { UserCircle } from "iconoir-react";
-import React from "react";
+import { useState } from "react";
 import { rootRoute } from "../router";
 import { RequestState } from "../ui";
 import { ProfileAvatarDelete } from "./profile-avatar-delete";
@@ -12,7 +12,7 @@ export function ProfileAvatarChange() {
   const router = useRouter();
   const t = useTranslations();
   const avatar = useFile("avatar", { mimeTypes, maxSizeBytes: 10_000_000 });
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   async function changeProfileAvatar(event: React.FormEvent) {
     event.preventDefault();

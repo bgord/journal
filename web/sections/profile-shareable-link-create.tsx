@@ -9,7 +9,7 @@ import {
 } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { HelpCircle, Plus, ShareIos } from "iconoir-react";
-import React from "react";
+import { useState } from "react";
 import {
   Form,
   type ShareableLinkDuration,
@@ -22,7 +22,7 @@ import { RequestState } from "../ui";
 export function ProfileShareableLinkCreate() {
   const t = useTranslations();
   const router = useRouter();
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   const dialog = useToggle({ name: "dialog" });
 

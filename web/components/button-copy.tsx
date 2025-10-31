@@ -1,6 +1,6 @@
 import { Clipboard } from "@bgord/ui";
 import { Check, Copy } from "iconoir-react";
-import React from "react";
+import { useState } from "react";
 
 enum ButtonCopyState {
   initial = "initial",
@@ -10,7 +10,7 @@ enum ButtonCopyState {
 const DELAY_MS = 1500;
 
 export function ButtonCopy(props: { text: string }) {
-  const [state, setState] = React.useState<ButtonCopyState>(ButtonCopyState.initial);
+  const [state, setState] = useState<ButtonCopyState>(ButtonCopyState.initial);
 
   return (
     <button

@@ -1,6 +1,6 @@
 import { useTranslations, WeakETag } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import React from "react";
+import { useState } from "react";
 import type { ShareableLinkSnapshot } from "../api";
 import { profileRoute } from "../router";
 import { RequestState } from "../ui";
@@ -8,7 +8,7 @@ import { RequestState } from "../ui";
 export function ProfileShareableLinkRevoke(props: ShareableLinkSnapshot) {
   const t = useTranslations();
   const router = useRouter();
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   async function revokeShareableLink(event: React.FormEvent) {
     event.preventDefault();

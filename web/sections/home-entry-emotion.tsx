@@ -1,6 +1,6 @@
 import { exec, useNumberField, useTextField, useToggle, useTranslations, WeakETag } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import React from "react";
+import { useEffect, useState } from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import type { EntrySnapshotFormatted } from "../api";
@@ -11,7 +11,7 @@ import { RequestState } from "../ui";
 export function EntryEmotion(props: EntrySnapshotFormatted) {
   const t = useTranslations();
   const router = useRouter();
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   const emotionLabelEdit = useToggle({ name: "emotion-label" });
   const emotionLabel = useTextField<types.EmotionLabelType>({
@@ -43,7 +43,7 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
   }
 
   // biome-ignore lint: lint/correctness/useExhaustiveDependencies
-  React.useEffect(() => {
+  useEffect(() => {
     if (emotionIntensity.changed || emotionLabel.changed) reappraiseEmotion();
   }, [emotionIntensity.changed, emotionLabel.changed]);
 

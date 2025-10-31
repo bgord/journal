@@ -1,6 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import { CheckCircle, WarningCircle } from "iconoir-react";
-import React from "react";
+import { useState } from "react";
 import { rootRoute } from "../router";
 import { RequestState } from "../ui";
 
@@ -8,7 +8,7 @@ export function ProfilePasswordChange() {
   const t = useTranslations();
 
   const { session } = rootRoute.useLoaderData();
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   async function passwordChange(event: React.FormEvent) {
     event.preventDefault();

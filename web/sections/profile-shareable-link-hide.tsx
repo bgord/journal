@@ -1,6 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import React from "react";
+import { useState } from "react";
 import { ShareableLinkStatusEnum } from "../../app/services/create-shareable-link-form";
 import type { ShareableLinkSnapshot } from "../api";
 import { profileRoute } from "../router";
@@ -9,7 +9,7 @@ import { RequestState } from "../ui";
 export function ProfileShareableLinkHide(props: ShareableLinkSnapshot) {
   const t = useTranslations();
   const router = useRouter();
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   if (![ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status)) {
     return null;

@@ -1,12 +1,12 @@
 import { Check, SendMail } from "iconoir-react";
-import React from "react";
+import { useState } from "react";
 import type { DashboardDataType } from "../api";
 import { RequestState } from "../ui";
 
 const DELAY_MS = 1500;
 
 export function DashboardWeeklyReviewEmailSend(props: DashboardDataType["weeklyReviews"][number]) {
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   async function sendWeeklyReviewEmail(event: React.FormEvent) {
     event.preventDefault();

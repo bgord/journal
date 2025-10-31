@@ -10,7 +10,7 @@ import {
   WeakETag,
 } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import React from "react";
+import { useEffect, useState } from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import type { EntrySnapshotFormatted } from "../api";
@@ -22,7 +22,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
   const t = useTranslations();
   const router = useRouter();
   const metaEnterSubmit = useMetaEnterSubmit();
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   const reactionDescriptionEdit = useToggle({ name: "reaction-description" });
   const reactionDescription = useTextField<types.ReactionDescriptionType>({
@@ -64,7 +64,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
   }
 
   // biome-ignore lint: lint/correctness/useExhaustiveDependencies
-  React.useEffect(() => {
+  useEffect(() => {
     if (reactionEffectiveness.changed || reactionType.changed) evaluateReaction();
   }, [reactionEffectiveness.changed, reactionType.changed]);
 

@@ -13,7 +13,7 @@ import {
 } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { Book, Plus, Timer, TimerOff } from "iconoir-react";
-import React from "react";
+import { useState } from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import { ButtonCancel, ButtonClose, RatingPillsClickable, Select, Separator } from "../components";
@@ -23,7 +23,7 @@ import { RequestState } from "../ui";
 export function HomeEntryAdd() {
   const t = useTranslations();
   const router = useRouter();
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
   const dialog = useToggle({ name: "dialog" });
 
   const timeCapsuleMode = useToggle({ name: "timeCapsuleMode" });
@@ -32,7 +32,7 @@ export function HomeEntryAdd() {
   const situationDescription = useTextField(Form.situationDescription.field);
   const situationKind = useTextField<types.SituationKindType>(Form.situationKind.field);
 
-  const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
+  const [emotionType, setEmotionType] = useState<"positive" | "negative">("positive");
   const emotionLabel = useTextField<types.EmotionLabelType>(Form.emotionLabel.field);
   const emotionIntensity = useNumberField(Form.emotionIntensity.field);
 

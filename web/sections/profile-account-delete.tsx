@@ -1,6 +1,6 @@
 import { Autocomplete, Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
 import { UserXmark, WarningCircle } from "iconoir-react";
-import React from "react";
+import { useState } from "react";
 import { ButtonCancel, ButtonClose } from "../components";
 import { RequestState } from "../ui";
 
@@ -8,7 +8,7 @@ export function ProfileAccountDelete() {
   const t = useTranslations();
 
   const dialog = useToggle({ name: "delete-account" });
-  const [state, setState] = React.useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   async function accountDelete(event: React.FormEvent) {
     event.preventDefault();
