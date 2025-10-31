@@ -1,14 +1,14 @@
-import * as bg from "@bgord/ui";
+import { exec, Fields, Form as form, useDateField, useTextField, useTranslations } from "@bgord/ui";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-export-form";
 import { ButtonClear, Select } from "../components";
 
 export function HomeEntryExport() {
-  const t = bg.useTranslations();
+  const t = useTranslations();
 
-  const dateRangeStart = bg.useDateField(Form.dateRangeStart.field);
-  const dateRangeEnd = bg.useDateField(Form.dateRangeEnd.field);
-  const strategy = bg.useTextField<types.EntryExportStrategyType>(Form.strategy.field);
+  const dateRangeStart = useDateField(Form.dateRangeStart.field);
+  const dateRangeEnd = useDateField(Form.dateRangeEnd.field);
+  const strategy = useTextField<types.EntryExportStrategyType>(Form.strategy.field);
 
   const url = `/api/entry/export-entries?dateRangeStart=${dateRangeStart.value}&dateRangeEnd=${dateRangeEnd.value}&strategy=${strategy.value}`;
 
@@ -26,7 +26,7 @@ export function HomeEntryExport() {
         className="c-input"
         required
         type="date"
-        max={bg.Form.date.max.today()}
+        max={form.date.max.today()}
         {...dateRangeEnd.input.props}
       />
       <Select {...strategy.input.props}>
@@ -48,8 +48,8 @@ export function HomeEntryExport() {
         {t("entries.export.cta")}
       </a>
       <ButtonClear
-        disabled={bg.Fields.allUnchanged([dateRangeStart, dateRangeEnd, strategy])}
-        onClick={bg.exec([dateRangeStart.clear, dateRangeEnd.clear, strategy.clear])}
+        disabled={Fields.allUnchanged([dateRangeStart, dateRangeEnd, strategy])}
+        onClick={exec([dateRangeStart.clear, dateRangeEnd.clear, strategy.clear])}
       />
     </div>
   );

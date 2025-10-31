@@ -1,4 +1,12 @@
-import * as bg from "@bgord/ui";
+import {
+  Dialog,
+  Rhythm,
+  useDateField,
+  useShortcuts,
+  useTextField,
+  useToggle,
+  useTranslations,
+} from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { HelpCircle, Plus, ShareIos } from "iconoir-react";
 import React from "react";
@@ -12,16 +20,16 @@ import { profileRoute } from "../router";
 import { RequestState } from "../ui";
 
 export function ProfileShareableLinkCreate() {
-  const t = bg.useTranslations();
+  const t = useTranslations();
   const router = useRouter();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
 
-  const dialog = bg.useToggle({ name: "dialog" });
+  const dialog = useToggle({ name: "dialog" });
 
-  const specification = bg.useTextField<ShareableLinkSpecification>(Form.specification.field);
-  const duration = bg.useTextField<ShareableLinkDuration>(Form.duration.field);
-  const dateRangeStart = bg.useDateField(Form.dateRangeStart.field);
-  const dateRangeEnd = bg.useDateField(Form.dateRangeEnd.field);
+  const specification = useTextField<ShareableLinkSpecification>(Form.specification.field);
+  const duration = useTextField<ShareableLinkDuration>(Form.duration.field);
+  const dateRangeStart = useDateField(Form.dateRangeStart.field);
+  const dateRangeEnd = useDateField(Form.dateRangeEnd.field);
 
   async function createShareableLink(event: React.FormEvent) {
     event.preventDefault();
@@ -48,7 +56,7 @@ export function ProfileShareableLinkCreate() {
     dialog.disable();
   }
 
-  bg.useShortcuts({ "$mod+Control+KeyN": dialog.enable });
+  useShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
   return (
     <>
@@ -63,7 +71,7 @@ export function ProfileShareableLinkCreate() {
         {t("profile.shareable_links.create.cta_primary")}
       </button>
 
-      <bg.Dialog data-mt="12" data-gap="3" style={{ ...bg.Rhythm().times(50).width }} {...dialog}>
+      <Dialog data-mt="12" data-gap="3" style={{ ...Rhythm().times(50).width }} {...dialog}>
         <div data-stack="x" data-main="between">
           <strong data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
             <ShareIos data-size="md" data-color="neutral-300" />
@@ -85,7 +93,7 @@ export function ProfileShareableLinkCreate() {
                   data-variant={duration.value === option ? "secondary" : "bare"}
                   onClick={() => duration.set(option as ShareableLinkDuration)}
                   disabled={state === RequestState.loading}
-                  {...bg.Rhythm().times(9).style.width}
+                  {...Rhythm().times(9).style.width}
                 >
                   {t(`profile.shareable_links.create.duration.${option}.value`)}
                 </button>
@@ -163,7 +171,7 @@ export function ProfileShareableLinkCreate() {
             </div>
           </div>
         </form>
-      </bg.Dialog>
+      </Dialog>
     </>
   );
 }

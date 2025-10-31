@@ -1,4 +1,16 @@
-import * as bg from "@bgord/ui";
+import {
+  Autocomplete,
+  Dialog,
+  Form as form,
+  Rhythm,
+  TimeZoneOffset,
+  useDateField,
+  useNumberField,
+  useShortcuts,
+  useTextField,
+  useToggle,
+  useTranslations,
+} from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { Book, Plus, Timer, TimerOff } from "iconoir-react";
 import React from "react";
@@ -9,26 +21,26 @@ import { homeRoute } from "../router";
 import { RequestState } from "../ui";
 
 export function HomeEntryAdd() {
-  const t = bg.useTranslations();
+  const t = useTranslations();
   const router = useRouter();
   const [state, setState] = React.useState<RequestState>(RequestState.idle);
-  const dialog = bg.useToggle({ name: "dialog" });
+  const dialog = useToggle({ name: "dialog" });
 
-  const timeCapsuleMode = bg.useToggle({ name: "timeCapsuleMode" });
-  const scheduledFor = bg.useDateField(Form.schedueldFor.field);
+  const timeCapsuleMode = useToggle({ name: "timeCapsuleMode" });
+  const scheduledFor = useDateField(Form.schedueldFor.field);
 
-  const situationDescription = bg.useTextField(Form.situationDescription.field);
-  const situationKind = bg.useTextField<types.SituationKindType>(Form.situationKind.field);
+  const situationDescription = useTextField(Form.situationDescription.field);
+  const situationKind = useTextField<types.SituationKindType>(Form.situationKind.field);
 
   const [emotionType, setEmotionType] = React.useState<"positive" | "negative">("positive");
-  const emotionLabel = bg.useTextField<types.EmotionLabelType>(Form.emotionLabel.field);
-  const emotionIntensity = bg.useNumberField(Form.emotionIntensity.field);
+  const emotionLabel = useTextField<types.EmotionLabelType>(Form.emotionLabel.field);
+  const emotionIntensity = useNumberField(Form.emotionIntensity.field);
 
-  const reactionDescription = bg.useTextField(Form.reactionDescription.field);
-  const reactionType = bg.useTextField<types.ReactionTypeType>(Form.reactionType.field);
-  const reactionEffectiveness = bg.useNumberField(Form.reactionEffectiveness.field);
+  const reactionDescription = useTextField(Form.reactionDescription.field);
+  const reactionType = useTextField<types.ReactionTypeType>(Form.reactionType.field);
+  const reactionEffectiveness = useNumberField(Form.reactionEffectiveness.field);
 
-  bg.useShortcuts({ "$mod+Control+KeyN": dialog.enable });
+  useShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
   async function addEntry(event: React.FormEvent) {
     event.preventDefault();
@@ -55,7 +67,7 @@ export function HomeEntryAdd() {
       method: "POST",
       credentials: "include",
       body: JSON.stringify(payload),
-      headers: bg.TimeZoneOffset.get(),
+      headers: TimeZoneOffset.get(),
     });
 
     if (!response.ok) return setState(RequestState.error);
@@ -72,10 +84,10 @@ export function HomeEntryAdd() {
         {t("entry.new.cta_secondary")}
       </button>
 
-      <bg.Dialog
+      <Dialog
         data-mt="12"
         // locked={state === RequestState.loading}
-        {...bg.Rhythm().times(50).style.square}
+        {...Rhythm().times(50).style.square}
         {...dialog}
       >
         <div data-stack="x" data-main="between" data-cross="center">
@@ -93,8 +105,8 @@ export function HomeEntryAdd() {
             rows={3}
             autoFocus
             {...situationDescription.input.props}
-            {...bg.Form.textarea(Form.situationDescription.pattern)}
-            {...bg.Autocomplete.off}
+            {...form.textarea(Form.situationDescription.pattern)}
+            {...Autocomplete.off}
           />
 
           <div data-stack="x" data-gap="8" data-cross="end">
@@ -119,7 +131,7 @@ export function HomeEntryAdd() {
                 data-bg={emotionType === "positive" ? "positive-900" : undefined}
                 data-variant={emotionType === "positive" ? undefined : "bare"}
                 onClick={() => setEmotionType("positive")}
-                {...bg.Rhythm().times(9).style.width}
+                {...Rhythm().times(9).style.width}
               >
                 {t("entry.emotion.label.type.positive")}
               </button>
@@ -131,7 +143,7 @@ export function HomeEntryAdd() {
                 data-bg={emotionType === "negative" ? "danger-900" : undefined}
                 data-variant={emotionType === "negative" ? undefined : "bare"}
                 onClick={() => setEmotionType("negative")}
-                {...bg.Rhythm().times(9).style.width}
+                {...Rhythm().times(9).style.width}
               >
                 {t("entry.emotion.label.type.negative")}
               </button>
@@ -160,8 +172,8 @@ export function HomeEntryAdd() {
             placeholder={t("entry.reaction.description.label")}
             rows={3}
             {...reactionDescription.input.props}
-            {...bg.Form.textarea(Form.reactionDescription.pattern)}
-            {...bg.Autocomplete.off}
+            {...form.textarea(Form.reactionDescription.pattern)}
+            {...Autocomplete.off}
           />
 
           <div data-stack="x" data-cross="center">
@@ -208,7 +220,7 @@ export function HomeEntryAdd() {
                   className="c-input"
                   required
                   type="date"
-                  min={bg.Form.date.min.tomorrow()}
+                  min={form.date.min.tomorrow()}
                   {...timeCapsuleMode.props.target}
                   {...scheduledFor.input.props}
                 />
@@ -230,13 +242,13 @@ export function HomeEntryAdd() {
               className="c-button"
               data-variant="primary"
               disabled={state === RequestState.loading}
-              {...bg.Rhythm().times(10).style.width}
+              {...Rhythm().times(10).style.width}
             >
               {t("entry.new.cta_primary")}
             </button>
           </div>
         </form>
-      </bg.Dialog>
+      </Dialog>
     </>
   );
 }
