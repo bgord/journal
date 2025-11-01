@@ -55,6 +55,9 @@ jobs:
           SSH_KEY: ${{ secrets.PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.HOSTNAME }}
 
+      - name: Clean public
+        run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && rm -rf public/"
+
       - name: Sync source code
         run: rsync -azP output/ production:/var/www/${{ secrets.PROJECT_NAME }}
 
