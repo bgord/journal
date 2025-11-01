@@ -1,7 +1,9 @@
 # Changelog
+- 2025-11-01 18:35 574be191 **step: update packages**
+## 2025-11-01 18:35 
 - 2025-11-01 18:14 d6e2a8c1 **fix: type**
-## 2025-11-01 18:14 
 - 2025-11-01 18:13 02e33cd5 **step: update packages**
+- 2025-11-01 17:14 a60884e9 **docs: generate CHANGELOG**
 - 2025-11-01 17:06 f10966cf **docs: generate CHANGELOG**
 - 2025-11-01 13:09 5d25a983 **refactor: rename mutation state**
 - 2025-11-01 13:09 50ed68fc **refactor: use request state in button copy**
