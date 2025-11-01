@@ -49,8 +49,6 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
           search={Form.default}
           className="c-button"
           data-variant="bare"
-          data-disp="flex"
-          data-cross="center"
           data-interaction="subtle-scale"
           title={t("entry.history")}
         >

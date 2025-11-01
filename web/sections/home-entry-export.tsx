@@ -34,17 +34,7 @@ export function HomeEntryExport() {
           <option value={strategy}>{t(`entries.export.format.${strategy}`)}</option>
         ))}
       </Select>
-      <a
-        type="button"
-        href={url}
-        download
-        target="_blank"
-        className="c-button"
-        data-variant="secondary"
-        data-disp="flex"
-        data-main="center"
-        data-cross="center"
-      >
+      <a type="button" href={url} download target="_blank" className="c-button" data-variant="secondary">
         {t("entries.export.cta")}
       </a>
       <ButtonClear
