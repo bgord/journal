@@ -7,7 +7,7 @@ export default defineConfig({
   retries: 0,
   workers: 1,
   use: { baseURL: "http://127.0.0.1:3000", trace: "on-first-retry" },
-  projects: [{ name: "firefox", use: { ...devices["Desktop Firefox"] } }],
+  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: [
     {
       command: "bash bgord-scripts/test-server-start.sh",
