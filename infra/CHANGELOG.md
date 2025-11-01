@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-01 19:51 6a767abb **step: force client rebuild**
+## 2025-11-01 19:51 
 - 2025-11-01 19:48 f25ced98 **step: enable sign up**
-## 2025-11-01 19:48 
 - 2025-11-01 19:47 dcb322d5 **step: delete only public dir on sync**
 - 2025-11-01 19:37 58d225b0 **step: add --delete to sync source code**
 - 2025-11-01 19:33 8daf40c8 **step: add static files from bgord bun**
@@ -9,6 +10,7 @@
 - 2025-11-01 19:03 c689155c **refactor: extract static files handle**
 - 2025-11-01 18:57 fe181218 **refactor: use absolute url from bgord ui**
 - 2025-11-01 18:56 26d71029 **step: update packages**
+- 2025-11-01 18:49 112d9c2a **docs: generate CHANGELOG**
 - 2025-11-01 18:47 5cffefa9 **docs: generate CHANGELOG**
 - 2025-11-01 18:38 7fbd5447 **docs: generate CHANGELOG**
 - 2025-11-01 18:35 574be191 **step: update packages**
