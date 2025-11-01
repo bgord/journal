@@ -38,6 +38,25 @@ jobs:
           path: ~/.cache/ms-playwright
           key: ms-pw-${{ runner.os }}-${{ steps.pw.outputs.version }}
 
+      - name: Cache TS buildinfo
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/*.tsbuildinfo
+          key: tsbuildinfo-${{ runner.os }}-${{ hashFiles('tsconfig*.json') }}
+          restore-keys: |
+            tsbuildinfo-${{ runner.os }}-
+
+      - name: Read ShellCheck wrapper version
+        id: sc
+        run: echo "version=$(jq -r '.devDependencies.shellcheck // \"unknown\"' package.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache ShellCheck
+        uses: actions/cache@v4
+        with:
+          path: node_modules/shellcheck/bin
+          key: shellcheck-${{ runner.os }}-${{ steps.sc.outputs.version }}
+
       - name: Run build prechecks
         run: ./bgord-scripts/build-prechecks.sh
 
