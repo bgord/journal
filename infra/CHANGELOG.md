@@ -1,8 +1,11 @@
 # Changelog
+- 2025-11-01 18:57 fe181218 **refactor: use absolute url from bgord ui**
+## 2025-11-01 18:57 
+- 2025-11-01 18:56 26d71029 **step: update packages**
 - 2025-11-01 18:35 574be191 **step: update packages**
-## 2025-11-01 18:35 
 - 2025-11-01 18:14 d6e2a8c1 **fix: type**
 - 2025-11-01 18:13 02e33cd5 **step: update packages**
+- 2025-11-01 17:36 efbb5a3f **docs: generate CHANGELOG**
 - 2025-11-01 17:14 a60884e9 **docs: generate CHANGELOG**
 - 2025-11-01 17:06 f10966cf **docs: generate CHANGELOG**
 - 2025-11-01 13:09 5d25a983 **refactor: rename mutation state**
