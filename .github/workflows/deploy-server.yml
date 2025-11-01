@@ -26,6 +26,18 @@ jobs:
       - name: Create .env.test file
         run: echo "${{ secrets.ENV_TEST }}" > .env.test
 
+      - name: Read Playwright version
+        id: pw
+        run: |
+          set -e
+          echo "version=$(jq -r '.dependencies.playwright // .devDependencies.playwright' package.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ms-pw-${{ runner.os }}-${{ steps.pw.outputs.version }}
+
       - name: Run build prechecks
         run: ./bgord-scripts/build-prechecks.sh
 
