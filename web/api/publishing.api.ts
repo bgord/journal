@@ -1,6 +1,5 @@
-import { Cookies } from "@bgord/ui";
+import { absoluteUrl, Cookies } from "@bgord/ui";
 import type { ShareableLinkSnapshot } from "../../modules/publishing/value-objects";
-import { absoluteUrl } from "./url";
 
 export class Publishing {
   private static readonly BASE = "/api/publishing/links/list";

@@ -1,6 +1,5 @@
-import { Cookies } from "@bgord/ui";
+import { absoluteUrl, Cookies } from "@bgord/ui";
 import type { QuotaRuleInspectionType } from "../../modules/ai/value-objects";
-import { absoluteUrl } from "./url";
 
 export class AI {
   private static readonly BASE = "/api/ai-usage-today/get";

@@ -1,9 +1,8 @@
-import { Cookies } from "@bgord/ui";
+import { absoluteUrl, Cookies } from "@bgord/ui";
 import type { HistoryType } from "../../app/http/history";
 import type { types } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotFormatted } from "../../modules/emotions/ports";
 import type { ShareableLinkIdType } from "../../modules/publishing/value-objects/";
-import { absoluteUrl } from "./url";
 
 export class Entry {
   static async getList(

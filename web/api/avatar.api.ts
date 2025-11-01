@@ -1,5 +1,4 @@
-import { Cookies, type ETagValueType } from "@bgord/ui";
-import { absoluteUrl } from "./url";
+import { absoluteUrl, Cookies, type ETagValueType } from "@bgord/ui";
 
 /** @public */
 export type AvatarEtagType = ETagValueType;

@@ -1,5 +1,4 @@
-import { Cookies, type TranslationsContextValueType } from "@bgord/ui";
-import { absoluteUrl } from "./url";
+import { absoluteUrl, Cookies, type TranslationsContextValueType } from "@bgord/ui";
 
 export class I18N {
   private static readonly BASE = "/api/translations";

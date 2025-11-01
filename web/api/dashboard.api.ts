@@ -1,6 +1,5 @@
-import { Cookies } from "@bgord/ui";
+import { absoluteUrl, Cookies } from "@bgord/ui";
 import type { DashboardDataType } from "../../app/http/get-dashboard";
-import { absoluteUrl } from "./url";
 
 export class Dashboard {
   private static readonly BASE = "/api/dashboard/get";

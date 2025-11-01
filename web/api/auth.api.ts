@@ -1,6 +1,5 @@
-import { Cookies } from "@bgord/ui";
+import { absoluteUrl, Cookies } from "@bgord/ui";
 import type { auth } from "../../infra/auth";
-import { absoluteUrl } from "./url";
 
 /** @public */
 export type SessionType = typeof auth.$Infer.Session;
