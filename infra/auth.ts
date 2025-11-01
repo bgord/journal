@@ -33,8 +33,7 @@ export const auth = betterAuth({
     },
   },
   emailAndPassword: {
-    // disableSignUp: tools.FeatureFlag.isDisabled(Env.SIGNUP_ENABLED),
-    disableSignUp: false,
+    disableSignUp: tools.FeatureFlag.isDisabled(Env.SIGNUP_ENABLED),
     autoSignIn: false,
     enabled: true,
     minPasswordLength: Auth.VO.Password.MinimumLength,
