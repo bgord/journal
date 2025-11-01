@@ -21,15 +21,22 @@ import { handler } from "./web/entry-server";
     idleTimeout: infra.IDLE_TIMEOUT,
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
+      // TODO
       "/public/*": new Hono().use(
         "/public/*",
         etag(),
         serveStatic({
           root: "./",
           precompressed: true,
-          onFound: (_path, c) => {
-            c.header("Cache-Control", `public, max-age=${tools.Duration.Minutes(5).ms}, must-revalidate`);
-          },
+          onFound:
+            Env.type === bg.NodeEnvironmentEnum.production
+              ? (_path, c) => {
+                  c.header(
+                    "Cache-Control",
+                    `public, max-age=${tools.Duration.Minutes(5).ms}, must-revalidate`,
+                  );
+                }
+              : undefined,
         }),
       ).fetch,
       "/api/*": server.fetch,
