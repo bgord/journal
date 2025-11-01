@@ -1,12 +1,14 @@
 # Changelog
+- 2025-11-01 19:37 58d225b0 **step: add --delete to sync source code**
+## 2025-11-01 19:37 
 - 2025-11-01 19:33 8daf40c8 **step: add static files from bgord bun**
-## 2025-11-01 19:33 
 - 2025-11-01 19:32 a50e7063 **step: update packages**
 - 2025-11-01 19:32 7b7a9b55 **step: add static files**
 - 2025-11-01 19:03 c689155c **refactor: extract static files handle**
 - 2025-11-01 18:57 fe181218 **refactor: use absolute url from bgord ui**
 - 2025-11-01 18:56 26d71029 **step: update packages**
 - 2025-11-01 18:35 574be191 **step: update packages**
+- 2025-11-01 18:33 11d4fca6 **docs: generate CHANGELOG**
 - 2025-11-01 18:14 d6e2a8c1 **fix: type**
 - 2025-11-01 18:13 02e33cd5 **step: update packages**
 - 2025-11-01 18:03 b1493fc9 **docs: generate CHANGELOG**
