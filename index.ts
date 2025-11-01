@@ -12,18 +12,11 @@ import { prerequisites } from "+infra/prerequisites";
 import { server, startup } from "./server";
 import { handler } from "./web/entry-server";
 
-(async function main() {
-  await new bg.Prerequisites(Logger).check(prerequisites);
-  migrate(db, { migrationsFolder: "infra/drizzle" });
-
-  const app = Bun.serve({
-    maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
-    idleTimeout: infra.IDLE_TIMEOUT,
-    routes: {
-      "/favicon.ico": Bun.file("public/favicon.ico"),
-      // TODO
-      "/public/*": new Hono().use(
-        "/public/*",
+export class StaticFiles {
+  static handle(path: string) {
+    return {
+      [path]: new Hono().use(
+        path,
         etag(),
         serveStatic({
           root: "./",
@@ -39,6 +32,21 @@ import { handler } from "./web/entry-server";
               : undefined,
         }),
       ).fetch,
+    };
+  }
+}
+
+(async function main() {
+  await new bg.Prerequisites(Logger).check(prerequisites);
+  migrate(db, { migrationsFolder: "infra/drizzle" });
+
+  const app = Bun.serve({
+    maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
+    idleTimeout: infra.IDLE_TIMEOUT,
+    routes: {
+      "/favicon.ico": Bun.file("public/favicon.ico"),
+      // TODO
+      ...StaticFiles.handle("/public/*"),
       "/api/*": server.fetch,
       "/*": handler,
     },
