@@ -1,6 +1,8 @@
 # Changelog
+- 2025-11-01 20:00 000b361b **step: cleanup public directory**
+## 2025-11-01 20:00 
+- 2025-11-01 19:59 8ad36ec0 **step: restore**
 - 2025-11-01 19:56 f4abd270 **refactor: disable delete**
-## 2025-11-01 19:56 
 - 2025-11-01 19:52 de259c97 **step: enable sign up**
 - 2025-11-01 19:51 6a767abb **step: force client rebuild**
 - 2025-11-01 19:48 f25ced98 **step: enable sign up**
@@ -11,6 +13,7 @@
 - 2025-11-01 19:32 7b7a9b55 **step: add static files**
 - 2025-11-01 19:03 c689155c **refactor: extract static files handle**
 - 2025-11-01 18:57 fe181218 **refactor: use absolute url from bgord ui**
+- 2025-11-01 18:56 dbaff3b3 **docs: generate CHANGELOG**
 - 2025-11-01 18:56 26d71029 **step: update packages**
 - 2025-11-01 18:52 b65019a7 **docs: generate CHANGELOG**
 - 2025-11-01 18:51 296a2295 **docs: generate CHANGELOG**
