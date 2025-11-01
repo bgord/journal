@@ -1,11 +1,13 @@
 # Changelog
+- 2025-11-01 23:14 8b45ce6a **step: add logs**
+## 2025-11-01 23:14 
 - 2025-11-01 23:05 20687eb4 **refactor: remove trusted origins**
-## 2025-11-01 23:05 
 - 2025-11-01 23:00 0a08e928 **step: enable build prechecks**
 - 2025-11-01 22:55 8efa0d45 **step: update packages**
 - 2025-11-01 22:51 3dd8e229 **step: simplify button link**
 - 2025-11-01 22:41 a1baf64c **step: bump bgord/scripts**
 - 2025-11-01 22:41 24e77346 **step: reordeing**
+- 2025-11-01 22:06 2698b062 **docs: generate CHANGELOG**
 - 2025-11-01 22:00 007b60b3 **docs: generate CHANGELOG**
 - 2025-11-01 21:55 367cdeb6 **docs: generate CHANGELOG**
 - 2025-11-01 21:42 c1f28fad **docs: generate CHANGELOG**
