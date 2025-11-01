@@ -24,7 +24,6 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
     onSuccess: () => router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true }),
   });
 
-  // @ts-expect-error TODO
   const exit = useExitAction({ action: mutation.mutate, animation: "shrink-fade-out" });
 
   if (!exit.visible) return null;
