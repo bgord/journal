@@ -68,7 +68,6 @@ export const auth = betterAuth({
     },
   },
   autoSignIn: false,
-  trustedOrigins: ["http://localhost:3000", "https://journal.bgord.dev", "http://journal.bgord.dev", "*"],
   plugins: [
     production ? openAPI() : undefined,
     // Env.type === bg.NodeEnvironmentEnum.production
