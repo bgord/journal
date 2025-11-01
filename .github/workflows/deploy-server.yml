@@ -56,7 +56,7 @@ jobs:
           SSH_HOST: ${{ secrets.HOSTNAME }}
 
       - name: Sync source code
-        run: rsync -azP --delete --include 'public/' --include 'public/***' --exclude '*' output/ production:/var/www/${{ secrets.PROJECT_NAME }}
+        run: rsync -azP output/ production:/var/www/${{ secrets.PROJECT_NAME }}
 
       - name: Remove package.json
         run: ssh production "cd /var/www/${{ secrets.PROJECT_NAME }} && rm -rf package.json"
