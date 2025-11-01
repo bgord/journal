@@ -1,9 +1,11 @@
 # Changelog
+- 2025-11-01 23:00 0a08e928 **step: enable build prechecks**
+## 2025-11-01 23:00 
 - 2025-11-01 22:55 8efa0d45 **step: update packages**
-## 2025-11-01 22:55 
 - 2025-11-01 22:51 3dd8e229 **step: simplify button link**
 - 2025-11-01 22:41 a1baf64c **step: bump bgord/scripts**
 - 2025-11-01 22:41 24e77346 **step: reordeing**
+- 2025-11-01 21:55 367cdeb6 **docs: generate CHANGELOG**
 - 2025-11-01 21:42 c1f28fad **docs: generate CHANGELOG**
 - 2025-11-01 20:00 000b361b **step: cleanup public directory**
 - 2025-11-01 19:59 8ad36ec0 **step: restore**
