@@ -48,9 +48,9 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
           params={{ entryId: props.id }}
           search={Form.default}
           className="c-button"
+          data-variant="bare"
           data-disp="flex"
           data-cross="center"
-          data-variant="bare"
           data-interaction="subtle-scale"
           title={t("entry.history")}
         >

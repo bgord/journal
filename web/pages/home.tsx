@@ -19,6 +19,7 @@ export function Home() {
         >
           <MoreHoriz data-size="md" />
         </button>
+
         <Sections.HomeEntryAdd />
       </div>
 
