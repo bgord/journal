@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-02 00:03 32d02872 **step: bump bgord/scripts**
+## 2025-11-02 00:03 
 - 2025-11-01 23:59 3932fc11 **step: bump bgord/scripts**
-## 2025-11-01 23:59 
 - 2025-11-01 23:48 56cef1e6 **fix: version**
 - 2025-11-01 23:46 f4f1cdd0 **fix: playwright path**
 - 2025-11-01 23:41 f06cf825 **step: add playwright cache**
@@ -10,6 +11,7 @@
 - 2025-11-01 23:17 392d99ca **refactor: remove logs**
 - 2025-11-01 23:14 8b45ce6a **step: add logs**
 - 2025-11-01 23:05 20687eb4 **refactor: remove trusted origins**
+- 2025-11-01 23:00 b2a89973 **docs: generate CHANGELOG**
 - 2025-11-01 23:00 0a08e928 **step: enable build prechecks**
 - 2025-11-01 22:55 8efa0d45 **step: update packages**
 - 2025-11-01 22:51 3dd8e229 **step: simplify button link**
