@@ -28,7 +28,9 @@ jobs:
 
       - name: Read Playwright version
         id: pw
-        run: echo "version=$(jq -r '.devDependencies[\"@playwright/test\"] // \"unknown\"' package.json)" >> "$GITHUB_OUTPUT"
+        run: |
+          VERSION=$(jq -r '.devDependencies["@playwright/test"] // "unknown"' package.json)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
