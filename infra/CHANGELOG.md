@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-01 23:37 6ebb2f57 **step: bump bgord/scripts**
+## 2025-11-01 23:37 
 - 2025-11-01 23:32 7850ad9d **step: bump bgord/scripts**
-## 2025-11-01 23:32 
 - 2025-11-01 23:30 18371ce2 **step: change e2e to chromium**
 - 2025-11-01 23:17 392d99ca **refactor: remove logs**
 - 2025-11-01 23:14 8b45ce6a **step: add logs**
@@ -10,6 +11,7 @@
 - 2025-11-01 22:51 3dd8e229 **step: simplify button link**
 - 2025-11-01 22:41 a1baf64c **step: bump bgord/scripts**
 - 2025-11-01 22:41 24e77346 **step: reordeing**
+- 2025-11-01 22:32 952eecce **docs: generate CHANGELOG**
 - 2025-11-01 22:18 53154a74 **docs: generate CHANGELOG**
 - 2025-11-01 22:15 712cc818 **docs: generate CHANGELOG**
 - 2025-11-01 22:06 2698b062 **docs: generate CHANGELOG**
