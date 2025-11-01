@@ -1,46 +1,29 @@
 import { useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import { useState } from "react";
 import { ShareableLinkStatusEnum } from "../../app/services/create-shareable-link-form";
 import type { ShareableLinkSnapshot } from "../api";
 import { profileRoute } from "../router";
-import { RequestState } from "../ui";
+import { useMutation } from "../sections/use-mutation";
 
 export function ProfileShareableLinkHide(props: ShareableLinkSnapshot) {
   const t = useTranslations();
   const router = useRouter();
-  const [state, setState] = useState<RequestState>(RequestState.idle);
 
-  if (![ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status)) {
-    return null;
-  }
+  const mutation = useMutation({
+    perform: () => fetch(`/api/publishing/link/${props.id}/hide`, { method: "POST", credentials: "include" }),
+    onSuccess: () => router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true }),
+  });
 
-  async function hideShareableLink(event: React.FormEvent) {
-    event.preventDefault();
-
-    if (state === RequestState.loading) return;
-
-    setState(RequestState.loading);
-
-    const response = await fetch(`/api/publishing/link/${props.id}/hide`, {
-      method: "POST",
-      credentials: "include",
-    });
-
-    if (!response.ok) return setState(RequestState.error);
-
-    setState(RequestState.done);
-    router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true });
-  }
+  if (![ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status)) return null;
 
   return (
     <div data-stack="x" data-gap="3" data-ml="auto">
-      <form onSubmit={hideShareableLink} aria-busy={state === RequestState.loading}>
+      <form onSubmit={mutation.handleSubmit} aria-busy={mutation.isLoading}>
         <button
           type="submit"
           className="c-button"
           data-variant="secondary"
-          disabled={state === RequestState.loading}
+          disabled={mutation.isLoading}
           title={t("profile.shareable_links.hide.cta")}
         >
           {t("profile.shareable_links.hide.cta")}

@@ -11,6 +11,7 @@ type UseMutationOptions = {
   perform: () => Promise<Response>;
   onSuccess?: (response: Response) => void | Promise<void>;
   onError?: (error: unknown) => void | Promise<void>;
+  autoResetDelayMs?: number;
 };
 
 type UseMutationReturnType = {
@@ -51,6 +52,10 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
 
       setState(RequestState.done);
       await options.onSuccess?.(response);
+
+      if (options.autoResetDelayMs) {
+        setTimeout(() => setState(RequestState.idle), options.autoResetDelayMs);
+      }
 
       return response;
     } catch (error) {

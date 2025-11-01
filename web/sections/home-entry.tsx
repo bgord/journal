@@ -1,39 +1,31 @@
 import { Rhythm, useExitAction, useTranslations, WeakETag } from "@bgord/ui";
 import { Link, useRouter } from "@tanstack/react-router";
 import { Timer, Xmark } from "iconoir-react";
-import { useState } from "react";
 import { Form } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotFormatted } from "../api";
 import * as UI from "../components";
 import { homeRoute } from "../router";
-import { RequestState } from "../ui";
+import { useMutation } from "../sections/use-mutation";
 import { EntryAlarms } from "./entry-alarms";
 import { EntryEmotion } from "./home-entry-emotion";
 import { HomeEntryReaction } from "./home-entry-reaction";
 
 export function HomeEntry(props: EntrySnapshotFormatted) {
   const t = useTranslations();
-  const [state, setState] = useState<RequestState>(RequestState.idle);
   const router = useRouter();
 
-  async function homeEntryDelete() {
-    if (state === RequestState.loading) return;
+  const mutation = useMutation({
+    perform: () =>
+      fetch(`/api/entry/${props.id}/delete`, {
+        method: "DELETE",
+        credentials: "include",
+        headers: WeakETag.fromRevision(props.revision),
+      }),
+    onSuccess: () => router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true }),
+  });
 
-    setState(RequestState.loading);
-
-    const response = await fetch(`/api/entry/${props.id}/delete`, {
-      method: "DELETE",
-      credentials: "include",
-      headers: WeakETag.fromRevision(props.revision),
-    });
-
-    if (!response.ok) return setState(RequestState.error);
-
-    setState(RequestState.done);
-    router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
-  }
-
-  const exit = useExitAction({ action: homeEntryDelete, animation: "shrink-fade-out" });
+  // @ts-expect-error TODO
+  const exit = useExitAction({ action: mutation.mutate, animation: "shrink-fade-out" });
 
   if (!exit.visible) return null;
 
@@ -71,7 +63,7 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
             data-variant="with-icon"
             type="submit"
             title={t("entry.delete.title")}
-            disabled={state === RequestState.loading}
+            disabled={mutation.isLoading}
             data-interaction="subtle-scale"
             onClick={exit.trigger}
           >

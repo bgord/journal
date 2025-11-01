@@ -1,17 +1,16 @@
 import { exec, useNumberField, useTextField, useToggle, useTranslations, WeakETag } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import type { EntrySnapshotFormatted } from "../api";
 import { ButtonCancel, EntryEmotionLabel, RatingPillsClickable, Select } from "../components";
 import { homeRoute } from "../router";
-import { RequestState } from "../ui";
+import { useMutation } from "../sections/use-mutation";
 
 export function EntryEmotion(props: EntrySnapshotFormatted) {
   const t = useTranslations();
   const router = useRouter();
-  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   const emotionLabelEdit = useToggle({ name: "emotion-label" });
   const emotionLabel = useTextField<types.EmotionLabelType>({
@@ -24,27 +23,20 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
     defaultValue: props.emotionIntensity as types.EmotionIntensityType,
   });
 
-  async function reappraiseEmotion() {
-    if (state === RequestState.loading) return;
-
-    setState(RequestState.loading);
-
-    const response = await fetch(`/api/entry/${props.id}/reappraise-emotion`, {
-      method: "POST",
-      credentials: "include",
-      headers: WeakETag.fromRevision(props.revision),
-      body: JSON.stringify({ label: emotionLabel.value, intensity: emotionIntensity.value }),
-    });
-
-    if (!response.ok) return setState(RequestState.error);
-
-    setState(RequestState.done);
-    router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
-  }
+  const mutation = useMutation({
+    perform: () =>
+      fetch(`/api/entry/${props.id}/reappraise-emotion`, {
+        method: "POST",
+        credentials: "include",
+        headers: WeakETag.fromRevision(props.revision),
+        body: JSON.stringify({ label: emotionLabel.value, intensity: emotionIntensity.value }),
+      }),
+    onSuccess: () => router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true }),
+  });
 
   // biome-ignore lint: lint/correctness/useExhaustiveDependencies
   useEffect(() => {
-    if (emotionIntensity.changed || emotionLabel.changed) reappraiseEmotion();
+    if (emotionIntensity.changed || emotionLabel.changed) mutation.mutate();
   }, [emotionIntensity.changed, emotionLabel.changed]);
 
   return (
@@ -61,7 +53,7 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
         <div data-stack="x" data-gap="2" data-mr="2">
           <Select
             {...emotionLabel.input.props}
-            disabled={state === RequestState.loading}
+            disabled={mutation.isLoading}
             onChange={(event) => {
               emotionLabel.input.props.onChange(event);
               emotionLabelEdit.disable();
@@ -76,7 +68,7 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
 
           <ButtonCancel
             type="submit"
-            disabled={state === RequestState.loading}
+            disabled={mutation.isLoading}
             onClick={exec([emotionLabel.clear, emotionLabelEdit.disable])}
           />
         </div>

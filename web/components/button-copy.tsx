@@ -7,8 +7,6 @@ enum ButtonCopyState {
   success = "succes",
 }
 
-const DELAY_MS = 1500;
-
 export function ButtonCopy(props: { text: string }) {
   const [state, setState] = useState<ButtonCopyState>(ButtonCopyState.initial);
 
@@ -22,7 +20,7 @@ export function ButtonCopy(props: { text: string }) {
 
         await Clipboard.copy({ text: props.text });
         setState(ButtonCopyState.success);
-        setTimeout(() => setState(ButtonCopyState.initial), DELAY_MS);
+        setTimeout(() => setState(ButtonCopyState.initial), 1500);
       }}
     >
       {state === ButtonCopyState.initial && <Copy data-size="md" data-animation="grow-fade-in" />}

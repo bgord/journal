@@ -1,9 +1,8 @@
 import { exec, useFile, useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { UserCircle } from "iconoir-react";
-import { useState } from "react";
 import { rootRoute } from "../router";
-import { RequestState } from "../ui";
+import { useMutation } from "../sections/use-mutation";
 import { ProfileAvatarDelete } from "./profile-avatar-delete";
 
 const mimeTypes = ["image/png", "image/jpeg", "image/webp"];
@@ -12,28 +11,23 @@ export function ProfileAvatarChange() {
   const router = useRouter();
   const t = useTranslations();
   const avatar = useFile("avatar", { mimeTypes, maxSizeBytes: 10_000_000 });
-  const [state, setState] = useState<RequestState>(RequestState.idle);
 
-  async function changeProfileAvatar(event: React.FormEvent) {
-    event.preventDefault();
+  const mutation = useMutation({
+    perform: () => {
+      const form = new FormData();
+      form.append("file", avatar.data as File);
 
-    if (state === RequestState.loading) return;
-    if (!avatar.isSelected) return;
-
-    const form = new FormData();
-    form.append("file", avatar.data);
-
-    const response = await fetch("/api/preferences/profile-avatar/update", {
-      method: "POST",
-      body: form,
-      credentials: "include",
-    });
-
-    if (!response.ok) return setState(RequestState.error);
-    setState(RequestState.done);
-    router.invalidate({ filter: (r) => r.id === rootRoute.id, sync: true });
-    avatar.actions.clearFile();
-  }
+      return fetch("/api/preferences/profile-avatar/update", {
+        method: "POST",
+        body: form,
+        credentials: "include",
+      });
+    },
+    onSuccess: () => {
+      router.invalidate({ filter: (r) => r.id === rootRoute.id, sync: true });
+      avatar.actions.clearFile();
+    },
+  });
 
   return (
     <section data-stack="y" data-gap="4">
@@ -45,7 +39,7 @@ export function ProfileAvatarChange() {
       <div data-stack="x" data-gap="6">
         <ProfileAvatarDelete />
 
-        <form onSubmit={changeProfileAvatar} encType="multipart/form-data" data-mt="3">
+        <form onSubmit={mutation.handleSubmit} encType="multipart/form-data" data-mt="3">
           <div data-stack="x" data-gap="3">
             <label
               data-disp="flex"
@@ -70,11 +64,9 @@ export function ProfileAvatarChange() {
               type="submit"
               className="c-button"
               data-variant="primary"
-              disabled={!avatar.isSelected || state === RequestState.loading}
+              disabled={!avatar.isSelected || mutation.isLoading}
             >
-              {state === RequestState.loading
-                ? t("profile.avatar.upload.cta.loading")
-                : t("profile.avatar.upload.cta")}
+              {mutation.isLoading ? t("profile.avatar.upload.cta.loading") : t("profile.avatar.upload.cta")}
             </button>
 
             {avatar.isSelected && (
@@ -82,8 +74,8 @@ export function ProfileAvatarChange() {
                 type="button"
                 className="c-button"
                 data-variant="secondary"
-                onClick={exec([avatar.actions.clearFile, () => setState(RequestState.idle)])}
-                disabled={state === RequestState.loading}
+                onClick={exec([avatar.actions.clearFile, mutation.reset])}
+                disabled={mutation.isLoading}
                 data-animation="grow-fade-in"
               >
                 {t("app.clear")}
@@ -101,7 +93,7 @@ export function ProfileAvatarChange() {
             </output>
           )}
 
-          {state === RequestState.error && (
+          {mutation.isError && (
             <output data-fs="xs" data-color="danger-400" data-animation="grow-fade-in">
               {t("profile.avatar.upload.error")}
             </output>

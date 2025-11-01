@@ -1,34 +1,23 @@
 import { Autocomplete, Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
 import { UserXmark, WarningCircle } from "iconoir-react";
-import { useState } from "react";
 import { ButtonCancel, ButtonClose } from "../components";
-import { RequestState } from "../ui";
+import { useMutation } from "../sections/use-mutation";
 
 export function ProfileAccountDelete() {
   const t = useTranslations();
 
   const dialog = useToggle({ name: "delete-account" });
-  const [state, setState] = useState<RequestState>(RequestState.idle);
 
-  async function accountDelete(event: React.FormEvent) {
-    event.preventDefault();
-
-    if (state === RequestState.loading) return;
-
-    setState(RequestState.loading);
-
-    const response = await fetch("/api/auth/delete-user", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({}),
-    });
-
-    if (!response.ok) return setState(RequestState.error);
-
-    setState(RequestState.done);
-    window.location.replace("/public/login.html");
-  }
+  const mutation = useMutation({
+    perform: () =>
+      fetch("/api/auth/delete-user", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+      }),
+    onSuccess: () => window.location.replace("/public/login.html"),
+  });
 
   return (
     <section data-stack="y" data-gap="5" data-p="5" data-bc="danger-600" data-bw="thin">
@@ -67,7 +56,7 @@ export function ProfileAccountDelete() {
             <UserXmark data-size="md" data-color="neutral-300" />
             {t("profile.delete_account.header")}
           </strong>
-          <ButtonClose onClick={dialog.disable} disabled={state === RequestState.loading} />
+          <ButtonClose onClick={dialog.disable} disabled={mutation.isLoading} />
         </div>
 
         <div data-stack="x" data-cross="center" data-gap="1" data-color="danger-400" data-fs="sm">
@@ -75,7 +64,7 @@ export function ProfileAccountDelete() {
           {t("profile.delete_account.info")}
         </div>
 
-        <form data-stack="y" data-gap="8" onSubmit={accountDelete} aria-busy={state === RequestState.loading}>
+        <form data-stack="y" data-gap="8" onSubmit={mutation.handleSubmit} aria-busy={mutation.isLoading}>
           <div data-stack="y" data-gap="3" data-cross="start">
             <label data-color="neutral-200" data-fs="sm" htmlFor="challenge">
               {t("profile.delete_account.challenge")}
@@ -92,7 +81,7 @@ export function ProfileAccountDelete() {
             />
           </div>
 
-          {state === RequestState.error && (
+          {mutation.isError && (
             <output
               aria-live="assertive"
               data-stack="x"
@@ -112,12 +101,7 @@ export function ProfileAccountDelete() {
           <div data-stack="x" data-main="end" data-gap="5">
             <ButtonCancel onClick={dialog.disable} />
 
-            <button
-              type="submit"
-              className="c-button"
-              data-variant="primary"
-              disabled={state === RequestState.loading}
-            >
+            <button type="submit" className="c-button" data-variant="primary" disabled={mutation.isLoading}>
               {t("profile.delete_account.cta_primary")}
             </button>
           </div>

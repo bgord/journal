@@ -10,19 +10,18 @@ import {
   WeakETag,
 } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import type { EntrySnapshotFormatted } from "../api";
 import * as UI from "../components";
 import { homeRoute } from "../router";
-import { RequestState } from "../ui";
+import { useMutation } from "../sections/use-mutation";
 
 export function HomeEntryReaction(props: EntrySnapshotFormatted) {
   const t = useTranslations();
   const router = useRouter();
   const metaEnterSubmit = useMetaEnterSubmit();
-  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   const reactionDescriptionEdit = useToggle({ name: "reaction-description" });
   const reactionDescription = useTextField<types.ReactionDescriptionType>({
@@ -41,31 +40,24 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
     defaultValue: props.reactionEffectiveness as types.ReactionEffectivenessType,
   });
 
-  async function evaluateReaction() {
-    if (state === RequestState.loading) return;
-
-    setState(RequestState.loading);
-
-    const response = await fetch(`/api/entry/${props.id}/evaluate-reaction`, {
-      method: "POST",
-      credentials: "include",
-      headers: WeakETag.fromRevision(props.revision),
-      body: JSON.stringify({
-        description: reactionDescription.value,
-        type: reactionType.value,
-        effectiveness: reactionEffectiveness.value,
+  const mutation = useMutation({
+    perform: () =>
+      fetch(`/api/entry/${props.id}/evaluate-reaction`, {
+        method: "POST",
+        credentials: "include",
+        headers: WeakETag.fromRevision(props.revision),
+        body: JSON.stringify({
+          description: reactionDescription.value,
+          type: reactionType.value,
+          effectiveness: reactionEffectiveness.value,
+        }),
       }),
-    });
-
-    if (!response.ok) return setState(RequestState.error);
-
-    setState(RequestState.done);
-    router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
-  }
+    onSuccess: () => router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true }),
+  });
 
   // biome-ignore lint: lint/correctness/useExhaustiveDependencies
   useEffect(() => {
-    if (reactionEffectiveness.changed || reactionType.changed) evaluateReaction();
+    if (reactionEffectiveness.changed || reactionType.changed) mutation.mutate();
   }, [reactionEffectiveness.changed, reactionType.changed]);
 
   return (
@@ -85,7 +77,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
           <div data-stack="x" data-gap="2" data-mr="2">
             <UI.Select
               {...reactionType.input.props}
-              disabled={state === RequestState.loading}
+              disabled={mutation.isLoading}
               onChange={(event) => {
                 reactionType.input.props.onChange(event);
                 reactionTypeEdit.disable();
@@ -100,7 +92,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
 
             <UI.ButtonCancel
               type="submit"
-              disabled={state === RequestState.loading}
+              disabled={mutation.isLoading}
               onClick={exec([reactionType.clear, reactionTypeEdit.disable])}
             />
           </div>
@@ -123,7 +115,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
           data-gap="5"
           onSubmit={async (event) => {
             event.preventDefault();
-            await evaluateReaction();
+            await mutation.mutate();
             reactionDescriptionEdit.disable();
           }}
         >
@@ -132,7 +124,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
             className="c-textarea"
             placeholder={t("entry.reaction.description.placeholder")}
             rows={3}
-            disabled={state === RequestState.loading}
+            disabled={mutation.isLoading}
             {...reactionDescription.input.props}
             {...form.textarea(Form.reactionDescription.pattern)}
             {...metaEnterSubmit}
@@ -140,7 +132,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
 
           <div data-stack="x" data-main="end" data-gap="5">
             <UI.ButtonCancel
-              disabled={state === RequestState.loading}
+              disabled={mutation.isLoading}
               onClick={exec([reactionDescription.clear, reactionDescriptionEdit.disable])}
             />
 
@@ -148,7 +140,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
               type="submit"
               className="c-button"
               data-variant="primary"
-              disabled={reactionDescription.unchanged || state === RequestState.loading}
+              disabled={reactionDescription.unchanged || mutation.isLoading}
               {...Rhythm().times(8).style.minWidth}
             >
               {t("app.save")}

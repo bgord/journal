@@ -1,34 +1,23 @@
 import { useTranslations } from "@bgord/ui";
 import { CheckCircle, WarningCircle } from "iconoir-react";
-import { useState } from "react";
 import { rootRoute } from "../router";
-import { RequestState } from "../ui";
+import { useMutation } from "../sections/use-mutation";
 
 export function ProfilePasswordChange() {
   const t = useTranslations();
 
   const { session } = rootRoute.useLoaderData();
-  const [state, setState] = useState<RequestState>(RequestState.idle);
 
-  async function passwordChange(event: React.FormEvent) {
-    event.preventDefault();
-
-    if (state === RequestState.loading) return;
-
-    setState(RequestState.loading);
-
-    const response = await fetch("/api/auth/request-password-reset", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: session.user.email, redirectTo: "/reset-password" }),
-    });
-
-    if (!response.ok) return setState(RequestState.error);
-
-    setState(RequestState.done);
-    setTimeout(() => setState(RequestState.idle), 5000);
-  }
+  const mutation = useMutation({
+    perform: () =>
+      fetch("/api/auth/request-password-reset", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: session.user.email, redirectTo: "/reset-password" }),
+      }),
+    autoResetDelayMs: 5000,
+  });
 
   return (
     <section data-stack="y" data-gap="5">
@@ -38,19 +27,17 @@ export function ProfilePasswordChange() {
         {t("auth.change_password.desc")}
       </div>
 
-      <form data-stack="x" data-gap="3" onSubmit={passwordChange} aria-busy={state === RequestState.loading}>
+      <form data-stack="x" data-gap="3" onSubmit={mutation.handleSubmit} aria-busy={mutation.isLoading}>
         <button
           className="c-button"
           data-variant="secondary"
           type="submit"
-          disabled={[RequestState.loading, RequestState.done].includes(state)}
+          disabled={mutation.isLoading || mutation.isDone}
         >
-          {state === RequestState.loading
-            ? t("auth.change_password.sending")
-            : t("auth.change_password.send_cta")}
+          {mutation.isLoading ? t("auth.change_password.sending") : t("auth.change_password.send_cta")}
         </button>
 
-        {state === RequestState.done && (
+        {mutation.isDone && (
           <output
             aria-live="polite"
             data-stack="x"
@@ -64,7 +51,7 @@ export function ProfilePasswordChange() {
           </output>
         )}
 
-        {state === RequestState.error && (
+        {mutation.isError && (
           <output
             aria-live="assertive"
             data-stack="x"

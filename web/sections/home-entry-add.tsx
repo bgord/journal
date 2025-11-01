@@ -18,12 +18,11 @@ import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import { ButtonCancel, ButtonClose, RatingPillsClickable, Select, Separator } from "../components";
 import { homeRoute } from "../router";
-import { RequestState } from "../ui";
+import { useMutation } from "../sections/use-mutation";
 
 export function HomeEntryAdd() {
   const t = useTranslations();
   const router = useRouter();
-  const [state, setState] = useState<RequestState>(RequestState.idle);
   const dialog = useToggle({ name: "dialog" });
 
   const timeCapsuleMode = useToggle({ name: "timeCapsuleMode" });
@@ -42,40 +41,35 @@ export function HomeEntryAdd() {
 
   useShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
-  async function addEntry(event: React.FormEvent) {
-    event.preventDefault();
+  const mutation = useMutation({
+    perform: () => {
+      const payload = {
+        intent: timeCapsuleMode.on ? "time_capsule_entry_add" : "entry_add",
+        scheduledFor: timeCapsuleMode.on ? scheduledFor.value : null,
+        situationDescription: situationDescription.value,
+        situationKind: situationKind.value,
+        emotionLabel: emotionLabel.value,
+        emotionIntensity: emotionIntensity.value,
+        reactionDescription: reactionDescription.value,
+        reactionType: reactionType.value,
+        reactionEffectiveness: reactionEffectiveness.value,
+      };
 
-    const payload = {
-      intent: timeCapsuleMode.on ? "time_capsule_entry_add" : "entry_add",
-      scheduledFor: timeCapsuleMode.on ? scheduledFor.value : null,
-      situationDescription: situationDescription.value,
-      situationKind: situationKind.value,
-      emotionLabel: emotionLabel.value,
-      emotionIntensity: emotionIntensity.value,
-      reactionDescription: reactionDescription.value,
-      reactionType: reactionType.value,
-      reactionEffectiveness: reactionEffectiveness.value,
-    };
+      const url =
+        payload.intent === "entry_add" ? "/api/entry/log" : "/api/entry/time-capsule-entry/schedule";
 
-    if (state === RequestState.loading) return;
-
-    setState(RequestState.loading);
-
-    const url = payload.intent === "entry_add" ? "/api/entry/log" : "/api/entry/time-capsule-entry/schedule";
-
-    const response = await fetch(url, {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify(payload),
-      headers: TimeZoneOffset.get(),
-    });
-
-    if (!response.ok) return setState(RequestState.error);
-
-    setState(RequestState.done);
-    router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
-    dialog.disable();
-  }
+      return fetch(url, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(payload),
+        headers: TimeZoneOffset.get(),
+      });
+    },
+    onSuccess: () => {
+      router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
+      dialog.disable();
+    },
+  });
 
   return (
     <>
@@ -95,10 +89,10 @@ export function HomeEntryAdd() {
             <Book data-size="md" data-color="neutral-300" />
             {t("entry.new.label")}
           </strong>
-          <ButtonClose disabled={state === RequestState.loading} onClick={dialog.disable} />
+          <ButtonClose disabled={mutation.isLoading} onClick={dialog.disable} />
         </div>
 
-        <form data-stack="y" data-gap="5" data-mt="5" data-width="100%" onSubmit={addEntry}>
+        <form data-stack="y" data-gap="5" data-mt="5" data-width="100%" onSubmit={mutation.handleSubmit}>
           <textarea
             className="c-textarea"
             placeholder={t("entry.situation.description.label")}
@@ -229,19 +223,19 @@ export function HomeEntryAdd() {
           </div>
 
           <div data-stack="x" data-main="end" data-gap="5">
-            {state === RequestState.error && (
+            {mutation.isError && (
               <output data-mr="auto" data-color="danger-400">
                 {t("entry.new.error")}
               </output>
             )}
 
-            <ButtonCancel disabled={state === RequestState.loading} onClick={dialog.disable} />
+            <ButtonCancel disabled={mutation.isLoading} onClick={dialog.disable} />
 
             <button
               type="submit"
               className="c-button"
               data-variant="primary"
-              disabled={state === RequestState.loading}
+              disabled={mutation.isLoading}
               {...Rhythm().times(10).style.width}
             >
               {t("entry.new.cta_primary")}

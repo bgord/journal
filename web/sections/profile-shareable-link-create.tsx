@@ -9,7 +9,6 @@ import {
 } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { HelpCircle, Plus, ShareIos } from "iconoir-react";
-import { useState } from "react";
 import {
   Form,
   type ShareableLinkDuration,
@@ -17,12 +16,11 @@ import {
 } from "../../app/services/create-shareable-link-form";
 import { ButtonCancel, ButtonClose, Select } from "../components";
 import { profileRoute } from "../router";
-import { RequestState } from "../ui";
+import { useMutation } from "../sections/use-mutation";
 
 export function ProfileShareableLinkCreate() {
   const t = useTranslations();
   const router = useRouter();
-  const [state, setState] = useState<RequestState>(RequestState.idle);
 
   const dialog = useToggle({ name: "dialog" });
 
@@ -31,30 +29,23 @@ export function ProfileShareableLinkCreate() {
   const dateRangeStart = useDateField(Form.dateRangeStart.field);
   const dateRangeEnd = useDateField(Form.dateRangeEnd.field);
 
-  async function createShareableLink(event: React.FormEvent) {
-    event.preventDefault();
-
-    if (state === RequestState.loading) return;
-
-    setState(RequestState.loading);
-
-    const response = await fetch("/api/publishing/link/create", {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify({
-        publicationSpecification: specification.value,
-        durationMs: Form.duration.map[duration.value ?? Form.duration.field.defaultValue],
-        dateRangeStart: dateRangeStart.value,
-        dateRangeEnd: dateRangeEnd.value,
+  const mutation = useMutation({
+    perform: () =>
+      fetch("/api/publishing/link/create", {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({
+          publicationSpecification: specification.value,
+          durationMs: Form.duration.map[duration.value ?? Form.duration.field.defaultValue],
+          dateRangeStart: dateRangeStart.value,
+          dateRangeEnd: dateRangeEnd.value,
+        }),
       }),
-    });
-
-    if (!response.ok) return setState(RequestState.error);
-
-    router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true });
-    setState(RequestState.done);
-    dialog.disable();
-  }
+    onSuccess: () => {
+      router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true });
+      dialog.disable();
+    },
+  });
 
   useShortcuts({ "$mod+Control+KeyN": dialog.enable });
 
@@ -77,10 +68,10 @@ export function ProfileShareableLinkCreate() {
             <ShareIos data-size="md" data-color="neutral-300" />
             {t("profile.shareable_links.create.label")}
           </strong>
-          <ButtonClose disabled={state === RequestState.loading} onClick={dialog.disable} />
+          <ButtonClose disabled={mutation.isLoading} onClick={dialog.disable} />
         </div>
 
-        <form onSubmit={createShareableLink} data-stack="y" data-gap="8" data-color="neutral-100">
+        <form onSubmit={mutation.handleSubmit} data-stack="y" data-gap="8" data-color="neutral-100">
           <div data-stack="y" data-gap="1">
             <label className="c-label">{t("profile.shareable_links.create.duration.label")}</label>
 
@@ -92,7 +83,7 @@ export function ProfileShareableLinkCreate() {
                   className="c-button"
                   data-variant={duration.value === option ? "secondary" : "bare"}
                   onClick={() => duration.set(option as ShareableLinkDuration)}
-                  disabled={state === RequestState.loading}
+                  disabled={mutation.isLoading}
                   {...Rhythm().times(9).style.width}
                 >
                   {t(`profile.shareable_links.create.duration.${option}.value`)}
@@ -107,7 +98,7 @@ export function ProfileShareableLinkCreate() {
             </label>
 
             <div data-stack="x" data-gap="5">
-              <Select required disabled={state === RequestState.loading} {...specification.input.props}>
+              <Select required disabled={mutation.isLoading} {...specification.input.props}>
                 {Form.specification.options.map((specification) => (
                   <option key={specification} value={specification}>
                     {t(`profile.shareable_links.create.specification.${specification}.value`)}
@@ -131,7 +122,7 @@ export function ProfileShareableLinkCreate() {
                 type="date"
                 required
                 max={dateRangeEnd.value}
-                disabled={state === RequestState.loading}
+                disabled={mutation.isLoading}
                 {...dateRangeStart.input.props}
               />
               -
@@ -139,14 +130,14 @@ export function ProfileShareableLinkCreate() {
                 className="c-input"
                 required
                 type="date"
-                disabled={state === RequestState.loading}
+                disabled={mutation.isLoading}
                 {...dateRangeEnd.input.props}
               />
             </div>
           </div>
 
           <div data-stack="x" data-main="between" data-cross="center" data-gap="5">
-            {state === RequestState.error && (
+            {mutation.isError && (
               <output
                 aria-live="assertive"
                 data-fs="sm"
@@ -158,14 +149,9 @@ export function ProfileShareableLinkCreate() {
             )}
 
             <div data-stack="x" data-gap="5" data-ml="auto">
-              <ButtonCancel onClick={dialog.disable} disabled={state === RequestState.loading} />
+              <ButtonCancel onClick={dialog.disable} disabled={mutation.isLoading} />
 
-              <button
-                type="submit"
-                className="c-button"
-                data-variant="primary"
-                disabled={state === RequestState.loading}
-              >
+              <button type="submit" className="c-button" data-variant="primary" disabled={mutation.isLoading}>
                 {t("profile.shareable_links.create.cta_secondary")}
               </button>
             </div>
