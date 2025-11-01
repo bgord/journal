@@ -1,10 +1,10 @@
 import { Clipboard } from "@bgord/ui";
 import { Check, Copy } from "iconoir-react";
 import { useState } from "react";
-import { RequestState } from "../sections/use-mutation";
+import { MutationState } from "../sections/use-mutation";
 
 export function ButtonCopy(props: { text: string }) {
-  const [state, setState] = useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<MutationState>(MutationState.idle);
 
   return (
     <button
@@ -12,15 +12,15 @@ export function ButtonCopy(props: { text: string }) {
       className="c-button"
       data-variant="with-icon"
       onClick={async () => {
-        if (state === RequestState.done) return;
+        if (state === MutationState.done) return;
 
         await Clipboard.copy({ text: props.text });
-        setState(RequestState.done);
-        setTimeout(() => setState(RequestState.idle), 1500);
+        setState(MutationState.done);
+        setTimeout(() => setState(MutationState.idle), 1500);
       }}
     >
-      {state === RequestState.idle && <Copy data-size="md" data-animation="grow-fade-in" />}
-      {state === RequestState.done && (
+      {state === MutationState.idle && <Copy data-size="md" data-animation="grow-fade-in" />}
+      {state === MutationState.done && (
         <Check data-size="md" data-color="positive-400" data-animation="grow-fade-in" />
       )}
     </button>

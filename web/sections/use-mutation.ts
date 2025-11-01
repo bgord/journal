@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export enum RequestState {
+export enum MutationState {
   idle = "idle",
   loading = "loading",
   error = "error",
@@ -15,7 +15,7 @@ type UseMutationOptions = {
 };
 
 type UseMutationReturnType = {
-  state: RequestState;
+  state: MutationState;
   error: unknown;
   isIdle: boolean;
   isLoading: boolean;
@@ -27,39 +27,39 @@ type UseMutationReturnType = {
 };
 
 export function useMutation(options: UseMutationOptions): UseMutationReturnType {
-  const [state, setState] = useState<RequestState>(RequestState.idle);
+  const [state, setState] = useState<MutationState>(MutationState.idle);
   const [error, setError] = useState<unknown>(null);
 
   const reset = useCallback(() => {
     setError(null);
-    setState(RequestState.idle);
+    setState(MutationState.idle);
   }, []);
 
   const mutate = useCallback(async () => {
-    if (state === RequestState.loading) return;
+    if (state === MutationState.loading) return;
 
     setError(null);
-    setState(RequestState.loading);
+    setState(MutationState.loading);
 
     try {
       const response = await options.perform();
 
       if (!response.ok) {
-        setState(RequestState.error);
+        setState(MutationState.error);
         setError(null);
         await options.onError?.(null);
       }
 
-      setState(RequestState.done);
+      setState(MutationState.done);
       await options.onSuccess?.(response);
 
       if (options.autoResetDelayMs) {
-        setTimeout(() => setState(RequestState.idle), options.autoResetDelayMs);
+        setTimeout(() => setState(MutationState.idle), options.autoResetDelayMs);
       }
 
       return response;
     } catch (error) {
-      setState(RequestState.error);
+      setState(MutationState.error);
       setError(error);
       await options.onError?.(error);
       throw error;
@@ -77,10 +77,10 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
   return {
     state,
     error,
-    isIdle: state === RequestState.idle,
-    isLoading: state === RequestState.loading,
-    isError: state === RequestState.error,
-    isDone: state === RequestState.done,
+    isIdle: state === MutationState.idle,
+    isLoading: state === MutationState.loading,
+    isError: state === MutationState.error,
+    isDone: state === MutationState.done,
     mutate,
     handleSubmit,
     reset,
