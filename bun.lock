@@ -8,7 +8,7 @@
         "@bgord/bun": "1.0.11",
         "@bgord/design": "1.4.9",
         "@bgord/tools": "1.0.5",
-        "@bgord/ui": "0.8.1",
+        "@bgord/ui": "0.8.2",
         "@react-pdf/renderer": "4.3.1",
         "@tanstack/react-router": "1.134.4",
         "better-auth": "1.3.34",
@@ -114,7 +114,7 @@
 
     "@bgord/tools": ["@bgord/tools@1.0.5", "", { "dependencies": { "date-fns": "4.1.0", "mime-types": "3.0.1" }, "peerDependencies": { "zod": "4.1.12" } }, "sha512-Vn2/1WYSULH/BllRSJoEIuJUOKPkDrU8ChWtcnBkxVCXeTWRl+/j058p0s3LGGkiQAJ4Bt41JUjR10qwyiGKFw=="],
 
-    "@bgord/ui": ["@bgord/ui@0.8.1", "", { "dependencies": { "js-cookie": "3.0.5", "polish-plurals": "1.1.0", "tinykeys": "3.0.0" }, "peerDependencies": { "react": "19.2.0", "react-dom": "19.2.0" } }, "sha512-mbyNgxJc1o+JhyAZYpy4SBoIpNXr9zxtBOWE0QpIJVrn4hEY5tEeZHtJwS217N6S/F6ucl6U7H3p90aABcRxyw=="],
+    "@bgord/ui": ["@bgord/ui@0.8.2", "", { "dependencies": { "js-cookie": "3.0.5", "polish-plurals": "1.1.0", "tinykeys": "3.0.0" }, "peerDependencies": { "react": "19.2.0", "react-dom": "19.2.0" } }, "sha512-//R18p+eKlkjCxhgjDt0vs0zrhbK66ioP6pOxbjKJAiIF1Gzbebd/MOQmezjiIFlA5phYIGkGqRUbiFPn6rIEw=="],
 
     "@biomejs/biome": ["@biomejs/biome@2.3.2", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "2.3.2", "@biomejs/cli-darwin-x64": "2.3.2", "@biomejs/cli-linux-arm64": "2.3.2", "@biomejs/cli-linux-arm64-musl": "2.3.2", "@biomejs/cli-linux-x64": "2.3.2", "@biomejs/cli-linux-x64-musl": "2.3.2", "@biomejs/cli-win32-arm64": "2.3.2", "@biomejs/cli-win32-x64": "2.3.2" }, "bin": { "biome": "bin/biome" } }, "sha512-8e9tzamuDycx7fdrcJ/F/GDZ8SYukc5ud6tDicjjFqURKYFSWMl0H0iXNXZEGmcmNUmABgGuHThPykcM41INgg=="],
 
