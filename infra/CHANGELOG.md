@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-01 23:48 56cef1e6 **fix: version**
+## 2025-11-01 23:48 
 - 2025-11-01 23:46 f4f1cdd0 **fix: playwright path**
-## 2025-11-01 23:46 
 - 2025-11-01 23:41 f06cf825 **step: add playwright cache**
 - 2025-11-01 23:37 6ebb2f57 **step: bump bgord/scripts**
 - 2025-11-01 23:32 7850ad9d **step: bump bgord/scripts**
@@ -11,6 +12,7 @@
 - 2025-11-01 23:00 0a08e928 **step: enable build prechecks**
 - 2025-11-01 22:55 8efa0d45 **step: update packages**
 - 2025-11-01 22:51 3dd8e229 **step: simplify button link**
+- 2025-11-01 22:46 bf6781a9 **docs: generate CHANGELOG**
 - 2025-11-01 22:42 c59285d8 **docs: generate CHANGELOG**
 - 2025-11-01 22:41 a1baf64c **step: bump bgord/scripts**
 - 2025-11-01 22:41 24e77346 **step: reordeing**
