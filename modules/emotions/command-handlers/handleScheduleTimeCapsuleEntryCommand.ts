@@ -11,10 +11,8 @@ type Dependencies = {
 
 export const handleScheduleTimeCapsuleEntryCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.ScheduleTimeCapsuleEntryCommandType) => {
-    const now = deps.Clock.nowMs();
-
     Emotions.Invariants.TimeCapsuleEntryScheduledInFuture.perform({
-      now,
+      now: deps.Clock.now(),
       scheduledFor: command.payload.scheduledFor,
     });
 

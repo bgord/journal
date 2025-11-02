@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import type * as tools from "@bgord/tools";
+import * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 class TimeCapsuleEntryScheduledInFutureError extends Error {
@@ -10,13 +10,13 @@ class TimeCapsuleEntryScheduledInFutureError extends Error {
 }
 
 type TimeCapsuleEntryScheduledInFutureConfigType = {
-  now: tools.TimestampType;
-  scheduledFor: tools.TimestampType;
+  now: tools.TimestampVO;
+  scheduledFor: tools.TimestampValueType;
 };
 
 class TimeCapsuleEntryScheduledInFutureFactory extends bg.Invariant<TimeCapsuleEntryScheduledInFutureConfigType> {
   fails(config: TimeCapsuleEntryScheduledInFutureConfigType) {
-    return config.now >= config.scheduledFor;
+    return config.now.isAfterOrEqual(tools.TimestampVO.fromValue(config.scheduledFor));
   }
 
   message = "TimeCapsuleEntryScheduledInFuture";
