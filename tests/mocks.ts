@@ -99,7 +99,7 @@ const client = bg.Client.from(ip.server.requestIP().address, "anon");
 export const visitorId = new bg.VisitorIdHashAdapter(client);
 export const visitorIdRaw = "cbc46a7ff4f622ab";
 
-export const accessContext: Publishing.VO.AccessContext = { timestamp: T0, visitorId };
+export const accessContext: Publishing.VO.AccessContext = { timestamp: T0.ms, visitorId };
 
 export const aiRequestRegisteredTimestamp = T0;
 
@@ -575,7 +575,7 @@ export const GenericShareableLinkAccessedAcceptedEvent = {
     publicationSpecification,
     validity: Publishing.VO.AccessValidity.accepted,
     visitorId: visitorIdRaw,
-    timestamp: accessContext.timestamp.ms,
+    timestamp: accessContext.timestamp,
     reason: "active",
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
@@ -593,7 +593,7 @@ export const GenericShareableLinkAccessedExpiredEvent = {
     publicationSpecification,
     validity: Publishing.VO.AccessValidity.rejected,
     visitorId: visitorIdRaw,
-    timestamp: accessContext.timestamp.ms,
+    timestamp: accessContext.timestamp,
     reason: "expired",
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
@@ -611,7 +611,7 @@ export const GenericShareableLinkAccessedRevokedEvent = {
     publicationSpecification,
     validity: Publishing.VO.AccessValidity.rejected,
     visitorId: visitorIdRaw,
-    timestamp: accessContext.timestamp.ms,
+    timestamp: accessContext.timestamp,
     reason: "revoked",
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
@@ -629,7 +629,7 @@ export const GenericShareableLinkAccessedWrongSpecEvent = {
     publicationSpecification: anotherPublicationSpecification,
     validity: Publishing.VO.AccessValidity.rejected,
     visitorId: visitorIdRaw,
-    timestamp: accessContext.timestamp.ms,
+    timestamp: accessContext.timestamp,
     reason: "wrong_specification_publication",
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
