@@ -14,6 +14,6 @@ type DimensionsOf<Category extends UsageCategory> = (typeof CategoryDimensionMap
 export type RequestContext<Category extends UsageCategory = UsageCategory> = {
   category: Category;
   userId: Auth.UserIdType;
-  timestamp: tools.TimestampType;
+  timestamp: tools.TimestampValueType;
   dimensions: DimensionsOf<Category>;
 };
