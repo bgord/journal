@@ -5,7 +5,7 @@ import type * as VO from "+emotions/value-objects";
 export type TimeCapsuleEntrySnapshot = {
   id: VO.EntryIdType;
   userId: Auth.VO.UserIdType;
-  scheduledFor: tools.TimestampType;
+  scheduledFor: tools.TimestampValueType;
   status: VO.TimeCapsuleEntryStatusEnum;
   situationDescription: VO.SituationDescriptionType;
   situationKind: VO.SituationKindOptions;
@@ -17,5 +17,5 @@ export type TimeCapsuleEntrySnapshot = {
 };
 
 export interface TimeCapsuleDueEntriesPort {
-  listDue(now: tools.TimestampType): Promise<TimeCapsuleEntrySnapshot[]>;
+  listDue(now: tools.TimestampVO): Promise<TimeCapsuleEntrySnapshot[]>;
 }
