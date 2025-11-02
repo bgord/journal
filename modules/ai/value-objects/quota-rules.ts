@@ -10,7 +10,7 @@ export const USER_DAILY_RULE: QuotaRule = {
   window: new QuotaWindow(QuotaWindowEnum.DAY),
   limit: QuotaLimit.parse(10),
   bucket: (context) =>
-    `user:${context.userId}:day:${tools.Day.fromTimestamp(tools.TimestampVO.fromValue(context.timestamp)).toIsoId()}`,
+    `user:${context.userId}:day:${tools.Day.fromTimestampValue(context.timestamp).toIsoId()}`,
   appliesTo: (_category) => true,
 };
 
@@ -20,7 +20,7 @@ export const EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY_RULE: QuotaRule = {
   window: new QuotaWindow(QuotaWindowEnum.WEEK),
   limit: QuotaLimit.parse(1),
   bucket: (context) =>
-    `user:${context.userId}:week:${tools.Week.fromTimestamp(tools.TimestampVO.fromValue(context.timestamp)).toIsoId()}:${UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT}`,
+    `user:${context.userId}:week:${tools.Week.fromTimestampValue(context.timestamp).toIsoId()}:${UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT}`,
   appliesTo: (category) => category === UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
 };
 
@@ -30,7 +30,7 @@ export const EMOTIONS_ALARM_INACTIVITY_WEEKLY_RULE: QuotaRule = {
   window: new QuotaWindow(QuotaWindowEnum.WEEK),
   limit: QuotaLimit.parse(1),
   bucket: (context) =>
-    `user:${context.userId}:week:${tools.Week.fromTimestamp(tools.TimestampVO.fromValue(context.timestamp)).toIsoId()}:${UsageCategory.EMOTIONS_ALARM_INACTIVITY}`,
+    `user:${context.userId}:week:${tools.Week.fromTimestampValue(context.timestamp).toIsoId()}:${UsageCategory.EMOTIONS_ALARM_INACTIVITY}`,
   appliesTo: (category) => category === UsageCategory.EMOTIONS_ALARM_INACTIVITY,
 };
 
