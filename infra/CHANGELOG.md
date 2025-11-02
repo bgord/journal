@@ -1,6 +1,8 @@
 # Changelog
+- 2025-11-02 23:04 0e82b3e0 **refactor: rename timestamp vo**
+## 2025-11-02 23:04 
+- 2025-11-02 23:03 a391417f **step: update packages**
 - 2025-11-02 22:53 78f2f9d4 **Merge pull request #51 from bgord/timestamp**
-## 2025-11-02 22:53 
 - 2025-11-02 22:52 cb3c450c **step: simplify projectors**
 - 2025-11-02 22:43 f0594438 **refactor: simplify weekly review scheduler**
 - 2025-11-02 22:39 27f20c83 **refactor: simplify weekly review schedule**
@@ -11,6 +13,7 @@
 - 2025-11-02 22:21 9a981632 **refactor: simplify get shared entries**
 - 2025-11-02 22:17 01b383ff **refactor: adjust from timestamp**
 - 2025-11-02 22:15 a42bfae0 **step: update packages**
+- 2025-11-02 21:53 8ee838c5 **docs: generate CHANGELOG**
 - 2025-11-02 21:45 dc17d9a3 **fix: tests**
 - 2025-11-02 21:45 7f7c120e **step: change to be to to equal**
 - 2025-11-02 21:40 af145ec7 **step: adjust tests**
