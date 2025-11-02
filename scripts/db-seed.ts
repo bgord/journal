@@ -149,7 +149,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         Emotions.VO.AlarmTrigger.parse({
           type: Emotions.VO.AlarmTriggerEnum.inactivity,
           inactivityDays: 7,
-          lastEntryTimestamp: now.subtract(tools.Duration.Days(10)),
+          lastEntryTimestamp: now.subtract(tools.Duration.Days(10)).ms,
         }),
         Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
       ),
