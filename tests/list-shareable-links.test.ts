@@ -11,7 +11,7 @@ describe(`GET ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
-    expect(response.status).toBe(403);
+    expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
 
@@ -22,7 +22,7 @@ describe(`GET ${url}`, () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
 
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(json).toEqual([mocks.shareableLinkSnapshot]);
   });
 });

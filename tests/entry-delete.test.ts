@@ -14,7 +14,7 @@ describe(`DELETE ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "DELETE" }, mocks.ip);
     const json = await response.json();
-    expect(response.status).toBe(403);
+    expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
 
@@ -26,7 +26,7 @@ describe(`DELETE ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
 
@@ -66,7 +66,7 @@ describe(`DELETE ${url}`, () => {
       { method: "DELETE", headers: mocks.correlationIdAndRevisionHeaders() },
       mocks.ip,
     );
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
   });
 
@@ -84,7 +84,7 @@ describe(`DELETE ${url}`, () => {
       { method: "DELETE", headers: mocks.correlationIdAndRevisionHeaders() },
       mocks.ip,
     );
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
   });
 
@@ -103,7 +103,7 @@ describe(`DELETE ${url}`, () => {
       { method: "DELETE", headers: mocks.correlationIdAndRevisionHeaders() },
       mocks.ip,
     );
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryDeletedEvent]);
   });
 });
