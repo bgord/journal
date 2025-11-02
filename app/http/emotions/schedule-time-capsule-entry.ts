@@ -11,7 +11,7 @@ const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
-  const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
+  const timeZoneOffsetMs = c.get("timeZoneOffset");
 
   const entryId = deps.IdProvider.generate();
 
@@ -32,9 +32,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   );
 
   const now = deps.Clock.nowMs();
-  const scheduledFor = tools.Timestamp.parse(
-    tools.Day.fromIsoId(body.scheduledFor).getStart() + timeZoneOffsetMs,
-  );
+  const scheduledFor = tools.Day.fromIsoId(body.scheduledFor).getStart().add(timeZoneOffsetMs).ms;
 
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
     ...bg.createCommandEnvelope(deps),
