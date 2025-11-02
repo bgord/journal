@@ -378,7 +378,7 @@ app/
 infra/
 ├── adapters
 │   ├── ai
-│   │   ├── ai-client-antrhopic.adapter.ts
+│   │   ├── ai-client-anthropic.adapter.ts
 │   │   ├── ai-client-noop.adapter.ts
 │   │   ├── ai-client-open-ai.adapter.ts
 │   │   ├── ai-client.adapter.ts
