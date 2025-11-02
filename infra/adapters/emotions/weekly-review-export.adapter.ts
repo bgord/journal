@@ -105,12 +105,12 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
   static format(result: WeeklyReviewExportDrizzleResultType) {
     return {
       ...result,
-      createdAt: result.createdAt as tools.TimestampType,
+      createdAt: tools.TimestampValue.parse(result.createdAt),
       status: result.status as VO.WeeklyReviewStatusEnum,
       weekIsoId: tools.WeekIsoId.parse(result.weekIsoId),
       entries: result.entries.map((entry) => ({
         ...entry,
-        startedAt: tools.Timestamp.parse(entry.startedAt),
+        startedAt: tools.TimestampValue.parse(entry.startedAt),
         situationKind: entry.situationKind as VO.SituationKindOptions,
         emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
         reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
@@ -123,8 +123,8 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
         ...alarm,
         name: alarm.name as VO.AlarmNameOption,
         advice: alarm.advice as VO.AlarmSnapshot["advice"],
-        generatedAt: alarm.generatedAt as tools.TimestampType,
-        lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampType | null,
+        generatedAt: tools.TimestampValue.parse(alarm.generatedAt),
+        lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
         emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
       })),
     };
