@@ -22,7 +22,7 @@ export class ShareableLink {
   private ownerId?: Auth.VO.UserIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);
   private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.active;
-  private createdAt?: tools.TimestampType;
+  private createdAt?: tools.TimestampValueType;
   private durationMs?: tools.DurationMsType;
   private dateRange?: tools.DateRange;
   private publicationSpecification?: VO.PublicationSpecificationType;
@@ -64,8 +64,8 @@ export class ShareableLink {
       payload: {
         shareableLinkId: id,
         ownerId: requesterId,
-        dateRangeStart: dateRange.getStart(),
-        dateRangeEnd: dateRange.getEnd(),
+        dateRangeStart: dateRange.getStart().ms,
+        dateRangeEnd: dateRange.getEnd().ms,
         publicationSpecification,
         durationMs,
         createdAt: deps.Clock.nowMs(),
@@ -81,7 +81,7 @@ export class ShareableLink {
     Invariants.ShareableLinkIsActive.perform({ status: this.status });
     Invariants.ShareableLinkExpirationTimePassed.perform({
       durationMs: this.durationMs,
-      now: this.deps.Clock.nowMs(),
+      now: this.deps.Clock.now(),
       createdAt: this.createdAt,
     });
 
@@ -151,10 +151,13 @@ export class ShareableLink {
       case Events.SHAREABLE_LINK_CREATED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.durationMs = event.payload.durationMs;
-        this.createdAt = tools.Timestamp.parse(event.payload.createdAt);
+        this.createdAt = event.payload.createdAt;
         this.ownerId = event.payload.ownerId;
         this.status = VO.ShareableLinkStatusEnum.active;
-        this.dateRange = new tools.DateRange(event.payload.dateRangeStart, event.payload.dateRangeEnd);
+        this.dateRange = new tools.DateRange(
+          tools.TimestampVO.fromValue(event.payload.dateRangeStart),
+          tools.TimestampVO.fromValue(event.payload.dateRangeEnd),
+        );
         this.publicationSpecification = event.payload.publicationSpecification;
         break;
       }
