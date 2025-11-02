@@ -15,6 +15,7 @@ export const handleGenerateAlarmCommand =
       Emotions.ACL.createAlarmRequestContext(
         deps,
         command.payload.userId,
+        // @ts-expect-error
         command.payload.detection.trigger.entryId,
       ),
     );
