@@ -45,7 +45,7 @@ describe("ShareableLink", () => {
 
   test("expire - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(Adapters.Clock, "nowMs").mockReturnValueOnce(mocks.T0.add(tools.Duration.Hours(1)).ms);
+    spyOn(Adapters.Clock, "now").mockReturnValueOnce(mocks.T0.add(tools.Duration.Hours(1)));
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.shareableLinkId,
       [mocks.GenericShareableLinkCreatedEvent],

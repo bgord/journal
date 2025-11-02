@@ -53,7 +53,7 @@ describe("TimeCapsuleEntriesScheduler", () => {
   });
 
   test("correct path", async () => {
-    spyOn(Adapters.Clock, "nowMs").mockReturnValueOnce(mocks.timeCapsuleEntryScheduledFor.ms);
+    spyOn(Adapters.Clock, "now").mockReturnValueOnce(mocks.timeCapsuleEntryScheduledFor);
     spyOn(Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([mocks.timeCapsuleEntry]);
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 

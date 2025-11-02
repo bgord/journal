@@ -80,7 +80,7 @@ describe("WeeklyReviewProcessing", () => {
     expect(aiGatewayQuery).toHaveBeenCalledWith(new AI.Prompt("Generate insights for these 1 entries."), {
       category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
       userId: mocks.userId,
-      timestamp: mocks.aiRequestRegisteredTimestamp,
+      timestamp: mocks.aiRequestRegisteredTimestamp.ms,
       dimensions: {},
     });
     expect(eventStoreSave).toHaveBeenNthCalledWith(1, [
@@ -103,7 +103,7 @@ describe("WeeklyReviewProcessing", () => {
     expect(aiGatewayQuery).toHaveBeenCalledWith(new AI.Prompt("Podsumuj te 1 wpisów."), {
       category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
       userId: mocks.userId,
-      timestamp: mocks.aiRequestRegisteredTimestamp,
+      timestamp: mocks.aiRequestRegisteredTimestamp.ms,
       dimensions: {},
     });
     expect(eventStoreSave).toHaveBeenNthCalledWith(1, [
