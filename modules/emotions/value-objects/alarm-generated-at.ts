@@ -1,4 +1,4 @@
 import * as tools from "@bgord/tools";
 
 /** @public */
-export const AlarmGeneratedAt = tools.Timestamp;
+export const AlarmGeneratedAt = tools.TimestampValue;
