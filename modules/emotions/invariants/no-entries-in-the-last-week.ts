@@ -19,7 +19,7 @@ class NoEntriesInTheLastWeekFactory extends bg.Invariant<NoEntriesInTheLastWeekC
   fails(config: NoEntriesInTheLastWeekConfigType) {
     if (!config.lastEntryTimestamp) return true;
 
-    return config.lastEntryTimestamp.isAfter(
+    return tools.TimestampVO.fromValue(config.lastEntryTimestamp).isAfter(
       tools.TimestampVO.fromValue(config.now).subtract(tools.Duration.Days(7)),
     );
   }

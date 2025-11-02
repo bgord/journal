@@ -14,7 +14,7 @@ class GetLatestEntryTimestampForUserDrizzle implements GetLatestEntryTimestampFo
 
     if (!result[0]?.max) return undefined;
 
-    return tools.Timestamp.parse(result[0].max);
+    return tools.TimestampValue.parse(result[0].max);
   }
 }
 

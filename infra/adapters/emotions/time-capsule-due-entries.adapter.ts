@@ -6,10 +6,10 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class TimeCapsuleDueEntriesDrizzle implements TimeCapsuleDueEntriesPort {
-  async listDue(now: tools.TimestampType) {
+  async listDue(now: tools.TimestampVO) {
     const rows = await db.query.timeCapsuleEntries.findMany({
       where: and(
-        lte(Schema.timeCapsuleEntries.scheduledFor, now),
+        lte(Schema.timeCapsuleEntries.scheduledFor, now.ms),
         eq(Schema.timeCapsuleEntries.status, VO.TimeCapsuleEntryStatusEnum.scheduled),
       ),
       limit: 10,

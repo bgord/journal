@@ -18,7 +18,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
     return {
       ...entry,
       weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
-      startedAt: tools.Timestamp.parse(entry.startedAt),
+      startedAt: tools.TimestampValue.parse(entry.startedAt),
       status: entry.status as VO.EntryStatusEnum,
       situationKind: entry.situationKind as VO.SituationKindOptions,
       emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
@@ -33,8 +33,8 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       .from(Schema.entries)
       .where(
         and(
-          gte(Schema.entries.startedAt, week.getStart()),
-          lte(Schema.entries.startedAt, week.getEnd()),
+          gte(Schema.entries.startedAt, week.getStart().ms),
+          lte(Schema.entries.startedAt, week.getEnd().ms),
           eq(Schema.entries.userId, userId),
         ),
       );
@@ -56,8 +56,8 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       orderBy: desc(Schema.entries.startedAt),
       where: and(
         eq(Schema.entries.userId, userId),
-        gte(Schema.entries.startedAt, dateRange.getStart()),
-        lte(Schema.entries.startedAt, dateRange.getEnd()),
+        gte(Schema.entries.startedAt, dateRange.getStart().ms),
+        lte(Schema.entries.startedAt, dateRange.getEnd().ms),
       ),
     });
 
@@ -67,8 +67,8 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
   async getFormatted(userId: Auth.VO.UserIdType, dateRange: tools.DateRange, query: string) {
     const where = [
       eq(Schema.entries.userId, userId),
-      gte(Schema.entries.startedAt, dateRange.getStart()),
-      lte(Schema.entries.startedAt, dateRange.getEnd()),
+      gte(Schema.entries.startedAt, dateRange.getStart().ms),
+      lte(Schema.entries.startedAt, dateRange.getEnd().ms),
     ];
 
     if (query !== "") {
@@ -98,7 +98,7 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
   static format(entry: Schema.SelectEntries) {
     return {
       ...entry,
-      startedAt: tools.Timestamp.parse(entry.startedAt),
+      startedAt: tools.TimestampValue.parse(entry.startedAt),
       status: entry.status as VO.EntryStatusEnum,
       situationKind: entry.situationKind as VO.SituationKindOptions,
       emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,

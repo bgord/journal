@@ -10,8 +10,8 @@ class EntriesPerWeekCountDrizzle implements EntriesPerWeekCountQuery {
     return db.$count(
       Schema.entries,
       and(
-        gte(Schema.entries.startedAt, week.getStart()),
-        lte(Schema.entries.startedAt, week.getEnd()),
+        gte(Schema.entries.startedAt, week.getStart().ms),
+        lte(Schema.entries.startedAt, week.getEnd().ms),
         eq(Schema.entries.userId, userId),
       ),
     );
