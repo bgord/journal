@@ -6,7 +6,7 @@ import type { ExpiringShareableLinksPort } from "+publishing/ports";
 import * as VO from "+publishing/value-objects";
 
 class ExpiringShareableLinksDrizzle implements ExpiringShareableLinksPort {
-  async listDue(now: tools.TimestampType) {
+  async listDue(now: tools.TimestampValueType) {
     const rows = await db
       .select({ id: Schema.shareableLinks.id, revision: Schema.shareableLinks.revision })
       .from(Schema.shareableLinks)
