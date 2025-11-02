@@ -36,7 +36,7 @@ server.use(
   }),
 );
 
-const startup = new tools.Stopwatch(Adapters.Clock.nowMs());
+const startup = new tools.Stopwatch(Adapters.Clock.now());
 
 // Healthcheck =================
 server.get(
