@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import type * as tools from "@bgord/tools";
+import * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 class ShareableLinkExpirationTimePassedError extends Error {
@@ -10,8 +10,8 @@ class ShareableLinkExpirationTimePassedError extends Error {
 }
 
 type ShareableLinkExpirationTimePassedConfigType = {
-  now: number;
-  createdAt?: tools.TimestampType;
+  now: tools.TimestampVO;
+  createdAt?: tools.TimestampValueType;
   durationMs?: tools.DurationMsType;
 };
 
@@ -19,7 +19,9 @@ class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLin
   fails(config: ShareableLinkExpirationTimePassedConfigType) {
     if (!config.createdAt) return true;
     if (!config.durationMs) return true;
-    return config.createdAt + config.durationMs > config.now;
+    return tools.TimestampVO.fromValue(config.createdAt)
+      .add(tools.Duration.Ms(config.durationMs))
+      .isAfter(config.now);
   }
 
   message = "ShareableLinkExpirationTimePassed";
