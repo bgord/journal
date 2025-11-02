@@ -17,7 +17,7 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>) {
     body.publicationSpecification,
   );
 
-  const durationMs = tools.Duration.Ms(body.durationMs).ms;
+  const duration = tools.Duration.Ms(body.durationMs);
 
   const start = tools.Day.fromIsoId(tools.DayIsoId.parse(body.dateRangeStart)).getStart();
   const end = tools.Day.fromIsoId(tools.DayIsoId.parse(body.dateRangeEnd)).getEnd();
@@ -29,7 +29,7 @@ export async function CreateShareableLink(c: hono.Context<infra.HonoConfig>) {
   const command = Publishing.Commands.CreateShareableLinkCommand.parse({
     ...bg.createCommandEnvelope(deps),
     name: Publishing.Commands.CREATE_SHAREABLE_LINK_COMMAND,
-    payload: { shareableLinkId, requesterId, durationMs, publicationSpecification, dateRange },
+    payload: { shareableLinkId, requesterId, durationMs: duration.ms, publicationSpecification, dateRange },
   } satisfies Publishing.Commands.CreateShareableLinkCommandType);
 
   await CommandBus.emit(command.name, command);
