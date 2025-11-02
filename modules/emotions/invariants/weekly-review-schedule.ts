@@ -9,12 +9,13 @@ class WeeklyReviewScheduleError extends Error {
   }
 }
 
-type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampVO };
+type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampValueType };
 
 class WeeklyReviewScheduleFactory extends bg.Invariant<WeeklyReviewScheduleConfigType> {
   fails(config: WeeklyReviewScheduleConfigType) {
-    const weekday = tools.Weekday.fromUtcTimestamp(config.timestamp);
-    const hour = tools.Hour.fromEpochMs(config.timestamp);
+    const now = tools.TimestampVO.fromValue(config.timestamp);
+    const weekday = tools.Weekday.fromUtcTimestamp(now);
+    const hour = tools.Hour.fromEpochMs(now);
 
     const sixPM = new tools.Hour(18);
 
