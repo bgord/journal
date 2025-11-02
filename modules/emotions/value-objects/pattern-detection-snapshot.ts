@@ -6,7 +6,7 @@ import type { PatternNameOption } from "./pattern-name-option";
 export type PatternDetectionSnapshot = {
   id: bg.UUIDType;
   name: PatternNameOption;
-  createdAt: tools.TimestampType;
+  createdAt: tools.TimestampValueType;
   userId: Auth.UserIdType;
   weekIsoId: tools.WeekIsoIdType;
 };

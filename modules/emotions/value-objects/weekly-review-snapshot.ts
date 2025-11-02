@@ -6,7 +6,7 @@ import type { WeeklyReviewStatusEnum } from "./weekly-review-status";
 
 export type WeeklyReviewSnapshot = {
   id: bg.UUIDType;
-  createdAt: tools.TimestampType;
+  createdAt: tools.TimestampValueType;
   weekIsoId: tools.WeekIsoIdType;
   userId: Auth.UserIdType;
   insights: AI.AdviceType | null;

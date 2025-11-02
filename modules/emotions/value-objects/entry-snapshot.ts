@@ -13,7 +13,7 @@ import type { SituationKindOptions } from "./situation-kind-options";
 
 export type EntrySnapshot = {
   revision: tools.RevisionValueType;
-  startedAt: tools.TimestampType;
+  startedAt: tools.TimestampValueType;
   status: EntryStatusEnum;
   id: EntryIdType;
   situationDescription: SituationDescriptionType;
