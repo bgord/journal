@@ -1,6 +1,56 @@
 # Changelog
+- 2025-11-02 22:53 78f2f9d4 **Merge pull request #51 from bgord/timestamp**
+## 2025-11-02 22:53 
+- 2025-11-02 22:52 cb3c450c **step: simplify projectors**
+- 2025-11-02 22:43 f0594438 **refactor: simplify weekly review scheduler**
+- 2025-11-02 22:39 27f20c83 **refactor: simplify weekly review schedule**
+- 2025-11-02 22:37 a582d375 **step: simplify quota rules**
+- 2025-11-02 22:31 3c67df02 **fix: db seed**
+- 2025-11-02 22:27 577aa4af **step: parsing**
+- 2025-11-02 22:25 20efa298 **step: simplify http**
+- 2025-11-02 22:21 9a981632 **refactor: simplify get shared entries**
+- 2025-11-02 22:17 01b383ff **refactor: adjust from timestamp**
+- 2025-11-02 22:15 a42bfae0 **step: update packages**
+- 2025-11-02 21:45 dc17d9a3 **fix: tests**
+- 2025-11-02 21:45 7f7c120e **step: change to be to to equal**
+- 2025-11-02 21:40 af145ec7 **step: adjust tests**
+- 2025-11-02 21:39 4afc5e22 **step: adjust db seed**
+- 2025-11-02 21:38 6e1b5904 **step: adjust http**
+- 2025-11-02 21:34 09b01234 **step: adjust clock adapter**
+- 2025-11-02 21:33 493e5a91 **refactor: adjust adapters**
+- 2025-11-02 21:28 51d0a6a0 **step: adjust weekly review export adapter**
+- 2025-11-02 21:16 aa0a3448 **step: adjust mocks**
+- 2025-11-02 21:15 249cac76 **step: adjust access context**
+- 2025-11-02 21:14 01a5fa24 **step: adjust expiring shareable links port**
+- 2025-11-02 21:12 ccf606cc **step: adjust expiring shareable links port**
+- 2025-11-02 21:11 1b36d253 **step: adjust shareable link**
+- 2025-11-02 21:10 579a9f73 **step: adjust shareable link expiration time passed**
+- 2025-11-02 21:07 8fe83444 **step: adjust vos**
+- 2025-11-02 21:06 d4854b8b **step: adjust weekly review schedule**
+- 2025-11-02 21:05 4e5477bc **step: adjust time capsule**
+- 2025-11-02 21:03 7fed51f1 **step: adjust snapshot timestamps**
+- 2025-11-02 21:02 e1ef0d57 **step: adjust time capsule entry snapshot**
+- 2025-11-02 21:00 a8dbb3f7 **step: adjust no entries in the last week**
+- 2025-11-02 20:59 810145e9 **step: adjust alarm trigger**
+- 2025-11-02 20:58 dbfbd4e0 **step: adjust inactivity alarm schedul**
+- 2025-11-02 20:57 3a450563 **step: adjust weekly review schedule**
+- 2025-11-02 20:54 61d00c0f **step: adjust time capsule entry is publishable**
+- 2025-11-02 20:54 1c5a75d6 **step: adjust time capsule entry scheduled in future**
+- 2025-11-02 20:52 dc637e22 **step: adjust no entries in the last week**
+- 2025-11-02 20:51 5f3f3f42 **step: adjust get latest entry timestamp for user**
+- 2025-11-02 20:50 55fc5b12 **step: adjust inactivity alarm schedule**
+- 2025-11-02 20:49 f0c42f08 **step: adjust schedule time capsule entry**
+- 2025-11-02 20:46 22ee11ee **step: adjust quota rules**
+- 2025-11-02 20:42 ff2cb7e9 **refactor: adjust request context**
+- 2025-11-02 20:41 cc5a6993 **refactor: adjust quota window**
+- 2025-11-02 20:37 7e7b9eb2 **step: adjust mocks**
+- 2025-11-02 19:06 90e2a2db **refactor: adjust events**
+- 2025-11-02 19:03 7c93483f **step: adjust list entries**
+- 2025-11-02 19:01 1067a09b **step: adjust export entries**
+- 2025-11-02 18:59 85e8e114 **step: update packages**
+- 2025-11-02 18:59 3352f7d7 **step: adjust stopwatch**
 - 2025-11-02 09:23 f56828cd **step: update packages**
-## 2025-11-02 09:23 
+- 2025-11-02 08:24 5c7d01c1 **docs: generate CHANGELOG**
 - 2025-11-02 00:21 2c6a58d5 **fix: shellcheck**
 - 2025-11-02 00:17 db6e63cf **step: add ts buildinfo and shellcheck**
 - 2025-11-02 00:03 32d02872 **step: bump bgord/scripts**
