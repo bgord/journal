@@ -73,7 +73,7 @@ export const entryDetection = new Emotions.VO.AlarmDetection(
 export const inactivityTrigger = {
   type: Emotions.VO.AlarmTriggerEnum.inactivity,
   inactivityDays: 7,
-  lastEntryTimestamp: T0,
+  lastEntryTimestamp: T0.ms,
 } as const;
 
 export const inactivityDetection = new Emotions.VO.AlarmDetection(
@@ -106,7 +106,7 @@ export const aiRequestRegisteredTimestamp = T0;
 export const EmotionsAlarmEntryContext: AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
   userId: userId,
   category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
-  timestamp: T0,
+  timestamp: T0.ms,
   dimensions: { entryId: entryId },
 };
 
@@ -114,7 +114,7 @@ export const EmotionsWeeklyReviewInsightContext: AI.RequestContext<AI.UsageCateg
   {
     userId: userId,
     category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
-    timestamp: T0,
+    timestamp: T0.ms,
     dimensions: {},
   };
 
@@ -122,7 +122,7 @@ export const EmotionsAlarmInactivityWeeklyContext: AI.RequestContext<AI.UsageCat
   {
     userId: userId,
     category: AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
-    timestamp: T0,
+    timestamp: T0.ms,
     dimensions: {},
   };
 
@@ -575,7 +575,7 @@ export const GenericShareableLinkAccessedAcceptedEvent = {
     publicationSpecification,
     validity: Publishing.VO.AccessValidity.accepted,
     visitorId: visitorIdRaw,
-    timestamp: accessContext.timestamp,
+    timestamp: accessContext.timestamp.ms,
     reason: "active",
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
@@ -593,7 +593,7 @@ export const GenericShareableLinkAccessedExpiredEvent = {
     publicationSpecification,
     validity: Publishing.VO.AccessValidity.rejected,
     visitorId: visitorIdRaw,
-    timestamp: accessContext.timestamp,
+    timestamp: accessContext.timestamp.ms,
     reason: "expired",
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
@@ -611,7 +611,7 @@ export const GenericShareableLinkAccessedRevokedEvent = {
     publicationSpecification,
     validity: Publishing.VO.AccessValidity.rejected,
     visitorId: visitorIdRaw,
-    timestamp: accessContext.timestamp,
+    timestamp: accessContext.timestamp.ms,
     reason: "revoked",
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
@@ -629,7 +629,7 @@ export const GenericShareableLinkAccessedWrongSpecEvent = {
     publicationSpecification: anotherPublicationSpecification,
     validity: Publishing.VO.AccessValidity.rejected,
     visitorId: visitorIdRaw,
-    timestamp: accessContext.timestamp,
+    timestamp: accessContext.timestamp.ms,
     reason: "wrong_specification_publication",
   },
 } satisfies Publishing.Events.ShareableLinkAccessedEventType;
@@ -907,7 +907,7 @@ export const fullEntryWithAlarmsFormatted: EntrySnapshotFormatted = {
 };
 
 export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
-  scheduledFor: timeCapsuleEntryScheduledFor,
+  scheduledFor: timeCapsuleEntryScheduledFor.ms,
   id: entryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
@@ -965,7 +965,7 @@ export const weeklyReview: Emotions.VO.WeeklyReviewSnapshot = {
   id: weeklyReviewId,
   userId,
   weekIsoId: week.toIsoId(),
-  createdAt: T0,
+  createdAt: T0.ms,
   insights: insights.get(),
   status: Emotions.VO.WeeklyReviewStatusEnum.completed,
 };
@@ -984,7 +984,7 @@ export const weeklyReviewFull: Emotions.Queries.WeeklyReviewExportDto = {
 
 export const alarm: Emotions.VO.AlarmSnapshot = {
   id: alarmId,
-  generatedAt: T0,
+  generatedAt: T0.ms,
   entryId,
   status: Emotions.VO.AlarmStatusEnum.notification_requested,
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
@@ -999,7 +999,7 @@ export const alarm: Emotions.VO.AlarmSnapshot = {
 
 export const patternDetection: Emotions.VO.PatternDetectionSnapshot = {
   id: patternDetectionId,
-  createdAt: T0,
+  createdAt: T0.ms,
   name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
   weekIsoId: week.toIsoId(),
   userId,
