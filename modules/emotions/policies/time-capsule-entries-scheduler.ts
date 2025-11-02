@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import * as System from "+system";
 
@@ -24,12 +23,12 @@ export class TimeCapsuleEntriesScheduler {
   }
 
   async onHourHasPassedEvent(_event: System.Events.HourHasPassedEventType) {
-    const now = this.deps.Clock.nowMs();
+    const now = this.deps.Clock.now();
 
     const dueEntries = await this.deps.TimeCapsuleDueEntries.listDue(now);
 
     for (const entry of dueEntries) {
-      const config = { status: entry.status, now, scheduledFor: tools.Timestamp.parse(entry.scheduledFor) };
+      const config = { status: entry.status, now, scheduledFor: entry.scheduledFor };
 
       if (Emotions.Invariants.TimeCapsuleEntryIsPublishable.fails(config)) continue;
 
