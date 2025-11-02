@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-02 23:31 228354a2 **fix: name typo**
+## 2025-11-02 23:31 
 - 2025-11-02 23:28 02ff0046 **step: bump bgord/scripts**
-## 2025-11-02 23:28 
 - 2025-11-02 23:20 31087a53 **step: bump bgord/scripts**
 - 2025-11-02 23:04 0e82b3e0 **refactor: rename timestamp vo**
 - 2025-11-02 23:03 a391417f **step: update packages**
@@ -10,6 +11,8 @@
 - 2025-11-02 22:39 27f20c83 **refactor: simplify weekly review schedule**
 - 2025-11-02 22:37 a582d375 **step: simplify quota rules**
 - 2025-11-02 22:31 3c67df02 **fix: db seed**
+- 2025-11-02 22:28 b5412378 **docs: generate readme**
+- 2025-11-02 22:28 098c5c66 **docs: generate CHANGELOG**
 - 2025-11-02 22:27 577aa4af **step: parsing**
 - 2025-11-02 22:25 20efa298 **step: simplify http**
 - 2025-11-02 22:21 9a981632 **refactor: simplify get shared entries**
