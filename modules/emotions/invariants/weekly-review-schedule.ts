@@ -9,7 +9,7 @@ class WeeklyReviewScheduleError extends Error {
   }
 }
 
-type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampType };
+type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampVO };
 
 class WeeklyReviewScheduleFactory extends bg.Invariant<WeeklyReviewScheduleConfigType> {
   fails(config: WeeklyReviewScheduleConfigType) {
