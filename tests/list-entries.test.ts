@@ -13,9 +13,9 @@ const today = tools.Day.fromTimestamp(mocks.T0);
 
 const endOfToday = today.getEnd();
 
-const lastWeekStart = tools.Timestamp.parse(today.getEnd() - tools.Duration.Weeks(1).ms);
-const lastMonthStart = tools.Timestamp.parse(today.getEnd() - tools.Duration.Days(30).ms);
-const allTimeStart = tools.Timestamp.parse(0);
+const lastWeekStart = today.getEnd().subtract(tools.Duration.Weeks(1));
+const lastMonthStart = today.getEnd().subtract(tools.Duration.Days(30));
+const allTimeStart = tools.TimestampVO.fromNumber(0);
 
 const emptyQuery = "";
 
