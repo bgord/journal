@@ -12,7 +12,7 @@ export const AiRequestRegisteredEvent = z.object({
   payload: z.object({
     category: z.enum(VO.UsageCategory),
     dimensions: z.union([z.object({ entryId: z.uuid() }), z.object({}).strict()]),
-    timestamp: tools.Timestamp,
+    timestamp: tools.TimestampValue,
     userId: Auth.VO.UserId,
   }),
 });

@@ -15,7 +15,7 @@ export const ShareableLinkAccessedEvent = z.object({
     publicationSpecification: VO.PublicationSpecification,
     validity: z.enum(VO.AccessValidity),
     visitorId: z.string(),
-    timestamp: tools.Timestamp,
+    timestamp: tools.TimestampValue,
     reason: z.string(),
   }),
 });

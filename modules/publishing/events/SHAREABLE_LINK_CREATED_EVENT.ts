@@ -13,10 +13,10 @@ export const ShareableLinkCreatedEvent = z.object({
     shareableLinkId: VO.ShareableLinkId,
     ownerId: Auth.VO.UserId,
     publicationSpecification: VO.PublicationSpecification,
-    dateRangeStart: tools.Timestamp,
-    dateRangeEnd: tools.Timestamp,
+    dateRangeStart: tools.TimestampValue,
+    dateRangeEnd: tools.TimestampValue,
     durationMs: tools.DurationMs,
-    createdAt: tools.Timestamp,
+    createdAt: tools.TimestampValue,
   }),
 });
 

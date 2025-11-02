@@ -8,7 +8,7 @@ export const AI_QUOTA_EXCEEDED_EVENT = "AI_QUOTA_EXCEEDED_EVENT";
 export const AiQuotaExceededEvent = z.object({
   ...bg.EventEnvelopeSchema,
   name: z.literal(AI_QUOTA_EXCEEDED_EVENT),
-  payload: z.object({ timestamp: tools.Timestamp, userId: Auth.VO.UserId }),
+  payload: z.object({ timestamp: tools.TimestampValue, userId: Auth.VO.UserId }),
 });
 
 export type AiQuotaExceededEventType = z.infer<typeof AiQuotaExceededEvent>;

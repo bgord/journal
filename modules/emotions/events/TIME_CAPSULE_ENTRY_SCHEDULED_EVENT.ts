@@ -13,8 +13,8 @@ export const TimeCapsuleEntryScheduledEvent = z.object({
     entryId: VO.EntryId,
     userId: Auth.VO.UserId,
 
-    scheduledAt: tools.Timestamp,
-    scheduledFor: tools.Timestamp,
+    scheduledAt: tools.TimestampValue,
+    scheduledFor: tools.TimestampValue,
 
     situation: z.object({ description: VO.SituationDescriptionSchema, kind: VO.SituationKindSchema }),
     emotion: z.object({ label: VO.EmotionLabelSchema, intensity: VO.EmotionIntensitySchema }),
