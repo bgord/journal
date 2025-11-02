@@ -47,7 +47,7 @@ export class AlarmProjector {
         inactivityDays: undefined,
         lastEntryTimestamp: undefined,
         userId: event.payload.userId,
-        weekIsoId: tools.Week.fromTimestamp(tools.TimestampVO.fromValue(event.createdAt)).toIsoId(),
+        weekIsoId: tools.Week.fromTimestampValue(event.createdAt).toIsoId(),
       });
     }
 
@@ -63,7 +63,7 @@ export class AlarmProjector {
         inactivityDays: event.payload.trigger.inactivityDays,
         lastEntryTimestamp: event.payload.trigger.lastEntryTimestamp,
         userId: event.payload.userId,
-        weekIsoId: tools.Week.fromTimestamp(tools.TimestampVO.fromValue(event.createdAt)).toIsoId(),
+        weekIsoId: tools.Week.fromTimestampValue(event.createdAt).toIsoId(),
       });
     }
   }
