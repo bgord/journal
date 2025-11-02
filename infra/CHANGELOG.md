@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-02 09:23 f56828cd **step: update packages**
+## 2025-11-02 09:23 
 - 2025-11-02 00:21 2c6a58d5 **fix: shellcheck**
-## 2025-11-02 00:21 
 - 2025-11-02 00:17 db6e63cf **step: add ts buildinfo and shellcheck**
 - 2025-11-02 00:03 32d02872 **step: bump bgord/scripts**
 - 2025-11-01 23:59 3932fc11 **step: bump bgord/scripts**
@@ -10,6 +11,7 @@
 - 2025-11-01 23:37 6ebb2f57 **step: bump bgord/scripts**
 - 2025-11-01 23:32 7850ad9d **step: bump bgord/scripts**
 - 2025-11-01 23:30 18371ce2 **step: change e2e to chromium**
+- 2025-11-01 23:22 44c5f323 **docs: generate CHANGELOG**
 - 2025-11-01 23:17 a030801c **docs: generate CHANGELOG**
 - 2025-11-01 23:17 392d99ca **refactor: remove logs**
 - 2025-11-01 23:14 8b45ce6a **step: add logs**
