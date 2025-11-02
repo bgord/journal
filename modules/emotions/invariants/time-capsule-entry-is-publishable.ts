@@ -12,14 +12,14 @@ class TimeCapsuleEntryIsPublishableError extends Error {
 
 type TimeCapsuleEntryIsPublishableConfigType = {
   status: string;
-  scheduledFor: tools.TimestampType;
-  now: tools.TimestampType;
+  scheduledFor: tools.TimestampVO;
+  now: tools.TimestampVO;
 };
 
 class TimeCapsuleEntryIsPublishableFactory extends bg.Invariant<TimeCapsuleEntryIsPublishableConfigType> {
   fails(config: TimeCapsuleEntryIsPublishableConfigType) {
     if (config.status !== VO.TimeCapsuleEntryStatusEnum.scheduled) return true;
-    if (config.now < config.scheduledFor) return true;
+    if (config.now.isBefore(config.scheduledFor)) return true;
     return false;
   }
 
