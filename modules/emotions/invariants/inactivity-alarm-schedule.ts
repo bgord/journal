@@ -9,7 +9,7 @@ class InactivityAlarmScheduleError extends Error {
   }
 }
 
-type InactivityAlarmScheduleConfigType = { timestamp: tools.TimestampType };
+type InactivityAlarmScheduleConfigType = { timestamp: tools.TimestampVO };
 
 class InactivityAlarmScheduleFactory extends bg.Invariant<InactivityAlarmScheduleConfigType> {
   fails(config: InactivityAlarmScheduleConfigType) {
