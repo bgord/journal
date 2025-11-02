@@ -10,8 +10,8 @@ describe(`GET ${url}`, () => {
   test("AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const body = await response.json();
-    expect(response.status).toBe(403);
-    expect(body._known).toBe(true);
+    expect(response.status).toEqual(403);
+    expect(body._known).toEqual(true);
   });
 
   test("404 when object does not exist (head.exists=false)", async () => {
@@ -19,7 +19,7 @@ describe(`GET ${url}`, () => {
     const headSpy = spyOn(Adapters.RemoteFileStorage, "head").mockResolvedValue({ exists: false });
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     expect(headSpy).toHaveBeenCalledTimes(1);
-    expect(response.status).toBe(404);
+    expect(response.status).toEqual(404);
   });
 
   test("304 when If-None-Match matches current ETag", async () => {
@@ -33,7 +33,7 @@ describe(`GET ${url}`, () => {
       mocks.ip,
     );
 
-    expect(response.status).toBe(304);
+    expect(response.status).toEqual(304);
     expect(getStreamSpy).not.toHaveBeenCalled();
   });
 
@@ -51,12 +51,12 @@ describe(`GET ${url}`, () => {
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
-    expect(response.status).toBe(200);
-    expect(response.headers.get("Content-Type")).toBe("image/webp");
-    expect(response.headers.get("ETag")).toBe(mocks.head.etag);
-    expect(response.headers.get("Content-Length")).toBe(mocks.head.size.toBytes().toString());
-    expect(response.headers.get("Last-Modified")).toBe(new Date(mocks.head.lastModified).toUTCString());
-    +expect(response.headers.get("Cache-Control")).toBe("private, max-age=0, must-revalidate");
+    expect(response.status).toEqual(200);
+    expect(response.headers.get("Content-Type")).toEqual("image/webp");
+    expect(response.headers.get("ETag")).toEqual(mocks.head.etag);
+    expect(response.headers.get("Content-Length")).toEqual(mocks.head.size.toBytes().toString());
+    expect(response.headers.get("Last-Modified")).toEqual(new Date(mocks.head.lastModified.ms).toUTCString());
+    +expect(response.headers.get("Cache-Control")).toEqual("private, max-age=0, must-revalidate");
 
     const arrBuf = await response.arrayBuffer();
     expect(new Uint8Array(arrBuf)).toEqual(new Uint8Array([1, 2, 3, 4, 5]));
@@ -68,6 +68,6 @@ describe(`GET ${url}`, () => {
     spyOn(Adapters.RemoteFileStorage, "getStream").mockResolvedValue(null);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
-    expect(response.status).toBe(404);
+    expect(response.status).toEqual(404);
   });
 });

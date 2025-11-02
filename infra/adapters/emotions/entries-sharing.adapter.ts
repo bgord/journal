@@ -12,8 +12,8 @@ class EntriesSharingDrizzle implements EntriesSharingPort {
     const result = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
       where: and(
-        gte(Schema.entries.startedAt, dateRange.getStart()),
-        lte(Schema.entries.startedAt, dateRange.getEnd()),
+        gte(Schema.entries.startedAt, dateRange.getStart().ms),
+        lte(Schema.entries.startedAt, dateRange.getEnd().ms),
         eq(Schema.entries.userId, ownerId),
       ),
       with: { alarms: true },
@@ -34,8 +34,8 @@ class EntriesSharingDrizzle implements EntriesSharingPort {
         status: alarm.status as VO.AlarmStatusEnum,
         name: alarm.name as VO.AlarmNameOption,
         advice: alarm.advice as VO.AlarmSnapshot["advice"],
-        generatedAt: alarm.generatedAt as tools.TimestampType,
-        lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampType | null,
+        generatedAt: alarm.generatedAt as tools.TimestampValueType,
+        lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
         emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
         weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
       })),

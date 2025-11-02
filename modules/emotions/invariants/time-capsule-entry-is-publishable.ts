@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import type * as tools from "@bgord/tools";
+import * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as VO from "+emotions/value-objects";
 
@@ -12,14 +12,14 @@ class TimeCapsuleEntryIsPublishableError extends Error {
 
 type TimeCapsuleEntryIsPublishableConfigType = {
   status: string;
-  scheduledFor: tools.TimestampType;
-  now: tools.TimestampType;
+  scheduledFor: tools.TimestampValueType;
+  now: tools.TimestampVO;
 };
 
 class TimeCapsuleEntryIsPublishableFactory extends bg.Invariant<TimeCapsuleEntryIsPublishableConfigType> {
   fails(config: TimeCapsuleEntryIsPublishableConfigType) {
     if (config.status !== VO.TimeCapsuleEntryStatusEnum.scheduled) return true;
-    if (config.now < config.scheduledFor) return true;
+    if (config.now.isBefore(tools.TimestampVO.fromValue(config.scheduledFor))) return true;
     return false;
   }
 

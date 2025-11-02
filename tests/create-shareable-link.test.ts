@@ -15,14 +15,14 @@ describe(`POST ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
-    expect(response.status).toBe(403);
+    expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
 
   test("validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(url, { method: "POST" }, mocks.ip);
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
   });
 
   test("validation - publicationSpecification", async () => {
@@ -33,7 +33,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Publishing.VO.PublicationSpecificationErrors.invalid, _known: true });
   });
 
@@ -45,7 +45,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
 
@@ -60,7 +60,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
 
@@ -80,7 +80,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
 
@@ -100,7 +100,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "invalid.date.range", _known: true });
   });
 
@@ -151,7 +151,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
 
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkCreatedEvent]);
   });
 });

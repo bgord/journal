@@ -13,16 +13,16 @@ export class QuotaWindow {
   resetsIn(clock: bg.ClockPort): tools.Duration {
     return {
       DAY: () => {
-        const now = clock.nowMs();
+        const now = clock.now();
         const day = tools.Day.fromNow(now);
 
-        return tools.Duration.Ms(day.getEnd() - now);
+        return day.getEnd().difference(now);
       },
       WEEK: () => {
-        const now = clock.nowMs();
+        const now = clock.now();
         const week = tools.Week.fromNow(now);
 
-        return tools.Duration.Ms(week.getEnd() - now);
+        return week.getEnd().difference(now);
       },
       ALL_TIME: () => tools.Duration.Ms(Number.MAX_SAFE_INTEGER),
     }[this.value]();

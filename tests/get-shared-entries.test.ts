@@ -15,7 +15,7 @@ describe(`GET ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
 
@@ -33,7 +33,7 @@ describe(`GET ${url}`, () => {
         mocks.ip,
       );
 
-      expect(response.status).toBe(403);
+      expect(response.status).toEqual(403);
       expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedExpiredEvent]);
     });
   });
@@ -51,7 +51,7 @@ describe(`GET ${url}`, () => {
         { method: "GET", headers: mocks.correlationIdAndRevisionHeaders() },
         mocks.ip,
       );
-      expect(response.status).toBe(403);
+      expect(response.status).toEqual(403);
       expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedRevokedEvent]);
     });
   });
@@ -67,7 +67,7 @@ describe(`GET ${url}`, () => {
         { method: "GET", headers: mocks.correlationIdAndRevisionHeaders() },
         mocks.ip,
       );
-      expect(response.status).toBe(200);
+      expect(response.status).toEqual(200);
       expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedAcceptedEvent]);
     });
   });

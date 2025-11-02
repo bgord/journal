@@ -13,7 +13,7 @@ export type AlarmSnapshot = {
   id: bg.UUIDType;
   name: AlarmNameOption;
   advice: AI.AdviceType;
-  generatedAt: tools.TimestampType;
+  generatedAt: tools.TimestampValueType;
   inactivityDays: InactivityAlarmTriggerType["inactivityDays"] | null;
   lastEntryTimestamp: InactivityAlarmTriggerType["lastEntryTimestamp"] | null;
   emotionLabel: GenevaWheelEmotion | null;

@@ -31,7 +31,7 @@ describe(`POST ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValueOnce(mocks.auth);
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({
       message: Emotions.VO.SituationDescription.Errors.invalid,
       _known: true,
@@ -49,7 +49,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.SituationKind.Errors.invalid, _known: true });
   });
 
@@ -61,7 +61,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionLabel.Errors.invalid, _known: true });
   });
 
@@ -76,7 +76,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionIntensity.Errors.min_max, _known: true });
   });
 
@@ -88,7 +88,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionDescription.Errors.invalid, _known: true });
   });
 
@@ -103,7 +103,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionType.Errors.invalid, _known: true });
   });
 
@@ -123,7 +123,7 @@ describe(`POST ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.min_max, _known: true });
   });
 
@@ -143,7 +143,7 @@ describe(`POST ${url}`, () => {
       },
       mocks.ip,
     );
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,

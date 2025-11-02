@@ -29,15 +29,15 @@ export const historyId = IdProvider.generate();
 const patternDetectionId = IdProvider.generate();
 
 // Timestamps
-export const T0 = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
+export const T0 = tools.TimestampVO.fromNumber(Date.UTC(2025, 0, 1, 0, 0, 0));
 
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
 export const timeCapsuleEntryScheduledAt = T0;
-export const timeCapsuleEntryScheduledFor = tools.Time.Now(T0).Add(tools.Duration.Days(2));
-export const timeCapsuleEntryScheduledForDate = format(timeCapsuleEntryScheduledFor, "yyyy-MM-dd");
-export const timeCapsuleEntryScheduledForPast = tools.Time.Now(T0).Minus(tools.Duration.Days(1));
-export const timeCapsuleEntryScheduledForPastDate = format(timeCapsuleEntryScheduledForPast, "yyyy-MM-dd");
+export const timeCapsuleEntryScheduledFor = T0.add(tools.Duration.Days(2));
+export const timeCapsuleEntryScheduledForDate = format(timeCapsuleEntryScheduledFor.ms, "yyyy-MM-dd");
+export const timeCapsuleEntryScheduledForPast = T0.subtract(tools.Duration.Days(1));
+export const timeCapsuleEntryScheduledForPastDate = format(timeCapsuleEntryScheduledForPast.ms, "yyyy-MM-dd");
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
@@ -73,7 +73,7 @@ export const entryDetection = new Emotions.VO.AlarmDetection(
 export const inactivityTrigger = {
   type: Emotions.VO.AlarmTriggerEnum.inactivity,
   inactivityDays: 7,
-  lastEntryTimestamp: T0,
+  lastEntryTimestamp: T0.ms,
 } as const;
 
 export const inactivityDetection = new Emotions.VO.AlarmDetection(
@@ -89,8 +89,8 @@ export const anotherPublicationSpecification = "other";
 export const dateRangeStart = "2025-01-01";
 export const dateRangeEnd = "2025-01-01";
 export const dateRange = new tools.DateRange(
-  tools.Timestamp.parse(T0),
-  tools.Timestamp.parse(T0 + tools.Duration.Days(1).ms - 1),
+  T0,
+  T0.add(tools.Duration.Days(1)).subtract(tools.Duration.Ms(1)),
 );
 
 export const durationMs = tools.Duration.Seconds(1).ms;
@@ -99,14 +99,14 @@ const client = bg.Client.from(ip.server.requestIP().address, "anon");
 export const visitorId = new bg.VisitorIdHashAdapter(client);
 export const visitorIdRaw = "cbc46a7ff4f622ab";
 
-export const accessContext: Publishing.VO.AccessContext = { timestamp: T0, visitorId };
+export const accessContext: Publishing.VO.AccessContext = { timestamp: T0.ms, visitorId };
 
 export const aiRequestRegisteredTimestamp = T0;
 
 export const EmotionsAlarmEntryContext: AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
   userId: userId,
   category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
-  timestamp: T0,
+  timestamp: T0.ms,
   dimensions: { entryId: entryId },
 };
 
@@ -114,7 +114,7 @@ export const EmotionsWeeklyReviewInsightContext: AI.RequestContext<AI.UsageCateg
   {
     userId: userId,
     category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
-    timestamp: T0,
+    timestamp: T0.ms,
     dimensions: {},
   };
 
@@ -122,7 +122,7 @@ export const EmotionsAlarmInactivityWeeklyContext: AI.RequestContext<AI.UsageCat
   {
     userId: userId,
     category: AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
-    timestamp: T0,
+    timestamp: T0.ms,
     dimensions: {},
   };
 
@@ -154,7 +154,7 @@ export const objectKey = tools.ObjectKey.parse(`users/${userId}/avatar.webp`);
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   name: Emotions.Events.SITUATION_LOGGED_EVENT,
@@ -178,7 +178,7 @@ export const GenericSituationLoggedTimeCapsuleEvent = {
 export const GenericEmotionLoggedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
@@ -193,7 +193,7 @@ export const GenericEmotionLoggedEvent = {
 export const GenericReactionLoggedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   name: Emotions.Events.REACTION_LOGGED_EVENT,
@@ -209,7 +209,7 @@ export const GenericReactionLoggedEvent = {
 export const GenericEmotionReappraisedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
@@ -224,7 +224,7 @@ export const GenericEmotionReappraisedEvent = {
 export const GenericReactionEvaluatedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   name: Emotions.Events.REACTION_EVALUATED_EVENT,
@@ -240,7 +240,7 @@ export const GenericReactionEvaluatedEvent = {
 export const NegativeEmotionExtremeIntensityLoggedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   name: Emotions.Events.EMOTION_LOGGED_EVENT,
@@ -255,7 +255,7 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
 export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
@@ -270,7 +270,7 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
 export const GenericEntryDeletedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   name: Emotions.Events.ENTRY_DELETED_EVENT,
@@ -280,7 +280,7 @@ export const GenericEntryDeletedEvent = {
 export const GenericTimeCapsuleEntryScheduledEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
   name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
@@ -294,15 +294,15 @@ export const GenericTimeCapsuleEntryScheduledEvent = {
       type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
       effectiveness: 1,
     },
-    scheduledFor: timeCapsuleEntryScheduledFor,
-    scheduledAt: timeCapsuleEntryScheduledAt,
+    scheduledFor: timeCapsuleEntryScheduledFor.ms,
+    scheduledAt: timeCapsuleEntryScheduledAt.ms,
   },
 } satisfies Emotions.Events.TimeCapsuleEntryScheduledEventType;
 
 export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   version: 1,
   name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
@@ -317,7 +317,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
 export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${previousWeek.toIsoId()}`,
   version: 1,
   name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
@@ -331,7 +331,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
 export const MaladaptiveReactionsPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   version: 1,
   name: Emotions.Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
@@ -346,7 +346,7 @@ export const MaladaptiveReactionsPatternDetectedEvent = {
 export const LowCopingEffectivenessPatternDetectedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   version: 1,
   name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
@@ -360,7 +360,7 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
 export const GenericAlarmGeneratedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.ALARM_GENERATED_EVENT,
@@ -375,7 +375,7 @@ export const GenericAlarmGeneratedEvent = {
 export const GenericInactivityAlarmGeneratedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.ALARM_GENERATED_EVENT,
@@ -390,7 +390,7 @@ export const GenericInactivityAlarmGeneratedEvent = {
 export const GenericAlarmAdviceSavedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
@@ -400,7 +400,7 @@ export const GenericAlarmAdviceSavedEvent = {
 export const GenericAlarmNotificationRequestedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
@@ -416,7 +416,7 @@ export const GenericAlarmNotificationRequestedEvent = {
 export const GenericInactivityAlarmNotificationRequestedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
@@ -432,7 +432,7 @@ export const GenericInactivityAlarmNotificationRequestedEvent = {
 export const GenericAlarmNotificationSentEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
@@ -442,7 +442,7 @@ export const GenericAlarmNotificationSentEvent = {
 export const GenericAlarmCancelledEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.ALARM_CANCELLED_EVENT,
@@ -452,7 +452,7 @@ export const GenericAlarmCancelledEvent = {
 export const GenericWeeklyReviewRequestedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
@@ -462,7 +462,7 @@ export const GenericWeeklyReviewRequestedEvent = {
 export const GenericWeeklyReviewSkippedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
@@ -472,7 +472,7 @@ export const GenericWeeklyReviewSkippedEvent = {
 export const GenericWeeklyReviewCompletedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: "WEEKLY_REVIEW_COMPLETED_EVENT",
@@ -482,7 +482,7 @@ export const GenericWeeklyReviewCompletedEvent = {
 export const GenericWeeklyReviewFailedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
   name: "WEEKLY_REVIEW_FAILED_EVENT",
@@ -492,7 +492,7 @@ export const GenericWeeklyReviewFailedEvent = {
 export const GenericWeeklyReviewExportByEmailRequestedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT",
@@ -502,7 +502,7 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent = {
 export const GenericWeeklyReviewExportByEmailFailedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT",
@@ -527,7 +527,7 @@ export const GenericWeeklyReviewExportByEmailFailedEvent4th = {
 export const GenericShareableLinkCreatedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
   name: "SHAREABLE_LINK_CREATED_EVENT",
@@ -536,16 +536,16 @@ export const GenericShareableLinkCreatedEvent = {
     ownerId: userId,
     publicationSpecification,
     durationMs,
-    dateRangeStart: dateRange.getStart(),
-    dateRangeEnd: dateRange.getEnd(),
-    createdAt: shareableLinkCreatedAt,
+    dateRangeStart: dateRange.getStart().ms,
+    dateRangeEnd: dateRange.getEnd().ms,
+    createdAt: shareableLinkCreatedAt.ms,
   },
 } satisfies Publishing.Events.ShareableLinkCreatedEventType;
 
 export const GenericShareableLinkExpiredEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
   name: "SHAREABLE_LINK_EXPIRED_EVENT",
@@ -555,7 +555,7 @@ export const GenericShareableLinkExpiredEvent = {
 export const GenericShareableLinkRevokedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
   name: "SHAREABLE_LINK_REVOKED_EVENT",
@@ -565,7 +565,7 @@ export const GenericShareableLinkRevokedEvent = {
 export const GenericShareableLinkAccessedAcceptedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
   name: "SHAREABLE_LINK_ACCESSED_EVENT",
@@ -583,7 +583,7 @@ export const GenericShareableLinkAccessedAcceptedEvent = {
 export const GenericShareableLinkAccessedExpiredEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
   name: "SHAREABLE_LINK_ACCESSED_EVENT",
@@ -601,7 +601,7 @@ export const GenericShareableLinkAccessedExpiredEvent = {
 export const GenericShareableLinkAccessedRevokedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
   name: "SHAREABLE_LINK_ACCESSED_EVENT",
@@ -619,7 +619,7 @@ export const GenericShareableLinkAccessedRevokedEvent = {
 export const GenericShareableLinkAccessedWrongSpecEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
   name: "SHAREABLE_LINK_ACCESSED_EVENT",
@@ -637,21 +637,21 @@ export const GenericShareableLinkAccessedWrongSpecEvent = {
 export const GenericHourHasPassedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: "passage_of_time",
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
-  payload: { timestamp: hourHasPassedTimestamp },
+  payload: { timestamp: hourHasPassedTimestamp.ms },
 } satisfies System.Events.HourHasPassedEventType;
 
 export const GenericHourHasPassedMondayUtc18Event = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: "passage_of_time",
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
-  payload: { timestamp: tools.Timestamp.parse(1754330400000) },
+  payload: { timestamp: tools.TimestampVO.fromNumber(1754330400000).ms },
 } satisfies System.Events.HourHasPassedEventType;
 
 export function getNextMonday1800UTC(now: Date = new Date()): number {
@@ -667,27 +667,27 @@ export function getNextMonday1800UTC(now: Date = new Date()): number {
 export const HourHasPassedNextMondayUtc18Event = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: "passage_of_time",
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
-  payload: { timestamp: tools.Timestamp.parse(getNextMonday1800UTC()) },
+  payload: { timestamp: tools.TimestampVO.fromNumber(getNextMonday1800UTC()).ms },
 } satisfies System.Events.HourHasPassedEventType;
 
 export const GenericHourHasPassedWednesdayUtc18Event = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: "passage_of_time",
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
-  payload: { timestamp: tools.Timestamp.parse(1754503200000) },
+  payload: { timestamp: tools.TimestampVO.fromNumber(1754503200000).ms },
 } satisfies System.Events.HourHasPassedEventType;
 
 export const GenericAiRequestRegisteredEmotionsAlarmEntryEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `user_ai_usage_${userId}`,
   version: 1,
   name: "AI_REQUEST_REGISTERED_EVENT",
@@ -695,24 +695,24 @@ export const GenericAiRequestRegisteredEmotionsAlarmEntryEvent = {
     category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
     dimensions: { entryId },
     userId,
-    timestamp: aiRequestRegisteredTimestamp,
+    timestamp: aiRequestRegisteredTimestamp.ms,
   },
 } satisfies AI.Events.AiRequestRegisteredEventType;
 
 export const GenericAiQuotaExceededEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `user_ai_usage_${userId}`,
   version: 1,
   name: "AI_QUOTA_EXCEEDED_EVENT",
-  payload: { userId, timestamp: aiRequestRegisteredTimestamp },
+  payload: { userId, timestamp: aiRequestRegisteredTimestamp.ms },
 } satisfies AI.Events.AiQuotaExceededEventType;
 
 export const GenericEntryHistorySituationLoggedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
   name: "HISTORY_POPULATED_EVENT",
@@ -730,7 +730,7 @@ export const GenericEntryHistorySituationLoggedEvent = {
 export const GenericEntryHistoryEmotionLoggedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
   name: "HISTORY_POPULATED_EVENT",
@@ -748,7 +748,7 @@ export const GenericEntryHistoryEmotionLoggedEvent = {
 export const GenericEntryHistoryReactionLoggedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
   name: "HISTORY_POPULATED_EVENT",
@@ -767,7 +767,7 @@ export const GenericEntryHistoryReactionLoggedEvent = {
 export const GenericEntryHistoryEmotionReappraisedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
   name: "HISTORY_POPULATED_EVENT",
@@ -785,7 +785,7 @@ export const GenericEntryHistoryEmotionReappraisedEvent = {
 export const GenericEntryHistoryReactionEvaluatedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
   name: "HISTORY_POPULATED_EVENT",
@@ -804,7 +804,7 @@ export const GenericEntryHistoryReactionEvaluatedEvent = {
 export const GenericEntryHistoryClearedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
   name: "HISTORY_CLEARED_EVENT",
@@ -814,17 +814,17 @@ export const GenericEntryHistoryClearedEvent = {
 export const GenericAccountCreatedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `account_${userId}`,
   version: 1,
   name: "ACCOUNT_CREATED_EVENT",
-  payload: { userId, timestamp: T0 },
+  payload: { userId, timestamp: T0.ms },
 } satisfies Auth.Events.AccountCreatedEventType;
 
 export const GenericUserLanguageSetEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `preferences_${userId}`,
   version: 1,
   name: "USER_LANGUAGE_SET_EVENT",
@@ -834,7 +834,7 @@ export const GenericUserLanguageSetEvent = {
 export const GenericUserLanguageSetPLEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `preferences_${userId}`,
   version: 1,
   name: "USER_LANGUAGE_SET_EVENT",
@@ -844,7 +844,7 @@ export const GenericUserLanguageSetPLEvent = {
 export const GenericProfileAvatarUpdatedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `preferences_${userId}`,
   version: 1,
   name: "PROFILE_AVATAR_UPDATED_EVENT",
@@ -854,7 +854,7 @@ export const GenericProfileAvatarUpdatedEvent = {
 export const GenericProfileAvatarRemovedEvent = {
   id: expectAnyId,
   correlationId,
-  createdAt: T0,
+  createdAt: T0.ms,
   stream: `preferences_${userId}`,
   version: 1,
   name: "PROFILE_AVATAR_REMOVED_EVENT",
@@ -863,7 +863,7 @@ export const GenericProfileAvatarRemovedEvent = {
 
 export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
-  startedAt: T0,
+  startedAt: T0.ms,
   status: Emotions.VO.EntryStatusEnum.actionable,
   id: entryId,
   situationDescription: "I finished a project",
@@ -880,7 +880,7 @@ export const partialEntry: Emotions.VO.EntrySnapshot = {
 
 export const fullEntry: Emotions.VO.EntrySnapshot = {
   revision: 0,
-  startedAt: T0,
+  startedAt: T0.ms,
   status: Emotions.VO.EntryStatusEnum.actionable,
   id: entryId,
   situationDescription: "I finished a project",
@@ -907,7 +907,7 @@ export const fullEntryWithAlarmsFormatted: EntrySnapshotFormatted = {
 };
 
 export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
-  scheduledFor: timeCapsuleEntryScheduledFor,
+  scheduledFor: timeCapsuleEntryScheduledFor.ms,
   id: entryId,
   situationDescription: "I finished a project",
   situationKind: Emotions.VO.SituationKindOptions.achievement,
@@ -965,7 +965,7 @@ export const weeklyReview: Emotions.VO.WeeklyReviewSnapshot = {
   id: weeklyReviewId,
   userId,
   weekIsoId: week.toIsoId(),
-  createdAt: T0,
+  createdAt: T0.ms,
   insights: insights.get(),
   status: Emotions.VO.WeeklyReviewStatusEnum.completed,
 };
@@ -984,7 +984,7 @@ export const weeklyReviewFull: Emotions.Queries.WeeklyReviewExportDto = {
 
 export const alarm: Emotions.VO.AlarmSnapshot = {
   id: alarmId,
-  generatedAt: T0,
+  generatedAt: T0.ms,
   entryId,
   status: Emotions.VO.AlarmStatusEnum.notification_requested,
   name: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
@@ -999,7 +999,7 @@ export const alarm: Emotions.VO.AlarmSnapshot = {
 
 export const patternDetection: Emotions.VO.PatternDetectionSnapshot = {
   id: patternDetectionId,
-  createdAt: T0,
+  createdAt: T0.ms,
   name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
   weekIsoId: week.toIsoId(),
   userId,
@@ -1007,28 +1007,28 @@ export const patternDetection: Emotions.VO.PatternDetectionSnapshot = {
 
 export const shareableLink: Schema.SelectShareableLinks = {
   id: shareableLinkId,
-  createdAt: T0,
-  updatedAt: T0,
+  createdAt: T0.ms,
+  updatedAt: T0.ms,
   status: Publishing.VO.ShareableLinkStatusEnum.active,
   revision: 0,
   ownerId: userId,
   publicationSpecification: "entries",
-  dateRangeStart: T0,
-  dateRangeEnd: T0,
-  durationMs: T0,
-  expiresAt: T0,
+  dateRangeStart: T0.ms,
+  dateRangeEnd: T0.ms,
+  durationMs: T0.ms,
+  expiresAt: T0.ms,
   hidden: false,
 };
 
 export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
   id: shareableLinkId,
-  updatedAt: tools.DateFormatters.datetime(T0),
+  updatedAt: tools.DateFormatters.datetime(T0.ms),
   status: Publishing.VO.ShareableLinkStatusEnum.active,
   revision: 0,
   publicationSpecification: "entries",
-  dateRangeStart: tools.DateFormatters.datetime(T0),
-  dateRangeEnd: tools.DateFormatters.datetime(T0),
-  expiresAt: tools.DateFormatters.datetime(T0),
+  dateRangeStart: tools.DateFormatters.datetime(T0.ms),
+  dateRangeEnd: tools.DateFormatters.datetime(T0.ms),
+  expiresAt: tools.DateFormatters.datetime(T0.ms),
   hits: 1,
   uniqueVisitors: 1,
 };
@@ -1038,8 +1038,8 @@ export const user: User = {
   email: email,
   emailVerified: false,
   image: null,
-  createdAt: new Date(T0),
-  updatedAt: new Date(T0),
+  createdAt: new Date(T0.ms),
+  updatedAt: new Date(T0.ms),
   id: userId,
 };
 
@@ -1048,16 +1048,16 @@ export const anotherUser: User = {
   email: anotherEmail,
   emailVerified: false,
   image: null,
-  createdAt: new Date(T0),
-  updatedAt: new Date(T0),
+  createdAt: new Date(T0.ms),
+  updatedAt: new Date(T0.ms),
   id: anotherUserId,
 };
 
 export const session: Session = {
-  expiresAt: new Date(T0),
+  expiresAt: new Date(T0.ms),
   token: "wyNm82TTSvBtxXSh1mb7lZJ4WF557tv4",
-  createdAt: new Date(T0),
-  updatedAt: new Date(T0),
+  createdAt: new Date(T0.ms),
+  updatedAt: new Date(T0.ms),
   ipAddress: "",
   userAgent: "Mozilla/5.0",
   userId,
@@ -1065,10 +1065,10 @@ export const session: Session = {
 };
 
 export const anotherSession: Session = {
-  expiresAt: new Date(T0),
+  expiresAt: new Date(T0.ms),
   token: "XFgejTtN28QI8cDEmE9Yb09yxRwQuGj0",
-  createdAt: new Date(T0),
-  updatedAt: new Date(T0),
+  createdAt: new Date(T0.ms),
+  updatedAt: new Date(T0.ms),
   ipAddress: "",
   userAgent: "Mozilla/5.0",
   userId,

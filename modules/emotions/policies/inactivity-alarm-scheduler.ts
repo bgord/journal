@@ -41,7 +41,7 @@ export class InactivityAlarmScheduler {
       const trigger = {
         type: Emotions.VO.AlarmTriggerEnum.inactivity,
         inactivityDays: 7,
-        lastEntryTimestamp: tools.Timestamp.parse(lastEntryTimestamp),
+        lastEntryTimestamp: tools.TimestampValue.parse(lastEntryTimestamp),
       } as const;
 
       const detection = new Emotions.VO.AlarmDetection(trigger, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM);

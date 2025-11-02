@@ -20,7 +20,7 @@ import "+infra/register-command-handlers";
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 const EventHandler = new bg.EventHandler(Adapters.Logger);
-const currentMs = Clock.nowMs();
+const now = Clock.now();
 
 const situationDescriptions = [
   "I missed an important appointment because I confused the time zones while traveling, which made me feel embarrassed and deeply irresponsible",
@@ -133,7 +133,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         const event = Auth.Events.AccountCreatedEvent.parse({
           ...bg.createEventEnvelope(`account_${result.user.id}`, deps),
           name: Auth.Events.ACCOUNT_CREATED_EVENT,
-          payload: { userId: result.user.id, timestamp: currentMs },
+          payload: { userId: result.user.id, timestamp: now.ms },
         } satisfies Auth.Events.AccountCreatedEventType);
 
         await EventStore.save([event]);
@@ -149,7 +149,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         Emotions.VO.AlarmTrigger.parse({
           type: Emotions.VO.AlarmTriggerEnum.inactivity,
           inactivityDays: 7,
-          lastEntryTimestamp: tools.Time.Now(currentMs).Minus(tools.Duration.Days(10)),
+          lastEntryTimestamp: now.subtract(tools.Duration.Days(10)).ms,
         }),
         Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
       ),
@@ -230,8 +230,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
           new Emotions.VO.ReactionEffectiveness(1),
         ),
         userId: users[0]?.user.id as Auth.VO.UserIdType,
-        scheduledAt: currentMs,
-        scheduledFor: tools.Timestamp.parse(tools.Time.Now(currentMs).Add(tools.Duration.Minutes(5))),
+        scheduledAt: now.ms,
+        scheduledFor: now.add(tools.Duration.Minutes(5)).ms,
       },
     } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
@@ -253,7 +253,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     const shareableLink = Publishing.Aggregates.ShareableLink.create(
       Adapters.IdProvider.generate(),
       "entries",
-      new tools.DateRange(tools.Time.Now(currentMs).Minus(tools.Duration.Days(7)), deps.Clock.nowMs()),
+      new tools.DateRange(now.subtract(tools.Duration.Days(7)), now),
       tools.Duration.Days(3).ms,
       users[0]?.user.id as Auth.VO.UserIdType,
       deps,

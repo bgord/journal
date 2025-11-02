@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { Env } from "+infra/env";
 
-const T0: tools.TimestampType = tools.Timestamp.parse(Date.UTC(2025, 0, 1, 0, 0, 0));
+const T0 = tools.TimestampVO.fromNumber(Date.UTC(2025, 0, 1, 0, 0, 0));
 
 export const Clock: bg.ClockPort = {
   [bg.NodeEnvironmentEnum.local]: new bg.ClockSystemAdapter(),

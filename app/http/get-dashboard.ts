@@ -50,11 +50,9 @@ const deps = { Clock: Adapters.Clock, WeeklyReviewExport: Adapters.Emotions.Week
 export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
 
-  const today = tools.Day.fromNow(deps.Clock.nowMs()).getStart();
-  const lastWeek = tools.Timestamp.parse(
-    tools.Day.fromNow(deps.Clock.nowMs()).getStart() - tools.Duration.Weeks(1).ms,
-  );
-  const allTime = tools.Timestamp.parse(0);
+  const today = tools.Day.fromNow(deps.Clock.now()).getStart();
+  const lastWeek = tools.Day.fromNow(deps.Clock.now()).getStart().subtract(tools.Duration.Weeks(1));
+  const allTime = tools.TimestampVO.fromNumber(0);
 
   const heatmapResponse = await db
     .select({ label: Schema.entries.emotionLabel, intensity: Schema.entries.emotionIntensity })
@@ -87,10 +85,10 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     columns: { id: true, generatedAt: true, advice: true, emotionLabel: true, name: true },
   });
 
-  async function getEntryCountSince(start: tools.TimestampType) {
+  async function getEntryCountSince(start: tools.TimestampVO) {
     return db.$count(
       Schema.entries,
-      and(gte(Schema.entries.startedAt, start), eq(Schema.entries.userId, userId)),
+      and(gte(Schema.entries.startedAt, start.ms), eq(Schema.entries.userId, userId)),
     );
   }
 
@@ -119,7 +117,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     .orderBy(desc(Schema.entries.reactionEffectiveness))
     .limit(5);
 
-  async function getTopEmotionsSince(start: tools.TimestampType) {
+  async function getTopEmotionsSince(start: tools.TimestampVO) {
     const response = await db
       .select({
         id: Schema.entries.id,
@@ -127,7 +125,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
         hits: count(Schema.entries.id).mapWith(Number),
       })
       .from(Schema.entries)
-      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, start)))
+      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, start.ms)))
       .groupBy(Schema.entries.emotionLabel)
       .orderBy(sql`count(${Schema.entries.id}) DESC`)
       .limit(3);
@@ -184,8 +182,8 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     },
     weeklyReviews: weeklyReviews.map((review) => ({
       ...review,
-      weekStart: tools.DateFormatters.date(tools.Week.fromIsoId(review.weekIsoId).getStart()),
-      weekEnd: tools.DateFormatters.date(tools.Week.fromIsoId(review.weekIsoId).getEnd()),
+      weekStart: tools.DateFormatters.date(tools.Week.fromIsoId(review.weekIsoId).getStart().ms),
+      weekEnd: tools.DateFormatters.date(tools.Week.fromIsoId(review.weekIsoId).getEnd().ms),
     })),
   };
 

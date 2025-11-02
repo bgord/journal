@@ -14,7 +14,7 @@ describe(`POST ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
-    expect(response.status).toBe(403);
+    expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
 
@@ -22,7 +22,7 @@ describe(`POST ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request("/api/weekly-review/id/export/email", { method: "POST" }, mocks.ip);
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
 
@@ -37,7 +37,7 @@ describe(`POST ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockRejectedValue(new Error("Failure"));
     const response = await server.request(url, { method: "POST" }, mocks.ip);
-    expect(response.status).toBe(500);
+    expect(response.status).toEqual(500);
   });
 
   test("validation - WeeklyReviewIsCompleted", async () => {
@@ -66,7 +66,7 @@ describe(`POST ${url}`, () => {
       { method: "POST", headers: mocks.correlationIdHeaders },
       mocks.ip,
     );
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent]);
   });
 });

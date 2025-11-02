@@ -11,14 +11,14 @@ describe(`GET ${url}`, () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
-    expect(response.status).toBe(403);
+    expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
 
   test("validation - dateRangeStart", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const response = await server.request(`${url}?dateRangeStart=2025-01-01`, { method: "GET" }, mocks.ip);
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
   });
 
   test("validation - dateRangeStart after dateRangeEnd", async () => {
@@ -29,7 +29,7 @@ describe(`GET ${url}`, () => {
       mocks.ip,
     );
     const json = await response.json();
-    expect(response.status).toBe(400);
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "invalid.date.range", _known: true });
   });
 
@@ -43,7 +43,7 @@ describe(`GET ${url}`, () => {
       mocks.ip,
     );
 
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(response.headers.get("content-type")).toEqual("text/plain");
     expect(response.headers.get("content-disposition")).toEqual(
       `attachment; filename="entry-export-${mocks.T0}.txt"`,
@@ -61,7 +61,7 @@ describe(`GET ${url}`, () => {
       mocks.ip,
     );
 
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(response.headers.get("content-type")).toEqual("text/csv");
     expect(response.headers.get("content-disposition")).toEqual(
       `attachment; filename="entry-export-${mocks.T0}.csv"`,
@@ -79,7 +79,7 @@ describe(`GET ${url}`, () => {
       mocks.ip,
     );
 
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(response.headers.get("content-type")).toEqual("text/markdown");
     expect(response.headers.get("content-disposition")).toEqual(
       `attachment; filename="entry-export-${mocks.T0}.md"`,
@@ -97,7 +97,7 @@ describe(`GET ${url}`, () => {
       mocks.ip,
     );
 
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(response.headers.get("content-type")).toEqual("application/pdf");
     expect(response.headers.get("content-disposition")).toEqual(
       `attachment; filename="entry-export-${mocks.T0}.pdf"`,

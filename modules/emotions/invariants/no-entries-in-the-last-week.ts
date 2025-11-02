@@ -12,13 +12,16 @@ class NoEntriesInTheLastWeekError extends Error {
 
 type NoEntriesInTheLastWeekConfigType = {
   lastEntryTimestamp: Awaited<ReturnType<GetLatestEntryTimestampForUser["execute"]>>;
-  now: tools.TimestampType;
+  now: tools.TimestampValueType;
 };
 
 class NoEntriesInTheLastWeekFactory extends bg.Invariant<NoEntriesInTheLastWeekConfigType> {
   fails(config: NoEntriesInTheLastWeekConfigType) {
     if (!config.lastEntryTimestamp) return true;
-    return config.lastEntryTimestamp > tools.Time.Now(config.now).Minus(tools.Duration.Days(7));
+
+    return tools.TimestampVO.fromValue(config.lastEntryTimestamp).isAfter(
+      tools.TimestampVO.fromValue(config.now).subtract(tools.Duration.Days(7)),
+    );
   }
 
   message = "no.entries.in.the.last.week";
