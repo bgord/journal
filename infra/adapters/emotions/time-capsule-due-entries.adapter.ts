@@ -6,7 +6,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class TimeCapsuleDueEntriesDrizzle implements TimeCapsuleDueEntriesPort {
-  async listDue(now: tools.TimestampVO) {
+  async listDue(now: tools.Timestamp) {
     const rows = await db.query.timeCapsuleEntries.findMany({
       where: and(
         lte(Schema.timeCapsuleEntries.scheduledFor, now.ms),

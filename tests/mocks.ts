@@ -29,7 +29,7 @@ export const historyId = IdProvider.generate();
 const patternDetectionId = IdProvider.generate();
 
 // Timestamps
-export const T0 = tools.TimestampVO.fromNumber(Date.UTC(2025, 0, 1, 0, 0, 0));
+export const T0 = tools.Timestamp.fromNumber(Date.UTC(2025, 0, 1, 0, 0, 0));
 
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
@@ -651,7 +651,7 @@ export const GenericHourHasPassedMondayUtc18Event = {
   stream: "passage_of_time",
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
-  payload: { timestamp: tools.TimestampVO.fromNumber(1754330400000).ms },
+  payload: { timestamp: tools.Timestamp.fromNumber(1754330400000).ms },
 } satisfies System.Events.HourHasPassedEventType;
 
 export function getNextMonday1800UTC(now: Date = new Date()): number {
@@ -671,7 +671,7 @@ export const HourHasPassedNextMondayUtc18Event = {
   stream: "passage_of_time",
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
-  payload: { timestamp: tools.TimestampVO.fromNumber(getNextMonday1800UTC()).ms },
+  payload: { timestamp: tools.Timestamp.fromNumber(getNextMonday1800UTC()).ms },
 } satisfies System.Events.HourHasPassedEventType;
 
 export const GenericHourHasPassedWednesdayUtc18Event = {
@@ -681,7 +681,7 @@ export const GenericHourHasPassedWednesdayUtc18Event = {
   stream: "passage_of_time",
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
-  payload: { timestamp: tools.TimestampVO.fromNumber(1754503200000).ms },
+  payload: { timestamp: tools.Timestamp.fromNumber(1754503200000).ms },
 } satisfies System.Events.HourHasPassedEventType;
 
 export const GenericAiRequestRegisteredEmotionsAlarmEntryEvent = {

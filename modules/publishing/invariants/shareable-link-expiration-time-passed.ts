@@ -10,7 +10,7 @@ class ShareableLinkExpirationTimePassedError extends Error {
 }
 
 type ShareableLinkExpirationTimePassedConfigType = {
-  now: tools.TimestampVO;
+  now: tools.Timestamp;
   createdAt?: tools.TimestampValueType;
   durationMs?: tools.DurationMsType;
 };
@@ -19,7 +19,7 @@ class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLin
   fails(config: ShareableLinkExpirationTimePassedConfigType) {
     if (!config.createdAt) return true;
     if (!config.durationMs) return true;
-    return tools.TimestampVO.fromValue(config.createdAt)
+    return tools.Timestamp.fromValue(config.createdAt)
       .add(tools.Duration.Ms(config.durationMs))
       .isAfter(config.now);
   }

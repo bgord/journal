@@ -10,13 +10,13 @@ class TimeCapsuleEntryScheduledInFutureError extends Error {
 }
 
 type TimeCapsuleEntryScheduledInFutureConfigType = {
-  now: tools.TimestampVO;
+  now: tools.Timestamp;
   scheduledFor: tools.TimestampValueType;
 };
 
 class TimeCapsuleEntryScheduledInFutureFactory extends bg.Invariant<TimeCapsuleEntryScheduledInFutureConfigType> {
   fails(config: TimeCapsuleEntryScheduledInFutureConfigType) {
-    return config.now.isAfterOrEqual(tools.TimestampVO.fromValue(config.scheduledFor));
+    return config.now.isAfterOrEqual(tools.Timestamp.fromValue(config.scheduledFor));
   }
 
   message = "TimeCapsuleEntryScheduledInFuture";

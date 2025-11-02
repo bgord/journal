@@ -52,7 +52,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
 
   const today = tools.Day.fromNow(deps.Clock.now()).getStart();
   const lastWeek = tools.Day.fromNow(deps.Clock.now()).getStart().subtract(tools.Duration.Weeks(1));
-  const allTime = tools.TimestampVO.fromNumber(0);
+  const allTime = tools.Timestamp.fromNumber(0);
 
   const heatmapResponse = await db
     .select({ label: Schema.entries.emotionLabel, intensity: Schema.entries.emotionIntensity })
@@ -85,7 +85,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     columns: { id: true, generatedAt: true, advice: true, emotionLabel: true, name: true },
   });
 
-  async function getEntryCountSince(start: tools.TimestampVO) {
+  async function getEntryCountSince(start: tools.Timestamp) {
     return db.$count(
       Schema.entries,
       and(gte(Schema.entries.startedAt, start.ms), eq(Schema.entries.userId, userId)),
@@ -117,7 +117,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     .orderBy(desc(Schema.entries.reactionEffectiveness))
     .limit(5);
 
-  async function getTopEmotionsSince(start: tools.TimestampVO) {
+  async function getTopEmotionsSince(start: tools.Timestamp) {
     const response = await db
       .select({
         id: Schema.entries.id,

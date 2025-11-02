@@ -15,7 +15,7 @@ const endOfToday = today.getEnd();
 
 const lastWeekStart = today.getEnd().subtract(tools.Duration.Weeks(1));
 const lastMonthStart = today.getEnd().subtract(tools.Duration.Days(30));
-const allTimeStart = tools.TimestampVO.fromNumber(0);
+const allTimeStart = tools.Timestamp.fromNumber(0);
 
 const emptyQuery = "";
 

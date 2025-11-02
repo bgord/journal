@@ -22,7 +22,7 @@ export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
       new tools.DateRange(today.getEnd().subtract(tools.Duration.Weeks(1)), today.getEnd()),
     [options.last_month]: (today) =>
       new tools.DateRange(today.getEnd().subtract(tools.Duration.Days(30)), today.getEnd()),
-    [options.all_time]: (today) => new tools.DateRange(tools.TimestampVO.fromNumber(0), today.getEnd()),
+    [options.all_time]: (today) => new tools.DateRange(tools.Timestamp.fromNumber(0), today.getEnd()),
   };
 
   const entries = await deps.EntrySnapshot.getFormatted(userId, range[filter](today), query);
