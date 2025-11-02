@@ -1,5 +1,7 @@
 # journal
 
+[![Deploy](https://github.com/bgord/journal/actions/workflows/deploy-server.yml/badge.svg)](https://github.com/bgord/journal/actions/workflows/deploy-server.yml)
+
 [Check status](https://bgord.github.io/statuses/history/journal)
 
 ## Configuration:
