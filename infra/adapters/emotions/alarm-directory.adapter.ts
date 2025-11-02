@@ -24,7 +24,7 @@ export class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
       status: alarm.status as VO.AlarmStatusEnum,
       name: alarm.name as VO.AlarmNameOption,
       advice: alarm.advice as VO.AlarmSnapshot["advice"],
-      generatedAt: alarm.generatedAt as tools.TimestampValueType,
+      generatedAt: tools.TimestampValue.parse(alarm.generatedAt),
       lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
       emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
       weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
