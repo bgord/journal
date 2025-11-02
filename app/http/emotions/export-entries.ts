@@ -13,15 +13,12 @@ const deps = {
 
 export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
   const userId = c.get("user").id;
-  const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
+  const timeZoneOffset = c.get("timeZoneOffset");
 
   const start = tools.Day.fromIsoId(tools.DayIsoId.parse(c.req.query("dateRangeStart"))).getStart();
   const end = tools.Day.fromIsoId(tools.DayIsoId.parse(c.req.query("dateRangeEnd"))).getEnd();
 
-  const dateRange = new tools.DateRange(
-    tools.Timestamp.parse(start + timeZoneOffsetMs),
-    tools.Timestamp.parse(end + timeZoneOffsetMs),
-  );
+  const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
 
   const strategy = Emotions.VO.EntryExportStrategy.parse(c.req.query("strategy"));
 
