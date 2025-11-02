@@ -13,8 +13,8 @@ type InactivityAlarmScheduleConfigType = { timestamp: tools.TimestampValueType }
 
 class InactivityAlarmScheduleFactory extends bg.Invariant<InactivityAlarmScheduleConfigType> {
   fails(config: InactivityAlarmScheduleConfigType) {
-    const weekday = tools.Weekday.fromUtcTimestamp(tools.TimestampVO.fromValue(config.timestamp));
-    const hour = tools.Hour.fromEpochMs(tools.TimestampVO.fromValue(config.timestamp));
+    const weekday = tools.Weekday.fromTimestampValue(config.timestamp);
+    const hour = tools.Hour.fromTimestampValue(config.timestamp);
 
     const sixPM = new tools.Hour(18);
 
