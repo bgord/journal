@@ -1,5 +1,5 @@
 import { AiClientAdapter, Env } from "+infra/env";
-import { AiClientAnthropicAdapter } from "./ai-client-antrhopic.adapter";
+import { AiClientAnthropicAdapter } from "./ai-client-anthropic.adapter";
 import { AiClientNoopAdapter } from "./ai-client-noop.adapter";
 import { AiClientOpenAiAdapter } from "./ai-client-open-ai.adapter";
 
