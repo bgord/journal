@@ -1,7 +1,13 @@
 # Changelog
+- 2025-11-03 19:57 ae41c2b6 **fix: depcruise config**
+## 2025-11-03 19:57 
+- 2025-11-03 19:56 76331f41 **step: update packages**
+- 2025-11-03 19:56 514bc5b1 **refactor: simplify healthcheck**
+- 2025-11-03 19:29 829e6244 **step: bump bgord/scripts**
+- 2025-11-03 13:58 11277ee6 **step: add fetch priority high for images**
 - 2025-11-03 11:36 aa9f80a1 **feature: add online status bar**
-## 2025-11-03 11:36 
 - 2025-11-03 11:18 d1408aa2 **step: update packages**
+- 2025-11-03 10:37 b92ebeb5 **docs: generate CHANGELOG**
 - 2025-11-02 23:31 228354a2 **fix: name typo**
 - 2025-11-02 23:28 02ff0046 **step: bump bgord/scripts**
 - 2025-11-02 23:20 31087a53 **step: bump bgord/scripts**
