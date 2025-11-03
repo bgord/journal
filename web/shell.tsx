@@ -1,5 +1,6 @@
 import { TranslationsContext } from "@bgord/ui";
 import { HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { OnlineStatusBar } from "./components/online-status-bar";
 import { rootRoute } from "./router";
 import { Navigation } from "./sections";
 
@@ -16,6 +17,7 @@ export function Shell() {
           <TranslationsContext.Provider value={i18n}>
             <Navigation />
             <Outlet />
+            <OnlineStatusBar />
           </TranslationsContext.Provider>
         </div>
         <Scripts />

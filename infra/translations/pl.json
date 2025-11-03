@@ -2,6 +2,7 @@
   "alarm.name.INACTIVITY_ALARM": "Brak aktywności",
   "alarm.name.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM": "Negatywna emocja o ekstremalnej intensywności",
   "app.back": "Powrót",
+  "app.offline": "Brak połączenia z internetem",
   "app.cancel": "Anuluj",
   "app.clear": "Wyczyść",
   "app.dashboard": "Dashboard",
