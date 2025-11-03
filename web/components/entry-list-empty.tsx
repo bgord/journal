@@ -10,6 +10,7 @@ export function EntryListEmpty() {
         data-animation="grow-fade-in"
         height="300px"
         alt={t("entry.list.empty.alt")}
+        fetchPriority="high"
       />
       <div data-color="brand-300">{t("entry.list.empty")}</div>
     </div>

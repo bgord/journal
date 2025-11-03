@@ -23,6 +23,7 @@ export function Avatar(props: { size: AvatarSize }) {
       data-bwb="hairline"
       data-br="pill"
       data-object-fit="cover"
+      fetchPriority="high"
       {...Rhythm().times(dimension[props.size]).style.square}
     />
   );
