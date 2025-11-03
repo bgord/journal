@@ -1,6 +1,8 @@
 # Changelog
+- 2025-11-03 11:36 aa9f80a1 **feature: add online status bar**
+## 2025-11-03 11:36 
+- 2025-11-03 11:18 d1408aa2 **step: update packages**
 - 2025-11-02 23:31 228354a2 **fix: name typo**
-## 2025-11-02 23:31 
 - 2025-11-02 23:28 02ff0046 **step: bump bgord/scripts**
 - 2025-11-02 23:20 31087a53 **step: bump bgord/scripts**
 - 2025-11-02 23:04 0e82b3e0 **refactor: rename timestamp vo**
@@ -10,6 +12,8 @@
 - 2025-11-02 22:43 f0594438 **refactor: simplify weekly review scheduler**
 - 2025-11-02 22:39 27f20c83 **refactor: simplify weekly review schedule**
 - 2025-11-02 22:37 a582d375 **step: simplify quota rules**
+- 2025-11-02 22:32 86207ba4 **docs: generate readme**
+- 2025-11-02 22:32 554280dc **docs: generate CHANGELOG**
 - 2025-11-02 22:31 3c67df02 **fix: db seed**
 - 2025-11-02 22:28 b5412378 **docs: generate readme**
 - 2025-11-02 22:28 098c5c66 **docs: generate CHANGELOG**
