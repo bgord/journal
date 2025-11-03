@@ -11,7 +11,7 @@ module.exports = {
       "+auth": path.resolve(__dirname, "modules/auth"),
       "+emotions": path.resolve(__dirname, "modules/emotions"),
       "+publishing": path.resolve(__dirname, "modules/publishing"),
-      "+languages": path.resolve(__dirname, "modules/app/value-objects"),
+      "+languages": path.resolve(__dirname, "modules/supported-languages.ts"),
     },
   },
 };
