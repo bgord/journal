@@ -1,9 +1,14 @@
 # Changelog
+- 2025-11-04 15:57 6c018976 **refactor: tidy up adapters import in prereq**
+## 2025-11-04 15:57 
+- 2025-11-04 15:54 aa88cbb4 **step: add prereq clock drift**
+- 2025-11-04 15:52 918c37d7 **step: update packages**
+- 2025-11-04 15:48 7558b3e5 **step: update packages**
 - 2025-11-03 19:57 ae41c2b6 **fix: depcruise config**
-## 2025-11-03 19:57 
 - 2025-11-03 19:56 76331f41 **step: update packages**
 - 2025-11-03 19:56 514bc5b1 **refactor: simplify healthcheck**
 - 2025-11-03 19:29 829e6244 **step: bump bgord/scripts**
+- 2025-11-03 18:57 eb696a94 **docs: generate CHANGELOG**
 - 2025-11-03 13:58 11277ee6 **step: add fetch priority high for images**
 - 2025-11-03 11:36 aa9f80a1 **feature: add online status bar**
 - 2025-11-03 11:18 d1408aa2 **step: update packages**
