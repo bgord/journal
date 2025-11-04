@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import * as infra from "+infra";
+import { Clock } from "+infra/adapters/clock.adapter";
 import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
 import { Env } from "+infra/env";
@@ -10,7 +11,7 @@ import { server, startup } from "./server";
 import { handler } from "./web/entry-server";
 
 (async function main() {
-  await new bg.Prerequisites(Logger).check(prerequisites);
+  await new bg.Prerequisites({ logger: Logger, clock: Clock }).check(prerequisites);
   migrate(db, { migrationsFolder: "infra/drizzle" });
 
   const app = Bun.serve({
