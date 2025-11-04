@@ -1,9 +1,14 @@
 # Changelog
+- 2025-11-04 21:28 e2c4c1fe **step: adjust prereqs**
+## 2025-11-04 21:28 
+- 2025-11-04 21:27 7d943023 **step: update packages**
+- 2025-11-04 21:27 5b2a885c **step: update packages**
 - 2025-11-04 15:57 6c018976 **refactor: tidy up adapters import in prereq**
-## 2025-11-04 15:57 
 - 2025-11-04 15:54 aa88cbb4 **step: add prereq clock drift**
 - 2025-11-04 15:52 918c37d7 **step: update packages**
 - 2025-11-04 15:48 7558b3e5 **step: update packages**
+- 2025-11-04 14:58 81bffb1c **docs: generate CHANGELOG**
+- 2025-11-04 14:58 6d5f2a89 **docs: generate readme**
 - 2025-11-03 19:57 ae41c2b6 **fix: depcruise config**
 - 2025-11-03 19:56 76331f41 **step: update packages**
 - 2025-11-03 19:56 514bc5b1 **refactor: simplify healthcheck**
