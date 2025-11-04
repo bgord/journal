@@ -70,11 +70,12 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
             reactionType={reactionType.value as EntrySnapshotFormatted["reactionType"]}
             data-cursor="pointer"
             onClick={reactionTypeEdit.enable}
+            {...reactionTypeEdit.props.controller}
           />
         )}
 
         {reactionTypeEdit.on && (
-          <div data-stack="x" data-gap="2" data-mr="2">
+          <div data-stack="x" data-gap="2" data-mr="2" {...reactionTypeEdit.props.target}>
             <UI.Select
               {...reactionType.input.props}
               disabled={mutation.isLoading}
@@ -105,6 +106,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
         <UI.EntryReactionDescription
           reactionDescription={reactionDescription.value ?? null}
           onClick={reactionDescriptionEdit.enable}
+          {...reactionDescriptionEdit.props.controller}
         />
       )}
 
@@ -118,6 +120,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
             await mutation.mutate();
             reactionDescriptionEdit.disable();
           }}
+          {...reactionDescriptionEdit.props.target}
         >
           <textarea
             autoFocus

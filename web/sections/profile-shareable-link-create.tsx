@@ -57,6 +57,7 @@ export function ProfileShareableLinkCreate() {
         data-variant="with-icon"
         data-ml="auto"
         onClick={dialog.enable}
+        {...dialog.props.controller}
       >
         <Plus data-size="md" />
         {t("profile.shareable_links.create.cta_primary")}

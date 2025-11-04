@@ -16,6 +16,7 @@ export function Home() {
           data-variant="with-icon"
           data-ml="auto"
           onClick={exportEntries.toggle}
+          {...exportEntries.props.controller}
         >
           <MoreHoriz data-size="md" />
         </button>

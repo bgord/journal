@@ -73,7 +73,13 @@ export function HomeEntryAdd() {
 
   return (
     <>
-      <button type="button" className="c-button" data-variant="with-icon" onClick={dialog.enable}>
+      <button
+        type="button"
+        className="c-button"
+        data-variant="with-icon"
+        onClick={dialog.enable}
+        {...dialog.props.controller}
+      >
         <Plus data-size="md" />
         {t("entry.new.cta_secondary")}
       </button>

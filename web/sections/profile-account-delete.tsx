@@ -46,6 +46,7 @@ export function ProfileAccountDelete() {
         data-mr="auto"
         data-color="danger-400"
         data-bg="danger-900"
+        {...dialog.props.controller}
       >
         {t("profile.delete_account.cta_primary")}
       </button>

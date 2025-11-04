@@ -46,11 +46,12 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
           emotionLabel={props.emotionLabel}
           data-cursor="pointer"
           onClick={emotionLabelEdit.enable}
+          {...emotionLabelEdit.props.controller}
         />
       )}
 
       {emotionLabelEdit.on && (
-        <div data-stack="x" data-gap="2" data-mr="2">
+        <div data-stack="x" data-gap="2" data-mr="2" {...emotionLabelEdit.props.target}>
           <Select
             {...emotionLabel.input.props}
             disabled={mutation.isLoading}
