@@ -7,7 +7,7 @@
         "@anthropic-ai/sdk": "0.68.0",
         "@bgord/bun": "1.1.7",
         "@bgord/design": "1.4.10",
-        "@bgord/tools": "1.1.4",
+        "@bgord/tools": "1.1.5",
         "@bgord/ui": "0.8.3",
         "@react-pdf/renderer": "4.3.1",
         "@tanstack/react-router": "1.134.12",
@@ -112,7 +112,7 @@
 
     "@bgord/design": ["@bgord/design@1.4.10", "", { "dependencies": { "culori": "4.0.2", "lodash": "4.17.21" } }, "sha512-WcixW+m3Bm0BhquMkq+53ipIn1euiTVMHWfanYwojZ44Vm5wPPLGSOYjyfvOxi9VsvbRwnHZeLfaGr8FeqEERg=="],
 
-    "@bgord/tools": ["@bgord/tools@1.1.4", "", { "dependencies": { "date-fns": "4.1.0", "mime-types": "3.0.1" }, "peerDependencies": { "zod": "4.1.12" } }, "sha512-uqRHJ5EDgaJ2WWJCggX3lzdsNaTIXDGUntGOj36/nSlnVmjXSxfe1AsrHLMIVkaecyItKJqgQioIwlhxmsVLnw=="],
+    "@bgord/tools": ["@bgord/tools@1.1.5", "", { "dependencies": { "date-fns": "4.1.0", "mime-types": "3.0.1" }, "peerDependencies": { "zod": "4.1.12" } }, "sha512-rGddi9a0X3Qm95dj0fo7nraW1c1h9OL/g5r3Em/zVBdz7OtPmMEqlVCKnlXrC9VayGUOAa+cK/x51C9QPqwsOg=="],
 
     "@bgord/ui": ["@bgord/ui@0.8.3", "", { "dependencies": { "js-cookie": "3.0.5", "polish-plurals": "1.1.0", "tinykeys": "3.0.0" }, "peerDependencies": { "react": "19.2.0", "react-dom": "19.2.0" } }, "sha512-UdhwOSlvSTODcSVbAYjnCTb9euNUmgf2xS3qWaYL9oHwelRjicvPZ+7VYtpOSa5/G3vu3mz/iXJ5o0UTogbsug=="],
 
@@ -1476,7 +1476,7 @@
 
     "tiny-warning": ["tiny-warning@1.0.3", "", {}, "sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA=="],
 
-    "tinyexec": ["tinyexec@1.0.1", "", {}, "sha512-5uC6DDlmeqiOwCPmK9jMSdOuZTh8bU39Ys6yidB+UTt5hfZUPGAypSgFRiEp+jbi9qH40BLDvy85jIU88wKSqw=="],
+    "tinyexec": ["tinyexec@1.0.2", "", {}, "sha512-W/KYk+NFhkmsYpuHq5JykngiOCnxeVL8v8dFnqxSD8qEEdRfXk1SDM6JzNqcERbcGYj9tMrDQBYV9cjgnunFIg=="],
 
     "tinyglobby": ["tinyglobby@0.2.15", "", { "dependencies": { "fdir": "^6.5.0", "picomatch": "^4.0.3" } }, "sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ=="],
 
@@ -1587,8 +1587,6 @@
     "@babel/core/semver": ["semver@6.3.1", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="],
 
     "@babel/helper-compilation-targets/semver": ["semver@6.3.1", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="],
-
-    "@bgord/bun/@bgord/tools": ["@bgord/tools@1.1.5", "", { "dependencies": { "date-fns": "4.1.0", "mime-types": "3.0.1" }, "peerDependencies": { "zod": "4.1.12" } }, "sha512-rGddi9a0X3Qm95dj0fo7nraW1c1h9OL/g5r3Em/zVBdz7OtPmMEqlVCKnlXrC9VayGUOAa+cK/x51C9QPqwsOg=="],
 
     "@esbuild-kit/core-utils/esbuild": ["esbuild@0.18.20", "", { "optionalDependencies": { "@esbuild/android-arm": "0.18.20", "@esbuild/android-arm64": "0.18.20", "@esbuild/android-x64": "0.18.20", "@esbuild/darwin-arm64": "0.18.20", "@esbuild/darwin-x64": "0.18.20", "@esbuild/freebsd-arm64": "0.18.20", "@esbuild/freebsd-x64": "0.18.20", "@esbuild/linux-arm": "0.18.20", "@esbuild/linux-arm64": "0.18.20", "@esbuild/linux-ia32": "0.18.20", "@esbuild/linux-loong64": "0.18.20", "@esbuild/linux-mips64el": "0.18.20", "@esbuild/linux-ppc64": "0.18.20", "@esbuild/linux-riscv64": "0.18.20", "@esbuild/linux-s390x": "0.18.20", "@esbuild/linux-x64": "0.18.20", "@esbuild/netbsd-x64": "0.18.20", "@esbuild/openbsd-x64": "0.18.20", "@esbuild/sunos-x64": "0.18.20", "@esbuild/win32-arm64": "0.18.20", "@esbuild/win32-ia32": "0.18.20", "@esbuild/win32-x64": "0.18.20" }, "bin": { "esbuild": "bin/esbuild" } }, "sha512-ceqxoedUrcayh7Y7ZX6NdbbDzGROiyVBgC4PriJThBKSVPWnnFHZAkfI1lJT8QFkOwH4qOS2SJkS4wvpGl8BpA=="],
 
