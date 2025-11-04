@@ -1,8 +1,10 @@
 # Changelog
+- 2025-11-04 21:55 0f813f49 **step: add toggle target and controller props**
+## 2025-11-04 21:55 
 - 2025-11-04 21:28 e2c4c1fe **step: adjust prereqs**
-## 2025-11-04 21:28 
 - 2025-11-04 21:27 7d943023 **step: update packages**
 - 2025-11-04 21:27 5b2a885c **step: update packages**
+- 2025-11-04 20:29 bbd968f5 **docs: generate CHANGELOG**
 - 2025-11-04 15:57 6c018976 **refactor: tidy up adapters import in prereq**
 - 2025-11-04 15:54 aa88cbb4 **step: add prereq clock drift**
 - 2025-11-04 15:52 918c37d7 **step: update packages**
