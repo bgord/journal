@@ -2,11 +2,13 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "+languages";
 import { CertificateInspector } from "+infra/adapters/certificate-inspector.adapter";
+import { Clock } from "+infra/adapters/clock.adapter";
 import { DiskSpaceChecker } from "+infra/adapters/disk-space-checker.adapter";
 import { JsonFileReader } from "+infra/adapters/json-file-reader.adapter";
 import { Logger, LoggerWinstonProductionAdapter } from "+infra/adapters/logger.adapter";
 import { Mailer } from "+infra/adapters/mailer.adapter";
 import { RemoteFileStorageProductionDir } from "+infra/adapters/remote-file-storage.adapter";
+import { Timekeeper } from "+infra/adapters/timekeeper.adapter";
 import { sqlite } from "+infra/db";
 import { Env } from "+infra/env";
 import { jobs } from "+infra/jobs";
@@ -62,5 +64,12 @@ export const prerequisites = [
     days: 7,
     enabled: production,
     inspector: CertificateInspector,
+  }),
+  new bg.PrerequisiteClockDrift({
+    label: "ssl",
+    enabled: production,
+    skew: tools.Duration.Minutes(1),
+    clock: Clock,
+    timekeeper: Timekeeper,
   }),
 ];
