@@ -62,7 +62,6 @@ export const prerequisites = [
     label: "clock-drift",
     enabled: production,
     skew: tools.Duration.Minutes(1),
-    clock: Adapters.Clock,
     timekeeper: Adapters.Timekeeper,
   }),
 ];
