@@ -1,10 +1,13 @@
 # Changelog
+- 2025-11-05 13:48 d744651a **step: include the backup script in the build script**
+## 2025-11-05 13:48 
+- 2025-11-05 13:47 ed70ff80 **step: add production server backup script**
 - 2025-11-05 13:38 9a8e0caa **step: update packages**
-## 2025-11-05 13:38 
 - 2025-11-05 13:37 af557e5b **refactor: unify prereq config naming**
 - 2025-11-05 13:36 c1af6b86 **step: update packages**
 - 2025-11-05 13:22 1f2b617c **refactor: adjust clock drift prereq config**
 - 2025-11-05 13:21 5ccdb7cc **step: update packages**
+- 2025-11-05 12:39 d366fa98 **docs: generate CHANGELOG**
 - 2025-11-04 21:55 0f813f49 **step: add toggle target and controller props**
 - 2025-11-04 21:28 e2c4c1fe **step: adjust prereqs**
 - 2025-11-04 21:27 7d943023 **step: update packages**
