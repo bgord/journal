@@ -17,7 +17,7 @@ AVATARS_ARCHIVE_PATH="$BACKUPS_PATH/$CURRENT_TIME.avatars.tar.gz"
 trap 'catch $? $LINENO' ERR
 
 catch() {
-  http POST https://lobbygow.bgord.dev/notification-send \
+  http POST https://lobbygow.bgord.dev/api/notification-send \
     kind="error" \
     subject="[$PROJECT_NAME] production server backup error" \
     content="Error occurred on $2 with status code $1" \
