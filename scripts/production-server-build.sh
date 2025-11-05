@@ -30,7 +30,7 @@ cp .env.production $OUTPUT_DIRECTORY
 step_end ".env.production copy"
 
 step_start "scripts/production-server-{start,backup}.sh copy"
-cp scripts/production-server-{start,build}.sh $OUTPUT_DIRECTORY
+cp scripts/production-server-{start,backup}.sh $OUTPUT_DIRECTORY
 step_end "scripts/production-server-{start,backup}.sh copy"
 
 step_start "Infra directory create"
