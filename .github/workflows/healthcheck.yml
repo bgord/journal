@@ -8,9 +8,6 @@ on:
 concurrency:
   group: ci-healthcheck-${{ github.ref }}
   cancel-in-progress: true
-permissions:
-  contents: read
-  issues: write
 jobs:
   healthcheck:
     runs-on: ubuntu-24.04
