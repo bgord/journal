@@ -11,6 +11,9 @@ BACKUPS_PATH="/var/backups/$PROJECT_NAME"
 DATABASE_PATH="/var/www/$PROJECT_NAME/sqlite.db"
 DATABASE_BACKUP_PATH="$BACKUPS_PATH/$CURRENT_TIME.sqlite.backup"
 
+AVATARS_DIR="/var/www/$PROJECT_NAME/infra/avatars"
+AVATARS_ARCHIVE_PATH="$BACKUPS_PATH/$CURRENT_TIME.avatars.tar.gz"
+
 trap 'catch $? $LINENO' ERR
 
 catch() {
@@ -29,6 +32,10 @@ echo "Database backup created to: $DATABASE_BACKUP_PATH"
 tar -czf "$DATABASE_BACKUP_PATH.tar.gz" "$DATABASE_BACKUP_PATH"
 echo "Database backup compressed"
 rm "$DATABASE_BACKUP_PATH"
+
+echo "Archiving avatars from: $AVATARS_DIR"
+tar -czf "$AVATARS_ARCHIVE_PATH" -C "$AVATARS_DIR" .
+echo "Avatars archived to: $AVATARS_ARCHIVE_PATH"
 
 find "$BACKUPS_PATH" -mtime +7 -exec rm {} \;
 echo "Backups older than 7 days deleted"
