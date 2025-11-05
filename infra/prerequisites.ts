@@ -44,8 +44,7 @@ export const prerequisites = [
   new bg.PrerequisiteTranslations({
     label: "translations",
     supportedLanguages: SupportedLanguages,
-    Logger: Adapters.Logger,
-    JsonFileReader: Adapters.JsonFileReader,
+    logger: Adapters.Logger,
   }),
   new bg.PrerequisiteMailer({ label: "mailer", mailer: Adapters.Mailer, enabled: production }),
   new bg.PrerequisiteOutsideConnectivity({ label: "outside-connectivity", enabled: production }),
