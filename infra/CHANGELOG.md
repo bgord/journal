@@ -1,6 +1,9 @@
 # Changelog
+- 2025-11-05 18:05 f4b33ed9 **step: bump bgord/scripts**
+- 2025-11-05 18:05 e81745ef **step: remove install httpie**
+## 2025-11-05 18:05 
 - 2025-11-05 18:01 b4c70747 **feature: setup healthcheck workflow**
-## 2025-11-05 18:01 
+- 2025-11-05 17:01 1ceabfaa **docs: generate CHANGELOG**
 - 2025-11-05 15:54 3033b4fd **refactor: compress notebook.svg**
 - 2025-11-05 15:42 1e7ef682 **step: bump bgord/scripts**
 - 2025-11-05 15:40 4f34e6f7 **step: bump bgord/scripts**
