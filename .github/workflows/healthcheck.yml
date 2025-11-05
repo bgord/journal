@@ -20,10 +20,5 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install HTTPie
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y httpie
-
       - name: Run healthcheck script
         run: ./bgord-scripts/healthcheck.sh ${{ secrets.PROJECT_NAME }} ${{secrets.BASIC_AUTH_PRODUCTION }}
