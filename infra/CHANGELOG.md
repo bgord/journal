@@ -1,11 +1,13 @@
 # Changelog
+- 2025-11-05 18:01 b4c70747 **feature: setup healthcheck workflow**
+## 2025-11-05 18:01 
 - 2025-11-05 15:54 3033b4fd **refactor: compress notebook.svg**
-## 2025-11-05 15:54 
 - 2025-11-05 15:42 1e7ef682 **step: bump bgord/scripts**
 - 2025-11-05 15:40 4f34e6f7 **step: bump bgord/scripts**
 - 2025-11-05 15:40 010b250c **step: bump bgord/scripts**
 - 2025-11-05 15:31 94bb29a2 **refactor: adjust lobbygow base path**
 - 2025-11-05 15:31 10b83239 **step: update packages**
+- 2025-11-05 14:55 ad591d95 **docs: generate CHANGELOG**
 - 2025-11-05 14:35 5d171386 **docs: generate CHANGELOG**
 - 2025-11-05 13:59 d1b113d6 **fix: build script**
 - 2025-11-05 13:58 7d81f6db **step: add avatatars backup**
