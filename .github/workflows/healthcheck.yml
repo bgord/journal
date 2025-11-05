@@ -1,0 +1,29 @@
+name: Healthcheck
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+concurrency:
+  group: ci-healthcheck-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+  issues: write
+jobs:
+  healthcheck:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Clone repositories
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install HTTPie
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y httpie
+
+      - name: Run healthcheck script
+        run: ./bgord-scripts/healthcheck.sh ${{ secrets.PROJECT_NAME }} ${{secrets.BASIC_AUTH_PRODUCTION }}
