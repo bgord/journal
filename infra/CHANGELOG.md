@@ -1,6 +1,8 @@
 # Changelog
+- 2025-11-05 15:31 94bb29a2 **refactor: adjust lobbygow base path**
+- 2025-11-05 15:31 10b83239 **step: update packages**
+## 2025-11-05 15:31 
 - 2025-11-05 13:59 d1b113d6 **fix: build script**
-## 2025-11-05 13:59 
 - 2025-11-05 13:58 7d81f6db **step: add avatatars backup**
 - 2025-11-05 13:48 d744651a **step: include the backup script in the build script**
 - 2025-11-05 13:47 ed70ff80 **step: add production server backup script**
@@ -9,6 +11,7 @@
 - 2025-11-05 13:36 c1af6b86 **step: update packages**
 - 2025-11-05 13:22 1f2b617c **refactor: adjust clock drift prereq config**
 - 2025-11-05 13:21 5ccdb7cc **step: update packages**
+- 2025-11-05 13:07 0902fdb9 **docs: generate CHANGELOG**
 - 2025-11-05 12:49 3bee3d02 **docs: generate CHANGELOG**
 - 2025-11-05 12:39 d366fa98 **docs: generate CHANGELOG**
 - 2025-11-04 21:55 0f813f49 **step: add toggle target and controller props**
