@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-06 09:32 d5592532 **step: update healthcheck workflow**
+## 2025-11-06 09:32 
 - 2025-11-06 09:29 cdf50ec6 **step: bump bgord/scripts**
-## 2025-11-06 09:29 
 - 2025-11-06 09:23 7dc19247 **step: bump bgord/scripts**
 - 2025-11-06 09:15 878bb1ae **step: bump bgord/scripts**
 - 2025-11-06 09:15 0b4020ae **step: bump bgord/scripts**
@@ -8,6 +9,7 @@
 - 2025-11-06 09:09 45bac84c **refactor: remove duplicate**
 - 2025-11-06 09:06 b1122b1b **step: update packages**
 - 2025-11-06 09:04 3a6684cb **step: setup lobbygow notification**
+- 2025-11-06 08:29 12561930 **docs: generate CHANGELOG**
 - 2025-11-06 08:23 e51aff53 **docs: generate CHANGELOG**
 - 2025-11-06 08:16 0dde2122 **docs: generate CHANGELOG**
 - 2025-11-06 08:15 8f4607fb **docs: generate readme**
