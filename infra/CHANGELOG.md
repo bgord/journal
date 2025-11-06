@@ -1,7 +1,9 @@
 # Changelog
+- 2025-11-06 19:52 68ec4e89 **fix: use mutation from bgord ui**
+## 2025-11-06 19:52 
 - 2025-11-06 19:39 00fc8ea6 **step: update packages**
-## 2025-11-06 19:39 
 - 2025-11-06 19:38 0708d5d6 **step: reinstall packages**
+- 2025-11-06 18:39 756b0ed8 **docs: generate CHANGELOG**
 - 2025-11-06 15:59 244095d0 **step: bump bgord/scripts**
 - 2025-11-06 15:08 3c5697f4 **docs: generate CHANGELOG**
 - 2025-11-06 10:48 a5f4239c **step: install js-cookie types**
