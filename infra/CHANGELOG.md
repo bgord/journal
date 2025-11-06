@@ -1,6 +1,18 @@
 # Changelog
+- 2025-11-06 10:28 7146d475 **step: add healthcheck binary prereq**
+## 2025-11-06 10:28 
+- 2025-11-06 10:26 03449fcd **step: add os prereq**
+- 2025-11-06 10:21 77eed178 **step: update packages**
+- 2025-11-06 10:20 9b1c968a **step: remove unused types devdeps**
+- 2025-11-06 10:18 b4ae99b9 **step: remove date-fns**
+- 2025-11-06 10:18 924d1a3d **step: remove croner**
+- 2025-11-06 10:16 ebbd12be **step: remove js-cookie**
+- 2025-11-06 10:12 a09a49aa **step: remove node-cache**
+- 2025-11-06 10:11 ba293a61 **step: remove hono**
+- 2025-11-06 10:10 77706df2 **refactor: remove better-auth**
+- 2025-11-06 10:07 bdb66f87 **refactor: remove tools**
+- 2025-11-06 10:05 1bae9aa6 **step: bump bgord/scripts**
 - 2025-11-06 09:32 d5592532 **step: update healthcheck workflow**
-## 2025-11-06 09:32 
 - 2025-11-06 09:29 cdf50ec6 **step: bump bgord/scripts**
 - 2025-11-06 09:23 7dc19247 **step: bump bgord/scripts**
 - 2025-11-06 09:15 878bb1ae **step: bump bgord/scripts**
@@ -9,6 +21,7 @@
 - 2025-11-06 09:09 45bac84c **refactor: remove duplicate**
 - 2025-11-06 09:06 b1122b1b **step: update packages**
 - 2025-11-06 09:04 3a6684cb **step: setup lobbygow notification**
+- 2025-11-06 08:32 56dce7ea **docs: generate CHANGELOG**
 - 2025-11-06 08:29 12561930 **docs: generate CHANGELOG**
 - 2025-11-06 08:23 e51aff53 **docs: generate CHANGELOG**
 - 2025-11-06 08:16 0dde2122 **docs: generate CHANGELOG**
