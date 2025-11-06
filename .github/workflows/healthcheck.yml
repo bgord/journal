@@ -19,13 +19,8 @@ jobs:
 
       - name: Run healthcheck script
         run: ./bgord-scripts/healthcheck.sh "${{ secrets.PROJECT_NAME }}" "${{ secrets.BASIC_AUTH_PRODUCTION }}"
- 
-      - name: Notify on failure
-        if: ${{ failure() && steps.run_healthcheck.outcome == 'failure' }}
-        run: |
-          echo "Healthcheck failed for ${{ secrets.PROJECT_NAME }}."
 
-      - name: Notify Lobbygow on failure
+      - name: Notify on failure
         if: ${{ failure() && steps.run_healthcheck.outcome == 'failure' }}
         run: |
           curl -sS -X POST "https://lobbygow.bgord.dev/api/notification-send" \
