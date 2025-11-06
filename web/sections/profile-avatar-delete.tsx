@@ -1,8 +1,7 @@
-import { useHover } from "@bgord/ui";
+import { useHover, useMutation } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { Avatar, AvatarSize, ButtonClose } from "../components";
 import { rootRoute } from "../router";
-import { useMutation } from "../sections/use-mutation";
 
 export function ProfileAvatarDelete() {
   const router = useRouter();

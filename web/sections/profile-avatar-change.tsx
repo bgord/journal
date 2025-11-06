@@ -1,8 +1,7 @@
-import { exec, useFile, useTranslations } from "@bgord/ui";
+import { exec, useFile, useMutation, useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { UserCircle } from "iconoir-react";
 import { rootRoute } from "../router";
-import { useMutation } from "../sections/use-mutation";
 import { ProfileAvatarDelete } from "./profile-avatar-delete";
 
 const mimeTypes = ["image/png", "image/jpeg", "image/webp"];
@@ -94,7 +93,7 @@ export function ProfileAvatarChange() {
           )}
 
           {mutation.isError && (
-            <output data-fs="xs" data-color="danger-400" data-animation="grow-fade-in">
+            <output data-mt="3" data-fs="xs" data-color="danger-400" data-animation="grow-fade-in">
               {t("profile.avatar.upload.error")}
             </output>
           )}

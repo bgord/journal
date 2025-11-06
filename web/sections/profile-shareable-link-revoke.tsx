@@ -1,8 +1,7 @@
-import { useTranslations, WeakETag } from "@bgord/ui";
+import { useMutation, useTranslations, WeakETag } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import type { ShareableLinkSnapshot } from "../api";
 import { profileRoute } from "../router";
-import { useMutation } from "../sections/use-mutation";
 
 export function ProfileShareableLinkRevoke(props: ShareableLinkSnapshot) {
   const t = useTranslations();

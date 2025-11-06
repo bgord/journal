@@ -1,7 +1,6 @@
-import { Autocomplete, Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
+import { Autocomplete, Dialog, Rhythm, useMutation, useToggle, useTranslations } from "@bgord/ui";
 import { UserXmark, WarningCircle } from "iconoir-react";
 import { ButtonCancel, ButtonClose } from "../components";
-import { useMutation } from "../sections/use-mutation";
 
 export function ProfileAccountDelete() {
   const t = useTranslations();

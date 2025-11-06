@@ -1,9 +1,8 @@
-import { useTranslations } from "@bgord/ui";
+import { useMutation, useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { ShareableLinkStatusEnum } from "../../app/services/create-shareable-link-form";
 import type { ShareableLinkSnapshot } from "../api";
 import { profileRoute } from "../router";
-import { useMutation } from "../sections/use-mutation";
 
 export function ProfileShareableLinkHide(props: ShareableLinkSnapshot) {
   const t = useTranslations();

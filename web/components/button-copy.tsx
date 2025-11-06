@@ -1,7 +1,6 @@
-import { Clipboard } from "@bgord/ui";
+import { Clipboard, MutationState } from "@bgord/ui";
 import { Check, Copy } from "iconoir-react";
 import { useState } from "react";
-import { MutationState } from "../sections/use-mutation";
 
 export function ButtonCopy(props: { text: string }) {
   const [state, setState] = useState<MutationState>(MutationState.idle);

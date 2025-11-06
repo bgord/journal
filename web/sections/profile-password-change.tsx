@@ -1,7 +1,6 @@
-import { useTranslations } from "@bgord/ui";
+import { useMutation, useTranslations } from "@bgord/ui";
 import { CheckCircle, WarningCircle } from "iconoir-react";
 import { rootRoute } from "../router";
-import { useMutation } from "../sections/use-mutation";
 
 export function ProfilePasswordChange() {
   const t = useTranslations();

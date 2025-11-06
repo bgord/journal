@@ -1,6 +1,6 @@
+import { useMutation } from "@bgord/ui";
 import { Check, SendMail } from "iconoir-react";
 import type { DashboardDataType } from "../api";
-import { useMutation } from "../sections/use-mutation";
 
 export function DashboardWeeklyReviewEmailSend(props: DashboardDataType["weeklyReviews"][number]) {
   const mutation = useMutation({
