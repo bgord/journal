@@ -63,4 +63,5 @@ export const prerequisites = [
     skew: tools.Duration.Minutes(1),
     timekeeper: Adapters.Timekeeper,
   }),
+  new bg.PrerequisiteOs({ label: "os", accepted: ["Darwin", "Linux"] }),
 ];
