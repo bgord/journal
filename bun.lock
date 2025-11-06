@@ -15,7 +15,6 @@
         "date-fns": "4.1.0",
         "drizzle-orm": "0.44.7",
         "emittery": "1.2.0",
-        "hono": "4.10.4",
         "iconoir-react": "7.11.0",
         "js-cookie": "3.0.5",
         "node-cache": "5.1.2",
