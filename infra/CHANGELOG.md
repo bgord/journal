@@ -1,7 +1,9 @@
 # Changelog
+- 2025-11-06 09:09 45bac84c **refactor: remove duplicate**
+## 2025-11-06 09:09 
 - 2025-11-06 09:06 b1122b1b **step: update packages**
-## 2025-11-06 09:06 
 - 2025-11-06 09:04 3a6684cb **step: setup lobbygow notification**
+- 2025-11-06 08:06 a7ed6314 **docs: generate CHANGELOG**
 - 2025-11-05 18:10 8f4ba5fa **step: bump bgord/scripts**
 - 2025-11-05 18:10 33de94f3 **refactor: remove unneeded permissions**
 - 2025-11-05 18:05 f4b33ed9 **step: bump bgord/scripts**
