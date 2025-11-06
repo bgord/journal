@@ -1,6 +1,8 @@
 # Changelog
+- 2025-11-06 23:42 a2324607 **step: update packages**
+## 2025-11-06 23:42 
+- 2025-11-06 22:22 92ea596b **docs: generate CHANGELOG**
 - 2025-11-06 19:52 68ec4e89 **fix: use mutation from bgord ui**
-## 2025-11-06 19:52 
 - 2025-11-06 19:39 00fc8ea6 **step: update packages**
 - 2025-11-06 19:38 0708d5d6 **step: reinstall packages**
 - 2025-11-06 18:39 756b0ed8 **docs: generate CHANGELOG**
