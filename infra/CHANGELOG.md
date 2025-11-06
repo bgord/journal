@@ -1,12 +1,14 @@
 # Changelog
+- 2025-11-06 09:29 cdf50ec6 **step: bump bgord/scripts**
+## 2025-11-06 09:29 
 - 2025-11-06 09:23 7dc19247 **step: bump bgord/scripts**
-## 2025-11-06 09:23 
 - 2025-11-06 09:15 878bb1ae **step: bump bgord/scripts**
 - 2025-11-06 09:15 0b4020ae **step: bump bgord/scripts**
 - 2025-11-06 09:14 132224a4 **step: bump bgord/scripts**
 - 2025-11-06 09:09 45bac84c **refactor: remove duplicate**
 - 2025-11-06 09:06 b1122b1b **step: update packages**
 - 2025-11-06 09:04 3a6684cb **step: setup lobbygow notification**
+- 2025-11-06 08:23 e51aff53 **docs: generate CHANGELOG**
 - 2025-11-06 08:16 0dde2122 **docs: generate CHANGELOG**
 - 2025-11-06 08:15 8f4607fb **docs: generate readme**
 - 2025-11-06 08:15 0fc8a721 **docs: generate CHANGELOG**
