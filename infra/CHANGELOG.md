@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-06 10:45 095c0815 **fix: shared entries width**
+## 2025-11-06 10:45 
 - 2025-11-06 10:28 7146d475 **step: add healthcheck binary prereq**
-## 2025-11-06 10:28 
 - 2025-11-06 10:26 03449fcd **step: add os prereq**
 - 2025-11-06 10:21 77eed178 **step: update packages**
 - 2025-11-06 10:20 9b1c968a **step: remove unused types devdeps**
@@ -13,6 +14,7 @@
 - 2025-11-06 10:07 bdb66f87 **refactor: remove tools**
 - 2025-11-06 10:05 1bae9aa6 **step: bump bgord/scripts**
 - 2025-11-06 09:32 d5592532 **step: update healthcheck workflow**
+- 2025-11-06 09:29 f51f22b5 **docs: generate CHANGELOG**
 - 2025-11-06 09:29 cdf50ec6 **step: bump bgord/scripts**
 - 2025-11-06 09:23 7dc19247 **step: bump bgord/scripts**
 - 2025-11-06 09:15 878bb1ae **step: bump bgord/scripts**
