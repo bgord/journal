@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-06 15:59 244095d0 **step: bump bgord/scripts**
+## 2025-11-06 15:59 
 - 2025-11-06 10:48 a5f4239c **step: install js-cookie types**
-## 2025-11-06 10:48 
 - 2025-11-06 10:45 095c0815 **fix: shared entries width**
 - 2025-11-06 10:28 7146d475 **step: add healthcheck binary prereq**
 - 2025-11-06 10:26 03449fcd **step: add os prereq**
@@ -14,6 +15,7 @@
 - 2025-11-06 10:10 77706df2 **refactor: remove better-auth**
 - 2025-11-06 10:07 bdb66f87 **refactor: remove tools**
 - 2025-11-06 10:05 1bae9aa6 **step: bump bgord/scripts**
+- 2025-11-06 09:48 25c8e7bc **docs: generate CHANGELOG**
 - 2025-11-06 09:46 d04ccea9 **docs: generate CHANGELOG**
 - 2025-11-06 09:32 d5592532 **step: update healthcheck workflow**
 - 2025-11-06 09:29 f51f22b5 **docs: generate CHANGELOG**
