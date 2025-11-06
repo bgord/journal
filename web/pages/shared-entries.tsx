@@ -13,7 +13,7 @@ export function SharedEntries() {
         <UI.LanguageSelector />
       </header>
 
-      <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto" data-mt="6">
+      <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto" data-mt="6" data-width="100%">
         {entries.map((entry) => (
           <SharedEntry key={entry.id} {...entry} />
         ))}
