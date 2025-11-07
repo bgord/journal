@@ -1,5 +1,6 @@
 import {
   exec,
+  Rhythm,
   useMutation,
   useNumberField,
   useTextField,
@@ -47,7 +48,7 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
   }, [emotionIntensity.changed, emotionLabel.changed]);
 
   return (
-    <div data-stack="x" data-gap="5" data-mt="2">
+    <div data-stack="x" data-cross="center" data-gap="5" {...Rhythm().times(3).style.height}>
       {emotionLabelEdit.off && (
         <EntryEmotionLabel
           emotionLabel={props.emotionLabel}
@@ -58,7 +59,7 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
       )}
 
       {emotionLabelEdit.on && (
-        <div data-stack="x" data-gap="2" data-mr="2" {...emotionLabelEdit.props.target}>
+        <div data-stack="x" data-gap="2" {...emotionLabelEdit.props.target}>
           <Select
             {...emotionLabel.input.props}
             disabled={mutation.isLoading}
