@@ -1,8 +1,10 @@
 # Changelog
+- 2025-11-07 14:11 910043f8 **step: unify profile password change description color**
+## 2025-11-07 14:11 
 - 2025-11-07 13:37 69529f87 **step: add shareable link hide animation**
-## 2025-11-07 13:37 
 - 2025-11-07 13:28 92e709a8 **refactor: use list empty component everywhere**
 - 2025-11-07 13:24 005f49cb **refactor: extract list empty component**
+- 2025-11-07 12:38 24a789ea **docs: generate CHANGELOG**
 - 2025-11-07 12:34 471c4607 **step: bump bgord/scripts**
 - 2025-11-07 12:30 2bca8471 **fix: home entry emotion edit ui**
 - 2025-11-07 12:27 d2770ab0 **fix: reaction type editing margin**
