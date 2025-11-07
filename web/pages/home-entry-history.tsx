@@ -20,7 +20,12 @@ export function HomeEntryHistory() {
   };
 
   return (
-    <Dialog data-dir="column" data-mt="12" {...Rhythm().times(50).style.width} {...dialog}>
+    <Dialog
+      data-dir="column"
+      data-mt="12"
+      style={{ ...Rhythm().times(50).width, ...Rhythm().times(40).minHeight }}
+      {...dialog}
+    >
       <div data-stack="x" data-main="between" data-cross="center">
         <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
           <List data-size="md" data-color="neutral-300" />
