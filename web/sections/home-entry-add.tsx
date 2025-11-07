@@ -65,8 +65,19 @@ export function HomeEntryAdd() {
         headers: TimeZoneOffset.get(),
       });
     },
-    onSuccess: () => {
+    onSuccess: (_, context) => {
       router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
+      context.form?.reset();
+      Fields.clearAll([
+        scheduledFor,
+        situationDescription,
+        situationKind,
+        emotionLabel,
+        emotionIntensity,
+        reactionDescription,
+        reactionType,
+        reactionEffectiveness,
+      ]);
       dialog.disable();
     },
   });
