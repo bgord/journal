@@ -42,7 +42,7 @@ export function SharedEntry(props: EntrySnapshotFormatted) {
       </section>
 
       <section data-stack="y" data-gap="5">
-        <div data-stack="x" data-gap="5">
+        <div data-stack="x" data-gap="5" data-mt="2">
           <UI.DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</UI.DescriptionLabel>
 
           <UI.EntryReactionType reactionType={props.reactionType} />
