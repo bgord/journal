@@ -1,10 +1,14 @@
 # Changelog
+- 2025-11-07 12:30 2bca8471 **fix: home entry emotion edit ui**
+## 2025-11-07 12:30 
+- 2025-11-07 12:27 d2770ab0 **fix: reaction type editing margin**
+- 2025-11-07 12:25 d4e29d5c **refactor: reorganize reaction type edit ui order**
 - 2025-11-07 12:19 8b6b508d **step: skip inspect app size on fasttrack**
-## 2025-11-07 12:19 
 - 2025-11-07 12:18 46aa2feb **step: bump bgord/scripts**
 - 2025-11-07 12:17 ab32e6e9 **step: add fasttrack option**
 - 2025-11-07 12:15 c64b797a **step: bump bgord/scripts**
 - 2025-11-07 12:09 353a624e **step: update packages**
+- 2025-11-07 11:19 844c87ff **docs: generate CHANGELOG**
 - 2025-11-07 11:17 dd70637e **docs: generate CHANGELOG**
 - 2025-11-07 11:15 88777bd3 **docs: generate CHANGELOG**
 - 2025-11-07 11:10 02566897 **docs: generate CHANGELOG**
