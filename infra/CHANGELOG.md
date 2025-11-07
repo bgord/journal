@@ -1,6 +1,7 @@
 # Changelog
+- 2025-11-07 17:16 1e4dcabe **step: add min height to home entry history dialog**
+## 2025-11-07 17:16 
 - 2025-11-07 17:06 dcc641df **step: adjust padding in entry alarms**
-## 2025-11-07 17:06 
 - 2025-11-07 16:58 eebb894b **fix: entry alarm spacing**
 - 2025-11-07 16:52 a59a6105 **fix: entry alarms spacing**
 - 2025-11-07 16:49 a4214e47 **step: unify home entry spacing**
@@ -8,6 +9,7 @@
 - 2025-11-07 16:36 c39996fb **step: add create shareable link form date default values**
 - 2025-11-07 16:34 aee2fc32 **step: add profile account delete placeholder**
 - 2025-11-07 16:27 b7124400 **step: enable view transitions from router**
+- 2025-11-07 16:06 05b15876 **docs: generate CHANGELOG**
 - 2025-11-07 15:59 342c7672 **docs: generate CHANGELOG**
 - 2025-11-07 15:53 63bb8f83 **docs: generate CHANGELOG**
 - 2025-11-07 15:49 e19b9fa6 **docs: generate CHANGELOG**
