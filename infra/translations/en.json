@@ -26,7 +26,7 @@
   "app.visitor.genitive": "visitors",
   "app.visitor.plural": "visitors",
   "app.visitor.singular": "visitor",
-  "auth.change_password.desc": "You'll be redirected to a form to set a new password",
+  "auth.change_password.desc": "You will be redirected to a form to set a new password",
   "auth.change_password.error": "Error while sending the link",
   "auth.change_password.header": "Change password",
   "auth.change_password.send_cta": "Change password",
