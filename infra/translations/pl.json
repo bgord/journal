@@ -204,6 +204,7 @@
   "profile.change_language.en.value": "Angielski",
   "profile.change_language.header": "Zmiana języka",
   "profile.change_language.pl.value": "Polski",
+  "profile.delete_account.input.placeholder": "delete",
   "profile.delete_account.challenge": "Wpisz 'delete' w polu poniżej",
   "profile.delete_account.cta_primary": "Usuń konto",
   "profile.delete_account.error": "Błąd w trakcie usuwania konta",

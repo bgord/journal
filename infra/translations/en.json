@@ -205,6 +205,7 @@
   "profile.change_language.header": "Change language",
   "profile.change_language.pl.value": "Polish",
   "profile.delete_account.challenge": "Type 'delete' in the field below",
+  "profile.delete_account.input.placeholder": "delete",
   "profile.delete_account.cta_primary": "Delete account",
   "profile.delete_account.error": "Error while deleting account",
   "profile.delete_account.header": "Delete account",

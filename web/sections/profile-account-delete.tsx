@@ -76,6 +76,7 @@ export function ProfileAccountDelete() {
               type="text"
               required
               title={t("profile.delete_account.challenge")}
+              placeholder={t("profile.delete_account.input.placeholder")}
               pattern="delete"
               {...Autocomplete.off}
             />
