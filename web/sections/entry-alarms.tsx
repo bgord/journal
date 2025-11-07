@@ -7,7 +7,7 @@ export function EntryAlarms(props: EntrySnapshotFormatted) {
   const t = useTranslations();
 
   return (
-    <ul data-stack="y" data-gap="5">
+    <ul data-stack="y" data-gap="5" data-mt="3">
       {props.alarms.map((alarm) => (
         <li key={alarm.id} data-stack="y" data-gap="2" data-mt="3" data-fs="sm">
           <div data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
