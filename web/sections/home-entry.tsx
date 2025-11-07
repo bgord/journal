@@ -32,7 +32,8 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
     <li
       {...exit.attach}
       data-stack="y"
-      data-p="4"
+      data-px="4"
+      data-pt="3"
       data-pb="5"
       data-bg="neutral-900"
       data-fs="base"
