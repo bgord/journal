@@ -1,24 +1,35 @@
-import { usePluralize, useTranslations } from "@bgord/ui";
-import { Link } from "@tanstack/react-router";
+import { useExitAction, useMutation, usePluralize, useTranslations } from "@bgord/ui";
+import { Link, useRouter } from "@tanstack/react-router";
 import { Clock, OpenInWindow } from "iconoir-react";
 import { ShareableLinkStatusEnum } from "../../app/services/create-shareable-link-form";
 import type { ShareableLinkSnapshot } from "../api";
 import { ButtonCopy } from "../components";
-import { ProfileShareableLinkHide } from "./profile-shareable-link-hide";
+import { profileRoute } from "../router";
 import { ProfileShareableLinkRevoke } from "./profile-shareable-link-revoke";
 
 export function ProfileShareableLink(props: ShareableLinkSnapshot) {
   const t = useTranslations();
   const pluralize = usePluralize();
+  const router = useRouter();
 
   const copyURL = (id: string) => {
     if (typeof window === "undefined") return "";
     return `${window.location.origin}/shared-entries/${id}`;
   };
 
+  const mutation = useMutation({
+    perform: () => fetch(`/api/publishing/link/${props.id}/hide`, { method: "POST", credentials: "include" }),
+    onSuccess: () => router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true }),
+  });
+
+  const exit = useExitAction({ action: mutation.mutate, animation: "shrink-fade-out" });
+
+  if (!exit.visible) return null;
+
   return (
+    // @ts-expect-error
     <li
-      key={props.id}
+      {...exit.attach}
       data-stack="x"
       data-cross="center"
       data-gap="5"
@@ -112,7 +123,20 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
           </div>
         )}
 
-        <ProfileShareableLinkHide {...props} />
+        {[ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status) && (
+          <div data-stack="x" data-gap="3" data-ml="auto">
+            <button
+              type="submit"
+              className="c-button"
+              data-variant="secondary"
+              disabled={mutation.isLoading}
+              title={t("profile.shareable_links.hide.cta")}
+              onClick={exit.trigger}
+            >
+              {t("profile.shareable_links.hide.cta")}
+            </button>
+          </div>
+        )}
       </div>
     </li>
   );

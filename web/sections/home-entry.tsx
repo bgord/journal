@@ -53,19 +53,17 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
         >
           {t("app.history")}
         </Link>
-        <form method="delete">
-          <button
-            className="c-button"
-            data-variant="with-icon"
-            type="submit"
-            title={t("entry.delete.title")}
-            disabled={mutation.isLoading}
-            data-interaction="subtle-scale"
-            onClick={exit.trigger}
-          >
-            <Xmark data-size="md" />
-          </button>
-        </form>
+        <button
+          className="c-button"
+          data-variant="with-icon"
+          type="submit"
+          title={t("entry.delete.title")}
+          disabled={mutation.isLoading}
+          data-interaction="subtle-scale"
+          onClick={exit.trigger}
+        >
+          <Xmark data-size="md" />
+        </button>
       </header>
 
       <section data-stack="y" data-gap="5" data-py="2" data-pb="5" data-bcb="neutral-700" data-bwb="hairline">
