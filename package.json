@@ -31,7 +31,7 @@
     "shellcheck": "4.1.0",
     "terser": "5.44.1",
     "typescript": "5.9.3",
-    "vite": "7.2.1"
+    "vite": "7.2.2"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.68.0",
