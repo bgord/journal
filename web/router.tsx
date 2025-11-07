@@ -92,7 +92,7 @@ const routeTree = rootRoute.addChildren([
 ]);
 
 export function createRouter(context: RouterContext) {
-  return new Router({ routeTree, context, defaultPreload: "intent" });
+  return new Router({ routeTree, context, defaultPreload: "intent", defaultViewTransition: true });
 }
 
 declare module "@tanstack/react-router" {
