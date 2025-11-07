@@ -1,5 +1,6 @@
 import { useTranslations } from "@bgord/ui";
 import type { DashboardDataType } from "../api";
+import { DashboardCellEmpty } from "../components";
 
 export function DashboardEmotionsTop(
   props: React.JSX.IntrinsicElements["div"] & {
@@ -15,16 +16,20 @@ export function DashboardEmotionsTop(
         {props.label}
       </div>
 
-      <ul data-stack="y" data-gap="3">
-        {props.emotions.map((stat, index) => (
-          <li key={`top-emotions-all-${stat}-${index}`} data-stack="x" data-gap="3">
-            <div className="c-badge" data-variant="primary">
-              {stat.hits}
-            </div>
-            <div data-fs="xs">{t(`entry.emotion.label.value.${stat.emotionLabel}`)}</div>
-          </li>
-        ))}
-      </ul>
+      {!props.emotions[0] && <DashboardCellEmpty />}
+
+      {props.emotions[0] && (
+        <ul data-stack="y" data-gap="3">
+          {props.emotions.map((stat, index) => (
+            <li key={`top-emotions-all-${stat}-${index}`} data-stack="x" data-gap="3">
+              <div className="c-badge" data-variant="primary">
+                {stat.hits}
+              </div>
+              <div data-fs="xs">{t(`entry.emotion.label.value.${stat.emotionLabel}`)}</div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
