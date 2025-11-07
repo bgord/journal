@@ -1,5 +1,5 @@
 import { useMutation, useTranslations } from "@bgord/ui";
-import { CheckCircle, WarningCircle } from "iconoir-react";
+import { CheckCircle, Key, WarningCircle } from "iconoir-react";
 import { rootRoute } from "../router";
 
 export function ProfilePasswordChange() {
@@ -20,7 +20,10 @@ export function ProfilePasswordChange() {
 
   return (
     <section data-stack="y" data-gap="5">
-      <div>{t("auth.change_password.header")}</div>
+      <div data-stack="x" data-cross="center" data-gap="3">
+        <Key data-size="md" />
+        <div>{t("auth.change_password.header")}</div>
+      </div>
 
       <div data-color="neutral-400" data-fs="sm">
         {t("auth.change_password.desc")}
