@@ -1,5 +1,6 @@
 import {
   Dialog,
+  Fields,
   Rhythm,
   useDateField,
   useMutation,
@@ -41,8 +42,11 @@ export function ProfileShareableLinkCreate() {
           dateRangeEnd: dateRangeEnd.value,
         }),
       }),
-    onSuccess: () => {
+    onSuccess: (_, context) => {
       router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true });
+      Fields.clearAll([specification, duration, dateRangeStart, dateRangeEnd]);
+      context.form?.reset();
+
       dialog.disable();
     },
   });
