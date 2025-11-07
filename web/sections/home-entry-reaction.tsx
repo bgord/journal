@@ -68,14 +68,20 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
         {reactionTypeEdit.off && (
           <UI.EntryReactionType
             reactionType={reactionType.value as EntrySnapshotFormatted["reactionType"]}
-            data-cursor="pointer"
             onClick={reactionTypeEdit.enable}
+            data-cursor="pointer"
             {...reactionTypeEdit.props.controller}
           />
         )}
 
         {reactionTypeEdit.on && (
-          <div data-stack="x" data-gap="2" data-mr="2" {...reactionTypeEdit.props.target}>
+          <div data-stack="x" data-gap="2" {...reactionTypeEdit.props.target}>
+            <UI.ButtonCancel
+              type="submit"
+              disabled={mutation.isLoading}
+              onClick={exec([reactionType.clear, reactionTypeEdit.disable])}
+            />
+
             <UI.Select
               {...reactionType.input.props}
               disabled={mutation.isLoading}
@@ -90,12 +96,6 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
                 </option>
               ))}
             </UI.Select>
-
-            <UI.ButtonCancel
-              type="submit"
-              disabled={mutation.isLoading}
-              onClick={exec([reactionType.clear, reactionTypeEdit.disable])}
-            />
           </div>
         )}
 
