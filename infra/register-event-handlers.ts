@@ -21,7 +21,11 @@ new Projections.PatternDetectionProjector(EventBus, EventHandler);
 new Projections.WeeklyReviewProjector(EventBus, EventHandler);
 new Projections.ShareableLinkProjector(EventBus, EventHandler);
 new Projections.AiUsageCounterProjector(EventBus, EventHandler);
-new Projections.HistoryProjector(EventBus, EventHandler, Adapters.History.HistoryProjection);
+new Projections.HistoryProjector({
+  EventBus,
+  EventHandler,
+  HistoryProjection: Adapters.History.HistoryProjection,
+});
 new Projections.ShareableLinkHitProjector({
   EventBus,
   EventHandler,

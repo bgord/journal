@@ -1,19 +1,21 @@
 import * as bg from "@bgord/bun";
 import type { EventBus } from "+infra/event-bus";
 
+type Dependencies = {
+  EventBus: typeof EventBus;
+  EventHandler: bg.EventHandler;
+  HistoryProjection: bg.History.Ports.HistoryProjectionPort;
+};
+
 export class HistoryProjector {
-  constructor(
-    eventBus: typeof EventBus,
-    EventHandler: bg.EventHandler,
-    historyRepository: bg.History.Ports.HistoryProjectionPort,
-  ) {
-    eventBus.on(
+  constructor(deps: Dependencies) {
+    deps.EventBus.on(
       bg.History.Events.HISTORY_POPULATED_EVENT,
-      EventHandler.handle(bg.History.EventHandlers.onHistoryPopulatedEvent(historyRepository)),
+      deps.EventHandler.handle(bg.History.EventHandlers.onHistoryPopulatedEvent(deps.HistoryProjection)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       bg.History.Events.HISTORY_CLEARED_EVENT,
-      EventHandler.handle(bg.History.EventHandlers.onHistoryClearedEvent(historyRepository)),
+      deps.EventHandler.handle(bg.History.EventHandlers.onHistoryClearedEvent(deps.HistoryProjection)),
     );
   }
 }
