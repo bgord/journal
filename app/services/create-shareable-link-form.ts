@@ -1,3 +1,5 @@
+import { Form as form } from "@bgord/ui";
+
 export enum ShareableLinkSpecification {
   entries = "entries",
 }
@@ -18,8 +20,8 @@ export const Form = {
     options: Object.keys(ShareableLinkDuration),
     map: { one_day: 86_400_000, one_week: 604_800_000, one_month: 2_592_000_000 },
   },
-  dateRangeStart: { field: { name: "dateRangeStart" } },
-  dateRangeEnd: { field: { name: "dateRangeEnd" } },
+  dateRangeStart: { field: { name: "dateRangeStart", defaultValue: form.date.min.yesterday() } },
+  dateRangeEnd: { field: { name: "dateRangeEnd", defaultValue: form.date.min.today() } },
 };
 
 export { ShareableLinkStatusEnum } from "../../modules/publishing/value-objects/shareable-link-status";
