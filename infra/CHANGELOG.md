@@ -1,6 +1,9 @@
 # Changelog
+- 2025-11-07 13:37 69529f87 **step: add shareable link hide animation**
+## 2025-11-07 13:37 
+- 2025-11-07 13:28 92e709a8 **refactor: use list empty component everywhere**
+- 2025-11-07 13:24 005f49cb **refactor: extract list empty component**
 - 2025-11-07 12:34 471c4607 **step: bump bgord/scripts**
-## 2025-11-07 12:34 
 - 2025-11-07 12:30 2bca8471 **fix: home entry emotion edit ui**
 - 2025-11-07 12:27 d2770ab0 **fix: reaction type editing margin**
 - 2025-11-07 12:25 d4e29d5c **refactor: reorganize reaction type edit ui order**
@@ -9,6 +12,7 @@
 - 2025-11-07 12:17 ab32e6e9 **step: add fasttrack option**
 - 2025-11-07 12:15 c64b797a **step: bump bgord/scripts**
 - 2025-11-07 12:09 353a624e **step: update packages**
+- 2025-11-07 11:35 74f23cb2 **docs: generate CHANGELOG**
 - 2025-11-07 11:31 f75bd007 **docs: generate CHANGELOG**
 - 2025-11-07 11:19 844c87ff **docs: generate CHANGELOG**
 - 2025-11-07 11:17 dd70637e **docs: generate CHANGELOG**
