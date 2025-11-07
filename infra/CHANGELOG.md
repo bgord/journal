@@ -1,6 +1,9 @@
 # Changelog
+- 2025-11-07 16:36 c39996fb **step: add create shareable link form date default values**
+## 2025-11-07 16:36 
+- 2025-11-07 16:34 aee2fc32 **step: add profile account delete placeholder**
+- 2025-11-07 16:27 b7124400 **step: enable view transitions from router**
 - 2025-11-07 15:10 1f0361ed **fix: profile shareable link create stale fields ui**
-## 2025-11-07 15:10 
 - 2025-11-07 15:07 ecdc216c **fix: home entry add stale fields state**
 - 2025-11-07 15:07 c0d1e9c3 **step: update packages**
 - 2025-11-07 15:07 46cd86b1 **refactor: use fields clear all from bgord ui**
@@ -11,6 +14,7 @@
 - 2025-11-07 14:15 3b429bd8 **fix: empty dashboard emotions top**
 - 2025-11-07 14:14 66675730 **fix: profile password change description color**
 - 2025-11-07 14:11 910043f8 **step: unify profile password change description color**
+- 2025-11-07 14:10 bb1fa59c **docs: generate CHANGELOG**
 - 2025-11-07 13:37 69529f87 **step: add shareable link hide animation**
 - 2025-11-07 13:28 92e709a8 **refactor: use list empty component everywhere**
 - 2025-11-07 13:25 4cf19d92 **docs: generate CHANGELOG**
