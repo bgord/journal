@@ -23,7 +23,7 @@ export function ProfileAvatarDelete() {
       )}
       {hover.hovering && enabled && (
         <ButtonClose
-          onClick={mutation.mutate}
+          onClick={() => mutation.mutate()}
           data-position="absolute"
           data-top="8"
           data-left="5"
