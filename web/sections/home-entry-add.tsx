@@ -1,6 +1,7 @@
 import {
   Autocomplete,
   Dialog,
+  Fields,
   Form as form,
   Rhythm,
   TimeZoneOffset,
