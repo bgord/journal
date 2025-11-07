@@ -1,9 +1,11 @@
 # Changelog
+- 2025-11-07 16:49 a4214e47 **step: unify home entry spacing**
+## 2025-11-07 16:49 
 - 2025-11-07 16:46 b1b2727b **step: unify home entry spacing**
-## 2025-11-07 16:46 
 - 2025-11-07 16:36 c39996fb **step: add create shareable link form date default values**
 - 2025-11-07 16:34 aee2fc32 **step: add profile account delete placeholder**
 - 2025-11-07 16:27 b7124400 **step: enable view transitions from router**
+- 2025-11-07 15:47 32607755 **docs: generate CHANGELOG**
 - 2025-11-07 15:41 9b6bb706 **docs: generate CHANGELOG**
 - 2025-11-07 15:10 1f0361ed **fix: profile shareable link create stale fields ui**
 - 2025-11-07 15:07 ecdc216c **fix: home entry add stale fields state**
