@@ -37,7 +37,7 @@
     "@anthropic-ai/sdk": "0.68.0",
     "@bgord/bun": "1.2.3",
     "@bgord/design": "1.4.10",
-    "@bgord/ui": "0.8.3",
+    "@bgord/ui": "0.8.4",
     "@react-pdf/renderer": "4.3.1",
     "@tanstack/react-router": "1.134.13",
     "better-sqlite3": "12.4.1",
