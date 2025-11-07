@@ -1,12 +1,19 @@
 # Changelog
+- 2025-11-07 15:10 1f0361ed **fix: profile shareable link create stale fields ui**
+## 2025-11-07 15:10 
+- 2025-11-07 15:07 ecdc216c **fix: home entry add stale fields state**
+- 2025-11-07 15:07 c0d1e9c3 **step: update packages**
+- 2025-11-07 15:07 46cd86b1 **refactor: use fields clear all from bgord ui**
+- 2025-11-07 15:01 fdb1e762 **fix: profile avatar delete types**
+- 2025-11-07 14:59 6a96d8d9 **step: update packages**
 - 2025-11-07 14:24 38a9b032 **step: add profile password change icon**
-## 2025-11-07 14:24 
 - 2025-11-07 14:22 1e07ac09 **refactor: unify empty dashboard states**
 - 2025-11-07 14:15 3b429bd8 **fix: empty dashboard emotions top**
 - 2025-11-07 14:14 66675730 **fix: profile password change description color**
 - 2025-11-07 14:11 910043f8 **step: unify profile password change description color**
 - 2025-11-07 13:37 69529f87 **step: add shareable link hide animation**
 - 2025-11-07 13:28 92e709a8 **refactor: use list empty component everywhere**
+- 2025-11-07 13:25 4cf19d92 **docs: generate CHANGELOG**
 - 2025-11-07 13:24 005f49cb **refactor: extract list empty component**
 - 2025-11-07 13:22 59e99444 **docs: generate CHANGELOG**
 - 2025-11-07 13:16 8735ee2f **docs: generate CHANGELOG**
