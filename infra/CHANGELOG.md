@@ -1,12 +1,14 @@
 # Changelog
+- 2025-11-07 14:24 38a9b032 **step: add profile password change icon**
+## 2025-11-07 14:24 
 - 2025-11-07 14:22 1e07ac09 **refactor: unify empty dashboard states**
-## 2025-11-07 14:22 
 - 2025-11-07 14:15 3b429bd8 **fix: empty dashboard emotions top**
 - 2025-11-07 14:14 66675730 **fix: profile password change description color**
 - 2025-11-07 14:11 910043f8 **step: unify profile password change description color**
 - 2025-11-07 13:37 69529f87 **step: add shareable link hide animation**
 - 2025-11-07 13:28 92e709a8 **refactor: use list empty component everywhere**
 - 2025-11-07 13:24 005f49cb **refactor: extract list empty component**
+- 2025-11-07 13:22 59e99444 **docs: generate CHANGELOG**
 - 2025-11-07 13:16 8735ee2f **docs: generate CHANGELOG**
 - 2025-11-07 13:14 925a2bff **docs: generate CHANGELOG**
 - 2025-11-07 13:11 77f2c52c **docs: generate CHANGELOG**
