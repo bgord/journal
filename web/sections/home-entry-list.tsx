@@ -48,6 +48,8 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
 
       {props.children}
 
+      {!entries[0] && <EntryListEmpty />}
+
       {entries[0] && (
         <ul data-stack="y" data-gap="5" data-mt="6">
           {entries.map((entry) => (
@@ -55,8 +57,6 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
           ))}
         </ul>
       )}
-
-      {!entries[0] && <EntryListEmpty />}
     </div>
   );
 }

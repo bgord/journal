@@ -1,5 +1,6 @@
 import { usePluralize, useTranslations } from "@bgord/ui";
 import { CheckSquare, EnergyUsageWindow, InfoCircle } from "iconoir-react";
+import { ListEmpty } from "../components";
 import { profileRoute } from "../router";
 
 export function ProfileAiUsage() {
@@ -31,7 +32,7 @@ export function ProfileAiUsage() {
         </div>
       </div>
 
-      {!usage && <div data-color="neutral-400">{t("profile.ai_limits.empty")}</div>}
+      {!usage && <ListEmpty>{t("profile.ai_limits.empty")}</ListEmpty>}
 
       {usage && (
         <div data-stack="x" data-gap="3" data-color="neutral-400">

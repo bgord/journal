@@ -2,7 +2,7 @@ import { Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
 import { useNavigate } from "@tanstack/react-router";
 import { List } from "iconoir-react";
 import { Form } from "../../app/services/home-entry-list-form";
-import { ButtonClose } from "../components";
+import { ButtonClose, ListEmpty } from "../components";
 import { homeEntryHistoryRoute, homeRoute } from "../router";
 
 /** @public */
@@ -29,11 +29,7 @@ export function HomeEntryHistory() {
         <ButtonClose onClick={dialog.disable} />
       </div>
 
-      {history.length === 0 && (
-        <div data-mt="5" data-color="neutral-500" data-fs="sm">
-          {t("entry.history.empty")}
-        </div>
-      )}
+      {history.length === 0 && <ListEmpty data-mt="5">{t("entry.history.empty")}</ListEmpty>}
 
       <ul data-stack="y" data-gap="2" data-mt="5">
         {history.map((item) => (
