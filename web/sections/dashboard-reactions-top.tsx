@@ -8,37 +8,37 @@ export function DashboardReactionsTop() {
 
   const dashboard = dashboardRoute.useLoaderData();
 
-  if (!dashboard?.entries.top.reactions[0]) return null;
-
   return (
     <DashboardCell>
       <DashboardSubheader>{t("dashboard.entries.reactions")}</DashboardSubheader>
 
       {!dashboard?.entries.top.reactions[0] && <DashboardCellEmpty />}
 
-      <ul data-stack="y" data-gap="5">
-        {dashboard?.entries.top.reactions.map((reaction) => (
-          <li
-            key={reaction.id}
-            data-stack="y"
-            data-bct="neutral-800"
-            data-bwt="hairline"
-            data-pt="3"
-            data-gap="3"
-          >
-            <div data-stack="x" data-gap="3">
-              <div className="c-badge" data-variant="primary">
-                {reaction.reactionEffectiveness} / {Form.reactionEffectiveness.max}
+      {dashboard?.entries.top.reactions[0] && (
+        <ul data-stack="y" data-gap="5">
+          {dashboard?.entries.top.reactions.map((reaction) => (
+            <li
+              key={reaction.id}
+              data-stack="y"
+              data-bct="neutral-800"
+              data-bwt="hairline"
+              data-pt="3"
+              data-gap="3"
+            >
+              <div data-stack="x" data-gap="3">
+                <div className="c-badge" data-variant="primary">
+                  {reaction.reactionEffectiveness} / {Form.reactionEffectiveness.max}
+                </div>
+                <div data-color="neutral-500">{t(`entry.reaction.type.value.${reaction.reactionType}`)}</div>
               </div>
-              <div data-color="neutral-500">{t(`entry.reaction.type.value.${reaction.reactionType}`)}</div>
-            </div>
 
-            <div data-ml="3" data-color="neutral-100">
-              "{reaction.reactionDescription}"
-            </div>
-          </li>
-        ))}
-      </ul>
+              <div data-ml="3" data-color="neutral-100">
+                "{reaction.reactionDescription}"
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </DashboardCell>
   );
 }
