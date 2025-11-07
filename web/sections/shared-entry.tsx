@@ -12,8 +12,8 @@ export function SharedEntry(props: EntrySnapshotFormatted) {
     <li
       data-stack="y"
       data-gap="3"
-      data-py="3"
-      data-px="4"
+      data-p="4"
+      data-pb="5"
       data-bg="neutral-900"
       data-fs="base"
       data-br="xs"
