@@ -1,6 +1,10 @@
 # Changelog
+- 2025-11-08 19:29 c9271b4f **step: update packages**
+## 2025-11-08 19:29 
+- 2025-11-08 19:22 f966cbb5 **step: bump bgord/scripts**
+- 2025-11-08 19:20 596a669f **step: update bun**
 - 2025-11-07 22:43 2420cd54 **refactor: improve history projector**
-## 2025-11-07 22:43 
+- 2025-11-07 21:44 fefe6695 **docs: generate CHANGELOG**
 - 2025-11-07 17:16 1e4dcabe **step: add min height to home entry history dialog**
 - 2025-11-07 17:06 dcc641df **step: adjust padding in entry alarms**
 - 2025-11-07 16:58 eebb894b **fix: entry alarm spacing**
