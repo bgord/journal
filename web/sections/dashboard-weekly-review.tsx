@@ -35,7 +35,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         </div>
       )}
 
-      {props.status === WeeklyReviewStatusEnum.completed && (
+      {props.status === WeeklyReviewStatusEnum.completed && props.patternDetections[0] && (
         <div data-stack="y" data-gap="3">
           <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
 
@@ -49,7 +49,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         </div>
       )}
 
-      {props.status === WeeklyReviewStatusEnum.completed && (
+      {props.status === WeeklyReviewStatusEnum.completed && props.alarms[0] && (
         <div data-stack="y" data-gap="3">
           <div data-fs="base">{t("dashboard.weekly_review.entries.alarms")}:</div>
 
