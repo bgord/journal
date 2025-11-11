@@ -1,8 +1,10 @@
 # Changelog
+- 2025-11-11 09:38 7313b4e9 **step: update packages**
+## 2025-11-11 09:38 
 - 2025-11-08 19:29 c9271b4f **step: update packages**
-## 2025-11-08 19:29 
 - 2025-11-08 19:22 f966cbb5 **step: bump bgord/scripts**
 - 2025-11-08 19:20 596a669f **step: update bun**
+- 2025-11-08 18:30 62e69b83 **docs: generate CHANGELOG**
 - 2025-11-07 22:43 2420cd54 **refactor: improve history projector**
 - 2025-11-07 21:44 fefe6695 **docs: generate CHANGELOG**
 - 2025-11-07 17:16 1e4dcabe **step: add min height to home entry history dialog**
