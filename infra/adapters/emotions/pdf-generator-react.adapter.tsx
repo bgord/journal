@@ -3,6 +3,7 @@ import * as tools from "@bgord/tools";
 import {
   Document,
   type DocumentProps,
+  Font,
   Page,
   renderToBuffer,
   StyleSheet,
@@ -13,18 +14,32 @@ import {
 import React from "react";
 import type * as Queries from "+emotions/queries";
 
+Font.register({
+  family: "Journal",
+  fonts: [
+    {
+      src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf",
+      fontWeight: "normal",
+    },
+    {
+      src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
+      fontWeight: "bold",
+    },
+  ],
+});
+
 type TemplateFn = (data: Record<string, any>) => React.ReactElement<DocumentProps>;
 
 const styles = StyleSheet.create({
-  h1: { fontSize: 24, marginBottom: 16, fontFamily: "Helvetica-Bold" },
-  h2: { fontSize: 18, marginBottom: 12, marginTop: 24, fontFamily: "Helvetica-Bold" },
-  h3: { fontSize: 14, marginBottom: 8, marginTop: 16, fontFamily: "Helvetica-Bold" },
-  page: { padding: 32, fontSize: 12, fontFamily: "Helvetica" },
-  p: { lineHeight: 1.5, marginBottom: 8 },
-  strong: { fontFamily: "Helvetica-Bold" },
-  label: { fontFamily: "Helvetica-Bold", marginRight: 8 },
+  page: { padding: 32, fontSize: 12, fontFamily: "Journal" },
+  h1: { fontSize: 24, marginBottom: 16, fontFamily: "Journal", fontWeight: "bold" },
+  h2: { fontSize: 18, marginBottom: 12, marginTop: 24, fontFamily: "Journal", fontWeight: "bold" },
+  h3: { fontSize: 14, marginBottom: 8, marginTop: 16, fontFamily: "Journal", fontWeight: "bold" },
+  p: { lineHeight: 1.5, marginBottom: 8, fontFamily: "Journal" },
+  strong: { fontFamily: "Journal", fontWeight: "bold" },
+  label: { fontFamily: "Journal", fontWeight: "bold", marginRight: 8 },
   row: { flexDirection: "row", alignItems: "flex-start", marginBottom: 4 },
-  prose: { whiteSpace: "pre-wrap" },
+  prose: { whiteSpace: "pre-wrap", fontFamily: "Journal" },
 });
 
 const templates: Record<bg.PdfGeneratorTemplateType, TemplateFn> = {
