@@ -8,7 +8,7 @@ export function Home() {
   const exportEntries = useToggle({ name: "entry-export" });
 
   return (
-    <main data-stack="y" data-gap="3" data-maxw="md" data-mx="auto">
+    <main data-stack="y" data-gap="3" data-maxw="md" data-mx="auto" data-mb="8">
       <div data-stack="x" data-gap="3">
         <button
           type="button"

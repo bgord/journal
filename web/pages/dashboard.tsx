@@ -8,7 +8,7 @@ export function Dashboard() {
   const t = useTranslations();
 
   return (
-    <main data-stack="y" data-gap="5">
+    <main data-stack="y" data-gap="5" data-mb="8">
       <Sections.DashboardHeatmap />
 
       <div data-stack="x" data-gap="5" data-mx="auto" data-color="neutral-200">
