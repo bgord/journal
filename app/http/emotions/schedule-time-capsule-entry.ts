@@ -32,7 +32,10 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   );
 
   const now = deps.Clock.nowMs();
-  const scheduledFor = tools.Day.fromIsoId(body.scheduledFor).getStart().add(timeZoneOffset).ms;
+  const scheduledFor = tools.Day.fromIsoId(body.scheduledFor)
+    .getStart()
+    .add(timeZoneOffset)
+    .add(tools.Duration.Hours(new tools.Hour(Number(body.scheduledForHour)).get())).ms;
 
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
     ...bg.createCommandEnvelope(deps),
