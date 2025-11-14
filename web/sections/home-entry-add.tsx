@@ -48,7 +48,7 @@ export function HomeEntryAdd() {
       const payload = {
         intent: timeCapsuleMode.on ? "time_capsule_entry_add" : "entry_add",
         scheduledFor: timeCapsuleMode.on ? scheduledFor.value : null,
-        scheduledForHour: timeCapsuleMode.on ? scheduledForHour.value : null,
+        scheduledForHour: timeCapsuleMode.on ? Number(scheduledForHour.value) : null,
         situationDescription: situationDescription.value,
         situationKind: situationKind.value,
         emotionLabel: emotionLabel.value,

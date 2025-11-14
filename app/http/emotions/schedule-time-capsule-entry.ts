@@ -35,7 +35,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>
   const scheduledFor = tools.Day.fromIsoId(body.scheduledFor)
     .getStart()
     .add(timeZoneOffset)
-    .add(tools.Duration.Hours(new tools.Hour(Number(body.scheduledForHour)).get())).ms;
+    .add(tools.Duration.Hours(new tools.Hour(body.scheduledForHour).get())).ms;
 
   const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
     ...bg.createCommandEnvelope(deps),
