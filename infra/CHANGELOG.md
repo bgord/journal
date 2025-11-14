@@ -1,9 +1,11 @@
 # Changelog
+- 2025-11-14 17:04 4f8daf5b **step: update packages**
+## 2025-11-14 17:04 
 - 2025-11-13 10:47 8cb1ccae **fix: mb on all pages**
-## 2025-11-13 10:47 
 - 2025-11-13 10:28 2b5bd798 **step: update packages**
 - 2025-11-13 10:27 595e248f **fix: pdf polish chars**
 - 2025-11-13 10:00 cf8114b4 **step: update packages**
+- 2025-11-13 09:47 bd938dd1 **docs: generate CHANGELOG**
 - 2025-11-13 09:28 eba540af **docs: generate CHANGELOG**
 - 2025-11-13 09:01 436af1a9 **docs: generate CHANGELOG**
 - 2025-11-11 10:03 64aeb620 **fix: hide empty patterns and alarms sections**
