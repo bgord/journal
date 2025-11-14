@@ -149,11 +149,30 @@ describe(`POST ${url}`, () => {
           ...emotion,
           ...reaction,
           scheduledFor: mocks.timeCapsuleEntryScheduledForPastDate,
+          scheduledForHour: "0",
         }),
       },
       mocks.ip,
     );
     await testcases.assertInvariantError(response, Emotions.Invariants.TimeCapsuleEntryScheduledInFuture);
+  });
+
+  test("scheduledForHour - missing", async () => {
+    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const response = await server.request(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          ...situation,
+          ...emotion,
+          ...reaction,
+          scheduledFor: mocks.timeCapsuleEntryScheduledForPastDate,
+        }),
+      },
+      mocks.ip,
+    );
+    expect(response.status).toEqual(400);
   });
 
   test("happy path", async () => {
@@ -172,6 +191,7 @@ describe(`POST ${url}`, () => {
           ...emotion,
           ...reaction,
           scheduledFor: mocks.timeCapsuleEntryScheduledForDate,
+          scheduledForHour: "0",
         }),
         headers: mocks.correlationIdHeaders,
       },
