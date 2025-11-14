@@ -1,6 +1,12 @@
 # Changelog
+- 2025-11-14 18:21 d0b16f60 **step: adjust tests**
+## 2025-11-14 18:21 
+- 2025-11-14 18:17 090906bf **fix: tests**
+- 2025-11-14 18:13 83083419 **step: define scheduled for hour in the route**
+- 2025-11-14 17:43 1e7565f6 **step: add scheduled for hour field**
+- 2025-11-14 17:19 491c5b39 **step: make tomorrow min time capsule entry**
 - 2025-11-14 17:04 4f8daf5b **step: update packages**
-## 2025-11-14 17:04 
+- 2025-11-14 16:04 d2a0c12a **docs: generate CHANGELOG**
 - 2025-11-13 10:47 8cb1ccae **fix: mb on all pages**
 - 2025-11-13 10:28 2b5bd798 **step: update packages**
 - 2025-11-13 10:27 595e248f **fix: pdf polish chars**
