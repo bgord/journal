@@ -28,6 +28,7 @@ export function HomeEntryAdd() {
 
   const timeCapsuleMode = useToggle({ name: "timeCapsuleMode" });
   const scheduledFor = useDateField(Form.schedueldFor.field);
+  const scheduledForHour = useTextField(Form.scheduledForHour.field);
 
   const situationDescription = useTextField(Form.situationDescription.field);
   const situationKind = useTextField<types.SituationKindType>(Form.situationKind.field);
@@ -47,6 +48,7 @@ export function HomeEntryAdd() {
       const payload = {
         intent: timeCapsuleMode.on ? "time_capsule_entry_add" : "entry_add",
         scheduledFor: timeCapsuleMode.on ? scheduledFor.value : null,
+        scheduledForHour: timeCapsuleMode.on ? scheduledForHour.value : null,
         situationDescription: situationDescription.value,
         situationKind: situationKind.value,
         emotionLabel: emotionLabel.value,
@@ -71,6 +73,7 @@ export function HomeEntryAdd() {
       context.form?.reset();
       Fields.clearAll([
         scheduledFor,
+        scheduledForHour,
         situationDescription,
         situationKind,
         emotionLabel,
@@ -121,16 +124,14 @@ export function HomeEntryAdd() {
             {...Autocomplete.off}
           />
 
-          <div data-stack="x" data-gap="8" data-cross="end">
-            <Select required {...situationKind.input.props}>
-              <option value="">{t("entry.situation.kind.value.default")}</option>
-              {Form.situationKind.options.map((kind) => (
-                <option key={kind} value={kind}>
-                  {t(`entry.situation.kind.value.${kind}`)}
-                </option>
-              ))}
-            </Select>
-          </div>
+          <Select required {...situationKind.input.props}>
+            <option value="">{t("entry.situation.kind.value.default")}</option>
+            {Form.situationKind.options.map((kind) => (
+              <option key={kind} value={kind}>
+                {t(`entry.situation.kind.value.${kind}`)}
+              </option>
+            ))}
+          </Select>
 
           <Separator />
 
@@ -228,6 +229,7 @@ export function HomeEntryAdd() {
                 >
                   <Timer data-size="md" data-color="neutral-300" />
                 </button>
+
                 <input
                   className="c-input"
                   required
@@ -236,6 +238,14 @@ export function HomeEntryAdd() {
                   {...timeCapsuleMode.props.target}
                   {...scheduledFor.input.props}
                 />
+
+                <Select required {...scheduledForHour.input.props}>
+                  {Form.scheduledForHour.options.map((hour) => (
+                    <option key={hour.label} value={hour.value}>
+                      {hour.label}
+                    </option>
+                  ))}
+                </Select>
               </>
             )}
           </div>

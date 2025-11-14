@@ -9,6 +9,13 @@ import * as SituationKind from "../../modules/emotions/value-objects/situation-k
 
 export const Form = {
   schedueldFor: { field: { name: "scheduledFor", defaultValue: form.date.min.tomorrow() } },
+  scheduledForHour: {
+    field: { name: "scheduledForHour", defaultValue: "0" },
+    options: Array.from({ length: 24 }).map((_, index) => ({
+      value: index.toString(),
+      label: `${index.toString().padStart(2, "0")}:00`,
+    })),
+  },
   situationDescription: {
     pattern: {
       min: SituationDescription.SituationDescriptionMin,
