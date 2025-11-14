@@ -1,3 +1,4 @@
+import { Form as form } from "@bgord/ui";
 import * as EmotionIntensity from "../../modules/emotions/value-objects/emotion-intensity.validation";
 import * as EmotionLabel from "../../modules/emotions/value-objects/geneva-wheel-emotion.enum";
 import * as ReactionType from "../../modules/emotions/value-objects/gross-emotion-regulation-strategy.enum";
@@ -7,7 +8,7 @@ import * as SituationDescription from "../../modules/emotions/value-objects/situ
 import * as SituationKind from "../../modules/emotions/value-objects/situation-kind-options";
 
 export const Form = {
-  schedueldFor: { field: { name: "scheduledFor" } },
+  schedueldFor: { field: { name: "scheduledFor", defaultValue: form.date.min.tomorrow() } },
   situationDescription: {
     pattern: {
       min: SituationDescription.SituationDescriptionMin,
