@@ -46,6 +46,7 @@ export const expectAnyId = expect.stringMatching(
 export const ip = { server: { requestIP: () => ({ address: "127.0.0.1", family: "foo", port: "123" }) } };
 
 export const email = "user@example.com";
+export const contact = { type: "email", address: email } as const;
 export const anotherEmail = "another@example.com";
 
 export const week = tools.Week.fromNow(T0);

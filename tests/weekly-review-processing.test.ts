@@ -29,7 +29,7 @@ const saga = new Emotions.Sagas.WeeklyReviewProcessing({
 
 describe("WeeklyReviewProcessing", () => {
   test("onWeeklyReviewSkippedEvent", async () => {
-    spyOn(Adapters.Auth.UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
+    spyOn(Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(mocks.contact);
     spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(Adapters.Mailer, "send").mockImplementation(jest.fn());
 

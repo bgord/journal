@@ -32,7 +32,7 @@ describe("TimeCapsuleEntryNotifier", () => {
 
   test("onSituationLoggedEvent - en", async () => {
     spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.en);
-    spyOn(Adapters.Auth.UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
+    spyOn(Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(mocks.contact);
     const mailerSend = spyOn(Adapters.Mailer, "send");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -49,7 +49,7 @@ describe("TimeCapsuleEntryNotifier", () => {
 
   test("onSituationLoggedEvent - pl", async () => {
     spyOn(Adapters.Preferences.UserLanguage, "get").mockResolvedValue(SupportedLanguages.pl);
-    spyOn(Adapters.Auth.UserContact, "getPrimary").mockResolvedValue({ type: "email", address: mocks.email });
+    spyOn(Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(mocks.contact);
     const mailerSend = spyOn(Adapters.Mailer, "send");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
