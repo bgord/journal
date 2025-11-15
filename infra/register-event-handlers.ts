@@ -75,6 +75,14 @@ new EmotionsPolicies.TimeCapsuleEntriesScheduler({
   CommandBus,
   TimeCapsuleDueEntries: Adapters.Emotions.TimeCapsuleDueEntries,
 });
+new EmotionsPolicies.TimeCapsuleEntryNotifier({
+  EventBus,
+  EventHandler,
+  Mailer,
+  UserContact: Adapters.Auth.UserContact,
+  UserLanguage: Adapters.Preferences.UserLanguage,
+  EMAIL_FROM: Env.EMAIL_FROM,
+});
 new EmotionsPolicies.EntryHistoryPublisher({
   EventBus,
   EventHandler,
