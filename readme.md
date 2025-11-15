@@ -185,6 +185,7 @@ modules/
 │   │   ├── entry-history-publisher.ts
 │   │   ├── inactivity-alarm-scheduler.ts
 │   │   ├── time-capsule-entries-scheduler.ts
+│   │   ├── time-capsule-entry-notifier.ts
 │   │   └── weekly-review-scheduler.ts
 │   ├── ports
 │   │   ├── alarm-cancellation-lookup.ts
@@ -222,6 +223,7 @@ modules/
 │   │   │   ├── more-negative-than-positive-emotions-pattern.ts
 │   │   │   ├── pattern.ts
 │   │   │   └── positive-emotion-with-maladaptive-reaction-pattern.ts
+│   │   ├── time-capsule-entry-notification-composer.ts
 │   │   ├── weekly-review-export-notification-composer.ts
 │   │   ├── weekly-review-export-pdf-file.ts
 │   │   └── weekly-review-skipped-notification-composer.ts
