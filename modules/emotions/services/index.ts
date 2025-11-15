@@ -11,6 +11,7 @@ export * from "./inactivity-alarm-advice-notification-composer";
 export * from "./negative-emotion-extreme-intensity-alarm";
 export * from "./pattern-detector";
 export * as Patterns from "./patterns/";
+export * from "./time-capsule-entry-notification-composer";
 export * from "./weekly-review-export-notification-composer";
 export * from "./weekly-review-export-pdf-file";
 export * from "./weekly-review-skipped-notification-composer";
