@@ -138,7 +138,7 @@ describe("AlarmOrchestrator", () => {
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
       to: mocks.email,
-      subject: "Emotional advice",
+      subject: "JOURNAL - emotional advice",
       html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
     });
     expect(eventStoreSave).not.toHaveBeenCalledWith();
@@ -163,7 +163,7 @@ describe("AlarmOrchestrator", () => {
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
       to: mocks.email,
-      subject: "Emotional advice",
+      subject: "JOURNAL - emotional advice",
       html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
     });
 
@@ -188,7 +188,7 @@ describe("AlarmOrchestrator", () => {
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
       to: mocks.email,
-      subject: "Inactivity advice",
+      subject: "JOURNAL - inactivity advice",
       html: `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
     });
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);

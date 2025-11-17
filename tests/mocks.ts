@@ -50,6 +50,9 @@ export const contact = { type: "email", address: email } as const;
 export const anotherEmail = "another@example.com";
 
 export const week = tools.Week.fromNow(T0);
+export const weekStart = "2024/12/30";
+export const weekEnd = "2025/01/05";
+
 export const previousWeek = week.previous();
 export const day = tools.Day.fromNow(T0);
 

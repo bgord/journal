@@ -16,7 +16,7 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
-        "Inactivity advice",
+        "JOURNAL - inactivity advice",
         `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
       ),
     );
@@ -33,7 +33,7 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
-        "Porada dla braku aktywności",
+        "JOURNAL - porada dla braku aktywności",
         `Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni, porada: ${mocks.advice.get()}`,
       ),
     );

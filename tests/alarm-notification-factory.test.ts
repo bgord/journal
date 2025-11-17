@@ -16,7 +16,7 @@ describe("AlarmNotificationFactory", () => {
 
     expect(result).toEqual(
       new tools.NotificationTemplate(
-        "Emotional advice",
+        "JOURNAL - emotional advice",
         `Advice for emotion entry: anger: ${mocks.advice.get()}`,
       ),
     );
@@ -31,7 +31,10 @@ describe("AlarmNotificationFactory", () => {
     ).create(mocks.entryDetection, mocks.advice);
 
     expect(result).toEqual(
-      new tools.NotificationTemplate("Porada emocjonalna", `Porada dla emocji: anger: ${mocks.advice.get()}`),
+      new tools.NotificationTemplate(
+        "JOURNAL - porada emocjonalna",
+        `Porada dla emocji: anger: ${mocks.advice.get()}`,
+      ),
     );
   });
 
@@ -43,7 +46,7 @@ describe("AlarmNotificationFactory", () => {
 
     expect(result).toEqual(
       new tools.NotificationTemplate(
-        "Inactivity advice",
+        "JOURNAL - inactivity advice",
         `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
       ),
     );
@@ -57,7 +60,7 @@ describe("AlarmNotificationFactory", () => {
 
     expect(result).toEqual(
       new tools.NotificationTemplate(
-        "Porada dla braku aktywności",
+        "JOURNAL - porada dla braku aktywności",
         `Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni, porada: ${mocks.advice.get()}`,
       ),
     );

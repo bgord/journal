@@ -9,12 +9,12 @@ const notification: Record<
 > = {
   [SupportedLanguages.en]: (trigger: VO.InactivityAlarmTriggerType, advice: AI.Advice) =>
     new tools.NotificationTemplate(
-      "Inactivity advice",
+      "JOURNAL - inactivity advice",
       `Inactive for ${trigger.inactivityDays} days, advice: ${advice.get()}`,
     ),
   [SupportedLanguages.pl]: (trigger: VO.InactivityAlarmTriggerType, advice: AI.Advice) =>
     new tools.NotificationTemplate(
-      "Porada dla braku aktywności",
+      "JOURNAL - porada dla braku aktywności",
       `Brak aktywności przez ${trigger.inactivityDays} dni, porada: ${advice.get()}`,
     ),
 };

@@ -101,7 +101,7 @@ describe("WeeklyReviewExportByEmail", () => {
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
       to: mocks.email,
-      subject: `Weekly Review PDF - ${mocks.week.getStart()}`,
+      subject: `JOURNAL - weekly review ${mocks.weekStart} - ${mocks.weekEnd}`,
       html: "Find the file attached",
       attachments: [
         {

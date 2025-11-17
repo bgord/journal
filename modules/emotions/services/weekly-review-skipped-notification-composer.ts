@@ -4,13 +4,13 @@ import { SupportedLanguages } from "+languages";
 const notification: Record<SupportedLanguages, (week: tools.Week) => tools.NotificationTemplate> = {
   [SupportedLanguages.en]: (week: tools.Week) =>
     new tools.NotificationTemplate(
-      "Weekly Review - come back and journal",
-      `Week you missed ${week.getStart()}`,
+      `JOURNAL - weekly review ${tools.DateFormatters.date(week.getStart().ms)} - ${tools.DateFormatters.date(week.getEnd().ms)}`,
+      "Come back and journal",
     ),
   [SupportedLanguages.pl]: (week: tools.Week) =>
     new tools.NotificationTemplate(
-      "Przegląd tygodnia - wróć do nas",
-      `Przegapiony tydzień ${week.getStart()}`,
+      `JOURNAL - przegląd tygodnia ${tools.DateFormatters.date(week.getStart().ms)} - ${tools.DateFormatters.date(week.getEnd().ms)}`,
+      "Wróć do nas",
     ),
 };
 

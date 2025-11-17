@@ -9,12 +9,12 @@ const notification: Record<
 > = {
   [SupportedLanguages.en]: (entry: VO.EntrySnapshot, advice: AI.Advice) =>
     new tools.NotificationTemplate(
-      "Emotional advice",
+      "JOURNAL - emotional advice",
       `Advice for emotion entry: ${entry.emotionLabel}: ${advice.get()}`,
     ),
   [SupportedLanguages.pl]: (entry: VO.EntrySnapshot, advice: AI.Advice) =>
     new tools.NotificationTemplate(
-      "Porada emocjonalna",
+      "JOURNAL - porada emocjonalna",
       `Porada dla emocji: ${entry.emotionLabel}: ${advice.get()}`,
     ),
 };

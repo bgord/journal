@@ -14,7 +14,7 @@ describe("EntryAlarmAdviceNotificationComposer", () => {
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
-        "Emotional advice",
+        "JOURNAL - emotional advice",
         `Advice for emotion entry: ${mocks.partialEntry.emotionLabel}: ${mocks.advice.get()}`,
       ),
     );
@@ -29,7 +29,7 @@ describe("EntryAlarmAdviceNotificationComposer", () => {
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
-        "Porada emocjonalna",
+        "JOURNAL - porada emocjonalna",
         `Porada dla emocji: ${mocks.partialEntry.emotionLabel}: ${mocks.advice.get()}`,
       ),
     );

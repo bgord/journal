@@ -11,7 +11,7 @@ describe("WeeklyReviewExportNotificationComposer", () => {
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
-        `Weekly Review PDF - ${mocks.week.getStart()}`,
+        `JOURNAL - weekly review ${mocks.weekStart} - ${mocks.weekEnd}`,
         "Find the file attached",
       ),
     );
@@ -22,7 +22,10 @@ describe("WeeklyReviewExportNotificationComposer", () => {
     const notification = composer.compose(mocks.week, SupportedLanguages.pl);
 
     expect(notification).toEqual(
-      new tools.NotificationTemplate(`Przegląd tygodnia PDF - ${mocks.week.getStart()}`, "Plik w załączniku"),
+      new tools.NotificationTemplate(
+        `JOURNAL - przegląd tygodnia ${mocks.weekStart} - ${mocks.weekEnd}`,
+        "Plik w załączniku",
+      ),
     );
   });
 });

@@ -42,7 +42,7 @@ describe("TimeCapsuleEntryNotifier", () => {
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
       to: mocks.email,
-      subject: "Time capsule entry",
+      subject: "JOURNAL - time capsule entry",
       html: "Go to the homepage",
     });
   });
@@ -59,7 +59,7 @@ describe("TimeCapsuleEntryNotifier", () => {
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
       to: mocks.email,
-      subject: "Wpis z przeszłości",
+      subject: "JOURNAL - wpis z przeszłości",
       html: "Odwiedź stronę główną",
     });
   });

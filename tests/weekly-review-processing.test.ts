@@ -39,8 +39,8 @@ describe("WeeklyReviewProcessing", () => {
     expect(mailerSend).toHaveBeenCalledWith({
       from: Env.EMAIL_FROM,
       to: mocks.email,
-      subject: "Weekly Review - come back and journal",
-      html: `Week you missed ${mocks.previousWeek.getStart()}`,
+      subject: "JOURNAL - weekly review 2024/12/23 - 2024/12/29",
+      html: "Come back and journal",
     });
   });
 

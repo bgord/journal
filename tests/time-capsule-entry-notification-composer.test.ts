@@ -10,7 +10,7 @@ describe("TimeCapsuleEntryNotificationComposer", () => {
     );
 
     expect(entryAlarmAdviceNotificationComposer.compose()).toEqual(
-      new tools.NotificationTemplate("Time capsule entry", "Go to the homepage"),
+      new tools.NotificationTemplate("JOURNAL - time capsule entry", "Go to the homepage"),
     );
   });
 
@@ -20,7 +20,7 @@ describe("TimeCapsuleEntryNotificationComposer", () => {
     );
 
     expect(entryAlarmAdviceNotificationComposer.compose()).toEqual(
-      new tools.NotificationTemplate("Wpis z przeszłości", "Odwiedź stronę główną"),
+      new tools.NotificationTemplate("JOURNAL - wpis z przeszłości", "Odwiedź stronę główną"),
     );
   });
 });

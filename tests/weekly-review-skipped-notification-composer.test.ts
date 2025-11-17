@@ -11,8 +11,8 @@ describe("WeeklyReviewSkippedNotificationComposer", () => {
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
-        "Weekly Review - come back and journal",
-        `Week you missed ${mocks.week.getStart()}`,
+        `JOURNAL - weekly review ${mocks.weekStart} - ${mocks.weekEnd}`,
+        "Come back and journal",
       ),
     );
   });
@@ -23,8 +23,8 @@ describe("WeeklyReviewSkippedNotificationComposer", () => {
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
-        "Przegląd tygodnia - wróć do nas",
-        `Przegapiony tydzień ${mocks.week.getStart()}`,
+        `JOURNAL - przegląd tygodnia ${mocks.weekStart} - ${mocks.weekEnd}`,
+        "Wróć do nas",
       ),
     );
   });
