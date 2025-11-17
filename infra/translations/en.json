@@ -10,6 +10,9 @@
   "app.hit.genitive": "views",
   "app.hit.plural": "views",
   "app.hit.singular": "view",
+  "app.entry.genitive": "entries",
+  "app.entry.plural": "entries",
+  "app.entry.singular": "entry",
   "app.login": "Sign in",
   "app.name": "JOURNAL",
 
