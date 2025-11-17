@@ -1,7 +1,10 @@
 # Changelog
+- 2025-11-17 12:54 44833fb5 **step: add entry count**
+## 2025-11-17 12:54 
+- 2025-11-17 12:40 c591ecd4 **refactor: clean up imports**
 - 2025-11-17 11:02 c16bbd43 **step: update packages**
-## 2025-11-17 11:02 
 - 2025-11-17 11:01 e4d3eb08 **step: make last_week default entry list filter**
+- 2025-11-17 10:02 896872bf **docs: generate CHANGELOG**
 - 2025-11-15 17:36 033f4503 **step: update packages**
 - 2025-11-15 17:35 a0cf825e **refactor: extract mock contact object literal**
 - 2025-11-15 17:34 af6dbe6c **step: test time capsule entry notifier**
