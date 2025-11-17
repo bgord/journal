@@ -1,7 +1,9 @@
 # Changelog
+- 2025-11-17 20:09 24155911 **refactor: unify notifications**
+## 2025-11-17 20:09 
 - 2025-11-17 12:54 44833fb5 **step: add entry count**
-## 2025-11-17 12:54 
 - 2025-11-17 12:40 c591ecd4 **refactor: clean up imports**
+- 2025-11-17 11:54 f84e12ed **docs: generate CHANGELOG**
 - 2025-11-17 11:02 c16bbd43 **step: update packages**
 - 2025-11-17 11:01 e4d3eb08 **step: make last_week default entry list filter**
 - 2025-11-17 10:02 896872bf **docs: generate CHANGELOG**
