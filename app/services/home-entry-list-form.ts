@@ -3,9 +3,9 @@ import { EntryListFilterOptions } from "../../modules/emotions/value-objects/ent
 export const Form = {
   filter: { options: Object.keys(EntryListFilterOptions), field: { name: "filter" } },
   query: { field: { name: "query" } },
-  default: { filter: EntryListFilterOptions.today, query: "" },
+  default: { filter: EntryListFilterOptions.last_week, query: "" },
   isDefault: (search: { filter: string; query: string }): boolean =>
-    search.filter === EntryListFilterOptions.today && search.query === "",
+    search.filter === EntryListFilterOptions.last_week && search.query === "",
 };
 
 export type * as types from "../../modules/emotions/value-objects";

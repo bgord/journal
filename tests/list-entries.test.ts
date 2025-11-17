@@ -11,11 +11,12 @@ const url = "/api/entry/list";
 
 const today = tools.Day.fromTimestamp(mocks.T0);
 
-const endOfToday = today.getEnd();
-
 const lastWeekStart = today.getEnd().subtract(tools.Duration.Weeks(1));
 const lastMonthStart = today.getEnd().subtract(tools.Duration.Days(30));
-const allTimeStart = tools.Timestamp.fromNumber(0);
+
+const lastWeek = new tools.DateRange(lastWeekStart, today.getEnd());
+const lastMonth = new tools.DateRange(lastMonthStart, today.getEnd());
+const allTime = new tools.DateRange(tools.Timestamp.fromNumber(0), today.getEnd());
 
 const emptyQuery = "";
 
@@ -27,7 +28,7 @@ describe(`GET ${url}`, () => {
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
 
-  test("happy path - default - today", async () => {
+  test("happy path - default - last_week", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
 
@@ -36,15 +37,15 @@ describe(`GET ${url}`, () => {
 
     expect(response.status).toEqual(200);
     expect(json).toEqual([mocks.fullEntryWithAlarmsFormatted]);
-    expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, today, emptyQuery);
+    expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, lastWeek, emptyQuery);
   });
 
-  test("happy path - last_week", async () => {
+  test("happy path - today", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
 
     const response = await server.request(
-      `${url}?filter=${Emotions.VO.EntryListFilterOptions.last_week}`,
+      `${url}?filter=${Emotions.VO.EntryListFilterOptions.today}`,
       { method: "GET" },
       mocks.ip,
     );
@@ -52,11 +53,7 @@ describe(`GET ${url}`, () => {
 
     expect(response.status).toEqual(200);
     expect(json).toEqual([mocks.fullEntryWithAlarmsFormatted]);
-    expect(entrySnapshot).toHaveBeenCalledWith(
-      mocks.user.id,
-      new tools.DateRange(lastWeekStart, endOfToday),
-      emptyQuery,
-    );
+    expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, today, emptyQuery);
   });
 
   test("happy path - last_month", async () => {
@@ -72,11 +69,7 @@ describe(`GET ${url}`, () => {
 
     expect(response.status).toEqual(200);
     expect(json).toEqual([mocks.fullEntryWithAlarmsFormatted]);
-    expect(entrySnapshot).toHaveBeenCalledWith(
-      mocks.user.id,
-      new tools.DateRange(lastMonthStart, endOfToday),
-      emptyQuery,
-    );
+    expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, lastMonth, emptyQuery);
   });
 
   test("happy path - all_time", async () => {
@@ -92,10 +85,6 @@ describe(`GET ${url}`, () => {
 
     expect(response.status).toEqual(200);
     expect(json).toEqual([mocks.fullEntryWithAlarmsFormatted]);
-    expect(entrySnapshot).toHaveBeenCalledWith(
-      mocks.user.id,
-      new tools.DateRange(allTimeStart, endOfToday),
-      "abc",
-    );
+    expect(entrySnapshot).toHaveBeenCalledWith(mocks.user.id, allTime, "abc");
   });
 });
