@@ -1,10 +1,14 @@
 # Changelog
+- 2025-11-17 11:02 c16bbd43 **step: update packages**
+## 2025-11-17 11:02 
+- 2025-11-17 11:01 e4d3eb08 **step: make last_week default entry list filter**
 - 2025-11-15 17:36 033f4503 **step: update packages**
-## 2025-11-15 17:36 
 - 2025-11-15 17:35 a0cf825e **refactor: extract mock contact object literal**
 - 2025-11-15 17:34 af6dbe6c **step: test time capsule entry notifier**
 - 2025-11-15 17:21 f58ab1a9 **feature: implement time capsule entry notifier**
 - 2025-11-15 17:16 8d010cfb **step: add time capsule entry notification composer**
+- 2025-11-15 16:36 7be885a9 **docs: generate readme**
+- 2025-11-15 16:36 1d58417c **docs: generate CHANGELOG**
 - 2025-11-14 18:21 d0b16f60 **step: adjust tests**
 - 2025-11-14 18:17 090906bf **fix: tests**
 - 2025-11-14 18:13 83083419 **step: define scheduled for hour in the route**
