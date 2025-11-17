@@ -2,7 +2,16 @@ import { Rhythm, useTranslations } from "@bgord/ui";
 import { Timer } from "iconoir-react";
 import { Form } from "../../app/services/home-entry-add-form";
 import type { EntrySnapshotFormatted } from "../api";
-import * as UI from "../components";
+import {
+  DescriptionLabel,
+  EntryEmotionLabel,
+  EntryReactionDescription,
+  EntryReactionType,
+  EntrySituationDescription,
+  EntrySituationKind,
+  EntryStartedAt,
+  RatingPills,
+} from "../components";
 import { EntryAlarms } from "../sections/entry-alarms";
 
 export function SharedEntry(props: EntrySnapshotFormatted) {
@@ -22,37 +31,34 @@ export function SharedEntry(props: EntrySnapshotFormatted) {
     >
       <header data-stack="x" data-main="between" data-cross="center" {...Rhythm().times(3).style.height}>
         {props.origin === "time_capsule" && <Timer data-size="sm" data-color="neutral-300" />}
-        <UI.EntryStartedAt startedAt={props.startedAt} />
+        <EntryStartedAt startedAt={props.startedAt} />
       </header>
 
       <section data-stack="y" data-gap="5" data-py="2" data-pb="5" data-bcb="neutral-700" data-bwb="hairline">
         <div data-stack="x" data-cross="center" data-gap="4">
-          <UI.DescriptionLabel>{t("entry.situation.description.label")}</UI.DescriptionLabel>
-          <UI.EntrySituationKind situationKind={props.situationKind} />
+          <DescriptionLabel>{t("entry.situation.description.label")}</DescriptionLabel>
+          <EntrySituationKind situationKind={props.situationKind} />
         </div>
 
-        <UI.EntrySituationDescription situationDescription={props.situationDescription} />
+        <EntrySituationDescription situationDescription={props.situationDescription} />
 
         <div data-stack="x" data-cross="center" data-gap="5" data-mt="2">
-          <UI.EntryEmotionLabel emotionLabel={props.emotionLabel} />
-          <UI.RatingPills
-            rating={props.emotionIntensity as number}
-            total={Form.emotionIntensity.pattern.max}
-          />
+          <EntryEmotionLabel emotionLabel={props.emotionLabel} />
+          <RatingPills rating={props.emotionIntensity as number} total={Form.emotionIntensity.pattern.max} />
         </div>
       </section>
 
       <section data-stack="y" data-gap="5">
         <div data-stack="x" data-gap="5" data-mt="2">
-          <UI.DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</UI.DescriptionLabel>
+          <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
 
-          <UI.EntryReactionType reactionType={props.reactionType} />
-          <UI.RatingPills
+          <EntryReactionType reactionType={props.reactionType} />
+          <RatingPills
             rating={props.reactionEffectiveness as number}
             total={Form.reactionEffectiveness.pattern.max}
           />
         </div>
-        <UI.EntryReactionDescription reactionDescription={props.reactionDescription} />
+        <EntryReactionDescription reactionDescription={props.reactionDescription} />
       </section>
 
       {props.alarms[0] && <EntryAlarms {...props} />}

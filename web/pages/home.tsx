@@ -1,7 +1,7 @@
 import { useToggle } from "@bgord/ui";
 import { Outlet } from "@tanstack/react-router";
 import { MoreHoriz } from "iconoir-react";
-import * as Sections from "../sections";
+import { HomeEntryAdd, HomeEntryExport, HomeEntryList } from "../sections";
 
 /** @public */
 export function Home() {
@@ -21,10 +21,10 @@ export function Home() {
           <MoreHoriz data-size="md" />
         </button>
 
-        <Sections.HomeEntryAdd />
+        <HomeEntryAdd />
       </div>
 
-      <Sections.HomeEntryList children={exportEntries.on ? <Sections.HomeEntryExport /> : null} />
+      <HomeEntryList children={exportEntries.on ? <HomeEntryExport /> : null} />
 
       <Outlet />
     </main>

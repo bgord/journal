@@ -3,7 +3,12 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { Timer, Xmark } from "iconoir-react";
 import { Form } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotFormatted } from "../api";
-import * as UI from "../components";
+import {
+  DescriptionLabel,
+  EntrySituationDescription,
+  EntrySituationKind,
+  EntryStartedAt,
+} from "../components";
 import { homeRoute } from "../router";
 import { EntryAlarms } from "./entry-alarms";
 import { EntryEmotion } from "./home-entry-emotion";
@@ -42,7 +47,7 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
     >
       <header data-stack="x" data-gap="3" data-cross="center" {...Rhythm().times(3).style.height}>
         {props.origin === "time_capsule" && <Timer data-size="sm" data-color="neutral-300" />}
-        <UI.EntryStartedAt startedAt={props.startedAt} data-mr="auto" />
+        <EntryStartedAt startedAt={props.startedAt} data-mr="auto" />
         <Link
           to="/entry/$entryId/history"
           params={{ entryId: props.id }}
@@ -69,10 +74,10 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
 
       <section data-stack="y" data-gap="5" data-py="2" data-pb="5" data-bcb="neutral-700" data-bwb="hairline">
         <div data-stack="x" data-cross="center" data-gap="4">
-          <UI.DescriptionLabel>{t("entry.situation.description.label")}</UI.DescriptionLabel>
-          <UI.EntrySituationKind situationKind={props.situationKind} />
+          <DescriptionLabel>{t("entry.situation.description.label")}</DescriptionLabel>
+          <EntrySituationKind situationKind={props.situationKind} />
         </div>
-        <UI.EntrySituationDescription situationDescription={props.situationDescription} />
+        <EntrySituationDescription situationDescription={props.situationDescription} />
         <EntryEmotion {...props} />
       </section>
       <HomeEntryReaction {...props} />

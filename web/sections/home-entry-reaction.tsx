@@ -15,7 +15,14 @@ import { useEffect } from "react";
 import type { types } from "../../app/services/home-entry-add-form";
 import { Form } from "../../app/services/home-entry-add-form";
 import type { EntrySnapshotFormatted } from "../api";
-import * as UI from "../components";
+import {
+  ButtonCancel,
+  DescriptionLabel,
+  EntryReactionDescription,
+  EntryReactionType,
+  RatingPillsClickable,
+  Select,
+} from "../components";
 import { homeRoute } from "../router";
 
 export function HomeEntryReaction(props: EntrySnapshotFormatted) {
@@ -63,10 +70,10 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
   return (
     <section data-stack="y" data-gap="3">
       <div data-stack="x" data-cross="center" data-gap="5" data-mt="2" {...Rhythm().times(3).style.minHeight}>
-        <UI.DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</UI.DescriptionLabel>
+        <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
 
         {reactionTypeEdit.off && (
-          <UI.EntryReactionType
+          <EntryReactionType
             reactionType={reactionType.value as EntrySnapshotFormatted["reactionType"]}
             onClick={reactionTypeEdit.enable}
             data-cursor="pointer"
@@ -76,13 +83,13 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
 
         {reactionTypeEdit.on && (
           <div data-stack="x" data-gap="2" {...reactionTypeEdit.props.target}>
-            <UI.ButtonCancel
+            <ButtonCancel
               type="submit"
               disabled={mutation.isLoading}
               onClick={exec([reactionType.clear, reactionTypeEdit.disable])}
             />
 
-            <UI.Select
+            <Select
               {...reactionType.input.props}
               disabled={mutation.isLoading}
               onChange={(event) => {
@@ -95,15 +102,15 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
                   {t(`entry.reaction.type.value.${type}`)}
                 </option>
               ))}
-            </UI.Select>
+            </Select>
           </div>
         )}
 
-        <UI.RatingPillsClickable {...reactionEffectiveness} />
+        <RatingPillsClickable {...reactionEffectiveness} />
       </div>
 
       {reactionDescriptionEdit.off && (
-        <UI.EntryReactionDescription
+        <EntryReactionDescription
           reactionDescription={reactionDescription.value ?? null}
           onClick={reactionDescriptionEdit.enable}
           {...reactionDescriptionEdit.props.controller}
@@ -134,7 +141,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
           />
 
           <div data-stack="x" data-main="end" data-gap="5">
-            <UI.ButtonCancel
+            <ButtonCancel
               disabled={mutation.isLoading}
               onClick={exec([reactionDescription.clear, reactionDescriptionEdit.disable])}
             />

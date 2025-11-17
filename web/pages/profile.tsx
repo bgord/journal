@@ -2,7 +2,15 @@ import { useTranslations } from "@bgord/ui";
 import { ProfileCircle } from "iconoir-react";
 import { Separator } from "../components";
 import { rootRoute } from "../router";
-import * as Sections from "../sections";
+import {
+  ProfileAccountDelete,
+  ProfileAiUsage,
+  ProfileAvatarChange,
+  ProfileDataExport,
+  ProfileLanguageSelector,
+  ProfilePasswordChange,
+  ProfileShareableLinkList,
+} from "../sections";
 
 /** @public */
 export function Profile() {
@@ -32,19 +40,19 @@ export function Profile() {
         </div>
       </header>
       <Separator />
-      <Sections.ProfileAvatarChange />
+      <ProfileAvatarChange />
       <Separator />
-      <Sections.ProfileAiUsage />
+      <ProfileAiUsage />
       <Separator />
-      <Sections.ProfileShareableLinkList />
+      <ProfileShareableLinkList />
       <Separator />
-      <Sections.ProfileLanguageSelector />
+      <ProfileLanguageSelector />
       <Separator />
-      <Sections.ProfileDataExport />
+      <ProfileDataExport />
       <Separator />
-      <Sections.ProfilePasswordChange />
+      <ProfilePasswordChange />
       <Separator />
-      <Sections.ProfileAccountDelete />
+      <ProfileAccountDelete />
     </main>
   );
 }

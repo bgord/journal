@@ -1,5 +1,5 @@
 import { useTranslations } from "@bgord/ui";
-import * as UI from "../components";
+import { Advice, DashboardCell, DashboardCellEmpty, DashboardDate, DashboardSubheader } from "../components";
 import { dashboardRoute } from "../router";
 
 export function DashboardAlarmsInactivity() {
@@ -7,22 +7,22 @@ export function DashboardAlarmsInactivity() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <UI.DashboardCell>
-      <UI.DashboardSubheader>
+    <DashboardCell>
+      <DashboardSubheader>
         {t("dashboard.alarm.inactivity")}
         <div className="c-badge" data-variant="primary">
           {dashboard?.alarms.inactivity.length}
         </div>
-      </UI.DashboardSubheader>
+      </DashboardSubheader>
 
-      {!dashboard?.alarms.inactivity[0] && <UI.DashboardCellEmpty />}
+      {!dashboard?.alarms.inactivity[0] && <DashboardCellEmpty />}
 
       {dashboard?.alarms.inactivity[0] && (
         <ul data-stack="y" data-gap="5">
           {dashboard?.alarms.inactivity.map((alarm) => (
             <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
               <div data-stack="x" data-gap="3">
-                <UI.DashboardDate>{alarm.generatedAt}</UI.DashboardDate>
+                <DashboardDate>{alarm.generatedAt}</DashboardDate>
 
                 <div data-color="neutral-300">
                   {t("dashboard.alarm.inactivity.duration", {
@@ -30,12 +30,12 @@ export function DashboardAlarmsInactivity() {
                   })}
                 </div>
 
-                <UI.Advice>{alarm.advice}</UI.Advice>
+                <Advice>{alarm.advice}</Advice>
               </div>
             </li>
           ))}
         </ul>
       )}
-    </UI.DashboardCell>
+    </DashboardCell>
   );
 }
