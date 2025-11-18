@@ -15,7 +15,7 @@ export function Home() {
     <main data-stack="y" data-gap="3" data-maxw="md" data-mx="auto" data-mb="8">
       <div data-stack="x" data-gap="3">
         <div data-stack="x" data-gap="2" data-cross="center" data-color="neutral-400">
-          <div className="c-badge" data-variant="primary" data-p="1">
+          <div className="c-badge" data-variant="primary" data-p="1" data-px="2">
             {entries.length}
           </div>
           <div data-fs="sm">
