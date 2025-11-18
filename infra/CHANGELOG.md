@@ -1,6 +1,9 @@
 # Changelog
+- 2025-11-18 22:43 8687ce4c **step: update packages**
+## 2025-11-18 22:43 
+- 2025-11-18 22:42 8fb87dd6 **refactor: improve home entry list length badge**
 - 2025-11-17 20:09 24155911 **refactor: unify notifications**
-## 2025-11-17 20:09 
+- 2025-11-17 19:27 5f18ab43 **docs: generate CHANGELOG**
 - 2025-11-17 12:54 44833fb5 **step: add entry count**
 - 2025-11-17 12:40 c591ecd4 **refactor: clean up imports**
 - 2025-11-17 11:54 f84e12ed **docs: generate CHANGELOG**
