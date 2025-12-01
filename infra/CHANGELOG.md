@@ -1,7 +1,10 @@
 # Changelog
+- 2025-12-01 11:57 df3211bc **step: update packges**
+- 2025-12-01 11:57 126f7e78 **fix: biome checks**
+## 2025-12-01 11:57 
 - 2025-11-18 22:43 8687ce4c **step: update packages**
-## 2025-11-18 22:43 
 - 2025-11-18 22:42 8fb87dd6 **refactor: improve home entry list length badge**
+- 2025-11-18 21:47 fc0277de **docs: generate CHANGELOG**
 - 2025-11-17 20:09 24155911 **refactor: unify notifications**
 - 2025-11-17 19:27 5f18ab43 **docs: generate CHANGELOG**
 - 2025-11-17 12:54 44833fb5 **step: add entry count**
