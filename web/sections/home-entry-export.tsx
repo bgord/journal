@@ -31,7 +31,9 @@ export function HomeEntryExport() {
       />
       <Select {...strategy.input.props}>
         {Form.strategy.options.map((strategy) => (
-          <option value={strategy}>{t(`entries.export.format.${strategy}`)}</option>
+          <option key={strategy} value={strategy}>
+            {t(`entries.export.format.${strategy}`)}
+          </option>
         ))}
       </Select>
       <a type="button" href={url} download target="_blank" className="c-button" data-variant="secondary">

@@ -42,7 +42,7 @@ export function Home() {
         <HomeEntryAdd />
       </div>
 
-      <HomeEntryList children={exportEntries.on ? <HomeEntryExport /> : null} />
+      <HomeEntryList>{exportEntries.on ? <HomeEntryExport /> : null}</HomeEntryList>
 
       <Outlet />
     </main>
