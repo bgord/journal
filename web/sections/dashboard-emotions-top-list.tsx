@@ -9,8 +9,6 @@ export function DashboardEmotionsTopList() {
 
   const top = dashboard?.entries.top.emotions;
 
-  console.log(top);
-
   return (
     <DashboardCell>
       <DashboardSubheader>{t("dashboard.entries.top_emotions")}</DashboardSubheader>
