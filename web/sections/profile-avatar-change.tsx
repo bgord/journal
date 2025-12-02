@@ -82,7 +82,7 @@ export function ProfileAvatarChange() {
             )}
           </div>
 
-          <div data-fs="xs" data-color="neutral-500" data-mt="2">
+          <div data-fs="xs" data-color="neutral-500" data-my="2">
             {t("profile.avatar.hint")}
           </div>
 
