@@ -7,11 +7,12 @@ export function ProfileAvatarDelete() {
   const router = useRouter();
   const { avatarEtag } = rootRoute.useLoaderData();
   const hover = useHover();
+
   const enabled = avatarEtag !== null;
 
   const mutation = useMutation({
     perform: () => fetch("/api/preferences/profile-avatar", { method: "DELETE", credentials: "include" }),
-    onSuccess: () => router.invalidate({ filter: (r) => r.id === rootRoute.id, sync: true }),
+    onSuccess: () => router.invalidate({ filter: () => true, sync: true }),
   });
 
   return (

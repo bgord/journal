@@ -1,7 +1,6 @@
 import { exec, useFile, useMutation, useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { UserCircle } from "iconoir-react";
-import { rootRoute } from "../router";
 import { ProfileAvatarDelete } from "./profile-avatar-delete";
 
 const mimeTypes = ["image/png", "image/jpeg", "image/webp"];
@@ -23,7 +22,7 @@ export function ProfileAvatarChange() {
       });
     },
     onSuccess: () => {
-      router.invalidate({ filter: (r) => r.id === rootRoute.id, sync: true });
+      router.invalidate({ filter: () => true, sync: true });
       avatar.actions.clearFile();
     },
   });
