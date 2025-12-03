@@ -19,6 +19,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
     expect(response.status).toEqual(400);

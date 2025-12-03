@@ -12,6 +12,7 @@ describe("QuotaSpecification", () => {
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsAlarmEntryBucket]: 0,
     });
+
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({ violations: [] });
   });
 
@@ -20,6 +21,7 @@ describe("QuotaSpecification", () => {
       [mocks.userDailyBucket]: 10,
       [mocks.emotionsAlarmEntryBucket]: 0,
     });
+
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({
       violations: [
         {
@@ -37,6 +39,7 @@ describe("QuotaSpecification", () => {
       [mocks.userDailyBucket]: 2,
       [mocks.emotionsAlarmEntryBucket]: 2,
     });
+
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({
       violations: [
         {
@@ -54,6 +57,7 @@ describe("QuotaSpecification", () => {
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 0,
     });
+
     expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({ violations: [] });
   });
 
@@ -62,6 +66,7 @@ describe("QuotaSpecification", () => {
       [mocks.userDailyBucket]: 10,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 0,
     });
+
     expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({
       violations: [
         {
@@ -79,6 +84,7 @@ describe("QuotaSpecification", () => {
       [mocks.userDailyBucket]: 1,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 1,
     });
+
     expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({
       violations: [
         {
@@ -96,6 +102,7 @@ describe("QuotaSpecification", () => {
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: 0,
     });
+
     expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
       violations: [],
     });
@@ -106,6 +113,7 @@ describe("QuotaSpecification", () => {
       [mocks.userDailyBucket]: 10,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: 0,
     });
+
     expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
       violations: [
         {
@@ -123,6 +131,7 @@ describe("QuotaSpecification", () => {
       [mocks.userDailyBucket]: 1,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: 1,
     });
+
     expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
       violations: [
         {

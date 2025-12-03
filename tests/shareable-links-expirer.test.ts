@@ -92,7 +92,6 @@ describe("ShareableLinksExpirer", () => {
     spyOn(Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     spyOn(Adapters.Clock, "now").mockReturnValueOnce(mocks.T0.add(tools.Duration.Hours(1)));
-
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>

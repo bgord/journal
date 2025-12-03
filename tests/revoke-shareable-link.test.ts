@@ -20,6 +20,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       "/api/publishing/link/id/revoke",
       { method: "POST", headers: mocks.revisionHeaders() },
@@ -36,6 +37,7 @@ describe(`POST ${url}`, () => {
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
     ]);
+
     const response = await server.request(
       url,
       { method: "POST", headers: mocks.revisionHeaders(2) },
@@ -50,6 +52,7 @@ describe(`POST ${url}`, () => {
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
     ]);
+
     const response = await server.request(
       url,
       { method: "POST", headers: mocks.revisionHeaders(2) },
@@ -61,6 +64,7 @@ describe(`POST ${url}`, () => {
   test("validation - RequesterOwnsShareableLink", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+
     const response = await server.request(
       url,
       { method: "POST", headers: mocks.revisionHeaders(1) },
@@ -73,6 +77,7 @@ describe(`POST ${url}`, () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+
     const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     const response = await server.request(
       url,

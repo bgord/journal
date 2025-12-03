@@ -38,13 +38,12 @@ describe(`POST ${url}`, () => {
 
   test("validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     expect(response.status).toEqual(500);
   });
 
   test("ProfileAvatarConstraints - maxSide", async () => {
-    const temporaryFileWrite = spyOn(TemporaryFile, "write");
-    const temporaryFileCleanup = spyOn(TemporaryFile, "cleanup");
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(3100),
       height: tools.ImageHeight.parse(3100),
@@ -52,6 +51,8 @@ describe(`POST ${url}`, () => {
       size: tools.Size.fromKb(100),
     });
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const temporaryFileWrite = spyOn(TemporaryFile, "write");
+    const temporaryFileCleanup = spyOn(TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
     await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
@@ -60,8 +61,6 @@ describe(`POST ${url}`, () => {
   });
 
   test("ProfileAvatarConstraints - size", async () => {
-    const temporaryFileWrite = spyOn(TemporaryFile, "write");
-    const temporaryFileCleanup = spyOn(TemporaryFile, "cleanup");
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
@@ -69,6 +68,8 @@ describe(`POST ${url}`, () => {
       size: tools.Size.fromMB(100),
     });
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const temporaryFileWrite = spyOn(TemporaryFile, "write");
+    const temporaryFileCleanup = spyOn(TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
     await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
@@ -77,8 +78,6 @@ describe(`POST ${url}`, () => {
   });
 
   test("ProfileAvatarConstraints - mime", async () => {
-    const temporaryFileWrite = spyOn(TemporaryFile, "write");
-    const temporaryFileCleanup = spyOn(TemporaryFile, "cleanup");
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
@@ -86,6 +85,8 @@ describe(`POST ${url}`, () => {
       size: tools.Size.fromKb(100),
     });
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    const temporaryFileWrite = spyOn(TemporaryFile, "write");
+    const temporaryFileCleanup = spyOn(TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
     await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);

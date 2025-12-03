@@ -17,6 +17,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       "/api/publishing/link/id/revoke",
       { method: "POST", headers: mocks.revisionHeaders() },

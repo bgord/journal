@@ -20,6 +20,7 @@ describe(`DELETE ${url}`, () => {
 
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       "/api/entry/id/delete",
       { method: "DELETE", headers: mocks.revisionHeaders() },

@@ -3,11 +3,7 @@ import * as tools from "@bgord/tools";
 import * as Adapters from "+infra/adapters";
 import { EventStore } from "+infra/event-store";
 
-type Dependencies = {
-  EventStore: typeof EventStore;
-  IdProvider: bg.IdProviderPort;
-  Clock: bg.ClockPort;
-};
+type Dependencies = { EventStore: typeof EventStore; IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   constructor(private readonly deps: Dependencies) {}

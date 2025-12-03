@@ -19,6 +19,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       { method: "POST", headers: mocks.revisionHeaders() },
@@ -34,6 +35,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - missing type", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
@@ -53,6 +55,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - missing effectiveness", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
@@ -75,6 +78,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       "/api/entry/id/evaluate-reaction",
       { method: "POST", headers: mocks.revisionHeaders() },

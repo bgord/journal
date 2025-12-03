@@ -9,8 +9,7 @@ const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 describe("Alarm", () => {
   test("build new aggregate", () => {
-    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [], deps);
-    expect(alarm.pullEvents()).toEqual([]);
+    expect(Emotions.Aggregates.Alarm.build(mocks.alarmId, [], deps).pullEvents()).toEqual([]);
   });
 
   test("generate - correct path", async () => {
@@ -29,6 +28,7 @@ describe("Alarm", () => {
 
   test("saveAdvice - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+
     const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent], deps);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -52,6 +52,7 @@ describe("Alarm", () => {
 
   test("notify - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+
     const alarm = Emotions.Aggregates.Alarm.build(
       mocks.alarmId,
       [mocks.GenericAlarmGeneratedEvent, mocks.GenericAlarmAdviceSavedEvent],

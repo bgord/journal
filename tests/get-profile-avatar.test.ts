@@ -16,16 +16,19 @@ describe(`GET ${url}`, () => {
 
   test("404 when object does not exist (head.exists=false)", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const headSpy = spyOn(Adapters.RemoteFileStorage, "head").mockResolvedValue({ exists: false });
+    const remoteFileStorageHead = spyOn(Adapters.RemoteFileStorage, "head").mockResolvedValue({
+      exists: false,
+    });
+
     const response = await server.request(url, { method: "GET" }, mocks.ip);
-    expect(headSpy).toHaveBeenCalledTimes(1);
+    expect(remoteFileStorageHead).toHaveBeenCalledTimes(1);
     expect(response.status).toEqual(404);
   });
 
   test("304 when If-None-Match matches current ETag", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Adapters.RemoteFileStorage, "head").mockResolvedValue(mocks.head);
-    const getStreamSpy = spyOn(Adapters.RemoteFileStorage, "getStream");
+    const remoteFileStorageGetStream = spyOn(Adapters.RemoteFileStorage, "getStream");
 
     const response = await server.request(
       url,
@@ -34,7 +37,7 @@ describe(`GET ${url}`, () => {
     );
 
     expect(response.status).toEqual(304);
-    expect(getStreamSpy).not.toHaveBeenCalled();
+    expect(remoteFileStorageGetStream).not.toHaveBeenCalled();
   });
 
   test("200 streams avatar with correct headers", async () => {

@@ -63,6 +63,7 @@ describe("entry", () => {
 
   test("reappraiseEmotion - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
       [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent],
@@ -95,6 +96,7 @@ describe("entry", () => {
 
   test("evaluateReaction - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
       [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent, mocks.GenericReactionLoggedEvent],

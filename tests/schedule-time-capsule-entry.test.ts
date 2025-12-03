@@ -30,6 +30,7 @@ const reaction = {
 describe(`POST ${url}`, () => {
   test("situation - validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
     expect(response.status).toEqual(400);
@@ -41,6 +42,7 @@ describe(`POST ${url}`, () => {
 
   test("situation - validation - missing kind", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
@@ -56,6 +58,7 @@ describe(`POST ${url}`, () => {
 
   test("emotion - validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       { method: "POST", body: JSON.stringify({ ...situation }) },
@@ -68,6 +71,7 @@ describe(`POST ${url}`, () => {
 
   test("emotion - validation - missing intensity", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
@@ -83,6 +87,7 @@ describe(`POST ${url}`, () => {
 
   test("reaction - validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       { method: "POST", body: JSON.stringify({ ...situation, ...emotion }) },
@@ -95,6 +100,7 @@ describe(`POST ${url}`, () => {
 
   test("reaction - validation - missing type", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
@@ -110,6 +116,7 @@ describe(`POST ${url}`, () => {
 
   test("reaction - validation - missing effectiveness", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
@@ -130,6 +137,7 @@ describe(`POST ${url}`, () => {
 
   test("scheduledFor - missing", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       { method: "POST", body: JSON.stringify({ ...situation, ...emotion, ...reaction }) },
@@ -140,6 +148,7 @@ describe(`POST ${url}`, () => {
 
   test("scheduledFor - in the past", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
@@ -159,6 +168,7 @@ describe(`POST ${url}`, () => {
 
   test("scheduledForHour - missing", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {

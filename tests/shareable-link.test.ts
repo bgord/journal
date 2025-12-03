@@ -9,13 +9,11 @@ const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 describe("ShareableLink", () => {
   test("build new aggregate", () => {
-    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], deps);
-    expect(shareableLink.pullEvents()).toEqual([]);
+    expect(Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], deps).pullEvents()).toEqual([]);
   });
 
   test("isEmpty - true", () => {
-    const shareableLink = Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], deps);
-    expect(shareableLink.isEmpty()).toEqual(true);
+    expect(Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], deps).isEmpty()).toEqual(true);
   });
 
   test("isEmpty - true", () => {

@@ -20,6 +20,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - incorrect id", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request("/api/weekly-review/id/export/email", { method: "POST" }, mocks.ip);
     const json = await response.json();
     expect(response.status).toEqual(400);
@@ -29,6 +30,7 @@ describe(`POST ${url}`, () => {
   test("validation - WeeklyReviewExists - no weekly review", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(null);
+
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewExists);
   });
@@ -36,6 +38,7 @@ describe(`POST ${url}`, () => {
   test("validation - WeeklyReviewExists - repo failure", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockRejectedValue(new Error("Failure"));
+
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     expect(response.status).toEqual(500);
   });
@@ -43,6 +46,7 @@ describe(`POST ${url}`, () => {
   test("validation - WeeklyReviewIsCompleted", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReviewSkipped);
+
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewIsCompleted);
   });
@@ -50,16 +54,17 @@ describe(`POST ${url}`, () => {
   test("validation - RequesterOwnsWeeklyReview", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
+
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsWeeklyReview);
   });
 
   test("happy path", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
     spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

@@ -17,12 +17,14 @@ describe(`GET ${url}`, () => {
 
   test("validation - dateRangeStart", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(`${url}?dateRangeStart=2025-01-01`, { method: "GET" }, mocks.ip);
     expect(response.status).toEqual(400);
   });
 
   test("validation - dateRangeStart after dateRangeEnd", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       `${url}?dateRangeStart=2025-02-01&dateRangeEnd=2025-01-01`,
       { method: "GET" },

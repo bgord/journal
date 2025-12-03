@@ -21,12 +21,14 @@ describe(`POST ${url}`, () => {
 
   test("validation - empty payload", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     expect(response.status).toEqual(400);
   });
 
   test("validation - publicationSpecification", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       { method: "POST", body: JSON.stringify({ publicationSpecification: 1 }) },
@@ -39,6 +41,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - durationMs", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       { method: "POST", body: JSON.stringify({ publicationSpecification: "entries", durationMs: "ok" }) },
@@ -51,6 +54,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - dateRangeStart", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
@@ -66,6 +70,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - dateRangeEnd", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
@@ -86,6 +91,7 @@ describe(`POST ${url}`, () => {
 
   test("validation - dateRange", async () => {
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+
     const response = await server.request(
       url,
       {
