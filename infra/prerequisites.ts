@@ -16,7 +16,7 @@ export const prerequisites = [
   new bg.PrerequisiteSpace({
     label: "disk-space",
     minimum: tools.Size.fromMB(512),
-    checker: Adapters.DiskSpaceChecker,
+    DiskSpaceChecker: Adapters.DiskSpaceChecker,
   }),
   new bg.PrerequisiteNode({
     label: "node",
@@ -31,7 +31,7 @@ export const prerequisites = [
   new bg.PrerequisiteMemory({ label: "memory-consumption", maximum: tools.Size.fromMB(300) }),
   new bg.PrerequisiteLogFile({
     label: "log-file",
-    logger: Adapters.LoggerWinstonProductionAdapter,
+    Logger: Adapters.LoggerWinstonProductionAdapter,
     enabled: production,
   }),
   new bg.PrerequisiteDirectory({ label: "temporary-files dir", directory: TemporaryFileDirectory }),
@@ -44,9 +44,9 @@ export const prerequisites = [
   new bg.PrerequisiteTranslations({
     label: "translations",
     supportedLanguages: SupportedLanguages,
-    logger: Adapters.Logger,
+    Logger: Adapters.Logger,
   }),
-  new bg.PrerequisiteMailer({ label: "mailer", mailer: Adapters.Mailer, enabled: production }),
+  new bg.PrerequisiteMailer({ label: "mailer", Mailer: Adapters.Mailer, enabled: production }),
   new bg.PrerequisiteOutsideConnectivity({ label: "outside-connectivity", enabled: production }),
   new bg.PrerequisiteRunningUser({ label: "user", username: "bgord", enabled: production }),
   new bg.PrerequisiteSQLite({ label: "sqlite", sqlite, enabled: production }),
@@ -55,13 +55,13 @@ export const prerequisites = [
     host: "journal.bgord.dev",
     days: 7,
     enabled: production,
-    inspector: Adapters.CertificateInspector,
+    CertificateInspector: Adapters.CertificateInspector,
   }),
   new bg.PrerequisiteClockDrift({
     label: "clock-drift",
     enabled: production,
     skew: tools.Duration.Minutes(1),
-    timekeeper: Adapters.Timekeeper,
+    Timekeeper: Adapters.Timekeeper,
   }),
   new bg.PrerequisiteOs({ label: "os", accepted: ["Darwin", "Linux"] }),
 ];

@@ -75,7 +75,7 @@ export const auth = betterAuth({
     //   : undefined,
     production ? haveIBeenPwned() : undefined,
   ].filter((plugin) => plugin !== undefined),
-  logger: new bg.BetterAuthLogger(Logger).attach(),
+  logger: new bg.BetterAuthLogger({ Logger }).attach(),
 });
 
 export type AuthVariables = {

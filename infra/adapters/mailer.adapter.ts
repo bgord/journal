@@ -3,7 +3,7 @@ import * as Adapters from "+infra/adapters";
 import { Logger } from "+infra/adapters/logger.adapter";
 import { Env, MailerAdapter } from "+infra/env";
 
-const smtpMailer = new bg.MailerSmtpAdapter({
+const MailerSmtp = new bg.MailerSmtpAdapter({
   SMTP_HOST: Env.SMTP_HOST,
   SMTP_PORT: Env.SMTP_PORT,
   SMTP_USER: Env.SMTP_USER,
@@ -11,6 +11,6 @@ const smtpMailer = new bg.MailerSmtpAdapter({
 });
 
 export const Mailer = {
-  [MailerAdapter.smtp]: new bg.MailerSmtpWithLoggerAdapter({ smtpMailer: smtpMailer, logger: Logger }),
+  [MailerAdapter.smtp]: new bg.MailerSmtpWithLoggerAdapter({ MailerSmtp, Logger }),
   [MailerAdapter.noop]: new bg.MailerNoopAdapter(Adapters.Logger),
 }[Env.MAILER_ADAPTER];

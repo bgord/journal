@@ -28,7 +28,7 @@ type AcceptedCommand =
   | PreferencesCommands.UpdateProfileAvatarCommandType
   | PreferencesCommands.RemoveProfileAvatarCommandType;
 
-const CommandLogger = new bg.CommandLogger(Logger);
+const CommandLogger = new bg.CommandLogger({ Logger });
 
 export const CommandBus = new Emittery<bg.ToEventMap<AcceptedCommand>>({
   debug: { enabled: true, name: "infra/logger", logger: CommandLogger.handle },

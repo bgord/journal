@@ -9,7 +9,7 @@ import { EventBus } from "+infra/event-bus";
 import { EventStore } from "+infra/event-store";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(Logger);
+const EventHandler = new bg.EventHandler({ Logger });
 const policy = new Emotions.Policies.WeeklyReviewScheduler({
   EventBus,
   EventHandler,

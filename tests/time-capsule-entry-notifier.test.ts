@@ -7,7 +7,7 @@ import { Env } from "+infra/env";
 import { EventBus } from "+infra/event-bus";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler(Adapters.Logger);
+const EventHandler = new bg.EventHandler({ Logger: Adapters.Logger });
 const policy = new Emotions.Policies.TimeCapsuleEntryNotifier({
   EventBus,
   EventHandler,
