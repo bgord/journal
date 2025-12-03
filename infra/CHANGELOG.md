@@ -1,12 +1,15 @@
 # Changelog
+- 2025-12-03 21:19 1fbced8f **step: reinstall better-sqlite3**
+## 2025-12-03 21:19 
+- 2025-12-03 18:18 574d83d6 **step: update packages**
 - 2025-12-03 11:49 f0c389cc **step: pinpoint version**
 - 2025-12-03 11:49 1ee4167c **step: restore types js-cookie**
-## 2025-12-03 11:49 
 - 2025-12-03 11:44 a66b21c1 **step: bump bgord/scripts**
 - 2025-12-03 11:12 a71baccd **refactor: use bunx for only-allow**
 - 2025-12-03 11:11 0afd4add **step: install only-allow**
 - 2025-12-03 11:06 135a46d1 **step: remove types for js-cookie**
 - 2025-12-03 11:04 41ea695a **refactor: remove better-sqlite3**
+- 2025-12-03 10:50 3239f055 **docs: generate CHANGELOG**
 - 2025-12-03 10:45 cc8f6e9e **refactor: unify spies**
 - 2025-12-03 10:35 f58b40f2 **refactor: adjust deps**
 - 2025-12-03 10:30 5de111be **step: update packages**
