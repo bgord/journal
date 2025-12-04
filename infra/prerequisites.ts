@@ -52,7 +52,7 @@ export const prerequisites = [
   new bg.PrerequisiteSQLite({ label: "sqlite", sqlite, enabled: production }),
   new bg.PrerequisiteSSLCertificateExpiry({
     label: "ssl",
-    host: "journal.bgord.dev",
+    hostname: "journal.bgord.dev",
     days: 7,
     enabled: production,
     CertificateInspector: Adapters.CertificateInspector,
