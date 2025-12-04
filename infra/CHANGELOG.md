@@ -1,9 +1,11 @@
 # Changelog
+- 2025-12-04 12:20 4cdfa7da **step: update packages**
+## 2025-12-04 12:20 
 - 2025-12-04 12:08 b098365e **refactor: adjust file drafts**
-## 2025-12-04 12:08 
 - 2025-12-04 12:05 b729afaf **refactor: adjust hostname**
 - 2025-12-04 12:04 ad0342ae **refactor: simplify mimes creation**
 - 2025-12-04 12:02 a05c77ac **step: update packages**
+- 2025-12-04 11:13 da36246b **docs: generate CHANGELOG**
 - 2025-12-04 10:53 f236862d **step: update packages**
 - 2025-12-03 21:19 1fbced8f **step: reinstall better-sqlite3**
 - 2025-12-03 20:20 7e8d2c05 **docs: generate CHANGELOG**
