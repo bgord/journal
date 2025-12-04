@@ -150,7 +150,7 @@ export const head = {
   etag: "etag-123",
   size: tools.Size.fromBytes(1234),
   lastModified: T0,
-  mime: new tools.Mime("image/webp"),
+  mime: tools.MIMES.webp,
 };
 
 export const objectKey = tools.ObjectKey.parse(`users/${userId}/avatar.webp`);

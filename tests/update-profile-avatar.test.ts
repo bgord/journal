@@ -47,7 +47,7 @@ describe(`POST ${url}`, () => {
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(3100),
       height: tools.ImageHeight.parse(3100),
-      mime: new tools.Mime("image/png"),
+      mime: tools.MIMES.png,
       size: tools.Size.fromKb(100),
     });
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
@@ -64,7 +64,7 @@ describe(`POST ${url}`, () => {
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
-      mime: new tools.Mime("image/png"),
+      mime: tools.MIMES.png,
       size: tools.Size.fromMB(100),
     });
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
@@ -81,7 +81,7 @@ describe(`POST ${url}`, () => {
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
-      mime: new tools.Mime("text/plain"),
+      mime: tools.MIMES.text,
       size: tools.Size.fromKb(100),
     });
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
@@ -98,7 +98,7 @@ describe(`POST ${url}`, () => {
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
-      mime: new tools.Mime("image/png"),
+      mime: tools.MIMES.png,
       size: tools.Size.fromKb(100),
     });
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
@@ -118,7 +118,7 @@ describe(`POST ${url}`, () => {
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
-      mime: new tools.Mime("image/jpeg"),
+      mime: tools.MIMES.jpeg,
       size: tools.Size.fromKb(100),
     });
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
@@ -138,7 +138,7 @@ describe(`POST ${url}`, () => {
     spyOn(Adapters.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
-      mime: new tools.Mime("image/jpeg"),
+      mime: tools.MIMES.jpeg,
       size: tools.Size.fromKb(100),
     });
     spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);

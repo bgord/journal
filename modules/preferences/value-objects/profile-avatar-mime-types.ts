@@ -1,7 +1,3 @@
 import * as tools from "@bgord/tools";
 
-export const ProfileAvatarMimeTypes = [
-  new tools.Mime("image/png"),
-  new tools.Mime("image/jpeg"),
-  new tools.Mime("image/webp"),
-];
+export const ProfileAvatarMimeTypes = [tools.MIMES.png, tools.MIMES.jpeg, tools.MIMES.webp];

@@ -152,7 +152,7 @@ server.post(
   AuthShield.attach,
   AuthShield.verify,
   ...bg.FileUploader.validate({
-    mimeTypes: Preferences.VO.ProfileAvatarMimeTypes.map((mime) => mime.toString()),
+    mimeTypes: Preferences.VO.ProfileAvatarMimeTypes,
     maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
   }),
   HTTP.Preferences.UpdateProfileAvatar,
