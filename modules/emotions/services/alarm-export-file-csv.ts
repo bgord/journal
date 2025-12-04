@@ -9,7 +9,7 @@ export class AlarmExportFileCsv extends bg.FileDraft {
     private readonly alarms: VO.AlarmSnapshot[],
     private readonly deps: Dependencies,
   ) {
-    super({ filename: `alarm-export-${deps.Clock.nowMs()}.csv`, mime: tools.MIMES.csv });
+    super(tools.Basename.parse(`alarm-export-${deps.Clock.nowMs()}`), tools.MIMES.csv);
   }
 
   create() {

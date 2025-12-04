@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
@@ -19,11 +20,8 @@ export async function ExportData(c: hono.Context<infra.HonoConfig>) {
 
   const timestamp = Adapters.Clock.nowMs();
 
-  return new bg.FileDraftZip({
-    filename: `export-${timestamp}.zip`,
-    parts: [
-      new Emotions.Services.EntryExportFileCsv(entries, deps),
-      new Emotions.Services.AlarmExportFileCsv(alarms, deps),
-    ],
-  }).toResponse();
+  return new bg.FileDraftZip(tools.Basename.parse(`export-${timestamp}`), [
+    new Emotions.Services.EntryExportFileCsv(entries, deps),
+    new Emotions.Services.AlarmExportFileCsv(alarms, deps),
+  ]).toResponse();
 }

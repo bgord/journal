@@ -1,5 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import * as Adapters from "+infra/adapters";
@@ -105,7 +106,7 @@ describe("WeeklyReviewExportByEmail", () => {
       html: "Find the file attached",
       attachments: [
         {
-          filename: `weekly-review-export-${mocks.week.toIsoId()}.pdf`,
+          filename: tools.Filename.fromString(`weekly-review-export-${mocks.week.toIsoId()}.pdf`),
           content: mocks.PDF,
           contentType: "application/pdf",
         },

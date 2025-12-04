@@ -7,10 +7,7 @@ export class WeeklyReviewExportPdfFile extends bg.FileDraft {
     private readonly pdfGenerator: bg.PdfGeneratorPort,
     private readonly data: Emotions.Queries.WeeklyReviewExportDto,
   ) {
-    super({
-      filename: `weekly-review-export-${data.weekIsoId}.pdf`,
-      mime: tools.MIMES.pdf,
-    });
+    super(tools.Basename.parse(`weekly-review-export-${data.weekIsoId}`), tools.MIMES.pdf);
   }
 
   // @ts-expect-error
