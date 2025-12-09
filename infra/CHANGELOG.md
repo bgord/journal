@@ -1,7 +1,10 @@
 # Changelog
+- 2025-12-09 23:09 6b138526 **step: install sharp**
+## 2025-12-09 23:09 
+- 2025-12-09 23:07 da399734 **step: update packages**
 - 2025-12-09 21:03 31c55306 **step: update packages**
-## 2025-12-09 21:03 
 - 2025-12-09 21:02 b2005620 **step: bump bgord/scripts**
+- 2025-12-09 20:04 66d11010 **docs: generate CHANGELOG**
 - 2025-12-04 14:32 c3916927 **step: update packages**
 - 2025-12-04 13:33 4e0fa088 **docs: generate CHANGELOG**
 - 2025-12-04 12:20 4cdfa7da **step: update packages**
