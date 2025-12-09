@@ -1,6 +1,9 @@
 # Changelog
+- 2025-12-09 21:03 31c55306 **step: update packages**
+## 2025-12-09 21:03 
+- 2025-12-09 21:02 b2005620 **step: bump bgord/scripts**
 - 2025-12-04 14:32 c3916927 **step: update packages**
-## 2025-12-04 14:32 
+- 2025-12-04 13:33 4e0fa088 **docs: generate CHANGELOG**
 - 2025-12-04 12:20 4cdfa7da **step: update packages**
 - 2025-12-04 12:08 b098365e **refactor: adjust file drafts**
 - 2025-12-04 12:05 b729afaf **refactor: adjust hostname**
