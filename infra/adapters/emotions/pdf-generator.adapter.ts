@@ -1,9 +1,9 @@
 import * as bg from "@bgord/bun";
-import { LoggerWinstonLocalAdapter } from "+infra/adapters";
+import { Logger } from "+infra/adapters";
 import { Env } from "+infra/env";
 import { PdfGeneratorReactAdapter } from "./pdf-generator-react.adapter";
 
-const deps = { Logger: LoggerWinstonLocalAdapter };
+const deps = { Logger };
 
 export const PdfGenerator: bg.PdfGeneratorPort = {
   [bg.NodeEnvironmentEnum.local]: new PdfGeneratorReactAdapter(),

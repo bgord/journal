@@ -29,11 +29,7 @@ export const prerequisites = [
     current: Bun.version,
   }),
   new bg.PrerequisiteMemory({ label: "memory-consumption", maximum: tools.Size.fromMB(300) }),
-  new bg.PrerequisiteLogFile({
-    label: "log-file",
-    Logger: Adapters.LoggerWinstonProductionAdapter,
-    enabled: production,
-  }),
+  new bg.PrerequisiteLogFile({ label: "log-file", Logger: Adapters.Logger, enabled: production }),
   new bg.PrerequisiteDirectory({ label: "temporary-files dir", directory: TemporaryFileDirectory }),
   new bg.PrerequisiteDirectory({
     label: "remote-file-storage dir",

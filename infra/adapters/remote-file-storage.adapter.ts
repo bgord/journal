@@ -6,7 +6,7 @@ import { FileCleaner } from "./file-cleaner.adapter";
 import { FileHash } from "./file-hash.adapter";
 import { FileRenamer } from "./file-renamer.adapter";
 import { JsonFileReader } from "./json-file-reader.adapter";
-import { LoggerWinstonLocalAdapter } from "./logger.adapter";
+import { Logger } from "./logger.adapter";
 
 export const RemoteFileStorageProductionDir = tools.DirectoryPathAbsoluteSchema.parse(
   "/var/www/journal/infra/avatars",
@@ -26,10 +26,7 @@ const RemoteFileStorageProduction = new bg.RemoteFileStorageDiskAdapter(
 
 export const RemoteFileStorage: bg.RemoteFileStoragePort = {
   [bg.NodeEnvironmentEnum.local]: RemoteFileStorageTmp,
-  [bg.NodeEnvironmentEnum.test]: new bg.RemoteFileStorageNoopAdapter({
-    Logger: LoggerWinstonLocalAdapter,
-    Clock,
-  }),
+  [bg.NodeEnvironmentEnum.test]: new bg.RemoteFileStorageNoopAdapter({ Logger, Clock }),
   [bg.NodeEnvironmentEnum.staging]: RemoteFileStorageTmp,
   [bg.NodeEnvironmentEnum.production]: RemoteFileStorageProduction,
 }[Env.type];

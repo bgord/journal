@@ -41,10 +41,10 @@ const startup = new tools.Stopwatch(Adapters.Clock.now());
 // Healthcheck =================
 server.get(
   "/healthcheck",
-  bg.ShieldRateLimit(
+  new bg.ShieldRateLimitAdapter(
     { enabled: production, subject: bg.AnonSubjectResolver, store: RateLimiters.HealthcheckStore },
     Deps,
-  ),
+  ).verify,
   timeout(tools.Duration.Seconds(15).ms, infra.requestTimeoutError),
   BasicAuthShield,
   ...bg.Healthcheck.build(healthcheck, Deps),
@@ -62,18 +62,18 @@ entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction);
 entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry);
 entry.get(
   "/export-data",
-  bg.ShieldRateLimit(
+  new bg.ShieldRateLimitAdapter(
     { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesDataStore },
     Deps,
-  ),
+  ).verify,
   HTTP.Emotions.ExportData,
 );
 entry.get(
   "/export-entries",
-  bg.ShieldRateLimit(
+  new bg.ShieldRateLimitAdapter(
     { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesEntriesStore },
     Deps,
-  ),
+  ).verify,
   HTTP.Emotions.ExportEntries,
 );
 entry.get("/list", HTTP.Emotions.ListEntries);
@@ -89,26 +89,26 @@ const weeklyReview = new Hono();
 weeklyReview.use("*", AuthShield.attach, AuthShield.verify);
 weeklyReview.post(
   "/:weeklyReviewId/export/email",
-  bg.ShieldRateLimit(
+  new bg.ShieldRateLimitAdapter(
     {
       enabled: production,
       subject: bg.UserSubjectResolver,
       store: RateLimiters.WeeklyReviewExportEmailStore,
     },
     Deps,
-  ),
+  ).verify,
   HTTP.Emotions.ExportWeeklyReviewByEmail,
 );
 weeklyReview.get(
   "/:weeklyReviewId/export/download",
-  bg.ShieldRateLimit(
+  new bg.ShieldRateLimitAdapter(
     {
       enabled: production,
       subject: bg.UserSubjectResolver,
       store: RateLimiters.WeeklyReviewExportDownloadStore,
     },
     Deps,
-  ),
+  ).verify,
   HTTP.Emotions.DownloadWeeklyReview,
 );
 server.route("/weekly-review", weeklyReview);
@@ -121,10 +121,10 @@ publishing.use("*", AuthShield.attach, AuthShield.verify);
 publishing.get("/links/list", HTTP.Publishing.ListShareableLinks);
 publishing.post(
   "/link/create",
-  bg.ShieldRateLimit(
+  new bg.ShieldRateLimitAdapter(
     { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.ShareableLinkCreateStore },
     Deps,
-  ),
+  ).verify,
   HTTP.Publishing.CreateShareableLink,
 );
 publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink);
