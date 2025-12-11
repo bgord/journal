@@ -449,7 +449,6 @@ infra/
 ├── env.ts
 ├── event-bus.ts
 ├── event-store.ts
-├── healthcheck.ts
 ├── i18n.ts
 ├── jobs.ts
 ├── prerequisites.ts
