@@ -1,7 +1,10 @@
 # Changelog
+- 2025-12-11 22:14 fd6ff814 **refactor: unify logger**
+## 2025-12-11 22:14 
+- 2025-12-11 22:10 b5d8c0b8 **step: update packages**
 - 2025-12-10 11:59 60b4955e **refactor: adjust vos**
-## 2025-12-10 11:59 
 - 2025-12-10 11:58 60d4c008 **step: update packages**
+- 2025-12-10 10:59 40ceaa04 **docs: generate CHANGELOG**
 - 2025-12-09 23:09 6b138526 **step: install sharp**
 - 2025-12-09 23:07 da399734 **step: update packages**
 - 2025-12-09 22:10 4181c640 **docs: generate CHANGELOG**
