@@ -9,8 +9,8 @@ import * as Adapters from "+infra/adapters";
 import { AuthShield, auth } from "+infra/auth";
 import { BasicAuthShield } from "+infra/basic-auth-shield";
 import { Env } from "+infra/env";
-import { healthcheck } from "+infra/healthcheck";
 import { I18nConfig } from "+infra/i18n";
+import { prerequisites } from "+infra/prerequisites";
 import * as RateLimiters from "+infra/rate-limiters";
 import { ResponseCache } from "+infra/response-cache";
 import { SupportedLanguages } from "./modules/supported-languages";
@@ -47,7 +47,7 @@ server.get(
   ).verify,
   timeout(tools.Duration.Seconds(15).ms, infra.requestTimeoutError),
   BasicAuthShield,
-  ...bg.Healthcheck.build(healthcheck, Deps),
+  ...bg.Healthcheck.build(prerequisites, Deps),
 );
 // =============================
 
