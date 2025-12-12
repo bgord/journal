@@ -15,10 +15,3 @@ export const TemporaryFile: bg.TemporaryFilePort = {
   [bg.NodeEnvironmentEnum.staging]: new bg.TemporaryFileNoopAdapter(local),
   [bg.NodeEnvironmentEnum.production]: new bg.TemporaryFileAbsoluteAdapter(prod, deps),
 }[Env.type];
-
-export const TemporaryFileDirectory: tools.DirectoryPathAbsoluteType = {
-  [bg.NodeEnvironmentEnum.local]: local,
-  [bg.NodeEnvironmentEnum.test]: local,
-  [bg.NodeEnvironmentEnum.staging]: local,
-  [bg.NodeEnvironmentEnum.production]: prod,
-}[Env.type];
