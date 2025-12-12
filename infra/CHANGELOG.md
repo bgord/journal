@@ -1,7 +1,9 @@
 # Changelog
+- 2025-12-13 00:13 2cc3878b **step: check binaries in prod**
+## 2025-12-13 00:13 
 - 2025-12-13 00:08 11198c2b **step: update bun**
-## 2025-12-13 00:08 
 - 2025-12-13 00:07 e5effa1b **step: update packages**
+- 2025-12-12 23:10 ddb8f336 **docs: generate CHANGELOG**
 - 2025-12-12 20:17 6e631427 **step: bump bgord/scripts**
 - 2025-12-11 23:13 3f1b0c40 **step: update packages**
 - 2025-12-11 23:10 291a9702 **step: update packages**
