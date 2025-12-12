@@ -11,4 +11,4 @@ const PassageOfTimeJob = new Cron(
   JobHandler.handle(App.Services.PassageOfTime),
 );
 
-export const jobs = { PassageOfTimeJob };
+export const Jobs = { PassageOfTimeJob };

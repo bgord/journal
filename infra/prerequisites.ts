@@ -4,7 +4,7 @@ import { SupportedLanguages } from "+languages";
 import * as Adapters from "+infra/adapters";
 import { sqlite } from "+infra/db";
 import { Env } from "+infra/env";
-import { jobs } from "+infra/jobs";
+import { Jobs } from "+infra/jobs";
 import { TemporaryFileDirectory } from "+infra/temporary-file.adapter";
 
 const production = Env.type === bg.NodeEnvironmentEnum.production;
@@ -36,7 +36,7 @@ export const prerequisites = [
     directory: Adapters.RemoteFileStorageProductionDir,
     enabled: production,
   }),
-  new bg.PrerequisiteJobs({ label: "jobs", jobs }),
+  new bg.PrerequisiteJobs({ label: "jobs", Jobs }),
   new bg.PrerequisiteTranslations({
     label: "translations",
     supportedLanguages: SupportedLanguages,
