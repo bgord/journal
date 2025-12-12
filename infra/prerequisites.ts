@@ -60,7 +60,7 @@ export const prerequisites = [
     Timekeeper: Adapters.Timekeeper,
   }),
   new bg.PrerequisiteOs({ label: "os", accepted: ["Darwin", "Linux"] }),
-  new bg.PrerequisiteBinary({ label: "httpie", binary: bg.Binary.parse("http") }),
-  new bg.PrerequisiteBinary({ label: "sqlite3", binary: bg.Binary.parse("sqlite3") }),
-  new bg.PrerequisiteBinary({ label: "tar", binary: bg.Binary.parse("tar") }),
+  new bg.PrerequisiteBinary({ label: "httpie", binary: bg.Binary.parse("http"), enabled: production }),
+  new bg.PrerequisiteBinary({ label: "sqlite3", binary: bg.Binary.parse("sqlite3"), enabled: production }),
+  new bg.PrerequisiteBinary({ label: "tar", binary: bg.Binary.parse("tar"), enabled: production }),
 ];
