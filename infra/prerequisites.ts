@@ -16,12 +16,12 @@ type Dependencies = {
 };
 
 export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
-  const production = Env.type === bg.NodeEnvironmentEnum.production;
+  const enabled = Env.type === bg.NodeEnvironmentEnum.production;
 
   return [
     new bg.PrerequisitePort({ label: "port", port: Env.PORT }),
     new bg.PrerequisiteTimezoneUTC({ label: "timezone", timezone: tools.Timezone.parse(Env.TZ) }),
-    new bg.PrerequisiteRAM({ label: "RAM", minimum: tools.Size.fromMB(128), enabled: production }),
+    new bg.PrerequisiteRAM({ label: "RAM", minimum: tools.Size.fromMB(128), enabled }),
     new bg.PrerequisiteSpace({
       label: "disk-space",
       minimum: tools.Size.fromMB(512),
@@ -38,12 +38,16 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
       current: Bun.version,
     }),
     new bg.PrerequisiteMemory({ label: "memory-consumption", maximum: tools.Size.fromMB(300) }),
-    new bg.PrerequisiteLogFile({ label: "log-file", Logger: deps.Logger, enabled: production }),
-    new bg.PrerequisiteDirectory({ label: "temporary-files dir", directory: deps.TemporaryFile.root }),
+    new bg.PrerequisiteLogFile({ label: "log-file", Logger: deps.Logger, enabled }),
+    new bg.PrerequisiteDirectory({
+      label: "temporary-files dir",
+      directory: deps.TemporaryFile.root,
+      enabled,
+    }),
     new bg.PrerequisiteDirectory({
       label: "remote-file-storage dir",
       directory: deps.RemoteFileStorage.root,
-      enabled: production,
+      enabled,
     }),
     new bg.PrerequisiteJobs({ label: "jobs", Jobs: deps.Jobs }),
     new bg.PrerequisiteTranslations({
@@ -51,26 +55,26 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
       supportedLanguages: SupportedLanguages,
       Logger: deps.Logger,
     }),
-    new bg.PrerequisiteMailer({ label: "mailer", Mailer: deps.Mailer, enabled: production }),
-    new bg.PrerequisiteOutsideConnectivity({ label: "outside-connectivity", enabled: production }),
-    new bg.PrerequisiteRunningUser({ label: "user", username: "bgord", enabled: production }),
-    new bg.PrerequisiteSQLite({ label: "sqlite", sqlite, enabled: production }),
+    new bg.PrerequisiteMailer({ label: "mailer", Mailer: deps.Mailer, enabled }),
+    new bg.PrerequisiteOutsideConnectivity({ label: "outside-connectivity", enabled }),
+    new bg.PrerequisiteRunningUser({ label: "user", username: "bgord", enabled }),
+    new bg.PrerequisiteSQLite({ label: "sqlite", sqlite, enabled }),
     new bg.PrerequisiteSSLCertificateExpiry({
       label: "ssl",
       hostname: "journal.bgord.dev",
       days: 7,
-      enabled: production,
+      enabled,
       CertificateInspector: deps.CertificateInspector,
     }),
     new bg.PrerequisiteClockDrift({
       label: "clock-drift",
-      enabled: production,
+      enabled,
       skew: tools.Duration.Minutes(1),
       Timekeeper: deps.Timekeeper,
     }),
     new bg.PrerequisiteOs({ label: "os", accepted: ["Darwin", "Linux"] }),
-    new bg.PrerequisiteBinary({ label: "httpie", binary: bg.Binary.parse("http"), enabled: production }),
-    new bg.PrerequisiteBinary({ label: "sqlite3", binary: bg.Binary.parse("sqlite3"), enabled: production }),
-    new bg.PrerequisiteBinary({ label: "tar", binary: bg.Binary.parse("tar"), enabled: production }),
+    new bg.PrerequisiteBinary({ label: "httpie", binary: bg.Binary.parse("http"), enabled }),
+    new bg.PrerequisiteBinary({ label: "sqlite3", binary: bg.Binary.parse("sqlite3"), enabled }),
+    new bg.PrerequisiteBinary({ label: "tar", binary: bg.Binary.parse("tar"), enabled }),
   ];
 }

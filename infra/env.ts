@@ -32,7 +32,7 @@ export const EnvironmentSchema = z
     AI_CLIENT_ADAPTER: z.enum(AiClientAdapter),
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
     BETTER_AUTH_URL: z.url().trim(),
-    HCAPTCHA_SECRET_KEY: bg.HCaptchaSecretKey,
+    HCAPTCHA_SECRET_KEY: z.string().trim(),
     SIGNUP_ENABLED: tools.FeatureFlagValue,
   })
   .strip();
