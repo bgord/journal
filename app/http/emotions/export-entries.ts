@@ -7,7 +7,7 @@ import type * as infra from "+infra";
 type Dependencies = {
   Clock: bg.ClockPort;
   IdProvider: bg.IdProviderPort;
-  Stringifier: bg.CsvStringifierPort;
+  CsvStringifier: bg.CsvStringifierPort;
   PdfGenerator: bg.PdfGeneratorPort;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
 };

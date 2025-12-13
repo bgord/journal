@@ -31,27 +31,45 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
   const entry = new Hono();
 
   entry.use("*", di.Adapters.System.Auth.ShieldAuth.attach, di.Adapters.System.Auth.ShieldAuth.verify);
-  entry.post("/log", HTTP.Emotions.LogEntry);
-  entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry);
-  entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion);
-  entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction);
-  entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry);
+  entry.post("/log", HTTP.Emotions.LogEntry(di.Adapters.System));
+  entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry(di.Adapters.System));
+  entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion(di.Adapters.System));
+  entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction(di.Adapters.System));
+  entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry(di.Adapters.System));
   entry.get(
     "/export-data",
     di.Adapters.System.ShieldRateLimit.EntryDataExport.verify,
-    HTTP.Emotions.ExportData,
+    HTTP.Emotions.ExportData({
+      ...di.Adapters.System,
+      EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
+      AlarmDirectory: di.Adapters.Emotions.AlarmDirectory,
+    }),
   );
   entry.get(
     "/export-entries",
     di.Adapters.System.ShieldRateLimit.EntryExportEntries.verify,
-    HTTP.Emotions.ExportEntries,
+    HTTP.Emotions.ExportEntries({
+      ...di.Adapters.System,
+      PdfGenerator: di.Adapters.Emotions.PdfGenerator,
+      EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
+    }),
   );
-  entry.get("/list", HTTP.Emotions.ListEntries);
+  entry.get(
+    "/list",
+    HTTP.Emotions.ListEntries({ ...di.Adapters.System, EntrySnapshot: di.Adapters.Emotions.EntrySnapshot }),
+  );
   server.route("/entry", entry);
   // =============================
 
   // Shared ======================
-  server.get("/shared/entries/:shareableLinkId", HTTP.Emotions.GetSharedEntries);
+  server.get(
+    "/shared/entries/:shareableLinkId",
+    HTTP.Emotions.GetSharedEntries({
+      ...di.Adapters.System,
+      ShareableLinkAccess: di.Adapters.Publishing.ShareableLinkAccess,
+      EntriesSharing: di.Adapters.Emotions.EntriesSharing,
+    }),
+  );
 
   // Weekly review ===============
   const weeklyReview = new Hono();
@@ -60,12 +78,16 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
   weeklyReview.post(
     "/:weeklyReviewId/export/email",
     di.Adapters.System.ShieldRateLimit.WeeklyReviewExportEmail.verify,
-    HTTP.Emotions.ExportWeeklyReviewByEmail,
+    HTTP.Emotions.ExportWeeklyReviewByEmail(di.Adapters.System),
   );
   weeklyReview.get(
     "/:weeklyReviewId/export/download",
     di.Adapters.System.ShieldRateLimit.WeeklyReviewExportDownload.verify,
-    HTTP.Emotions.DownloadWeeklyReview,
+    HTTP.Emotions.DownloadWeeklyReview({
+      ...di.Adapters.System,
+      WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExport,
+      PdfGenerator: di.Adapters.Emotions.PdfGenerator,
+    }),
   );
   server.route("/weekly-review", weeklyReview);
   // =============================
@@ -74,14 +96,20 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
   const publishing = new Hono();
 
   publishing.use("*", di.Adapters.System.Auth.ShieldAuth.attach, di.Adapters.System.Auth.ShieldAuth.verify);
-  publishing.get("/links/list", HTTP.Publishing.ListShareableLinks);
+  publishing.get(
+    "/links/list",
+    HTTP.Publishing.ListShareableLinks({
+      ...di.Adapters.System,
+      ShareableLinkSnapshot: di.Adapters.Publishing.ShareableLinkSnapshot,
+    }),
+  );
   publishing.post(
     "/link/create",
     di.Adapters.System.ShieldRateLimit.PublishingLinkCreate.verify,
-    HTTP.Publishing.CreateShareableLink,
+    HTTP.Publishing.CreateShareableLink(di.Adapters.System),
   );
-  publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink);
-  publishing.post("/link/:shareableLinkId/hide", HTTP.Publishing.HideShareableLink);
+  publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink(di.Adapters.System));
+  publishing.post("/link/:shareableLinkId/hide", HTTP.Publishing.HideShareableLink());
   server.route("/publishing", publishing);
   // =============================
 
@@ -98,7 +126,7 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
     "/preferences/user-language/update",
     di.Adapters.System.Auth.ShieldAuth.attach,
     di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.Preferences.UpdateUserLanguage,
+    HTTP.Preferences.UpdateUserLanguage(di.Adapters.System),
   );
   server.post(
     "/preferences/profile-avatar/update",
@@ -108,19 +136,19 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
       mimeTypes: Preferences.VO.ProfileAvatarMimeTypes,
       maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
     }),
-    HTTP.Preferences.UpdateProfileAvatar,
+    HTTP.Preferences.UpdateProfileAvatar(di.Adapters.System),
   );
   server.get(
     "/profile-avatar/get",
     di.Adapters.System.Auth.ShieldAuth.attach,
     di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.Preferences.GetProfileAvatar,
+    HTTP.Preferences.GetProfileAvatar(di.Adapters.System),
   );
   server.delete(
     "/preferences/profile-avatar",
     di.Adapters.System.Auth.ShieldAuth.attach,
     di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.Preferences.RemoveProfileAvatar,
+    HTTP.Preferences.RemoveProfileAvatar(di.Adapters.System),
   );
   // =============================
 
@@ -129,7 +157,7 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
     "/ai-usage-today/get",
     di.Adapters.System.Auth.ShieldAuth.attach,
     di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.AI.GetAiUsageToday,
+    HTTP.AI.GetAiUsageToday({ ...di.Adapters.System, RuleInspector: di.Adapters.AI.RuleInspector }),
   );
   // =============================
 
@@ -138,7 +166,7 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
     "/history/:subject/list",
     di.Adapters.System.Auth.ShieldAuth.attach,
     di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.History.HistoryList,
+    HTTP.History.HistoryList({ ...di.Adapters.System, HistoryReader: di.Adapters.History.HistoryReader }),
   );
   // =============================
 

@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as VO from "+emotions/value-objects";
 
-type Dependencies = { Stringifier: bg.CsvStringifierPort; Clock: bg.ClockPort };
+type Dependencies = { CsvStringifier: bg.CsvStringifierPort; Clock: bg.ClockPort };
 
 export class AlarmExportFileCsv extends bg.FileDraft {
   constructor(
@@ -13,6 +13,6 @@ export class AlarmExportFileCsv extends bg.FileDraft {
   }
 
   create() {
-    return this.deps.Stringifier.process(["id", "name"], this.alarms);
+    return this.deps.CsvStringifier.process(["id", "name"], this.alarms);
   }
 }

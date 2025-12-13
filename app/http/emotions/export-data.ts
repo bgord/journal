@@ -5,7 +5,7 @@ import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 
 type Dependencies = {
-  Stringifier: bg.CsvStringifierPort;
+  CsvStringifier: bg.CsvStringifierPort;
   Clock: bg.ClockPort;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
   AlarmDirectory: Emotions.Ports.AlarmDirectoryPort;
