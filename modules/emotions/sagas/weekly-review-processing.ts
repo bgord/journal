@@ -27,7 +27,7 @@ type Dependencies = {
   Mailer: bg.MailerPort;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
   UserContact: Auth.OHQ.UserContactOHQ;
-  UserLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
   EMAIL_FROM: bg.EmailFromType;
 };
 
@@ -49,7 +49,7 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewSkippedEvent(event: Emotions.Events.WeeklyReviewSkippedEventType) {
     const contact = await this.deps.UserContact.getPrimary(event.payload.userId);
-    const language = await this.deps.UserLanguage.get(event.payload.userId);
+    const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
 
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const composer = new Emotions.Services.WeeklyReviewSkippedNotificationComposer();
@@ -71,7 +71,7 @@ export class WeeklyReviewProcessing {
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const entries = await this.deps.EntrySnapshot.getByWeekForUser(week, event.payload.userId);
 
-    const language = await this.deps.UserLanguage.get(event.payload.userId);
+    const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
     const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
     try {

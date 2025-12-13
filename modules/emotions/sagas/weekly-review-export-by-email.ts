@@ -18,7 +18,7 @@ type Dependencies = {
   PdfGenerator: bg.PdfGeneratorPort;
   UserContact: Auth.OHQ.UserContactOHQ;
   WeeklyReviewExport: Emotions.Queries.WeeklyReviewExport;
-  UserLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
   EMAIL_FROM: bg.EmailFromType;
 };
 
@@ -45,7 +45,7 @@ export class WeeklyReviewExportByEmail {
       if (!weeklyReview) return;
       const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
 
-      const language = await this.deps.UserLanguage.get(event.payload.userId);
+      const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
 
       const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(this.deps.PdfGenerator, weeklyReview);
       const attachment = await pdf.toAttachment();

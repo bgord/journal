@@ -10,7 +10,7 @@ type Dependencies = {
   EventHandler: bg.EventHandler;
   Mailer: bg.MailerPort;
   UserContact: Auth.OHQ.UserContactOHQ;
-  UserLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
   EMAIL_FROM: bg.EmailFromType;
 };
 
@@ -26,7 +26,7 @@ export class TimeCapsuleEntryNotifier {
     const contact = await this.deps.UserContact.getPrimary(event.payload.userId);
     if (!contact?.address) return;
 
-    const language = await this.deps.UserLanguage.get(event.payload.userId);
+    const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
     const notification = new Emotions.Services.TimeCapsuleEntryNotificationComposer(language).compose();
 
     await this.deps.Mailer.send({ from: this.deps.EMAIL_FROM, to: contact.address, ...notification.get() });

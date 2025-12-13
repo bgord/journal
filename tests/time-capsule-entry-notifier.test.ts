@@ -10,7 +10,7 @@ describe("TimeCapsuleEntryNotifier", async () => {
   const policy = new Emotions.Policies.TimeCapsuleEntryNotifier({
     ...di.Adapters.System,
     UserContact: di.Adapters.Auth.UserContact,
-    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 

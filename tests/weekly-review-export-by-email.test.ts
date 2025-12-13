@@ -13,7 +13,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     PdfGenerator: di.Adapters.Emotions.PdfGenerator,
     UserContact: di.Adapters.Auth.UserContact,
     WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExport,
-    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 

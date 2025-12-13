@@ -49,7 +49,7 @@ export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>)
   new EmotionsPolicies.TimeCapsuleEntryNotifier({
     ...di.Adapters.System,
     UserContact: di.Adapters.Auth.UserContact,
-    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
   new EmotionsPolicies.EntryHistoryPublisher({
@@ -68,7 +68,7 @@ export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>)
     AlarmCancellationLookup: di.Adapters.Emotions.AlarmCancellationLookup,
     EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
     UserContact: di.Adapters.Auth.UserContact,
-    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
   new EmotionsSagas.WeeklyReviewProcessing({
@@ -76,7 +76,7 @@ export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>)
     AiGateway: di.Adapters.AI.AiGateway,
     EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
     UserContact: di.Adapters.Auth.UserContact,
-    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
   new EmotionsSagas.WeeklyReviewExportByEmail({
@@ -84,7 +84,7 @@ export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>)
     PdfGenerator: di.Adapters.Emotions.PdfGenerator,
     UserContact: di.Adapters.Auth.UserContact,
     WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExport,
-    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 }

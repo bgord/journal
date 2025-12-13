@@ -19,7 +19,7 @@ describe("AlarmOrchestrator", async () => {
     AlarmCancellationLookup: di.Adapters.Emotions.AlarmCancellationLookup,
     EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
     UserContact: di.Adapters.Auth.UserContact,
-    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 

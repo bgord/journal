@@ -32,7 +32,7 @@ type Dependencies = {
   AlarmCancellationLookup: Ports.AlarmCancellationLookupPort;
   EntrySnapshot: Ports.EntrySnapshotPort;
   UserContact: Auth.OHQ.UserContactOHQ;
-  UserLanguage: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
   EMAIL_FROM: bg.EmailFromType;
 };
 
@@ -54,7 +54,7 @@ export class AlarmOrchestrator {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
     try {
-      const language = await this.deps.UserLanguage.get(event.payload.userId);
+      const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
       const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.deps.EntrySnapshot, language).create(
         detection,
       );
@@ -104,7 +104,7 @@ export class AlarmOrchestrator {
     const contact = await this.deps.UserContact.getPrimary(event.payload.userId);
     if (!contact?.address) return this.deps.CommandBus.emit(cancel.name, cancel);
 
-    const language = await this.deps.UserLanguage.get(event.payload.userId);
+    const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
 
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
