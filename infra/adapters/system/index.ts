@@ -5,7 +5,7 @@ import { createClock } from "./clock.adapter";
 import { createCommandBus } from "./command-bus.adapter";
 import { createCsvStringifier } from "./csv-stringifier.adapter";
 import { createDiskSpaceChecker } from "./disk-space-checker.adapter";
-import { createEventBus } from "./event-bus";
+import { createEventBus } from "./event-bus.adapter";
 import { createEventHandler } from "./event-handler";
 import { createEventStore } from "./event-store";
 import { createFileCleaner } from "./file-cleaner.adapter";
