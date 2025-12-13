@@ -195,7 +195,7 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
   });
   // =============================
 
-  server.onError(HTTP.ErrorHandler.handle);
+  server.onError(HTTP.ErrorHandler.handle(di.Adapters.System));
 
   return server;
 }
