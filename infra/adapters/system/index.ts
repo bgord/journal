@@ -17,6 +17,7 @@ import { createImageProcessor } from "./image-processor.adapter";
 import { createJsonFileReader } from "./json-file-reader.adapter";
 import { createLogger } from "./logger.adapter";
 import { createMailer } from "./mailer.adapter";
+import { createRemoteFileStorage } from "./remote-file-storage.adapter";
 import { createShieldAuth } from "./shield-auth";
 import { createShieldBasicAuth } from "./shield-basic-auth.adapter";
 import { createShieldRateLimit } from "./shield-rate-limit.adapter";
@@ -34,6 +35,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
   const EventBus = createEventBus({ Logger });
   const EventStore = createEventStore({ EventBus });
   const JsonFileReader = createJsonFileReader();
+  const FileHash = createFileHash();
 
   return {
     Auth: createShieldAuth(Env, { Logger, Clock, IdProvider, EventStore }),
@@ -57,8 +59,16 @@ export function createSystemAdapters(Env: EnvironmentType) {
     EventHandler: createEventHandler({ Logger }),
     CsvStringifier: createCsvStringifier(),
     ImageInfo: createImageInfo(),
-    FileHash: createFileHash(),
+    FileHash,
     ShieldCaptcha: createShieldCaptcha(Env),
     ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, JsonFileReader }),
+    RemoteFileStorage: createRemoteFileStorage(Env, {
+      FileHash,
+      FileCleaner,
+      FileRenamer,
+      JsonFileReader,
+      Logger,
+      Clock,
+    }),
   };
 }
