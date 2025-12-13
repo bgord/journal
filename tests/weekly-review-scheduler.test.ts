@@ -11,7 +11,6 @@ describe("WeeklyReviewScheduler", async () => {
   const di = await bootstrap(mocks.Env);
   registerEventHandlers(di);
   registerCommandHandlers(di);
-
   const policy = new Emotions.Policies.WeeklyReviewScheduler({
     ...di.Adapters.System,
     UserDirectory: di.Adapters.Auth.UserDirectory,

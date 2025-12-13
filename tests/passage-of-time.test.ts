@@ -1,15 +1,11 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
-import { registerCommandHandlers } from "+infra/register-command-handlers";
-import { registerEventHandlers } from "+infra/register-event-handlers";
 import * as Services from "../app/services";
 import * as mocks from "./mocks";
 
 describe("PassageOfTime", async () => {
   const di = await bootstrap(mocks.Env);
-  registerEventHandlers(di);
-  registerCommandHandlers(di);
   const PassageOfTime = new Services.PassageOfTime(di.Adapters.System);
 
   test("correct path", async () => {

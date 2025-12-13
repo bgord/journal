@@ -1,7 +1,5 @@
 import { describe, expect, test } from "bun:test";
 import { bootstrap } from "+infra/bootstrap";
-import { registerCommandHandlers } from "+infra/register-command-handlers";
-import { registerEventHandlers } from "+infra/register-event-handlers";
 import { SupportedLanguages } from "../modules/supported-languages";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
@@ -13,8 +11,6 @@ const pl = Bun.file("infra/translations/pl.json");
 
 describe(`GET ${url}`, async () => {
   const di = await bootstrap(mocks.Env);
-  registerEventHandlers(di);
-  registerCommandHandlers(di);
   const server = createServer(di);
 
   test("happy path - no language specified", async () => {
