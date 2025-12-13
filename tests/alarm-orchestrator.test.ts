@@ -4,10 +4,14 @@ import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
+import { registerCommandHandlers } from "+infra/register-command-handlers";
+import { registerEventHandlers } from "+infra/register-event-handlers";
 import * as mocks from "./mocks";
 
 describe("AlarmOrchestrator", async () => {
   const di = await bootstrap(mocks.Env);
+  registerEventHandlers(di);
+  registerCommandHandlers(di);
 
   const saga = new Emotions.Sagas.AlarmOrchestrator({
     ...di.Adapters.System,

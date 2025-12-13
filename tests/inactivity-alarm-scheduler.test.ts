@@ -3,11 +3,14 @@ import * as bg from "@bgord/bun";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
+import { registerCommandHandlers } from "+infra/register-command-handlers";
+import { registerEventHandlers } from "+infra/register-event-handlers";
 import * as mocks from "./mocks";
 
 describe("InactivityAlarmScheduler", async () => {
   const di = await bootstrap(mocks.Env);
-
+  registerEventHandlers(di);
+  registerCommandHandlers(di);
   const policy = new Emotions.Policies.InactivityAlarmScheduler({
     ...di.Adapters.System,
     UserDirectory: di.Adapters.Auth.UserDirectory,

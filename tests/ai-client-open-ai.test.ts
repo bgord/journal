@@ -14,7 +14,6 @@ const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
 
 describe("AiClientOpenAi", async () => {
   const di = await bootstrap(mocks.Env);
-
   const client = new AiClientOpenAiAdapter(di.Env.OPEN_AI_API_KEY);
 
   test("request", async () => {

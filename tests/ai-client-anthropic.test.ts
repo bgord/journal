@@ -14,7 +14,6 @@ const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
 
 describe("AiClientAnthropic", async () => {
   const di = await bootstrap(mocks.Env);
-
   const client = new AiClientAnthropicAdapter(di.Env.ANTHROPIC_AI_API_KEY);
 
   test("request", async () => {

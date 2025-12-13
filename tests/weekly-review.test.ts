@@ -3,10 +3,14 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
+import { registerCommandHandlers } from "+infra/register-command-handlers";
+import { registerEventHandlers } from "+infra/register-event-handlers";
 import * as mocks from "./mocks";
 
 describe("WeeklyReview", async () => {
   const di = await bootstrap(mocks.Env);
+  registerEventHandlers(di);
+  registerCommandHandlers(di);
 
   test("build new aggregate", () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [], di.Adapters.System);

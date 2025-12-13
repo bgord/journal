@@ -2,10 +2,14 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
+import { registerCommandHandlers } from "+infra/register-command-handlers";
+import { registerEventHandlers } from "+infra/register-event-handlers";
 import * as mocks from "./mocks";
 
 describe("EntryAlarmDetector", async () => {
   const di = await bootstrap(mocks.Env);
+  registerEventHandlers(di);
+  registerCommandHandlers(di);
 
   const policy = new Emotions.Policies.EntryHistoryPublisher({
     ...di.Adapters.System,
