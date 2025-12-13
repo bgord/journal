@@ -1,2 +1,8 @@
-export * from "./user-language.adapter";
-export * from "./user-language-query.adapter";
+import { createUserLanguageOHQ } from "./user-language-ohq.adapter";
+import { createUserLanguageQuery } from "./user-language-query.adapter";
+
+export function createPreferencesAdapters() {
+  const UserLanguageQuery = createUserLanguageQuery();
+
+  return { UserLanguageQuery, UserLanguageOHQ: createUserLanguageOHQ({ UserLanguageQuery }) };
+}
