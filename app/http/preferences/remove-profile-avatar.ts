@@ -2,12 +2,14 @@ import * as bg from "@bgord/bun";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
-import * as Adapters from "+infra/adapters";
-import { CommandBus } from "+infra/command-bus";
 
-const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommandBus: bg.CommandBusLike<Preferences.Commands.RemoveProfileAvatarCommandType>;
+};
 
-export async function RemoveProfileAvatar(c: hono.Context<infra.Config>) {
+export const RemoveProfileAvatar = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
   const command = Preferences.Commands.RemoveProfileAvatarCommand.parse({
@@ -16,7 +18,7 @@ export async function RemoveProfileAvatar(c: hono.Context<infra.Config>) {
     payload: { userId },
   } satisfies Preferences.Commands.RemoveProfileAvatarCommandType);
 
-  await CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command.name, command);
 
   return new Response(null, { status: 202 });
-}
+};
