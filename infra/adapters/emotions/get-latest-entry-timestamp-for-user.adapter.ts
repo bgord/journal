@@ -1,11 +1,11 @@
 import * as tools from "@bgord/tools";
 import { eq, sql } from "drizzle-orm";
 import type * as Auth from "+auth";
-import type { GetLatestEntryTimestampForUser as GetLatestEntryTimestampForUserQuery } from "+emotions/queries/get-latest-entry-timestamp-for-user";
+import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class GetLatestEntryTimestampForUserDrizzle implements GetLatestEntryTimestampForUserQuery {
+class GetLatestEntryTimestampForUserDrizzle implements Emotions.Queries.GetLatestEntryTimestampForUser {
   async execute(userId: Auth.VO.UserIdType) {
     const result = await db
       .select({ max: sql<number>`max(${Schema.entries.startedAt})` })

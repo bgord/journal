@@ -2,12 +2,12 @@ import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 import type * as Auth from "+auth";
-import type { EntriesSharingPort } from "+emotions/open-host-queries";
+import type * as Emotions from "+emotions";
 import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class EntriesSharingDrizzle implements EntriesSharingPort {
+class EntriesSharingDrizzle implements Emotions.OHQ.EntriesSharingPort {
   async listForOwnerInRange(ownerId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
     const result = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),

@@ -12,7 +12,7 @@ import {
 } from "@react-pdf/renderer";
 // biome-ignore lint: lint/suspicious/noConsole
 import React from "react";
-import type * as Queries from "+emotions/queries";
+import type * as Emotions from "+emotions";
 
 Font.register({
   family: "Journal",
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
 
 const templates: Record<bg.PdfGeneratorTemplateType, TemplateFn> = {
   weekly_review_export: (data) => {
-    const { entries, patternDetections, alarms, ...weeklyReview } = data as Queries.WeeklyReviewExportDto;
+    const { entries, patternDetections, alarms, ...weeklyReview } =
+      data as Emotions.Queries.WeeklyReviewExportDto;
 
     return (
       <Document>

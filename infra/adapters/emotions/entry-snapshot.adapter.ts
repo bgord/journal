@@ -1,14 +1,13 @@
 import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, like, lte, or, type SQL } from "drizzle-orm";
 import type * as Auth from "+auth";
-import type { EntrySnapshotPort } from "+emotions/ports";
-import type * as VO from "+emotions/value-objects";
+import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 import { AlarmDirectoryDrizzle } from "./alarm-directory.adapter";
 
-class EntrySnapshotDrizzle implements EntrySnapshotPort {
-  async getById(entryId: VO.EntryIdType) {
+class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
+  async getById(entryId: Emotions.VO.EntryIdType) {
     const entry = await db.query.entries.findFirst({
       where: eq(Schema.entries.id, entryId),
     });
@@ -19,11 +18,11 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
       ...entry,
       weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
       startedAt: tools.TimestampValue.parse(entry.startedAt),
-      status: entry.status as VO.EntryStatusEnum,
-      situationKind: entry.situationKind as VO.SituationKindOptions,
-      emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
-      reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
-      origin: entry.origin as VO.EntryOriginOption,
+      status: entry.status as Emotions.VO.EntryStatusEnum,
+      situationKind: entry.situationKind as Emotions.VO.SituationKindOptions,
+      emotionLabel: entry.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
+      reactionType: entry.reactionType as Emotions.VO.GrossEmotionRegulationStrategy | null,
+      origin: entry.origin as Emotions.VO.EntryOriginOption,
     };
   }
 
@@ -99,11 +98,11 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
     return {
       ...entry,
       startedAt: tools.TimestampValue.parse(entry.startedAt),
-      status: entry.status as VO.EntryStatusEnum,
-      situationKind: entry.situationKind as VO.SituationKindOptions,
-      emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
-      reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
-      origin: entry.origin as VO.EntryOriginOption,
+      status: entry.status as Emotions.VO.EntryStatusEnum,
+      situationKind: entry.situationKind as Emotions.VO.SituationKindOptions,
+      emotionLabel: entry.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
+      reactionType: entry.reactionType as Emotions.VO.GrossEmotionRegulationStrategy | null,
+      origin: entry.origin as Emotions.VO.EntryOriginOption,
       weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
     };
   }

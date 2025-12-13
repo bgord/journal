@@ -1,17 +1,14 @@
 import { eq } from "drizzle-orm";
-import type {
-  WeeklyReviewSnapshotPort,
-  WeeklyReviewSnapshot as WeeklyReviewSnapshotType,
-} from "+emotions/ports";
+import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class WeeklyReviewSnapshotDrizzle implements WeeklyReviewSnapshotPort {
+class WeeklyReviewSnapshotDrizzle implements Emotions.Ports.WeeklyReviewSnapshotPort {
   async getById(id: string) {
     const review = (await db.query.weeklyReviews.findFirst({
       where: eq(Schema.weeklyReviews.id, id),
       columns: { id: true, userId: true, status: true },
-    })) as WeeklyReviewSnapshotType | null;
+    })) as Emotions.Ports.WeeklyReviewSnapshot | null;
 
     return review ?? null;
   }
