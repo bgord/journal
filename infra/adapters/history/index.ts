@@ -12,8 +12,8 @@ type Dependencies = {
 
 export function createHistoryAdapters(deps: Dependencies) {
   return {
-    createHistoryProjection: createHistoryProjection(),
-    createHistoryReader: createHistoryReader(),
-    createHistoryWriter: createHistoryWriter(deps),
+    HistoryProjection: createHistoryProjection(),
+    HistoryReader: createHistoryReader(),
+    HistoryWriter: createHistoryWriter(deps),
   };
 }
