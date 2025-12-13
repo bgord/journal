@@ -1,8 +1,13 @@
 import * as Publishing from "+publishing";
-import { ShareableLinkAccessAuditor } from "./shareable-link-access-auditor.adapter";
-import { ShareableLinkRepository } from "./shareable-link-repository.adapter";
 
-export const ShareableLinkAccess = new Publishing.OHQ.ShareableLinkAccessAdapter(
-  ShareableLinkRepository,
-  ShareableLinkAccessAuditor,
-);
+type Dependencies = {
+  ShareableLinkAccessAuditor: Publishing.Ports.ShareableLinkAccessAuditorAdapter;
+  ShareableLinkRepository: Publishing.Ports.ShareableLinkRepositoryPort;
+};
+
+export function createShareableLinkAccess(deps: Dependencies): Publishing.OHQ.ShareableLinkAccessAdapter {
+  return new Publishing.OHQ.ShareableLinkAccessAdapter(
+    deps.ShareableLinkRepository,
+    deps.ShareableLinkAccessAuditor,
+  );
+}

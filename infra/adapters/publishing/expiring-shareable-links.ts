@@ -21,4 +21,6 @@ class ExpiringShareableLinksDrizzle implements ExpiringShareableLinksPort {
   }
 }
 
-export const ExpiringShareableLinks = new ExpiringShareableLinksDrizzle();
+export function createExpiringShareableLinks(): ExpiringShareableLinksPort {
+  return new ExpiringShareableLinksDrizzle();
+}

@@ -20,3 +20,7 @@ class ShareableLinksQuotaDrizzle implements ShareableLinksQuotaQuery {
 }
 
 export const ShareableLinksQuota = new ShareableLinksQuotaDrizzle();
+
+export function createShareableLinksQuota(): ShareableLinksQuotaQuery {
+  return new ShareableLinksQuotaDrizzle();
+}

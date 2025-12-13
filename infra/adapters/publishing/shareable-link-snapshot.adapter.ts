@@ -60,4 +60,6 @@ class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
   }
 }
 
-export const ShareableLinkSnapshot = new ShareableLinkSnapshotDrizzle();
+export function createShareableLinkSnapshot(): ShareableLinkSnapshotPort {
+  return new ShareableLinkSnapshotDrizzle();
+}
