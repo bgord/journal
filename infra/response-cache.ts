@@ -1,4 +1,6 @@
 import * as bg from "@bgord/bun";
-import { cache } from "./cache";
+import Cache from "node-cache";
+
+const cache = new Cache();
 
 export const ResponseCache = new bg.CacheResponse(cache);
