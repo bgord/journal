@@ -2,155 +2,133 @@ import * as bg from "@bgord/bun";
 import { SUPPORTED_LANGUAGES } from "+languages";
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
-import * as Adapters from "+infra/adapters";
-import { CommandBus } from "+infra/command-bus";
-import { EventStore } from "+infra/event-store";
-import { TemporaryFile } from "+infra/temporary-file.adapter";
+import type { bootstrap } from "+infra/bootstrap";
 import * as PreferencesCommandHandlers from "+preferences/command-handlers";
 import * as PreferencesCommands from "+preferences/commands";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
-CommandBus.on(
-  EmotionCommands.CANCEL_ALARM_COMMAND,
-  EmotionCommandHandlers.handleCancelAlarmCommand(Adapters.Emotions.AlarmRepository),
-);
-CommandBus.on(
-  EmotionCommands.DELETE_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleDeleteEntryCommand(Adapters.Emotions.EntryRepository),
-);
-CommandBus.on(
-  EmotionCommands.EVALUATE_REACTION_COMMAND,
-  EmotionCommandHandlers.handleEvaluateReactionCommand(Adapters.Emotions.EntryRepository),
-);
-CommandBus.on(
-  EmotionCommands.GENERATE_ALARM_COMMAND,
-  EmotionCommandHandlers.handleGenerateAlarmCommand({
-    repo: Adapters.Emotions.AlarmRepository,
-    AiGateway: Adapters.AI.AiGateway,
-    IdProvider: Adapters.IdProvider,
-    Clock: Adapters.Clock,
-  }),
-);
-CommandBus.on(
-  EmotionCommands.LOG_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleLogEntryCommand({
-    repo: Adapters.Emotions.EntryRepository,
-    IdProvider: Adapters.IdProvider,
-    Clock: Adapters.Clock,
-  }),
-);
-CommandBus.on(
-  EmotionCommands.REAPPRAISE_EMOTION_COMMAND,
-  EmotionCommandHandlers.handleReappraiseEmotionCommand(Adapters.Emotions.EntryRepository),
-);
-CommandBus.on(
-  EmotionCommands.SAVE_ALARM_ADVICE_COMMAND,
-  EmotionCommandHandlers.handleSaveAlarmAdviceCommand(Adapters.Emotions.AlarmRepository),
-);
-CommandBus.on(
-  EmotionCommands.REQUEST_ALARM_NOTIFICATION_COMMAND,
-  EmotionCommandHandlers.handleRequestAlarmNotificationCommand(Adapters.Emotions.AlarmRepository),
-);
-CommandBus.on(
-  EmotionCommands.COMPLETE_ALARM_COMMAND,
-  EmotionCommandHandlers.handleCompleteAlarmCommand(Adapters.Emotions.AlarmRepository),
-);
-CommandBus.on(
-  EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
-  EmotionCommandHandlers.handleRequestWeeklyReviewCommand({
-    EventStore,
-    IdProvider: Adapters.IdProvider,
-    Clock: Adapters.Clock,
-    repo: Adapters.Emotions.WeeklyReviewRepository,
-    EntriesPerWeekCountQuery: Adapters.Emotions.EntriesPerWeekCount,
-  }),
-);
-CommandBus.on(
-  EmotionCommands.COMPLETE_WEEKLY_REVIEW_COMMAND,
-  EmotionCommandHandlers.handleCompleteWeeklyReviewCommand(Adapters.Emotions.WeeklyReviewRepository),
-);
-CommandBus.on(
-  EmotionCommands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
-  EmotionCommandHandlers.handleMarkWeeklyReviewAsFailedCommand(Adapters.Emotions.WeeklyReviewRepository),
-);
-CommandBus.on(
-  EmotionCommands.DETECT_WEEKLY_PATTERNS_COMMAND,
-  EmotionCommandHandlers.handleDetectWeeklyPatternsCommand({
-    EventStore,
-    EntrySnapshot: Adapters.Emotions.EntrySnapshot,
-    IdProvider: Adapters.IdProvider,
-    Clock: Adapters.Clock,
-  }),
-);
-CommandBus.on(
-  EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-  EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand({
-    EventStore,
-    IdProvider: Adapters.IdProvider,
-    Clock: Adapters.Clock,
-    WeeklyReviewSnapshot: Adapters.Emotions.WeeklyReviewSnapshot,
-  }),
-);
-CommandBus.on(
-  EmotionCommands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
-  EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand({
-    EventStore,
-    IdProvider: Adapters.IdProvider,
-    Clock: Adapters.Clock,
-  }),
-);
+export function registerCommandHandlers(di: Awaited<ReturnType<typeof bootstrap>>) {
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.CANCEL_ALARM_COMMAND,
+    EmotionCommandHandlers.handleCancelAlarmCommand(di.Adapters.Emotions.AlarmRepository),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.DELETE_ENTRY_COMMAND,
+    EmotionCommandHandlers.handleDeleteEntryCommand(di.Adapters.Emotions.EntryRepository),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.EVALUATE_REACTION_COMMAND,
+    EmotionCommandHandlers.handleEvaluateReactionCommand(di.Adapters.Emotions.EntryRepository),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.GENERATE_ALARM_COMMAND,
+    EmotionCommandHandlers.handleGenerateAlarmCommand({
+      ...di.Adapters.System,
+      repo: di.Adapters.Emotions.AlarmRepository,
+      AiGateway: di.Adapters.AI.AiGateway,
+    }),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.LOG_ENTRY_COMMAND,
+    EmotionCommandHandlers.handleLogEntryCommand({
+      ...di.Adapters.System,
+      repo: di.Adapters.Emotions.EntryRepository,
+    }),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.REAPPRAISE_EMOTION_COMMAND,
+    EmotionCommandHandlers.handleReappraiseEmotionCommand(di.Adapters.Emotions.EntryRepository),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.SAVE_ALARM_ADVICE_COMMAND,
+    EmotionCommandHandlers.handleSaveAlarmAdviceCommand(di.Adapters.Emotions.AlarmRepository),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.REQUEST_ALARM_NOTIFICATION_COMMAND,
+    EmotionCommandHandlers.handleRequestAlarmNotificationCommand(di.Adapters.Emotions.AlarmRepository),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.COMPLETE_ALARM_COMMAND,
+    EmotionCommandHandlers.handleCompleteAlarmCommand(di.Adapters.Emotions.AlarmRepository),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.REQUEST_WEEKLY_REVIEW_COMMAND,
+    EmotionCommandHandlers.handleRequestWeeklyReviewCommand({
+      ...di.Adapters.System,
+      repo: di.Adapters.Emotions.WeeklyReviewRepository,
+      EntriesPerWeekCountQuery: di.Adapters.Emotions.EntriesPerWeekCount,
+    }),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.COMPLETE_WEEKLY_REVIEW_COMMAND,
+    EmotionCommandHandlers.handleCompleteWeeklyReviewCommand(di.Adapters.Emotions.WeeklyReviewRepository),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND,
+    EmotionCommandHandlers.handleMarkWeeklyReviewAsFailedCommand(di.Adapters.Emotions.WeeklyReviewRepository),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.DETECT_WEEKLY_PATTERNS_COMMAND,
+    EmotionCommandHandlers.handleDetectWeeklyPatternsCommand({
+      ...di.Adapters.System,
+      EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
+    }),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
+    EmotionCommandHandlers.handleExportWeeklyReviewByEmailCommand({
+      ...di.Adapters.System,
+      WeeklyReviewSnapshot: di.Adapters.Emotions.WeeklyReviewSnapshot,
+    }),
+  );
+  di.Adapters.System.CommandBus.on(
+    EmotionCommands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
+    EmotionCommandHandlers.handleScheduleTimeCapsuleEntryCommand(di.Adapters.System),
+  );
 
-CommandBus.on(
-  PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleCreateShareableLinkCommand({
-    repo: Adapters.Publishing.ShareableLinkRepository,
-    ShareableLinksQuotaQuery: Adapters.Publishing.ShareableLinksQuota,
-    IdProvider: Adapters.IdProvider,
-    Clock: Adapters.Clock,
-  }),
-);
+  di.Adapters.System.CommandBus.on(
+    PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
+    PublishingCommandHandlers.handleCreateShareableLinkCommand({
+      ...di.Adapters.System,
+      repo: di.Adapters.Publishing.ShareableLinkRepository,
+      ShareableLinksQuotaQuery: di.Adapters.Publishing.ShareableLinksQuota,
+    }),
+  );
 
-CommandBus.on(
-  PublishingCommands.EXPIRE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleExpireShareableLinkCommand(Adapters.Publishing.ShareableLinkRepository),
-);
+  di.Adapters.System.CommandBus.on(
+    PublishingCommands.EXPIRE_SHAREABLE_LINK_COMMAND,
+    PublishingCommandHandlers.handleExpireShareableLinkCommand(
+      di.Adapters.Publishing.ShareableLinkRepository,
+    ),
+  );
 
-CommandBus.on(
-  PublishingCommands.REVOKE_SHAREABLE_LINK_COMMAND,
-  PublishingCommandHandlers.handleRevokeShareableLinkCommand(Adapters.Publishing.ShareableLinkRepository),
-);
+  di.Adapters.System.CommandBus.on(
+    PublishingCommands.REVOKE_SHAREABLE_LINK_COMMAND,
+    PublishingCommandHandlers.handleRevokeShareableLinkCommand(
+      di.Adapters.Publishing.ShareableLinkRepository,
+    ),
+  );
 
-CommandBus.on(
-  bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
-  bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
-    EventStore,
-    Adapters.IdProvider,
-    Adapters.Clock,
-    Adapters.Preferences.UserLanguageQueryAdapter,
-    new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
-  ),
-);
+  di.Adapters.System.CommandBus.on(
+    bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
+    // TODO
+    bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
+      di.Adapters.System.EventStore,
+      di.Adapters.System.IdProvider,
+      di.Adapters.System.Clock,
+      di.Adapters.Preferences.UserLanguageQuery,
+      new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
+    ),
+  );
 
-CommandBus.on(
-  PreferencesCommands.UPDATE_PROFILE_AVATAR_COMMAND,
-  PreferencesCommandHandlers.handleUpdateProfileAvatarCommand({
-    EventStore,
-    ImageInfo: Adapters.ImageInfo,
-    IdProvider: Adapters.IdProvider,
-    Clock: Adapters.Clock,
-    ImageProcessor: Adapters.ImageProcessor,
-    TemporaryFile,
-    RemoteFileStorage: Adapters.RemoteFileStorage,
-  }),
-);
+  di.Adapters.System.CommandBus.on(
+    PreferencesCommands.UPDATE_PROFILE_AVATAR_COMMAND,
+    PreferencesCommandHandlers.handleUpdateProfileAvatarCommand(di.Adapters.System),
+  );
 
-CommandBus.on(
-  PreferencesCommands.REMOVE_PROFILE_AVATAR_COMMAND,
-  PreferencesCommandHandlers.handleRemoveProfileAvatarCommand({
-    EventStore,
-    IdProvider: Adapters.IdProvider,
-    Clock: Adapters.Clock,
-    RemoteFileStorage: Adapters.RemoteFileStorage,
-  }),
-);
+  di.Adapters.System.CommandBus.on(
+    PreferencesCommands.REMOVE_PROFILE_AVATAR_COMMAND,
+    PreferencesCommandHandlers.handleRemoveProfileAvatarCommand(di.Adapters.System),
+  );
+}

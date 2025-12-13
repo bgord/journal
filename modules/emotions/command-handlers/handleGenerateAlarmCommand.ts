@@ -1,10 +1,10 @@
 import type * as bg from "@bgord/bun";
+import type * as AI from "+ai";
 import * as Emotions from "+emotions";
-import type { AiGateway } from "+ai/open-host-services";
 
 type Dependencies = {
   repo: Emotions.Ports.AlarmRepositoryPort;
-  AiGateway: AiGateway;
+  AiGateway: AI.Ports.AiGatewayPort;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
 };
