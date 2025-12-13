@@ -3,12 +3,14 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import * as Adapters from "+infra/adapters";
-import { CommandBus } from "+infra/command-bus";
 
-const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommandBus: bg.CommandBusLike<Emotions.Commands.ScheduleTimeCapsuleEntryCommandType>;
+};
 
-export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.Config>) {
+export const ScheduleTimeCapsuleEntry = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const timeZoneOffset = c.get("timeZoneOffset");
@@ -43,7 +45,7 @@ export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.Config>) {
     payload: { entryId, situation, emotion, reaction, userId, scheduledAt: now, scheduledFor },
   } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
-  await CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command.name, command);
 
   return new Response();
-}
+};

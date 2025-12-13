@@ -131,6 +131,6 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
   }
 }
 
-export function createWeeklyReviewExport() {
+export function createWeeklyReviewExport(): WeeklyReviewExportQuery {
   return new WeeklyReviewExportDrizzle();
 }

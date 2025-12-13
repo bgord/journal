@@ -3,12 +3,14 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import * as Adapters from "+infra/adapters";
-import { CommandBus } from "+infra/command-bus";
 
-const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommandBus: bg.CommandBusLike<Emotions.Commands.EvaluateReactionCommandType>;
+};
 
-export async function EvaluateReaction(c: hono.Context<infra.Config>) {
+export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
@@ -27,7 +29,7 @@ export async function EvaluateReaction(c: hono.Context<infra.Config>) {
     payload: { entryId, newReaction, userId },
   } satisfies Emotions.Commands.EvaluateReactionCommandType);
 
-  await CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command.name, command);
 
   return new Response();
-}
+};

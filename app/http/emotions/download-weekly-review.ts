@@ -1,11 +1,14 @@
+import type * as bg from "@bgord/bun";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import * as Adapters from "+infra/adapters";
 
-const deps = { WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport };
+type Dependencies = {
+  WeeklyReviewExport: Emotions.Queries.WeeklyReviewExport;
+  PdfGenerator: bg.PdfGeneratorPort;
+};
 
-export async function DownloadWeeklyReview(c: hono.Context<infra.Config>) {
+export const DownloadWeeklyReview = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const requesterId = c.get("user").id;
   const weeklyReviewId = Emotions.VO.WeeklyReviewId.parse(c.req.param("weeklyReviewId"));
 
@@ -16,9 +19,9 @@ export async function DownloadWeeklyReview(c: hono.Context<infra.Config>) {
   Emotions.Invariants.RequesterOwnsWeeklyReview.perform({ requesterId, ownerId: weeklyReview?.userId });
 
   const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(
-    Adapters.Emotions.PdfGenerator,
+    deps.PdfGenerator,
     weeklyReview as Emotions.Queries.WeeklyReviewExportDto,
   );
 
   return pdf.toResponse();
-}
+};

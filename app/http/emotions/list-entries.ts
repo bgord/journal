@@ -1,13 +1,17 @@
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import type { EntrySnapshotFormatted } from "+emotions/ports";
-import * as Adapters from "+infra/adapters";
 
-const deps = { Clock: Adapters.Clock, EntrySnapshot: Adapters.Emotions.EntrySnapshot };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
+};
 
-export async function ListEntries(c: hono.Context<infra.Config>) {
+export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
   const filter = Emotions.VO.EntryListFilter.parse(c.req.query("filter"));
@@ -33,6 +37,6 @@ export async function ListEntries(c: hono.Context<infra.Config>) {
   }));
 
   return c.json(result);
-}
+};
 
 export type { EntrySnapshotFormatted } from "+emotions/ports";

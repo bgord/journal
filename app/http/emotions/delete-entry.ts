@@ -3,12 +3,14 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import * as Adapters from "+infra/adapters";
-import { CommandBus } from "+infra/command-bus";
 
-const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommandBus: bg.CommandBusLike<Emotions.Commands.DeleteEntryCommandType>;
+};
 
-export async function DeleteEntry(c: hono.Context<infra.Config>) {
+export const DeleteEntry = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
@@ -20,7 +22,7 @@ export async function DeleteEntry(c: hono.Context<infra.Config>) {
     payload: { entryId, userId },
   } satisfies Emotions.Commands.DeleteEntryCommandType);
 
-  await CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command.name, command);
 
   return new Response();
-}
+};
