@@ -13,6 +13,7 @@ import { createFileHash } from "./file-hash.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
 import { createIdProvider } from "./id-provider.adapter";
 import { createImageInfo } from "./image-info.adapter";
+import { createImageProcessor } from "./image-processor.adapter";
 import { createJsonFileReader } from "./json-file-reader.adapter";
 import { createLogger } from "./logger.adapter";
 import { createMailer } from "./mailer.adapter";
@@ -32,6 +33,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
   const FileRenamer = createFileRenamer(Env);
   const EventBus = createEventBus({ Logger });
   const EventStore = createEventStore({ EventBus });
+  const JsonFileReader = createJsonFileReader();
 
   return {
     Auth: createShieldAuth(Env, { Logger, Clock, IdProvider, EventStore }),
@@ -44,7 +46,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
     DiskSpaceChecker: createDiskSpaceChecker(Env),
     IdProvider,
     Mailer: createMailer(Env, { Logger }),
-    JsonFileReader: createJsonFileReader(),
+    JsonFileReader,
     Logger,
     Timekeeper,
     ShieldTimeout: createShieldTimeout(),
@@ -57,5 +59,6 @@ export function createSystemAdapters(Env: EnvironmentType) {
     ImageInfo: createImageInfo(),
     FileHash: createFileHash(),
     ShieldCaptcha: createShieldCaptcha(Env),
+    ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, JsonFileReader }),
   };
 }
