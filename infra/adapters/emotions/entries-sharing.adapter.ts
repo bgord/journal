@@ -43,4 +43,6 @@ class EntriesSharingDrizzle implements EntriesSharingPort {
   }
 }
 
-export const EntriesSharing = new EntriesSharingDrizzle();
+export function createEntriesSharing(): EntriesSharingPort {
+  return new EntriesSharingDrizzle();
+}

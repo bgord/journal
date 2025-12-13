@@ -19,4 +19,6 @@ class TimeCapsuleDueEntriesDrizzle implements TimeCapsuleDueEntriesPort {
   }
 }
 
-export const TimeCapsuleDueEntries = new TimeCapsuleDueEntriesDrizzle();
+export function createTimeCapsuleDueEntries(): TimeCapsuleDueEntriesPort {
+  return new TimeCapsuleDueEntriesDrizzle();
+}

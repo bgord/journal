@@ -32,4 +32,6 @@ export class AlarmDirectoryDrizzle implements AlarmDirectoryPort {
   }
 }
 
-export const AlarmDirectory = new AlarmDirectoryDrizzle();
+export function createAlarmDirectory(): AlarmDirectoryPort {
+  return new AlarmDirectoryDrizzle();
+}

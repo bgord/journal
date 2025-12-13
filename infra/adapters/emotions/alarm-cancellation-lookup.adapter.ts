@@ -22,4 +22,6 @@ class AlarmCancellationLookupDrizzle implements Emotions.Ports.AlarmCancellation
   }
 }
 
-export const AlarmCancellationLookup = new AlarmCancellationLookupDrizzle();
+export function createAlarmCancellationLookup(): Emotions.Ports.AlarmCancellationLookupPort {
+  return new AlarmCancellationLookupDrizzle();
+}

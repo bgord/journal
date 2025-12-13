@@ -1,5 +1,6 @@
 import { createAuthAdapter } from "+infra/adapters/ai";
 import { createAuthAdapters } from "+infra/adapters/auth";
+import { createEmotionsAdapters } from "+infra/adapters/emotions";
 import { createHistoryAdapters } from "+infra/adapters/history";
 import { createPreferencesAdapters } from "+infra/adapters/preferences";
 import { createPublishingAdapters } from "+infra/adapters/publishing";
@@ -12,10 +13,12 @@ import { ResponseCache } from "./response-cache";
 
 export async function bootstrap(Env: EnvironmentType) {
   const System = createSystemAdapters(Env);
-  const Preferences = createPreferencesAdapters();
-  const Auth = createAuthAdapters();
+
   const AI = createAuthAdapter(Env, System);
+  const Auth = createAuthAdapters();
+  const Emotions = createEmotionsAdapters(Env, System);
   const History = createHistoryAdapters(System);
+  const Preferences = createPreferencesAdapters();
   const Publishing = createPublishingAdapters(System);
 
   const Jobs = createJobs(System);
@@ -24,7 +27,7 @@ export async function bootstrap(Env: EnvironmentType) {
 
   return {
     Env,
-    Adapters: { Auth, System, Preferences, AI, History, Publishing },
+    Adapters: { AI, Auth, Emotions, History, Preferences, Publishing, System },
     Tools: { prerequisites, I18nConfig, ResponseCache },
   };
 }

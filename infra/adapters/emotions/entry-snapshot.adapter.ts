@@ -109,4 +109,6 @@ class EntrySnapshotDrizzle implements EntrySnapshotPort {
   }
 }
 
-export const EntrySnapshot = new EntrySnapshotDrizzle();
+export function createEntrySnapshot(): EntrySnapshotPort {
+  return new EntrySnapshotDrizzle();
+}
