@@ -8,25 +8,17 @@ import { FileRenamer } from "./file-renamer.adapter";
 import { JsonFileReader } from "./json-file-reader.adapter";
 import { Logger } from "./logger.adapter";
 
-export const RemoteFileStorageProductionDir = tools.DirectoryPathAbsoluteSchema.parse(
-  "/var/www/journal/infra/avatars",
-);
+const deps = { FileHash, FileCleaner, FileRenamer, JsonFileReader, Logger, Clock };
+const config = { root: tools.DirectoryPathAbsoluteSchema.parse("/tmp") };
 
-const deps = { FileHash, FileCleaner, FileRenamer, JsonFileReader };
-
-const RemoteFileStorageTmp = new bg.RemoteFileStorageDiskAdapter(
-  { root: tools.DirectoryPathAbsoluteSchema.parse("/tmp") },
-  deps,
-);
-
-const RemoteFileStorageProduction = new bg.RemoteFileStorageDiskAdapter(
-  { root: RemoteFileStorageProductionDir },
-  deps,
-);
+const RemoteFileStorageTmp = new bg.RemoteFileStorageDiskAdapter(config, deps);
 
 export const RemoteFileStorage: bg.RemoteFileStoragePort = {
   [bg.NodeEnvironmentEnum.local]: RemoteFileStorageTmp,
-  [bg.NodeEnvironmentEnum.test]: new bg.RemoteFileStorageNoopAdapter({ Logger, Clock }),
+  [bg.NodeEnvironmentEnum.test]: new bg.RemoteFileStorageNoopAdapter(config, deps),
   [bg.NodeEnvironmentEnum.staging]: RemoteFileStorageTmp,
-  [bg.NodeEnvironmentEnum.production]: RemoteFileStorageProduction,
+  [bg.NodeEnvironmentEnum.production]: new bg.RemoteFileStorageDiskAdapter(
+    { root: tools.DirectoryPathAbsoluteSchema.parse("/var/www/journal/infra/avatars") },
+    deps,
+  ),
 }[Env.type];

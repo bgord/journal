@@ -33,7 +33,7 @@ export const prerequisites = [
   new bg.PrerequisiteDirectory({ label: "temporary-files dir", directory: TemporaryFileDirectory }),
   new bg.PrerequisiteDirectory({
     label: "remote-file-storage dir",
-    directory: Adapters.RemoteFileStorageProductionDir,
+    directory: Adapters.RemoteFileStorage.root,
     enabled: production,
   }),
   new bg.PrerequisiteJobs({ label: "jobs", Jobs }),
