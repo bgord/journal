@@ -12,21 +12,26 @@ import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type * as System from "+system";
 import type { EntrySnapshotFormatted } from "+app/http/emotions/list-entries";
-import { IdProvider } from "+infra/adapters/id-provider.adapter";
+import { EnvironmentSchema } from "+infra/env";
 import type * as Schema from "+infra/schema";
+
+export const Env = new bg.EnvironmentValidator({
+  type: bg.NodeEnvironmentEnum.test,
+  schema: EnvironmentSchema,
+}).load(process.env);
 
 // IDs
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
-export const entryId = IdProvider.generate();
-export const alarmId = IdProvider.generate();
-export const userId = IdProvider.generate();
-export const anotherUserId = IdProvider.generate();
-export const weeklyReviewId = IdProvider.generate();
-export const weeklyReviewExportId = IdProvider.generate();
-export const shareableLinkId = IdProvider.generate();
-export const historyId = IdProvider.generate();
-const patternDetectionId = IdProvider.generate();
+export const entryId = bg.UUID.parse("e3799aaf-da3d-491b-b408-9c642cc3c312");
+export const alarmId = bg.UUID.parse("de578009-c9a7-4a59-8fb7-5223f82ef9ef");
+export const userId = bg.UUID.parse("60aac9b2-2c16-4e94-b024-0951723e0bed");
+export const anotherUserId = bg.UUID.parse("cd74d060-d5de-4a81-8ffb-b2dc46cd4451");
+export const weeklyReviewId = bg.UUID.parse("e212142f-0ac0-4641-a417-117a2909afa0");
+export const weeklyReviewExportId = bg.UUID.parse("4d4964cf-1429-4861-b7f7-b255c0072990");
+export const shareableLinkId = bg.UUID.parse("2e469d5a-8317-459a-a0b9-b9a019acca19");
+export const historyId = bg.UUID.parse("8d79bd87-1709-4c15-b40c-cd0fafaa0113");
+const patternDetectionId = bg.UUID.parse("d2ca7a35-76a0-42de-8a2c-32d8b14fdfab");
 
 // Timestamps
 export const T0 = tools.Timestamp.fromNumber(Date.UTC(2025, 0, 1, 0, 0, 0));
