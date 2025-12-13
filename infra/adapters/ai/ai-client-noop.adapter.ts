@@ -1,9 +1,13 @@
+import type * as bg from "@bgord/bun";
 import * as AI from "+ai";
-import { Logger } from "+infra/adapters/logger.adapter";
+
+type Dependencies = { Logger: bg.LoggerPort };
 
 export class AiClientNoopAdapter implements AI.AiClientPort {
+  constructor(private readonly deps: Dependencies) {}
+
   async request(prompt: AI.Prompt) {
-    Logger.info({
+    this.deps.Logger.info({
       message: "[NOOP] AI Client adapter",
       component: "infra",
       operation: "write",
