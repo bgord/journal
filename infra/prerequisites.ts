@@ -5,7 +5,7 @@ import * as Adapters from "+infra/adapters";
 import { sqlite } from "+infra/db";
 import { Env } from "+infra/env";
 import { Jobs } from "+infra/jobs";
-import { TemporaryFileDirectory } from "+infra/temporary-file.adapter";
+import { TemporaryFile } from "+infra/temporary-file.adapter";
 
 const production = Env.type === bg.NodeEnvironmentEnum.production;
 
@@ -30,7 +30,7 @@ export const prerequisites = [
   }),
   new bg.PrerequisiteMemory({ label: "memory-consumption", maximum: tools.Size.fromMB(300) }),
   new bg.PrerequisiteLogFile({ label: "log-file", Logger: Adapters.Logger, enabled: production }),
-  new bg.PrerequisiteDirectory({ label: "temporary-files dir", directory: TemporaryFileDirectory }),
+  new bg.PrerequisiteDirectory({ label: "temporary-files dir", directory: TemporaryFile.root }),
   new bg.PrerequisiteDirectory({
     label: "remote-file-storage dir",
     directory: Adapters.RemoteFileStorage.root,
