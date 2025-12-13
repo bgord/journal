@@ -2,6 +2,7 @@ import type { EnvironmentType } from "+infra/env";
 import { createCertificateInspector } from "./certificate-inspector.adapter";
 import { createClock } from "./clock.adapter";
 import { createCommandBus } from "./command-bus.adapter";
+import { createCsvStringifier } from "./csv-stringifier.adapter";
 import { createDiskSpaceChecker } from "./disk-space-checker.adapter";
 import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
@@ -49,5 +50,6 @@ export function createSystemAdapters(Env: EnvironmentType) {
     FileRenamer,
     TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer }),
     EventHandler: createEventHandler({ Logger }),
+    CsvStringifier: createCsvStringifier(),
   };
 }
