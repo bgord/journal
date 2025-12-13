@@ -1,4 +1,5 @@
 import type { EnvironmentType } from "+infra/env";
+import { createShieldCaptcha } from "./captcha.adapter";
 import { createCertificateInspector } from "./certificate-inspector.adapter";
 import { createClock } from "./clock.adapter";
 import { createCommandBus } from "./command-bus.adapter";
@@ -55,5 +56,6 @@ export function createSystemAdapters(Env: EnvironmentType) {
     CsvStringifier: createCsvStringifier(),
     ImageInfo: createImageInfo(),
     FileHash: createFileHash(),
+    ShieldCaptcha: createShieldCaptcha(Env),
   };
 }
