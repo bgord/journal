@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import { Logger } from "+infra/adapters/logger.adapter";
-import { Env, MailerAdapter } from "+infra/env";
+import { Env } from "+infra/env";
 
 const MailerSmtp = new bg.MailerSmtpAdapter({
   SMTP_HOST: Env.SMTP_HOST,
@@ -10,6 +10,8 @@ const MailerSmtp = new bg.MailerSmtpAdapter({
 });
 
 export const Mailer = {
-  [MailerAdapter.smtp]: new bg.MailerSmtpWithLoggerAdapter({ MailerSmtp, Logger }),
-  [MailerAdapter.noop]: new bg.MailerNoopAdapter({ Logger }),
-}[Env.MAILER_ADAPTER];
+  [bg.NodeEnvironmentEnum.local]: new bg.MailerNoopAdapter({ Logger }),
+  [bg.NodeEnvironmentEnum.test]: new bg.MailerNoopAdapter({ Logger }),
+  [bg.NodeEnvironmentEnum.staging]: new bg.MailerNoopAdapter({ Logger }),
+  [bg.NodeEnvironmentEnum.production]: new bg.MailerSmtpWithLoggerAdapter({ Logger, MailerSmtp }),
+}[Env.type];
