@@ -20,7 +20,7 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
   // Healthcheck =================
   server.get(
     "/healthcheck",
-    di.Adapters.System.ShieldRateLimit.verify,
+    di.Adapters.System.ShieldRateLimit.Healthcheck.verify,
     di.Adapters.System.ShieldTimeout.verify,
     di.Adapters.System.ShieldBasicAuth.verify,
     ...bg.Healthcheck.build(di.Tools.prerequisites, di.Adapters.System),
@@ -38,18 +38,12 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
   entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry);
   entry.get(
     "/export-data",
-    new bg.ShieldRateLimitAdapter(
-      { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesDataStore },
-      Deps,
-    ).verify,
+    di.Adapters.System.ShieldRateLimit.EntryDataExport.verify,
     HTTP.Emotions.ExportData,
   );
   entry.get(
     "/export-entries",
-    new bg.ShieldRateLimitAdapter(
-      { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesEntriesStore },
-      Deps,
-    ).verify,
+    di.Adapters.System.ShieldRateLimit.EntryExportEntries.verify,
     HTTP.Emotions.ExportEntries,
   );
   entry.get("/list", HTTP.Emotions.ListEntries);
@@ -65,26 +59,12 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
   weeklyReview.use("*", di.Adapters.System.Auth.ShieldAuth.attach, di.Adapters.System.Auth.ShieldAuth.verify);
   weeklyReview.post(
     "/:weeklyReviewId/export/email",
-    new bg.ShieldRateLimitAdapter(
-      {
-        enabled: production,
-        subject: bg.UserSubjectResolver,
-        store: RateLimiters.WeeklyReviewExportEmailStore,
-      },
-      Deps,
-    ).verify,
+    di.Adapters.System.ShieldRateLimit.WeeklyReviewExportEmail.verify,
     HTTP.Emotions.ExportWeeklyReviewByEmail,
   );
   weeklyReview.get(
     "/:weeklyReviewId/export/download",
-    new bg.ShieldRateLimitAdapter(
-      {
-        enabled: production,
-        subject: bg.UserSubjectResolver,
-        store: RateLimiters.WeeklyReviewExportDownloadStore,
-      },
-      Deps,
-    ).verify,
+    di.Adapters.System.ShieldRateLimit.WeeklyReviewExportDownload.verify,
     HTTP.Emotions.DownloadWeeklyReview,
   );
   server.route("/weekly-review", weeklyReview);
@@ -97,10 +77,7 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
   publishing.get("/links/list", HTTP.Publishing.ListShareableLinks);
   publishing.post(
     "/link/create",
-    new bg.ShieldRateLimitAdapter(
-      { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.ShareableLinkCreateStore },
-      Deps,
-    ).verify,
+    di.Adapters.System.ShieldRateLimit.PublishingLinkCreate.verify,
     HTTP.Publishing.CreateShareableLink,
   );
   publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink);
