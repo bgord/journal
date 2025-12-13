@@ -8,6 +8,4 @@ class UserDirectoryDrizzle implements UserDirectoryOHQ {
   }
 }
 
-export function createUserDirectory(): UserDirectoryOHQ {
-  return new UserDirectoryDrizzle();
-}
+export const UserDirectory = new UserDirectoryDrizzle();

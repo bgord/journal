@@ -18,6 +18,4 @@ class GetLatestEntryTimestampForUserDrizzle implements GetLatestEntryTimestampFo
   }
 }
 
-export function createGetLatestEntryTimestampForUser(): GetLatestEntryTimestampForUserQuery {
-  return new GetLatestEntryTimestampForUserDrizzle();
-}
+export const GetLatestEntryTimestampForUser = new GetLatestEntryTimestampForUserDrizzle();

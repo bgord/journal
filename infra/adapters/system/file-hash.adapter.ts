@@ -1,5 +1,3 @@
 import * as bg from "@bgord/bun";
 
-export function createFileHash(): bg.FileHashPort {
-  return new bg.FileHashSha256BunAdapter();
-}
+export const FileHash = new bg.FileHashSha256BunAdapter();

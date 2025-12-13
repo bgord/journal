@@ -15,6 +15,4 @@ class UserContactDrizzle implements UserContactOHQ {
   }
 }
 
-export function createUserContact(): UserContactOHQ {
-  return new UserContactDrizzle();
-}
+export const UserContact = new UserContactDrizzle();

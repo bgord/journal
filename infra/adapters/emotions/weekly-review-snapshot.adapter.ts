@@ -17,6 +17,4 @@ class WeeklyReviewSnapshotDrizzle implements WeeklyReviewSnapshotPort {
   }
 }
 
-export function createWeeklyReviewSnapshot() {
-  return new WeeklyReviewSnapshotDrizzle();
-}
+export const WeeklyReviewSnapshot = new WeeklyReviewSnapshotDrizzle();

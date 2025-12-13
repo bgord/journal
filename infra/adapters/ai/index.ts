@@ -4,7 +4,7 @@ import type { EnvironmentType } from "+infra/env";
 import { createAiClient } from "./ai-client.adapter";
 import { createAiEventPublisher } from "./ai-event-publisher.adapter";
 import { createAiGateway } from "./ai-gateway.adapter";
-import { createBucketCounter } from "./bucket-counter.adapter";
+import { BucketCounter } from "./bucket-counter.adapter";
 import { createRuleInspector } from "./rule-inspector.adapter";
 
 type Dependencies = {
@@ -17,7 +17,6 @@ type Dependencies = {
 export function createAuthAdapter(Env: EnvironmentType, deps: Dependencies) {
   const AiClient = createAiClient(Env, deps);
   const AiEventPublisher = createAiEventPublisher(deps);
-  const BucketCounter = createBucketCounter();
   const RuleInspector = createRuleInspector(deps);
 
   return {

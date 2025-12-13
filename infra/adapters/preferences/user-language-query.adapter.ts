@@ -17,6 +17,4 @@ class UserLanguageQueryAdapterDrizzle implements bg.Preferences.Ports.UserLangua
   }
 }
 
-export function createUserLanguageQuery() {
-  return new UserLanguageQueryAdapterDrizzle();
-}
+export const UserLanguageQuery = new UserLanguageQueryAdapterDrizzle();

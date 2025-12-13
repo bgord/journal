@@ -13,6 +13,4 @@ class HistoryProjectionDrizzle implements bg.History.Ports.HistoryProjectionPort
   }
 }
 
-export function createHistoryProjection(): bg.History.Ports.HistoryProjectionPort {
-  return new HistoryProjectionDrizzle();
-}
+export const HistoryProjection = new HistoryProjectionDrizzle();

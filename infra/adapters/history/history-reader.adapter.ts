@@ -21,6 +21,4 @@ class HistoryReaderDrizzle implements bg.History.Ports.HistoryReaderPort {
   }
 }
 
-export function createHistoryReader(): bg.History.Ports.HistoryReaderPort {
-  return new HistoryReaderDrizzle();
-}
+export const HistoryReader = new HistoryReaderDrizzle();

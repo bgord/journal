@@ -18,6 +18,4 @@ class EntriesPerWeekCountDrizzle implements EntriesPerWeekCountQuery {
   }
 }
 
-export function createEntriesPerWeekCount(): EntriesPerWeekCountQuery {
-  return new EntriesPerWeekCountDrizzle();
-}
+export const EntriesPerWeekCount = new EntriesPerWeekCountDrizzle();
