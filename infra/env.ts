@@ -31,7 +31,4 @@ const EnvironmentSchema = z
   })
   .strip();
 
-export const Env = new bg.EnvironmentValidator({
-  type: process.env.NODE_ENV,
-  schema: EnvironmentSchema,
-}).load(process.env);
+export type EnvironmentType = bg.EnvironmentResultType<typeof EnvironmentSchema>;
