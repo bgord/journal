@@ -1,8 +1,8 @@
 import { type SUPPORTED_LANGUAGES, SupportedLanguages } from "+languages";
 import * as Preferences from "+preferences";
 import * as EmotionsPolicies from "+emotions/policies";
+import * as EmotionsSagas from "+emotions/sagas";
 import type { bootstrap } from "+infra/bootstrap";
-// import * as EmotionsSagas from "+emotions/sagas";
 import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
 
@@ -62,44 +62,29 @@ export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>)
   );
 
   // Sagas
-  // new EmotionsSagas.AlarmOrchestrator({
-  //   EventBus,
-  //   EventHandler,
-  //   IdProvider: Adapters.IdProvider,
-  //   Clock: Adapters.Clock,
-  //   CommandBus,
-  //   AiGateway: Adapters.AI.AiGateway,
-  //   Mailer,
-  //   AlarmCancellationLookup: Adapters.Emotions.AlarmCancellationLookup,
-  //   EntrySnapshot: Adapters.Emotions.EntrySnapshot,
-  //   UserContact: Adapters.Auth.UserContact,
-  //   UserLanguage: Adapters.Preferences.UserLanguage,
-  //   EMAIL_FROM: Env.EMAIL_FROM,
-  // });
-  // new EmotionsSagas.WeeklyReviewProcessing({
-  //   EventBus,
-  //   EventHandler,
-  //   IdProvider: Adapters.IdProvider,
-  //   Clock: Adapters.Clock,
-  //   CommandBus,
-  //   AiGateway: Adapters.AI.AiGateway,
-  //   Mailer,
-  //   EntrySnapshot: Adapters.Emotions.EntrySnapshot,
-  //   UserContact: Adapters.Auth.UserContact,
-  //   UserLanguage: Adapters.Preferences.UserLanguage,
-  //   EMAIL_FROM: Env.EMAIL_FROM,
-  // });
-  // new EmotionsSagas.WeeklyReviewExportByEmail({
-  //   EventBus,
-  //   EventHandler,
-  //   IdProvider: Adapters.IdProvider,
-  //   Clock: Adapters.Clock,
-  //   EventStore,
-  //   Mailer,
-  //   PdfGenerator: Adapters.Emotions.PdfGenerator,
-  //   UserContact: Adapters.Auth.UserContact,
-  //   WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport,
-  //   UserLanguage: Adapters.Preferences.UserLanguage,
-  //   EMAIL_FROM: Env.EMAIL_FROM,
-  // });
+  new EmotionsSagas.AlarmOrchestrator({
+    ...di.Adapters.System,
+    AiGateway: di.Adapters.AI.AiGateway,
+    AlarmCancellationLookup: di.Adapters.Emotions.AlarmCancellationLookup,
+    EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
+    UserContact: di.Adapters.Auth.UserContact,
+    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    EMAIL_FROM: di.Env.EMAIL_FROM,
+  });
+  new EmotionsSagas.WeeklyReviewProcessing({
+    ...di.Adapters.System,
+    AiGateway: di.Adapters.AI.AiGateway,
+    EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
+    UserContact: di.Adapters.Auth.UserContact,
+    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    EMAIL_FROM: di.Env.EMAIL_FROM,
+  });
+  new EmotionsSagas.WeeklyReviewExportByEmail({
+    ...di.Adapters.System,
+    PdfGenerator: di.Adapters.Emotions.PdfGenerator,
+    UserContact: di.Adapters.Auth.UserContact,
+    WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExport,
+    UserLanguage: di.Adapters.Preferences.UserLanguageOHQ,
+    EMAIL_FROM: di.Env.EMAIL_FROM,
+  });
 }
