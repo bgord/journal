@@ -8,6 +8,7 @@ import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
 import { createEventStore } from "./event-store";
 import { createFileCleaner } from "./file-cleaner.adapter";
+import { createFileHash } from "./file-hash.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
 import { createIdProvider } from "./id-provider.adapter";
 import { createImageInfo } from "./image-info.adapter";
@@ -53,5 +54,6 @@ export function createSystemAdapters(Env: EnvironmentType) {
     EventHandler: createEventHandler({ Logger }),
     CsvStringifier: createCsvStringifier(),
     ImageInfo: createImageInfo(),
+    FileHash: createFileHash(),
   };
 }
