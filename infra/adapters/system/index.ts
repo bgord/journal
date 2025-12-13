@@ -10,6 +10,7 @@ import { createEventStore } from "./event-store";
 import { createFileCleaner } from "./file-cleaner.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
 import { createIdProvider } from "./id-provider.adapter";
+import { createImageInfo } from "./image-info.adapter";
 import { createJsonFileReader } from "./json-file-reader.adapter";
 import { createLogger } from "./logger.adapter";
 import { createMailer } from "./mailer.adapter";
@@ -51,5 +52,6 @@ export function createSystemAdapters(Env: EnvironmentType) {
     TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer }),
     EventHandler: createEventHandler({ Logger }),
     CsvStringifier: createCsvStringifier(),
+    ImageInfo: createImageInfo(),
   };
 }
