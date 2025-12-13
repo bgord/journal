@@ -2,15 +2,17 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Publishing from "+publishing";
-import { auth } from "+infra/auth";
-import { EventStore } from "+infra/event-store";
-import { server } from "../server";
+import { bootstrap } from "+infra/bootstrap";
+import { createServer } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
 const url = `/api/publishing/link/${mocks.shareableLinkId}/revoke`;
 
-describe(`POST ${url}`, () => {
+describe(`POST ${url}`, async () => {
+  const di = await bootstrap(mocks.Env);
+  const server = createServer(di);
+
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
@@ -19,7 +21,7 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - incorrect id", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       "/api/publishing/link/id/revoke",
@@ -32,8 +34,8 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - ShareableLinkIsActive - already expired", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EventStore, "find").mockResolvedValue([
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
     ]);
@@ -47,8 +49,8 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - ShareableLinkIsActive - already revoked", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EventStore, "find").mockResolvedValue([
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
     ]);
@@ -62,8 +64,8 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - RequesterOwnsShareableLink", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
-    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
 
     const response = await server.request(
       url,
@@ -74,11 +76,11 @@ describe(`POST ${url}`, () => {
   });
 
   test("happy path", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
 
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
     const response = await server.request(
       url,
       {

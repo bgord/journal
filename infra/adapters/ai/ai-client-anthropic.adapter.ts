@@ -3,7 +3,7 @@ import * as AI from "+ai";
 
 /** @public */
 export class AiClientAnthropicAdapter implements AI.AiClientPort {
-  private readonly Anthropic: Anthropic;
+  readonly Anthropic: Anthropic;
 
   constructor(ANTHROPIC_AI_API_KEY: string) {
     this.Anthropic = new Anthropic({ apiKey: ANTHROPIC_AI_API_KEY });

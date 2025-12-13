@@ -1,15 +1,16 @@
 import { describe, expect, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import * as Adapters from "+infra/adapters";
+import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
-const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
+describe("PatternDetector", async () => {
+  const di = await bootstrap(mocks.Env);
+  const detector = new Emotions.Services.PatternDetector(di.Adapters.System);
 
-describe("PatternDetector", () => {
   test("detects multiple patterns", () => {
     bg.CorrelationStorage.run(mocks.correlationId, () => {
-      const result = new Emotions.Services.PatternDetector(deps).detect({
+      const result = detector.detect({
         entries: [
           mocks.positiveMaladaptiveEntry,
           mocks.positiveMaladaptiveEntry,

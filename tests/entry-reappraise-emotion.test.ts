@@ -2,15 +2,17 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import { auth } from "+infra/auth";
-import { EventStore } from "+infra/event-store";
-import { server } from "../server";
+import { bootstrap } from "+infra/bootstrap";
+import { createServer } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
 const url = `/api/entry/${mocks.entryId}/reappraise-emotion`;
 
-describe(`POST ${url}`, () => {
+describe(`POST ${url}`, async () => {
+  const di = await bootstrap(mocks.Env);
+  const server = createServer(di);
+
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
@@ -19,7 +21,7 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - empty payload", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -35,7 +37,7 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - missing intensity", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -55,7 +57,7 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - invalid id", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       "/api/entry/id/reappraise-emotion",
@@ -71,8 +73,8 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - EntryIsActionable", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EventStore, "find").mockResolvedValue([
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericEntryDeletedEvent,
@@ -94,8 +96,8 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - EmotionCorrespondsToSituation", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EventStore, "find").mockResolvedValue([]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([]);
 
     const response = await server.request(
       url,
@@ -113,8 +115,8 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - EmotionForReappraisalExists", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
 
     const response = await server.request(
       url,
@@ -132,9 +134,9 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(EventStore, "find").mockResolvedValue([
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
@@ -157,13 +159,13 @@ describe(`POST ${url}`, () => {
   });
 
   test("happy path", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(EventStore, "find").mockResolvedValue([
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     const payload = {
       label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,

@@ -2,26 +2,17 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { SupportedLanguages } from "+languages";
 import * as Preferences from "+preferences";
-import * as Adapters from "+infra/adapters";
-import { CommandBus } from "+infra/command-bus";
-import { EventBus } from "+infra/event-bus";
-import { EventStore } from "+infra/event-store";
+import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler({ Logger: Adapters.Logger });
-const policy = new Preferences.Policies.SetDefaultUserLanguage(
-  EventBus,
-  EventHandler,
-  Adapters.IdProvider,
-  Adapters.Clock,
-  CommandBus,
-  SupportedLanguages.en,
-);
+describe("SetDefaultUserLanguage", async () => {
+  const di = await bootstrap(mocks.Env);
 
-describe("SetDefaultUserLanguage", () => {
+  const policy = new Preferences.Policies.SetDefaultUserLanguage(SupportedLanguages.en, di.Adapters.System);
+
   test("onAccountCreatedEvent - no language set", async () => {
-    spyOn(Adapters.Preferences.UserLanguageQueryAdapter, "get").mockResolvedValue(null);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(null);
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onAccountCreatedEvent(mocks.GenericAccountCreatedEvent),
@@ -31,8 +22,8 @@ describe("SetDefaultUserLanguage", () => {
   });
 
   test("onAccountCreatedEvent - does not duplicate events", async () => {
-    spyOn(Adapters.Preferences.UserLanguageQueryAdapter, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en);
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await policy.onAccountCreatedEvent(mocks.GenericAccountCreatedEvent);

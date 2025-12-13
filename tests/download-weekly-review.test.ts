@@ -1,15 +1,17 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import * as Adapters from "+infra/adapters";
-import { auth } from "+infra/auth";
-import { server } from "../server";
+import { bootstrap } from "+infra/bootstrap";
+import { createServer } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
 const url = `/api/weekly-review/${mocks.weeklyReviewId}/export/download`;
 
-describe(`GET ${url}`, () => {
+describe(`GET ${url}`, async () => {
+  const di = await bootstrap(mocks.Env);
+  const server = createServer(di);
+
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
@@ -18,7 +20,7 @@ describe(`GET ${url}`, () => {
   });
 
   test("validation - incorrect id", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       "/api/weekly-review/id/export/download",
@@ -31,24 +33,24 @@ describe(`GET ${url}`, () => {
   });
 
   test("validation - WeeklyReviewExists - no weekly review", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Adapters.Emotions.WeeklyReviewExport, "getFull").mockResolvedValue(undefined);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.WeeklyReviewExport, "getFull").mockResolvedValue(undefined);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewExists);
   });
 
   test("validation - WeeklyReviewExists - repo failure", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Adapters.Emotions.WeeklyReviewExport, "getFull").mockRejectedValue(new Error("Failure"));
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.WeeklyReviewExport, "getFull").mockRejectedValue(new Error("Failure"));
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     expect(response.status).toEqual(500);
   });
 
   test("validation - WeeklyReviewIsCompleted", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Adapters.Emotions.WeeklyReviewExport, "getFull").mockResolvedValue(
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.WeeklyReviewExport, "getFull").mockResolvedValue(
       // @ts-expect-error
       mocks.weeklyReviewSkipped,
     );
@@ -58,8 +60,8 @@ describe(`GET ${url}`, () => {
   });
 
   test("validation - RequesterOwnsWeeklyReview", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
-    spyOn(Adapters.Emotions.WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    spyOn(di.Adapters.Emotions.WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsWeeklyReview);
@@ -67,9 +69,9 @@ describe(`GET ${url}`, () => {
 
   test("happy path", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Adapters.Emotions.WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
-    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.WeeklyReviewExport, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
 
     const response = await server.request(
       url,

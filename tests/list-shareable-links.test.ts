@@ -1,13 +1,15 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { ShareableLinkSnapshot } from "+infra/adapters/publishing";
-import { auth } from "+infra/auth";
-import { server } from "../server";
+import { bootstrap } from "+infra/bootstrap";
+import { createServer } from "../server";
 import * as mocks from "./mocks";
 
 const url = "/api/publishing/links/list";
 
-describe(`GET ${url}`, () => {
+describe(`GET ${url}`, async () => {
+  const di = await bootstrap(mocks.Env);
+  const server = createServer(di);
+
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
@@ -16,8 +18,10 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(ShareableLinkSnapshot, "getByUserId").mockResolvedValue([mocks.shareableLinkSnapshot]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Publishing.ShareableLinkSnapshot, "getByUserId").mockResolvedValue([
+      mocks.shareableLinkSnapshot,
+    ]);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();

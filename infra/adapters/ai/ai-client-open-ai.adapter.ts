@@ -2,7 +2,7 @@ import OAI from "openai";
 import * as AI from "+ai";
 
 export class AiClientOpenAiAdapter implements AI.AiClientPort {
-  private readonly OpenAI: OAI;
+  readonly OpenAI: OAI;
 
   constructor(OPEN_AI_API_KEY: string) {
     this.OpenAI = new OAI({ apiKey: OPEN_AI_API_KEY });

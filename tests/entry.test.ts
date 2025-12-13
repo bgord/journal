@@ -2,10 +2,8 @@ import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import * as Adapters from "+infra/adapters";
+import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
-
-const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
 const situation = new Emotions.Entities.Situation(
   new Emotions.VO.SituationDescription("I finished a project"),
@@ -34,9 +32,11 @@ const newReaction = new Emotions.Entities.Reaction(
   new Emotions.VO.ReactionEffectiveness(2),
 );
 
-describe("entry", () => {
+describe("entry", async () => {
+  const di = await bootstrap(mocks.Env);
+
   test("build new aggregate", () => {
-    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [], deps);
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [], di.Adapters.System);
     expect(entry.pullEvents()).toEqual([]);
   });
 
@@ -51,7 +51,7 @@ describe("entry", () => {
         reaction,
         mocks.userId,
         Emotions.VO.EntryOriginOption.web,
-        deps,
+        di.Adapters.System,
       );
       expect(entry.pullEvents()).toEqual([
         mocks.GenericSituationLoggedEvent,
@@ -67,7 +67,7 @@ describe("entry", () => {
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
       [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent],
-      deps,
+      di.Adapters.System,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, () =>
@@ -77,7 +77,7 @@ describe("entry", () => {
   });
 
   test("reappraiseEmotion - Invariants.EmotionCorrespondsToSituation", async () => {
-    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [], deps);
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [], di.Adapters.System);
 
     expect(() => entry.reappraiseEmotion(newEmotion, mocks.userId)).toThrow(
       Emotions.Invariants.EmotionCorrespondsToSituation.error,
@@ -86,7 +86,11 @@ describe("entry", () => {
   });
 
   test("reappraiseEmotion - Invariants.EmotionForReappraisalExists", async () => {
-    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent], deps);
+    const entry = Emotions.Aggregates.Entry.build(
+      mocks.entryId,
+      [mocks.GenericSituationLoggedEvent],
+      di.Adapters.System,
+    );
 
     expect(() => entry.reappraiseEmotion(newEmotion, mocks.userId)).toThrow(
       Emotions.Invariants.EmotionForReappraisalExists.error,
@@ -100,7 +104,7 @@ describe("entry", () => {
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
       [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent, mocks.GenericReactionLoggedEvent],
-      deps,
+      di.Adapters.System,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, () =>
@@ -110,7 +114,7 @@ describe("entry", () => {
   });
 
   test("evaluateReaction - Invariants.ReactionCorrespondsToSituationAndEmotion - missing situation and emotion", async () => {
-    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [], deps);
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [], di.Adapters.System);
 
     expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
       Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.error,
@@ -119,7 +123,11 @@ describe("entry", () => {
   });
 
   test("evaluateReaction - Invariants.ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
-    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent], deps);
+    const entry = Emotions.Aggregates.Entry.build(
+      mocks.entryId,
+      [mocks.GenericSituationLoggedEvent],
+      di.Adapters.System,
+    );
 
     expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
       Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.error,
@@ -131,7 +139,7 @@ describe("entry", () => {
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
       [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent],
-      deps,
+      di.Adapters.System,
     );
 
     expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
@@ -141,7 +149,11 @@ describe("entry", () => {
   });
 
   test("delete - correct path - after situation", async () => {
-    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [mocks.GenericSituationLoggedEvent], deps);
+    const entry = Emotions.Aggregates.Entry.build(
+      mocks.entryId,
+      [mocks.GenericSituationLoggedEvent],
+      di.Adapters.System,
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, () => entry.delete(mocks.userId));
 
@@ -152,7 +164,7 @@ describe("entry", () => {
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
       [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent],
-      deps,
+      di.Adapters.System,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, () => entry.delete(mocks.userId));
@@ -163,7 +175,7 @@ describe("entry", () => {
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
       [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent, mocks.GenericReactionLoggedEvent],
-      deps,
+      di.Adapters.System,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, () => entry.delete(mocks.userId));
@@ -171,7 +183,7 @@ describe("entry", () => {
   });
 
   test("delete - EntryHasBenStarted", async () => {
-    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [], deps);
+    const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [], di.Adapters.System);
     expect(() => entry.delete(mocks.userId)).toThrow(Emotions.Invariants.EntryHasBenStarted.error);
     expect(entry.pullEvents()).toEqual([]);
   });

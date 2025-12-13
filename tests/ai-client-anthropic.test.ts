@@ -2,7 +2,8 @@ import { describe, expect, spyOn, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
-import * as Adapters from "+infra/adapters";
+import { AiClientAnthropicAdapter } from "+infra/adapters/ai/ai-client-anthropic.adapter";
+import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
 const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
@@ -11,15 +12,18 @@ const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
   SupportedLanguages.en,
 ).generate();
 
-describe("AiClientAnthropic", () => {
+describe("AiClientAnthropic", async () => {
+  const di = await bootstrap(mocks.Env);
+
+  const client = new AiClientAnthropicAdapter(di.Env.ANTHROPIC_AI_API_KEY);
+
   test("request", async () => {
     const anthropicCreate = spyOn(
-      Adapters.AI.AnthropicAi.messages,
+      client.Anthropic.messages,
       "create",
       // @ts-expect-error
     ).mockResolvedValue({ content: mocks.advice.get() });
 
-    const client = new Adapters.AI.AiClientAnthropicAdapter();
     const result = await client.request(prompt);
 
     expect(anthropicCreate).toHaveBeenCalledWith({

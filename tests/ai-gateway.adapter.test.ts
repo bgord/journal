@@ -2,28 +2,29 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
 import * as VO from "+ai/value-objects";
-import * as Adapters from "+infra/adapters";
-import { EventStore } from "+infra/event-store";
+import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
-
-const gateway = new AiGateway({
-  Publisher: Adapters.AI.AiEventStorePublisher,
-  AiClient: Adapters.AI.AiClient,
-  IdProvider: Adapters.IdProvider,
-  Clock: Adapters.Clock,
-  BucketCounter: Adapters.AI.BucketCounter,
-});
 
 const prompt = new VO.Prompt("Give me some insights");
 
-describe("AiGateway", () => {
+describe("AiGateway", async () => {
+  const di = await bootstrap(mocks.Env);
+
+  const gateway = new AiGateway({
+    Publisher: di.Adapters.AI.AiEventPublisher,
+    AiClient: di.Adapters.AI.AiClient,
+    IdProvider: di.Adapters.System.IdProvider,
+    Clock: di.Adapters.System.Clock,
+    BucketCounter: di.Adapters.AI.BucketCounter,
+  });
+
   test("happy path", async () => {
-    spyOn(Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 0,
       [mocks.emotionsAlarmEntryBucket]: 0,
     });
-    spyOn(Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice);
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const result = await gateway.query(prompt, mocks.EmotionsAlarmEntryContext);
@@ -34,12 +35,12 @@ describe("AiGateway", () => {
   });
 
   test("quota exceeded", async () => {
-    spyOn(Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: 11,
       [mocks.emotionsAlarmEntryBucket]: 3,
     });
-    spyOn(Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice);
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(async () => gateway.query(prompt, mocks.EmotionsAlarmEntryContext)).toThrowError(

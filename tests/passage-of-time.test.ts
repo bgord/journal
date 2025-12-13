@@ -1,14 +1,17 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { EventStore } from "+infra/event-store";
+import { bootstrap } from "+infra/bootstrap";
 import * as Services from "../app/services";
 import * as mocks from "./mocks";
 
-describe("PassageOfTime", () => {
-  test("correct path", async () => {
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+describe("PassageOfTime", async () => {
+  const di = await bootstrap(mocks.Env);
+  const PassageOfTime = new Services.PassageOfTime(di.Adapters.System);
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => Services.PassageOfTime.process());
+  test("correct path", async () => {
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () => PassageOfTime.process());
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericHourHasPassedEvent]);
   });
 });

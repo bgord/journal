@@ -2,15 +2,17 @@ import { describe, expect, spyOn, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
-import * as Adapters from "+infra/adapters";
+import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
-describe("AlarmPromptFactory", () => {
+describe("AlarmPromptFactory", async () => {
+  const di = await bootstrap(mocks.Env);
+
   test("entry", async () => {
-    spyOn(Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
 
     const result = await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
-      Adapters.Emotions.EntrySnapshot,
+      di.Adapters.Emotions.EntrySnapshot,
       SupportedLanguages.en,
     ).create(mocks.entryDetection);
 
@@ -23,7 +25,7 @@ describe("AlarmPromptFactory", () => {
 
   test("inactivity", async () => {
     const result = await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
-      Adapters.Emotions.EntrySnapshot,
+      di.Adapters.Emotions.EntrySnapshot,
       SupportedLanguages.en,
     ).create(mocks.inactivityDetection);
 

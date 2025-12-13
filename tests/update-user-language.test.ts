@@ -1,15 +1,16 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { SupportedLanguages } from "+languages";
-import * as Adapters from "+infra/adapters";
-import { auth } from "+infra/auth";
-import { EventStore } from "+infra/event-store";
-import { server } from "../server";
+import { bootstrap } from "+infra/bootstrap";
+import { createServer } from "../server";
 import * as mocks from "./mocks";
 
 const url = "/api/preferences/user-language/update";
 
-describe(`POST ${url}`, () => {
+describe(`POST ${url}`, async () => {
+  const di = await bootstrap(mocks.Env);
+  const server = createServer(di);
+
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
@@ -18,7 +19,7 @@ describe(`POST ${url}`, () => {
   });
 
   test("validation - empty payload", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
@@ -27,9 +28,9 @@ describe(`POST ${url}`, () => {
   });
 
   test("UserLanguageHasChanged", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Adapters.Preferences.UserLanguageQueryAdapter, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en);
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -41,9 +42,9 @@ describe(`POST ${url}`, () => {
   });
 
   test("happy path", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Adapters.Preferences.UserLanguageQueryAdapter, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en);
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
