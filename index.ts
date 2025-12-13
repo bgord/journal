@@ -6,7 +6,7 @@ import { Logger } from "+infra/adapters/logger.adapter";
 import { db } from "+infra/db";
 import { Env } from "+infra/env";
 import { prerequisites } from "+infra/prerequisites";
-import { server, startup } from "./server";
+import { server } from "./server";
 import { handler } from "./web/entry-server";
 
 const deps = { Logger: Logger, Clock: Clock };
@@ -35,7 +35,7 @@ const deps = { Logger: Logger, Clock: Clock };
     message: "Server has started",
     component: "infra",
     operation: "server_startup",
-    metadata: { port: Env.PORT, startupTimeMs: startup.stop().ms },
+    metadata: { port: Env.PORT },
   });
 
   new bg.GracefulShutdown(deps).applyTo(app);

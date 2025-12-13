@@ -36,8 +36,6 @@ server.use(
   }),
 );
 
-const startup = new tools.Stopwatch(Adapters.Clock.now());
-
 // Healthcheck =================
 server.get(
   "/healthcheck",
@@ -196,4 +194,4 @@ server.on(["POST", "GET"], "/auth/*", async (c) => {
 
 server.onError(HTTP.ErrorHandler.handle);
 
-export { server, startup };
+export { server };
