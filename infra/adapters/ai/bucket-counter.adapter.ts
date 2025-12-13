@@ -23,5 +23,6 @@ class BucketCounterDrizzle implements BucketCounterPort {
   }
 }
 
-/** @public */
-export const BucketCounter = new BucketCounterDrizzle();
+export function createBucketCounter(): BucketCounterPort {
+  return new BucketCounterDrizzle();
+}

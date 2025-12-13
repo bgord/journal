@@ -1,8 +1,29 @@
-export * from "./ai-client.adapter";
-export * from "./ai-client-anthropic.adapter";
-export * from "./ai-client-noop.adapter";
-export * from "./ai-client-open-ai.adapter";
-export * from "./ai-event-publisher.adapter";
-export * from "./ai-gateway.adapter";
-export * from "./bucket-counter.adapter";
-export * from "./rule-inspector.adapter";
+import type * as bg from "@bgord/bun";
+import type { createEventStore } from "+infra/adapters/system/event-store";
+import type { EnvironmentType } from "+infra/env";
+import { createAiClient } from "./ai-client.adapter";
+import { createAiEventPublisher } from "./ai-event-publisher.adapter";
+import { createAiGateway } from "./ai-gateway.adapter";
+import { createBucketCounter } from "./bucket-counter.adapter";
+import { createRuleInspector } from "./rule-inspector.adapter";
+
+type Dependencies = {
+  EventStore: ReturnType<typeof createEventStore>;
+  Clock: bg.ClockPort;
+  IdProvider: bg.IdProviderPort;
+};
+
+export function createAuthAdapter(Env: EnvironmentType, deps: Dependencies) {
+  const AiClient = createAiClient(Env);
+  const AiEventPublisher = createAiEventPublisher(deps);
+  const BucketCounter = createBucketCounter();
+  const RuleInspector = createRuleInspector(deps);
+
+  return {
+    AiClient,
+    AiEventPublisher,
+    BucketCounter,
+    RuleInspector,
+    AiGateway: createAiGateway({ ...deps, Publisher: AiEventPublisher, AiClient, BucketCounter }),
+  };
+}

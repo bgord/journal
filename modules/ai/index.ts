@@ -1,5 +1,6 @@
 export * as Events from "./events";
 export * as OHS from "./open-host-services";
+export * as Ports from "./ports";
 export { AiClientPort } from "./ports/ai-client";
 export type { AiGatewayPort } from "./ports/ai-gateway";
 export { QuotaRuleSelector } from "./services/quota-rule-selector";

@@ -1,3 +1,4 @@
+import { createAuthAdapter } from "+infra/adapters/ai";
 import { createAuthAdapters } from "+infra/adapters/auth";
 import { createPreferencesAdapters } from "+infra/adapters/preferences";
 import { createSystemAdapters } from "+infra/adapters/system";
@@ -11,6 +12,7 @@ export async function bootstrap(Env: EnvironmentType) {
   const System = createSystemAdapters(Env);
   const Preferences = createPreferencesAdapters();
   const Auth = createAuthAdapters();
+  const AI = createAuthAdapter(Env, System);
 
   const Jobs = createJobs(System);
 
@@ -18,7 +20,7 @@ export async function bootstrap(Env: EnvironmentType) {
 
   return {
     Env,
-    Adapters: { Auth, System, Preferences },
+    Adapters: { Auth, System, Preferences, AI },
     Tools: { prerequisites, I18nConfig, ResponseCache },
   };
 }
