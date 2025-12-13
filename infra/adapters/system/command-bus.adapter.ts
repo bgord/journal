@@ -1,9 +1,10 @@
 import * as bg from "@bgord/bun";
 import Emittery from "emittery";
 import type * as EmotionCommands from "+emotions/commands";
-import { Logger } from "+infra/adapters/logger.adapter";
 import type * as PreferencesCommands from "+preferences/commands";
 import type * as PublishingCommands from "+publishing/commands";
+
+type Dependencies = { Logger: bg.LoggerPort };
 
 type AcceptedCommand =
   | EmotionCommands.CancelAlarmCommandType
@@ -28,8 +29,10 @@ type AcceptedCommand =
   | PreferencesCommands.UpdateProfileAvatarCommandType
   | PreferencesCommands.RemoveProfileAvatarCommandType;
 
-const CommandLogger = new bg.CommandLogger({ Logger });
+export function createCommandBus(deps: Dependencies) {
+  const CommandLogger = new bg.CommandLogger(deps);
 
-export const CommandBus = new Emittery<bg.ToEventMap<AcceptedCommand>>({
-  debug: { enabled: true, name: "infra/logger", logger: CommandLogger.handle },
-});
+  return new Emittery<bg.ToEventMap<AcceptedCommand>>({
+    debug: { enabled: true, name: "infra/logger", logger: CommandLogger.handle },
+  });
+}
