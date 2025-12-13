@@ -1,5 +1,5 @@
 import type * as bg from "@bgord/bun";
-import type { createEventStore } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
 import { ExpiringShareableLinks } from "./expiring-shareable-links";
 import { createShareableLinkAccess } from "./shareable-link-access.adapter";
 import { createShareableLinkAccessAuditor } from "./shareable-link-access-auditor.adapter";
@@ -7,11 +7,7 @@ import { createShareableLinkRepository } from "./shareable-link-repository.adapt
 import { ShareableLinkSnapshot } from "./shareable-link-snapshot.adapter";
 import { ShareableLinksQuota } from "./shareable-links-quota.adapter";
 
-type Dependencies = {
-  Clock: bg.ClockPort;
-  IdProvider: bg.IdProviderPort;
-  EventStore: ReturnType<typeof createEventStore>;
-};
+type Dependencies = { Clock: bg.ClockPort; IdProvider: bg.IdProviderPort; EventStore: EventStoreType };
 
 export function createPublishingAdapters(deps: Dependencies) {
   const ShareableLinkAccessAuditor = createShareableLinkAccessAuditor(deps);

@@ -1,5 +1,5 @@
 import type * as bg from "@bgord/bun";
-import type { createEventStore } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
 import type { EnvironmentType } from "+infra/env";
 import { createAiClient } from "./ai-client.adapter";
 import { createAiEventPublisher } from "./ai-event-publisher.adapter";
@@ -8,7 +8,7 @@ import { BucketCounter } from "./bucket-counter.adapter";
 import { createRuleInspector } from "./rule-inspector.adapter";
 
 type Dependencies = {
-  EventStore: ReturnType<typeof createEventStore>;
+  EventStore: EventStoreType;
   Clock: bg.ClockPort;
   IdProvider: bg.IdProviderPort;
   Logger: bg.LoggerPort;

@@ -1,5 +1,5 @@
 import type * as bg from "@bgord/bun";
-import type { createEventStore } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
 import type { EnvironmentType } from "+infra/env";
 import { AlarmCancellationLookup } from "./alarm-cancellation-lookup.adapter";
 import { AlarmDirectory } from "./alarm-directory.adapter";
@@ -18,7 +18,7 @@ import { WeeklyReviewSnapshot } from "./weekly-review-snapshot.adapter";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  EventStore: ReturnType<typeof createEventStore>;
+  EventStore: EventStoreType;
   Logger: bg.LoggerPort;
 };
 

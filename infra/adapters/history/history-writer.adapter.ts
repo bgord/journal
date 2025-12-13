@@ -1,12 +1,8 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { createEventStore } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
 
-type Dependencies = {
-  EventStore: ReturnType<typeof createEventStore>;
-  IdProvider: bg.IdProviderPort;
-  Clock: bg.ClockPort;
-};
+type Dependencies = { EventStore: EventStoreType; IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   constructor(private readonly deps: Dependencies) {}

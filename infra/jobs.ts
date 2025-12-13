@@ -1,13 +1,13 @@
 import * as bg from "@bgord/bun";
 import { Cron } from "croner";
 import * as App from "+app";
-import type { createEventStore } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
 
 type Dependencies = {
   Logger: bg.LoggerPort;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  EventStore: ReturnType<typeof createEventStore>;
+  EventStore: EventStoreType;
 };
 
 export function createJobs(deps: Dependencies) {

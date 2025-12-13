@@ -4,7 +4,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { haveIBeenPwned, openAPI } from "better-auth/plugins";
 import * as Auth from "+auth";
-import type { createEventStore } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
 import { db } from "+infra/db";
 import type { EnvironmentType } from "+infra/env";
 
@@ -12,7 +12,7 @@ type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   Logger: bg.LoggerPort;
-  EventStore: ReturnType<typeof createEventStore>;
+  EventStore: EventStoreType;
   Mailer: bg.MailerPort;
 };
 

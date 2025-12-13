@@ -1,7 +1,7 @@
 import type { AIEvents, AiEventPublisherPort } from "+ai/ports/ai-event-publisher";
-import type { createEventStore } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
 
-type Dependencies = { EventStore: ReturnType<typeof createEventStore> };
+type Dependencies = { EventStore: EventStoreType };
 
 class AiEventStorePublisherInternal implements AiEventPublisherPort {
   constructor(private readonly deps: Dependencies) {}

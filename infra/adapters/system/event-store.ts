@@ -81,3 +81,5 @@ export function createEventStore(deps: Dependencies) {
     deps.EventBus,
   );
 }
+
+export type EventStoreType = ReturnType<typeof createEventStore>;
