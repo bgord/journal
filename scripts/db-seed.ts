@@ -4,23 +4,14 @@ import { eq } from "drizzle-orm";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
-import * as Adapters from "+infra/adapters";
-import { Clock } from "+infra/adapters/clock.adapter";
-import { auth } from "+infra/auth";
-import { CommandBus } from "+infra/command-bus";
+import { bootstrap } from "+infra/bootstrap";
 import { db } from "+infra/db";
-import { EventBus } from "+infra/event-bus";
-import { EventStore } from "+infra/event-store";
+import { EnvironmentSchema } from "+infra/env";
 import * as Schema from "+infra/schema";
 import * as mocks from "../tests/mocks";
 
 import "+infra/register-event-handlers";
 import "+infra/register-command-handlers";
-
-const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
-
-const EventHandler = new bg.EventHandler({ Logger: Adapters.Logger });
-const now = Clock.now();
 
 const situationDescriptions = [
   "I missed an important appointment because I confused the time zones while traveling, which made me feel embarrassed and deeply irresponsible",
@@ -74,7 +65,13 @@ const reactionDescriptions = [
 const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
 (async function main() {
-  const correlationId = Adapters.IdProvider.generate();
+  const Env = new bg.EnvironmentValidator({ type: process.env.NODE_ENV, schema: EnvironmentSchema }).load(
+    process.env,
+  );
+  const di = await bootstrap(Env);
+
+  const now = di.Adapters.System.Clock.now();
+  const correlationId = di.Adapters.System.IdProvider.generate();
 
   await bg.CorrelationStorage.run(correlationId, async () => {
     await db.delete(Schema.events);
@@ -124,19 +121,19 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         { email: "admin@example.com", password: "1234567890" },
         { email: "user@example.com", password: "1234567890" },
       ].map(async (user, index) => {
-        const result = await auth.api.signUpEmail({
+        const result = await di.Adapters.System.Auth.config.api.signUpEmail({
           body: { email: user.email, name: user.email, password: user.password },
         });
 
         await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
 
         const event = Auth.Events.AccountCreatedEvent.parse({
-          ...bg.createEventEnvelope(`account_${result.user.id}`, deps),
+          ...bg.createEventEnvelope(`account_${result.user.id}`, di.Adapters.System),
           name: Auth.Events.ACCOUNT_CREATED_EVENT,
           payload: { userId: result.user.id, timestamp: now.ms },
         } satisfies Auth.Events.AccountCreatedEventType);
 
-        await EventStore.save([event]);
+        await di.Adapters.System.EventStore.save([event]);
 
         console.log(`[✓] User ${index + 1} created`);
 
@@ -156,15 +153,15 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     ];
 
     for (const [index, detection] of Object.entries(inactivityDetections)) {
-      const alarmId = Adapters.IdProvider.generate();
+      const alarmId = di.Adapters.System.IdProvider.generate();
       const alarm = Emotions.Aggregates.Alarm.generate(
         alarmId,
         detection,
         users[0]?.user.id as Auth.VO.UserIdType,
-        deps,
+        di.Adapters.System,
       );
 
-      await EventStore.save(alarm.pullEvents());
+      await di.Adapters.System.EventStore.save(alarm.pullEvents());
 
       console.log(`[✓] Alarm ${Number(index) + 1} created`);
     }
@@ -197,25 +194,25 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       );
 
       const entry = Emotions.Aggregates.Entry.log(
-        Adapters.IdProvider.generate(),
+        di.Adapters.System.IdProvider.generate(),
         situation,
         emotion,
         reaction,
         users[0]?.user.id as Auth.VO.UserIdType,
         Emotions.VO.EntryOriginOption.web,
-        deps,
+        di.Adapters.System,
       );
 
-      await EventStore.save(entry.pullEvents());
+      await di.Adapters.System.EventStore.save(entry.pullEvents());
 
       console.log(`[✓] Entry ${counter + 1} created`);
     }
 
     const ScheduleTimeCapsuleEntryCommand = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
-      ...bg.createCommandEnvelope(deps),
+      ...bg.createCommandEnvelope(di.Adapters.System),
       name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
       payload: {
-        entryId: Adapters.IdProvider.generate(),
+        entryId: di.Adapters.System.IdProvider.generate(),
         situation: new Emotions.Entities.Situation(
           new Emotions.VO.SituationDescription(situationDescriptions[0] as string),
           new Emotions.VO.SituationKind(situationKinds[0] as Emotions.VO.SituationKindOptions),
@@ -235,31 +232,30 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       },
     } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
-    await CommandBus.emit(ScheduleTimeCapsuleEntryCommand.name, ScheduleTimeCapsuleEntryCommand);
+    await di.Adapters.System.CommandBus.emit(
+      ScheduleTimeCapsuleEntryCommand.name,
+      ScheduleTimeCapsuleEntryCommand,
+    );
 
     console.log("[✓] Time capsule entry scheduled");
 
     await new Emotions.Policies.WeeklyReviewScheduler({
-      EventBus,
-      EventHandler,
-      CommandBus,
-      IdProvider: Adapters.IdProvider,
-      Clock: Adapters.Clock,
-      UserDirectory: Adapters.Auth.UserDirectory,
+      ...di.Adapters.System,
+      UserDirectory: di.Adapters.Auth.UserDirectory,
     }).onHourHasPassedEvent(mocks.HourHasPassedNextMondayUtc18Event);
 
     console.log("[✓] Weekly review scheduled");
 
     const shareableLink = Publishing.Aggregates.ShareableLink.create(
-      Adapters.IdProvider.generate(),
+      di.Adapters.System.IdProvider.generate(),
       "entries",
       new tools.DateRange(now.subtract(tools.Duration.Days(7)), now),
       tools.Duration.Days(3).ms,
       users[0]?.user.id as Auth.VO.UserIdType,
-      deps,
+      di.Adapters.System,
     );
 
-    await EventStore.save(shareableLink.pullEvents());
+    await di.Adapters.System.EventStore.save(shareableLink.pullEvents());
 
     console.log("[✓] Shareable Link created");
 
