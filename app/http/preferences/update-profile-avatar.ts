@@ -9,7 +9,7 @@ import { TemporaryFile } from "+infra/temporary-file.adapter";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-export async function UpdateProfileAvatar(c: hono.Context<infra.HonoConfig>) {
+export async function UpdateProfileAvatar(c: hono.Context<infra.Config>) {
   const userId = c.get("user").id;
   const body = await c.req.formData();
   const file = body.get("file") as File;

@@ -5,7 +5,7 @@ import * as Adapters from "+infra/adapters";
 
 const deps = { WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport };
 
-export async function DownloadWeeklyReview(c: hono.Context<infra.HonoConfig>) {
+export async function DownloadWeeklyReview(c: hono.Context<infra.Config>) {
   const requesterId = c.get("user").id;
   const weeklyReviewId = Emotions.VO.WeeklyReviewId.parse(c.req.param("weeklyReviewId"));
 

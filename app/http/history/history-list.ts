@@ -6,7 +6,7 @@ import * as Adapters from "+infra/adapters";
 
 const deps = { HistoryReader: Adapters.History.HistoryReader };
 
-export async function HistoryList(c: hono.Context<infra.HonoConfig>) {
+export async function HistoryList(c: hono.Context<infra.Config>) {
   const subject = bg.History.VO.HistorySubject.parse(c.req.param("subject"));
 
   const list = await deps.HistoryReader.read(subject);

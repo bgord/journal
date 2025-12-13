@@ -12,7 +12,7 @@ const deps = {
   AlarmDirectory: Adapters.Emotions.AlarmDirectory,
 };
 
-export async function ExportData(c: hono.Context<infra.HonoConfig>) {
+export async function ExportData(c: hono.Context<infra.Config>) {
   const userId = c.get("user").id;
 
   const entries = await deps.EntrySnapshot.getAllForuser(userId);

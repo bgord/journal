@@ -47,7 +47,7 @@ export type DashboardDataType = {
 
 const deps = { Clock: Adapters.Clock, WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport };
 
-export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
+export async function GetDashboard(c: hono.Context<infra.Config>) {
   const userId = c.get("user").id;
 
   const today = tools.Day.fromNow(deps.Clock.now()).getStart();

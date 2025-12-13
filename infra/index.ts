@@ -11,4 +11,4 @@ type Variables = TimingVariables &
   I18nVariables &
   AuthVariables;
 
-export type HonoConfig = { Variables: Variables; startup: tools.Stopwatch };
+export type Config = { Variables: Variables; startup: tools.Stopwatch };

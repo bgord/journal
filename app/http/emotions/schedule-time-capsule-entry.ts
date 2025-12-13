@@ -8,7 +8,7 @@ import { CommandBus } from "+infra/command-bus";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.HonoConfig>) {
+export async function ScheduleTimeCapsuleEntry(c: hono.Context<infra.Config>) {
   const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const timeZoneOffset = c.get("timeZoneOffset");

@@ -6,7 +6,7 @@ import * as Adapters from "+infra/adapters";
 
 const deps = { Clock: Adapters.Clock, RuleInspector: Adapters.AI.RuleInspector };
 
-export async function GetAiUsageToday(c: hono.Context<infra.HonoConfig>) {
+export async function GetAiUsageToday(c: hono.Context<infra.Config>) {
   const userId = c.get("user").id;
 
   const context = {

@@ -9,7 +9,7 @@ const deps = {
   ShareableLinkAccess: Adapters.Publishing.ShareableLinkAccess,
 };
 
-export async function GetSharedEntries(c: hono.Context<infra.HonoConfig>) {
+export async function GetSharedEntries(c: hono.Context<infra.Config>) {
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
 
   const context = { timestamp: deps.Clock.nowMs(), visitorId: new bg.VisitorIdHashHonoAdapter(c) };

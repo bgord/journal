@@ -7,7 +7,7 @@ import * as Adapters from "+infra/adapters";
 
 const deps = { Clock: Adapters.Clock, EntrySnapshot: Adapters.Emotions.EntrySnapshot };
 
-export async function ListEntries(c: hono.Context<infra.HonoConfig>) {
+export async function ListEntries(c: hono.Context<infra.Config>) {
   const userId = c.get("user").id;
 
   const filter = Emotions.VO.EntryListFilter.parse(c.req.query("filter"));

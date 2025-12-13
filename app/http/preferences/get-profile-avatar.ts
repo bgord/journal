@@ -6,7 +6,7 @@ import * as Adapters from "+infra/adapters";
 
 const deps = { RemoteFileStorage: Adapters.RemoteFileStorage };
 
-export async function GetProfileAvatar(c: hono.Context<infra.HonoConfig>) {
+export async function GetProfileAvatar(c: hono.Context<infra.Config>) {
   const user = c.get("user");
 
   const key = Preferences.VO.ProfileAvatarKeyFactory.stable(user.id);

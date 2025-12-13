@@ -7,7 +7,7 @@ import { CommandBus } from "+infra/command-bus";
 
 const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
 
-export async function UpdateUserLanguage(c: hono.Context<infra.HonoConfig>) {
+export async function UpdateUserLanguage(c: hono.Context<infra.Config>) {
   const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const language = new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES).ensure(body.language);

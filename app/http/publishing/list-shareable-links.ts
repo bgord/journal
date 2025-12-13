@@ -4,7 +4,7 @@ import * as Adapters from "+infra/adapters";
 
 const deps = { ShareableLinkSnapshot: Adapters.Publishing.ShareableLinkSnapshot };
 
-export async function ListShareableLinks(c: hono.Context<infra.HonoConfig>) {
+export async function ListShareableLinks(c: hono.Context<infra.Config>) {
   const userId = c.get("user").id;
   const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 

@@ -28,7 +28,7 @@ const Deps = {
 const TranslationsDeps = { JsonFileReader: Adapters.JsonFileReader, Logger: Adapters.Logger };
 
 const production = Env.type === bg.NodeEnvironmentEnum.production;
-const server = new Hono<infra.HonoConfig>().basePath("/api");
+const server = new Hono<infra.Config>().basePath("/api");
 
 server.use(
   ...bg.Setup.essentials(Deps, {

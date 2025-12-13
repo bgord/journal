@@ -11,7 +11,7 @@ const deps = {
   EntrySnapshot: Adapters.Emotions.EntrySnapshot,
 };
 
-export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
+export async function ExportEntries(c: hono.Context<infra.Config>) {
   const userId = c.get("user").id;
   const timeZoneOffset = c.get("timeZoneOffset");
 
