@@ -8,6 +8,12 @@ export enum AiClientAdapter {
   noop = "noop",
 }
 
+export const OPEN_AI_API_KEY = z.string().min(1).max(256).trim().brand("OPEN_AI_API_KEY");
+export type OpenAiApiKeyType = z.infer<typeof OPEN_AI_API_KEY>;
+
+export const ANTHROPIC_AI_API_KEY = z.string().min(1).max(256).trim().brand("ANTHROPIC_AI_API_KEY");
+export type AnthropicAiApiKey = z.infer<typeof ANTHROPIC_AI_API_KEY>;
+
 export const EnvironmentSchema = z
   .object({
     PORT: bg.Port,
@@ -20,8 +26,8 @@ export const EnvironmentSchema = z
     TZ: bg.TimezoneUtc,
     BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
-    OPEN_AI_API_KEY: z.string().min(1).max(256).trim(),
-    ANTHROPIC_AI_API_KEY: z.string().min(1).max(256).trim(),
+    OPEN_AI_API_KEY,
+    ANTHROPIC_AI_API_KEY,
     AXIOM_API_TOKEN: z.string().length(41),
     AI_CLIENT_ADAPTER: z.enum(AiClientAdapter),
     BETTER_AUTH_SECRET: z.string().length(32).trim(),

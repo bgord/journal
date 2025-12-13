@@ -1,10 +1,11 @@
 import OAI from "openai";
 import * as AI from "+ai";
+import type { OpenAiApiKeyType } from "+infra/env";
 
 export class AiClientOpenAiAdapter implements AI.AiClientPort {
   readonly OpenAI: OAI;
 
-  constructor(OPEN_AI_API_KEY: string) {
+  constructor(OPEN_AI_API_KEY: OpenAiApiKeyType) {
     this.OpenAI = new OAI({ apiKey: OPEN_AI_API_KEY });
   }
 
