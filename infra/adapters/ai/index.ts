@@ -11,10 +11,11 @@ type Dependencies = {
   EventStore: ReturnType<typeof createEventStore>;
   Clock: bg.ClockPort;
   IdProvider: bg.IdProviderPort;
+  Logger: bg.LoggerPort;
 };
 
 export function createAuthAdapter(Env: EnvironmentType, deps: Dependencies) {
-  const AiClient = createAiClient(Env);
+  const AiClient = createAiClient(Env, deps);
   const AiEventPublisher = createAiEventPublisher(deps);
   const BucketCounter = createBucketCounter();
   const RuleInspector = createRuleInspector(deps);
