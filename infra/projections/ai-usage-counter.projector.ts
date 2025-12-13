@@ -2,15 +2,17 @@ import type * as bg from "@bgord/bun";
 import { sql } from "drizzle-orm";
 import * as AI from "+ai";
 import type * as Events from "+ai/events";
+import type { createEventBus } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
-import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
+type Dependencies = { EventBus: ReturnType<typeof createEventBus>; EventHandler: bg.EventHandler };
+
 export class AiUsageCounterProjector {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
-    eventBus.on(
+  constructor(deps: Dependencies) {
+    deps.EventBus.on(
       AI.Events.AI_REQUEST_REGISTERED_EVENT,
-      EventHandler.handle(this.onAiRequestRegisteredEvent.bind(this)),
+      deps.EventHandler.handle(this.onAiRequestRegisteredEvent.bind(this)),
     );
   }
 

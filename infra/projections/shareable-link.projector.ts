@@ -1,23 +1,25 @@
 import type * as bg from "@bgord/bun";
 import { eq } from "drizzle-orm";
 import * as Publishing from "+publishing";
+import type { createEventBus } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
-import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
+type Dependencies = { EventBus: ReturnType<typeof createEventBus>; EventHandler: bg.EventHandler };
+
 export class ShareableLinkProjector {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
-    eventBus.on(
+  constructor(deps: Dependencies) {
+    deps.EventBus.on(
       Publishing.Events.SHAREABLE_LINK_CREATED_EVENT,
-      EventHandler.handle(this.onShareableLinkCreatedEvent.bind(this)),
+      deps.EventHandler.handle(this.onShareableLinkCreatedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Publishing.Events.SHAREABLE_LINK_EXPIRED_EVENT,
-      EventHandler.handle(this.onShareableLinkExpiredEvent.bind(this)),
+      deps.EventHandler.handle(this.onShareableLinkExpiredEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Publishing.Events.SHAREABLE_LINK_REVOKED_EVENT,
-      EventHandler.handle(this.onShareableLinkRevokedEvent.bind(this)),
+      deps.EventHandler.handle(this.onShareableLinkRevokedEvent.bind(this)),
     );
   }
 

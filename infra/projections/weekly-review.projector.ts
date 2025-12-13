@@ -1,27 +1,29 @@
 import type * as bg from "@bgord/bun";
 import { eq } from "drizzle-orm";
 import * as Emotions from "+emotions";
+import type { createEventBus } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
-import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
+type Dependencies = { EventBus: ReturnType<typeof createEventBus>; EventHandler: bg.EventHandler };
+
 export class WeeklyReviewProjector {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
-    eventBus.on(
+  constructor(deps: Dependencies) {
+    deps.EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
-      EventHandler.handle(this.onWeeklyReviewSkippedEvent.bind(this)),
+      deps.EventHandler.handle(this.onWeeklyReviewSkippedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
-      EventHandler.handle(this.onWeeklyReviewRequestedEvent.bind(this)),
+      deps.EventHandler.handle(this.onWeeklyReviewRequestedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_COMPLETED_EVENT,
-      EventHandler.handle(this.onWeeklyReviewCompletedEvent.bind(this)),
+      deps.EventHandler.handle(this.onWeeklyReviewCompletedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_FAILED_EVENT,
-      EventHandler.handle(this.onWeeklyReviewFailedEvent.bind(this)),
+      deps.EventHandler.handle(this.onWeeklyReviewFailedEvent.bind(this)),
     );
   }
 
