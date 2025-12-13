@@ -175,7 +175,7 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
     "/dashboard/get",
     di.Adapters.System.Auth.ShieldAuth.attach,
     di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.GetDashboard,
+    HTTP.GetDashboard({ ...di.Adapters.System, WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExport }),
   );
   // =============================
 

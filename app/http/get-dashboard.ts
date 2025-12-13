@@ -1,10 +1,10 @@
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, count, desc, eq, gte, isNotNull, not, sql } from "drizzle-orm";
 import type hono from "hono";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import * as Adapters from "+infra/adapters";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
@@ -45,9 +45,9 @@ export type DashboardDataType = {
   weeklyReviews: DashboardWeeklyReviewType[];
 };
 
-const deps = { Clock: Adapters.Clock, WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport };
+type Dependencies = { Clock: bg.ClockPort; WeeklyReviewExport: Emotions.Queries.WeeklyReviewExport };
 
-export async function GetDashboard(c: hono.Context<infra.Config>) {
+export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
   const today = tools.Day.fromNow(deps.Clock.now()).getStart();
@@ -188,4 +188,4 @@ export async function GetDashboard(c: hono.Context<infra.Config>) {
   };
 
   return c.json(result);
-}
+};
