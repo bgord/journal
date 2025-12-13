@@ -18,7 +18,7 @@ import { createJsonFileReader } from "./json-file-reader.adapter";
 import { createLogger } from "./logger.adapter";
 import { createMailer } from "./mailer.adapter";
 import { createRemoteFileStorage } from "./remote-file-storage.adapter";
-import { createShieldAuth } from "./shield-auth";
+import { createShieldAuth } from "./shield-auth.adapter";
 import { createShieldBasicAuth } from "./shield-basic-auth.adapter";
 import { createShieldRateLimit } from "./shield-rate-limit.adapter";
 import { createShieldTimeout } from "./shield-timeout.adapter";
@@ -27,18 +27,19 @@ import { createTimekeeper } from "./timekeeper.adapter";
 
 export function createSystemAdapters(Env: EnvironmentType) {
   const Clock = createClock(Env);
-  const IdProvider = createIdProvider();
   const Logger = createLogger(Env);
-  const Timekeeper = createTimekeeper(Env, { Clock });
-  const FileCleaner = createFileCleaner(Env);
-  const FileRenamer = createFileRenamer(Env);
   const EventBus = createEventBus({ Logger });
   const EventStore = createEventStore({ EventBus });
-  const JsonFileReader = createJsonFileReader();
+  const FileCleaner = createFileCleaner(Env);
   const FileHash = createFileHash();
+  const FileRenamer = createFileRenamer(Env);
+  const IdProvider = createIdProvider();
+  const JsonFileReader = createJsonFileReader();
+  const Mailer = createMailer(Env, { Logger });
+  const Timekeeper = createTimekeeper(Env, { Clock });
 
   return {
-    Auth: createShieldAuth(Env, { Logger, Clock, IdProvider, EventStore }),
+    Auth: createShieldAuth(Env, { Logger, Clock, IdProvider, EventStore, Mailer }),
     ShieldBasicAuth: createShieldBasicAuth(Env),
     CertificateInspector: createCertificateInspector(Env, { Clock }),
     Clock,
@@ -47,7 +48,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
     EventStore,
     DiskSpaceChecker: createDiskSpaceChecker(Env),
     IdProvider,
-    Mailer: createMailer(Env, { Logger }),
+    Mailer,
     JsonFileReader,
     Logger,
     Timekeeper,
