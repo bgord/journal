@@ -8,7 +8,7 @@ export enum AiClientAdapter {
   noop = "noop",
 }
 
-const EnvironmentSchema = z
+export const EnvironmentSchema = z
   .object({
     PORT: bg.Port,
     LOGS_LEVEL: z.enum(bg.LogLevelEnum),
