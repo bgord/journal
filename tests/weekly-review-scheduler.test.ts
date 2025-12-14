@@ -13,13 +13,13 @@ describe("WeeklyReviewScheduler", async () => {
   registerCommandHandlers(di);
   const policy = new Emotions.Policies.WeeklyReviewScheduler({
     ...di.Adapters.System,
-    UserDirectory: di.Adapters.Auth.UserDirectory,
+    UserDirectoryOHQ: di.Adapters.Auth.UserDirectoryOHQ,
   });
 
   test("correct path - single user", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewId]);
-    spyOn(di.Adapters.Auth.UserDirectory, "listActiveUserIds").mockResolvedValue([mocks.userId]);
-    spyOn(di.Adapters.Emotions.EntriesPerWeekCount, "execute").mockResolvedValue(1);
+    spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]);
+    spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(1);
     spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
@@ -41,8 +41,8 @@ describe("WeeklyReviewScheduler", async () => {
 
   test("EntriesForWeekExist", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.entryId]);
-    spyOn(di.Adapters.Auth.UserDirectory, "listActiveUserIds").mockResolvedValue([mocks.userId]);
-    spyOn(di.Adapters.Emotions.EntriesPerWeekCount, "execute").mockResolvedValue(0);
+    spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]);
+    spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(0);
     spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());

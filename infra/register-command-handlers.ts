@@ -57,7 +57,7 @@ export function registerCommandHandlers(di: Awaited<ReturnType<typeof bootstrap>
     EmotionCommandHandlers.handleRequestWeeklyReviewCommand({
       ...di.Adapters.System,
       repo: di.Adapters.Emotions.WeeklyReviewRepository,
-      EntriesPerWeekCountQuery: di.Adapters.Emotions.EntriesPerWeekCount,
+      EntriesPerWeekCountQuery: di.Adapters.Emotions.EntriesPerWeekCountQuery,
     }),
   );
   di.Adapters.System.CommandBus.on(
@@ -92,7 +92,7 @@ export function registerCommandHandlers(di: Awaited<ReturnType<typeof bootstrap>
     PublishingCommandHandlers.handleCreateShareableLinkCommand({
       ...di.Adapters.System,
       repo: di.Adapters.Publishing.ShareableLinkRepository,
-      ShareableLinksQuotaQuery: di.Adapters.Publishing.ShareableLinksQuota,
+      ShareableLinksQuotaQuery: di.Adapters.Publishing.ShareableLinksQuotaQuery,
     }),
   );
 

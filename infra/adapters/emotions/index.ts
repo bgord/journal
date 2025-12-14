@@ -4,14 +4,14 @@ import type { EnvironmentType } from "+infra/env";
 import { AlarmCancellationLookup } from "./alarm-cancellation-lookup.adapter";
 import { AlarmDirectory } from "./alarm-directory.adapter";
 import { createAlarmRepository } from "./alarm-repository.adapter";
-import { EntriesPerWeekCount } from "./entries-per-week-count.adapter";
-import { EntriesSharing } from "./entries-sharing.adapter";
+import { EntriesPerWeekCountQuery } from "./entries-per-week-count.adapter";
+import { EntriesSharingOHQ } from "./entries-sharing.adapter";
 import { createEntryRepository } from "./entry-repository.adapter";
 import { EntrySnapshot } from "./entry-snapshot.adapter";
-import { GetLatestEntryTimestampForUser } from "./get-latest-entry-timestamp-for-user.adapter";
+import { GetLatestEntryTimestampForUserQuery } from "./get-latest-entry-timestamp-for-user.adapter";
 import { createPdfGenerator } from "./pdf-generator.adapter";
 import { TimeCapsuleDueEntries } from "./time-capsule-due-entries.adapter";
-import { WeeklyReviewExport } from "./weekly-review-export.adapter";
+import { WeeklyReviewExportQuery } from "./weekly-review-export.adapter";
 import { createWeeklyReviewRepository } from "./weekly-review-repository.adapter";
 import { WeeklyReviewSnapshot } from "./weekly-review-snapshot.adapter";
 
@@ -32,13 +32,13 @@ export function createEmotionsAdapters(Env: EnvironmentType, deps: Dependencies)
     AlarmCancellationLookup,
     AlarmDirectory,
     AlarmRepository,
-    EntriesPerWeekCount,
-    EntriesSharing,
+    EntriesPerWeekCountQuery,
+    EntriesSharingOHQ,
     EntryRepository,
     EntrySnapshot,
-    GetLatestEntryTimestampForUser,
+    GetLatestEntryTimestampForUserQuery,
     TimeCapsuleDueEntries,
-    WeeklyReviewExport,
+    WeeklyReviewExportQuery,
     WeeklyReviewRepository,
     WeeklyReviewSnapshot,
     PdfGenerator,

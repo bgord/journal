@@ -16,8 +16,8 @@ type Dependencies = {
   Clock: bg.ClockPort;
   Mailer: bg.MailerPort;
   PdfGenerator: bg.PdfGeneratorPort;
-  UserContact: Auth.OHQ.UserContactOHQ;
-  WeeklyReviewExport: Emotions.Queries.WeeklyReviewExport;
+  UserContactOHQ: Auth.OHQ.UserContactOHQ;
+  WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
   EMAIL_FROM: bg.EmailFromType;
 };
@@ -38,10 +38,10 @@ export class WeeklyReviewExportByEmail {
     event: Emotions.Events.WeeklyReviewExportByEmailRequestedEventType,
   ) {
     try {
-      const contact = await this.deps.UserContact.getPrimary(event.payload.userId);
+      const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
       if (!contact?.address) return;
 
-      const weeklyReview = await this.deps.WeeklyReviewExport.getFull(event.payload.weeklyReviewId);
+      const weeklyReview = await this.deps.WeeklyReviewExportQuery.getFull(event.payload.weeklyReviewId);
       if (!weeklyReview) return;
       const week = tools.Week.fromIsoId(weeklyReview.weekIsoId);
 

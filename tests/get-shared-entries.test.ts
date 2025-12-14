@@ -59,7 +59,7 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path", async () => {
-    spyOn(di.Adapters.Emotions.EntriesSharing, "listForOwnerInRange").mockResolvedValue([]);
+    spyOn(di.Adapters.Emotions.EntriesSharingOHQ, "listForOwnerInRange").mockResolvedValue([]);
     spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 

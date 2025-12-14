@@ -30,17 +30,17 @@ export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>)
   new EmotionsPolicies.EntryAlarmDetector(di.Adapters.System);
   new EmotionsPolicies.WeeklyReviewScheduler({
     ...di.Adapters.System,
-    UserDirectory: di.Adapters.Auth.UserDirectory,
+    UserDirectoryOHQ: di.Adapters.Auth.UserDirectoryOHQ,
   });
   new EmotionsPolicies.InactivityAlarmScheduler({
     ...di.Adapters.System,
-    UserDirectory: di.Adapters.Auth.UserDirectory,
-    GetLatestEntryTimestampForUser: di.Adapters.Emotions.GetLatestEntryTimestampForUser,
+    UserDirectoryOHQ: di.Adapters.Auth.UserDirectoryOHQ,
+    GetLatestEntryTimestampForUserQuery: di.Adapters.Emotions.GetLatestEntryTimestampForUserQuery,
   });
   new EmotionsPolicies.InactivityAlarmScheduler({
     ...di.Adapters.System,
-    UserDirectory: di.Adapters.Auth.UserDirectory,
-    GetLatestEntryTimestampForUser: di.Adapters.Emotions.GetLatestEntryTimestampForUser,
+    UserDirectoryOHQ: di.Adapters.Auth.UserDirectoryOHQ,
+    GetLatestEntryTimestampForUserQuery: di.Adapters.Emotions.GetLatestEntryTimestampForUserQuery,
   });
   new EmotionsPolicies.TimeCapsuleEntriesScheduler({
     ...di.Adapters.System,
@@ -48,7 +48,7 @@ export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>)
   });
   new EmotionsPolicies.TimeCapsuleEntryNotifier({
     ...di.Adapters.System,
-    UserContact: di.Adapters.Auth.UserContact,
+    UserContactOHQ: di.Adapters.Auth.UserContactOHQ,
     UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
@@ -67,7 +67,7 @@ export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>)
     AiGateway: di.Adapters.AI.AiGateway,
     AlarmCancellationLookup: di.Adapters.Emotions.AlarmCancellationLookup,
     EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
-    UserContact: di.Adapters.Auth.UserContact,
+    UserContactOHQ: di.Adapters.Auth.UserContactOHQ,
     UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
@@ -75,15 +75,15 @@ export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>)
     ...di.Adapters.System,
     AiGateway: di.Adapters.AI.AiGateway,
     EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
-    UserContact: di.Adapters.Auth.UserContact,
+    UserContactOHQ: di.Adapters.Auth.UserContactOHQ,
     UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
   new EmotionsSagas.WeeklyReviewExportByEmail({
     ...di.Adapters.System,
     PdfGenerator: di.Adapters.Emotions.PdfGenerator,
-    UserContact: di.Adapters.Auth.UserContact,
-    WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExport,
+    UserContactOHQ: di.Adapters.Auth.UserContactOHQ,
+    WeeklyReviewExportQuery: di.Adapters.Emotions.WeeklyReviewExportQuery,
     UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });

@@ -5,7 +5,7 @@ import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class GetLatestEntryTimestampForUserDrizzle implements Emotions.Queries.GetLatestEntryTimestampForUser {
+class GetLatestEntryTimestampForUserQueryDrizzle implements Emotions.Queries.GetLatestEntryTimestampForUser {
   async execute(userId: Auth.VO.UserIdType) {
     const result = await db
       .select({ max: sql<number>`max(${Schema.entries.startedAt})` })
@@ -18,4 +18,4 @@ class GetLatestEntryTimestampForUserDrizzle implements Emotions.Queries.GetLates
   }
 }
 
-export const GetLatestEntryTimestampForUser = new GetLatestEntryTimestampForUserDrizzle();
+export const GetLatestEntryTimestampForUserQuery = new GetLatestEntryTimestampForUserQueryDrizzle();

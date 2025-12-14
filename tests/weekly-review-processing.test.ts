@@ -17,13 +17,13 @@ describe("WeeklyReviewProcessing", async () => {
     ...di.Adapters.System,
     AiGateway: di.Adapters.AI.AiGateway,
     EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
-    UserContact: di.Adapters.Auth.UserContact,
+    UserContactOHQ: di.Adapters.Auth.UserContactOHQ,
     UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 
   test("onWeeklyReviewSkippedEvent", async () => {
-    spyOn(di.Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(mocks.contact);
+    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
@@ -39,7 +39,7 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewSkippedEvent - no email", async () => {
-    spyOn(di.Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(undefined);
+    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
@@ -50,7 +50,7 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewSkippedEvent - mailer failed", async () => {
-    spyOn(di.Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(undefined);
+    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockRejectedValue(new Error("MAILER_FAILED"));
 

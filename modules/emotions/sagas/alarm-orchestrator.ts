@@ -31,7 +31,7 @@ type Dependencies = {
   Mailer: bg.MailerPort;
   AlarmCancellationLookup: Ports.AlarmCancellationLookupPort;
   EntrySnapshot: Ports.EntrySnapshotPort;
-  UserContact: Auth.OHQ.UserContactOHQ;
+  UserContactOHQ: Auth.OHQ.UserContactOHQ;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
   EMAIL_FROM: bg.EmailFromType;
 };
@@ -101,7 +101,7 @@ export class AlarmOrchestrator {
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.CancelAlarmCommandType);
 
-    const contact = await this.deps.UserContact.getPrimary(event.payload.userId);
+    const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
     if (!contact?.address) return this.deps.CommandBus.emit(cancel.name, cancel);
 
     const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);

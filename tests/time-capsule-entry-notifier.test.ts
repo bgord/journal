@@ -9,14 +9,14 @@ describe("TimeCapsuleEntryNotifier", async () => {
   const di = await bootstrap(mocks.Env);
   const policy = new Emotions.Policies.TimeCapsuleEntryNotifier({
     ...di.Adapters.System,
-    UserContact: di.Adapters.Auth.UserContact,
+    UserContactOHQ: di.Adapters.Auth.UserContactOHQ,
     UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 
   test("onSituationLoggedEvent - no contact", async () => {
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
-    spyOn(di.Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(undefined);
+    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -28,7 +28,7 @@ describe("TimeCapsuleEntryNotifier", async () => {
 
   test("onSituationLoggedEvent - en", async () => {
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
-    spyOn(di.Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(mocks.contact);
+    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -45,7 +45,7 @@ describe("TimeCapsuleEntryNotifier", async () => {
 
   test("onSituationLoggedEvent - pl", async () => {
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.pl);
-    spyOn(di.Adapters.Auth.UserContact, "getPrimary").mockResolvedValue(mocks.contact);
+    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>

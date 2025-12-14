@@ -5,7 +5,7 @@ type Dependencies = {
   ShareableLinkRepository: Publishing.Ports.ShareableLinkRepositoryPort;
 };
 
-export function createShareableLinkAccess(deps: Dependencies): Publishing.OHQ.ShareableLinkAccessAdapter {
+export function createShareableLinkAccessOHQ(deps: Dependencies): Publishing.OHQ.ShareableLinkAccessAdapter {
   return new Publishing.OHQ.ShareableLinkAccessAdapter(
     deps.ShareableLinkRepository,
     deps.ShareableLinkAccessAuditor,

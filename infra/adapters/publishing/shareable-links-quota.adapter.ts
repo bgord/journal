@@ -4,7 +4,7 @@ import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class ShareableLinksQuotaDrizzle implements Publishing.Queries.ShareableLinksQuotaQuery {
+class ShareableLinksQuotaQueryDrizzle implements Publishing.Queries.ShareableLinksQuotaQuery {
   async execute(ownerId: Auth.VO.UserIdType) {
     return {
       count: await db.$count(
@@ -18,4 +18,4 @@ class ShareableLinksQuotaDrizzle implements Publishing.Queries.ShareableLinksQuo
   }
 }
 
-export const ShareableLinksQuota = new ShareableLinksQuotaDrizzle();
+export const ShareableLinksQuotaQuery = new ShareableLinksQuotaQueryDrizzle();

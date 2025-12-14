@@ -241,7 +241,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     await new Emotions.Policies.WeeklyReviewScheduler({
       ...di.Adapters.System,
-      UserDirectory: di.Adapters.Auth.UserDirectory,
+      UserDirectoryOHQ: di.Adapters.Auth.UserDirectoryOHQ,
     }).onHourHasPassedEvent(mocks.HourHasPassedNextMondayUtc18Event);
 
     console.log("[✓] Weekly review scheduled");

@@ -26,7 +26,7 @@ type Dependencies = {
   AiGateway: AI.AiGatewayPort;
   Mailer: bg.MailerPort;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
-  UserContact: Auth.OHQ.UserContactOHQ;
+  UserContactOHQ: Auth.OHQ.UserContactOHQ;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
   EMAIL_FROM: bg.EmailFromType;
 };
@@ -48,7 +48,7 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewSkippedEvent(event: Emotions.Events.WeeklyReviewSkippedEventType) {
-    const contact = await this.deps.UserContact.getPrimary(event.payload.userId);
+    const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
     const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
 
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);

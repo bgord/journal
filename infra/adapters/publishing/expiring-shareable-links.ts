@@ -3,9 +3,8 @@ import { and, eq, lte } from "drizzle-orm";
 import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { ExpiringShareableLinksPort } from "+publishing/ports";
 
-class ExpiringShareableLinksDrizzle implements ExpiringShareableLinksPort {
+class ExpiringShareableLinksDrizzle implements Publishing.Ports.ExpiringShareableLinksPort {
   async listDue(now: tools.TimestampValueType) {
     const rows = await db
       .select({ id: Schema.shareableLinks.id, revision: Schema.shareableLinks.revision })

@@ -3,11 +3,10 @@ import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
-import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class EntriesSharingDrizzle implements Emotions.OHQ.EntriesSharingPort {
+class EntriesSharingOHQDrizzle implements Emotions.OHQ.EntriesSharingPort {
   async listForOwnerInRange(ownerId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
     const result = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
@@ -22,25 +21,25 @@ class EntriesSharingDrizzle implements Emotions.OHQ.EntriesSharingPort {
     return result.map((entry) => ({
       ...entry,
       startedAt: tools.DateFormatters.datetime(entry.startedAt),
-      status: entry.status as VO.EntryStatusEnum,
-      situationKind: entry.situationKind as VO.SituationKindOptions,
-      emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
-      reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
-      origin: entry.origin as VO.EntryOriginOption,
+      status: entry.status as Emotions.VO.EntryStatusEnum,
+      situationKind: entry.situationKind as Emotions.VO.SituationKindOptions,
+      emotionLabel: entry.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
+      reactionType: entry.reactionType as Emotions.VO.GrossEmotionRegulationStrategy | null,
+      origin: entry.origin as Emotions.VO.EntryOriginOption,
       weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
       alarms: entry.alarms.map((alarm) => ({
         ...alarm,
         entryId: alarm.entryId as bg.UUIDType,
-        status: alarm.status as VO.AlarmStatusEnum,
-        name: alarm.name as VO.AlarmNameOption,
-        advice: alarm.advice as VO.AlarmSnapshot["advice"],
+        status: alarm.status as Emotions.VO.AlarmStatusEnum,
+        name: alarm.name as Emotions.VO.AlarmNameOption,
+        advice: alarm.advice as Emotions.VO.AlarmSnapshot["advice"],
         generatedAt: alarm.generatedAt as tools.TimestampValueType,
         lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
-        emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
+        emotionLabel: alarm.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
         weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
       })),
     }));
   }
 }
 
-export const EntriesSharing = new EntriesSharingDrizzle();
+export const EntriesSharingOHQ = new EntriesSharingOHQDrizzle();

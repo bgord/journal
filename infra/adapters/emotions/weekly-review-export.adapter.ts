@@ -15,7 +15,7 @@ type WeeklyReviewExportDrizzleResultType = Schema.SelectWeeklyReviews & {
   >[];
 };
 
-class WeeklyReviewExportDrizzle implements Emotions.Queries.WeeklyReviewExport {
+class WeeklyReviewExportQueryDrizzle implements Emotions.Queries.WeeklyReviewExport {
   async getFull(id: VO.WeeklyReviewIdType) {
     const result = await db.query.weeklyReviews.findFirst({
       where: eq(Schema.weeklyReviews.id, id),
@@ -55,7 +55,7 @@ class WeeklyReviewExportDrizzle implements Emotions.Queries.WeeklyReviewExport {
     });
 
     if (!result) return undefined;
-    return WeeklyReviewExportDrizzle.format(result);
+    return WeeklyReviewExportQueryDrizzle.format(result);
   }
 
   async listFull(userId: Auth.VO.UserIdType, limit: number) {
@@ -97,7 +97,7 @@ class WeeklyReviewExportDrizzle implements Emotions.Queries.WeeklyReviewExport {
       limit,
     });
 
-    return weeklyReviews.map((result) => WeeklyReviewExportDrizzle.format(result));
+    return weeklyReviews.map((result) => WeeklyReviewExportQueryDrizzle.format(result));
   }
 
   static format(result: WeeklyReviewExportDrizzleResultType) {
@@ -129,4 +129,4 @@ class WeeklyReviewExportDrizzle implements Emotions.Queries.WeeklyReviewExport {
   }
 }
 
-export const WeeklyReviewExport = new WeeklyReviewExportDrizzle();
+export const WeeklyReviewExportQuery = new WeeklyReviewExportQueryDrizzle();

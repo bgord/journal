@@ -12,7 +12,7 @@ describe("ShareableLinkAccess", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const result = (
-        await di.Adapters.Publishing.ShareableLinkAccess.check(
+        await di.Adapters.Publishing.ShareableLinkAccessOHQ.check(
           mocks.shareableLinkId,
           mocks.publicationSpecification,
           mocks.accessContext,
@@ -30,7 +30,7 @@ describe("ShareableLinkAccess", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
-        await di.Adapters.Publishing.ShareableLinkAccess.check(
+        await di.Adapters.Publishing.ShareableLinkAccessOHQ.check(
           mocks.shareableLinkId,
           mocks.publicationSpecification,
           mocks.accessContext,
@@ -52,7 +52,7 @@ describe("ShareableLinkAccess", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
-        await di.Adapters.Publishing.ShareableLinkAccess.check(
+        await di.Adapters.Publishing.ShareableLinkAccessOHQ.check(
           mocks.shareableLinkId,
           mocks.publicationSpecification,
           mocks.accessContext,
@@ -74,7 +74,7 @@ describe("ShareableLinkAccess", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
-        await di.Adapters.Publishing.ShareableLinkAccess.check(
+        await di.Adapters.Publishing.ShareableLinkAccessOHQ.check(
           mocks.shareableLinkId,
           mocks.publicationSpecification,
           mocks.accessContext,
@@ -93,7 +93,7 @@ describe("ShareableLinkAccess", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
-        await di.Adapters.Publishing.ShareableLinkAccess.check(
+        await di.Adapters.Publishing.ShareableLinkAccessOHQ.check(
           mocks.shareableLinkId,
           mocks.anotherPublicationSpecification,
           mocks.accessContext,

@@ -117,7 +117,7 @@ describe(`POST ${url}`, async () => {
 
   test("validation - ShareableLinksPerOwnerLimit", async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Publishing.ShareableLinksQuota, "execute").mockResolvedValue({ count: 50 });
+    spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({ count: 50 });
     const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
@@ -144,7 +144,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.Publishing.ShareableLinksQuota, "execute").mockResolvedValue({ count: 0 });
+    spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({ count: 0 });
     const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(

@@ -6,7 +6,7 @@ import * as Publishing from "+publishing";
 
 type Dependencies = {
   Clock: bg.ClockPort;
-  ShareableLinkAccess: Publishing.OHQ.ShareableLinkAccessAdapter;
+  ShareableLinkAccessOHQ: Publishing.OHQ.ShareableLinkAccessAdapter;
   EntriesSharing: Emotions.OHQ.EntriesSharingPort;
 };
 
@@ -15,7 +15,7 @@ export const GetSharedEntries = (deps: Dependencies) => async (c: hono.Context<i
 
   const context = { timestamp: deps.Clock.nowMs(), visitorId: new bg.VisitorIdHashHonoAdapter(c) };
 
-  const shareableLinkAccess = await deps.ShareableLinkAccess.check(shareableLinkId, "entries", context);
+  const shareableLinkAccess = await deps.ShareableLinkAccessOHQ.check(shareableLinkId, "entries", context);
 
   if (!shareableLinkAccess.valid) return c.json({ _known: true, message: "shareable_link_invalid" }, 403);
 

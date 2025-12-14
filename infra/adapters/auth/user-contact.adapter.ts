@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
-import type { UserContactOHQ } from "+auth/open-host-queries";
+import type * as Auth from "+auth";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class UserContactDrizzle implements UserContactOHQ {
+class UserContactOHQDrizzle implements Auth.OHQ.UserContactOHQ {
   async getPrimary(userId: string) {
     const user = await db.query.users.findFirst({
       where: eq(Schema.users.id, userId),
@@ -15,4 +15,4 @@ class UserContactDrizzle implements UserContactOHQ {
   }
 }
 
-export const UserContact = new UserContactDrizzle();
+export const UserContactOHQ = new UserContactOHQDrizzle();

@@ -66,8 +66,8 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
     "/shared/entries/:shareableLinkId",
     HTTP.Emotions.GetSharedEntries({
       ...di.Adapters.System,
-      ShareableLinkAccess: di.Adapters.Publishing.ShareableLinkAccess,
-      EntriesSharing: di.Adapters.Emotions.EntriesSharing,
+      ShareableLinkAccessOHQ: di.Adapters.Publishing.ShareableLinkAccessOHQ,
+      EntriesSharing: di.Adapters.Emotions.EntriesSharingOHQ,
     }),
   );
 
@@ -85,7 +85,7 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
     di.Adapters.System.ShieldRateLimit.WeeklyReviewExportDownload.verify,
     HTTP.Emotions.DownloadWeeklyReview({
       ...di.Adapters.System,
-      WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExport,
+      WeeklyReviewExportQuery: di.Adapters.Emotions.WeeklyReviewExportQuery,
       PdfGenerator: di.Adapters.Emotions.PdfGenerator,
     }),
   );
@@ -175,7 +175,10 @@ export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
     "/dashboard/get",
     di.Adapters.System.Auth.ShieldAuth.attach,
     di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.GetDashboard({ ...di.Adapters.System, WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExport }),
+    HTTP.GetDashboard({
+      ...di.Adapters.System,
+      WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExportQuery,
+    }),
   );
   // =============================
 
