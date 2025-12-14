@@ -106,11 +106,8 @@ export function registerCommandHandlers({ Adapters }: BootstrapType) {
   Adapters.System.CommandBus.on(
     bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
     bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
-      Adapters.System.EventStore,
-      Adapters.System.IdProvider,
-      Adapters.System.Clock,
-      Adapters.Preferences.UserLanguageQuery,
       new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
+      { ...Adapters.System, UserLanguageQuery: Adapters.Preferences.UserLanguageQuery },
     ),
   );
 
