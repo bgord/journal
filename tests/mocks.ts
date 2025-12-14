@@ -150,9 +150,11 @@ export const ruleInspection = {
   resetsInHours: 0,
 };
 
+const etag = bg.FileEtag.parse("0000000000000000000000000000000000000000000000000000000000000000");
+
 export const head = {
   exists: true,
-  etag: bg.FileEtag.parse("0000000000000000000000000000000000000000000000000000000000000000"),
+  etag,
   size: tools.Size.fromBytes(1234),
   lastModified: T0,
   mime: tools.MIMES.webp,
@@ -857,7 +859,7 @@ export const GenericProfileAvatarUpdatedEvent = {
   stream: `preferences_${userId}`,
   version: 1,
   name: "PROFILE_AVATAR_UPDATED_EVENT",
-  payload: { userId, key: objectKey, etag: "noop" },
+  payload: { userId, key: objectKey, etag },
 } satisfies Preferences.Events.ProfileAvatarUpdatedEventType;
 
 export const GenericProfileAvatarRemovedEvent = {
