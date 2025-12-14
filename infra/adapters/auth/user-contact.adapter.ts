@@ -1,3 +1,4 @@
+import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import type * as Auth from "+auth";
 import { db } from "+infra/db";
@@ -11,7 +12,7 @@ class UserContactOHQDrizzle implements Auth.OHQ.UserContactOHQ {
     });
 
     if (!user?.email) return undefined;
-    return { type: "email", address: user.email } as const;
+    return { type: "email", address: tools.Email.parse(user.email) } as const;
   }
 }
 

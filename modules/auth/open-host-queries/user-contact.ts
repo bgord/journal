@@ -1,7 +1,8 @@
-import type * as VO from "+auth/value-objects";
+import type * as tools from "@bgord/tools";
+import type * as Auth from "+auth";
 
-type EmailContact = { type: "email"; address: string };
+type EmailContact = { type: "email"; address: tools.EmailType };
 
 export interface UserContactOHQ {
-  getPrimary(userId: VO.UserIdType): Promise<EmailContact | undefined>;
+  getPrimary(userId: Auth.VO.UserIdType): Promise<EmailContact | undefined>;
 }
