@@ -1,9 +1,9 @@
 import * as tools from "@bgord/tools";
 
 export class EmailVerificationNotificationComposer {
-  constructor(private readonly BETTER_AUTH_URL: string) {}
+  constructor(private readonly BETTER_AUTH_URL: tools.UrlWithoutSlashType) {}
 
-  compose(url: string): tools.NotificationTemplate {
+  compose(url: tools.UrlWithoutSlashType): tools.NotificationTemplate {
     const callbackUrl = new URL(url);
     callbackUrl.searchParams.set("callbackURL", `${this.BETTER_AUTH_URL}/auth/login`);
 
