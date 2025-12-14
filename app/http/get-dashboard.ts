@@ -8,6 +8,8 @@ import type * as infra from "+infra";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
+type Dependencies = { Clock: bg.ClockPort; WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport };
+
 type DashboardAlarmInactivityType = Pick<Emotions.VO.AlarmSnapshot, "id" | "advice" | "inactivityDays"> & {
   generatedAt: string;
 };
@@ -44,8 +46,6 @@ export type DashboardDataType = {
   };
   weeklyReviews: DashboardWeeklyReviewType[];
 };
-
-type Dependencies = { Clock: bg.ClockPort; WeeklyReviewExport: Emotions.Queries.WeeklyReviewExport };
 
 export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
@@ -142,7 +142,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
     await getTopEmotionsSince(allTime),
   ]);
 
-  const weeklyReviews = await deps.WeeklyReviewExport.listFull(userId, 5);
+  const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, 5);
 
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {

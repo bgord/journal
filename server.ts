@@ -7,12 +7,12 @@ import type { BootstrapType } from "+infra/bootstrap";
 import { ResponseCache } from "+infra/response-cache";
 import { SupportedLanguages } from "./modules/supported-languages";
 
-export function createServer(di: BootstrapType) {
+export function createServer({ Adapters, Tools }: BootstrapType) {
   const server = new Hono<infra.Config>()
     .basePath("/api")
     .use(
       ...bg.Setup.essentials(
-        { ...di.Adapters.System, I18n: di.Tools.I18nConfig },
+        { ...Adapters.System, I18n: Tools.I18nConfig },
         { httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] } },
       ),
     );
@@ -20,44 +20,33 @@ export function createServer(di: BootstrapType) {
   // Healthcheck =================
   server.get(
     "/healthcheck",
-    di.Adapters.System.ShieldRateLimit.Healthcheck.verify,
-    di.Adapters.System.ShieldTimeout.verify,
-    di.Adapters.System.ShieldBasicAuth.verify,
-    ...bg.Healthcheck.build(di.Tools.prerequisites, di.Adapters.System),
+    Adapters.System.ShieldRateLimit.Healthcheck.verify,
+    Adapters.System.ShieldTimeout.verify,
+    Adapters.System.ShieldBasicAuth.verify,
+    ...bg.Healthcheck.build(Tools.prerequisites, Adapters.System),
   );
   // =============================
 
   // Emotions ====================
   const entry = new Hono();
 
-  entry.use("*", di.Adapters.System.Auth.ShieldAuth.attach, di.Adapters.System.Auth.ShieldAuth.verify);
-  entry.post("/log", HTTP.Emotions.LogEntry(di.Adapters.System));
-  entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry(di.Adapters.System));
-  entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion(di.Adapters.System));
-  entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction(di.Adapters.System));
-  entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry(di.Adapters.System));
+  entry.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
+  entry.post("/log", HTTP.Emotions.LogEntry(Adapters.System));
+  entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry(Adapters.System));
+  entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion(Adapters.System));
+  entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction(Adapters.System));
+  entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry(Adapters.System));
   entry.get(
     "/export-data",
-    di.Adapters.System.ShieldRateLimit.EntryDataExport.verify,
-    HTTP.Emotions.ExportData({
-      ...di.Adapters.System,
-      EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
-      AlarmDirectory: di.Adapters.Emotions.AlarmDirectory,
-    }),
+    Adapters.System.ShieldRateLimit.EntryDataExport.verify,
+    HTTP.Emotions.ExportData({ ...Adapters.System, ...Adapters.Emotions }),
   );
   entry.get(
     "/export-entries",
-    di.Adapters.System.ShieldRateLimit.EntryExportEntries.verify,
-    HTTP.Emotions.ExportEntries({
-      ...di.Adapters.System,
-      PdfGenerator: di.Adapters.Emotions.PdfGenerator,
-      EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
-    }),
+    Adapters.System.ShieldRateLimit.EntryExportEntries.verify,
+    HTTP.Emotions.ExportEntries({ ...Adapters.System, ...Adapters.Emotions }),
   );
-  entry.get(
-    "/list",
-    HTTP.Emotions.ListEntries({ ...di.Adapters.System, EntrySnapshot: di.Adapters.Emotions.EntrySnapshot }),
-  );
+  entry.get("/list", HTTP.Emotions.ListEntries({ ...Adapters.System, ...Adapters.Emotions }));
   server.route("/entry", entry);
   // =============================
 
@@ -65,29 +54,25 @@ export function createServer(di: BootstrapType) {
   server.get(
     "/shared/entries/:shareableLinkId",
     HTTP.Emotions.GetSharedEntries({
-      ...di.Adapters.System,
-      ShareableLinkAccessOHQ: di.Adapters.Publishing.ShareableLinkAccessOHQ,
-      EntriesSharing: di.Adapters.Emotions.EntriesSharingOHQ,
+      ...Adapters.System,
+      ShareableLinkAccessOHQ: Adapters.Publishing.ShareableLinkAccessOHQ,
+      EntriesSharing: Adapters.Emotions.EntriesSharingOHQ,
     }),
   );
 
   // Weekly review ===============
   const weeklyReview = new Hono();
 
-  weeklyReview.use("*", di.Adapters.System.Auth.ShieldAuth.attach, di.Adapters.System.Auth.ShieldAuth.verify);
+  weeklyReview.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
   weeklyReview.post(
     "/:weeklyReviewId/export/email",
-    di.Adapters.System.ShieldRateLimit.WeeklyReviewExportEmail.verify,
-    HTTP.Emotions.ExportWeeklyReviewByEmail(di.Adapters.System),
+    Adapters.System.ShieldRateLimit.WeeklyReviewExportEmail.verify,
+    HTTP.Emotions.ExportWeeklyReviewByEmail(Adapters.System),
   );
   weeklyReview.get(
     "/:weeklyReviewId/export/download",
-    di.Adapters.System.ShieldRateLimit.WeeklyReviewExportDownload.verify,
-    HTTP.Emotions.DownloadWeeklyReview({
-      ...di.Adapters.System,
-      WeeklyReviewExportQuery: di.Adapters.Emotions.WeeklyReviewExportQuery,
-      PdfGenerator: di.Adapters.Emotions.PdfGenerator,
-    }),
+    Adapters.System.ShieldRateLimit.WeeklyReviewExportDownload.verify,
+    HTTP.Emotions.DownloadWeeklyReview({ ...Adapters.System, ...Adapters.Emotions }),
   );
   server.route("/weekly-review", weeklyReview);
   // =============================
@@ -95,20 +80,17 @@ export function createServer(di: BootstrapType) {
   // Publishing ==================
   const publishing = new Hono();
 
-  publishing.use("*", di.Adapters.System.Auth.ShieldAuth.attach, di.Adapters.System.Auth.ShieldAuth.verify);
+  publishing.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
   publishing.get(
     "/links/list",
-    HTTP.Publishing.ListShareableLinks({
-      ...di.Adapters.System,
-      ShareableLinkSnapshot: di.Adapters.Publishing.ShareableLinkSnapshot,
-    }),
+    HTTP.Publishing.ListShareableLinks({ ...Adapters.System, ...Adapters.Publishing }),
   );
   publishing.post(
     "/link/create",
-    di.Adapters.System.ShieldRateLimit.PublishingLinkCreate.verify,
-    HTTP.Publishing.CreateShareableLink(di.Adapters.System),
+    Adapters.System.ShieldRateLimit.PublishingLinkCreate.verify,
+    HTTP.Publishing.CreateShareableLink(Adapters.System),
   );
-  publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink(di.Adapters.System));
+  publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink(Adapters.System));
   publishing.post("/link/:shareableLinkId/hide", HTTP.Publishing.HideShareableLink());
   server.route("/publishing", publishing);
   // =============================
@@ -117,74 +99,71 @@ export function createServer(di: BootstrapType) {
   server.get(
     "/translations",
     ResponseCache.handle,
-    ...bg.Translations.build(SupportedLanguages, di.Adapters.System),
+    ...bg.Translations.build(SupportedLanguages, Adapters.System),
   );
   // =============================
 
   //Preferences =================
   server.post(
     "/preferences/user-language/update",
-    di.Adapters.System.Auth.ShieldAuth.attach,
-    di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.Preferences.UpdateUserLanguage(di.Adapters.System),
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.Preferences.UpdateUserLanguage(Adapters.System),
   );
   server.post(
     "/preferences/profile-avatar/update",
-    di.Adapters.System.Auth.ShieldAuth.attach,
-    di.Adapters.System.Auth.ShieldAuth.verify,
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
     ...bg.FileUploader.validate({
       mimeTypes: Preferences.VO.ProfileAvatarMimeTypes,
       maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
     }),
-    HTTP.Preferences.UpdateProfileAvatar(di.Adapters.System),
+    HTTP.Preferences.UpdateProfileAvatar(Adapters.System),
   );
   server.get(
     "/profile-avatar/get",
-    di.Adapters.System.Auth.ShieldAuth.attach,
-    di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.Preferences.GetProfileAvatar(di.Adapters.System),
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.Preferences.GetProfileAvatar(Adapters.System),
   );
   server.delete(
     "/preferences/profile-avatar",
-    di.Adapters.System.Auth.ShieldAuth.attach,
-    di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.Preferences.RemoveProfileAvatar(di.Adapters.System),
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.Preferences.RemoveProfileAvatar(Adapters.System),
   );
   // =============================
 
   // AI ==========================
   server.get(
     "/ai-usage-today/get",
-    di.Adapters.System.Auth.ShieldAuth.attach,
-    di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.AI.GetAiUsageToday({ ...di.Adapters.System, RuleInspector: di.Adapters.AI.RuleInspector }),
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.AI.GetAiUsageToday({ ...Adapters.System, ...Adapters.AI }),
   );
   // =============================
 
   // History =====================
   server.get(
     "/history/:subject/list",
-    di.Adapters.System.Auth.ShieldAuth.attach,
-    di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.History.HistoryList({ ...di.Adapters.System, HistoryReader: di.Adapters.History.HistoryReader }),
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.History.HistoryList({ ...Adapters.System, HistoryReader: Adapters.History.HistoryReader }),
   );
   // =============================
 
   // Dashboard ===================
   server.get(
     "/dashboard/get",
-    di.Adapters.System.Auth.ShieldAuth.attach,
-    di.Adapters.System.Auth.ShieldAuth.verify,
-    HTTP.GetDashboard({
-      ...di.Adapters.System,
-      WeeklyReviewExport: di.Adapters.Emotions.WeeklyReviewExportQuery,
-    }),
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.GetDashboard({ ...Adapters.System, ...Adapters.Emotions }),
   );
   // =============================
 
   // Auth ========================
   server.on(["POST", "GET"], "/auth/*", async (c) => {
-    const response = await di.Adapters.System.Auth.config.handler(c.req.raw);
+    const response = await Adapters.System.Auth.config.handler(c.req.raw);
 
     if (
       c.req.method === "POST" &&
@@ -198,7 +177,7 @@ export function createServer(di: BootstrapType) {
   });
   // =============================
 
-  server.onError(HTTP.ErrorHandler.handle(di.Adapters.System));
+  server.onError(HTTP.ErrorHandler.handle(Adapters.System));
 
   return server;
 }
