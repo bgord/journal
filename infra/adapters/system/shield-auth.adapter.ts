@@ -56,7 +56,9 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
       async sendVerificationEmail({ user, url }) {
         await deps.Mailer.send({
           to: user.email,
-          ...new Auth.Services.EmailVerificationNotificationComposer(Env.BETTER_AUTH_URL).compose(url),
+          ...new Auth.Services.EmailVerificationNotificationComposer(Env.BETTER_AUTH_URL).compose(
+            tools.UrlWithoutSlash.parse(url),
+          ),
         });
       },
       sendOnSignUp: true,

@@ -9,7 +9,7 @@ describe("EmailVerificationNotificationComposer", async () => {
 
   test("compose", () => {
     const composer = new Auth.Services.EmailVerificationNotificationComposer(di.Env.BETTER_AUTH_URL);
-    const notification = composer.compose("http://example.com");
+    const notification = composer.compose(tools.UrlWithoutSlash.parse("http://example.com"));
 
     expect(notification).toEqual(
       new tools.NotificationTemplate(
