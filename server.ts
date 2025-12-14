@@ -3,11 +3,11 @@ import { Hono } from "hono";
 import { HTTP } from "+app";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
-import type { bootstrap } from "+infra/bootstrap";
+import type { BootstrapType } from "+infra/bootstrap";
 import { ResponseCache } from "+infra/response-cache";
 import { SupportedLanguages } from "./modules/supported-languages";
 
-export function createServer(di: Awaited<ReturnType<typeof bootstrap>>) {
+export function createServer(di: BootstrapType) {
   const server = new Hono<infra.Config>()
     .basePath("/api")
     .use(

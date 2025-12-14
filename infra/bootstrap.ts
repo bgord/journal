@@ -31,3 +31,5 @@ export async function bootstrap(Env: EnvironmentType) {
     Tools: { prerequisites, I18nConfig, ResponseCache },
   };
 }
+
+export type BootstrapType = Awaited<ReturnType<typeof bootstrap>>;

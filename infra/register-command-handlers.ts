@@ -2,13 +2,13 @@ import * as bg from "@bgord/bun";
 import { SUPPORTED_LANGUAGES } from "+languages";
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
-import type { bootstrap } from "+infra/bootstrap";
+import type { BootstrapType } from "+infra/bootstrap";
 import * as PreferencesCommandHandlers from "+preferences/command-handlers";
 import * as PreferencesCommands from "+preferences/commands";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
-export function registerCommandHandlers(di: Awaited<ReturnType<typeof bootstrap>>) {
+export function registerCommandHandlers(di: BootstrapType) {
   di.Adapters.System.CommandBus.on(
     EmotionCommands.CANCEL_ALARM_COMMAND,
     EmotionCommandHandlers.handleCancelAlarmCommand(di.Adapters.Emotions.AlarmRepository),

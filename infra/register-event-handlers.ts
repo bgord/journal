@@ -2,11 +2,11 @@ import { type SUPPORTED_LANGUAGES, SupportedLanguages } from "+languages";
 import * as Preferences from "+preferences";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
-import type { bootstrap } from "+infra/bootstrap";
+import type { BootstrapType } from "+infra/bootstrap";
 import * as Projections from "+infra/projections";
 import * as PublishingPolicies from "+publishing/policies";
 
-export function registerEventHandlers(di: Awaited<ReturnType<typeof bootstrap>>) {
+export function registerEventHandlers(di: BootstrapType) {
   // Projections
   new Projections.EntryProjector(di.Adapters.System);
   new Projections.AlarmProjector(di.Adapters.System);
