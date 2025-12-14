@@ -1,3 +1,4 @@
+import type * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import type { z } from "zod/v4";
 import type * as Auth from "+auth";
@@ -29,7 +30,7 @@ export abstract class Pattern {
 
   abstract check(entries: VO.EntrySnapshot[]): PatternDetectionEventType | null;
 
-  getStream(): string {
+  getStream(): bg.EventStreamType {
     return `weekly_pattern_detection_${this.userId}_${this.week.toIsoId()}`;
   }
 }

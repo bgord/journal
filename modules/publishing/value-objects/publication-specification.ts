@@ -1,8 +1,6 @@
 import { z } from "zod/v4";
 
-export const PublicationSpecificationErrors = {
-  invalid: "publication.specification.invalid",
-};
+export const PublicationSpecificationErrors = { invalid: "publication.specification.invalid" };
 
 const PublicationSpecificationMin = 1;
 const PublicationSpecificationMax = 64;
