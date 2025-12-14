@@ -152,7 +152,7 @@ export const ruleInspection = {
 
 export const head = {
   exists: true,
-  etag: "etag-123",
+  etag: bg.FileEtag.parse("0000000000000000000000000000000000000000000000000000000000000000"),
   size: tools.Size.fromBytes(1234),
   lastModified: T0,
   mime: tools.MIMES.webp,
