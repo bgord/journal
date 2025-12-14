@@ -105,7 +105,6 @@ export function registerCommandHandlers({ Adapters }: BootstrapType) {
 
   Adapters.System.CommandBus.on(
     bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
-    // TODO
     bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
       Adapters.System.EventStore,
       Adapters.System.IdProvider,
