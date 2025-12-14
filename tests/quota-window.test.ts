@@ -9,14 +9,13 @@ describe("QuotaWindow", async () => {
 
   test("DAY", async () => {
     expect(new AI.QuotaWindow(AI.QuotaWindowEnum.DAY).resetsIn(di.Adapters.System.Clock)).toEqual(
-      // TODO
-      tools.Duration.Ms(86399999),
+      tools.Duration.Days(1).subtract(tools.Duration.Ms(1)),
     );
   });
 
   test("WEEK", async () => {
     expect(new AI.QuotaWindow(AI.QuotaWindowEnum.WEEK).resetsIn(di.Adapters.System.Clock)).toEqual(
-      tools.Duration.Ms(431999999),
+      tools.Duration.Days(5).subtract(tools.Duration.Ms(1)),
     );
   });
 
