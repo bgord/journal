@@ -31,7 +31,7 @@ export const EnvironmentSchema = z
     AXIOM_API_TOKEN: z.string().length(41),
     AI_CLIENT_ADAPTER: z.enum(AiClientAdapter),
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
-    BETTER_AUTH_URL: z.url().trim(),
+    BETTER_AUTH_URL: tools.UrlWithoutSlash,
     HCAPTCHA_SECRET_KEY: bg.HCaptchaSecretKey,
     SIGNUP_ENABLED: tools.FeatureFlagValue,
   })
