@@ -48,7 +48,7 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
       async sendResetPassword({ user, url }) {
         await deps.Mailer.send({
           to: user.email,
-          ...new Auth.Services.PasswordResetNotificationComposer().compose(url),
+          ...new Auth.Services.PasswordResetNotificationComposer().compose(tools.UrlWithoutSlash.parse(url)),
         });
       },
     },
