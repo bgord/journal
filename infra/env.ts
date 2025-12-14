@@ -22,7 +22,7 @@ export const EnvironmentSchema = z
     SMTP_PORT: bg.SmtpPort,
     SMTP_USER: bg.SmtpUser,
     SMTP_PASS: bg.SmtpPass,
-    EMAIL_FROM: bg.EmailFrom,
+    EMAIL_FROM: tools.Email,
     TZ: bg.TimezoneUtc,
     BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
