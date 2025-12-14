@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import type * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import type { SUPPORTED_LANGUAGES } from "+languages";
@@ -33,7 +34,7 @@ type Dependencies = {
   EntrySnapshot: Ports.EntrySnapshotPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
-  EMAIL_FROM: bg.EmailFromType;
+  EMAIL_FROM: tools.EmailType;
 };
 
 export class AlarmOrchestrator {

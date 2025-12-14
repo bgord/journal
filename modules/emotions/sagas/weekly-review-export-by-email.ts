@@ -19,7 +19,7 @@ type Dependencies = {
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
   WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
-  EMAIL_FROM: bg.EmailFromType;
+  EMAIL_FROM: tools.EmailType;
 };
 
 export class WeeklyReviewExportByEmail {

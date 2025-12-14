@@ -1,4 +1,5 @@
 import type * as bg from "@bgord/bun";
+import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { SUPPORTED_LANGUAGES } from "+languages";
@@ -11,7 +12,7 @@ type Dependencies = {
   Mailer: bg.MailerPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
-  EMAIL_FROM: bg.EmailFromType;
+  EMAIL_FROM: tools.EmailType;
 };
 
 export class TimeCapsuleEntryNotifier {

@@ -28,7 +28,7 @@ type Dependencies = {
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
-  EMAIL_FROM: bg.EmailFromType;
+  EMAIL_FROM: tools.EmailType;
 };
 
 export class WeeklyReviewProcessing {
