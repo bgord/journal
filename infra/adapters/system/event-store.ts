@@ -11,7 +11,7 @@ import type {
   WeeklyReviewExportByEmailRequestedEvent,
 } from "+emotions/events";
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
-import type { createEventBus } from "+infra/adapters/system/event-bus";
+import type { EventBusType } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
 import * as schema from "+infra/schema";
 import type { ProfileAvatarRemovedEvent, ProfileAvatarUpdatedEvent } from "+preferences/events";
@@ -19,7 +19,7 @@ import type { ShareableLinkEvent } from "+publishing/aggregates";
 import type { ShareableLinkAccessedEvent } from "+publishing/events";
 import type { HourHasPassedEvent } from "+system/events";
 
-type Dependencies = { EventBus: ReturnType<typeof createEventBus> };
+type Dependencies = { EventBus: EventBusType };
 
 export type AcceptedEvent =
   | EntryEvent

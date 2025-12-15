@@ -12,3 +12,5 @@ export function createEventBus(deps: Dependencies) {
     debug: { enabled: true, name: "infra/logger", logger: EventLogger.handle },
   });
 }
+
+export type EventBusType = ReturnType<typeof createEventBus>;
