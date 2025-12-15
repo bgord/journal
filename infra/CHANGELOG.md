@@ -1,7 +1,8 @@
 # Changelog
+- 2025-12-15 20:30 0afd3b27 **step: bump bgord/scripts**
+## 2025-12-15 20:30 
 - 2025-12-15 20:24 fc04b894 **step: add optimisations**
 - 2025-12-15 20:24 6fef7512 **refactor: remove unused action**
-## 2025-12-15 20:24 
 - 2025-12-15 20:22 492d9b79 **step: add optimisations**
 - 2025-12-15 20:22 01458292 **step: bump bgord/scripts**
 - 2025-12-15 19:51 d611e6ca **step: update deploy server**
@@ -13,6 +14,7 @@
 - 2025-12-15 19:30 5cedbfea **step: bump bgord/scripts**
 - 2025-12-15 19:30 5b8834e8 **step: update deploy server**
 - 2025-12-15 19:30 2ed6ab2e **step: add gitleaks local prereq**
+- 2025-12-15 19:24 ed855f47 **docs: generate CHANGELOG**
 - 2025-12-15 19:13 b8ac2915 **step: bump bgord/scripts**
 - 2025-12-15 19:02 7eb8621e **step: install lockfile lint**
 - 2025-12-15 19:02 13cdce0b **step: update packages**
