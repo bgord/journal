@@ -1,13 +1,132 @@
 # Changelog
+- 2025-12-15 10:39 5f21df37 **Merge pull request #52 from bgord/di**
+## 2025-12-15 10:39 
+- 2025-12-15 10:35 db944508 **refactor: remove unnecessary type casting**
+- 2025-12-15 10:19 0f393c2f **refactor: remove unnecessary type casting**
+- 2025-12-15 10:04 a703f426 **step: update packages**
+- 2025-12-15 09:58 650eebba **refactor: simplify EventBusType**
+- 2025-12-14 23:36 f718db98 **refactor: adjust urls**
+- 2025-12-14 23:33 ed279149 **step: update packages**
+- 2025-12-14 23:30 37bbdc88 **fix: tests**
+- 2025-12-14 23:26 5f09dcca **step: adjust url in shield auth adapter**
+- 2025-12-14 23:26 4e5928ac **refactor: adjust better auth url**
+- 2025-12-14 23:24 28a7d5f4 **refactor: adjust user contact types**
+- 2025-12-14 23:21 be3b7171 **refactor: adjust etag type**
+- 2025-12-14 23:19 77f040a3 **refactor: adjust email from types**
+- 2025-12-14 23:17 c39c4661 **step: adjust email from env schema**
+- 2025-12-14 23:17 14cef9e7 **step: adjust bette auth url from env schema**
+- 2025-12-14 23:16 79b9842c **step: update packages**
+- 2025-12-14 19:28 7edc567b **refactor: tighten string types**
+- 2025-12-14 19:20 39db27c1 **refactor: tighten visitor id types**
+- 2025-12-14 19:18 4eabc3c5 **step: update packages**
+- 2025-12-14 18:59 107ba685 **step: adjust handleSetUserLanguageCommand**
+- 2025-12-14 18:57 f6fc19dc **step: update packages**
+- 2025-12-14 18:55 a52dc4ca **refactor: simplify durations**
+- 2025-12-14 18:53 8e9acd9e **refactor: remove todo**
+- 2025-12-14 18:50 4ccc07d2 **refactor: simplify bootstrap usage**
+- 2025-12-14 18:31 acfc0560 **refactor: simplify bootstrap type**
+- 2025-12-14 13:14 f0b10f39 **fix: env**
+- 2025-12-14 13:05 8bd0c627 **refactor: update prereqs**
+- 2025-12-14 13:04 2b3fd47d **step: update packages**
+- 2025-12-14 12:52 fc29dbbb **refactor: unify adapter naming**
+- 2025-12-13 23:06 7f1c47b1 **Merge branch 'master' into di**
+- 2025-12-13 22:59 d03e9dec **step: resolve conflicts**
+- 2025-12-13 21:54 0ccd842e **refactor: simplify event store type**
+- 2025-12-13 21:49 2b27a1a5 **refactor: restore hcaptcha secret key**
+- 2025-12-13 21:46 a75f324d **fix: startup**
+- 2025-12-13 21:44 98d6b2a7 **refactor: simplify infra imports**
+- 2025-12-13 21:31 eac8270e **refactor: remove uneceessary factory functions**
+- 2025-12-13 21:01 590440f9 **refactor: unify UserLanguageOHQ**
+- 2025-12-13 20:59 3fa12285 **refactor: brand env types**
+- 2025-12-13 20:40 0a116fa6 **refactor: remove unused handlers registrations**
+- 2025-12-13 20:34 81eb1db1 **refactor: remove captcha type casting**
+- 2025-12-13 20:32 dfc4637b **step: update packages**
+- 2025-12-13 20:32 137f2c64 **fix: unused exports**
+- 2025-12-13 20:20 16b067a6 **step: make tests pass**
+- 2025-12-13 18:36 7e0507be **fix: tests**
+- 2025-12-13 18:27 3f3de17b **refactor: update mocks**
+- 2025-12-13 18:23 d3b1a020 **refactor: remove index import in tests setup**
+- 2025-12-13 18:22 6df7a916 **fix: shield auth**
+- 2025-12-13 18:21 f7712d43 **fix: ai client**
+- 2025-12-13 18:20 a1fd0967 **refactor: update db seed**
+- 2025-12-13 18:13 c37f87e7 **fix: ai client adapters**
+- 2025-12-13 18:08 c450d94a **refactor: update get dashboard**
+- 2025-12-13 18:06 8bbd7fa1 **fix: email verification notification composer**
+- 2025-12-13 18:05 d89ce7d3 **fix: auth variables**
+- 2025-12-13 18:05 5cd1dcde **refactor: update error handler**
+- 2025-12-13 18:02 ca86ff35 **refactor: update server**
+- 2025-12-13 17:41 8ad44583 **refactor: update http publishing**
+- 2025-12-13 17:39 df0e57f8 **refactor: update http preferences**
+- 2025-12-13 17:39 987a3a50 **refactor: update http history**
+- 2025-12-13 17:36 95b1f502 **refactor: update http emotions**
+- 2025-12-13 17:09 8d2b78e9 **fix: auth api types**
+- 2025-12-13 17:05 ebcd0954 **refactor: update shield rate limit**
+- 2025-12-13 16:59 a5738a0d **refactor: update server.ts**
+- 2025-12-13 16:47 87d83d93 **refactor: update index.ts**
+- 2025-12-13 15:14 6ba6eec5 **refactor: setup register command handlers**
+- 2025-12-13 15:05 544eed59 **refactor: setup sagas in register event handlers**
+- 2025-12-13 15:04 b7715116 **refactor: setup projections in register event handlers**
+- 2025-12-13 14:39 f8825d0f **refactor: adjust projections**
+- 2025-12-13 14:31 dbf6fcbb **refactor: create emotions adapters**
+- 2025-12-13 14:01 48536409 **refactor: create publishing adapters**
+- 2025-12-13 13:51 4c8218e1 **refactor: create history adapters**
+- 2025-12-13 12:36 fea4e329 **refactor: create ai adapters**
+- 2025-12-13 12:27 cbb2b746 **refactor: remove adapters barrel export file**
+- 2025-12-13 12:27 bdc9f434 **refactor: create auth adapters**
+- 2025-12-13 12:23 b9a7ec21 **refactor: update prereq adapters**
+- 2025-12-13 12:18 cba9374f **refactor: update jobs**
+- 2025-12-13 12:17 8e4b3a2a **refactor: update prereqs**
+- 2025-12-13 12:14 ce49aa4e **step: setup bootstrap**
+- 2025-12-13 12:12 6ad2e443 **refactor: update shield rate limiters**
+- 2025-12-13 12:06 42cf3030 **refactor: update shield auth adapter**
+- 2025-12-13 12:02 21472df3 **refactor: update event handler**
+- 2025-12-13 12:01 8a88029e **refactor: update event store**
+- 2025-12-13 12:00 34621d51 **refactor: unify names**
+- 2025-12-13 11:52 6c9ce078 **refactor: remove cache file**
+- 2025-12-13 11:49 d6af9cb3 **refactor: update event bus**
+- 2025-12-13 11:48 552d0d5d **refactor: update command bus**
+- 2025-12-13 11:42 c061accf **refactor: remove startup**
+- 2025-12-13 11:41 9fc6ba3f **refactor: rename hono config**
+- 2025-12-13 11:40 a1bb32be **refactor: simplify infra index**
+- 2025-12-13 11:39 e432002f **refactor: update temporary file**
+- 2025-12-13 11:37 4f0bce86 **refactor: update shield timeout**
+- 2025-12-13 11:36 4ce8c830 **refactor: move basic auth shield**
+- 2025-12-13 11:32 7381590f **refactor: update remote file storage**
+- 2025-12-13 11:26 a7f2d2da **refactor: update image processor**
+- 2025-12-13 11:22 f022bdf4 **refactor: update captcha**
+- 2025-12-13 11:19 7d69d95b **refactor: update file hash**
+- 2025-12-13 11:18 99d04d43 **refactor: update file renamer**
+- 2025-12-13 11:18 04f31f9b **refactor: update file cleaner**
+- 2025-12-13 11:17 094ebcc0 **refactor: update image info**
+- 2025-12-13 11:16 afc29339 **refactor: update mailer**
+- 2025-12-13 11:15 4fc52304 **refactor: update csv stringifier**
+- 2025-12-13 11:14 783864e4 **refactor: update timekeeper**
+- 2025-12-13 11:13 483e79ec **refactor: update id provider**
+- 2025-12-13 11:13 0b06c104 **refactor: update json file reader**
+- 2025-12-13 11:12 f68ec02d **refactor: update disk space checker**
+- 2025-12-13 11:12 2cfec0db **refactor: update logger**
+- 2025-12-13 11:10 a8afb44e **refactor: update clock**
+- 2025-12-13 11:10 88e160d6 **step: setup create system adapters**
+- 2025-12-13 11:09 e476b477 **refactor: update env**
+- 2025-12-13 10:43 4fbff99e **refactor: update temporary file**
+- 2025-12-13 10:42 26b7822d **refactor: adjust remote file storage**
+- 2025-12-13 10:36 ffc8fc61 **refactor: remove mailer adapter env**
+- 2025-12-13 10:35 a1e9979f **step: adjust mailer**
+- 2025-12-13 10:33 228cf25c **step: update packages**
 - 2025-12-13 00:46 a4fe1694 **refactor: unify directory prereqs**
-## 2025-12-13 00:46 
 - 2025-12-13 00:44 ce336997 **step: update packages**
 - 2025-12-13 00:39 bd54a39b **step: update packages**
 - 2025-12-13 00:13 2cc3878b **step: check binaries in prod**
+- 2025-12-13 00:08 a3c086cd **step: update bun**
 - 2025-12-13 00:08 11198c2b **step: update bun**
 - 2025-12-13 00:07 e5effa1b **step: update packages**
+- 2025-12-13 00:07 42be0257 **step: update packages**
+- 2025-12-12 23:47 d7405577 **docs: generate CHANGELOG**
+- 2025-12-12 23:14 779d88d5 **docs: generate CHANGELOG**
 - 2025-12-12 23:14 5170da02 **docs: generate CHANGELOG**
 - 2025-12-12 23:10 ddb8f336 **docs: generate CHANGELOG**
+- 2025-12-12 23:10 9c44b84a **docs: generate CHANGELOG**
+- 2025-12-12 20:17 a3ae8c16 **step: bump bgord/scripts**
 - 2025-12-12 20:17 6e631427 **step: bump bgord/scripts**
 - 2025-12-11 23:13 3f1b0c40 **step: update packages**
 - 2025-12-11 23:10 291a9702 **step: update packages**
@@ -20,6 +139,7 @@
 - 2025-12-11 22:33 b665cb65 **refactor: cleanup prereq**
 - 2025-12-11 22:14 fd6ff814 **refactor: unify logger**
 - 2025-12-11 22:13 1eeb6872 **docs: generate CHANGELOG**
+- 2025-12-11 22:13 19fca111 **docs: generate CHANGELOG**
 - 2025-12-11 22:10 fc194493 **docs: generate CHANGELOG**
 - 2025-12-11 22:10 b5d8c0b8 **step: update packages**
 - 2025-12-11 21:35 f127eac9 **docs: generate readme**
