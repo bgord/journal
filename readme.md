@@ -393,11 +393,6 @@ infra/
 │   ├── auth
 │   │   ├── user-contact.adapter.ts
 │   │   └── user-directory.adapter.ts
-│   ├── captcha.adapter.ts
-│   ├── certificate-inspector.adapter.ts
-│   ├── clock.adapter.ts
-│   ├── csv-stringifier.adapter.ts
-│   ├── disk-space-checker.adapter.ts
 │   ├── emotions
 │   │   ├── alarm-cancellation-lookup.adapter.ts
 │   │   ├── alarm-directory.adapter.ts
@@ -413,22 +408,13 @@ infra/
 │   │   ├── weekly-review-export.adapter.ts
 │   │   ├── weekly-review-repository.adapter.ts
 │   │   └── weekly-review-snapshot.adapter.ts
-│   ├── file-cleaner.adapter.ts
-│   ├── file-hash.adapter.ts
-│   ├── file-renamer.adapter.ts
 │   ├── history
 │   │   ├── history-projection.adapter.ts
 │   │   ├── history-reader.adapter.ts
 │   │   ├── history-writer.adapter.ts
-│   ├── id-provider.adapter.ts
-│   ├── image-info.adapter.ts
-│   ├── image-processor.adapter.ts
-│   ├── json-file-reader.adapter.ts
-│   ├── logger.adapter.ts
-│   ├── mailer.adapter.ts
 │   ├── preferences
-│   │   ├── user-language-query.adapter.ts
-│   │   └── user-language.adapter.ts
+│   │   ├── user-language-ohq.adapter.ts
+│   │   └── user-language-query.adapter.ts
 │   ├── publishing
 │   │   ├── expiring-shareable-links.ts
 │   │   ├── shareable-link-access-auditor.adapter.ts
@@ -436,19 +422,38 @@ infra/
 │   │   ├── shareable-link-repository.adapter.ts
 │   │   ├── shareable-link-snapshot.adapter.ts
 │   │   └── shareable-links-quota.adapter.ts
-│   ├── remote-file-storage.adapter.ts
-│   └── timekeeper.adapter.ts
-├── auth.ts
-├── basic-auth-shield.ts
-├── cache.ts
-├── command-bus.ts
+│   └── system
+│       ├── captcha.adapter.ts
+│       ├── certificate-inspector.adapter.ts
+│       ├── clock.adapter.ts
+│       ├── command-bus.ts
+│       ├── csv-stringifier.adapter.ts
+│       ├── disk-space-checker.adapter.ts
+│       ├── event-bus.ts
+│       ├── event-handler.ts
+│       ├── event-store.ts
+│       ├── file-cleaner.adapter.ts
+│       ├── file-hash.adapter.ts
+│       ├── file-renamer.adapter.ts
+│       ├── id-provider.adapter.ts
+│       ├── image-info.adapter.ts
+│       ├── image-processor.adapter.ts
+│       ├── json-file-reader.adapter.ts
+│       ├── logger.adapter.ts
+│       ├── mailer.adapter.ts
+│       ├── remote-file-storage.adapter.ts
+│       ├── shield-auth.adapter.ts
+│       ├── shield-basic-auth.adapter.ts
+│       ├── shield-rate-limit.adapter.ts
+│       ├── shield-timeout.adapter.ts
+│       ├── temporary-file.adapter.ts
+│       └── timekeeper.adapter.ts
+├── bootstrap.ts
 ├── db.ts
 ├── depcruise.webpack.cjs
 ├── e2e
 │   └── home.spec.ts
 ├── env.ts
-├── event-bus.ts
-├── event-store.ts
 ├── i18n.ts
 ├── jobs.ts
 ├── prerequisites.ts
@@ -464,12 +469,10 @@ infra/
 │   ├── shareable-link-hits.projector.ts
 │   ├── shareable-link.projector.ts
 │   └── weekly-review.projector.ts
-├── rate-limiters.ts
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
 ├── response-cache.ts
 ├── schema.ts
-├── temporary-file.adapter.ts
 └── translations
     ├── en.json
     └── pl.json
