@@ -2,10 +2,10 @@ import { describe, expect, test } from "bun:test";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import { bootstrap } from "+infra/bootstrap";
-import * as mocks from "./mocks";
+import { EnvironmentLoader } from "+infra/env";
 
 describe("QuotaWindow", async () => {
-  const di = await bootstrap(mocks.Env);
+  const di = await bootstrap(await EnvironmentLoader.load());
 
   test("DAY", async () => {
     expect(new AI.QuotaWindow(AI.QuotaWindowEnum.DAY).resetsIn(di.Adapters.System.Clock)).toEqual(

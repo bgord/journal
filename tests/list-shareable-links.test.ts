@@ -1,13 +1,14 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
+import { EnvironmentLoader } from "+infra/env";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
 
 const url = "/api/publishing/links/list";
 
 describe(`GET ${url}`, async () => {
-  const di = await bootstrap(mocks.Env);
+  const di = await bootstrap(await EnvironmentLoader.load());
   const server = createServer(di);
 
   test("validation - AccessDeniedAuthShieldError", async () => {

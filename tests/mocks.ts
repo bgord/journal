@@ -12,13 +12,7 @@ import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type * as System from "+system";
 import type { EntrySnapshotFormatted } from "+app/http/emotions/list-entries";
-import { EnvironmentSchema } from "+infra/env";
 import type * as Schema from "+infra/schema";
-
-export const Env = new bg.EnvironmentValidator({
-  type: bg.NodeEnvironmentEnum.test,
-  schema: EnvironmentSchema,
-}).load(process.env);
 
 // IDs
 export const correlationId = "00000000-0000-0000-0000-000000000000";

@@ -1,10 +1,11 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
+import { EnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 describe("ShareableLinkAccess", async () => {
-  const di = await bootstrap(mocks.Env);
+  const di = await bootstrap(await EnvironmentLoader.load());
 
   test("true", async () => {
     spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);

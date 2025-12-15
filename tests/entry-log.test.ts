@@ -3,6 +3,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
+import { EnvironmentLoader } from "+infra/env";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
 import { createServer } from "../server";
@@ -27,7 +28,7 @@ const reaction = {
 };
 
 describe(`POST ${url}`, async () => {
-  const di = await bootstrap(mocks.Env);
+  const di = await bootstrap(await EnvironmentLoader.load());
   registerEventHandlers(di);
   registerCommandHandlers(di);
   const server = createServer(di);

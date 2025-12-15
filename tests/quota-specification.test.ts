@@ -2,10 +2,11 @@ import { describe, expect, spyOn, test } from "bun:test";
 import { QuotaSpecification } from "+ai/specifications";
 import * as VO from "+ai/value-objects";
 import { bootstrap } from "+infra/bootstrap";
+import { EnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 describe("QuotaSpecification", async () => {
-  const di = await bootstrap(mocks.Env);
+  const di = await bootstrap(await EnvironmentLoader.load());
 
   const specification = new QuotaSpecification(di.Adapters.AI.BucketCounter);
 

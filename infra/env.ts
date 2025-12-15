@@ -8,13 +8,13 @@ export enum AiClientAdapter {
   noop = "noop",
 }
 
-export const OPEN_AI_API_KEY = z.string().min(1).max(256).trim().brand("OPEN_AI_API_KEY");
+const OPEN_AI_API_KEY = z.string().min(1).max(256).trim().brand("OPEN_AI_API_KEY");
 export type OpenAiApiKeyType = z.infer<typeof OPEN_AI_API_KEY>;
 
-export const ANTHROPIC_AI_API_KEY = z.string().min(1).max(256).trim().brand("ANTHROPIC_AI_API_KEY");
+const ANTHROPIC_AI_API_KEY = z.string().min(1).max(256).trim().brand("ANTHROPIC_AI_API_KEY");
 export type AnthropicAiApiKey = z.infer<typeof ANTHROPIC_AI_API_KEY>;
 
-export const EnvironmentSchema = z
+const EnvironmentSchema = z
   .object({
     PORT: bg.Port,
     LOGS_LEVEL: z.enum(bg.LogLevelEnum),
@@ -38,3 +38,8 @@ export const EnvironmentSchema = z
   .strip();
 
 export type EnvironmentType = bg.EnvironmentResultType<typeof EnvironmentSchema>;
+
+export const EnvironmentLoader = new bg.EnvironmentLoaderProcessEnvAdapter(
+  { type: process.env.NODE_ENV, schema: EnvironmentSchema },
+  process.env,
+);

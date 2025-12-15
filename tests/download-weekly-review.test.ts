@@ -2,6 +2,7 @@ import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
+import { EnvironmentLoader } from "+infra/env";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
@@ -9,7 +10,7 @@ import * as testcases from "./testcases";
 const url = `/api/weekly-review/${mocks.weeklyReviewId}/export/download`;
 
 describe(`GET ${url}`, async () => {
-  const di = await bootstrap(mocks.Env);
+  const di = await bootstrap(await EnvironmentLoader.load());
   const server = createServer(di);
 
   test("validation - AccessDeniedAuthShieldError", async () => {

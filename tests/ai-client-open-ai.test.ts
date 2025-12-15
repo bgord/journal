@@ -4,6 +4,7 @@ import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import { AiClientOpenAiAdapter } from "+infra/adapters/ai/ai-client-open-ai.adapter";
 import { bootstrap } from "+infra/bootstrap";
+import { EnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
@@ -13,7 +14,7 @@ const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
 ).generate();
 
 describe("AiClientOpenAi", async () => {
-  const di = await bootstrap(mocks.Env);
+  const di = await bootstrap(await EnvironmentLoader.load());
   const client = new AiClientOpenAiAdapter(di.Env.OPEN_AI_API_KEY);
 
   test("request", async () => {

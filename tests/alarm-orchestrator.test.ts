@@ -4,12 +4,13 @@ import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
+import { EnvironmentLoader } from "+infra/env";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
 import * as mocks from "./mocks";
 
 describe("AlarmOrchestrator", async () => {
-  const di = await bootstrap(mocks.Env);
+  const di = await bootstrap(await EnvironmentLoader.load());
   registerEventHandlers(di);
   registerCommandHandlers(di);
 

@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { bootstrap } from "+infra/bootstrap";
+import { EnvironmentLoader } from "+infra/env";
 import { SupportedLanguages } from "../modules/supported-languages";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
@@ -10,7 +11,7 @@ const en = Bun.file("infra/translations/en.json");
 const pl = Bun.file("infra/translations/pl.json");
 
 describe(`GET ${url}`, async () => {
-  const di = await bootstrap(mocks.Env);
+  const di = await bootstrap(await EnvironmentLoader.load());
   const server = createServer(di);
 
   test("happy path - no language specified", async () => {
