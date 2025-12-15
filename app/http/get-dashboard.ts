@@ -152,7 +152,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
       return {
         t: label.isPositive() ? 1 : 0,
         c: intensity.isExtreme() ? "600" : intensity.isIntensive() ? "400" : "200",
-      } as const;
+      };
     }),
     alarms: {
       inactivity: inactivityAlarmsResponse.map((alarm) => ({

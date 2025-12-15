@@ -30,7 +30,7 @@ const invariants = Object.values({
 export class ErrorHandler {
   static handle: (deps: Dependencies) => hono.ErrorHandler = (deps) => async (error, c) => {
     const url = c.req.url;
-    const correlationId = c.get("requestId") as bg.CorrelationIdType;
+    const correlationId = c.get("requestId");
 
     if (error instanceof HTTPException) {
       if (error.message === "request_timeout_error") {

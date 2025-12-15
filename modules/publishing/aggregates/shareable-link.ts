@@ -130,7 +130,7 @@ export class ShareableLink {
       dateRange: this.dateRange as tools.DateRange,
       publicationSpecification: this.publicationSpecification as VO.PublicationSpecificationType,
       status: this.status,
-    };
+    } as const;
   }
 
   pullEvents(): ShareableLinkEventType[] {
