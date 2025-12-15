@@ -1,10 +1,14 @@
 # Changelog
+- 2025-12-15 12:12 7519cf15 **step: update env**
+## 2025-12-15 12:12 
+- 2025-12-15 12:04 84239848 **step: update packages**
 - 2025-12-15 10:39 5f21df37 **Merge pull request #52 from bgord/di**
-## 2025-12-15 10:39 
 - 2025-12-15 10:35 db944508 **refactor: remove unnecessary type casting**
 - 2025-12-15 10:19 0f393c2f **refactor: remove unnecessary type casting**
 - 2025-12-15 10:04 a703f426 **step: update packages**
 - 2025-12-15 09:58 650eebba **refactor: simplify EventBusType**
+- 2025-12-15 09:39 e1271f80 **docs: generate readme**
+- 2025-12-15 09:39 343e64ae **docs: generate CHANGELOG**
 - 2025-12-14 23:36 f718db98 **refactor: adjust urls**
 - 2025-12-14 23:33 ed279149 **step: update packages**
 - 2025-12-14 23:30 37bbdc88 **fix: tests**
