@@ -70,7 +70,7 @@ export class EntryProjector {
       .update(Schema.entries)
       .set({
         emotionLabel: event.payload.label,
-        emotionIntensity: event.payload.intensity as number,
+        emotionIntensity: event.payload.intensity,
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
@@ -93,7 +93,7 @@ export class EntryProjector {
       .update(Schema.entries)
       .set({
         emotionLabel: event.payload.newLabel,
-        emotionIntensity: event.payload.newIntensity as number,
+        emotionIntensity: event.payload.newIntensity,
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
@@ -123,7 +123,7 @@ export class EntryProjector {
       situationKind: event.payload.situation.kind,
       situationDescription: event.payload.situation.description,
       emotionLabel: event.payload.emotion.label,
-      emotionIntensity: event.payload.emotion.intensity as number,
+      emotionIntensity: event.payload.emotion.intensity,
       reactionDescription: event.payload.reaction.description,
       reactionType: event.payload.reaction.type,
       reactionEffectiveness: event.payload.reaction.effectiveness,

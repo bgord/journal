@@ -52,7 +52,7 @@ export class EntryHistoryPublisher {
     await this.deps.HistoryWriter.populate({
       operation: "entry.emotion.logged",
       subject: event.payload.entryId,
-      payload: { label: event.payload.label, intensity: event.payload.intensity as number },
+      payload: { label: event.payload.label, intensity: event.payload.intensity },
       createdAt: this.deps.Clock.nowMs(),
     });
   }
@@ -74,7 +74,7 @@ export class EntryHistoryPublisher {
     await this.deps.HistoryWriter.populate({
       operation: "entry.emotion.reappraised",
       subject: event.payload.entryId,
-      payload: { label: event.payload.newLabel, intensity: event.payload.newIntensity as number },
+      payload: { label: event.payload.newLabel, intensity: event.payload.newIntensity },
       createdAt: this.deps.Clock.nowMs(),
     });
   }
