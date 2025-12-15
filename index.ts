@@ -1,24 +1,31 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
-import * as infra from "+infra";
-import { Clock } from "+infra/adapters/clock.adapter";
-import { Logger } from "+infra/adapters/logger.adapter";
+import { bootstrap } from "+infra/bootstrap";
 import { db } from "+infra/db";
-import { Env } from "+infra/env";
-import { prerequisites } from "+infra/prerequisites";
-import { server, startup } from "./server";
+import { EnvironmentSchema } from "+infra/env";
+import { registerCommandHandlers } from "+infra/register-command-handlers";
+import { registerEventHandlers } from "+infra/register-event-handlers";
+import { createServer } from "./server";
 import { handler } from "./web/entry-server";
 
-const deps = { Logger: Logger, Clock: Clock };
-
 (async function main() {
-  await new bg.Prerequisites(deps).check(prerequisites);
+  const Env = new bg.EnvironmentValidator({ type: process.env.NODE_ENV, schema: EnvironmentSchema }).load(
+    process.env,
+  );
+
+  const di = await bootstrap(Env);
+  const server = createServer(di);
+
+  await new bg.Prerequisites(di.Adapters.System).check(di.Tools.prerequisites);
   migrate(db, { migrationsFolder: "infra/drizzle" });
 
+  registerEventHandlers(di);
+  registerCommandHandlers(di);
+
   const app = Bun.serve({
-    maxRequestBodySize: infra.BODY_LIMIT_MAX_SIZE,
-    idleTimeout: infra.IDLE_TIMEOUT,
+    maxRequestBodySize: tools.Size.fromKb(128).toBytes(),
+    idleTimeout: tools.Duration.Seconds(10).seconds,
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
       ...bg.StaticFiles.handle(
@@ -32,12 +39,12 @@ const deps = { Logger: Logger, Clock: Clock };
     },
   });
 
-  Logger.info({
+  new bg.GracefulShutdown(di.Adapters.System).applyTo(app);
+
+  di.Adapters.System.Logger.info({
     message: "Server has started",
     component: "infra",
     operation: "server_startup",
-    metadata: { port: Env.PORT, startupTimeMs: startup.stop().ms },
+    metadata: { port: Env.PORT },
   });
-
-  new bg.GracefulShutdown(deps).applyTo(app);
 })();

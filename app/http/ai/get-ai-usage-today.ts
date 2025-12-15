@@ -1,12 +1,12 @@
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as AI from "+ai";
 import type * as infra from "+infra";
-import * as Adapters from "+infra/adapters";
 
-const deps = { Clock: Adapters.Clock, RuleInspector: Adapters.AI.RuleInspector };
+type Dependencies = { Clock: bg.ClockPort; RuleInspector: AI.Ports.RuleInspectorPort };
 
-export async function GetAiUsageToday(c: hono.Context<infra.HonoConfig>) {
+export const GetAiUsageToday = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
   const context = {
@@ -22,4 +22,4 @@ export async function GetAiUsageToday(c: hono.Context<infra.HonoConfig>) {
     ...inspection,
     resetsInHours: new tools.RoundToNearest().round(tools.Duration.Ms(inspection.resetsInMs).hours),
   });
-}
+};

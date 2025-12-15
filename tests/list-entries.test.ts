@@ -2,9 +2,8 @@ import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import { EntrySnapshot } from "+infra/adapters/emotions";
-import { auth } from "+infra/auth";
-import { server } from "../server";
+import { bootstrap } from "+infra/bootstrap";
+import { createServer } from "../server";
 import * as mocks from "./mocks";
 
 const url = "/api/entry/list";
@@ -20,7 +19,10 @@ const allTime = new tools.DateRange(tools.Timestamp.fromNumber(0), today.getEnd(
 
 const emptyQuery = "";
 
-describe(`GET ${url}`, () => {
+describe(`GET ${url}`, async () => {
+  const di = await bootstrap(mocks.Env);
+  const server = createServer(di);
+
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
@@ -29,8 +31,10 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path - default - last_week", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    const entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
+      mocks.fullEntryWithAlarms,
+    ]);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
@@ -41,8 +45,10 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path - today", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    const entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
+      mocks.fullEntryWithAlarms,
+    ]);
 
     const response = await server.request(
       `${url}?filter=${Emotions.VO.EntryListFilterOptions.today}`,
@@ -57,8 +63,10 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path - last_month", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    const entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
+      mocks.fullEntryWithAlarms,
+    ]);
 
     const response = await server.request(
       `${url}?filter=${Emotions.VO.EntryListFilterOptions.last_month}`,
@@ -73,8 +81,10 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path - all_time", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(EntrySnapshot, "getFormatted").mockResolvedValue([mocks.fullEntryWithAlarms]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    const entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
+      mocks.fullEntryWithAlarms,
+    ]);
 
     const response = await server.request(
       `${url}?filter=${Emotions.VO.EntryListFilterOptions.all_time}&query=abc`,

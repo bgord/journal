@@ -1,8 +1,8 @@
 import { absoluteUrl, Cookies } from "@bgord/ui";
-import type { auth } from "../../infra/auth";
+import type { AuthVariables } from "../../infra/adapters/system/shield-auth.adapter";
 
 /** @public */
-export type SessionType = typeof auth.$Infer.Session;
+export type SessionType = AuthVariables;
 
 export class Session {
   private static readonly BASE = "/api/auth/get-session";

@@ -2,11 +2,10 @@ import * as bg from "@bgord/bun";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
-import * as Adapters from "+infra/adapters";
 
-const deps = { RemoteFileStorage: Adapters.RemoteFileStorage };
+type Dependencies = { RemoteFileStorage: bg.RemoteFileStoragePort };
 
-export async function GetProfileAvatar(c: hono.Context<infra.HonoConfig>) {
+export const GetProfileAvatar = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const user = c.get("user");
 
   const key = Preferences.VO.ProfileAvatarKeyFactory.stable(user.id);
@@ -24,4 +23,4 @@ export async function GetProfileAvatar(c: hono.Context<infra.HonoConfig>) {
   if (!stream) return c.notFound();
 
   return new Response(stream, { headers: bg.CacheFileMustRevalidate.fresh(head) });
-}
+};

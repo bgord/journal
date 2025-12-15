@@ -11,7 +11,7 @@ class TimeCapsuleEntryIsPublishableError extends Error {
 }
 
 type TimeCapsuleEntryIsPublishableConfigType = {
-  status: string;
+  status: VO.TimeCapsuleEntryStatusEnum;
   scheduledFor: tools.TimestampValueType;
   now: tools.Timestamp;
 };

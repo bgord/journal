@@ -2,12 +2,14 @@ import * as bg from "@bgord/bun";
 import type hono from "hono";
 import type * as infra from "+infra";
 import { SUPPORTED_LANGUAGES } from "+languages";
-import * as Adapters from "+infra/adapters";
-import { CommandBus } from "+infra/command-bus";
 
-const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommandBus: bg.CommandBusLike<bg.Preferences.Commands.SetUserLanguageCommandType>;
+};
 
-export async function UpdateUserLanguage(c: hono.Context<infra.HonoConfig>) {
+export const UpdateUserLanguage = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
   const body = await bg.safeParseBody(c);
   const language = new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES).ensure(body.language);
@@ -18,7 +20,7 @@ export async function UpdateUserLanguage(c: hono.Context<infra.HonoConfig>) {
     payload: { userId, language },
   } satisfies bg.Preferences.Commands.SetUserLanguageCommandType);
 
-  await CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command.name, command);
 
   return new Response();
-}
+};

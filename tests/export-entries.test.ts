@@ -1,13 +1,15 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { EntrySnapshot } from "+infra/adapters/emotions";
-import { auth } from "+infra/auth";
-import { server } from "../server";
+import { bootstrap } from "+infra/bootstrap";
+import { createServer } from "../server";
 import * as mocks from "./mocks";
 
 const url = "/api/entry/export-entries";
 
-describe(`GET ${url}`, () => {
+describe(`GET ${url}`, async () => {
+  const di = await bootstrap(mocks.Env);
+  const server = createServer(di);
+
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
@@ -16,14 +18,14 @@ describe(`GET ${url}`, () => {
   });
 
   test("validation - dateRangeStart", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(`${url}?dateRangeStart=2025-01-01`, { method: "GET" }, mocks.ip);
     expect(response.status).toEqual(400);
   });
 
   test("validation - dateRangeStart after dateRangeEnd", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-02-01&dateRangeEnd=2025-01-01`,
@@ -36,8 +38,8 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path - text", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02`,
@@ -54,8 +56,8 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path - csv", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=csv`,
@@ -72,8 +74,8 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path - markdown", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=markdown`,
@@ -90,8 +92,8 @@ describe(`GET ${url}`, () => {
   });
 
   test("happy path - pdf", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-01-01&dateRangeEnd=2025-01-02&strategy=pdf`,

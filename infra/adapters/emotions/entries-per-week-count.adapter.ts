@@ -1,11 +1,11 @@
 import type * as tools from "@bgord/tools";
 import { and, eq, gte, lte } from "drizzle-orm";
 import type * as Auth from "+auth";
-import type { EntriesPerWeekCountQuery } from "+emotions/queries/entries-per-week-count";
+import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-class EntriesPerWeekCountDrizzle implements EntriesPerWeekCountQuery {
+class EntriesPerWeekCountQueryDrizzle implements Emotions.Queries.EntriesPerWeekCountQuery {
   async execute(userId: Auth.VO.UserIdType, week: tools.Week) {
     return db.$count(
       Schema.entries,
@@ -18,4 +18,4 @@ class EntriesPerWeekCountDrizzle implements EntriesPerWeekCountQuery {
   }
 }
 
-export const EntriesPerWeekCount = new EntriesPerWeekCountDrizzle();
+export const EntriesPerWeekCountQuery = new EntriesPerWeekCountQueryDrizzle();

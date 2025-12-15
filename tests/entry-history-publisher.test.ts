@@ -1,25 +1,21 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import * as Adapters from "+infra/adapters";
-import { EventBus } from "+infra/event-bus";
-import { EventStore } from "+infra/event-store";
+import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
-const EventHandler = new bg.EventHandler({ Logger: Adapters.Logger });
-const policy = new Emotions.Policies.EntryHistoryPublisher({
-  EventBus,
-  EventHandler,
-  HistoryWriter: Adapters.History.HistoryWriter,
-  Clock: Adapters.Clock,
-});
+describe("EntryAlarmDetector", async () => {
+  const di = await bootstrap(mocks.Env);
+  const policy = new Emotions.Policies.EntryHistoryPublisher({
+    ...di.Adapters.System,
+    HistoryWriter: di.Adapters.History.HistoryWriter,
+  });
 
-describe("EntryAlarmDetector", () => {
   test("onEmotionLoggedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
-    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onSituationLoggedEvent(mocks.GenericSituationLoggedEvent),
@@ -29,9 +25,9 @@ describe("EntryAlarmDetector", () => {
 
   test("onEmotionLoggedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
-    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onEmotionLoggedEvent(mocks.GenericEmotionLoggedEvent),
@@ -41,9 +37,9 @@ describe("EntryAlarmDetector", () => {
 
   test("onReactionLoggedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
-    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onReactionLoggedEvent(mocks.GenericReactionLoggedEvent),
@@ -53,9 +49,9 @@ describe("EntryAlarmDetector", () => {
 
   test("onEmotionReappraisedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
-    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onEmotionReappraisedEvent(mocks.GenericEmotionReappraisedEvent),
@@ -65,9 +61,9 @@ describe("EntryAlarmDetector", () => {
 
   test("onReactionEvaluatedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
-    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onReactionEvaluatedEvent(mocks.GenericReactionEvaluatedEvent),
@@ -77,9 +73,9 @@ describe("EntryAlarmDetector", () => {
 
   test("onEntryDeletedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.historyId]);
-    spyOn(Adapters.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    spyOn(Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),

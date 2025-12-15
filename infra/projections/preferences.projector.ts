@@ -1,13 +1,15 @@
 import * as bg from "@bgord/bun";
+import type { EventBusType } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
-import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
+type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandler };
+
 export class PreferencesProjector {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
-    eventBus.on(
+  constructor(deps: Dependencies) {
+    deps.EventBus.on(
       bg.Preferences.Events.USER_LANGUAGE_SET_EVENT,
-      EventHandler.handle(this.onUserLanguageSetEvent.bind(this)),
+      deps.EventHandler.handle(this.onUserLanguageSetEvent.bind(this)),
     );
   }
 

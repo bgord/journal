@@ -1,13 +1,15 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import * as Adapters from "+infra/adapters";
-import { auth } from "+infra/auth";
-import { server } from "../server";
+import { bootstrap } from "+infra/bootstrap";
+import { createServer } from "../server";
 import * as mocks from "./mocks";
 
 const url = "/api/entry/export-data";
 
-describe("GET /entry/export-data", () => {
+describe("GET /entry/export-data", async () => {
+  const di = await bootstrap(mocks.Env);
+  const server = createServer(di);
+
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
@@ -16,9 +18,9 @@ describe("GET /entry/export-data", () => {
   });
 
   test("happy path", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(Adapters.Emotions.EntrySnapshot, "getAllForuser").mockResolvedValue([mocks.fullEntry]);
-    spyOn(Adapters.Emotions.AlarmDirectory, "listForUser").mockResolvedValue([mocks.alarm]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getAllForuser").mockResolvedValue([mocks.fullEntry]);
+    spyOn(di.Adapters.Emotions.AlarmDirectory, "listForUser").mockResolvedValue([mocks.alarm]);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 

@@ -1,12 +1,14 @@
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, count, desc, eq, gte, isNotNull, not, sql } from "drizzle-orm";
 import type hono from "hono";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import * as Adapters from "+infra/adapters";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+
+type Dependencies = { Clock: bg.ClockPort; WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport };
 
 type DashboardAlarmInactivityType = Pick<Emotions.VO.AlarmSnapshot, "id" | "advice" | "inactivityDays"> & {
   generatedAt: string;
@@ -45,9 +47,7 @@ export type DashboardDataType = {
   weeklyReviews: DashboardWeeklyReviewType[];
 };
 
-const deps = { Clock: Adapters.Clock, WeeklyReviewExport: Adapters.Emotions.WeeklyReviewExport };
-
-export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
+export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
   const today = tools.Day.fromNow(deps.Clock.now()).getStart();
@@ -142,7 +142,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
     await getTopEmotionsSince(allTime),
   ]);
 
-  const weeklyReviews = await deps.WeeklyReviewExport.listFull(userId, 5);
+  const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, 5);
 
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {
@@ -152,7 +152,7 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
       return {
         t: label.isPositive() ? 1 : 0,
         c: intensity.isExtreme() ? "600" : intensity.isIntensive() ? "400" : "200",
-      } as const;
+      };
     }),
     alarms: {
       inactivity: inactivityAlarmsResponse.map((alarm) => ({
@@ -188,4 +188,4 @@ export async function GetDashboard(c: hono.Context<infra.HonoConfig>) {
   };
 
   return c.json(result);
-}
+};

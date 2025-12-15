@@ -1,13 +1,16 @@
 import OAI from "openai";
 import * as AI from "+ai";
-import { Env } from "+infra/env";
-
-/** @public */
-export const OpenAI = new OAI({ apiKey: Env.OPEN_AI_API_KEY });
+import type { OpenAiApiKeyType } from "+infra/env";
 
 export class AiClientOpenAiAdapter implements AI.AiClientPort {
+  readonly OpenAI: OAI;
+
+  constructor(OPEN_AI_API_KEY: OpenAiApiKeyType) {
+    this.OpenAI = new OAI({ apiKey: OPEN_AI_API_KEY });
+  }
+
   async request(prompt: AI.Prompt) {
-    const response = await OpenAI.responses.create({
+    const response = await this.OpenAI.responses.create({
       model: "gpt-4o",
       instructions: prompt.read()[0].content,
       input: prompt.read()[1].content,

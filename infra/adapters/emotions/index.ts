@@ -1,13 +1,46 @@
-export * from "./alarm-cancellation-lookup.adapter";
-export * from "./alarm-directory.adapter";
-export * from "./alarm-repository.adapter";
-export * from "./entries-per-week-count.adapter";
-export * from "./entries-sharing.adapter";
-export * from "./entry-repository.adapter";
-export * from "./entry-snapshot.adapter";
-export * from "./get-latest-entry-timestamp-for-user.adapter";
-export * from "./pdf-generator.adapter";
-export * from "./time-capsule-due-entries.adapter";
-export * from "./weekly-review-export.adapter";
-export * from "./weekly-review-repository.adapter";
-export * from "./weekly-review-snapshot.adapter";
+import type * as bg from "@bgord/bun";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
+import type { EnvironmentType } from "+infra/env";
+import { AlarmCancellationLookup } from "./alarm-cancellation-lookup.adapter";
+import { AlarmDirectory } from "./alarm-directory.adapter";
+import { createAlarmRepository } from "./alarm-repository.adapter";
+import { EntriesPerWeekCountQuery } from "./entries-per-week-count.adapter";
+import { EntriesSharingOHQ } from "./entries-sharing.adapter";
+import { createEntryRepository } from "./entry-repository.adapter";
+import { EntrySnapshot } from "./entry-snapshot.adapter";
+import { GetLatestEntryTimestampForUserQuery } from "./get-latest-entry-timestamp-for-user.adapter";
+import { createPdfGenerator } from "./pdf-generator.adapter";
+import { TimeCapsuleDueEntries } from "./time-capsule-due-entries.adapter";
+import { WeeklyReviewExportQuery } from "./weekly-review-export.adapter";
+import { createWeeklyReviewRepository } from "./weekly-review-repository.adapter";
+import { WeeklyReviewSnapshot } from "./weekly-review-snapshot.adapter";
+
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  EventStore: EventStoreType;
+  Logger: bg.LoggerPort;
+};
+
+export function createEmotionsAdapters(Env: EnvironmentType, deps: Dependencies) {
+  const AlarmRepository = createAlarmRepository(deps);
+  const EntryRepository = createEntryRepository(deps);
+  const WeeklyReviewRepository = createWeeklyReviewRepository(deps);
+  const PdfGenerator = createPdfGenerator(Env, deps);
+
+  return {
+    AlarmCancellationLookup,
+    AlarmDirectory,
+    AlarmRepository,
+    EntriesPerWeekCountQuery,
+    EntriesSharingOHQ,
+    EntryRepository,
+    EntrySnapshot,
+    GetLatestEntryTimestampForUserQuery,
+    TimeCapsuleDueEntries,
+    WeeklyReviewExportQuery,
+    WeeklyReviewRepository,
+    WeeklyReviewSnapshot,
+    PdfGenerator,
+  };
+}

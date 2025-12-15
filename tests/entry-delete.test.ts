@@ -2,15 +2,21 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import { auth } from "+infra/auth";
-import { EventStore } from "+infra/event-store";
-import { server } from "../server";
+import { bootstrap } from "+infra/bootstrap";
+import { registerCommandHandlers } from "+infra/register-command-handlers";
+import { registerEventHandlers } from "+infra/register-event-handlers";
+import { createServer } from "../server";
 import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
 const url = `/api/entry/${mocks.entryId}/delete`;
 
-describe(`DELETE ${url}`, () => {
+describe(`DELETE ${url}`, async () => {
+  const di = await bootstrap(mocks.Env);
+  registerEventHandlers(di);
+  registerCommandHandlers(di);
+  const server = createServer(di);
+
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "DELETE" }, mocks.ip);
     const json = await response.json();
@@ -19,7 +25,7 @@ describe(`DELETE ${url}`, () => {
   });
 
   test("validation - incorrect id", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       "/api/entry/id/delete",
@@ -32,8 +38,8 @@ describe(`DELETE ${url}`, () => {
   });
 
   test("validation - EntryHasBeenStarted", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(EventStore, "find").mockResolvedValue([]);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([]);
 
     const response = await server.request(
       url,
@@ -44,9 +50,9 @@ describe(`DELETE ${url}`, () => {
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
 
     const response = await server.request(
       url,
@@ -57,10 +63,10 @@ describe(`DELETE ${url}`, () => {
   });
 
   test("happy path - after situation", async () => {
-    spyOn(EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -72,13 +78,13 @@ describe(`DELETE ${url}`, () => {
   });
 
   test("happy path - after emotion", async () => {
-    spyOn(EventStore, "find").mockResolvedValue([
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -90,14 +96,14 @@ describe(`DELETE ${url}`, () => {
   });
 
   test("happy path - after reaction", async () => {
-    spyOn(EventStore, "find").mockResolvedValue([
+    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
     ]);
-    spyOn(auth.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const eventStoreSave = spyOn(EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

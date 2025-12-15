@@ -13,8 +13,8 @@ type Dependencies = {
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  UserDirectory: Auth.OHQ.UserDirectoryOHQ;
-  GetLatestEntryTimestampForUser: Emotions.Queries.GetLatestEntryTimestampForUser;
+  UserDirectoryOHQ: Auth.OHQ.UserDirectoryOHQ;
+  GetLatestEntryTimestampForUserQuery: Emotions.Queries.GetLatestEntryTimestampForUser;
 };
 
 export class InactivityAlarmScheduler {
@@ -28,10 +28,10 @@ export class InactivityAlarmScheduler {
   async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
     if (Emotions.Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
-    const userIds = await this.deps.UserDirectory.listActiveUserIds();
+    const userIds = await this.deps.UserDirectoryOHQ.listActiveUserIds();
 
     for (const userId of userIds) {
-      const lastEntryTimestamp = await this.deps.GetLatestEntryTimestampForUser.execute(userId);
+      const lastEntryTimestamp = await this.deps.GetLatestEntryTimestampForUserQuery.execute(userId);
 
       if (
         Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp, now: event.payload.timestamp })

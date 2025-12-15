@@ -1,10 +1,16 @@
 import type { AIEvents, AiEventPublisherPort } from "+ai/ports/ai-event-publisher";
-import { EventStore } from "+infra/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
+
+type Dependencies = { EventStore: EventStoreType };
 
 class AiEventStorePublisherInternal implements AiEventPublisherPort {
+  constructor(private readonly deps: Dependencies) {}
+
   async publish(events: AIEvents[]) {
-    await EventStore.save(events);
+    await this.deps.EventStore.save(events);
   }
 }
 
-export const AiEventStorePublisher = new AiEventStorePublisherInternal();
+export function createAiEventPublisher(deps: Dependencies): AiEventPublisherPort {
+  return new AiEventStorePublisherInternal(deps);
+}

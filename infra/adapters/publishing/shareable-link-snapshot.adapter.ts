@@ -1,22 +1,21 @@
 import * as tools from "@bgord/tools";
 import { and, desc, eq, sql } from "drizzle-orm";
 import type * as Auth from "+auth";
+import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { ShareableLinkSnapshotPort } from "+publishing/ports";
-import * as VO from "+publishing/value-objects";
 
-class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
+class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnapshotPort {
   async getByUserId(
     userId: Auth.VO.UserIdType,
     timeZoneOffsetMs: tools.DurationMsType,
-  ): Promise<VO.ShareableLinkSnapshot[]> {
-    const result: VO.ShareableLinkSnapshot[] = [];
+  ): Promise<Publishing.VO.ShareableLinkSnapshot[]> {
+    const result: Publishing.VO.ShareableLinkSnapshot[] = [];
 
     const shareableLinks = await db.query.shareableLinks.findMany({
       where: and(eq(Schema.shareableLinks.ownerId, userId), eq(Schema.shareableLinks.hidden, false)),
       orderBy: [
-        sql`CASE ${Schema.shareableLinks.status} WHEN ${VO.ShareableLinkStatusEnum.active} THEN 0 ELSE 1 END`,
+        sql`CASE ${Schema.shareableLinks.status} WHEN ${Publishing.VO.ShareableLinkStatusEnum.active} THEN 0 ELSE 1 END`,
         desc(Schema.shareableLinks.createdAt),
       ],
       limit: 5,
@@ -51,7 +50,7 @@ class ShareableLinkSnapshotDrizzle implements ShareableLinkSnapshotPort {
   static format(shareableLink: Schema.SelectShareableLinks, timeZoneOffsetMs: tools.DurationMsType) {
     return {
       ...shareableLink,
-      status: shareableLink.status as VO.ShareableLinkStatusEnum,
+      status: shareableLink.status as Publishing.VO.ShareableLinkStatusEnum,
       dateRangeStart: tools.DateFormatters.datetime(shareableLink.dateRangeStart + timeZoneOffsetMs),
       dateRangeEnd: tools.DateFormatters.datetime(shareableLink.dateRangeEnd + timeZoneOffsetMs),
       expiresAt: tools.DateFormatters.datetime(shareableLink.expiresAt + timeZoneOffsetMs),

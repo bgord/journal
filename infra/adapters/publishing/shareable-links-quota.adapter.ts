@@ -1,22 +1,21 @@
 import { and, eq } from "drizzle-orm";
 import type * as Auth from "+auth";
+import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { ShareableLinksQuotaQuery } from "+publishing/queries";
-import * as VO from "+publishing/value-objects";
 
-class ShareableLinksQuotaDrizzle implements ShareableLinksQuotaQuery {
+class ShareableLinksQuotaQueryDrizzle implements Publishing.Queries.ShareableLinksQuotaQuery {
   async execute(ownerId: Auth.VO.UserIdType) {
     return {
       count: await db.$count(
         Schema.shareableLinks,
         and(
           eq(Schema.shareableLinks.ownerId, ownerId),
-          eq(Schema.shareableLinks.status, VO.ShareableLinkStatusEnum.active),
+          eq(Schema.shareableLinks.status, Publishing.VO.ShareableLinkStatusEnum.active),
         ),
       ),
     };
   }
 }
 
-export const ShareableLinksQuota = new ShareableLinksQuotaDrizzle();
+export const ShareableLinksQuotaQuery = new ShareableLinksQuotaQueryDrizzle();

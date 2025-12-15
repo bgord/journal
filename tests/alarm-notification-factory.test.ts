@@ -2,15 +2,17 @@ import { describe, expect, spyOn, test } from "bun:test";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
-import * as Adapters from "+infra/adapters";
+import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
-describe("AlarmNotificationFactory", () => {
+describe("AlarmNotificationFactory", async () => {
+  const di = await bootstrap(mocks.Env);
+
   test("entry - en", async () => {
-    spyOn(Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
 
     const result = await new Emotions.Services.AlarmNotificationFactory(
-      Adapters.Emotions.EntrySnapshot,
+      di.Adapters.Emotions.EntrySnapshot,
       SupportedLanguages.en,
     ).create(mocks.entryDetection, mocks.advice);
 
@@ -23,10 +25,10 @@ describe("AlarmNotificationFactory", () => {
   });
 
   test("entry - pl", async () => {
-    spyOn(Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
 
     const result = await new Emotions.Services.AlarmNotificationFactory(
-      Adapters.Emotions.EntrySnapshot,
+      di.Adapters.Emotions.EntrySnapshot,
       SupportedLanguages.pl,
     ).create(mocks.entryDetection, mocks.advice);
 
@@ -40,7 +42,7 @@ describe("AlarmNotificationFactory", () => {
 
   test("inactivity - en", async () => {
     const result = await new Emotions.Services.AlarmNotificationFactory(
-      Adapters.Emotions.EntrySnapshot,
+      di.Adapters.Emotions.EntrySnapshot,
       SupportedLanguages.en,
     ).create(mocks.inactivityDetection, mocks.advice);
 
@@ -54,7 +56,7 @@ describe("AlarmNotificationFactory", () => {
 
   test("inactivity - pl", async () => {
     const result = await new Emotions.Services.AlarmNotificationFactory(
-      Adapters.Emotions.EntrySnapshot,
+      di.Adapters.Emotions.EntrySnapshot,
       SupportedLanguages.pl,
     ).create(mocks.inactivityDetection, mocks.advice);
 

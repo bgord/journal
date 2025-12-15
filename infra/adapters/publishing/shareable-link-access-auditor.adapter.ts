@@ -1,9 +1,11 @@
+import type * as bg from "@bgord/bun";
 import * as Publishing from "+publishing";
-import { Clock, IdProvider } from "+infra/adapters";
-import { EventStore } from "+infra/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
 
-export const ShareableLinkAccessAuditor = new Publishing.Ports.ShareableLinkAccessAuditorAdapter({
-  EventStore,
-  IdProvider,
-  Clock,
-});
+type Dependencies = { Clock: bg.ClockPort; IdProvider: bg.IdProviderPort; EventStore: EventStoreType };
+
+export function createShareableLinkAccessAuditor(
+  deps: Dependencies,
+): Publishing.Ports.ShareableLinkAccessAuditorAdapter {
+  return new Publishing.Ports.ShareableLinkAccessAuditorAdapter(deps);
+}

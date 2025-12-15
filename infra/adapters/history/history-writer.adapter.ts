@@ -1,9 +1,8 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Adapters from "+infra/adapters";
-import { EventStore } from "+infra/event-store";
+import type { EventStoreType } from "+infra/adapters/system/event-store";
 
-type Dependencies = { EventStore: typeof EventStore; IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+type Dependencies = { EventStore: EventStoreType; IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   constructor(private readonly deps: Dependencies) {}
@@ -29,8 +28,6 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   }
 }
 
-export const HistoryWriter = new HistoryWriterEventStore({
-  EventStore,
-  IdProvider: Adapters.IdProvider,
-  Clock: Adapters.Clock,
-});
+export function createHistoryWriter(deps: Dependencies): bg.History.Ports.HistoryWriterPort {
+  return new HistoryWriterEventStore(deps);
+}

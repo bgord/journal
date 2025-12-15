@@ -39,15 +39,15 @@ export class TimeCapsuleEntriesScheduler {
           entryId: entry.id,
           situation: new Emotions.Entities.Situation(
             new Emotions.VO.SituationDescription(entry.situationDescription),
-            new Emotions.VO.SituationKind(entry.situationKind as Emotions.VO.SituationKindOptions),
+            new Emotions.VO.SituationKind(entry.situationKind),
           ),
           emotion: new Emotions.Entities.Emotion(
-            new Emotions.VO.EmotionLabel(entry.emotionLabel as Emotions.VO.GenevaWheelEmotion),
+            new Emotions.VO.EmotionLabel(entry.emotionLabel),
             new Emotions.VO.EmotionIntensity(entry.emotionIntensity),
           ),
           reaction: new Emotions.Entities.Reaction(
             new Emotions.VO.ReactionDescription(entry.reactionDescription),
-            new Emotions.VO.ReactionType(entry.reactionType as Emotions.VO.ReactionTypeType),
+            new Emotions.VO.ReactionType(entry.reactionType),
             new Emotions.VO.ReactionEffectiveness(entry.reactionEffectiveness),
           ),
           userId: entry.userId,

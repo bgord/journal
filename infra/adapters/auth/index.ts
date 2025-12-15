@@ -1,2 +1,6 @@
-export * from "./user-contact.adapter";
-export * from "./user-directory.adapter";
+import { UserContactOHQ } from "./user-contact.adapter";
+import { UserDirectoryOHQ } from "./user-directory.adapter";
+
+export function createAuthAdapters() {
+  return { UserContactOHQ, UserDirectoryOHQ };
+}

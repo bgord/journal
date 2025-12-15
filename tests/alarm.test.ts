@@ -2,14 +2,14 @@ import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import * as Adapters from "+infra/adapters";
+import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
-const deps = { IdProvider: Adapters.IdProvider, Clock: Adapters.Clock };
+describe("Alarm", async () => {
+  const di = await bootstrap(mocks.Env);
 
-describe("Alarm", () => {
   test("build new aggregate", () => {
-    expect(Emotions.Aggregates.Alarm.build(mocks.alarmId, [], deps).pullEvents()).toEqual([]);
+    expect(Emotions.Aggregates.Alarm.build(mocks.alarmId, [], di.Adapters.System).pullEvents()).toEqual([]);
   });
 
   test("generate - correct path", async () => {
@@ -20,7 +20,7 @@ describe("Alarm", () => {
         mocks.alarmId,
         mocks.entryDetection,
         mocks.userId,
-        deps,
+        di.Adapters.System,
       );
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmGeneratedEvent]);
     });
@@ -29,7 +29,11 @@ describe("Alarm", () => {
   test("saveAdvice - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
 
-    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent], deps);
+    const alarm = Emotions.Aggregates.Alarm.build(
+      mocks.alarmId,
+      [mocks.GenericAlarmGeneratedEvent],
+      di.Adapters.System,
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       alarm.saveAdvice(mocks.advice);
@@ -41,7 +45,7 @@ describe("Alarm", () => {
     const alarm = Emotions.Aggregates.Alarm.build(
       mocks.alarmId,
       [mocks.GenericAlarmGeneratedEvent, mocks.GenericAlarmAdviceSavedEvent],
-      deps,
+      di.Adapters.System,
     );
 
     expect(async () => alarm.saveAdvice(mocks.advice)).toThrow(
@@ -56,7 +60,7 @@ describe("Alarm", () => {
     const alarm = Emotions.Aggregates.Alarm.build(
       mocks.alarmId,
       [mocks.GenericAlarmGeneratedEvent, mocks.GenericAlarmAdviceSavedEvent],
-      deps,
+      di.Adapters.System,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -66,7 +70,11 @@ describe("Alarm", () => {
   });
 
   test("notify - AlarmAdviceAvailable", async () => {
-    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent], deps);
+    const alarm = Emotions.Aggregates.Alarm.build(
+      mocks.alarmId,
+      [mocks.GenericAlarmGeneratedEvent],
+      di.Adapters.System,
+    );
 
     expect(async () => alarm.notify()).toThrow(Emotions.Invariants.AlarmAdviceAvailable.error);
     expect(alarm.pullEvents()).toEqual([]);
@@ -80,7 +88,7 @@ describe("Alarm", () => {
         mocks.GenericAlarmAdviceSavedEvent,
         mocks.GenericAlarmNotificationRequestedEvent,
       ],
-      deps,
+      di.Adapters.System,
     );
 
     expect(async () => alarm.notify()).toThrow(Emotions.Invariants.AlarmAdviceAvailable.error);
@@ -95,7 +103,7 @@ describe("Alarm", () => {
         mocks.GenericAlarmAdviceSavedEvent,
         mocks.GenericAlarmNotificationRequestedEvent,
       ],
-      deps,
+      di.Adapters.System,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -105,7 +113,11 @@ describe("Alarm", () => {
   });
 
   test("complete - AlarmNotificationRequested", async () => {
-    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [mocks.GenericAlarmGeneratedEvent], deps);
+    const alarm = Emotions.Aggregates.Alarm.build(
+      mocks.alarmId,
+      [mocks.GenericAlarmGeneratedEvent],
+      di.Adapters.System,
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(async () => alarm.complete()).toThrow(Emotions.Invariants.AlarmNotificationRequested.error);
@@ -116,7 +128,7 @@ describe("Alarm", () => {
     const alarm = Emotions.Aggregates.Alarm.build(
       mocks.alarmId,
       [mocks.GenericAlarmGeneratedEvent, mocks.GenericAlarmAdviceSavedEvent],
-      deps,
+      di.Adapters.System,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -134,7 +146,7 @@ describe("Alarm", () => {
         mocks.GenericAlarmNotificationRequestedEvent,
         mocks.GenericAlarmCancelledEvent,
       ],
-      deps,
+      di.Adapters.System,
     );
 
     expect(async () => alarm.cancel()).toThrow(Emotions.Invariants.AlarmIsCancellable.error);

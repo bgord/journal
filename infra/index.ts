@@ -1,23 +1,13 @@
 import type * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
-import { HTTPException } from "hono/http-exception";
 import type { TimingVariables } from "hono/timing";
-import type { AuthVariables } from "./auth";
-import type { I18nVariables } from "./i18n";
+import type { AuthVariables } from "+infra/adapters/system/shield-auth.adapter";
+import type { I18nVariables } from "+infra/i18n";
 
-export const requestTimeoutError = new HTTPException(408, {
-  message: "request_timeout_error",
-});
-
-type Variables = TimingVariables &
-  bg.TimeZoneOffsetVariables &
-  bg.ContextVariables &
-  bg.EtagVariables &
-  I18nVariables &
-  AuthVariables;
-
-export type HonoConfig = { Variables: Variables; startup: tools.Stopwatch };
-
-export const BODY_LIMIT_MAX_SIZE = tools.Size.fromKb(128).toBytes();
-
-export const IDLE_TIMEOUT = tools.Duration.Seconds(10).seconds;
+export type Config = {
+  Variables: TimingVariables &
+    bg.TimeZoneOffsetVariables &
+    bg.ContextVariables &
+    bg.EtagVariables &
+    I18nVariables &
+    AuthVariables;
+};

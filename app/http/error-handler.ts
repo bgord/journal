@@ -6,7 +6,8 @@ import z from "zod/v4";
 import * as Emotions from "+emotions";
 import * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
-import { Logger } from "+infra/adapters";
+
+type Dependencies = { Logger: bg.LoggerPort };
 
 const validationErrors = [
   Emotions.VO.SituationDescription.Errors.invalid,
@@ -27,9 +28,9 @@ const invariants = Object.values({
 });
 
 export class ErrorHandler {
-  static handle: hono.ErrorHandler = async (error, c) => {
+  static handle: (deps: Dependencies) => hono.ErrorHandler = (deps) => async (error, c) => {
     const url = c.req.url;
-    const correlationId = c.get("requestId") as bg.CorrelationIdType;
+    const correlationId = c.get("requestId");
 
     if (error instanceof HTTPException) {
       if (error.message === "request_timeout_error") {
@@ -77,7 +78,7 @@ export class ErrorHandler {
       const validationError = error.issues.find((issue) => validationErrors.includes(issue.message));
 
       if (validationError) {
-        Logger.error({
+        deps.Logger.error({
           message: "Expected validation error",
           component: "http",
           operation: "validation",
@@ -93,7 +94,7 @@ export class ErrorHandler {
         return c.json({ message: validationError.message, _known: true }, 400);
       }
 
-      Logger.error({
+      deps.Logger.error({
         message: "Invalid payload",
         component: "http",
         operation: "invalid_payload",
@@ -108,7 +109,7 @@ export class ErrorHandler {
     const invariantErrorHandler = new bg.InvariantErrorHandler(invariants).detect(error);
 
     if (invariantErrorHandler.error) {
-      Logger.error({
+      deps.Logger.error({
         message: "Domain error",
         component: "http",
         operation: invariantErrorHandler.error.message,
@@ -119,7 +120,7 @@ export class ErrorHandler {
       return c.json(...bg.InvariantErrorHandler.respond(invariantErrorHandler.error));
     }
 
-    Logger.error({
+    deps.Logger.error({
       message: "Unknown error",
       component: "http",
       operation: "unknown_error",

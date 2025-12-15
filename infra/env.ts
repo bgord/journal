@@ -8,12 +8,13 @@ export enum AiClientAdapter {
   noop = "noop",
 }
 
-export enum MailerAdapter {
-  smtp = "smtp",
-  noop = "noop",
-}
+export const OPEN_AI_API_KEY = z.string().min(1).max(256).trim().brand("OPEN_AI_API_KEY");
+export type OpenAiApiKeyType = z.infer<typeof OPEN_AI_API_KEY>;
 
-const EnvironmentSchema = z
+export const ANTHROPIC_AI_API_KEY = z.string().min(1).max(256).trim().brand("ANTHROPIC_AI_API_KEY");
+export type AnthropicAiApiKey = z.infer<typeof ANTHROPIC_AI_API_KEY>;
+
+export const EnvironmentSchema = z
   .object({
     PORT: bg.Port,
     LOGS_LEVEL: z.enum(bg.LogLevelEnum),
@@ -21,23 +22,19 @@ const EnvironmentSchema = z
     SMTP_PORT: bg.SmtpPort,
     SMTP_USER: bg.SmtpUser,
     SMTP_PASS: bg.SmtpPass,
-    EMAIL_FROM: bg.EmailFrom,
+    EMAIL_FROM: tools.Email,
     TZ: bg.TimezoneUtc,
     BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
-    OPEN_AI_API_KEY: z.string().min(1).max(256).trim(),
-    ANTHROPIC_AI_API_KEY: z.string().min(1).max(256).trim(),
+    OPEN_AI_API_KEY,
+    ANTHROPIC_AI_API_KEY,
     AXIOM_API_TOKEN: z.string().length(41),
     AI_CLIENT_ADAPTER: z.enum(AiClientAdapter),
-    MAILER_ADAPTER: z.enum(MailerAdapter),
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
-    BETTER_AUTH_URL: z.url().trim(),
-    HCAPTCHA_SECRET_KEY: z.string().trim(),
+    BETTER_AUTH_URL: tools.UrlWithoutSlash,
+    HCAPTCHA_SECRET_KEY: bg.HCaptchaSecretKey,
     SIGNUP_ENABLED: tools.FeatureFlagValue,
   })
   .strip();
 
-export const Env = new bg.EnvironmentValidator({
-  type: process.env.NODE_ENV,
-  schema: EnvironmentSchema,
-}).load(process.env);
+export type EnvironmentType = bg.EnvironmentResultType<typeof EnvironmentSchema>;

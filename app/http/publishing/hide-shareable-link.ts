@@ -5,7 +5,7 @@ import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-export async function HideShareableLink(c: hono.Context<infra.HonoConfig>) {
+export const HideShareableLink = () => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
 
@@ -21,4 +21,4 @@ export async function HideShareableLink(c: hono.Context<infra.HonoConfig>) {
     );
 
   return new Response();
-}
+};

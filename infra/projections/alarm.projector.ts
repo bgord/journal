@@ -2,31 +2,33 @@ import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import * as Emotions from "+emotions";
+import type { EventBusType } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
-import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
+type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandler };
+
 export class AlarmProjector {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
-    eventBus.on(
+  constructor(deps: Dependencies) {
+    deps.EventBus.on(
       Emotions.Events.ALARM_GENERATED_EVENT,
-      EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)),
+      deps.EventHandler.handle(this.onAlarmGeneratedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
-      EventHandler.handle(this.onAlarmAdviceSavedEvent.bind(this)),
+      deps.EventHandler.handle(this.onAlarmAdviceSavedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
-      EventHandler.handle(this.onAlarmNotificationRequestedEvent.bind(this)),
+      deps.EventHandler.handle(this.onAlarmNotificationRequestedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
-      EventHandler.handle(this.onAlarmNotificationSentEvent.bind(this)),
+      deps.EventHandler.handle(this.onAlarmNotificationSentEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.ALARM_CANCELLED_EVENT,
-      EventHandler.handle(this.onAlarmCancelledEvent.bind(this)),
+      deps.EventHandler.handle(this.onAlarmCancelledEvent.bind(this)),
     );
   }
 

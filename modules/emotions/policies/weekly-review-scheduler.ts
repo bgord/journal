@@ -13,7 +13,7 @@ type Dependencies = {
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  UserDirectory: Auth.OHQ.UserDirectoryOHQ;
+  UserDirectoryOHQ: Auth.OHQ.UserDirectoryOHQ;
 };
 
 export class WeeklyReviewScheduler {
@@ -29,7 +29,7 @@ export class WeeklyReviewScheduler {
 
     const week = tools.Week.fromTimestampValue(event.payload.timestamp).previous();
 
-    const userIds = await this.deps.UserDirectory.listActiveUserIds();
+    const userIds = await this.deps.UserDirectoryOHQ.listActiveUserIds();
 
     for (const userId of userIds) {
       const command = Emotions.Commands.RequestWeeklyReviewCommand.parse({

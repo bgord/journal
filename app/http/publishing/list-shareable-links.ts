@@ -1,14 +1,19 @@
+import type * as bg from "@bgord/bun";
 import type hono from "hono";
 import type * as infra from "+infra";
-import * as Adapters from "+infra/adapters";
+import type * as Publishing from "+publishing";
 
-const deps = { ShareableLinkSnapshot: Adapters.Publishing.ShareableLinkSnapshot };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  ShareableLinkSnapshot: Publishing.Ports.ShareableLinkSnapshotPort;
+};
 
-export async function ListShareableLinks(c: hono.Context<infra.HonoConfig>) {
+export const ListShareableLinks = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
   const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
 
   const shareableLinks = await deps.ShareableLinkSnapshot.getByUserId(userId, timeZoneOffsetMs);
 
   return c.json(shareableLinks);
-}
+};

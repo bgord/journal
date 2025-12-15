@@ -1,14 +1,17 @@
 import Anthropic from "@anthropic-ai/sdk";
 import * as AI from "+ai";
-import { Env } from "+infra/env";
-
-/** @public */
-export const AnthropicAi = new Anthropic({ apiKey: Env.ANTHROPIC_AI_API_KEY });
+import type { AnthropicAiApiKey } from "+infra/env";
 
 /** @public */
 export class AiClientAnthropicAdapter implements AI.AiClientPort {
+  readonly Anthropic: Anthropic;
+
+  constructor(ANTHROPIC_AI_API_KEY: AnthropicAiApiKey) {
+    this.Anthropic = new Anthropic({ apiKey: ANTHROPIC_AI_API_KEY });
+  }
+
   async request(prompt: AI.Prompt) {
-    const message = await AnthropicAi.messages.create({
+    const message = await this.Anthropic.messages.create({
       max_tokens: AI.AiClientPort.maxLength,
       messages: [prompt.read()[1]],
       system: prompt.read()[0].content,

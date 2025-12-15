@@ -2,37 +2,39 @@ import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import * as Emotions from "+emotions";
+import type { EventBusType } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
-import type { EventBus } from "+infra/event-bus";
 import * as Schema from "+infra/schema";
 
+type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandler };
+
 export class EntryProjector {
-  constructor(eventBus: typeof EventBus, EventHandler: bg.EventHandler) {
-    eventBus.on(
+  constructor(deps: Dependencies) {
+    deps.EventBus.on(
       Emotions.Events.SITUATION_LOGGED_EVENT,
-      EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
+      deps.EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.EMOTION_LOGGED_EVENT,
-      EventHandler.handle(this.onEmotionLoggedEvent.bind(this)),
+      deps.EventHandler.handle(this.onEmotionLoggedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.REACTION_LOGGED_EVENT,
-      EventHandler.handle(this.onReactionLoggedEvent.bind(this)),
+      deps.EventHandler.handle(this.onReactionLoggedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.EMOTION_REAPPRAISED_EVENT,
-      EventHandler.handle(this.onEmotionReappraisedEvent.bind(this)),
+      deps.EventHandler.handle(this.onEmotionReappraisedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.REACTION_EVALUATED_EVENT,
-      EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
+      deps.EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.ENTRY_DELETED_EVENT,
-      EventHandler.handle(this.onEntryDeletedEvent.bind(this)),
+      deps.EventHandler.handle(this.onEntryDeletedEvent.bind(this)),
     );
-    eventBus.on(
+    deps.EventBus.on(
       Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
       this.onTimeCapsuleEntryScheduledEvent.bind(this),
     );
@@ -68,7 +70,7 @@ export class EntryProjector {
       .update(Schema.entries)
       .set({
         emotionLabel: event.payload.label,
-        emotionIntensity: event.payload.intensity as number,
+        emotionIntensity: event.payload.intensity,
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
@@ -91,7 +93,7 @@ export class EntryProjector {
       .update(Schema.entries)
       .set({
         emotionLabel: event.payload.newLabel,
-        emotionIntensity: event.payload.newIntensity as number,
+        emotionIntensity: event.payload.newIntensity,
         revision: event.revision,
       })
       .where(eq(Schema.entries.id, event.payload.entryId));
@@ -121,7 +123,7 @@ export class EntryProjector {
       situationKind: event.payload.situation.kind,
       situationDescription: event.payload.situation.description,
       emotionLabel: event.payload.emotion.label,
-      emotionIntensity: event.payload.emotion.intensity as number,
+      emotionIntensity: event.payload.emotion.intensity,
       reactionDescription: event.payload.reaction.description,
       reactionType: event.payload.reaction.type,
       reactionEffectiveness: event.payload.reaction.effectiveness,

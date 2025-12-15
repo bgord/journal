@@ -1,17 +1,18 @@
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import * as Adapters from "+infra/adapters";
 
-const deps = {
-  Clock: Adapters.Clock,
-  Stringifier: Adapters.CsvStringifier,
-  PdfGenerator: Adapters.Emotions.PdfGenerator,
-  EntrySnapshot: Adapters.Emotions.EntrySnapshot,
+type Dependencies = {
+  Clock: bg.ClockPort;
+  IdProvider: bg.IdProviderPort;
+  CsvStringifier: bg.CsvStringifierPort;
+  PdfGenerator: bg.PdfGeneratorPort;
+  EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
 };
 
-export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
+export const ExportEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
   const timeZoneOffset = c.get("timeZoneOffset");
 
@@ -30,4 +31,4 @@ export async function ExportEntries(c: hono.Context<infra.HonoConfig>) {
     markdown: new Emotions.Services.EntryExportFileMarkdown(entries, deps),
     pdf: new Emotions.Services.EntryExportFilePdf(entries, deps),
   }[strategy].toResponse();
-}
+};

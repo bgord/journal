@@ -9,7 +9,7 @@ class WeeklyReviewIsCompletedError extends Error {
   }
 }
 
-type WeeklyReviewIsCompletedConfigType = { status?: string };
+type WeeklyReviewIsCompletedConfigType = { status?: VO.WeeklyReviewStatusEnum };
 
 class WeeklyReviewIsCompletedFactory extends bg.Invariant<WeeklyReviewIsCompletedConfigType> {
   fails(config: WeeklyReviewIsCompletedConfigType) {

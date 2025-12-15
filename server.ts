@@ -1,199 +1,183 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import { Hono } from "hono";
-import { timeout } from "hono/timeout";
 import { HTTP } from "+app";
-import * as infra from "+infra";
+import type * as infra from "+infra";
 import * as Preferences from "+preferences";
-import * as Adapters from "+infra/adapters";
-import { AuthShield, auth } from "+infra/auth";
-import { BasicAuthShield } from "+infra/basic-auth-shield";
-import { Env } from "+infra/env";
-import { I18nConfig } from "+infra/i18n";
-import { prerequisites } from "+infra/prerequisites";
-import * as RateLimiters from "+infra/rate-limiters";
+import type { BootstrapType } from "+infra/bootstrap";
 import { ResponseCache } from "+infra/response-cache";
 import { SupportedLanguages } from "./modules/supported-languages";
 
-import "+infra/register-event-handlers";
-import "+infra/register-command-handlers";
+export function createServer({ Adapters, Tools }: BootstrapType) {
+  const server = new Hono<infra.Config>()
+    .basePath("/api")
+    .use(
+      ...bg.Setup.essentials(
+        { ...Adapters.System, I18n: Tools.I18nConfig },
+        { httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] } },
+      ),
+    );
 
-const Deps = {
-  Logger: Adapters.Logger,
-  I18n: I18nConfig,
-  IdProvider: Adapters.IdProvider,
-  Clock: Adapters.Clock,
-  JsonFileReader: Adapters.JsonFileReader,
-};
-const TranslationsDeps = { JsonFileReader: Adapters.JsonFileReader, Logger: Adapters.Logger };
+  // Healthcheck =================
+  server.get(
+    "/healthcheck",
+    Adapters.System.ShieldRateLimit.Healthcheck.verify,
+    Adapters.System.ShieldTimeout.verify,
+    Adapters.System.ShieldBasicAuth.verify,
+    ...bg.Healthcheck.build(Tools.prerequisites, Adapters.System),
+  );
+  // =============================
 
-const production = Env.type === bg.NodeEnvironmentEnum.production;
-const server = new Hono<infra.HonoConfig>().basePath("/api");
+  // Emotions ====================
+  const entry = new Hono();
 
-server.use(
-  ...bg.Setup.essentials(Deps, {
-    httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
-  }),
-);
+  entry.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
+  entry.post("/log", HTTP.Emotions.LogEntry(Adapters.System));
+  entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry(Adapters.System));
+  entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion(Adapters.System));
+  entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction(Adapters.System));
+  entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry(Adapters.System));
+  entry.get(
+    "/export-data",
+    Adapters.System.ShieldRateLimit.EntryDataExport.verify,
+    HTTP.Emotions.ExportData({ ...Adapters.System, ...Adapters.Emotions }),
+  );
+  entry.get(
+    "/export-entries",
+    Adapters.System.ShieldRateLimit.EntryExportEntries.verify,
+    HTTP.Emotions.ExportEntries({ ...Adapters.System, ...Adapters.Emotions }),
+  );
+  entry.get("/list", HTTP.Emotions.ListEntries({ ...Adapters.System, ...Adapters.Emotions }));
+  server.route("/entry", entry);
+  // =============================
 
-const startup = new tools.Stopwatch(Adapters.Clock.now());
+  // Shared ======================
+  server.get(
+    "/shared/entries/:shareableLinkId",
+    HTTP.Emotions.GetSharedEntries({
+      ...Adapters.System,
+      ShareableLinkAccessOHQ: Adapters.Publishing.ShareableLinkAccessOHQ,
+      EntriesSharing: Adapters.Emotions.EntriesSharingOHQ,
+    }),
+  );
 
-// Healthcheck =================
-server.get(
-  "/healthcheck",
-  new bg.ShieldRateLimitAdapter(
-    { enabled: production, subject: bg.AnonSubjectResolver, store: RateLimiters.HealthcheckStore },
-    Deps,
-  ).verify,
-  timeout(tools.Duration.Seconds(15).ms, infra.requestTimeoutError),
-  BasicAuthShield,
-  ...bg.Healthcheck.build(prerequisites, Deps),
-);
-// =============================
+  // Weekly review ===============
+  const weeklyReview = new Hono();
 
-// Emotions ====================
-const entry = new Hono();
+  weeklyReview.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
+  weeklyReview.post(
+    "/:weeklyReviewId/export/email",
+    Adapters.System.ShieldRateLimit.WeeklyReviewExportEmail.verify,
+    HTTP.Emotions.ExportWeeklyReviewByEmail(Adapters.System),
+  );
+  weeklyReview.get(
+    "/:weeklyReviewId/export/download",
+    Adapters.System.ShieldRateLimit.WeeklyReviewExportDownload.verify,
+    HTTP.Emotions.DownloadWeeklyReview({ ...Adapters.System, ...Adapters.Emotions }),
+  );
+  server.route("/weekly-review", weeklyReview);
+  // =============================
 
-entry.use("*", AuthShield.attach, AuthShield.verify);
-entry.post("/log", HTTP.Emotions.LogEntry);
-entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry);
-entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion);
-entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction);
-entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry);
-entry.get(
-  "/export-data",
-  new bg.ShieldRateLimitAdapter(
-    { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesDataStore },
-    Deps,
-  ).verify,
-  HTTP.Emotions.ExportData,
-);
-entry.get(
-  "/export-entries",
-  new bg.ShieldRateLimitAdapter(
-    { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.EntriesEntriesStore },
-    Deps,
-  ).verify,
-  HTTP.Emotions.ExportEntries,
-);
-entry.get("/list", HTTP.Emotions.ListEntries);
-server.route("/entry", entry);
-// =============================
+  // Publishing ==================
+  const publishing = new Hono();
 
-// Shared ======================
-server.get("/shared/entries/:shareableLinkId", HTTP.Emotions.GetSharedEntries);
+  publishing.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
+  publishing.get(
+    "/links/list",
+    HTTP.Publishing.ListShareableLinks({ ...Adapters.System, ...Adapters.Publishing }),
+  );
+  publishing.post(
+    "/link/create",
+    Adapters.System.ShieldRateLimit.PublishingLinkCreate.verify,
+    HTTP.Publishing.CreateShareableLink(Adapters.System),
+  );
+  publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink(Adapters.System));
+  publishing.post("/link/:shareableLinkId/hide", HTTP.Publishing.HideShareableLink());
+  server.route("/publishing", publishing);
+  // =============================
 
-// Weekly review ===============
-const weeklyReview = new Hono();
+  //Translations =================
+  server.get(
+    "/translations",
+    ResponseCache.handle,
+    ...bg.Translations.build(SupportedLanguages, Adapters.System),
+  );
+  // =============================
 
-weeklyReview.use("*", AuthShield.attach, AuthShield.verify);
-weeklyReview.post(
-  "/:weeklyReviewId/export/email",
-  new bg.ShieldRateLimitAdapter(
-    {
-      enabled: production,
-      subject: bg.UserSubjectResolver,
-      store: RateLimiters.WeeklyReviewExportEmailStore,
-    },
-    Deps,
-  ).verify,
-  HTTP.Emotions.ExportWeeklyReviewByEmail,
-);
-weeklyReview.get(
-  "/:weeklyReviewId/export/download",
-  new bg.ShieldRateLimitAdapter(
-    {
-      enabled: production,
-      subject: bg.UserSubjectResolver,
-      store: RateLimiters.WeeklyReviewExportDownloadStore,
-    },
-    Deps,
-  ).verify,
-  HTTP.Emotions.DownloadWeeklyReview,
-);
-server.route("/weekly-review", weeklyReview);
-// =============================
+  //Preferences =================
+  server.post(
+    "/preferences/user-language/update",
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.Preferences.UpdateUserLanguage(Adapters.System),
+  );
+  server.post(
+    "/preferences/profile-avatar/update",
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    ...bg.FileUploader.validate({
+      mimeTypes: Preferences.VO.ProfileAvatarMimeTypes,
+      maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
+    }),
+    HTTP.Preferences.UpdateProfileAvatar(Adapters.System),
+  );
+  server.get(
+    "/profile-avatar/get",
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.Preferences.GetProfileAvatar(Adapters.System),
+  );
+  server.delete(
+    "/preferences/profile-avatar",
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.Preferences.RemoveProfileAvatar(Adapters.System),
+  );
+  // =============================
 
-// Publishing ==================
-const publishing = new Hono();
+  // AI ==========================
+  server.get(
+    "/ai-usage-today/get",
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.AI.GetAiUsageToday({ ...Adapters.System, ...Adapters.AI }),
+  );
+  // =============================
 
-publishing.use("*", AuthShield.attach, AuthShield.verify);
-publishing.get("/links/list", HTTP.Publishing.ListShareableLinks);
-publishing.post(
-  "/link/create",
-  new bg.ShieldRateLimitAdapter(
-    { enabled: production, subject: bg.UserSubjectResolver, store: RateLimiters.ShareableLinkCreateStore },
-    Deps,
-  ).verify,
-  HTTP.Publishing.CreateShareableLink,
-);
-publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink);
-publishing.post("/link/:shareableLinkId/hide", HTTP.Publishing.HideShareableLink);
-server.route("/publishing", publishing);
-// =============================
+  // History =====================
+  server.get(
+    "/history/:subject/list",
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.History.HistoryList({ ...Adapters.System, HistoryReader: Adapters.History.HistoryReader }),
+  );
+  // =============================
 
-//Translations =================
-server.get(
-  "/translations",
-  ResponseCache.handle,
-  ...bg.Translations.build(SupportedLanguages, TranslationsDeps),
-);
-// =============================
+  // Dashboard ===================
+  server.get(
+    "/dashboard/get",
+    Adapters.System.Auth.ShieldAuth.attach,
+    Adapters.System.Auth.ShieldAuth.verify,
+    HTTP.GetDashboard({ ...Adapters.System, ...Adapters.Emotions }),
+  );
+  // =============================
 
-//Preferences =================
-server.post(
-  "/preferences/user-language/update",
-  AuthShield.attach,
-  AuthShield.verify,
-  HTTP.Preferences.UpdateUserLanguage,
-);
-server.post(
-  "/preferences/profile-avatar/update",
-  AuthShield.attach,
-  AuthShield.verify,
-  ...bg.FileUploader.validate({
-    mimeTypes: Preferences.VO.ProfileAvatarMimeTypes,
-    maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
-  }),
-  HTTP.Preferences.UpdateProfileAvatar,
-);
-server.get("/profile-avatar/get", AuthShield.attach, AuthShield.verify, HTTP.Preferences.GetProfileAvatar);
-server.delete(
-  "/preferences/profile-avatar",
-  AuthShield.attach,
-  AuthShield.verify,
-  HTTP.Preferences.RemoveProfileAvatar,
-);
-// =============================
+  // Auth ========================
+  server.on(["POST", "GET"], "/auth/*", async (c) => {
+    const response = await Adapters.System.Auth.config.handler(c.req.raw);
 
-// AI ==========================
-server.get("/ai-usage-today/get", AuthShield.attach, AuthShield.verify, HTTP.AI.GetAiUsageToday);
-// =============================
+    if (
+      c.req.method === "POST" &&
+      c.req.path === "/api/auth/sign-out" &&
+      [200, 302].includes(response.status)
+    ) {
+      return c.redirect("/public/login.html");
+    }
 
-// History =====================
-server.get("/history/:subject/list", AuthShield.attach, AuthShield.verify, HTTP.History.HistoryList);
-// =============================
+    return response;
+  });
+  // =============================
 
-// Dashboard ===================
-server.get("/dashboard/get", AuthShield.attach, AuthShield.verify, HTTP.GetDashboard);
-// =============================
+  server.onError(HTTP.ErrorHandler.handle(Adapters.System));
 
-// Auth ========================
-server.on(["POST", "GET"], "/auth/*", async (c) => {
-  const response = await auth.handler(c.req.raw);
-
-  if (
-    c.req.method === "POST" &&
-    c.req.path === "/api/auth/sign-out" &&
-    [200, 302].includes(response.status)
-  ) {
-    return c.redirect("/public/login.html");
-  }
-
-  return response;
-});
-// =============================
-
-server.onError(HTTP.ErrorHandler.handle);
-
-export { server, startup };
+  return server;
+}

@@ -1,23 +1,21 @@
 import * as tools from "@bgord/tools";
 import { desc, eq } from "drizzle-orm";
 import type * as Auth from "+auth";
-import type {
-  WeeklyReviewExportDtoAlarmFields,
-  WeeklyReviewExportDtoEntryFields,
-  WeeklyReviewExportDtoPatternDetectionFields,
-  WeeklyReviewExport as WeeklyReviewExportQuery,
-} from "+emotions/queries";
+import type * as Emotions from "+emotions";
 import type * as VO from "+emotions/value-objects";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 type WeeklyReviewExportDrizzleResultType = Schema.SelectWeeklyReviews & {
-  entries: Pick<Schema.SelectEntries, WeeklyReviewExportDtoEntryFields>[];
-  alarms: Pick<Schema.SelectAlarms, WeeklyReviewExportDtoAlarmFields>[];
-  patternDetections: Pick<Schema.SelectPatternDetections, WeeklyReviewExportDtoPatternDetectionFields>[];
+  entries: Pick<Schema.SelectEntries, Emotions.Queries.WeeklyReviewExportDtoEntryFields>[];
+  alarms: Pick<Schema.SelectAlarms, Emotions.Queries.WeeklyReviewExportDtoAlarmFields>[];
+  patternDetections: Pick<
+    Schema.SelectPatternDetections,
+    Emotions.Queries.WeeklyReviewExportDtoPatternDetectionFields
+  >[];
 };
 
-class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
+class WeeklyReviewExportQueryDrizzle implements Emotions.Queries.WeeklyReviewExport {
   async getFull(id: VO.WeeklyReviewIdType) {
     const result = await db.query.weeklyReviews.findFirst({
       where: eq(Schema.weeklyReviews.id, id),
@@ -57,7 +55,7 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
     });
 
     if (!result) return undefined;
-    return WeeklyReviewExportDrizzle.format(result);
+    return WeeklyReviewExportQueryDrizzle.format(result);
   }
 
   async listFull(userId: Auth.VO.UserIdType, limit: number) {
@@ -99,7 +97,7 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
       limit,
     });
 
-    return weeklyReviews.map((result) => WeeklyReviewExportDrizzle.format(result));
+    return weeklyReviews.map((result) => WeeklyReviewExportQueryDrizzle.format(result));
   }
 
   static format(result: WeeklyReviewExportDrizzleResultType) {
@@ -131,4 +129,4 @@ class WeeklyReviewExportDrizzle implements WeeklyReviewExportQuery {
   }
 }
 
-export const WeeklyReviewExport = new WeeklyReviewExportDrizzle();
+export const WeeklyReviewExportQuery = new WeeklyReviewExportQueryDrizzle();

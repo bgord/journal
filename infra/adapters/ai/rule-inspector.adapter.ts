@@ -1,13 +1,15 @@
+import type * as bg from "@bgord/bun";
 import { eq } from "drizzle-orm";
 import type { RuleInspectorPort } from "+ai/ports";
 import type * as VO from "+ai/value-objects";
-import { Clock } from "+infra/adapters/clock.adapter";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-const deps = { Clock };
+type Dependencies = { Clock: bg.ClockPort };
 
 class RuleInspectorDrizzle implements RuleInspectorPort {
+  constructor(private readonly deps: Dependencies) {}
+
   async inspect(rule: VO.QuotaRule, context: VO.RequestContext) {
     const result = await db.query.aiUsageCounters.findFirst({
       columns: { count: true },
@@ -22,10 +24,11 @@ class RuleInspectorDrizzle implements RuleInspectorPort {
       limit: rule.limit,
       count,
       remaining: rule.limit - count,
-      resetsInMs: rule.window.resetsIn(deps.Clock).ms,
+      resetsInMs: rule.window.resetsIn(this.deps.Clock).ms,
     };
   }
 }
 
-/** @public */
-export const RuleInspector = new RuleInspectorDrizzle();
+export function createRuleInspector(deps: Dependencies): RuleInspectorPort {
+  return new RuleInspectorDrizzle(deps);
+}

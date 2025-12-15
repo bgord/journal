@@ -1,11 +1,11 @@
-import type { UserDirectoryOHQ } from "+auth/open-host-queries";
+import type * as Auth from "+auth";
 import { db } from "+infra/db";
 
-class UserDirectoryDrizzle implements UserDirectoryOHQ {
+class UserDirectoryOHQDrizzle implements Auth.OHQ.UserDirectoryOHQ {
   async listActiveUserIds() {
     const rows = await db.query.users.findMany({ columns: { id: true } });
     return rows.map((r) => r.id);
   }
 }
 
-export const UserDirectory = new UserDirectoryDrizzle();
+export const UserDirectoryOHQ = new UserDirectoryOHQDrizzle();
