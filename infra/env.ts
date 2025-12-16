@@ -14,7 +14,7 @@ export type OpenAiApiKeyType = z.infer<typeof OPEN_AI_API_KEY>;
 const ANTHROPIC_AI_API_KEY = z.string().min(1).max(256).trim().brand("ANTHROPIC_AI_API_KEY");
 export type AnthropicAiApiKey = z.infer<typeof ANTHROPIC_AI_API_KEY>;
 
-const EnvironmentSchema = z
+const Schema = z
   .object({
     PORT: bg.Port,
     LOGS_LEVEL: z.enum(bg.LogLevelEnum),
@@ -37,9 +37,8 @@ const EnvironmentSchema = z
   })
   .strip();
 
-export type EnvironmentType = bg.EnvironmentResultType<typeof EnvironmentSchema>;
+export type EnvironmentType = bg.EnvironmentResultType<typeof Schema>;
 
-export const EnvironmentLoader = new bg.EnvironmentLoaderProcessEnvAdapter(
-  { type: process.env.NODE_ENV, schema: EnvironmentSchema },
-  process.env,
-);
+const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
+
+export const EnvironmentLoader = new bg.EnvironmentLoaderProcessAdapter({ type, Schema }, process.env);
