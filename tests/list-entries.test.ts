@@ -3,7 +3,6 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
-import { createEnvironmentLoader } from "+infra/env";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
 
@@ -17,8 +16,7 @@ const allTime = new tools.DateRange(tools.Timestamp.fromNumber(0), today.getEnd(
 const emptyQuery = "";
 
 describe(`GET ${url}`, async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
   const server = createServer(di);
 
   test("validation - AccessDeniedAuthShieldError", async () => {

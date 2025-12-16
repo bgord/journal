@@ -3,7 +3,6 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Preferences from "+preferences";
 import { bootstrap } from "+infra/bootstrap";
-import { createEnvironmentLoader } from "+infra/env";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
 import { createServer } from "../server";
@@ -25,8 +24,7 @@ const form = { "Content-Type": `multipart/form-data; boundary=${boundary}` };
 const file = new TextEncoder().encode(content);
 
 describe(`POST ${url}`, async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
   registerEventHandlers(di);
   registerCommandHandlers(di);
   const server = createServer(di);

@@ -5,13 +5,16 @@ import { createHistoryAdapters } from "+infra/adapters/history";
 import { createPreferencesAdapters } from "+infra/adapters/preferences";
 import { createPublishingAdapters } from "+infra/adapters/publishing";
 import { createSystemAdapters } from "+infra/adapters/system";
-import type { EnvironmentType } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 import { I18nConfig } from "+infra/i18n";
 import { createJobs } from "+infra/jobs";
 import { createPrerequisites } from "+infra/prerequisites";
 import { ResponseCache } from "+infra/response-cache";
 
-export async function bootstrap(Env: EnvironmentType) {
+export async function bootstrap() {
+  const EnvironmentLoader = await createEnvironmentLoader();
+  const Env = await EnvironmentLoader.load();
+
   const System = createSystemAdapters(Env);
 
   const AI = createAuthAdapter(Env, System);

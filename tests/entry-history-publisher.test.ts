@@ -2,12 +2,10 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
-import { createEnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 describe("EntryAlarmDetector", async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
   const policy = new Emotions.Policies.EntryHistoryPublisher({
     ...di.Adapters.System,
     HistoryWriter: di.Adapters.History.HistoryWriter,

@@ -2,15 +2,13 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
 import { db } from "+infra/db";
-import { createEnvironmentLoader } from "+infra/env";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
 
 const url = `/api/publishing/link/${mocks.shareableLinkId}/hide`;
 
 describe(`POST ${url}`, async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
   const server = createServer(di);
 
   test("validation - AccessDeniedAuthShieldError", async () => {

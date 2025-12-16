@@ -3,14 +3,12 @@ import * as bg from "@bgord/bun";
 import { SupportedLanguages } from "+languages";
 import * as Preferences from "+preferences";
 import { bootstrap } from "+infra/bootstrap";
-import { createEnvironmentLoader } from "+infra/env";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
 import * as mocks from "./mocks";
 
 describe("SetDefaultUserLanguage", async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
   registerEventHandlers(di);
   registerCommandHandlers(di);
 

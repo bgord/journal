@@ -2,12 +2,10 @@ import { describe, expect, test } from "bun:test";
 import { text } from "node:stream/consumers";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
-import { createEnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 describe("AlarmExportFileCsv", async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
 
   test("generates a CSV", async () => {
     const file = new Emotions.Services.AlarmExportFileCsv([mocks.alarm], di.Adapters.System);

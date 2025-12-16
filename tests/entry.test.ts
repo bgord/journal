@@ -3,7 +3,6 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
-import { createEnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 const situation = new Emotions.Entities.Situation(
@@ -30,8 +29,7 @@ const newReaction = new Emotions.Entities.Reaction(
 );
 
 describe("entry", async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
 
   test("build new aggregate", () => {
     const entry = Emotions.Aggregates.Entry.build(mocks.entryId, [], di.Adapters.System);

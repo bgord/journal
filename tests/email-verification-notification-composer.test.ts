@@ -2,11 +2,9 @@ import { describe, expect, test } from "bun:test";
 import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import { bootstrap } from "+infra/bootstrap";
-import { createEnvironmentLoader } from "+infra/env";
 
 describe("EmailVerificationNotificationComposer", async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
 
   test("compose", () => {
     const composer = new Auth.Services.EmailVerificationNotificationComposer(di.Env.BETTER_AUTH_URL);

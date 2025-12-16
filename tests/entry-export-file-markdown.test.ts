@@ -1,12 +1,10 @@
 import { describe, expect, test } from "bun:test";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
-import { createEnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 describe("EntryExportFileMarkdown", async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
 
   test("generates a CSV", async () => {
     const file = new Emotions.Services.EntryExportFileMarkdown([mocks.fullEntry], di.Adapters.System);

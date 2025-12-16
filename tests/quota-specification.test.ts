@@ -2,12 +2,10 @@ import { describe, expect, spyOn, test } from "bun:test";
 import { QuotaSpecification } from "+ai/specifications";
 import * as VO from "+ai/value-objects";
 import { bootstrap } from "+infra/bootstrap";
-import { createEnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 describe("QuotaSpecification", async () => {
-  const EnvironmentLoader = createEnvironmentLoader();
-  const di = await bootstrap(await EnvironmentLoader.load());
+  const di = await bootstrap();
   const specification = new QuotaSpecification(di.Adapters.AI.BucketCounter);
 
   test("EmotionsAlarmEntryContext - no violations", async () => {
