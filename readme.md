@@ -39,6 +39,14 @@ Run the tests
 ./bgord-scripts/test-run.sh
 ```
 
+Generate production master key
+
+Master key fils hould include 64 hex characters
+
+```
+bun run bgord-scripts/secrets-encrypt.ts --master-key /run/master-key.txt --input /project/path/.env.production --output /project/path/infra/secrets.enc
+```
+
 ## Domain:
 
 ```
