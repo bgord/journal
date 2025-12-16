@@ -25,10 +25,6 @@ step_start "Packages install"
 bun install --production --no-save --exact
 step_end "Packages install"
 
-step_start ".env.production copy"
-cp .env.production $OUTPUT_DIRECTORY
-step_end ".env.production copy"
-
 step_start "scripts/production-server-{start,backup}.sh copy"
 cp scripts/production-server-{start,backup}.sh $OUTPUT_DIRECTORY
 step_end "scripts/production-server-{start,backup}.sh copy"
@@ -60,7 +56,7 @@ step_end "Temporary file directory directory create"
 ./bgord-scripts/web-build-vite.sh
 
 step_start "App compile"
-bun build --compile --production --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
+bun build --no-compile-autoload-dotenv --compile --production --minify --sourcemap index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"
 
 ./bgord-scripts/css-purge.sh
