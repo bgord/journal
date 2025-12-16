@@ -60,7 +60,7 @@ export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPor
     ),
     [bg.NodeEnvironmentEnum.production]: new bg.EnvironmentLoaderEncryptedAdapter(
       // TODO: Add to prereqs
-      { type, Schema, path: tools.FilePathRelative.fromString("infra/secrets.txt") },
+      { type, Schema, path: tools.FilePathAbsolute.fromString("/var/www/journal/infra/secrets.txt") },
       { Encryption },
     ),
   }[type];
