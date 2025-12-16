@@ -15,8 +15,6 @@ export async function bootstrap() {
   const EnvironmentLoader = await createEnvironmentLoader();
   const Env = await EnvironmentLoader.load();
 
-  console.log(Env);
-
   const System = createSystemAdapters(Env);
 
   const AI = createAuthAdapter(Env, System);
