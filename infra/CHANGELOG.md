@@ -1,6 +1,7 @@
 # Changelog
+- 2025-12-17 00:09 c563434f **step: restore --no-compile-autoload-dotenv**
+## 2025-12-17 00:09 
 - 2025-12-17 00:06 e4895f94 **fix: set port explicitly**
-## 2025-12-17 00:06 
 - 2025-12-16 23:52 19603bd9 **step: remove no-compile-autoload-dotenv**
 - 2025-12-16 23:44 499aaae6 **fix: .env.production file check**
 - 2025-12-16 23:40 af0eca72 **step: adjust production server build**
@@ -9,6 +10,7 @@
 - 2025-12-16 23:33 5dce4ada **fix: shield auth variables**
 - 2025-12-16 23:27 b50033ce **step: add log**
 - 2025-12-16 23:17 e84e9d66 **step: remove todos**
+- 2025-12-16 23:06 ed8dc3b3 **docs: generate CHANGELOG**
 - 2025-12-16 22:55 bfa3ccb5 **step: adjust secrets path**
 - 2025-12-16 22:52 767e435c **docs: generate CHANGELOG**
 - 2025-12-16 22:45 3f315727 **step: remove console logs**
