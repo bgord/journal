@@ -20,6 +20,8 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
   const production = Env.type === bg.NodeEnvironmentEnum.production;
 
   const config = betterAuth({
+    secret: Env.BETTER_AUTH_SECRET,
+    baseURL: Env.BETTER_AUTH_URL,
     database: drizzleAdapter(db, { provider: "sqlite", usePlural: true }),
     advanced: { database: { generateId: () => crypto.randomUUID() }, useSecureCookies: production },
     session: { expiresIn: tools.Duration.Days(30).seconds, updateAge: tools.Duration.Days(1).seconds },
