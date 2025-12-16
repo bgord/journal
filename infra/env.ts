@@ -14,7 +14,7 @@ export type OpenAiApiKeyType = z.infer<typeof OPEN_AI_API_KEY>;
 const ANTHROPIC_AI_API_KEY = z.string().min(1).max(256).trim().brand("ANTHROPIC_AI_API_KEY");
 export type AnthropicAiApiKey = z.infer<typeof ANTHROPIC_AI_API_KEY>;
 
-const Schema = z
+export const Schema = z
   .object({
     PORT: bg.Port,
     LOGS_LEVEL: z.enum(bg.LogLevelEnum),
@@ -42,6 +42,12 @@ export type EnvironmentType = bg.EnvironmentResultType<typeof Schema>;
 export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPort<typeof Schema>> {
   const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
 
+  // TODO: Add to prereqs
+  const MasterKeyPath = tools.FilePathAbsolute.fromString("/run/master-key.txt");
+  const CryptoKeyProvider = new bg.CryptoKeyProviderFileAdapter(MasterKeyPath);
+
+  const Encryption = new bg.EncryptionBunAdapter({ CryptoKeyProvider });
+
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.EnvironmentLoaderProcessSafeAdapter({ type, Schema }, process.env),
     [bg.NodeEnvironmentEnum.test]: new bg.EnvironmentLoaderProcessAdapter({ type, Schema }, process.env),
@@ -49,9 +55,10 @@ export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPor
       { type, Schema },
       process.env,
     ),
-    [bg.NodeEnvironmentEnum.production]: new bg.EnvironmentLoaderProcessAdapter(
-      { type, Schema },
-      process.env,
+    [bg.NodeEnvironmentEnum.production]: new bg.EnvironmentLoaderEncryptedAdapter(
+      // TODO: Add to prereqs
+      { type, Schema, path: tools.FilePathRelative.fromString("infra/secrets.txt") },
+      { Encryption },
     ),
   }[type];
 }
