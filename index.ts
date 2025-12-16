@@ -19,6 +19,7 @@ import { handler } from "./web/entry-server";
   registerCommandHandlers(di);
 
   const app = Bun.serve({
+    port: di.Env.PORT,
     maxRequestBodySize: tools.Size.fromKb(128).toBytes(),
     idleTimeout: tools.Duration.Seconds(10).seconds,
     routes: {
