@@ -1,8 +1,11 @@
 # Changelog
+- 2025-12-16 21:13 e567eb04 **step: make secrets path absolute**
+## 2025-12-16 21:13 
 - 2025-12-16 20:57 99592a70 **step: update packages**
 - 2025-12-16 20:57 68a0b15a **step: add logs**
-## 2025-12-16 20:57 
 - 2025-12-16 20:56 d36978db **step: change master key path**
+- 2025-12-16 19:57 46b497dc **docs: generate CHANGELOG**
+- 2025-12-16 19:57 41e3336d **docs: generate readme**
 - 2025-12-16 15:45 6aa1e602 **step: bump bgord/scripts**
 - 2025-12-16 14:24 17dddcf9 **refactor: simplify env files**
 - 2025-12-16 13:53 fd5e327a **step: setup env loader encrypted for production**
