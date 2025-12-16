@@ -1,8 +1,10 @@
 # Changelog
+- 2025-12-16 11:46 c62c48e3 **refactor: arrange act assert**
+## 2025-12-16 11:46 
 - 2025-12-16 10:04 6851dbc8 **step: update workflows**
-## 2025-12-16 10:04 
 - 2025-12-16 10:03 c6b8d94a **refactor: update env**
 - 2025-12-16 10:01 2ae5e537 **step: update packages**
+- 2025-12-16 09:04 1dfa407a **docs: generate CHANGELOG**
 - 2025-12-15 20:30 0afd3b27 **step: bump bgord/scripts**
 - 2025-12-15 20:24 fc04b894 **step: add optimisations**
 - 2025-12-15 20:24 6fef7512 **refactor: remove unused action**
