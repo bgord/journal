@@ -14,6 +14,7 @@ describe(`GET ${url}`, async () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
@@ -22,6 +23,7 @@ describe(`GET ${url}`, async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(`${url}?dateRangeStart=2025-01-01`, { method: "GET" }, mocks.ip);
+
     expect(response.status).toEqual(400);
   });
 
@@ -34,6 +36,7 @@ describe(`GET ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "invalid.date.range", _known: true });
   });

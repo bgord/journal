@@ -26,6 +26,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
     expect(mailerSend).not.toHaveBeenCalled();
   });
@@ -38,6 +39,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailFailedEvent]);
     expect(mailerSend).not.toHaveBeenCalled();
   });
@@ -51,6 +53,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
     expect(mailerSend).not.toHaveBeenCalled();
   });
@@ -64,6 +67,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailFailedEvent]);
     expect(mailerSend).not.toHaveBeenCalled();
   });
@@ -78,6 +82,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailFailedEvent]);
   });
 
@@ -114,6 +119,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalled();
   });
 
@@ -124,6 +130,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent2nd),
     );
+
     expect(eventStoreSave).toHaveBeenCalled();
   });
 
@@ -134,6 +141,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent3rd),
     );
+
     expect(eventStoreSave).toHaveBeenCalled();
   });
 
@@ -144,6 +152,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent4th),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 });

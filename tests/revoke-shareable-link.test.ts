@@ -21,6 +21,7 @@ describe(`POST ${url}`, async () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
@@ -34,6 +35,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -50,6 +52,7 @@ describe(`POST ${url}`, async () => {
       { method: "POST", headers: mocks.revisionHeaders(2) },
       mocks.ip,
     );
+
     await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinkIsActive);
   });
 
@@ -65,6 +68,7 @@ describe(`POST ${url}`, async () => {
       { method: "POST", headers: mocks.revisionHeaders(2) },
       mocks.ip,
     );
+
     await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinkIsActive);
   });
 
@@ -77,6 +81,7 @@ describe(`POST ${url}`, async () => {
       { method: "POST", headers: mocks.revisionHeaders(1) },
       mocks.ip,
     );
+
     await testcases.assertInvariantError(response, Publishing.Invariants.RequesterOwnsShareableLink);
   });
 
@@ -84,8 +89,8 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-
     const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+
     const response = await server.request(
       url,
       {
@@ -94,6 +99,7 @@ describe(`POST ${url}`, async () => {
       },
       mocks.ip,
     );
+
     expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkRevokedEvent]);
   });

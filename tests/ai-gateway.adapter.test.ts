@@ -29,6 +29,7 @@ describe("AiGateway", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const result = await gateway.query(prompt, mocks.EmotionsAlarmEntryContext);
+
       expect(result).toEqual(mocks.advice);
     });
 
@@ -43,11 +44,11 @@ describe("AiGateway", async () => {
     spyOn(di.Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
 
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => gateway.query(prompt, mocks.EmotionsAlarmEntryContext)).toThrowError(
         AiQuotaExceededError,
-      );
-    });
+      ),
+    );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAiQuotaExceededEvent]);
   });

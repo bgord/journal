@@ -23,13 +23,13 @@ describe("Alarm", async () => {
         mocks.userId,
         di.Adapters.System,
       );
+
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmGeneratedEvent]);
     });
   });
 
   test("saveAdvice - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-
     const alarm = Emotions.Aggregates.Alarm.build(
       mocks.alarmId,
       [mocks.GenericAlarmGeneratedEvent],
@@ -38,6 +38,7 @@ describe("Alarm", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       alarm.saveAdvice(mocks.advice);
+
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmAdviceSavedEvent]);
     });
   });
@@ -57,7 +58,6 @@ describe("Alarm", async () => {
 
   test("notify - correct path", async () => {
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-
     const alarm = Emotions.Aggregates.Alarm.build(
       mocks.alarmId,
       [mocks.GenericAlarmGeneratedEvent, mocks.GenericAlarmAdviceSavedEvent],
@@ -66,6 +66,7 @@ describe("Alarm", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       alarm.notify();
+
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationRequestedEvent]);
     });
   });
@@ -109,6 +110,7 @@ describe("Alarm", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       alarm.complete();
+
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationSentEvent]);
     });
   });
@@ -134,6 +136,7 @@ describe("Alarm", async () => {
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       alarm.cancel();
+
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmCancelledEvent]);
     });
   });

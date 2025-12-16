@@ -28,6 +28,7 @@ describe("WeeklyReviewScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewRequestedEvent]);
   });
 
@@ -37,6 +38,7 @@ describe("WeeklyReviewScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -51,6 +53,7 @@ describe("WeeklyReviewScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewSkippedEvent]);
   });
 });

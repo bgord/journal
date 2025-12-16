@@ -12,6 +12,7 @@ describe("WeeklyReviewExportPdfFile", async () => {
       di.Adapters.Emotions.PdfGenerator,
       mocks.weeklyReviewFull,
     );
+
     const result = await file.create();
 
     expect(result).toEqual(mocks.PDF);

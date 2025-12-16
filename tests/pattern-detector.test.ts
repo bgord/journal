@@ -27,6 +27,7 @@ describe("PatternDetector", async () => {
         week: mocks.week,
         userId: mocks.userId,
       });
+
       expect(result.length).toEqual(2);
     });
   });

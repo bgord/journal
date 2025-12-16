@@ -7,7 +7,6 @@ import * as mocks from "./mocks";
 
 describe("QuotaSpecification", async () => {
   const di = await bootstrap(await EnvironmentLoader.load());
-
   const specification = new QuotaSpecification(di.Adapters.AI.BucketCounter);
 
   test("EmotionsAlarmEntryContext - no violations", async () => {

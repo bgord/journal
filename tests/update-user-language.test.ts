@@ -19,6 +19,7 @@ describe(`POST ${url}`, async () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
@@ -28,6 +29,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "unsupported.language", _known: true });
   });
@@ -42,6 +44,7 @@ describe(`POST ${url}`, async () => {
       { method: "POST", body: JSON.stringify({ language: SupportedLanguages.en }) },
       mocks.ip,
     );
+
     expect(response.status).toEqual(200);
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
@@ -60,6 +63,7 @@ describe(`POST ${url}`, async () => {
       },
       mocks.ip,
     );
+
     expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericUserLanguageSetPLEvent]);
   });

@@ -11,6 +11,7 @@ describe("InactivityAlarmAdvicePromptBuilder", () => {
       mocks.inactivityTrigger,
       SupportedLanguages.en,
     );
+
     expect(builder.generate()).toEqual(
       new AI.Prompt(`Inactive for ${mocks.inactivityTrigger.inactivityDays} days`),
     );
@@ -21,6 +22,7 @@ describe("InactivityAlarmAdvicePromptBuilder", () => {
       mocks.inactivityTrigger,
       SupportedLanguages.pl,
     );
+
     expect(builder.generate()).toEqual(
       new AI.Prompt(`Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni`),
     );

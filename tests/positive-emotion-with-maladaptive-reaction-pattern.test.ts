@@ -21,6 +21,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", async () => {
         week: mocks.week,
         userId: mocks.userId,
       });
+
       expect(result).toEqual([mocks.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent]);
     });
   });
@@ -32,6 +33,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", async () => {
       week: mocks.week,
       userId: mocks.userId,
     });
+
     expect(result).toEqual([]);
   });
 
@@ -42,6 +44,7 @@ describe("PositiveEmotionWithMaladaptiveReactionPattern", async () => {
       week: mocks.week,
       userId: mocks.userId,
     });
+
     expect(result).toEqual([]);
   });
 });

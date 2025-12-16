@@ -21,6 +21,7 @@ describe("MaladaptiveReactionsInWeekPattern", async () => {
         week: mocks.week,
         userId: mocks.userId,
       });
+
       expect(result).toEqual([mocks.MaladaptiveReactionsPatternDetectedEvent]);
     });
   });
@@ -32,6 +33,7 @@ describe("MaladaptiveReactionsInWeekPattern", async () => {
       week: mocks.week,
       userId: mocks.userId,
     });
+
     expect(result).toEqual([]);
   });
 });

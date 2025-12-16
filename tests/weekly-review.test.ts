@@ -11,6 +11,7 @@ describe("WeeklyReview", async () => {
 
   test("build new aggregate", () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [], di.Adapters.System);
+
     expect(weeklyReview.pullEvents()).toEqual([]);
   });
 
@@ -22,6 +23,7 @@ describe("WeeklyReview", async () => {
         mocks.userId,
         di.Adapters.System,
       );
+
       expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewRequestedEvent]);
     });
   });
@@ -35,6 +37,7 @@ describe("WeeklyReview", async () => {
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => weeklyReview.complete(mocks.insights));
+
     expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewCompletedEvent]);
   });
 
@@ -61,6 +64,7 @@ describe("WeeklyReview", async () => {
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => weeklyReview.fail());
+
     expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewFailedEvent]);
   });
 

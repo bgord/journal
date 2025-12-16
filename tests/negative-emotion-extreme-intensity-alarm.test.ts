@@ -8,6 +8,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
       event: mocks.NegativeEmotionExtremeIntensityLoggedEvent,
       alarms: [Emotions.Services.NegativeEmotionExtremeIntensityAlarm],
     });
+
     expect(result).toEqual(mocks.entryDetection);
   });
 
@@ -16,6 +17,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
       event: mocks.NegativeEmotionExtremeIntensityReappraisedEvent,
       alarms: [Emotions.Services.NegativeEmotionExtremeIntensityAlarm],
     });
+
     expect(result).toEqual(mocks.entryDetection);
   });
 
@@ -24,6 +26,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
       event: mocks.GenericEmotionLoggedEvent,
       alarms: [Emotions.Services.NegativeEmotionExtremeIntensityAlarm],
     });
+
     expect(result).toEqual(null);
   });
 
@@ -32,6 +35,7 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
       event: mocks.GenericEmotionReappraisedEvent,
       alarms: [Emotions.Services.NegativeEmotionExtremeIntensityAlarm],
     });
+
     expect(result).toEqual(null);
   });
 });

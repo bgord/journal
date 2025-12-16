@@ -23,6 +23,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
   });
 
@@ -39,6 +40,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -60,6 +62,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -73,6 +76,7 @@ describe("EntryAlarmDetector", async () => {
       mocks.correlationId,
       async () => await policy.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmGeneratedEvent]);
   });
 
@@ -89,6 +93,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -110,6 +115,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 });

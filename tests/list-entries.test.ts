@@ -8,16 +8,12 @@ import { createServer } from "../server";
 import * as mocks from "./mocks";
 
 const url = "/api/entry/list";
-
 const today = tools.Day.fromTimestamp(mocks.T0);
-
 const lastWeekStart = today.getEnd().subtract(tools.Duration.Weeks(1));
 const lastMonthStart = today.getEnd().subtract(tools.Duration.Days(30));
-
 const lastWeek = new tools.DateRange(lastWeekStart, today.getEnd());
 const lastMonth = new tools.DateRange(lastMonthStart, today.getEnd());
 const allTime = new tools.DateRange(tools.Timestamp.fromNumber(0), today.getEnd());
-
 const emptyQuery = "";
 
 describe(`GET ${url}`, async () => {
@@ -27,6 +23,7 @@ describe(`GET ${url}`, async () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });

@@ -10,17 +10,14 @@ import { createServer } from "../server";
 import * as mocks from "./mocks";
 
 const url = "/api/entry/log";
-
 const situation = {
   situationDescription: mocks.GenericSituationLoggedEvent.payload.description,
   situationKind: mocks.GenericSituationLoggedEvent.payload.kind,
 };
-
 const emotion = {
   emotionLabel: mocks.GenericEmotionLoggedEvent.payload.label,
   emotionIntensity: mocks.GenericEmotionLoggedEvent.payload.intensity,
 };
-
 const reaction = {
   reactionDescription: mocks.GenericReactionLoggedEvent.payload.description,
   reactionType: mocks.GenericReactionLoggedEvent.payload.type,
@@ -38,6 +35,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({
       message: Emotions.VO.SituationDescription.Errors.invalid,
@@ -57,6 +55,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.SituationKind.Errors.invalid, _known: true });
   });
@@ -70,6 +69,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionLabel.Errors.invalid, _known: true });
   });
@@ -86,6 +86,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.EmotionIntensity.Errors.min_max, _known: true });
   });
@@ -99,6 +100,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionDescription.Errors.invalid, _known: true });
   });
@@ -115,6 +117,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionType.Errors.invalid, _known: true });
   });
@@ -136,6 +139,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.min_max, _known: true });
   });
@@ -156,6 +160,7 @@ describe(`POST ${url}`, async () => {
       },
       mocks.ip,
     );
+
     expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([
       mocks.GenericSituationLoggedEvent,

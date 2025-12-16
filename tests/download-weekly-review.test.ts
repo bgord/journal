@@ -16,6 +16,7 @@ describe(`GET ${url}`, async () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
@@ -29,6 +30,7 @@ describe(`GET ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -38,6 +40,7 @@ describe(`GET ${url}`, async () => {
     spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockResolvedValue(undefined);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
+
     await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewExists);
   });
 
@@ -46,6 +49,7 @@ describe(`GET ${url}`, async () => {
     spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockRejectedValue(new Error("Failure"));
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
+
     expect(response.status).toEqual(500);
   });
 
@@ -57,6 +61,7 @@ describe(`GET ${url}`, async () => {
     );
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
+
     await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewIsCompleted);
   });
 
@@ -65,6 +70,7 @@ describe(`GET ${url}`, async () => {
     spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
+
     await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsWeeklyReview);
   });
 
@@ -79,6 +85,7 @@ describe(`GET ${url}`, async () => {
       { method: "GET", headers: mocks.correlationIdHeaders },
       mocks.ip,
     );
+
     expect(response.status).toEqual(200);
     expect(response.headers.get("Content-Type")).toEqual("application/pdf");
     expect(response.headers.get("Content-Disposition")).toEqual(
@@ -86,6 +93,7 @@ describe(`GET ${url}`, async () => {
     );
 
     const file = Buffer.from(await response.arrayBuffer());
+
     expect(file).toEqual(mocks.PDF);
   });
 });

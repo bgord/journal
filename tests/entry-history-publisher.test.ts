@@ -21,6 +21,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onSituationLoggedEvent(mocks.GenericSituationLoggedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryHistorySituationLoggedEvent]);
   });
 
@@ -33,6 +34,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onEmotionLoggedEvent(mocks.GenericEmotionLoggedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryHistoryEmotionLoggedEvent]);
   });
 
@@ -45,6 +47,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onReactionLoggedEvent(mocks.GenericReactionLoggedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryHistoryReactionLoggedEvent]);
   });
 
@@ -57,6 +60,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onEmotionReappraisedEvent(mocks.GenericEmotionReappraisedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryHistoryEmotionReappraisedEvent]);
   });
 
@@ -69,6 +73,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onReactionEvaluatedEvent(mocks.GenericReactionEvaluatedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryHistoryReactionEvaluatedEvent]);
   });
 
@@ -81,6 +86,7 @@ describe("EntryAlarmDetector", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEntryHistoryClearedEvent]);
   });
 });

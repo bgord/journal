@@ -12,6 +12,7 @@ describe("EntryExportFilePdf", async () => {
       ...di.Adapters.System,
       PdfGenerator: di.Adapters.Emotions.PdfGenerator,
     });
+
     const result = await file.create();
 
     expect(result).toEqual(mocks.PDF);

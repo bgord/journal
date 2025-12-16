@@ -11,9 +11,7 @@ import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
 const url = "/api/preferences/profile-avatar/update";
-
 const boundary = "----bun-test-boundary";
-
 const content = [
   `--${boundary}`,
   'Content-Disposition: form-data; name="file"; filename="image.png"',
@@ -23,10 +21,8 @@ const content = [
   `--${boundary}--`,
   "",
 ].join("\r\n");
-
-const file = new TextEncoder().encode(content);
-
 const form = { "Content-Type": `multipart/form-data; boundary=${boundary}` };
+const file = new TextEncoder().encode(content);
 
 describe(`POST ${url}`, async () => {
   const di = await bootstrap(await EnvironmentLoader.load());
@@ -37,6 +33,7 @@ describe(`POST ${url}`, async () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
@@ -45,6 +42,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
+
     expect(response.status).toEqual(500);
   });
 
@@ -60,6 +58,7 @@ describe(`POST ${url}`, async () => {
     const temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
+
     await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
@@ -77,6 +76,7 @@ describe(`POST ${url}`, async () => {
     const temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
+
     await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
@@ -94,6 +94,7 @@ describe(`POST ${url}`, async () => {
     const temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
+
     await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);

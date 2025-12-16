@@ -10,6 +10,7 @@ describe("EntryExportFileCsv", async () => {
 
   test("generates a CSV", async () => {
     const file = new Emotions.Services.EntryExportFileCsv([mocks.fullEntry], di.Adapters.System);
+
     const result = await text(file.create());
 
     expect(result).toEqualIgnoringWhitespace(mocks.entryCsv);

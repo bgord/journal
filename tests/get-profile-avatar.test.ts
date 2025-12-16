@@ -13,6 +13,7 @@ describe(`GET ${url}`, async () => {
   test("AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const body = await response.json();
+
     expect(response.status).toEqual(403);
     expect(body._known).toEqual(true);
   });
@@ -24,6 +25,7 @@ describe(`GET ${url}`, async () => {
     });
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
+
     expect(remoteFileStorageHead).toHaveBeenCalledTimes(1);
     expect(response.status).toEqual(404);
   });
@@ -46,7 +48,6 @@ describe(`GET ${url}`, async () => {
   test("200 streams avatar with correct headers", async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue(mocks.head);
-
     const fakeStream = new ReadableStream({
       start(controller) {
         controller.enqueue(new Uint8Array([1, 2, 3, 4, 5]));
@@ -64,8 +65,9 @@ describe(`GET ${url}`, async () => {
     expect(response.headers.get("Last-Modified")).toEqual(new Date(mocks.head.lastModified.ms).toUTCString());
     +expect(response.headers.get("Cache-Control")).toEqual("private, max-age=0, must-revalidate");
 
-    const arrBuf = await response.arrayBuffer();
-    expect(new Uint8Array(arrBuf)).toEqual(new Uint8Array([1, 2, 3, 4, 5]));
+    const buffer = await response.arrayBuffer();
+
+    expect(new Uint8Array(buffer)).toEqual(new Uint8Array([1, 2, 3, 4, 5]));
   });
 
   test("404 when stream is not available even if head.exists=true", async () => {
@@ -74,6 +76,7 @@ describe(`GET ${url}`, async () => {
     spyOn(di.Adapters.System.RemoteFileStorage, "getStream").mockResolvedValue(null);
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
+
     expect(response.status).toEqual(404);
   });
 });

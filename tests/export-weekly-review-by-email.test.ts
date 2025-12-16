@@ -20,6 +20,7 @@ describe(`POST ${url}`, async () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
@@ -29,6 +30,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request("/api/weekly-review/id/export/email", { method: "POST" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -38,6 +40,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(null);
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
+
     await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewExists);
   });
 
@@ -46,6 +49,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockRejectedValue(new Error("Failure"));
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
+
     expect(response.status).toEqual(500);
   });
 
@@ -54,6 +58,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReviewSkipped);
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
+
     await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewIsCompleted);
   });
 
@@ -62,6 +67,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
+
     await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsWeeklyReview);
   });
 
@@ -77,6 +83,7 @@ describe(`POST ${url}`, async () => {
       { method: "POST", headers: mocks.correlationIdHeaders },
       mocks.ip,
     );
+
     expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent]);
   });

@@ -82,12 +82,14 @@ describe("ReactionType", () => {
   test("compare - true", () => {
     const acceptance = new ReactionType(GrossEmotionRegulationStrategy.acceptance);
     const anotherAcceptance = new ReactionType(GrossEmotionRegulationStrategy.acceptance);
+
     expect(acceptance.equals(anotherAcceptance)).toEqual(true);
   });
 
   test("compare - false", () => {
     const acceptance = new ReactionType(GrossEmotionRegulationStrategy.acceptance);
     const avoidance = new ReactionType(GrossEmotionRegulationStrategy.avoidance);
+
     expect(acceptance.equals(avoidance)).toEqual(false);
   });
 

@@ -31,6 +31,7 @@ describe("WeeklyReviewProcessing", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
     );
+
     expect(mailerSend).toHaveBeenCalledWith({
       from: di.Env.EMAIL_FROM,
       to: mocks.email,
@@ -47,6 +48,7 @@ describe("WeeklyReviewProcessing", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
     );
+
     expect(mailerSend).not.toHaveBeenCalled();
   });
 
@@ -58,6 +60,7 @@ describe("WeeklyReviewProcessing", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
     );
+
     expect(mailerSend).not.toHaveBeenCalled();
   });
 
@@ -72,6 +75,7 @@ describe("WeeklyReviewProcessing", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
+
     expect(aiGatewayQuery).toHaveBeenCalledWith(new AI.Prompt("Generate insights for these 1 entries."), {
       category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
       userId: mocks.userId,
@@ -95,6 +99,7 @@ describe("WeeklyReviewProcessing", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
+
     expect(aiGatewayQuery).toHaveBeenCalledWith(new AI.Prompt("Podsumuj te 1 wpisów."), {
       category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
       userId: mocks.userId,
@@ -118,6 +123,7 @@ describe("WeeklyReviewProcessing", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewFailedEvent]);
   });
 

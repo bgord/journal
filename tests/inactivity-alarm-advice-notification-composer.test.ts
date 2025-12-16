@@ -11,7 +11,6 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
         mocks.inactivityTrigger,
         SupportedLanguages.en,
       );
-
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual(
@@ -28,7 +27,6 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
         mocks.inactivityTrigger,
         SupportedLanguages.pl,
       );
-
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual(

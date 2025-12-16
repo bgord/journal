@@ -31,6 +31,7 @@ describe("InactivityAlarmScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
     });
+
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericInactivityAlarmGeneratedEvent]);
   });
 
@@ -51,6 +52,7 @@ describe("InactivityAlarmScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
     });
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -76,6 +78,7 @@ describe("InactivityAlarmScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
     });
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -94,6 +97,7 @@ describe("InactivityAlarmScheduler", async () => {
         async () => await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event),
       ).toThrow();
     });
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -106,6 +110,7 @@ describe("InactivityAlarmScheduler", async () => {
       mocks.correlationId,
       async () => await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -131,6 +136,7 @@ describe("InactivityAlarmScheduler", async () => {
       mocks.correlationId,
       async () => await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 });

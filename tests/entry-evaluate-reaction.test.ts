@@ -20,6 +20,7 @@ describe(`POST ${url}`, async () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
@@ -33,6 +34,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({
       message: Emotions.VO.ReactionDescription.Errors.invalid,
@@ -53,6 +55,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({
       message: Emotions.VO.ReactionType.Errors.invalid,
@@ -76,6 +79,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({
       message: Emotions.VO.ReactionEffectiveness.Errors.min_max,
@@ -92,6 +96,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -127,7 +132,6 @@ describe(`POST ${url}`, async () => {
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([]);
-
     const payload = {
       description: "I got drunk",
       type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
@@ -153,7 +157,6 @@ describe(`POST ${url}`, async () => {
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
-
     const payload = {
       description: "I got drunk",
       type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
@@ -182,7 +185,6 @@ describe(`POST ${url}`, async () => {
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
-
     const payload = {
       description: "I got drunk",
       type: Emotions.VO.GrossEmotionRegulationStrategy.acceptance,
@@ -209,7 +211,6 @@ describe(`POST ${url}`, async () => {
       mocks.GenericEmotionLoggedEvent,
       mocks.GenericReactionLoggedEvent,
     ]);
-
     const payload = {
       description: mocks.GenericReactionEvaluatedEvent.payload.description,
       type: mocks.GenericReactionEvaluatedEvent.payload.type,
@@ -237,12 +238,12 @@ describe(`POST ${url}`, async () => {
       mocks.GenericReactionLoggedEvent,
     ]);
     const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
-
     const payload = {
       description: mocks.GenericReactionEvaluatedEvent.payload.description,
       type: mocks.GenericReactionEvaluatedEvent.payload.type,
       effectiveness: mocks.GenericReactionEvaluatedEvent.payload.effectiveness,
     };
+
     const response = await server.request(
       url,
       {
@@ -252,6 +253,7 @@ describe(`POST ${url}`, async () => {
       },
       mocks.ip,
     );
+
     expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericReactionEvaluatedEvent]);
   });

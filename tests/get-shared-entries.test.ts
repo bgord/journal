@@ -18,6 +18,7 @@ describe(`GET ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -54,6 +55,7 @@ describe(`GET ${url}`, async () => {
         { method: "GET", headers: mocks.correlationIdAndRevisionHeaders() },
         mocks.ip,
       );
+
       expect(response.status).toEqual(403);
       expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedRevokedEvent]);
     });
@@ -70,6 +72,7 @@ describe(`GET ${url}`, async () => {
         { method: "GET", headers: mocks.correlationIdAndRevisionHeaders() },
         mocks.ip,
       );
+
       expect(response.status).toEqual(200);
       expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedAcceptedEvent]);
     });

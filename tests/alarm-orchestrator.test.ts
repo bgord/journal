@@ -163,7 +163,6 @@ describe("AlarmOrchestrator", async () => {
       subject: "JOURNAL - emotional advice",
       html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
     });
-
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);
   });
 

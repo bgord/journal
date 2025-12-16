@@ -26,6 +26,7 @@ describe("TimeCapsuleEntriesScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -39,6 +40,7 @@ describe("TimeCapsuleEntriesScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -49,6 +51,7 @@ describe("TimeCapsuleEntriesScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
+
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
@@ -60,6 +63,7 @@ describe("TimeCapsuleEntriesScheduler", async () => {
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
+
     expect(eventStoreSave).toHaveBeenCalledWith([
       mocks.GenericSituationLoggedTimeCapsuleEvent,
       mocks.GenericEmotionLoggedEvent,

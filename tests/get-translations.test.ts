@@ -17,6 +17,7 @@ describe(`GET ${url}`, async () => {
   test("happy path - no language specified", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(200);
     expect(json).toEqual({
       translations: await en.json(),
@@ -32,6 +33,7 @@ describe(`GET ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(200);
     expect(json).toEqual({
       translations: await en.json(),
@@ -47,6 +49,7 @@ describe(`GET ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(200);
     expect(json).toEqual({
       translations: await pl.json(),
@@ -62,6 +65,7 @@ describe(`GET ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(200);
     expect(json).toEqual({
       translations: await en.json(),

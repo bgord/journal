@@ -21,6 +21,7 @@ describe(`POST ${url}`, async () => {
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
+
     expect(response.status).toEqual(403);
     expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
   });
@@ -34,6 +35,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({
       message: Emotions.VO.EmotionLabel.Errors.invalid,
@@ -54,6 +56,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({
       message: Emotions.VO.EmotionIntensity.Errors.min_max,
@@ -73,6 +76,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
     const json = await response.json();
+
     expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "payload.invalid.error", _known: true });
   });
@@ -116,6 +120,7 @@ describe(`POST ${url}`, async () => {
       },
       mocks.ip,
     );
+
     await testcases.assertInvariantError(response, Emotions.Invariants.EmotionCorrespondsToSituation);
   });
 
@@ -135,6 +140,7 @@ describe(`POST ${url}`, async () => {
       },
       mocks.ip,
     );
+
     await testcases.assertInvariantError(response, Emotions.Invariants.EmotionForReappraisalExists);
   });
 
@@ -145,7 +151,6 @@ describe(`POST ${url}`, async () => {
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
     ]);
-
     const payload = {
       label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,
       intensity: mocks.GenericEmotionReappraisedEvent.payload.newIntensity,
@@ -160,6 +165,7 @@ describe(`POST ${url}`, async () => {
       },
       mocks.ip,
     );
+
     await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsEntry);
   });
 
@@ -171,7 +177,6 @@ describe(`POST ${url}`, async () => {
       mocks.GenericEmotionLoggedEvent,
     ]);
     const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
-
     const payload = {
       label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,
       intensity: mocks.GenericEmotionReappraisedEvent.payload.newIntensity,
@@ -186,6 +191,7 @@ describe(`POST ${url}`, async () => {
       },
       mocks.ip,
     );
+
     expect(response.status).toEqual(200);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericEmotionReappraisedEvent]);
   });
