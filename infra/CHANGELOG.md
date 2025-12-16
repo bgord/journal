@@ -1,6 +1,17 @@
 # Changelog
+- 2025-12-16 20:57 99592a70 **step: update packages**
+- 2025-12-16 20:57 68a0b15a **step: add logs**
+## 2025-12-16 20:57 
+- 2025-12-16 20:56 d36978db **step: change master key path**
+- 2025-12-16 15:45 6aa1e602 **step: bump bgord/scripts**
+- 2025-12-16 14:24 17dddcf9 **refactor: simplify env files**
+- 2025-12-16 13:53 fd5e327a **step: setup env loader encrypted for production**
+- 2025-12-16 13:50 205465d4 **refactor: update env**
+- 2025-12-16 13:43 c9746b59 **step: update packages**
+- 2025-12-16 13:14 5c86f529 **step: update env**
+- 2025-12-16 13:02 c3be7d8a **step: update packages**
 - 2025-12-16 11:46 c62c48e3 **refactor: arrange act assert**
-## 2025-12-16 11:46 
+- 2025-12-16 10:51 bd02ee80 **docs: generate CHANGELOG**
 - 2025-12-16 10:04 6851dbc8 **step: update workflows**
 - 2025-12-16 10:03 c6b8d94a **refactor: update env**
 - 2025-12-16 10:01 2ae5e537 **step: update packages**
