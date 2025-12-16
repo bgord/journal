@@ -1,7 +1,10 @@
 # Changelog
+- 2025-12-16 23:27 b50033ce **step: add log**
+## 2025-12-16 23:27 
+- 2025-12-16 23:17 e84e9d66 **step: remove todos**
 - 2025-12-16 22:55 bfa3ccb5 **step: adjust secrets path**
-## 2025-12-16 22:55 
 - 2025-12-16 22:45 3f315727 **step: remove console logs**
+- 2025-12-16 21:55 0e692541 **docs: generate CHANGELOG**
 - 2025-12-16 21:47 3c4cc417 **docs: generate CHANGELOG**
 - 2025-12-16 21:13 e567eb04 **step: make secrets path absolute**
 - 2025-12-16 20:57 99592a70 **step: update packages**
