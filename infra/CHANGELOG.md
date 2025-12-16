@@ -1,6 +1,7 @@
 # Changelog
+- 2025-12-16 23:52 19603bd9 **step: remove no-compile-autoload-dotenv**
+## 2025-12-16 23:52 
 - 2025-12-16 23:44 499aaae6 **fix: .env.production file check**
-## 2025-12-16 23:44 
 - 2025-12-16 23:40 af0eca72 **step: adjust production server build**
 - 2025-12-16 23:37 0e8c43bb **step: bump bgord/scripts**
 - 2025-12-16 23:36 76b7bb4b **refactor: remove log**
@@ -9,6 +10,7 @@
 - 2025-12-16 23:17 e84e9d66 **step: remove todos**
 - 2025-12-16 22:55 bfa3ccb5 **step: adjust secrets path**
 - 2025-12-16 22:45 3f315727 **step: remove console logs**
+- 2025-12-16 22:44 c8d8e95c **docs: generate CHANGELOG**
 - 2025-12-16 22:42 79050f8c **docs: generate CHANGELOG**
 - 2025-12-16 22:34 07095c64 **docs: generate CHANGELOG**
 - 2025-12-16 22:27 6af45cbb **docs: generate CHANGELOG**
