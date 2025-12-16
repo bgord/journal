@@ -39,6 +39,16 @@ const Schema = z
 
 export type EnvironmentType = bg.EnvironmentResultType<typeof Schema>;
 
-const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
+export function createEnvironmentLoader(): bg.EnvironmentLoaderPort<typeof Schema> {
+  const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
 
-export const EnvironmentLoader = new bg.EnvironmentLoaderProcessAdapter({ type, Schema }, process.env);
+  return {
+    [bg.NodeEnvironmentEnum.local]: new bg.EnvironmentLoaderProcessAdapter({ type, Schema }, process.env),
+    [bg.NodeEnvironmentEnum.test]: new bg.EnvironmentLoaderProcessAdapter({ type, Schema }, process.env),
+    [bg.NodeEnvironmentEnum.staging]: new bg.EnvironmentLoaderProcessAdapter({ type, Schema }, process.env),
+    [bg.NodeEnvironmentEnum.production]: new bg.EnvironmentLoaderProcessAdapter(
+      { type, Schema },
+      process.env,
+    ),
+  }[type];
+}

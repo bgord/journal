@@ -1,7 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
 import { createServer } from "../server";
@@ -10,6 +10,7 @@ import * as mocks from "./mocks";
 const url = "/api/preferences/profile-avatar";
 
 describe(`DELETE ${url}`, async () => {
+  const EnvironmentLoader = createEnvironmentLoader();
   const di = await bootstrap(await EnvironmentLoader.load());
   registerEventHandlers(di);
   registerCommandHandlers(di);

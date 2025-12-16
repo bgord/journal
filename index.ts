@@ -3,13 +3,14 @@ import * as tools from "@bgord/tools";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { bootstrap } from "+infra/bootstrap";
 import { db } from "+infra/db";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
 import { createServer } from "./server";
 import { handler } from "./web/entry-server";
 
 (async function main() {
+  const EnvironmentLoader = createEnvironmentLoader();
   const Env = await EnvironmentLoader.load();
   const di = await bootstrap(Env);
   const server = createServer(di);

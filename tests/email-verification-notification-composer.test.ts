@@ -2,9 +2,10 @@ import { describe, expect, test } from "bun:test";
 import * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 import { bootstrap } from "+infra/bootstrap";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 
 describe("EmailVerificationNotificationComposer", async () => {
+  const EnvironmentLoader = createEnvironmentLoader();
   const di = await bootstrap(await EnvironmentLoader.load());
 
   test("compose", () => {

@@ -3,10 +3,11 @@ import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 describe("AlarmNotificationFactory", async () => {
+  const EnvironmentLoader = createEnvironmentLoader();
   const di = await bootstrap(await EnvironmentLoader.load());
 
   test("entry - en", async () => {

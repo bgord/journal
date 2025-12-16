@@ -3,10 +3,11 @@ import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 describe("TimeCapsuleEntryNotifier", async () => {
+  const EnvironmentLoader = createEnvironmentLoader();
   const di = await bootstrap(await EnvironmentLoader.load());
   const policy = new Emotions.Policies.TimeCapsuleEntryNotifier({
     ...di.Adapters.System,

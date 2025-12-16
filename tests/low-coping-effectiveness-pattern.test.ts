@@ -2,10 +2,11 @@ import { describe, expect, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 describe("LowCopingEffectivenessPattern", async () => {
+  const EnvironmentLoader = createEnvironmentLoader();
   const di = await bootstrap(await EnvironmentLoader.load());
   const detector = new Emotions.Services.PatternDetector(di.Adapters.System);
 

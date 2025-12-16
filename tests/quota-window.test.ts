@@ -2,9 +2,10 @@ import { describe, expect, test } from "bun:test";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import { bootstrap } from "+infra/bootstrap";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 
 describe("QuotaWindow", async () => {
+  const EnvironmentLoader = createEnvironmentLoader();
   const di = await bootstrap(await EnvironmentLoader.load());
 
   test("DAY", async () => {

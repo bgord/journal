@@ -3,12 +3,13 @@ import * as bg from "@bgord/bun";
 import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
 import * as VO from "+ai/value-objects";
 import { bootstrap } from "+infra/bootstrap";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 import * as mocks from "./mocks";
 
 const prompt = new VO.Prompt("Give me some insights");
 
 describe("AiGateway", async () => {
+  const EnvironmentLoader = createEnvironmentLoader();
   const di = await bootstrap(await EnvironmentLoader.load());
 
   const gateway = new AiGateway({

@@ -6,7 +6,7 @@ import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
 import { bootstrap } from "+infra/bootstrap";
 import { db } from "+infra/db";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 import * as Schema from "+infra/schema";
 import * as mocks from "../tests/mocks";
 
@@ -65,6 +65,7 @@ const reactionDescriptions = [
 const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
 (async function main() {
+  const EnvironmentLoader = createEnvironmentLoader();
   const di = await bootstrap(await EnvironmentLoader.load());
 
   const now = di.Adapters.System.Clock.now();

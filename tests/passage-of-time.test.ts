@@ -1,11 +1,12 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
-import { EnvironmentLoader } from "+infra/env";
+import { createEnvironmentLoader } from "+infra/env";
 import * as Services from "../app/services";
 import * as mocks from "./mocks";
 
 describe("PassageOfTime", async () => {
+  const EnvironmentLoader = createEnvironmentLoader();
   const di = await bootstrap(await EnvironmentLoader.load());
   const PassageOfTime = new Services.PassageOfTime(di.Adapters.System);
 
