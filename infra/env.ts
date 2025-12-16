@@ -43,7 +43,7 @@ export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPor
   const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
 
   // TODO: Add to prereqs
-  const MasterKeyPath = tools.FilePathAbsolute.fromString("/run/master-key.txt");
+  const MasterKeyPath = tools.FilePathAbsolute.fromString("/etc/bgord/journal/master.key");
   const CryptoKeyProvider = new bg.CryptoKeyProviderFileAdapter(MasterKeyPath);
 
   const Encryption = new bg.EncryptionBunAdapter({ CryptoKeyProvider });
