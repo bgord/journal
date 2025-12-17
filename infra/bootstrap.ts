@@ -9,7 +9,6 @@ import { createEnvironmentLoader } from "+infra/env";
 import { I18nConfig } from "+infra/i18n";
 import { createJobs } from "+infra/jobs";
 import { createPrerequisites } from "+infra/prerequisites";
-import { ResponseCache } from "+infra/response-cache";
 
 export async function bootstrap() {
   const EnvironmentLoader = await createEnvironmentLoader();
@@ -31,7 +30,7 @@ export async function bootstrap() {
   return {
     Env,
     Adapters: { AI, Auth, Emotions, History, Preferences, Publishing, System },
-    Tools: { prerequisites, I18nConfig, ResponseCache },
+    Tools: { prerequisites, I18nConfig },
   };
 }
 

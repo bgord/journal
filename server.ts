@@ -4,7 +4,6 @@ import { HTTP } from "+app";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
 import type { BootstrapType } from "+infra/bootstrap";
-import { ResponseCache } from "+infra/response-cache";
 import { SupportedLanguages } from "./modules/supported-languages";
 
 export function createServer({ Adapters, Tools }: BootstrapType) {
@@ -98,7 +97,7 @@ export function createServer({ Adapters, Tools }: BootstrapType) {
   //Translations =================
   server.get(
     "/translations",
-    ResponseCache.handle,
+    Tools.ResponseCache.handle,
     ...bg.Translations.build(SupportedLanguages, Adapters.System),
   );
   // =============================
