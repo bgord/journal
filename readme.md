@@ -457,6 +457,7 @@ infra/
 │       ├── temporary-file.adapter.ts
 │       └── timekeeper.adapter.ts
 ├── bootstrap.ts
+├── cache-response.ts
 ├── db.ts
 ├── depcruise.webpack.cjs
 ├── e2e
@@ -479,7 +480,6 @@ infra/
 │   └── weekly-review.projector.ts
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
-├── response-cache.ts
 ├── schema.ts
 └── translations
     ├── en.json
