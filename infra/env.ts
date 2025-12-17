@@ -39,10 +39,12 @@ export const Schema = z
 
 export type EnvironmentType = bg.EnvironmentResultType<typeof Schema>;
 
+export const MasterKeyPath = tools.FilePathAbsolute.fromString("/etc/bgord/journal/master.key");
+export const SecretsPath = tools.FilePathAbsolute.fromString("/var/www/journal/secrets.enc");
+
 export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPort<typeof Schema>> {
   const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
 
-  const MasterKeyPath = tools.FilePathAbsolute.fromString("/etc/bgord/journal/master.key");
   const CryptoKeyProvider = new bg.CryptoKeyProviderFileAdapter(MasterKeyPath);
 
   const Encryption = new bg.EncryptionBunAdapter({ CryptoKeyProvider });
@@ -55,7 +57,7 @@ export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPor
       process.env,
     ),
     [bg.NodeEnvironmentEnum.production]: new bg.EnvironmentLoaderEncryptedAdapter(
-      { type, Schema, path: tools.FilePathAbsolute.fromString("/var/www/journal/secrets.enc") },
+      { type, Schema, path: SecretsPath },
       { Encryption },
     ),
   }[type];

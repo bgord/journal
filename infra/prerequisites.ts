@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { SupportedLanguages } from "+languages";
 import { sqlite } from "+infra/db";
-import type { EnvironmentType } from "+infra/env";
+import { type EnvironmentType, MasterKeyPath, SecretsPath } from "+infra/env";
 
 type Dependencies = {
   DiskSpaceChecker: bg.DiskSpaceCheckerPort;
@@ -65,5 +65,17 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
     new bg.PrerequisiteBinary({ label: "sqlite3", binary: bg.Binary.parse("sqlite3"), enabled: production }),
     new bg.PrerequisiteBinary({ label: "tar", binary: bg.Binary.parse("tar"), enabled: production }),
     new bg.PrerequisiteBinary({ label: "gitleaks", binary: bg.Binary.parse("gitleaks"), enabled: local }),
+    new bg.PrerequisiteFile({
+      label: "master-key",
+      file: MasterKeyPath,
+      permissions: { read: true },
+      enabled: production,
+    }),
+    new bg.PrerequisiteFile({
+      label: "secrets",
+      file: SecretsPath,
+      permissions: { read: true },
+      enabled: production,
+    }),
   ];
 }
