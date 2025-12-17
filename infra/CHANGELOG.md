@@ -1,6 +1,8 @@
 # Changelog
+- 2025-12-18 00:38 6eafe038 **step: bump bgord/scripts**
+- 2025-12-18 00:38 3fcb1f30 **step: update bun version**
+## 2025-12-18 00:38 
 - 2025-12-18 00:25 a532bfe4 **fix: variable shadowing**
-## 2025-12-18 00:25 
 - 2025-12-18 00:18 8b9fb5ce **fix: login page**
 - 2025-12-18 00:11 00f2d5fc **refactor: disable cache response**
 - 2025-12-18 00:04 57bfd89f **step: update packages**
@@ -9,6 +11,7 @@
 - 2025-12-17 23:41 cb9ab804 **refactor: remove old response cache**
 - 2025-12-17 23:40 c79359dc **refactor: adjust env**
 - 2025-12-17 23:39 7bda1b26 **step: update packages**
+- 2025-12-17 23:25 3f3cb103 **docs: generate CHANGELOG**
 - 2025-12-17 23:18 3ba455e5 **docs: generate CHANGELOG**
 - 2025-12-17 23:11 723e3a69 **docs: generate CHANGELOG**
 - 2025-12-17 23:11 5d80bc11 **docs: generate readme**
