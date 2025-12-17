@@ -46,16 +46,21 @@ export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPor
   const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
 
   const CryptoKeyProvider = new bg.CryptoKeyProviderFileAdapter(MasterKeyPath);
-
   const Encryption = new bg.EncryptionBunAdapter({ CryptoKeyProvider });
 
+  const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ ttl: tools.Duration.Hours(1) });
+  const CacheResolver = new bg.CacheResolverSimpleAdapter({ CacheRepository });
+
+  const EnvironmentLoaderProcessSafe = new bg.EnvironmentLoaderProcessSafeAdapter(
+    process.env,
+    { type, Schema },
+    { CacheResolver },
+  );
+
   return {
-    [bg.NodeEnvironmentEnum.local]: new bg.EnvironmentLoaderProcessSafeAdapter({ type, Schema }, process.env),
+    [bg.NodeEnvironmentEnum.local]: EnvironmentLoaderProcessSafe,
     [bg.NodeEnvironmentEnum.test]: new bg.EnvironmentLoaderProcessAdapter({ type, Schema }, process.env),
-    [bg.NodeEnvironmentEnum.staging]: new bg.EnvironmentLoaderProcessSafeAdapter(
-      { type, Schema },
-      process.env,
-    ),
+    [bg.NodeEnvironmentEnum.staging]: EnvironmentLoaderProcessSafe,
     [bg.NodeEnvironmentEnum.production]: new bg.EnvironmentLoaderEncryptedAdapter(
       { type, Schema, path: SecretsPath },
       { Encryption },
