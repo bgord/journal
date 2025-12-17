@@ -1,6 +1,16 @@
 # Changelog
+- 2025-12-18 00:11 00f2d5fc **refactor: disable cache response**
+## 2025-12-18 00:11 
+- 2025-12-18 00:04 57bfd89f **step: update packages**
+- 2025-12-18 00:02 345e1791 **step: setup cache response**
+- 2025-12-18 00:00 3409727b **refactor: construct shield rate limit in place**
+- 2025-12-17 23:41 cb9ab804 **refactor: remove old response cache**
+- 2025-12-17 23:40 c79359dc **refactor: adjust env**
+- 2025-12-17 23:39 7bda1b26 **step: update packages**
+- 2025-12-17 15:06 ff69c8be **step: update packages**
+- 2025-12-17 13:48 36705684 **step: add env prereqs**
+- 2025-12-17 12:29 ce74b79b **step: update packages**
 - 2025-12-17 00:09 c563434f **step: restore --no-compile-autoload-dotenv**
-## 2025-12-17 00:09 
 - 2025-12-17 00:06 e4895f94 **fix: set port explicitly**
 - 2025-12-16 23:52 19603bd9 **step: remove no-compile-autoload-dotenv**
 - 2025-12-16 23:44 499aaae6 **fix: .env.production file check**
@@ -10,6 +20,7 @@
 - 2025-12-16 23:33 5dce4ada **fix: shield auth variables**
 - 2025-12-16 23:27 b50033ce **step: add log**
 - 2025-12-16 23:17 e84e9d66 **step: remove todos**
+- 2025-12-16 23:09 c3243920 **docs: generate CHANGELOG**
 - 2025-12-16 23:06 ed8dc3b3 **docs: generate CHANGELOG**
 - 2025-12-16 22:55 bfa3ccb5 **step: adjust secrets path**
 - 2025-12-16 22:52 767e435c **docs: generate CHANGELOG**
