@@ -112,12 +112,12 @@
           form.dataset.status = "pending";
 
           try {
-            const form = new FormData(form);
+            const data = new FormData(form);
 
             const response = await fetch(form.action, {
               method: form.method,
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(Object.fromEntries(form)),
+              body: JSON.stringify(Object.fromEntries(data)),
               credentials: "include",
             });
 
