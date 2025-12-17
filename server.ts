@@ -97,7 +97,7 @@ export function createServer({ Adapters, Tools }: BootstrapType) {
   //Translations =================
   server.get(
     "/translations",
-    Tools.ResponseCache.handle,
+    Tools.CacheResponse.handle,
     ...bg.Translations.build(SupportedLanguages, Adapters.System),
   );
   // =============================
