@@ -19,7 +19,7 @@ export function createServer({ Adapters, Tools }: BootstrapType) {
   // Healthcheck =================
   server.get(
     "/healthcheck",
-    Adapters.System.ShieldRateLimit.Healthcheck.verify,
+    Adapters.System.ShieldRateLimit.verify,
     Adapters.System.ShieldTimeout.verify,
     Adapters.System.ShieldBasicAuth.verify,
     ...bg.Healthcheck.build(Tools.prerequisites, Adapters.System),
@@ -37,12 +37,12 @@ export function createServer({ Adapters, Tools }: BootstrapType) {
   entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry(Adapters.System));
   entry.get(
     "/export-data",
-    Adapters.System.ShieldRateLimit.EntryDataExport.verify,
+    Adapters.System.ShieldRateLimit.verify,
     HTTP.Emotions.ExportData({ ...Adapters.System, ...Adapters.Emotions }),
   );
   entry.get(
     "/export-entries",
-    Adapters.System.ShieldRateLimit.EntryExportEntries.verify,
+    Adapters.System.ShieldRateLimit.verify,
     HTTP.Emotions.ExportEntries({ ...Adapters.System, ...Adapters.Emotions }),
   );
   entry.get("/list", HTTP.Emotions.ListEntries({ ...Adapters.System, ...Adapters.Emotions }));
@@ -65,12 +65,12 @@ export function createServer({ Adapters, Tools }: BootstrapType) {
   weeklyReview.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
   weeklyReview.post(
     "/:weeklyReviewId/export/email",
-    Adapters.System.ShieldRateLimit.WeeklyReviewExportEmail.verify,
+    Adapters.System.ShieldRateLimit.verify,
     HTTP.Emotions.ExportWeeklyReviewByEmail(Adapters.System),
   );
   weeklyReview.get(
     "/:weeklyReviewId/export/download",
-    Adapters.System.ShieldRateLimit.WeeklyReviewExportDownload.verify,
+    Adapters.System.ShieldRateLimit.verify,
     HTTP.Emotions.DownloadWeeklyReview({ ...Adapters.System, ...Adapters.Emotions }),
   );
   server.route("/weekly-review", weeklyReview);
@@ -86,7 +86,7 @@ export function createServer({ Adapters, Tools }: BootstrapType) {
   );
   publishing.post(
     "/link/create",
-    Adapters.System.ShieldRateLimit.PublishingLinkCreate.verify,
+    Adapters.System.ShieldRateLimit.verify,
     HTTP.Publishing.CreateShareableLink(Adapters.System),
   );
   publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink(Adapters.System));
