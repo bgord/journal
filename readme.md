@@ -441,8 +441,9 @@ infra/
 │       ├── event-handler.ts
 │       ├── event-store.ts
 │       ├── file-cleaner.adapter.ts
-│       ├── file-hash.adapter.ts
 │       ├── file-renamer.adapter.ts
+│       ├── hash-content.adapter.ts
+│       ├── hash-file.adapter.ts
 │       ├── id-provider.adapter.ts
 │       ├── image-info.adapter.ts
 │       ├── image-processor.adapter.ts
