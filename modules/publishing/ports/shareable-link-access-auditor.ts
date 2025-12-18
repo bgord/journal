@@ -34,7 +34,7 @@ export class ShareableLinkAccessAuditorAdapter implements Publishing.Ports.Share
         publicationSpecification: input.publicationSpecification,
         validity: input.validity,
         reason: input.reason,
-        visitorId: await input.context.visitorId.get(),
+        visitorId: input.context.visitorId.get(),
         timestamp: input.context.timestamp,
       },
     } satisfies Publishing.Events.ShareableLinkAccessedEventType);

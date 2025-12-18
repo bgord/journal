@@ -24,7 +24,7 @@ export async function bootstrap() {
   const Preferences = createPreferencesAdapters();
   const Publishing = createPublishingAdapters(System);
 
-  const CacheResponse = createCacheResponse();
+  const CacheResponse = createCacheResponse(System);
   const Jobs = createJobs(System);
   const prerequisites = createPrerequisites(Env, { ...System, Jobs });
 

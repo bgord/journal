@@ -51,10 +51,12 @@ export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPor
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ ttl: tools.Duration.Hours(1) });
   const CacheResolver = new bg.CacheResolverSimpleAdapter({ CacheRepository });
 
+  const HashContent = new bg.HashContentSha256BunAdapter();
+
   const EnvironmentLoaderProcessSafe = new bg.EnvironmentLoaderProcessSafeAdapter(
     process.env,
     { type, Schema },
-    { CacheResolver },
+    { CacheResolver, HashContent },
   );
 
   return {

@@ -9,8 +9,9 @@ import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
 import { createEventStore } from "./event-store";
 import { createFileCleaner } from "./file-cleaner.adapter";
-import { FileHash } from "./file-hash.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
+import { HashContent } from "./hash-content.adapter";
+import { createHashFile } from "./hash-file.adapter";
 import { IdProvider } from "./id-provider.adapter";
 import { ImageInfo } from "./image-info.adapter";
 import { createImageProcessor } from "./image-processor.adapter";
@@ -34,6 +35,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
   const FileRenamer = createFileRenamer(Env);
   const Mailer = createMailer(Env, { Logger });
   const Timekeeper = createTimekeeper(Env, { Clock });
+  const HashFile = createHashFile({ HashContent });
 
   return {
     Auth: createShieldAuth(Env, { Logger, Clock, IdProvider, EventStore, Mailer }),
@@ -50,18 +52,19 @@ export function createSystemAdapters(Env: EnvironmentType) {
     Logger,
     Timekeeper,
     ShieldTimeout,
-    ShieldRateLimit: createShieldRateLimit(Env, { Clock }),
+    ShieldRateLimit: createShieldRateLimit(Env, { Clock, HashContent }),
     FileCleaner,
     FileRenamer,
     TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer }),
     EventHandler: createEventHandler({ Logger }),
     CsvStringifier,
     ImageInfo,
-    FileHash,
+    HashFile,
+    HashContent,
     ShieldCaptcha: createShieldCaptcha(Env),
     ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, JsonFileReader }),
     RemoteFileStorage: createRemoteFileStorage(Env, {
-      FileHash,
+      HashFile,
       FileCleaner,
       FileRenamer,
       JsonFileReader,

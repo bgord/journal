@@ -98,9 +98,10 @@ export const dateRange = new tools.DateRange(
 
 export const durationMs = tools.Duration.Seconds(1).ms;
 
-const client = bg.Client.from(ip.server.requestIP().address, "anon");
-export const visitorId = new bg.VisitorIdHashAdapter(client);
-export const visitorIdRaw = bg.VisitorId.parse("cbc46a7ff4f622ab");
+export const visitorIdRaw = bg.HashValue.parse(
+  "cbc46a7ff4f622abbcfe90e895993db309e4e32280fc1b6347b90be4b19270ca",
+);
+const visitorId = bg.Hash.fromValue(visitorIdRaw);
 
 export const accessContext: Publishing.VO.AccessContext = { timestamp: T0.ms, visitorId };
 
@@ -144,7 +145,7 @@ export const ruleInspection = {
   resetsInHours: 0,
 };
 
-const etag = bg.FileEtag.parse("0000000000000000000000000000000000000000000000000000000000000000");
+const etag = bg.Hash.fromString("0000000000000000000000000000000000000000000000000000000000000000");
 
 export const head = {
   exists: true,
@@ -853,7 +854,7 @@ export const GenericProfileAvatarUpdatedEvent = {
   stream: `preferences_${userId}`,
   version: 1,
   name: "PROFILE_AVATAR_UPDATED_EVENT",
-  payload: { userId, key: objectKey, etag },
+  payload: { userId, key: objectKey, etag: etag.get() },
 } satisfies Preferences.Events.ProfileAvatarUpdatedEventType;
 
 export const GenericProfileAvatarRemovedEvent = {

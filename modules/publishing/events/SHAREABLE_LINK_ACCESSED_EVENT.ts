@@ -14,7 +14,7 @@ export const ShareableLinkAccessedEvent = z.object({
     ownerId: Auth.VO.UserId,
     publicationSpecification: VO.PublicationSpecification,
     validity: z.enum(VO.AccessValidity),
-    visitorId: bg.VisitorId,
+    visitorId: bg.HashValue,
     timestamp: tools.TimestampValue,
     reason: z.string(),
   }),

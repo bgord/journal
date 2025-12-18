@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import type { EnvironmentType } from "+infra/env";
 
 type Dependencies = {
-  FileHash: bg.FileHashPort;
+  HashFile: bg.HashFilePort;
   FileCleaner: bg.FileCleanerPort;
   FileRenamer: bg.FileRenamerPort;
   JsonFileReader: bg.JsonFileReaderPort;

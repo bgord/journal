@@ -15,7 +15,7 @@ export const GetProfileAvatar = (deps: Dependencies) => async (c: hono.Context<i
 
   const ifNoneMatchHeader = c.req.header("if-none-match");
 
-  if (ifNoneMatchHeader && ifNoneMatchHeader === head.etag) {
+  if (ifNoneMatchHeader && bg.Hash.fromString(ifNoneMatchHeader).matches(head.etag)) {
     return bg.CacheFileMustRevalidate.notModified(head);
   }
 

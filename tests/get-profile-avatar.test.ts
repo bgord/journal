@@ -36,7 +36,7 @@ describe(`GET ${url}`, async () => {
 
     const response = await server.request(
       url,
-      { method: "GET", headers: { "If-None-Match": mocks.head.etag } },
+      { method: "GET", headers: { "If-None-Match": mocks.head.etag.get() } },
       mocks.ip,
     );
 
@@ -59,7 +59,7 @@ describe(`GET ${url}`, async () => {
 
     expect(response.status).toEqual(200);
     expect(response.headers.get("Content-Type")).toEqual("image/webp");
-    expect(response.headers.get("ETag")).toEqual(mocks.head.etag);
+    expect(response.headers.get("ETag")).toEqual(mocks.head.etag.get());
     expect(response.headers.get("Content-Length")).toEqual(mocks.head.size.toBytes().toString());
     expect(response.headers.get("Last-Modified")).toEqual(new Date(mocks.head.lastModified.ms).toUTCString());
     +expect(response.headers.get("Cache-Control")).toEqual("private, max-age=0, must-revalidate");
