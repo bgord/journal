@@ -1,7 +1,13 @@
 # Changelog
+- 2025-12-19 11:20 df75d9cf **feature: setup job handler adapter**
+- 2025-12-19 11:20 69bccc58 **step: update packages**
+## 2025-12-19 11:20 
+- 2025-12-19 11:15 10121d24 **step: update packages**
+- 2025-12-19 01:07 5c291ea8 **step: update packages**
 - 2025-12-19 00:33 5f548c77 **refactor: update cache infra**
-## 2025-12-19 00:33 
 - 2025-12-19 00:04 d1f3dbd5 **step: update packages**
+- 2025-12-18 23:39 bc64a2f3 **docs: generate CHANGELOG**
+- 2025-12-18 23:39 70ab62f7 **docs: generate readme**
 - 2025-12-18 22:34 1055dcb5 **step: update packages**
 - 2025-12-18 00:38 6eafe038 **step: bump bgord/scripts**
 - 2025-12-18 00:38 3fcb1f30 **step: update bun version**
