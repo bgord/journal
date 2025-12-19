@@ -1,8 +1,12 @@
 # Changelog
+- 2025-12-19 21:48 d9c451c3 **step: remove axiom**
+## 2025-12-19 21:48 
+- 2025-12-19 21:47 136c1b40 **step: update packages**
+- 2025-12-19 21:35 0f7736fd **refactor: simplify mocks.ip**
 - 2025-12-19 17:39 44f63c58 **refactor: remove validate_environment_file**
-## 2025-12-19 17:39 
 - 2025-12-19 17:38 f7f9dd41 **step: bump bgord/scripts**
 - 2025-12-19 17:26 549ca637 **refactor: use passage of time from bg**
+- 2025-12-19 16:39 14e5de49 **docs: generate CHANGELOG**
 - 2025-12-19 16:32 887b3939 **docs: generate readme**
 - 2025-12-19 16:32 6e8ed7ad **docs: generate CHANGELOG**
 - 2025-12-19 15:32 7575a097 **refactor: use system events from bg**
