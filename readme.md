@@ -336,10 +336,7 @@ modules/
 │       ├── shareable-link-id.ts
 │       ├── shareable-link-snapshot.ts
 │       └── shareable-link-status.ts
-├── supported-languages.ts
-└── system
-    ├── events
-    │   ├── hour-has-passed.ts
+└── supported-languages.ts
 ```
 
 ## App:
@@ -380,7 +377,6 @@ app/
     ├── home-entry-add-form.ts
     ├── home-entry-export-form.ts
     ├── home-entry-list-form.ts
-    ├── passage-of-time.ts
     └── weekly-review-form.ts
 ```
 
