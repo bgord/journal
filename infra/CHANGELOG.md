@@ -1,8 +1,12 @@
 # Changelog
+- 2025-12-19 12:52 62c5c3c8 **refactor: introduce event handler port**
+## 2025-12-19 12:52 
+- 2025-12-19 12:47 87c1c7ca **step: update packages**
 - 2025-12-19 11:20 df75d9cf **feature: setup job handler adapter**
 - 2025-12-19 11:20 69bccc58 **step: update packages**
-## 2025-12-19 11:20 
 - 2025-12-19 11:15 10121d24 **step: update packages**
+- 2025-12-19 10:21 93069c72 **docs: generate readme**
+- 2025-12-19 10:21 28152117 **docs: generate CHANGELOG**
 - 2025-12-19 01:07 5c291ea8 **step: update packages**
 - 2025-12-19 00:33 5f548c77 **refactor: update cache infra**
 - 2025-12-19 00:04 d1f3dbd5 **step: update packages**
