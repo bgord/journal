@@ -15,6 +15,7 @@ import { createHashFile } from "./hash-file.adapter";
 import { IdProvider } from "./id-provider.adapter";
 import { ImageInfo } from "./image-info.adapter";
 import { createImageProcessor } from "./image-processor.adapter";
+import { createJobHandler } from "./job-handler.adapter";
 import { JsonFileReader } from "./json-file-reader.adapter";
 import { createLogger } from "./logger.adapter";
 import { createMailer } from "./mailer.adapter";
@@ -49,6 +50,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
     IdProvider,
     Mailer,
     JsonFileReader,
+    JobHandler: createJobHandler(Env, { Clock, IdProvider, Logger }),
     Logger,
     Timekeeper,
     ShieldTimeout,

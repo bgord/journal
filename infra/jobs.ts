@@ -1,4 +1,4 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import { Cron } from "croner";
 import * as App from "+app";
 import type { EventStoreType } from "+infra/adapters/system/event-store";
@@ -8,15 +8,14 @@ type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   EventStore: EventStoreType;
+  JobHandler: bg.JobHandlerPort;
 };
 
 export function createJobs(deps: Dependencies) {
-  const JobHandler = new bg.JobHandler(deps);
-
   const PassageOfTimeJob = new Cron(
     App.Services.PassageOfTime.cron,
-    { protect: JobHandler.protect },
-    JobHandler.handle(new App.Services.PassageOfTime(deps)),
+    {},
+    deps.JobHandler.handle(new App.Services.PassageOfTime(deps)),
   );
 
   return { PassageOfTimeJob };
