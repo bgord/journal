@@ -1,6 +1,10 @@
 # Changelog
+- 2025-12-19 17:39 44f63c58 **refactor: remove validate_environment_file**
+## 2025-12-19 17:39 
+- 2025-12-19 17:38 f7f9dd41 **step: bump bgord/scripts**
 - 2025-12-19 17:26 549ca637 **refactor: use passage of time from bg**
-## 2025-12-19 17:26 
+- 2025-12-19 16:32 887b3939 **docs: generate readme**
+- 2025-12-19 16:32 6e8ed7ad **docs: generate CHANGELOG**
 - 2025-12-19 15:32 7575a097 **refactor: use system events from bg**
 - 2025-12-19 15:28 585547cf **step: update packages**
 - 2025-12-19 12:52 62c5c3c8 **refactor: introduce event handler port**
