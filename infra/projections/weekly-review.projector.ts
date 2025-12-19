@@ -5,7 +5,7 @@ import type { EventBusType } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandler };
+type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerPort };
 
 export class WeeklyReviewProjector {
   constructor(deps: Dependencies) {

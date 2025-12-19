@@ -4,7 +4,11 @@ import type { EventBusType } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandler; IdProvider: bg.IdProviderPort };
+type Dependencies = {
+  EventBus: EventBusType;
+  EventHandler: bg.EventHandlerPort;
+  IdProvider: bg.IdProviderPort;
+};
 
 export class ShareableLinkHitProjector {
   constructor(private readonly deps: Dependencies) {

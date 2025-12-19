@@ -58,7 +58,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
     FileCleaner,
     FileRenamer,
     TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer }),
-    EventHandler: createEventHandler({ Logger }),
+    EventHandler: createEventHandler({ Logger, Clock }),
     CsvStringifier,
     ImageInfo,
     HashFile,

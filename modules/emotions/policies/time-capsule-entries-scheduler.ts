@@ -7,7 +7,7 @@ type AcceptedCommand = Emotions.Commands.LogEntryCommandType;
 
 type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
-  EventHandler: bg.EventHandler;
+  EventHandler: bg.EventHandlerPort;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
