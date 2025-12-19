@@ -17,7 +17,6 @@ import * as schema from "+infra/schema";
 import type { ProfileAvatarRemovedEvent, ProfileAvatarUpdatedEvent } from "+preferences/events";
 import type { ShareableLinkEvent } from "+publishing/aggregates";
 import type { ShareableLinkAccessedEvent } from "+publishing/events";
-import type { HourHasPassedEvent } from "+system/events";
 
 type Dependencies = { EventBus: EventBusType };
 
@@ -31,7 +30,7 @@ export type AcceptedEvent =
   | typeof TimeCapsuleEntryScheduledEvent
   | ShareableLinkEvent
   | typeof ShareableLinkAccessedEvent
-  | typeof HourHasPassedEvent
+  | typeof bg.System.Events.HourHasPassedEvent
   | typeof AiRequestRegisteredEvent
   | typeof AiQuotaExceededEvent
   | typeof AccountCreatedEvent

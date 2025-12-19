@@ -2,9 +2,8 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import * as System from "+system";
 
-type AcceptedEvent = System.Events.HourHasPassedEventType;
+type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.RequestWeeklyReviewCommandType;
 
 type Dependencies = {
@@ -19,12 +18,12 @@ type Dependencies = {
 export class WeeklyReviewScheduler {
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
-      System.Events.HOUR_HAS_PASSED_EVENT,
+      bg.System.Events.HOUR_HAS_PASSED_EVENT,
       deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
-  async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
+  async onHourHasPassedEvent(event: bg.System.Events.HourHasPassedEventType) {
     if (Emotions.Invariants.WeeklyReviewSchedule.fails({ timestamp: event.payload.timestamp })) return;
 
     const week = tools.Week.fromTimestampValue(event.payload.timestamp).previous();

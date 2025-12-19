@@ -10,7 +10,6 @@ import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
-import type * as System from "+system";
 import type { EntrySnapshotFormatted } from "+app/http/emotions/list-entries";
 import type * as Schema from "+infra/schema";
 
@@ -648,7 +647,7 @@ export const GenericHourHasPassedEvent = {
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: hourHasPassedTimestamp.ms },
-} satisfies System.Events.HourHasPassedEventType;
+} satisfies bg.System.Events.HourHasPassedEventType;
 
 export const GenericHourHasPassedMondayUtc18Event = {
   id: expectAnyId,
@@ -658,7 +657,7 @@ export const GenericHourHasPassedMondayUtc18Event = {
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: tools.Timestamp.fromNumber(1754330400000).ms },
-} satisfies System.Events.HourHasPassedEventType;
+} satisfies bg.System.Events.HourHasPassedEventType;
 
 export function getNextMonday1800UTC(now: Date = new Date()): number {
   const daysUntilMonday = (8 - now.getUTCDay()) % 7;
@@ -678,7 +677,7 @@ export const HourHasPassedNextMondayUtc18Event = {
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: tools.Timestamp.fromNumber(getNextMonday1800UTC()).ms },
-} satisfies System.Events.HourHasPassedEventType;
+} satisfies bg.System.Events.HourHasPassedEventType;
 
 export const GenericHourHasPassedWednesdayUtc18Event = {
   id: expectAnyId,
@@ -688,7 +687,7 @@ export const GenericHourHasPassedWednesdayUtc18Event = {
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: tools.Timestamp.fromNumber(1754503200000).ms },
-} satisfies System.Events.HourHasPassedEventType;
+} satisfies bg.System.Events.HourHasPassedEventType;
 
 export const GenericAiRequestRegisteredEmotionsAlarmEntryEvent = {
   id: expectAnyId,

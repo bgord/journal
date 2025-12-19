@@ -1,8 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import * as System from "+system";
 
-type AcceptedEvent = System.Events.HourHasPassedEventType;
+type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.LogEntryCommandType;
 
 type Dependencies = {
@@ -17,12 +16,12 @@ type Dependencies = {
 export class TimeCapsuleEntriesScheduler {
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
-      System.Events.HOUR_HAS_PASSED_EVENT,
+      bg.System.Events.HOUR_HAS_PASSED_EVENT,
       deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
-  async onHourHasPassedEvent(_event: System.Events.HourHasPassedEventType) {
+  async onHourHasPassedEvent(_event: bg.System.Events.HourHasPassedEventType) {
     const now = this.deps.Clock.now();
 
     const dueEntries = await this.deps.TimeCapsuleDueEntries.listDue(now);

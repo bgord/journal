@@ -1,10 +1,9 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as System from "+system";
 import * as Commands from "+publishing/commands";
 import type * as Ports from "+publishing/ports";
 
-type AcceptedEvent = System.Events.HourHasPassedEventType;
+type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 
 type AcceptedCommand = Commands.ExpireShareableLinkCommandType;
 
@@ -20,12 +19,12 @@ type Dependencies = {
 export class ShareableLinksExpirer {
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
-      System.Events.HOUR_HAS_PASSED_EVENT,
+      bg.System.Events.HOUR_HAS_PASSED_EVENT,
       deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
 
-  async onHourHasPassedEvent(event: System.Events.HourHasPassedEventType) {
+  async onHourHasPassedEvent(event: bg.System.Events.HourHasPassedEventType) {
     try {
       const shareableLinks = await this.deps.ExpiringShareableLinks.listDue(event.payload.timestamp);
 
