@@ -447,6 +447,7 @@ infra/
 │       ├── id-provider.adapter.ts
 │       ├── image-info.adapter.ts
 │       ├── image-processor.adapter.ts
+│       ├── job-handler.adapter.ts
 │       ├── json-file-reader.adapter.ts
 │       ├── logger.adapter.ts
 │       ├── mailer.adapter.ts
