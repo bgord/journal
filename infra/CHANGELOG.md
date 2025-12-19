@@ -1,7 +1,11 @@
 # Changelog
+- 2025-12-19 17:26 549ca637 **refactor: use passage of time from bg**
+## 2025-12-19 17:26 
+- 2025-12-19 15:32 7575a097 **refactor: use system events from bg**
+- 2025-12-19 15:28 585547cf **step: update packages**
 - 2025-12-19 12:52 62c5c3c8 **refactor: introduce event handler port**
-## 2025-12-19 12:52 
 - 2025-12-19 12:47 87c1c7ca **step: update packages**
+- 2025-12-19 11:53 0c54e5ed **docs: generate CHANGELOG**
 - 2025-12-19 11:20 df75d9cf **feature: setup job handler adapter**
 - 2025-12-19 11:20 69bccc58 **step: update packages**
 - 2025-12-19 11:15 10121d24 **step: update packages**
