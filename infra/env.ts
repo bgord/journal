@@ -28,7 +28,6 @@ export const Schema = z
     BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
     OPEN_AI_API_KEY,
     ANTHROPIC_AI_API_KEY,
-    AXIOM_API_TOKEN: z.string().length(41),
     AI_CLIENT_ADAPTER: z.enum(AiClientAdapter),
     BETTER_AUTH_SECRET: z.string().length(32).trim(),
     BETTER_AUTH_URL: tools.UrlWithoutSlash,

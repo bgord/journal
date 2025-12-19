@@ -10,14 +10,12 @@ export function createLogger(Env: EnvironmentType): bg.LoggerPort {
     new bg.RedactorCompactObjectAdapter(),
   ]);
 
+  const config = { app, redactor };
+
   return {
-    [bg.NodeEnvironmentEnum.local]: new bg.LoggerWinstonLocalAdapter({ app, redactor }).create(
-      Env.LOGS_LEVEL,
-    ),
+    [bg.NodeEnvironmentEnum.local]: new bg.LoggerWinstonLocalAdapter(config).create(Env.LOGS_LEVEL),
     [bg.NodeEnvironmentEnum.test]: new bg.LoggerNoopAdapter(),
     [bg.NodeEnvironmentEnum.staging]: new bg.LoggerNoopAdapter(),
-    [bg.NodeEnvironmentEnum.production]: new bg.LoggerWinstonProductionAdapter({ app, redactor }).create(
-      Env.LOGS_LEVEL,
-    ),
+    [bg.NodeEnvironmentEnum.production]: new bg.LoggerWinstonProductionAdapter(config).create(Env.LOGS_LEVEL),
   }[Env.type];
 }
