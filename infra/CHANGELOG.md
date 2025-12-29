@@ -1,6 +1,11 @@
 # Changelog
+- 2025-12-29 22:47 a228cbe8 **refactor: order decorators**
+## 2025-12-29 22:47 
+- 2025-12-29 22:33 36a0da3c **step: add with fail safe to prereqs**
+- 2025-12-29 22:21 5619a8c5 **step: add with timeout to prereqs**
+- 2025-12-29 22:11 59ae856e **step: add with retry to prereqs**
+- 2025-12-29 21:26 65e79c8e **refactor: bump ttl in shield rate limit**
 - 2025-12-29 21:13 d9780f0a **fix: tests**
-## 2025-12-29 21:13 
 - 2025-12-29 20:56 d932682a **refactor: use duration MIN**
 - 2025-12-29 20:52 f47ab590 **refactor: update get shared entries**
 - 2025-12-29 20:44 f3e3c846 **refactor: define sleeper adapter**
@@ -13,6 +18,8 @@
 - 2025-12-29 20:34 853d4c5f **refactor: update db seed**
 - 2025-12-29 20:31 d7f3099c **fix: auth in tests**
 - 2025-12-29 20:26 0e7c627b **fix: event store in tests**
+- 2025-12-29 20:17 fde239ed **docs: generate readme**
+- 2025-12-29 20:17 a467ab26 **docs: generate CHANGELOG**
 - 2025-12-29 20:17 3ecab8a5 **refactor: update db seed**
 - 2025-12-29 20:16 8b472e8c **refactor: update history adapters**
 - 2025-12-29 20:16 0038ee15 **refactor: update emotions adapters**
