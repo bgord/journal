@@ -1,5 +1,5 @@
 import type * as bg from "@bgord/bun";
-import type { EventStoreType } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/tools/event-store";
 import { ExpiringShareableLinks } from "./expiring-shareable-links";
 import { createShareableLinkAccessOHQ } from "./shareable-link-access.adapter";
 import { createShareableLinkAccessAuditor } from "./shareable-link-access-auditor.adapter";

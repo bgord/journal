@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
 import * as Publishing from "+publishing";
-import type { EventStoreType } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/tools/event-store";
 
 type Dependencies = { Clock: bg.ClockPort; IdProvider: bg.IdProviderPort; EventStore: EventStoreType };
 
