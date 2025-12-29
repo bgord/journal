@@ -4,7 +4,7 @@ import { createCacheResponse } from "./cache-response";
 import { createCommandBus } from "./command-bus";
 import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
-import { createEventStore, type EventStoreType } from "./event-store";
+import { createEventStore } from "./event-store";
 import { I18nConfig } from "./i18n";
 import { createJobHandler } from "./job-handler.adapter";
 import { createJobs } from "./jobs";
@@ -25,17 +25,17 @@ type Dependencies = {
   TemporaryFile: bg.TemporaryFilePort;
   FileReaderJson: bg.FileReaderJsonPort;
   IdProvider: bg.IdProviderPort;
-  EventStore: EventStoreType;
-  JobHandler: bg.JobHandlerStrategy;
   RemoteFileStorage: bg.RemoteFileStoragePort;
 };
 
 export function createTools(Env: EnvironmentType, deps: Dependencies) {
-  const Jobs = createJobs(deps);
   const EventBus = createEventBus(deps);
+  const EventStore = createEventStore({ ...deps, EventBus });
+  const JobHandler = createJobHandler(Env, deps);
+  const Jobs = createJobs({ ...deps, EventStore, JobHandler });
 
   return {
-    Auth: createShieldAuth(Env, deps),
+    Auth: createShieldAuth(Env, { ...deps, EventStore }),
     CacheResponse: createCacheResponse(),
     I18nConfig,
     Jobs,
@@ -47,7 +47,6 @@ export function createTools(Env: EnvironmentType, deps: Dependencies) {
     EventHandler: createEventHandler(deps),
     CommandBus: createCommandBus(deps),
     EventBus,
-    EventStore: createEventStore({ ...deps, EventBus }),
-    JobHandler: createJobHandler(Env, deps),
+    EventStore,
   };
 }

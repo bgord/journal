@@ -13,18 +13,19 @@ export async function bootstrap() {
   const Env = await EnvironmentLoader.load();
 
   const System = createSystemAdapters(Env);
+  const Tools = createTools(Env, System);
 
-  const AI = createAuthAdapter(Env, System);
+  const AI = createAuthAdapter(Env, { ...System, ...Tools });
   const Auth = createAuthAdapters();
-  const Emotions = createEmotionsAdapters(Env, System);
-  const History = createHistoryAdapters(System);
+  const Emotions = createEmotionsAdapters(Env, { ...System, ...Tools });
+  const History = createHistoryAdapters({ ...System, ...Tools });
   const Preferences = createPreferencesAdapters();
-  const Publishing = createPublishingAdapters(System);
+  const Publishing = createPublishingAdapters({ ...System, ...Tools });
 
   return {
     Env,
     Adapters: { AI, Auth, Emotions, History, Preferences, Publishing, System },
-    Tools: createTools(Env, System),
+    Tools,
   };
 }
 
