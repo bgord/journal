@@ -23,12 +23,14 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
   const production = Env.type === bg.NodeEnvironmentEnum.production;
   const local = Env.type === bg.NodeEnvironmentEnum.local;
 
+  const withTimeout = bg.PrerequisiteDecorator.withTimeout(tools.Duration.Seconds(2), deps);
+  const withFailSafe = bg.PrerequisiteDecorator.withFailSafe(
+    (result) => result.outcome === bg.PrerequisiteVerificationOutcome.failure,
+  );
   const withRetry = bg.PrerequisiteDecorator.withRetry(
     { max: 2, backoff: new bg.RetryBackoffLinearStrategy(tools.Duration.Ms(300)) },
     deps,
   );
-
-  const withTimeout = bg.PrerequisiteDecorator.withTimeout(tools.Duration.Seconds(2), deps);
 
   return [
     new bg.Prerequisite("port", new bg.PrerequisiteVerifierPortAdapter({ port: Env.PORT })),
@@ -86,7 +88,7 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
     }),
     new bg.Prerequisite("outside-connectivity", new bg.PrerequisiteVerifierOutsideConnectivityAdapter(), {
       enabled: production,
-      decorators: [withRetry, withTimeout],
+      decorators: [withRetry, withTimeout, withFailSafe],
     }),
     new bg.Prerequisite("user", new bg.PrerequisiteVerifierRunningUserAdapter({ username: "bgord" }), {
       enabled: production,
@@ -100,7 +102,7 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
         { hostname: "journal.bgord.dev", days: 7 },
         deps,
       ),
-      { enabled: production, decorators: [withRetry, withTimeout] },
+      { enabled: production, decorators: [withRetry, withTimeout, withFailSafe] },
     ),
     new bg.Prerequisite(
       "clock-drift",
