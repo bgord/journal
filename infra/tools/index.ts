@@ -26,6 +26,8 @@ type Dependencies = {
   FileReaderJson: bg.FileReaderJsonPort;
   IdProvider: bg.IdProviderPort;
   RemoteFileStorage: bg.RemoteFileStoragePort;
+  Sleeper: bg.SleeperPort;
+  TimeoutRunner: bg.TimeoutRunnerPort;
 };
 
 export function createTools(Env: EnvironmentType, deps: Dependencies) {
