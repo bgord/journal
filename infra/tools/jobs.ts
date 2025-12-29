@@ -7,7 +7,7 @@ type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   EventStore: EventStoreType;
-  JobHandler: bg.JobHandlerPort;
+  JobHandler: bg.JobHandlerStrategy;
 };
 
 export function createJobs(deps: Dependencies) {

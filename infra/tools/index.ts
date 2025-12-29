@@ -1,12 +1,17 @@
 import type * as bg from "@bgord/bun";
-import type { EventStoreType } from "+infra/adapters/system/event-store";
 import type { EnvironmentType } from "+infra/env";
 import { createCacheResponse } from "./cache-response";
+import { createCommandBus } from "./command-bus";
+import { createEventBus } from "./event-bus";
+import { createEventHandler } from "./event-handler";
+import { createEventStore, type EventStoreType } from "./event-store";
 import { I18nConfig } from "./i18n";
+import { createJobHandler } from "./job-handler.adapter";
 import { createJobs } from "./jobs";
 import { createPrerequisites } from "./prerequisites";
 import { createShieldAuth } from "./shield-auth.strategy";
 import { createShieldBasicAuth } from "./shield-basic-auth.strategy";
+import { createShieldCaptcha } from "./shield-captcha.strategy";
 import { createShieldRateLimit } from "./shield-rate-limit.strategy";
 import { ShieldTimeout } from "./shield-timeout.strategy";
 
@@ -27,15 +32,22 @@ type Dependencies = {
 
 export function createTools(Env: EnvironmentType, deps: Dependencies) {
   const Jobs = createJobs(deps);
+  const EventBus = createEventBus(deps);
 
   return {
-    ShieldTimeout,
-    ShieldRateLimit: createShieldRateLimit(Env, deps),
-    ShieldBasicAuth: createShieldBasicAuth(Env),
     Auth: createShieldAuth(Env, deps),
-    Prerequisites: createPrerequisites(Env, { ...deps, Jobs }),
-    I18nConfig,
     CacheResponse: createCacheResponse(),
+    I18nConfig,
     Jobs,
+    Prerequisites: createPrerequisites(Env, { ...deps, Jobs }),
+    ShieldBasicAuth: createShieldBasicAuth(Env),
+    ShieldCaptcha: createShieldCaptcha(Env),
+    ShieldRateLimit: createShieldRateLimit(Env, deps),
+    ShieldTimeout,
+    EventHandler: createEventHandler(deps),
+    CommandBus: createCommandBus(deps),
+    EventBus,
+    EventStore: createEventStore({ ...deps, EventBus }),
+    JobHandler: createJobHandler(Env, deps),
   };
 }
