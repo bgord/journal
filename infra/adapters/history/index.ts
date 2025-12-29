@@ -4,7 +4,12 @@ import { HistoryProjection } from "./history-projection.adapter";
 import { HistoryReader } from "./history-reader.adapter";
 import { createHistoryWriter } from "./history-writer.adapter";
 
-type Dependencies = { EventStore: EventStoreType; IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+type Dependencies = {
+  Sleeper: bg.SleeperPort;
+  EventStore: EventStoreType;
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+};
 
 export function createHistoryAdapters(deps: Dependencies) {
   return { HistoryProjection, HistoryReader, HistoryWriter: createHistoryWriter(deps) };

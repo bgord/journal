@@ -13,6 +13,7 @@ import { createImageProcessor } from "./image-processor.adapter";
 import { createLogger } from "./logger.adapter";
 import { createMailer } from "./mailer.adapter";
 import { createRemoteFileStorage } from "./remote-file-storage.adapter";
+import { createSleeper } from "./sleeper.adapter";
 import { createTemporaryFile } from "./temporary-file.adapter";
 import { createTimekeeper } from "./timekeeper.adapter";
 
@@ -40,6 +41,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
     ImageInfo,
     HashFile,
     ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
+    Sleeper: createSleeper(Env),
     RemoteFileStorage: createRemoteFileStorage(Env, {
       HashFile,
       FileCleaner,

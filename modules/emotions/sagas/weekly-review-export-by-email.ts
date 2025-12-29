@@ -16,6 +16,7 @@ type Dependencies = {
   Clock: bg.ClockPort;
   Mailer: bg.MailerPort;
   PdfGenerator: bg.PdfGeneratorPort;
+  Sleeper: bg.SleeperPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
   WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
@@ -83,20 +84,18 @@ export class WeeklyReviewExportByEmail {
   ) {
     if (event.payload.attempt > 3) return;
 
-    await this.deps.EventStore.saveAfter(
-      [
-        Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
-          ...bg.createEventEnvelope(event.stream, this.deps),
-          name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
-          payload: {
-            weeklyReviewId: event.payload.weeklyReviewId,
-            userId: event.payload.userId,
-            weeklyReviewExportId: event.payload.weeklyReviewExportId,
-            attempt: event.payload.attempt + 1,
-          },
-        } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType),
-      ],
-      tools.Duration.Minutes(1),
-    );
+    await this.deps.Sleeper.wait(tools.Duration.Minutes(1));
+    await this.deps.EventStore.save([
+      Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
+        ...bg.createEventEnvelope(event.stream, this.deps),
+        name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
+        payload: {
+          weeklyReviewId: event.payload.weeklyReviewId,
+          userId: event.payload.userId,
+          weeklyReviewExportId: event.payload.weeklyReviewExportId,
+          attempt: event.payload.attempt + 1,
+        },
+      } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType),
+    ]);
   }
 }

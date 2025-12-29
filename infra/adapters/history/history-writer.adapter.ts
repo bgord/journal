@@ -2,7 +2,12 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { EventStoreType } from "+infra/tools/event-store";
 
-type Dependencies = { EventStore: EventStoreType; IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+type Dependencies = {
+  EventStore: EventStoreType;
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  Sleeper: bg.SleeperPort;
+};
 
 class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   constructor(private readonly deps: Dependencies) {}
@@ -14,7 +19,8 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
       payload: { ...history, id: this.deps.IdProvider.generate() },
     } satisfies bg.History.Events.HistoryPopulatedEventType);
 
-    await this.deps.EventStore.saveAfter([event], tools.Duration.Ms(10));
+    await this.deps.Sleeper.wait(tools.Duration.Ms(10));
+    await this.deps.EventStore.save([event]);
   }
 
   async clear(subject: bg.History.VO.HistorySubjectType) {
@@ -24,7 +30,8 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
       payload: { subject },
     }) satisfies bg.History.Events.HistoryClearedEventType;
 
-    await this.deps.EventStore.saveAfter([event], tools.Duration.Ms(10));
+    await this.deps.Sleeper.wait(tools.Duration.Ms(10));
+    await this.deps.EventStore.save([event]);
   }
 }
 
