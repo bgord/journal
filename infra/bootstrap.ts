@@ -14,13 +14,14 @@ export async function bootstrap() {
 
   const System = createSystemAdapters(Env);
   const Tools = createTools(Env, System);
+  const deps = { ...System, ...Tools };
 
-  const AI = createAuthAdapter(Env, { ...System, ...Tools });
+  const AI = createAuthAdapter(Env, deps);
   const Auth = createAuthAdapters();
-  const Emotions = createEmotionsAdapters(Env, { ...System, ...Tools });
-  const History = createHistoryAdapters({ ...System, ...Tools });
+  const Emotions = createEmotionsAdapters(Env, deps);
+  const History = createHistoryAdapters(deps);
   const Preferences = createPreferencesAdapters();
-  const Publishing = createPublishingAdapters({ ...System, ...Tools });
+  const Publishing = createPublishingAdapters(deps);
 
   return {
     Env,
