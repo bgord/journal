@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import { Cron } from "croner";
-import type { EventStoreType } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/tools/event-store";
 
 type Dependencies = {
   Logger: bg.LoggerPort;
