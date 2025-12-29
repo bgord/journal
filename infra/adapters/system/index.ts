@@ -16,6 +16,7 @@ import { createRemoteFileStorage } from "./remote-file-storage.adapter";
 import { createSleeper } from "./sleeper.adapter";
 import { createTemporaryFile } from "./temporary-file.adapter";
 import { createTimekeeper } from "./timekeeper.adapter";
+import { createTimeoutRunner } from "./timeout-runner.adapter";
 
 export function createSystemAdapters(Env: EnvironmentType) {
   const Clock = createClock(Env);
@@ -42,6 +43,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
     HashFile,
     ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
     Sleeper: createSleeper(Env),
+    TimeoutRunner: createTimeoutRunner(Env),
     RemoteFileStorage: createRemoteFileStorage(Env, {
       HashFile,
       FileCleaner,
