@@ -8,7 +8,6 @@ type Dependencies = {
   Clock: bg.ClockPort;
   ShareableLinkAccessOHQ: Publishing.OHQ.ShareableLinkAccessAdapter;
   EntriesSharing: Emotions.OHQ.EntriesSharingPort;
-  HashContent: bg.HashContentStrategy;
 };
 
 export const GetSharedEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
@@ -17,7 +16,9 @@ export const GetSharedEntries = (deps: Dependencies) => async (c: hono.Context<i
   const client = bg.ClientFromHono.translate(c);
   const context = {
     timestamp: deps.Clock.now().ms,
-    visitorId: await new bg.VisitorIdClientStrategy(client, deps).get(),
+    visitorId: await new bg.VisitorIdClientStrategy(client, {
+      HashContent: new bg.HashContentSha256BunStrategy(),
+    }).get(),
   };
 
   const shareableLinkAccess = await deps.ShareableLinkAccessOHQ.check(shareableLinkId, "entries", context);
