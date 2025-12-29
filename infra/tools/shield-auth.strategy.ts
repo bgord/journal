@@ -4,9 +4,9 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { haveIBeenPwned, openAPI } from "better-auth/plugins";
 import * as Auth from "+auth";
-import type { EventStoreType } from "+infra/adapters/system/event-store";
 import { db } from "+infra/db";
 import type { EnvironmentType } from "+infra/env";
+import type { EventStoreType } from "+infra/tools/event-store";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
