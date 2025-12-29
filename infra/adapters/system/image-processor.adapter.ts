@@ -4,7 +4,7 @@ import type { EnvironmentType } from "+infra/env";
 type Dependencies = {
   FileCleaner: bg.FileCleanerPort;
   FileRenamer: bg.FileRenamerPort;
-  JsonFileReader: bg.JsonFileReaderPort;
+  FileReaderJson: bg.FileReaderJsonPort;
 };
 
 export function createImageProcessor(Env: EnvironmentType, deps: Dependencies): bg.ImageProcessorPort {

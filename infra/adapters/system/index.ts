@@ -4,12 +4,12 @@ import { createClock } from "./clock.adapter";
 import { CsvStringifier } from "./csv-stringifier.adapter";
 import { createDiskSpaceChecker } from "./disk-space-checker.adapter";
 import { createFileCleaner } from "./file-cleaner.adapter";
+import { FileReaderJson } from "./file-reader-json.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
 import { HashFile } from "./hash-file.adapter";
 import { IdProvider } from "./id-provider.adapter";
 import { ImageInfo } from "./image-info.adapter";
 import { createImageProcessor } from "./image-processor.adapter";
-import { JsonFileReader } from "./json-file-reader.adapter";
 import { createLogger } from "./logger.adapter";
 import { createMailer } from "./mailer.adapter";
 import { createRemoteFileStorage } from "./remote-file-storage.adapter";
@@ -30,7 +30,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
     DiskSpaceChecker: createDiskSpaceChecker(Env),
     IdProvider,
     Mailer,
-    JsonFileReader,
+    FileReaderJson,
     Logger,
     Timekeeper,
     FileCleaner,
@@ -39,12 +39,12 @@ export function createSystemAdapters(Env: EnvironmentType) {
     CsvStringifier,
     ImageInfo,
     HashFile,
-    ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, JsonFileReader }),
+    ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
     RemoteFileStorage: createRemoteFileStorage(Env, {
       HashFile,
       FileCleaner,
       FileRenamer,
-      JsonFileReader,
+      FileReaderJson,
       Logger,
       Clock,
     }),

@@ -6,7 +6,7 @@ import * as Preferences from "+preferences";
 import type { BootstrapType } from "+infra/bootstrap";
 import { SupportedLanguages } from "./modules/supported-languages";
 
-export function createServer({ Adapters, Tools }: BootstrapType) {
+export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const server = new Hono<infra.Config>()
     .basePath("/api")
     .use(
@@ -19,10 +19,10 @@ export function createServer({ Adapters, Tools }: BootstrapType) {
   // Healthcheck =================
   server.get(
     "/healthcheck",
-    Adapters.System.ShieldRateLimit.verify,
-    Adapters.System.ShieldTimeout.verify,
-    Adapters.System.ShieldBasicAuth.verify,
-    ...bg.Healthcheck.build(Tools.prerequisites, Adapters.System),
+    Tools.ShieldRateLimit.verify,
+    Tools.ShieldTimeout.verify,
+    Tools.ShieldBasicAuth.verify,
+    ...bg.Healthcheck.build(Env.type, Tools.Prerequisites, Adapters.System),
   );
   // =============================
 
