@@ -17,7 +17,7 @@ export const ExportData = (deps: Dependencies) => async (c: hono.Context<infra.C
   const entries = await deps.EntrySnapshot.getAllForuser(userId);
   const alarms = await deps.AlarmDirectory.listForUser(userId);
 
-  const timestamp = deps.Clock.nowMs();
+  const timestamp = deps.Clock.now().ms;
 
   return new bg.FileDraftZip(tools.Basename.parse(`export-${timestamp}`), [
     new Emotions.Services.EntryExportFileCsv(entries, deps),

@@ -68,7 +68,7 @@ export class ShareableLink {
         dateRangeEnd: dateRange.getEnd().ms,
         publicationSpecification,
         durationMs,
-        createdAt: deps.Clock.nowMs(),
+        createdAt: deps.Clock.now().ms,
       },
     } satisfies Events.ShareableLinkCreatedEventType);
 

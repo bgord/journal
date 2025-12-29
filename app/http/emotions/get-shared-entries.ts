@@ -16,7 +16,7 @@ export const GetSharedEntries = (deps: Dependencies) => async (c: hono.Context<i
 
   const client = bg.Client.fromHonoContext(c);
   const context = {
-    timestamp: deps.Clock.nowMs(),
+    timestamp: deps.Clock.now().ms,
     visitorId: await new bg.VisitorIdClientAdapter(client, deps).get(),
   };
 

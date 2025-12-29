@@ -9,7 +9,7 @@ export class EntryExportFileMarkdown extends bg.FileDraft {
     private readonly entries: VO.EntrySnapshot[],
     deps: Dependencies,
   ) {
-    super(tools.Basename.parse(`entry-export-${deps.Clock.nowMs()}`), tools.MIMES.markdown);
+    super(tools.Basename.parse(`entry-export-${deps.Clock.now().ms}`), tools.MIMES.markdown);
   }
 
   create() {

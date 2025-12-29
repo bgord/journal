@@ -33,7 +33,7 @@ export const ScheduleTimeCapsuleEntry = (deps: Dependencies) => async (c: hono.C
     new Emotions.VO.ReactionEffectiveness(Number(body.reactionEffectiveness)),
   );
 
-  const now = deps.Clock.nowMs();
+  const now = deps.Clock.now().ms;
   const scheduledFor = tools.Day.fromIsoId(body.scheduledFor)
     .getStart()
     .add(timeZoneOffset)

@@ -44,7 +44,7 @@ export class EntryHistoryPublisher {
       operation: "entry.situation.logged",
       subject: event.payload.entryId,
       payload: { kind: event.payload.kind, description: event.payload.description },
-      createdAt: this.deps.Clock.nowMs(),
+      createdAt: this.deps.Clock.now().ms,
     });
   }
 
@@ -53,7 +53,7 @@ export class EntryHistoryPublisher {
       operation: "entry.emotion.logged",
       subject: event.payload.entryId,
       payload: { label: event.payload.label, intensity: event.payload.intensity },
-      createdAt: this.deps.Clock.nowMs(),
+      createdAt: this.deps.Clock.now().ms,
     });
   }
 
@@ -66,7 +66,7 @@ export class EntryHistoryPublisher {
         type: event.payload.type,
         effectiveness: event.payload.effectiveness,
       },
-      createdAt: this.deps.Clock.nowMs(),
+      createdAt: this.deps.Clock.now().ms,
     });
   }
 
@@ -75,7 +75,7 @@ export class EntryHistoryPublisher {
       operation: "entry.emotion.reappraised",
       subject: event.payload.entryId,
       payload: { label: event.payload.newLabel, intensity: event.payload.newIntensity },
-      createdAt: this.deps.Clock.nowMs(),
+      createdAt: this.deps.Clock.now().ms,
     });
   }
 
@@ -88,7 +88,7 @@ export class EntryHistoryPublisher {
         type: event.payload.type,
         effectiveness: event.payload.effectiveness,
       },
-      createdAt: this.deps.Clock.nowMs(),
+      createdAt: this.deps.Clock.now().ms,
     });
   }
 

@@ -12,7 +12,7 @@ export const GetAiUsageToday = (deps: Dependencies) => async (c: hono.Context<in
   const context = {
     userId,
     category: AI.UsageCategory.INSPECT,
-    timestamp: deps.Clock.nowMs(),
+    timestamp: deps.Clock.now().ms,
     dimensions: {},
   };
 
@@ -20,6 +20,8 @@ export const GetAiUsageToday = (deps: Dependencies) => async (c: hono.Context<in
 
   return c.json({
     ...inspection,
-    resetsInHours: new tools.RoundToNearest().round(tools.Duration.Ms(inspection.resetsInMs).hours),
+    resetsInHours: new tools.RoundingToNearestStrategy().round(
+      tools.Duration.Ms(inspection.resetsInMs).hours,
+    ),
   });
 };

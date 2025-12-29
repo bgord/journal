@@ -12,7 +12,7 @@ export const createWeeklyReviewInsightRequestContext = (
   return {
     category: AI.UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
     userId,
-    timestamp: deps.Clock.nowMs(),
+    timestamp: deps.Clock.now().ms,
     dimensions: {},
   };
 };
@@ -26,7 +26,7 @@ export const createEmotionsAlarmEntryRequestContext = (
   return {
     userId,
     category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
-    timestamp: deps.Clock.nowMs(),
+    timestamp: deps.Clock.now().ms,
     dimensions: { entryId },
   };
 };
@@ -39,7 +39,7 @@ export const createEmotionsAlarmInactivityRequestContext = (
   return {
     userId,
     category: AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
-    timestamp: deps.Clock.nowMs(),
+    timestamp: deps.Clock.now().ms,
     dimensions: {},
   };
 };
@@ -55,7 +55,7 @@ export const createAlarmRequestContext = (
     return {
       userId,
       category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
-      timestamp: deps.Clock.nowMs(),
+      timestamp: deps.Clock.now().ms,
       dimensions: { entryId },
     };
   }
@@ -63,7 +63,7 @@ export const createAlarmRequestContext = (
   return {
     userId,
     category: AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
-    timestamp: deps.Clock.nowMs(),
+    timestamp: deps.Clock.now().ms,
     dimensions: {},
   };
 };

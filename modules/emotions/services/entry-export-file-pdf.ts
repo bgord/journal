@@ -9,7 +9,7 @@ export class EntryExportFilePdf extends bg.FileDraft {
     private readonly entries: Emotions.VO.EntrySnapshot[],
     private readonly deps: Dependencies,
   ) {
-    super(tools.Basename.parse(`entry-export-${deps.Clock.nowMs()}`), tools.MIMES.pdf);
+    super(tools.Basename.parse(`entry-export-${deps.Clock.now().ms}`), tools.MIMES.pdf);
   }
 
   // @ts-expect-error
