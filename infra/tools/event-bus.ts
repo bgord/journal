@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import Emittery from "emittery";
 import type z from "zod/v4";
-import type { AcceptedEvent } from "+infra/adapters/system/event-store";
+import type { AcceptedEvent } from "+infra/tools/event-store";
 
 type Dependencies = { Logger: bg.LoggerPort };
 
