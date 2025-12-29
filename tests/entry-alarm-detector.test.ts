@@ -17,7 +17,7 @@ describe("EntryAlarmDetector", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
@@ -34,7 +34,7 @@ describe("EntryAlarmDetector", async () => {
         { bucket: mocks.userDailyBucket, limit: AI.QuotaLimit.parse(10), id: "USER_DAILY", used: 10 },
       ],
     });
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
@@ -56,7 +56,7 @@ describe("EntryAlarmDetector", async () => {
         },
       ],
     });
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityLoggedEvent),
@@ -69,7 +69,7 @@ describe("EntryAlarmDetector", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
@@ -87,7 +87,7 @@ describe("EntryAlarmDetector", async () => {
         { bucket: mocks.userDailyBucket, limit: AI.QuotaLimit.parse(10), id: "USER_DAILY", used: 10 },
       ],
     });
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),
@@ -109,7 +109,7 @@ describe("EntryAlarmDetector", async () => {
         },
       ],
     });
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.detect(mocks.NegativeEmotionExtremeIntensityReappraisedEvent),

@@ -15,6 +15,7 @@ describe("AlarmOrchestrator", async () => {
 
   const saga = new Emotions.Sagas.AlarmOrchestrator({
     ...di.Adapters.System,
+    ...di.Tools,
     AiGateway: di.Adapters.AI.AiGateway,
     AlarmCancellationLookup: di.Adapters.Emotions.AlarmCancellationLookup,
     EntrySnapshot: di.Adapters.Emotions.EntrySnapshot,
@@ -24,12 +25,12 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmGeneratedEvent - entry", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.advice);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
@@ -39,11 +40,11 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmGeneratedEvent - inactivity", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.advice);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmGeneratedEvent(mocks.GenericInactivityAlarmGeneratedEvent),
@@ -53,12 +54,12 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmGeneratedEvent - entry - finding entry fails", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockRejectedValue(new Error("Failed"));
     spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.advice);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
@@ -68,12 +69,12 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmGeneratedEvent - cancels alarm when advice requester fails", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(di.Adapters.AI.AiGateway, "query").mockRejectedValue(new Error());
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
@@ -83,12 +84,12 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmAdviceSavedEvent", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmAdviceSavedEvent(mocks.GenericAlarmAdviceSavedEvent),
@@ -98,7 +99,7 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmNotificationRequestedEvent - missing contact", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
       mocks.GenericAlarmNotificationRequestedEvent,
@@ -106,7 +107,7 @@ describe("AlarmOrchestrator", async () => {
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
@@ -117,7 +118,7 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmNotificationRequestedEvent - mailer failed", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
@@ -125,7 +126,7 @@ describe("AlarmOrchestrator", async () => {
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockRejectedValue(new Error("MAILER_FAILED"));
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
@@ -141,7 +142,7 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmNotificationRequestedEvent - entry", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
       mocks.GenericAlarmNotificationRequestedEvent,
@@ -150,7 +151,7 @@ describe("AlarmOrchestrator", async () => {
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
@@ -166,7 +167,7 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmNotificationRequestedEvent - inactivity", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
       mocks.GenericAlarmNotificationRequestedEvent,
@@ -174,7 +175,7 @@ describe("AlarmOrchestrator", async () => {
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmNotificationRequestedEvent(mocks.GenericInactivityAlarmNotificationRequestedEvent),
@@ -190,13 +191,13 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onEntryDeletedEvent - cancels pending alarm", async () => {
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(di.Adapters.Emotions.AlarmCancellationLookup, "listIdsForEntry").mockResolvedValue([mocks.alarmId]);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),
@@ -207,7 +208,7 @@ describe("AlarmOrchestrator", async () => {
 
   test("onEntryDeletedEvent - does not cancel cancelled", async () => {
     spyOn(di.Adapters.Emotions.AlarmCancellationLookup, "listIdsForEntry").mockResolvedValue([]);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onEntryDeletedEvent(mocks.GenericEntryDeletedEvent),

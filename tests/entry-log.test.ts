@@ -148,7 +148,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValueOnce(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementationOnce(() => mocks.revision);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementationOnce(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementationOnce(jest.fn());
 
     const response = await server.request(
       url,

@@ -41,7 +41,7 @@ describe(`POST ${url}`, async () => {
 
   test("validation - ShareableLinkIsActive - already expired", async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
     ]);
@@ -57,7 +57,7 @@ describe(`POST ${url}`, async () => {
 
   test("validation - ShareableLinkIsActive - already revoked", async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
     ]);
@@ -73,7 +73,7 @@ describe(`POST ${url}`, async () => {
 
   test("validation - RequesterOwnsShareableLink", async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth);
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
 
     const response = await server.request(
       url,
@@ -86,9 +86,9 @@ describe(`POST ${url}`, async () => {
 
   test("happy path", async () => {
     spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.System.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

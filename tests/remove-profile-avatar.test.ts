@@ -27,7 +27,7 @@ describe(`DELETE ${url}`, async () => {
     const remoteFileStorageDelete = spyOn(di.Adapters.System.RemoteFileStorage, "delete").mockImplementation(
       jest.fn(),
     );
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

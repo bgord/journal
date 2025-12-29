@@ -13,6 +13,7 @@ describe("InactivityAlarmScheduler", async () => {
   registerCommandHandlers(di);
   const policy = new Emotions.Policies.InactivityAlarmScheduler({
     ...di.Adapters.System,
+    ...di.Tools,
     UserDirectoryOHQ: di.Adapters.Auth.UserDirectoryOHQ,
     GetLatestEntryTimestampForUserQuery: di.Adapters.Emotions.GetLatestEntryTimestampForUserQuery,
   });
@@ -25,7 +26,7 @@ describe("InactivityAlarmScheduler", async () => {
     );
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
@@ -46,7 +47,7 @@ describe("InactivityAlarmScheduler", async () => {
       ],
     });
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
@@ -72,7 +73,7 @@ describe("InactivityAlarmScheduler", async () => {
       ],
     });
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
@@ -89,7 +90,7 @@ describe("InactivityAlarmScheduler", async () => {
     );
     spyOn(di.Adapters.AI.AiGateway, "check").mockRejectedValue(new Error("FAILURE"));
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
@@ -103,7 +104,7 @@ describe("InactivityAlarmScheduler", async () => {
   test("NoEntriesInTheLastWeek - undefined timestamp", async () => {
     spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]);
     spyOn(di.Adapters.Emotions.GetLatestEntryTimestampForUserQuery, "execute").mockResolvedValue(undefined);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
@@ -118,7 +119,7 @@ describe("InactivityAlarmScheduler", async () => {
     spyOn(di.Adapters.Emotions.GetLatestEntryTimestampForUserQuery, "execute").mockResolvedValue(
       mocks.GenericHourHasPassedWednesdayUtc18Event.payload.timestamp,
     );
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
@@ -129,7 +130,7 @@ describe("InactivityAlarmScheduler", async () => {
   });
 
   test("InactivityAlarmSchedule", async () => {
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,

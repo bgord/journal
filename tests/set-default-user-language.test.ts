@@ -12,11 +12,14 @@ describe("SetDefaultUserLanguage", async () => {
   registerEventHandlers(di);
   registerCommandHandlers(di);
 
-  const policy = new Preferences.Policies.SetDefaultUserLanguage(SupportedLanguages.en, di.Adapters.System);
+  const policy = new Preferences.Policies.SetDefaultUserLanguage(SupportedLanguages.en, {
+    ...di.Adapters.System,
+    ...di.Tools,
+  });
 
   test("onAccountCreatedEvent - no language set", async () => {
     spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(null);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onAccountCreatedEvent(mocks.GenericAccountCreatedEvent),
@@ -27,7 +30,7 @@ describe("SetDefaultUserLanguage", async () => {
 
   test("onAccountCreatedEvent - does not duplicate events", async () => {
     spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       await policy.onAccountCreatedEvent(mocks.GenericAccountCreatedEvent);

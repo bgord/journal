@@ -13,6 +13,7 @@ describe("WeeklyReviewScheduler", async () => {
   registerCommandHandlers(di);
   const policy = new Emotions.Policies.WeeklyReviewScheduler({
     ...di.Adapters.System,
+    ...di.Tools,
     UserDirectoryOHQ: di.Adapters.Auth.UserDirectoryOHQ,
   });
 
@@ -22,7 +23,7 @@ describe("WeeklyReviewScheduler", async () => {
     spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(1);
     spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event),
@@ -32,7 +33,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("WeeklyReviewSchedule", async () => {
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -47,7 +48,7 @@ describe("WeeklyReviewScheduler", async () => {
     spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(0);
     spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
-    const eventStoreSave = spyOn(di.Adapters.System.EventStore, "save").mockImplementation(jest.fn());
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event),
