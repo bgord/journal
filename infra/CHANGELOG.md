@@ -1,8 +1,46 @@
 # Changelog
+- 2025-12-29 21:13 d9780f0a **fix: tests**
+## 2025-12-29 21:13 
+- 2025-12-29 20:56 d932682a **refactor: use duration MIN**
+- 2025-12-29 20:52 f47ab590 **refactor: update get shared entries**
+- 2025-12-29 20:44 f3e3c846 **refactor: define sleeper adapter**
+- 2025-12-29 20:39 c92a6301 **refactor: update history adapters**
+- 2025-12-29 20:39 3d0e56b6 **refactor: update publishing adapters**
+- 2025-12-29 20:38 6119e624 **refactor: update projections**
+- 2025-12-29 20:37 de9cbb0a **refactor: update register command handlers**
+- 2025-12-29 20:36 577cde11 **refactor: update register event handlers**
+- 2025-12-29 20:34 ef0d128c **refactor: update server**
+- 2025-12-29 20:34 853d4c5f **refactor: update db seed**
+- 2025-12-29 20:31 d7f3099c **fix: auth in tests**
+- 2025-12-29 20:26 0e7c627b **fix: event store in tests**
+- 2025-12-29 20:17 3ecab8a5 **refactor: update db seed**
+- 2025-12-29 20:16 8b472e8c **refactor: update history adapters**
+- 2025-12-29 20:16 0038ee15 **refactor: update emotions adapters**
+- 2025-12-29 20:14 92f41573 **refactor: update ai adapters**
+- 2025-12-29 20:13 71bb39bf **refactor: update get shared entries**
+- 2025-12-29 20:12 30b4156b **refactor: update error handler**
+- 2025-12-29 20:11 c3e0211d **refactor: update jobs**
+- 2025-12-29 20:11 adb0acf7 **refactor: update event bus**
+- 2025-12-29 20:10 6da83f92 **refactor: update logger**
+- 2025-12-29 20:09 f6977dcf **refactor: update tools and bootstrap**
+- 2025-12-29 20:03 83edfe40 **refactor: update shield captcha**
+- 2025-12-29 20:03 22d58223 **refactor: update shield auth**
+- 2025-12-29 20:02 8dda632e **refactor: use now().ms**
+- 2025-12-29 20:00 6adec296 **refactor: update server**
+- 2025-12-29 19:56 6c453f56 **refactor: update json file reader**
+- 2025-12-29 19:53 aee4b63d **refactor: update index**
+- 2025-12-29 19:52 07570d5b **refactor: update infra index**
+- 2025-12-29 19:51 b80d1777 **refactor: separate tools and adapters**
+- 2025-12-29 19:42 d1620f76 **refactor: update event handler strategy**
+- 2025-12-29 19:40 e1ebac65 **refactor: update auth api**
+- 2025-12-29 19:39 7b1edc14 **refactor: separate tools and adapters**
+- 2025-12-29 19:28 655f3f73 **refactor: update prereq**
+- 2025-12-29 19:15 dc89865b **refactor: update env**
+- 2025-12-29 19:10 2c5040b5 **step: update packages**
 - 2025-12-19 21:48 d9c451c3 **step: remove axiom**
-## 2025-12-19 21:48 
 - 2025-12-19 21:47 136c1b40 **step: update packages**
 - 2025-12-19 21:35 0f7736fd **refactor: simplify mocks.ip**
+- 2025-12-19 20:48 7d8527e0 **docs: generate CHANGELOG**
 - 2025-12-19 17:39 44f63c58 **refactor: remove validate_environment_file**
 - 2025-12-19 17:38 f7f9dd41 **step: bump bgord/scripts**
 - 2025-12-19 17:26 549ca637 **refactor: use passage of time from bg**
