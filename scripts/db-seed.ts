@@ -117,7 +117,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         { email: "admin@example.com", password: "1234567890" },
         { email: "user@example.com", password: "1234567890" },
       ].map(async (user, index) => {
-        const result = await di.Adapters.System.Auth.config.api.signUpEmail({
+        const result = await di.Tools.Auth.config.api.signUpEmail({
           body: { email: user.email, name: user.email, password: user.password },
         });
 
@@ -129,7 +129,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
           payload: { userId: result.user.id, timestamp: now.ms },
         } satisfies Auth.Events.AccountCreatedEventType);
 
-        await di.Adapters.System.EventStore.save([event]);
+        await di.Tools.EventStore.save([event]);
 
         console.log(`[✓] User ${index + 1} created`);
 
@@ -157,7 +157,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         di.Adapters.System,
       );
 
-      await di.Adapters.System.EventStore.save(alarm.pullEvents());
+      await di.Tools.EventStore.save(alarm.pullEvents());
 
       console.log(`[✓] Alarm ${Number(index) + 1} created`);
     }
@@ -199,7 +199,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         di.Adapters.System,
       );
 
-      await di.Adapters.System.EventStore.save(entry.pullEvents());
+      await di.Tools.EventStore.save(entry.pullEvents());
 
       console.log(`[✓] Entry ${counter + 1} created`);
     }
@@ -228,10 +228,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       },
     } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
-    await di.Adapters.System.CommandBus.emit(
-      ScheduleTimeCapsuleEntryCommand.name,
-      ScheduleTimeCapsuleEntryCommand,
-    );
+    await di.Tools.CommandBus.emit(ScheduleTimeCapsuleEntryCommand.name, ScheduleTimeCapsuleEntryCommand);
 
     console.log("[✓] Time capsule entry scheduled");
 
@@ -251,7 +248,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       di.Adapters.System,
     );
 
-    await di.Adapters.System.EventStore.save(shareableLink.pullEvents());
+    await di.Tools.EventStore.save(shareableLink.pullEvents());
 
     console.log("[✓] Shareable Link created");
 
