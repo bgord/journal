@@ -1,5 +1,5 @@
 import { absoluteUrl, Cookies } from "@bgord/ui";
-import type { AuthVariables } from "../../infra/adapters/system/shield-auth.adapter";
+import type { AuthVariables } from "../../infra/tools/shield-auth.strategy";
 
 /** @public */
 export type SessionType = AuthVariables;
