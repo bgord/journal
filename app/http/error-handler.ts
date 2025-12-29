@@ -44,8 +44,8 @@ export class ErrorHandler {
         );
       }
 
-      if (error.message === bg.AccessDeniedAuthShieldError.message) {
-        return c.json({ message: bg.AccessDeniedAuthShieldError.message, _known: true }, 403);
+      if (error.message === bg.ShieldAuthStrategyError.message) {
+        return c.json({ message: bg.ShieldAuthStrategyError.message, _known: true }, 403);
       }
 
       if (error.message === bg.TooManyRequestsError.message) {
