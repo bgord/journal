@@ -10,7 +10,7 @@ type AcceptedEvent =
 
 type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
-  EventHandler: bg.EventHandlerPort;
+  EventHandler: bg.EventHandlerStrategy;
   HistoryWriter: bg.History.Ports.HistoryWriterPort;
   Clock: bg.ClockPort;
 };

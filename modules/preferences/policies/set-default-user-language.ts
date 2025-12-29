@@ -4,7 +4,7 @@ import * as Auth from "+auth";
 
 type Dependencies = {
   EventBus: bg.EventBusLike<Auth.Events.AccountCreatedEventType>;
-  EventHandler: bg.EventHandlerPort;
+  EventHandler: bg.EventHandlerStrategy;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   CommandBus: bg.CommandBusLike<bg.Preferences.Commands.SetUserLanguageCommandType>;

@@ -19,7 +19,7 @@ type AcceptedCommand =
 
 type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
-  EventHandler: bg.EventHandlerPort;
+  EventHandler: bg.EventHandlerStrategy;
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;

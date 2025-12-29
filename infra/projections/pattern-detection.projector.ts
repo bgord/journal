@@ -4,7 +4,7 @@ import type { EventBusType } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
-type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerPort };
+type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerStrategy };
 
 export class PatternDetectionProjector {
   constructor(deps: Dependencies) {

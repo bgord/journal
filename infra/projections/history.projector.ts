@@ -3,7 +3,7 @@ import type { EventBusType } from "+infra/adapters/system/event-bus";
 
 type Dependencies = {
   EventBus: EventBusType;
-  EventHandler: bg.EventHandlerPort;
+  EventHandler: bg.EventHandlerStrategy;
   HistoryProjection: bg.History.Ports.HistoryProjectionPort;
 };
 

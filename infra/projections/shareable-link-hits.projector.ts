@@ -6,7 +6,7 @@ import * as Schema from "+infra/schema";
 
 type Dependencies = {
   EventBus: EventBusType;
-  EventHandler: bg.EventHandlerPort;
+  EventHandler: bg.EventHandlerStrategy;
   IdProvider: bg.IdProviderPort;
 };
 

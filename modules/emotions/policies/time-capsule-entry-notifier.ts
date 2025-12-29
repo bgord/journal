@@ -8,7 +8,7 @@ type AcceptedEvent = Emotions.Events.SituationLoggedEventType;
 
 type Dependencies = {
   EventBus: bg.EventBusLike<AcceptedEvent>;
-  EventHandler: bg.EventHandlerPort;
+  EventHandler: bg.EventHandlerStrategy;
   Mailer: bg.MailerPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
