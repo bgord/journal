@@ -45,12 +45,12 @@ export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPor
   const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
 
   const CryptoKeyProvider = new bg.CryptoKeyProviderFileAdapter(MasterKeyPath);
-  const Encryption = new bg.EncryptionBunAdapter({ CryptoKeyProvider });
+  const Encryption = new bg.EncryptionAesGcmAdapter({ CryptoKeyProvider });
 
-  const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ ttl: tools.Duration.Hours(1) });
-  const CacheResolver = new bg.CacheResolverSimpleAdapter({ CacheRepository });
+  const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
+  const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
 
-  const HashContent = new bg.HashContentSha256BunAdapter();
+  const HashContent = new bg.HashContentSha256BunStrategy();
 
   const EnvironmentLoaderProcessSafe = new bg.EnvironmentLoaderProcessSafeAdapter(
     process.env,
