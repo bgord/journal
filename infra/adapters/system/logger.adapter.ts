@@ -4,10 +4,10 @@ import type { EnvironmentType } from "+infra/env";
 export function createLogger(Env: EnvironmentType): bg.LoggerPort {
   const app = "journal";
 
-  const redactor = new bg.RedactorCompositeAdapter([
-    new bg.RedactorMaskAdapter(bg.RedactorMaskAdapter.DEFAULT_KEYS),
-    new bg.RedactorCompactArrayAdapter(),
-    new bg.RedactorCompactObjectAdapter(),
+  const redactor = new bg.RedactorCompositeStrategy([
+    new bg.RedactorMaskStrategy(bg.RedactorMaskStrategy.DEFAULT_KEYS),
+    new bg.RedactorCompactArrayStrategy(),
+    new bg.RedactorCompactObjectStrategy(),
   ]);
 
   const config = { app, redactor };
