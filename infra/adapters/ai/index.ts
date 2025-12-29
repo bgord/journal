@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
-import type { EventStoreType } from "+infra/adapters/system/event-store";
 import type { EnvironmentType } from "+infra/env";
+import type { EventStoreType } from "+infra/tools/event-store";
 import { createAiClient } from "./ai-client.adapter";
 import { createAiEventPublisher } from "./ai-event-publisher.adapter";
 import { createAiGateway } from "./ai-gateway.adapter";

@@ -1,5 +1,5 @@
 import type { AIEvents, AiEventPublisherPort } from "+ai/ports/ai-event-publisher";
-import type { EventStoreType } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/tools/event-store";
 
 type Dependencies = { EventStore: EventStoreType };
 
