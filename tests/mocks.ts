@@ -90,10 +90,7 @@ export const anotherPublicationSpecification = "other";
 
 export const dateRangeStart = "2025-01-01";
 export const dateRangeEnd = "2025-01-01";
-export const dateRange = new tools.DateRange(
-  T0,
-  T0.add(tools.Duration.Days(1)).subtract(tools.Duration.Ms(1)),
-);
+export const dateRange = new tools.DateRange(T0, T0.add(tools.Duration.Days(1)).subtract(tools.Duration.MIN));
 
 export const durationMs = tools.Duration.Seconds(1).ms;
 
