@@ -2,9 +2,9 @@ import type * as bg from "@bgord/bun";
 import { sql } from "drizzle-orm";
 import * as AI from "+ai";
 import type * as Events from "+ai/events";
-import type { EventBusType } from "+infra/adapters/system/event-bus";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+import type { EventBusType } from "+infra/tools/event-bus";
 
 type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerStrategy };
 

@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import type { EventBusType } from "+infra/adapters/system/event-bus";
+import type { EventBusType } from "+infra/tools/event-bus";
 
 type Dependencies = {
   EventBus: EventBusType;
