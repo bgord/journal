@@ -29,7 +29,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   // Emotions ====================
   const entry = new Hono();
 
-  entry.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
+  entry.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
   entry.post("/log", HTTP.Emotions.LogEntry(Adapters.System));
   entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry(Adapters.System));
   entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion(Adapters.System));
@@ -37,12 +37,12 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry(Adapters.System));
   entry.get(
     "/export-data",
-    Adapters.System.ShieldRateLimit.verify,
+    Tools.ShieldRateLimit.verify,
     HTTP.Emotions.ExportData({ ...Adapters.System, ...Adapters.Emotions }),
   );
   entry.get(
     "/export-entries",
-    Adapters.System.ShieldRateLimit.verify,
+    Tools.ShieldRateLimit.verify,
     HTTP.Emotions.ExportEntries({ ...Adapters.System, ...Adapters.Emotions }),
   );
   entry.get("/list", HTTP.Emotions.ListEntries({ ...Adapters.System, ...Adapters.Emotions }));
@@ -62,15 +62,15 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   // Weekly review ===============
   const weeklyReview = new Hono();
 
-  weeklyReview.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
+  weeklyReview.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
   weeklyReview.post(
     "/:weeklyReviewId/export/email",
-    Adapters.System.ShieldRateLimit.verify,
+    Tools.ShieldRateLimit.verify,
     HTTP.Emotions.ExportWeeklyReviewByEmail(Adapters.System),
   );
   weeklyReview.get(
     "/:weeklyReviewId/export/download",
-    Adapters.System.ShieldRateLimit.verify,
+    Tools.ShieldRateLimit.verify,
     HTTP.Emotions.DownloadWeeklyReview({ ...Adapters.System, ...Adapters.Emotions }),
   );
   server.route("/weekly-review", weeklyReview);
@@ -79,14 +79,14 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   // Publishing ==================
   const publishing = new Hono();
 
-  publishing.use("*", Adapters.System.Auth.ShieldAuth.attach, Adapters.System.Auth.ShieldAuth.verify);
+  publishing.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
   publishing.get(
     "/links/list",
     HTTP.Publishing.ListShareableLinks({ ...Adapters.System, ...Adapters.Publishing }),
   );
   publishing.post(
     "/link/create",
-    Adapters.System.ShieldRateLimit.verify,
+    Tools.ShieldRateLimit.verify,
     HTTP.Publishing.CreateShareableLink(Adapters.System),
   );
   publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink(Adapters.System));
@@ -105,14 +105,14 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   //Preferences =================
   server.post(
     "/preferences/user-language/update",
-    Adapters.System.Auth.ShieldAuth.attach,
-    Adapters.System.Auth.ShieldAuth.verify,
+    Tools.Auth.ShieldAuth.attach,
+    Tools.Auth.ShieldAuth.verify,
     HTTP.Preferences.UpdateUserLanguage(Adapters.System),
   );
   server.post(
     "/preferences/profile-avatar/update",
-    Adapters.System.Auth.ShieldAuth.attach,
-    Adapters.System.Auth.ShieldAuth.verify,
+    Tools.Auth.ShieldAuth.attach,
+    Tools.Auth.ShieldAuth.verify,
     ...bg.FileUploader.validate({
       mimeTypes: Preferences.VO.ProfileAvatarMimeTypes,
       maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
@@ -121,14 +121,14 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   );
   server.get(
     "/profile-avatar/get",
-    Adapters.System.Auth.ShieldAuth.attach,
-    Adapters.System.Auth.ShieldAuth.verify,
+    Tools.Auth.ShieldAuth.attach,
+    Tools.Auth.ShieldAuth.verify,
     HTTP.Preferences.GetProfileAvatar(Adapters.System),
   );
   server.delete(
     "/preferences/profile-avatar",
-    Adapters.System.Auth.ShieldAuth.attach,
-    Adapters.System.Auth.ShieldAuth.verify,
+    Tools.Auth.ShieldAuth.attach,
+    Tools.Auth.ShieldAuth.verify,
     HTTP.Preferences.RemoveProfileAvatar(Adapters.System),
   );
   // =============================
@@ -136,8 +136,8 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   // AI ==========================
   server.get(
     "/ai-usage-today/get",
-    Adapters.System.Auth.ShieldAuth.attach,
-    Adapters.System.Auth.ShieldAuth.verify,
+    Tools.Auth.ShieldAuth.attach,
+    Tools.Auth.ShieldAuth.verify,
     HTTP.AI.GetAiUsageToday({ ...Adapters.System, ...Adapters.AI }),
   );
   // =============================
@@ -145,8 +145,8 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   // History =====================
   server.get(
     "/history/:subject/list",
-    Adapters.System.Auth.ShieldAuth.attach,
-    Adapters.System.Auth.ShieldAuth.verify,
+    Tools.Auth.ShieldAuth.attach,
+    Tools.Auth.ShieldAuth.verify,
     HTTP.History.HistoryList({ ...Adapters.System, HistoryReader: Adapters.History.HistoryReader }),
   );
   // =============================
@@ -154,15 +154,15 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   // Dashboard ===================
   server.get(
     "/dashboard/get",
-    Adapters.System.Auth.ShieldAuth.attach,
-    Adapters.System.Auth.ShieldAuth.verify,
+    Tools.Auth.ShieldAuth.attach,
+    Tools.Auth.ShieldAuth.verify,
     HTTP.GetDashboard({ ...Adapters.System, ...Adapters.Emotions }),
   );
   // =============================
 
   // Auth ========================
   server.on(["POST", "GET"], "/auth/*", async (c) => {
-    const response = await Adapters.System.Auth.config.handler(c.req.raw);
+    const response = await Tools.Auth.config.handler(c.req.raw);
 
     if (
       c.req.method === "POST" &&
