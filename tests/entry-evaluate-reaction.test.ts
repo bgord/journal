@@ -21,11 +21,11 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.message, _known: true });
   });
 
   test("validation - empty payload", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -42,7 +42,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - missing type", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -63,7 +63,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - missing effectiveness", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -87,7 +87,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - incorrect id", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       "/api/entry/id/evaluate-reaction",
@@ -101,7 +101,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - EntryIsActionable", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
@@ -129,7 +129,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([]);
     const payload = {
       description: "I got drunk",
@@ -154,7 +154,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing emotion", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]);
     const payload = {
       description: "I got drunk",
@@ -179,7 +179,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - ReactionForEvaluationExists", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
@@ -204,7 +204,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth);
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,
@@ -230,7 +230,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericSituationLoggedEvent,
       mocks.GenericEmotionLoggedEvent,

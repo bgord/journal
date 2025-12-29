@@ -11,7 +11,7 @@ describe("EntryAlarmDetector", async () => {
   const di = await bootstrap();
   registerEventHandlers(di);
   registerCommandHandlers(di);
-  const policy = new Emotions.Policies.EntryAlarmDetector(di.Adapters.System);
+  const policy = new Emotions.Policies.EntryAlarmDetector({ ...di.Adapters.System, ...di.Tools });
 
   test("onEmotionLoggedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);

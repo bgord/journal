@@ -15,11 +15,11 @@ describe(`GET ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.message, _known: true });
   });
 
   test("happy path", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.Publishing.ShareableLinkSnapshot, "getByUserId").mockResolvedValue([
       mocks.shareableLinkSnapshot,
     ]);

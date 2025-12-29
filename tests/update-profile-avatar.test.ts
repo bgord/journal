@@ -34,11 +34,11 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.message, _known: true });
   });
 
   test("validation - empty payload", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
@@ -52,7 +52,7 @@ describe(`POST ${url}`, async () => {
       mime: tools.MIMES.png,
       size: tools.Size.fromKb(100),
     });
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     const temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
     const temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
@@ -70,7 +70,7 @@ describe(`POST ${url}`, async () => {
       mime: tools.MIMES.png,
       size: tools.Size.fromMB(100),
     });
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     const temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
     const temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
@@ -88,7 +88,7 @@ describe(`POST ${url}`, async () => {
       mime: tools.MIMES.text,
       size: tools.Size.fromKb(100),
     });
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     const temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
     const temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
@@ -106,7 +106,7 @@ describe(`POST ${url}`, async () => {
       mime: tools.MIMES.png,
       size: tools.Size.fromKb(100),
     });
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
@@ -126,7 +126,7 @@ describe(`POST ${url}`, async () => {
       mime: tools.MIMES.jpeg,
       size: tools.Size.fromKb(100),
     });
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
@@ -146,7 +146,7 @@ describe(`POST ${url}`, async () => {
       mime: tools.MIMES.jpeg,
       size: tools.Size.fromKb(100),
     });
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(

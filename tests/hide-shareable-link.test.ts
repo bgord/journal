@@ -16,11 +16,11 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.message, _known: true });
   });
 
   test("validation - incorrect id", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       "/api/publishing/link/id/revoke",
@@ -34,7 +34,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     // @ts-expect-error
     spyOn(db, "update").mockReturnValue({ set: jest.fn().mockReturnValue({ where: jest.fn() }) });
 

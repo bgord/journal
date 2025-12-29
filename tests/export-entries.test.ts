@@ -15,11 +15,11 @@ describe(`GET ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.AccessDeniedAuthShieldError.message, _known: true });
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.message, _known: true });
   });
 
   test("validation - dateRangeStart", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(`${url}?dateRangeStart=2025-01-01`, { method: "GET" }, mocks.ip);
 
@@ -27,7 +27,7 @@ describe(`GET ${url}`, async () => {
   });
 
   test("validation - dateRangeStart after dateRangeEnd", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       `${url}?dateRangeStart=2025-02-01&dateRangeEnd=2025-01-01`,
@@ -41,7 +41,7 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path - text", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
@@ -59,7 +59,7 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path - csv", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
@@ -77,7 +77,7 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path - markdown", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
@@ -95,7 +95,7 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path - pdf", async () => {
-    spyOn(di.Adapters.System.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getByDateRangeForUser").mockResolvedValue([mocks.fullEntry]);
 
     const response = await server.request(
