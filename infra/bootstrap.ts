@@ -5,11 +5,8 @@ import { createHistoryAdapters } from "+infra/adapters/history";
 import { createPreferencesAdapters } from "+infra/adapters/preferences";
 import { createPublishingAdapters } from "+infra/adapters/publishing";
 import { createSystemAdapters } from "+infra/adapters/system";
-import { createCacheResponse } from "+infra/cache-response";
 import { createEnvironmentLoader } from "+infra/env";
-import { I18nConfig } from "+infra/i18n";
-import { createJobs } from "+infra/jobs";
-import { createPrerequisites } from "+infra/prerequisites";
+import { createTools } from "+infra/tools";
 
 export async function bootstrap() {
   const EnvironmentLoader = await createEnvironmentLoader();
@@ -24,14 +21,10 @@ export async function bootstrap() {
   const Preferences = createPreferencesAdapters();
   const Publishing = createPublishingAdapters(System);
 
-  const CacheResponse = createCacheResponse(System);
-  const Jobs = createJobs(System);
-  const prerequisites = createPrerequisites(Env, { ...System, Jobs });
-
   return {
     Env,
     Adapters: { AI, Auth, Emotions, History, Preferences, Publishing, System },
-    Tools: { prerequisites, I18nConfig, CacheResponse },
+    Tools: createTools(Env, System),
   };
 }
 

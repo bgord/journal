@@ -33,7 +33,7 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
           const event = Auth.Events.AccountDeletedEvent.parse({
             ...bg.createEventEnvelope(`account_${user.id}`, deps),
             name: Auth.Events.ACCOUNT_DELETED_EVENT,
-            payload: { userId: user.id, timestamp: deps.Clock.nowMs() },
+            payload: { userId: user.id, timestamp: deps.Clock.now().ms },
           } satisfies Auth.Events.AccountDeletedEventType);
 
           await deps.EventStore.save([event]);
@@ -71,7 +71,7 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
         const event = Auth.Events.AccountCreatedEvent.parse({
           ...bg.createEventEnvelope(`account_${user.id}`, deps),
           name: Auth.Events.ACCOUNT_CREATED_EVENT,
-          payload: { userId: user.id, timestamp: deps.Clock.nowMs() },
+          payload: { userId: user.id, timestamp: deps.Clock.now().ms },
         } satisfies Auth.Events.AccountCreatedEventType);
 
         await deps.EventStore.save([event]);
@@ -88,7 +88,7 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
     logger: new bg.BetterAuthLogger(deps).attach(),
   });
 
-  return { ShieldAuth: new bg.ShieldAuth(config), config };
+  return { ShieldAuth: new bg.ShieldAuthStrategy(config), config };
 }
 
 export type AuthVariables = {
