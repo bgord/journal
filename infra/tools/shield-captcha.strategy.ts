@@ -1,11 +1,11 @@
 import * as bg from "@bgord/bun";
 import type { EnvironmentType } from "+infra/env";
 
-export function createShieldCaptcha(Env: EnvironmentType): bg.ShieldPort {
+export function createShieldCaptcha(Env: EnvironmentType): bg.ShieldStrategy {
   return {
-    [bg.NodeEnvironmentEnum.local]: new bg.ShieldCaptchaHcaptchaLocalAdapter(Env.HCAPTCHA_SECRET_KEY),
-    [bg.NodeEnvironmentEnum.test]: new bg.ShieldNoopAdapter(),
-    [bg.NodeEnvironmentEnum.staging]: new bg.ShieldCaptchaHcaptchaAdapter(Env.HCAPTCHA_SECRET_KEY),
-    [bg.NodeEnvironmentEnum.production]: new bg.ShieldNoopAdapter(),
+    [bg.NodeEnvironmentEnum.local]: new bg.ShieldCaptchaHcaptchaLocalStrategy(Env.HCAPTCHA_SECRET_KEY),
+    [bg.NodeEnvironmentEnum.test]: new bg.ShieldNoopStrategy(),
+    [bg.NodeEnvironmentEnum.staging]: new bg.ShieldCaptchaHcaptchaStrategy(Env.HCAPTCHA_SECRET_KEY),
+    [bg.NodeEnvironmentEnum.production]: new bg.ShieldNoopStrategy(),
   }[Env.type];
 }
