@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
-import type { EventStoreType } from "+infra/adapters/system/event-store";
 import type { EnvironmentType } from "+infra/env";
+import type { EventStoreType } from "+infra/tools/event-store";
 import { AlarmCancellationLookup } from "./alarm-cancellation-lookup.adapter";
 import { AlarmDirectory } from "./alarm-directory.adapter";
 import { createAlarmRepository } from "./alarm-repository.adapter";

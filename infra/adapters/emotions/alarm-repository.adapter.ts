@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import type { EventStoreType } from "+infra/adapters/system/event-store";
+import type { EventStoreType } from "+infra/tools/event-store";
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort; EventStore: EventStoreType };
 
