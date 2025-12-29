@@ -7,6 +7,8 @@ import type { BootstrapType } from "+infra/bootstrap";
 import { SupportedLanguages } from "./modules/supported-languages";
 
 export function createServer({ Env, Adapters, Tools }: BootstrapType) {
+  const deps = { ...Adapters.System, ...Tools };
+
   const server = new Hono<infra.Config>()
     .basePath("/api")
     .use(
@@ -30,22 +32,22 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const entry = new Hono();
 
   entry.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
-  entry.post("/log", HTTP.Emotions.LogEntry(Adapters.System));
-  entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry(Adapters.System));
-  entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion(Adapters.System));
-  entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction(Adapters.System));
-  entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry(Adapters.System));
+  entry.post("/log", HTTP.Emotions.LogEntry(deps));
+  entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry(deps));
+  entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion(deps));
+  entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction(deps));
+  entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry(deps));
   entry.get(
     "/export-data",
     Tools.ShieldRateLimit.verify,
-    HTTP.Emotions.ExportData({ ...Adapters.System, ...Adapters.Emotions }),
+    HTTP.Emotions.ExportData({ ...deps, ...Adapters.Emotions }),
   );
   entry.get(
     "/export-entries",
     Tools.ShieldRateLimit.verify,
-    HTTP.Emotions.ExportEntries({ ...Adapters.System, ...Adapters.Emotions }),
+    HTTP.Emotions.ExportEntries({ ...deps, ...Adapters.Emotions }),
   );
-  entry.get("/list", HTTP.Emotions.ListEntries({ ...Adapters.System, ...Adapters.Emotions }));
+  entry.get("/list", HTTP.Emotions.ListEntries({ ...deps, ...Adapters.Emotions }));
   server.route("/entry", entry);
   // =============================
 
@@ -53,7 +55,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   server.get(
     "/shared/entries/:shareableLinkId",
     HTTP.Emotions.GetSharedEntries({
-      ...Adapters.System,
+      ...deps,
       ShareableLinkAccessOHQ: Adapters.Publishing.ShareableLinkAccessOHQ,
       EntriesSharing: Adapters.Emotions.EntriesSharingOHQ,
     }),
@@ -66,7 +68,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   weeklyReview.post(
     "/:weeklyReviewId/export/email",
     Tools.ShieldRateLimit.verify,
-    HTTP.Emotions.ExportWeeklyReviewByEmail(Adapters.System),
+    HTTP.Emotions.ExportWeeklyReviewByEmail(deps),
   );
   weeklyReview.get(
     "/:weeklyReviewId/export/download",
@@ -84,12 +86,8 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/links/list",
     HTTP.Publishing.ListShareableLinks({ ...Adapters.System, ...Adapters.Publishing }),
   );
-  publishing.post(
-    "/link/create",
-    Tools.ShieldRateLimit.verify,
-    HTTP.Publishing.CreateShareableLink(Adapters.System),
-  );
-  publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink(Adapters.System));
+  publishing.post("/link/create", Tools.ShieldRateLimit.verify, HTTP.Publishing.CreateShareableLink(deps));
+  publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink(deps));
   publishing.post("/link/:shareableLinkId/hide", HTTP.Publishing.HideShareableLink());
   server.route("/publishing", publishing);
   // =============================
@@ -107,7 +105,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/preferences/user-language/update",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
-    HTTP.Preferences.UpdateUserLanguage(Adapters.System),
+    HTTP.Preferences.UpdateUserLanguage(deps),
   );
   server.post(
     "/preferences/profile-avatar/update",
@@ -117,7 +115,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
       mimeTypes: Preferences.VO.ProfileAvatarMimeTypes,
       maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
     }),
-    HTTP.Preferences.UpdateProfileAvatar(Adapters.System),
+    HTTP.Preferences.UpdateProfileAvatar(deps),
   );
   server.get(
     "/profile-avatar/get",
@@ -129,7 +127,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/preferences/profile-avatar",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
-    HTTP.Preferences.RemoveProfileAvatar(Adapters.System),
+    HTTP.Preferences.RemoveProfileAvatar(deps),
   );
   // =============================
 
