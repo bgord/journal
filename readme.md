@@ -427,43 +427,29 @@ infra/
 │   │   ├── shareable-link-snapshot.adapter.ts
 │   │   └── shareable-links-quota.adapter.ts
 │   └── system
-│       ├── captcha.adapter.ts
 │       ├── certificate-inspector.adapter.ts
 │       ├── clock.adapter.ts
-│       ├── command-bus.ts
 │       ├── csv-stringifier.adapter.ts
 │       ├── disk-space-checker.adapter.ts
-│       ├── event-bus.ts
-│       ├── event-handler.ts
-│       ├── event-store.ts
 │       ├── file-cleaner.adapter.ts
+│       ├── file-reader-json.adapter.ts
 │       ├── file-renamer.adapter.ts
-│       ├── hash-content.adapter.ts
 │       ├── hash-file.adapter.ts
 │       ├── id-provider.adapter.ts
 │       ├── image-info.adapter.ts
 │       ├── image-processor.adapter.ts
-│       ├── job-handler.adapter.ts
-│       ├── json-file-reader.adapter.ts
 │       ├── logger.adapter.ts
 │       ├── mailer.adapter.ts
 │       ├── remote-file-storage.adapter.ts
-│       ├── shield-auth.adapter.ts
-│       ├── shield-basic-auth.adapter.ts
-│       ├── shield-rate-limit.adapter.ts
-│       ├── shield-timeout.adapter.ts
+│       ├── sleeper.adapter.ts
 │       ├── temporary-file.adapter.ts
 │       └── timekeeper.adapter.ts
 ├── bootstrap.ts
-├── cache-response.ts
 ├── db.ts
 ├── depcruise.webpack.cjs
 ├── e2e
 │   └── home.spec.ts
 ├── env.ts
-├── i18n.ts
-├── jobs.ts
-├── prerequisites.ts
 ├── profile-avatars
 ├── projections
 │   ├── ai-usage-counter.projector.ts
@@ -479,6 +465,21 @@ infra/
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
 ├── schema.ts
+├── tools
+│   ├── cache-response.ts
+│   ├── command-bus.ts
+│   ├── event-bus.ts
+│   ├── event-handler.ts
+│   ├── event-store.ts
+│   ├── i18n.ts
+│   ├── job-handler.adapter.ts
+│   ├── jobs.ts
+│   ├── prerequisites.ts
+│   ├── shield-auth.strategy.ts
+│   ├── shield-basic-auth.strategy.ts
+│   ├── shield-captcha.strategy.ts
+│   ├── shield-rate-limit.strategy.ts
+│   └── shield-timeout.strategy.ts
 └── translations
     ├── en.json
     └── pl.json
