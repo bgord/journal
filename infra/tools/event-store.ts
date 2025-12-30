@@ -31,6 +31,7 @@ export type AcceptedEvent =
   | ShareableLinkEvent
   | typeof ShareableLinkAccessedEvent
   | typeof bg.System.Events.HourHasPassedEvent
+  | typeof bg.System.Events.SecurityViolationDetectedEvent
   | typeof AiRequestRegisteredEvent
   | typeof AiQuotaExceededEvent
   | typeof AccountCreatedEvent

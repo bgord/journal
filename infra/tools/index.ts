@@ -13,6 +13,7 @@ import { createShieldAuth } from "./shield-auth.strategy";
 import { createShieldBasicAuth } from "./shield-basic-auth.strategy";
 import { createShieldCaptcha } from "./shield-captcha.strategy";
 import { createShieldRateLimit } from "./shield-rate-limit.strategy";
+import { createShieldSecurity } from "./shield-security.strategy";
 import { ShieldTimeout } from "./shield-timeout.strategy";
 
 type Dependencies = {
@@ -28,6 +29,7 @@ type Dependencies = {
   RemoteFileStorage: bg.RemoteFileStoragePort;
   Sleeper: bg.SleeperPort;
   TimeoutRunner: bg.TimeoutRunnerPort;
+  EventStore: bg.EventStoreLike<bg.System.Events.SecurityViolationDetectedEventType>;
 };
 
 export function createTools(Env: EnvironmentType, deps: Dependencies) {
@@ -50,5 +52,6 @@ export function createTools(Env: EnvironmentType, deps: Dependencies) {
     CommandBus: createCommandBus(deps),
     EventBus,
     EventStore,
+    Security: createShieldSecurity(Env, deps),
   };
 }
