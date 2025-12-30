@@ -159,7 +159,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
       await di.Tools.EventStore.save(alarm.pullEvents());
 
-      console.log(`[✓] Alarm ${Number(index) + 1} created`);
+      console.log(`[✓] Alarm ${index + 1} created`);
     }
 
     for (const counter of Array.from({ length: 20 }).map((_, i) => i + 1)) {

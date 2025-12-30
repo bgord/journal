@@ -18,7 +18,7 @@ export const ReappraiseEmotion = (deps: Dependencies) => async (c: hono.Context<
 
   const newEmotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(body.label),
-    new Emotions.VO.EmotionIntensity(Number(body.intensity)),
+    new Emotions.VO.EmotionIntensity(body.intensity),
   );
 
   const command = Emotions.Commands.ReappraiseEmotionCommand.parse({

@@ -19,7 +19,7 @@ export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<i
   const newReaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(body.description),
     new Emotions.VO.ReactionType(body.type),
-    new Emotions.VO.ReactionEffectiveness(Number(body.effectiveness)),
+    new Emotions.VO.ReactionEffectiveness(body.effectiveness),
   );
 
   const command = Emotions.Commands.EvaluateReactionCommand.parse({

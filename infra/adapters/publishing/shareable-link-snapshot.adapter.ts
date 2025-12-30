@@ -31,7 +31,7 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
       );
 
       const uniqueVisitorsResult = await db
-        .select({ count: sql<number>`count(distinct ${Schema.shareableLinkHits.visitorId})` })
+        .select({ count: sql`count(distinct ${Schema.shareableLinkHits.visitorId})` })
         .from(Schema.shareableLinkHits)
         .where(eq(Schema.shareableLinkHits.shareableLinkId, shareableLink.id));
 

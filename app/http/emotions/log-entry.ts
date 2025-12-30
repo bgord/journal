@@ -22,13 +22,13 @@ export const LogEntry = (deps: Dependencies) => async (c: hono.Context<infra.Con
 
   const emotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(body.emotionLabel),
-    new Emotions.VO.EmotionIntensity(Number(body.emotionIntensity)),
+    new Emotions.VO.EmotionIntensity(body.emotionIntensity),
   );
 
   const reaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(body.reactionDescription),
     new Emotions.VO.ReactionType(body.reactionType),
-    new Emotions.VO.ReactionEffectiveness(Number(body.reactionEffectiveness)),
+    new Emotions.VO.ReactionEffectiveness(body.reactionEffectiveness),
   );
 
   const command = Emotions.Commands.LogEntryCommand.parse({
