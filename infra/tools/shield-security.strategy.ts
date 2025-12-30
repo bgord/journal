@@ -1,14 +1,34 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import type { EnvironmentType } from "+infra/env";
 
 type Dependencies = { Sleeper: bg.SleeperPort; Logger: bg.LoggerPort };
 
 export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): bg.ShieldStrategy {
+  const HashContent = new bg.HashContentSha256BunStrategy();
+  const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({
+    type: "finite",
+    ttl: tools.Duration.Minutes(5),
+  });
+
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.ShieldSecurityStrategy(
       [
         new bg.SecurityPolicy(
-          new bg.SecurityRuleBaitRoutesStrategy(["/api/.env"]),
+          new bg.SecurityRuleViolationThresholdStrategy(
+            new bg.SecurityRuleBaitRoutesStrategy(["/api/.env"]),
+            { threshold: 3 },
+            { ...deps, HashContent, CacheRepository },
+          ),
+          new bg.SecurityCountermeasureReportStrategy(deps),
+        ),
+
+        new bg.SecurityPolicy(
+          new bg.SecurityRuleViolationThresholdStrategy(
+            new bg.SecurityRuleUserAgentStrategy(),
+            { threshold: 3 },
+            { ...deps, HashContent, CacheRepository },
+          ),
           new bg.SecurityCountermeasureReportStrategy(deps),
         ),
       ],
