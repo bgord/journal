@@ -13,5 +13,5 @@ export type ShareableLinkSnapshot = {
   updatedAt: string;
   revision: tools.RevisionValueType;
   hits: tools.IntegerNonNegativeType;
-  uniqueVisitors: number;
+  uniqueVisitors: tools.IntegerNonNegativeType;
 };
