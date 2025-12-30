@@ -73,6 +73,19 @@ describe(`GET ${url}`, async () => {
     await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsWeeklyReview);
   });
 
+  test("validation - not found", async () => {
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockResolvedValue(undefined);
+
+    const response = await server.request(
+      url,
+      { method: "GET", headers: mocks.correlationIdHeaders },
+      mocks.ip,
+    );
+
+    expect(response.status).toEqual(404);
+  });
+
   test("happy path", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
