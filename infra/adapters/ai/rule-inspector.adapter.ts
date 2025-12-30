@@ -17,7 +17,7 @@ class RuleInspectorDrizzle implements RuleInspectorPort {
       where: eq(Schema.aiUsageCounters.bucket, rule.bucket(context)),
     });
 
-    const count = result?.count ?? 0;
+    const count = tools.IntegerNonNegative.parse(result?.count ?? 0);
 
     return {
       id: rule.id,
