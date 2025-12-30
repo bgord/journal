@@ -498,7 +498,7 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent = {
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT",
-  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: 1 },
+  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: tools.IntegerPositive.parse(1) },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
 export const GenericWeeklyReviewExportByEmailFailedEvent = {
@@ -508,22 +508,31 @@ export const GenericWeeklyReviewExportByEmailFailedEvent = {
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT",
-  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: 1 },
+  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: tools.IntegerPositive.parse(1) },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
 export const GenericWeeklyReviewExportByEmailFailedEvent2nd = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
-  payload: { ...GenericWeeklyReviewExportByEmailFailedEvent.payload, attempt: 2 },
+  payload: {
+    ...GenericWeeklyReviewExportByEmailFailedEvent.payload,
+    attempt: tools.IntegerPositive.parse(2),
+  },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
 export const GenericWeeklyReviewExportByEmailFailedEvent3rd = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
-  payload: { ...GenericWeeklyReviewExportByEmailFailedEvent.payload, attempt: 3 },
+  payload: {
+    ...GenericWeeklyReviewExportByEmailFailedEvent.payload,
+    attempt: tools.IntegerPositive.parse(3),
+  },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
 export const GenericWeeklyReviewExportByEmailFailedEvent4th = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
-  payload: { ...GenericWeeklyReviewExportByEmailFailedEvent.payload, attempt: 4 },
+  payload: {
+    ...GenericWeeklyReviewExportByEmailFailedEvent.payload,
+    attempt: tools.IntegerPositive.parse(4),
+  },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
 export const GenericShareableLinkCreatedEvent = {

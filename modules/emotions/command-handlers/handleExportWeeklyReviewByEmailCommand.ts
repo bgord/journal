@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
@@ -31,7 +32,7 @@ export const handleExportWeeklyReviewByEmailCommand =
           weeklyReviewId: command.payload.weeklyReviewId,
           userId: command.payload.userId,
           weeklyReviewExportId,
-          attempt: 1,
+          attempt: tools.IntegerPositive.parse(1),
         },
       } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType),
     ]);

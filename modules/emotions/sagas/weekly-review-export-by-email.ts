@@ -93,7 +93,7 @@ export class WeeklyReviewExportByEmail {
           weeklyReviewId: event.payload.weeklyReviewId,
           userId: event.payload.userId,
           weeklyReviewExportId: event.payload.weeklyReviewExportId,
-          attempt: event.payload.attempt + 1,
+          attempt: tools.IntegerPositive.parse(event.payload.attempt + 1),
         },
       } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType),
     ]);
