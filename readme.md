@@ -480,6 +480,7 @@ infra/
 │   ├── shield-basic-auth.strategy.ts
 │   ├── shield-captcha.strategy.ts
 │   ├── shield-rate-limit.strategy.ts
+│   ├── shield-security.strategy.ts
 │   └── shield-timeout.strategy.ts
 └── translations
     ├── en.json
