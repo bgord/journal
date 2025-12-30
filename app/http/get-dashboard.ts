@@ -166,6 +166,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
         ...alarm,
         advice: alarm.advice as AI.AdviceType,
         generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
+        inactivityDays: alarm.inactivityDays ? tools.IntegerPositive.parse(alarm.inactivityDays) : null,
       })),
       entry: entryAlarmsResponse.map((alarm) => ({
         ...alarm,

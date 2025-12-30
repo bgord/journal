@@ -28,6 +28,7 @@ export class AlarmDirectoryDrizzle implements Emotions.Ports.AlarmDirectoryPort 
       lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
       emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
       weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
+      inactivityDays: alarm.inactivityDays ? tools.IntegerPositive.parse(alarm.inactivityDays) : null,
     };
   }
 }

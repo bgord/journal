@@ -15,7 +15,7 @@ export type EntryAlarmTriggerType = z.infer<typeof EntryAlarmTrigger>;
 
 const InactivityAlarmTrigger = z.object({
   type: z.literal(AlarmTriggerEnum.inactivity),
-  inactivityDays: z.number().int().positive(),
+  inactivityDays: tools.IntegerPositive,
   lastEntryTimestamp: tools.TimestampValue,
 });
 export type InactivityAlarmTriggerType = z.infer<typeof InactivityAlarmTrigger>;

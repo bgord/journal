@@ -74,7 +74,7 @@ export const entryDetection = new Emotions.VO.AlarmDetection(
 
 export const inactivityTrigger = {
   type: Emotions.VO.AlarmTriggerEnum.inactivity,
-  inactivityDays: 7,
+  inactivityDays: tools.IntegerPositive.parse(7),
   lastEntryTimestamp: T0.ms,
 } as const;
 

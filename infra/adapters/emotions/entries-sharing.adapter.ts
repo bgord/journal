@@ -37,6 +37,7 @@ class EntriesSharingOHQDrizzle implements Emotions.OHQ.EntriesSharingPort {
         lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
         emotionLabel: alarm.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
         weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
+        inactivityDays: alarm.inactivityDays ? tools.IntegerPositive.parse(alarm.inactivityDays) : null,
       })),
     }));
   }
