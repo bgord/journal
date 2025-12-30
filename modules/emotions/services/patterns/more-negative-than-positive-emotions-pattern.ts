@@ -26,8 +26,8 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
       (entry) => entry.emotionLabel && new VO.EmotionLabel(entry.emotionLabel).isPositive(),
     ).length;
 
-    const negativeEmotionsCounter = entries.filter((entry) =>
-      new VO.EmotionLabel(entry.emotionLabel as VO.GenevaWheelEmotion).isNegative(),
+    const negativeEmotionsCounter = entries.filter(
+      (entry) => entry.emotionLabel && new VO.EmotionLabel(entry.emotionLabel).isNegative(),
     ).length;
 
     if (negativeEmotionsCounter > positiveEmotionsCounter) {
