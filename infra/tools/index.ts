@@ -52,6 +52,6 @@ export function createTools(Env: EnvironmentType, deps: Dependencies) {
     CommandBus: createCommandBus(deps),
     EventBus,
     EventStore,
-    Security: createShieldSecurity(Env, deps),
+    ShieldSecurity: createShieldSecurity(Env, deps),
   };
 }

@@ -16,7 +16,8 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
         { ...Adapters.System, I18n: Tools.I18nConfig },
         { httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] } },
       ),
-    );
+    )
+    .use(Tools.ShieldSecurity.verify);
 
   // Healthcheck =================
   server.get(
