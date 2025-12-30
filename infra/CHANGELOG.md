@@ -1,9 +1,41 @@
 # Changelog
+- 2025-12-31 00:14 095206c4 **refactor: remove type casting in alarm prompt factory**
+## 2025-12-31 00:14 
+- 2025-12-31 00:09 428528f4 **refactor: remove type casting in download weekly review**
+- 2025-12-31 00:03 66f324c2 **refactor: remove as any casting**
+- 2025-12-31 00:02 421df34d **step: update packages**
+- 2025-12-30 23:51 01790678 **step: update packages**
+- 2025-12-30 23:37 fe968d6e **step: test onAlarmNotificationRequestedEvent - missing notification**
+- 2025-12-30 23:14 1b330107 **refactor: remove unnecessary string type casting**
+- 2025-12-30 23:07 7320cd8b **refactor: remove unnecessary type casting**
+- 2025-12-30 23:04 379c75aa **refactor: tighten types inactivity days**
+- 2025-12-30 22:59 b26a1c94 **refactor: tighten types unique visitors**
+- 2025-12-30 22:58 fbb86043 **refactor: tighten types in hits**
+- 2025-12-30 16:03 043e5c72 **refactor: tighten types in quota rule usage**
+- 2025-12-30 15:55 d3353b19 **refactor: tighten types in quota rule inspection count**
+- 2025-12-30 15:53 3e7bb3a8 **refactor: tighten types in quota rule inspection remaining**
+- 2025-12-30 15:21 2ef1a736 **refactor: tighten types in get-latest-entry-timestamp-for-user.adapter.ts**
+- 2025-12-30 15:18 d8bb558a **refactor: tighten types in shareable links quota**
+- 2025-12-30 14:58 a6b5fc90 **refactor: tighten types in entries per week count**
+- 2025-12-30 14:56 cffd317a **refactor: make attemps positive integer**
+- 2025-12-30 14:55 9b411990 **step: update packages**
+- 2025-12-30 14:46 55b98389 **step: update packages**
+- 2025-12-30 14:28 b91b335d **refactor: remove type casting**
+- 2025-12-30 14:22 a64a94e4 **refactor: use integer types**
+- 2025-12-30 14:16 e46f9d14 **step: update packages**
+- 2025-12-30 13:18 3bfbe8f3 **step: enable shield security in prod**
+- 2025-12-30 13:00 bc8e6052 **refactor: adjust cert inspector**
+- 2025-12-30 12:58 d164c3cd **step: add rules**
+- 2025-12-30 12:50 88f6267b **refactor: add shield security**
+- 2025-12-30 12:26 51791ced **feature: add shield security**
+- 2025-12-30 12:20 c1546199 **step: update packages**
+- 2025-12-30 11:57 65165e9d **step: update packages**
 - 2025-12-29 22:47 a228cbe8 **refactor: order decorators**
-## 2025-12-29 22:47 
 - 2025-12-29 22:33 36a0da3c **step: add with fail safe to prereqs**
 - 2025-12-29 22:21 5619a8c5 **step: add with timeout to prereqs**
 - 2025-12-29 22:11 59ae856e **step: add with retry to prereqs**
+- 2025-12-29 21:50 827ec494 **docs: generate CHANGELOG**
+- 2025-12-29 21:50 6f6268c7 **docs: generate readme**
 - 2025-12-29 21:26 65e79c8e **refactor: bump ttl in shield rate limit**
 - 2025-12-29 21:13 d9780f0a **fix: tests**
 - 2025-12-29 20:56 d932682a **refactor: use duration MIN**
