@@ -1,4 +1,5 @@
 import type * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import type { RuleInspectorPort } from "+ai/ports";
 import type * as VO from "+ai/value-objects";
@@ -23,7 +24,7 @@ class RuleInspectorDrizzle implements RuleInspectorPort {
       consumed: count >= rule.limit,
       limit: rule.limit,
       count,
-      remaining: rule.limit - count,
+      remaining: tools.IntegerNonNegative.parse(rule.limit - count),
       resetsInMs: rule.window.resetsIn(this.deps.Clock).ms,
     };
   }

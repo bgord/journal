@@ -7,6 +7,6 @@ export type QuotaRuleInspectionType = {
   consumed: boolean;
   limit: QuotaLimitType;
   count: number;
-  remaining: number;
+  remaining: tools.IntegerNonNegativeType;
   resetsInMs: tools.DurationMsType;
 };

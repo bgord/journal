@@ -136,7 +136,7 @@ export const ruleInspection = {
   consumed: false,
   limit: AI.USER_DAILY_RULE.limit,
   count: 3,
-  remaining: 7,
+  remaining: tools.IntegerNonNegative.parse(7),
   resetsInMs: tools.DurationMs.parse(0),
   resetsInHours: 0,
 };
