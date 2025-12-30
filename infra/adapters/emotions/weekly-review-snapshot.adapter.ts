@@ -4,7 +4,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class WeeklyReviewSnapshotDrizzle implements Emotions.Ports.WeeklyReviewSnapshotPort {
-  async getById(id: string) {
+  async getById(id: Emotions.VO.WeeklyReviewIdType) {
     const review = (await db.query.weeklyReviews.findFirst({
       where: eq(Schema.weeklyReviews.id, id),
       columns: { id: true, userId: true, status: true },

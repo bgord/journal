@@ -5,7 +5,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class UserContactOHQDrizzle implements Auth.OHQ.UserContactOHQ {
-  async getPrimary(userId: string) {
+  async getPrimary(userId: Auth.VO.UserIdType) {
     const user = await db.query.users.findFirst({
       where: eq(Schema.users.id, userId),
       columns: { email: true },

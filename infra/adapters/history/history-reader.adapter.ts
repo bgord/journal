@@ -16,7 +16,7 @@ class HistoryReaderDrizzle implements bg.History.Ports.HistoryReaderPort {
     return result.map((entry) => ({
       ...entry,
       createdAt: tools.TimestampValue.parse(entry.createdAt),
-      payload: entry.payload ? JSON.parse(entry.payload as string) : {},
+      payload: entry.payload ? JSON.parse(entry.payload) : {},
     }));
   }
 }
