@@ -151,7 +151,7 @@ describe(`POST ${url}`, async () => {
   test("happy path", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.shareableLinkId]);
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({
       count: tools.IntegerNonNegative.parse(0),

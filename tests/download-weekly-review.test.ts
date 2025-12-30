@@ -77,7 +77,7 @@ describe(`GET ${url}`, async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockResolvedValue(mocks.weeklyReviewFull);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
 
     const response = await server.request(
       url,

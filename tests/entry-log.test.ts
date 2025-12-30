@@ -147,7 +147,7 @@ describe(`POST ${url}`, async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.entryId]);
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValueOnce(mocks.auth);
     spyOn(tools.Revision.prototype, "next").mockImplementationOnce(() => mocks.revision);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementationOnce(jest.fn());
 
     const response = await server.request(

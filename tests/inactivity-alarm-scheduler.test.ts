@@ -25,7 +25,7 @@ describe("InactivityAlarmScheduler", async () => {
     spyOn(di.Adapters.Emotions.GetLatestEntryTimestampForUserQuery, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
@@ -52,7 +52,7 @@ describe("InactivityAlarmScheduler", async () => {
         },
       ],
     });
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -78,7 +78,7 @@ describe("InactivityAlarmScheduler", async () => {
         },
       ],
     });
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -95,7 +95,7 @@ describe("InactivityAlarmScheduler", async () => {
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
     spyOn(di.Adapters.AI.AiGateway, "check").mockRejectedValue(new Error("FAILURE"));
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {

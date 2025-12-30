@@ -16,7 +16,7 @@ describe("EntryAlarmDetector", async () => {
 
   test("onEmotionLoggedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
@@ -29,7 +29,7 @@ describe("EntryAlarmDetector", async () => {
 
   test("onEmotionLoggedEvent - respects DailyAlarmLimit", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({
       violations: [
         {
@@ -51,7 +51,7 @@ describe("EntryAlarmDetector", async () => {
 
   test("onEmotionLoggedEvent - respects EntryAlarmLimit", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({
       violations: [
         {
@@ -73,7 +73,7 @@ describe("EntryAlarmDetector", async () => {
 
   test("onEmotionReappraisedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
@@ -87,7 +87,7 @@ describe("EntryAlarmDetector", async () => {
 
   test("onEmotionReappraisedEvent - respects DailyAlarmLimit", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({
       violations: [
         {
@@ -109,7 +109,7 @@ describe("EntryAlarmDetector", async () => {
 
   test("onEmotionReappraisedEvent - respects EntryAlarmLimit", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({
       violations: [
         {

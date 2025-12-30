@@ -130,7 +130,7 @@ describe("WeeklyReviewProcessing", async () => {
   test("onWeeklyReviewCompletedEvent", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
     spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>

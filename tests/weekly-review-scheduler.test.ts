@@ -24,7 +24,7 @@ describe("WeeklyReviewScheduler", async () => {
       tools.IntegerNonNegative.parse(1),
     );
     spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -51,7 +51,7 @@ describe("WeeklyReviewScheduler", async () => {
       tools.IntegerNonNegative.parse(0),
     );
     spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
