@@ -29,7 +29,6 @@ type Dependencies = {
   RemoteFileStorage: bg.RemoteFileStoragePort;
   Sleeper: bg.SleeperPort;
   TimeoutRunner: bg.TimeoutRunnerPort;
-  EventStore: bg.EventStoreLike<bg.System.Events.SecurityViolationDetectedEventType>;
 };
 
 export function createTools(Env: EnvironmentType, deps: Dependencies) {

@@ -99,7 +99,7 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
     new bg.Prerequisite(
       "ssl",
       new bg.PrerequisiteVerifierSSLCertificateExpiryAdapter(
-        { hostname: "journal.bgord.dev", days: 7 },
+        { hostname: "journal.bgord.dev", minimum: tools.Duration.Days(7) },
         deps,
       ),
       { enabled: production, decorators: [withFailSafe, withRetry, withTimeout] },
