@@ -1040,7 +1040,7 @@ export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
   dateRangeStart: tools.DateFormatters.datetime(T0.ms),
   dateRangeEnd: tools.DateFormatters.datetime(T0.ms),
   expiresAt: tools.DateFormatters.datetime(T0.ms),
-  hits: 1,
+  hits: tools.IntegerNonNegative.parse(1),
   uniqueVisitors: 1,
 };
 

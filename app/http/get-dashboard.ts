@@ -23,7 +23,9 @@ type DashboardTopReactionType = Pick<
   "id" | "reactionDescription" | "reactionType" | "reactionEffectiveness"
 >;
 
-type DashboardTopEmotionType = Pick<Emotions.VO.EntrySnapshot, "id" | "emotionLabel"> & { hits: number };
+type DashboardTopEmotionType = Pick<Emotions.VO.EntrySnapshot, "id" | "emotionLabel"> & {
+  hits: tools.IntegerNonNegativeType;
+};
 
 type DashboardWeeklyReviewType = Emotions.Queries.WeeklyReviewExportDto & {
   weekStart: string;
@@ -34,7 +36,11 @@ export type DashboardDataType = {
   heatmap: { t: 0 | 1; c: "200" | "400" | "600" }[];
   alarms: { inactivity: DashboardAlarmInactivityType[]; entry: DashboardAlarmEntryType[] };
   entries: {
-    counts: { today: number; lastWeek: number; allTime: number };
+    counts: {
+      today: tools.IntegerNonNegativeType;
+      lastWeek: tools.IntegerNonNegativeType;
+      allTime: tools.IntegerNonNegativeType;
+    };
     top: {
       reactions: DashboardTopReactionType[];
       emotions: {
@@ -132,6 +138,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
 
     return response.map((emotion) => ({
       ...emotion,
+      hits: tools.IntegerNonNegative.parse(emotion.hits),
       emotionLabel: Emotions.VO.EmotionLabelSchema.parse(emotion.label),
     }));
   }
@@ -169,7 +176,11 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
       })),
     },
     entries: {
-      counts: { today: entryCountToday, lastWeek: entryCountLastWeek, allTime: entryCountAllTime },
+      counts: {
+        today: tools.IntegerNonNegative.parse(entryCountToday),
+        lastWeek: tools.IntegerNonNegative.parse(entryCountLastWeek),
+        allTime: tools.IntegerNonNegative.parse(entryCountAllTime),
+      },
       top: {
         reactions: topReactionsResponse.map((entry) => ({
           id: entry.id,
