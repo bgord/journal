@@ -3,7 +3,7 @@ import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
 
-export const AlarmNotificationFactoryError = {
+const AlarmNotificationFactoryError = {
   UnknownTrigger: "alarm.notification.factory.error.unknown.trigger",
 };
 

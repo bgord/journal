@@ -9,13 +9,15 @@ export class AlarmPromptFactory {
     private readonly language: SupportedLanguages,
   ) {}
 
-  async create(detection: Emotions.VO.AlarmDetection): Promise<AI.Prompt> {
+  async create(detection: Emotions.VO.AlarmDetection): Promise<AI.Prompt | null> {
     switch (detection.trigger.type) {
       case Emotions.VO.AlarmTriggerEnum.entry: {
         const entry = await this.entrySnapshot.getById(detection.trigger.entryId);
 
+        if (!entry) return null;
+
         return new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
-          entry as Emotions.VO.EntrySnapshot,
+          entry,
           detection.name,
           this.language,
         ).generate();

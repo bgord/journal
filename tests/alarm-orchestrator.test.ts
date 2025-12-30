@@ -68,6 +68,20 @@ describe("AlarmOrchestrator", async () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
   });
 
+  test("onAlarmGeneratedEvent - entry - missing entry", async () => {
+    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
+    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockRejectedValue(undefined);
+    spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
+    );
+
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
+  });
+
   test("onAlarmGeneratedEvent - cancels alarm when advice requester fails", async () => {
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);

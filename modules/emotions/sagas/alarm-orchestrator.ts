@@ -55,11 +55,29 @@ export class AlarmOrchestrator {
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
+    const cancel = Commands.CancelAlarmCommand.parse({
+      ...bg.createCommandEnvelope(this.deps),
+      name: Commands.CANCEL_ALARM_COMMAND,
+      payload: { alarmId: event.payload.alarmId },
+    } satisfies Commands.CancelAlarmCommandType);
+
     try {
       const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
       const prompt = await new ACL.AiPrompts.AlarmPromptFactory(this.deps.EntrySnapshot, language).create(
         detection,
       );
+
+      if (!prompt) {
+        this.deps.Logger.info({
+          message: "Missing prompt",
+          operation: "alarm_orchestrator_on_alarm_generated_event",
+          component: "emotions",
+          metadata: { detection, language },
+        });
+
+        return this.deps.CommandBus.emit(cancel.name, cancel);
+      }
+
       const context = ACL.createAlarmRequestContext(
         this.deps,
         event.payload.userId,
@@ -76,13 +94,7 @@ export class AlarmOrchestrator {
 
       await this.deps.CommandBus.emit(command.name, command);
     } catch (_error) {
-      const command = Commands.CancelAlarmCommand.parse({
-        ...bg.createCommandEnvelope(this.deps),
-        name: Commands.CANCEL_ALARM_COMMAND,
-        payload: { alarmId: event.payload.alarmId },
-      } satisfies Commands.CancelAlarmCommandType);
-
-      await this.deps.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(cancel.name, cancel);
     }
   }
 
