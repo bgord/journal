@@ -142,7 +142,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
     await getTopEmotionsSince(allTime),
   ]);
 
-  const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, 5);
+  const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, tools.IntegerPositive.parse(5));
 
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {

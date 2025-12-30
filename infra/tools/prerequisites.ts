@@ -28,7 +28,10 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
     (result) => result.outcome === bg.PrerequisiteVerificationOutcome.failure,
   );
   const withRetry = bg.PrerequisiteDecorator.withRetry(
-    { max: 2, backoff: new bg.RetryBackoffLinearStrategy(tools.Duration.Ms(300)) },
+    {
+      max: tools.IntegerPositive.parse(2),
+      backoff: new bg.RetryBackoffLinearStrategy(tools.Duration.Ms(300)),
+    },
     deps,
   );
 

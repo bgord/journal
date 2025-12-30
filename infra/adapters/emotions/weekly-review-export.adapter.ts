@@ -58,7 +58,7 @@ class WeeklyReviewExportQueryDrizzle implements Emotions.Queries.WeeklyReviewExp
     return WeeklyReviewExportQueryDrizzle.format(result);
   }
 
-  async listFull(userId: Auth.VO.UserIdType, limit: number) {
+  async listFull(userId: Auth.VO.UserIdType, limit: tools.IntegerPositiveType) {
     const weeklyReviews = await db.query.weeklyReviews.findMany({
       where: eq(Schema.weeklyReviews.userId, userId),
       orderBy: desc(Schema.weeklyReviews.createdAt),

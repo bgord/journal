@@ -20,7 +20,7 @@ export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): 
         new bg.SecurityPolicy(
           new bg.SecurityRuleViolationThresholdStrategy(
             new bg.SecurityRuleBaitRoutesStrategy(["/api/.env"]),
-            { threshold: 3 },
+            { threshold: tools.IntegerPositive.parse(3) },
             { ...deps, HashContent, CacheRepository },
           ),
           new bg.SecurityCountermeasureReportStrategy(deps),
@@ -29,7 +29,7 @@ export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): 
         new bg.SecurityPolicy(
           new bg.SecurityRuleViolationThresholdStrategy(
             new bg.SecurityRuleUserAgentStrategy(),
-            { threshold: 3 },
+            { threshold: tools.IntegerPositive.parse(3) },
             { ...deps, HashContent, CacheRepository },
           ),
           new bg.SecurityCountermeasureReportStrategy(deps),
