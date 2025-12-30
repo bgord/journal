@@ -3,6 +3,10 @@ import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
 
+export const AlarmNotificationFactoryError = {
+  UnknownTrigger: "alarm.notification.factory.error.unknown.trigger",
+};
+
 export class AlarmNotificationFactory {
   constructor(
     private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,
@@ -12,14 +16,14 @@ export class AlarmNotificationFactory {
   async create(
     detection: Emotions.VO.AlarmDetection,
     advice: AI.Advice,
-  ): Promise<tools.NotificationTemplate> {
+  ): Promise<tools.NotificationTemplate | null> {
     switch (detection.trigger.type) {
       case Emotions.VO.AlarmTriggerEnum.entry: {
         const entry = await this.entrySnapshot.getById(detection.trigger.entryId);
-        const composer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(
-          entry as Emotions.VO.EntrySnapshot,
-          this.language,
-        );
+
+        if (!entry) return null;
+
+        const composer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(entry, this.language);
 
         return composer.compose(advice);
       }
@@ -34,7 +38,7 @@ export class AlarmNotificationFactory {
       }
 
       default:
-        throw new Error("Unknown alarm trigger type");
+        throw new Error(AlarmNotificationFactoryError.UnknownTrigger);
     }
   }
 }

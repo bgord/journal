@@ -8,6 +8,17 @@ import * as mocks from "./mocks";
 describe("AlarmNotificationFactory", async () => {
   const di = await bootstrap();
 
+  test("entry - missing snapshot", async () => {
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined);
+
+    const result = await new Emotions.Services.AlarmNotificationFactory(
+      di.Adapters.Emotions.EntrySnapshot,
+      SupportedLanguages.en,
+    ).create(mocks.entryDetection, mocks.advice);
+
+    expect(result).toEqual(null);
+  });
+
   test("entry - en", async () => {
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
 

@@ -117,28 +117,30 @@ describe("AlarmOrchestrator", async () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
   });
 
-  test("onAlarmNotificationRequestedEvent - mailer failed", async () => {
+  test("onAlarmNotificationRequestedEvent - missing notification", async () => {
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericAlarmGeneratedEvent,
       mocks.GenericAlarmAdviceSavedEvent,
     ]);
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact);
-    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
-    const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockRejectedValue(new Error("MAILER_FAILED"));
+    const mailerSend = spyOn(di.Adapters.System.Mailer, "send");
+    const loggerInfo = spyOn(di.Adapters.System.Logger, "info");
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
     );
 
-    expect(mailerSend).toHaveBeenCalledWith({
-      from: di.Env.EMAIL_FROM,
-      to: mocks.email,
-      subject: "JOURNAL - emotional advice",
-      html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
+    expect(loggerInfo).toHaveBeenCalledWith({
+      message: "Missing notification",
+      operation: "alarm_orchestrator_on_alarm_notification_requested_event",
+      component: "emotions",
+      metadata: { detection: mocks.entryDetection },
     });
-    expect(eventStoreSave).not.toHaveBeenCalledWith();
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
+    expect(mailerSend).not.toHaveBeenCalled();
   });
 
   test("onAlarmNotificationRequestedEvent - entry", async () => {

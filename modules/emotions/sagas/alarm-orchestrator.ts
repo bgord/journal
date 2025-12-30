@@ -30,6 +30,7 @@ type Dependencies = {
   Clock: bg.ClockPort;
   AiGateway: AI.AiGatewayPort;
   Mailer: bg.MailerPort;
+  Logger: bg.LoggerPort;
   AlarmCancellationLookup: Ports.AlarmCancellationLookupPort;
   EntrySnapshot: Ports.EntrySnapshotPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
@@ -114,6 +115,17 @@ export class AlarmOrchestrator {
       this.deps.EntrySnapshot,
       language,
     ).create(detection, advice);
+
+    if (!notification) {
+      this.deps.Logger.info({
+        message: "Missing notification",
+        operation: "alarm_orchestrator_on_alarm_notification_requested_event",
+        component: "emotions",
+        metadata: { detection },
+      });
+
+      return this.deps.CommandBus.emit(cancel.name, cancel);
+    }
 
     try {
       await this.deps.Mailer.send({ from: this.deps.EMAIL_FROM, to: contact.address, ...notification.get() });

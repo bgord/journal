@@ -18,7 +18,7 @@ class AlarmCancellationLookupDrizzle implements Emotions.Ports.AlarmCancellation
         ),
       );
 
-    return rows.map((row) => row.id as Emotions.VO.AlarmIdType);
+    return rows.map((row) => row.id);
   }
 }
 
