@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import type * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type * as Auth from "+auth";
 
@@ -9,7 +10,7 @@ class EntriesForWeekExistError extends Error {
   }
 }
 
-type EntriesForWeekExistConfigType = { count: number; userId: Auth.VO.UserIdType };
+type EntriesForWeekExistConfigType = { count: tools.IntegerNonNegativeType; userId: Auth.VO.UserIdType };
 
 class EntriesForWeekExistFactory extends bg.Invariant<EntriesForWeekExistConfigType> {
   fails(config: EntriesForWeekExistConfigType) {

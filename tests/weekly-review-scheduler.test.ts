@@ -20,7 +20,9 @@ describe("WeeklyReviewScheduler", async () => {
   test("correct path - single user", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewId]);
     spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]);
-    spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(1);
+    spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(
+      tools.IntegerNonNegative.parse(1),
+    );
     spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
@@ -45,7 +47,9 @@ describe("WeeklyReviewScheduler", async () => {
   test("EntriesForWeekExist", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.entryId]);
     spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]);
-    spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(0);
+    spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(
+      tools.IntegerNonNegative.parse(0),
+    );
     spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
