@@ -1,5 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
@@ -31,7 +32,12 @@ describe("EntryAlarmDetector", async () => {
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({
       violations: [
-        { bucket: mocks.userDailyBucket, limit: AI.QuotaLimit.parse(10), id: "USER_DAILY", used: 10 },
+        {
+          bucket: mocks.userDailyBucket,
+          limit: AI.QuotaLimit.parse(10),
+          id: "USER_DAILY",
+          used: tools.IntegerNonNegative.parse(10),
+        },
       ],
     });
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
@@ -52,7 +58,7 @@ describe("EntryAlarmDetector", async () => {
           bucket: mocks.emotionsAlarmEntryBucket,
           limit: AI.QuotaLimit.parse(2),
           id: "EMOTIONS_ALARM_ENTRY",
-          used: 2,
+          used: tools.IntegerNonNegative.parse(2),
         },
       ],
     });
@@ -84,7 +90,12 @@ describe("EntryAlarmDetector", async () => {
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({
       violations: [
-        { bucket: mocks.userDailyBucket, limit: AI.QuotaLimit.parse(10), id: "USER_DAILY", used: 10 },
+        {
+          bucket: mocks.userDailyBucket,
+          limit: AI.QuotaLimit.parse(10),
+          id: "USER_DAILY",
+          used: tools.IntegerNonNegative.parse(10),
+        },
       ],
     });
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
@@ -105,7 +116,7 @@ describe("EntryAlarmDetector", async () => {
           bucket: mocks.emotionsAlarmEntryBucket,
           limit: AI.QuotaLimit.parse(2),
           id: "EMOTIONS_ALARM_ENTRY",
-          used: 2,
+          used: tools.IntegerNonNegative.parse(2),
         },
       ],
     });

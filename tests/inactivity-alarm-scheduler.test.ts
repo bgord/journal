@@ -1,5 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
@@ -43,7 +44,12 @@ describe("InactivityAlarmScheduler", async () => {
     );
     spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({
       violations: [
-        { bucket: mocks.userDailyBucket, limit: AI.QuotaLimit.parse(10), id: "USER_DAILY", used: 10 },
+        {
+          bucket: mocks.userDailyBucket,
+          limit: AI.QuotaLimit.parse(10),
+          id: "USER_DAILY",
+          used: tools.IntegerNonNegative.parse(10),
+        },
       ],
     });
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate() as any);
@@ -68,7 +74,7 @@ describe("InactivityAlarmScheduler", async () => {
           bucket: mocks.emotionsAlarmInactivityWeeklyBucket,
           limit: AI.QuotaLimit.parse(1),
           id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
-          used: 1,
+          used: tools.IntegerNonNegative.parse(1),
         },
       ],
     });

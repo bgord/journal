@@ -1,5 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
 import * as VO from "+ai/value-objects";
 import { bootstrap } from "+infra/bootstrap";
@@ -20,8 +21,8 @@ describe("AiGateway", async () => {
 
   test("happy path", async () => {
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 0,
-      [mocks.emotionsAlarmEntryBucket]: 0,
+      [mocks.userDailyBucket]: tools.IntegerNonNegative.parse(0),
+      [mocks.emotionsAlarmEntryBucket]: tools.IntegerNonNegative.parse(0),
     });
     spyOn(di.Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
@@ -37,8 +38,8 @@ describe("AiGateway", async () => {
 
   test("quota exceeded", async () => {
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 11,
-      [mocks.emotionsAlarmEntryBucket]: 3,
+      [mocks.userDailyBucket]: tools.IntegerNonNegative.parse(11),
+      [mocks.emotionsAlarmEntryBucket]: tools.IntegerNonNegative.parse(3),
     });
     spyOn(di.Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());

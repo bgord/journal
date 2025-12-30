@@ -1,8 +1,11 @@
 import { describe, expect, spyOn, test } from "bun:test";
+import * as tools from "@bgord/tools";
 import { QuotaSpecification } from "+ai/specifications";
 import * as VO from "+ai/value-objects";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
+
+const noUsage = tools.IntegerNonNegative.parse(0);
 
 describe("QuotaSpecification", async () => {
   const di = await bootstrap();
@@ -10,35 +13,30 @@ describe("QuotaSpecification", async () => {
 
   test("EmotionsAlarmEntryContext - no violations", async () => {
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 0,
-      [mocks.emotionsAlarmEntryBucket]: 0,
+      [mocks.userDailyBucket]: noUsage,
+      [mocks.emotionsAlarmEntryBucket]: noUsage,
     });
 
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({ violations: [] });
   });
 
   test("EmotionsAlarmEntryContext - USER_DAILY violations", async () => {
+    const used = tools.IntegerNonNegative.parse(10);
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 10,
-      [mocks.emotionsAlarmEntryBucket]: 0,
+      [mocks.userDailyBucket]: used,
+      [mocks.emotionsAlarmEntryBucket]: noUsage,
     });
 
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({
-      violations: [
-        {
-          bucket: mocks.userDailyBucket,
-          limit: VO.QuotaLimit.parse(10),
-          id: "USER_DAILY",
-          used: 10,
-        },
-      ],
+      violations: [{ bucket: mocks.userDailyBucket, limit: VO.QuotaLimit.parse(10), id: "USER_DAILY", used }],
     });
   });
 
   test("EmotionsAlarmEntryContext - EMOTIONS_ALARM_ENTRY violations", async () => {
+    const used = tools.IntegerNonNegative.parse(2);
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 2,
-      [mocks.emotionsAlarmEntryBucket]: 2,
+      [mocks.userDailyBucket]: used,
+      [mocks.emotionsAlarmEntryBucket]: used,
     });
 
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({
@@ -47,7 +45,7 @@ describe("QuotaSpecification", async () => {
           bucket: mocks.emotionsAlarmEntryBucket,
           limit: VO.QuotaLimit.parse(2),
           id: "EMOTIONS_ALARM_ENTRY",
-          used: 2,
+          used,
         },
       ],
     });
@@ -55,35 +53,30 @@ describe("QuotaSpecification", async () => {
 
   test("EmotionsWeeklyReviewInsightContext - no violations", async () => {
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 0,
-      [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 0,
+      [mocks.userDailyBucket]: noUsage,
+      [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: noUsage,
     });
 
     expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({ violations: [] });
   });
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
+    const used = tools.IntegerNonNegative.parse(10);
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 10,
-      [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 0,
+      [mocks.userDailyBucket]: used,
+      [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: noUsage,
     });
 
     expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({
-      violations: [
-        {
-          bucket: mocks.userDailyBucket,
-          limit: VO.QuotaLimit.parse(10),
-          id: "USER_DAILY",
-          used: 10,
-        },
-      ],
+      violations: [{ bucket: mocks.userDailyBucket, limit: VO.QuotaLimit.parse(10), id: "USER_DAILY", used }],
     });
   });
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
+    const used = tools.IntegerNonNegative.parse(1);
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 1,
-      [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: 1,
+      [mocks.userDailyBucket]: used,
+      [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: used,
     });
 
     expect(await specification.verify(mocks.EmotionsWeeklyReviewInsightContext)).toEqual({
@@ -92,7 +85,7 @@ describe("QuotaSpecification", async () => {
           bucket: mocks.emotionsWeeklyReviewInsightWeeklyBucket,
           limit: VO.QuotaLimit.parse(1),
           id: "EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY",
-          used: 1,
+          used,
         },
       ],
     });
@@ -100,8 +93,8 @@ describe("QuotaSpecification", async () => {
 
   test("EmotionsAlarmInactivityWeeklyContext - no violations", async () => {
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 0,
-      [mocks.emotionsAlarmInactivityWeeklyBucket]: 0,
+      [mocks.userDailyBucket]: noUsage,
+      [mocks.emotionsAlarmInactivityWeeklyBucket]: noUsage,
     });
 
     expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
@@ -110,27 +103,22 @@ describe("QuotaSpecification", async () => {
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
+    const used = tools.IntegerNonNegative.parse(10);
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 10,
-      [mocks.emotionsAlarmInactivityWeeklyBucket]: 0,
+      [mocks.userDailyBucket]: used,
+      [mocks.emotionsAlarmInactivityWeeklyBucket]: noUsage,
     });
 
     expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
-      violations: [
-        {
-          bucket: mocks.userDailyBucket,
-          limit: VO.QuotaLimit.parse(10),
-          id: "USER_DAILY",
-          used: 10,
-        },
-      ],
+      violations: [{ bucket: mocks.userDailyBucket, limit: VO.QuotaLimit.parse(10), id: "USER_DAILY", used }],
     });
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
+    const used = tools.IntegerNonNegative.parse(1);
     spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-      [mocks.userDailyBucket]: 1,
-      [mocks.emotionsAlarmInactivityWeeklyBucket]: 1,
+      [mocks.userDailyBucket]: used,
+      [mocks.emotionsAlarmInactivityWeeklyBucket]: used,
     });
 
     expect(await specification.verify(mocks.EmotionsAlarmInactivityWeeklyContext)).toEqual({
@@ -139,7 +127,7 @@ describe("QuotaSpecification", async () => {
           bucket: mocks.emotionsAlarmInactivityWeeklyBucket,
           limit: VO.QuotaLimit.parse(1),
           id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
-          used: 1,
+          used,
         },
       ],
     });
