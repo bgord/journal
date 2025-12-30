@@ -22,9 +22,13 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
   }
 
   check(entries: VO.EntrySnapshot[]): Patterns.PatternDetectionEventType | null {
-    const effectivenessScores = entries.map((entry) =>
-      new VO.ReactionEffectiveness(entry.reactionEffectiveness as VO.ReactionEffectivenessType).get(),
-    );
+    const effectivenessScores = entries
+      .map((entry) =>
+        entry.reactionEffectiveness
+          ? new VO.ReactionEffectiveness(entry.reactionEffectiveness).get()
+          : undefined,
+      )
+      .filter((score) => score !== undefined);
 
     if (effectivenessScores.length < 3) {
       return null;

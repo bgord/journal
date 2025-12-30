@@ -22,8 +22,8 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
   }
 
   check(entries: VO.EntrySnapshot[]): Patterns.PatternDetectionEventType | null {
-    const matches = entries.filter((entry) =>
-      new VO.ReactionType(entry.reactionType as VO.GrossEmotionRegulationStrategy).isMaladaptive(),
+    const matches = entries.filter(
+      (entry) => entry.reactionType && new VO.ReactionType(entry.reactionType).isMaladaptive(),
     );
 
     if (matches.length >= 3) {

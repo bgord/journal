@@ -23,11 +23,16 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
 
   check(entries: VO.EntrySnapshot[]): Patterns.PatternDetectionEventType | null {
     const matches = entries
-      .map((entry) => ({
-        id: entry.id,
-        emotionLabel: new VO.EmotionLabel(entry.emotionLabel as VO.GenevaWheelEmotion),
-        reactionType: new VO.ReactionType(entry.reactionType as VO.GrossEmotionRegulationStrategy),
-      }))
+      .flatMap((entry) => {
+        if (!(entry.emotionLabel && entry.reactionType)) return [];
+        return [
+          {
+            id: entry.id,
+            emotionLabel: new VO.EmotionLabel(entry.emotionLabel),
+            reactionType: new VO.ReactionType(entry.reactionType),
+          },
+        ];
+      })
       .filter((entry) => entry.emotionLabel.isPositive())
       .filter((entry) => entry.reactionType.isMaladaptive());
 
