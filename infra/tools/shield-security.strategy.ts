@@ -12,7 +12,10 @@ export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): 
   });
 
   return {
-    [bg.NodeEnvironmentEnum.local]: new bg.ShieldSecurityStrategy(
+    [bg.NodeEnvironmentEnum.local]: new bg.ShieldNoopStrategy(),
+    [bg.NodeEnvironmentEnum.test]: new bg.ShieldNoopStrategy(),
+    [bg.NodeEnvironmentEnum.staging]: new bg.ShieldNoopStrategy(),
+    [bg.NodeEnvironmentEnum.production]: new bg.ShieldSecurityStrategy(
       [
         new bg.SecurityPolicy(
           new bg.SecurityRuleViolationThresholdStrategy(
@@ -34,8 +37,5 @@ export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): 
       ],
       deps,
     ),
-    [bg.NodeEnvironmentEnum.test]: new bg.ShieldNoopStrategy(),
-    [bg.NodeEnvironmentEnum.staging]: new bg.ShieldNoopStrategy(),
-    [bg.NodeEnvironmentEnum.production]: new bg.ShieldNoopStrategy(),
   }[Env.type];
 }
