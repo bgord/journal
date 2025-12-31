@@ -27,7 +27,13 @@ type Dependencies = {
 export class Setup {
   static essentials(deps: Dependencies, overrides?: SetupOverridesType) {
     const corsOptions = overrides?.cors ?? { origin: "*" };
-    const secureHeadersOptions = { crossOriginResourcePolicy: "cross-origin", ...overrides?.secureHeaders };
+
+    const secureHeadersOptions = {
+      contentTypeOptions: "nosniff", // Do not deduce MIME/content type
+      referrerPolicy: "no-referrer", // Omit the Referer header
+      crossOriginResourcePolicy: "same-origin",
+      ...overrides?.secureHeaders,
+    };
 
     return [
       bg.MaintenanceMode.build(overrides?.maintenanceMode),
