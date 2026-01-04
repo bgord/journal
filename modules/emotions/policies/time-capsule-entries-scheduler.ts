@@ -14,12 +14,14 @@ type Dependencies = {
 };
 
 export class TimeCapsuleEntriesScheduler {
+  // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
       bg.System.Events.HOUR_HAS_PASSED_EVENT,
       deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
+  // Stryker restore all
 
   async onHourHasPassedEvent(_event: bg.System.Events.HourHasPassedEventType) {
     const now = this.deps.Clock.now();

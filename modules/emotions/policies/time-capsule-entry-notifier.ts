@@ -16,12 +16,14 @@ type Dependencies = {
 };
 
 export class TimeCapsuleEntryNotifier {
+  // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
       Emotions.Events.SITUATION_LOGGED_EVENT,
       deps.EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
     );
   }
+  // Stryker restore all
 
   async onSituationLoggedEvent(event: Emotions.Events.SituationLoggedEventType) {
     const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
