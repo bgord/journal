@@ -23,6 +23,7 @@ type Dependencies = {
   CommandBus: bg.CommandBusLike<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  Logger: bg.LoggerPort;
   AiGateway: AI.AiGatewayPort;
   Mailer: bg.MailerPort;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
@@ -66,7 +67,16 @@ export class WeeklyReviewProcessing {
         to: contact.address,
         ...notification.get(),
       });
-    } catch {}
+    } catch (error) {
+      this.deps.Logger.error({
+        message: "Mailer failure",
+        component: "emotions",
+        operation: "weekly_review_processing_on_weekly_review_skipped_event",
+        error: bg.formatError(error),
+        correlationId: event.correlationId,
+        metadata: event.payload,
+      });
+    }
   }
 
   async onWeeklyReviewRequestedEvent(event: Emotions.Events.WeeklyReviewRequestedEventType) {

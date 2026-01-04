@@ -43,6 +43,7 @@ describe("WeeklyReviewProcessing", async () => {
   test("onWeeklyReviewSkippedEvent - no email", async () => {
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
+    const loggerError = spyOn(di.Adapters.System.Logger, "error");
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -50,18 +51,28 @@ describe("WeeklyReviewProcessing", async () => {
     );
 
     expect(mailerSend).not.toHaveBeenCalled();
+    expect(loggerError).not.toHaveBeenCalled();
   });
 
   test("onWeeklyReviewSkippedEvent - mailer failed", async () => {
-    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
+    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
-    const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockRejectedValue(new Error("MAILER_FAILED"));
+    spyOn(di.Adapters.System.Mailer, "send").mockRejectedValue(new Error("MAILER_FAILED"));
+    const loggerError = spyOn(di.Adapters.System.Logger, "error");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
     );
 
-    expect(mailerSend).not.toHaveBeenCalled();
+    expect(loggerError).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: "Mailer failure",
+        component: "emotions",
+        operation: "weekly_review_processing_on_weekly_review_skipped_event",
+        correlationId: mocks.GenericWeeklyReviewSkippedEvent.correlationId,
+        metadata: mocks.GenericWeeklyReviewSkippedEvent.payload,
+      }),
+    );
   });
 
   test("onWeeklyReviewRequestedEvent - en", async () => {
