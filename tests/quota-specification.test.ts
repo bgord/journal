@@ -12,12 +12,16 @@ describe("QuotaSpecification", async () => {
   const specification = new QuotaSpecification(di.Adapters.AI.BucketCounter);
 
   test("EmotionsAlarmEntryContext - no violations", async () => {
-    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    const bucketCounterGetMany = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: noUsage,
       [mocks.emotionsAlarmEntryBucket]: noUsage,
     });
 
     expect(await specification.verify(mocks.EmotionsAlarmEntryContext)).toEqual({ violations: [] });
+    expect(bucketCounterGetMany).toHaveBeenCalledWith([
+      mocks.userDailyBucket,
+      mocks.emotionsAlarmEntryBucket,
+    ]);
   });
 
   test("EmotionsAlarmEntryContext - USER_DAILY violations", async () => {
