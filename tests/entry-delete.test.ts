@@ -1,7 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -49,7 +48,7 @@ describe(`DELETE ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.EntryHasBenStarted);
+    await testcases.assertInvariantError(response, 403, "entry.has.been.started");
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
@@ -63,7 +62,7 @@ describe(`DELETE ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsEntry);
+    await testcases.assertInvariantError(response, 403, "requester.owns.entry.error");
   });
 
   test("happy path - after situation", async () => {

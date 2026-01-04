@@ -16,7 +16,7 @@ class ShareableLinkIsActiveFactory extends bg.Invariant<ShareableLinkIsActiveCon
     return config.status !== VO.ShareableLinkStatusEnum.active;
   }
 
-  message = "ShareableLinkIsActiveError";
+  message = "shareable.link.is.active.error";
 
   error = ShareableLinkIsActiveError;
 

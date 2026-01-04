@@ -1,6 +1,5 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -40,7 +39,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewExists);
+    await testcases.assertInvariantError(response, 404, "weekly.review.exists.error");
   });
 
   test("validation - WeeklyReviewExists - repo failure", async () => {
@@ -58,7 +57,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewIsCompleted);
+    await testcases.assertInvariantError(response, 400, "weekly.review.is.completed.error");
   });
 
   test("validation - RequesterOwnsWeeklyReview", async () => {
@@ -67,7 +66,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsWeeklyReview);
+    await testcases.assertInvariantError(response, 403, "requester.owns.weekly.review.error");
   });
 
   test("happy path", async () => {

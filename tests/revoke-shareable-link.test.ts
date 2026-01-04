@@ -1,7 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Publishing from "+publishing";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -52,7 +51,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinkIsActive);
+    await testcases.assertInvariantError(response, 403, "shareable.link.is.active.error");
   });
 
   test("validation - ShareableLinkIsActive - already revoked", async () => {
@@ -68,7 +67,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinkIsActive);
+    await testcases.assertInvariantError(response, 403, "shareable.link.is.active.error");
   });
 
   test("validation - RequesterOwnsShareableLink", async () => {
@@ -81,7 +80,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Publishing.Invariants.RequesterOwnsShareableLink);
+    await testcases.assertInvariantError(response, 403, "requester.owns.shareable.link");
   });
 
   test("happy path", async () => {

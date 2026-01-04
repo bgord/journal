@@ -16,7 +16,7 @@ class EntryIsActionableFactory extends bg.Invariant<EntryIsActionableConfigType>
     return config.status !== Emotions.VO.EntryStatusEnum.actionable;
   }
 
-  message = "entry.is.actionable";
+  message = "entry.is.actionable.error";
 
   error = EntryIsActionableError;
 

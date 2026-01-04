@@ -16,7 +16,7 @@ class RequesterOwnsShareableLinkFactory extends bg.Invariant<RequesterOwnsSharea
     return config.requesterId !== config.ownerId;
   }
 
-  message = "RequesterOwnsShareableLink";
+  message = "requester.owns.shareable.link";
 
   error = RequesterOwnsShareableLinkError;
 

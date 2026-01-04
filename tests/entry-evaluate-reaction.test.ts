@@ -125,7 +125,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.EntryIsActionable);
+    await testcases.assertInvariantError(response, 403, "entry.is.actionable.error");
   });
 
   test("validation - ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
@@ -149,7 +149,8 @@ describe(`POST ${url}`, async () => {
 
     await testcases.assertInvariantError(
       response,
-      Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion,
+      400,
+      "reaction.corresponds.to.situation.and.emotion.error",
     );
   });
 
@@ -174,7 +175,8 @@ describe(`POST ${url}`, async () => {
 
     await testcases.assertInvariantError(
       response,
-      Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion,
+      400,
+      "reaction.corresponds.to.situation.and.emotion.error",
     );
   });
 
@@ -200,7 +202,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.ReactionForEvaluationExists);
+    await testcases.assertInvariantError(response, 400, "reaction.for.evaluation.exists.error");
   });
 
   test("validation -  RequesterOwnsEntry", async () => {
@@ -226,7 +228,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsEntry);
+    await testcases.assertInvariantError(response, 403, "requester.owns.entry.error");
   });
 
   test("happy path", async () => {

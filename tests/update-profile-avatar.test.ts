@@ -1,7 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Preferences from "+preferences";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -58,7 +57,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
+    await testcases.assertInvariantError(response, 400, "ProfileAvatarConstraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
   });
@@ -76,7 +75,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
+    await testcases.assertInvariantError(response, 400, "ProfileAvatarConstraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
   });
@@ -94,7 +93,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
+    await testcases.assertInvariantError(response, 400, "ProfileAvatarConstraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
   });
@@ -112,7 +111,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
+    await testcases.assertInvariantError(response, 400, "ProfileAvatarConstraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
   });

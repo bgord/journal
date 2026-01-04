@@ -1,6 +1,5 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
@@ -40,7 +39,7 @@ describe(`GET ${url}`, async () => {
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewExists);
+    await testcases.assertInvariantError(response, 404, "weekly.review.exists.error");
   });
 
   test("validation - WeeklyReviewExists - repo failure", async () => {
@@ -61,7 +60,7 @@ describe(`GET ${url}`, async () => {
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.WeeklyReviewIsCompleted);
+    await testcases.assertInvariantError(response, 400, "weekly.review.is.completed.error");
   });
 
   test("validation - RequesterOwnsWeeklyReview", async () => {
@@ -70,7 +69,7 @@ describe(`GET ${url}`, async () => {
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.RequesterOwnsWeeklyReview);
+    await testcases.assertInvariantError(response, 403, "requester.owns.weekly.review.error");
   });
 
   test("validation - not found", async () => {

@@ -174,7 +174,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Emotions.Invariants.TimeCapsuleEntryScheduledInFuture);
+    await testcases.assertInvariantError(response, 400, "TimeCapsuleEntryScheduledInFuture");
   });
 
   test("scheduledForHour - missing", async () => {

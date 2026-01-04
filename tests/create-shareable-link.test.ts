@@ -144,7 +144,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, Publishing.Invariants.ShareableLinksPerOwnerLimit);
+    await testcases.assertInvariantError(response, 403, "ShareableLinksPerOwnerLimit");
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 

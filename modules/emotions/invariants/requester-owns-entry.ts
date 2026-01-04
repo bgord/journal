@@ -16,7 +16,7 @@ class RequesterOwnsEntryFactory extends bg.Invariant<RequesterOwnsEntryConfigTyp
     return config.requesterId !== config.ownerId;
   }
 
-  message = "requester.owns.entry";
+  message = "requester.owns.entry.error";
 
   error = RequesterOwnsEntryError;
 

@@ -16,7 +16,7 @@ class RequesterOwnsWeeklyReviewFactory extends bg.Invariant<RequesterOwnsWeeklyR
     return config.requesterId !== config.ownerId;
   }
 
-  message = "requester.owns.weekly.review";
+  message = "requester.owns.weekly.review.error";
 
   error = RequesterOwnsWeeklyReviewError;
 
