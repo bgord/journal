@@ -124,7 +124,7 @@ describe(`POST ${url}`, async () => {
   test("validation - ShareableLinksPerOwnerLimit", async () => {
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
     spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({
-      count: tools.IntegerNonNegative.parse(50),
+      count: tools.IntegerNonNegative.parse(3),
     });
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
