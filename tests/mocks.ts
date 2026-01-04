@@ -159,7 +159,7 @@ export const GenericSituationLoggedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  name: Emotions.Events.SITUATION_LOGGED_EVENT,
+  name: "SITUATION_LOGGED_EVENT",
   payload: {
     entryId,
     description: "I finished a project",
@@ -183,7 +183,7 @@ export const GenericEmotionLoggedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  name: Emotions.Events.EMOTION_LOGGED_EVENT,
+  name: "EMOTION_LOGGED_EVENT",
   payload: {
     entryId,
     label: Emotions.VO.GenevaWheelEmotion.gratitude,
@@ -198,7 +198,7 @@ export const GenericReactionLoggedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  name: Emotions.Events.REACTION_LOGGED_EVENT,
+  name: "REACTION_LOGGED_EVENT",
   payload: {
     entryId,
     description: "Got drunk",
@@ -214,7 +214,7 @@ export const GenericEmotionReappraisedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
+  name: "EMOTION_REAPPRAISED_EVENT",
   payload: {
     entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.joy,
@@ -229,7 +229,7 @@ export const GenericReactionEvaluatedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  name: Emotions.Events.REACTION_EVALUATED_EVENT,
+  name: "REACTION_EVALUATED_EVENT",
   payload: {
     entryId,
     description: "Went to bed",
@@ -245,7 +245,7 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  name: Emotions.Events.EMOTION_LOGGED_EVENT,
+  name: "EMOTION_LOGGED_EVENT",
   payload: {
     entryId,
     label: Emotions.VO.GenevaWheelEmotion.anger,
@@ -260,7 +260,7 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
+  name: "EMOTION_REAPPRAISED_EVENT",
   payload: {
     entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.anger,
@@ -275,7 +275,7 @@ export const GenericEntryDeletedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  name: Emotions.Events.ENTRY_DELETED_EVENT,
+  name: "ENTRY_DELETED_EVENT",
   payload: { entryId, userId },
 } satisfies Emotions.Events.EntryDeletedEventType;
 
@@ -285,7 +285,7 @@ export const GenericTimeCapsuleEntryScheduledEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
-  name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
+  name: "TIME_CAPSULE_ENTRY_SCHEDULED_EVENT",
   payload: {
     entryId,
     userId,
@@ -307,7 +307,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   version: 1,
-  name: Emotions.Events.POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT,
+  name: "POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT",
   payload: {
     userId,
     weekIsoId: week.toIsoId(),
@@ -322,7 +322,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${previousWeek.toIsoId()}`,
   version: 1,
-  name: Emotions.Events.MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT,
+  name: "MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT",
   payload: {
     userId,
     weekIsoId: previousWeek.toIsoId(),
@@ -336,7 +336,7 @@ export const MaladaptiveReactionsPatternDetectedEvent = {
   createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   version: 1,
-  name: Emotions.Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
+  name: "MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT",
   payload: {
     userId,
     weekIsoId: week.toIsoId(),
@@ -351,7 +351,7 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
   createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   version: 1,
-  name: Emotions.Events.LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT,
+  name: "LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT",
   payload: {
     userId,
     weekIsoId: week.toIsoId(),
@@ -365,7 +365,7 @@ export const GenericAlarmGeneratedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
-  name: Emotions.Events.ALARM_GENERATED_EVENT,
+  name: "ALARM_GENERATED_EVENT",
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
     alarmId,
@@ -380,7 +380,7 @@ export const GenericInactivityAlarmGeneratedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
-  name: Emotions.Events.ALARM_GENERATED_EVENT,
+  name: "ALARM_GENERATED_EVENT",
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
     alarmId,
@@ -395,7 +395,7 @@ export const GenericAlarmAdviceSavedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
-  name: Emotions.Events.ALARM_ADVICE_SAVED_EVENT,
+  name: "ALARM_ADVICE_SAVED_EVENT",
   payload: { advice: advice.get(), alarmId, userId },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
 
@@ -405,7 +405,7 @@ export const GenericAlarmNotificationRequestedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
-  name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
+  name: "ALARM_NOTIFICATION_REQUESTED_EVENT",
   payload: {
     alarmId,
     trigger: entryDetection.trigger,
@@ -421,7 +421,7 @@ export const GenericInactivityAlarmNotificationRequestedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
-  name: Emotions.Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
+  name: "ALARM_NOTIFICATION_REQUESTED_EVENT",
   payload: {
     alarmId,
     trigger: inactivityDetection.trigger,
@@ -437,7 +437,7 @@ export const GenericAlarmNotificationSentEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
-  name: Emotions.Events.ALARM_NOTIFICATION_SENT_EVENT,
+  name: "ALARM_NOTIFICATION_SENT_EVENT",
   payload: { alarmId },
 } satisfies Emotions.Events.AlarmNotificationSentEventType;
 
@@ -447,7 +447,7 @@ export const GenericAlarmCancelledEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
-  name: Emotions.Events.ALARM_CANCELLED_EVENT,
+  name: "ALARM_CANCELLED_EVENT",
   payload: { alarmId, userId },
 } satisfies Emotions.Events.AlarmCancelledEventType;
 
@@ -457,7 +457,7 @@ export const GenericWeeklyReviewRequestedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
-  name: Emotions.Events.WEEKLY_REVIEW_REQUESTED_EVENT,
+  name: "WEEKLY_REVIEW_REQUESTED_EVENT",
   payload: { weekIsoId: previousWeek.toIsoId(), weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewRequestedEventType;
 
@@ -467,7 +467,7 @@ export const GenericWeeklyReviewSkippedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
-  name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
+  name: "WEEKLY_REVIEW_SKIPPED_EVENT",
   payload: { weekIsoId: previousWeek.toIsoId(), userId },
 } satisfies Emotions.Events.WeeklyReviewSkippedEventType;
 
