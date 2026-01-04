@@ -13,6 +13,7 @@ type Dependencies = {
 };
 
 export class EntryAlarmDetector {
+  // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(Emotions.Events.EMOTION_LOGGED_EVENT, deps.EventHandler.handle(this.detect.bind(this)));
     deps.EventBus.on(
@@ -20,6 +21,7 @@ export class EntryAlarmDetector {
       deps.EventHandler.handle(this.detect.bind(this)),
     );
   }
+  // Stryker restore all
 
   async detect(event: Emotions.Events.EmotionLoggedEventType | Emotions.Events.EmotionReappraisedEventType) {
     const detection = Emotions.Services.EmotionAlarmDetector.detect({

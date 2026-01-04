@@ -128,4 +128,17 @@ describe("EntryAlarmDetector", async () => {
 
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
+
+  test("no detection", async () => {
+    const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
+    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
+    spyOn(di.Adapters.AI.AiGateway, "check").mockResolvedValue({ violations: [] });
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      policy.detect(mocks.GenericEmotionLoggedEvent),
+    );
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+  });
 });
