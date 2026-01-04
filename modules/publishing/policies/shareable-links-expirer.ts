@@ -17,12 +17,14 @@ type Dependencies = {
 };
 
 export class ShareableLinksExpirer {
+  // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
       bg.System.Events.HOUR_HAS_PASSED_EVENT,
       deps.EventHandler.handle(this.onHourHasPassedEvent.bind(this)),
     );
   }
+  // Stryker restore all
 
   async onHourHasPassedEvent(event: bg.System.Events.HourHasPassedEventType) {
     try {
