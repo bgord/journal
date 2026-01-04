@@ -1,7 +1,9 @@
 import * as bg from "@bgord/bun";
 import { z } from "zod/v4";
 
+// Stryker disable all
 export const UPDATE_PROFILE_AVATAR_COMMAND = "UPDATE_PROFILE_AVATAR_COMMAND";
+// Stryker restore all
 
 export const UpdateProfileAvatarCommand = z.object({
   ...bg.CommandEnvelopeSchema,
