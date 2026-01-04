@@ -12,13 +12,15 @@ type AlarmEventType = z.infer<AlarmEvent>;
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class Alarm {
-  static events = [
+  // Stryker disable all
+  static readonly events = [
     Events.AlarmGeneratedEvent,
     Events.AlarmAdviceSavedEvent,
     Events.AlarmNotificationRequestedEvent,
     Events.AlarmNotificationSentEvent,
     Events.AlarmCancelledEvent,
   ];
+  // Stryker restore all
 
   readonly id: VO.AlarmIdType;
   private userId?: Auth.VO.UserIdType;

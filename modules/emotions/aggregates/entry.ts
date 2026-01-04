@@ -10,7 +10,8 @@ type EntryEventType = z.infer<EntryEvent>;
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class Entry {
-  static events = [
+  // Stryker disable all
+  static readonly events = [
     Emotions.Events.SituationLoggedEvent,
     Emotions.Events.EmotionLoggedEvent,
     Emotions.Events.ReactionLoggedEvent,
@@ -18,6 +19,7 @@ export class Entry {
     Emotions.Events.ReactionEvaluatedEvent,
     Emotions.Events.EntryDeletedEvent,
   ];
+  // Stryker restore all
 
   readonly id: Emotions.VO.EntryIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);

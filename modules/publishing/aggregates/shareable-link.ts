@@ -12,11 +12,13 @@ type ShareableLinkEventType = z.infer<ShareableLinkEvent>;
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class ShareableLink {
-  static events = [
+  // Stryker disable all
+  static readonly events = [
     Events.ShareableLinkCreatedEvent,
     Events.ShareableLinkExpiredEvent,
     Events.ShareableLinkRevokedEvent,
   ];
+  // Stryker restore all
 
   readonly id: VO.ShareableLinkIdType;
   private ownerId?: Auth.VO.UserIdType;

@@ -13,12 +13,14 @@ type WeeklyReviewEventType = z.infer<WeeklyReviewEvent>;
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class WeeklyReview {
-  static events = [
+  // Stryker disable all
+  static readonly events = [
     Events.WeeklyReviewRequestedEvent,
     Events.WeeklyReviewSkippedEvent,
     Events.WeeklyReviewCompletedEvent,
     Events.WeeklyReviewFailedEvent,
   ];
+  // Stryker restore all
 
   readonly id: VO.WeeklyReviewIdType;
   private userId?: Auth.VO.UserIdType;

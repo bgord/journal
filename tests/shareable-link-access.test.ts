@@ -35,9 +35,7 @@ describe("ShareableLinkAccess", async () => {
           mocks.publicationSpecification,
           mocks.accessContext,
         ),
-      ).toEqual({
-        valid: false,
-      });
+      ).toEqual({ valid: false });
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
