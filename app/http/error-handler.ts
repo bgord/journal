@@ -17,7 +17,7 @@ const validationErrors = [
   Emotions.VO.ReactionDescription.Errors.invalid,
   Emotions.VO.ReactionType.Errors.invalid,
   Emotions.VO.ReactionEffectiveness.Errors.min_max,
-  Publishing.VO.PublicationSpecificationErrors.invalid,
+  Publishing.VO.PublicationSpecificationErrors.Invalid,
 ];
 
 const invariants = Object.values({
