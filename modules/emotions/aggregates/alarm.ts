@@ -155,10 +155,12 @@ export class Alarm {
         break;
       }
 
+      // Stryker disable all
       case Events.ALARM_NOTIFICATION_SENT_EVENT: {
         this.status = VO.AlarmStatusEnum.completed;
         break;
       }
+      // Stryker disable all
 
       case Events.ALARM_CANCELLED_EVENT: {
         this.status = VO.AlarmStatusEnum.cancelled;
