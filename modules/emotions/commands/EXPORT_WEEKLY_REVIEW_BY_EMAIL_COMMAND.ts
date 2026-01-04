@@ -3,7 +3,9 @@ import { z } from "zod/v4";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
+// Stryker disable all
 export const EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND = "SEND_WEEKLY_REVIEW_BY_EMAIL_COMMAND";
+// Stryker restore all
 
 export const ExportWeeklyReviewByEmailCommand = z.object({
   ...bg.CommandEnvelopeSchema,

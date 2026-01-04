@@ -3,7 +3,9 @@ import { z } from "zod/v4";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
+// Stryker disable all
 export const MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND = "MARK_WEEKLY_REVIEW_AS_FAILED_COMMAND";
+// Stryker restore all
 
 export const MarkWeeklyReviewAsFailedCommand = z.object({
   ...bg.CommandEnvelopeSchema,

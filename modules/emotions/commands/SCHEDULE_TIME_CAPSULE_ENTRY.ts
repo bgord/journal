@@ -5,7 +5,9 @@ import * as Auth from "+auth";
 import * as Entities from "+emotions/entities";
 import * as VO from "+emotions/value-objects";
 
+// Stryker disable all
 export const SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND = "SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND";
+// Stryker restore all
 
 export const ScheduleTimeCapsuleEntryCommand = z.object({
   ...bg.CommandEnvelopeSchema,

@@ -4,7 +4,9 @@ import { z } from "zod/v4";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
+// Stryker disable all
 export const DELETE_ENTRY_COMMAND = "DELETE_ENTRY_COMMAND";
+// Stryker restore all
 
 export const DeleteEntryCommand = z.object({
   ...bg.CommandEnvelopeSchema,

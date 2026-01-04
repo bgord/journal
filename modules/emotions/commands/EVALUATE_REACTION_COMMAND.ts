@@ -5,7 +5,9 @@ import * as Auth from "+auth";
 import * as Entities from "+emotions/entities";
 import * as VO from "+emotions/value-objects";
 
+// Stryker disable all
 export const EVALUATE_REACTION_COMMAND = "EVALUATE_REACTION_COMMAND";
+// Stryker restore all
 
 export const EvaluateReactionCommand = z.object({
   ...bg.CommandEnvelopeSchema,

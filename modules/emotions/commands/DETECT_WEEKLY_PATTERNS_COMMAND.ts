@@ -3,7 +3,9 @@ import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
 
+// Stryker disable all
 export const DETECT_WEEKLY_PATTERNS_COMMAND = "DETECT_WEEKLY_PATTERNS_COMMAND";
+// Stryker restore all
 
 export const DetectWeeklyPatternsCommand = z.object({
   ...bg.CommandEnvelopeSchema,

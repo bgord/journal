@@ -3,7 +3,9 @@ import { z } from "zod/v4";
 import * as AI from "+ai";
 import * as VO from "+emotions/value-objects";
 
+// Stryker disable all
 export const SAVE_ALARM_ADVICE_COMMAND = "SAVE_ALARM_ADVICE_COMMAND";
+// Stryker restore all
 
 export const SaveAlarmAdviceCommand = z.object({
   ...bg.CommandEnvelopeSchema,

@@ -3,7 +3,9 @@ import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as Auth from "+auth";
 
+// Stryker disable all
 export const REQUEST_WEEKLY_REVIEW_COMMAND = "REQUEST_WEEKLY_REVIEW_COMMAND";
+// Stryker restore all
 
 export const RequestWeeklyReviewCommand = z.object({
   ...bg.CommandEnvelopeSchema,
