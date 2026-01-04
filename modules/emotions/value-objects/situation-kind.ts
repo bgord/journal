@@ -1,10 +1,10 @@
 import { z } from "zod/v4";
 import { SituationKindOptions } from "./situation-kind-options";
 
-const SituationKindErrors = { invalid: "situation.kind.invalid" };
+const SituationKindErrors = { Invalid: "situation.kind.invalid" };
 
 export const SituationKindSchema = z.enum(SituationKindOptions, {
-  message: SituationKindErrors.invalid,
+  message: SituationKindErrors.Invalid,
 });
 
 /** @public */

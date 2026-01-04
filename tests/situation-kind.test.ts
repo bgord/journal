@@ -13,7 +13,7 @@ describe("SituationKind", () => {
 
   test("constructor - throws on unknown emotion", () => {
     // @ts-expect-error
-    expect(() => new SituationKind("something_else")).toThrow(SituationKind.Errors.invalid);
+    expect(() => new SituationKind("something_else")).toThrow("situation.kind.invalid");
   });
 
   test("compare - true", () => {
