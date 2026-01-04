@@ -107,6 +107,8 @@ describe(`POST ${url}`, async () => {
       size: tools.Size.fromKb(100),
     });
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    const imageProcessorProcess = spyOn(di.Adapters.System.ImageProcessor, "process");
+    const remoteFileStoragePutFromPath = spyOn(di.Adapters.System.RemoteFileStorage, "putFromPath");
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
@@ -117,6 +119,18 @@ describe(`POST ${url}`, async () => {
 
     expect(response.status);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericProfileAvatarUpdatedEvent]);
+    expect(imageProcessorProcess).toHaveBeenCalledWith({
+      maxSide: 256,
+      strategy: "in_place",
+      to: "webp",
+      // @ts-expect-error
+      input: expect.any(tools.FilePathAbsolute),
+    });
+    expect(remoteFileStoragePutFromPath).toHaveBeenCalledWith({
+      key: mocks.objectKey,
+      // @ts-expect-error
+      path: expect.any(tools.FilePathAbsolute),
+    });
   });
 
   test("happy path - jpeg", async () => {
