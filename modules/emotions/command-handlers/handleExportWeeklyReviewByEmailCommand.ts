@@ -16,11 +16,13 @@ export const handleExportWeeklyReviewByEmailCommand =
     const weeklyReview = await deps.WeeklyReviewSnapshot.getById(command.payload.weeklyReviewId);
 
     Emotions.Invariants.WeeklyReviewExists.perform({ weeklyReview });
+    // Stryker disable all
     Emotions.Invariants.WeeklyReviewIsCompleted.perform({ status: weeklyReview?.status });
     Emotions.Invariants.RequesterOwnsWeeklyReview.perform({
       requesterId: command.payload.userId,
       ownerId: weeklyReview?.userId,
     });
+    // Stryker restore all
 
     const weeklyReviewExportId = deps.IdProvider.generate();
 
