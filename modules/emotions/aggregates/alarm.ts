@@ -122,6 +122,16 @@ export class Alarm {
     this.record(event);
   }
 
+  toSnapshot() {
+    return {
+      id: this.id,
+      userId: this.userId,
+      status: this.status,
+      detection: this.detection,
+      advice: this.advice,
+    };
+  }
+
   pullEvents(): AlarmEventType[] {
     const events = [...this.pending];
 
@@ -155,12 +165,10 @@ export class Alarm {
         break;
       }
 
-      // Stryker disable all
       case Events.ALARM_NOTIFICATION_SENT_EVENT: {
         this.status = VO.AlarmStatusEnum.completed;
         break;
       }
-      // Stryker disable all
 
       case Events.ALARM_CANCELLED_EVENT: {
         this.status = VO.AlarmStatusEnum.cancelled;

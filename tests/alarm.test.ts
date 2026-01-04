@@ -1,6 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
@@ -24,6 +25,16 @@ describe("Alarm", async () => {
       );
 
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmGeneratedEvent]);
+      expect(alarm.toSnapshot()).toEqual({
+        advice: undefined,
+        detection: new Emotions.VO.AlarmDetection(
+          mocks.GenericAlarmGeneratedEvent.payload.trigger,
+          mocks.GenericAlarmGeneratedEvent.payload.alarmName,
+        ),
+        id: mocks.GenericAlarmGeneratedEvent.id,
+        status: Emotions.VO.AlarmStatusEnum.generated,
+        userId: mocks.GenericAlarmGeneratedEvent.payload.userId,
+      });
     });
   });
 
@@ -39,6 +50,16 @@ describe("Alarm", async () => {
       alarm.saveAdvice(mocks.advice);
 
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmAdviceSavedEvent]);
+      expect(alarm.toSnapshot()).toEqual({
+        advice: new AI.Advice(mocks.GenericAlarmAdviceSavedEvent.payload.advice),
+        detection: new Emotions.VO.AlarmDetection(
+          mocks.GenericAlarmGeneratedEvent.payload.trigger,
+          mocks.GenericAlarmGeneratedEvent.payload.alarmName,
+        ),
+        id: mocks.GenericAlarmGeneratedEvent.id,
+        status: Emotions.VO.AlarmStatusEnum.advice_saved,
+        userId: mocks.GenericAlarmGeneratedEvent.payload.userId,
+      });
     });
   });
 
@@ -67,6 +88,16 @@ describe("Alarm", async () => {
       alarm.notify();
 
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationRequestedEvent]);
+      expect(alarm.toSnapshot()).toEqual({
+        advice: new AI.Advice(mocks.GenericAlarmAdviceSavedEvent.payload.advice),
+        detection: new Emotions.VO.AlarmDetection(
+          mocks.GenericAlarmGeneratedEvent.payload.trigger,
+          mocks.GenericAlarmGeneratedEvent.payload.alarmName,
+        ),
+        id: mocks.GenericAlarmGeneratedEvent.id,
+        status: Emotions.VO.AlarmStatusEnum.notification_requested,
+        userId: mocks.GenericAlarmGeneratedEvent.payload.userId,
+      });
     });
   });
 
@@ -111,6 +142,16 @@ describe("Alarm", async () => {
       alarm.complete();
 
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmNotificationSentEvent]);
+      expect(alarm.toSnapshot()).toEqual({
+        advice: new AI.Advice(mocks.GenericAlarmAdviceSavedEvent.payload.advice),
+        detection: new Emotions.VO.AlarmDetection(
+          mocks.GenericAlarmGeneratedEvent.payload.trigger,
+          mocks.GenericAlarmGeneratedEvent.payload.alarmName,
+        ),
+        id: mocks.GenericAlarmGeneratedEvent.id,
+        status: Emotions.VO.AlarmStatusEnum.completed,
+        userId: mocks.GenericAlarmGeneratedEvent.payload.userId,
+      });
     });
   });
 
@@ -137,6 +178,16 @@ describe("Alarm", async () => {
       alarm.cancel();
 
       expect(alarm.pullEvents()).toEqual([mocks.GenericAlarmCancelledEvent]);
+      expect(alarm.toSnapshot()).toEqual({
+        advice: new AI.Advice(mocks.GenericAlarmAdviceSavedEvent.payload.advice),
+        detection: new Emotions.VO.AlarmDetection(
+          mocks.GenericAlarmGeneratedEvent.payload.trigger,
+          mocks.GenericAlarmGeneratedEvent.payload.alarmName,
+        ),
+        id: mocks.GenericAlarmGeneratedEvent.id,
+        status: Emotions.VO.AlarmStatusEnum.cancelled,
+        userId: mocks.GenericAlarmGeneratedEvent.payload.userId,
+      });
     });
   });
 
