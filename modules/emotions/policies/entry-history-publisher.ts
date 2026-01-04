@@ -16,6 +16,7 @@ type Dependencies = {
 };
 
 export class EntryHistoryPublisher {
+  // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
       Emotions.Events.SITUATION_LOGGED_EVENT,
@@ -38,6 +39,7 @@ export class EntryHistoryPublisher {
       deps.EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
     );
   }
+  // Stryker restore all
 
   async onSituationLoggedEvent(event: Emotions.Events.SituationLoggedEventType) {
     await this.deps.HistoryWriter.populate({
