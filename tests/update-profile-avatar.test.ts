@@ -45,9 +45,27 @@ describe(`POST ${url}`, async () => {
     expect(response.status).toEqual(500);
   });
 
-  test("ProfileAvatarConstraints - maxSide", async () => {
+  test("ProfileAvatarConstraints - maxSide - width", async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(3100),
+      height: tools.ImageHeight.parse(100),
+      mime: tools.MIMES.png,
+      size: tools.Size.fromKb(100),
+    });
+    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    const temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
+    const temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
+
+    const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
+
+    await testcases.assertInvariantError(response, Preferences.Invariants.ProfileAvatarConstraints);
+    expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
+    expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
+  });
+
+  test("ProfileAvatarConstraints - maxSide - height", async () => {
+    spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
+      width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(3100),
       mime: tools.MIMES.png,
       size: tools.Size.fromKb(100),
@@ -101,8 +119,8 @@ describe(`POST ${url}`, async () => {
 
   test("happy path - png", async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-      width: tools.ImageWidth.parse(100),
-      height: tools.ImageHeight.parse(100),
+      width: tools.ImageWidth.parse(3000),
+      height: tools.ImageHeight.parse(3000),
       mime: tools.MIMES.png,
       size: tools.Size.fromKb(100),
     });
