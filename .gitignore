@@ -26,3 +26,5 @@ public/main.min.css
 public/*.js
 public/*.js.map
 output/
+.stryker-tmp
+reports/

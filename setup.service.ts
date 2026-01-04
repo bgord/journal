@@ -7,7 +7,7 @@ import { requestId } from "hono/request-id";
 import { secureHeaders } from "hono/secure-headers";
 import { timing } from "hono/timing";
 
-export const BODY_LIMIT_MAX_SIZE = tools.Size.fromKb(128).toBytes();
+const BODY_LIMIT_MAX_SIZE = tools.Size.fromKb(128).toBytes();
 
 type SetupOverridesType = {
   cors?: Parameters<typeof cors>[0];
