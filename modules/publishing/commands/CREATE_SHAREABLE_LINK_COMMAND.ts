@@ -4,7 +4,9 @@ import { z } from "zod/v4";
 import * as Auth from "+auth";
 import * as VO from "+publishing/value-objects";
 
+// Stryker disable all
 export const CREATE_SHAREABLE_LINK_COMMAND = "CREATE_SHAREABLE_LINK_COMMAND";
+// Stryker restore all
 
 export const CreateShareableLinkCommand = z.object({
   ...bg.CommandEnvelopeSchema,

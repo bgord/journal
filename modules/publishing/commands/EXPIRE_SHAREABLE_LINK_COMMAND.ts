@@ -3,7 +3,9 @@ import * as tools from "@bgord/tools";
 import { z } from "zod/v4";
 import * as VO from "+publishing/value-objects";
 
+// Stryker disable all
 export const EXPIRE_SHAREABLE_LINK_COMMAND = "EXPIRE_SHAREABLE_LINK_COMMAND";
+// Stryker restore all
 
 export const ExpireShareableLinkCommand = z.object({
   ...bg.CommandEnvelopeSchema,
