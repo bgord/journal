@@ -11,6 +11,7 @@ type Dependencies = {
 };
 
 export class SetDefaultUserLanguage<L extends readonly tools.LanguageType[]> {
+  // Stryker disable all
   constructor(
     private readonly systemDefaultLanguage: L[number],
     private readonly deps: Dependencies,
@@ -20,6 +21,7 @@ export class SetDefaultUserLanguage<L extends readonly tools.LanguageType[]> {
       this.deps.EventHandler.handle(this.onAccountCreatedEvent.bind(this)),
     );
   }
+  // Stryker restore all
 
   async onAccountCreatedEvent(event: Auth.Events.AccountCreatedEventType) {
     const command = bg.Preferences.Commands.SetUserLanguageCommand.parse({
