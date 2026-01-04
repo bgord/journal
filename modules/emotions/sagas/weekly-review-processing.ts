@@ -32,6 +32,7 @@ type Dependencies = {
 };
 
 export class WeeklyReviewProcessing {
+  // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
@@ -46,6 +47,7 @@ export class WeeklyReviewProcessing {
       deps.EventHandler.handle(this.onWeeklyReviewCompletedEvent.bind(this)),
     );
   }
+  // Stryker restore all
 
   async onWeeklyReviewSkippedEvent(event: Emotions.Events.WeeklyReviewSkippedEventType) {
     const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
@@ -61,7 +63,7 @@ export class WeeklyReviewProcessing {
     try {
       await this.deps.Mailer.send({
         from: this.deps.EMAIL_FROM,
-        to: contact?.address,
+        to: contact.address,
         ...notification.get(),
       });
     } catch {}

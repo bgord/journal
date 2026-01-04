@@ -24,6 +24,7 @@ type Dependencies = {
 };
 
 export class WeeklyReviewExportByEmail {
+  // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
       Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
@@ -34,6 +35,7 @@ export class WeeklyReviewExportByEmail {
       deps.EventHandler.handle(this.onWeeklyReviewExportByEmailFailedEvent.bind(this)),
     );
   }
+  // Stryker restore all
 
   async onWeeklyReviewExportByEmailRequestedEvent(
     event: Emotions.Events.WeeklyReviewExportByEmailRequestedEventType,

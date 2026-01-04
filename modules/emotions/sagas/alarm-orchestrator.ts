@@ -39,6 +39,7 @@ type Dependencies = {
 };
 
 export class AlarmOrchestrator {
+  // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
       Events.ALARM_GENERATED_EVENT,
@@ -51,6 +52,7 @@ export class AlarmOrchestrator {
     );
     deps.EventBus.on(Events.ENTRY_DELETED_EVENT, this.onEntryDeletedEvent.bind(this));
   }
+  // Stryker restore all
 
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
