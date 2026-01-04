@@ -23,6 +23,17 @@ describe("AlarmPromptFactory", async () => {
     );
   });
 
+  test("entry - missing", async () => {
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined);
+
+    const result = await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
+      di.Adapters.Emotions.EntrySnapshot,
+      SupportedLanguages.en,
+    ).create(mocks.entryDetection);
+
+    expect(result).toEqual(null);
+  });
+
   test("inactivity", async () => {
     const result = await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
       di.Adapters.Emotions.EntrySnapshot,
@@ -30,5 +41,16 @@ describe("AlarmPromptFactory", async () => {
     ).create(mocks.inactivityDetection);
 
     expect(result).toEqual(new AI.Prompt(`Inactive for ${mocks.inactivityTrigger.inactivityDays} days`));
+  });
+
+  test("unknown type", async () => {
+    expect(
+      async () =>
+        await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
+          di.Adapters.Emotions.EntrySnapshot,
+          SupportedLanguages.en,
+          // @ts-expect-error
+        ).create(new Emotions.VO.AlarmDetection("unknown", "unknown")),
+    ).toThrow("alarm.prompt.factory.unknown.trigger");
   });
 });

@@ -3,6 +3,8 @@ import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
 import type { EntrySnapshotPort } from "+emotions/ports";
 
+export const AlarmPromptFactoryError = { UnknownTrigger: "alarm.prompt.factory.unknown.trigger" };
+
 export class AlarmPromptFactory {
   constructor(
     private readonly entrySnapshot: EntrySnapshotPort,
@@ -31,7 +33,7 @@ export class AlarmPromptFactory {
       }
 
       default:
-        throw new Error("Unknown alarm trigger type");
+        throw new Error(AlarmPromptFactoryError.UnknownTrigger);
     }
   }
 }
