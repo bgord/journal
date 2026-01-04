@@ -117,13 +117,7 @@ export class ShareableLink {
   }
 
   isEmpty(): boolean {
-    return !(
-      this.createdAt &&
-      this.durationMs &&
-      this.ownerId &&
-      this.dateRange &&
-      this.publicationSpecification
-    );
+    return !this.createdAt;
   }
 
   summarize() {
