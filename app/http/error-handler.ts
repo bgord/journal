@@ -12,10 +12,10 @@ type Dependencies = { Logger: bg.LoggerPort };
 const validationErrors = [
   Emotions.VO.SituationDescription.Errors.Invalid,
   Emotions.VO.SituationKind.Errors.invalid,
-  Emotions.VO.EmotionLabel.Errors.invalid,
+  Emotions.VO.EmotionLabel.Errors.Invalid,
   Emotions.VO.EmotionIntensity.Errors.min_max,
   Emotions.VO.ReactionDescription.Errors.invalid,
-  Emotions.VO.ReactionType.Errors.invalid,
+  Emotions.VO.ReactionType.Errors.Invalid,
   Emotions.VO.ReactionEffectiveness.Errors.min_max,
   Publishing.VO.PublicationSpecificationErrors.Invalid,
 ];

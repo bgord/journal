@@ -1,10 +1,10 @@
 import { z } from "zod/v4";
 import { GrossEmotionRegulationStrategy } from "./gross-emotion-regulation-strategy.enum";
 
-const ReactionTypeErrors = { invalid: "reaction.type.invalid" };
+const ReactionTypeErrors = { Invalid: "reaction.type.invalid" };
 
 export const ReactionTypeSchema = z.enum(GrossEmotionRegulationStrategy, {
-  message: ReactionTypeErrors.invalid,
+  message: ReactionTypeErrors.Invalid,
 });
 
 /** @public */

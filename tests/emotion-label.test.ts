@@ -13,7 +13,7 @@ describe("EmotionLabel", () => {
 
   test("constructor - throws on unknown emotion", () => {
     // @ts-expect-error
-    expect(() => new EmotionLabel("something_else")).toThrow(EmotionLabel.Errors.invalid);
+    expect(() => new EmotionLabel("something_else")).toThrow("emotion.label.invalid");
   });
 
   test("compare - true", () => {

@@ -36,10 +36,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({
-      message: Emotions.VO.EmotionLabel.Errors.invalid,
-      _known: true,
-    });
+    expect(json).toEqual({ message: "emotion.label.invalid", _known: true });
   });
 
   test("validation - missing intensity", async () => {

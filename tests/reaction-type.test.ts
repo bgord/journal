@@ -13,7 +13,7 @@ describe("ReactionType", () => {
 
   test("constructor - throws on unknown emotion regulation strategy", () => {
     // @ts-expect-error
-    expect(() => new ReactionType("something_else")).toThrow(ReactionType.Errors.invalid);
+    expect(() => new ReactionType("something_else")).toThrow("reaction.type.invalid");
   });
 
   test("isAdaptive - true", () => {
