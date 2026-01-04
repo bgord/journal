@@ -11,14 +11,14 @@ type Dependencies = {
 
 export const handleGenerateAlarmCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.GenerateAlarmCommandType) => {
-    const check = await deps.AiGateway.check(
-      Emotions.ACL.createAlarmRequestContext(
-        deps,
-        command.payload.userId,
-        // @ts-expect-error
-        command.payload.detection.trigger.entryId,
-      ),
+    const context = Emotions.ACL.createAlarmRequestContext(
+      deps,
+      command.payload.userId,
+      // @ts-expect-error
+      command.payload.detection.trigger.entryId,
     );
+
+    const check = await deps.AiGateway.check(context);
 
     if (check.violations.length > 0) return;
 

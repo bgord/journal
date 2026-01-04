@@ -17,8 +17,7 @@ export const createWeeklyReviewInsightRequestContext = (
   };
 };
 
-/** @public */
-export const createEmotionsAlarmEntryRequestContext = (
+const createEmotionsAlarmEntryRequestContext = (
   deps: Dependencies,
   userId: Auth.VO.UserIdType,
   entryId: Emotions.VO.EntryIdType,
@@ -31,8 +30,7 @@ export const createEmotionsAlarmEntryRequestContext = (
   };
 };
 
-/** @public */
-export const createEmotionsAlarmInactivityRequestContext = (
+const createEmotionsAlarmInactivityRequestContext = (
   deps: Dependencies,
   userId: Auth.VO.UserIdType,
 ): AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY> => {
@@ -51,19 +49,6 @@ export const createAlarmRequestContext = (
 ):
   | AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_ENTRY>
   | AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY> => {
-  if (entryId) {
-    return {
-      userId,
-      category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
-      timestamp: deps.Clock.now().ms,
-      dimensions: { entryId },
-    };
-  }
-
-  return {
-    userId,
-    category: AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY,
-    timestamp: deps.Clock.now().ms,
-    dimensions: {},
-  };
+  if (entryId) return createEmotionsAlarmEntryRequestContext(deps, userId, entryId);
+  return createEmotionsAlarmInactivityRequestContext(deps, userId);
 };

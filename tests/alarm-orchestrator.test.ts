@@ -1,6 +1,7 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
@@ -28,8 +29,8 @@ describe("AlarmOrchestrator", async () => {
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
-    spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.advice);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
+    const aiGatewayQuery = spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -37,13 +38,14 @@ describe("AlarmOrchestrator", async () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
+    expect(aiGatewayQuery).toHaveBeenCalledWith(expect.any(AI.Prompt), mocks.EmotionsAlarmEntryContext);
   });
 
   test("onAlarmGeneratedEvent - inactivity", async () => {
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.advice);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
+    const aiGatewayQuery = spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.advice);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -51,6 +53,10 @@ describe("AlarmOrchestrator", async () => {
     );
 
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmAdviceSavedEvent]);
+    expect(aiGatewayQuery).toHaveBeenCalledWith(
+      expect.any(AI.Prompt),
+      mocks.EmotionsAlarmInactivityWeeklyContext,
+    );
   });
 
   test("onAlarmGeneratedEvent - entry - finding entry fails", async () => {
