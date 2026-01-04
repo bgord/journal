@@ -4,9 +4,9 @@ import { EmotionIntensityMax, EmotionIntensityMin } from "./emotion-intensity.va
 const EmotionIntensityErrors = { min_max: "emotion.intensity.min.max" };
 
 export const EmotionIntensitySchema = z
-  .int({ message: EmotionIntensityErrors.min_max })
-  .gte(EmotionIntensityMin, { message: EmotionIntensityErrors.min_max })
-  .lte(EmotionIntensityMax, { message: EmotionIntensityErrors.min_max });
+  .int(EmotionIntensityErrors.min_max)
+  .gte(EmotionIntensityMin, EmotionIntensityErrors.min_max)
+  .lte(EmotionIntensityMax, EmotionIntensityErrors.min_max);
 
 /** @public */
 export type EmotionIntensityType = z.infer<typeof EmotionIntensitySchema>;

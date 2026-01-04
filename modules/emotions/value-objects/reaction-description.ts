@@ -4,10 +4,10 @@ import { ReactionDescriptionMax, ReactionDescriptionMin } from "./reaction-descr
 const ReactionDescriptionErrors = { invalid: "reaction.description.invalid" };
 
 export const ReactionDescriptionSchema = z
-  .string({ message: ReactionDescriptionErrors.invalid })
+  .string(ReactionDescriptionErrors.invalid)
   .trim()
-  .min(ReactionDescriptionMin, { message: ReactionDescriptionErrors.invalid })
-  .max(ReactionDescriptionMax, { message: ReactionDescriptionErrors.invalid });
+  .min(ReactionDescriptionMin, ReactionDescriptionErrors.invalid)
+  .max(ReactionDescriptionMax, ReactionDescriptionErrors.invalid);
 
 /** @public */
 export type ReactionDescriptionType = z.infer<typeof ReactionDescriptionSchema>;

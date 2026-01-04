@@ -4,13 +4,9 @@ import { ReactionEffectivenessMax, ReactionEffectivenessMin } from "./reaction-e
 const ReactionEffectivenessErrors = { min_max: "reaction.effectiveness.min.max" };
 
 export const ReactionEffectivenessSchema = z
-  .int({ message: ReactionEffectivenessErrors.min_max })
-  .gte(ReactionEffectivenessMin, {
-    message: ReactionEffectivenessErrors.min_max,
-  })
-  .lte(ReactionEffectivenessMax, {
-    message: ReactionEffectivenessErrors.min_max,
-  });
+  .int(ReactionEffectivenessErrors.min_max)
+  .gte(ReactionEffectivenessMin, ReactionEffectivenessErrors.min_max)
+  .lte(ReactionEffectivenessMax, ReactionEffectivenessErrors.min_max);
 
 /** @public */
 export type ReactionEffectivenessType = z.infer<typeof ReactionEffectivenessSchema>;
