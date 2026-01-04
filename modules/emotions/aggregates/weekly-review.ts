@@ -98,6 +98,16 @@ export class WeeklyReview {
     this.record(event);
   }
 
+  toSnapshot() {
+    return {
+      id: this.id,
+      userId: this.userId,
+      week: this.week,
+      status: this.status,
+      insights: this.insights,
+    };
+  }
+
   pullEvents(): WeeklyReviewEventType[] {
     const events = [...this.pending];
 
