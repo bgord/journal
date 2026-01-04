@@ -166,6 +166,18 @@ export class Entry {
     return events;
   }
 
+  toSnapshot() {
+    return {
+      id: this.id,
+      revision: this.revision,
+      userId: this.userId,
+      situation: this.situation,
+      emotion: this.emotion,
+      reaction: this.reaction,
+      status: this.status,
+    };
+  }
+
   private record(event: EntryEventType): void {
     this.apply(event);
     this.pending.push(event);

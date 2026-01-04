@@ -72,6 +72,14 @@ describe("entry", async () => {
     );
 
     expect(entry.pullEvents()).toEqual([mocks.GenericEmotionReappraisedEvent]);
+    expect(entry.toSnapshot()).toEqual(
+      expect.objectContaining({
+        emotion: new Emotions.Entities.Emotion(
+          new Emotions.VO.EmotionLabel(mocks.GenericEmotionReappraisedEvent.payload.newLabel),
+          new Emotions.VO.EmotionIntensity(mocks.GenericEmotionReappraisedEvent.payload.newIntensity),
+        ),
+      }),
+    );
   });
 
   test("reappraiseEmotion - Invariants.EmotionCorrespondsToSituation", async () => {
@@ -109,6 +117,15 @@ describe("entry", async () => {
     );
 
     expect(entry.pullEvents()).toEqual([mocks.GenericReactionEvaluatedEvent]);
+    expect(entry.toSnapshot()).toEqual(
+      expect.objectContaining({
+        reaction: new Emotions.Entities.Reaction(
+          new Emotions.VO.ReactionDescription(mocks.GenericReactionEvaluatedEvent.payload.description),
+          new Emotions.VO.ReactionType(mocks.GenericReactionEvaluatedEvent.payload.type),
+          new Emotions.VO.ReactionEffectiveness(mocks.GenericReactionEvaluatedEvent.payload.effectiveness),
+        ),
+      }),
+    );
   });
 
   test("evaluateReaction - Invariants.ReactionCorrespondsToSituationAndEmotion - missing situation and emotion", async () => {
