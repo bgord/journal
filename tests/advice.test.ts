@@ -15,15 +15,15 @@ describe("advice", () => {
   });
 
   test("constructor - rejects under the limit", () => {
-    expect(() => new AI.Advice("")).toThrow(AI.Advice.Errors.invalid);
+    expect(() => new AI.Advice("")).toThrow(AI.Advice.Errors.Invalid);
   });
 
   test("constructor - rejects over the limit", () => {
-    expect(() => new AI.Advice("a".repeat(AI.Advice.MaximumLength + 1))).toThrow(AI.Advice.Errors.invalid);
+    expect(() => new AI.Advice("a".repeat(AI.Advice.MaximumLength + 1))).toThrow(AI.Advice.Errors.Invalid);
   });
 
   test("constructor - rejects empty input", () => {
-    expect(() => new AI.Advice("    ")).toThrow(AI.Advice.Errors.invalid);
+    expect(() => new AI.Advice("    ")).toThrow(AI.Advice.Errors.Invalid);
   });
 
   test("length", () => {

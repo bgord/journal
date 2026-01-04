@@ -37,7 +37,7 @@ describe(`POST ${url}`, async () => {
 
     expect(response.status).toEqual(400);
     expect(json).toEqual({
-      message: Emotions.VO.SituationDescription.Errors.invalid,
+      message: Emotions.VO.SituationDescription.Errors.Invalid,
       _known: true,
     });
   });

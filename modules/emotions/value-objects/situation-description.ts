@@ -1,13 +1,13 @@
 import { z } from "zod/v4";
 import { SituationDescriptionMax, SituationDescriptionMin } from "./situation-description.validation";
 
-const SituationDescriptionErrors = { invalid: "situation.description.invalid" };
+const SituationDescriptionErrors = { Invalid: "situation.description.invalid" };
 
 export const SituationDescriptionSchema = z
-  .string({ error: SituationDescriptionErrors.invalid })
+  .string(SituationDescriptionErrors.Invalid)
   .trim()
-  .min(SituationDescriptionMin, { error: SituationDescriptionErrors.invalid })
-  .max(SituationDescriptionMax, { error: SituationDescriptionErrors.invalid });
+  .min(SituationDescriptionMin, SituationDescriptionErrors.Invalid)
+  .max(SituationDescriptionMax, SituationDescriptionErrors.Invalid);
 
 /** @public */
 export type SituationDescriptionType = z.infer<typeof SituationDescriptionSchema>;

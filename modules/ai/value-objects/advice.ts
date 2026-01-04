@@ -1,15 +1,15 @@
 import { z } from "zod/v4";
 
-const AdviceErrors = { invalid: "emotional.advice.invalid" };
+const AdviceErrors = { Invalid: "emotional.advice.invalid" };
 
 const AdviceMin = 1;
 const AdviceMax = 1024;
 
 export const AdviceSchema = z
-  .string({ error: AdviceErrors.invalid })
+  .string(AdviceErrors.Invalid)
   .trim()
-  .min(AdviceMin, { error: AdviceErrors.invalid })
-  .max(AdviceMax, { error: AdviceErrors.invalid });
+  .min(AdviceMin, AdviceErrors.Invalid)
+  .max(AdviceMax, AdviceErrors.Invalid);
 
 export type AdviceType = z.infer<typeof AdviceSchema>;
 
