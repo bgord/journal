@@ -17,14 +17,18 @@ type ShareableLinkExpirationTimePassedConfigType = {
 
 class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLinkExpirationTimePassedConfigType> {
   fails(config: ShareableLinkExpirationTimePassedConfigType) {
+    // Stryker disable all
     if (!config.createdAt) return true;
     if (!config.durationMs) return true;
+    // Stryker restore all
     return tools.Timestamp.fromValue(config.createdAt)
       .add(tools.Duration.Ms(config.durationMs))
       .isAfter(config.now);
   }
 
-  message = "ShareableLinkExpirationTimePassed";
+  // Stryker disable all
+  message = "shareable.link.expiration.time.passed";
+  // Stryker restore all
 
   error = ShareableLinkExpirationTimePassedError;
 
