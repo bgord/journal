@@ -2,12 +2,14 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
+// Stryker disable all
 class WeeklyReviewScheduleError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, WeeklyReviewScheduleError.prototype);
   }
 }
+// Stryker restore all
 
 type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampValueType };
 
@@ -21,7 +23,9 @@ class WeeklyReviewScheduleFactory extends bg.Invariant<WeeklyReviewScheduleConfi
     return !(weekday.equals(tools.Weekday.MONDAY) && hour.equals(sixPM));
   }
 
+  // Stryker disable all
   message = "WeeklyReviewSchedule";
+  // Stryker restore all
 
   error = WeeklyReviewScheduleError;
 

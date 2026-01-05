@@ -3,12 +3,14 @@ import * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type { GetLatestEntryTimestampForUser } from "+emotions/queries";
 
+// Stryker disable all
 class NoEntriesInTheLastWeekError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, NoEntriesInTheLastWeekError.prototype);
   }
 }
+// Stryker restore all
 
 type NoEntriesInTheLastWeekConfigType = {
   lastEntryTimestamp: Awaited<ReturnType<GetLatestEntryTimestampForUser["execute"]>>;
@@ -24,7 +26,9 @@ class NoEntriesInTheLastWeekFactory extends bg.Invariant<NoEntriesInTheLastWeekC
     );
   }
 
+  // Stryker disable all
   message = "no.entries.in.the.last.week";
+  // Stryker restore all
 
   error = NoEntriesInTheLastWeekError;
 

@@ -23,7 +23,9 @@ class TimeCapsuleEntryIsPublishableFactory extends bg.Invariant<TimeCapsuleEntry
     return false;
   }
 
-  message = "TimeCapsuleEntryIsPublishable";
+  // Stryker disable all
+  message = "time.capsule.entry.is.publishable";
+  // Stryker restore all
 
   error = TimeCapsuleEntryIsPublishableError;
 

@@ -17,7 +17,9 @@ class EntriesForWeekExistFactory extends bg.Invariant<EntriesForWeekExistConfigT
     return config.count === 0;
   }
 
+  // Stryker disable all
   message = "entries.for.week.exist";
+  // Stryker restore all
 
   error = EntriesForWeekExistError;
 

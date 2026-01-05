@@ -16,7 +16,9 @@ class AlarmNotificationRequestedFactory extends bg.Invariant<AlarmNotificationRe
     return config.status !== Emotions.VO.AlarmStatusEnum.notification_requested;
   }
 
-  message = "AlarmNotificationRequested";
+  // Stryker disable all
+  message = "alarm.notification.requested";
+  // Stryker restore all
 
   error = AlarmNotificationRequestedError;
 

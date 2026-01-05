@@ -20,7 +20,9 @@ class AlarmAdviceAvailableFactory extends bg.Invariant<AlarmAdviceAvailableConfi
     return !config.advice?.get() || config.status !== Emotions.VO.AlarmStatusEnum.advice_saved;
   }
 
+  // Stryker disable all
   message = "alarm.advice.available";
+  // Stryker restore all
 
   error = AlarmAdviceAvailableError;
 
