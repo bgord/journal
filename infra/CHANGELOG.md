@@ -1,11 +1,14 @@
 # Changelog
+- 2026-01-05 18:02 a5ef4ac6 **step: bump bgord/scripts**
+- 2026-01-05 18:02 6992b5e8 **step: update @tanstack/react-router version**
+## 2026-01-05 18:02 
 - 2026-01-05 17:26 bfa4dba5 **step: bump bgord/scripts**
-## 2026-01-05 17:26 
 - 2026-01-05 17:25 645dab34 **refactor: use passes instead of fails**
 - 2026-01-05 17:12 084964fa **refactor: use kind instead of code**
 - 2026-01-05 17:03 eb3cc058 **refactor: rename perform to enforce**
 - 2026-01-05 17:01 9cc2090e **refactor: update erorr handler**
 - 2026-01-05 16:59 6f77b713 **step: update packages**
+- 2026-01-05 16:27 21e5f07b **docs: generate CHANGELOG**
 - 2026-01-05 13:50 871c6902 **step: update packages**
 - 2026-01-05 13:50 6cf92ae2 **step: bump bgord/scripts**
 - 2026-01-05 13:38 e1acfa2e **step: positive emotion with maladaptive reaction pattern**
