@@ -57,6 +57,23 @@ describe("NegativeEmotionExtremeIntensityAlarm", () => {
     expect(result).toEqual(null);
   });
 
+  test("result filtering", () => {
+    class NoopAlarm extends Emotions.Services.EmotionAlarmTemplate {
+      name = Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
+
+      check(_event: Emotions.Events.EmotionReappraisedEventType): Emotions.VO.AlarmDetection | null {
+        return null;
+      }
+    }
+
+    const result = Emotions.Services.EmotionAlarmDetector.detect({
+      event: mocks.NegativeEmotionExtremeIntensityReappraisedEvent,
+      alarms: [NoopAlarm, Emotions.Services.NegativeEmotionExtremeIntensityAlarm],
+    });
+
+    expect(result).toEqual(mocks.entryDetection);
+  });
+
   test("unknown event", () => {
     const result = Emotions.Services.EmotionAlarmDetector.detect({
       // @ts-expect-error
