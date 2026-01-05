@@ -1,12 +1,19 @@
 # Changelog
+- 2026-01-05 17:26 bfa4dba5 **step: bump bgord/scripts**
+## 2026-01-05 17:26 
+- 2026-01-05 17:25 645dab34 **refactor: use passes instead of fails**
+- 2026-01-05 17:12 084964fa **refactor: use kind instead of code**
+- 2026-01-05 17:03 eb3cc058 **refactor: rename perform to enforce**
+- 2026-01-05 17:01 9cc2090e **refactor: update erorr handler**
+- 2026-01-05 16:59 6f77b713 **step: update packages**
 - 2026-01-05 13:50 871c6902 **step: update packages**
 - 2026-01-05 13:50 6cf92ae2 **step: bump bgord/scripts**
-## 2026-01-05 13:50 
 - 2026-01-05 13:38 e1acfa2e **step: positive emotion with maladaptive reaction pattern**
 - 2026-01-05 13:24 21bea33b **step: negative emotion extreme intensity alarm**
 - 2026-01-05 13:18 956445c2 **step: alarms**
 - 2026-01-05 13:03 b585a0b2 **step: bump bgord/scripts**
 - 2026-01-05 13:03 29e7f8cc **step: low coping**
+- 2026-01-05 12:51 a7e41543 **docs: generate CHANGELOG**
 - 2026-01-05 12:50 0a8fda90 **step: maladaptive reactions pattern**
 - 2026-01-05 12:43 869d07fc **step: alarm notification factory**
 - 2026-01-05 12:39 4a854cd8 **step: weekly review file pdf**
