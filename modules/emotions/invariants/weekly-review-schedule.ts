@@ -15,9 +15,7 @@ type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampValueType };
 
 class WeeklyReviewScheduleFactory extends bg.Invariant<WeeklyReviewScheduleConfigType> {
   fails(config: WeeklyReviewScheduleConfigType) {
-    const weekday = tools.Weekday.fromTimestampValue(config.timestamp);
-
-    if (!weekday.equals(tools.Weekday.MONDAY)) return true;
+    if (!tools.Weekday.fromTimestampValue(config.timestamp).isMonday()) return true;
 
     const sixPM = tools.Hour.fromValue(18);
     const hour = tools.Hour.fromTimestampValue(config.timestamp);
