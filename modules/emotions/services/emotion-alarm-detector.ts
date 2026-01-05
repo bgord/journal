@@ -12,8 +12,6 @@ export class EmotionAlarmDetector {
       .map((Alarm) => new Alarm().check(config.event))
       .filter((result) => result !== null);
 
-    if (!result.length) return null;
-    if (!result[0]) return null;
-    return result[0];
+    return result[0] ?? null;
   }
 }

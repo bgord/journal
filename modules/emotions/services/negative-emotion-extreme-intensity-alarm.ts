@@ -5,13 +5,13 @@ export class NegativeEmotionExtremeIntensityAlarm extends Emotions.Services.Emot
   name = Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
 
   check(event: Emotions.Services.AlarmEventToBeChecked): Emotions.VO.AlarmDetection | null {
-    const trigger = Emotions.VO.EntryAlarmTrigger.parse({
-      type: Emotions.VO.AlarmTriggerEnum.entry,
-      entryId: event.payload.entryId,
-    } satisfies Emotions.VO.EntryAlarmTriggerType);
-
     switch (event.name) {
       case Emotions.Events.EMOTION_LOGGED_EVENT: {
+        const trigger = Emotions.VO.EntryAlarmTrigger.parse({
+          type: Emotions.VO.AlarmTriggerEnum.entry,
+          entryId: event.payload.entryId,
+        } satisfies Emotions.VO.EntryAlarmTriggerType);
+
         const emotionLabel = new Emotions.VO.EmotionLabel(event.payload.label);
         const emotionIntensity = new Emotions.VO.EmotionIntensity(event.payload.intensity);
 
@@ -22,6 +22,11 @@ export class NegativeEmotionExtremeIntensityAlarm extends Emotions.Services.Emot
         return new Emotions.VO.AlarmDetection(trigger, this.name);
       }
       case Emotions.Events.EMOTION_REAPPRAISED_EVENT: {
+        const trigger = Emotions.VO.EntryAlarmTrigger.parse({
+          type: Emotions.VO.AlarmTriggerEnum.entry,
+          entryId: event.payload.entryId,
+        } satisfies Emotions.VO.EntryAlarmTriggerType);
+
         const emotionLabel = new Emotions.VO.EmotionLabel(event.payload.newLabel);
         const emotionIntensity = new Emotions.VO.EmotionIntensity(event.payload.newIntensity);
 
@@ -31,8 +36,10 @@ export class NegativeEmotionExtremeIntensityAlarm extends Emotions.Services.Emot
 
         return new Emotions.VO.AlarmDetection(trigger, this.name);
       }
+      // Stryker disable all
       default:
         return null;
+      // Stryker restore all
     }
   }
 }

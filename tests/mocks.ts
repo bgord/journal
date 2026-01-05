@@ -254,6 +254,21 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
   },
 } satisfies Emotions.Events.EmotionLoggedEventType;
 
+export const NegativeEmotionLoggedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: T0.ms,
+  stream: Emotions.Aggregates.Entry.getStream(entryId),
+  version: 1,
+  name: "EMOTION_LOGGED_EVENT",
+  payload: {
+    entryId,
+    label: Emotions.VO.GenevaWheelEmotion.anger,
+    intensity: 4,
+    userId,
+  },
+} satisfies Emotions.Events.EmotionLoggedEventType;
+
 export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   id: expectAnyId,
   correlationId,
@@ -265,6 +280,21 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
     entryId,
     newLabel: Emotions.VO.GenevaWheelEmotion.anger,
     newIntensity: 5,
+    userId,
+  },
+} satisfies Emotions.Events.EmotionReappraisedEventType;
+
+export const NegativeEmotionReappraisedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: T0.ms,
+  stream: Emotions.Aggregates.Entry.getStream(entryId),
+  version: 1,
+  name: "EMOTION_REAPPRAISED_EVENT",
+  payload: {
+    entryId,
+    newLabel: Emotions.VO.GenevaWheelEmotion.anger,
+    newIntensity: 4,
     userId,
   },
 } satisfies Emotions.Events.EmotionReappraisedEventType;
