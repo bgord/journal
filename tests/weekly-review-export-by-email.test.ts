@@ -20,6 +20,7 @@ describe("WeeklyReviewExportByEmail", async () => {
 
   test("onWeeklyReviewExportByEmailRequestedEvent - no email", async () => {
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
+    const weeklyReviewExportQuery = spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull");
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
@@ -29,6 +30,7 @@ describe("WeeklyReviewExportByEmail", async () => {
 
     expect(eventStoreSave).not.toHaveBeenCalled();
     expect(mailerSend).not.toHaveBeenCalled();
+    expect(weeklyReviewExportQuery).not.toHaveBeenCalled();
   });
 
   test("onWeeklyReviewExportByEmailRequestedEvent - user repo failure", async () => {
