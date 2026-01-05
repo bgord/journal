@@ -150,6 +150,19 @@ describe("entry", async () => {
     expect(entry.pullEvents()).toEqual([]);
   });
 
+  test("evaluateReaction - Invariants.ReactionCorrespondsToSituationAndEmotion - missing situation", async () => {
+    const entry = Emotions.Aggregates.Entry.build(
+      mocks.entryId,
+      [mocks.GenericEmotionLoggedEvent],
+      di.Adapters.System,
+    );
+
+    expect(() => entry.evaluateReaction(newReaction, mocks.userId)).toThrow(
+      Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.error,
+    );
+    expect(entry.pullEvents()).toEqual([]);
+  });
+
   test("evaluateReaction - Invariants.ReactionForEvaluationExists - missing emotion", async () => {
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
