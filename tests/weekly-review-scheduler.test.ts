@@ -34,11 +34,31 @@ describe("WeeklyReviewScheduler", async () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewRequestedEvent]);
   });
 
-  test("WeeklyReviewSchedule", async () => {
+  test("WeeklyReviewSchedule - not monday, not 6 pm", async () => {
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
+    );
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+  });
+
+  test("WeeklyReviewSchedule - monday, not 6 pm", async () => {
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc12Event),
+    );
+
+    expect(eventStoreSave).not.toHaveBeenCalled();
+  });
+
+  test("WeeklyReviewSchedule - not monday, 6 pm", async () => {
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event),
     );
 
     expect(eventStoreSave).not.toHaveBeenCalled();

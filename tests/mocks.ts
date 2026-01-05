@@ -689,6 +689,16 @@ export const GenericHourHasPassedMondayUtc18Event = {
   payload: { timestamp: tools.Timestamp.fromNumber(1754330400000).ms },
 } satisfies bg.System.Events.HourHasPassedEventType;
 
+export const GenericHourHasPassedMondayUtc12Event = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: T0.ms,
+  stream: "passage_of_time",
+  version: 1,
+  name: "HOUR_HAS_PASSED_EVENT",
+  payload: { timestamp: tools.Timestamp.fromNumber(1754308800000).ms },
+} satisfies bg.System.Events.HourHasPassedEventType;
+
 export function getNextMonday1800UTC(now: Date = new Date()): number {
   const daysUntilMonday = (8 - now.getUTCDay()) % 7;
 
