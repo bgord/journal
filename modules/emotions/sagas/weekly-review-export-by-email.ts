@@ -51,7 +51,7 @@ export class WeeklyReviewExportByEmail {
 
       const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
 
-      const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(this.deps.PdfGenerator, weeklyReview);
+      const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(weeklyReview, this.deps);
       const attachment = await pdf.toAttachment();
 
       const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();

@@ -20,7 +20,7 @@ export const DownloadWeeklyReview = (deps: Dependencies) => async (c: hono.Conte
 
   if (!weeklyReview) return c.status(404);
 
-  const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(deps.PdfGenerator, weeklyReview);
+  const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(weeklyReview, deps);
 
   return pdf.toResponse();
 };
