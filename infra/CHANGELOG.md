@@ -1,11 +1,79 @@
 # Changelog
+- 2026-01-05 13:50 871c6902 **step: update packages**
+- 2026-01-05 13:50 6cf92ae2 **step: bump bgord/scripts**
+## 2026-01-05 13:50 
+- 2026-01-05 13:38 e1acfa2e **step: positive emotion with maladaptive reaction pattern**
+- 2026-01-05 13:24 21bea33b **step: negative emotion extreme intensity alarm**
+- 2026-01-05 13:18 956445c2 **step: alarms**
+- 2026-01-05 13:03 b585a0b2 **step: bump bgord/scripts**
+- 2026-01-05 13:03 29e7f8cc **step: low coping**
+- 2026-01-05 12:50 0a8fda90 **step: maladaptive reactions pattern**
+- 2026-01-05 12:43 869d07fc **step: alarm notification factory**
+- 2026-01-05 12:39 4a854cd8 **step: weekly review file pdf**
+- 2026-01-05 12:34 15c412c0 **step: entry export file pdf**
+- 2026-01-05 12:33 649cc63a **step: entry export file markdown**
+- 2026-01-05 12:32 df75924a **step: entry export file text**
+- 2026-01-05 12:27 e88afeb7 **step: simplify schedules**
+- 2026-01-05 12:22 397a3e4a **step: inactivity alarm schedule**
+- 2026-01-05 12:16 0a68089c **step: test invalid status and invalid timing in time capsule entries scheduler**
+- 2026-01-05 12:01 60617dc0 **step: reaction corresponds to sit and emo**
+- 2026-01-05 11:55 56029ea4 **step: time capsule entry is publishable**
+- 2026-01-05 11:54 83a27ca3 **step: inactivity alarm schedule**
+- 2026-01-05 11:53 4d7c4750 **step: entries for week exist**
+- 2026-01-05 11:51 8e9d4630 **step: weekly review scheduler**
+- 2026-01-05 11:33 b784f873 **step: suppress unused invariant messages and errors in stryker**
+- 2026-01-05 11:21 e686df1c **refactor: injext retry backoff strategy into weekly review export by email saga**
+- 2026-01-05 11:14 14519b52 **step: weekly review export by email retry**
+- 2026-01-05 10:23 72c0fb69 **step: weekly review export by email no contact**
+- 2026-01-05 00:41 eaca7456 **step: add missing mailer failure log**
+- 2026-01-05 00:21 624a6483 **step: add missing prompt logger**
+- 2026-01-05 00:10 736ec880 **step: acl**
+- 2026-01-04 23:55 ada3dc87 **step: alarm prompt factory**
+- 2026-01-04 23:42 0556f72d **step: sagas**
+- 2026-01-04 23:06 0cb8b22d **step: policies**
+- 2026-01-04 22:58 6dbb6a0f **step: entry alarm detector**
+- 2026-01-04 22:58 3c075965 **step: entry history publisher**
+- 2026-01-04 22:38 dbe8a4f9 **step: add weekly review to snapshot**
+- 2026-01-04 22:31 bdcca90e **step: add entry to snapshot**
+- 2026-01-04 22:22 cfd65e02 **step: add alarm to snapshot**
+- 2026-01-04 22:05 d5c1326e **step: alarm aggregate**
+- 2026-01-04 18:43 25cba532 **step: situation kind**
+- 2026-01-04 18:40 3a059f64 **step: emotion events**
+- 2026-01-04 18:37 0967b950 **step: handleExportWeeklyReviewByEmailCommand**
+- 2026-01-04 18:33 4a2e7156 **step: commands**
+- 2026-01-04 18:30 1409e6d9 **step: vos**
+- 2026-01-04 18:21 e5824e1f **step: shareable link expiration time passed**
+- 2026-01-04 18:10 b51ecea1 **step: shareable links quota query**
+- 2026-01-04 18:08 908f1fcd **step: shareable links aggregate**
+- 2026-01-04 18:04 a6c8cf9f **step: ignore events in aggregates**
+- 2026-01-04 17:58 763bbc2c **step: publication specification**
+- 2026-01-04 17:58 06fb5e58 **step: shareable links expirer**
+- 2026-01-04 17:57 66cd0ae3 **step: simplify zod errors**
+- 2026-01-04 17:55 86c0791b **step: publishing commands**
+- 2026-01-04 17:54 38166161 **step: preferences commands**
+- 2026-01-04 17:50 ba6181a5 **step: make assert invariant error more specific**
+- 2026-01-04 17:36 e7e22d46 **step: profile avatar constraints**
+- 2026-01-04 17:35 f3253176 **step: set default user language**
+- 2026-01-04 17:08 1a98f368 **step: test preferences command handlers**
+- 2026-01-04 16:58 814f92ca **step: test auth events**
+- 2026-01-04 16:50 a2da272c **step: improve tests for quota specification**
+- 2026-01-04 16:46 e306d2cb **step: improve tests for quota limit**
+- 2026-01-04 16:46 78beca77 **step: improve tests for advice**
+- 2026-01-04 16:44 ca491699 **refactor: simplify error zod definition**
+- 2026-01-04 16:21 37c370c0 **step: gitignore stryker**
+- 2026-01-04 16:21 35bfe0e3 **step: install stryker**
+- 2026-01-04 16:20 58a4bc45 **step: bump bgord/scripts**
+- 2026-01-04 16:20 132fe1a5 **step: update packages**
+- 2025-12-31 09:36 f654e8da **step: add security headers**
+- 2025-12-31 09:32 e28bae76 **step: test local setup service**
 - 2025-12-31 00:14 095206c4 **refactor: remove type casting in alarm prompt factory**
-## 2025-12-31 00:14 
 - 2025-12-31 00:09 428528f4 **refactor: remove type casting in download weekly review**
 - 2025-12-31 00:03 66f324c2 **refactor: remove as any casting**
 - 2025-12-31 00:02 421df34d **step: update packages**
 - 2025-12-30 23:51 01790678 **step: update packages**
 - 2025-12-30 23:37 fe968d6e **step: test onAlarmNotificationRequestedEvent - missing notification**
+- 2025-12-30 23:15 ef1cc5b5 **docs: generate CHANGELOG**
+- 2025-12-30 23:15 ed64bd2a **docs: generate readme**
 - 2025-12-30 23:14 1b330107 **refactor: remove unnecessary string type casting**
 - 2025-12-30 23:07 7320cd8b **refactor: remove unnecessary type casting**
 - 2025-12-30 23:04 379c75aa **refactor: tighten types inactivity days**
