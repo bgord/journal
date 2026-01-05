@@ -1,7 +1,9 @@
 # Changelog
+- 2026-01-06 00:13 47f83924 **refactor: remove custom setup**
+## 2026-01-06 00:13 
 - 2026-01-06 00:11 bea14e68 **step: reinstall packages**
-## 2026-01-06 00:11 
 - 2026-01-05 23:53 81ae7ffc **step: update packages**
+- 2026-01-05 23:12 7e137a89 **docs: generate CHANGELOG**
 - 2026-01-05 22:54 1db6ca93 **docs: generate CHANGELOG**
 - 2026-01-05 18:02 a5ef4ac6 **step: bump bgord/scripts**
 - 2026-01-05 18:02 6992b5e8 **step: update @tanstack/react-router version**
