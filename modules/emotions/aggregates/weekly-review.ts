@@ -66,7 +66,7 @@ export class WeeklyReview {
   }
 
   complete(insights: AI.Advice) {
-    Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
+    Invariants.WeeklyReviewCompletedOnce.enforce({ status: this.status });
 
     const event = Events.WeeklyReviewCompletedEvent.parse({
       ...bg.createEventEnvelope(WeeklyReview.getStream(this.id), this.deps),
@@ -83,7 +83,7 @@ export class WeeklyReview {
   }
 
   fail() {
-    Invariants.WeeklyReviewCompletedOnce.perform({ status: this.status });
+    Invariants.WeeklyReviewCompletedOnce.enforce({ status: this.status });
 
     const event = Events.WeeklyReviewFailedEvent.parse({
       ...bg.createEventEnvelope(WeeklyReview.getStream(this.id), this.deps),

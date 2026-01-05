@@ -14,7 +14,7 @@ export const handleCreateShareableLinkCommand =
       command.payload.requesterId,
     );
 
-    Publishing.Invariants.ShareableLinksPerOwnerLimit.perform(shareableActiveLinksPerOwnerCount);
+    Publishing.Invariants.ShareableLinksPerOwnerLimit.enforce(shareableActiveLinksPerOwnerCount);
 
     const shareableLink = Publishing.Aggregates.ShareableLink.create(
       command.payload.shareableLinkId,

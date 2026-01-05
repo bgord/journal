@@ -66,7 +66,7 @@ export class Alarm {
   }
 
   saveAdvice(advice: AI.Advice) {
-    Invariants.AlarmAlreadyGenerated.perform({ status: this.status });
+    Invariants.AlarmAlreadyGenerated.enforce({ status: this.status });
 
     const event = Events.AlarmAdviceSavedEvent.parse({
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
@@ -78,10 +78,7 @@ export class Alarm {
   }
 
   notify() {
-    Invariants.AlarmAdviceAvailable.perform({
-      advice: this.advice,
-      status: this.status,
-    });
+    Invariants.AlarmAdviceAvailable.enforce({ advice: this.advice, status: this.status });
 
     const event = Events.AlarmNotificationRequestedEvent.parse({
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
@@ -99,7 +96,7 @@ export class Alarm {
   }
 
   complete() {
-    Invariants.AlarmNotificationRequested.perform({ status: this.status });
+    Invariants.AlarmNotificationRequested.enforce({ status: this.status });
 
     const event = Events.AlarmNotificationSentEvent.parse({
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
@@ -111,7 +108,7 @@ export class Alarm {
   }
 
   cancel() {
-    Invariants.AlarmIsCancellable.perform({ status: this.status });
+    Invariants.AlarmIsCancellable.enforce({ status: this.status });
 
     const event = Events.AlarmCancelledEvent.parse({
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),

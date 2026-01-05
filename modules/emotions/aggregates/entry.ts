@@ -102,10 +102,10 @@ export class Entry {
   }
 
   reappraiseEmotion(newEmotion: Emotions.Entities.Emotion, requesterId: Auth.VO.UserIdType) {
-    Emotions.Invariants.EntryIsActionable.perform({ status: this.status });
-    Emotions.Invariants.EmotionCorrespondsToSituation.perform({ situation: this.situation });
-    Emotions.Invariants.EmotionForReappraisalExists.perform({ emotion: this.emotion });
-    Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
+    Emotions.Invariants.EntryIsActionable.enforce({ status: this.status });
+    Emotions.Invariants.EmotionCorrespondsToSituation.enforce({ situation: this.situation });
+    Emotions.Invariants.EmotionForReappraisalExists.enforce({ emotion: this.emotion });
+    Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EmotionReappraisedEvent.parse({
       ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
@@ -122,13 +122,13 @@ export class Entry {
   }
 
   evaluateReaction(newReaction: Emotions.Entities.Reaction, requesterId: Auth.VO.UserIdType) {
-    Emotions.Invariants.EntryIsActionable.perform({ status: this.status });
-    Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.perform({
+    Emotions.Invariants.EntryIsActionable.enforce({ status: this.status });
+    Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.enforce({
       situation: this.situation,
       emotion: this.emotion,
     });
-    Emotions.Invariants.ReactionForEvaluationExists.perform({ reaction: this.reaction });
-    Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
+    Emotions.Invariants.ReactionForEvaluationExists.enforce({ reaction: this.reaction });
+    Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.ReactionEvaluatedEvent.parse({
       ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
@@ -146,8 +146,8 @@ export class Entry {
   }
 
   delete(requesterId: Auth.VO.UserIdType) {
-    Emotions.Invariants.EntryHasBenStarted.perform({ situation: this.situation });
-    Emotions.Invariants.RequesterOwnsEntry.perform({ requesterId, ownerId: this.userId });
+    Emotions.Invariants.EntryHasBenStarted.enforce({ situation: this.situation });
+    Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
     const event = Emotions.Events.EntryDeletedEvent.parse({
       ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),

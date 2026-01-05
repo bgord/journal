@@ -14,9 +14,9 @@ export const DownloadWeeklyReview = (deps: Dependencies) => async (c: hono.Conte
 
   const weeklyReview = await deps.WeeklyReviewExportQuery.getFull(weeklyReviewId);
 
-  Emotions.Invariants.WeeklyReviewExists.perform({ weeklyReview });
-  Emotions.Invariants.WeeklyReviewIsCompleted.perform({ status: weeklyReview?.status });
-  Emotions.Invariants.RequesterOwnsWeeklyReview.perform({ requesterId, ownerId: weeklyReview?.userId });
+  Emotions.Invariants.WeeklyReviewExists.enforce({ weeklyReview });
+  Emotions.Invariants.WeeklyReviewIsCompleted.enforce({ status: weeklyReview?.status });
+  Emotions.Invariants.RequesterOwnsWeeklyReview.enforce({ requesterId, ownerId: weeklyReview?.userId });
 
   if (!weeklyReview) return c.status(404);
 

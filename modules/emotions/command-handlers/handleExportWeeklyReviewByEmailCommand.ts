@@ -15,10 +15,10 @@ export const handleExportWeeklyReviewByEmailCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.ExportWeeklyReviewByEmailCommandType) => {
     const weeklyReview = await deps.WeeklyReviewSnapshot.getById(command.payload.weeklyReviewId);
 
-    Emotions.Invariants.WeeklyReviewExists.perform({ weeklyReview });
+    Emotions.Invariants.WeeklyReviewExists.enforce({ weeklyReview });
     // Stryker disable all
-    Emotions.Invariants.WeeklyReviewIsCompleted.perform({ status: weeklyReview?.status });
-    Emotions.Invariants.RequesterOwnsWeeklyReview.perform({
+    Emotions.Invariants.WeeklyReviewIsCompleted.enforce({ status: weeklyReview?.status });
+    Emotions.Invariants.RequesterOwnsWeeklyReview.enforce({
       requesterId: command.payload.userId,
       ownerId: weeklyReview?.userId,
     });

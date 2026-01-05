@@ -80,8 +80,8 @@ export class ShareableLink {
   }
 
   expire() {
-    Invariants.ShareableLinkIsActive.perform({ status: this.status });
-    Invariants.ShareableLinkExpirationTimePassed.perform({
+    Invariants.ShareableLinkIsActive.enforce({ status: this.status });
+    Invariants.ShareableLinkExpirationTimePassed.enforce({
       durationMs: this.durationMs,
       now: this.deps.Clock.now(),
       createdAt: this.createdAt,
@@ -97,8 +97,8 @@ export class ShareableLink {
   }
 
   revoke(requesterId: Auth.VO.UserIdType) {
-    Invariants.ShareableLinkIsActive.perform({ status: this.status });
-    Invariants.RequesterOwnsShareableLink.perform({ requesterId, ownerId: this.ownerId });
+    Invariants.ShareableLinkIsActive.enforce({ status: this.status });
+    Invariants.RequesterOwnsShareableLink.enforce({ requesterId, ownerId: this.ownerId });
 
     const event = Events.ShareableLinkRevokedEvent.parse({
       ...bg.createEventEnvelope(ShareableLink.getStream(this.id), this.deps),
