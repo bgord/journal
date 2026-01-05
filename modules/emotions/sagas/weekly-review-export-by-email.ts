@@ -20,6 +20,7 @@ type Dependencies = {
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
   WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport;
   UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  RetryBackoffStrategy: bg.RetryBackoffStrategy;
   EMAIL_FROM: tools.EmailType;
 };
 
@@ -86,7 +87,7 @@ export class WeeklyReviewExportByEmail {
   ) {
     if (event.payload.attempt > 3) return;
 
-    await this.deps.Sleeper.wait(tools.Duration.Minutes(1));
+    await this.deps.Sleeper.wait(this.deps.RetryBackoffStrategy.next(event.payload.attempt));
     await this.deps.EventStore.save([
       Emotions.Events.WeeklyReviewExportByEmailRequestedEvent.parse({
         ...bg.createEventEnvelope(event.stream, this.deps),

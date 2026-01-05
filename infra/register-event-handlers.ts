@@ -1,3 +1,5 @@
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { type SUPPORTED_LANGUAGES, SupportedLanguages } from "+languages";
 import * as Preferences from "+preferences";
 import * as EmotionsPolicies from "+emotions/policies";
@@ -70,5 +72,6 @@ export function registerEventHandlers({ Adapters, Env, Tools }: BootstrapType) {
     WeeklyReviewExportQuery: Adapters.Emotions.WeeklyReviewExportQuery,
     UserLanguageOHQ: Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: Env.EMAIL_FROM,
+    RetryBackoffStrategy: new bg.RetryBackoffLinearStrategy(tools.Duration.Minutes(1)),
   });
 }

@@ -15,6 +15,7 @@ describe("WeeklyReviewExportByEmail", async () => {
     UserContactOHQ: di.Adapters.Auth.UserContactOHQ,
     WeeklyReviewExportQuery: di.Adapters.Emotions.WeeklyReviewExportQuery,
     UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
+    RetryBackoffStrategy: new bg.RetryBackoffLinearStrategy(tools.Duration.Minutes(1)),
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 
@@ -116,45 +117,53 @@ describe("WeeklyReviewExportByEmail", async () => {
 
   test("onWeeklyReviewExportByEmailFailedEvent - 1st", async () => {
     spyOn(Bun, "sleep").mockImplementation(jest.fn());
+    const sleeperWait = spyOn(di.Adapters.System.Sleeper, "wait");
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent),
     );
 
+    expect(sleeperWait).toHaveBeenCalledWith(tools.Duration.Minutes(1));
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent2nd]);
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 2nd", async () => {
     spyOn(Bun, "sleep").mockImplementation(jest.fn());
+    const sleeperWait = spyOn(di.Adapters.System.Sleeper, "wait");
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent2nd),
     );
 
+    expect(sleeperWait).toHaveBeenCalledWith(tools.Duration.Minutes(2));
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent3rd]);
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 3rd", async () => {
     spyOn(Bun, "sleep").mockImplementation(jest.fn());
+    const sleeperWait = spyOn(di.Adapters.System.Sleeper, "wait");
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent3rd),
     );
 
+    expect(sleeperWait).toHaveBeenCalledWith(tools.Duration.Minutes(3));
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent4th]);
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 4rd", async () => {
     spyOn(Bun, "sleep").mockImplementation(jest.fn());
+    const sleeperWait = spyOn(di.Adapters.System.Sleeper, "wait");
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent4th),
     );
 
+    expect(sleeperWait).not.toHaveBeenCalled();
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 });
