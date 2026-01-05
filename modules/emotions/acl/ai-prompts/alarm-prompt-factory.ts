@@ -3,7 +3,7 @@ import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
 import type { EntrySnapshotPort } from "+emotions/ports";
 
-export const AlarmPromptFactoryError = { UnknownTrigger: "alarm.prompt.factory.unknown.trigger" };
+const AlarmPromptFactoryError = { UnknownTrigger: "alarm.prompt.factory.unknown.trigger" };
 
 export class AlarmPromptFactory {
   constructor(
