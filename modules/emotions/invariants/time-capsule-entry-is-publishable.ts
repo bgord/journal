@@ -3,12 +3,14 @@ import * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as VO from "+emotions/value-objects";
 
+// Stryker disable all
 class TimeCapsuleEntryIsPublishableError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, TimeCapsuleEntryIsPublishableError.prototype);
   }
 }
+// Stryker restore all
 
 type TimeCapsuleEntryIsPublishableConfigType = {
   status: VO.TimeCapsuleEntryStatusEnum;
