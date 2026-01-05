@@ -18,10 +18,9 @@ type TimeCapsuleEntryIsPublishableConfigType = {
 };
 
 class TimeCapsuleEntryIsPublishableFactory extends bg.Invariant<TimeCapsuleEntryIsPublishableConfigType> {
-  fails(config: TimeCapsuleEntryIsPublishableConfigType) {
-    if (config.status !== VO.TimeCapsuleEntryStatusEnum.scheduled) return true;
-    if (config.now.isBefore(tools.Timestamp.fromValue(config.scheduledFor))) return true;
-    return false;
+  passes(config: TimeCapsuleEntryIsPublishableConfigType) {
+    if (config.status !== VO.TimeCapsuleEntryStatusEnum.scheduled) return false;
+    return config.now.isAfterOrEqual(tools.Timestamp.fromValue(config.scheduledFor));
   }
 
   // Stryker disable all

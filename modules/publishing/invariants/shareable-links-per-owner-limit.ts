@@ -11,8 +11,8 @@ class ShareableLinksPerOwnerLimitError extends Error {
 type ShareableLinksPerOwnerLimitConfigType = Awaited<ReturnType<ShareableLinksQuotaQuery["execute"]>>;
 
 class ShareableLinksPerOwnerLimitFactory extends bg.Invariant<ShareableLinksPerOwnerLimitConfigType> {
-  fails(config: ShareableLinksPerOwnerLimitConfigType) {
-    return config.count >= 3;
+  passes(config: ShareableLinksPerOwnerLimitConfigType) {
+    return config.count < 3;
   }
 
   message = "ShareableLinksPerOwnerLimit";

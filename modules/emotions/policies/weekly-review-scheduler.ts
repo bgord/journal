@@ -26,7 +26,7 @@ export class WeeklyReviewScheduler {
   // Stryker restore all
 
   async onHourHasPassedEvent(event: bg.System.Events.HourHasPassedEventType) {
-    if (Emotions.Invariants.WeeklyReviewSchedule.fails({ timestamp: event.payload.timestamp })) return;
+    if (!Emotions.Invariants.WeeklyReviewSchedule.passes({ timestamp: event.payload.timestamp })) return;
 
     const week = tools.Week.fromTimestampValue(event.payload.timestamp).previous();
 

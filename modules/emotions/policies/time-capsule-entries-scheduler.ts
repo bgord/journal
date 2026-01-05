@@ -31,7 +31,7 @@ export class TimeCapsuleEntriesScheduler {
     for (const entry of dueEntries) {
       const config = { status: entry.status, now, scheduledFor: entry.scheduledFor };
 
-      if (Emotions.Invariants.TimeCapsuleEntryIsPublishable.fails(config)) continue;
+      if (!Emotions.Invariants.TimeCapsuleEntryIsPublishable.passes(config)) continue;
 
       const command = Emotions.Commands.LogEntryCommand.parse({
         ...bg.createCommandEnvelope(this.deps),

@@ -15,8 +15,9 @@ type AlarmAdviceAvailableConfigType = {
 };
 
 class AlarmAdviceAvailableFactory extends bg.Invariant<AlarmAdviceAvailableConfigType> {
-  fails(config: AlarmAdviceAvailableConfigType) {
-    return !config.advice?.get() || config.status !== Emotions.VO.AlarmStatusEnum.advice_saved;
+  passes(config: AlarmAdviceAvailableConfigType) {
+    if (!config.advice?.get()) return false;
+    return config.status === Emotions.VO.AlarmStatusEnum.advice_saved;
   }
 
   // Stryker disable all

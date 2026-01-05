@@ -13,13 +13,13 @@ class InactivityAlarmScheduleError extends Error {
 type InactivityAlarmScheduleConfigType = { timestamp: tools.TimestampValueType };
 
 class InactivityAlarmScheduleFactory extends bg.Invariant<InactivityAlarmScheduleConfigType> {
-  fails(config: InactivityAlarmScheduleConfigType) {
-    if (!tools.Weekday.fromTimestampValue(config.timestamp).isWednesday()) return true;
+  passes(config: InactivityAlarmScheduleConfigType) {
+    if (!tools.Weekday.fromTimestampValue(config.timestamp).isWednesday()) return false;
 
     const sixPM = tools.Hour.fromValue(18);
     const hour = tools.Hour.fromTimestampValue(config.timestamp);
 
-    return !hour.equals(sixPM);
+    return hour.equals(sixPM);
   }
 
   // Stryker disable all

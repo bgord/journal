@@ -11,8 +11,8 @@ class AlarmNotificationRequestedError extends Error {
 type AlarmNotificationRequestedConfigType = { status: Emotions.VO.AlarmStatusEnum };
 
 class AlarmNotificationRequestedFactory extends bg.Invariant<AlarmNotificationRequestedConfigType> {
-  fails(config: AlarmNotificationRequestedConfigType) {
-    return config.status !== Emotions.VO.AlarmStatusEnum.notification_requested;
+  passes(config: AlarmNotificationRequestedConfigType) {
+    return config.status === Emotions.VO.AlarmStatusEnum.notification_requested;
   }
 
   // Stryker disable all

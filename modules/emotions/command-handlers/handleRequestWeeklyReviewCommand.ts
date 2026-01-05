@@ -19,7 +19,7 @@ export const handleRequestWeeklyReviewCommand =
     );
 
     if (
-      Emotions.Invariants.EntriesForWeekExist.fails({
+      !Emotions.Invariants.EntriesForWeekExist.passes({
         count: entriesPerWeekForUserCount,
         userId: command.payload.userId,
       })

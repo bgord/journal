@@ -10,8 +10,8 @@ class WeeklyReviewExistsError extends Error {
 type WeeklyReviewExistsConfigType = { weeklyReview: any | null | undefined };
 
 class WeeklyReviewExistsFactory extends bg.Invariant<WeeklyReviewExistsConfigType> {
-  fails(config: WeeklyReviewExistsConfigType) {
-    return !config.weeklyReview;
+  passes(config: WeeklyReviewExistsConfigType) {
+    return config.weeklyReview;
   }
 
   message = "weekly.review.exists.error";

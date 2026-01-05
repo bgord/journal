@@ -14,8 +14,8 @@ type ReactionCorrespondsToSituationAndEmotionConfigType = {
 };
 
 class ReactionCorrespondsToSituationAndEmotionFactory extends bg.Invariant<ReactionCorrespondsToSituationAndEmotionConfigType> {
-  fails(config: ReactionCorrespondsToSituationAndEmotionConfigType) {
-    return config.situation === undefined || config.emotion === undefined;
+  passes(config: ReactionCorrespondsToSituationAndEmotionConfigType) {
+    return config.situation !== undefined && config.emotion !== undefined;
   }
 
   message = "reaction.corresponds.to.situation.and.emotion.error";

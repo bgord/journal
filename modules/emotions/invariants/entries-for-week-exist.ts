@@ -14,8 +14,8 @@ class EntriesForWeekExistError extends Error {
 type EntriesForWeekExistConfigType = { count: tools.IntegerNonNegativeType; userId: Auth.VO.UserIdType };
 
 class EntriesForWeekExistFactory extends bg.Invariant<EntriesForWeekExistConfigType> {
-  fails(config: EntriesForWeekExistConfigType) {
-    return config.count === 0;
+  passes(config: EntriesForWeekExistConfigType) {
+    return config.count > 0;
   }
 
   // Stryker disable all

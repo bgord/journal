@@ -11,8 +11,9 @@ class EmotionForReappraisalExistsError extends Error {
 type EmotionForReappraisalExistsConfigType = { emotion?: Emotions.Entities.Emotion };
 
 class EmotionForReappraisalExistsFactory extends bg.Invariant<EmotionForReappraisalExistsConfigType> {
-  fails(config: EmotionForReappraisalExistsConfigType) {
-    return config.emotion === undefined;
+  passes(config: EmotionForReappraisalExistsConfigType) {
+    if (config.emotion === undefined) return false;
+    return true;
   }
 
   message = "emotion.for.reappraisal.exists.error";

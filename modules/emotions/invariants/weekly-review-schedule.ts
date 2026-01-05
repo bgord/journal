@@ -13,13 +13,13 @@ class WeeklyReviewScheduleError extends Error {
 type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampValueType };
 
 class WeeklyReviewScheduleFactory extends bg.Invariant<WeeklyReviewScheduleConfigType> {
-  fails(config: WeeklyReviewScheduleConfigType) {
-    if (!tools.Weekday.fromTimestampValue(config.timestamp).isMonday()) return true;
+  passes(config: WeeklyReviewScheduleConfigType) {
+    if (!tools.Weekday.fromTimestampValue(config.timestamp).isMonday()) return false;
 
     const sixPM = tools.Hour.fromValue(18);
     const hour = tools.Hour.fromTimestampValue(config.timestamp);
 
-    return !hour.equals(sixPM);
+    return hour.equals(sixPM);
   }
 
   // Stryker disable all

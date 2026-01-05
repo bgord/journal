@@ -28,7 +28,7 @@ export class InactivityAlarmScheduler {
 
   async onHourHasPassedEvent(event: bg.System.Events.HourHasPassedEventType) {
     // Stryker disable all
-    if (Emotions.Invariants.InactivityAlarmSchedule.fails({ timestamp: event.payload.timestamp })) return;
+    if (!Emotions.Invariants.InactivityAlarmSchedule.passes({ timestamp: event.payload.timestamp })) return;
     // Stryker restore all
 
     const userIds = await this.deps.UserDirectoryOHQ.listActiveUserIds();
@@ -37,7 +37,10 @@ export class InactivityAlarmScheduler {
       const lastEntryTimestamp = await this.deps.GetLatestEntryTimestampForUserQuery.execute(userId);
 
       if (
-        Emotions.Invariants.NoEntriesInTheLastWeek.fails({ lastEntryTimestamp, now: event.payload.timestamp })
+        !Emotions.Invariants.NoEntriesInTheLastWeek.passes({
+          lastEntryTimestamp,
+          now: event.payload.timestamp,
+        })
       )
         continue;
 

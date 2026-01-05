@@ -174,7 +174,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, 400, "TimeCapsuleEntryScheduledInFuture");
+    await testcases.assertInvariantError(response, 400, "time.capsule.entry.scheduled.in.future");
   });
 
   test("scheduledForHour - missing", async () => {

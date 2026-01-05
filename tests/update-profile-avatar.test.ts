@@ -57,7 +57,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
-    await testcases.assertInvariantError(response, 400, "ProfileAvatarConstraints");
+    await testcases.assertInvariantError(response, 400, "profile.avatar.constraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
   });
@@ -75,7 +75,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
-    await testcases.assertInvariantError(response, 400, "ProfileAvatarConstraints");
+    await testcases.assertInvariantError(response, 400, "profile.avatar.constraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
   });
@@ -93,7 +93,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
-    await testcases.assertInvariantError(response, 400, "ProfileAvatarConstraints");
+    await testcases.assertInvariantError(response, 400, "profile.avatar.constraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
   });
@@ -111,7 +111,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
-    await testcases.assertInvariantError(response, 400, "ProfileAvatarConstraints");
+    await testcases.assertInvariantError(response, 400, "profile.avatar.constraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
     expect(temporaryFileCleanup.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
   });

@@ -11,8 +11,8 @@ class WeeklyReviewCompletedOnceError extends Error {
 type WeeklyReviewCompletedOnceConfigType = { status: Emotions.VO.WeeklyReviewStatusEnum };
 
 class WeeklyReviewCompletedOnceFactory extends bg.Invariant<WeeklyReviewCompletedOnceConfigType> {
-  fails(config: WeeklyReviewCompletedOnceConfigType) {
-    return config.status !== Emotions.VO.WeeklyReviewStatusEnum.requested;
+  passes(config: WeeklyReviewCompletedOnceConfigType) {
+    return config.status === Emotions.VO.WeeklyReviewStatusEnum.requested;
   }
 
   // Stryker disable all

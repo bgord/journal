@@ -11,8 +11,9 @@ class ReactionForEvaluationExistsError extends Error {
 type ReactionForEvaluationExistsConfigType = { reaction?: Emotions.Entities.Reaction };
 
 class ReactionForEvaluationExistsFactory extends bg.Invariant<ReactionForEvaluationExistsConfigType> {
-  fails(config: ReactionForEvaluationExistsConfigType) {
-    return config.reaction === undefined;
+  passes(config: ReactionForEvaluationExistsConfigType) {
+    if (!config.reaction) return false;
+    return true;
   }
 
   message = "reaction.for.evaluation.exists.error";

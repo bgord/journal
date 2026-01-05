@@ -117,7 +117,7 @@ describe(`POST ${url}`, async () => {
       mocks.ip,
     );
 
-    await testcases.assertInvariantError(response, 400, "emotion-corresponds.to.situation.error");
+    await testcases.assertInvariantError(response, 400, "emotion.corresponds.to.situation.error");
   });
 
   test("validation - EmotionForReappraisalExists", async () => {

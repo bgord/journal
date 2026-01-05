@@ -11,8 +11,9 @@ class EntryHasBenStartedError extends Error {
 type EntryHasBenStartedConfigType = { situation?: Emotions.Entities.Situation };
 
 class EntryHasBenStartedFactory extends bg.Invariant<EntryHasBenStartedConfigType> {
-  fails(config: EntryHasBenStartedConfigType) {
-    return config.situation === undefined;
+  passes(config: EntryHasBenStartedConfigType) {
+    if (config.situation === undefined) return false;
+    return true;
   }
 
   message = "entry.has.been.started";

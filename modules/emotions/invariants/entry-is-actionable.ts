@@ -11,8 +11,8 @@ class EntryIsActionableError extends Error {
 type EntryIsActionableConfigType = { status: Emotions.VO.EntryStatusEnum };
 
 class EntryIsActionableFactory extends bg.Invariant<EntryIsActionableConfigType> {
-  fails(config: EntryIsActionableConfigType) {
-    return config.status !== Emotions.VO.EntryStatusEnum.actionable;
+  passes(config: EntryIsActionableConfigType) {
+    return config.status === Emotions.VO.EntryStatusEnum.actionable;
   }
 
   message = "entry.is.actionable.error";

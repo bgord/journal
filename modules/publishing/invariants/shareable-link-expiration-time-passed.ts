@@ -15,14 +15,14 @@ type ShareableLinkExpirationTimePassedConfigType = {
 };
 
 class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLinkExpirationTimePassedConfigType> {
-  fails(config: ShareableLinkExpirationTimePassedConfigType) {
+  passes(config: ShareableLinkExpirationTimePassedConfigType) {
     // Stryker disable all
-    if (!config.createdAt) return true;
-    if (!config.durationMs) return true;
+    if (!config.createdAt) return false;
+    if (!config.durationMs) return false;
     // Stryker restore all
     return tools.Timestamp.fromValue(config.createdAt)
       .add(tools.Duration.Ms(config.durationMs))
-      .isAfter(config.now);
+      .isBefore(config.now);
   }
 
   // Stryker disable all
