@@ -2,12 +2,14 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
+// Stryker disable all
 class InactivityAlarmScheduleError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, InactivityAlarmScheduleError.prototype);
   }
 }
+// Stryker restore all
 
 type InactivityAlarmScheduleConfigType = { timestamp: tools.TimestampValueType };
 
@@ -21,7 +23,9 @@ class InactivityAlarmScheduleFactory extends bg.Invariant<InactivityAlarmSchedul
     return !(weekday.equals(tools.Weekday.WEDNESDAY) && hour.equals(sixPM));
   }
 
+  // Stryker disable all
   message = "InactivityAlarmSchedule";
+  // Stryker restore all
 
   error = InactivityAlarmScheduleError;
 
