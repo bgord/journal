@@ -30,9 +30,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
       )
       .filter((score) => score !== undefined);
 
-    if (effectivenessScores.length < 3) {
-      return null;
-    }
+    if (effectivenessScores.length < 3) return null;
 
     const mean = tools.Mean.calculate(effectivenessScores);
 
