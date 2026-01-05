@@ -7,10 +7,13 @@ describe("EntryExportFileText", async () => {
   const di = await bootstrap();
 
   test("generates a CSV", async () => {
-    const file = new Emotions.Services.EntryExportFileText([mocks.fullEntry], di.Adapters.System);
+    const file = new Emotions.Services.EntryExportFileText(
+      [mocks.fullEntry, mocks.fullEntry],
+      di.Adapters.System,
+    );
 
     const result = file.create();
 
-    expect(result).toEqualIgnoringWhitespace(mocks.entryText);
+    expect(result).toEqual(`${mocks.entryText}\n${mocks.entryText}`);
   });
 });
