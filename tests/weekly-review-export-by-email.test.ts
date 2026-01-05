@@ -122,7 +122,7 @@ describe("WeeklyReviewExportByEmail", async () => {
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent),
     );
 
-    expect(eventStoreSave).toHaveBeenCalled();
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent2nd]);
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 2nd", async () => {
@@ -133,7 +133,7 @@ describe("WeeklyReviewExportByEmail", async () => {
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent2nd),
     );
 
-    expect(eventStoreSave).toHaveBeenCalled();
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent3rd]);
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 3rd", async () => {
@@ -144,7 +144,7 @@ describe("WeeklyReviewExportByEmail", async () => {
       saga.onWeeklyReviewExportByEmailFailedEvent(mocks.GenericWeeklyReviewExportByEmailFailedEvent3rd),
     );
 
-    expect(eventStoreSave).toHaveBeenCalled();
+    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewExportByEmailRequestedEvent4th]);
   });
 
   test("onWeeklyReviewExportByEmailFailedEvent - 4rd", async () => {

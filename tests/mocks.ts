@@ -501,6 +501,30 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent = {
   payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: tools.IntegerPositive.parse(1) },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
+export const GenericWeeklyReviewExportByEmailRequestedEvent2nd = {
+  ...GenericWeeklyReviewExportByEmailRequestedEvent,
+  payload: {
+    ...GenericWeeklyReviewExportByEmailRequestedEvent.payload,
+    attempt: tools.IntegerPositive.parse(2),
+  },
+} satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
+
+export const GenericWeeklyReviewExportByEmailRequestedEvent3rd = {
+  ...GenericWeeklyReviewExportByEmailRequestedEvent,
+  payload: {
+    ...GenericWeeklyReviewExportByEmailRequestedEvent.payload,
+    attempt: tools.IntegerPositive.parse(3),
+  },
+} satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
+
+export const GenericWeeklyReviewExportByEmailRequestedEvent4th = {
+  ...GenericWeeklyReviewExportByEmailRequestedEvent,
+  payload: {
+    ...GenericWeeklyReviewExportByEmailRequestedEvent.payload,
+    attempt: tools.IntegerPositive.parse(4),
+  },
+} satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
+
 export const GenericWeeklyReviewExportByEmailFailedEvent = {
   id: expectAnyId,
   correlationId,
