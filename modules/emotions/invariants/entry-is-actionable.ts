@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as Emotions from "+emotions";
 
 class EntryIsActionableError extends Error {
@@ -17,10 +16,8 @@ class EntryIsActionableFactory extends bg.Invariant<EntryIsActionableConfigType>
   }
 
   message = "entry.is.actionable.error";
-
   error = EntryIsActionableError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const EntryIsActionable = new EntryIsActionableFactory();

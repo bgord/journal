@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as VO from "+preferences/value-objects";
 
 class ProfileAvatarConstraintsError extends Error {
@@ -19,11 +18,9 @@ class ProfileAvatarConstraintsFactory extends bg.Invariant<ProfileAvatarConstrai
     return VO.ProfileAvatarMimeTypes.every((allowed) => !allowed.isSatisfiedBy(config.mime));
   }
 
-  message = "ProfileAvatarConstraints";
-
+  message = "profile.avatar.constraints";
   error = ProfileAvatarConstraintsError;
-
-  code = 400 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.precondition;
 }
 
 export const ProfileAvatarConstraints = new ProfileAvatarConstraintsFactory();

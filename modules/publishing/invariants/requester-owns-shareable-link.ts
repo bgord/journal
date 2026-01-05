@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type * as Auth from "+auth";
 
 class RequesterOwnsShareableLinkError extends Error {
@@ -17,10 +16,8 @@ class RequesterOwnsShareableLinkFactory extends bg.Invariant<RequesterOwnsSharea
   }
 
   message = "requester.owns.shareable.link";
-
   error = RequesterOwnsShareableLinkError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const RequesterOwnsShareableLink = new RequesterOwnsShareableLinkFactory();

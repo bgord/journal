@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as VO from "+emotions/value-objects";
 
 class WeeklyReviewIsCompletedError extends Error {
@@ -17,10 +16,8 @@ class WeeklyReviewIsCompletedFactory extends bg.Invariant<WeeklyReviewIsComplete
   }
 
   message = "weekly.review.is.completed.error";
-
   error = WeeklyReviewIsCompletedError;
-
-  code = 400 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.precondition;
 }
 
 export const WeeklyReviewIsCompleted = new WeeklyReviewIsCompletedFactory();

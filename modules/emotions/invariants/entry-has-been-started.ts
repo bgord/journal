@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type * as Emotions from "+emotions";
 
 class EntryHasBenStartedError extends Error {
@@ -17,10 +16,8 @@ class EntryHasBenStartedFactory extends bg.Invariant<EntryHasBenStartedConfigTyp
   }
 
   message = "entry.has.been.started";
-
   error = EntryHasBenStartedError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const EntryHasBenStarted = new EntryHasBenStartedFactory();

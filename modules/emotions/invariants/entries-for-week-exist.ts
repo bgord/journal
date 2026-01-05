@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type * as Auth from "+auth";
 
 // Stryker disable all
@@ -22,10 +21,8 @@ class EntriesForWeekExistFactory extends bg.Invariant<EntriesForWeekExistConfigT
   // Stryker disable all
   message = "entries.for.week.exist";
   // Stryker restore all
-
   error = EntriesForWeekExistError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const EntriesForWeekExist = new EntriesForWeekExistFactory();

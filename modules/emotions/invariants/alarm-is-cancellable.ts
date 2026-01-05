@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as Emotions from "+emotions";
 
 class AlarmIsCancellableError extends Error {
@@ -19,10 +18,8 @@ class AlarmIsCancellableFactory extends bg.Invariant<AlarmIsCancellableConfigTyp
   // Stryker disable all
   message = "alarm.is.cancellable";
   // Stryker restore all
-
   error = AlarmIsCancellableError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const AlarmIsCancellable = new AlarmIsCancellableFactory();

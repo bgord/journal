@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as Emotions from "+emotions";
 
 class WeeklyReviewCompletedOnceError extends Error {
@@ -21,8 +20,7 @@ class WeeklyReviewCompletedOnceFactory extends bg.Invariant<WeeklyReviewComplete
   // Stryker restore all
 
   error = WeeklyReviewCompletedOnceError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const WeeklyReviewCompletedOnce = new WeeklyReviewCompletedOnceFactory();

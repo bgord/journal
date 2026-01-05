@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 class TimeCapsuleEntryScheduledInFutureError extends Error {
   constructor() {
@@ -19,11 +18,9 @@ class TimeCapsuleEntryScheduledInFutureFactory extends bg.Invariant<TimeCapsuleE
     return config.now.isAfterOrEqual(tools.Timestamp.fromValue(config.scheduledFor));
   }
 
-  message = "TimeCapsuleEntryScheduledInFuture";
-
+  message = "time.capsule.entry.scheduled.in.future";
   error = TimeCapsuleEntryScheduledInFutureError;
-
-  code = 400 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.precondition;
 }
 
 export const TimeCapsuleEntryScheduledInFuture = new TimeCapsuleEntryScheduledInFutureFactory();

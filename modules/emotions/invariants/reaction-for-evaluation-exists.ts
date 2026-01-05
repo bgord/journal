@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type * as Emotions from "+emotions";
 
 class ReactionForEvaluationExistsError extends Error {
@@ -17,10 +16,8 @@ class ReactionForEvaluationExistsFactory extends bg.Invariant<ReactionForEvaluat
   }
 
   message = "reaction.for.evaluation.exists.error";
-
   error = ReactionForEvaluationExistsError;
-
-  code = 400 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.precondition;
 }
 
 export const ReactionForEvaluationExists = new ReactionForEvaluationExistsFactory();

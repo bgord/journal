@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type * as Emotions from "+emotions";
 
 class EmotionCorrespondsToSituationError extends Error {
@@ -16,11 +15,9 @@ class EmotionCorrespondsToSituationFactory extends bg.Invariant<EmotionCorrespon
     return config.situation === undefined;
   }
 
-  message = "emotion-corresponds.to.situation.error";
-
+  message = "emotion.corresponds.to.situation.error";
   error = EmotionCorrespondsToSituationError;
-
-  code = 400 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.precondition;
 }
 
 export const EmotionCorrespondsToSituation = new EmotionCorrespondsToSituationFactory();

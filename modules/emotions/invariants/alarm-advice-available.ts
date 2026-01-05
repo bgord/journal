@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 
@@ -23,10 +22,8 @@ class AlarmAdviceAvailableFactory extends bg.Invariant<AlarmAdviceAvailableConfi
   // Stryker disable all
   message = "alarm.advice.available";
   // Stryker restore all
-
   error = AlarmAdviceAvailableError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const AlarmAdviceAvailable = new AlarmAdviceAvailableFactory();

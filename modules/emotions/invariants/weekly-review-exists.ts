@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 class WeeklyReviewExistsError extends Error {
   constructor() {
@@ -16,10 +15,8 @@ class WeeklyReviewExistsFactory extends bg.Invariant<WeeklyReviewExistsConfigTyp
   }
 
   message = "weekly.review.exists.error";
-
   error = WeeklyReviewExistsError;
-
-  code = 404 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.not_found;
 }
 
 export const WeeklyReviewExists = new WeeklyReviewExistsFactory();

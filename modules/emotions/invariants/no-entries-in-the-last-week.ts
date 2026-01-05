@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type { GetLatestEntryTimestampForUser } from "+emotions/queries";
 
 // Stryker disable all
@@ -29,10 +28,8 @@ class NoEntriesInTheLastWeekFactory extends bg.Invariant<NoEntriesInTheLastWeekC
   // Stryker disable all
   message = "no.entries.in.the.last.week";
   // Stryker restore all
-
   error = NoEntriesInTheLastWeekError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const NoEntriesInTheLastWeek = new NoEntriesInTheLastWeekFactory();

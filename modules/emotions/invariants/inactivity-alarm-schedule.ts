@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 // Stryker disable all
 class InactivityAlarmScheduleError extends Error {
@@ -24,12 +23,10 @@ class InactivityAlarmScheduleFactory extends bg.Invariant<InactivityAlarmSchedul
   }
 
   // Stryker disable all
-  message = "InactivityAlarmSchedule";
+  message = "inactivity.alarm.schedule";
   // Stryker restore all
-
   error = InactivityAlarmScheduleError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const InactivityAlarmSchedule = new InactivityAlarmScheduleFactory();

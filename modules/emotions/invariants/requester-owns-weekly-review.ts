@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type * as Auth from "+auth";
 
 class RequesterOwnsWeeklyReviewError extends Error {
@@ -17,10 +16,8 @@ class RequesterOwnsWeeklyReviewFactory extends bg.Invariant<RequesterOwnsWeeklyR
   }
 
   message = "requester.owns.weekly.review.error";
-
   error = RequesterOwnsWeeklyReviewError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const RequesterOwnsWeeklyReview = new RequesterOwnsWeeklyReviewFactory();

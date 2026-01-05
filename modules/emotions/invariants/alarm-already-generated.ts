@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as Emotions from "+emotions";
 
 class AlarmAlreadyGeneratedError extends Error {
@@ -19,10 +18,8 @@ class AlarmAlreadyGeneratedFactory extends bg.Invariant<AlarmAlreadyGeneratedCon
   // Stryker disable all
   message = "alarm.already.generated";
   // Stryker restore all
-
   error = AlarmAlreadyGeneratedError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const AlarmAlreadyGenerated = new AlarmAlreadyGeneratedFactory();

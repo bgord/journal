@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as VO from "+emotions/value-objects";
 
 // Stryker disable all
@@ -28,10 +27,8 @@ class TimeCapsuleEntryIsPublishableFactory extends bg.Invariant<TimeCapsuleEntry
   // Stryker disable all
   message = "time.capsule.entry.is.publishable";
   // Stryker restore all
-
   error = TimeCapsuleEntryIsPublishableError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const TimeCapsuleEntryIsPublishable = new TimeCapsuleEntryIsPublishableFactory();

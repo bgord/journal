@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as VO from "+publishing/value-objects";
 
 class ShareableLinkIsActiveError extends Error {
@@ -17,10 +16,8 @@ class ShareableLinkIsActiveFactory extends bg.Invariant<ShareableLinkIsActiveCon
   }
 
   message = "shareable.link.is.active.error";
-
   error = ShareableLinkIsActiveError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const ShareableLinkIsActive = new ShareableLinkIsActiveFactory();

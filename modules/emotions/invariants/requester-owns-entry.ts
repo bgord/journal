@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type * as Auth from "+auth";
 
 class RequesterOwnsEntryError extends Error {
@@ -17,10 +16,8 @@ class RequesterOwnsEntryFactory extends bg.Invariant<RequesterOwnsEntryConfigTyp
   }
 
   message = "requester.owns.entry.error";
-
   error = RequesterOwnsEntryError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const RequesterOwnsEntry = new RequesterOwnsEntryFactory();

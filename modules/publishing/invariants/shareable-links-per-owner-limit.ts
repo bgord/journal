@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type { ShareableLinksQuotaQuery } from "+publishing/queries";
 
 class ShareableLinksPerOwnerLimitError extends Error {
@@ -17,10 +16,8 @@ class ShareableLinksPerOwnerLimitFactory extends bg.Invariant<ShareableLinksPerO
   }
 
   message = "ShareableLinksPerOwnerLimit";
-
   error = ShareableLinksPerOwnerLimitError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const ShareableLinksPerOwnerLimit = new ShareableLinksPerOwnerLimitFactory();

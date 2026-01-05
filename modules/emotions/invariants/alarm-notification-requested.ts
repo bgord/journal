@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as Emotions from "+emotions";
 
 class AlarmNotificationRequestedError extends Error {
@@ -19,10 +18,8 @@ class AlarmNotificationRequestedFactory extends bg.Invariant<AlarmNotificationRe
   // Stryker disable all
   message = "alarm.notification.requested";
   // Stryker restore all
-
   error = AlarmNotificationRequestedError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const AlarmNotificationRequested = new AlarmNotificationRequestedFactory();

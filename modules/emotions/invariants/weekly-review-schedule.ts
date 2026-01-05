@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 // Stryker disable all
 class WeeklyReviewScheduleError extends Error {
@@ -24,12 +23,10 @@ class WeeklyReviewScheduleFactory extends bg.Invariant<WeeklyReviewScheduleConfi
   }
 
   // Stryker disable all
-  message = "WeeklyReviewSchedule";
+  message = "weekly.review.schedule";
   // Stryker restore all
-
   error = WeeklyReviewScheduleError;
-
-  code = 403 as ContentfulStatusCode;
+  kind = bg.InvariantFailureKind.forbidden;
 }
 
 export const WeeklyReviewSchedule = new WeeklyReviewScheduleFactory();
