@@ -25,9 +25,20 @@ describe("MaladaptiveReactionsInWeekPattern", async () => {
     });
   });
 
-  test("false", () => {
+  test("false - under threshold", () => {
     const result = detector.detect({
       entries: [mocks.positiveMaladaptiveEntry, mocks.positiveMaladaptiveEntry],
+      patterns: [Emotions.Services.Patterns.MaladaptiveReactionsPattern],
+      week: mocks.week,
+      userId: mocks.userId,
+    });
+
+    expect(result).toEqual([]);
+  });
+
+  test("false - no reaction types", () => {
+    const result = detector.detect({
+      entries: [mocks.positiveMaladaptiveEntry, mocks.positiveMaladaptiveEntry, mocks.partialEntry],
       patterns: [Emotions.Services.Patterns.MaladaptiveReactionsPattern],
       week: mocks.week,
       userId: mocks.userId,
