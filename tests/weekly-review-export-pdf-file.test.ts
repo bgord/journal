@@ -1,4 +1,4 @@
-import { describe, expect, test, spyOn } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";

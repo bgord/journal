@@ -78,4 +78,15 @@ describe("AlarmNotificationFactory", async () => {
       ),
     );
   });
+
+  test("unknown type", async () => {
+    expect(
+      async () =>
+        await new Emotions.Services.AlarmNotificationFactory(
+          di.Adapters.Emotions.EntrySnapshot,
+          SupportedLanguages.en,
+          // @ts-expect-error
+        ).create(new Emotions.VO.AlarmDetection("unknown", "unknown"), mocks.advice),
+    ).toThrow("alarm.notification.factory.error.unknown.trigger");
+  });
 });
