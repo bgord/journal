@@ -135,14 +135,42 @@ describe("InactivityAlarmScheduler", async () => {
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
-  test("InactivityAlarmSchedule", async () => {
+  test("InactivityAlarmSchedule - wednesday, not 6 pm", async () => {
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    const userDirectoryOhqListActiveUserIds = spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds");
 
     await bg.CorrelationStorage.run(
       mocks.correlationId,
       async () => await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
     );
 
+    expect(userDirectoryOhqListActiveUserIds).not.toHaveBeenCalled();
+    expect(eventStoreSave).not.toHaveBeenCalled();
+  });
+
+  test("InactivityAlarmSchedule - not wednesday, 6 pm", async () => {
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    const userDirectoryOhqListActiveUserIds = spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds");
+
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event),
+    );
+
+    expect(userDirectoryOhqListActiveUserIds).not.toHaveBeenCalled();
+    expect(eventStoreSave).not.toHaveBeenCalled();
+  });
+
+  test("InactivityAlarmSchedule - not wednesday, not 6 pm", async () => {
+    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    const userDirectoryOhqListActiveUserIds = spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds");
+
+    await bg.CorrelationStorage.run(
+      mocks.correlationId,
+      async () => await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc12Event),
+    );
+
+    expect(userDirectoryOhqListActiveUserIds).not.toHaveBeenCalled();
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 });
