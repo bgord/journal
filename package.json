@@ -38,11 +38,11 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.71.2",
-    "@bgord/bun": "1.8.1",
+    "@bgord/bun": "1.8.2",
     "@bgord/design": "1.4.16",
     "@bgord/ui": "0.8.16",
     "@react-pdf/renderer": "4.3.2",
-    "@tanstack/react-router": "1.145.6",
+    "@tanstack/react-router": "1.145.7",
     "better-sqlite3": "12.5.0",
     "drizzle-orm": "0.45.1",
     "emittery": "1.2.0",
