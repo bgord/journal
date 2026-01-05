@@ -106,18 +106,18 @@ export class ErrorHandler {
       return c.json({ message: "payload.invalid.error", _known: true }, 400);
     }
 
-    const invariantErrorHandler = new bg.InvariantErrorHandler(invariants).detect(error);
+    const invariantError = bg.InvariantErrorHandler.detect(invariants, error);
 
-    if (invariantErrorHandler.error) {
+    if (invariantError) {
       deps.Logger.error({
         message: "Domain error",
         component: "http",
-        operation: invariantErrorHandler.error.message,
+        operation: invariantError.message,
         correlationId,
         error: bg.formatError(error),
       });
 
-      return c.json(...bg.InvariantErrorHandler.respond(invariantErrorHandler.error));
+      return c.json(...bg.InvariantErrorHandler.respond(invariantError));
     }
 
     deps.Logger.error({
