@@ -1,7 +1,9 @@
 # Changelog
+- 2026-01-06 10:42 87c23e0f **step: static files**
+## 2026-01-06 10:42 
 - 2026-01-06 10:17 4441cc6e **step: tighten cors**
-## 2026-01-06 10:17 
 - 2026-01-06 10:03 e9bf430d **step: custom setup service**
+- 2026-01-06 09:17 c5e11ef4 **docs: generate CHANGELOG**
 - 2026-01-06 09:04 3c0710f3 **docs: generate CHANGELOG**
 - 2026-01-06 00:13 47f83924 **refactor: remove custom setup**
 - 2026-01-06 00:11 bea14e68 **step: reinstall packages**
