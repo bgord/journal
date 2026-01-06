@@ -468,6 +468,7 @@ infra/
 ├── register-event-handlers.ts
 ├── schema.ts
 ├── tools
+│   ├── build-info-repository.ts
 │   ├── cache-response.ts
 │   ├── command-bus.ts
 │   ├── event-bus.ts
