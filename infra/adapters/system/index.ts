@@ -46,13 +46,6 @@ export function createSystemAdapters(Env: EnvironmentType) {
     ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
     Sleeper: createSleeper(Env),
     TimeoutRunner: createTimeoutRunner(Env),
-    RemoteFileStorage: createRemoteFileStorage(Env, {
-      HashFile,
-      FileCleaner,
-      FileRenamer,
-      FileReaderJson,
-      Logger,
-      Clock,
-    }),
+    RemoteFileStorage: createRemoteFileStorage(Env, { HashFile, FileCleaner, FileRenamer, Logger, Clock }),
   };
 }
