@@ -13,14 +13,16 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
   const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
 
+  const origin = ["http://localhost:3000", "https://journal.bgord.dev"];
+
   const server = new Hono<infra.Config>()
     .basePath("/api")
     .use(
       ...bg.Setup.essentials(
         { ...Adapters.System, ...Tools, HashContent, CacheResolver },
         {
-          csrf: { origins: ["https://journal.bgord.dev"] },
-          cors: { origin: ["https://journal.bgord.dev"] },
+          csrf: { origins: origin },
+          cors: { origin },
           httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
         },
       ),
