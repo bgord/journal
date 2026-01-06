@@ -9,11 +9,15 @@ import { SupportedLanguages } from "./modules/supported-languages";
 export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const deps = { ...Adapters.System, ...Tools };
 
+  const HashContent = new bg.HashContentSha256BunStrategy();
+  const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
+  const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
+
   const server = new Hono<infra.Config>()
     .basePath("/api")
     .use(
       ...bg.Setup.essentials(
-        { ...Adapters.System, I18n: Tools.I18nConfig },
+        { ...Adapters.System, I18n: Tools.I18nConfig, HashContent, CacheResolver },
         { httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] } },
       ),
     )
