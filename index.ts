@@ -24,6 +24,7 @@ import { handler } from "./web/entry-server";
     idleTimeout: tools.Duration.Seconds(10).seconds,
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
+      "/robots.txt": Bun.file("public/robots.txt"),
       ...bg.StaticFiles.handle(
         "/public/*",
         di.Env.type === bg.NodeEnvironmentEnum.production
