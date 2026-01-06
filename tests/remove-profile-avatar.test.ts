@@ -19,7 +19,7 @@ describe(`DELETE ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.message, _known: true });
+    expect(json).toEqual({ message: bg.ShieldAuthError.message, _known: true });
   });
 
   test("happy path", async () => {
