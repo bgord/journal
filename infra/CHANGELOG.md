@@ -1,9 +1,12 @@
 # Changelog
+- 2026-01-06 17:41 ccdf97fc **step: add robots.txt**
+## 2026-01-06 17:41 
+- 2026-01-06 17:40 20ee6214 **step: bump bgord/scripts**
 - 2026-01-06 17:34 8f375e06 **step: update packages**
-## 2026-01-06 17:34 
 - 2026-01-06 17:10 98c64f15 **step: update packages**
 - 2026-01-06 16:57 6662ece3 **refactor: use ssr essentials**
 - 2026-01-06 16:56 6664444b **step: update packages**
+- 2026-01-06 16:34 98ee3864 **docs: generate CHANGELOG**
 - 2026-01-06 16:14 2e5a10eb **refactor: remove local static files**
 - 2026-01-06 16:10 0eef22e7 **docs: generate CHANGELOG**
 - 2026-01-06 16:08 083d8ea7 **step: update packages**
