@@ -5,6 +5,7 @@ import type * as infra from "+infra";
 import * as Preferences from "+preferences";
 import type { BootstrapType } from "+infra/bootstrap";
 import { SupportedLanguages } from "./modules/supported-languages";
+import { Setup } from "./setup.service";
 
 export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const deps = { ...Adapters.System, ...Tools };
@@ -12,7 +13,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const server = new Hono<infra.Config>()
     .basePath("/api")
     .use(
-      ...bg.Setup.essentials(
+      ...Setup.essentials(
         { ...Adapters.System, I18n: Tools.I18nConfig },
         { httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] } },
       ),
