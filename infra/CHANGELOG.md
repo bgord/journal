@@ -1,8 +1,12 @@
 # Changelog
+- 2026-01-06 12:14 72b3228d **refactor: use fetch based logout**
+## 2026-01-06 12:14 
+- 2026-01-06 11:59 dafc1444 **step: simplify secure headers**
+- 2026-01-06 11:52 dec841d3 **feature: add nonce for ssr**
 - 2026-01-06 10:42 87c23e0f **step: static files**
-## 2026-01-06 10:42 
 - 2026-01-06 10:17 4441cc6e **step: tighten cors**
 - 2026-01-06 10:03 e9bf430d **step: custom setup service**
+- 2026-01-06 09:44 58c9da0c **docs: generate CHANGELOG**
 - 2026-01-06 09:17 c5e11ef4 **docs: generate CHANGELOG**
 - 2026-01-06 09:04 3c0710f3 **docs: generate CHANGELOG**
 - 2026-01-06 00:13 47f83924 **refactor: remove custom setup**
