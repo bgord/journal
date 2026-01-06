@@ -17,11 +17,16 @@ export function Navigation() {
         <Avatar size={AvatarSize.small} />
       </Link>
 
-      <form action="/api/auth/sign-out" method="post">
-        <button className="c-link" type="submit">
-          {t("auth.logout.cta")}
-        </button>
-      </form>
+      <button
+        type="button"
+        className="c-link"
+        onClick={async () => {
+          await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" });
+          location.replace("/public/login.html");
+        }}
+      >
+        {t("auth.logout.cta")}
+      </button>
     </nav>
   );
 }
