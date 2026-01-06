@@ -11,7 +11,7 @@ import * as API from "./api";
 import { NotFound } from "./not-found";
 import { Shell } from "./shell";
 
-type RouterContext = { request: Request | null };
+type RouterContext = { request: Request | null; nonce: string };
 
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
   head: () => ({
@@ -92,7 +92,13 @@ const routeTree = rootRoute.addChildren([
 ]);
 
 export function createRouter(context: RouterContext) {
-  return new Router({ routeTree, context, defaultPreload: "intent", defaultViewTransition: true });
+  return new Router({
+    routeTree,
+    context,
+    defaultPreload: "intent",
+    defaultViewTransition: true,
+    ssr: { nonce: context.nonce },
+  });
 }
 
 declare module "@tanstack/react-router" {
