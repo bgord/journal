@@ -12,6 +12,7 @@ import { ImageInfo } from "./image-info.adapter";
 import { createImageProcessor } from "./image-processor.adapter";
 import { createLogger } from "./logger.adapter";
 import { createMailer } from "./mailer.adapter";
+import { NonceProvider } from "./nonce-provider.adapter";
 import { createRemoteFileStorage } from "./remote-file-storage.adapter";
 import { createSleeper } from "./sleeper.adapter";
 import { createTemporaryFile } from "./temporary-file.adapter";
@@ -31,6 +32,7 @@ export function createSystemAdapters(Env: EnvironmentType) {
     Clock,
     DiskSpaceChecker: createDiskSpaceChecker(Env),
     IdProvider,
+    NonceProvider,
     Mailer,
     FileReaderJson,
     Logger,
