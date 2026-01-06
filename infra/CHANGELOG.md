@@ -1,8 +1,14 @@
 # Changelog
+- 2026-01-06 13:15 7c8ffa31 **step: update packages**
+- 2026-01-06 13:15 075e25d5 **refactor: remove local setup**
+## 2026-01-06 13:15 
+- 2026-01-06 12:55 76f16e49 **step: use nonce provider**
+- 2026-01-06 12:52 617c1851 **step: add nonce provider adapter**
+- 2026-01-06 12:51 e32999f5 **step: update packages**
 - 2026-01-06 12:14 72b3228d **refactor: use fetch based logout**
-## 2026-01-06 12:14 
 - 2026-01-06 11:59 dafc1444 **step: simplify secure headers**
 - 2026-01-06 11:52 dec841d3 **feature: add nonce for ssr**
+- 2026-01-06 11:14 dd2ad0cc **docs: generate CHANGELOG**
 - 2026-01-06 10:42 87c23e0f **step: static files**
 - 2026-01-06 10:17 4441cc6e **step: tighten cors**
 - 2026-01-06 10:03 e9bf430d **step: custom setup service**
