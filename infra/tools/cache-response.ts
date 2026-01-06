@@ -12,7 +12,7 @@ export function createCacheResponse(): bg.CacheResponse {
   return new bg.CacheResponse(
     {
       enabled: true,
-      resolver: new bg.CacheSubjectResolver(
+      resolver: new bg.CacheSubjectRequestResolver(
         [
           new bg.CacheSubjectSegmentFixedStrategy("cache_response"),
           new bg.CacheSubjectSegmentPathStrategy(),
