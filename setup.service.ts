@@ -30,23 +30,10 @@ export class Setup {
       bg.MaintenanceMode.build(overrides?.maintenanceMode),
       secureHeaders({
         crossOriginResourcePolicy: "same-origin",
-        contentSecurityPolicy: {
-          defaultSrc: ["'none'"],
-
-          baseUri: ["'none'"],
-          objectSrc: ["'none'"],
-          frameAncestors: ["'none'"],
-
-          scriptSrc: ["'self'"],
-          styleSrc: ["'self'"],
-          imgSrc: ["'self'"],
-          fontSrc: ["'self'"],
-          mediaSrc: ["'self'"],
-          connectSrc: ["'self'"],
-          workerSrc: ["'self'"],
-
-          formAction: ["'self'"],
-        },
+        crossOriginOpenerPolicy: "same-origin",
+        crossOriginEmbedderPolicy: "require-corp",
+        referrerPolicy: "no-referrer",
+        xContentTypeOptions: "nosniff",
       }),
       bodyLimit({ maxSize: BODY_LIMIT_MAX_SIZE.toBytes() }),
       bg.ApiVersion.build({ Clock: deps.Clock, FileReaderJson: deps.FileReaderJson }),

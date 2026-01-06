@@ -5,20 +5,10 @@ import { secureHeaders } from "hono/secure-headers";
 
 const staticAssetHeaders = secureHeaders({
   crossOriginResourcePolicy: "same-origin",
-  contentSecurityPolicy: {
-    defaultSrc: ["'none'"],
-    baseUri: ["'none'"],
-    objectSrc: ["'none'"],
-    frameAncestors: ["'none'"],
-    scriptSrc: ["'none'"],
-    styleSrc: ["'none'"],
-    imgSrc: ["'self'"],
-    fontSrc: ["'self'"],
-    mediaSrc: ["'none'"],
-    connectSrc: ["'none'"],
-    workerSrc: ["'none'"],
-    formAction: ["'none'"],
-  },
+  crossOriginOpenerPolicy: "same-origin",
+  crossOriginEmbedderPolicy: "require-corp",
+  referrerPolicy: "no-referrer",
+  xContentTypeOptions: "nosniff",
 });
 
 const staticDocumentHeaders = secureHeaders({
@@ -28,20 +18,12 @@ const staticDocumentHeaders = secureHeaders({
     baseUri: ["'none'"],
     objectSrc: ["'none'"],
     frameAncestors: ["'none'"],
-
-    // CSS
-    styleSrc: ["'self'", "'unsafe-inline'"],
-
-    // JS
     scriptSrc: ["'self'", "'unsafe-inline'"],
-
-    // Assets
+    styleSrc: ["'self'", "'unsafe-inline'"],
     imgSrc: ["'self'"],
     fontSrc: ["'self'"],
-
-    // Forms & API
-    formAction: ["'self'"],
     connectSrc: ["'self'"],
+    formAction: ["'self'"],
   },
 });
 
