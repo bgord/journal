@@ -6,7 +6,6 @@ import { db } from "+infra/db";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
 import { createServer } from "./server";
-import { StaticFiles } from "./static-files.service";
 import { handler, withDocumentSecurity } from "./web/entry-server";
 
 (async function main() {
@@ -25,7 +24,7 @@ import { handler, withDocumentSecurity } from "./web/entry-server";
     idleTimeout: tools.Duration.Seconds(10).seconds,
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
-      ...StaticFiles.handle(
+      ...bg.StaticFiles.handle(
         "/public/*",
         di.Env.type === bg.NodeEnvironmentEnum.production
           ? bg.StaticFileStrategyMustRevalidate(tools.Duration.Minutes(5))
