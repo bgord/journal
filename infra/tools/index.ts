@@ -6,7 +6,7 @@ import { createCommandBus } from "./command-bus";
 import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
 import { createEventStore } from "./event-store";
-import { I18nConfig } from "./i18n";
+import { I18n } from "./i18n";
 import { createJobHandler } from "./job-handler.adapter";
 import { createJobs } from "./jobs";
 import { createPrerequisites } from "./prerequisites";
@@ -41,7 +41,7 @@ export function createTools(Env: EnvironmentType, deps: Dependencies) {
   return {
     Auth: createShieldAuth(Env, { ...deps, EventStore }),
     CacheResponse: createCacheResponse(),
-    I18nConfig,
+    I18n,
     Jobs,
     Prerequisites: createPrerequisites(Env, { ...deps, Jobs }),
     ShieldBasicAuth: createShieldBasicAuth(Env),

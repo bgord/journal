@@ -17,7 +17,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     .basePath("/api")
     .use(
       ...bg.Setup.essentials(
-        { ...Adapters.System, I18n: Tools.I18nConfig, HashContent, CacheResolver },
+        { ...Adapters.System, ...Tools, HashContent, CacheResolver },
         { httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] } },
       ),
     )
@@ -29,7 +29,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.ShieldRateLimit.verify,
     Tools.ShieldTimeout.verify,
     Tools.ShieldBasicAuth.verify,
-    ...bg.Healthcheck.build(Env.type, Tools.Prerequisites, Adapters.System),
+    ...bg.Healthcheck.build(Env.type, Tools.Prerequisites, { ...Adapters.System, ...Tools }),
   );
   // =============================
 
