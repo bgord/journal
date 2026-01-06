@@ -6,7 +6,7 @@ import { db } from "+infra/db";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
 import { createServer } from "./server";
-import { handler, withDocumentSecurity } from "./web/entry-server";
+import { handler } from "./web/entry-server";
 
 (async function main() {
   const di = await bootstrap();
@@ -31,7 +31,7 @@ import { handler, withDocumentSecurity } from "./web/entry-server";
           : bg.StaticFileStrategyNoop,
       ),
       "/api/*": server.fetch,
-      "/*": withDocumentSecurity(handler, di.Adapters.System),
+      "/*": bg.SSR.essentials(handler, di.Adapters.System),
     },
   });
 
