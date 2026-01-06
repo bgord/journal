@@ -1,18 +1,16 @@
-import { IdProviderCryptoAdapter } from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import { createRequestHandler, defaultRenderHandler } from "@tanstack/react-router/ssr/server";
 import { secureHeaders } from "hono/secure-headers";
 import { createRouter } from "./router";
 
-export async function handler(request: Request, nonce: string): Promise<Response> {
-  return createRequestHandler({ request, createRouter: () => createRouter({ request, nonce }) })(
-    defaultRenderHandler,
-  );
-}
+type Dependencies = { NonceProvider: bg.NonceProviderPort };
 
-export function withDocumentSecurity(handler: (request: Request, nonce: string) => Promise<Response>) {
+export function withDocumentSecurity(
+  handler: (request: Request, nonce: bg.NonceValueType) => Promise<Response>,
+  deps: Dependencies,
+) {
   return async (request: Request): Promise<Response> => {
-    // mocked for now
-    const nonce = new IdProviderCryptoAdapter().generate().slice(0, 16).replaceAll("-", "0");
+    const nonce = deps.NonceProvider.generate();
 
     const response = await handler(request, nonce);
 
@@ -39,4 +37,10 @@ export function withDocumentSecurity(handler: (request: Request, nonce: string) 
 
     return response;
   };
+}
+
+export async function handler(request: Request, nonce: bg.NonceValueType): Promise<Response> {
+  return createRequestHandler({ request, createRouter: () => createRouter({ request, nonce }) })(
+    defaultRenderHandler,
+  );
 }

@@ -32,7 +32,7 @@ import { handler, withDocumentSecurity } from "./web/entry-server";
           : bg.StaticFileStrategyNoop,
       ),
       "/api/*": server.fetch,
-      "/*": withDocumentSecurity(handler),
+      "/*": withDocumentSecurity(handler, di.Adapters.System),
     },
   });
 
