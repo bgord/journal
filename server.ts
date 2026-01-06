@@ -18,7 +18,11 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     .use(
       ...bg.Setup.essentials(
         { ...Adapters.System, ...Tools, HashContent, CacheResolver },
-        { httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] } },
+        {
+          csrf: { origins: ["https://journal.bgord.dev"] },
+          cors: { origin: ["https://journal.bgord.dev"] },
+          httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
+        },
       ),
     )
     .use(Tools.ShieldSecurity.verify);
