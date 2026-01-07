@@ -1,9 +1,11 @@
 # Changelog
+- 2026-01-07 10:48 7b58ad65 **refactor: remove external sharp**
+## 2026-01-07 10:48 
 - 2026-01-07 10:31 be41e184 **step: add --external sharp to bun build in prod**
-## 2026-01-07 10:31 
 - 2026-01-07 09:53 d491a580 **step: update packages**
 - 2026-01-07 09:48 2c2cf4a5 **refactor: adjust build info repo**
 - 2026-01-07 09:43 e9aee7d1 **step: update packages**
+- 2026-01-07 09:31 e6e6eb50 **docs: generate CHANGELOG**
 - 2026-01-07 08:53 dfc1f3f0 **docs: generate readme**
 - 2026-01-07 08:53 2fd73474 **docs: generate CHANGELOG**
 - 2026-01-06 23:59 cb43c1a0 **step: add localhost to csrf**
