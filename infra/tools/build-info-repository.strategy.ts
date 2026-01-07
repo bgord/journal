@@ -16,6 +16,6 @@ export function createBuildInfoRepository(
       bg.CommitSha.fromString("a".repeat(40)),
     ),
     [bg.NodeEnvironmentEnum.staging]: new bg.BuildInfoRepositoryPackageJsonStrategy(deps),
-    [bg.NodeEnvironmentEnum.production]: new bg.BuildInfoRepositoryPackageJsonStrategy(deps),
+    [bg.NodeEnvironmentEnum.production]: new bg.BuildInfoRepositoryFileStrategy(deps),
   }[Env.type];
 }
