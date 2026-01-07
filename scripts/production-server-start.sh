@@ -6,4 +6,4 @@ echo "Starting project..."
 export NODE_ENV="production"
 
 cd /var/www/journal || exit
-./journal
+bun journal.js
