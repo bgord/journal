@@ -7,12 +7,13 @@ type Dependencies = { Clock: bg.ClockPort; FileReaderJson: bg.FileReaderJsonPort
 export function createBuildInfoRepository(
   Env: EnvironmentType,
   deps: Dependencies,
-): bg.BuildInfoRepositoryPort {
+): bg.BuildInfoRepositoryStrategy {
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.BuildInfoRepositoryPackageJsonStrategy(deps),
     [bg.NodeEnvironmentEnum.test]: new bg.BuildInfoRepositoryNoopStrategy(
       tools.Timestamp.fromNumber(1767775662000),
       tools.PackageVersion.fromString("1.0.0"),
+      bg.CommitSha.fromString("a".repeat(40)),
     ),
     [bg.NodeEnvironmentEnum.staging]: new bg.BuildInfoRepositoryPackageJsonStrategy(deps),
     [bg.NodeEnvironmentEnum.production]: new bg.BuildInfoRepositoryPackageJsonStrategy(deps),
