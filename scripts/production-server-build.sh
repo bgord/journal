@@ -57,8 +57,6 @@ step_start "App compile"
 bun build --target bun --production --minify --sourcemap index.ts --outdir "$OUTPUT_DIRECTORY"
 step_end "App compile"
 
-ls -alh $OUTPUT_DIRECTORY
-
 ./bgord-scripts/css-purge.sh
 
 step_start "Copy public"
