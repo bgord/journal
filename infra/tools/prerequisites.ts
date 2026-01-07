@@ -141,5 +141,13 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
       new bg.PrerequisiteVerifierFileAdapter({ file: SecretsPath, permissions: { read: true } }),
       { enabled: production },
     ),
+    new bg.Prerequisite(
+      "build-info-file",
+      new bg.PrerequisiteVerifierFileAdapter({
+        file: bg.BUILD_INFO_REPOSITORY_FILE_PATH,
+        permissions: { read: true },
+      }),
+      { enabled: production },
+    ),
   ];
 }
