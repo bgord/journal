@@ -28,3 +28,4 @@ public/*.js.map
 output/
 .stryker-tmp
 reports/
+infra/build-info.json
