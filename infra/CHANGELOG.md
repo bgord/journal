@@ -1,6 +1,9 @@
 # Changelog
+- 2026-01-07 11:38 6af8272c **step: bump bgord/scripts**
+- 2026-01-07 11:38 3094c08c **step: restore previous deploy server**
+## 2026-01-07 11:38 
+- 2026-01-07 11:33 2bde896a **step: cleanup build**
 - 2026-01-07 11:19 44f41d25 **step: run index.js instead of journal.js**
-## 2026-01-07 11:19 
 - 2026-01-07 11:16 26c7a78b **refactor: change to outdir**
 - 2026-01-07 11:13 1f14b111 **step: try fixing the app compilation path**
 - 2026-01-07 11:08 913a276d **fix: bin start path**
@@ -12,6 +15,7 @@
 - 2026-01-07 10:49 31f026ec **refactor: remove --compile flag**
 - 2026-01-07 10:48 7b58ad65 **refactor: remove external sharp**
 - 2026-01-07 10:31 be41e184 **step: add --external sharp to bun build in prod**
+- 2026-01-07 10:20 25d02f11 **docs: generate CHANGELOG**
 - 2026-01-07 10:17 59054115 **docs: generate CHANGELOG**
 - 2026-01-07 10:14 e7fdb295 **docs: generate CHANGELOG**
 - 2026-01-07 10:09 fad6aa2f **docs: generate CHANGELOG**
