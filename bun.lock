@@ -6,7 +6,7 @@
       "name": "journal",
       "dependencies": {
         "@anthropic-ai/sdk": "0.71.2",
-        "@bgord/bun": "1.8.12",
+        "@bgord/bun": "1.8.13",
         "@bgord/design": "1.4.16",
         "@bgord/ui": "0.8.16",
         "@react-pdf/renderer": "4.3.2",
@@ -131,11 +131,11 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.21", "", {}, "sha512-/ImESw0sskqlVR94jB+5+Pxjf+xBwDZF/N5+y2/q4EqD7IARUTSpPfIo8uf39SYpCxyOCtbyYpUrZ3F/k0zT4A=="],
 
-    "@bgord/bun": ["@bgord/bun@1.8.12", "", { "dependencies": { "@bgord/tools": "1.2.15", "better-auth": "1.4.10", "croner": "9.1.0", "csv": "6.4.1", "dotenv": "17.2.3", "hcaptcha": "0.2.0", "hono": "4.11.3", "lodash": "4.17.21", "node-cache": "5.1.2", "nodemailer": "7.0.12", "winston": "3.19.0", "yazl": "3.3.1" }, "peerDependencies": { "lru-cache": "11.2.4", "sharp": "0.34.5", "zod": "4.3.5" }, "optionalPeers": ["lru-cache", "sharp"] }, "sha512-iS0tQ/wuaNw3XQ6Y3NYePKUOBlFGaCNV/hxusKY+y1ucJi+YrPUTE4auaJZhC6EQjUVF4HwYwJfjO9RkIhFnmg=="],
+    "@bgord/bun": ["@bgord/bun@1.8.13", "", { "dependencies": { "@bgord/tools": "1.2.16", "better-auth": "1.4.10", "croner": "9.1.0", "csv": "6.4.1", "dotenv": "17.2.3", "hcaptcha": "0.2.0", "hono": "4.11.3", "lodash": "4.17.21", "node-cache": "5.1.2", "nodemailer": "7.0.12", "winston": "3.19.0", "yazl": "3.3.1" }, "peerDependencies": { "lru-cache": "11.2.4", "sharp": "0.34.5", "zod": "4.3.5" }, "optionalPeers": ["lru-cache", "sharp"] }, "sha512-2l+EZVpgUE3sdZvujEBRTXc/A1jhIZE9N62fnoD4Czr8i1dTwIFaBHVRKFt42gzfElcYysdPKP8lK39flmufSA=="],
 
     "@bgord/design": ["@bgord/design@1.4.16", "", { "dependencies": { "culori": "4.0.2" } }, "sha512-nux7Dt8lYI1+7TQWA5ogsOxPSj7Vm/MEfAccVItMBsFQtoaHPUuFNO+p14qxdjOPB7ordiyfHiWMpwUaJctJ8A=="],
 
-    "@bgord/tools": ["@bgord/tools@1.2.15", "", { "dependencies": { "date-fns": "4.1.0", "mime-types": "3.0.2" }, "peerDependencies": { "zod": "4.3.5" } }, "sha512-qPo+syxVTWgK8sQ83g8hf0ASL94T89fCwLEvq3nxOpWNWi4nYKKKPcwNs0U8fBwH/NYMArILuvyLTxFUHminlg=="],
+    "@bgord/tools": ["@bgord/tools@1.2.16", "", { "dependencies": { "date-fns": "4.1.0", "mime-types": "3.0.2" }, "peerDependencies": { "zod": "4.3.5" } }, "sha512-yr3Hbv2x5zLn3QVfnyofD0lSb39qtYVLWUuUO/0O+rJdKVduH1/TkOQFuErQ3WA3yy1uNotgdNIilguA0AwqDg=="],
 
     "@bgord/ui": ["@bgord/ui@0.8.16", "", { "dependencies": { "js-cookie": "3.0.5", "polish-plurals": "1.1.0", "tinykeys": "3.0.0" }, "peerDependencies": { "react": "19.2.3", "react-dom": "19.2.3" } }, "sha512-9ok8SnOlsojlbJ9q5sESLTQcxFdiDSZydar4YCaHYkZfefwzXWwtkc7KEZgImT71eKZ4B5QahCes4rVcbVrVOQ=="],
 
@@ -743,7 +743,7 @@
 
     "base64-js": ["base64-js@0.0.8", "", {}, "sha512-3XSA2cR/h/73EzlXXdU6YNycmYI7+kicTxks4eJg2g39biHR84slg2+des+p7iHYhbRg/udIS4TD53WabcOUkw=="],
 
-    "baseline-browser-mapping": ["baseline-browser-mapping@2.9.11", "", { "bin": { "baseline-browser-mapping": "dist/cli.js" } }, "sha512-Sg0xJUNDU1sJNGdfGWhVHX0kkZ+HWcvmVymJbj6NSgZZmW/8S9Y2HQ5euytnIgakgxN6papOAWiwDo1ctFDcoQ=="],
+    "baseline-browser-mapping": ["baseline-browser-mapping@2.9.12", "", { "bin": { "baseline-browser-mapping": "dist/cli.js" } }, "sha512-Mij6Lij93pTAIsSYy5cyBQ975Qh9uLEc5rwGTpomiZeXZL9yIS6uORJakb3ScHgfs0serMMfIbXzokPMuEiRyw=="],
 
     "better-auth": ["better-auth@1.4.10", "", { "dependencies": { "@better-auth/core": "1.4.10", "@better-auth/telemetry": "1.4.10", "@better-auth/utils": "0.3.0", "@better-fetch/fetch": "1.1.21", "@noble/ciphers": "^2.0.0", "@noble/hashes": "^2.0.0", "better-call": "1.1.7", "defu": "^6.1.4", "jose": "^6.1.0", "kysely": "^0.28.5", "nanostores": "^1.0.1", "zod": "^4.1.12" }, "peerDependencies": { "@lynx-js/react": "*", "@prisma/client": "^5.0.0 || ^6.0.0 || ^7.0.0", "@sveltejs/kit": "^2.0.0", "@tanstack/react-start": "^1.0.0", "better-sqlite3": "^12.0.0", "drizzle-kit": ">=0.31.4", "drizzle-orm": ">=0.41.0", "mongodb": "^6.0.0 || ^7.0.0", "mysql2": "^3.0.0", "next": "^14.0.0 || ^15.0.0 || ^16.0.0", "pg": "^8.0.0", "prisma": "^5.0.0 || ^6.0.0 || ^7.0.0", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0", "solid-js": "^1.0.0", "svelte": "^4.0.0 || ^5.0.0", "vitest": "^2.0.0 || ^3.0.0 || ^4.0.0", "vue": "^3.0.0" }, "optionalPeers": ["@lynx-js/react", "@prisma/client", "@sveltejs/kit", "@tanstack/react-start", "better-sqlite3", "drizzle-kit", "drizzle-orm", "mongodb", "mysql2", "next", "pg", "prisma", "react", "react-dom", "solid-js", "svelte", "vitest", "vue"] }, "sha512-0kqwEBJLe8eyFzbUspRG/htOriCf9uMLlnpe34dlIJGdmDfPuQISd4shShvUrvIVhPxsY1dSTXdXPLpqISYOYg=="],
 
