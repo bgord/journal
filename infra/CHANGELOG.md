@@ -1,12 +1,14 @@
 # Changelog
+- 2026-01-07 11:06 7ab680af **step: comment out size inspect step**
+## 2026-01-07 11:06 
 - 2026-01-07 11:02 5f1a9ece **step: add bun target**
-## 2026-01-07 11:02 
 - 2026-01-07 10:52 b8afded2 **step: bump bgord/scripts**
 - 2026-01-07 10:51 2f4095ac **step: change prod start script**
 - 2026-01-07 10:50 d0ab6088 **refactor: remove sharp installation scripts**
 - 2026-01-07 10:49 31f026ec **refactor: remove --compile flag**
 - 2026-01-07 10:48 7b58ad65 **refactor: remove external sharp**
 - 2026-01-07 10:31 be41e184 **step: add --external sharp to bun build in prod**
+- 2026-01-07 10:03 693d2b76 **docs: generate CHANGELOG**
 - 2026-01-07 09:53 d491a580 **step: update packages**
 - 2026-01-07 09:53 6f1da5c6 **docs: generate CHANGELOG**
 - 2026-01-07 09:49 4ee284e3 **docs: generate CHANGELOG**
