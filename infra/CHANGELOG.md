@@ -1,6 +1,7 @@
 # Changelog
+- 2026-01-07 11:19 44f41d25 **step: run index.js instead of journal.js**
+## 2026-01-07 11:19 
 - 2026-01-07 11:16 26c7a78b **refactor: change to outdir**
-## 2026-01-07 11:16 
 - 2026-01-07 11:13 1f14b111 **step: try fixing the app compilation path**
 - 2026-01-07 11:08 913a276d **fix: bin start path**
 - 2026-01-07 11:06 7ab680af **step: comment out size inspect step**
@@ -11,6 +12,7 @@
 - 2026-01-07 10:49 31f026ec **refactor: remove --compile flag**
 - 2026-01-07 10:48 7b58ad65 **refactor: remove external sharp**
 - 2026-01-07 10:31 be41e184 **step: add --external sharp to bun build in prod**
+- 2026-01-07 10:17 59054115 **docs: generate CHANGELOG**
 - 2026-01-07 10:14 e7fdb295 **docs: generate CHANGELOG**
 - 2026-01-07 10:09 fad6aa2f **docs: generate CHANGELOG**
 - 2026-01-07 10:06 f33c567b **docs: generate CHANGELOG**
