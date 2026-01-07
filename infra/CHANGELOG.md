@@ -1,6 +1,8 @@
 # Changelog
+- 2026-01-07 16:37 5cd510a3 **step: bump bgord/scripts**
+- 2026-01-07 16:37 467e661a **step: update deploy server**
+## 2026-01-07 16:37 
 - 2026-01-07 16:35 fa8f504b **step: update deploy server**
-## 2026-01-07 16:35 
 - 2026-01-07 16:34 89bc0ea0 **step: bump bgord/scripts**
 - 2026-01-07 16:32 9fec794c **step: update deploy server**
 - 2026-01-07 16:32 03b1fb0e **step: bump bgord/scripts**
@@ -10,6 +12,7 @@
 - 2026-01-07 16:09 786de00e **step: add build info file prereq**
 - 2026-01-07 16:00 70a49554 **refactor: adjust build info repo**
 - 2026-01-07 15:59 79c5258c **step: update packages**
+- 2026-01-07 15:35 c54c2d55 **docs: generate CHANGELOG**
 - 2026-01-07 15:33 c896daf6 **docs: generate CHANGELOG**
 - 2026-01-07 11:38 6af8272c **step: bump bgord/scripts**
 - 2026-01-07 11:38 3094c08c **step: restore previous deploy server**
