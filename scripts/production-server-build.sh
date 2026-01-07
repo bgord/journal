@@ -54,7 +54,7 @@ step_end "Temporary file directory directory create"
 ./bgord-scripts/web-build-vite.sh
 
 step_start "App compile"
-bun build --compile --production --minify --sourcemap --external sharp --no-compile-autoload-dotenv index.ts --outfile "$OUTPUT_DIRECTORY"/journal
+bun build --compile --production --minify --sourcemap --no-compile-autoload-dotenv index.ts --outfile "$OUTPUT_DIRECTORY"/journal
 step_end "App compile"
 
 ./bgord-scripts/css-purge.sh
