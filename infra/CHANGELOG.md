@@ -1,6 +1,7 @@
 # Changelog
+- 2026-01-07 11:13 1f14b111 **step: try fixing the app compilation path**
+## 2026-01-07 11:13 
 - 2026-01-07 11:08 913a276d **fix: bin start path**
-## 2026-01-07 11:08 
 - 2026-01-07 11:06 7ab680af **step: comment out size inspect step**
 - 2026-01-07 11:02 5f1a9ece **step: add bun target**
 - 2026-01-07 10:52 b8afded2 **step: bump bgord/scripts**
@@ -9,6 +10,7 @@
 - 2026-01-07 10:49 31f026ec **refactor: remove --compile flag**
 - 2026-01-07 10:48 7b58ad65 **refactor: remove external sharp**
 - 2026-01-07 10:31 be41e184 **step: add --external sharp to bun build in prod**
+- 2026-01-07 10:09 fad6aa2f **docs: generate CHANGELOG**
 - 2026-01-07 10:06 f33c567b **docs: generate CHANGELOG**
 - 2026-01-07 10:03 693d2b76 **docs: generate CHANGELOG**
 - 2026-01-07 09:53 d491a580 **step: update packages**
