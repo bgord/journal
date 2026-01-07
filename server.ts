@@ -19,12 +19,12 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     .basePath("/api")
     .use(
       ...bg.Setup.essentials(
-        { ...Adapters.System, ...Tools, HashContent, CacheResolver },
         {
-          csrf: { origins: origin },
+          csrf: { origin },
           cors: { origin },
           httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
         },
+        { ...Adapters.System, ...Tools, HashContent, CacheResolver },
       ),
     )
     .use(Tools.ShieldSecurity.verify);

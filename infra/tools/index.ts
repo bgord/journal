@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
 import type { EnvironmentType } from "+infra/env";
-import { createBuildInfoRepository } from "./build-info-repository";
+import { createBuildInfoRepository } from "./build-info-repository.strategy";
 import { createCacheResponse } from "./cache-response";
 import { createCommandBus } from "./command-bus";
 import { createEventBus } from "./event-bus";
@@ -53,6 +53,6 @@ export function createTools(Env: EnvironmentType, deps: Dependencies) {
     EventBus,
     EventStore,
     ShieldSecurity: createShieldSecurity(Env, deps),
-    BuildInfoRepository: createBuildInfoRepository(deps),
+    BuildInfoRepository: createBuildInfoRepository(Env, deps),
   };
 }
