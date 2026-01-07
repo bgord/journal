@@ -1,6 +1,9 @@
 # Changelog
+- 2026-01-07 09:53 d491a580 **step: update packages**
+## 2026-01-07 09:53 
+- 2026-01-07 09:48 2c2cf4a5 **refactor: adjust build info repo**
+- 2026-01-07 09:43 e9aee7d1 **step: update packages**
 - 2026-01-06 23:59 cb43c1a0 **step: add localhost to csrf**
-## 2026-01-06 23:59 
 - 2026-01-06 23:56 198ea7e2 **step: add csrf and cors config**
 - 2026-01-06 23:54 f34daf5e **refactor: pass build info repo down**
 - 2026-01-06 23:53 a049d7fc **refactor: update resolvers**
@@ -9,6 +12,8 @@
 - 2026-01-06 23:46 6c716a87 **step: add build info repo to tools**
 - 2026-01-06 23:43 ccbec236 **refactor: remove file reader json from remote file storage**
 - 2026-01-06 23:41 a9d00395 **step: update packages**
+- 2026-01-06 23:00 d8ed5260 **docs: generate readme**
+- 2026-01-06 23:00 6aeb35a1 **docs: generate CHANGELOG**
 - 2026-01-06 18:14 6651b7e9 **step: add cache for api-version**
 - 2026-01-06 18:04 96422704 **step: update packages**
 - 2026-01-06 17:41 ccdf97fc **step: add robots.txt**
