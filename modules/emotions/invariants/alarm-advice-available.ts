@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 
 class AlarmAdviceAvailableError extends Error {
@@ -9,14 +8,10 @@ class AlarmAdviceAvailableError extends Error {
   }
 }
 
-type AlarmAdviceAvailableConfigType = {
-  advice?: AI.Advice;
-  status: Emotions.VO.AlarmStatusEnum;
-};
+type AlarmAdviceAvailableConfigType = { status: Emotions.VO.AlarmStatusEnum };
 
 class AlarmAdviceAvailableFactory extends bg.Invariant<AlarmAdviceAvailableConfigType> {
   passes(config: AlarmAdviceAvailableConfigType) {
-    if (!config.advice?.get()) return false;
     return config.status === Emotions.VO.AlarmStatusEnum.advice_saved;
   }
 

@@ -78,7 +78,7 @@ export class Alarm {
   }
 
   notify() {
-    Invariants.AlarmAdviceAvailable.enforce({ advice: this.advice, status: this.status });
+    Invariants.AlarmAdviceAvailable.enforce({ status: this.status });
 
     const event = Events.AlarmNotificationRequestedEvent.parse({
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
