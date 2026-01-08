@@ -1,7 +1,10 @@
 # Changelog
+- 2026-01-08 20:01 d59497eb **fix: do not send time capsule notifications for regular entries**
+## 2026-01-08 20:01 
+- 2026-01-08 19:41 3233f3b7 **fix: register command and event handlers in local seed**
 - 2026-01-08 19:36 e36224e4 **step: update packages**
-## 2026-01-08 19:36 
 - 2026-01-08 19:35 86c2ce36 **step: add ping**
+- 2026-01-08 18:36 5abcfe2d **docs: generate CHANGELOG**
 - 2026-01-08 14:39 372c34fb **fix: used request**
 - 2026-01-08 14:32 d876b6fb **fix: update max body size to 12 mb**
 - 2026-01-08 14:32 5c3b00ff **step: update packages**
