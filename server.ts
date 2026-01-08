@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { HTTP } from "+app";
 import type * as infra from "+infra";
@@ -23,6 +24,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
           csrf: { origin },
           cors: { origin },
           httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
+          BODY_LIMIT_MAX_SIZE: tools.Size.fromMB(12),
         },
         { ...Adapters.System, ...Tools, HashContent, CacheResolver },
       ),

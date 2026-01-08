@@ -20,7 +20,7 @@ import { handler } from "./web/entry-server";
 
   const app = Bun.serve({
     port: di.Env.PORT,
-    maxRequestBodySize: tools.Size.fromKb(128).toBytes(),
+    maxRequestBodySize: tools.Size.fromMB(12).toBytes(),
     idleTimeout: tools.Duration.Seconds(10).seconds,
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
