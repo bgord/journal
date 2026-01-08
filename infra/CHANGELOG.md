@@ -1,9 +1,13 @@
 # Changelog
+- 2026-01-08 21:43 d68c4e4f **refactor: tighten time capsule entry notifier tests for regular entry**
+## 2026-01-08 21:43 
+- 2026-01-08 21:37 666dbebb **step: suppress no entries in the last week condition**
+- 2026-01-08 21:35 41659dfc **refactor: simplify alarm advice available**
 - 2026-01-08 20:01 d59497eb **fix: do not send time capsule notifications for regular entries**
-## 2026-01-08 20:01 
 - 2026-01-08 19:41 3233f3b7 **fix: register command and event handlers in local seed**
 - 2026-01-08 19:36 e36224e4 **step: update packages**
 - 2026-01-08 19:35 86c2ce36 **step: add ping**
+- 2026-01-08 19:01 0d805002 **docs: generate CHANGELOG**
 - 2026-01-08 18:36 5abcfe2d **docs: generate CHANGELOG**
 - 2026-01-08 14:39 372c34fb **fix: used request**
 - 2026-01-08 14:32 d876b6fb **fix: update max body size to 12 mb**
