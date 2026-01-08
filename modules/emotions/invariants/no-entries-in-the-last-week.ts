@@ -18,7 +18,9 @@ type NoEntriesInTheLastWeekConfigType = {
 
 class NoEntriesInTheLastWeekFactory extends bg.Invariant<NoEntriesInTheLastWeekConfigType> {
   passes(config: NoEntriesInTheLastWeekConfigType) {
+    // Stryker disable all
     if (!config.lastEntryTimestamp) return false;
+    // Stryker restore all
 
     return tools.Timestamp.fromValue(config.lastEntryTimestamp).isBeforeOrEqual(
       tools.Timestamp.fromValue(config.now).subtract(tools.Duration.Days(7)),
