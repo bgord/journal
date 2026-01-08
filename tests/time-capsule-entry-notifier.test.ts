@@ -16,14 +16,20 @@ describe("TimeCapsuleEntryNotifier", async () => {
   });
 
   test("onSituationLoggedEvent - regular entry", async () => {
-    spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
-    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
+    const userContactOhqGet = spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(
+      SupportedLanguages.en,
+    );
+    const userContaxtOhqGetPrimary = spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(
+      undefined,
+    );
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onSituationLoggedEvent(mocks.GenericSituationLoggedEvent),
     );
 
+    expect(userContactOhqGet).not.toHaveBeenCalled();
+    expect(userContaxtOhqGetPrimary).not.toHaveBeenCalled();
     expect(mailerSend).not.toHaveBeenCalled();
   });
 
