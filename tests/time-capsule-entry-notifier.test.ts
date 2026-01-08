@@ -15,8 +15,22 @@ describe("TimeCapsuleEntryNotifier", async () => {
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 
-  test("onSituationLoggedEvent - no contact", async () => {
+  test("onSituationLoggedEvent - regular entry", async () => {
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
+    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
+    const mailerSend = spyOn(di.Adapters.System.Mailer, "send");
+
+    await bg.CorrelationStorage.run(mocks.correlationId, async () =>
+      policy.onSituationLoggedEvent(mocks.GenericSituationLoggedEvent),
+    );
+
+    expect(mailerSend).not.toHaveBeenCalled();
+  });
+
+  test("onSituationLoggedEvent - no contact", async () => {
+    const UserLanguageOhqGet = spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(
+      SupportedLanguages.en,
+    );
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send");
 
@@ -24,6 +38,7 @@ describe("TimeCapsuleEntryNotifier", async () => {
       policy.onSituationLoggedEvent(mocks.GenericSituationLoggedTimeCapsuleEvent),
     );
 
+    expect(UserLanguageOhqGet).not.toHaveBeenCalled();
     expect(mailerSend).not.toHaveBeenCalled();
   });
 

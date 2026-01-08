@@ -26,6 +26,8 @@ export class TimeCapsuleEntryNotifier {
   // Stryker restore all
 
   async onSituationLoggedEvent(event: Emotions.Events.SituationLoggedEventType) {
+    if (event.payload.origin !== Emotions.VO.EntryOriginOption.time_capsule) return;
+
     const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
     if (!contact?.address) return;
 
