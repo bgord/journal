@@ -6,11 +6,10 @@ import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
 import { bootstrap } from "+infra/bootstrap";
 import { db } from "+infra/db";
+import { registerCommandHandlers } from "+infra/register-command-handlers";
+import { registerEventHandlers } from "+infra/register-event-handlers";
 import * as Schema from "+infra/schema";
 import * as mocks from "../tests/mocks";
-
-import "+infra/register-event-handlers";
-import "+infra/register-command-handlers";
 
 const situationDescriptions = [
   "I missed an important appointment because I confused the time zones while traveling, which made me feel embarrassed and deeply irresponsible",
@@ -65,6 +64,9 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
 (async function main() {
   const di = await bootstrap();
+
+  registerEventHandlers(di);
+  registerCommandHandlers(di);
 
   const now = di.Adapters.System.Clock.now();
   const correlationId = di.Adapters.System.IdProvider.generate();
