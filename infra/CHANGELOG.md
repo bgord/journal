@@ -1,9 +1,12 @@
 # Changelog
+- 2026-01-08 14:32 d876b6fb **fix: update max body size to 12 mb**
+- 2026-01-08 14:32 5c3b00ff **step: update packages**
+## 2026-01-08 14:32 
 - 2026-01-08 10:44 5b329eae **step: update packages**
 - 2026-01-08 10:44 22e737d5 **step: update packages**
-## 2026-01-08 10:44 
 - 2026-01-08 10:43 ec9ab4e7 **step: update deploy server**
 - 2026-01-08 10:43 86afdc8f **step: bump bgord/scripts**
+- 2026-01-08 09:45 af242031 **docs: generate CHANGELOG**
 - 2026-01-07 16:37 5cd510a3 **step: bump bgord/scripts**
 - 2026-01-07 16:37 467e661a **step: update deploy server**
 - 2026-01-07 16:35 fa8f504b **step: update deploy server**
