@@ -1,12 +1,21 @@
-import { useTranslations } from "@bgord/ui";
+import { useScrollLock, useToggle, useTranslations, useWindowDimensions } from "@bgord/ui";
 import { Link } from "@tanstack/react-router";
+import { Menu } from "iconoir-react";
 import { Avatar, AvatarSize, Logo } from "../components";
 
 export function Navigation() {
+  const { width } = useWindowDimensions();
+
+  if (!width) return <NavigationShell />; // Don't SSR navigation
+  if (width <= 768) return <NavigationMobile />;
+  return <NavigationDesktop />;
+}
+
+export function NavigationDesktop() {
   const t = useTranslations();
 
   return (
-    <nav data-stack="x" data-cross="center" data-gap="6" data-p="3">
+    <nav data-stack="x" data-cross="center" data-gap="6" data-p="2" style={{ height: "70px" }}>
       <Logo />
 
       <Link to="/dashboard" className="c-link" data-transform="uppercase" data-ml="auto">
@@ -27,6 +36,40 @@ export function Navigation() {
       >
         {t("auth.logout.cta")}
       </button>
+    </nav>
+  );
+}
+
+function NavigationMobile() {
+  const navigation = useToggle({ name: "navigation" });
+  const t = useTranslations();
+
+  useScrollLock(navigation.on);
+
+  return (
+    <>
+      <nav data-disp="flex" data-main="between" data-cross="center" data-p="2" style={{ height: "70px" }}>
+        <Logo />
+
+        <button
+          type="button"
+          className="c-button"
+          data-variant="bare"
+          title={t("app.menu.show")}
+          onClick={navigation.enable}
+          {...navigation.props.controller}
+        >
+          <Menu data-color="white" height="24" width="24" />
+        </button>
+      </nav>
+    </>
+  );
+}
+
+function NavigationShell() {
+  return (
+    <nav data-disp="flex" data-cross="center" data-p="2" style={{ height: "70px" }}>
+      <Logo />
     </nav>
   );
 }
