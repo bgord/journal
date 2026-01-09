@@ -26,16 +26,7 @@ export function NavigationDesktop() {
         <Avatar size={AvatarSize.small} />
       </Link>
 
-      <button
-        type="button"
-        className="c-link"
-        onClick={async () => {
-          await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" });
-          location.replace("/public/login.html");
-        }}
-      >
-        {t("auth.logout.cta")}
-      </button>
+      <NavigationLogout />
     </nav>
   );
 }
@@ -71,5 +62,23 @@ function NavigationShell() {
     <nav data-disp="flex" data-cross="center" data-p="2" style={{ height: "70px" }}>
       <Logo />
     </nav>
+  );
+}
+
+function NavigationLogout(props: React.JSX.IntrinsicElements["button"]) {
+  const t = useTranslations();
+
+  return (
+    <button
+      type="button"
+      className="c-link"
+      onClick={async () => {
+        await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" });
+        location.replace("/public/login.html");
+      }}
+      {...props}
+    >
+      {t("auth.logout.cta")}
+    </button>
   );
 }
