@@ -1,6 +1,6 @@
 import { useScrollLock, useToggle, useTranslations, useWindowDimensions } from "@bgord/ui";
 import { Link } from "@tanstack/react-router";
-import { Menu } from "iconoir-react";
+import { Menu, Xmark } from "iconoir-react";
 import { Avatar, AvatarSize, Logo } from "../components";
 
 export function Navigation() {
@@ -11,7 +11,7 @@ export function Navigation() {
   return <NavigationDesktop />;
 }
 
-export function NavigationDesktop() {
+function NavigationDesktop() {
   const t = useTranslations();
 
   return (
@@ -53,6 +53,59 @@ function NavigationMobile() {
           <Menu data-color="white" height="24" width="24" />
         </button>
       </nav>
+
+      {navigation.on && (
+        <nav
+          data-disp="flex"
+          data-dir="column"
+          data-wrap="nowrap"
+          data-overflow="auto"
+          data-position="fixed"
+          data-inset="0"
+          data-z="1"
+          data-bg="neutral-950"
+          {...navigation.props.target}
+        >
+          <div data-disp="flex" data-main="between" data-cross="center" data-p="2" style={{ height: "70px" }}>
+            <Logo />
+
+            <button
+              type="button"
+              className="c-button"
+              data-variant="bare"
+              title={t("app.menu.close")}
+              onClick={navigation.disable}
+              data-interaction="subtle-scale"
+              {...navigation.props.controller}
+            >
+              <Xmark data-color="white" height="24" width="24" />
+            </button>
+          </div>
+
+          <div
+            data-disp="flex"
+            data-dir="column"
+            data-cross="center"
+            data-gap="6"
+            data-mt="12"
+            data-animation="grow-fade-in"
+          >
+            <Link to="/profile" data-fs="base" data-fw="medium">
+              <Avatar size={AvatarSize.small} />
+            </Link>
+
+            <Link to="/dashboard" className="c-link" data-transform="uppercase">
+              {t("app.dashboard")}
+            </Link>
+
+            <Link to="/profile" className="c-link" data-transform="uppercase">
+              {t("app.profile")}
+            </Link>
+
+            <NavigationLogout data-mt="8" />
+          </div>
+        </nav>
+      )}
     </>
   );
 }

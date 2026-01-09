@@ -14,7 +14,10 @@
   "app.entry.plural": "wpisy",
   "app.entry.singular": "wpis",
   "app.login": "Zaloguj się",
+  "app.menu.close": "Pokaż nawigację",
+  "app.menu.show": "Ukryj nawigację",
   "app.name": "JOURNAL",
+  "app.profile": "Profil",
 
   "app.prompt.genitive": "promptów",
   "app.prompt.plural": "prompty",
