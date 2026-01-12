@@ -29,6 +29,7 @@ export function Profile() {
       data-br="sm"
       data-color="neutral-100"
       data-bg="neutral-900"
+      data-md-m="2"
     >
       <header data-stack="x" data-gap="3">
         <ProfileCircle data-size="md" data-color="brand-300" />

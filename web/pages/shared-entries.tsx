@@ -7,7 +7,7 @@ export function SharedEntries() {
   const { entries } = sharedEntries.useLoaderData();
 
   return (
-    <main data-stack="y" data-pb="5">
+    <main data-stack="y" data-pb="5" data-md-m="2">
       <header data-stack="x" data-main="between" data-cross="center" data-p="3">
         <Logo />
         <LanguageSelector />

@@ -16,7 +16,7 @@ export function Dashboard() {
   const t = useTranslations();
 
   return (
-    <main data-stack="y" data-gap="5" data-mb="8">
+    <main data-stack="y" data-gap="5" data-mb="8" data-md-m="2">
       <DashboardHeatmap />
 
       <div data-stack="x" data-gap="5" data-mx="auto" data-color="neutral-200">
