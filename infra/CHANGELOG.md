@@ -1,7 +1,10 @@
 # Changelog
+- 2026-01-13 12:01 208a3f91 **refactor: remove subtle scale from the entry history button**
+## 2026-01-13 12:01 
+- 2026-01-13 12:00 94414a76 **step: update packages**
 - 2026-01-12 22:59 73f55754 **step: improve spacing for all pages**
-## 2026-01-12 22:59 
 - 2026-01-12 22:50 5a46a327 **step: update packages**
+- 2026-01-12 21:59 73d52c16 **docs: generate CHANGELOG**
 - 2026-01-12 21:52 697ef02b **docs: generate CHANGELOG**
 - 2026-01-09 13:58 c4163a1e **step: update packages**
 - 2026-01-09 13:52 3b9506ae **step: implement full mobile nagivation**
