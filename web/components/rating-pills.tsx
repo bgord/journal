@@ -20,6 +20,7 @@ export function RatingPills(props: RatingPillsProps) {
             width={size}
             height={size}
             rx="2"
+            data-focus-ring="neutral"
             fill={filled ? "var(--color-brand-600)" : "none"}
             stroke={filled ? "none" : "var(--color-brand-600)"}
           />

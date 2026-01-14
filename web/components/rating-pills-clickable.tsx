@@ -25,7 +25,9 @@ export function RatingPillsClickable(props: ClickableRatingPillsProps) {
             data-bc={filled ? undefined : "brand-600"}
             data-bw="hairline"
             data-bg={filled ? "brand-600" : undefined}
+            data-bs="solid"
             data-size="sm"
+            data-focus-ring="neutral"
             data-testid={`rating-${rating}`}
             data-rating-pill=""
             aria-label={`${rating} of ${total}`}
