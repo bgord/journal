@@ -69,7 +69,7 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
         </button>
       </header>
 
-      <section data-stack="y" data-gap="4" data-py="2" data-pb="5">
+      <section data-stack="y" data-gap="4">
         <div data-stack="x" data-cross="center" data-gap="3">
           <DescriptionLabel>{t("entry.situation.description.label")}</DescriptionLabel>
           <EntrySituationKind situationKind={props.situationKind} />
