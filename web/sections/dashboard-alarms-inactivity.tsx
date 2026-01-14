@@ -20,7 +20,7 @@ export function DashboardAlarmsInactivity() {
       {dashboard?.alarms.inactivity[0] && (
         <ul data-stack="y" data-gap="5">
           {dashboard?.alarms.inactivity.map((alarm) => (
-            <li key={alarm.id} data-bct="neutral-800" data-bwt="hairline" data-pt="3">
+            <li key={alarm.id} data-pt="3">
               <div data-stack="x" data-gap="3">
                 <DashboardDate>{alarm.generatedAt}</DashboardDate>
 
