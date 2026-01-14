@@ -89,6 +89,7 @@ export function ProfileShareableLinkCreate() {
                   data-variant={duration.value === option ? "secondary" : "bare"}
                   onClick={() => duration.set(option as ShareableLinkDuration)}
                   disabled={mutation.isLoading}
+                  {...Rhythm().times(9).style.width}
                 >
                   {t(`profile.shareable_links.create.duration.${option}.value`)}
                 </button>
@@ -120,7 +121,7 @@ export function ProfileShareableLinkCreate() {
           <div data-stack="y" data-cross="start" data-gap="1">
             <label className="c-label">{t("profile.shareable_links.create.date_range.label")}</label>
 
-            <div data-stack="x" data-cross="center" data-gap="3">
+            <div data-stack="x" data-cross="center" data-gap="3" data-color="neutral-300">
               <input
                 className="c-input"
                 type="date"
