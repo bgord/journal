@@ -1,6 +1,10 @@
 # Changelog
+- 2026-01-14 17:43 adbed577 **refactor: make interactive badges buttons**
+## 2026-01-14 17:43 
+- 2026-01-14 17:28 94898d63 **fix: add focus ring for interactive badges**
+- 2026-01-14 17:26 b95b4f4a **fix: add focus ring for logo**
+- 2026-01-14 17:26 42c21ae8 **fix: add focus ring for avatar link**
 - 2026-01-14 17:20 c9db8f6a **step: update packages**
-## 2026-01-14 17:20 
 - 2026-01-14 17:09 32261df9 **refactor: make emotion label badge primary**
 - 2026-01-14 17:04 07361701 **fix: profile account delete border padding**
 - 2026-01-14 16:58 3b04fa9d **step: add proper avatar link class**
@@ -9,6 +13,7 @@
 - 2026-01-14 16:44 3be50381 **refactor: cleanup home entry**
 - 2026-01-14 16:42 6386a5bc **refactor: remove dashboard borders**
 - 2026-01-14 16:38 0690a75e **step: update packages**
+- 2026-01-14 16:22 6d0f93bc **docs: generate CHANGELOG**
 - 2026-01-14 15:51 7981917a **fix: data-bs in profile shareable link**
 - 2026-01-14 15:51 3e32d8dd **docs: generate CHANGELOG**
 - 2026-01-14 15:50 5b7cde3d **fix: data-bs in profile account delete**
