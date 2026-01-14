@@ -38,13 +38,27 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
       data-bg="neutral-800"
     >
       {props.status === ShareableLinkStatusEnum.active && (
-        <div className="c-badge" data-variant="primary" data-bc="positive-600" data-color="positive-400">
+        <div
+          className="c-badge"
+          data-variant="primary"
+          data-bc="positive-600"
+          data-bw="hairline"
+          data-bs="solid"
+          data-color="positive-400"
+        >
           {t("profile.shareable_links.status.active.value")}
         </div>
       )}
 
       {[ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status) && (
-        <div className="c-badge" data-variant="outline" data-bc="danger-600" data-color="danger-400">
+        <div
+          className="c-badge"
+          data-variant="outline"
+          data-bc="danger-600"
+          data-bw="hairline"
+          data-bs="solid"
+          data-color="danger-400"
+        >
           {t(`profile.shareable_links.status.${props.status}.value`)}
         </div>
       )}
