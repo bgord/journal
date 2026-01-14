@@ -22,7 +22,7 @@ export function RatingPillsClickable(props: ClickableRatingPillsProps) {
             data-disp="block"
             data-p="0"
             data-cursor="pointer"
-            data-bc={filled ? undefined : "brand-600"}
+            data-bc="brand-600"
             data-bw="hairline"
             data-bg={filled ? "brand-600" : undefined}
             data-bs="solid"
