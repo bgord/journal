@@ -1,5 +1,4 @@
 import { useTranslations } from "@bgord/ui";
-import { ProfileCircle } from "iconoir-react";
 import { Separator } from "../components";
 import { rootRoute } from "../router";
 import {
@@ -30,11 +29,8 @@ export function Profile() {
       data-bg="neutral-900"
       data-md-m="2"
     >
-      <header data-stack="x" data-gap="3">
-        <ProfileCircle data-size="md" data-color="brand-300" />
-        <h2 data-fw="bold" data-mr="auto">
-          {t("profile.header")}
-        </h2>
+      <header data-stack="x" data-main="between">
+        <h2 data-fw="bold">{t("profile.header")}</h2>
         <div data-fs="sm">{session.user.email}</div>
       </header>
       <Separator />

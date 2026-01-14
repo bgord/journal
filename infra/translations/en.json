@@ -218,7 +218,7 @@
   "profile.delete_account.info": "This action is irreversible",
   "profile.export_all_data.cta": "Download",
   "profile.export_all_data.header": "Export all data",
-  "profile.header": "Profile",
+  "profile.header": "Profile settings",
   "profile.shareable_links.create.cta_primary": "Create link",
   "profile.shareable_links.create.error": "Error while creating the link",
   "profile.shareable_links.create.cta_secondary": "Create",
