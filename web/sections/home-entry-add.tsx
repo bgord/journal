@@ -140,6 +140,7 @@ export function HomeEntryAdd() {
               <button
                 type="button"
                 className="c-button"
+                data-px="3"
                 data-color="positive-400"
                 data-bg={emotionType === "positive" ? "positive-900" : undefined}
                 data-variant={emotionType === "positive" ? undefined : "bare"}
@@ -151,6 +152,7 @@ export function HomeEntryAdd() {
               <button
                 type="button"
                 className="c-button"
+                data-px="3"
                 data-color="danger-400"
                 data-bg={emotionType === "negative" ? "danger-900" : undefined}
                 data-variant={emotionType === "negative" ? undefined : "bare"}
