@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   exec,
   Form as form,
   Rhythm,
@@ -138,6 +139,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
             {...reactionDescription.input.props}
             {...form.textarea(Form.reactionDescription.pattern)}
             {...metaEnterSubmit}
+            {...Autocomplete.off}
           />
 
           <div data-stack="x" data-main="end" data-gap="5">
