@@ -19,7 +19,7 @@ export function Profile() {
   return (
     <main
       data-stack="y"
-      data-gap="5"
+      data-gap="6"
       data-my="8"
       data-mx="auto"
       data-p="8"
