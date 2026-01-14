@@ -144,7 +144,6 @@ export function HomeEntryAdd() {
                 data-bg={emotionType === "positive" ? "positive-900" : undefined}
                 data-variant={emotionType === "positive" ? undefined : "bare"}
                 onClick={() => setEmotionType("positive")}
-                {...Rhythm().times(9).style.width}
               >
                 {t("entry.emotion.label.type.positive")}
               </button>
@@ -156,7 +155,6 @@ export function HomeEntryAdd() {
                 data-bg={emotionType === "negative" ? "danger-900" : undefined}
                 data-variant={emotionType === "negative" ? undefined : "bare"}
                 onClick={() => setEmotionType("negative")}
-                {...Rhythm().times(9).style.width}
               >
                 {t("entry.emotion.label.type.negative")}
               </button>
@@ -259,13 +257,7 @@ export function HomeEntryAdd() {
 
             <ButtonCancel disabled={mutation.isLoading} onClick={dialog.disable} />
 
-            <button
-              type="submit"
-              className="c-button"
-              data-variant="primary"
-              disabled={mutation.isLoading}
-              {...Rhythm().times(10).style.width}
-            >
+            <button type="submit" className="c-button" data-variant="primary" disabled={mutation.isLoading}>
               {t("entry.new.cta_primary")}
             </button>
           </div>

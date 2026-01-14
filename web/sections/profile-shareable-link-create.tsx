@@ -89,7 +89,6 @@ export function ProfileShareableLinkCreate() {
                   data-variant={duration.value === option ? "secondary" : "bare"}
                   onClick={() => duration.set(option as ShareableLinkDuration)}
                   disabled={mutation.isLoading}
-                  {...Rhythm().times(9).style.width}
                 >
                   {t(`profile.shareable_links.create.duration.${option}.value`)}
                 </button>

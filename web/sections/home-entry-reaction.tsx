@@ -151,7 +151,6 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
               className="c-button"
               data-variant="primary"
               disabled={reactionDescription.unchanged || mutation.isLoading}
-              {...Rhythm().times(8).style.minWidth}
             >
               {t("app.save")}
             </button>
