@@ -78,6 +78,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
             reactionType={reactionType.value as EntrySnapshotFormatted["reactionType"]}
             onClick={reactionTypeEdit.enable}
             data-cursor="pointer"
+            data-focus-ring="neutral"
             {...reactionTypeEdit.props.controller}
           />
         )}

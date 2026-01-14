@@ -54,6 +54,7 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
           emotionLabel={props.emotionLabel}
           data-cursor="pointer"
           onClick={emotionLabelEdit.enable}
+          data-focus-ring="neutral"
           {...emotionLabelEdit.props.controller}
         />
       )}
