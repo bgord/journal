@@ -20,8 +20,9 @@ export function Avatar(props: { size: AvatarSize }) {
       alt=""
       title={session.user.email}
       data-bc="neutral-700"
-      data-bwb="hairline"
+      data-bw="thin"
       data-br="pill"
+      data-bs="solid"
       data-object-fit="cover"
       fetchPriority="high"
       {...Rhythm().times(dimension[props.size]).style.square}
