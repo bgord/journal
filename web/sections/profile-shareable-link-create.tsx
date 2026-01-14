@@ -76,7 +76,7 @@ export function ProfileShareableLinkCreate() {
           <ButtonClose disabled={mutation.isLoading} onClick={dialog.disable} />
         </div>
 
-        <form onSubmit={mutation.handleSubmit} data-stack="y" data-gap="8" data-color="neutral-100">
+        <form onSubmit={mutation.handleSubmit} data-stack="y" data-gap="8">
           <div data-stack="y" data-gap="1">
             <label className="c-label">{t("profile.shareable_links.create.duration.label")}</label>
 

@@ -27,7 +27,7 @@ export function Profile() {
       data-width="100%"
       data-maxw="md"
       data-br="sm"
-      data-color="neutral-100"
+      data-color="neutral-200"
       data-bg="neutral-900"
       data-md-m="2"
     >
