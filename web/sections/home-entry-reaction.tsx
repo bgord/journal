@@ -70,7 +70,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
 
   return (
     <section data-stack="y" data-gap="2">
-      <div data-stack="x" data-cross="center" data-gap="4" {...Rhythm().times(3).style.minHeight}>
+      <div data-stack="x" data-cross="center" data-gap="3" {...Rhythm().times(3).style.minHeight}>
         <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
 
         {reactionTypeEdit.off && (
