@@ -52,7 +52,7 @@ export function ProfileAccountDelete() {
 
       <Dialog data-gap="8" data-mt="12" {...Rhythm().times(50).style.width} {...dialog}>
         <div data-stack="x" data-main="between">
-          <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
+          <strong data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
             <UserXmark data-size="md" data-color="neutral-300" />
             {t("profile.delete_account.header")}
           </strong>

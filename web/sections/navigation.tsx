@@ -22,7 +22,7 @@ function NavigationDesktop() {
         {t("app.dashboard")}
       </Link>
 
-      <Link to="/profile" className="c-link" data-focus-ring="neutral" data-fs="base" data-fw="medium">
+      <Link to="/profile" className="c-link" data-focus-ring="neutral" data-fw="medium">
         <Avatar size={AvatarSize.small} />
       </Link>
 

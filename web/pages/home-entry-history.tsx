@@ -27,7 +27,7 @@ export function HomeEntryHistory() {
       {...dialog}
     >
       <div data-stack="x" data-main="between" data-cross="center">
-        <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
+        <strong data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
           <List data-size="md" data-color="neutral-300" />
           {t("entry.history")}
         </strong>
