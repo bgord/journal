@@ -15,17 +15,17 @@ export function DashboardReactionsTop() {
       {!dashboard?.entries.top.reactions[0] && <DashboardCellEmpty />}
 
       {dashboard?.entries.top.reactions[0] && (
-        <ul data-stack="y" data-gap="5">
+        <ul data-stack="y" data-gap="6">
           {dashboard?.entries.top.reactions.map((reaction) => (
-            <li key={reaction.id} data-stack="y" data-pt="3" data-gap="3">
-              <div data-stack="x" data-gap="3">
+            <li key={reaction.id} data-stack="y" data-gap="2">
+              <div data-stack="x" data-cross="center" data-gap="2">
                 <div className="c-badge" data-variant="primary">
                   {reaction.reactionEffectiveness} / {Form.reactionEffectiveness.max}
                 </div>
                 <div data-color="neutral-500">{t(`entry.reaction.type.value.${reaction.reactionType}`)}</div>
               </div>
 
-              <div data-ml="3">"{reaction.reactionDescription}"</div>
+              <div data-ml="1">"{reaction.reactionDescription}"</div>
             </li>
           ))}
         </ul>

@@ -9,8 +9,8 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
   const t = useTranslations();
 
   return (
-    <li key={props.id} data-stack="y" data-gap="5">
-      <div data-stack="x" data-cross="center" data-gap="4" data-color="neutral-500">
+    <li key={props.id} data-stack="y" data-gap="3">
+      <div data-stack="x" data-cross="center" data-gap="3" data-color="neutral-500">
         <DashboardDate data-mr="auto">
           {props.weekStart} - {props.weekEnd}
         </DashboardDate>
@@ -27,7 +27,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
       </div>
 
       {props.status === WeeklyReviewStatusEnum.completed && (
-        <div data-stack="x" data-gap="2" data-fs="sm">
+        <div data-stack="x" data-cross="center" data-gap="2" data-fs="sm" data-color="neutral-300">
           <div className="c-badge" data-variant="primary">
             {props.entries.length}
           </div>
@@ -39,7 +39,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         <div data-stack="y" data-gap="3">
           <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
 
-          <ul data-stack="y" data-gap="2">
+          <ul data-stack="y" data-gap="3">
             {props.patternDetections.map((pattern) => (
               <li key={pattern.id} data-fs="sm" data-color="neutral-300">
                 - {t(`pattern.${pattern.name}.name`)}
@@ -53,7 +53,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         <div data-stack="y" data-gap="3">
           <div data-fs="base">{t("dashboard.weekly_review.entries.alarms")}:</div>
 
-          <ul data-stack="y" data-gap="2">
+          <ul data-stack="y" data-gap="3">
             {props.alarms.map((alarm) => (
               <li key={alarm.id} data-fs="sm" data-color="neutral-300">
                 - {t(`alarm.name.${alarm.name}`)}
