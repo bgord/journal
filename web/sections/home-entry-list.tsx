@@ -51,7 +51,7 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
       {!entries[0] && <EntryListEmpty />}
 
       {entries[0] && (
-        <ul data-stack="y" data-gap="5" data-mt="6">
+        <ul data-stack="y" data-gap="5" data-mt="8">
           {entries.map((entry) => (
             <HomeEntry key={entry.id} {...entry} />
           ))}
