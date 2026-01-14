@@ -7,7 +7,7 @@ export function Logo() {
 
   return (
     <div className="logo" data-fs="2xl" data-fw="bold" data-ls="wider" data-color="brand-600">
-      <Link to="/" search={Form.default}>
+      <Link to="/" search={Form.default} data-focus-ring="neutral">
         {t("app.name")}
       </Link>
     </div>
