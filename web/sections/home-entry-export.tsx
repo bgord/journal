@@ -13,7 +13,7 @@ export function HomeEntryExport() {
   const url = `/api/entry/export-entries?dateRangeStart=${dateRangeStart.value}&dateRangeEnd=${dateRangeEnd.value}&strategy=${strategy.value}`;
 
   return (
-    <div data-stack="x" data-cross="center" data-gap="3" data-my="8" data-color="neutral-200">
+    <div data-stack="x" data-cross="center" data-gap="3" data-my="8">
       <input
         className="c-input"
         required

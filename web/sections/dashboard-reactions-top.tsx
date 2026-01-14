@@ -25,9 +25,7 @@ export function DashboardReactionsTop() {
                 <div data-color="neutral-500">{t(`entry.reaction.type.value.${reaction.reactionType}`)}</div>
               </div>
 
-              <div data-ml="3" data-color="neutral-200">
-                "{reaction.reactionDescription}"
-              </div>
+              <div data-ml="3">"{reaction.reactionDescription}"</div>
             </li>
           ))}
         </ul>

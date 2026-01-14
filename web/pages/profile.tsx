@@ -27,7 +27,6 @@ export function Profile() {
       data-width="100%"
       data-maxw="md"
       data-br="sm"
-      data-color="neutral-200"
       data-bg="neutral-900"
       data-md-m="2"
     >
@@ -36,9 +35,7 @@ export function Profile() {
         <h2 data-fw="bold" data-fs="base" data-mr="auto">
           {t("profile.header")}
         </h2>
-        <div data-fs="sm" data-color="neutral-200">
-          {session.user.email}
-        </div>
+        <div data-fs="sm">{session.user.email}</div>
       </header>
       <Separator />
       <ProfileAvatarChange />

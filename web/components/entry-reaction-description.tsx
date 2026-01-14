@@ -5,9 +5,5 @@ export function EntryReactionDescription(
 ) {
   const { reactionDescription, ...rest } = props;
 
-  return (
-    <div data-color="neutral-200" {...rest}>
-      {reactionDescription}
-    </div>
-  );
+  return <div {...rest}>{reactionDescription}</div>;
 }

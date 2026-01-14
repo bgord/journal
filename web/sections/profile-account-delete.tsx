@@ -66,7 +66,7 @@ export function ProfileAccountDelete() {
 
         <form data-stack="y" data-gap="8" onSubmit={mutation.handleSubmit} aria-busy={mutation.isLoading}>
           <div data-stack="y" data-gap="3" data-cross="start">
-            <label data-color="neutral-200" data-fs="sm" htmlFor="challenge">
+            <label data-fs="sm" htmlFor="challenge">
               {t("profile.delete_account.challenge")}
             </label>
             <input
@@ -91,7 +91,6 @@ export function ProfileAccountDelete() {
               data-mt="3"
               data-fs="sm"
               data-bg="neutral-700"
-              data-color="neutral-200"
               data-p="3"
             >
               <WarningCircle data-size="md" />
