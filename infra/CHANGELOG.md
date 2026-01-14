@@ -1,7 +1,27 @@
 # Changelog
+- 2026-01-14 16:49 1ba4b695 **step: add autocomplete off to home entry reaction textarea**
+## 2026-01-14 16:49 
+- 2026-01-14 16:44 3be50381 **refactor: cleanup home entry**
+- 2026-01-14 16:42 6386a5bc **refactor: remove dashboard borders**
+- 2026-01-14 16:38 0690a75e **step: update packages**
+- 2026-01-14 15:51 7981917a **fix: data-bs in profile shareable link**
+- 2026-01-14 15:50 5b7cde3d **fix: data-bs in profile account delete**
+- 2026-01-14 14:46 7598548e **fix: shareable link create**
+- 2026-01-14 14:43 9212d5b6 **fix: profile account delete padding**
+- 2026-01-14 14:42 63466059 **refactor: make dashboard less bright**
+- 2026-01-14 14:39 02262d82 **fix: rating pills**
+- 2026-01-14 14:17 25c058b3 **fix: avatar border**
+- 2026-01-14 14:07 b188263b **fix: positive and negative buttons**
+- 2026-01-14 14:03 cd603d83 **refactor: remove hardcoded button width**
+- 2026-01-14 14:00 600ac388 **refactor: use visually hidden instead of file explorer**
+- 2026-01-14 13:46 c0c85709 **step: update packages**
+- 2026-01-14 13:35 9bdc9dff **step: update bun version**
+- 2026-01-14 13:35 4c61724b **step: bump bgord/scripts**
+- 2026-01-14 13:34 93d50d6f **step: update bun prereq**
+- 2026-01-14 13:30 a361a438 **step: update packages**
 - 2026-01-13 12:01 208a3f91 **refactor: remove subtle scale from the entry history button**
-## 2026-01-13 12:01 
 - 2026-01-13 12:00 94414a76 **step: update packages**
+- 2026-01-13 11:02 5cb9c516 **docs: generate CHANGELOG**
 - 2026-01-12 22:59 73f55754 **step: improve spacing for all pages**
 - 2026-01-12 22:50 5a46a327 **step: update packages**
 - 2026-01-12 21:59 73d52c16 **docs: generate CHANGELOG**
