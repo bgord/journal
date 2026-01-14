@@ -1,6 +1,29 @@
 # Changelog
+- 2026-01-14 21:42 29c8b86a **refactor: simplify html pages**
+## 2026-01-14 21:42 
+- 2026-01-14 21:31 fc9330f7 **refactor: unify header in html pages**
+- 2026-01-14 21:27 6779206b **refactor: remove fs base**
+- 2026-01-14 21:25 5c48b2ff **fix: profile account delete**
+- 2026-01-14 21:21 a0b2b23c **refactor: improve profile ai usage**
+- 2026-01-14 21:18 8d8b7006 **refactor: improve profile header**
+- 2026-01-14 21:15 71273058 **refactor: improve avatar change**
+- 2026-01-14 21:12 edeb37ad **refactor: unify profile gap**
+- 2026-01-14 21:06 4564bda1 **refactor: cleanup dashboard**
+- 2026-01-14 20:52 b0febcfc **fix: dashboard subheaders center**
+- 2026-01-14 20:50 d41256d9 **refactor: refine entry alarms**
+- 2026-01-14 20:33 09bcaf1d **refactor: achieve visually correct spacing in the card**
+- 2026-01-14 20:15 e3c4342b **refactor: cleanup horizontal gaps in card**
+- 2026-01-14 20:13 2ed17650 **refactor: remove internal card padding**
+- 2026-01-14 20:08 b4e652a1 **refactor: unify card padding**
+- 2026-01-14 20:00 13c276c5 **refactor: separate entry list and filters**
+- 2026-01-14 19:26 7c6b8956 **step: update packages**
+- 2026-01-14 19:21 ba8b281a **refactor: improve spacing**
+- 2026-01-14 19:21 5e397a02 **refactor: remove data-fs base**
+- 2026-01-14 19:20 e1a5178f **refactor: improve rating pills clickable**
+- 2026-01-14 19:18 6206fe79 **refactor: remove neutral-200**
+- 2026-01-14 19:17 eb9f21b0 **refactor: remove data-bg from body**
+- 2026-01-14 19:16 2a44ef0e **step: update packages**
 - 2026-01-14 17:43 adbed577 **refactor: make interactive badges buttons**
-## 2026-01-14 17:43 
 - 2026-01-14 17:28 94898d63 **fix: add focus ring for interactive badges**
 - 2026-01-14 17:26 b95b4f4a **fix: add focus ring for logo**
 - 2026-01-14 17:26 42c21ae8 **fix: add focus ring for avatar link**
@@ -11,6 +34,7 @@
 - 2026-01-14 16:56 2389a930 **refactor: remove custom focus ring**
 - 2026-01-14 16:49 1ba4b695 **step: add autocomplete off to home entry reaction textarea**
 - 2026-01-14 16:44 3be50381 **refactor: cleanup home entry**
+- 2026-01-14 16:43 4b6d18aa **docs: generate CHANGELOG**
 - 2026-01-14 16:42 6386a5bc **refactor: remove dashboard borders**
 - 2026-01-14 16:38 0690a75e **step: update packages**
 - 2026-01-14 16:22 6d0f93bc **docs: generate CHANGELOG**
