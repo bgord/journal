@@ -18,7 +18,7 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
 
   return (
     <div data-stacky="y">
-      <div data-stack="x" data-gap="5">
+      <div data-stack="x" data-gap="3">
         <input
           className="c-input"
           placeholder={t("entry.list.search.placeholder")}
