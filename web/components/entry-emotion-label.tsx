@@ -8,7 +8,7 @@ export function EntryEmotionLabel(
   const { emotionLabel, ...rest } = props;
 
   return (
-    <div className="c-badge" data-variant="outline" {...rest}>
+    <div className="c-badge" data-variant="primary" {...rest}>
       {t(`entry.emotion.label.value.${emotionLabel}`)}
     </div>
   );
