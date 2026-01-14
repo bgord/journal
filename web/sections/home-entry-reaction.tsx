@@ -123,7 +123,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
         <form
           method="post"
           data-stack="y"
-          data-gap="5"
+          data-gap="3"
           onSubmit={async (event) => {
             event.preventDefault();
             await mutation.mutate();
@@ -143,7 +143,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
             {...Autocomplete.off}
           />
 
-          <div data-stack="x" data-main="end" data-gap="5">
+          <div data-stack="x" data-main="end" data-gap="3">
             <ButtonCancel
               disabled={mutation.isLoading}
               onClick={exec([reactionDescription.clear, reactionDescriptionEdit.disable])}
