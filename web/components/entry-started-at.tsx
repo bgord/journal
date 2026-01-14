@@ -6,7 +6,7 @@ export function EntryStartedAt(
   const { startedAt, ...rest } = props;
 
   return (
-    <div data-fs="base" data-fw="regular" data-color="neutral-300" {...rest}>
+    <div data-color="neutral-300" {...rest}>
       {startedAt}
     </div>
   );
