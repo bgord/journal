@@ -19,7 +19,7 @@ export function ProfileAccountDelete() {
   });
 
   return (
-    <section data-stack="y" data-gap="5" data-p="5" data-bc="danger-600" data-bw="thin">
+    <section data-stack="y" data-gap="5" data-bc="danger-600" data-bw="thin">
       <div data-stack="x" data-gap="3">
         <UserXmark data-size="md" />
         <div>{t("profile.delete_account.header")}</div>
