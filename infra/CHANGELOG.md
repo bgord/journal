@@ -1,10 +1,16 @@
 # Changelog
+- 2026-01-14 17:20 c9db8f6a **step: update packages**
+## 2026-01-14 17:20 
+- 2026-01-14 17:09 32261df9 **refactor: make emotion label badge primary**
+- 2026-01-14 17:04 07361701 **fix: profile account delete border padding**
+- 2026-01-14 16:58 3b04fa9d **step: add proper avatar link class**
+- 2026-01-14 16:56 2389a930 **refactor: remove custom focus ring**
 - 2026-01-14 16:49 1ba4b695 **step: add autocomplete off to home entry reaction textarea**
-## 2026-01-14 16:49 
 - 2026-01-14 16:44 3be50381 **refactor: cleanup home entry**
 - 2026-01-14 16:42 6386a5bc **refactor: remove dashboard borders**
 - 2026-01-14 16:38 0690a75e **step: update packages**
 - 2026-01-14 15:51 7981917a **fix: data-bs in profile shareable link**
+- 2026-01-14 15:51 3e32d8dd **docs: generate CHANGELOG**
 - 2026-01-14 15:50 5b7cde3d **fix: data-bs in profile account delete**
 - 2026-01-14 14:46 7598548e **fix: shareable link create**
 - 2026-01-14 14:43 9212d5b6 **fix: profile account delete padding**
