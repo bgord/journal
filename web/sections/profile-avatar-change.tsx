@@ -49,7 +49,7 @@ export function ProfileAvatarChange() {
             >
               <span>{t("profile.avatar.select_file.cta")}</span>
               <input
-                className="c-file-explorer"
+                className="c-visually-hidden"
                 type="file"
                 required
                 onChange={avatar.actions.selectFile}
