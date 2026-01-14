@@ -12,7 +12,7 @@ export function Shell() {
       <head>
         <HeadContent />
       </head>
-      <body data-mx="auto" data-bg="neutral-950">
+      <body data-mx="auto">
         <div id="root">
           <TranslationsContext.Provider value={i18n}>
             <Navigation />
