@@ -28,16 +28,16 @@ export function ProfileAvatarChange() {
   });
 
   return (
-    <section data-stack="y" data-gap="4">
+    <section data-stack="y" data-gap="5">
       <div data-stack="x" data-cross="center" data-gap="3">
         <UserCircle data-size="md" />
         <div>{t("profile.avatar.header")}</div>
       </div>
 
-      <div data-stack="x" data-gap="6">
+      <div data-stack="x" data-gap="5">
         <ProfileAvatarDelete />
 
-        <form onSubmit={mutation.handleSubmit} encType="multipart/form-data" data-mt="3">
+        <form data-stack="y" data-gap="2" onSubmit={mutation.handleSubmit} encType="multipart/form-data">
           <div data-stack="x" data-gap="3">
             <label
               data-disp="flex"
@@ -71,7 +71,7 @@ export function ProfileAvatarChange() {
               <button
                 type="button"
                 className="c-button"
-                data-variant="secondary"
+                data-variant="bare"
                 onClick={exec([avatar.actions.clearFile, mutation.reset])}
                 disabled={mutation.isLoading}
                 data-animation="grow-fade-in"
@@ -81,7 +81,7 @@ export function ProfileAvatarChange() {
             )}
           </div>
 
-          <div data-fs="xs" data-color="neutral-500" data-my="2">
+          <div data-fs="xs" data-color="neutral-500">
             {t("profile.avatar.hint")}
           </div>
 
@@ -92,7 +92,7 @@ export function ProfileAvatarChange() {
           )}
 
           {mutation.isError && (
-            <output data-mt="3" data-fs="xs" data-color="danger-400" data-animation="grow-fade-in">
+            <output data-fs="xs" data-color="danger-400" data-animation="grow-fade-in">
               {t("profile.avatar.upload.error")}
             </output>
           )}
