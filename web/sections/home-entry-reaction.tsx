@@ -69,8 +69,8 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
   }, [reactionEffectiveness.changed, reactionType.changed]);
 
   return (
-    <section data-stack="y" data-gap="3">
-      <div data-stack="x" data-cross="center" data-gap="5" {...Rhythm().times(3).style.minHeight}>
+    <section data-stack="y" data-gap="2">
+      <div data-stack="x" data-cross="center" data-gap="4" {...Rhythm().times(3).style.minHeight}>
         <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
 
         {reactionTypeEdit.off && (

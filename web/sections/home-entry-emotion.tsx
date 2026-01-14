@@ -48,7 +48,7 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
   }, [emotionIntensity.changed, emotionLabel.changed]);
 
   return (
-    <div data-stack="x" data-cross="center" data-gap="5" {...Rhythm().times(3).style.height}>
+    <div data-stack="x" data-cross="center" data-gap="4" {...Rhythm().times(3).style.height}>
       {emotionLabelEdit.off && (
         <EntryEmotionLabel
           emotionLabel={props.emotionLabel}
