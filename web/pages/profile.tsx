@@ -32,7 +32,7 @@ export function Profile() {
     >
       <header data-stack="x" data-gap="3">
         <ProfileCircle data-size="md" data-color="brand-300" />
-        <h2 data-fw="bold" data-fs="base" data-mr="auto">
+        <h2 data-fw="bold" data-mr="auto">
           {t("profile.header")}
         </h2>
         <div data-fs="sm">{session.user.email}</div>

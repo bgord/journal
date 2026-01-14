@@ -25,7 +25,6 @@ export function SharedEntry(props: EntrySnapshotFormatted) {
       data-pt="3"
       data-pb="5"
       data-bg="neutral-900"
-      data-fs="base"
       data-br="xs"
       data-shadow="sm"
     >
