@@ -1,6 +1,9 @@
 # Changelog
+- 2026-01-15 10:32 99132c00 **refactor: handle mobile search row**
+## 2026-01-15 10:32 
+- 2026-01-15 10:02 04d9b2be **refactor: improve dashboard weekly reviews**
+- 2026-01-14 23:22 ba8084c8 **step: update packages**
 - 2026-01-14 21:42 29c8b86a **refactor: simplify html pages**
-## 2026-01-14 21:42 
 - 2026-01-14 21:31 fc9330f7 **refactor: unify header in html pages**
 - 2026-01-14 21:27 6779206b **refactor: remove fs base**
 - 2026-01-14 21:25 5c48b2ff **fix: profile account delete**
@@ -11,6 +14,7 @@
 - 2026-01-14 21:06 4564bda1 **refactor: cleanup dashboard**
 - 2026-01-14 20:52 b0febcfc **fix: dashboard subheaders center**
 - 2026-01-14 20:50 d41256d9 **refactor: refine entry alarms**
+- 2026-01-14 20:42 12b5fc28 **docs: generate CHANGELOG**
 - 2026-01-14 20:33 09bcaf1d **refactor: achieve visually correct spacing in the card**
 - 2026-01-14 20:15 e3c4342b **refactor: cleanup horizontal gaps in card**
 - 2026-01-14 20:13 2ed17650 **refactor: remove internal card padding**
