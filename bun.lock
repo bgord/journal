@@ -7,7 +7,7 @@
       "dependencies": {
         "@anthropic-ai/sdk": "0.71.2",
         "@bgord/bun": "1.8.16",
-        "@bgord/design": "1.5.4",
+        "@bgord/design": "1.6.0",
         "@bgord/ui": "0.8.20",
         "@react-pdf/renderer": "4.3.2",
         "@tanstack/react-router": "1.150.0",
@@ -133,7 +133,7 @@
 
     "@bgord/bun": ["@bgord/bun@1.8.16", "", { "dependencies": { "@bgord/tools": "1.2.18", "better-auth": "1.4.12", "croner": "9.1.0", "csv": "6.4.1", "dotenv": "17.2.3", "hcaptcha": "0.2.0", "hono": "4.11.4", "lodash": "4.17.21", "node-cache": "5.1.2", "nodemailer": "7.0.12", "winston": "3.19.0", "yazl": "3.3.1" }, "peerDependencies": { "lru-cache": "11.2.4", "sharp": "0.34.5", "zod": "4.3.5" }, "optionalPeers": ["lru-cache", "sharp"] }, "sha512-iwHOuvTxX4JsgA8my3kOb6GvKI1ye7wArN2vlR8xabox92iCwvevdxftFQgEHOoXSwJO+f3HmhHdgieldY+6WQ=="],
 
-    "@bgord/design": ["@bgord/design@1.5.4", "", { "dependencies": { "culori": "4.0.2" } }, "sha512-ZeLJYszYQJULjlQ8j1JKKxNqV9mBCApVcP3NSMZFO7c+qX1RhgOi+Up/rIfldOrn+TBBSj6dXBQLzrtg75UtcA=="],
+    "@bgord/design": ["@bgord/design@1.6.0", "", { "dependencies": { "culori": "4.0.2" } }, "sha512-hio8A5qw9H7dn0djHAMtip25WHLXW1YwgNGgf/d93FBEMzDDu+s9vbnecJwAdf0hP2quORblO6IF4RJY4aRdVw=="],
 
     "@bgord/tools": ["@bgord/tools@1.2.18", "", { "dependencies": { "date-fns": "4.1.0", "mime-types": "3.0.2" }, "peerDependencies": { "zod": "4.3.5" } }, "sha512-5DOfuZIVevzRT/hL+MHKKpSsrtrP9gE2uwo/ckzKSb7CMoGVTyr2AVyxGDIJsA5hO2Rh/rOE4Wk/rze/LHd4eA=="],
 
