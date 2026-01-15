@@ -1,6 +1,8 @@
 # Changelog
+- 2026-01-15 13:06 e1af3c75 **step: regenerate bun lock**
+## 2026-01-15 13:06 
 - 2026-01-15 12:56 75ccd1c0 **step: update packages**
-## 2026-01-15 12:56 
+- 2026-01-15 12:05 916abda0 **docs: generate CHANGELOG**
 - 2026-01-15 10:38 d6c0ee8d **step: update packages**
 - 2026-01-15 10:32 99132c00 **refactor: handle mobile search row**
 - 2026-01-15 10:02 04d9b2be **refactor: improve dashboard weekly reviews**
