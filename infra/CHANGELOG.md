@@ -1,9 +1,13 @@
 # Changelog
+- 2026-01-15 22:33 2ce9a2a2 **step: update packages**
+## 2026-01-15 22:33 
+- 2026-01-15 22:32 fd7256d2 **step: enable event loop lag monitoring**
+- 2026-01-15 22:32 f4072b33 **step: update packages**
 - 2026-01-15 15:46 143b7f54 **refactor: adjust build info repo**
-## 2026-01-15 15:46 
 - 2026-01-15 15:44 cdeb38c3 **step: bump bgord/scripts**
 - 2026-01-15 15:37 2c5f61f4 **step: add metafile to build**
 - 2026-01-15 15:34 520c4856 **step: update packages**
+- 2026-01-15 14:56 bc532401 **docs: generate CHANGELOG**
 - 2026-01-15 13:06 e1af3c75 **step: regenerate bun lock**
 - 2026-01-15 12:56 75ccd1c0 **step: update packages**
 - 2026-01-15 12:07 20635b32 **docs: generate CHANGELOG**
