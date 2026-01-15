@@ -9,7 +9,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
   const t = useTranslations();
 
   return (
-    <li key={props.id} data-stack="y" data-gap="3">
+    <li key={props.id} data-stack="y" data-gap="5">
       <div data-stack="x" data-cross="center" data-gap="3" data-color="neutral-500">
         <DashboardDate data-mr="auto">
           {props.weekStart} - {props.weekEnd}
@@ -36,10 +36,10 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
       )}
 
       {props.status === WeeklyReviewStatusEnum.completed && props.patternDetections[0] && (
-        <div data-stack="y" data-gap="3">
-          <div data-fs="base">{t("dashboard.weekly_review.entries.patterns")}:</div>
+        <div data-stack="y" data-gap="2">
+          <div>{t("dashboard.weekly_review.entries.patterns")}:</div>
 
-          <ul data-stack="y" data-gap="3">
+          <ul data-stack="y" data-gap="2">
             {props.patternDetections.map((pattern) => (
               <li key={pattern.id} data-fs="sm" data-color="neutral-300">
                 - {t(`pattern.${pattern.name}.name`)}
@@ -50,10 +50,10 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
       )}
 
       {props.status === WeeklyReviewStatusEnum.completed && props.alarms[0] && (
-        <div data-stack="y" data-gap="3">
-          <div data-fs="base">{t("dashboard.weekly_review.entries.alarms")}:</div>
+        <div data-stack="y" data-gap="2">
+          <div>{t("dashboard.weekly_review.entries.alarms")}:</div>
 
-          <ul data-stack="y" data-gap="3">
+          <ul data-stack="y" data-gap="2">
             {props.alarms.map((alarm) => (
               <li key={alarm.id} data-fs="sm" data-color="neutral-300">
                 - {t(`alarm.name.${alarm.name}`)}
@@ -63,12 +63,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
         </div>
       )}
 
-      {props.status === WeeklyReviewStatusEnum.completed && (
-        <div data-stack="y" data-gap="3">
-          <div data-fs="base">{t("dashboard.weekly_review.insights")}:</div>
-          <Advice>{props.insights}</Advice>
-        </div>
-      )}
+      {props.status === WeeklyReviewStatusEnum.completed && <Advice>{props.insights}</Advice>}
     </li>
   );
 }
