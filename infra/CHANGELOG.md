@@ -1,8 +1,10 @@
 # Changelog
+- 2026-01-15 12:56 75ccd1c0 **step: update packages**
+## 2026-01-15 12:56 
 - 2026-01-15 10:38 d6c0ee8d **step: update packages**
-## 2026-01-15 10:38 
 - 2026-01-15 10:32 99132c00 **refactor: handle mobile search row**
 - 2026-01-15 10:02 04d9b2be **refactor: improve dashboard weekly reviews**
+- 2026-01-15 09:39 b621eb10 **docs: generate CHANGELOG**
 - 2026-01-15 09:33 c6c282d3 **docs: generate CHANGELOG**
 - 2026-01-14 23:22 ba8084c8 **step: update packages**
 - 2026-01-14 21:42 29c8b86a **refactor: simplify html pages**
