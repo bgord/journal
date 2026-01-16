@@ -6,7 +6,7 @@
       "name": "journal",
       "dependencies": {
         "@anthropic-ai/sdk": "0.71.2",
-        "@bgord/bun": "1.8.19",
+        "@bgord/bun": "1.8.20",
         "@bgord/design": "1.6.0",
         "@bgord/ui": "0.8.20",
         "@tanstack/react-router": "1.150.0",
@@ -131,7 +131,7 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.21", "", {}, "sha512-/ImESw0sskqlVR94jB+5+Pxjf+xBwDZF/N5+y2/q4EqD7IARUTSpPfIo8uf39SYpCxyOCtbyYpUrZ3F/k0zT4A=="],
 
-    "@bgord/bun": ["@bgord/bun@1.8.19", "", { "dependencies": { "@bgord/tools": "1.2.20", "better-auth": "1.4.13", "croner": "9.1.0", "csv": "6.4.1", "dotenv": "17.2.3", "hcaptcha": "0.2.0", "hono": "4.11.4", "lodash": "4.17.21", "node-cache": "5.1.2", "nodemailer": "7.0.12", "winston": "3.19.0", "yazl": "3.3.1" }, "peerDependencies": { "lru-cache": "11.2.4", "sharp": "0.34.5", "zod": "4.3.5" }, "optionalPeers": ["lru-cache", "sharp"] }, "sha512-J3hqBgX1q48p5vEz0pCgM3epk2kfZA8+WTfLoXfpxIhCsI7X7k6hoaxmQH3bX+8XTctv7NC9GBZs76uCK+HPdg=="],
+    "@bgord/bun": ["@bgord/bun@1.8.20", "", { "dependencies": { "@bgord/tools": "1.2.20", "better-auth": "1.4.13", "croner": "9.1.0", "csv": "6.4.1", "hcaptcha": "0.2.0", "hono": "4.11.4", "lodash": "4.17.21", "node-cache": "5.1.2", "nodemailer": "7.0.12", "winston": "3.19.0", "yazl": "3.3.1" }, "peerDependencies": { "lru-cache": "11.2.4", "sharp": "0.34.5", "zod": "4.3.5" }, "optionalPeers": ["lru-cache", "sharp"] }, "sha512-z7+VfDIeVnZGhpBj6K1F+qJsDpZc/RzzoS6ZgzEgnn0pKKT27IxlUI7U0y8iHhIR6dHasZtls1Z6NotWGbM1Cw=="],
 
     "@bgord/design": ["@bgord/design@1.6.0", "", { "dependencies": { "culori": "4.0.2" } }, "sha512-hio8A5qw9H7dn0djHAMtip25WHLXW1YwgNGgf/d93FBEMzDDu+s9vbnecJwAdf0hP2quORblO6IF4RJY4aRdVw=="],
 
@@ -884,8 +884,6 @@
     "diff-match-patch": ["diff-match-patch@1.0.5", "", {}, "sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw=="],
 
     "dot-prop": ["dot-prop@5.3.0", "", { "dependencies": { "is-obj": "^2.0.0" } }, "sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q=="],
-
-    "dotenv": ["dotenv@17.2.3", "", {}, "sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w=="],
 
     "drizzle-kit": ["drizzle-kit@0.31.8", "", { "dependencies": { "@drizzle-team/brocli": "^0.10.2", "@esbuild-kit/esm-loader": "^2.5.5", "esbuild": "^0.25.4", "esbuild-register": "^3.5.0" }, "bin": { "drizzle-kit": "bin.cjs" } }, "sha512-O9EC/miwdnRDY10qRxM8P3Pg8hXe3LyU4ZipReKOgTwn4OqANmftj8XJz1UPUAS6NMHf0E2htjsbQujUTkncCg=="],
 
