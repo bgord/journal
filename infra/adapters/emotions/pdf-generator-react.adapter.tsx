@@ -10,8 +10,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-// biome-ignore lint: lint/suspicious/noConsole
-import React from "react";
+import type React from "react";
 import type * as Emotions from "+emotions";
 
 Font.register({
