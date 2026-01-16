@@ -19,6 +19,7 @@
         "react": "19.2.3",
         "react-dom": "19.2.3",
         "sharp": "0.34.5",
+        "tinypdf": "^0.3.0",
         "zod": "4.3.5",
       },
       "devDependencies": {
@@ -1594,6 +1595,8 @@
     "tinyglobby": ["tinyglobby@0.2.15", "", { "dependencies": { "fdir": "^6.5.0", "picomatch": "^4.0.3" } }, "sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ=="],
 
     "tinykeys": ["tinykeys@3.0.0", "", {}, "sha512-nazawuGv5zx6MuDfDY0rmfXjuOGhD5XU2z0GLURQ1nzl0RUe9OuCJq+0u8xxJZINHe+mr7nw8PWYYZ9WhMFujw=="],
+
+    "tinypdf": ["tinypdf@0.3.0", "", {}, "sha512-QKFs3ZaMUXTf6EyIHKJ+VFEemkfoRByb3dl/7l4yAsqUwM6NRHSveVq8WLlPI/pk0BIaXgMswQpnjgJDNGAdHw=="],
 
     "to-buffer": ["to-buffer@1.2.2", "", { "dependencies": { "isarray": "^2.0.5", "safe-buffer": "^5.2.1", "typed-array-buffer": "^1.0.3" } }, "sha512-db0E3UJjcFhpDhAF4tLo03oli3pwl3dbnzXOUIlRKrp+ldk/VUxzpWYZENsw2SZiuBjHAk7DfB0VU7NKdpb6sw=="],
 
