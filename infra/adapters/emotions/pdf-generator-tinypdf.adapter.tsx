@@ -1,27 +1,34 @@
 import type * as bg from "@bgord/bun";
 import { pdf } from "tinypdf";
 
-type TemplateFn = (data: Record<string, any>) => Uint8Array;
+type TemplateFn = (data: Record<string, unknown>) => Uint8Array;
+
+const PAGE_HEIGHT = 842;
+const MARGIN_X = 48;
+const MARGIN_TOP = 64;
+
+const H1_SIZE = 24;
 
 const templates: Record<bg.PdfGeneratorTemplateType, TemplateFn> = {
   weekly_review_export: () => {
     const doc = pdf();
 
     doc.page((ctx) => {
-      ctx.rect(50, 700, 200, 40, "#2563eb");
-      ctx.text("Hello PDF!", 60, 712, 24, { color: "#ffffff" });
-      ctx.line(50, 680, 250, 680, "#000000", 1);
+      const y = PAGE_HEIGHT - MARGIN_TOP - H1_SIZE;
+
+      ctx.text("Weekly review export", MARGIN_X, y, H1_SIZE);
     });
 
     return doc.build();
   },
+
   entry_export: () => {
     const doc = pdf();
 
     doc.page((ctx) => {
-      ctx.rect(50, 700, 200, 40, "#2563eb");
-      ctx.text("Hello PDF!", 60, 712, 24, { color: "#ffffff" });
-      ctx.line(50, 680, 250, 680, "#000000", 1);
+      const y = PAGE_HEIGHT - MARGIN_TOP - H1_SIZE;
+
+      ctx.text("Entry export", MARGIN_X, y, H1_SIZE);
     });
 
     return doc.build();
@@ -32,10 +39,10 @@ export class PdfGeneratorTinypdfAdapter implements bg.PdfGeneratorPort {
   async request(template: bg.PdfGeneratorTemplateType, data: Record<string, unknown> = {}) {
     const build = templates[template];
 
-    if (!build) throw new Error(`Unknown PDF template: ${template}`);
+    if (!build) {
+      throw new Error(`Unknown PDF template: ${template}`);
+    }
 
-    const pdf = build(data);
-
-    return Buffer.from(pdf);
+    return Buffer.from(build(data));
   }
 }
