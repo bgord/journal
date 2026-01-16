@@ -1,7 +1,10 @@
 # Changelog
+- 2026-01-16 17:03 f0d3d67c **step: update packages**
+## 2026-01-16 17:03 
+- 2026-01-16 15:38 3d9ecea5 **step: update packages**
 - 2026-01-16 15:11 88bf78b8 **step: update packages**
-## 2026-01-16 15:11 
 - 2026-01-16 14:28 fb08cd36 **step: pinpoint tinypdf**
+- 2026-01-16 14:11 27a4fa8a **docs: generate CHANGELOG**
 - 2026-01-16 13:56 c6f6141a **refactor: use tiny pdf adapter**
 - 2026-01-16 13:56 12ca75e3 **refactor: remove pdf generator react**
 - 2026-01-16 13:55 641163dc **refactor: simplify pdfs**
