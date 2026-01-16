@@ -18,7 +18,7 @@
         "react": "19.2.3",
         "react-dom": "19.2.3",
         "sharp": "0.34.5",
-        "tinypdf": "^0.3.0",
+        "tinypdf": "0.3.0",
         "zod": "4.3.5",
       },
       "devDependencies": {
