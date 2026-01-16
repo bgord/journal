@@ -1,6 +1,15 @@
 # Changelog
+- 2026-01-16 14:28 fb08cd36 **step: pinpoint tinypdf**
+## 2026-01-16 14:28 
+- 2026-01-16 13:56 c6f6141a **refactor: use tiny pdf adapter**
+- 2026-01-16 13:56 12ca75e3 **refactor: remove pdf generator react**
+- 2026-01-16 13:55 641163dc **refactor: simplify pdfs**
+- 2026-01-16 13:45 db69865e **step: setup tinypdf generator for local dev**
+- 2026-01-16 13:42 f07c04ab **step: bump bgord/scripts**
+- 2026-01-16 13:42 9cd6be4b **step: setup pdf generator tinypdf**
+- 2026-01-16 13:42 62504dfd **fix: remove unused biome ignore**
+- 2026-01-16 13:15 e7c7d439 **step: install tinypdf**
 - 2026-01-16 13:11 160468e0 **step: bump bgord/scripts**
-## 2026-01-16 13:11 
 - 2026-01-16 13:04 d05eeaae **step: revert deploy server jobs split poc**
 - 2026-01-16 13:04 74bc86d7 **step: bump bgord/scripts**
 - 2026-01-16 13:02 a7128883 **step: bump bgord/scripts**
@@ -8,6 +17,7 @@
 - 2026-01-16 13:01 553cff2b **step: deploy server jobs split poc**
 - 2026-01-16 12:57 7270d808 **step: bump bgord/scripts**
 - 2026-01-16 12:48 0a91d107 **step: bump bgord/scripts**
+- 2026-01-16 12:11 86ecce8c **docs: generate CHANGELOG**
 - 2026-01-16 12:10 894b1f22 **docs: generate CHANGELOG**
 - 2026-01-16 12:07 f427172c **step: update packages**
 - 2026-01-16 12:02 90a616f2 **docs: generate CHANGELOG**
