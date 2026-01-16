@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 
 // Stryker disable all
 export const UPDATE_PROFILE_AVATAR_COMMAND = "UPDATE_PROFILE_AVATAR_COMMAND";

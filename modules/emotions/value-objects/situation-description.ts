@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import { SituationDescriptionMax, SituationDescriptionMin } from "./situation-description.validation";
 
 const SituationDescriptionErrors = { Invalid: "situation.description.invalid" };

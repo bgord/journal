@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import { EntryId } from "./entry-id";
 
 export enum AlarmTriggerEnum {

@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import { SituationKindOptions } from "./situation-kind-options";
 
 const SituationKindErrors = { Invalid: "situation.kind.invalid" };

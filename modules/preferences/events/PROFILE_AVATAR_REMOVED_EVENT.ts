@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import * as Auth from "+auth";
 
 export const PROFILE_AVATAR_REMOVED_EVENT = "PROFILE_AVATAR_REMOVED_EVENT";

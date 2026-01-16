@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import * as VO from "+emotions/value-objects";
 
 export const ALARM_NOTIFICATION_SENT_EVENT = "ALARM_NOTIFICATION_SENT_EVENT";

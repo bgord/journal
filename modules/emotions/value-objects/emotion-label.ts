@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import { GenevaWheelEmotion, NegativeEmotions, PositiveEmotions } from "./geneva-wheel-emotion.enum";
 
 const EmotionLabelErrors = { Invalid: "emotion.label.invalid" };

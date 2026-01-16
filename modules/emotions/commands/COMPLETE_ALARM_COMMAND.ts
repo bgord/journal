@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import * as VO from "+emotions/value-objects";
 
 // Stryker disable all

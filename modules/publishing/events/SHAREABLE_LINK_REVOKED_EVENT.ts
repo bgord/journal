@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import * as VO from "+publishing/value-objects";
 
 export const SHAREABLE_LINK_REVOKED_EVENT = "SHAREABLE_LINK_REVOKED_EVENT";

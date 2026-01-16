@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import { GrossEmotionRegulationStrategy } from "./gross-emotion-regulation-strategy.enum";
 
 const ReactionTypeErrors = { Invalid: "reaction.type.invalid" };

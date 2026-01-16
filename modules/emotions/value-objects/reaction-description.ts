@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import { ReactionDescriptionMax, ReactionDescriptionMin } from "./reaction-description.validation";
 
 const ReactionDescriptionErrors = { invalid: "reaction.description.invalid" };

@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
-import type { z } from "zod/v4";
+import type * as z from "zod/v4";
 import type { AiQuotaExceededEvent, AiRequestRegisteredEvent } from "+ai/events";
 import type { AccountCreatedEvent, AccountDeletedEvent } from "+auth/events";
 import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";

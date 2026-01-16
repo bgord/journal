@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { z } from "zod/v4";
+import type * as z from "zod/v4";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 

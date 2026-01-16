@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import * as VO from "+auth/value-objects";
 
 export const ACCOUNT_CREATED_EVENT = "ACCOUNT_CREATED_EVENT";

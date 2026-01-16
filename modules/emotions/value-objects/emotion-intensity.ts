@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import { EmotionIntensityMax, EmotionIntensityMin } from "./emotion-intensity.validation";
 
 const EmotionIntensityErrors = { min_max: "emotion.intensity.min.max" };

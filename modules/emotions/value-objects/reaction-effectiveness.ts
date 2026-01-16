@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4";
 import { ReactionEffectivenessMax, ReactionEffectivenessMin } from "./reaction-effectiveness.validation";
 
 const ReactionEffectivenessErrors = { min_max: "reaction.effectiveness.min.max" };
