@@ -406,7 +406,7 @@ infra/
 │   │   ├── entry-repository.adapter.ts
 │   │   ├── entry-snapshot.adapter.ts
 │   │   ├── get-latest-entry-timestamp-for-user.adapter.ts
-│   │   ├── pdf-generator-react.adapter.tsx
+│   │   ├── pdf-generator-tinypdf.adapter.tsx
 │   │   ├── pdf-generator.adapter.ts
 │   │   ├── time-capsule-due-entries.adapter.ts
 │   │   ├── weekly-review-export.adapter.ts
