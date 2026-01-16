@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { haveIBeenPwned, openAPI } from "better-auth/plugins";
+import { haveIBeenPwned } from "better-auth/plugins/haveibeenpwned";
 import * as Auth from "+auth";
 import { db } from "+infra/db";
 import type { EnvironmentType } from "+infra/env";
@@ -79,7 +79,6 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
     },
     autoSignIn: false,
     plugins: [
-      production ? openAPI() : undefined,
       // Env.type === bg.NodeEnvironmentEnum.production
       //   ? captcha({ provider: "hcaptcha", secretKey: Env.HCAPTCHA_SECRET_KEY })
       //   : undefined,
