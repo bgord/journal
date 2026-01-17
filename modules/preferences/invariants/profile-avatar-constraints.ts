@@ -15,7 +15,7 @@ class ProfileAvatarConstraintsFactory extends bg.Invariant<ProfileAvatarConstrai
     if (config.height > VO.ProfileAvatarMaxSide) return false;
     if (config.width > VO.ProfileAvatarMaxSide) return false;
     if (config.size.isGreaterThan(VO.ProfileAvatarMaxSize)) return false;
-    return VO.ProfileAvatarMimeTypes.some((allowed) => allowed.isSatisfiedBy(config.mime));
+    return VO.ProfileAvatarMimeRegistry.hasMime(config.mime);
   }
 
   message = "profile.avatar.constraints";

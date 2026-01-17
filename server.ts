@@ -127,7 +127,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
     ...bg.FileUploader.validate({
-      mimeTypes: Preferences.VO.ProfileAvatarMimeTypes,
+      MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
       maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
     }),
     HTTP.Preferences.UpdateProfileAvatar(deps),
