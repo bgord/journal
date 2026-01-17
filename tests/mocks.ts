@@ -148,7 +148,7 @@ export const head = {
   etag,
   size: tools.Size.fromBytes(1234),
   lastModified: T0,
-  mime: tools.MIMES.webp,
+  mime: tools.Mimes.webp.mime,
 };
 
 export const objectKey = tools.ObjectKey.parse(`users/${userId}/avatar.webp`);

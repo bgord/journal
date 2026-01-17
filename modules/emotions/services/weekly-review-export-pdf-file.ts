@@ -9,7 +9,11 @@ export class WeeklyReviewExportPdfFile extends bg.FileDraft {
     private readonly data: Emotions.Queries.WeeklyReviewExportDto,
     private readonly deps: Dependencies,
   ) {
-    super(tools.Basename.parse(`weekly-review-export-${data.weekIsoId}`), tools.MIMES.pdf);
+    super(
+      tools.Basename.parse(`weekly-review-export-${data.weekIsoId}`),
+      tools.Extension.parse("pdf"),
+      tools.Mimes.pdf.mime,
+    );
   }
 
   // @ts-expect-error

@@ -9,7 +9,11 @@ export class EntryExportFileCsv extends bg.FileDraft {
     private readonly entries: VO.EntrySnapshot[],
     private readonly deps: Dependencies,
   ) {
-    super(tools.Basename.parse(`entry-export-${deps.Clock.now().ms}`), tools.MIMES.csv);
+    super(
+      tools.Basename.parse(`entry-export-${deps.Clock.now().ms}`),
+      tools.Extension.parse("csv"),
+      tools.Mimes.csv.mime,
+    );
   }
 
   create() {

@@ -48,7 +48,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(3100),
       height: tools.ImageHeight.parse(100),
-      mime: tools.MIMES.png,
+      mime: tools.Mimes.png.mime,
       size: tools.Size.fromKb(100),
     });
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
@@ -66,7 +66,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(3100),
-      mime: tools.MIMES.png,
+      mime: tools.Mimes.png.mime,
       size: tools.Size.fromKb(100),
     });
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
@@ -84,7 +84,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
-      mime: tools.MIMES.png,
+      mime: tools.Mimes.png.mime,
       size: tools.Size.fromMB(100),
     });
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
@@ -102,7 +102,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
-      mime: tools.MIMES.text,
+      mime: tools.Mimes.text.mime,
       size: tools.Size.fromKb(100),
     });
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
@@ -120,7 +120,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(3000),
       height: tools.ImageHeight.parse(3000),
-      mime: tools.MIMES.png,
+      mime: tools.Mimes.png.mime,
       size: tools.Size.fromKb(100),
     });
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
@@ -154,7 +154,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
-      mime: tools.MIMES.jpeg,
+      mime: tools.Mimes.jpg.mime,
       size: tools.Size.fromKb(100),
     });
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
@@ -174,7 +174,7 @@ describe(`POST ${url}`, async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
       height: tools.ImageHeight.parse(100),
-      mime: tools.MIMES.jpeg,
+      mime: tools.Mimes.webp.mime,
       size: tools.Size.fromKb(100),
     });
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
