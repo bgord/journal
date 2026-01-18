@@ -19,12 +19,12 @@ import { createTemporaryFile } from "./temporary-file.adapter";
 import { createTimekeeper } from "./timekeeper.adapter";
 import { createTimeoutRunner } from "./timeout-runner.adapter";
 
-export function createSystemAdapters(Env: EnvironmentType) {
+export async function createSystemAdapters(Env: EnvironmentType) {
   const Clock = createClock(Env);
   const Logger = createLogger(Env);
   const FileCleaner = createFileCleaner(Env);
   const FileRenamer = createFileRenamer(Env);
-  const Mailer = createMailer(Env, { Logger });
+  const Mailer = await createMailer(Env, { Logger });
   const Timekeeper = createTimekeeper(Env, { Clock });
 
   return {

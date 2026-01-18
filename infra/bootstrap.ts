@@ -12,7 +12,7 @@ export async function bootstrap() {
   const EnvironmentLoader = await createEnvironmentLoader();
   const Env = await EnvironmentLoader.load();
 
-  const System = createSystemAdapters(Env);
+  const System = await createSystemAdapters(Env);
   const Tools = createTools(Env, System);
   const deps = { ...System, ...Tools };
 
