@@ -13,6 +13,7 @@ describe("WeeklyReviewProcessing", async () => {
   const di = await bootstrap();
   registerEventHandlers(di);
   registerCommandHandlers(di);
+
   const saga = new Emotions.Sagas.WeeklyReviewProcessing({
     ...di.Adapters.System,
     ...di.Tools,
@@ -22,6 +23,8 @@ describe("WeeklyReviewProcessing", async () => {
     UserLanguageOHQ: di.Adapters.Preferences.UserLanguageOHQ,
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
+
+  const config = { from: di.Env.EMAIL_FROM, to: mocks.email };
 
   test("onWeeklyReviewSkippedEvent", async () => {
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact);
@@ -33,10 +36,11 @@ describe("WeeklyReviewProcessing", async () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: di.Env.EMAIL_FROM,
-      to: mocks.email,
-      subject: "JOURNAL - weekly review 2024/12/23 - 2024/12/29",
-      html: "Come back and journal",
+      config,
+      message: {
+        subject: "JOURNAL - weekly review 2024/12/23 - 2024/12/29",
+        html: "Come back and journal",
+      },
     });
   });
 

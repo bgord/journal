@@ -9,11 +9,9 @@ describe("PasswordResetNotificationComposer", () => {
     const composer = new Auth.Services.PasswordResetNotificationComposer();
     const notification = composer.compose(url);
 
-    expect(notification).toEqual(
-      new tools.NotificationTemplate(
-        "Reset your Journal password",
-        `<p>Click to reset your password: <a href="${url}">Reset password</a></p>`,
-      ),
-    );
+    expect(notification).toEqual({
+      subject: "Reset your Journal password",
+      html: `<p>Click to reset your password: <a href="${url}">Reset password</a></p>`,
+    });
   });
 });

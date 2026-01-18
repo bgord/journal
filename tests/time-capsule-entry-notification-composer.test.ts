@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 
@@ -9,9 +8,10 @@ describe("TimeCapsuleEntryNotificationComposer", () => {
       SupportedLanguages.en,
     );
 
-    expect(entryAlarmAdviceNotificationComposer.compose()).toEqual(
-      new tools.NotificationTemplate("JOURNAL - time capsule entry", "Go to the homepage"),
-    );
+    expect(entryAlarmAdviceNotificationComposer.compose()).toEqual({
+      subject: "JOURNAL - time capsule entry",
+      html: "Go to the homepage",
+    });
   });
 
   test("compose - pl", () => {
@@ -19,8 +19,9 @@ describe("TimeCapsuleEntryNotificationComposer", () => {
       SupportedLanguages.pl,
     );
 
-    expect(entryAlarmAdviceNotificationComposer.compose()).toEqual(
-      new tools.NotificationTemplate("JOURNAL - wpis z przeszłości", "Odwiedź stronę główną"),
-    );
+    expect(entryAlarmAdviceNotificationComposer.compose()).toEqual({
+      subject: "JOURNAL - wpis z przeszłości",
+      html: "Odwiedź stronę główną",
+    });
   });
 });

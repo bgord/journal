@@ -15,6 +15,8 @@ describe("TimeCapsuleEntryNotifier", async () => {
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 
+  const config = { from: di.Env.EMAIL_FROM, to: mocks.email };
+
   test("onSituationLoggedEvent - regular entry", async () => {
     const userContactOhqGet = spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(
       SupportedLanguages.en,
@@ -58,10 +60,8 @@ describe("TimeCapsuleEntryNotifier", async () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: di.Env.EMAIL_FROM,
-      to: mocks.email,
-      subject: "JOURNAL - time capsule entry",
-      html: "Go to the homepage",
+      config,
+      message: { subject: "JOURNAL - time capsule entry", html: "Go to the homepage" },
     });
   });
 
@@ -75,10 +75,8 @@ describe("TimeCapsuleEntryNotifier", async () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: di.Env.EMAIL_FROM,
-      to: mocks.email,
-      subject: "JOURNAL - wpis z przeszłości",
-      html: "Odwiedź stronę główną",
+      config,
+      message: { subject: "JOURNAL - wpis z przeszłości", html: "Odwiedź stronę główną" },
     });
   });
 });

@@ -25,6 +25,8 @@ describe("AlarmOrchestrator", async () => {
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 
+  const config = { from: di.Env.EMAIL_FROM, to: mocks.email };
+
   test("onAlarmGeneratedEvent - entry", async () => {
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
@@ -189,10 +191,11 @@ describe("AlarmOrchestrator", async () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: di.Env.EMAIL_FROM,
-      to: mocks.email,
-      subject: "JOURNAL - emotional advice",
-      html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
+      config,
+      message: {
+        subject: "JOURNAL - emotional advice",
+        html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
+      },
     });
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);
   });
@@ -213,10 +216,11 @@ describe("AlarmOrchestrator", async () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: di.Env.EMAIL_FROM,
-      to: mocks.email,
-      subject: "JOURNAL - inactivity advice",
-      html: `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
+      config,
+      message: {
+        subject: "JOURNAL - inactivity advice",
+        html: `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
+      },
     });
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmNotificationSentEvent]);
   });

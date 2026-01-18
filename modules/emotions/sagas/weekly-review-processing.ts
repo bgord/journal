@@ -52,13 +52,13 @@ export class WeeklyReviewProcessing {
 
   async onWeeklyReviewSkippedEvent(event: Emotions.Events.WeeklyReviewSkippedEventType) {
     const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
+
+    if (!contact?.address) return;
+
     const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
 
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const composer = new Emotions.Services.WeeklyReviewSkippedNotificationComposer();
-
-    // TODO move earlier?
-    if (!contact?.address) return;
 
     const config = { to: contact.address, from: this.deps.EMAIL_FROM };
     const notification = composer.compose(week, language);

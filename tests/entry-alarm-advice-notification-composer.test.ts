@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import * as mocks from "./mocks";
@@ -12,12 +11,10 @@ describe("EntryAlarmAdviceNotificationComposer", () => {
     );
     const notification = entryAlarmAdviceNotificationComposer.compose(mocks.advice);
 
-    expect(notification).toEqual(
-      new tools.NotificationTemplate(
-        "JOURNAL - emotional advice",
-        `Advice for emotion entry: ${mocks.partialEntry.emotionLabel}: ${mocks.advice.get()}`,
-      ),
-    );
+    expect(notification).toEqual({
+      subject: "JOURNAL - emotional advice",
+      html: `Advice for emotion entry: ${mocks.partialEntry.emotionLabel}: ${mocks.advice.get()}`,
+    });
   });
 
   test("compose - pl", () => {
@@ -27,11 +24,9 @@ describe("EntryAlarmAdviceNotificationComposer", () => {
     );
     const notification = entryAlarmAdviceNotificationComposer.compose(mocks.advice);
 
-    expect(notification).toEqual(
-      new tools.NotificationTemplate(
-        "JOURNAL - porada emocjonalna",
-        `Porada dla emocji: ${mocks.partialEntry.emotionLabel}: ${mocks.advice.get()}`,
-      ),
-    );
+    expect(notification).toEqual({
+      subject: "JOURNAL - porada emocjonalna",
+      html: `Porada dla emocji: ${mocks.partialEntry.emotionLabel}: ${mocks.advice.get()}`,
+    });
   });
 });

@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import * as mocks from "./mocks";
@@ -13,12 +12,10 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
       );
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
-    expect(notification).toEqual(
-      new tools.NotificationTemplate(
-        "JOURNAL - inactivity advice",
-        `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
-      ),
-    );
+    expect(notification).toEqual({
+      subject: "JOURNAL - inactivity advice",
+      html: `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
+    });
   });
 
   test("compose - pl", () => {
@@ -29,11 +26,9 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
       );
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
-    expect(notification).toEqual(
-      new tools.NotificationTemplate(
-        "JOURNAL - porada dla braku aktywności",
-        `Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni, porada: ${mocks.advice.get()}`,
-      ),
-    );
+    expect(notification).toEqual({
+      subject: "JOURNAL - porada dla braku aktywności",
+      html: `Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni, porada: ${mocks.advice.get()}`,
+    });
   });
 });

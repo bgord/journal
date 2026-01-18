@@ -19,6 +19,8 @@ describe("WeeklyReviewExportByEmail", async () => {
     EMAIL_FROM: di.Env.EMAIL_FROM,
   });
 
+  const config = { from: di.Env.EMAIL_FROM, to: mocks.email };
+
   test("onWeeklyReviewExportByEmailRequestedEvent - no email", async () => {
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
     const weeklyReviewExportQuery = spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull");
@@ -101,13 +103,14 @@ describe("WeeklyReviewExportByEmail", async () => {
     );
 
     expect(mailerSend).toHaveBeenCalledWith({
-      from: di.Env.EMAIL_FROM,
-      to: mocks.email,
-      subject: `JOURNAL - weekly review ${mocks.weekStart} - ${mocks.weekEnd}`,
-      html: "Find the file attached",
+      config,
+      message: {
+        subject: `JOURNAL - weekly review ${mocks.weekStart} - ${mocks.weekEnd}`,
+        html: "Find the file attached",
+      },
       attachments: [
         {
-          filename: tools.Filename.fromString(`weekly-review-export-${mocks.week.toIsoId()}.pdf`),
+          filename: tools.Filename.fromString(`weekly-review-export-${mocks.week.toIsoId()}.pdf`).get(),
           content: mocks.PDF,
           contentType: "application/pdf",
         },
