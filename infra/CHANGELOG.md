@@ -1,9 +1,12 @@
 # Changelog
+- 2026-01-18 17:40 faf958bc **refactor: remove log file prereq**
+- 2026-01-18 17:40 0dc44705 **step: update packages**
+## 2026-01-18 17:40 
 - 2026-01-18 16:03 d20930ae **step: enable captcha shield for relevant endpoints**
-## 2026-01-18 16:03 
 - 2026-01-18 16:02 6450aacb **refactor: choose noop captcha adapter**
 - 2026-01-18 15:40 50db71bc **refactor: introduce branded subject and html mailer types**
 - 2026-01-18 15:34 0ddcb146 **step: update packages**
+- 2026-01-18 15:04 7cee8cd7 **docs: generate CHANGELOG**
 - 2026-01-18 14:45 5e43e1fc **docs: generate CHANGELOG**
 - 2026-01-18 13:56 17c9924a **refactor: adjust tests**
 - 2026-01-18 13:49 f2629ba7 **refactor: use new vos**
