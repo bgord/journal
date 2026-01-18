@@ -295,7 +295,7 @@ modules/
 │       ├── profile-avatar-key.ts
 │       ├── profile-avatar-max-side.ts
 │       ├── profile-avatar-max-size.ts
-│       ├── profile-avatar-mime-types.ts
+│       ├── profile-avatar-mime-registry.ts
 │       └── profile-avatar-side.ts
 ├── publishing
 │   ├── aggregates
