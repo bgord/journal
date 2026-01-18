@@ -47,11 +47,19 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const entry = new Hono();
 
   entry.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
-  entry.post("/log", HTTP.Emotions.LogEntry(deps));
-  entry.post("/time-capsule-entry/schedule", HTTP.Emotions.ScheduleTimeCapsuleEntry(deps));
-  entry.post("/:entryId/reappraise-emotion", HTTP.Emotions.ReappraiseEmotion(deps));
-  entry.post("/:entryId/evaluate-reaction", HTTP.Emotions.EvaluateReaction(deps));
-  entry.delete("/:entryId/delete", HTTP.Emotions.DeleteEntry(deps));
+  entry.post("/log", Tools.ShieldCaptcha.verify, HTTP.Emotions.LogEntry(deps));
+  entry.post(
+    "/time-capsule-entry/schedule",
+    Tools.ShieldCaptcha.verify,
+    HTTP.Emotions.ScheduleTimeCapsuleEntry(deps),
+  );
+  entry.post(
+    "/:entryId/reappraise-emotion",
+    Tools.ShieldCaptcha.verify,
+    HTTP.Emotions.ReappraiseEmotion(deps),
+  );
+  entry.post("/:entryId/evaluate-reaction", Tools.ShieldCaptcha.verify, HTTP.Emotions.EvaluateReaction(deps));
+  entry.delete("/:entryId/delete", Tools.ShieldCaptcha.verify, HTTP.Emotions.DeleteEntry(deps));
   entry.get(
     "/export-data",
     Tools.ShieldRateLimit.verify,
@@ -82,6 +90,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   weeklyReview.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
   weeklyReview.post(
     "/:weeklyReviewId/export/email",
+    Tools.ShieldCaptcha.verify,
     Tools.ShieldRateLimit.verify,
     HTTP.Emotions.ExportWeeklyReviewByEmail(deps),
   );
@@ -101,9 +110,22 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/links/list",
     HTTP.Publishing.ListShareableLinks({ ...Adapters.System, ...Adapters.Publishing }),
   );
-  publishing.post("/link/create", Tools.ShieldRateLimit.verify, HTTP.Publishing.CreateShareableLink(deps));
-  publishing.post("/link/:shareableLinkId/revoke", HTTP.Publishing.RevokeShareableLink(deps));
-  publishing.post("/link/:shareableLinkId/hide", HTTP.Publishing.HideShareableLink());
+  publishing.post(
+    "/link/create",
+    Tools.ShieldCaptcha.verify,
+    Tools.ShieldRateLimit.verify,
+    HTTP.Publishing.CreateShareableLink(deps),
+  );
+  publishing.post(
+    "/link/:shareableLinkId/revoke",
+    Tools.ShieldCaptcha.verify,
+    HTTP.Publishing.RevokeShareableLink(deps),
+  );
+  publishing.post(
+    "/link/:shareableLinkId/hide",
+    Tools.ShieldCaptcha.verify,
+    HTTP.Publishing.HideShareableLink(),
+  );
   server.route("/publishing", publishing);
   // =============================
 
@@ -119,12 +141,14 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   server.post(
     "/preferences/user-language/update",
     Tools.Auth.ShieldAuth.attach,
+    Tools.ShieldCaptcha.verify,
     Tools.Auth.ShieldAuth.verify,
     HTTP.Preferences.UpdateUserLanguage(deps),
   );
   server.post(
     "/preferences/profile-avatar/update",
     Tools.Auth.ShieldAuth.attach,
+    Tools.ShieldCaptcha.verify,
     Tools.Auth.ShieldAuth.verify,
     ...bg.FileUploader.validate({
       MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
@@ -142,6 +166,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/preferences/profile-avatar",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
+    Tools.ShieldCaptcha.verify,
     HTTP.Preferences.RemoveProfileAvatar(deps),
   );
   // =============================
