@@ -1,17 +1,15 @@
-import * as tools from "@bgord/tools";
+import type * as bg from "@bgord/bun";
 import { SupportedLanguages } from "+languages";
 
-const notification: Record<SupportedLanguages, () => tools.NotificationTemplate> = {
-  [SupportedLanguages.en]: () =>
-    new tools.NotificationTemplate("JOURNAL - time capsule entry", "Go to the homepage"),
-  [SupportedLanguages.pl]: () =>
-    new tools.NotificationTemplate("JOURNAL - wpis z przeszłości", "Odwiedź stronę główną"),
+const notification: Record<SupportedLanguages, () => bg.MailerTemplateMessage> = {
+  [SupportedLanguages.en]: () => ({ subject: "JOURNAL - time capsule entry", html: "Go to the homepage" }),
+  [SupportedLanguages.pl]: () => ({ subject: "JOURNAL - wpis z przeszłości", html: "Odwiedź stronę główną" }),
 };
 
 export class TimeCapsuleEntryNotificationComposer {
   constructor(private readonly language: SupportedLanguages) {}
 
-  compose(): tools.NotificationTemplate {
+  compose(): bg.MailerTemplateMessage {
     return notification[this.language]();
   }
 }

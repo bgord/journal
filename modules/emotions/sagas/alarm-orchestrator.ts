@@ -125,12 +125,12 @@ export class AlarmOrchestrator {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
     const advice = new AI.Advice(event.payload.advice);
 
-    const notification = await new Services.AlarmNotificationFactory(
-      this.deps.EntrySnapshot,
-      language,
-    ).create(detection, advice);
+    const message = await new Services.AlarmNotificationFactory(this.deps.EntrySnapshot, language).create(
+      detection,
+      advice,
+    );
 
-    if (!notification) {
+    if (!message) {
       this.deps.Logger.info({
         message: "Missing notification",
         operation: "alarm_orchestrator_on_alarm_notification_requested_event",
@@ -142,7 +142,9 @@ export class AlarmOrchestrator {
     }
 
     try {
-      await this.deps.Mailer.send({ from: this.deps.EMAIL_FROM, to: contact.address, ...notification.get() });
+      const config = { to: contact.address, from: this.deps.EMAIL_FROM };
+
+      await this.deps.Mailer.send(new bg.MailerTemplate(config, message));
 
       const complete = Commands.CompleteAlarmCommand.parse({
         ...bg.createCommandEnvelope(this.deps),

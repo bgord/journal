@@ -57,16 +57,14 @@ export class WeeklyReviewProcessing {
     const week = tools.Week.fromIsoId(event.payload.weekIsoId);
     const composer = new Emotions.Services.WeeklyReviewSkippedNotificationComposer();
 
-    const notification = composer.compose(week, language);
-
+    // TODO move earlier?
     if (!contact?.address) return;
 
+    const config = { to: contact.address, from: this.deps.EMAIL_FROM };
+    const notification = composer.compose(week, language);
+
     try {
-      await this.deps.Mailer.send({
-        from: this.deps.EMAIL_FROM,
-        to: contact.address,
-        ...notification.get(),
-      });
+      await this.deps.Mailer.send(new bg.MailerTemplate(config, notification));
     } catch (error) {
       this.deps.Logger.error({
         message: "Mailer failure",

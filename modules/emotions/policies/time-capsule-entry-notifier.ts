@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
@@ -32,8 +32,10 @@ export class TimeCapsuleEntryNotifier {
     if (!contact?.address) return;
 
     const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
-    const notification = new Emotions.Services.TimeCapsuleEntryNotificationComposer(language).compose();
 
-    await this.deps.Mailer.send({ from: this.deps.EMAIL_FROM, to: contact.address, ...notification.get() });
+    const config = { to: contact.address, from: this.deps.EMAIL_FROM };
+    const message = new Emotions.Services.TimeCapsuleEntryNotificationComposer(language).compose();
+
+    await this.deps.Mailer.send(new bg.MailerTemplate(config, message));
   }
 }

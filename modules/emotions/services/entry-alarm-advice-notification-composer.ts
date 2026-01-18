@@ -1,22 +1,20 @@
-import * as tools from "@bgord/tools";
+import type * as bg from "@bgord/bun";
 import type * as AI from "+ai";
 import { SupportedLanguages } from "+languages";
 import type * as VO from "+emotions/value-objects";
 
 const notification: Record<
   SupportedLanguages,
-  (entry: VO.EntrySnapshot, advice: AI.Advice) => tools.NotificationTemplate
+  (entry: VO.EntrySnapshot, advice: AI.Advice) => bg.MailerTemplateMessage
 > = {
-  [SupportedLanguages.en]: (entry: VO.EntrySnapshot, advice: AI.Advice) =>
-    new tools.NotificationTemplate(
-      "JOURNAL - emotional advice",
-      `Advice for emotion entry: ${entry.emotionLabel}: ${advice.get()}`,
-    ),
-  [SupportedLanguages.pl]: (entry: VO.EntrySnapshot, advice: AI.Advice) =>
-    new tools.NotificationTemplate(
-      "JOURNAL - porada emocjonalna",
-      `Porada dla emocji: ${entry.emotionLabel}: ${advice.get()}`,
-    ),
+  [SupportedLanguages.en]: (entry: VO.EntrySnapshot, advice: AI.Advice) => ({
+    subject: "JOURNAL - emotional advice",
+    html: `Advice for emotion entry: ${entry.emotionLabel}: ${advice.get()}`,
+  }),
+  [SupportedLanguages.pl]: (entry: VO.EntrySnapshot, advice: AI.Advice) => ({
+    subject: "JOURNAL - porada emocjonalna",
+    html: `Porada dla emocji: ${entry.emotionLabel}: ${advice.get()}`,
+  }),
 };
 
 export class EntryAlarmAdviceNotificationComposer {
@@ -25,7 +23,7 @@ export class EntryAlarmAdviceNotificationComposer {
     private readonly language: SupportedLanguages,
   ) {}
 
-  compose(advice: AI.Advice): tools.NotificationTemplate {
+  compose(advice: AI.Advice): bg.MailerTemplateMessage {
     return notification[this.language](this.entry, advice);
   }
 }

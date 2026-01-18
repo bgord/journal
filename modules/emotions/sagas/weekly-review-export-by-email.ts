@@ -55,14 +55,11 @@ export class WeeklyReviewExportByEmail {
       const attachment = await pdf.toAttachment();
 
       const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
-      const notification = composer.compose(week, language).get();
 
-      await this.deps.Mailer.send({
-        from: this.deps.EMAIL_FROM,
-        to: contact.address,
-        attachments: [attachment],
-        ...notification,
-      });
+      const config = { to: contact.address, from: this.deps.EMAIL_FROM };
+      const message = composer.compose(week, language);
+
+      await this.deps.Mailer.send(new bg.MailerTemplate(config, message, [attachment]));
     } catch {
       await this.deps.EventStore.save([
         Emotions.Events.WeeklyReviewExportByEmailFailedEvent.parse({

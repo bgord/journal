@@ -48,20 +48,22 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
       maxPasswordLength: Auth.VO.Password.MaximumLength,
       requireEmailVerification: true,
       async sendResetPassword({ user, url }) {
-        await deps.Mailer.send({
-          to: user.email,
-          ...new Auth.Services.PasswordResetNotificationComposer().compose(tools.UrlWithoutSlash.parse(url)),
-        });
+        const config = { to: tools.Email.parse(user.email), from: Env.EMAIL_FROM };
+        const message = new Auth.Services.PasswordResetNotificationComposer().compose(
+          tools.UrlWithoutSlash.parse(url),
+        );
+
+        await deps.Mailer.send(new bg.MailerTemplate(config, message));
       },
     },
     emailVerification: {
       async sendVerificationEmail({ user, url }) {
-        await deps.Mailer.send({
-          to: user.email,
-          ...new Auth.Services.EmailVerificationNotificationComposer(Env.BETTER_AUTH_URL).compose(
-            tools.UrlWithoutSlash.parse(url),
-          ),
-        });
+        const config = { to: tools.Email.parse(user.email), from: Env.EMAIL_FROM };
+        const message = new Auth.Services.EmailVerificationNotificationComposer(Env.BETTER_AUTH_URL).compose(
+          tools.UrlWithoutSlash.parse(url),
+        );
+
+        await deps.Mailer.send(new bg.MailerTemplate(config, message));
       },
       sendOnSignUp: true,
       sendOnSignIn: true,

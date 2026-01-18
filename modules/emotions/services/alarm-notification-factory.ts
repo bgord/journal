@@ -1,4 +1,4 @@
-import type * as tools from "@bgord/tools";
+import type * as bg from "@bgord/bun";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type { SupportedLanguages } from "+languages";
@@ -16,7 +16,7 @@ export class AlarmNotificationFactory {
   async create(
     detection: Emotions.VO.AlarmDetection,
     advice: AI.Advice,
-  ): Promise<tools.NotificationTemplate | null> {
+  ): Promise<bg.MailerTemplateMessage | null> {
     switch (detection.trigger.type) {
       case Emotions.VO.AlarmTriggerEnum.entry: {
         const entry = await this.entrySnapshot.getById(detection.trigger.entryId);
