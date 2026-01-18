@@ -1,6 +1,19 @@
 # Changelog
+- 2026-01-18 13:56 17c9924a **refactor: adjust tests**
+## 2026-01-18 13:56 
+- 2026-01-18 13:49 f2629ba7 **refactor: use new vos**
+- 2026-01-18 13:38 20196320 **step: install nodemailer**
+- 2026-01-18 13:37 d7f73155 **refactor: adjust mailer adapter factory**
+- 2026-01-18 13:34 9735ed2e **step: update packages**
+- 2026-01-17 22:11 99b2b5ec **refactor: pass profile avatar mime registry to adapter**
+- 2026-01-17 22:09 a8bea47e **refactor: make profile avatar mime registry**
+- 2026-01-17 22:04 b3db3a2a **refactor: use proper tools.Mimes**
+- 2026-01-17 22:00 8842f3dc **step: update packages**
+- 2026-01-16 20:14 c56719cb **refactor: remove open api in shield auth**
+- 2026-01-16 18:31 4c80dff7 **refactor: adjust z imports**
+- 2026-01-16 18:20 85cefccb **step: update packages**
 - 2026-01-16 17:03 f0d3d67c **step: update packages**
-## 2026-01-16 17:03 
+- 2026-01-16 16:03 78e5bf64 **docs: generate CHANGELOG**
 - 2026-01-16 15:38 3d9ecea5 **step: update packages**
 - 2026-01-16 15:11 88bf78b8 **step: update packages**
 - 2026-01-16 14:28 fb08cd36 **step: pinpoint tinypdf**
