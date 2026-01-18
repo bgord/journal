@@ -14,6 +14,7 @@
         "drizzle-orm": "0.45.1",
         "emittery": "1.2.0",
         "iconoir-react": "7.11.0",
+        "nodemailer": "7.0.12",
         "openai": "6.16.0",
         "react": "19.2.3",
         "react-dom": "19.2.3",
@@ -1139,7 +1140,7 @@
 
     "kuler": ["kuler@2.0.0", "", {}, "sha512-Xq9nH7KlWZmXAtodXDDRE7vs6DU1gTU8zYDHDiWLSip45Egwq3plLHzPn27NgvzL2r1LMPC1vdqh98sQxtqj4A=="],
 
-    "kysely": ["kysely@0.28.9", "", {}, "sha512-3BeXMoiOhpOwu62CiVpO6lxfq4eS6KMYfQdMsN/2kUCRNuF2YiEr7u0HLHaQU+O4Xu8YXE3bHVkwaQ85i72EuA=="],
+    "kysely": ["kysely@0.28.10", "", {}, "sha512-ksNxfzIW77OcZ+QWSAPC7yDqUSaIVwkTWnTPNiIy//vifNbwsSgQ57OkkncHxxpcBHM3LRfLAZVEh7kjq5twVA=="],
 
     "lefthook": ["lefthook@2.0.15", "", { "optionalDependencies": { "lefthook-darwin-arm64": "2.0.15", "lefthook-darwin-x64": "2.0.15", "lefthook-freebsd-arm64": "2.0.15", "lefthook-freebsd-x64": "2.0.15", "lefthook-linux-arm64": "2.0.15", "lefthook-linux-x64": "2.0.15", "lefthook-openbsd-arm64": "2.0.15", "lefthook-openbsd-x64": "2.0.15", "lefthook-windows-arm64": "2.0.15", "lefthook-windows-x64": "2.0.15" }, "bin": { "lefthook": "bin/index.js" } }, "sha512-sl5rePO6UUOLKp6Ci+MMKOc86zicBaPUCvSw2Cq4gCAgTmxpxhIjhz7LOu2ObYerVRPpTq3gvzPTjI71UotjnA=="],
 
@@ -1244,6 +1245,8 @@
     "node-cache": ["node-cache@5.1.2", "", { "dependencies": { "clone": "2.x" } }, "sha512-t1QzWwnk4sjLWaQAS8CHgOJ+RAfmHpxFWmc36IWTiWHQfs0w5JDMBS1b1ZxQteo0vVVuWJvIUKHDkkeK7vIGCg=="],
 
     "node-releases": ["node-releases@2.0.27", "", {}, "sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA=="],
+
+    "nodemailer": ["nodemailer@7.0.12", "", {}, "sha512-H+rnK5bX2Pi/6ms3sN4/jRQvYSMltV6vqup/0SFOrxYYY/qoNvhXPlYq3e+Pm9RFJRwrMGbMIwi81M4dxpomhA=="],
 
     "normalize-path": ["normalize-path@3.0.0", "", {}, "sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA=="],
 
