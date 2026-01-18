@@ -1,10 +1,14 @@
 # Changelog
+- 2026-01-18 15:40 50db71bc **refactor: introduce branded subject and html mailer types**
+## 2026-01-18 15:40 
+- 2026-01-18 15:34 0ddcb146 **step: update packages**
 - 2026-01-18 13:56 17c9924a **refactor: adjust tests**
-## 2026-01-18 13:56 
 - 2026-01-18 13:49 f2629ba7 **refactor: use new vos**
 - 2026-01-18 13:38 20196320 **step: install nodemailer**
 - 2026-01-18 13:37 d7f73155 **refactor: adjust mailer adapter factory**
 - 2026-01-18 13:34 9735ed2e **step: update packages**
+- 2026-01-18 13:06 4ba0b9a9 **docs: generate CHANGELOG**
+- 2026-01-18 13:06 3fd9f062 **docs: generate readme**
 - 2026-01-17 22:11 99b2b5ec **refactor: pass profile avatar mime registry to adapter**
 - 2026-01-17 22:09 a8bea47e **refactor: make profile avatar mime registry**
 - 2026-01-17 22:04 b3db3a2a **refactor: use proper tools.Mimes**
