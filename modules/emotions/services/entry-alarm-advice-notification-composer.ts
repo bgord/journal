@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type * as AI from "+ai";
 import { SupportedLanguages } from "+languages";
 import type * as VO from "+emotions/value-objects";
@@ -8,12 +8,12 @@ const notification: Record<
   (entry: VO.EntrySnapshot, advice: AI.Advice) => bg.MailerTemplateMessage
 > = {
   [SupportedLanguages.en]: (entry: VO.EntrySnapshot, advice: AI.Advice) => ({
-    subject: "JOURNAL - emotional advice",
-    html: `Advice for emotion entry: ${entry.emotionLabel}: ${advice.get()}`,
+    subject: bg.MailerSubject.parse("JOURNAL - emotional advice"),
+    html: bg.MailerContentHtml.parse(`Advice for emotion entry: ${entry.emotionLabel}: ${advice.get()}`),
   }),
   [SupportedLanguages.pl]: (entry: VO.EntrySnapshot, advice: AI.Advice) => ({
-    subject: "JOURNAL - porada emocjonalna",
-    html: `Porada dla emocji: ${entry.emotionLabel}: ${advice.get()}`,
+    subject: bg.MailerSubject.parse("JOURNAL - porada emocjonalna"),
+    html: bg.MailerContentHtml.parse(`Porada dla emocji: ${entry.emotionLabel}: ${advice.get()}`),
   }),
 };
 

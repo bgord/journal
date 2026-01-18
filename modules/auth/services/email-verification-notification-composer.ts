@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 
 export class EmailVerificationNotificationComposer {
@@ -9,8 +9,10 @@ export class EmailVerificationNotificationComposer {
     callbackUrl.searchParams.set("callbackURL", `${this.BETTER_AUTH_URL}/auth/login`);
 
     return {
-      subject: "Verify your Journal account",
-      html: `<p>Click to verify: <a href="${callbackUrl.toString()}">Verify</a></p>`,
+      subject: bg.MailerSubject.parse("Verify your Journal account"),
+      html: bg.MailerContentHtml.parse(
+        `<p>Click to verify: <a href="${callbackUrl.toString()}">Verify</a></p>`,
+      ),
     };
   }
 }

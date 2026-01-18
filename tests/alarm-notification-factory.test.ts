@@ -1,4 +1,5 @@
 import { describe, expect, spyOn, test } from "bun:test";
+import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import { SupportedLanguages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
@@ -27,8 +28,8 @@ describe("AlarmNotificationFactory", async () => {
     ).create(mocks.entryDetection, mocks.advice);
 
     expect(result).toEqual({
-      subject: "JOURNAL - emotional advice",
-      html: `Advice for emotion entry: anger: ${mocks.advice.get()}`,
+      subject: bg.MailerSubject.parse("JOURNAL - emotional advice"),
+      html: bg.MailerContentHtml.parse(`Advice for emotion entry: anger: ${mocks.advice.get()}`),
     });
   });
 
@@ -41,8 +42,8 @@ describe("AlarmNotificationFactory", async () => {
     ).create(mocks.entryDetection, mocks.advice);
 
     expect(result).toEqual({
-      subject: "JOURNAL - porada emocjonalna",
-      html: `Porada dla emocji: anger: ${mocks.advice.get()}`,
+      subject: bg.MailerSubject.parse("JOURNAL - porada emocjonalna"),
+      html: bg.MailerContentHtml.parse(`Porada dla emocji: anger: ${mocks.advice.get()}`),
     });
   });
 
@@ -53,8 +54,10 @@ describe("AlarmNotificationFactory", async () => {
     ).create(mocks.inactivityDetection, mocks.advice);
 
     expect(result).toEqual({
-      subject: "JOURNAL - inactivity advice",
-      html: `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
+      subject: bg.MailerSubject.parse("JOURNAL - inactivity advice"),
+      html: bg.MailerContentHtml.parse(
+        `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
+      ),
     });
   });
 
@@ -65,8 +68,10 @@ describe("AlarmNotificationFactory", async () => {
     ).create(mocks.inactivityDetection, mocks.advice);
 
     expect(result).toEqual({
-      subject: "JOURNAL - porada dla braku aktywności",
-      html: `Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni, porada: ${mocks.advice.get()}`,
+      subject: bg.MailerSubject.parse("JOURNAL - porada dla braku aktywności"),
+      html: bg.MailerContentHtml.parse(
+        `Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni, porada: ${mocks.advice.get()}`,
+      ),
     });
   });
 
