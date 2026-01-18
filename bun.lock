@@ -6,7 +6,7 @@
       "name": "journal",
       "dependencies": {
         "@anthropic-ai/sdk": "0.71.2",
-        "@bgord/bun": "1.9.5",
+        "@bgord/bun": "1.9.6",
         "@bgord/design": "1.6.0",
         "@bgord/ui": "0.8.20",
         "@tanstack/react-router": "1.151.3",
@@ -132,7 +132,7 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.21", "", {}, "sha512-/ImESw0sskqlVR94jB+5+Pxjf+xBwDZF/N5+y2/q4EqD7IARUTSpPfIo8uf39SYpCxyOCtbyYpUrZ3F/k0zT4A=="],
 
-    "@bgord/bun": ["@bgord/bun@1.9.5", "", { "dependencies": { "@bgord/tools": "1.3.7", "better-auth": "1.4.15", "croner": "9.1.0", "csv": "6.4.1", "hcaptcha": "0.2.0", "hono": "4.11.4", "node-cache": "5.1.2", "winston": "3.19.0", "yazl": "3.3.1" }, "peerDependencies": { "nodemailer": "7.0.12", "resend": "6.7.0", "sharp": "0.34.5", "zod": "4.3.5" }, "optionalPeers": ["nodemailer", "resend", "sharp"] }, "sha512-/NCike5u9XurAA+8k0FWIS/6g3VF4scJJn8Zi0bEmSMoa969C94sHY/8y+rvjF80zsWSW+WMvI6o+2ycwpB9iQ=="],
+    "@bgord/bun": ["@bgord/bun@1.9.6", "", { "dependencies": { "@bgord/tools": "1.3.7", "better-auth": "1.4.15", "croner": "9.1.0", "csv": "6.4.1", "hono": "4.11.4", "node-cache": "5.1.2", "winston": "3.19.0", "yazl": "3.3.1" }, "peerDependencies": { "nodemailer": "7.0.12", "resend": "6.7.0", "sharp": "0.34.5", "zod": "4.3.5" }, "optionalPeers": ["nodemailer", "resend", "sharp"] }, "sha512-LFOccHxCUkqxiWH67Y7Yi85nKr7Y1fSG7OlUNm/QZkYvwA234+kvzPygt6dlK/ONhUZ718rhCsqxVqvQ4Vgwzg=="],
 
     "@bgord/design": ["@bgord/design@1.6.0", "", { "dependencies": { "culori": "4.0.2" } }, "sha512-hio8A5qw9H7dn0djHAMtip25WHLXW1YwgNGgf/d93FBEMzDDu+s9vbnecJwAdf0hP2quORblO6IF4RJY4aRdVw=="],
 
@@ -1035,8 +1035,6 @@
     "has-tostringtag": ["has-tostringtag@1.0.2", "", { "dependencies": { "has-symbols": "^1.0.3" } }, "sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw=="],
 
     "hasown": ["hasown@2.0.2", "", { "dependencies": { "function-bind": "^1.1.2" } }, "sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ=="],
-
-    "hcaptcha": ["hcaptcha@0.2.0", "", {}, "sha512-x25z3RoEa9oqfyuQsgk2olc+LCNVDAJaGKUP1qFhpAybB6qjqOf4qB2y1E3LJpXDvM229JWEywc6iWnzWvGjNw=="],
 
     "hono": ["hono@4.11.4", "", {}, "sha512-U7tt8JsyrxSRKspfhtLET79pU8K+tInj5QZXs1jSugO1Vq5dFj3kmZsRldo29mTBfcjDRVRXrEZ6LS63Cog9ZA=="],
 
