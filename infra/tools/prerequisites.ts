@@ -69,7 +69,6 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
       new bg.PrerequisiteVerifierMemoryAdapter({ maximum: tools.Size.fromMB(300) }),
       { decorators: [withRetry] },
     ),
-    new bg.Prerequisite("log-file", new bg.PrerequisiteVerifierLogFileAdapter(deps), { enabled: production }),
     new bg.Prerequisite(
       "temporary-files dir",
       new bg.PrerequisiteVerifierDirectoryAdapter({ directory: deps.TemporaryFile.root }),
