@@ -6,7 +6,6 @@ import { createDiskSpaceChecker } from "./disk-space-checker.adapter";
 import { createFileCleaner } from "./file-cleaner.adapter";
 import { createFileInspection } from "./file-inspection.adapter";
 import { FileReaderJson } from "./file-reader-json.adapter";
-import { FileReaderText } from "./file-reader-text.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
 import { FileWriter } from "./file-writer.adapter";
 import { createHashFile } from "./hash-file.adapter";
@@ -30,7 +29,7 @@ export async function createSystemAdapters(Env: EnvironmentType) {
   const Mailer = await createMailer(Env, { Logger, Clock });
   const Timekeeper = createTimekeeper(Env, { Clock });
   const FileInspection = createFileInspection(Env);
-  const HashFile = createHashFile({ FileInspection, FileReaderText });
+  const HashFile = createHashFile({ FileInspection });
 
   return {
     CertificateInspector: createCertificateInspector(Env, { Clock }),

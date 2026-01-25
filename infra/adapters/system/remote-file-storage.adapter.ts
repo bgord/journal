@@ -13,7 +13,14 @@ type Dependencies = {
 export function createRemoteFileStorage(Env: EnvironmentType, deps: Dependencies) {
   const config = { root: tools.DirectoryPathAbsoluteSchema.parse("/tmp") };
 
-  const RemoteFileStorageTmp = new bg.RemoteFileStorageDiskAdapter(config, deps);
+  const FileCopier = new bg.FileCopierAdapter();
+  const DirectoryEnsurer = new bg.DirectoryEnsurerAdapter();
+
+  const RemoteFileStorageTmp = new bg.RemoteFileStorageDiskAdapter(config, {
+    ...deps,
+    FileCopier,
+    DirectoryEnsurer,
+  });
 
   return {
     [bg.NodeEnvironmentEnum.local]: RemoteFileStorageTmp,
@@ -21,7 +28,7 @@ export function createRemoteFileStorage(Env: EnvironmentType, deps: Dependencies
     [bg.NodeEnvironmentEnum.staging]: RemoteFileStorageTmp,
     [bg.NodeEnvironmentEnum.production]: new bg.RemoteFileStorageDiskAdapter(
       { root: tools.DirectoryPathAbsoluteSchema.parse("/var/www/journal/infra/avatars") },
-      deps,
+      { ...deps, FileCopier, DirectoryEnsurer },
     ),
   }[Env.type];
 }
