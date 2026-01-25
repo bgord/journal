@@ -103,8 +103,6 @@ describe(`GET ${url}`, async () => {
       `attachment; filename="weekly-review-export-${mocks.week.toIsoId()}.pdf"`,
     );
 
-    const file = Buffer.from(await response.arrayBuffer());
-
-    expect(file).toEqual(mocks.PDF);
+    expect(await response.arrayBuffer()).toEqual(mocks.PDF);
   });
 });

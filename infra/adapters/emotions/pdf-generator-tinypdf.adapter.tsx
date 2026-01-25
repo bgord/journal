@@ -36,13 +36,13 @@ const templates: Record<bg.PdfGeneratorTemplateType, TemplateFn> = {
 };
 
 export class PdfGeneratorTinypdfAdapter implements bg.PdfGeneratorPort {
-  async request(template: bg.PdfGeneratorTemplateType, data: Record<string, unknown> = {}) {
+  async request(template: bg.PdfGeneratorTemplateType, data: Record<string, unknown>): Promise<ArrayBuffer> {
     const build = templates[template];
 
     if (!build) {
       throw new Error(`Unknown PDF template: ${template}`);
     }
 
-    return Buffer.from(build(data));
+    return new Uint8Array(build(data)).buffer;
   }
 }
