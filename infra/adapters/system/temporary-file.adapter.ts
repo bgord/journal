@@ -2,7 +2,11 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { EnvironmentType } from "+infra/env";
 
-type Dependencies = { FileCleaner: bg.FileCleanerPort; FileRenamer: bg.FileRenamerPort };
+type Dependencies = {
+  FileCleaner: bg.FileCleanerPort;
+  FileRenamer: bg.FileRenamerPort;
+  FileWriter: bg.FileWriterPort;
+};
 
 export function createTemporaryFile(Env: EnvironmentType, deps: Dependencies): bg.TemporaryFilePort {
   const local = tools.DirectoryPathAbsoluteSchema.parse(`${__dirname}/profile-avatars`);
