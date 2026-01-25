@@ -17,6 +17,7 @@ type Dependencies = {
   Clock: bg.ClockPort;
   Sleeper: bg.SleeperPort;
   TimeoutRunner: bg.TimeoutRunnerPort;
+  FileInspection: bg.FileInspectionPort;
 };
 
 export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
@@ -71,12 +72,12 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
     ),
     new bg.Prerequisite(
       "temporary-files dir",
-      new bg.PrerequisiteVerifierDirectoryAdapter({ directory: deps.TemporaryFile.root }),
+      new bg.PrerequisiteVerifierDirectoryAdapter({ directory: deps.TemporaryFile.root }, deps),
       { enabled: production },
     ),
     new bg.Prerequisite(
       "remote-file-storage dir",
-      new bg.PrerequisiteVerifierDirectoryAdapter({ directory: deps.RemoteFileStorage.root }),
+      new bg.PrerequisiteVerifierDirectoryAdapter({ directory: deps.RemoteFileStorage.root }, deps),
       { enabled: production },
     ),
     new bg.Prerequisite("jobs", new bg.PrerequisiteVerifierJobsAdapter(deps)),
@@ -132,20 +133,23 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
     ),
     new bg.Prerequisite(
       "master-key",
-      new bg.PrerequisiteVerifierFileAdapter({ file: MasterKeyPath, permissions: { read: true } }),
+      new bg.PrerequisiteVerifierFileAdapter({ file: MasterKeyPath, permissions: { read: true } }, deps),
       { enabled: production },
     ),
     new bg.Prerequisite(
       "secrets",
-      new bg.PrerequisiteVerifierFileAdapter({ file: SecretsPath, permissions: { read: true } }),
+      new bg.PrerequisiteVerifierFileAdapter({ file: SecretsPath, permissions: { read: true } }, deps),
       { enabled: production },
     ),
     new bg.Prerequisite(
       "build-info-file",
-      new bg.PrerequisiteVerifierFileAdapter({
-        file: bg.BUILD_INFO_REPOSITORY_FILE_PATH,
-        permissions: { read: true },
-      }),
+      new bg.PrerequisiteVerifierFileAdapter(
+        {
+          file: bg.BUILD_INFO_REPOSITORY_FILE_PATH,
+          permissions: { read: true },
+        },
+        deps,
+      ),
       { enabled: production },
     ),
   ];

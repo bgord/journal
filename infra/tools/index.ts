@@ -30,6 +30,7 @@ type Dependencies = {
   RemoteFileStorage: bg.RemoteFileStoragePort;
   Sleeper: bg.SleeperPort;
   TimeoutRunner: bg.TimeoutRunnerPort;
+  FileInspection: bg.FileInspectionPort;
 };
 
 export function createTools(Env: EnvironmentType, deps: Dependencies) {

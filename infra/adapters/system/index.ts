@@ -4,6 +4,7 @@ import { createClock } from "./clock.adapter";
 import { CsvStringifier } from "./csv-stringifier.adapter";
 import { createDiskSpaceChecker } from "./disk-space-checker.adapter";
 import { createFileCleaner } from "./file-cleaner.adapter";
+import { createFileInspection } from "./file-inspection.adapter";
 import { FileReaderJson } from "./file-reader-json.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
 import { HashFile } from "./hash-file.adapter";
@@ -47,5 +48,6 @@ export async function createSystemAdapters(Env: EnvironmentType) {
     Sleeper: createSleeper(Env),
     TimeoutRunner: createTimeoutRunner(Env),
     RemoteFileStorage: createRemoteFileStorage(Env, { HashFile, FileCleaner, FileRenamer, Logger, Clock }),
+    FileInspection: createFileInspection(Env),
   };
 }
