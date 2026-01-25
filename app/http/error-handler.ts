@@ -85,7 +85,7 @@ export class ErrorHandler {
             body: await bg.safeParseBody(c),
             error: validationError,
           },
-          error: bg.formatError(error),
+          error,
         });
 
         return c.json({ message: validationError.message, _known: true }, 400);
@@ -97,7 +97,7 @@ export class ErrorHandler {
         operation: "invalid_payload",
         correlationId,
         metadata: { url, body: await bg.safeParseBody(c) },
-        error: bg.formatError(error),
+        error,
       });
 
       return c.json({ message: "payload.invalid.error", _known: true }, 400);
@@ -111,7 +111,7 @@ export class ErrorHandler {
         component: "http",
         operation: invariantError.message,
         correlationId,
-        error: bg.formatError(error),
+        error,
       });
 
       return c.json(...bg.InvariantErrorHandler.respond(invariantError));
@@ -122,7 +122,7 @@ export class ErrorHandler {
       component: "http",
       operation: "unknown_error",
       correlationId,
-      error: bg.formatError(error),
+      error,
     });
 
     return c.json({ message: "general.unknown" }, 500);
