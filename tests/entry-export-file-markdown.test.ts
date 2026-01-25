@@ -12,8 +12,6 @@ describe("EntryExportFileMarkdown", async () => {
       di.Adapters.System,
     );
 
-    const result = file.create();
-
-    expect(result).toEqual(`${mocks.entryMarkdown}\n${mocks.entryMarkdown}`);
+    expect(await file.create()).toEqual(`${mocks.entryMarkdown}\n${mocks.entryMarkdown}`);
   });
 });

@@ -12,8 +12,6 @@ describe("EntryExportFileText", async () => {
       di.Adapters.System,
     );
 
-    const result = file.create();
-
-    expect(result).toEqual(`${mocks.entryText}\n${mocks.entryText}`);
+    expect(await file.create()).toEqual(`${mocks.entryText}\n${mocks.entryText}`);
   });
 });

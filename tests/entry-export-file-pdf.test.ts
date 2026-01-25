@@ -13,9 +13,7 @@ describe("EntryExportFilePdf", async () => {
   test("generates a PDF", async () => {
     const pdfGeneratorRequest = spyOn(di.Adapters.Emotions.PdfGenerator, "request");
 
-    const result = await file.create();
-
-    expect(result).toEqual(mocks.PDF);
+    expect(await file.create()).toEqual(mocks.PDF);
     expect(pdfGeneratorRequest).toHaveBeenCalledWith("entry_export", { entries: [mocks.fullEntry] });
   });
 });

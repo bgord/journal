@@ -70,7 +70,7 @@ export class WeeklyReviewProcessing {
         message: "Mailer failure",
         component: "emotions",
         operation: "weekly_review_processing_on_weekly_review_skipped_event",
-        error: bg.formatError(error),
+        error,
         correlationId: event.correlationId,
         metadata: event.payload,
       });
