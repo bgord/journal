@@ -10,7 +10,7 @@ import { SupportedLanguages } from "./modules/supported-languages";
 export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const deps = { ...Adapters.System, ...Tools };
 
-  const HashContent = new bg.HashContentSha256BunStrategy();
+  const HashContent = new bg.HashContentSha256Strategy();
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
   const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
 

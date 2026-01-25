@@ -8,7 +8,7 @@ export function createShieldRateLimit(Env: EnvironmentType, deps: Dependencies):
   const ttl = tools.Duration.Seconds(30);
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "finite", ttl });
   const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
-  const HashContent = new bg.HashContentSha256BunStrategy();
+  const HashContent = new bg.HashContentSha256Strategy();
 
   return new bg.ShieldRateLimitStrategy(
     {

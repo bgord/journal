@@ -50,7 +50,7 @@ export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPor
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
   const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
 
-  const HashContent = new bg.HashContentSha256BunStrategy();
+  const HashContent = new bg.HashContentSha256Strategy();
 
   const EnvironmentLoaderProcessSafe = new bg.EnvironmentLoaderProcessSafeAdapter(
     process.env,

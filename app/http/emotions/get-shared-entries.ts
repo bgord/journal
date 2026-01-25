@@ -17,7 +17,7 @@ export const GetSharedEntries = (deps: Dependencies) => async (c: hono.Context<i
   const context = {
     timestamp: deps.Clock.now().ms,
     visitorId: await new bg.VisitorIdClientStrategy(client, {
-      HashContent: new bg.HashContentSha256BunStrategy(),
+      HashContent: new bg.HashContentSha256Strategy(),
     }).get(),
   };
 
