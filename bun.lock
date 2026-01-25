@@ -6,7 +6,7 @@
       "name": "journal",
       "dependencies": {
         "@anthropic-ai/sdk": "0.71.2",
-        "@bgord/bun": "1.10.0",
+        "@bgord/bun": "1.10.1",
         "@bgord/design": "1.6.0",
         "@bgord/ui": "0.8.20",
         "@tanstack/react-router": "1.157.9",
@@ -124,7 +124,7 @@
 
     "@babel/types": ["@babel/types@7.28.6", "", { "dependencies": { "@babel/helper-string-parser": "^7.27.1", "@babel/helper-validator-identifier": "^7.28.5" } }, "sha512-0ZrskXVEHSWIqZM/sQZ4EV3jZJXRkio/WCxaqKZP1g//CEWEPSfeZFcms4XeKBCHU0ZKnIkdJeU/kF+eRp5lBg=="],
 
-    "@bgord/bun": ["@bgord/bun@1.10.0", "", { "dependencies": { "@bgord/tools": "1.3.10", "croner": "9.1.0", "csv": "6.4.1", "hono": "4.11.5", "node-cache": "5.1.2", "yazl": "3.3.1" }, "peerDependencies": { "better-auth": "1.4.17", "nodemailer": "7.0.12", "resend": "6.8.0", "sharp": "0.34.5", "zod": "4.3.6" }, "optionalPeers": ["better-auth", "nodemailer", "resend", "sharp"] }, "sha512-1GgzR/cIX4DKBWxWJSSJo9BsUFAPwCAYxD7Q1su6SS+MV68g8wxPZFDJNbkVeVh34/AOmf9Z7V+xki74FnXXLw=="],
+    "@bgord/bun": ["@bgord/bun@1.10.1", "", { "dependencies": { "@bgord/tools": "1.3.10", "croner": "9.1.0", "csv": "6.4.1", "hono": "4.11.5", "node-cache": "5.1.2", "yazl": "3.3.1" }, "peerDependencies": { "better-auth": "1.4.17", "nodemailer": "7.0.12", "resend": "6.8.0", "sharp": "0.34.5", "zod": "4.3.6" }, "optionalPeers": ["better-auth", "nodemailer", "resend", "sharp"] }, "sha512-1oECvE5VSjoZSbeXCd3bt561I+U+vKOCN7Ba3kNxRt4zW+oxXqG80Hrta46EIoyPROvZcUqZX599ZMdMFvye1Q=="],
 
     "@bgord/design": ["@bgord/design@1.6.0", "", { "dependencies": { "culori": "4.0.2" } }, "sha512-hio8A5qw9H7dn0djHAMtip25WHLXW1YwgNGgf/d93FBEMzDDu+s9vbnecJwAdf0hP2quORblO6IF4RJY4aRdVw=="],
 
