@@ -24,7 +24,7 @@ export const UpdateProfileAvatar = (deps: Dependencies) => async (c: hono.Contex
   const command = Preferences.Commands.UpdateProfileAvatarCommand.parse({
     ...bg.createCommandEnvelope(deps),
     name: Preferences.Commands.UPDATE_PROFILE_AVATAR_COMMAND,
-    payload: { userId, absoluteFilePath: temporary.path.get() },
+    payload: { userId, absoluteFilePath: temporary.get() },
   } satisfies Preferences.Commands.UpdateProfileAvatarCommandType);
 
   await deps.CommandBus.emit(command.name, command);

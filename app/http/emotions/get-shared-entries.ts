@@ -13,7 +13,9 @@ type Dependencies = {
 export const GetSharedEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
 
-  const client = bg.ClientFromHono.translate(c);
+  const request = new bg.RequestContextAdapterHono(c);
+  const client = bg.Client.fromParts(request.identity.ip(), request.identity.ua());
+
   const context = {
     timestamp: deps.Clock.now().ms,
     visitorId: await new bg.VisitorIdClientStrategy(client, {
