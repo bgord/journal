@@ -7,7 +7,7 @@ import { createFileCleaner } from "./file-cleaner.adapter";
 import { createFileInspection } from "./file-inspection.adapter";
 import { FileReaderJson } from "./file-reader-json.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
-import { HashFile } from "./hash-file.adapter";
+import { createHashFile } from "./hash-file.adapter";
 import { IdProvider } from "./id-provider.adapter";
 import { ImageInfo } from "./image-info.adapter";
 import { createImageProcessor } from "./image-processor.adapter";
@@ -27,6 +27,8 @@ export async function createSystemAdapters(Env: EnvironmentType) {
   const FileRenamer = createFileRenamer(Env);
   const Mailer = await createMailer(Env, { Logger, Clock });
   const Timekeeper = createTimekeeper(Env, { Clock });
+  const FileInspection = createFileInspection(Env);
+  const HashFile = createHashFile({ FileInspection });
 
   return {
     CertificateInspector: createCertificateInspector(Env, { Clock }),
@@ -48,6 +50,6 @@ export async function createSystemAdapters(Env: EnvironmentType) {
     Sleeper: createSleeper(Env),
     TimeoutRunner: createTimeoutRunner(Env),
     RemoteFileStorage: createRemoteFileStorage(Env, { HashFile, FileCleaner, FileRenamer, Logger, Clock }),
-    FileInspection: createFileInspection(Env),
+    FileInspection,
   };
 }
