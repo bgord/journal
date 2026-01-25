@@ -16,7 +16,7 @@ export class EntryExportFileText extends bg.FileDraft {
     );
   }
 
-  create() {
+  async create() {
     return this.entries.map((entry) => `Situation description: ${entry.situationDescription}`).join("\n");
   }
 }

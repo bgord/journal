@@ -16,8 +16,7 @@ export class WeeklyReviewExportPdfFile extends bg.FileDraft {
     );
   }
 
-  // @ts-expect-error
-  create() {
+  async create() {
     return this.deps.PdfGenerator.request("weekly_review_export", this.data);
   }
 }

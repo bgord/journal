@@ -16,8 +16,7 @@ export class EntryExportFilePdf extends bg.FileDraft {
     );
   }
 
-  // @ts-expect-error
-  create() {
+  async create() {
     return this.deps.PdfGenerator.request("entry_export", { entries: this.entries });
   }
 }
