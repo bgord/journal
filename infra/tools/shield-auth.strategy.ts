@@ -8,6 +8,11 @@ import { db } from "+infra/db";
 import type { EnvironmentType } from "+infra/env";
 import type { EventStoreType } from "+infra/tools/event-store";
 
+export type AuthVariables = {
+  user: ReturnType<typeof betterAuth>["$Infer"]["Session"]["user"];
+  session: ReturnType<typeof betterAuth>["$Infer"]["Session"]["user"];
+};
+
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
@@ -89,10 +94,7 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
     logger: new bg.BetterAuthLogger(deps).attach(),
   });
 
-  return { ShieldAuth: new bg.ShieldAuthStrategy(config), config };
-}
+  const AuthSessionReader = new bg.AuthSessionReaderBetterAuthAdapter(config);
 
-export type AuthVariables = {
-  user: ReturnType<typeof createShieldAuth>["config"]["$Infer"]["Session"]["user"];
-  session: ReturnType<typeof createShieldAuth>["config"]["$Infer"]["Session"]["session"];
-};
+  return { ShieldAuth: new bg.ShieldAuthStrategy({ AuthSessionReader, ...deps }), config };
+}
