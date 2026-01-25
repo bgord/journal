@@ -21,10 +21,10 @@ import { createTimeoutRunner } from "./timeout-runner.adapter";
 
 export async function createSystemAdapters(Env: EnvironmentType) {
   const Clock = createClock(Env);
-  const Logger = createLogger(Env);
+  const Logger = createLogger(Env, { Clock });
   const FileCleaner = createFileCleaner(Env);
   const FileRenamer = createFileRenamer(Env);
-  const Mailer = await createMailer(Env, { Logger });
+  const Mailer = await createMailer(Env, { Logger, Clock });
   const Timekeeper = createTimekeeper(Env, { Clock });
 
   return {

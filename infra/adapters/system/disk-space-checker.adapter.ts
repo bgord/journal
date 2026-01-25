@@ -4,7 +4,7 @@ import type { EnvironmentType } from "+infra/env";
 
 export function createDiskSpaceChecker(Env: EnvironmentType): bg.DiskSpaceCheckerPort {
   const DiskSpaceCheckerNoopAdapter = new bg.DiskSpaceCheckerNoopAdapter(tools.Size.fromGB(10));
-  const DiskSpaceCheckerBunAdapter = new bg.DiskSpaceCheckerBunAdapter();
+  const DiskSpaceCheckerBunAdapter = new bg.DiskSpaceCheckerShellAdapter();
 
   return {
     [bg.NodeEnvironmentEnum.local]: DiskSpaceCheckerBunAdapter,

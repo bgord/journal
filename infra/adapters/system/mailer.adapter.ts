@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import type { EnvironmentType } from "+infra/env";
 
-type Dependencies = { Logger: bg.LoggerPort };
+type Dependencies = { Logger: bg.LoggerPort; Clock: bg.ClockPort };
 
 export async function createMailer(Env: EnvironmentType, deps: Dependencies): Promise<bg.MailerPort> {
   const MailerNoop = new bg.MailerNoopAdapter();
