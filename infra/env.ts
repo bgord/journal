@@ -44,8 +44,21 @@ export const SecretsPath = tools.FilePathAbsolute.fromString("/var/www/journal/s
 export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPort<typeof Schema>> {
   const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
 
-  const CryptoKeyProvider = new bg.CryptoKeyProviderFileAdapter(MasterKeyPath);
-  const Encryption = new bg.EncryptionAesGcmAdapter({ CryptoKeyProvider });
+  const FileInspection = new bg.FileInspectionAdapter();
+  const FileReaderText = new bg.FileReaderTextAdapter();
+  const FileReaderRaw = new bg.FileReaderRawAdapter();
+  const FileWriter = new bg.FileWriterAdapter();
+
+  const CryptoKeyProvider = new bg.CryptoKeyProviderFileAdapter(MasterKeyPath, {
+    FileInspection,
+    FileReaderText,
+  });
+  const Encryption = new bg.EncryptionAesGcmAdapter({
+    CryptoKeyProvider,
+    FileInspection,
+    FileReaderRaw,
+    FileWriter,
+  });
 
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
   const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
