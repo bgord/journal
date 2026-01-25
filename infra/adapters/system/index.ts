@@ -6,10 +6,11 @@ import { createDiskSpaceChecker } from "./disk-space-checker.adapter";
 import { createFileCleaner } from "./file-cleaner.adapter";
 import { createFileInspection } from "./file-inspection.adapter";
 import { FileReaderJson } from "./file-reader-json.adapter";
+import { FileReaderText } from "./file-reader-text.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
 import { createHashFile } from "./hash-file.adapter";
 import { IdProvider } from "./id-provider.adapter";
-import { ImageInfo } from "./image-info.adapter";
+import { createImageInfo } from "./image-info.adapter";
 import { createImageProcessor } from "./image-processor.adapter";
 import { createLogger } from "./logger.adapter";
 import { createMailer } from "./mailer.adapter";
@@ -28,7 +29,7 @@ export async function createSystemAdapters(Env: EnvironmentType) {
   const Mailer = await createMailer(Env, { Logger, Clock });
   const Timekeeper = createTimekeeper(Env, { Clock });
   const FileInspection = createFileInspection(Env);
-  const HashFile = createHashFile({ FileInspection });
+  const HashFile = createHashFile({ FileInspection, FileReaderText });
 
   return {
     CertificateInspector: createCertificateInspector(Env, { Clock }),
@@ -44,7 +45,7 @@ export async function createSystemAdapters(Env: EnvironmentType) {
     FileRenamer,
     TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer }),
     CsvStringifier,
-    ImageInfo,
+    ImageInfo: createImageInfo({ FileInspection }),
     HashFile,
     ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
     Sleeper: createSleeper(Env),
