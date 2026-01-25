@@ -31,7 +31,8 @@ describe("GET /entry/export-data", async () => {
       `attachment; filename="export-${mocks.T0}.zip"`,
     );
 
-    const zip = Buffer.from(await response.arrayBuffer()).toString("utf-8");
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    const zip = new TextDecoder().decode(bytes);
 
     expect(zip).toContain(`entry-export-${mocks.T0}.csv`);
     expect(zip).toContain(`alarm-export-${mocks.T0}.csv`);
