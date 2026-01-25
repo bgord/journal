@@ -37,7 +37,10 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.ShieldRateLimit.verify,
     Tools.ShieldTimeout.verify,
     Tools.ShieldBasicAuth.verify,
-    ...bg.Healthcheck.build(Env.type, Tools.Prerequisites, { ...Adapters.System, ...Tools }),
+    ...bg.Healthcheck.build(
+      { Env: Env.type, prerequisites: Tools.Prerequisites },
+      { ...Adapters.System, ...Tools },
+    ),
   );
 
   server.get("/ping", ...bg.Ping.build());
