@@ -8,6 +8,7 @@ import { createFileInspection } from "./file-inspection.adapter";
 import { FileReaderJson } from "./file-reader-json.adapter";
 import { FileReaderText } from "./file-reader-text.adapter";
 import { createFileRenamer } from "./file-renamer.adapter";
+import { FileWriter } from "./file-writer.adapter";
 import { createHashFile } from "./hash-file.adapter";
 import { IdProvider } from "./id-provider.adapter";
 import { createImageInfo } from "./image-info.adapter";
@@ -43,7 +44,7 @@ export async function createSystemAdapters(Env: EnvironmentType) {
     Timekeeper,
     FileCleaner,
     FileRenamer,
-    TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer }),
+    TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer, FileWriter }),
     CsvStringifier,
     ImageInfo: createImageInfo({ FileInspection }),
     HashFile,
