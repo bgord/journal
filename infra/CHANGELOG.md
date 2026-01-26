@@ -1,6 +1,8 @@
 # Changelog
+- 2026-01-26 14:23 208abf20 **step: make log metadata arrays more compact**
+## 2026-01-26 14:23 
+- 2026-01-26 14:22 816374a4 **step: update packages**
 - 2026-01-26 13:45 adcd0d07 **step: use home path in the start script**
-## 2026-01-26 13:45 
 - 2026-01-26 13:34 cb22ab3e **step: add package json to output**
 - 2026-01-26 13:24 60eea3fb **step: update packages**
 - 2026-01-26 13:21 a2f670a9 **step: update start script**
@@ -14,6 +16,7 @@
 - 2026-01-26 13:15 d5126487 **step: update packages**
 - 2026-01-26 13:14 7b2cc1ff **step: update workflows**
 - 2026-01-26 13:14 23343d3d **step: bump bgord/scripts**
+- 2026-01-26 12:53 b60993f1 **docs: generate CHANGELOG**
 - 2026-01-26 12:28 a48cb9ef **docs: generate CHANGELOG**
 - 2026-01-26 10:50 f188f238 **step: update packages**
 - 2026-01-26 10:45 bbfb039d **step: pinpoint better auth**
