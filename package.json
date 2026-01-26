@@ -42,7 +42,7 @@
     "@bgord/design": "1.6.0",
     "@bgord/ui": "0.8.20",
     "@tanstack/react-router": "1.157.15",
-    "better-auth": "^1.4.17",
+    "better-auth": "1.4.17",
     "better-sqlite3": "12.6.2",
     "drizzle-orm": "0.45.1",
     "emittery": "1.2.0",
