@@ -1,9 +1,23 @@
 # Changelog
+- 2026-01-26 18:40 e937d510 **step: update packages**
+- 2026-01-26 18:40 48510314 **refactor: update naming**
+## 2026-01-26 18:40 
+- 2026-01-26 18:01 b0d901c7 **refactor: update shield rate limit**
+- 2026-01-26 18:00 4b12c68f **step: update sampling**
+- 2026-01-26 17:59 34fd2b73 **step: update packages**
+- 2026-01-26 17:54 09373e2b **step: update packages**
+- 2026-01-26 17:50 a52c5821 **refactor: adjust tests**
+- 2026-01-26 17:41 67f9e195 **refactor: do not use safe parse body**
+- 2026-01-26 17:39 859b590f **refactor: simplify error handler**
+- 2026-01-26 17:28 f06497c9 **step: add logger sampling**
+- 2026-01-26 17:26 7de2db2f **step: update packages**
+- 2026-01-26 17:20 6a62dfeb **step: update packages**
+- 2026-01-26 17:19 14ac5aaf **step: update packages**
 - 2026-01-26 14:23 208abf20 **step: make log metadata arrays more compact**
-## 2026-01-26 14:23 
 - 2026-01-26 14:22 816374a4 **step: update packages**
 - 2026-01-26 13:45 adcd0d07 **step: use home path in the start script**
 - 2026-01-26 13:34 cb22ab3e **step: add package json to output**
+- 2026-01-26 13:24 8ad378d8 **docs: generate CHANGELOG**
 - 2026-01-26 13:24 60eea3fb **step: update packages**
 - 2026-01-26 13:21 a2f670a9 **step: update start script**
 - 2026-01-26 13:21 92226e1c **step: install optional yazl**
