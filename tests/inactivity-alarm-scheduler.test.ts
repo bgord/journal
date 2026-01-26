@@ -94,7 +94,7 @@ describe("InactivityAlarmScheduler", async () => {
     spyOn(di.Adapters.Emotions.GetLatestEntryTimestampForUserQuery, "execute").mockResolvedValue(
       mocks.inactivityTrigger.lastEntryTimestamp,
     );
-    spyOn(di.Adapters.AI.AiGateway, "check").mockRejectedValue(new Error("FAILURE"));
+    spyOn(di.Adapters.AI.AiGateway, "check").mockImplementation(mocks.throwIntentionalErrorAsync);
     spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 

@@ -44,7 +44,9 @@ describe(`GET ${url}`, async () => {
 
   test("validation - WeeklyReviewExists - repo failure", async () => {
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockRejectedValue(new Error("Failure"));
+    spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockImplementation(
+      mocks.throwIntentionalErrorAsync,
+    );
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 

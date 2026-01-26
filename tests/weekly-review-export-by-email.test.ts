@@ -37,7 +37,7 @@ describe("WeeklyReviewExportByEmail", async () => {
   });
 
   test("onWeeklyReviewExportByEmailRequestedEvent - user repo failure", async () => {
-    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockRejectedValue(new Error("FAILURE"));
+    spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockImplementation(mocks.throwIntentionalErrorAsync);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
@@ -65,7 +65,9 @@ describe("WeeklyReviewExportByEmail", async () => {
 
   test("onWeeklyReviewExportByEmailRequestedEvent - weeklyReview failure", async () => {
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact);
-    spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockRejectedValue(new Error("FAILURE"));
+    spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockImplementation(
+      mocks.throwIntentionalErrorAsync,
+    );
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
@@ -78,7 +80,7 @@ describe("WeeklyReviewExportByEmail", async () => {
   });
 
   test("onWeeklyReviewExportByEmailRequestedEvent - mailer failure", async () => {
-    spyOn(di.Adapters.System.Mailer, "send").mockRejectedValue(new Error("FAILURE"));
+    spyOn(di.Adapters.System.Mailer, "send").mockImplementation(mocks.throwIntentionalErrorAsync);
     spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockResolvedValue(mocks.weeklyReviewFull);

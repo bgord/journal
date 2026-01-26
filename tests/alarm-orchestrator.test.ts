@@ -64,7 +64,7 @@ describe("AlarmOrchestrator", async () => {
   test("onAlarmGeneratedEvent - entry - finding entry fails", async () => {
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockRejectedValue(new Error("Failed"));
+    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockImplementation(mocks.throwIntentionalErrorAsync);
     spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.advice);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
@@ -101,7 +101,7 @@ describe("AlarmOrchestrator", async () => {
     spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]);
     spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
-    spyOn(di.Adapters.AI.AiGateway, "query").mockRejectedValue(new Error());
+    spyOn(di.Adapters.AI.AiGateway, "query").mockImplementation(mocks.throwIntentionalErrorAsync);
     spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en);
     const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 

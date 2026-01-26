@@ -44,7 +44,9 @@ describe(`POST ${url}`, async () => {
 
   test("validation - WeeklyReviewExists - repo failure", async () => {
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockRejectedValue(new Error("Failure"));
+    spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockImplementation(
+      mocks.throwIntentionalErrorAsync,
+    );
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
