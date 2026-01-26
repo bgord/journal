@@ -1,7 +1,36 @@
 # Changelog
+- 2026-01-26 10:45 bbfb039d **step: pinpoint better auth**
+## 2026-01-26 10:45 
+- 2026-01-26 10:38 f460ffe6 **step: update packages**
+- 2026-01-26 10:34 560de69d **refactor: intentional error in tests**
+- 2026-01-25 19:18 0c8600c6 **refactor: remove legacy buffer usage**
+- 2026-01-25 19:13 8326b0c9 **step: install better-auth**
+- 2026-01-25 19:11 5f744035 **step: update packages**
+- 2026-01-25 18:51 24d878ab **step: update shield auth**
+- 2026-01-25 18:44 a2a7c76b **refactor: cleanup file adapters**
+- 2026-01-25 18:40 e3a7dd8a **step: define file copier**
+- 2026-01-25 18:39 077e3ba6 **step: define file writer**
+- 2026-01-25 18:35 047e1aaa **step: define file reader text**
+- 2026-01-25 18:22 fd85e3c7 **refactor: remove text stream consumers**
+- 2026-01-25 18:22 2eae2516 **refactor: update apis**
+- 2026-01-25 18:20 8da6ded0 **step: update packages**
+- 2026-01-25 18:10 35011a98 **refactor: update apis**
+- 2026-01-25 18:09 69447f9f **refactor: make hash file factory**
+- 2026-01-25 18:06 d8f52816 **step: define file inspection**
+- 2026-01-25 18:04 7be9729c **refactor: update pdf generator factory**
+- 2026-01-25 18:03 c1e3844b **refactor: update env**
+- 2026-01-25 18:02 fdf987bf **refactor: update apis**
+- 2026-01-25 18:00 edf45d53 **step: update tinypdf adapter**
+- 2026-01-25 17:50 5afd7970 **refactor: update apis**
+- 2026-01-25 17:50 41dea4f3 **refactor: update file tests**
+- 2026-01-25 17:47 a1200a04 **refactor: update logger**
+- 2026-01-25 17:46 5b1d1911 **refactor: update file drafts**
+- 2026-01-25 17:46 1a08de46 **refactor: update error handler**
+- 2026-01-25 17:44 d4e9d173 **refactor: update apis**
+- 2026-01-25 17:42 e320f1d3 **step: update packages**
 - 2026-01-18 17:40 faf958bc **refactor: remove log file prereq**
 - 2026-01-18 17:40 0dc44705 **step: update packages**
-## 2026-01-18 17:40 
+- 2026-01-18 16:41 dcadea6a **docs: generate CHANGELOG**
 - 2026-01-18 16:03 d20930ae **step: enable captcha shield for relevant endpoints**
 - 2026-01-18 16:02 6450aacb **refactor: choose noop captcha adapter**
 - 2026-01-18 15:40 50db71bc **refactor: introduce branded subject and html mailer types**
