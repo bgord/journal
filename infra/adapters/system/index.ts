@@ -45,7 +45,7 @@ export async function createSystemAdapters(Env: EnvironmentType) {
     FileRenamer,
     TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer, FileWriter }),
     CsvStringifier: await createCsvStringifier(),
-    ImageInfo: createImageInfo({ FileInspection }),
+    ImageInfo: await createImageInfo({ FileInspection }),
     HashFile,
     ImageProcessor: await createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
     Sleeper: createSleeper(Env),

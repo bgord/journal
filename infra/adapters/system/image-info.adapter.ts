@@ -3,6 +3,9 @@ import * as Preferences from "+preferences";
 
 type Dependencies = { FileInspection: bg.FileInspectionPort };
 
-export function createImageInfo(deps: Dependencies) {
-  return new bg.ImageInfoSharpAdapter({ MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry, ...deps });
+export async function createImageInfo(deps: Dependencies): Promise<bg.ImageInfoPort> {
+  return await bg.ImageInfoSharpAdapter.build({
+    MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
+    ...deps,
+  });
 }
