@@ -1,3 +1,5 @@
 import * as bg from "@bgord/bun";
 
-export const CsvStringifier = new bg.CsvStringifierAdapter();
+export async function createCsvStringifier(): Promise<bg.CsvStringifierPort> {
+  return bg.CsvStringifierAdapter.build();
+}

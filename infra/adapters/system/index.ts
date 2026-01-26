@@ -1,7 +1,7 @@
 import type { EnvironmentType } from "+infra/env";
 import { createCertificateInspector } from "./certificate-inspector.adapter";
 import { createClock } from "./clock.adapter";
-import { CsvStringifier } from "./csv-stringifier.adapter";
+import { createCsvStringifier } from "./csv-stringifier.adapter";
 import { createDiskSpaceChecker } from "./disk-space-checker.adapter";
 import { createFileCleaner } from "./file-cleaner.adapter";
 import { createFileInspection } from "./file-inspection.adapter";
@@ -44,7 +44,7 @@ export async function createSystemAdapters(Env: EnvironmentType) {
     FileCleaner,
     FileRenamer,
     TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer, FileWriter }),
-    CsvStringifier,
+    CsvStringifier: await createCsvStringifier(),
     ImageInfo: createImageInfo({ FileInspection }),
     HashFile,
     ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
