@@ -80,11 +80,7 @@ export class ErrorHandler {
           component: "http",
           operation: "validation",
           correlationId,
-          metadata: {
-            url,
-            body: await bg.safeParseBody(c),
-            error: validationError,
-          },
+          metadata: { url, error: validationError },
           error,
         });
 
@@ -96,7 +92,7 @@ export class ErrorHandler {
         component: "http",
         operation: "invalid_payload",
         correlationId,
-        metadata: { url, body: await bg.safeParseBody(c) },
+        metadata: { url },
         error,
       });
 
