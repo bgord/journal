@@ -26,7 +26,7 @@ export function createLogger(Env: EnvironmentType, deps: Dependencies): bg.Logge
     [bg.NodeEnvironmentEnum.staging]: new bg.LoggerNoopAdapter(),
     [bg.NodeEnvironmentEnum.production]: new bg.Woodchopper(
       {
-        app: "lobbygow",
+        app: "journal",
         environment: Env.type,
         level: Env.LOGS_LEVEL,
         redactor,

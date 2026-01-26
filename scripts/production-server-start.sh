@@ -6,5 +6,5 @@ echo "Starting project..."
 export NODE_ENV="production"
 
 cd /var/www/journal || exit
-/home/bgord/.bun/bin/bun install
-/home/bgord/.bun/bin/bun index.js
+"$HOME/.bun/bin/bun" install --production --no-save --exact
+"$HOME/.bun/bin/bun" index.js
