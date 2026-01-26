@@ -32,7 +32,7 @@ describe(`POST ${url}`, async () => {
   test("situation - validation - empty payload", async () => {
     spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValueOnce(mocks.auth);
 
-    const response = await server.request(url, { method: "POST" }, mocks.ip);
+    const response = await server.request(url, { method: "POST", body: JSON.stringify({}) }, mocks.ip);
     const json = await response.json();
 
     expect(response.status).toEqual(400);

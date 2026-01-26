@@ -29,7 +29,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(
       url,
-      { method: "POST", headers: mocks.revisionHeaders() },
+      { method: "POST", body: JSON.stringify({}), headers: mocks.revisionHeaders() },
       mocks.ip,
     );
     const json = await response.json();
@@ -88,7 +88,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(
       "/api/entry/id/evaluate-reaction",
-      { method: "POST", headers: mocks.revisionHeaders() },
+      { method: "POST", body: JSON.stringify({}), headers: mocks.revisionHeaders() },
       mocks.ip,
     );
     const json = await response.json();
