@@ -19,8 +19,10 @@ export const ExportData = (deps: Dependencies) => async (c: hono.Context<infra.C
 
   const timestamp = deps.Clock.now().ms;
 
-  return new bg.FileDraftZip(tools.Basename.parse(`export-${timestamp}`), [
+  const zip = await bg.FileDraftZip.build(tools.Basename.parse(`export-${timestamp}`), [
     new Emotions.Services.EntryExportFileCsv(entries, deps),
     new Emotions.Services.AlarmExportFileCsv(alarms, deps),
-  ]).toResponse();
+  ]);
+
+  return zip.toResponse();
 };
