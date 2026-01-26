@@ -7,13 +7,14 @@ type Dependencies = { Clock: bg.ClockPort };
 export function createLogger(Env: EnvironmentType, deps: Dependencies) {
   const app = "journal";
 
-  const redactor = new bg.RedactorCompositeStrategy([
-    new bg.RedactorMetadataCompactArrayStrategy({ maxItems: tools.IntegerPositive.parse(3) }),
-    new bg.RedactorMaskStrategy(bg.RedactorMaskStrategy.DEFAULT_KEYS),
+  const redactor = new bg.RedactorComposite([
+    new bg.RedactorMetadataCompactArray({ maxItems: tools.IntegerPositive.parse(3) }),
+    new bg.RedactorMask(bg.RedactorMask.DEFAULT_KEYS),
   ]);
 
   const sampling = new bg.WoodchopperSamplingComposite([
-    new bg.WoodchopperSamplingPasstrough([bg.LogLevelEnum.error, bg.LogLevelEnum.warn]),
+    new bg.WoodchopperSamplingPassLevel([bg.LogLevelEnum.error, bg.LogLevelEnum.warn, bg.LogLevelEnum.info]),
+    new bg.WoodchopperSamplingPassComponent(["infra", "security"]),
     new bg.WoodchoperSamplingCorrelationId({ everyNth: tools.IntegerPositive.parse(10) }),
     new bg.WoodchopperSamplingEveryNth({ n: tools.IntegerPositive.parse(10) }),
   ]);
