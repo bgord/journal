@@ -432,8 +432,10 @@ infra/
 │       ├── csv-stringifier.adapter.ts
 │       ├── disk-space-checker.adapter.ts
 │       ├── file-cleaner.adapter.ts
+│       ├── file-inspection.adapter.ts
 │       ├── file-reader-json.adapter.ts
 │       ├── file-renamer.adapter.ts
+│       ├── file-writer.adapter.ts
 │       ├── hash-file.adapter.ts
 │       ├── id-provider.adapter.ts
 │       ├── image-info.adapter.ts
