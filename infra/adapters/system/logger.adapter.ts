@@ -1,11 +1,12 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import type { EnvironmentType } from "+infra/env";
 
 type Dependencies = { Clock: bg.ClockPort };
 
 export function createLogger(Env: EnvironmentType, deps: Dependencies): bg.LoggerPort {
   const redactor = new bg.RedactorCompositeStrategy([
-    new bg.RedactorMetadataCompactArrayStrategy(),
+    new bg.RedactorMetadataCompactArrayStrategy({ maxItems: tools.IntegerPositive.parse(3) }),
     new bg.RedactorMaskStrategy(bg.RedactorMaskStrategy.DEFAULT_KEYS),
   ]);
   const diagnostics = new bg.WoodchopperDiagnosticsConsoleError(redactor);
