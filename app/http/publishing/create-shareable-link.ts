@@ -12,7 +12,7 @@ type Dependencies = {
 
 export const CreateShareableLink = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const requesterId = c.get("user").id;
-  const body = await bg.safeParseBody(c);
+  const body = await c.req.json();
   const timeZoneOffset = c.get("timeZoneOffset");
 
   const publicationSpecification = Publishing.VO.PublicationSpecification.parse(

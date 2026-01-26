@@ -12,7 +12,7 @@ type Dependencies = {
 
 export const ScheduleTimeCapsuleEntry = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
-  const body = await bg.safeParseBody(c);
+  const body = await c.req.json();
   const timeZoneOffset = c.get("timeZoneOffset");
 
   const entryId = deps.IdProvider.generate();

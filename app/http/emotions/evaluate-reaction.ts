@@ -12,7 +12,7 @@ type Dependencies = {
 
 export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
-  const body = await bg.safeParseBody(c);
+  const body = await c.req.json();
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
 

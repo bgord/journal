@@ -11,7 +11,7 @@ type Dependencies = {
 
 export const LogEntry = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
-  const body = await bg.safeParseBody(c);
+  const body = await c.req.json();
 
   const entryId = deps.IdProvider.generate();
 
