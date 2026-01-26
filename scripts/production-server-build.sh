@@ -27,6 +27,10 @@ step_start "scripts/production-server-{start,backup}.sh copy"
 cp scripts/production-server-{start,backup}.sh $OUTPUT_DIRECTORY
 step_end "scripts/production-server-{start,backup}.sh copy"
 
+step_start "package.json copy"
+cp package.json $OUTPUT_DIRECTORY
+step_end "package.json copy"
+
 step_start "Infra directory create"
 mkdir -p "$OUTPUT_DIRECTORY/infra"
 step_end "Infra directory create"
