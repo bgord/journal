@@ -7,8 +7,11 @@ type Dependencies = {
   FileReaderJson: bg.FileReaderJsonPort;
 };
 
-export function createImageProcessor(Env: EnvironmentType, deps: Dependencies): bg.ImageProcessorPort {
-  const ImageProcessorSharp = new bg.ImageProcessorSharpAdapter(deps);
+export async function createImageProcessor(
+  Env: EnvironmentType,
+  deps: Dependencies,
+): Promise<bg.ImageProcessorPort> {
+  const ImageProcessorSharp = await bg.ImageProcessorSharpAdapter.build(deps);
 
   return {
     [bg.NodeEnvironmentEnum.local]: ImageProcessorSharp,

@@ -47,7 +47,7 @@ export async function createSystemAdapters(Env: EnvironmentType) {
     CsvStringifier: await createCsvStringifier(),
     ImageInfo: createImageInfo({ FileInspection }),
     HashFile,
-    ImageProcessor: createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
+    ImageProcessor: await createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
     Sleeper: createSleeper(Env),
     TimeoutRunner: createTimeoutRunner(Env),
     RemoteFileStorage: createRemoteFileStorage(Env, { HashFile, FileCleaner, FileRenamer, Logger, Clock }),
