@@ -1,8 +1,23 @@
 # Changelog
+- 2026-01-26 13:24 60eea3fb **step: update packages**
+## 2026-01-26 13:24 
+- 2026-01-26 13:21 a2f670a9 **step: update start script**
+- 2026-01-26 13:21 92226e1c **step: install optional yazl**
+- 2026-01-26 13:20 99088216 **step: install optional csv**
+- 2026-01-26 13:20 82f375b3 **step: install optional croner**
+- 2026-01-26 13:19 ec9b146d **refactor: update zip**
+- 2026-01-26 13:19 672c9c7c **refactor: update image info**
+- 2026-01-26 13:18 1c2440b9 **refactor: update image processor**
+- 2026-01-26 13:16 19a44c83 **refactor: adjust csv stringifier**
+- 2026-01-26 13:15 d5126487 **step: update packages**
+- 2026-01-26 13:14 7b2cc1ff **step: update workflows**
+- 2026-01-26 13:14 23343d3d **step: bump bgord/scripts**
+- 2026-01-26 10:50 f188f238 **step: update packages**
 - 2026-01-26 10:45 bbfb039d **step: pinpoint better auth**
-## 2026-01-26 10:45 
 - 2026-01-26 10:38 f460ffe6 **step: update packages**
 - 2026-01-26 10:34 560de69d **refactor: intentional error in tests**
+- 2026-01-26 09:45 8bb823d4 **docs: generate CHANGELOG**
+- 2026-01-26 09:45 47817389 **docs: generate readme**
 - 2026-01-25 19:18 0c8600c6 **refactor: remove legacy buffer usage**
 - 2026-01-25 19:13 8326b0c9 **step: install better-auth**
 - 2026-01-25 19:11 5f744035 **step: update packages**
