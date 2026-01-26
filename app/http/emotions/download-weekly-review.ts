@@ -19,8 +19,5 @@ export const DownloadWeeklyReview = (deps: Dependencies) => async (c: hono.Conte
   Emotions.Invariants.RequesterOwnsWeeklyReview.enforce({ requesterId, ownerId: weeklyReview?.userId });
 
   if (!weeklyReview) return c.status(404);
-
-  const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(weeklyReview, deps);
-
-  return pdf.toResponse();
+  return new Emotions.Services.WeeklyReviewExportPdfFile(weeklyReview, deps).toResponse();
 };

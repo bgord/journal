@@ -39,7 +39,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.ShieldBasicAuth.verify,
     ...bg.Healthcheck.build(
       { Env: Env.type, prerequisites: Tools.Prerequisites },
-      { ...Adapters.System, ...Tools },
+      { ...Adapters.System, ...Tools, LoggerStatsProvider: Adapters.System.Logger },
     ),
   );
 
