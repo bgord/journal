@@ -1,12 +1,14 @@
 # Changelog
+- 2026-01-28 13:00 d712222b **step: update packages**
+## 2026-01-28 13:00 
 - 2026-01-26 18:40 e937d510 **step: update packages**
 - 2026-01-26 18:40 48510314 **refactor: update naming**
-## 2026-01-26 18:40 
 - 2026-01-26 18:01 b0d901c7 **refactor: update shield rate limit**
 - 2026-01-26 18:00 4b12c68f **step: update sampling**
 - 2026-01-26 17:59 34fd2b73 **step: update packages**
 - 2026-01-26 17:54 09373e2b **step: update packages**
 - 2026-01-26 17:50 a52c5821 **refactor: adjust tests**
+- 2026-01-26 17:43 1437c3cd **docs: generate CHANGELOG**
 - 2026-01-26 17:41 67f9e195 **refactor: do not use safe parse body**
 - 2026-01-26 17:39 859b590f **refactor: simplify error handler**
 - 2026-01-26 17:28 f06497c9 **step: add logger sampling**
