@@ -1,6 +1,9 @@
 # Changelog
+- 2026-02-06 18:05 5958a86b **step: update croner**
+## 2026-02-06 18:05 
+- 2026-02-06 18:03 6c49227d **step: update packages**
 - 2026-01-30 10:37 f01fd61c **step: update packages**
-## 2026-01-30 10:37 
+- 2026-01-30 09:38 018186f0 **docs: generate CHANGELOG**
 - 2026-01-29 16:15 ce467902 **step: update packages**
 - 2026-01-29 16:10 fb68dde3 **step: bump bgord/scripts**
 - 2026-01-29 16:10 8be237be **step: update bun**
