@@ -972,12 +972,12 @@ export const fullEntry: Emotions.VO.EntrySnapshot = {
 
 export const fullEntryWithAlarms: Emotions.Ports.EntrySnapshotWithAlarms = {
   ...fullEntry,
-  alarms: [] as Emotions.VO.AlarmSnapshot[],
+  alarms: [] as ReadonlyArray<Emotions.VO.AlarmSnapshot>,
 };
 
 export const fullEntryWithAlarmsFormatted: EntrySnapshotFormatted = {
   ...fullEntry,
-  alarms: [] as Emotions.VO.AlarmSnapshot[],
+  alarms: [] as ReadonlyArray<Emotions.VO.AlarmSnapshot>,
   startedAt: tools.DateFormatters.datetime(fullEntry.startedAt),
 };
 

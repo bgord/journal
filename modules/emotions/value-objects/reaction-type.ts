@@ -53,7 +53,7 @@ export class ReactionType {
     return this.get() === another.get();
   }
 
-  static all(): ReactionTypeType[] {
+  static all(): ReadonlyArray<ReactionTypeType> {
     return ReactionTypeSchema.options;
   }
 

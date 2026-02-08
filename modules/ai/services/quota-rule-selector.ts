@@ -8,9 +8,9 @@ type ApplicableQuota = Readonly<{
 }>;
 
 export class QuotaRuleSelector {
-  constructor(private readonly rules: VO.QuotaRule[]) {}
+  constructor(private readonly rules: ReadonlyArray<VO.QuotaRule>) {}
 
-  select<C extends VO.UsageCategory>(context: VO.RequestContext<C>): ApplicableQuota[] {
+  select<C extends VO.UsageCategory>(context: VO.RequestContext<C>): ReadonlyArray<ApplicableQuota> {
     return this.rules
       .filter((rule) => rule.appliesTo(context.category))
       .map((rule) => ({ id: rule.id, window: rule.window, bucket: rule.bucket(context), limit: rule.limit }));

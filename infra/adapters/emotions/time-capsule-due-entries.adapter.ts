@@ -14,7 +14,7 @@ class TimeCapsuleDueEntriesDrizzle implements Emotions.Ports.TimeCapsuleDueEntri
       limit: 10,
     });
 
-    return rows as unknown as Emotions.Ports.TimeCapsuleEntrySnapshot[];
+    return rows as unknown as ReadonlyArray<Emotions.Ports.TimeCapsuleEntrySnapshot>;
   }
 }
 

@@ -45,14 +45,14 @@ export type AcceptedEvent =
 export function createEventStore(deps: Dependencies) {
   return new bg.DispatchingEventStore<AcceptedEvent>(
     {
-      finder: (stream: bg.EventStreamType, acceptedEventsNames: bg.EventNameType[]) =>
+      finder: (stream: bg.EventStreamType, acceptedEventsNames: ReadonlyArray<bg.EventNameType>) =>
         db
           .select()
           .from(schema.events)
           .orderBy(asc(schema.events.revision))
           .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
 
-      inserter: async (incoming: z.infer<bg.GenericParsedEventSchema>[]) => {
+      inserter: async (incoming: ReadonlyArray<z.infer<bg.GenericParsedEventSchema>>) => {
         const { stream } = incoming[0] as { stream: bg.EventStreamType };
 
         return db.transaction(async (tx) => {
@@ -63,7 +63,7 @@ export function createEventStore(deps: Dependencies) {
 
           const max = current[0]?.max ?? bg.DispatchingEventStore.EMPTY_STREAM_REVISION;
 
-          const rows: z.infer<bg.GenericParsedEventSchema>[] = incoming.map((event, order) => ({
+          const rows: Array<z.infer<bg.GenericParsedEventSchema>> = incoming.map((event, order) => ({
             ...event,
             revision: max + order + 1,
           }));

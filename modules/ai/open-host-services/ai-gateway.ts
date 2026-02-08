@@ -29,7 +29,7 @@ export class AiGateway implements Ports.AiGatewayPort {
 
   async check<C extends VO.UsageCategory>(
     context: VO.RequestContext<C>,
-  ): Promise<{ violations: Specs.QuotaViolation[] }> {
+  ): Promise<{ violations: ReadonlyArray<Specs.QuotaViolation> }> {
     return this.specification.verify(context);
   }
 

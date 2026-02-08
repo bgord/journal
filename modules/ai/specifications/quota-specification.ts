@@ -15,13 +15,13 @@ export class QuotaSpecification {
 
   async verify<C extends VO.UsageCategory>(
     context: VO.RequestContext<C>,
-  ): Promise<{ violations: QuotaViolation[] }> {
+  ): Promise<{ violations: ReadonlyArray<QuotaViolation> }> {
     const rules = new Services.QuotaRuleSelector(VO.RULES).select(context);
     const buckets = rules.map((rule) => rule.bucket);
 
     const counts = await this.bucketCounter.getMany(buckets);
 
-    const violations: QuotaViolation[] = rules
+    const violations: ReadonlyArray<QuotaViolation> = rules
       .map((rule) => ({
         id: rule.id,
         bucket: rule.bucket,

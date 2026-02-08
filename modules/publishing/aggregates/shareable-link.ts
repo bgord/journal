@@ -29,7 +29,7 @@ export class ShareableLink {
   private dateRange?: tools.DateRange;
   private publicationSpecification?: VO.PublicationSpecificationType;
 
-  private readonly pending: ShareableLinkEventType[] = [];
+  private readonly pending: Array<ShareableLinkEventType> = [];
 
   private constructor(
     id: VO.ShareableLinkIdType,
@@ -40,7 +40,7 @@ export class ShareableLink {
 
   static build(
     id: VO.ShareableLinkIdType,
-    events: ShareableLinkEventType[],
+    events: ReadonlyArray<ShareableLinkEventType>,
     deps: Dependencies,
   ): ShareableLink {
     const shareableLink = new ShareableLink(id, deps);
@@ -129,7 +129,7 @@ export class ShareableLink {
     } as const;
   }
 
-  pullEvents(): ShareableLinkEventType[] {
+  pullEvents(): ReadonlyArray<ShareableLinkEventType> {
     const events = [...this.pending];
 
     this.pending.length = 0;

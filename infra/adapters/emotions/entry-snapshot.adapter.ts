@@ -63,7 +63,11 @@ class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
     return entries.map(EntrySnapshotDrizzle.format);
   }
 
-  async getFormatted(userId: Auth.VO.UserIdType, dateRange: tools.DateRange, query: string) {
+  async getFormatted(
+    userId: Auth.VO.UserIdType,
+    dateRange: tools.DateRange,
+    query: string,
+  ): Promise<ReadonlyArray<Emotions.Ports.EntrySnapshotWithAlarms>> {
     const where = [
       eq(Schema.entries.userId, userId),
       gte(Schema.entries.startedAt, dateRange.getStart().ms),
@@ -73,7 +77,7 @@ class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
     if (query !== "") {
       const pattern = `%${query}%`;
 
-      const clauses: SQL[] = [
+      const clauses: ReadonlyArray<SQL> = [
         Schema.entries.situationDescription,
         Schema.entries.reactionDescription,
         Schema.entries.emotionLabel,

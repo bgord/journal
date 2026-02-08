@@ -5,7 +5,9 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class HistoryReaderDrizzle implements bg.History.Ports.HistoryReaderPort {
-  async read(subject: bg.History.VO.HistoryParsedType["subject"]): Promise<bg.History.VO.HistoryType[]> {
+  async read(
+    subject: bg.History.VO.HistoryParsedType["subject"],
+  ): Promise<ReadonlyArray<bg.History.VO.HistoryType>> {
     const result = await db
       .select()
       .from(Schema.history)

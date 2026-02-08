@@ -17,5 +17,5 @@ export type TimeCapsuleEntrySnapshot = {
 };
 
 export interface TimeCapsuleDueEntriesPort {
-  listDue(now: tools.Timestamp): Promise<TimeCapsuleEntrySnapshot[]>;
+  listDue(now: tools.Timestamp): Promise<ReadonlyArray<TimeCapsuleEntrySnapshot>>;
 }

@@ -3,7 +3,7 @@ import type * as Emotions from "+emotions";
 
 type AlarmGeneratorConfigType = {
   event: Emotions.Services.AlarmEventToBeChecked;
-  alarms: tools.Constructor<Emotions.Services.EmotionAlarmTemplate>[];
+  alarms: ReadonlyArray<tools.Constructor<Emotions.Services.EmotionAlarmTemplate>>;
 };
 
 export class EmotionAlarmDetector {

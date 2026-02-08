@@ -6,7 +6,7 @@ type Dependencies = { PdfGenerator: bg.PdfGeneratorPort; Clock: bg.ClockPort };
 
 export class EntryExportFilePdf extends bg.FileDraft {
   constructor(
-    private readonly entries: Emotions.VO.EntrySnapshot[],
+    private readonly entries: ReadonlyArray<Emotions.VO.EntrySnapshot>,
     private readonly deps: Dependencies,
   ) {
     super(

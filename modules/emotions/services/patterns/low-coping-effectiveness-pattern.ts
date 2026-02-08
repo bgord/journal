@@ -21,7 +21,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: VO.EntrySnapshot[]): Patterns.PatternDetectionEventType | null {
+  check(entries: ReadonlyArray<VO.EntrySnapshot>): Patterns.PatternDetectionEventType | null {
     const effectivenessScores = entries
       .map((entry) =>
         entry.reactionEffectiveness

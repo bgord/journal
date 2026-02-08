@@ -42,7 +42,7 @@ export class EmotionIntensity {
     return this.get() === other.get();
   }
 
-  static range(): EmotionIntensityType[] {
+  static range(): ReadonlyArray<EmotionIntensityType> {
     return Array.from({ length: EmotionIntensityMax }).map((_, index) => index + 1);
   }
 

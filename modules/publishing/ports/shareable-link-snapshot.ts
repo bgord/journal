@@ -5,5 +5,5 @@ export interface ShareableLinkSnapshotPort {
   getByUserId(
     id: VO.ShareableLinkIdType,
     timeZoneOffsetMs: tools.DurationMsType,
-  ): Promise<VO.ShareableLinkSnapshot[]>;
+  ): Promise<ReadonlyArray<VO.ShareableLinkSnapshot>>;
 }

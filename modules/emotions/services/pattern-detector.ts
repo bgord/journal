@@ -8,8 +8,8 @@ type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 type PatternDetectorConfigType = {
   userId: Auth.VO.UserIdType;
-  entries: VO.EntrySnapshot[];
-  patterns: tools.Constructor<Patterns.Pattern>[];
+  entries: ReadonlyArray<VO.EntrySnapshot>;
+  patterns: ReadonlyArray<tools.Constructor<Patterns.Pattern>>;
   week: tools.Week;
 };
 
@@ -17,7 +17,7 @@ type PatternDetectorConfigType = {
 export class PatternDetector {
   constructor(private readonly deps: Dependencies) {}
 
-  detect(config: PatternDetectorConfigType): Patterns.PatternDetectionEventType[] {
+  detect(config: PatternDetectorConfigType): ReadonlyArray<Patterns.PatternDetectionEventType> {
     return config.patterns
       .map((Pattern) => new Pattern(config.week, config.userId, this.deps).check(config.entries))
       .filter((result) => result !== null);

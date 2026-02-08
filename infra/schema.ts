@@ -16,7 +16,7 @@ import { ShareableLinkStatusEnum } from "../modules/publishing/value-objects/sha
 import { SupportedLanguages } from "../modules/supported-languages";
 
 const toEnumList = (value: Record<string, string>) => ({
-  enum: Object.keys(value) as [string, ...string[]],
+  enum: Object.keys(value) as [string, ...ReadonlyArray<string>],
 });
 
 const id = text("id", { length: 36 })
@@ -410,7 +410,7 @@ export const verifications = sqliteTable("verifications", {
 /** @public */
 export type SelectEntries = typeof entries.$inferSelect;
 /** @public */
-export type SelectEntriesWithAlarms = SelectEntries & { alarms: SelectAlarms[] };
+export type SelectEntriesWithAlarms = SelectEntries & { alarms: ReadonlyArray<SelectAlarms> };
 /** @public */
 export type SelectAlarms = typeof alarms.$inferSelect;
 /** @public */

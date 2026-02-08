@@ -9,8 +9,8 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
   async getByUserId(
     userId: Auth.VO.UserIdType,
     timeZoneOffsetMs: tools.DurationMsType,
-  ): Promise<Publishing.VO.ShareableLinkSnapshot[]> {
-    const result: Publishing.VO.ShareableLinkSnapshot[] = [];
+  ): Promise<Array<Publishing.VO.ShareableLinkSnapshot>> {
+    const result: Array<Publishing.VO.ShareableLinkSnapshot> = [];
 
     const shareableLinks = await db.query.shareableLinks.findMany({
       where: and(eq(Schema.shareableLinks.ownerId, userId), eq(Schema.shareableLinks.hidden, false)),

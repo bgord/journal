@@ -8,7 +8,7 @@ export class Entry {
   static async getList(
     request: Request | null,
     deps: { filter: types.EntryListFilterType; query: string },
-  ): Promise<EntrySnapshotFormatted[]> {
+  ): Promise<ReadonlyArray<EntrySnapshotFormatted>> {
     const BASE = `/api/entry/list?filter=${deps.filter}&query=${deps.query ?? ""}`;
 
     const url = absoluteUrl(BASE, request);
@@ -23,7 +23,7 @@ export class Entry {
   static async getSharedEntries(
     request: Request | null,
     shareableLinkId: ShareableLinkIdType,
-  ): Promise<Promise<EntrySnapshotFormatted[]>> {
+  ): Promise<Promise<ReadonlyArray<EntrySnapshotFormatted>>> {
     const BASE = `/api/shared/entries/${shareableLinkId}`;
 
     const url = absoluteUrl(BASE, request);
@@ -38,7 +38,7 @@ export class Entry {
   static async getHistory(
     request: Request | null,
     entryId: EntrySnapshotFormatted["id"],
-  ): Promise<HistoryType[]> {
+  ): Promise<ReadonlyArray<HistoryType>> {
     const BASE = `/api/history/${entryId}/list`;
 
     const url = absoluteUrl(BASE, request);

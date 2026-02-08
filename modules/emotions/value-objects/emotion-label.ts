@@ -35,7 +35,7 @@ export class EmotionLabel {
     return NegativeEmotions.includes(this.get());
   }
 
-  static all(): { positive: boolean; option: EmotionLabelType }[] {
+  static all(): ReadonlyArray<{ positive: boolean; option: EmotionLabelType }> {
     return EmotionLabelSchema.options.map((option) => ({
       positive: new EmotionLabel(option).isPositive(),
       option,

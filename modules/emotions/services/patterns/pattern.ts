@@ -28,7 +28,7 @@ export abstract class Pattern {
 
   abstract userId: Auth.VO.UserIdType;
 
-  abstract check(entries: VO.EntrySnapshot[]): PatternDetectionEventType | null;
+  abstract check(entries: ReadonlyArray<VO.EntrySnapshot>): PatternDetectionEventType | null;
 
   getStream(): bg.EventStreamType {
     return `weekly_pattern_detection_${this.userId}_${this.week.toIsoId()}`;

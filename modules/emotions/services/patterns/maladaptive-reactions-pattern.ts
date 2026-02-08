@@ -21,7 +21,7 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: VO.EntrySnapshot[]): Patterns.PatternDetectionEventType | null {
+  check(entries: ReadonlyArray<VO.EntrySnapshot>): Patterns.PatternDetectionEventType | null {
     const matches = entries.filter(
       (entry) => entry.reactionType && new VO.ReactionType(entry.reactionType).isMaladaptive(),
     );

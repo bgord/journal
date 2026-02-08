@@ -42,7 +42,7 @@ export class ReactionEffectiveness {
     return this.value === other.value;
   }
 
-  static range(): ReactionEffectivenessType[] {
+  static range(): ReadonlyArray<ReactionEffectivenessType> {
     return Array.from({ length: ReactionEffectivenessMax }).map((_, index) => index + 1);
   }
 

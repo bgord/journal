@@ -21,7 +21,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: VO.EntrySnapshot[]): Patterns.PatternDetectionEventType | null {
+  check(entries: ReadonlyArray<VO.EntrySnapshot>): Patterns.PatternDetectionEventType | null {
     const positiveEmotionsCounter = entries.filter(
       (entry) => entry.emotionLabel && new VO.EmotionLabel(entry.emotionLabel).isPositive(),
     ).length;

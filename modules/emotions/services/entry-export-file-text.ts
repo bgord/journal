@@ -6,7 +6,7 @@ type Dependencies = { Clock: bg.ClockPort };
 
 export class EntryExportFileText extends bg.FileDraft {
   constructor(
-    private readonly entries: VO.EntrySnapshot[],
+    private readonly entries: ReadonlyArray<VO.EntrySnapshot>,
     deps: Dependencies,
   ) {
     super(

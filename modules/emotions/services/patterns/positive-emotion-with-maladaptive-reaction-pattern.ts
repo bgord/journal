@@ -21,7 +21,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
     super();
   }
 
-  check(entries: VO.EntrySnapshot[]): Patterns.PatternDetectionEventType | null {
+  check(entries: ReadonlyArray<VO.EntrySnapshot>): Patterns.PatternDetectionEventType | null {
     const matches = entries
       .flatMap((entry) => {
         if (!(entry.emotionLabel && entry.reactionType)) return [];

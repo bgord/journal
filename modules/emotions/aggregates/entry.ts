@@ -29,7 +29,7 @@ export class Entry {
   private reaction?: Emotions.Entities.Reaction;
   private status: Emotions.VO.EntryStatusEnum = Emotions.VO.EntryStatusEnum.actionable;
 
-  private readonly pending: EntryEventType[] = [];
+  private readonly pending: Array<EntryEventType> = [];
 
   private constructor(
     id: Emotions.VO.EntryIdType,
@@ -38,7 +38,11 @@ export class Entry {
     this.id = id;
   }
 
-  static build(id: Emotions.VO.EntryIdType, events: EntryEventType[], deps: Dependencies): Entry {
+  static build(
+    id: Emotions.VO.EntryIdType,
+    events: ReadonlyArray<EntryEventType>,
+    deps: Dependencies,
+  ): Entry {
     const entry = new Entry(id, deps);
 
     events.forEach((event) => entry.apply(event));
@@ -158,7 +162,7 @@ export class Entry {
     this.record(event);
   }
 
-  pullEvents(): EntryEventType[] {
+  pullEvents(): ReadonlyArray<EntryEventType> {
     const events = [...this.pending];
 
     this.pending.length = 0;

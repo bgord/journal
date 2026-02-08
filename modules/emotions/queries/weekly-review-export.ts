@@ -26,13 +26,18 @@ export type WeeklyReviewExportDtoAlarmFields =
 export type WeeklyReviewExportDtoPatternDetectionFields = "id" | "name";
 
 export type WeeklyReviewExportDto = VO.WeeklyReviewSnapshot & {
-  entries: Pick<VO.EntrySnapshot, WeeklyReviewExportDtoEntryFields>[];
-  patternDetections: Pick<VO.PatternDetectionSnapshot, WeeklyReviewExportDtoPatternDetectionFields>[];
-  alarms: Pick<VO.AlarmSnapshot, WeeklyReviewExportDtoAlarmFields>[];
+  entries: ReadonlyArray<Pick<VO.EntrySnapshot, WeeklyReviewExportDtoEntryFields>>;
+  patternDetections: ReadonlyArray<
+    Pick<VO.PatternDetectionSnapshot, WeeklyReviewExportDtoPatternDetectionFields>
+  >;
+  alarms: ReadonlyArray<Pick<VO.AlarmSnapshot, WeeklyReviewExportDtoAlarmFields>>;
 };
 
 export interface WeeklyReviewExport {
   getFull(id: VO.WeeklyReviewIdType): Promise<WeeklyReviewExportDto | undefined>;
 
-  listFull(userId: Auth.VO.UserIdType, limit: tools.IntegerPositiveType): Promise<WeeklyReviewExportDto[]>;
+  listFull(
+    userId: Auth.VO.UserIdType,
+    limit: tools.IntegerPositiveType,
+  ): Promise<ReadonlyArray<WeeklyReviewExportDto>>;
 }

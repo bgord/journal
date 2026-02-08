@@ -6,7 +6,7 @@ type Dependencies = { CsvStringifier: bg.CsvStringifierPort; Clock: bg.ClockPort
 
 export class AlarmExportFileCsv extends bg.FileDraft {
   constructor(
-    private readonly alarms: VO.AlarmSnapshot[],
+    private readonly alarms: ReadonlyArray<VO.AlarmSnapshot>,
     private readonly deps: Dependencies,
   ) {
     super(

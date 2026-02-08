@@ -10,7 +10,7 @@ type Dependencies = {
   CommandBus: bg.CommandBusLike<bg.Preferences.Commands.SetUserLanguageCommandType>;
 };
 
-export class SetDefaultUserLanguage<L extends readonly tools.LanguageType[]> {
+export class SetDefaultUserLanguage<L extends ReadonlyArray<tools.LanguageType>> {
   // Stryker disable all
   constructor(
     private readonly systemDefaultLanguage: L[number],

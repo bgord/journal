@@ -4,7 +4,7 @@ import type { ShareableLinkSnapshot } from "../../modules/publishing/value-objec
 export class Publishing {
   private static readonly BASE = "/api/publishing/links/list";
 
-  static async listShareableLinks(request: Request | null): Promise<ShareableLinkSnapshot[]> {
+  static async listShareableLinks(request: Request | null): Promise<ReadonlyArray<ShareableLinkSnapshot>> {
     const url = absoluteUrl(Publishing.BASE, request);
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 

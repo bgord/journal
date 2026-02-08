@@ -33,8 +33,11 @@ type DashboardWeeklyReviewType = Emotions.Queries.WeeklyReviewExportDto & {
 };
 
 export type DashboardDataType = {
-  heatmap: { t: 0 | 1; c: "200" | "400" | "600" }[];
-  alarms: { inactivity: DashboardAlarmInactivityType[]; entry: DashboardAlarmEntryType[] };
+  heatmap: ReadonlyArray<{ t: 0 | 1; c: "200" | "400" | "600" }>;
+  alarms: {
+    inactivity: ReadonlyArray<DashboardAlarmInactivityType>;
+    entry: ReadonlyArray<DashboardAlarmEntryType>;
+  };
   entries: {
     counts: {
       today: tools.IntegerNonNegativeType;
@@ -42,15 +45,15 @@ export type DashboardDataType = {
       allTime: tools.IntegerNonNegativeType;
     };
     top: {
-      reactions: DashboardTopReactionType[];
+      reactions: ReadonlyArray<DashboardTopReactionType>;
       emotions: {
-        today: DashboardTopEmotionType[];
-        lastWeek: DashboardTopEmotionType[];
-        allTime: DashboardTopEmotionType[];
+        today: ReadonlyArray<DashboardTopEmotionType>;
+        lastWeek: ReadonlyArray<DashboardTopEmotionType>;
+        allTime: ReadonlyArray<DashboardTopEmotionType>;
       };
     };
   };
-  weeklyReviews: DashboardWeeklyReviewType[];
+  weeklyReviews: ReadonlyArray<DashboardWeeklyReviewType>;
 };
 
 export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {

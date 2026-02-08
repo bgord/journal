@@ -29,7 +29,7 @@ export class Alarm {
   private detection?: VO.AlarmDetection;
   private advice?: AI.Advice;
 
-  private readonly pending: AlarmEventType[] = [];
+  private readonly pending: Array<AlarmEventType> = [];
 
   private constructor(
     id: VO.AlarmIdType,
@@ -38,7 +38,7 @@ export class Alarm {
     this.id = id;
   }
 
-  static build(id: VO.AlarmIdType, events: AlarmEventType[], deps: Dependencies): Alarm {
+  static build(id: VO.AlarmIdType, events: ReadonlyArray<AlarmEventType>, deps: Dependencies): Alarm {
     const entry = new Alarm(id, deps);
 
     events.forEach((event) => entry.apply(event));
@@ -129,7 +129,7 @@ export class Alarm {
     };
   }
 
-  pullEvents(): AlarmEventType[] {
+  pullEvents(): ReadonlyArray<AlarmEventType> {
     const events = [...this.pending];
 
     this.pending.length = 0;

@@ -31,7 +31,7 @@ export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.
 
   const entries = await deps.EntrySnapshot.getFormatted(userId, range[filter](today), query);
 
-  const result: EntrySnapshotFormatted[] = entries.map((entry) => ({
+  const result: ReadonlyArray<EntrySnapshotFormatted> = entries.map((entry) => ({
     ...entry,
     startedAt: tools.DateFormatters.datetime(entry.startedAt),
   }));

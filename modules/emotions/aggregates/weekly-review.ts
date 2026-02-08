@@ -29,7 +29,7 @@ export class WeeklyReview {
   // @ts-expect-error
   private insights?: VO.Advice;
 
-  private readonly pending: WeeklyReviewEventType[] = [];
+  private readonly pending: Array<WeeklyReviewEventType> = [];
 
   private constructor(
     id: VO.WeeklyReviewIdType,
@@ -38,7 +38,11 @@ export class WeeklyReview {
     this.id = id;
   }
 
-  static build(id: VO.WeeklyReviewIdType, events: WeeklyReviewEventType[], deps: Dependencies): WeeklyReview {
+  static build(
+    id: VO.WeeklyReviewIdType,
+    events: ReadonlyArray<WeeklyReviewEventType>,
+    deps: Dependencies,
+  ): WeeklyReview {
     const entry = new WeeklyReview(id, deps);
 
     events.forEach((event) => entry.apply(event));
@@ -108,7 +112,7 @@ export class WeeklyReview {
     };
   }
 
-  pullEvents(): WeeklyReviewEventType[] {
+  pullEvents(): ReadonlyArray<WeeklyReviewEventType> {
     const events = [...this.pending];
 
     this.pending.length = 0;

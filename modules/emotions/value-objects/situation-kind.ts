@@ -27,7 +27,7 @@ export class SituationKind {
     return this.get() === other.get();
   }
 
-  static all(): SituationKindType[] {
+  static all(): ReadonlyArray<SituationKindType> {
     return SituationKindSchema.options;
   }
 

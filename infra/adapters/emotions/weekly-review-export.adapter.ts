@@ -7,16 +7,15 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 type WeeklyReviewExportDrizzleResultType = Schema.SelectWeeklyReviews & {
-  entries: Pick<Schema.SelectEntries, Emotions.Queries.WeeklyReviewExportDtoEntryFields>[];
-  alarms: Pick<Schema.SelectAlarms, Emotions.Queries.WeeklyReviewExportDtoAlarmFields>[];
-  patternDetections: Pick<
-    Schema.SelectPatternDetections,
-    Emotions.Queries.WeeklyReviewExportDtoPatternDetectionFields
-  >[];
+  entries: ReadonlyArray<Pick<Schema.SelectEntries, Emotions.Queries.WeeklyReviewExportDtoEntryFields>>;
+  alarms: ReadonlyArray<Pick<Schema.SelectAlarms, Emotions.Queries.WeeklyReviewExportDtoAlarmFields>>;
+  patternDetections: ReadonlyArray<
+    Pick<Schema.SelectPatternDetections, Emotions.Queries.WeeklyReviewExportDtoPatternDetectionFields>
+  >;
 };
 
 class WeeklyReviewExportQueryDrizzle implements Emotions.Queries.WeeklyReviewExport {
-  async getFull(id: VO.WeeklyReviewIdType) {
+  async getFull(id: VO.WeeklyReviewIdType): Promise<Emotions.Queries.WeeklyReviewExportDto | undefined> {
     const result = await db.query.weeklyReviews.findFirst({
       where: eq(Schema.weeklyReviews.id, id),
       orderBy: desc(Schema.weeklyReviews.createdAt),
