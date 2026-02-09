@@ -42,16 +42,19 @@ function NavigationMobile() {
       <nav data-disp="flex" data-main="between" data-cross="center" data-p="2" style={{ height: "70px" }}>
         <Logo />
 
-        <button
-          type="button"
-          className="c-button"
-          data-variant="bare"
-          title={t("app.menu.show")}
-          onClick={navigation.enable}
-          {...navigation.props.controller}
-        >
-          <Menu data-color="white" height="24" width="24" />
-        </button>
+        <div data-stack="x" data-cross="center" data-gap="3">
+          <Avatar size={AvatarSize.sm} />
+          <button
+            type="button"
+            className="c-button"
+            data-variant="bare"
+            title={t("app.menu.show")}
+            onClick={navigation.enable}
+            {...navigation.props.controller}
+          >
+            <Menu data-color="white" height="24" width="24" />
+          </button>
+        </div>
       </nav>
 
       {navigation.on && (

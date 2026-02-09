@@ -2,11 +2,16 @@ import { Rhythm } from "@bgord/ui";
 import { rootRoute } from "../router";
 
 export enum AvatarSize {
+  sm = "sm",
   md = "md",
   lg = "lg",
 }
 
-const dimension: Record<AvatarSize, number> = { [AvatarSize.md]: 4, [AvatarSize.lg]: 8 };
+const dimension: Record<AvatarSize, number> = {
+  [AvatarSize.sm]: 2.5,
+  [AvatarSize.md]: 4,
+  [AvatarSize.lg]: 8,
+};
 
 export function Avatar(props: { size: AvatarSize }) {
   const { session, avatarEtag } = rootRoute.useLoaderData();
