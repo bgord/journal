@@ -1,6 +1,12 @@
 # Changelog
+- 2026-02-09 13:08 8f1c41fd **refactor: try enter key hint**
+## 2026-02-09 13:08 
+- 2026-02-09 13:06 3e6eadaf **refactor: improve entry reaction on md**
+- 2026-02-09 13:02 5aaf9bf1 **refactor: improve entry emotion on md**
+- 2026-02-09 12:57 afa2c227 **refactor: improve dialog on md**
+- 2026-02-09 12:47 714a03ea **refactor: simplify advice**
 - 2026-02-09 12:44 66b478e8 **step: update packages**
-## 2026-02-09 12:44 
+- 2026-02-09 11:44 c140969b **docs: generate CHANGELOG**
 - 2026-02-08 12:26 de8ce73b **step: update bun version**
 - 2026-02-08 12:26 20d7df94 **step: bump bgord/scripts**
 - 2026-02-08 12:07 3db4f089 **refactor: use readonly array wherever possible**
