@@ -1,9 +1,11 @@
 # Changelog
+- 2026-02-09 14:59 35dff36c **refactor: improve profile on md**
+## 2026-02-09 14:59 
 - 2026-02-09 14:44 05f4bacf **step: update packages**
-## 2026-02-09 14:44 
 - 2026-02-09 14:43 c975090a **fix: dialog**
 - 2026-02-09 14:43 77712934 **step: disable static cache for now**
 - 2026-02-09 14:31 32593350 **refactor: increase pb on md**
+- 2026-02-09 13:56 026cccb3 **docs: generate CHANGELOG**
 - 2026-02-09 13:49 d242a00c **fix: bottom padding on all pages**
 - 2026-02-09 13:41 ec0530b9 **step: update packages**
 - 2026-02-09 13:18 691d081d **step: add enter key hint to login**
