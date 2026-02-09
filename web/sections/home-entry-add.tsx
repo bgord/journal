@@ -194,7 +194,7 @@ export function HomeEntryAdd() {
             {...Autocomplete.off}
           />
 
-          <div data-stack="x" data-cross="center">
+          <div data-stack="x" data-main="between" data-cross="center">
             <Select required {...reactionType.input.props}>
               <option value="">{t("entry.reaction.type.default.value")}</option>
               {Form.reactionType.options.map((type) => (
@@ -204,16 +204,6 @@ export function HomeEntryAdd() {
               ))}
             </Select>
 
-            <label
-              data-fs="xs"
-              data-color="neutral-300"
-              data-ls="wide"
-              data-transform="uppercase"
-              data-ml="12"
-              data-mr="3"
-            >
-              {t("entry.reaction.effectiveness.label")}
-            </label>
             <RatingPillsClickable {...reactionEffectiveness} />
           </div>
 
