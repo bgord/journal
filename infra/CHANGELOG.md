@@ -1,9 +1,11 @@
 # Changelog
+- 2026-02-09 17:10 4488c31b **refactor: adjust profile account delete section**
+## 2026-02-09 17:10 
 - 2026-02-09 17:07 1238c3a6 **step: adjust profile avatar max side**
-## 2026-02-09 17:07 
 - 2026-02-09 16:58 98a8f34b **refactor: reduce spacing in mobile entry add form**
 - 2026-02-09 16:54 5b768f58 **refactor: remove unused entry key hints**
 - 2026-02-09 16:50 92ac965b **step: update packages**
+- 2026-02-09 16:07 ec7f5f73 **docs: generate CHANGELOG**
 - 2026-02-09 15:58 99a88e05 **docs: generate CHANGELOG**
 - 2026-02-09 15:51 a1151d2b **docs: generate CHANGELOG**
 - 2026-02-09 14:59 35dff36c **refactor: improve profile on md**
