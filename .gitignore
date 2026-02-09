@@ -30,3 +30,4 @@ output/
 reports/
 infra/build-info.json
 meta.json
+infra/adapters/system/profile-avatars/

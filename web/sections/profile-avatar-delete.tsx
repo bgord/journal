@@ -1,4 +1,4 @@
-import { useHover, useMutation } from "@bgord/ui";
+import { useMutation, useToggle } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
 import { Avatar, AvatarSize, ButtonClose } from "../components";
 import { rootRoute } from "../router";
@@ -6,7 +6,7 @@ import { rootRoute } from "../router";
 export function ProfileAvatarDelete() {
   const router = useRouter();
   const { avatarEtag } = rootRoute.useLoaderData();
-  const hover = useHover();
+  const overlay = useToggle({ name: "profile-avatar-delete" });
 
   const enabled = avatarEtag !== null;
 
@@ -16,13 +16,13 @@ export function ProfileAvatarDelete() {
   });
 
   return (
-    <div data-position="relative" {...hover.attach}>
+    <button type="button" onClick={overlay.toggle} data-position="relative" data-cursor="pointer">
       <Avatar size={AvatarSize.large} />
 
-      {hover.hovering && enabled && (
+      {overlay.on && enabled && (
         <div data-position="absolute" data-inset="0" data-bg="neutral-900" data-opacity="high" />
       )}
-      {hover.hovering && enabled && (
+      {overlay.on && enabled && (
         <ButtonClose
           onClick={() => mutation.mutate()}
           data-position="absolute"
@@ -31,6 +31,6 @@ export function ProfileAvatarDelete() {
           data-right="5"
         />
       )}
-    </div>
+    </button>
   );
 }
