@@ -1,6 +1,10 @@
 # Changelog
+- 2026-02-09 14:44 05f4bacf **step: update packages**
+## 2026-02-09 14:44 
+- 2026-02-09 14:43 c975090a **fix: dialog**
+- 2026-02-09 14:43 77712934 **step: disable static cache for now**
+- 2026-02-09 14:31 32593350 **refactor: increase pb on md**
 - 2026-02-09 13:49 d242a00c **fix: bottom padding on all pages**
-## 2026-02-09 13:49 
 - 2026-02-09 13:41 ec0530b9 **step: update packages**
 - 2026-02-09 13:18 691d081d **step: add enter key hint to login**
 - 2026-02-09 13:16 f06ff8c3 **refactor: adjust login pages**
@@ -8,6 +12,7 @@
 - 2026-02-09 13:06 3e6eadaf **refactor: improve entry reaction on md**
 - 2026-02-09 13:02 5aaf9bf1 **refactor: improve entry emotion on md**
 - 2026-02-09 12:57 afa2c227 **refactor: improve dialog on md**
+- 2026-02-09 12:51 f73b9726 **docs: generate CHANGELOG**
 - 2026-02-09 12:47 714a03ea **refactor: simplify advice**
 - 2026-02-09 12:44 66b478e8 **step: update packages**
 - 2026-02-09 12:41 1c8c9529 **docs: generate CHANGELOG**
