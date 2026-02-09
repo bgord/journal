@@ -19,7 +19,7 @@ export function Dashboard() {
     <main data-stack="y" data-gap="5" data-md-m="2" data-md-pb="16">
       <DashboardHeatmap />
 
-      <div data-stack="x" data-gap="5" data-mx="auto">
+      <div data-stack="x" data-main="around" data-gap="5" data-mx="3" data-md-mx="0">
         <DashboardSection>
           <DashboardColumnHeader>
             <Alarm data-size="md" data-color="brand-300" /> {t("dashboard.alarm.header")}
