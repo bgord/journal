@@ -122,12 +122,13 @@ export function HomeEntryAdd() {
             placeholder={t("entry.situation.description.label")}
             rows={3}
             autoFocus
+            enterKeyHint="next"
             {...situationDescription.input.props}
             {...form.textarea(Form.situationDescription.pattern)}
             {...Autocomplete.off}
           />
 
-          <Select required {...situationKind.input.props}>
+          <Select enterKeyHint="next" required {...situationKind.input.props}>
             <option value="">{t("entry.situation.kind.value.default")}</option>
             {Form.situationKind.options.map((kind) => (
               <option key={kind} value={kind}>
@@ -167,7 +168,12 @@ export function HomeEntryAdd() {
 
             <div data-stack="x" data-main="between" data-gap="3" data-grow="1">
               {emotionType && (
-                <Select required data-animation="grow-fade-in" {...emotionLabel.input.props}>
+                <Select
+                  required
+                  data-animation="grow-fade-in"
+                  enterKeyHint="next"
+                  {...emotionLabel.input.props}
+                >
                   <option value="">{t("entry.emotion.label.default.value")}</option>
                   {(emotionType === "positive" ? Form.emotionLabel.positive : Form.emotionLabel.negative).map(
                     (emotion) => (
@@ -189,13 +195,14 @@ export function HomeEntryAdd() {
             className="c-textarea"
             placeholder={t("entry.reaction.description.label")}
             rows={3}
+            enterKeyHint="next"
             {...reactionDescription.input.props}
             {...form.textarea(Form.reactionDescription.pattern)}
             {...Autocomplete.off}
           />
 
           <div data-stack="x" data-main="between" data-cross="center">
-            <Select required {...reactionType.input.props}>
+            <Select required enterKeyHint="next" {...reactionType.input.props}>
               <option value="">{t("entry.reaction.type.default.value")}</option>
               {Form.reactionType.options.map((type) => (
                 <option key={type} value={type}>
@@ -230,11 +237,12 @@ export function HomeEntryAdd() {
                   required
                   type="date"
                   min={form.date.min.tomorrow()}
+                  enterKeyHint="next"
                   {...timeCapsuleMode.props.target}
                   {...scheduledFor.input.props}
                 />
 
-                <Select required {...scheduledForHour.input.props}>
+                <Select enterKeyHint="next" required {...scheduledForHour.input.props}>
                   {Form.scheduledForHour.options.map((hour) => (
                     <option key={hour.label} value={hour.value}>
                       {hour.label}
