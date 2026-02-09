@@ -12,7 +12,7 @@ export function Home() {
   const exportEntries = useToggle({ name: "entry-export" });
 
   return (
-    <main data-stack="y" data-gap="3" data-maxw="md" data-mx="auto" data-md-m="2" data-md-pb="8">
+    <main data-stack="y" data-gap="3" data-maxw="md" data-mx="auto" data-md-m="2" data-md-pb="16">
       <div data-stack="x" data-gap="3">
         <div data-stack="x" data-gap="2" data-cross="center" data-color="neutral-400">
           <div className="c-badge" data-variant="primary" data-p="1" data-px="2">
