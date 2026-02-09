@@ -19,19 +19,22 @@ export function ProfileAccountDelete() {
   });
 
   return (
-    <section data-stack="y" data-gap="5" data-p="5" data-bc="danger-600" data-bw="hairline" data-bs="solid">
-      <div data-stack="x" data-gap="3">
-        <UserXmark data-size="md" />
-        <div>{t("profile.delete_account.header")}</div>
+    <section
+      data-stack="y"
+      data-gap="5"
+      data-p="5"
+      dta-md-p="3"
+      data-bc="danger-600"
+      data-bw="hairline"
+      data-bs="solid"
+    >
+      <div data-stack="x" data-main="between" data-gap="3">
+        <div data-stack="x" data-cross="center" data-gap="3">
+          <UserXmark data-size="md" />
+          {t("profile.delete_account.header")}
+        </div>
 
-        <div
-          data-stack="x"
-          data-cross="center"
-          data-gap="1"
-          data-ml="auto"
-          data-color="danger-400"
-          data-fs="xs"
-        >
+        <div data-stack="x" data-cross="center" data-gap="1" data-color="danger-400" data-fs="xs">
           <WarningCircle data-size="sm" />
           {t("profile.delete_account.info")}
         </div>
