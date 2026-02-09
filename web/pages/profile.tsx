@@ -20,7 +20,7 @@ export function Profile() {
     <main
       data-stack="y"
       data-gap="6"
-      data-my="8"
+      data-mt="8"
       data-mx="auto"
       data-p="8"
       data-width="100%"
@@ -28,6 +28,7 @@ export function Profile() {
       data-br="sm"
       data-bg="neutral-900"
       data-md-m="2"
+      data-md-pb="8"
     >
       <header data-stack="x" data-main="between">
         <h2 data-fw="bold">{t("profile.header")}</h2>
