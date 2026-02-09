@@ -46,7 +46,7 @@ describe(`POST ${url}`, async () => {
 
   test("ProfileAvatarConstraints - maxSide - width", async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-      width: tools.ImageWidth.parse(3100),
+      width: tools.ImageWidth.parse(4100),
       height: tools.ImageHeight.parse(100),
       mime: tools.Mimes.png.mime,
       size: tools.Size.fromKb(100),
@@ -65,7 +65,7 @@ describe(`POST ${url}`, async () => {
   test("ProfileAvatarConstraints - maxSide - height", async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
       width: tools.ImageWidth.parse(100),
-      height: tools.ImageHeight.parse(3100),
+      height: tools.ImageHeight.parse(4100),
       mime: tools.Mimes.png.mime,
       size: tools.Size.fromKb(100),
     });
@@ -118,8 +118,8 @@ describe(`POST ${url}`, async () => {
 
   test("happy path - png", async () => {
     spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-      width: tools.ImageWidth.parse(3000),
-      height: tools.ImageHeight.parse(3000),
+      width: tools.ImageWidth.parse(4000),
+      height: tools.ImageHeight.parse(4000),
       mime: tools.Mimes.png.mime,
       size: tools.Size.fromKb(100),
     });
