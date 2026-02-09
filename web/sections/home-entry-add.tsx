@@ -129,7 +129,7 @@ export function HomeEntryAdd() {
             {...Autocomplete.off}
           />
 
-          <Select enterKeyHint="next" required {...situationKind.input.props}>
+          <Select required {...situationKind.input.props}>
             <option value="">{t("entry.situation.kind.value.default")}</option>
             {Form.situationKind.options.map((kind) => (
               <option key={kind} value={kind}>
@@ -169,12 +169,7 @@ export function HomeEntryAdd() {
 
             <div data-stack="x" data-main="between" data-gap="3" data-grow="1">
               {emotionType && (
-                <Select
-                  required
-                  data-animation="grow-fade-in"
-                  enterKeyHint="next"
-                  {...emotionLabel.input.props}
-                >
+                <Select required data-animation="grow-fade-in" {...emotionLabel.input.props}>
                   <option value="">{t("entry.emotion.label.default.value")}</option>
                   {(emotionType === "positive" ? Form.emotionLabel.positive : Form.emotionLabel.negative).map(
                     (emotion) => (
@@ -203,7 +198,7 @@ export function HomeEntryAdd() {
           />
 
           <div data-stack="x" data-main="between" data-cross="center">
-            <Select required enterKeyHint="next" {...reactionType.input.props}>
+            <Select required {...reactionType.input.props}>
               <option value="">{t("entry.reaction.type.default.value")}</option>
               {Form.reactionType.options.map((type) => (
                 <option key={type} value={type}>
@@ -243,7 +238,7 @@ export function HomeEntryAdd() {
                   {...scheduledFor.input.props}
                 />
 
-                <Select enterKeyHint="next" required {...scheduledForHour.input.props}>
+                <Select required {...scheduledForHour.input.props}>
                   {Form.scheduledForHour.options.map((hour) => (
                     <option key={hour.label} value={hour.value}>
                       {hour.label}
