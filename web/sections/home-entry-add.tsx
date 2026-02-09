@@ -100,6 +100,7 @@ export function HomeEntryAdd() {
       </button>
 
       <Dialog
+        data-wrap="nowrap"
         data-mt="12"
         data-md-mt="3"
         data-md-p="3"
