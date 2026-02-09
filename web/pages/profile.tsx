@@ -21,13 +21,14 @@ export function Profile() {
       data-stack="y"
       data-gap="6"
       data-mt="8"
+      data-md-mt="2"
       data-mx="auto"
       data-p="8"
+      data-md-px="3"
       data-width="100%"
       data-maxw="md"
       data-br="sm"
       data-bg="neutral-900"
-      data-md-m="2"
       data-md-pb="16"
     >
       <header data-stack="x" data-main="between">

@@ -98,7 +98,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
         )}
       </div>
 
-      <div data-stack="y" data-gap="3" data-ml="auto">
+      <div data-stack="y" data-gap="3" data-ml="auto" data-md-ml="0">
         {props.status === ShareableLinkStatusEnum.active && (
           <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-400">
             <Clock data-size="xs" />
@@ -120,7 +120,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
         )}
 
         {props.status === ShareableLinkStatusEnum.active && (
-          <div data-stack="x" data-gap="3" data-ml="auto">
+          <div data-stack="x" data-gap="3">
             <Link
               to="/shared-entries/$shareableLinkId"
               params={{ shareableLinkId: props.id }}
@@ -138,7 +138,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
         )}
 
         {[ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status) && (
-          <div data-stack="x" data-gap="3" data-ml="auto">
+          <div data-stack="x" data-gap="3">
             <button
               type="submit"
               className="c-button"
