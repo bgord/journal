@@ -102,22 +102,22 @@ export function HomeEntryAdd() {
       <Dialog
         data-wrap="nowrap"
         data-mt="12"
-        data-md-mt="3"
-        data-md-p="3"
+        data-md-mt="0"
+        data-md-p="2"
         data-width="100%"
         locked={mutation.isLoading}
         {...Rhythm().times(50).style.maxWidth}
         {...dialog}
       >
         <div data-stack="x" data-main="between" data-cross="center">
-          <strong data-stack="x" data-cross="center" data-gap="2" data-fs="base" data-color="neutral-300">
+          <strong data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
             <Book data-size="md" data-color="neutral-300" />
             {t("entry.new.label")}
           </strong>
           <ButtonClose disabled={mutation.isLoading} onClick={dialog.disable} />
         </div>
 
-        <form data-stack="y" data-gap="5" data-mt="5" data-width="100%" onSubmit={mutation.handleSubmit}>
+        <form data-stack="y" data-gap="3" data-mt="5" data-width="100%" onSubmit={mutation.handleSubmit}>
           <textarea
             className="c-textarea"
             placeholder={t("entry.situation.description.label")}
