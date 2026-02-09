@@ -101,8 +101,11 @@ export function HomeEntryAdd() {
 
       <Dialog
         data-mt="12"
-        // locked={state === RequestState.loading}
-        {...Rhythm().times(50).style.square}
+        data-md-mt="3"
+        data-md-p="3"
+        data-width="100%"
+        locked={mutation.isLoading}
+        {...Rhythm().times(50).style.maxWidth}
         {...dialog}
       >
         <div data-stack="x" data-main="between" data-cross="center">
