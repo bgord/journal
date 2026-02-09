@@ -1,10 +1,12 @@
 # Changelog
+- 2026-02-09 12:44 66b478e8 **step: update packages**
+## 2026-02-09 12:44 
 - 2026-02-08 12:26 de8ce73b **step: update bun version**
 - 2026-02-08 12:26 20d7df94 **step: bump bgord/scripts**
-## 2026-02-08 12:26 
 - 2026-02-08 12:07 3db4f089 **refactor: use readonly array wherever possible**
 - 2026-02-08 12:04 2fd02341 **step: bump bgord/scripts**
 - 2026-02-08 12:03 6000788d **step: update packages**
+- 2026-02-08 11:27 7fc75e0e **docs: generate CHANGELOG**
 - 2026-02-08 11:22 f58a1c79 **docs: generate CHANGELOG**
 - 2026-02-06 18:05 5958a86b **step: update croner**
 - 2026-02-06 18:03 6c49227d **step: update packages**
