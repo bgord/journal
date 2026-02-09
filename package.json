@@ -39,7 +39,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "0.74.0",
     "@bgord/bun": "1.10.14",
-    "@bgord/design": "1.6.2",
+    "@bgord/design": "1.6.3",
     "@bgord/ui": "0.8.22",
     "@tanstack/react-router": "1.159.4",
     "better-auth": "1.4.18",
