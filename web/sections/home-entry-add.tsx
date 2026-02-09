@@ -138,8 +138,8 @@ export function HomeEntryAdd() {
 
           <Separator />
 
-          <div data-stack="x" data-main="between">
-            <div data-stack="x" data-cross="end">
+          <div data-stack="x" data-gap="3">
+            <div data-stack="x">
               <button
                 type="button"
                 className="c-button"
@@ -163,9 +163,11 @@ export function HomeEntryAdd() {
               >
                 {t("entry.emotion.label.type.negative")}
               </button>
+            </div>
 
+            <div data-stack="x" data-main="between" data-gap="3" data-grow="1">
               {emotionType && (
-                <Select required data-ml="3" data-animation="grow-fade-in" {...emotionLabel.input.props}>
+                <Select required data-animation="grow-fade-in" {...emotionLabel.input.props}>
                   <option value="">{t("entry.emotion.label.default.value")}</option>
                   {(emotionType === "positive" ? Form.emotionLabel.positive : Form.emotionLabel.negative).map(
                     (emotion) => (
@@ -176,9 +178,9 @@ export function HomeEntryAdd() {
                   )}
                 </Select>
               )}
-            </div>
 
-            <RatingPillsClickable {...emotionIntensity} />
+              <RatingPillsClickable {...emotionIntensity} />
+            </div>
           </div>
 
           <Separator />
