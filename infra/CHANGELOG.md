@@ -1,6 +1,7 @@
 # Changelog
+- 2026-02-09 13:49 d242a00c **fix: bottom padding on all pages**
+## 2026-02-09 13:49 
 - 2026-02-09 13:41 ec0530b9 **step: update packages**
-## 2026-02-09 13:41 
 - 2026-02-09 13:18 691d081d **step: add enter key hint to login**
 - 2026-02-09 13:16 f06ff8c3 **refactor: adjust login pages**
 - 2026-02-09 13:08 8f1c41fd **refactor: try enter key hint**
@@ -9,6 +10,7 @@
 - 2026-02-09 12:57 afa2c227 **refactor: improve dialog on md**
 - 2026-02-09 12:47 714a03ea **refactor: simplify advice**
 - 2026-02-09 12:44 66b478e8 **step: update packages**
+- 2026-02-09 12:41 1c8c9529 **docs: generate CHANGELOG**
 - 2026-02-09 12:18 8355ee9f **docs: generate CHANGELOG**
 - 2026-02-09 12:08 3d09645b **docs: generate CHANGELOG**
 - 2026-02-09 11:44 c140969b **docs: generate CHANGELOG**
