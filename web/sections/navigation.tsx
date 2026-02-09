@@ -90,15 +90,15 @@ function NavigationMobile() {
             data-mt="12"
             data-animation="grow-fade-in"
           >
-            <Link to="/profile" data-fs="base" data-fw="medium">
+            <Link to="/profile" onClick={navigation.disable} data-fs="base" data-fw="medium">
               <Avatar size={AvatarSize.small} />
             </Link>
 
-            <Link to="/dashboard" className="c-link" data-transform="uppercase">
+            <Link to="/dashboard" onClick={navigation.disable} className="c-link" data-transform="uppercase">
               {t("app.dashboard")}
             </Link>
 
-            <Link to="/profile" className="c-link" data-transform="uppercase">
+            <Link to="/profile" onClick={navigation.disable} className="c-link" data-transform="uppercase">
               {t("app.profile")}
             </Link>
 
