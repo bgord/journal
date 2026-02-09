@@ -23,7 +23,7 @@ function NavigationDesktop() {
       </Link>
 
       <Link to="/profile" className="c-link" data-focus-ring="neutral" data-fw="medium">
-        <Avatar size={AvatarSize.small} />
+        <Avatar size={AvatarSize.md} />
       </Link>
 
       <NavigationLogout />
@@ -91,7 +91,7 @@ function NavigationMobile() {
             data-animation="grow-fade-in"
           >
             <Link to="/profile" onClick={navigation.disable} data-fs="base" data-fw="medium">
-              <Avatar size={AvatarSize.small} />
+              <Avatar size={AvatarSize.sm} />
             </Link>
 
             <Link to="/dashboard" onClick={navigation.disable} className="c-link" data-transform="uppercase">

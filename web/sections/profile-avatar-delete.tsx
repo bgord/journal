@@ -17,7 +17,7 @@ export function ProfileAvatarDelete() {
 
   return (
     <button type="button" onClick={overlay.toggle} data-position="relative" data-cursor="pointer">
-      <Avatar size={AvatarSize.large} />
+      <Avatar size={AvatarSize.lg} />
 
       {overlay.on && enabled && (
         <div data-position="absolute" data-inset="0" data-bg="neutral-900" data-opacity="high" />
