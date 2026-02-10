@@ -5,7 +5,7 @@ export function DashboardHeatmap() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <ul data-stack="x" data-p="5" data-gap="1">
+    <ul data-stack="x" data-p="5" data-md-p="0" data-gap="1">
       {dashboard?.heatmap.map((point, index) => (
         <li
           key={`heatmap-${point}-${index}`}
