@@ -1,6 +1,9 @@
 # Changelog
+- 2026-02-10 14:19 fe1b5137 **step: update packages**
+- 2026-02-10 14:19 65a7ac18 **fix: heatmap on mobile**
+## 2026-02-10 14:19 
+- 2026-02-09 18:02 8f8a20d1 **step: add manual production deploy script**
 - 2026-02-09 17:37 299100fc **fix: dashboard layout on mobile**
-## 2026-02-09 17:37 
 - 2026-02-09 17:27 4d620cbd **step: include avatar in navigation mobile collapsed**
 - 2026-02-09 17:24 4f174989 **refactor: unify avatar sizes**
 - 2026-02-09 17:23 8e04febf **fix: mobile navigation closing**
@@ -10,6 +13,7 @@
 - 2026-02-09 16:58 98a8f34b **refactor: reduce spacing in mobile entry add form**
 - 2026-02-09 16:54 5b768f58 **refactor: remove unused entry key hints**
 - 2026-02-09 16:50 92ac965b **step: update packages**
+- 2026-02-09 16:42 5a160943 **docs: generate CHANGELOG**
 - 2026-02-09 16:27 4f48e32a **docs: generate CHANGELOG**
 - 2026-02-09 16:19 3e19f542 **docs: generate CHANGELOG**
 - 2026-02-09 16:11 bf96be76 **docs: generate CHANGELOG**
