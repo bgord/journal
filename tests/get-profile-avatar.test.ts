@@ -30,10 +30,10 @@ describe(`GET ${url}`, async () => {
   });
 
   test("304 when If-None-Match matches current ETag", async () => {
+    using remoteFileStorageGetStream = spyOn(di.Adapters.System.RemoteFileStorage, "getStream");
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue(mocks.head));
-    using remoteFileStorageGetStream = spyOn(di.Adapters.System.RemoteFileStorage, "getStream");
 
     const response = await server.request(
       url,

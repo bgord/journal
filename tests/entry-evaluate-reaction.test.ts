@@ -240,6 +240,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(
@@ -249,7 +250,6 @@ describe(`POST ${url}`, async () => {
         mocks.GenericReactionLoggedEvent,
       ]),
     );
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const payload = {
       description: mocks.GenericReactionEvaluatedEvent.payload.description,
       type: mocks.GenericReactionEvaluatedEvent.payload.type,

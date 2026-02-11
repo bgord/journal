@@ -20,6 +20,7 @@ describe("AiGateway", async () => {
   });
 
   test("happy path", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
@@ -28,7 +29,6 @@ describe("AiGateway", async () => {
       }),
     );
     spies.use(spyOn(di.Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const result = await gateway.query(prompt, mocks.EmotionsAlarmEntryContext);
@@ -40,6 +40,7 @@ describe("AiGateway", async () => {
   });
 
   test("quota exceeded", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
@@ -48,7 +49,6 @@ describe("AiGateway", async () => {
       }),
     );
     spies.use(spyOn(di.Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       expect(async () => gateway.query(prompt, mocks.EmotionsAlarmEntryContext)).toThrowError(

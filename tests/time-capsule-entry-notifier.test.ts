@@ -51,10 +51,10 @@ describe("TimeCapsuleEntryNotifier", async () => {
   });
 
   test("onSituationLoggedEvent - en", async () => {
+    using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
-    using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onSituationLoggedEvent(mocks.GenericSituationLoggedTimeCapsuleEvent),
@@ -67,10 +67,10 @@ describe("TimeCapsuleEntryNotifier", async () => {
   });
 
   test("onSituationLoggedEvent - pl", async () => {
+    using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.pl));
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
-    using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onSituationLoggedEvent(mocks.GenericSituationLoggedTimeCapsuleEvent),

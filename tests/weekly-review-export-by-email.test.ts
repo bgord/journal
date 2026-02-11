@@ -52,11 +52,11 @@ describe("WeeklyReviewExportByEmail", async () => {
   });
 
   test("onWeeklyReviewExportByEmailRequestedEvent - no weeklyReview", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
     spies.use(spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockResolvedValue(undefined));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
-    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
@@ -67,6 +67,8 @@ describe("WeeklyReviewExportByEmail", async () => {
   });
 
   test("onWeeklyReviewExportByEmailRequestedEvent - weeklyReview failure", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
     spies.use(
@@ -74,8 +76,6 @@ describe("WeeklyReviewExportByEmail", async () => {
         mocks.throwIntentionalErrorAsync,
       ),
     );
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
-    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
@@ -86,6 +86,7 @@ describe("WeeklyReviewExportByEmail", async () => {
   });
 
   test("onWeeklyReviewExportByEmailRequestedEvent - mailer failure", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.System.Mailer, "send").mockImplementation(mocks.throwIntentionalErrorAsync));
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
@@ -95,7 +96,6 @@ describe("WeeklyReviewExportByEmail", async () => {
         mocks.weeklyReviewFull,
       ),
     );
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),
@@ -105,6 +105,7 @@ describe("WeeklyReviewExportByEmail", async () => {
   });
 
   test("onWeeklyReviewExportByEmailRequestedEvent", async () => {
+    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn()));
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
@@ -114,7 +115,6 @@ describe("WeeklyReviewExportByEmail", async () => {
         mocks.weeklyReviewFull,
       ),
     );
-    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewExportByEmailRequestedEvent(mocks.GenericWeeklyReviewExportByEmailRequestedEvent),

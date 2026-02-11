@@ -84,6 +84,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
@@ -91,7 +92,6 @@ describe(`POST ${url}`, async () => {
       spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview),
     );
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

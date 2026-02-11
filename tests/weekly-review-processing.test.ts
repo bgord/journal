@@ -27,10 +27,10 @@ describe("WeeklyReviewProcessing", async () => {
   const config = { from: di.Env.EMAIL_FROM, to: mocks.email };
 
   test("onWeeklyReviewSkippedEvent", async () => {
+    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
     spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
-    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
@@ -46,11 +46,11 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewSkippedEvent - no email", async () => {
+    using loggerError = spyOn(di.Adapters.System.Logger, "error");
+    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined));
     spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
-    using loggerError = spyOn(di.Adapters.System.Logger, "error");
-    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
@@ -61,11 +61,11 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewSkippedEvent - mailer failed", async () => {
+    using loggerError = spyOn(di.Adapters.System.Logger, "error");
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
     spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
     spies.use(spyOn(di.Adapters.System.Mailer, "send").mockImplementation(mocks.throwIntentionalErrorAsync));
-    using loggerError = spyOn(di.Adapters.System.Logger, "error");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
@@ -83,6 +83,8 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewRequestedEvent - en", async () => {
+    using aiGatewayQuery = spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]),
@@ -92,8 +94,6 @@ describe("WeeklyReviewProcessing", async () => {
       spyOn(di.Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]),
     );
     spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
-    using aiGatewayQuery = spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
@@ -112,6 +112,8 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewRequestedEvent - pl", async () => {
+    using aiGatewayQuery = spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]),
@@ -121,8 +123,6 @@ describe("WeeklyReviewProcessing", async () => {
       spyOn(di.Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]),
     );
     spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.pl));
-    using aiGatewayQuery = spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
@@ -141,6 +141,7 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewRequestedEvent - failed", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]),
@@ -151,7 +152,6 @@ describe("WeeklyReviewProcessing", async () => {
     );
     spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
     spies.use(spyOn(di.Adapters.AI.AiGateway, "query").mockImplementation(mocks.throwIntentionalErrorAsync));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
@@ -161,13 +161,13 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewCompletedEvent", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview),
     );
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewCompletedEvent(mocks.GenericWeeklyReviewCompletedEvent),

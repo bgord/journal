@@ -144,12 +144,12 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementationOnce(jest.fn());
     const ids = new bg.IdProviderDeterministicAdapter([mocks.entryId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValueOnce(mocks.auth));
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementationOnce(() => mocks.revision));
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementationOnce(jest.fn());
 
     const response = await server.request(
       url,

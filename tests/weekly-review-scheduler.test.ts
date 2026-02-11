@@ -18,6 +18,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("correct path - single user", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewId]);
     using spies = new DisposableStack();
     spies.use(
@@ -30,7 +31,6 @@ describe("WeeklyReviewScheduler", async () => {
     );
     spies.use(spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week));
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event),
@@ -70,6 +70,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("EntriesForWeekExist", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const ids = new bg.IdProviderDeterministicAdapter([mocks.entryId]);
     using spies = new DisposableStack();
     spies.use(
@@ -82,7 +83,6 @@ describe("WeeklyReviewScheduler", async () => {
     );
     spies.use(spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week));
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event),

@@ -122,6 +122,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - ShareableLinksPerOwnerLimit", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(
@@ -129,7 +130,6 @@ describe(`POST ${url}`, async () => {
         count: tools.IntegerNonNegative.parse(3),
       }),
     );
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -151,6 +151,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const ids = new bg.IdProviderDeterministicAdapter([mocks.shareableLinkId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
@@ -161,7 +162,6 @@ describe(`POST ${url}`, async () => {
         count: tools.IntegerNonNegative.parse(0),
       }),
     );
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

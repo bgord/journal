@@ -45,6 +45,8 @@ describe(`POST ${url}`, async () => {
   });
 
   test("ProfileAvatarConstraints - maxSide - width", async () => {
+    using temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
+    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -55,8 +57,6 @@ describe(`POST ${url}`, async () => {
       }),
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
-    using temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
-    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
@@ -66,6 +66,8 @@ describe(`POST ${url}`, async () => {
   });
 
   test("ProfileAvatarConstraints - maxSide - height", async () => {
+    using temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
+    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -76,8 +78,6 @@ describe(`POST ${url}`, async () => {
       }),
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
-    using temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
-    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
@@ -87,6 +87,8 @@ describe(`POST ${url}`, async () => {
   });
 
   test("ProfileAvatarConstraints - size", async () => {
+    using temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
+    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -97,8 +99,6 @@ describe(`POST ${url}`, async () => {
       }),
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
-    using temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
-    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
@@ -108,6 +108,8 @@ describe(`POST ${url}`, async () => {
   });
 
   test("ProfileAvatarConstraints - mime", async () => {
+    using temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
+    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -118,8 +120,6 @@ describe(`POST ${url}`, async () => {
       }),
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
-    using temporaryFileWrite = spyOn(di.Adapters.System.TemporaryFile, "write");
-    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
 
     const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
 
@@ -129,6 +129,9 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path - png", async () => {
+    using imageProcessorProcess = spyOn(di.Adapters.System.ImageProcessor, "process");
+    using remoteFileStoragePutFromPath = spyOn(di.Adapters.System.RemoteFileStorage, "putFromPath");
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -139,9 +142,6 @@ describe(`POST ${url}`, async () => {
       }),
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
-    using imageProcessorProcess = spyOn(di.Adapters.System.ImageProcessor, "process");
-    using remoteFileStoragePutFromPath = spyOn(di.Adapters.System.RemoteFileStorage, "putFromPath");
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -166,6 +166,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path - jpeg", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -176,7 +177,6 @@ describe(`POST ${url}`, async () => {
       }),
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -189,6 +189,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path - webp", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -199,7 +200,6 @@ describe(`POST ${url}`, async () => {
       }),
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

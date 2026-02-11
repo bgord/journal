@@ -175,6 +175,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
@@ -184,7 +185,6 @@ describe(`POST ${url}`, async () => {
         mocks.GenericEmotionLoggedEvent,
       ]),
     );
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const payload = {
       label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,
       intensity: mocks.GenericEmotionReappraisedEvent.payload.newIntensity,

@@ -68,11 +68,11 @@ describe(`DELETE ${url}`, async () => {
   });
 
   test("happy path - after situation", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]));
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -85,6 +85,7 @@ describe(`DELETE ${url}`, async () => {
   });
 
   test("happy path - after emotion", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(
@@ -94,7 +95,6 @@ describe(`DELETE ${url}`, async () => {
       ]),
     );
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
