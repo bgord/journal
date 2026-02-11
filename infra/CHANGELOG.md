@@ -1,8 +1,11 @@
 # Changelog
+- 2026-02-11 14:35 de3fd3de **refactor: restore public assets cache**
+## 2026-02-11 14:35 
+- 2026-02-11 14:18 47b7a469 **refactor: adjust timeout in prereqs**
 - 2026-02-11 13:21 52279d6f **step: update packages**
 - 2026-02-11 13:21 030984f5 **refactor: cleanup tests**
-## 2026-02-11 13:21 
 - 2026-02-11 12:35 3d75face **step: update packages**
+- 2026-02-11 12:22 a315a05a **docs: generate CHANGELOG**
 - 2026-02-11 11:42 42a8ef86 **refactor: using for spyOn**
 - 2026-02-11 00:11 fd2de4d8 **refactor: remove tests setup**
 - 2026-02-11 00:07 a749a6b8 **step: update packages**
