@@ -29,10 +29,8 @@ import { handler } from "./web/entry-server";
       ...bg.StaticFiles.handle(
         "/public/*",
         di.Env.type === bg.NodeEnvironmentEnum.production
-          ? bg.StaticFileStrategyNoop
-          : // TODO
-            // ? bg.StaticFileStrategyMustRevalidate(tools.Duration.Minutes(5))
-            bg.StaticFileStrategyNoop,
+          ? bg.StaticFileStrategyMustRevalidate(tools.Duration.Minutes(5))
+          : bg.StaticFileStrategyNoop,
       ),
       "/api/*": server.fetch,
       "/*": bg.SSR.essentials(handler, di.Adapters.System),
