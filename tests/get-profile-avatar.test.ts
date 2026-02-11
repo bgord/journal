@@ -18,8 +18,8 @@ describe(`GET ${url}`, async () => {
   });
 
   test("404 when object does not exist (head.exists=false)", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    const remoteFileStorageHead = spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue({
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using remoteFileStorageHead = spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue({
       exists: false,
     });
 
@@ -30,9 +30,10 @@ describe(`GET ${url}`, async () => {
   });
 
   test("304 when If-None-Match matches current ETag", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue(mocks.head);
-    const remoteFileStorageGetStream = spyOn(di.Adapters.System.RemoteFileStorage, "getStream");
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue(mocks.head));
+    using remoteFileStorageGetStream = spyOn(di.Adapters.System.RemoteFileStorage, "getStream");
 
     const response = await server.request(
       url,
@@ -45,15 +46,16 @@ describe(`GET ${url}`, async () => {
   });
 
   test("200 streams avatar with correct headers", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue(mocks.head);
     const fakeStream = new ReadableStream({
       start(controller) {
         controller.enqueue(new Uint8Array([1, 2, 3, 4, 5]));
         controller.close();
       },
     });
-    spyOn(di.Adapters.System.RemoteFileStorage, "getStream").mockResolvedValue(fakeStream);
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue(mocks.head));
+    spies.use(spyOn(di.Adapters.System.RemoteFileStorage, "getStream").mockResolvedValue(fakeStream));
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
@@ -70,9 +72,10 @@ describe(`GET ${url}`, async () => {
   });
 
   test("404 when stream is not available even if head.exists=true", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue(mocks.head);
-    spyOn(di.Adapters.System.RemoteFileStorage, "getStream").mockResolvedValue(null);
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Adapters.System.RemoteFileStorage, "head").mockResolvedValue(mocks.head));
+    spies.use(spyOn(di.Adapters.System.RemoteFileStorage, "getStream").mockResolvedValue(null));
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 

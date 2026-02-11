@@ -17,7 +17,7 @@ describe("AiClientAnthropic", async () => {
   const client = new AiClientAnthropicAdapter(di.Env.ANTHROPIC_AI_API_KEY);
 
   test("request", async () => {
-    const anthropicCreate = spyOn(
+    using anthropicCreate = spyOn(
       client.Anthropic.messages,
       "create",
       // @ts-expect-error

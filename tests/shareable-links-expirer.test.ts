@@ -18,13 +18,20 @@ describe("ShareableLinksExpirer", async () => {
   });
 
   test("validation - ShareableLinkIsActive - already revoked", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
-      mocks.GenericShareableLinkCreatedEvent,
-      mocks.GenericShareableLinkRevokedEvent,
-    ]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
+    spies.use(
+      spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([
+        mocks.shareableLink,
+      ]),
+    );
+    spies.use(
+      spyOn(di.Tools.EventStore, "find").mockResolvedValue([
+        mocks.GenericShareableLinkCreatedEvent,
+        mocks.GenericShareableLinkRevokedEvent,
+      ]),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -34,13 +41,20 @@ describe("ShareableLinksExpirer", async () => {
   });
 
   test("validation - ShareableLinkIsActive - already expired", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
-      mocks.GenericShareableLinkCreatedEvent,
-      mocks.GenericShareableLinkExpiredEvent,
-    ]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
+    spies.use(
+      spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([
+        mocks.shareableLink,
+      ]),
+    );
+    spies.use(
+      spyOn(di.Tools.EventStore, "find").mockResolvedValue([
+        mocks.GenericShareableLinkCreatedEvent,
+        mocks.GenericShareableLinkExpiredEvent,
+      ]),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -51,11 +65,18 @@ describe("ShareableLinksExpirer", async () => {
 
   test("validation - ShareableLinkExpirationTimePassed", async () => {
     // Link created at T0, duration 1s, should not be expired at T0 - 1 hour
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.System.Clock, "now").mockReturnValue(mocks.T0.subtract(tools.Duration.Hours(1)));
-    spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
+    spies.use(
+      spyOn(di.Adapters.System.Clock, "now").mockReturnValue(mocks.T0.subtract(tools.Duration.Hours(1))),
+    );
+    spies.use(
+      spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([
+        mocks.shareableLink,
+      ]),
+    );
+    spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]));
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -65,12 +86,15 @@ describe("ShareableLinksExpirer", async () => {
   });
 
   test("repository failure", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockImplementation(
-      mocks.throwIntentionalErrorAsync,
+    using spies = new DisposableStack();
+    spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
+    spies.use(
+      spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockImplementation(
+        mocks.throwIntentionalErrorAsync,
+      ),
     );
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]));
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -80,8 +104,8 @@ describe("ShareableLinksExpirer", async () => {
   });
 
   test("correct path - no links", async () => {
-    spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using _ = spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([]);
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -92,13 +116,20 @@ describe("ShareableLinksExpirer", async () => {
 
   test("correct path", async () => {
     // Link created at T0, duration 1s, should be expired at T0 + 1 hour
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([mocks.shareableLink]);
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-    spyOn(di.Adapters.System.Clock, "now")
-      .mockReturnValueOnce(mocks.T0)
-      .mockReturnValueOnce(mocks.T0.add(tools.Duration.Hours(1)));
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
+    spies.use(
+      spyOn(di.Adapters.Publishing.ExpiringShareableLinks, "listDue").mockResolvedValue([
+        mocks.shareableLink,
+      ]),
+    );
+    spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]));
+    spies.use(
+      spyOn(di.Adapters.System.Clock, "now")
+        .mockReturnValueOnce(mocks.T0)
+        .mockReturnValueOnce(mocks.T0.add(tools.Duration.Hours(1))),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),

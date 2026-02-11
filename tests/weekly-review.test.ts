@@ -36,7 +36,7 @@ describe("WeeklyReview", async () => {
   });
 
   test("complete - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(
       mocks.weeklyReviewId,
       [mocks.GenericWeeklyReviewRequestedEvent],

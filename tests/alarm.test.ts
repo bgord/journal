@@ -14,7 +14,7 @@ describe("Alarm", async () => {
   });
 
   test("generate - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const alarm = Emotions.Aggregates.Alarm.generate(
@@ -39,7 +39,7 @@ describe("Alarm", async () => {
   });
 
   test("saveAdvice - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const alarm = Emotions.Aggregates.Alarm.build(
       mocks.alarmId,
       [mocks.GenericAlarmGeneratedEvent],
@@ -77,7 +77,7 @@ describe("Alarm", async () => {
   });
 
   test("notify - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const alarm = Emotions.Aggregates.Alarm.build(
       mocks.alarmId,
       [mocks.GenericAlarmGeneratedEvent, mocks.GenericAlarmAdviceSavedEvent],

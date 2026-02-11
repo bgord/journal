@@ -9,7 +9,7 @@ describe("AlarmNotificationFactory", async () => {
   const di = await bootstrap();
 
   test("entry - missing snapshot", async () => {
-    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined);
+    using _ = spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined);
 
     const result = await new Emotions.Services.AlarmNotificationFactory(
       di.Adapters.Emotions.EntrySnapshot,
@@ -20,7 +20,7 @@ describe("AlarmNotificationFactory", async () => {
   });
 
   test("entry - en", async () => {
-    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+    using _ = spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
 
     const result = await new Emotions.Services.AlarmNotificationFactory(
       di.Adapters.Emotions.EntrySnapshot,
@@ -34,7 +34,7 @@ describe("AlarmNotificationFactory", async () => {
   });
 
   test("entry - pl", async () => {
-    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+    using _ = spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
 
     const result = await new Emotions.Services.AlarmNotificationFactory(
       di.Adapters.Emotions.EntrySnapshot,

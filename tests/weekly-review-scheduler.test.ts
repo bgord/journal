@@ -19,13 +19,18 @@ describe("WeeklyReviewScheduler", async () => {
 
   test("correct path - single user", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewId]);
-    spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]);
-    spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(
-      tools.IntegerNonNegative.parse(1),
+    using spies = new DisposableStack();
+    spies.use(
+      spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]),
     );
-    spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    spies.use(
+      spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(
+        tools.IntegerNonNegative.parse(1),
+      ),
+    );
+    spies.use(spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week));
+    spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event),
@@ -35,7 +40,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("WeeklyReviewSchedule - not monday, not 6 pm", async () => {
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -45,7 +50,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("WeeklyReviewSchedule - monday, not 6 pm", async () => {
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc12Event),
@@ -55,7 +60,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("WeeklyReviewSchedule - not monday, 6 pm", async () => {
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event),
@@ -66,13 +71,18 @@ describe("WeeklyReviewScheduler", async () => {
 
   test("EntriesForWeekExist", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.entryId]);
-    spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]);
-    spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(
-      tools.IntegerNonNegative.parse(0),
+    using spies = new DisposableStack();
+    spies.use(
+      spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]),
     );
-    spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    spies.use(
+      spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(
+        tools.IntegerNonNegative.parse(0),
+      ),
+    );
+    spies.use(spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week));
+    spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc18Event),

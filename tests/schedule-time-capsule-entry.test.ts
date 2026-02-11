@@ -31,7 +31,7 @@ describe(`POST ${url}`, async () => {
   const server = createServer(di);
 
   test("situation - validation - empty payload", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(url, { method: "POST", body: JSON.stringify({}) }, mocks.ip);
     const json = await response.json();
@@ -44,7 +44,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("situation - validation - missing kind", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -61,7 +61,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("emotion - validation - empty payload", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -75,7 +75,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("emotion - validation - missing intensity", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -92,7 +92,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("reaction - validation - empty payload", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -106,7 +106,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("reaction - validation - missing type", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -123,7 +123,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("reaction - validation - missing effectiveness", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -145,7 +145,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("scheduledFor - missing", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -157,7 +157,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("scheduledFor - in the past", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -178,7 +178,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("scheduledForHour - missing", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -199,10 +199,11 @@ describe(`POST ${url}`, async () => {
 
   test("happy path", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.entryId]);
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
+    spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

@@ -17,7 +17,7 @@ describe("AiClientOpenAi", async () => {
   const client = new AiClientOpenAiAdapter(di.Env.OPEN_AI_API_KEY);
 
   test("request", async () => {
-    const openAiCreate = spyOn(
+    using openAiCreate = spyOn(
       client.OpenAI.responses,
       "create",
       // @ts-expect-error

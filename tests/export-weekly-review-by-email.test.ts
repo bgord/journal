@@ -24,7 +24,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - incorrect id", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request("/api/weekly-review/id/export/email", { method: "POST" }, mocks.ip);
     const json = await response.json();
@@ -34,8 +34,9 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - WeeklyReviewExists - no weekly review", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(null);
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(null));
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
@@ -43,9 +44,12 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - WeeklyReviewExists - repo failure", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockImplementation(
-      mocks.throwIntentionalErrorAsync,
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(
+      spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockImplementation(
+        mocks.throwIntentionalErrorAsync,
+      ),
     );
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
@@ -54,8 +58,13 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - WeeklyReviewIsCompleted", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReviewSkipped);
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(
+      spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(
+        mocks.weeklyReviewSkipped,
+      ),
+    );
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
@@ -63,8 +72,11 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - RequesterOwnsWeeklyReview", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth);
-    spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth));
+    spies.use(
+      spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview),
+    );
 
     const response = await server.request(url, { method: "POST" }, mocks.ip);
 
@@ -73,10 +85,13 @@ describe(`POST ${url}`, async () => {
 
   test("happy path", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(
+      spyOn(di.Adapters.Emotions.WeeklyReviewSnapshot, "getById").mockResolvedValue(mocks.weeklyReview),
+    );
+    spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

@@ -24,7 +24,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - empty payload", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(url, { method: "POST", body: JSON.stringify({}) }, mocks.ip);
     const json = await response.json();
@@ -34,9 +34,12 @@ describe(`POST ${url}`, async () => {
   });
 
   test("UserLanguageHasChanged", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -49,9 +52,12 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

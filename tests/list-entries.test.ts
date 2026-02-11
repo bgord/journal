@@ -28,8 +28,8 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path - default - last_week", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
       mocks.fullEntryWithAlarms,
     ]);
 
@@ -42,8 +42,8 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path - today", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
       mocks.fullEntryWithAlarms,
     ]);
 
@@ -60,8 +60,8 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path - last_month", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
       mocks.fullEntryWithAlarms,
     ]);
 
@@ -78,8 +78,8 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path - all_time", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    const entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using entrySnapshot = spyOn(di.Adapters.Emotions.EntrySnapshot, "getFormatted").mockResolvedValue([
       mocks.fullEntryWithAlarms,
     ]);
 

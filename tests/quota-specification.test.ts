@@ -12,7 +12,7 @@ describe("QuotaSpecification", async () => {
   const specification = new QuotaSpecification(di.Adapters.AI.BucketCounter);
 
   test("EmotionsAlarmEntryContext - no violations", async () => {
-    const bucketCounterGetMany = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    using bucketCounterGetMany = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: noUsage,
       [mocks.emotionsAlarmEntryBucket]: noUsage,
     });
@@ -26,7 +26,7 @@ describe("QuotaSpecification", async () => {
 
   test("EmotionsAlarmEntryContext - USER_DAILY violations", async () => {
     const used = tools.IntegerNonNegative.parse(10);
-    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsAlarmEntryBucket]: noUsage,
     });
@@ -38,7 +38,7 @@ describe("QuotaSpecification", async () => {
 
   test("EmotionsAlarmEntryContext - EMOTIONS_ALARM_ENTRY violations", async () => {
     const used = tools.IntegerNonNegative.parse(2);
-    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsAlarmEntryBucket]: used,
     });
@@ -56,7 +56,7 @@ describe("QuotaSpecification", async () => {
   });
 
   test("EmotionsWeeklyReviewInsightContext - no violations", async () => {
-    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: noUsage,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: noUsage,
     });
@@ -66,7 +66,7 @@ describe("QuotaSpecification", async () => {
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
     const used = tools.IntegerNonNegative.parse(10);
-    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: noUsage,
     });
@@ -78,7 +78,7 @@ describe("QuotaSpecification", async () => {
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
     const used = tools.IntegerNonNegative.parse(1);
-    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: used,
     });
@@ -96,7 +96,7 @@ describe("QuotaSpecification", async () => {
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - no violations", async () => {
-    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: noUsage,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: noUsage,
     });
@@ -108,7 +108,7 @@ describe("QuotaSpecification", async () => {
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
     const used = tools.IntegerNonNegative.parse(10);
-    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: noUsage,
     });
@@ -120,7 +120,7 @@ describe("QuotaSpecification", async () => {
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
     const used = tools.IntegerNonNegative.parse(1);
-    spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
+    using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: used,
     });

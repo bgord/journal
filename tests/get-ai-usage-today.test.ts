@@ -19,8 +19,9 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.AI.RuleInspector, "inspect").mockResolvedValue(mocks.ruleInspection);
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Adapters.AI.RuleInspector, "inspect").mockResolvedValue(mocks.ruleInspection));
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();

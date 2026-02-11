@@ -11,7 +11,7 @@ describe("EntryExportFilePdf", async () => {
   });
 
   test("generates a PDF", async () => {
-    const pdfGeneratorRequest = spyOn(di.Adapters.Emotions.PdfGenerator, "request");
+    using pdfGeneratorRequest = spyOn(di.Adapters.Emotions.PdfGenerator, "request");
 
     expect(await file.create()).toEqual(mocks.PDF);
     expect(pdfGeneratorRequest).toHaveBeenCalledWith("entry_export", { entries: [mocks.fullEntry] });

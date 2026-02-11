@@ -31,7 +31,7 @@ describe("ShareableLink", async () => {
   });
 
   test("generate - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const shareableLink = Publishing.Aggregates.ShareableLink.create(
@@ -48,8 +48,11 @@ describe("ShareableLink", async () => {
   });
 
   test("expire - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(mocks.T0.add(tools.Duration.Hours(1)));
+    using spies = new DisposableStack();
+    spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
+    spies.use(
+      spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(mocks.T0.add(tools.Duration.Hours(1))),
+    );
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.shareableLinkId,
       [mocks.GenericShareableLinkCreatedEvent],
@@ -76,7 +79,9 @@ describe("ShareableLink", async () => {
 
   test("expire - ShareableLinkExpirationTimePassed", async () => {
     // Link created at T0, duration 1s, should not be expired at T0 - 1 hour
-    spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(mocks.T0.subtract(tools.Duration.Hours(1)));
+    using _ = spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(
+      mocks.T0.subtract(tools.Duration.Hours(1)),
+    );
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent],
@@ -90,7 +95,7 @@ describe("ShareableLink", async () => {
   });
 
   test("revoke - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.shareableLinkId,
       [mocks.GenericShareableLinkCreatedEvent],

@@ -25,7 +25,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - empty payload", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(url, { method: "POST", body: JSON.stringify({}) }, mocks.ip);
 
@@ -33,7 +33,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - publicationSpecification", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -47,7 +47,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - durationMs", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -61,7 +61,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - dateRangeStart", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -78,7 +78,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - dateRangeEnd", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -100,7 +100,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - dateRange", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       url,
@@ -122,11 +122,14 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - ShareableLinksPerOwnerLimit", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({
-      count: tools.IntegerNonNegative.parse(3),
-    });
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(
+      spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({
+        count: tools.IntegerNonNegative.parse(3),
+      }),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,
@@ -149,13 +152,16 @@ describe(`POST ${url}`, async () => {
 
   test("happy path", async () => {
     const ids = new bg.IdProviderDeterministicAdapter([mocks.shareableLinkId]);
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate());
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
-    spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({
-      count: tools.IntegerNonNegative.parse(0),
-    });
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
+    spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
+    spies.use(
+      spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({
+        count: tools.IntegerNonNegative.parse(0),
+      }),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

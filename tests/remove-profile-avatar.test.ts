@@ -23,11 +23,11 @@ describe(`DELETE ${url}`, async () => {
   });
 
   test("happy path", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    const remoteFileStorageDelete = spyOn(di.Adapters.System.RemoteFileStorage, "delete").mockImplementation(
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using remoteFileStorageDelete = spyOn(di.Adapters.System.RemoteFileStorage, "delete").mockImplementation(
       jest.fn(),
     );
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     const response = await server.request(
       url,

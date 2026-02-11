@@ -20,7 +20,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("validation - incorrect id", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
 
     const response = await server.request(
       "/api/publishing/link/id/revoke",
@@ -34,9 +34,10 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
-    spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using spies = new DisposableStack();
     // @ts-expect-error
-    spyOn(db, "update").mockReturnValue({ set: jest.fn().mockReturnValue({ where: jest.fn() }) });
+    spies.use(spyOn(db, "update").mockReturnValue({ set: jest.fn().mockReturnValue({ where: jest.fn() }) }));
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
 
     const response = await server.request(
       url,

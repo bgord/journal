@@ -10,7 +10,8 @@ describe("WeeklyReviewExportPdfFile", async () => {
   });
 
   test("generates a PDF", async () => {
-    const pdfGeneratorRequest = spyOn(di.Adapters.Emotions.PdfGenerator, "request");
+    using pdfGeneratorRequest = spyOn(di.Adapters.Emotions.PdfGenerator, "request");
+
     const result = await file.create();
 
     expect(result).toEqual(mocks.PDF);

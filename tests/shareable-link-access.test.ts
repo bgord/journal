@@ -7,8 +7,8 @@ describe("ShareableLinkAccess", async () => {
   const di = await bootstrap();
 
   test("true", async () => {
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const result = (
@@ -25,8 +25,8 @@ describe("ShareableLinkAccess", async () => {
   });
 
   test("false - not found", async () => {
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([]);
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
@@ -42,11 +42,11 @@ describe("ShareableLinkAccess", async () => {
   });
 
   test("isValid - false - expired", async () => {
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
+    using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
     ]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
@@ -64,11 +64,11 @@ describe("ShareableLinkAccess", async () => {
   });
 
   test("isValid - false - revoked", async () => {
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
+    using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
     ]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(
@@ -86,8 +86,8 @@ describe("ShareableLinkAccess", async () => {
   });
 
   test("isValid - false - specification", async () => {
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       expect(

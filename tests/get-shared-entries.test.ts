@@ -23,11 +23,11 @@ describe(`GET ${url}`, async () => {
   });
 
   test("validation - expired", async () => {
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
+    using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
     ]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const response = await server.request(
@@ -42,11 +42,11 @@ describe(`GET ${url}`, async () => {
   });
 
   test("validation - revoked", async () => {
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([
+    using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
     ]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const response = await server.request(
@@ -61,9 +61,10 @@ describe(`GET ${url}`, async () => {
   });
 
   test("happy path", async () => {
-    spyOn(di.Adapters.Emotions.EntriesSharingOHQ, "listForOwnerInRange").mockResolvedValue([]);
-    spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Adapters.Emotions.EntriesSharingOHQ, "listForOwnerInRange").mockResolvedValue([]));
+    spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]));
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
       const response = await server.request(

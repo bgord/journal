@@ -18,10 +18,10 @@ describe("TimeCapsuleEntriesScheduler", async () => {
   });
 
   test("TimeCapsuleEntryIsPublishable - invalid status, valid timing", async () => {
-    spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([
+    using _ = spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([
       mocks.timeCapsuleEntryPublished,
     ]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -31,11 +31,14 @@ describe("TimeCapsuleEntriesScheduler", async () => {
   });
 
   test("TimeCapsuleEntryIsPublishable - invalid status, invalid timing", async () => {
-    spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(mocks.timeCapsuleEntryScheduledFor);
-    spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([
-      mocks.timeCapsuleEntryPublished,
-    ]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(mocks.timeCapsuleEntryScheduledFor));
+    spies.use(
+      spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([
+        mocks.timeCapsuleEntryPublished,
+      ]),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -45,9 +48,16 @@ describe("TimeCapsuleEntriesScheduler", async () => {
   });
 
   test("TimeCapsuleEntryIsPublishable - valid status, invalid timing", async () => {
-    spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(mocks.T0.subtract(tools.Duration.Days(1)));
-    spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([mocks.timeCapsuleEntry]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(
+      spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(mocks.T0.subtract(tools.Duration.Days(1))),
+    );
+    spies.use(
+      spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([
+        mocks.timeCapsuleEntry,
+      ]),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -57,8 +67,8 @@ describe("TimeCapsuleEntriesScheduler", async () => {
   });
 
   test("correct path - no time capsule entries", async () => {
-    spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using _ = spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([]);
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -68,9 +78,14 @@ describe("TimeCapsuleEntriesScheduler", async () => {
   });
 
   test("correct path", async () => {
-    spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(mocks.timeCapsuleEntryScheduledFor);
-    spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([mocks.timeCapsuleEntry]);
-    const eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Adapters.System.Clock, "now").mockReturnValueOnce(mocks.timeCapsuleEntryScheduledFor));
+    spies.use(
+      spyOn(di.Adapters.Emotions.TimeCapsuleDueEntries, "listDue").mockResolvedValue([
+        mocks.timeCapsuleEntry,
+      ]),
+    );
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),

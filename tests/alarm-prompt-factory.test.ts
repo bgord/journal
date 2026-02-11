@@ -9,7 +9,7 @@ describe("AlarmPromptFactory", async () => {
   const di = await bootstrap();
 
   test("entry", async () => {
-    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
+    using _ = spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry);
 
     const result = await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
       di.Adapters.Emotions.EntrySnapshot,
@@ -24,7 +24,7 @@ describe("AlarmPromptFactory", async () => {
   });
 
   test("entry - missing", async () => {
-    spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined);
+    using _ = spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined);
 
     const result = await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
       di.Adapters.Emotions.EntrySnapshot,

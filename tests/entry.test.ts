@@ -38,7 +38,7 @@ describe("entry", async () => {
   });
 
   test("log - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
 
     await bg.CorrelationStorage.run(mocks.correlationId, () => {
       const entry = Emotions.Aggregates.Entry.log(
@@ -60,7 +60,7 @@ describe("entry", async () => {
   });
 
   test("reappraiseEmotion - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
       [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent],
@@ -105,7 +105,7 @@ describe("entry", async () => {
   });
 
   test("evaluateReaction - correct path", async () => {
-    spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
+    using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const entry = Emotions.Aggregates.Entry.build(
       mocks.entryId,
       [mocks.GenericSituationLoggedEvent, mocks.GenericEmotionLoggedEvent, mocks.GenericReactionLoggedEvent],
