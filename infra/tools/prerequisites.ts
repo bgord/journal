@@ -24,7 +24,7 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
   const production = Env.type === bg.NodeEnvironmentEnum.production;
   const local = Env.type === bg.NodeEnvironmentEnum.local;
 
-  const withTimeout = bg.PrerequisiteDecorator.withTimeout(tools.Duration.Seconds(2), deps);
+  const withTimeout = bg.PrerequisiteDecorator.withTimeout(tools.Duration.Seconds(5), deps);
   const withFailSafe = bg.PrerequisiteDecorator.withFailSafe(
     (result) => result.outcome === bg.PrerequisiteVerificationOutcome.failure,
   );
