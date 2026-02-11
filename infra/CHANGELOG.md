@@ -1,7 +1,14 @@
 # Changelog
+- 2026-02-11 13:21 52279d6f **step: update packages**
+- 2026-02-11 13:21 030984f5 **refactor: cleanup tests**
+## 2026-02-11 13:21 
+- 2026-02-11 12:35 3d75face **step: update packages**
+- 2026-02-11 11:42 42a8ef86 **refactor: using for spyOn**
+- 2026-02-11 00:11 fd2de4d8 **refactor: remove tests setup**
+- 2026-02-11 00:07 a749a6b8 **step: update packages**
 - 2026-02-10 14:19 fe1b5137 **step: update packages**
 - 2026-02-10 14:19 65a7ac18 **fix: heatmap on mobile**
-## 2026-02-10 14:19 
+- 2026-02-10 13:19 2bab91f0 **docs: generate CHANGELOG**
 - 2026-02-09 18:02 8f8a20d1 **step: add manual production deploy script**
 - 2026-02-09 17:37 299100fc **fix: dashboard layout on mobile**
 - 2026-02-09 17:27 4d620cbd **step: include avatar in navigation mobile collapsed**
