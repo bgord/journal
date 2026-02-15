@@ -1,7 +1,9 @@
 # Changelog
+- 2026-02-15 11:33 f49be5d4 **step: update packages**
+## 2026-02-15 11:33 
 - 2026-02-11 14:35 de3fd3de **refactor: restore public assets cache**
-## 2026-02-11 14:35 
 - 2026-02-11 14:18 47b7a469 **refactor: adjust timeout in prereqs**
+- 2026-02-11 13:36 298f52d7 **docs: generate CHANGELOG**
 - 2026-02-11 13:21 52279d6f **step: update packages**
 - 2026-02-11 13:21 030984f5 **refactor: cleanup tests**
 - 2026-02-11 12:35 3d75face **step: update packages**
