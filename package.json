@@ -10,9 +10,9 @@
   "author": "Bartosz Gordon",
   "license": "ISC",
   "devDependencies": {
-    "@biomejs/biome": "2.3.15",
-    "@commitlint/cli": "20.4.1",
-    "@commitlint/config-conventional": "20.4.1",
+    "@biomejs/biome": "2.4.3",
+    "@commitlint/cli": "20.4.2",
+    "@commitlint/config-conventional": "20.4.2",
     "@fullhuman/postcss-purgecss": "8.0.0",
     "@playwright/test": "1.58.2",
     "@stryker-mutator/core": "9.5.1",
@@ -25,7 +25,7 @@
     "dependency-cruiser": "17.3.8",
     "drizzle-kit": "0.31.9",
     "gzip-cli": "1.2.0",
-    "knip": "5.83.1",
+    "knip": "5.84.1",
     "lefthook": "2.1.1",
     "lockfile-lint": "5.0.0",
     "only-allow": "1.2.2",
@@ -37,11 +37,11 @@
     "vite": "7.3.1"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.74.0",
-    "@bgord/bun": "1.10.15",
+    "@anthropic-ai/sdk": "0.78.0",
+    "@bgord/bun": "1.10.16",
     "@bgord/design": "1.6.7",
     "@bgord/ui": "0.8.23",
-    "@tanstack/react-router": "1.160.0",
+    "@tanstack/react-router": "1.161.3",
     "better-auth": "1.4.18",
     "better-sqlite3": "12.6.2",
     "croner": "10.0.1",
@@ -54,7 +54,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "sharp": "0.34.5",
-    "tinypdf": "0.3.0",
+    "tinypdf": "0.3.1",
     "yazl": "3.3.1",
     "zod": "4.3.6"
   }
