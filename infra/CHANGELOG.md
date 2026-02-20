@@ -1,6 +1,10 @@
 # Changelog
+- 2026-02-20 16:19 fb7f6710 **refactor: apply biome fixes**
+## 2026-02-20 16:19 
+- 2026-02-20 16:18 5d00c830 **step: bump bgord/scripts**
+- 2026-02-20 16:17 34b155a8 **step: update packages**
 - 2026-02-15 11:33 f49be5d4 **step: update packages**
-## 2026-02-15 11:33 
+- 2026-02-15 10:33 f5556c56 **docs: generate CHANGELOG**
 - 2026-02-11 14:35 de3fd3de **refactor: restore public assets cache**
 - 2026-02-11 14:18 47b7a469 **refactor: adjust timeout in prereqs**
 - 2026-02-11 13:36 298f52d7 **docs: generate CHANGELOG**
