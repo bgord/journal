@@ -7,11 +7,11 @@ export function EntryAlarms(props: EntrySnapshotFormatted) {
   const t = useTranslations();
 
   return (
-    <ul data-stack="y" data-gap="4" data-mt="4">
+    <ul data-gap="4" data-mt="4" data-stack="y">
       {props.alarms.map((alarm) => (
-        <li key={alarm.id} data-stack="y" data-gap="1" data-fs="sm">
-          <div data-stack="x" data-gap="2" data-cross="center" data-color="neutral-300">
-            <Alarm data-size="sm" data-color="danger-200" />
+        <li data-fs="sm" data-gap="1" data-stack="y" key={alarm.id}>
+          <div data-color="neutral-300" data-cross="center" data-gap="2" data-stack="x">
+            <Alarm data-color="danger-200" data-size="sm" />
             {t(`alarm.name.${alarm.name}`)} alarm for
             <div className="c-badge">{t(`entry.emotion.label.value.${alarm.emotionLabel}`)}</div>
           </div>

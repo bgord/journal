@@ -16,19 +16,19 @@ export function ProfileAvatarDelete() {
   });
 
   return (
-    <button type="button" onClick={overlay.toggle} data-position="relative" data-cursor="pointer">
+    <button data-cursor="pointer" data-position="relative" onClick={overlay.toggle} type="button">
       <Avatar size={AvatarSize.lg} />
 
       {overlay.on && enabled && (
-        <div data-position="absolute" data-inset="0" data-bg="neutral-900" data-opacity="high" />
+        <div data-bg="neutral-900" data-inset="0" data-opacity="high" data-position="absolute" />
       )}
       {overlay.on && enabled && (
         <ButtonClose
-          onClick={() => mutation.mutate()}
-          data-position="absolute"
-          data-top="8"
           data-left="5"
+          data-position="absolute"
           data-right="5"
+          data-top="8"
+          onClick={() => mutation.mutate()}
         />
       )}
     </button>

@@ -13,20 +13,20 @@ export function HomeEntryExport() {
   const url = `/api/entry/export-entries?dateRangeStart=${dateRangeStart.value}&dateRangeEnd=${dateRangeEnd.value}&strategy=${strategy.value}`;
 
   return (
-    <div data-stack="x" data-cross="center" data-gap="3" data-my="8">
+    <div data-cross="center" data-gap="3" data-my="8" data-stack="x">
       <input
         className="c-input"
+        max={dateRangeEnd.value}
         required
         type="date"
-        max={dateRangeEnd.value}
         {...dateRangeStart.input.props}
       />
       -
       <input
         className="c-input"
+        max={form.date.max.today()}
         required
         type="date"
-        max={form.date.max.today()}
         {...dateRangeEnd.input.props}
       />
       <Select {...strategy.input.props}>
@@ -36,7 +36,7 @@ export function HomeEntryExport() {
           </option>
         ))}
       </Select>
-      <a type="button" href={url} download target="_blank" className="c-button" data-variant="secondary">
+      <a className="c-button" data-variant="secondary" download href={url} target="_blank" type="button">
         {t("entries.export.cta")}
       </a>
       <ButtonClear

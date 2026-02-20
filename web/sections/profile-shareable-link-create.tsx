@@ -56,39 +56,39 @@ export function ProfileShareableLinkCreate() {
   return (
     <>
       <button
-        type="button"
         className="c-button"
-        data-variant="with-icon"
         data-ml="auto"
+        data-variant="with-icon"
         onClick={dialog.enable}
+        type="button"
         {...dialog.props.controller}
       >
         <Plus data-size="md" />
         {t("profile.shareable_links.create.cta_primary")}
       </button>
 
-      <Dialog data-mt="12" data-gap="3" style={{ ...Rhythm().times(50).width }} {...dialog}>
-        <div data-stack="x" data-main="between">
-          <strong data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
-            <ShareIos data-size="md" data-color="neutral-300" />
+      <Dialog data-gap="3" data-mt="12" style={{ ...Rhythm().times(50).width }} {...dialog}>
+        <div data-main="between" data-stack="x">
+          <strong data-color="neutral-300" data-cross="center" data-gap="2" data-stack="x">
+            <ShareIos data-color="neutral-300" data-size="md" />
             {t("profile.shareable_links.create.label")}
           </strong>
           <ButtonClose disabled={mutation.isLoading} onClick={dialog.disable} />
         </div>
 
-        <form onSubmit={mutation.handleSubmit} data-stack="y" data-gap="8">
-          <div data-stack="y" data-gap="1">
+        <form data-gap="8" data-stack="y" onSubmit={mutation.handleSubmit}>
+          <div data-gap="1" data-stack="y">
             <label className="c-label">{t("profile.shareable_links.create.duration.label")}</label>
 
             <div data-stack="x">
               {Form.duration.options.map((option) => (
                 <button
-                  key={option}
-                  type="button"
                   className="c-button"
                   data-variant={duration.value === option ? "secondary" : "bare"}
-                  onClick={() => duration.set(option as ShareableLinkDuration)}
                   disabled={mutation.isLoading}
+                  key={option}
+                  onClick={() => duration.set(option as ShareableLinkDuration)}
+                  type="button"
                   {...Rhythm().times(9).style.width}
                 >
                   {t(`profile.shareable_links.create.duration.${option}.value`)}
@@ -97,13 +97,13 @@ export function ProfileShareableLinkCreate() {
             </div>
           </div>
 
-          <div data-stack="y" data-cross="start" data-gap="1">
+          <div data-cross="start" data-gap="1" data-stack="y">
             <label className="c-label" {...specification.label.props}>
               {t("profile.shareable_links.create.specification.label")}
             </label>
 
-            <div data-stack="x" data-gap="5">
-              <Select required disabled={mutation.isLoading} {...specification.input.props}>
+            <div data-gap="5" data-stack="x">
+              <Select disabled={mutation.isLoading} required {...specification.input.props}>
                 {Form.specification.options.map((specification) => (
                   <option key={specification} value={specification}>
                     {t(`profile.shareable_links.create.specification.${specification}.value`)}
@@ -111,52 +111,52 @@ export function ProfileShareableLinkCreate() {
                 ))}
               </Select>
 
-              <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-300">
+              <div data-color="neutral-300" data-cross="center" data-fs="xs" data-gap="1" data-stack="x">
                 <HelpCircle data-size="sm" />
                 {t("profile.shareable_links.create.specification.legend")}
               </div>
             </div>
           </div>
 
-          <div data-stack="y" data-cross="start" data-gap="1">
+          <div data-cross="start" data-gap="1" data-stack="y">
             <label className="c-label">{t("profile.shareable_links.create.date_range.label")}</label>
 
-            <div data-stack="x" data-cross="center" data-gap="3" data-color="neutral-300">
+            <div data-color="neutral-300" data-cross="center" data-gap="3" data-stack="x">
               <input
                 className="c-input"
-                type="date"
-                required
-                max={dateRangeEnd.value}
                 disabled={mutation.isLoading}
+                max={dateRangeEnd.value}
+                required
+                type="date"
                 {...dateRangeStart.input.props}
               />
               -
               <input
                 className="c-input"
+                disabled={mutation.isLoading}
                 required
                 type="date"
-                disabled={mutation.isLoading}
                 {...dateRangeEnd.input.props}
               />
             </div>
           </div>
 
-          <div data-stack="x" data-main="between" data-cross="center" data-gap="5">
+          <div data-cross="center" data-gap="5" data-main="between" data-stack="x">
             {mutation.isError && (
               <output
                 aria-live="assertive"
-                data-fs="sm"
-                data-color="danger-400"
                 data-animation="grow-fade-in"
+                data-color="danger-400"
+                data-fs="sm"
               >
                 {t("profile.delete_account.error")}
               </output>
             )}
 
-            <div data-stack="x" data-gap="5" data-ml="auto">
-              <ButtonCancel onClick={dialog.disable} disabled={mutation.isLoading} />
+            <div data-gap="5" data-ml="auto" data-stack="x">
+              <ButtonCancel disabled={mutation.isLoading} onClick={dialog.disable} />
 
-              <button type="submit" className="c-button" data-variant="primary" disabled={mutation.isLoading}>
+              <button className="c-button" data-variant="primary" disabled={mutation.isLoading} type="submit">
                 {t("profile.shareable_links.create.cta_secondary")}
               </button>
             </div>

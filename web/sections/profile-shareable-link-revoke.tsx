@@ -19,8 +19,8 @@ export function ProfileShareableLinkRevoke(props: ShareableLinkSnapshot) {
   });
 
   return (
-    <form onSubmit={mutation.handleSubmit} aria-busy={mutation.isLoading}>
-      <button type="submit" className="c-button" data-variant="secondary" disabled={mutation.isLoading}>
+    <form aria-busy={mutation.isLoading} onSubmit={mutation.handleSubmit}>
+      <button className="c-button" data-variant="secondary" disabled={mutation.isLoading} type="submit">
         {t("profile.shareable_links.revoke.cta")}
       </button>
     </form>

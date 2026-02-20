@@ -19,36 +19,36 @@ export function SharedEntry(props: EntrySnapshotFormatted) {
 
   return (
     <li
-      data-stack="y"
-      data-gap="3"
-      data-px="4"
-      data-pt="3"
-      data-pb="5"
       data-bg="neutral-900"
       data-br="xs"
+      data-gap="3"
+      data-pb="5"
+      data-pt="3"
+      data-px="4"
       data-shadow="sm"
+      data-stack="y"
     >
-      <header data-stack="x" data-main="between" data-cross="center" {...Rhythm().times(3).style.height}>
-        {props.origin === "time_capsule" && <Timer data-size="sm" data-color="neutral-300" />}
+      <header data-cross="center" data-main="between" data-stack="x" {...Rhythm().times(3).style.height}>
+        {props.origin === "time_capsule" && <Timer data-color="neutral-300" data-size="sm" />}
         <EntryStartedAt startedAt={props.startedAt} />
       </header>
 
-      <section data-stack="y" data-gap="5" data-py="2" data-pb="5">
-        <div data-stack="x" data-cross="center" data-gap="4">
+      <section data-gap="5" data-pb="5" data-py="2" data-stack="y">
+        <div data-cross="center" data-gap="4" data-stack="x">
           <DescriptionLabel>{t("entry.situation.description.label")}</DescriptionLabel>
           <EntrySituationKind situationKind={props.situationKind} />
         </div>
 
         <EntrySituationDescription situationDescription={props.situationDescription} />
 
-        <div data-stack="x" data-cross="center" data-gap="5" data-mt="2">
+        <div data-cross="center" data-gap="5" data-mt="2" data-stack="x">
           <EntryEmotionLabel emotionLabel={props.emotionLabel} />
           <RatingPills rating={props.emotionIntensity as number} total={Form.emotionIntensity.pattern.max} />
         </div>
       </section>
 
-      <section data-stack="y" data-gap="5">
-        <div data-stack="x" data-gap="5" data-mt="2">
+      <section data-gap="5" data-stack="y">
+        <div data-gap="5" data-mt="2" data-stack="x">
           <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
 
           <EntryReactionType reactionType={props.reactionType} />

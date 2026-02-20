@@ -9,12 +9,12 @@ export function ProfileAiUsage() {
   const { usage } = profileRoute.useLoaderData();
 
   return (
-    <div data-stack="y" data-gap="5">
-      <div data-stack="x" data-cross="center" data-gap="3">
+    <div data-gap="5" data-stack="y">
+      <div data-cross="center" data-gap="3" data-stack="x">
         <EnergyUsageWindow data-size="md" />
         <div>{t("profile.ai_limits.header")}</div>
 
-        <div data-stack="x" data-cross="center" data-gap="2" data-ml="auto">
+        <div data-cross="center" data-gap="2" data-ml="auto" data-stack="x">
           <InfoCircle data-size="sm" />
           {usage && (
             <span data-fs="xs">
@@ -35,9 +35,9 @@ export function ProfileAiUsage() {
       {!usage && <ListEmpty>{t("profile.ai_limits.empty")}</ListEmpty>}
 
       {usage && (
-        <div data-stack="x" data-cross="center" data-gap="3" data-color="neutral-400" data-fs="sm">
-          {!usage.consumed && <CheckSquare data-size="md" data-color="positive-400" />}
-          {usage.consumed && <CheckSquare data-size="md" data-color="danger-400" />}
+        <div data-color="neutral-400" data-cross="center" data-fs="sm" data-gap="3" data-stack="x">
+          {!usage.consumed && <CheckSquare data-color="positive-400" data-size="md" />}
+          {usage.consumed && <CheckSquare data-color="danger-400" data-size="md" />}
 
           {t("profile.ai_limits.usage", {
             count: usage.count,

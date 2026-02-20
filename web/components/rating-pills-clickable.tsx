@@ -9,28 +9,28 @@ export function RatingPillsClickable(props: ClickableRatingPillsProps) {
   const handleClick = (rating: number) => props.set(rating);
 
   return (
-    <div data-stack="x" data-gap="2" data-cross="center">
+    <div data-cross="center" data-gap="2" data-stack="x">
       {Array.from({ length: total }).map((_, index) => {
         const rating = index + 1;
         const filled = value !== null && rating <= Number(value);
 
         return (
           <button
-            key={rating}
-            type="button"
-            onClick={() => handleClick(rating)}
-            data-disp="block"
-            data-p="0"
-            data-cursor="pointer"
+            aria-label={`${rating} of ${total}`}
             data-bc="brand-600"
-            data-bw="hairline"
             data-bg={filled ? "brand-600" : undefined}
             data-bs="solid"
-            data-size="sm"
+            data-bw="hairline"
+            data-cursor="pointer"
+            data-disp="block"
             data-focus-ring="neutral"
-            data-testid={`rating-${rating}`}
+            data-p="0"
             data-rating-pill=""
-            aria-label={`${rating} of ${total}`}
+            data-size="sm"
+            data-testid={`rating-${rating}`}
+            key={rating}
+            onClick={() => handleClick(rating)}
+            type="button"
           />
         );
       })}

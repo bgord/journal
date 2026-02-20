@@ -9,8 +9,8 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
   const t = useTranslations();
 
   return (
-    <li key={props.id} data-stack="y" data-gap="5">
-      <div data-stack="x" data-cross="center" data-gap="3" data-color="neutral-500">
+    <li data-gap="5" data-stack="y" key={props.id}>
+      <div data-color="neutral-500" data-cross="center" data-gap="3" data-stack="x">
         <DashboardDate data-mr="auto">
           {props.weekStart} - {props.weekEnd}
         </DashboardDate>
@@ -27,7 +27,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
       </div>
 
       {props.status === WeeklyReviewStatusEnum.completed && (
-        <div data-stack="x" data-cross="center" data-gap="2" data-fs="sm" data-color="neutral-300">
+        <div data-color="neutral-300" data-cross="center" data-fs="sm" data-gap="2" data-stack="x">
           <div className="c-badge" data-variant="primary">
             {props.entries.length}
           </div>
@@ -36,12 +36,12 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
       )}
 
       {props.status === WeeklyReviewStatusEnum.completed && props.patternDetections[0] && (
-        <div data-stack="y" data-gap="2">
+        <div data-gap="2" data-stack="y">
           <div>{t("dashboard.weekly_review.entries.patterns")}:</div>
 
-          <ul data-stack="y" data-gap="2">
+          <ul data-gap="2" data-stack="y">
             {props.patternDetections.map((pattern) => (
-              <li key={pattern.id} data-fs="sm" data-color="neutral-300">
+              <li data-color="neutral-300" data-fs="sm" key={pattern.id}>
                 - {t(`pattern.${pattern.name}.name`)}
               </li>
             ))}
@@ -50,12 +50,12 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
       )}
 
       {props.status === WeeklyReviewStatusEnum.completed && props.alarms[0] && (
-        <div data-stack="y" data-gap="2">
+        <div data-gap="2" data-stack="y">
           <div>{t("dashboard.weekly_review.entries.alarms")}:</div>
 
-          <ul data-stack="y" data-gap="2">
+          <ul data-gap="2" data-stack="y">
             {props.alarms.map((alarm) => (
-              <li key={alarm.id} data-fs="sm" data-color="neutral-300">
+              <li data-color="neutral-300" data-fs="sm" key={alarm.id}>
                 - {t(`alarm.name.${alarm.name}`)}
               </li>
             ))}

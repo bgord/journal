@@ -36,42 +36,42 @@ export function HomeEntry(props: EntrySnapshotFormatted) {
     // @ts-expect-error
     <li
       {...exit.attach}
-      data-stack="y"
+      data-bg="neutral-900"
+      data-br="xs"
       data-gap="5"
       data-p="5"
       data-pt="3"
-      data-bg="neutral-900"
-      data-br="xs"
       data-shadow="sm"
+      data-stack="y"
     >
-      <header data-stack="x" data-gap="3" data-cross="center" {...Rhythm().times(3).style.height}>
-        {props.origin === "time_capsule" && <Timer data-size="sm" data-color="neutral-300" />}
-        <EntryStartedAt startedAt={props.startedAt} data-mr="auto" />
+      <header data-cross="center" data-gap="3" data-stack="x" {...Rhythm().times(3).style.height}>
+        {props.origin === "time_capsule" && <Timer data-color="neutral-300" data-size="sm" />}
+        <EntryStartedAt data-mr="auto" startedAt={props.startedAt} />
         <Link
-          to="/entry/$entryId/history"
-          params={{ entryId: props.id }}
-          search={Form.default}
           className="c-button"
           data-variant="bare"
+          params={{ entryId: props.id }}
+          search={Form.default}
           title={t("entry.history")}
+          to="/entry/$entryId/history"
         >
           {t("app.history")}
         </Link>
         <button
           className="c-button"
-          data-variant="with-icon"
-          type="submit"
-          title={t("entry.delete.title")}
-          disabled={mutation.isLoading}
           data-interaction="subtle-scale"
+          data-variant="with-icon"
+          disabled={mutation.isLoading}
           onClick={exit.trigger}
+          title={t("entry.delete.title")}
+          type="submit"
         >
           <Xmark data-size="md" />
         </button>
       </header>
 
-      <section data-stack="y" data-gap="3">
-        <div data-stack="x" data-cross="center" data-gap="3">
+      <section data-gap="3" data-stack="y">
+        <div data-cross="center" data-gap="3" data-stack="x">
           <DescriptionLabel>{t("entry.situation.description.label")}</DescriptionLabel>
           <EntrySituationKind situationKind={props.situationKind} />
         </div>

@@ -20,67 +20,67 @@ export function ProfileAccountDelete() {
 
   return (
     <section
-      data-stack="y"
+      data-bc="danger-600"
+      data-bs="solid"
+      data-bw="hairline"
       data-gap="5"
       data-p="5"
+      data-stack="y"
       dta-md-p="3"
-      data-bc="danger-600"
-      data-bw="hairline"
-      data-bs="solid"
     >
-      <div data-stack="x" data-main="between" data-gap="3">
-        <div data-stack="x" data-cross="center" data-gap="3">
+      <div data-gap="3" data-main="between" data-stack="x">
+        <div data-cross="center" data-gap="3" data-stack="x">
           <UserXmark data-size="md" />
           {t("profile.delete_account.header")}
         </div>
 
-        <div data-stack="x" data-cross="center" data-gap="1" data-color="danger-400" data-fs="xs">
+        <div data-color="danger-400" data-cross="center" data-fs="xs" data-gap="1" data-stack="x">
           <WarningCircle data-size="sm" />
           {t("profile.delete_account.info")}
         </div>
       </div>
 
       <button
-        type="button"
-        onClick={dialog.enable}
         className="c-button"
-        data-variant="secondary"
-        data-mr="auto"
-        data-color="danger-400"
         data-bg="danger-900"
+        data-color="danger-400"
+        data-mr="auto"
+        data-variant="secondary"
+        onClick={dialog.enable}
+        type="button"
         {...dialog.props.controller}
       >
         {t("profile.delete_account.cta_primary")}
       </button>
 
       <Dialog data-gap="8" data-mt="12" {...Rhythm().times(50).style.width} {...dialog}>
-        <div data-stack="x" data-main="between">
-          <strong data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
-            <UserXmark data-size="md" data-color="neutral-300" />
+        <div data-main="between" data-stack="x">
+          <strong data-color="neutral-300" data-cross="center" data-gap="2" data-stack="x">
+            <UserXmark data-color="neutral-300" data-size="md" />
             {t("profile.delete_account.header")}
           </strong>
-          <ButtonClose onClick={dialog.disable} disabled={mutation.isLoading} />
+          <ButtonClose disabled={mutation.isLoading} onClick={dialog.disable} />
         </div>
 
-        <div data-stack="x" data-cross="center" data-gap="1" data-color="danger-400" data-fs="sm">
+        <div data-color="danger-400" data-cross="center" data-fs="sm" data-gap="1" data-stack="x">
           <WarningCircle data-size="sm" />
           {t("profile.delete_account.info")}
         </div>
 
-        <form data-stack="y" data-gap="8" onSubmit={mutation.handleSubmit} aria-busy={mutation.isLoading}>
-          <div data-stack="y" data-gap="3" data-cross="start">
-            <label data-fs="sm" htmlFor="challenge" data-color="neutral-200">
+        <form aria-busy={mutation.isLoading} data-gap="8" data-stack="y" onSubmit={mutation.handleSubmit}>
+          <div data-cross="start" data-gap="3" data-stack="y">
+            <label data-color="neutral-200" data-fs="sm" htmlFor="challenge">
               {t("profile.delete_account.challenge")}
             </label>
             <input
               className="c-input"
               id="challenge"
               name="challenge"
-              type="text"
+              pattern="delete"
+              placeholder={t("profile.delete_account.input.placeholder")}
               required
               title={t("profile.delete_account.challenge")}
-              placeholder={t("profile.delete_account.input.placeholder")}
-              pattern="delete"
+              type="text"
               {...Autocomplete.off}
             />
           </div>
@@ -88,23 +88,23 @@ export function ProfileAccountDelete() {
           {mutation.isError && (
             <output
               aria-live="assertive"
-              data-stack="x"
+              data-bg="neutral-700"
               data-cross="center"
+              data-fs="sm"
               data-gap="3"
               data-mt="3"
-              data-fs="sm"
-              data-bg="neutral-700"
               data-p="3"
+              data-stack="x"
             >
               <WarningCircle data-size="md" />
               {t("profile.delete_account.error")}
             </output>
           )}
 
-          <div data-stack="x" data-main="end" data-gap="5">
+          <div data-gap="5" data-main="end" data-stack="x">
             <ButtonCancel onClick={dialog.disable} />
 
-            <button type="submit" className="c-button" data-variant="primary" disabled={mutation.isLoading}>
+            <button className="c-button" data-variant="primary" disabled={mutation.isLoading} type="submit">
               {t("profile.delete_account.cta_primary")}
             </button>
           </div>

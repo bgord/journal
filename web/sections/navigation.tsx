@@ -15,14 +15,14 @@ function NavigationDesktop() {
   const t = useTranslations();
 
   return (
-    <nav data-stack="x" data-cross="center" data-gap="6" data-p="2" style={{ height: "70px" }}>
+    <nav data-cross="center" data-gap="6" data-p="2" data-stack="x" style={{ height: "70px" }}>
       <Logo />
 
-      <Link to="/dashboard" className="c-link" data-transform="uppercase" data-ml="auto">
+      <Link className="c-link" data-ml="auto" data-transform="uppercase" to="/dashboard">
         {t("app.dashboard")}
       </Link>
 
-      <Link to="/profile" className="c-link" data-focus-ring="neutral" data-fw="medium">
+      <Link className="c-link" data-focus-ring="neutral" data-fw="medium" to="/profile">
         <Avatar size={AvatarSize.md} />
       </Link>
 
@@ -39,17 +39,17 @@ function NavigationMobile() {
 
   return (
     <>
-      <nav data-disp="flex" data-main="between" data-cross="center" data-p="2" style={{ height: "70px" }}>
+      <nav data-cross="center" data-disp="flex" data-main="between" data-p="2" style={{ height: "70px" }}>
         <Logo />
 
-        <div data-stack="x" data-cross="center" data-gap="3">
+        <div data-cross="center" data-gap="3" data-stack="x">
           <Avatar size={AvatarSize.sm} />
           <button
-            type="button"
             className="c-button"
             data-variant="bare"
-            title={t("app.menu.show")}
             onClick={navigation.enable}
+            title={t("app.menu.show")}
+            type="button"
             {...navigation.props.controller}
           >
             <Menu data-color="white" height="24" width="24" />
@@ -59,26 +59,26 @@ function NavigationMobile() {
 
       {navigation.on && (
         <nav
-          data-disp="flex"
+          data-bg="neutral-950"
           data-dir="column"
-          data-wrap="nowrap"
+          data-disp="flex"
+          data-inset="0"
           data-overflow="auto"
           data-position="fixed"
-          data-inset="0"
+          data-wrap="nowrap"
           data-z="1"
-          data-bg="neutral-950"
           {...navigation.props.target}
         >
-          <div data-disp="flex" data-main="between" data-cross="center" data-p="2" style={{ height: "70px" }}>
+          <div data-cross="center" data-disp="flex" data-main="between" data-p="2" style={{ height: "70px" }}>
             <Logo />
 
             <button
-              type="button"
               className="c-button"
-              data-variant="bare"
-              title={t("app.menu.close")}
-              onClick={navigation.disable}
               data-interaction="subtle-scale"
+              data-variant="bare"
+              onClick={navigation.disable}
+              title={t("app.menu.close")}
+              type="button"
               {...navigation.props.controller}
             >
               <Xmark data-color="white" height="24" width="24" />
@@ -86,22 +86,22 @@ function NavigationMobile() {
           </div>
 
           <div
-            data-disp="flex"
-            data-dir="column"
+            data-animation="grow-fade-in"
             data-cross="center"
+            data-dir="column"
+            data-disp="flex"
             data-gap="6"
             data-mt="12"
-            data-animation="grow-fade-in"
           >
-            <Link to="/profile" onClick={navigation.disable} data-fs="base" data-fw="medium">
+            <Link data-fs="base" data-fw="medium" onClick={navigation.disable} to="/profile">
               <Avatar size={AvatarSize.sm} />
             </Link>
 
-            <Link to="/dashboard" onClick={navigation.disable} className="c-link" data-transform="uppercase">
+            <Link className="c-link" data-transform="uppercase" onClick={navigation.disable} to="/dashboard">
               {t("app.dashboard")}
             </Link>
 
-            <Link to="/profile" onClick={navigation.disable} className="c-link" data-transform="uppercase">
+            <Link className="c-link" data-transform="uppercase" onClick={navigation.disable} to="/profile">
               {t("app.profile")}
             </Link>
 
@@ -115,7 +115,7 @@ function NavigationMobile() {
 
 function NavigationShell() {
   return (
-    <nav data-disp="flex" data-cross="center" data-p="2" style={{ height: "70px" }}>
+    <nav data-cross="center" data-disp="flex" data-p="2" style={{ height: "70px" }}>
       <Logo />
     </nav>
   );
@@ -126,12 +126,12 @@ function NavigationLogout(props: React.JSX.IntrinsicElements["button"]) {
 
   return (
     <button
-      type="button"
       className="c-link"
       onClick={async () => {
         await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" });
         location.replace("/public/login.html");
       }}
+      type="button"
       {...props}
     >
       {t("auth.logout.cta")}

@@ -12,10 +12,10 @@ export function Home() {
   const exportEntries = useToggle({ name: "entry-export" });
 
   return (
-    <main data-stack="y" data-gap="3" data-maxw="md" data-mx="auto" data-md-m="2" data-md-pb="16">
-      <div data-stack="x" data-gap="3">
-        <div data-stack="x" data-gap="2" data-cross="center" data-color="neutral-400">
-          <div className="c-badge" data-variant="primary" data-p="1" data-px="2">
+    <main data-gap="3" data-maxw="md" data-md-m="2" data-md-pb="16" data-mx="auto" data-stack="y">
+      <div data-gap="3" data-stack="x">
+        <div data-color="neutral-400" data-cross="center" data-gap="2" data-stack="x">
+          <div className="c-badge" data-p="1" data-px="2" data-variant="primary">
             {entries.length}
           </div>
           <div data-fs="sm">
@@ -29,11 +29,11 @@ export function Home() {
         </div>
 
         <button
-          type="button"
           className="c-button"
-          data-variant="with-icon"
           data-ml="auto"
+          data-variant="with-icon"
           onClick={exportEntries.toggle}
+          type="button"
           {...exportEntries.props.controller}
         >
           <MoreHoriz data-size="md" />

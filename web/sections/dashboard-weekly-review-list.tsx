@@ -14,7 +14,7 @@ export function DashboardWeeklyReviewList() {
       {!dashboard?.weeklyReviews[0] && <DashboardCellEmpty />}
 
       {dashboard?.weeklyReviews[0] && (
-        <ul data-stack="y" data-gap="6">
+        <ul data-gap="6" data-stack="y">
           {dashboard?.weeklyReviews.map((review) => (
             <DashboardWeeklyReview key={review.id} {...review} />
           ))}

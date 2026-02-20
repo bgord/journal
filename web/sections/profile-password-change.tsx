@@ -19,8 +19,8 @@ export function ProfilePasswordChange() {
   });
 
   return (
-    <section data-stack="y" data-gap="5">
-      <div data-stack="x" data-cross="center" data-gap="3">
+    <section data-gap="5" data-stack="y">
+      <div data-cross="center" data-gap="3" data-stack="x">
         <Key data-size="md" />
         <div>{t("auth.change_password.header")}</div>
       </div>
@@ -29,12 +29,12 @@ export function ProfilePasswordChange() {
         {t("auth.change_password.desc")}
       </div>
 
-      <form data-stack="x" data-gap="3" onSubmit={mutation.handleSubmit} aria-busy={mutation.isLoading}>
+      <form aria-busy={mutation.isLoading} data-gap="3" data-stack="x" onSubmit={mutation.handleSubmit}>
         <button
           className="c-button"
           data-variant="secondary"
-          type="submit"
           disabled={mutation.isLoading || mutation.isDone}
+          type="submit"
         >
           {mutation.isLoading ? t("auth.change_password.sending") : t("auth.change_password.send_cta")}
         </button>
@@ -42,11 +42,11 @@ export function ProfilePasswordChange() {
         {mutation.isDone && (
           <output
             aria-live="polite"
-            data-stack="x"
-            data-cross="center"
-            data-gap="2"
             data-color="positive-400"
+            data-cross="center"
             data-fs="sm"
+            data-gap="2"
+            data-stack="x"
           >
             <CheckCircle data-size="sm" />
             {t("auth.change_password.sent")}
@@ -56,11 +56,11 @@ export function ProfilePasswordChange() {
         {mutation.isError && (
           <output
             aria-live="assertive"
-            data-stack="x"
-            data-cross="center"
-            data-gap="2"
             data-color="danger-400"
+            data-cross="center"
             data-fs="sm"
+            data-gap="2"
+            data-stack="x"
           >
             <WarningCircle data-size="sm" />
             {t("auth.change_password.error")}

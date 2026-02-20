@@ -21,15 +21,15 @@ export function Avatar(props: { size: AvatarSize }) {
 
   return (
     <img
-      src={src}
       alt=""
-      title={session.user.email}
       data-bc="neutral-700"
-      data-bw="thin"
       data-br="pill"
       data-bs="solid"
+      data-bw="thin"
       data-object-fit="cover"
       fetchPriority="high"
+      src={src}
+      title={session.user.email}
       {...Rhythm().times(dimension[props.size]).style.square}
     />
   );

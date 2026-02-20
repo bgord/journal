@@ -18,20 +18,20 @@ export function Profile() {
 
   return (
     <main
-      data-stack="y"
+      data-bg="neutral-900"
+      data-br="sm"
       data-gap="6"
-      data-mt="8"
+      data-maxw="md"
       data-md-mt="2"
+      data-md-pb="16"
+      data-md-px="3"
+      data-mt="8"
       data-mx="auto"
       data-p="8"
-      data-md-px="3"
+      data-stack="y"
       data-width="100%"
-      data-maxw="md"
-      data-br="sm"
-      data-bg="neutral-900"
-      data-md-pb="16"
     >
-      <header data-stack="x" data-main="between">
+      <header data-main="between" data-stack="x">
         <h2 data-fw="bold">{t("profile.header")}</h2>
         <div data-fs="sm">{session.user.email}</div>
       </header>

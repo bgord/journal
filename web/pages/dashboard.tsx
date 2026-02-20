@@ -16,13 +16,13 @@ export function Dashboard() {
   const t = useTranslations();
 
   return (
-    <main data-stack="y" data-gap="5" data-md-m="2" data-md-pb="16">
+    <main data-gap="5" data-md-m="2" data-md-pb="16" data-stack="y">
       <DashboardHeatmap />
 
-      <div data-stack="x" data-main="around" data-gap="5" data-mx="3" data-md-mx="0">
+      <div data-gap="5" data-main="around" data-md-mx="0" data-mx="3" data-stack="x">
         <DashboardSection>
           <DashboardColumnHeader>
-            <Alarm data-size="md" data-color="brand-300" /> {t("dashboard.alarm.header")}
+            <Alarm data-color="brand-300" data-size="md" /> {t("dashboard.alarm.header")}
           </DashboardColumnHeader>
           <DashboardAlarmsInactivity />
           <DashboardAlarmsEntry />
@@ -30,7 +30,7 @@ export function Dashboard() {
 
         <DashboardSection>
           <DashboardColumnHeader>
-            <Notes data-size="md" data-color="brand-300" /> {t("dashboard.entries.header")}
+            <Notes data-color="brand-300" data-size="md" /> {t("dashboard.entries.header")}
           </DashboardColumnHeader>
           <DashboardEntryCounts />
           <DashboardEmotionsTopList />
@@ -39,7 +39,7 @@ export function Dashboard() {
 
         <DashboardSection>
           <DashboardColumnHeader>
-            <Calendar data-size="md" data-color="brand-300" /> {t("dashboard.weekly_reviews.header")}
+            <Calendar data-color="brand-300" data-size="md" /> {t("dashboard.weekly_reviews.header")}
           </DashboardColumnHeader>
           <DashboardWeeklyReviewList />
         </DashboardSection>

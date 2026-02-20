@@ -26,9 +26,9 @@ export function HomeEntryHistory() {
       style={{ ...Rhythm().times(50).width, ...Rhythm().times(40).minHeight }}
       {...dialog}
     >
-      <div data-stack="x" data-main="between" data-cross="center">
-        <strong data-stack="x" data-cross="center" data-gap="2" data-color="neutral-300">
-          <List data-size="md" data-color="neutral-300" />
+      <div data-cross="center" data-main="between" data-stack="x">
+        <strong data-color="neutral-300" data-cross="center" data-gap="2" data-stack="x">
+          <List data-color="neutral-300" data-size="md" />
           {t("entry.history")}
         </strong>
         <ButtonClose onClick={dialog.disable} />
@@ -36,11 +36,11 @@ export function HomeEntryHistory() {
 
       {history.length === 0 && <ListEmpty data-mt="5">{t("entry.history.empty")}</ListEmpty>}
 
-      <ul data-stack="y" data-gap="2" data-mt="5">
+      <ul data-gap="2" data-mt="5" data-stack="y">
         {history.map((item) => (
-          <li key={item.id} data-stack="x" data-main="between" data-color="neutral-300">
+          <li data-color="neutral-300" data-main="between" data-stack="x" key={item.id}>
             <div>- {t(item.operation, item.payload)}</div>
-            <div data-fs="xs" data-color="neutral-500" data-transform="font-variant-numeric">
+            <div data-color="neutral-500" data-fs="xs" data-transform="font-variant-numeric">
               {item.createdAt}
             </div>
           </li>

@@ -48,19 +48,19 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
   }, [emotionIntensity.changed, emotionLabel.changed]);
 
   return (
-    <div data-stack="x" data-cross="center" data-gap="3" {...Rhythm().times(3).style.height}>
+    <div data-cross="center" data-gap="3" data-stack="x" {...Rhythm().times(3).style.height}>
       {emotionLabelEdit.off && (
         <EntryEmotionLabel
-          emotionLabel={props.emotionLabel}
           data-cursor="pointer"
-          onClick={emotionLabelEdit.enable}
           data-focus-ring="neutral"
+          emotionLabel={props.emotionLabel}
+          onClick={emotionLabelEdit.enable}
           {...emotionLabelEdit.props.controller}
         />
       )}
 
       {emotionLabelEdit.on && (
-        <div data-stack="x" data-gap="2" {...emotionLabelEdit.props.target}>
+        <div data-gap="2" data-stack="x" {...emotionLabelEdit.props.target}>
           <Select
             {...emotionLabel.input.props}
             disabled={mutation.isLoading}
@@ -77,9 +77,9 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
           </Select>
 
           <ButtonCancel
-            type="submit"
             disabled={mutation.isLoading}
             onClick={exec([emotionLabel.clear, emotionLabelEdit.disable])}
+            type="submit"
           />
         </div>
       )}

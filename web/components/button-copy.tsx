@@ -7,7 +7,6 @@ export function ButtonCopy(props: { text: string }) {
 
   return (
     <button
-      type="button"
       className="c-button"
       data-variant="with-icon"
       onClick={async () => {
@@ -17,10 +16,11 @@ export function ButtonCopy(props: { text: string }) {
         setState(MutationState.done);
         setTimeout(() => setState(MutationState.idle), 1500);
       }}
+      type="button"
     >
-      {state === MutationState.idle && <Copy data-size="md" data-animation="grow-fade-in" />}
+      {state === MutationState.idle && <Copy data-animation="grow-fade-in" data-size="md" />}
       {state === MutationState.done && (
-        <Check data-size="md" data-color="positive-400" data-animation="grow-fade-in" />
+        <Check data-animation="grow-fade-in" data-color="positive-400" data-size="md" />
       )}
     </button>
   );

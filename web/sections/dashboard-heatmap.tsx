@@ -5,14 +5,14 @@ export function DashboardHeatmap() {
   const dashboard = dashboardRoute.useLoaderData();
 
   return (
-    <ul data-stack="x" data-p="5" data-md-p="0" data-gap="1">
+    <ul data-gap="1" data-md-p="0" data-p="5" data-stack="x">
       {dashboard?.heatmap.map((point, index) => (
         <li
-          key={`heatmap-${point}-${index}`}
-          data-br="xs"
-          data-interaction="subtle-scale"
           data-animation="grow-fade-in"
           data-bg={point.t ? `positive-${point.c}` : `danger-${point.c}`}
+          data-br="xs"
+          data-interaction="subtle-scale"
+          key={`heatmap-${point}-${index}`}
           {...Rhythm(10).times(1).style.square}
         />
       ))}

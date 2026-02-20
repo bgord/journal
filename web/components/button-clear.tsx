@@ -4,7 +4,7 @@ export function ButtonClear(props: React.JSX.IntrinsicElements["button"]) {
   const t = useTranslations();
 
   return (
-    <button type="button" className="c-button" data-variant="bare" {...props}>
+    <button className="c-button" data-variant="bare" type="button" {...props}>
       {t("app.clear")}
     </button>
   );

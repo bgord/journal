@@ -4,7 +4,7 @@ export function ButtonCancel(props: React.JSX.IntrinsicElements["button"]) {
   const t = useTranslations();
 
   return (
-    <button {...props} type="button" className="c-button" data-variant="bare">
+    <button {...props} className="c-button" data-variant="bare" type="button">
       {t("app.cancel")}
     </button>
   );

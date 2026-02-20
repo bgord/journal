@@ -15,10 +15,10 @@ export function DashboardReactionsTop() {
       {!dashboard?.entries.top.reactions[0] && <DashboardCellEmpty />}
 
       {dashboard?.entries.top.reactions[0] && (
-        <ul data-stack="y" data-gap="6">
+        <ul data-gap="6" data-stack="y">
           {dashboard?.entries.top.reactions.map((reaction) => (
-            <li key={reaction.id} data-stack="y" data-gap="2">
-              <div data-stack="x" data-cross="center" data-gap="2">
+            <li data-gap="2" data-stack="y" key={reaction.id}>
+              <div data-cross="center" data-gap="2" data-stack="x">
                 <div className="c-badge" data-variant="primary">
                   {reaction.reactionEffectiveness} / {Form.reactionEffectiveness.max}
                 </div>

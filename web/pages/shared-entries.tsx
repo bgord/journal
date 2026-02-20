@@ -7,13 +7,13 @@ export function SharedEntries() {
   const { entries } = sharedEntries.useLoaderData();
 
   return (
-    <main data-stack="y" data-md-m="2" data-md-pb="16">
-      <header data-stack="x" data-main="between" data-cross="center" data-p="3">
+    <main data-md-m="2" data-md-pb="16" data-stack="y">
+      <header data-cross="center" data-main="between" data-p="3" data-stack="x">
         <Logo />
         <LanguageSelector />
       </header>
 
-      <ul data-stack="y" data-gap="5" data-maxw="md" data-mx="auto" data-mt="6" data-width="100%">
+      <ul data-gap="5" data-maxw="md" data-mt="6" data-mx="auto" data-stack="y" data-width="100%">
         {entries.map((entry) => (
           <SharedEntry key={entry.id} {...entry} />
         ))}

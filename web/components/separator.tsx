@@ -1,3 +1,3 @@
 export function Separator() {
-  return <div data-width="100%" data-bg="neutral-800" style={{ height: "2px" }} />;
+  return <div data-bg="neutral-800" data-width="100%" style={{ height: "2px" }} />;
 }

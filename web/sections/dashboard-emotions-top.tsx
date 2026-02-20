@@ -11,7 +11,7 @@ export function DashboardEmotionsTop(
   const t = useTranslations();
 
   return (
-    <div data-stack="y" data-gap="5" data-cross="center" data-fs="sm">
+    <div data-cross="center" data-fs="sm" data-gap="5" data-stack="y">
       <div data-color="neutral-500" data-transform="center">
         {props.label}
       </div>
@@ -19,9 +19,9 @@ export function DashboardEmotionsTop(
       {!props.emotions[0] && <DashboardCellEmpty />}
 
       {props.emotions[0] && (
-        <ul data-stack="y" data-gap="3">
+        <ul data-gap="3" data-stack="y">
           {props.emotions.map((stat, index) => (
-            <li key={`top-emotions-all-${stat}-${index}`} data-stack="x" data-gap="3">
+            <li data-gap="3" data-stack="x" key={`top-emotions-all-${stat}-${index}`}>
               <div className="c-badge" data-variant="primary">
                 {stat.hits}
               </div>

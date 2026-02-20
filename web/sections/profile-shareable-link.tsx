@@ -30,21 +30,21 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
     // @ts-expect-error
     <li
       {...exit.attach}
-      data-stack="x"
+      data-bg="neutral-800"
       data-cross="center"
+      data-fs="sm"
       data-gap="5"
       data-p="3"
-      data-fs="sm"
-      data-bg="neutral-800"
+      data-stack="x"
     >
       {props.status === ShareableLinkStatusEnum.active && (
         <div
           className="c-badge"
-          data-variant="primary"
           data-bc="positive-600"
-          data-bw="hairline"
           data-bs="solid"
+          data-bw="hairline"
           data-color="positive-400"
+          data-variant="primary"
         >
           {t("profile.shareable_links.status.active.value")}
         </div>
@@ -53,17 +53,17 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
       {[ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status) && (
         <div
           className="c-badge"
-          data-variant="outline"
           data-bc="danger-600"
-          data-bw="hairline"
           data-bs="solid"
+          data-bw="hairline"
           data-color="danger-400"
+          data-variant="outline"
         >
           {t(`profile.shareable_links.status.${props.status}.value`)}
         </div>
       )}
 
-      <div data-stack="y" data-gap="2">
+      <div data-gap="2" data-stack="y">
         <div>{t(`profile.shareable_links.specification.${props.publicationSpecification}.value`)}</div>
 
         <div data-color="neutral-300">
@@ -98,35 +98,35 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
         )}
       </div>
 
-      <div data-stack="y" data-gap="3" data-ml="auto" data-md-ml="0">
+      <div data-gap="3" data-md-ml="0" data-ml="auto" data-stack="y">
         {props.status === ShareableLinkStatusEnum.active && (
-          <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-400">
+          <div data-color="neutral-400" data-cross="center" data-fs="xs" data-gap="1" data-stack="x">
             <Clock data-size="xs" />
             {t("profile.shareable_links.expires_at", { date: props.expiresAt })}
           </div>
         )}
 
         {props.status === ShareableLinkStatusEnum.revoked && (
-          <div data-stack="x" data-cross="center" data-gap="1" data-fs="xs" data-color="neutral-400">
+          <div data-color="neutral-400" data-cross="center" data-fs="xs" data-gap="1" data-stack="x">
             <Clock data-size="xs" />
             {t("profile.shareable_links.revoked_at", { date: props.updatedAt })}
           </div>
         )}
 
         {props.status === ShareableLinkStatusEnum.expired && (
-          <div data-fs="xs" data-color="neutral-400">
+          <div data-color="neutral-400" data-fs="xs">
             {t("profile.shareable_links.expired_at", { date: props.expiresAt })}
           </div>
         )}
 
         {props.status === ShareableLinkStatusEnum.active && (
-          <div data-stack="x" data-gap="3">
+          <div data-gap="3" data-stack="x">
             <Link
-              to="/shared-entries/$shareableLinkId"
               params={{ shareableLinkId: props.id }}
               target="_blank"
+              to="/shared-entries/$shareableLinkId"
             >
-              <button type="button" className="c-button" data-variant="with-icon">
+              <button className="c-button" data-variant="with-icon" type="button">
                 <OpenInWindow data-size="md" />
               </button>
             </Link>
@@ -138,14 +138,14 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
         )}
 
         {[ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status) && (
-          <div data-stack="x" data-gap="3">
+          <div data-gap="3" data-stack="x">
             <button
-              type="submit"
               className="c-button"
               data-variant="secondary"
               disabled={mutation.isLoading}
-              title={t("profile.shareable_links.hide.cta")}
               onClick={exit.trigger}
+              title={t("profile.shareable_links.hide.cta")}
+              type="submit"
             >
               {t("profile.shareable_links.hide.cta")}
             </button>

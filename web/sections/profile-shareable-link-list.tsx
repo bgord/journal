@@ -10,8 +10,8 @@ export function ProfileShareableLinkList() {
   const { shareableLinks } = profileRoute.useLoaderData();
 
   return (
-    <div data-stack="y" data-gap="5">
-      <div data-stack="x" data-cross="center" data-gap="3">
+    <div data-gap="5" data-stack="y">
+      <div data-cross="center" data-gap="3" data-stack="x">
         <ShareIos data-size="md" />
         <div>{t("profile.shareable_links.header")}</div>
         <ProfileShareableLinkCreate />
@@ -20,7 +20,7 @@ export function ProfileShareableLinkList() {
       {!shareableLinks[0] && <ListEmpty>{t("profile.shareable_links.empty")}</ListEmpty>}
 
       {shareableLinks[0] && (
-        <ul data-stack="y" data-gap="5">
+        <ul data-gap="5" data-stack="y">
           {shareableLinks.map((link) => (
             <ProfileShareableLink key={link.id} {...link} />
           ))}

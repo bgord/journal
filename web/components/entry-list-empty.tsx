@@ -4,13 +4,13 @@ export function EntryListEmpty() {
   const t = useTranslations();
 
   return (
-    <div data-stack="y" data-cross="center">
+    <div data-cross="center" data-stack="y">
       <img
-        src="/public/notebook.svg"
-        data-animation="grow-fade-in"
-        height="300px"
         alt={t("entry.list.empty.alt")}
+        data-animation="grow-fade-in"
         fetchPriority="high"
+        height="300px"
+        src="/public/notebook.svg"
       />
       <div data-color="brand-300">{t("entry.list.empty")}</div>
     </div>

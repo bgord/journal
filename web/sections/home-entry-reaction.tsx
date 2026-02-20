@@ -69,26 +69,26 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
   }, [reactionEffectiveness.changed, reactionType.changed]);
 
   return (
-    <section data-stack="y" data-gap="2">
-      <div data-stack="x" data-cross="center" data-gap="3" {...Rhythm().times(3).style.minHeight}>
+    <section data-gap="2" data-stack="y">
+      <div data-cross="center" data-gap="3" data-stack="x" {...Rhythm().times(3).style.minHeight}>
         <DescriptionLabel data-mr="auto">{t("entry.reaction.description.label")}</DescriptionLabel>
 
         {reactionTypeEdit.off && (
           <EntryReactionType
-            reactionType={reactionType.value as EntrySnapshotFormatted["reactionType"]}
-            onClick={reactionTypeEdit.enable}
             data-cursor="pointer"
             data-focus-ring="neutral"
+            onClick={reactionTypeEdit.enable}
+            reactionType={reactionType.value as EntrySnapshotFormatted["reactionType"]}
             {...reactionTypeEdit.props.controller}
           />
         )}
 
         {reactionTypeEdit.on && (
-          <div data-stack="x" data-gap="2" {...reactionTypeEdit.props.target}>
+          <div data-gap="2" data-stack="x" {...reactionTypeEdit.props.target}>
             <ButtonCancel
-              type="submit"
               disabled={mutation.isLoading}
               onClick={exec([reactionType.clear, reactionTypeEdit.disable])}
+              type="submit"
             />
 
             <Select
@@ -113,17 +113,17 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
 
       {reactionDescriptionEdit.off && (
         <EntryReactionDescription
-          reactionDescription={reactionDescription.value ?? null}
           onClick={reactionDescriptionEdit.enable}
+          reactionDescription={reactionDescription.value ?? null}
           {...reactionDescriptionEdit.props.controller}
         />
       )}
 
       {reactionDescriptionEdit.on && (
         <form
-          method="post"
-          data-stack="y"
           data-gap="3"
+          data-stack="y"
+          method="post"
           onSubmit={async (event) => {
             event.preventDefault();
             await mutation.mutate();
@@ -134,26 +134,26 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
           <textarea
             autoFocus
             className="c-textarea"
+            disabled={mutation.isLoading}
             placeholder={t("entry.reaction.description.placeholder")}
             rows={3}
-            disabled={mutation.isLoading}
             {...reactionDescription.input.props}
             {...form.textarea(Form.reactionDescription.pattern)}
             {...metaEnterSubmit}
             {...Autocomplete.off}
           />
 
-          <div data-stack="x" data-main="end" data-gap="3">
+          <div data-gap="3" data-main="end" data-stack="x">
             <ButtonCancel
               disabled={mutation.isLoading}
               onClick={exec([reactionDescription.clear, reactionDescriptionEdit.disable])}
             />
 
             <button
-              type="submit"
               className="c-button"
               data-variant="primary"
               disabled={reactionDescription.unchanged || mutation.isLoading}
+              type="submit"
             >
               {t("app.save")}
             </button>

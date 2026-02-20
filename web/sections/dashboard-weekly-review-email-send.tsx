@@ -16,14 +16,14 @@ export function DashboardWeeklyReviewEmailSend(props: DashboardDataType["weeklyR
   return (
     <form onSubmit={mutation.handleSubmit}>
       <button
-        type="submit"
         className="c-button"
-        data-variant="bare"
         data-pt="2"
+        data-variant="bare"
         disabled={mutation.isLoading || mutation.isDone}
+        type="submit"
       >
-        {!mutation.isDone && <SendMail data-color="brand-500" data-size="lg" data-animation="grow-fade-in" />}
-        {mutation.isDone && <Check data-color="positive-400" data-size="lg" data-animation="grow-fade-in" />}
+        {!mutation.isDone && <SendMail data-animation="grow-fade-in" data-color="brand-500" data-size="lg" />}
+        {mutation.isDone && <Check data-animation="grow-fade-in" data-color="positive-400" data-size="lg" />}
       </button>
     </form>
   );

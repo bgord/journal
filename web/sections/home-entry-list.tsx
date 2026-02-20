@@ -18,22 +18,22 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
 
   return (
     <div data-stacky="y" data-width="100%">
-      <div data-stack="x" data-md-wrap="nowrap" data-gap="3" data-md-gap="1">
+      <div data-gap="3" data-md-gap="1" data-md-wrap="nowrap" data-stack="x">
         <input
           className="c-input"
           data-md-grow="1"
-          placeholder={t("entry.list.search.placeholder")}
-          value={query.input.props.value}
           onChange={(event) =>
             navigate({ to: "/", search: { query: event.currentTarget.value, filter: filter.value } })
           }
+          placeholder={t("entry.list.search.placeholder")}
+          value={query.input.props.value}
           {...Rhythm().times(5).style.minWidth}
         />
         <Select
-          value={filter.input.props.value}
           onChange={(event) =>
             navigate({ to: "/", search: { filter: event.currentTarget.value, query: query.value } })
           }
+          value={filter.input.props.value}
         >
           {HomeEntryListForm.Form.filter.options.map((option) => (
             <option key={option} value={option}>
@@ -53,7 +53,7 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
       {!entries[0] && <EntryListEmpty />}
 
       {entries[0] && (
-        <ul data-stack="y" data-gap="5" data-mt="8">
+        <ul data-gap="5" data-mt="8" data-stack="y">
           {entries.map((entry) => (
             <HomeEntry key={entry.id} {...entry} />
           ))}
