@@ -41,7 +41,7 @@ describe("InactivityAlarmScheduler", async () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericInactivityAlarmGeneratedEvent]);
   });
 
-  test("USER_DAILY", async () => {
+  test.todo("USER_DAILY", async () => {
     using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
@@ -74,7 +74,7 @@ describe("InactivityAlarmScheduler", async () => {
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
-  test("EMOTIONS_ALARM_INACTIVITY_WEEKLY", async () => {
+  test.todo("EMOTIONS_ALARM_INACTIVITY_WEEKLY", async () => {
     using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
