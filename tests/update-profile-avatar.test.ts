@@ -9,18 +9,9 @@ import * as mocks from "./mocks";
 import * as testcases from "./testcases";
 
 const url = "/api/preferences/profile-avatar/update";
-const boundary = "----bun-test-boundary";
-const content = [
-  `--${boundary}`,
-  'Content-Disposition: form-data; name="file"; filename="image.png"',
-  "Content-Type: image/png",
-  "",
-  "dummy-content",
-  `--${boundary}--`,
-  "",
-].join("\r\n");
-const form = { "Content-Type": `multipart/form-data; boundary=${boundary}` };
-const file = new TextEncoder().encode(content);
+
+const form = new FormData();
+form.append("file", new File(["image"], "image.png"));
 
 describe(`POST ${url}`, async () => {
   const di = await bootstrap();
@@ -58,7 +49,7 @@ describe(`POST ${url}`, async () => {
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
 
-    const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
+    const response = await server.request(url, { method: "POST", body: form }, mocks.ip);
 
     await testcases.assertInvariantError(response, 400, "profile.avatar.constraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
@@ -79,7 +70,7 @@ describe(`POST ${url}`, async () => {
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
 
-    const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
+    const response = await server.request(url, { method: "POST", body: form }, mocks.ip);
 
     await testcases.assertInvariantError(response, 400, "profile.avatar.constraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
@@ -100,7 +91,7 @@ describe(`POST ${url}`, async () => {
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
 
-    const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
+    const response = await server.request(url, { method: "POST", body: form }, mocks.ip);
 
     await testcases.assertInvariantError(response, 400, "profile.avatar.constraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
@@ -121,7 +112,7 @@ describe(`POST ${url}`, async () => {
     );
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
 
-    const response = await server.request(url, { method: "POST", body: file, headers: form }, mocks.ip);
+    const response = await server.request(url, { method: "POST", body: form }, mocks.ip);
 
     await testcases.assertInvariantError(response, 400, "profile.avatar.constraints");
     expect(temporaryFileWrite.mock.calls?.[0]?.[0].get()).toEqual(`${mocks.userId}.png`);
@@ -145,7 +136,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(
       url,
-      { method: "POST", body: file, headers: { ...form, ...mocks.correlationIdHeaders } },
+      { method: "POST", body: form, headers: mocks.correlationIdHeaders },
       mocks.ip,
     );
 
@@ -180,7 +171,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(
       url,
-      { method: "POST", body: file, headers: { ...form, ...mocks.correlationIdHeaders } },
+      { method: "POST", body: form, headers: mocks.correlationIdHeaders },
       mocks.ip,
     );
 
@@ -203,7 +194,7 @@ describe(`POST ${url}`, async () => {
 
     const response = await server.request(
       url,
-      { method: "POST", body: file, headers: { ...form, ...mocks.correlationIdHeaders } },
+      { method: "POST", body: form, headers: mocks.correlationIdHeaders },
       mocks.ip,
     );
 
