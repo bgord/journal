@@ -57,7 +57,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "payload.invalid.error", _known: true });
+    expect(json).toEqual({ message: "duration.invalid", _known: true });
   });
 
   test("validation - dateRangeStart", async () => {
@@ -74,7 +74,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "payload.invalid.error", _known: true });
+    expect(json).toEqual({ message: "day.iso.id.invalid.date", _known: true });
   });
 
   test("validation - dateRangeEnd", async () => {
@@ -96,7 +96,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "payload.invalid.error", _known: true });
+    expect(json).toEqual({ message: "day.iso.id.type", _known: true });
   });
 
   test("validation - dateRange", async () => {

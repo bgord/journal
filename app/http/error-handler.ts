@@ -10,6 +10,10 @@ import * as Publishing from "+publishing";
 type Dependencies = { Logger: bg.LoggerPort };
 
 const validationErrors = [
+  bg.UUIDError.Type,
+  tools.DurationMsError.Invalid,
+  tools.DayIsoIdError.InvalidDate,
+  tools.DayIsoIdError.Type,
   Emotions.VO.SituationDescription.Errors.Invalid,
   Emotions.VO.SituationKind.Errors.Invalid,
   Emotions.VO.EmotionLabel.Errors.Invalid,
