@@ -1,8 +1,15 @@
 # Changelog
+- 2026-03-01 09:52 9e8ebe48 **step: update packages**
+## 2026-03-01 09:52 
+- 2026-03-01 09:46 2111c248 **fix: session type**
+- 2026-03-01 09:42 790bc4f1 **step: update packages**
+- 2026-03-01 09:21 3718ecf7 **step: update packages**
+- 2026-02-27 23:04 835f5bf4 **refactor: simplify file upload tests**
+- 2026-02-27 13:18 7f4b9df7 **step: assert full validation errors**
 - 2026-02-26 09:52 e11c368e **step: update bun**
 - 2026-02-26 09:52 ae9a38c8 **step: bump bgord/scripts**
 - 2026-02-26 09:52 34d8cdde **step: update packages**
-## 2026-02-26 09:52 
+- 2026-02-26 08:54 3f450e76 **docs: generate CHANGELOG**
 - 2026-02-24 11:14 14e8daf7 **step: update packages**
 - 2026-02-20 16:19 fb7f6710 **refactor: apply biome fixes**
 - 2026-02-20 16:18 5d00c830 **step: bump bgord/scripts**
