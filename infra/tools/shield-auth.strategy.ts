@@ -10,7 +10,7 @@ import type { EventStoreType } from "+infra/tools/event-store";
 
 export type AuthVariables = {
   user: ReturnType<typeof betterAuth>["$Infer"]["Session"]["user"];
-  session: ReturnType<typeof betterAuth>["$Infer"]["Session"]["user"];
+  session: ReturnType<typeof betterAuth>["$Infer"]["Session"]["session"];
 };
 
 type Dependencies = {
