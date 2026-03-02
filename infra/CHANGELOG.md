@@ -1,9 +1,11 @@
 # Changelog
+- 2026-03-02 11:25 38793c9f **step: update packages**
+## 2026-03-02 11:25 
 - 2026-03-01 09:52 9e8ebe48 **step: update packages**
-## 2026-03-01 09:52 
 - 2026-03-01 09:46 2111c248 **fix: session type**
 - 2026-03-01 09:42 790bc4f1 **step: update packages**
 - 2026-03-01 09:21 3718ecf7 **step: update packages**
+- 2026-03-01 08:53 46a3e663 **docs: generate CHANGELOG**
 - 2026-02-27 23:04 835f5bf4 **refactor: simplify file upload tests**
 - 2026-02-27 13:18 7f4b9df7 **step: assert full validation errors**
 - 2026-02-26 09:52 e11c368e **step: update bun**
