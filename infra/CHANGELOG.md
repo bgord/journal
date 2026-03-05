@@ -1,6 +1,11 @@
 # Changelog
+- 2026-03-05 20:07 33364249 **step: update packages**
+## 2026-03-05 20:07 
+- 2026-03-05 18:59 8016e277 **refactor: update bgord bun for hono separation**
+- 2026-03-05 18:53 bed2fbb6 **step: update packages**
+- 2026-03-04 22:27 596775e3 **refactor: adjust bgord-api-key**
 - 2026-03-02 11:25 38793c9f **step: update packages**
-## 2026-03-02 11:25 
+- 2026-03-02 10:25 970bb74a **docs: generate CHANGELOG**
 - 2026-03-01 09:52 9e8ebe48 **step: update packages**
 - 2026-03-01 09:46 2111c248 **fix: session type**
 - 2026-03-01 09:42 790bc4f1 **step: update packages**
