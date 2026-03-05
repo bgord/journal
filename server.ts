@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { HTTP } from "+app";
 import type * as infra from "+infra";
@@ -19,58 +18,61 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const server = new Hono<infra.Config>()
     .basePath("/api")
     .use(
-      ...bg.Setup.essentials(
+      ...bg.SetupHono.essentials(
         {
           csrf: { origin },
           cors: { origin },
           httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
-          BODY_LIMIT_MAX_SIZE: tools.Size.fromMB(12),
         },
         { ...Adapters.System, ...Tools, HashContent, CacheResolver },
       ),
     )
-    .use(Tools.ShieldSecurity.verify);
+    .use(Tools.ShieldSecurity.handle());
 
   // Healthcheck =================
   server.get(
     "/healthcheck",
-    Tools.ShieldRateLimit.verify,
-    Tools.ShieldTimeout.verify,
-    Tools.ShieldBasicAuth.verify,
-    ...bg.Healthcheck.build(
+    Tools.ShieldRateLimit.handle(),
+    Tools.ShieldTimeout.handle(),
+    Tools.ShieldBasicAuth.handle(),
+    ...new bg.HealthcheckHonoHandler(
       { Env: Env.type, prerequisites: Tools.Prerequisites },
       { ...Adapters.System, ...Tools, LoggerStatsProvider: Adapters.System.Logger },
-    ),
+    ).handle(),
   );
 
-  server.get("/ping", ...bg.Ping.build());
+  server.get("/ping", ...new bg.PingHonoHandler().handle());
   // =============================
 
   // Emotions ====================
   const entry = new Hono();
 
   entry.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
-  entry.post("/log", Tools.ShieldCaptcha.verify, HTTP.Emotions.LogEntry(deps));
+  entry.post("/log", Tools.ShieldCaptcha.handle(), HTTP.Emotions.LogEntry(deps));
   entry.post(
     "/time-capsule-entry/schedule",
-    Tools.ShieldCaptcha.verify,
+    Tools.ShieldCaptcha.handle(),
     HTTP.Emotions.ScheduleTimeCapsuleEntry(deps),
   );
   entry.post(
     "/:entryId/reappraise-emotion",
-    Tools.ShieldCaptcha.verify,
+    Tools.ShieldCaptcha.handle(),
     HTTP.Emotions.ReappraiseEmotion(deps),
   );
-  entry.post("/:entryId/evaluate-reaction", Tools.ShieldCaptcha.verify, HTTP.Emotions.EvaluateReaction(deps));
-  entry.delete("/:entryId/delete", Tools.ShieldCaptcha.verify, HTTP.Emotions.DeleteEntry(deps));
+  entry.post(
+    "/:entryId/evaluate-reaction",
+    Tools.ShieldCaptcha.handle(),
+    HTTP.Emotions.EvaluateReaction(deps),
+  );
+  entry.delete("/:entryId/delete", Tools.ShieldCaptcha.handle(), HTTP.Emotions.DeleteEntry(deps));
   entry.get(
     "/export-data",
-    Tools.ShieldRateLimit.verify,
+    Tools.ShieldRateLimit.handle(),
     HTTP.Emotions.ExportData({ ...deps, ...Adapters.Emotions }),
   );
   entry.get(
     "/export-entries",
-    Tools.ShieldRateLimit.verify,
+    Tools.ShieldRateLimit.handle(),
     HTTP.Emotions.ExportEntries({ ...deps, ...Adapters.Emotions }),
   );
   entry.get("/list", HTTP.Emotions.ListEntries({ ...deps, ...Adapters.Emotions }));
@@ -93,13 +95,13 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   weeklyReview.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
   weeklyReview.post(
     "/:weeklyReviewId/export/email",
-    Tools.ShieldCaptcha.verify,
-    Tools.ShieldRateLimit.verify,
+    Tools.ShieldCaptcha.handle(),
+    Tools.ShieldRateLimit.handle(),
     HTTP.Emotions.ExportWeeklyReviewByEmail(deps),
   );
   weeklyReview.get(
     "/:weeklyReviewId/export/download",
-    Tools.ShieldRateLimit.verify,
+    Tools.ShieldRateLimit.handle(),
     HTTP.Emotions.DownloadWeeklyReview({ ...Adapters.System, ...Adapters.Emotions }),
   );
   server.route("/weekly-review", weeklyReview);
@@ -115,18 +117,18 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   );
   publishing.post(
     "/link/create",
-    Tools.ShieldCaptcha.verify,
-    Tools.ShieldRateLimit.verify,
+    Tools.ShieldCaptcha.handle(),
+    Tools.ShieldRateLimit.handle(),
     HTTP.Publishing.CreateShareableLink(deps),
   );
   publishing.post(
     "/link/:shareableLinkId/revoke",
-    Tools.ShieldCaptcha.verify,
+    Tools.ShieldCaptcha.handle(),
     HTTP.Publishing.RevokeShareableLink(deps),
   );
   publishing.post(
     "/link/:shareableLinkId/hide",
-    Tools.ShieldCaptcha.verify,
+    Tools.ShieldCaptcha.handle(),
     HTTP.Publishing.HideShareableLink(),
   );
   server.route("/publishing", publishing);
@@ -135,8 +137,8 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   //Translations =================
   server.get(
     "/translations",
-    Tools.CacheResponse.handle,
-    ...bg.Translations.build(SupportedLanguages, Adapters.System),
+    Tools.CacheResponse.handle(),
+    ...new bg.TranslationsHonoHandler(SupportedLanguages, Adapters.System).handle(),
   );
   // =============================
 
@@ -144,19 +146,19 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   server.post(
     "/preferences/user-language/update",
     Tools.Auth.ShieldAuth.attach,
-    Tools.ShieldCaptcha.verify,
+    Tools.ShieldCaptcha.handle(),
     Tools.Auth.ShieldAuth.verify,
     HTTP.Preferences.UpdateUserLanguage(deps),
   );
   server.post(
     "/preferences/profile-avatar/update",
     Tools.Auth.ShieldAuth.attach,
-    Tools.ShieldCaptcha.verify,
+    Tools.ShieldCaptcha.handle(),
     Tools.Auth.ShieldAuth.verify,
-    ...bg.FileUploader.validate({
+    new bg.FileUploaderHonoMiddleware({
       MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
-      maxFilesSize: Preferences.VO.ProfileAvatarMaxSize,
-    }),
+      maxSize: Preferences.VO.ProfileAvatarMaxSize,
+    }).handle(),
     HTTP.Preferences.UpdateProfileAvatar(deps),
   );
   server.get(
@@ -169,7 +171,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/preferences/profile-avatar",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
-    Tools.ShieldCaptcha.verify,
+    Tools.ShieldCaptcha.handle(),
     HTTP.Preferences.RemoveProfileAvatar(deps),
   );
   // =============================

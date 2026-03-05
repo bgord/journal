@@ -6,8 +6,8 @@ import type { AuthVariables } from "+infra/tools/shield-auth.strategy";
 export type Config = {
   Variables: TimingVariables &
     bg.TimeZoneOffsetVariables &
-    bg.ContextVariables &
-    bg.EtagVariables &
+    bg.WeakETagVariables &
     I18nVariables &
-    AuthVariables;
+    AuthVariables &
+    bg.CorrelationVariables;
 };

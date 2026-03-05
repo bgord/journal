@@ -13,7 +13,7 @@ type Dependencies = {
 export const GetSharedEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
 
-  const request = new bg.RequestContextAdapterHono(c);
+  const request = new bg.RequestContextHonoAdapter(c);
   const client = bg.Client.fromParts(request.identity.ip(), request.identity.ua());
 
   const context = {

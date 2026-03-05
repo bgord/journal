@@ -96,5 +96,5 @@ export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
 
   const AuthSessionReader = new bg.AuthSessionReaderBetterAuthAdapter(config);
 
-  return { ShieldAuth: new bg.ShieldAuthStrategy({ AuthSessionReader, ...deps }), config };
+  return { ShieldAuth: new bg.ShieldAuthHonoStrategy({ AuthSessionReader, ...deps }), config };
 }

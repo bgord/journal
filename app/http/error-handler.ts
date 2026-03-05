@@ -2,6 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import { HTTPException } from "hono/http-exception";
+import type { ContentfulStatusCode } from "hono/utils/http-status";
 import z from "zod/v4";
 import * as Emotions from "+emotions";
 import * as Preferences from "+preferences";
@@ -34,7 +35,7 @@ const invariants = Object.values({
 export class ErrorHandler {
   static handle: (deps: Dependencies) => hono.ErrorHandler = (deps) => async (error, c) => {
     const url = c.req.url;
-    const correlationId = c.get("requestId");
+    const correlationId = c.get("correlationId");
 
     if (error instanceof HTTPException) {
       if (error.message === "request_timeout_error") {
@@ -114,7 +115,9 @@ export class ErrorHandler {
         error,
       });
 
-      return c.json(...bg.InvariantErrorHandler.respond(invariantError));
+      const [message, code] = bg.InvariantErrorHandler.respond(invariantError);
+
+      return c.json(message, code as ContentfulStatusCode);
     }
 
     deps.Logger.error({

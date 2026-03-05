@@ -26,14 +26,14 @@ import { handler } from "./web/entry-server";
     routes: {
       "/favicon.ico": Bun.file("public/favicon.ico"),
       "/robots.txt": Bun.file("public/robots.txt"),
-      ...bg.StaticFiles.handle(
+      ...bg.StaticFilesHono.handle(
         "/public/*",
         di.Env.type === bg.NodeEnvironmentEnum.production
           ? bg.StaticFileStrategyMustRevalidate(tools.Duration.Minutes(5))
           : bg.StaticFileStrategyNoop,
       ),
       "/api/*": server.fetch,
-      "/*": bg.SSR.essentials(handler, di.Adapters.System),
+      "/*": bg.SSRBun.essentials(handler, di.Adapters.System),
     },
   });
 

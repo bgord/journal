@@ -4,7 +4,7 @@ import type { EnvironmentType } from "+infra/env";
 
 type Dependencies = { Sleeper: bg.SleeperPort; Logger: bg.LoggerPort };
 
-export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): bg.ShieldStrategy {
+export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): bg.MiddlewareHonoPort {
   const HashContent = new bg.HashContentSha256Strategy();
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({
     type: "finite",
@@ -12,10 +12,10 @@ export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): 
   });
 
   return {
-    [bg.NodeEnvironmentEnum.local]: new bg.ShieldNoopStrategy(),
-    [bg.NodeEnvironmentEnum.test]: new bg.ShieldNoopStrategy(),
-    [bg.NodeEnvironmentEnum.staging]: new bg.ShieldNoopStrategy(),
-    [bg.NodeEnvironmentEnum.production]: new bg.ShieldSecurityStrategy(
+    [bg.NodeEnvironmentEnum.local]: new bg.MiddlewareHonoNoopAdapter(),
+    [bg.NodeEnvironmentEnum.test]: new bg.MiddlewareHonoNoopAdapter(),
+    [bg.NodeEnvironmentEnum.staging]: new bg.MiddlewareHonoNoopAdapter(),
+    [bg.NodeEnvironmentEnum.production]: new bg.ShieldSecurityHonoStrategy(
       [
         new bg.SecurityPolicy(
           new bg.SecurityRuleViolationThresholdStrategy(

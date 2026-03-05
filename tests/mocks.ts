@@ -59,10 +59,10 @@ export const insights = new AI.Advice("Good job");
 export const revision = new tools.Revision(0);
 
 export const revisionHeaders = (revision: tools.RevisionValueType = 0) => ({ "if-match": `W/${revision}` });
-export const correlationIdHeaders = { "x-correlation-id": correlationId };
+export const correlationIdHeaders = { "correlation-id": correlationId };
 export const correlationIdAndRevisionHeaders = (revision: tools.RevisionValueType = 0) => ({
   "if-match": `W/${revision}`,
-  "x-correlation-id": correlationId,
+  "correlation-id": correlationId,
 });
 
 export const entryTrigger = { type: Emotions.VO.AlarmTriggerEnum.entry, entryId } as const;
