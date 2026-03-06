@@ -1,8 +1,9 @@
 import * as bg from "@bgord/bun";
-import type { EventBusType } from "+infra/tools/event-bus";
 
 type Dependencies = {
-  EventBus: EventBusType;
+  EventBus: bg.EventBusPort<
+    bg.History.Events.HistoryClearedEventType | bg.History.Events.HistoryPopulatedEventType
+  >;
   EventHandler: bg.EventHandlerStrategy;
   HistoryProjection: bg.History.Ports.HistoryProjectionPort;
 };

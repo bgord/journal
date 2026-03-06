@@ -2,10 +2,10 @@ import type * as bg from "@bgord/bun";
 import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { EventBusType } from "+infra/tools/event-bus";
+import type { ShareableLinkAccessedEventType } from "+publishing/events";
 
 type Dependencies = {
-  EventBus: EventBusType;
+  EventBus: bg.EventBusPort<ShareableLinkAccessedEventType>;
   EventHandler: bg.EventHandlerStrategy;
   IdProvider: bg.IdProviderPort;
 };

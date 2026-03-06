@@ -2,11 +2,14 @@ import type * as bg from "@bgord/bun";
 import { sql } from "drizzle-orm";
 import * as AI from "+ai";
 import type * as Events from "+ai/events";
+import type { AiRequestRegisteredEventType } from "+ai/events";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { EventBusType } from "+infra/tools/event-bus";
 
-type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerStrategy };
+type Dependencies = {
+  EventBus: bg.EventBusPort<AiRequestRegisteredEventType>;
+  EventHandler: bg.EventHandlerStrategy;
+};
 
 export class AiUsageCounterProjector {
   constructor(deps: Dependencies) {

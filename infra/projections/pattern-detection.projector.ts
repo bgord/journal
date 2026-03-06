@@ -1,10 +1,14 @@
 import type * as bg from "@bgord/bun";
+import type * as z from "zod/v4";
 import * as Emotions from "+emotions";
+import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { EventBusType } from "+infra/tools/event-bus";
 
-type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerStrategy };
+type Dependencies = {
+  EventBus: bg.EventBusPort<z.infer<PatternDetectionEvent>>;
+  EventHandler: bg.EventHandlerStrategy;
+};
 
 export class PatternDetectionProjector {
   constructor(deps: Dependencies) {

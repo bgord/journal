@@ -1,11 +1,15 @@
 import type * as bg from "@bgord/bun";
 import { eq } from "drizzle-orm";
+import type * as z from "zod/v4";
 import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { EventBusType } from "+infra/tools/event-bus";
+import type { ShareableLinkEvent } from "+publishing/aggregates";
 
-type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerStrategy };
+type Dependencies = {
+  EventBus: bg.EventBusPort<z.infer<ShareableLinkEvent>>;
+  EventHandler: bg.EventHandlerStrategy;
+};
 
 export class ShareableLinkProjector {
   constructor(deps: Dependencies) {

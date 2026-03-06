@@ -3,9 +3,12 @@ import { eq } from "drizzle-orm";
 import * as Preferences from "+preferences";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { EventBusType } from "+infra/tools/event-bus";
+import type { ProfileAvatarRemovedEventType, ProfileAvatarUpdatedEventType } from "+preferences/events";
 
-type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerStrategy };
+type Dependencies = {
+  EventBus: bg.EventBusPort<ProfileAvatarRemovedEventType | ProfileAvatarUpdatedEventType>;
+  EventHandler: bg.EventHandlerStrategy;
+};
 
 export class ProfileAvatarsProjector {
   constructor(deps: Dependencies) {

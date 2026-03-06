@@ -1,9 +1,11 @@
 import * as bg from "@bgord/bun";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { EventBusType } from "+infra/tools/event-bus";
 
-type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerStrategy };
+type Dependencies = {
+  EventBus: bg.EventBusPort<bg.Preferences.Events.UserLanguageSetEventType>;
+  EventHandler: bg.EventHandlerStrategy;
+};
 
 export class PreferencesProjector {
   constructor(deps: Dependencies) {

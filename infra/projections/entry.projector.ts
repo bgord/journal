@@ -1,12 +1,17 @@
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
+import type * as z from "zod/v4";
 import * as Emotions from "+emotions";
+import type { EntryEvent } from "+emotions/aggregates";
+import type { TimeCapsuleEntryScheduledEventType } from "+emotions/events";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { EventBusType } from "+infra/tools/event-bus";
 
-type Dependencies = { EventBus: EventBusType; EventHandler: bg.EventHandlerStrategy };
+type Dependencies = {
+  EventBus: bg.EventBusPort<z.infer<EntryEvent> | TimeCapsuleEntryScheduledEventType>;
+  EventHandler: bg.EventHandlerStrategy;
+};
 
 export class EntryProjector {
   constructor(deps: Dependencies) {
