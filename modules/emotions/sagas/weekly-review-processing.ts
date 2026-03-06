@@ -96,7 +96,7 @@ export class WeeklyReviewProcessing {
         payload: { userId: event.payload.userId, week },
       } satisfies Emotions.Commands.DetectWeeklyPatternsCommandType);
 
-      await this.deps.CommandBus.emit(detectWeeklyPatterns.name, detectWeeklyPatterns);
+      await this.deps.CommandBus.emit(detectWeeklyPatterns);
 
       const completeWeeklyReview = Emotions.Commands.CompleteWeeklyReviewCommand.parse({
         ...bg.createCommandEnvelope(this.deps),
@@ -104,7 +104,7 @@ export class WeeklyReviewProcessing {
         payload: { weeklyReviewId: event.payload.weeklyReviewId, insights, userId: event.payload.userId },
       } satisfies Emotions.Commands.CompleteWeeklyReviewCommandType);
 
-      await this.deps.CommandBus.emit(completeWeeklyReview.name, completeWeeklyReview);
+      await this.deps.CommandBus.emit(completeWeeklyReview);
     } catch (_error) {
       const command = Emotions.Commands.MarkWeeklyReviewAsFailedCommand.parse({
         ...bg.createCommandEnvelope(this.deps),
@@ -112,7 +112,7 @@ export class WeeklyReviewProcessing {
         payload: { weeklyReviewId: event.payload.weeklyReviewId, userId: event.payload.userId },
       } satisfies Emotions.Commands.MarkWeeklyReviewAsFailedCommandType);
 
-      await this.deps.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command);
     }
   }
 
@@ -123,6 +123,6 @@ export class WeeklyReviewProcessing {
       payload: { userId: event.payload.userId, weeklyReviewId: event.payload.weeklyReviewId },
     } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommandType);
 
-    await this.deps.CommandBus.emit(command.name, command);
+    await this.deps.CommandBus.emit(command);
   }
 }

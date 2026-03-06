@@ -28,7 +28,7 @@ export const ReappraiseEmotion = (deps: Dependencies) => async (c: hono.Context<
     payload: { entryId, newEmotion, userId },
   } satisfies Emotions.Commands.ReappraiseEmotionCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response();
 };

@@ -39,7 +39,7 @@ export class WeeklyReviewScheduler {
         payload: { week, userId },
       } satisfies Emotions.Commands.RequestWeeklyReviewCommandType);
 
-      await this.deps.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command);
     }
   }
 }

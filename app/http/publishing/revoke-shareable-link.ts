@@ -22,7 +22,7 @@ export const RevokeShareableLink = (deps: Dependencies) => async (c: hono.Contex
     payload: { shareableLinkId, requesterId },
   } satisfies Publishing.Commands.RevokeShareableLinkCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response();
 };

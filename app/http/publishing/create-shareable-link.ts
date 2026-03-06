@@ -34,7 +34,7 @@ export const CreateShareableLink = (deps: Dependencies) => async (c: hono.Contex
     payload: { shareableLinkId, requesterId, durationMs: duration.ms, publicationSpecification, dateRange },
   } satisfies Publishing.Commands.CreateShareableLinkCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response();
 };

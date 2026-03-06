@@ -30,6 +30,6 @@ export class SetDefaultUserLanguage<L extends ReadonlyArray<tools.LanguageType>>
       payload: { userId: event.payload.userId, language: this.systemDefaultLanguage },
     } satisfies bg.Preferences.Commands.SetUserLanguageCommandType);
 
-    await this.deps.CommandBus.emit(command.name, command);
+    await this.deps.CommandBus.emit(command);
   }
 }

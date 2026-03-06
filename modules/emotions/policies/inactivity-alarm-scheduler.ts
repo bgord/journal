@@ -58,7 +58,7 @@ export class InactivityAlarmScheduler {
         payload: { detection, userId },
       } satisfies Emotions.Commands.GenerateAlarmCommandType);
 
-      await this.deps.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command);
     }
   }
 }

@@ -37,6 +37,6 @@ export class EntryAlarmDetector {
       payload: { detection, userId: event.payload.userId },
     } satisfies Emotions.Commands.GenerateAlarmCommandType);
 
-    await this.deps.CommandBus.emit(command.name, command);
+    await this.deps.CommandBus.emit(command);
   }
 }

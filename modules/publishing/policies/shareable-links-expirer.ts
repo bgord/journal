@@ -38,7 +38,7 @@ export class ShareableLinksExpirer {
           payload: { shareableLinkId: shareableLink.id },
         } satisfies Commands.ExpireShareableLinkCommandType);
 
-        await this.deps.CommandBus.emit(command.name, command);
+        await this.deps.CommandBus.emit(command);
       }
     } catch {}
   }

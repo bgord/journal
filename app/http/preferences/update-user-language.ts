@@ -20,7 +20,7 @@ export const UpdateUserLanguage = (deps: Dependencies) => async (c: hono.Context
     payload: { userId, language },
   } satisfies bg.Preferences.Commands.SetUserLanguageCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response();
 };

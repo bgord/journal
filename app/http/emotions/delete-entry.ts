@@ -22,7 +22,7 @@ export const DeleteEntry = (deps: Dependencies) => async (c: hono.Context<infra.
     payload: { entryId, userId },
   } satisfies Emotions.Commands.DeleteEntryCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response();
 };

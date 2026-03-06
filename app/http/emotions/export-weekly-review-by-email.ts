@@ -19,7 +19,7 @@ export const ExportWeeklyReviewByEmail = (deps: Dependencies) => async (c: hono.
     payload: { userId, weeklyReviewId },
   } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response();
 };

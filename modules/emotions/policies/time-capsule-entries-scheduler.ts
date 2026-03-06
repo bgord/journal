@@ -56,7 +56,7 @@ export class TimeCapsuleEntriesScheduler {
         },
       } satisfies Emotions.Commands.LogEntryCommandType);
 
-      await this.deps.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command);
     }
   }
 }

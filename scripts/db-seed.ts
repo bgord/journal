@@ -230,7 +230,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       },
     } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
-    await di.Tools.CommandBus.emit(ScheduleTimeCapsuleEntryCommand.name, ScheduleTimeCapsuleEntryCommand);
+    await di.Tools.CommandBus.emit(ScheduleTimeCapsuleEntryCommand);
 
     console.log("[✓] Time capsule entry scheduled");
 

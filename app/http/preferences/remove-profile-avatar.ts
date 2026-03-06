@@ -18,7 +18,7 @@ export const RemoveProfileAvatar = (deps: Dependencies) => async (c: hono.Contex
     payload: { userId },
   } satisfies Preferences.Commands.RemoveProfileAvatarCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response(null, { status: 202 });
 };

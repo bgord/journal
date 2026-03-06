@@ -77,7 +77,7 @@ export class AlarmOrchestrator {
           metadata: { detection, language },
         });
 
-        return this.deps.CommandBus.emit(cancel.name, cancel);
+        return this.deps.CommandBus.emit(cancel);
       }
 
       const context = ACL.createAlarmRequestContext(
@@ -94,9 +94,9 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId, advice },
       } satisfies Commands.SaveAlarmAdviceCommandType);
 
-      await this.deps.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command);
     } catch (_error) {
-      await this.deps.CommandBus.emit(cancel.name, cancel);
+      await this.deps.CommandBus.emit(cancel);
     }
   }
 
@@ -107,7 +107,7 @@ export class AlarmOrchestrator {
       payload: { alarmId: event.payload.alarmId },
     } satisfies Commands.RequestAlarmNotificationCommandType);
 
-    await this.deps.CommandBus.emit(command.name, command);
+    await this.deps.CommandBus.emit(command);
   }
 
   async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
@@ -118,7 +118,7 @@ export class AlarmOrchestrator {
     } satisfies Commands.CancelAlarmCommandType);
 
     const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
-    if (!contact?.address) return this.deps.CommandBus.emit(cancel.name, cancel);
+    if (!contact?.address) return this.deps.CommandBus.emit(cancel);
 
     const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
 
@@ -138,7 +138,7 @@ export class AlarmOrchestrator {
         metadata: { detection },
       });
 
-      return this.deps.CommandBus.emit(cancel.name, cancel);
+      return this.deps.CommandBus.emit(cancel);
     }
 
     try {
@@ -152,7 +152,7 @@ export class AlarmOrchestrator {
         payload: { alarmId: event.payload.alarmId },
       } satisfies Commands.CompleteAlarmCommandType);
 
-      await this.deps.CommandBus.emit(complete.name, complete);
+      await this.deps.CommandBus.emit(complete);
     } catch {}
   }
 
@@ -168,7 +168,7 @@ export class AlarmOrchestrator {
         payload: { alarmId },
       } satisfies Commands.CancelAlarmCommandType);
 
-      await this.deps.CommandBus.emit(command.name, command);
+      await this.deps.CommandBus.emit(command);
     }
   }
 }

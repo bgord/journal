@@ -45,7 +45,7 @@ export const ScheduleTimeCapsuleEntry = (deps: Dependencies) => async (c: hono.C
     payload: { entryId, situation, emotion, reaction, userId, scheduledAt: now, scheduledFor },
   } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response();
 };

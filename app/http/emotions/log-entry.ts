@@ -37,7 +37,7 @@ export const LogEntry = (deps: Dependencies) => async (c: hono.Context<infra.Con
     payload: { entryId, situation, emotion, reaction, userId, origin: Emotions.VO.EntryOriginOption.web },
   } satisfies Emotions.Commands.LogEntryCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response();
 };

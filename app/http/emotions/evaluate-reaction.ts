@@ -29,7 +29,7 @@ export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<i
     payload: { entryId, newReaction, userId },
   } satisfies Emotions.Commands.EvaluateReactionCommandType);
 
-  await deps.CommandBus.emit(command.name, command);
+  await deps.CommandBus.emit(command);
 
   return new Response();
 };
