@@ -1,7 +1,11 @@
 # Changelog
+- 2026-03-06 16:31 c77bea09 **step: update packages**
+## 2026-03-06 16:31 
+- 2026-03-06 16:12 99f611d4 **refactor: use new emittery bus adapters**
+- 2026-03-06 16:11 e167dc5c **step: update packages**
 - 2026-03-06 15:27 b46e2ec5 **refactor: update command bus emit signature**
-## 2026-03-06 15:27 
 - 2026-03-06 15:18 2b0fecf5 **step: update packages**
+- 2026-03-06 14:39 38ce7c21 **docs: generate CHANGELOG**
 - 2026-03-06 14:07 ce0e3820 **step: update packages**
 - 2026-03-06 13:08 1415f839 **docs: generate CHANGELOG**
 - 2026-03-06 11:58 7177f79b **refactor: update projection types**
