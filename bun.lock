@@ -7,7 +7,7 @@
       "dependencies": {
         "@anthropic-ai/sdk": "0.78.0",
         "@better-auth/drizzle-adapter": "1.5.4",
-        "@bgord/bun": "1.12.0",
+        "@bgord/bun": "1.12.1",
         "@bgord/design": "1.6.8",
         "@bgord/ui": "0.8.24",
         "@tanstack/react-router": "1.166.2",
@@ -146,7 +146,7 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.21", "", {}, "sha512-/ImESw0sskqlVR94jB+5+Pxjf+xBwDZF/N5+y2/q4EqD7IARUTSpPfIo8uf39SYpCxyOCtbyYpUrZ3F/k0zT4A=="],
 
-    "@bgord/bun": ["@bgord/bun@1.12.0", "", { "dependencies": { "@bgord/tools": "1.3.22", "emittery": "1.2.1", "hono": "4.12.5", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.5.4", "csv": "6.4.1", "nodemailer": "8.0.1", "resend": "6.9.3", "sharp": "0.34.5", "yazl": "3.3.1", "zod": "4.3.6" }, "optionalPeers": ["better-auth", "csv", "nodemailer", "resend", "sharp", "yazl"] }, "sha512-0zeG/caN6HGxVCQ0q7pTtrggm4MxDbk8e8lKwi67O80EPFStXupwxb6d8HHeQ0HS+LwLo1FIxUmareHBrbHvpg=="],
+    "@bgord/bun": ["@bgord/bun@1.12.1", "", { "dependencies": { "@bgord/tools": "1.3.22", "emittery": "1.2.1", "hono": "4.12.5", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.5.4", "csv": "6.4.1", "nodemailer": "8.0.1", "resend": "6.9.3", "sharp": "0.34.5", "yazl": "3.3.1", "zod": "4.3.6" }, "optionalPeers": ["better-auth", "csv", "nodemailer", "resend", "sharp", "yazl"] }, "sha512-YNk0NtKYOL9+oqpvH5bHqEO91hMPhPClCIoxQ4H4V1s+GMOMfnfvRvoV/P4RDiUacpFp+tB2ZaG+eXToOugqpQ=="],
 
     "@bgord/design": ["@bgord/design@1.6.8", "", {}, "sha512-hysRNWdRqQetbbMNK5HBd6Ysc0xH7zLMHnGpBllCLP/yR52fGmV3q3w2NEaOuLfWenpTbMRwPrS3CM9B7NH80A=="],
 
