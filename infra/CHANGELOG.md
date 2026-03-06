@@ -1,6 +1,9 @@
 # Changelog
+- 2026-03-06 15:27 b46e2ec5 **refactor: update command bus emit signature**
+## 2026-03-06 15:27 
+- 2026-03-06 15:18 2b0fecf5 **step: update packages**
 - 2026-03-06 14:07 ce0e3820 **step: update packages**
-## 2026-03-06 14:07 
+- 2026-03-06 13:08 1415f839 **docs: generate CHANGELOG**
 - 2026-03-06 11:58 7177f79b **refactor: update projection types**
 - 2026-03-06 11:57 0f95453a **refactor: update infra event bus**
 - 2026-03-06 11:56 de02f3f5 **refactor: update infra command bus**
