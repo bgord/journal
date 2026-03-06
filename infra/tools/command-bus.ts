@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import Emittery from "emittery";
 import type * as EmotionCommands from "+emotions/commands";
 import type * as PreferencesCommands from "+preferences/commands";
 import type * as PublishingCommands from "+publishing/commands";
@@ -29,10 +28,8 @@ type AcceptedCommand =
   | PreferencesCommands.UpdateProfileAvatarCommandType
   | PreferencesCommands.RemoveProfileAvatarCommandType;
 
-export function createCommandBus(deps: Dependencies) {
-  const CommandLogger = new bg.CommandLogger(deps);
+export function createCommandBus(deps: Dependencies): bg.CommandBusPort<AcceptedCommand> {
+  const inner = new bg.CommandBusEmitteryV1Adapter<AcceptedCommand>();
 
-  return new Emittery<bg.ToEventMap<AcceptedCommand>>({
-    debug: { enabled: true, name: "infra/logger", logger: CommandLogger.handle },
-  });
+  return new bg.CommandBusWithLoggerAdapter<AcceptedCommand>(inner, deps);
 }
