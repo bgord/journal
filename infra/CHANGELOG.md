@@ -1,6 +1,12 @@
 # Changelog
+- 2026-03-06 11:58 7177f79b **refactor: update projection types**
+## 2026-03-06 11:58 
+- 2026-03-06 11:57 0f95453a **refactor: update infra event bus**
+- 2026-03-06 11:56 de02f3f5 **refactor: update infra command bus**
+- 2026-03-06 11:52 3bdd174f **refactor: use event and command bus ports**
+- 2026-03-06 11:47 a47ab5ac **step: update packages**
 - 2026-03-05 20:07 33364249 **step: update packages**
-## 2026-03-05 20:07 
+- 2026-03-05 20:03 4e063832 **docs: generate CHANGELOG**
 - 2026-03-05 18:59 8016e277 **refactor: update bgord bun for hono separation**
 - 2026-03-05 18:53 bed2fbb6 **step: update packages**
 - 2026-03-04 22:27 596775e3 **refactor: adjust bgord-api-key**
