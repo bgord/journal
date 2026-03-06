@@ -13,12 +13,11 @@ import type {
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import * as schema from "+infra/schema";
-import type { EventBusType } from "+infra/tools/event-bus";
 import type { ProfileAvatarRemovedEvent, ProfileAvatarUpdatedEvent } from "+preferences/events";
 import type { ShareableLinkEvent } from "+publishing/aggregates";
 import type { ShareableLinkAccessedEvent } from "+publishing/events";
 
-type Dependencies = { EventBus: EventBusType };
+type Dependencies = { EventBus: bg.EventBusPort<z.infer<AcceptedEvent>> };
 
 export type AcceptedEvent =
   | EntryEvent
