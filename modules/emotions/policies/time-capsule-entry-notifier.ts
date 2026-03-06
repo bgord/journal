@@ -7,7 +7,7 @@ import type { SUPPORTED_LANGUAGES } from "+languages";
 type AcceptedEvent = Emotions.Events.SituationLoggedEventType;
 
 type Dependencies = {
-  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventBus: bg.EventBusPort<AcceptedEvent>;
   EventHandler: bg.EventHandlerStrategy;
   Mailer: bg.MailerPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;

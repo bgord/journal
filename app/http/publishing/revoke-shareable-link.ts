@@ -7,7 +7,7 @@ import * as Publishing from "+publishing";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  CommandBus: bg.CommandBusLike<Publishing.Commands.RevokeShareableLinkCommandType>;
+  CommandBus: bg.CommandBusPort<Publishing.Commands.RevokeShareableLinkCommandType>;
 };
 
 export const RevokeShareableLink = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {

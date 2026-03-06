@@ -6,7 +6,7 @@ import type * as infra from "+infra";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  CommandBus: bg.CommandBusLike<Emotions.Commands.LogEntryCommandType>;
+  CommandBus: bg.CommandBusPort<Emotions.Commands.LogEntryCommandType>;
 };
 
 export const LogEntry = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {

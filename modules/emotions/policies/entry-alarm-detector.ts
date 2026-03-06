@@ -5,9 +5,9 @@ type AcceptedEvent = Emotions.Events.EmotionLoggedEventType | Emotions.Events.Em
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
 
 type Dependencies = {
-  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventBus: bg.EventBusPort<AcceptedEvent>;
   EventHandler: bg.EventHandlerStrategy;
-  CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  CommandBus: bg.CommandBusPort<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
 };

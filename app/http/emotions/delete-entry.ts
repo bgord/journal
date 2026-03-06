@@ -7,7 +7,7 @@ import type * as infra from "+infra";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  CommandBus: bg.CommandBusLike<Emotions.Commands.DeleteEntryCommandType>;
+  CommandBus: bg.CommandBusPort<Emotions.Commands.DeleteEntryCommandType>;
 };
 
 export const DeleteEntry = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {

@@ -9,7 +9,7 @@ type AcceptedEvent =
   | Emotions.Events.ReactionEvaluatedEventType;
 
 type Dependencies = {
-  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventBus: bg.EventBusPort<AcceptedEvent>;
   EventHandler: bg.EventHandlerStrategy;
   HistoryWriter: bg.History.Ports.HistoryWriterPort;
   Clock: bg.ClockPort;

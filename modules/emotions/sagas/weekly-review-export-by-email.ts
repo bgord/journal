@@ -9,7 +9,7 @@ type AcceptedEvent =
   | Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
 type Dependencies = {
-  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventBus: bg.EventBusPort<AcceptedEvent>;
   EventHandler: bg.EventHandlerStrategy;
   EventStore: bg.EventStoreLike<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;

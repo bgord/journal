@@ -23,9 +23,9 @@ type AcceptedCommand =
   | Commands.CompleteAlarmCommandType;
 
 type Dependencies = {
-  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventBus: bg.EventBusPort<AcceptedEvent>;
   EventHandler: bg.EventHandlerStrategy;
-  CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  CommandBus: bg.CommandBusPort<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   AiGateway: AI.AiGatewayPort;

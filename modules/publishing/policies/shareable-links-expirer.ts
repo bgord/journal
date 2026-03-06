@@ -8,9 +8,9 @@ type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Commands.ExpireShareableLinkCommandType;
 
 type Dependencies = {
-  EventBus: bg.EventBusLike<AcceptedEvent>;
+  EventBus: bg.EventBusPort<AcceptedEvent>;
   EventHandler: bg.EventHandlerStrategy;
-  CommandBus: bg.CommandBusLike<AcceptedCommand>;
+  CommandBus: bg.CommandBusPort<AcceptedCommand>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   ExpiringShareableLinks: Ports.ExpiringShareableLinksPort;

@@ -6,7 +6,7 @@ import * as Preferences from "+preferences";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  CommandBus: bg.CommandBusLike<Preferences.Commands.RemoveProfileAvatarCommandType>;
+  CommandBus: bg.CommandBusPort<Preferences.Commands.RemoveProfileAvatarCommandType>;
 };
 
 export const RemoveProfileAvatar = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {

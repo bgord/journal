@@ -3,11 +3,11 @@ import type * as tools from "@bgord/tools";
 import * as Auth from "+auth";
 
 type Dependencies = {
-  EventBus: bg.EventBusLike<Auth.Events.AccountCreatedEventType>;
+  EventBus: bg.EventBusPort<Auth.Events.AccountCreatedEventType>;
   EventHandler: bg.EventHandlerStrategy;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  CommandBus: bg.CommandBusLike<bg.Preferences.Commands.SetUserLanguageCommandType>;
+  CommandBus: bg.CommandBusPort<bg.Preferences.Commands.SetUserLanguageCommandType>;
 };
 
 export class SetDefaultUserLanguage<L extends ReadonlyArray<tools.LanguageType>> {

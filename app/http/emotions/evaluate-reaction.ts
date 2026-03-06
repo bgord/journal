@@ -7,7 +7,7 @@ import type * as infra from "+infra";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  CommandBus: bg.CommandBusLike<Emotions.Commands.EvaluateReactionCommandType>;
+  CommandBus: bg.CommandBusPort<Emotions.Commands.EvaluateReactionCommandType>;
 };
 
 export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {

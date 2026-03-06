@@ -7,7 +7,7 @@ import * as Preferences from "+preferences";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  CommandBus: bg.CommandBusLike<Preferences.Commands.UpdateProfileAvatarCommandType>;
+  CommandBus: bg.CommandBusPort<Preferences.Commands.UpdateProfileAvatarCommandType>;
   TemporaryFile: bg.TemporaryFilePort;
 };
 

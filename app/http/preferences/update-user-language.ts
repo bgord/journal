@@ -6,7 +6,7 @@ import { SUPPORTED_LANGUAGES } from "+languages";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  CommandBus: bg.CommandBusLike<bg.Preferences.Commands.SetUserLanguageCommandType>;
+  CommandBus: bg.CommandBusPort<bg.Preferences.Commands.SetUserLanguageCommandType>;
 };
 
 export const UpdateUserLanguage = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
