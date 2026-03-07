@@ -1,8 +1,12 @@
 # Changelog
+- 2026-03-07 20:24 cb3a8692 **fix: healthcheck headers**
+- 2026-03-07 20:24 323139c5 **step: update packages**
+## 2026-03-07 20:24 
+- 2026-03-07 20:23 68c7e4cb **step: bump bgord/scripts**
 - 2026-03-06 16:31 c77bea09 **step: update packages**
-## 2026-03-06 16:31 
 - 2026-03-06 16:12 99f611d4 **refactor: use new emittery bus adapters**
 - 2026-03-06 16:11 e167dc5c **step: update packages**
+- 2026-03-06 15:33 d0fa4add **docs: generate CHANGELOG**
 - 2026-03-06 15:27 b46e2ec5 **refactor: update command bus emit signature**
 - 2026-03-06 15:18 2b0fecf5 **step: update packages**
 - 2026-03-06 14:39 38ce7c21 **docs: generate CHANGELOG**
