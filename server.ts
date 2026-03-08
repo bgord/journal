@@ -22,7 +22,15 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
         {
           csrf: { origin },
           cors: { origin },
-          httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
+          httpLogger: {
+            skip: [
+              "/api/translations",
+              "/api/profile-avatar/get",
+              "/api/auth/get-session",
+              "/api/publishing",
+              "/api/ai-usage",
+            ],
+          },
           I18n: { languages, strategies: [new bg.LanguageDetectorCookieStrategy("language")] },
         },
         { ...Adapters.System, ...Tools, HashContent, CacheResolver },
