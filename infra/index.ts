@@ -1,13 +1,12 @@
 import type * as bg from "@bgord/bun";
 import type { TimingVariables } from "hono/timing";
-import type { I18nVariables } from "+infra/tools/i18n";
 import type { AuthVariables } from "+infra/tools/shield-auth.strategy";
 
 export type Config = {
   Variables: TimingVariables &
     bg.TimeZoneOffsetVariables &
     bg.WeakETagVariables &
-    I18nVariables &
+    bg.LanguageDetectorVariables &
     AuthVariables &
     bg.CorrelationVariables;
 };

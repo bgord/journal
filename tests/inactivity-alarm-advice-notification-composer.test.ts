@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import * as mocks from "./mocks";
 
 describe("InactivityAlarmAdviceNotificationComposer", () => {
@@ -9,7 +9,7 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
     const inactivityAlarmAdviceNotificationComposer =
       new Emotions.Services.InactivityAlarmAdviceNotificationComposer(
         mocks.inactivityTrigger,
-        SupportedLanguages.en,
+        languages.supported.en,
       );
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
@@ -25,7 +25,7 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
     const inactivityAlarmAdviceNotificationComposer =
       new Emotions.Services.InactivityAlarmAdviceNotificationComposer(
         mocks.inactivityTrigger,
-        SupportedLanguages.pl,
+        languages.supported.pl,
       );
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 

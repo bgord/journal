@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { type SUPPORTED_LANGUAGES, SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import * as Preferences from "+preferences";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
@@ -45,7 +45,7 @@ export function registerEventHandlers({ Adapters, Env, Tools }: BootstrapType) {
     EMAIL_FROM: Env.EMAIL_FROM,
   });
   new EmotionsPolicies.EntryHistoryPublisher({ ...deps, ...Adapters.History });
-  new Preferences.Policies.SetDefaultUserLanguage<typeof SUPPORTED_LANGUAGES>(SupportedLanguages.en, deps);
+  new Preferences.Policies.SetDefaultUserLanguage(languages.fallback, deps);
 
   // Sagas
   new EmotionsSagas.AlarmOrchestrator({

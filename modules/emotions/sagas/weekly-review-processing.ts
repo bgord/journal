@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import type * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import type { SUPPORTED_LANGUAGES } from "+languages";
+import type { LanguagesType } from "+languages";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewSkippedEventType
@@ -28,7 +28,7 @@ type Dependencies = {
   Mailer: bg.MailerPort;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
-  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<LanguagesType>;
   EMAIL_FROM: tools.EmailType;
 };
 

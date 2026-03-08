@@ -2,7 +2,7 @@
 import { describe, expect, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import * as mocks from "./mocks";
 
 describe("EntryAlarmAdvicePromptBuilder", () => {
@@ -10,7 +10,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
     const builder = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
       mocks.partialEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-      SupportedLanguages.en,
+      languages.supported.en,
     );
 
     expect(builder.generate()).toEqual(
@@ -24,7 +24,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
     const builder = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
       mocks.fullEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-      SupportedLanguages.en,
+      languages.supported.en,
     );
 
     expect(builder.generate()).toEqual(
@@ -38,7 +38,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
     const builder = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
       mocks.partialEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-      SupportedLanguages.pl,
+      languages.supported.pl,
     );
 
     expect(builder.generate()).toEqual(
@@ -52,7 +52,7 @@ describe("EntryAlarmAdvicePromptBuilder", () => {
     const builder = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
       mocks.fullEntry,
       Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-      SupportedLanguages.pl,
+      languages.supported.pl,
     );
 
     expect(builder.generate()).toEqual(

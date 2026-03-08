@@ -1,7 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
@@ -13,7 +13,7 @@ describe("AlarmPromptFactory", async () => {
 
     const result = await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
       di.Adapters.Emotions.EntrySnapshot,
-      SupportedLanguages.en,
+      languages.supported.en,
     ).create(mocks.entryDetection);
 
     expect(result).toEqual(
@@ -28,7 +28,7 @@ describe("AlarmPromptFactory", async () => {
 
     const result = await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
       di.Adapters.Emotions.EntrySnapshot,
-      SupportedLanguages.en,
+      languages.supported.en,
     ).create(mocks.entryDetection);
 
     expect(result).toEqual(null);
@@ -37,7 +37,7 @@ describe("AlarmPromptFactory", async () => {
   test("inactivity", async () => {
     const result = await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
       di.Adapters.Emotions.EntrySnapshot,
-      SupportedLanguages.en,
+      languages.supported.en,
     ).create(mocks.inactivityDetection);
 
     expect(result).toEqual(new AI.Prompt(`Inactive for ${mocks.inactivityTrigger.inactivityDays} days`));
@@ -48,7 +48,7 @@ describe("AlarmPromptFactory", async () => {
       async () =>
         await new Emotions.ACL.AiPrompts.AlarmPromptFactory(
           di.Adapters.Emotions.EntrySnapshot,
-          SupportedLanguages.en,
+          languages.supported.en,
           // @ts-expect-error
         ).create(new Emotions.VO.AlarmDetection("unknown", "unknown")),
     ).toThrow("alarm.prompt.factory.unknown.trigger");

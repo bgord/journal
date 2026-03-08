@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import { SUPPORTED_LANGUAGES } from "+languages";
+import { languages } from "+languages";
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
 import type { BootstrapType } from "+infra/bootstrap";
@@ -104,10 +104,10 @@ export function registerCommandHandlers({ Adapters, Tools }: BootstrapType) {
 
   Tools.CommandBus.on(
     bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
-    bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(
-      new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES),
-      { ...deps, UserLanguageQuery: Adapters.Preferences.UserLanguageQuery },
-    ),
+    bg.Preferences.CommandHandlers.handleSetUserLanguageCommand(languages, {
+      ...deps,
+      UserLanguageQuery: Adapters.Preferences.UserLanguageQuery,
+    }),
   );
 
   Tools.CommandBus.on(

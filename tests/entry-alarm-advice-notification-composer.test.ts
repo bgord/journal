@@ -1,14 +1,14 @@
 import { describe, expect, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import * as mocks from "./mocks";
 
 describe("EntryAlarmAdviceNotificationComposer", () => {
   test("compose - en", () => {
     const entryAlarmAdviceNotificationComposer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(
       mocks.partialEntry,
-      SupportedLanguages.en,
+      languages.supported.en,
     );
     const notification = entryAlarmAdviceNotificationComposer.compose(mocks.advice);
 
@@ -23,7 +23,7 @@ describe("EntryAlarmAdviceNotificationComposer", () => {
   test("compose - pl", () => {
     const entryAlarmAdviceNotificationComposer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(
       mocks.partialEntry,
-      SupportedLanguages.pl,
+      languages.supported.pl,
     );
     const notification = entryAlarmAdviceNotificationComposer.compose(mocks.advice);
 

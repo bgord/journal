@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
+import { languages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
-import { SupportedLanguages } from "../modules/supported-languages";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
 
@@ -21,14 +21,14 @@ describe(`GET ${url}`, async () => {
     expect(json).toEqual({
       translations: await en.json(),
       language: "en",
-      supportedLanguages: SupportedLanguages,
+      supportedLanguages: languages.supported,
     });
   });
 
   test("happy path - en", async () => {
     const response = await server.request(
       url,
-      { method: "GET", headers: { cookie: `language=${SupportedLanguages.en}` } },
+      { method: "GET", headers: { cookie: `language=${languages.supported.en}` } },
       mocks.ip,
     );
     const json = await response.json();
@@ -37,14 +37,14 @@ describe(`GET ${url}`, async () => {
     expect(json).toEqual({
       translations: await en.json(),
       language: "en",
-      supportedLanguages: SupportedLanguages,
+      supportedLanguages: languages.supported,
     });
   });
 
   test("happy path - pl", async () => {
     const response = await server.request(
       url,
-      { method: "GET", headers: { cookie: `language=${SupportedLanguages.pl}` } },
+      { method: "GET", headers: { cookie: `language=${languages.supported.pl}` } },
       mocks.ip,
     );
     const json = await response.json();
@@ -53,7 +53,7 @@ describe(`GET ${url}`, async () => {
     expect(json).toEqual({
       translations: await pl.json(),
       language: "pl",
-      supportedLanguages: SupportedLanguages,
+      supportedLanguages: languages.supported,
     });
   });
 
@@ -69,7 +69,7 @@ describe(`GET ${url}`, async () => {
     expect(json).toEqual({
       translations: await en.json(),
       language: "en",
-      supportedLanguages: SupportedLanguages,
+      supportedLanguages: languages.supported,
     });
   });
 });

@@ -15,6 +15,7 @@ const validationErrors = [
   tools.DurationMsError.Invalid,
   tools.DayIsoIdError.InvalidDate,
   tools.DayIsoIdError.Type,
+  tools.LanguageError.Type,
   Emotions.VO.SituationDescription.Errors.Invalid,
   Emotions.VO.SituationKind.Errors.Invalid,
   Emotions.VO.EmotionLabel.Errors.Invalid,
@@ -68,7 +69,7 @@ export class ErrorHandler {
       return c.json({ message: "revision.mismatch", _known: true }, 412);
     }
 
-    if (error.message === bg.Preferences.VO.SupportedLanguagesSetError.Missing) {
+    if (error.message === bg.Preferences.CommandHandlers.HandleSetUserLanguageCommandError.Missing) {
       return c.json({ message: "unsupported.language", _known: true }, 400);
     }
 

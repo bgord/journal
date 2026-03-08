@@ -2,9 +2,9 @@ import * as bg from "@bgord/bun";
 import { Hono } from "hono";
 import { HTTP } from "+app";
 import type * as infra from "+infra";
+import { languages } from "+languages";
 import * as Preferences from "+preferences";
 import type { BootstrapType } from "+infra/bootstrap";
-import { SupportedLanguages } from "./modules/supported-languages";
 
 export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const deps = { ...Adapters.System, ...Tools };
@@ -23,6 +23,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
           csrf: { origin },
           cors: { origin },
           httpLogger: { skip: ["/api/translations", "/api/profile-avatar/get", "/api/auth/get-session"] },
+          I18n: { languages, strategies: [new bg.LanguageDetectorCookieStrategy("language")] },
         },
         { ...Adapters.System, ...Tools, HashContent, CacheResolver },
       ),
@@ -138,7 +139,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   server.get(
     "/translations",
     Tools.CacheResponse.handle(),
-    ...new bg.TranslationsHonoHandler(SupportedLanguages, Adapters.System).handle(),
+    ...new bg.TranslationsHonoHandler(languages, Adapters.System).handle(),
   );
   // =============================
 

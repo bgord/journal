@@ -1,7 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
@@ -13,7 +13,7 @@ describe("AlarmNotificationFactory", async () => {
 
     const result = await new Emotions.Services.AlarmNotificationFactory(
       di.Adapters.Emotions.EntrySnapshot,
-      SupportedLanguages.en,
+      languages.supported.en,
     ).create(mocks.entryDetection, mocks.advice);
 
     expect(result).toEqual(null);
@@ -24,7 +24,7 @@ describe("AlarmNotificationFactory", async () => {
 
     const result = await new Emotions.Services.AlarmNotificationFactory(
       di.Adapters.Emotions.EntrySnapshot,
-      SupportedLanguages.en,
+      languages.supported.en,
     ).create(mocks.entryDetection, mocks.advice);
 
     expect(result).toEqual({
@@ -38,7 +38,7 @@ describe("AlarmNotificationFactory", async () => {
 
     const result = await new Emotions.Services.AlarmNotificationFactory(
       di.Adapters.Emotions.EntrySnapshot,
-      SupportedLanguages.pl,
+      languages.supported.pl,
     ).create(mocks.entryDetection, mocks.advice);
 
     expect(result).toEqual({
@@ -50,7 +50,7 @@ describe("AlarmNotificationFactory", async () => {
   test("inactivity - en", async () => {
     const result = await new Emotions.Services.AlarmNotificationFactory(
       di.Adapters.Emotions.EntrySnapshot,
-      SupportedLanguages.en,
+      languages.supported.en,
     ).create(mocks.inactivityDetection, mocks.advice);
 
     expect(result).toEqual({
@@ -64,7 +64,7 @@ describe("AlarmNotificationFactory", async () => {
   test("inactivity - pl", async () => {
     const result = await new Emotions.Services.AlarmNotificationFactory(
       di.Adapters.Emotions.EntrySnapshot,
-      SupportedLanguages.pl,
+      languages.supported.pl,
     ).create(mocks.inactivityDetection, mocks.advice);
 
     expect(result).toEqual({
@@ -80,7 +80,7 @@ describe("AlarmNotificationFactory", async () => {
       async () =>
         await new Emotions.Services.AlarmNotificationFactory(
           di.Adapters.Emotions.EntrySnapshot,
-          SupportedLanguages.en,
+          languages.supported.en,
           // @ts-expect-error
         ).create(new Emotions.VO.AlarmDetection("unknown", "unknown"), mocks.advice),
     ).toThrow("alarm.notification.factory.error.unknown.trigger");

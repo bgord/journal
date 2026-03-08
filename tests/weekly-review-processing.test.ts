@@ -3,7 +3,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -30,7 +30,9 @@ describe("WeeklyReviewProcessing", async () => {
     using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
@@ -50,7 +52,9 @@ describe("WeeklyReviewProcessing", async () => {
     using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewSkippedEvent(mocks.GenericWeeklyReviewSkippedEvent),
@@ -64,7 +68,9 @@ describe("WeeklyReviewProcessing", async () => {
     using loggerError = spyOn(di.Adapters.System.Logger, "error");
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
     spies.use(spyOn(di.Adapters.System.Mailer, "send").mockImplementation(mocks.throwIntentionalErrorAsync));
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -93,7 +99,9 @@ describe("WeeklyReviewProcessing", async () => {
     spies.use(
       spyOn(di.Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]),
     );
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
@@ -122,7 +130,9 @@ describe("WeeklyReviewProcessing", async () => {
     spies.use(
       spyOn(di.Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]),
     );
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.pl));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.pl),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
@@ -150,7 +160,9 @@ describe("WeeklyReviewProcessing", async () => {
     spies.use(
       spyOn(di.Adapters.Emotions.EntrySnapshot, "getByWeekForUser").mockResolvedValue([mocks.fullEntry]),
     );
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
     spies.use(spyOn(di.Adapters.AI.AiGateway, "query").mockImplementation(mocks.throwIntentionalErrorAsync));
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>

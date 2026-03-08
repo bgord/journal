@@ -1,7 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import { AiClientOpenAiAdapter } from "+infra/adapters/ai/ai-client-open-ai.adapter";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
@@ -9,7 +9,7 @@ import * as mocks from "./mocks";
 const prompt = new Emotions.ACL.AiPrompts.EntryAlarmAdvicePromptBuilder(
   mocks.partialEntry,
   Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
-  SupportedLanguages.en,
+  languages.fallback,
 ).generate();
 
 describe("AiClientOpenAi", async () => {

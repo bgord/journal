@@ -1,6 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -30,6 +30,20 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
+    expect(json).toEqual({ message: "language.type", _known: true });
+  });
+
+  test("validation - unsupported", async () => {
+    using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+
+    const response = await server.request(
+      url,
+      { method: "POST", body: JSON.stringify({ language: "es" }) },
+      mocks.ip,
+    );
+    const json = await response.json();
+
+    expect(response.status).toEqual(400);
     expect(json).toEqual({ message: "unsupported.language", _known: true });
   });
 
@@ -38,12 +52,12 @@ describe(`POST ${url}`, async () => {
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(
-      spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en),
+      spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(languages.supported.en),
     );
 
     const response = await server.request(
       url,
-      { method: "POST", body: JSON.stringify({ language: SupportedLanguages.en }) },
+      { method: "POST", body: JSON.stringify({ language: languages.supported.en }) },
       mocks.ip,
     );
 
@@ -56,14 +70,14 @@ describe(`POST ${url}`, async () => {
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(
-      spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(SupportedLanguages.en),
+      spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(languages.supported.en),
     );
 
     const response = await server.request(
       url,
       {
         method: "POST",
-        body: JSON.stringify({ language: SupportedLanguages.pl }),
+        body: JSON.stringify({ language: languages.supported.pl }),
         headers: mocks.correlationIdHeaders,
       },
       mocks.ip,

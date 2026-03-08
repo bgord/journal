@@ -1,7 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
@@ -19,7 +19,7 @@ describe("TimeCapsuleEntryNotifier", async () => {
 
   test("onSituationLoggedEvent - regular entry", async () => {
     using userContactOhqGet = spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(
-      SupportedLanguages.en,
+      languages.supported.en,
     );
     using userContaxtOhqGetPrimary = spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(
       undefined,
@@ -37,7 +37,7 @@ describe("TimeCapsuleEntryNotifier", async () => {
 
   test("onSituationLoggedEvent - no contact", async () => {
     using UserLanguageOhqGet = spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(
-      SupportedLanguages.en,
+      languages.supported.en,
     );
     using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
     using _ = spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined);
@@ -53,7 +53,9 @@ describe("TimeCapsuleEntryNotifier", async () => {
   test("onSituationLoggedEvent - en", async () => {
     using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
     using spies = new DisposableStack();
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
@@ -69,7 +71,9 @@ describe("TimeCapsuleEntryNotifier", async () => {
   test("onSituationLoggedEvent - pl", async () => {
     using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
     using spies = new DisposableStack();
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.pl));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.pl),
+    );
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>

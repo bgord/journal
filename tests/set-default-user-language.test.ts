@@ -1,6 +1,6 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import * as Preferences from "+preferences";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
@@ -12,7 +12,7 @@ describe("SetDefaultUserLanguage", async () => {
   registerEventHandlers(di);
   registerCommandHandlers(di);
 
-  const policy = new Preferences.Policies.SetDefaultUserLanguage(SupportedLanguages.en, {
+  const policy = new Preferences.Policies.SetDefaultUserLanguage(languages.fallback, {
     ...di.Adapters.System,
     ...di.Tools,
   });
@@ -30,7 +30,7 @@ describe("SetDefaultUserLanguage", async () => {
 
   test("onAccountCreatedEvent - does not duplicate events", async () => {
     using _ = spyOn(di.Adapters.Preferences.UserLanguageQuery, "get").mockResolvedValue(
-      SupportedLanguages.en,
+      languages.supported.en,
     );
     using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
 

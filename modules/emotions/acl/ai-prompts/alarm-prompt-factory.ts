@@ -1,6 +1,6 @@
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
-import type { SupportedLanguages } from "+languages";
+import type { LanguagesType } from "+languages";
 import type { EntrySnapshotPort } from "+emotions/ports";
 
 const AlarmPromptFactoryError = { UnknownTrigger: "alarm.prompt.factory.unknown.trigger" };
@@ -8,7 +8,7 @@ const AlarmPromptFactoryError = { UnknownTrigger: "alarm.prompt.factory.unknown.
 export class AlarmPromptFactory {
   constructor(
     private readonly entrySnapshot: EntrySnapshotPort,
-    private readonly language: SupportedLanguages,
+    private readonly language: LanguagesType,
   ) {}
 
   async create(detection: Emotions.VO.AlarmDetection): Promise<AI.Prompt | null> {

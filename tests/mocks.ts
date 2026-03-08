@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type { EntrySnapshotFormatted } from "+app/http/emotions/list-entries";
@@ -102,6 +102,13 @@ const visitorId = bg.Hash.fromValue(visitorIdRaw);
 export const accessContext: Publishing.VO.AccessContext = { timestamp: T0.ms, visitorId };
 
 export const aiRequestRegisteredTimestamp = T0;
+
+export const AiUsageContext: AI.RequestContext<AI.UsageCategory.INSPECT> = {
+  userId: userId,
+  category: AI.UsageCategory.INSPECT,
+  timestamp: T0.ms,
+  dimensions: {},
+};
 
 export const EmotionsAlarmEntryContext: AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_ENTRY> = {
   userId: userId,
@@ -903,7 +910,7 @@ export const GenericUserLanguageSetEvent = {
   stream: `preferences_${userId}`,
   version: 1,
   name: "USER_LANGUAGE_SET_EVENT",
-  payload: { userId, language: SupportedLanguages.en },
+  payload: { userId, language: languages.supported.en },
 } satisfies bg.Preferences.Events.UserLanguageSetEventType;
 
 export const GenericUserLanguageSetPLEvent = {
@@ -913,7 +920,7 @@ export const GenericUserLanguageSetPLEvent = {
   stream: `preferences_${userId}`,
   version: 1,
   name: "USER_LANGUAGE_SET_EVENT",
-  payload: { userId, language: SupportedLanguages.pl },
+  payload: { userId, language: languages.supported.pl },
 } satisfies bg.Preferences.Events.UserLanguageSetEventType;
 
 export const GenericProfileAvatarUpdatedEvent = {

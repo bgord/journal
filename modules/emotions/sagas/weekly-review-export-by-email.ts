@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import type { SUPPORTED_LANGUAGES } from "+languages";
+import type { LanguagesType } from "+languages";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewExportByEmailRequestedEventType
@@ -19,7 +19,7 @@ type Dependencies = {
   Sleeper: bg.SleeperPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
   WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport;
-  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<LanguagesType>;
   RetryBackoffStrategy: bg.RetryBackoffStrategy;
   EMAIL_FROM: tools.EmailType;
 };

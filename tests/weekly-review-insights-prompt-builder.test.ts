@@ -1,13 +1,13 @@
 import { describe, expect, test } from "bun:test";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import * as mocks from "./mocks";
 
 describe("WeeklyReviewInsightsPromptBuilder", () => {
   test("generate - en", () => {
     const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(
       [mocks.fullEntry],
-      SupportedLanguages.en,
+      languages.supported.en,
     ).generate();
 
     expect(prompt.read()).toEqual([
@@ -25,7 +25,7 @@ describe("WeeklyReviewInsightsPromptBuilder", () => {
   test("generate - pl", () => {
     const prompt = new Emotions.ACL.AiPrompts.WeeklyReviewInsightsPromptBuilder(
       [mocks.fullEntry],
-      SupportedLanguages.pl,
+      languages.supported.pl,
     ).generate();
 
     expect(prompt.read()).toEqual([

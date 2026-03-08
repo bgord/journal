@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import { sqlite } from "+infra/db";
 import { type EnvironmentType, MasterKeyPath, SecretsPath } from "+infra/env";
 
@@ -81,10 +81,7 @@ export function createPrerequisites(Env: EnvironmentType, deps: Dependencies) {
       { enabled: production },
     ),
     new bg.Prerequisite("jobs", new bg.PrerequisiteVerifierJobsAdapter(deps)),
-    new bg.Prerequisite(
-      "translations",
-      new bg.PrerequisiteVerifierTranslationsAdapter({ supportedLanguages: SupportedLanguages }, deps),
-    ),
+    new bg.Prerequisite("translations", new bg.PrerequisiteVerifierTranslationsAdapter(languages, deps)),
     new bg.Prerequisite("mailer", new bg.PrerequisiteVerifierMailerAdapter(deps), {
       enabled: production,
       decorators: [withRetry, withTimeout],

@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import type hono from "hono";
 import type * as infra from "+infra";
-import { SUPPORTED_LANGUAGES } from "+languages";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -12,12 +11,11 @@ type Dependencies = {
 export const UpdateUserLanguage = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
   const body = await c.req.json();
-  const language = new bg.Preferences.VO.SupportedLanguagesSet(SUPPORTED_LANGUAGES).ensure(body.language);
 
   const command = bg.Preferences.Commands.SetUserLanguageCommand.parse({
     ...bg.createCommandEnvelope(deps),
     name: bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
-    payload: { userId, language },
+    payload: { userId, language: body.language },
   } satisfies bg.Preferences.Commands.SetUserLanguageCommandType);
 
   await deps.CommandBus.emit(command);

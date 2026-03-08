@@ -2,14 +2,14 @@
 import { describe, expect, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import * as mocks from "./mocks";
 
 describe("InactivityAlarmAdvicePromptBuilder", () => {
   test("generate - en", () => {
     const builder = new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(
       mocks.inactivityTrigger,
-      SupportedLanguages.en,
+      languages.supported.en,
     );
 
     expect(builder.generate()).toEqual(
@@ -20,7 +20,7 @@ describe("InactivityAlarmAdvicePromptBuilder", () => {
   test("generate - pl", () => {
     const builder = new Emotions.ACL.AiPrompts.InactivityAlarmAdvicePromptBuilder(
       mocks.inactivityTrigger,
-      SupportedLanguages.pl,
+      languages.supported.pl,
     );
 
     expect(builder.generate()).toEqual(

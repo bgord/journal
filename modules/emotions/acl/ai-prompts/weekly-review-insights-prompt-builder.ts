@@ -1,18 +1,16 @@
 import * as AI from "+ai";
-import { SupportedLanguages } from "+languages";
+import type { LanguagesType } from "+languages";
 import type * as VO from "+emotions/value-objects";
 
-const content: Record<SupportedLanguages, (entries: ReadonlyArray<VO.EntrySnapshot>) => string> = {
-  [SupportedLanguages.en]: (entries: ReadonlyArray<VO.EntrySnapshot>) =>
-    `Generate insights for these ${entries.length} entries.`,
-  [SupportedLanguages.pl]: (entries: ReadonlyArray<VO.EntrySnapshot>) =>
-    `Podsumuj te ${entries.length} wpisów.`,
+const content: Record<LanguagesType, (entries: ReadonlyArray<VO.EntrySnapshot>) => string> = {
+  en: (entries: ReadonlyArray<VO.EntrySnapshot>) => `Generate insights for these ${entries.length} entries.`,
+  pl: (entries: ReadonlyArray<VO.EntrySnapshot>) => `Podsumuj te ${entries.length} wpisów.`,
 };
 
 export class WeeklyReviewInsightsPromptBuilder {
   constructor(
     private readonly entries: ReadonlyArray<VO.EntrySnapshot>,
-    private readonly language: SupportedLanguages,
+    private readonly language: LanguagesType,
   ) {}
 
   generate(): AI.Prompt {

@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
-import type { SUPPORTED_LANGUAGES } from "+languages";
+import type { LanguagesType } from "+languages";
 import * as ACL from "+emotions/acl";
 import * as Commands from "+emotions/commands";
 import * as Events from "+emotions/events";
@@ -34,7 +34,7 @@ type Dependencies = {
   AlarmCancellationLookup: Ports.AlarmCancellationLookupPort;
   EntrySnapshot: Ports.EntrySnapshotPort;
   UserContactOHQ: Auth.OHQ.UserContactOHQ;
-  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<typeof SUPPORTED_LANGUAGES>;
+  UserLanguageOHQ: bg.Preferences.OHQ.UserLanguagePort<LanguagesType>;
   EMAIL_FROM: tools.EmailType;
 };
 

@@ -1,15 +1,15 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { SupportedLanguages } from "+languages";
+import type { LanguagesType } from "+languages";
 
-const notification: Record<SupportedLanguages, (week: tools.Week) => bg.MailerTemplateMessage> = {
-  [SupportedLanguages.en]: (week: tools.Week) => ({
+const notification: Record<LanguagesType, (week: tools.Week) => bg.MailerTemplateMessage> = {
+  en: (week: tools.Week) => ({
     subject: bg.MailerSubject.parse(
       `JOURNAL - weekly review ${tools.DateFormatters.date(week.getStart().ms)} - ${tools.DateFormatters.date(week.getEnd().ms)}`,
     ),
     html: bg.MailerContentHtml.parse("Find the file attached"),
   }),
-  [SupportedLanguages.pl]: (week: tools.Week) => ({
+  pl: (week: tools.Week) => ({
     subject: bg.MailerSubject.parse(
       `JOURNAL - przegląd tygodnia ${tools.DateFormatters.date(week.getStart().ms)} - ${tools.DateFormatters.date(week.getEnd().ms)}`,
     ),
@@ -18,7 +18,7 @@ const notification: Record<SupportedLanguages, (week: tools.Week) => bg.MailerTe
 };
 
 export class WeeklyReviewExportNotificationComposer {
-  compose(week: tools.Week, language: SupportedLanguages): bg.MailerTemplateMessage {
+  compose(week: tools.Week, language: LanguagesType): bg.MailerTemplateMessage {
     return notification[language](week);
   }
 }

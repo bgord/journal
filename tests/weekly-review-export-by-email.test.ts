@@ -2,7 +2,7 @@ import { describe, expect, jest, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
@@ -90,7 +90,9 @@ describe("WeeklyReviewExportByEmail", async () => {
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.System.Mailer, "send").mockImplementation(mocks.throwIntentionalErrorAsync));
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
     spies.use(
       spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockResolvedValue(
         mocks.weeklyReviewFull,
@@ -109,7 +111,9 @@ describe("WeeklyReviewExportByEmail", async () => {
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn()));
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
     spies.use(
       spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockResolvedValue(
         mocks.weeklyReviewFull,

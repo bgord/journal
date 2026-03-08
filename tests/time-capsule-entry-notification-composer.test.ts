@@ -1,12 +1,12 @@
 import { describe, expect, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 
 describe("TimeCapsuleEntryNotificationComposer", () => {
   test("compose - en", () => {
     const entryAlarmAdviceNotificationComposer = new Emotions.Services.TimeCapsuleEntryNotificationComposer(
-      SupportedLanguages.en,
+      languages.supported.en,
     );
 
     expect(entryAlarmAdviceNotificationComposer.compose()).toEqual({
@@ -17,7 +17,7 @@ describe("TimeCapsuleEntryNotificationComposer", () => {
 
   test("compose - pl", () => {
     const entryAlarmAdviceNotificationComposer = new Emotions.Services.TimeCapsuleEntryNotificationComposer(
-      SupportedLanguages.pl,
+      languages.supported.pl,
     );
 
     expect(entryAlarmAdviceNotificationComposer.compose()).toEqual({

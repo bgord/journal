@@ -3,7 +3,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import { languages } from "+languages";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -34,7 +34,9 @@ describe("AlarmOrchestrator", async () => {
     spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]));
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
     spies.use(spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
@@ -50,7 +52,9 @@ describe("AlarmOrchestrator", async () => {
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]));
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmGeneratedEvent(mocks.GenericInactivityAlarmGeneratedEvent),
@@ -74,7 +78,9 @@ describe("AlarmOrchestrator", async () => {
       ),
     );
     spies.use(spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.advice));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
@@ -90,7 +96,9 @@ describe("AlarmOrchestrator", async () => {
     spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericAlarmGeneratedEvent]));
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
     spies.use(spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
@@ -101,7 +109,7 @@ describe("AlarmOrchestrator", async () => {
       message: "Missing prompt",
       component: "emotions",
       operation: "alarm_orchestrator_on_alarm_generated_event",
-      metadata: { detection: mocks.entryDetection, language: SupportedLanguages.en },
+      metadata: { detection: mocks.entryDetection, language: languages.supported.en },
     });
   });
 
@@ -112,7 +120,9 @@ describe("AlarmOrchestrator", async () => {
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
     spies.use(spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry));
     spies.use(spyOn(di.Adapters.AI.AiGateway, "query").mockImplementation(mocks.throwIntentionalErrorAsync));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmGeneratedEvent(mocks.GenericAlarmGeneratedEvent),
@@ -152,7 +162,9 @@ describe("AlarmOrchestrator", async () => {
       ]),
     );
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
@@ -176,7 +188,9 @@ describe("AlarmOrchestrator", async () => {
     );
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
     spies.use(spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
@@ -205,7 +219,9 @@ describe("AlarmOrchestrator", async () => {
     );
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
     spies.use(spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.partialEntry));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmNotificationRequestedEvent(mocks.GenericAlarmNotificationRequestedEvent),
@@ -233,7 +249,9 @@ describe("AlarmOrchestrator", async () => {
       ]),
     );
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
-    spies.use(spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(SupportedLanguages.en));
+    spies.use(
+      spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(languages.supported.en),
+    );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       saga.onAlarmNotificationRequestedEvent(mocks.GenericInactivityAlarmNotificationRequestedEvent),

@@ -35,7 +35,7 @@ describe(`DELETE ${url}`, async () => {
       mocks.ip,
     );
 
-    expect(response.status);
+    expect(response.status).toEqual(202);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericProfileAvatarRemovedEvent]);
     expect(remoteFileStorageDelete).toHaveBeenCalledWith(mocks.objectKey);
   });

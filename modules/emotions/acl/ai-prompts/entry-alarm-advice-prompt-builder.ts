@@ -1,13 +1,13 @@
 // cspell:disable
 import * as AI from "+ai";
 import type * as Emotions from "+emotions";
-import { SupportedLanguages } from "+languages";
+import type { LanguagesType } from "+languages";
 
 const content: Record<
-  SupportedLanguages,
+  LanguagesType,
   (entry: Emotions.VO.EntrySnapshot, alarmName: Emotions.VO.AlarmNameOption) => string
 > = {
-  [SupportedLanguages.en]: (entry: Emotions.VO.EntrySnapshot, alarmName: Emotions.VO.AlarmNameOption) => {
+  en: (entry: Emotions.VO.EntrySnapshot, alarmName: Emotions.VO.AlarmNameOption) => {
     let content = `Here is a summary of an entry from my AI journal app, it triggered an ${alarmName} alarm. `;
 
     content += `Situation (${entry.situationKind}): ${entry.situationDescription}. `;
@@ -22,7 +22,7 @@ const content: Record<
     return content;
   },
 
-  [SupportedLanguages.pl]: (entry: Emotions.VO.EntrySnapshot, alarmName: Emotions.VO.AlarmNameOption) => {
+  pl: (entry: Emotions.VO.EntrySnapshot, alarmName: Emotions.VO.AlarmNameOption) => {
     let content = `Oto podsumowanie wpisu z mojej aplikacji dziennika AI, który wywołał alarm ${alarmName}. `;
 
     content += `Sytuacja (${entry.situationKind}): ${entry.situationDescription}. `;
@@ -42,7 +42,7 @@ export class EntryAlarmAdvicePromptBuilder {
   constructor(
     private readonly entry: Emotions.VO.EntrySnapshot,
     private readonly alarmName: Emotions.VO.AlarmNameOption,
-    private readonly language: SupportedLanguages,
+    private readonly language: LanguagesType,
   ) {}
 
   generate(): AI.Prompt {

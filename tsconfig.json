@@ -24,7 +24,7 @@
       "+ai/*": ["./modules/ai/*"],
       "+app": ["./app/index"],
       "+app/*": ["./app/*"],
-      "+languages": ["./modules/supported-languages.ts"],
+      "+languages": ["./modules/languages.ts"],
       "+system": ["./modules/system/index"],
       "+system/*": ["./modules/system/*"],
       "+preferences": ["./modules/preferences/index"],

@@ -1,7 +1,7 @@
 import type * as bg from "@bgord/bun";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
-import type { SupportedLanguages } from "+languages";
+import type { LanguagesType } from "+languages";
 
 const AlarmNotificationFactoryError = {
   UnknownTrigger: "alarm.notification.factory.error.unknown.trigger",
@@ -10,7 +10,7 @@ const AlarmNotificationFactoryError = {
 export class AlarmNotificationFactory {
   constructor(
     private readonly entrySnapshot: Emotions.Ports.EntrySnapshotPort,
-    private readonly language: SupportedLanguages,
+    private readonly language: LanguagesType,
   ) {}
 
   async create(
