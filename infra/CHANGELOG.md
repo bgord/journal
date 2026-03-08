@@ -1,7 +1,10 @@
 # Changelog
+- 2026-03-08 20:43 cf3d4a2c **refactor: update shield timeout**
+- 2026-03-08 20:43 12756394 **step: update packages**
+## 2026-03-08 20:43 
 - 2026-03-08 19:46 2e868840 **refactor: cleanup error handler**
-## 2026-03-08 19:46 
 - 2026-03-08 19:38 dd5f9a0a **step: test history list endpoint**
+- 2026-03-08 18:58 aa711bc2 **docs: generate CHANGELOG**
 - 2026-03-08 15:39 958d75ca **refactor: kill app/http mutants**
 - 2026-03-08 15:26 159d7d80 **step: update packages**
 - 2026-03-08 15:25 8a1a118c **step: bump bgord/scripts**
