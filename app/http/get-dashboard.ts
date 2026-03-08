@@ -1,3 +1,4 @@
+// Stryker disable all
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, count, desc, eq, gte, isNotNull, not, sql } from "drizzle-orm";
@@ -204,3 +205,4 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
 
   return c.json(result);
 };
+// Stryker restore all

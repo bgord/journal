@@ -37,6 +37,7 @@ describe(`GET ${url}`, async () => {
       );
 
       expect(response.status).toEqual(403);
+      expect(await response.json()).toEqual({ _known: true, message: "shareable_link_invalid" });
       expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedExpiredEvent]);
     });
   });
@@ -56,6 +57,7 @@ describe(`GET ${url}`, async () => {
       );
 
       expect(response.status).toEqual(403);
+      expect(await response.json()).toEqual({ _known: true, message: "shareable_link_invalid" });
       expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedRevokedEvent]);
     });
   });

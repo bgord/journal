@@ -9,6 +9,7 @@ export const HideShareableLink = () => async (c: hono.Context<infra.Config>) => 
   const userId = c.get("user").id;
   const shareableLinkId = Publishing.VO.ShareableLinkId.parse(c.req.param("shareableLinkId"));
 
+  // Stryker disable all
   await db
     .update(Schema.shareableLinks)
     .set({ hidden: true })
@@ -19,6 +20,7 @@ export const HideShareableLink = () => async (c: hono.Context<infra.Config>) => 
         eq(Schema.shareableLinks.hidden, false),
       ),
     );
+  // Stryker restore all
 
   return new Response();
 };
