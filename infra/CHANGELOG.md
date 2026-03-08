@@ -1,6 +1,15 @@
 # Changelog
+- 2026-03-08 19:46 2e868840 **refactor: cleanup error handler**
+## 2026-03-08 19:46 
+- 2026-03-08 19:38 dd5f9a0a **step: test history list endpoint**
+- 2026-03-08 15:39 958d75ca **refactor: kill app/http mutants**
+- 2026-03-08 15:26 159d7d80 **step: update packages**
+- 2026-03-08 15:25 8a1a118c **step: bump bgord/scripts**
+- 2026-03-08 13:46 9675831e **step: update packages**
+- 2026-03-08 13:45 7928260f **step: reduce log noise**
+- 2026-03-08 12:12 ff44844f **docs: generate CHANGELOG**
+- 2026-03-08 12:12 24d789ee **docs: generate readme**
 - 2026-03-08 12:03 f2dbaf49 **refactor: use languages**
-## 2026-03-08 12:03 
 - 2026-03-08 12:01 485bc91a **step: update packages**
 - 2026-03-07 20:24 cb3a8692 **fix: healthcheck headers**
 - 2026-03-07 20:24 323139c5 **step: update packages**
