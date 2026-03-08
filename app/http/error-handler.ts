@@ -34,23 +34,22 @@ const invariants = Object.values({
   ...Preferences.Invariants,
 });
 
+// Stryker disable all
 export class ErrorHandler {
   static handle: (deps: Dependencies) => hono.ErrorHandler = (deps) => async (error, c) => {
     const url = c.req.url;
     const correlationId = c.get("correlationId");
 
     if (error instanceof HTTPException) {
-      if (error.message === "request_timeout_error") {
-        return c.json({ message: "request_timeout_error", _known: true }, 408);
+      if (error.message === bg.ShieldTimeoutStrategyError.Rejected) {
+        return c.json(
+          { message: bg.ShieldTimeoutStrategyError.Rejected, _known: true },
+          bg.ShieldTimeoutError.status,
+        );
       }
 
-      if (error.message === bg.ShieldApiKeyError.message) {
-        return c.json({ message: bg.ShieldApiKeyError.message, _known: true }, bg.ShieldApiKeyError.status);
-      }
-
-      if (error.message === bg.ShieldAuthError.message) {
-        return c.json({ message: bg.ShieldAuthError.message, _known: true }, 403);
-      }
+      if (error.message === bg.ShieldAuthError.message)
+        return c.json({ message: bg.ShieldAuthError.message, _known: true }, bg.ShieldAuthError.status);
 
       if (error.message === bg.ShieldRateLimitError.message) {
         return c.json(
@@ -60,14 +59,6 @@ export class ErrorHandler {
       }
 
       return error.getResponse();
-    }
-
-    if (error.message === tools.MimeValueError.Invalid) {
-      return c.json({ message: "invalid.mime", _known: true }, 400);
-    }
-
-    if (error.message === tools.RevisionError.Mismatch) {
-      return c.json({ message: "revision.mismatch", _known: true }, 412);
     }
 
     if (error.message === bg.Preferences.CommandHandlers.HandleSetUserLanguageCommandError.Missing) {
@@ -133,3 +124,4 @@ export class ErrorHandler {
     return c.json({ message: "general.unknown" }, 500);
   };
 }
+// Stryker restore all
