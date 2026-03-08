@@ -12,6 +12,7 @@ type Dependencies = { Logger: bg.LoggerPort };
 
 const validationErrors = [
   bg.UUIDError.Type,
+  bg.History.VO.HistorySubjectError.TooLong,
   tools.DurationMsError.Invalid,
   tools.DayIsoIdError.InvalidDate,
   tools.DayIsoIdError.Type,

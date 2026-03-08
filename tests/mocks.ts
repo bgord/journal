@@ -1180,6 +1180,14 @@ const PLACEHOLDER_PDF_BASE64 =
 
 export const PDF = Uint8Array.fromBase64(PLACEHOLDER_PDF_BASE64).buffer;
 
+export const historyItem = {
+  id: correlationId,
+  operation: "entry.situation.logged",
+  subject: entryId,
+  payload: {},
+  createdAt: T0.ms,
+};
+
 export const IntentionalError = "intentional.error" as const;
 export const throwIntentionalError = () => {
   throw new Error(IntentionalError);
