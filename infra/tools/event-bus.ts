@@ -7,5 +7,5 @@ type Dependencies = { Logger: bg.LoggerPort };
 export function createEventBus(deps: Dependencies): bg.EventBusPort<z.infer<AcceptedEvent>> {
   const inner = new bg.CommandBusEmitteryAdapter<z.infer<AcceptedEvent>>();
 
-  return new bg.CommandBusWithLoggerAdapter<z.infer<AcceptedEvent>>(inner, deps);
+  return new bg.CommandBusWithLoggerAdapter<z.infer<AcceptedEvent>>({ ...deps, inner });
 }

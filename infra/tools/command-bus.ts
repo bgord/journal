@@ -31,5 +31,5 @@ type AcceptedCommand =
 export function createCommandBus(deps: Dependencies): bg.CommandBusPort<AcceptedCommand> {
   const inner = new bg.CommandBusEmitteryAdapter<AcceptedCommand>();
 
-  return new bg.CommandBusWithLoggerAdapter<AcceptedCommand>(inner, deps);
+  return new bg.CommandBusWithLoggerAdapter<AcceptedCommand>({ ...deps, inner });
 }
