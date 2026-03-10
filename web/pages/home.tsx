@@ -1,6 +1,7 @@
 import { usePluralize, useToggle, useTranslations } from "@bgord/ui";
 import { Outlet } from "@tanstack/react-router";
 import { MoreHoriz } from "iconoir-react";
+import { useEffect } from "react";
 import { homeRoute } from "../router";
 import { HomeEntryAdd, HomeEntryExport, HomeEntryList } from "../sections";
 
@@ -10,6 +11,16 @@ export function Home() {
   const t = useTranslations();
   const pluralize = usePluralize();
   const exportEntries = useToggle({ name: "entry-export" });
+
+  useEffect(() => {
+    const source = new EventSource("/api/sse");
+
+    source.addEventListener("SITUATION_LOGGED_EVENT", (event) =>
+      console.log("SSE event received", JSON.parse(event.data)),
+    );
+
+    return () => source.close();
+  }, []);
 
   return (
     <main data-gap="3" data-maxw="md" data-md-m="2" data-md-pb="16" data-mx="auto" data-stack="y">
