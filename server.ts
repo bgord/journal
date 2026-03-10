@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { Hono } from "hono";
 import { HTTP } from "+app";
 import type * as infra from "+infra";
@@ -52,6 +53,14 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
 
   server.get("/ping", ...new bg.PingHonoHandler().handle());
   // =============================
+
+  // SSE
+  server.get(
+    "/sse",
+    Tools.Auth.ShieldAuth.attach,
+    Tools.Auth.ShieldAuth.verify,
+    ...new bg.SseConnectionHonoHandler(Tools.SseRegistry, { keepalive: tools.Duration.Seconds(10) }).handle(),
+  );
 
   // Emotions ====================
   const entry = new Hono();
