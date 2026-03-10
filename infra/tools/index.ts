@@ -15,6 +15,7 @@ import { createShieldCaptcha } from "./shield-captcha.strategy";
 import { createShieldRateLimit } from "./shield-rate-limit.strategy";
 import { createShieldSecurity } from "./shield-security.strategy";
 import { ShieldTimeout } from "./shield-timeout.strategy";
+import { createSseRegistry } from "./sse-registry.adapter";
 
 type Dependencies = {
   Clock: bg.ClockPort;
@@ -53,5 +54,6 @@ export function createTools(Env: EnvironmentType, deps: Dependencies) {
     EventStore,
     ShieldSecurity: createShieldSecurity(Env, deps),
     BuildInfoRepository: createBuildInfoRepository(Env, deps),
+    SseRegistry: createSseRegistry(deps),
   };
 }
