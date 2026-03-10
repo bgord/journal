@@ -59,7 +59,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/sse",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
-    ...new bg.SseConnectionHonoHandler(Tools.SseRegistry, { keepalive: tools.Duration.Seconds(10) }).handle(),
+    ...new bg.SseConnectionHonoHandler(Tools.SseRegistry, { keepalive: tools.Duration.Seconds(2) }).handle(),
   );
 
   // Emotions ====================
