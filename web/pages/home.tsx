@@ -15,6 +15,8 @@ export function Home() {
   useEffect(() => {
     const source = new EventSource("/api/sse");
 
+    source.addEventListener("ping", (event) => console.log(event));
+
     source.addEventListener("SITUATION_LOGGED_EVENT", (event) =>
       console.log("SSE event received", JSON.parse(event.data)),
     );
