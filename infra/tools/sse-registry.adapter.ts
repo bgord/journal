@@ -7,7 +7,7 @@ type Dependencies = { Logger: bg.LoggerPort };
 type AcceptedEvent = EntryEvent;
 
 export function createSseRegistry(deps: Dependencies): bg.SseRegistryPort<z.infer<AcceptedEvent>> {
-  const inner = new bg.SseRegistryAdapter();
+  const inner = new bg.SseRegistryAdapter<z.infer<AcceptedEvent>>();
 
-  return new bg.SseRegistryWithLoggerAdapter({ inner, ...deps });
+  return new bg.SseRegistryWithLoggerAdapter<z.infer<AcceptedEvent>>({ inner, ...deps });
 }
