@@ -1,8 +1,9 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-export function createCacheResponse(): bg.MiddlewareHonoPort {
-  const HashContent = new bg.HashContentSha256Strategy();
+type Dependencies = { HashContent: bg.HashContentStrategy };
+
+export function createCacheResponse(deps: Dependencies): bg.MiddlewareHonoPort {
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({
     type: "finite",
     ttl: tools.Duration.Hours(1),
@@ -19,7 +20,7 @@ export function createCacheResponse(): bg.MiddlewareHonoPort {
           new bg.SubjectSegmentCookieStrategy("language"),
           new bg.SubjectSegmentUserStrategy(),
         ],
-        { HashContent },
+        deps,
       ),
     },
     { CacheResolver },

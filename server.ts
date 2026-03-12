@@ -10,7 +10,6 @@ import type { BootstrapType } from "+infra/bootstrap";
 export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const deps = { ...Adapters.System, ...Tools };
 
-  const HashContent = new bg.HashContentSha256Strategy();
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
   const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
 
@@ -34,7 +33,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
           },
           I18n: { languages, strategies: [new bg.LanguageDetectorCookieStrategy("language")] },
         },
-        { ...Adapters.System, ...Tools, HashContent, CacheResolver },
+        { ...Adapters.System, ...Tools, CacheResolver },
       ),
     )
     .use(Tools.ShieldSecurity.handle());
@@ -61,7 +60,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.Auth.ShieldAuth.verify,
     ...new bg.SseHonoHandler(
       { keepalive: tools.Duration.Seconds(5) },
-      { registry: Tools.SseRegistry, HashContent },
+      { registry: Tools.SseRegistry, HashContent: Tools.HashContent },
     ).handle(),
   );
 

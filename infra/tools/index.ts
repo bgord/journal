@@ -6,6 +6,7 @@ import { createCommandBus } from "./command-bus";
 import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
 import { createEventStore } from "./event-store";
+import { HashContent } from "./hash-content.strategy";
 import { createJobHandler } from "./job-handler.adapter";
 import { createJobs } from "./jobs";
 import { createPrerequisites } from "./prerequisites";
@@ -41,19 +42,20 @@ export function createTools(Env: EnvironmentType, deps: Dependencies) {
 
   return {
     Auth: createShieldAuth(Env, { ...deps, EventStore }),
-    CacheResponse: createCacheResponse(),
+    CacheResponse: createCacheResponse({ HashContent }),
     Jobs,
     Prerequisites: createPrerequisites(Env, { ...deps, Jobs }),
     ShieldBasicAuth: createShieldBasicAuth(Env),
     ShieldCaptcha: createShieldCaptcha(Env),
-    ShieldRateLimit: createShieldRateLimit(Env, deps),
+    ShieldRateLimit: createShieldRateLimit(Env, { ...deps, HashContent }),
     ShieldTimeout,
     EventHandler: createEventHandler(deps),
     CommandBus: createCommandBus(deps),
     EventBus,
     EventStore,
-    ShieldSecurity: createShieldSecurity(Env, deps),
+    ShieldSecurity: createShieldSecurity(Env, { ...deps, HashContent }),
     BuildInfoRepository: createBuildInfoRepository(Env, deps),
     SseRegistry: createSseRegistry(deps),
+    HashContent,
   };
 }

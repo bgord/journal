@@ -2,10 +2,9 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { EnvironmentType } from "+infra/env";
 
-type Dependencies = { Sleeper: bg.SleeperPort; Logger: bg.LoggerPort };
+type Dependencies = { Sleeper: bg.SleeperPort; Logger: bg.LoggerPort; HashContent: bg.HashContentStrategy };
 
 export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): bg.MiddlewareHonoPort {
-  const HashContent = new bg.HashContentSha256Strategy();
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({
     type: "finite",
     ttl: tools.Duration.Minutes(5),
@@ -21,7 +20,7 @@ export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): 
           new bg.SecurityRuleViolationThresholdStrategy(
             new bg.SecurityRuleBaitRoutesStrategy(["/api/.env"]),
             { threshold: tools.IntegerPositive.parse(3) },
-            { ...deps, HashContent, CacheRepository },
+            { ...deps, CacheRepository },
           ),
           new bg.SecurityCountermeasureReportStrategy(deps),
         ),
@@ -30,7 +29,7 @@ export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): 
           new bg.SecurityRuleViolationThresholdStrategy(
             new bg.SecurityRuleUserAgentStrategy(),
             { threshold: tools.IntegerPositive.parse(3) },
-            { ...deps, HashContent, CacheRepository },
+            { ...deps, CacheRepository },
           ),
           new bg.SecurityCountermeasureReportStrategy(deps),
         ),
