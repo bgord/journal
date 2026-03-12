@@ -60,7 +60,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
     ...new bg.SseHonoHandler(
-      { keepalive: tools.Duration.Seconds(8) },
+      { keepalive: tools.Duration.Seconds(5) },
       { registry: Tools.SseRegistry, HashContent },
     ).handle(),
   );

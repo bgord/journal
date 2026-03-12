@@ -15,7 +15,7 @@ export function Home() {
   useEffect(() => {
     const source = new EventSource("/api/sse");
 
-    source.addEventListener("SITUATION_LOGGED_EVENT", (event) => console.log(event));
+    source.addEventListener("ALARM_GENERATED_EVENT", (event) => console.log(event));
 
     return () => source.close();
   }, []);
