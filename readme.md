@@ -468,6 +468,7 @@ infra/
 │   └── weekly-review.projector.ts
 ├── register-command-handlers.ts
 ├── register-event-handlers.ts
+├── register-sse-handlers.ts
 ├── schema.ts
 ├── tools
 │   ├── build-info-repository.strategy.ts
@@ -476,6 +477,7 @@ infra/
 │   ├── event-bus.ts
 │   ├── event-handler.ts
 │   ├── event-store.ts
+│   ├── hash-content.strategy.ts
 │   ├── job-handler.adapter.ts
 │   ├── jobs.ts
 │   ├── prerequisites.ts
@@ -484,7 +486,8 @@ infra/
 │   ├── shield-captcha.strategy.ts
 │   ├── shield-rate-limit.strategy.ts
 │   ├── shield-security.strategy.ts
-│   └── shield-timeout.strategy.ts
+│   ├── shield-timeout.strategy.ts
+│   └── sse-registry.adapter.ts
 └── translations
     ├── en.json
     └── pl.json
