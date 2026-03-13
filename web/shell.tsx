@@ -1,4 +1,4 @@
-import { TranslationsContext } from "@bgord/ui";
+import { NotificationProvider, TranslationsContext } from "@bgord/ui";
 import { HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { OnlineStatusBar } from "./components/online-status-bar";
 import { rootRoute } from "./router";
@@ -15,9 +15,11 @@ export function Shell() {
       <body data-mx="auto">
         <div id="root">
           <TranslationsContext.Provider value={i18n}>
-            <Navigation />
-            <Outlet />
-            <OnlineStatusBar />
+            <NotificationProvider duration={5000}>
+              <Navigation />
+              <Outlet />
+              <OnlineStatusBar />
+            </NotificationProvider>
           </TranslationsContext.Provider>
         </div>
         <Scripts />
