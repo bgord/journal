@@ -36,7 +36,15 @@ export function HomeEntryExport() {
           </option>
         ))}
       </Select>
-      <a className="c-button" data-variant="secondary" download href={url} target="_blank" type="button">
+      <a
+        className="c-button"
+        data-variant="secondary"
+        download
+        href={url}
+        rel="noopener"
+        target="_blank"
+        type="button"
+      >
         {t("entries.export.cta")}
       </a>
       <ButtonClear

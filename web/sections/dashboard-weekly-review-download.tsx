@@ -8,6 +8,7 @@ export function DashboardWeeklyReviewDownload(props: DashboardDataType["weeklyRe
       data-pt="2"
       download
       href={`/api/weekly-review/${props.id}/export/download`}
+      rel="noopener"
       target="_blank"
     >
       <DownloadCircle data-size="lg" />
