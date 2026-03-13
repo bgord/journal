@@ -1,6 +1,30 @@
 # Changelog
+- 2026-03-13 18:18 c42bf959 **step: test sse**
+## 2026-03-13 18:18 
+- 2026-03-13 13:48 9a715632 **step: add notification list**
+- 2026-03-13 11:56 7114bf05 **step: wire up alarm generated notification**
+- 2026-03-13 11:56 31e03942 **step: setup notification provider**
+- 2026-03-13 11:45 edf86133 **step: update packages**
+- 2026-03-12 17:53 fd214d4f **refactor: extract hash content**
+- 2026-03-12 17:26 e7e11c06 **refactor: wire up alarm generated event to sse**
+- 2026-03-12 17:00 d7d2a247 **refactor: update bgord bun**
+- 2026-03-12 17:00 1ec2c262 **refactor: update sse config**
+- 2026-03-12 16:52 b86e0005 **step: update packages**
+- 2026-03-12 16:45 1718d165 **refactor: remove better-sqlite3**
+- 2026-03-10 23:59 191eecbb **refactor: remove ping console log**
+- 2026-03-10 23:57 57ae6838 **refactor: lower keepalive for sse**
+- 2026-03-10 23:57 391fb24b **step: update packages**
+- 2026-03-10 23:32 c2735500 **step: add ping logger**
+- 2026-03-10 23:32 29409d9c **step: increase idle timeout**
+- 2026-03-10 23:18 37aade54 **step: update packages**
+- 2026-03-10 23:17 6aaacf93 **step: add sse consumer**
+- 2026-03-10 17:37 2e24694a **step: add register sse handlers**
+- 2026-03-10 17:25 1e113ee4 **step: ad get sse endpoint**
+- 2026-03-10 17:21 faf2d181 **step: add sse registry tool**
+- 2026-03-10 17:15 43dc929f **refactor: unify decorators in message buses**
+- 2026-03-10 17:11 08318111 **step: update packages**
 - 2026-03-10 11:19 a1769913 **step: update packages**
-## 2026-03-10 11:19 
+- 2026-03-10 10:20 e8e62bd0 **docs: generate CHANGELOG**
 - 2026-03-08 20:43 cf3d4a2c **refactor: update shield timeout**
 - 2026-03-08 20:43 12756394 **step: update packages**
 - 2026-03-08 19:46 2e868840 **refactor: cleanup error handler**
