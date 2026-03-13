@@ -55,7 +55,7 @@ step_start "Temporary file directory directory create"
 mkdir -p "$OUTPUT_DIRECTORY/infra/tmp-avatars"
 step_end "Temporary file directory directory create"
 
-./bgord-scripts/web-build-vite.sh
+./bgord-scripts/web-build-bun.sh
 
 step_start "App compile"
 bun build index.ts --outdir "$OUTPUT_DIRECTORY" --target bun --production --minify --sourcemap --metafile
