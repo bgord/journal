@@ -1,6 +1,9 @@
 # Changelog
+- 2026-03-13 18:27 5191f292 **refactor: switch to web bun prod build**
+## 2026-03-13 18:27 
 - 2026-03-13 18:18 c42bf959 **step: test sse**
-## 2026-03-13 18:18 
+- 2026-03-13 17:19 ecd595e9 **docs: generate CHANGELOG**
+- 2026-03-13 17:19 b7706160 **docs: generate readme**
 - 2026-03-13 13:48 9a715632 **step: add notification list**
 - 2026-03-13 11:56 7114bf05 **step: wire up alarm generated notification**
 - 2026-03-13 11:56 31e03942 **step: setup notification provider**
