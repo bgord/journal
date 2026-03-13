@@ -1,4 +1,4 @@
-import { usePluralize, useToggle, useTranslations } from "@bgord/ui";
+import { useNotify, usePluralize, useToggle, useTranslations } from "@bgord/ui";
 import { Outlet } from "@tanstack/react-router";
 import { MoreHoriz } from "iconoir-react";
 import { useEffect } from "react";
@@ -11,11 +11,14 @@ export function Home() {
   const t = useTranslations();
   const pluralize = usePluralize();
   const exportEntries = useToggle({ name: "entry-export" });
+  const notify = useNotify();
 
   useEffect(() => {
     const source = new EventSource("/api/sse");
 
-    source.addEventListener("ALARM_GENERATED_EVENT", (event) => console.log(event));
+    source.addEventListener("ALARM_GENERATED_EVENT", () =>
+      notify({ message: "Alarm generated", variant: "neutral" }),
+    );
 
     return () => source.close();
   }, []);
