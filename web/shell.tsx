@@ -1,5 +1,6 @@
 import { NotificationProvider, TranslationsContext } from "@bgord/ui";
 import { HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { Notifications } from "./components/notifications";
 import { OnlineStatusBar } from "./components/online-status-bar";
 import { rootRoute } from "./router";
 import { Navigation } from "./sections";
@@ -19,6 +20,7 @@ export function Shell() {
               <Navigation />
               <Outlet />
               <OnlineStatusBar />
+              <Notifications />
             </NotificationProvider>
           </TranslationsContext.Provider>
         </div>
