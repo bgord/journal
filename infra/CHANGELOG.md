@@ -1,7 +1,9 @@
 # Changelog
+- 2026-03-13 18:34 52b63820 **refactor: switch to vite**
+## 2026-03-13 18:34 
 - 2026-03-13 18:27 5191f292 **refactor: switch to web bun prod build**
-## 2026-03-13 18:27 
 - 2026-03-13 18:18 c42bf959 **step: test sse**
+- 2026-03-13 17:28 b099effb **docs: generate CHANGELOG**
 - 2026-03-13 17:19 ecd595e9 **docs: generate CHANGELOG**
 - 2026-03-13 17:19 b7706160 **docs: generate readme**
 - 2026-03-13 13:48 9a715632 **step: add notification list**
