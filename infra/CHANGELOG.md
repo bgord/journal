@@ -1,8 +1,10 @@
 # Changelog
+- 2026-03-13 19:42 9ec3e9bf **step: bump bgord/scripts**
+## 2026-03-13 19:42 
 - 2026-03-13 19:37 3bce0894 **step: restore better-sqlite3**
 - 2026-03-13 19:37 1e279dbc **step: update packages**
-## 2026-03-13 19:37 
 - 2026-03-13 19:36 789b4561 **step: bump bgord/scripts**
+- 2026-03-13 18:38 3dd7348e **docs: generate CHANGELOG**
 - 2026-03-13 18:34 52b63820 **refactor: switch to vite**
 - 2026-03-13 18:27 5191f292 **refactor: switch to web bun prod build**
 - 2026-03-13 18:18 c42bf959 **step: test sse**
