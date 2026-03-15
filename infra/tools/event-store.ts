@@ -18,7 +18,7 @@ import type { ProfileAvatarRemovedEvent, ProfileAvatarUpdatedEvent } from "+pref
 import type { ShareableLinkEvent } from "+publishing/aggregates";
 import type { ShareableLinkAccessedEvent } from "+publishing/events";
 
-type Dependencies = { EventBus: bg.EventBusPort<AcceptedEventType> };
+type Dependencies = { EventBus: bg.EventBusPort<AcceptedEventType>; Logger: bg.LoggerPort };
 
 export type AcceptedEvent =
   | EntryEvent
@@ -84,20 +84,26 @@ export function createEventStore(
     },
   };
 
-  const inner = new bg.EventStoreAdapter<AcceptedEventType>({ finder, inserter, serializer });
-  const EventStore = new bg.EventStoreDispatchingAdapter<AcceptedEventType>({
-    inner,
-    EventBus: deps.EventBus,
+  const EventStore = new bg.EventStoreAdapter<AcceptedEventType>({ finder, inserter, serializer });
+
+  const EventStoreDispatching = new bg.EventStoreDispatchingAdapter<AcceptedEventType>({
+    inner: EventStore,
+    ...deps,
+  });
+
+  const EventStoreWithLogger = new bg.EventStoreWithLoggerAdapter<AcceptedEventType>({
+    inner: EventStoreDispatching,
+    ...deps,
   });
 
   return {
-    [bg.NodeEnvironmentEnum.local]: EventStore,
+    [bg.NodeEnvironmentEnum.local]: EventStoreWithLogger,
     [bg.NodeEnvironmentEnum.test]: new bg.EventStoreAdapter<AcceptedEventType>({
       finder,
       inserter: new bg.EventInserterNoopAdapter(),
       serializer,
     }),
-    [bg.NodeEnvironmentEnum.staging]: EventStore,
-    [bg.NodeEnvironmentEnum.production]: EventStore,
+    [bg.NodeEnvironmentEnum.staging]: EventStoreWithLogger,
+    [bg.NodeEnvironmentEnum.production]: EventStoreWithLogger,
   }[Env.type];
 }
