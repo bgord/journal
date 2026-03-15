@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import type { EventStoreType } from "+infra/tools/event-store";
 
@@ -8,10 +8,12 @@ class WeeklyReviewRepositoryInternal implements Emotions.Ports.WeeklyReviewRepos
   constructor(private readonly deps: Dependencies) {}
 
   async load(id: Emotions.VO.WeeklyReviewIdType) {
-    const history = await this.deps.EventStore.find(
+    const registry = new bg.EventValidatorRegistryZodAdapter<Emotions.Aggregates.WeeklyReviewEventType>(
       Emotions.Aggregates.WeeklyReview.events,
-      Emotions.Aggregates.WeeklyReview.getStream(id),
     );
+
+    const history = await this.deps.EventStore.find(registry, Emotions.Aggregates.WeeklyReview.getStream(id));
+
     return Emotions.Aggregates.WeeklyReview.build(id, history, this.deps);
   }
 

@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import type { EventStoreType } from "+infra/tools/event-store";
 
@@ -8,10 +8,12 @@ class EntryRepositoryInternal implements Emotions.Ports.EntryRepositoryPort {
   constructor(private readonly deps: Dependencies) {}
 
   async load(id: Emotions.VO.EntryIdType) {
-    const history = await this.deps.EventStore.find(
+    const registry = new bg.EventValidatorRegistryZodAdapter<Emotions.Aggregates.EntryEventType>(
       Emotions.Aggregates.Entry.events,
-      Emotions.Aggregates.Entry.getStream(id),
     );
+
+    const history = await this.deps.EventStore.find(registry, Emotions.Aggregates.Entry.getStream(id));
+
     return Emotions.Aggregates.Entry.build(id, history, this.deps);
   }
 

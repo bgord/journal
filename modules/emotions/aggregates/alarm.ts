@@ -7,7 +7,7 @@ import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
 
 export type AlarmEvent = (typeof Alarm)["events"][number];
-type AlarmEventType = z.infer<AlarmEvent>;
+export type AlarmEventType = z.infer<AlarmEvent>;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 

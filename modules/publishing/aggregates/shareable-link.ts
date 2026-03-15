@@ -7,7 +7,7 @@ import * as Invariants from "+publishing/invariants";
 import * as VO from "+publishing/value-objects";
 
 export type ShareableLinkEvent = (typeof ShareableLink)["events"][number];
-type ShareableLinkEventType = z.infer<ShareableLinkEvent>;
+export type ShareableLinkEventType = z.infer<ShareableLinkEvent>;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 

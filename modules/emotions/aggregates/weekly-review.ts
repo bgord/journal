@@ -8,7 +8,7 @@ import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
 
 export type WeeklyReviewEvent = (typeof WeeklyReview)["events"][number];
-type WeeklyReviewEventType = z.infer<WeeklyReviewEvent>;
+export type WeeklyReviewEventType = z.infer<WeeklyReviewEvent>;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 

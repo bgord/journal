@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as Publishing from "+publishing";
 import type { EventStoreType } from "+infra/tools/event-store";
 
@@ -8,8 +8,12 @@ class ShareableLinkRepositoryAdapterInternal implements Publishing.Ports.Shareab
   constructor(private readonly deps: Dependencies) {}
 
   async load(id: Publishing.VO.ShareableLinkIdType) {
-    const history = await this.deps.EventStore.find(
+    const registry = new bg.EventValidatorRegistryZodAdapter<Publishing.Aggregates.ShareableLinkEventType>(
       Publishing.Aggregates.ShareableLink.events,
+    );
+
+    const history = await this.deps.EventStore.find(
+      registry,
       Publishing.Aggregates.ShareableLink.getStream(id),
     );
     return Publishing.Aggregates.ShareableLink.build(id, history, this.deps);

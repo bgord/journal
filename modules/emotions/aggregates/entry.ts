@@ -5,7 +5,7 @@ import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 
 export type EntryEvent = (typeof Entry)["events"][number];
-type EntryEventType = z.infer<EntryEvent>;
+export type EntryEventType = z.infer<EntryEvent>;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 

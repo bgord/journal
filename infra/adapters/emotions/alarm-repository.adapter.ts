@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
 import type { EventStoreType } from "+infra/tools/event-store";
 
@@ -8,10 +8,12 @@ class AlarmRepositoryInternal implements Emotions.Ports.AlarmRepositoryPort {
   constructor(private readonly deps: Dependencies) {}
 
   async load(id: Emotions.VO.AlarmIdType) {
-    const history = await this.deps.EventStore.find(
+    const registry = new bg.EventValidatorRegistryZodAdapter<Emotions.Aggregates.AlarmEventType>(
       Emotions.Aggregates.Alarm.events,
-      Emotions.Aggregates.Alarm.getStream(id),
     );
+
+    const history = await this.deps.EventStore.find(registry, Emotions.Aggregates.Alarm.getStream(id));
+
     return Emotions.Aggregates.Alarm.build(id, history, this.deps);
   }
 
