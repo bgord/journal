@@ -70,17 +70,15 @@ export function createEventStore(
           .from(schema.events)
           .where(eq(schema.events.stream, stream));
 
-        const max = current[0]?.max ?? bg.EventRevisionAssignerAdapter.EMPTY_STREAM_REVISION;
-
-        const rows = revision.assign(incoming, max);
+        const rows = revision.assign(incoming, current[0]?.max);
 
         try {
           await tx.insert(schema.events).values([...rows]);
 
           return rows;
-        } catch (e: any) {
-          if (e.code === "SQLITE_CONSTRAINT") throw new Error(tools.RevisionError.Mismatch);
-          throw e;
+        } catch (error: any) {
+          if (error.code === "SQLITE_CONSTRAINT") throw new Error(tools.RevisionError.Mismatch);
+          throw error;
         }
       });
     },
