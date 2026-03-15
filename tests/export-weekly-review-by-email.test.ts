@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
@@ -84,7 +84,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));

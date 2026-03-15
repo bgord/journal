@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
@@ -27,7 +27,7 @@ describe("WeeklyReviewProcessing", async () => {
   const config = { from: di.Env.EMAIL_FROM, to: mocks.email };
 
   test("onWeeklyReviewSkippedEvent", async () => {
-    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
+    using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(mocks.contact));
     spies.use(
@@ -49,7 +49,7 @@ describe("WeeklyReviewProcessing", async () => {
 
   test("onWeeklyReviewSkippedEvent - no email", async () => {
     using loggerError = spyOn(di.Adapters.System.Logger, "error");
-    using mailerSend = spyOn(di.Adapters.System.Mailer, "send").mockImplementation(jest.fn());
+    using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(undefined));
     spies.use(
@@ -90,7 +90,7 @@ describe("WeeklyReviewProcessing", async () => {
 
   test("onWeeklyReviewRequestedEvent - en", async () => {
     using aiGatewayQuery = spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]),
@@ -121,7 +121,7 @@ describe("WeeklyReviewProcessing", async () => {
 
   test("onWeeklyReviewRequestedEvent - pl", async () => {
     using aiGatewayQuery = spyOn(di.Adapters.AI.AiGateway, "query").mockResolvedValue(mocks.insights);
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]),
@@ -151,7 +151,7 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewRequestedEvent - failed", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericWeeklyReviewRequestedEvent]),
@@ -173,7 +173,7 @@ describe("WeeklyReviewProcessing", async () => {
   });
 
   test("onWeeklyReviewCompletedEvent", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewExportId]);
     using spies = new DisposableStack();
     spies.use(

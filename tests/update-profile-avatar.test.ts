@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { bootstrap } from "+infra/bootstrap";
@@ -122,7 +122,7 @@ describe(`POST ${url}`, async () => {
   test("happy path - png", async () => {
     using imageProcessorProcess = spyOn(di.Adapters.System.ImageProcessor, "process");
     using remoteFileStoragePutFromPath = spyOn(di.Adapters.System.RemoteFileStorage, "putFromPath");
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -157,7 +157,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path - jpeg", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -180,7 +180,7 @@ describe(`POST ${url}`, async () => {
   });
 
   test("happy path - webp", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({

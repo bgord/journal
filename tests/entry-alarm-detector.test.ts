@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
@@ -15,7 +15,7 @@ describe("EntryAlarmDetector", async () => {
   const policy = new Emotions.Policies.EntryAlarmDetector({ ...di.Adapters.System, ...di.Tools });
 
   test("onEmotionLoggedEvent", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
@@ -29,7 +29,7 @@ describe("EntryAlarmDetector", async () => {
   });
 
   test("onEmotionLoggedEvent - respects DailyAlarmLimit", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
@@ -54,7 +54,7 @@ describe("EntryAlarmDetector", async () => {
   });
 
   test("onEmotionLoggedEvent - respects EntryAlarmLimit", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
@@ -79,7 +79,7 @@ describe("EntryAlarmDetector", async () => {
   });
 
   test("onEmotionReappraisedEvent", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
@@ -94,7 +94,7 @@ describe("EntryAlarmDetector", async () => {
   });
 
   test("onEmotionReappraisedEvent - respects DailyAlarmLimit", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
@@ -119,7 +119,7 @@ describe("EntryAlarmDetector", async () => {
   });
 
   test("onEmotionReappraisedEvent - respects EntryAlarmLimit", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
@@ -144,7 +144,7 @@ describe("EntryAlarmDetector", async () => {
   });
 
   test("no detection", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));

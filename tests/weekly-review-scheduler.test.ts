@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
@@ -18,7 +18,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("correct path - single user", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.weeklyReviewId]);
     using spies = new DisposableStack();
     spies.use(
@@ -40,7 +40,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("WeeklyReviewSchedule - not monday, not 6 pm", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedEvent),
@@ -50,7 +50,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("WeeklyReviewSchedule - monday, not 6 pm", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedMondayUtc12Event),
@@ -60,7 +60,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("WeeklyReviewSchedule - not monday, 6 pm", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>
       policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event),
@@ -70,7 +70,7 @@ describe("WeeklyReviewScheduler", async () => {
   });
 
   test("EntriesForWeekExist", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.entryId]);
     using spies = new DisposableStack();
     spies.use(

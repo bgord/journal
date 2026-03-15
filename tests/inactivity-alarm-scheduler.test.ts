@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
@@ -20,7 +20,7 @@ describe("InactivityAlarmScheduler", async () => {
   });
 
   test("correct path - single user", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(
@@ -41,8 +41,8 @@ describe("InactivityAlarmScheduler", async () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericInactivityAlarmGeneratedEvent]);
   });
 
-  test.todo("USER_DAILY", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+  test("USER_DAILY", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(
@@ -74,8 +74,8 @@ describe("InactivityAlarmScheduler", async () => {
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
-  test.todo("EMOTIONS_ALARM_INACTIVITY_WEEKLY", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+  test("EMOTIONS_ALARM_INACTIVITY_WEEKLY", async () => {
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(
@@ -108,7 +108,7 @@ describe("InactivityAlarmScheduler", async () => {
   });
 
   test("DailyAlarmLimit - failure", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
     spies.use(
@@ -132,7 +132,7 @@ describe("InactivityAlarmScheduler", async () => {
   });
 
   test("NoEntriesInTheLastWeek - undefined timestamp", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]),
@@ -150,7 +150,7 @@ describe("InactivityAlarmScheduler", async () => {
   });
 
   test("NoEntriesInTheLastWeek", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds").mockResolvedValue([mocks.userId]),
@@ -170,7 +170,7 @@ describe("InactivityAlarmScheduler", async () => {
   });
 
   test("InactivityAlarmSchedule - wednesday, not 6 pm", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using userDirectoryOhqListActiveUserIds = spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds");
 
     await bg.CorrelationStorage.run(
@@ -183,7 +183,7 @@ describe("InactivityAlarmScheduler", async () => {
   });
 
   test("InactivityAlarmSchedule - not wednesday, 6 pm", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using userDirectoryOhqListActiveUserIds = spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds");
 
     await bg.CorrelationStorage.run(
@@ -196,7 +196,7 @@ describe("InactivityAlarmScheduler", async () => {
   });
 
   test("InactivityAlarmSchedule - not wednesday, not 6 pm", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using userDirectoryOhqListActiveUserIds = spyOn(di.Adapters.Auth.UserDirectoryOHQ, "listActiveUserIds");
 
     await bg.CorrelationStorage.run(

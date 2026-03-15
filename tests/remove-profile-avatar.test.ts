@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
@@ -24,10 +24,8 @@ describe(`DELETE ${url}`, async () => {
 
   test("happy path", async () => {
     using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
-    using remoteFileStorageDelete = spyOn(di.Adapters.System.RemoteFileStorage, "delete").mockImplementation(
-      jest.fn(),
-    );
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using remoteFileStorageDelete = spyOn(di.Adapters.System.RemoteFileStorage, "delete");
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
 
     const response = await server.request(
       url,

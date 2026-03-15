@@ -1,4 +1,4 @@
-import { describe, expect, jest, spyOn, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
@@ -20,7 +20,7 @@ describe("AiGateway", async () => {
   });
 
   test("happy path", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
@@ -40,7 +40,7 @@ describe("AiGateway", async () => {
   });
 
   test("quota exceeded", async () => {
-    using eventStoreSave = spyOn(di.Tools.EventStore, "save").mockImplementation(jest.fn());
+    using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
