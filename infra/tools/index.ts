@@ -36,7 +36,7 @@ type Dependencies = {
 
 export function createTools(Env: EnvironmentType, deps: Dependencies) {
   const EventBus = createEventBus(deps);
-  const EventStore = createEventStore({ ...deps, EventBus });
+  const EventStore = createEventStore(Env, { ...deps, EventBus });
   const JobHandler = createJobHandler(Env, deps);
   const Jobs = createJobs({ ...deps, EventStore, JobHandler });
 

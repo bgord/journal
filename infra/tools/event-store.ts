@@ -44,7 +44,10 @@ export type AcceptedEvent =
 
 export type AcceptedEventType = z.infer<AcceptedEvent>;
 
-export function createEventStore(deps: Dependencies): bg.EventStorePort<AcceptedEventType> {
+export function createEventStore(
+  Env: EnvironmentType,
+  deps: Dependencies,
+): bg.EventStorePort<AcceptedEventType> {
   const revision = new bg.EventRevisionAssignerAdapter();
   const serializer = new bg.EventSerializerJsonAdapter();
 
@@ -73,6 +76,7 @@ export function createEventStore(deps: Dependencies): bg.EventStorePort<Accepted
 
         try {
           await tx.insert(schema.events).values([...rows]);
+
           return rows;
         } catch (e: any) {
           if (e.code === "SQLITE_CONSTRAINT") throw new Error(tools.RevisionError.Mismatch);
@@ -83,6 +87,19 @@ export function createEventStore(deps: Dependencies): bg.EventStorePort<Accepted
   };
 
   const inner = new bg.EventStoreAdapter<AcceptedEventType>({ finder, inserter, serializer });
+  const EventStore = new bg.EventStoreDispatchingAdapter<AcceptedEventType>({
+    inner,
+    EventBus: deps.EventBus,
+  });
 
-  return new bg.EventStoreDispatchingAdapter<AcceptedEventType>({ inner, EventBus: deps.EventBus });
+  return {
+    [bg.NodeEnvironmentEnum.local]: EventStore,
+    [bg.NodeEnvironmentEnum.test]: new bg.EventStoreAdapter<AcceptedEventType>({
+      finder,
+      inserter: new bg.EventInserterNoopAdapter(),
+      serializer,
+    }),
+    [bg.NodeEnvironmentEnum.staging]: EventStore,
+    [bg.NodeEnvironmentEnum.production]: EventStore,
+  }[Env.type];
 }
