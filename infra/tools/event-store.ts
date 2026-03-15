@@ -17,7 +17,7 @@ import type { ProfileAvatarRemovedEvent, ProfileAvatarUpdatedEvent } from "+pref
 import type { ShareableLinkEvent } from "+publishing/aggregates";
 import type { ShareableLinkAccessedEvent } from "+publishing/events";
 
-type Dependencies = { EventBus: bg.EventBusPort<z.infer<AcceptedEvent>> };
+type Dependencies = { EventBus: bg.EventBusPort<AcceptedEventType> };
 
 export type AcceptedEvent =
   | EntryEvent
@@ -41,44 +41,49 @@ export type AcceptedEvent =
   | typeof ProfileAvatarUpdatedEvent
   | typeof ProfileAvatarRemovedEvent;
 
-export function createEventStore(deps: Dependencies) {
-  return new bg.DispatchingEventStore<AcceptedEvent>(
-    {
-      finder: (stream: bg.EventStreamType, acceptedEventsNames: ReadonlyArray<bg.EventNameType>) =>
-        db
-          .select()
+export type AcceptedEventType = z.infer<AcceptedEvent>;
+
+export function createEventStore(deps: Dependencies): bg.EventStorePort<AcceptedEventType> {
+  const revision = new bg.EventRevisionAssignerAdapter();
+  const serializer = new bg.EventSerializerJsonAdapter();
+
+  const finder: bg.EventFinderPort = {
+    find: async (stream, names) =>
+      db
+        .select()
+        .from(schema.events)
+        .orderBy(asc(schema.events.revision))
+        .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, names))),
+  };
+
+  const inserter: bg.EventInserterPort = {
+    insert: async (incoming) => {
+      const { stream } = incoming[0] as { stream: bg.EventStreamType };
+
+      return db.transaction(async (tx) => {
+        const current = await tx
+          .select({ max: sql<number>`max(${schema.events.revision})` })
           .from(schema.events)
-          .orderBy(asc(schema.events.revision))
-          .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, acceptedEventsNames))),
+          .where(eq(schema.events.stream, stream));
 
-      inserter: async (incoming: ReadonlyArray<z.infer<bg.GenericParsedEventSchema>>) => {
-        const { stream } = incoming[0] as { stream: bg.EventStreamType };
+        const max = current[0]?.max ?? bg.EventRevisionAssignerAdapter.EMPTY_STREAM_REVISION;
 
-        return db.transaction(async (tx) => {
-          const current = await tx
-            .select({ max: sql<number>`max(${schema.events.revision})` })
-            .from(schema.events)
-            .where(eq(schema.events.stream, stream));
+        const rows = revision.assign(incoming, max);
 
-          const max = current[0]?.max ?? bg.DispatchingEventStore.EMPTY_STREAM_REVISION;
-
-          const rows: Array<z.infer<bg.GenericParsedEventSchema>> = incoming.map((event, order) => ({
-            ...event,
-            revision: max + order + 1,
-          }));
-
-          try {
-            await tx.insert(schema.events).values(rows);
-            return rows;
-          } catch (e: any) {
-            if (e.code === "SQLITE_CONSTRAINT") throw new Error(tools.RevisionError.Mismatch);
-            throw e;
-          }
-        });
-      },
+        try {
+          await tx.insert(schema.events).values([...rows]);
+          return rows;
+        } catch (e: any) {
+          if (e.code === "SQLITE_CONSTRAINT") throw new Error(tools.RevisionError.Mismatch);
+          throw e;
+        }
+      });
     },
-    deps.EventBus,
-  );
+  };
+
+  const inner = new bg.EventStoreAdapter<AcceptedEventType>({ finder, inserter, serializer });
+
+  return new bg.EventStoreDispatchingAdapter<AcceptedEventType>({ inner, EventBus: deps.EventBus });
 }
 
-export type EventStoreType = ReturnType<typeof createEventStore>;
+export type EventStoreType = bg.EventStorePort<AcceptedEventType>;
