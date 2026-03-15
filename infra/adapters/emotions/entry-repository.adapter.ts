@@ -1,8 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import type { EventStoreType } from "+infra/tools/event-store";
 
-type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort; EventStore: EventStoreType };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  EventStore: bg.EventStorePort<Emotions.Aggregates.EntryEventType>;
+};
 
 class EntryRepositoryInternal implements Emotions.Ports.EntryRepositoryPort {
   constructor(private readonly deps: Dependencies) {}

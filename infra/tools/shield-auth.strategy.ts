@@ -6,7 +6,6 @@ import { haveIBeenPwned } from "better-auth/plugins/haveibeenpwned";
 import * as Auth from "+auth";
 import { db } from "+infra/db";
 import type { EnvironmentType } from "+infra/env";
-import type { EventStoreType } from "+infra/tools/event-store";
 
 export type AuthVariables = {
   user: ReturnType<typeof betterAuth>["$Infer"]["Session"]["user"];
@@ -17,7 +16,7 @@ type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   Logger: bg.LoggerPort;
-  EventStore: EventStoreType;
+  EventStore: bg.EventStorePort<Auth.Events.AccountCreatedEventType | Auth.Events.AccountDeletedEventType>;
   Mailer: bg.MailerPort;
 };
 

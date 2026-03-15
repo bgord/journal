@@ -1,12 +1,13 @@
 import type * as bg from "@bgord/bun";
-import type { EventStoreType } from "+infra/tools/event-store";
 import { HistoryProjection } from "./history-projection.adapter";
 import { HistoryReader } from "./history-reader.adapter";
 import { createHistoryWriter } from "./history-writer.adapter";
 
 type Dependencies = {
   Sleeper: bg.SleeperPort;
-  EventStore: EventStoreType;
+  EventStore: bg.EventStorePort<
+    bg.History.Events.HistoryClearedEventType | bg.History.Events.HistoryPopulatedEventType
+  >;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
 };

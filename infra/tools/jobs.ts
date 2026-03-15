@@ -1,12 +1,11 @@
 import * as bg from "@bgord/bun";
 import { Cron } from "croner";
-import type { EventStoreType } from "+infra/tools/event-store";
 
 type Dependencies = {
   Logger: bg.LoggerPort;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  EventStore: EventStoreType;
+  EventStore: bg.EventStorePort<bg.System.Events.HourHasPassedEventType>;
   JobHandler: bg.JobHandlerStrategy;
 };
 

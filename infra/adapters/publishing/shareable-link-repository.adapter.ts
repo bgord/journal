@@ -1,8 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as Publishing from "+publishing";
-import type { EventStoreType } from "+infra/tools/event-store";
 
-type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort; EventStore: EventStoreType };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  EventStore: bg.EventStorePort<Publishing.Aggregates.ShareableLinkEventType>;
+};
 
 class ShareableLinkRepositoryAdapterInternal implements Publishing.Ports.ShareableLinkRepositoryPort {
   constructor(private readonly deps: Dependencies) {}

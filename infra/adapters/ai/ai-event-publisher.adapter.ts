@@ -1,7 +1,7 @@
+import type * as bg from "@bgord/bun";
 import type { AIEvents, AiEventPublisherPort } from "+ai/ports/ai-event-publisher";
-import type { EventStoreType } from "+infra/tools/event-store";
 
-type Dependencies = { EventStore: EventStoreType };
+type Dependencies = { EventStore: bg.EventStorePort<AIEvents> };
 
 class AiEventStorePublisherInternal implements AiEventPublisherPort {
   constructor(private readonly deps: Dependencies) {}

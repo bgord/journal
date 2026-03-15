@@ -24,22 +24,22 @@ export type AcceptedEvent =
   | PatternDetectionEvent
   | AlarmEvent
   | WeeklyReviewEvent
-  | typeof WeeklyReviewExportByEmailRequestedEvent
-  | typeof WeeklyReviewExportByEmailFailedEvent
-  | typeof TimeCapsuleEntryScheduledEvent
   | ShareableLinkEvent
-  | typeof ShareableLinkAccessedEvent
-  | typeof bg.System.Events.HourHasPassedEvent
-  | typeof bg.System.Events.SecurityViolationDetectedEvent
-  | typeof AiRequestRegisteredEvent
-  | typeof AiQuotaExceededEvent
   | typeof AccountCreatedEvent
   | typeof AccountDeletedEvent
+  | typeof AiQuotaExceededEvent
+  | typeof AiRequestRegisteredEvent
+  | typeof ProfileAvatarRemovedEvent
+  | typeof ProfileAvatarUpdatedEvent
+  | typeof ShareableLinkAccessedEvent
+  | typeof TimeCapsuleEntryScheduledEvent
+  | typeof WeeklyReviewExportByEmailFailedEvent
+  | typeof WeeklyReviewExportByEmailRequestedEvent
+  | typeof bg.System.Events.HourHasPassedEvent
+  | typeof bg.System.Events.SecurityViolationDetectedEvent
   | typeof bg.History.Events.HistoryClearedEvent
   | typeof bg.History.Events.HistoryPopulatedEvent
-  | typeof bg.Preferences.Events.UserLanguageSetEvent
-  | typeof ProfileAvatarUpdatedEvent
-  | typeof ProfileAvatarRemovedEvent;
+  | typeof bg.Preferences.Events.UserLanguageSetEvent;
 
 export type AcceptedEventType = z.infer<AcceptedEvent>;
 
@@ -85,5 +85,3 @@ export function createEventStore(deps: Dependencies): bg.EventStorePort<Accepted
 
   return new bg.EventStoreDispatchingAdapter<AcceptedEventType>({ inner, EventBus: deps.EventBus });
 }
-
-export type EventStoreType = bg.EventStorePort<AcceptedEventType>;

@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
+import type * as Emotions from "+emotions";
 import type { EnvironmentType } from "+infra/env";
-import type { EventStoreType } from "+infra/tools/event-store";
 import { AlarmCancellationLookup } from "./alarm-cancellation-lookup.adapter";
 import { AlarmDirectory } from "./alarm-directory.adapter";
 import { createAlarmRepository } from "./alarm-repository.adapter";
@@ -18,7 +18,11 @@ import { WeeklyReviewSnapshot } from "./weekly-review-snapshot.adapter";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
-  EventStore: EventStoreType;
+  EventStore: bg.EventStorePort<
+    | Emotions.Aggregates.AlarmEventType
+    | Emotions.Aggregates.EntryEventType
+    | Emotions.Aggregates.WeeklyReviewEventType
+  >;
   Logger: bg.LoggerPort;
 };
 

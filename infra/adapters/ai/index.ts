@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
+import type * as AI from "+ai";
 import type { EnvironmentType } from "+infra/env";
-import type { EventStoreType } from "+infra/tools/event-store";
 import { createAiClient } from "./ai-client.adapter";
 import { createAiEventPublisher } from "./ai-event-publisher.adapter";
 import { createAiGateway } from "./ai-gateway.adapter";
@@ -8,7 +8,7 @@ import { BucketCounter } from "./bucket-counter.adapter";
 import { createRuleInspector } from "./rule-inspector.adapter";
 
 type Dependencies = {
-  EventStore: EventStoreType;
+  EventStore: bg.EventStorePort<AI.Ports.AIEvents>;
   Clock: bg.ClockPort;
   IdProvider: bg.IdProviderPort;
   Logger: bg.LoggerPort;

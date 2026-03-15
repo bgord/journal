@@ -1,9 +1,10 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { EventStoreType } from "+infra/tools/event-store";
+
+type AcceptedEvent = bg.History.Events.HistoryPopulatedEventType | bg.History.Events.HistoryClearedEventType;
 
 type Dependencies = {
-  EventStore: EventStoreType;
+  EventStore: bg.EventStorePort<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   Sleeper: bg.SleeperPort;
