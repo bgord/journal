@@ -16,7 +16,7 @@ export interface ShareableLinkAccessAuditorPort {
 }
 
 type Dependencies = {
-  EventStore: bg.EventStoreLike<Publishing.Events.ShareableLinkAccessedEventType>;
+  EventStore: bg.EventStorePort<Publishing.Events.ShareableLinkAccessedEventType>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
 };

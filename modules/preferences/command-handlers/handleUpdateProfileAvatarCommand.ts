@@ -5,7 +5,7 @@ import * as Preferences from "+preferences";
 type AcceptedEvent = Preferences.Events.ProfileAvatarUpdatedEventType;
 
 type Dependencies = {
-  EventStore: bg.EventStoreLike<AcceptedEvent>;
+  EventStore: bg.EventStorePort<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   ImageInfo: bg.ImageInfoPort;

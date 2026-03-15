@@ -4,7 +4,7 @@ import * as Preferences from "+preferences";
 type AcceptedEvent = Preferences.Events.ProfileAvatarRemovedEventType;
 
 type Dependencies = {
-  EventStore: bg.EventStoreLike<AcceptedEvent>;
+  EventStore: bg.EventStorePort<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   RemoteFileStorage: bg.RemoteFileStoragePort;

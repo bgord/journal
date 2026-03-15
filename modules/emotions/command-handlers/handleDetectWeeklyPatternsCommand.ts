@@ -8,7 +8,7 @@ type AcceptedEvent =
   | Emotions.Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType;
 
 type Dependencies = {
-  EventStore: bg.EventStoreLike<AcceptedEvent>;
+  EventStore: bg.EventStorePort<AcceptedEvent>;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;

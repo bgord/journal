@@ -4,7 +4,7 @@ import * as Emotions from "+emotions";
 type AcceptedEvent = Emotions.Events.WeeklyReviewSkippedEventType;
 
 type Dependencies = {
-  EventStore: bg.EventStoreLike<AcceptedEvent>;
+  EventStore: bg.EventStorePort<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   repo: Emotions.Ports.WeeklyReviewRepositoryPort;
