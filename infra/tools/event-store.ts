@@ -12,6 +12,7 @@ import type {
 } from "+emotions/events";
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
+import type { EnvironmentType } from "+infra/env";
 import * as schema from "+infra/schema";
 import type { ProfileAvatarRemovedEvent, ProfileAvatarUpdatedEvent } from "+preferences/events";
 import type { ShareableLinkEvent } from "+publishing/aggregates";
