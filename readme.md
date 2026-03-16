@@ -298,45 +298,46 @@ modules/
 │       ├── profile-avatar-max-size.ts
 │       ├── profile-avatar-mime-registry.ts
 │       └── profile-avatar-side.ts
-└── publishing
-    ├── aggregates
-    │   └── shareable-link.ts
-    ├── command-handlers
-    │   ├── handleCreateShareableLinkCommand.ts
-    │   ├── handleExpireShareableLinkCommand.ts
-    │   ├── handleRevokeShareableLinkCommand.ts
-    ├── commands
-    │   ├── CREATE_SHAREABLE_LINK_COMMAND.ts
-    │   ├── EXPIRE_SHAREABLE_LINK_COMMAND.ts
-    │   ├── REVOKE_SHAREABLE_LINK_COMMAND.ts
-    ├── events
-    │   ├── SHAREABLE_LINK_ACCESSED_EVENT.ts
-    │   ├── SHAREABLE_LINK_CREATED_EVENT.ts
-    │   ├── SHAREABLE_LINK_EXPIRED_EVENT.ts
-    │   ├── SHAREABLE_LINK_REVOKED_EVENT.ts
-    ├── invariants
-    │   ├── requester-owns-shareable-link.ts
-    │   ├── shareable-link-expiration-time-passed.ts
-    │   ├── shareable-link-is-active.ts
-    │   └── shareable-links-per-owner-limit.ts
-    ├── open-host-queries
-    │   └── shareable-link-access.ts
-    ├── policies
-    │   └── shareable-links-expirer.ts
-    ├── ports
-    │   ├── expiring-shareable-links.ts
-    │   ├── shareable-link-access-auditor.ts
-    │   ├── shareable-link-repository.ts
-    │   └── shareable-link-snapshot.ts
-    ├── queries
-    │   └── shareable-links-quota.ts
-    └── value-objects
-        ├── access-context.ts
-        ├── access-validity.ts
-        ├── publication-specification.ts
-        ├── shareable-link-id.ts
-        ├── shareable-link-snapshot.ts
-        └── shareable-link-status.ts
+├── publishing
+│   ├── aggregates
+│   │   └── shareable-link.ts
+│   ├── command-handlers
+│   │   ├── handleCreateShareableLinkCommand.ts
+│   │   ├── handleExpireShareableLinkCommand.ts
+│   │   ├── handleRevokeShareableLinkCommand.ts
+│   ├── commands
+│   │   ├── CREATE_SHAREABLE_LINK_COMMAND.ts
+│   │   ├── EXPIRE_SHAREABLE_LINK_COMMAND.ts
+│   │   ├── REVOKE_SHAREABLE_LINK_COMMAND.ts
+│   ├── events
+│   │   ├── SHAREABLE_LINK_ACCESSED_EVENT.ts
+│   │   ├── SHAREABLE_LINK_CREATED_EVENT.ts
+│   │   ├── SHAREABLE_LINK_EXPIRED_EVENT.ts
+│   │   ├── SHAREABLE_LINK_REVOKED_EVENT.ts
+│   ├── invariants
+│   │   ├── requester-owns-shareable-link.ts
+│   │   ├── shareable-link-expiration-time-passed.ts
+│   │   ├── shareable-link-is-active.ts
+│   │   └── shareable-links-per-owner-limit.ts
+│   ├── open-host-queries
+│   │   └── shareable-link-access.ts
+│   ├── policies
+│   │   └── shareable-links-expirer.ts
+│   ├── ports
+│   │   ├── expiring-shareable-links.ts
+│   │   ├── shareable-link-access-auditor.ts
+│   │   ├── shareable-link-repository.ts
+│   │   └── shareable-link-snapshot.ts
+│   ├── queries
+│   │   └── shareable-links-quota.ts
+│   └── value-objects
+│       ├── access-context.ts
+│       ├── access-validity.ts
+│       ├── publication-specification.ts
+│       ├── shareable-link-id.ts
+│       ├── shareable-link-snapshot.ts
+│       └── shareable-link-status.ts
+└── supported-languages.ts
 ```
 
 ## App:
