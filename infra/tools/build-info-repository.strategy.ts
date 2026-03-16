@@ -1,11 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = { Clock: bg.ClockPort; FileReaderJson: bg.FileReaderJsonPort };
 
 export function createBuildInfoRepository(
-  Env: EnvironmentType,
+  Env: EnvironmentResultType,
   deps: Dependencies,
 ): bg.BuildInfoRepositoryStrategy {
   return {

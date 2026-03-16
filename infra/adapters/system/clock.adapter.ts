@@ -1,10 +1,10 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
 const T0 = tools.Timestamp.fromNumber(Date.UTC(2025, 0, 1, 0, 0, 0));
 
-export function createClock(Env: EnvironmentType): bg.ClockPort {
+export function createClock(Env: EnvironmentResultType): bg.ClockPort {
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.ClockSystemAdapter(),
     [bg.NodeEnvironmentEnum.test]: new bg.ClockFixedAdapter(T0),

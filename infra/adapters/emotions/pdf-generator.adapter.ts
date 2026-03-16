@@ -1,10 +1,10 @@
 import * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 import { PdfGeneratorTinypdfAdapter } from "./pdf-generator-tinypdf.adapter";
 
 type Dependencies = { Logger: bg.LoggerPort; Clock: bg.ClockPort };
 
-export function createPdfGenerator(Env: EnvironmentType, deps: Dependencies): bg.PdfGeneratorPort {
+export function createPdfGenerator(Env: EnvironmentResultType, deps: Dependencies): bg.PdfGeneratorPort {
   const PdfGenerator = new bg.PdfGeneratorWithLoggerAdapter({
     inner: new PdfGeneratorTinypdfAdapter(),
     ...deps,

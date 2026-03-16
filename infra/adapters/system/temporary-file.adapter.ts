@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = {
   FileCleaner: bg.FileCleanerPort;
@@ -8,7 +8,7 @@ type Dependencies = {
   FileWriter: bg.FileWriterPort;
 };
 
-export function createTemporaryFile(Env: EnvironmentType, deps: Dependencies): bg.TemporaryFilePort {
+export function createTemporaryFile(Env: EnvironmentResultType, deps: Dependencies): bg.TemporaryFilePort {
   const local = tools.DirectoryPathAbsoluteSchema.parse(`${__dirname}/profile-avatars`);
   const production = tools.DirectoryPathAbsoluteSchema.parse("/var/www/journal/infra/tmp-avatars");
 

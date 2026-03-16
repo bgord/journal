@@ -1,10 +1,10 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = { Sleeper: bg.SleeperPort; Logger: bg.LoggerPort; HashContent: bg.HashContentStrategy };
 
-export function createShieldSecurity(Env: EnvironmentType, deps: Dependencies): bg.MiddlewareHonoPort {
+export function createShieldSecurity(Env: EnvironmentResultType, deps: Dependencies): bg.MiddlewareHonoPort {
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({
     type: "finite",
     ttl: tools.Duration.Minutes(5),

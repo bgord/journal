@@ -1,10 +1,10 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = { Clock: bg.ClockPort };
 
-export function createLogger(Env: EnvironmentType, deps: Dependencies) {
+export function createLogger(Env: EnvironmentResultType, deps: Dependencies) {
   const app = "journal";
 
   const redactor = new bg.RedactorComposite([

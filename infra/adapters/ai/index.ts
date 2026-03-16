@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
 import type * as AI from "+ai";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 import { createAiClient } from "./ai-client.adapter";
 import { createAiEventPublisher } from "./ai-event-publisher.adapter";
 import { createAiGateway } from "./ai-gateway.adapter";
@@ -14,7 +14,7 @@ type Dependencies = {
   Logger: bg.LoggerPort;
 };
 
-export function createAuthAdapter(Env: EnvironmentType, deps: Dependencies) {
+export function createAuthAdapter(Env: EnvironmentResultType, deps: Dependencies) {
   const AiClient = createAiClient(Env, deps);
   const AiEventPublisher = createAiEventPublisher(deps);
   const RuleInspector = createRuleInspector(deps);

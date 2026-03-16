@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
-export function createSleeper(Env: EnvironmentType): bg.SleeperPort {
+export function createSleeper(Env: EnvironmentResultType): bg.SleeperPort {
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.SleeperSystemAdapter(),
     [bg.NodeEnvironmentEnum.test]: new bg.SleeperNoopAdapter(),

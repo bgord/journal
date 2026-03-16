@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = {
   FileCleaner: bg.FileCleanerPort;
@@ -8,7 +8,7 @@ type Dependencies = {
 };
 
 export async function createImageProcessor(
-  Env: EnvironmentType,
+  Env: EnvironmentResultType,
   deps: Dependencies,
 ): Promise<bg.ImageProcessorPort> {
   const ImageProcessorSharp = await bg.ImageProcessorSharpAdapter.build(deps);

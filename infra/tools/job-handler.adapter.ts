@@ -1,9 +1,9 @@
 import * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = { Logger: bg.LoggerPort; IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
-export function createJobHandler(Env: EnvironmentType, deps: Dependencies): bg.JobHandlerStrategy {
+export function createJobHandler(Env: EnvironmentResultType, deps: Dependencies): bg.JobHandlerStrategy {
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.JobHandlerNoopStrategy(),
     [bg.NodeEnvironmentEnum.test]: new bg.JobHandlerWithLoggerStrategy(deps),

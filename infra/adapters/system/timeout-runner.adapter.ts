@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
-export function createTimeoutRunner(Env: EnvironmentType): bg.TimeoutRunnerPort {
+export function createTimeoutRunner(Env: EnvironmentResultType): bg.TimeoutRunnerPort {
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.TimeoutRunnerBareAdapter(),
     [bg.NodeEnvironmentEnum.test]: new bg.TimeoutRunnerNoopAdapter(),

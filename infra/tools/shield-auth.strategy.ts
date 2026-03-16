@@ -5,7 +5,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { haveIBeenPwned } from "better-auth/plugins/haveibeenpwned";
 import * as Auth from "+auth";
 import { db } from "+infra/db";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
 export type AuthVariables = {
   user: ReturnType<typeof betterAuth>["$Infer"]["Session"]["user"];
@@ -20,7 +20,7 @@ type Dependencies = {
   Mailer: bg.MailerPort;
 };
 
-export function createShieldAuth(Env: EnvironmentType, deps: Dependencies) {
+export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies) {
   const production = Env.type === bg.NodeEnvironmentEnum.production;
 
   const config = betterAuth({

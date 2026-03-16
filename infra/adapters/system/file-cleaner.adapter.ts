@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
-export function createFileCleaner(Env: EnvironmentType): bg.FileCleanerPort {
+export function createFileCleaner(Env: EnvironmentResultType): bg.FileCleanerPort {
   const FileCleanerBunForgiving = new bg.FileCleanerForgivingAdapter();
 
   return {

@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
 import type * as Emotions from "+emotions";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 import { AlarmCancellationLookup } from "./alarm-cancellation-lookup.adapter";
 import { AlarmDirectory } from "./alarm-directory.adapter";
 import { createAlarmRepository } from "./alarm-repository.adapter";
@@ -26,7 +26,7 @@ type Dependencies = {
   Logger: bg.LoggerPort;
 };
 
-export function createEmotionsAdapters(Env: EnvironmentType, deps: Dependencies) {
+export function createEmotionsAdapters(Env: EnvironmentResultType, deps: Dependencies) {
   const AlarmRepository = createAlarmRepository(deps);
   const EntryRepository = createEntryRepository(deps);
   const WeeklyReviewRepository = createWeeklyReviewRepository(deps);

@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
-export function createShieldCaptcha(Env: EnvironmentType): bg.MiddlewareHonoPort {
+export function createShieldCaptcha(Env: EnvironmentResultType): bg.MiddlewareHonoPort {
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.MiddlewareHonoNoopAdapter(),
     [bg.NodeEnvironmentEnum.test]: new bg.MiddlewareHonoNoopAdapter(),

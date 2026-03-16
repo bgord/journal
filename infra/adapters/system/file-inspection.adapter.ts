@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
-export function createFileInspection(Env: EnvironmentType): bg.FileInspectionPort {
+export function createFileInspection(Env: EnvironmentResultType): bg.FileInspectionPort {
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.FileInspectionAdapter(),
     [bg.NodeEnvironmentEnum.test]: new bg.FileInspectionNoopAdapter({ exists: true }),

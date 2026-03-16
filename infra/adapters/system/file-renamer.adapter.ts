@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
-export function createFileRenamer(Env: EnvironmentType): bg.FileRenamerPort {
+export function createFileRenamer(Env: EnvironmentResultType): bg.FileRenamerPort {
   const FileRenamerFs = new bg.FileRenamerNodeAdapter();
 
   return {

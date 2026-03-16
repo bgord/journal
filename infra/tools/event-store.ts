@@ -12,7 +12,7 @@ import type {
 } from "+emotions/events";
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 import * as schema from "+infra/schema";
 import type { ProfileAvatarRemovedEvent, ProfileAvatarUpdatedEvent } from "+preferences/events";
 import type { ShareableLinkEvent } from "+publishing/aggregates";
@@ -45,7 +45,7 @@ export type AcceptedEvent =
 export type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export function createEventStore(
-  Env: EnvironmentType,
+  Env: EnvironmentResultType,
   deps: Dependencies,
 ): bg.EventStorePort<AcceptedEventType> {
   const revision = new bg.EventRevisionAssignerAdapter();

@@ -1,5 +1,5 @@
 import type * as bg from "@bgord/bun";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 import { createBuildInfoRepository } from "./build-info-repository.strategy";
 import { createCacheResponse } from "./cache-response";
 import { createCommandBus } from "./command-bus";
@@ -34,7 +34,7 @@ type Dependencies = {
   FileInspection: bg.FileInspectionPort;
 };
 
-export function createTools(Env: EnvironmentType, deps: Dependencies) {
+export function createTools(Env: EnvironmentResultType, deps: Dependencies) {
   const EventBus = createEventBus(deps);
   const EventStore = createEventStore(Env, { ...deps, EventBus });
   const JobHandler = createJobHandler(Env, deps);

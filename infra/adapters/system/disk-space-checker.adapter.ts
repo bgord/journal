@@ -1,8 +1,8 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 
-export function createDiskSpaceChecker(Env: EnvironmentType): bg.DiskSpaceCheckerPort {
+export function createDiskSpaceChecker(Env: EnvironmentResultType): bg.DiskSpaceCheckerPort {
   const DiskSpaceCheckerNoopAdapter = new bg.DiskSpaceCheckerNoopAdapter(tools.Size.fromGB(10));
   const DiskSpaceCheckerBunAdapter = new bg.DiskSpaceCheckerShellAdapter();
 

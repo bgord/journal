@@ -1,4 +1,4 @@
-import type { EnvironmentType } from "+infra/env";
+import type { EnvironmentResultType } from "+infra/env";
 import { createCertificateInspector } from "./certificate-inspector.adapter";
 import { createClock } from "./clock.adapter";
 import { createCsvStringifier } from "./csv-stringifier.adapter";
@@ -21,7 +21,7 @@ import { createTemporaryFile } from "./temporary-file.adapter";
 import { createTimekeeper } from "./timekeeper.adapter";
 import { createTimeoutRunner } from "./timeout-runner.adapter";
 
-export async function createSystemAdapters(Env: EnvironmentType) {
+export async function createSystemAdapters(Env: EnvironmentResultType) {
   const Clock = createClock(Env);
   const Logger = createLogger(Env, { Clock });
   const FileCleaner = createFileCleaner(Env);
