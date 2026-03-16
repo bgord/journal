@@ -1,11 +1,30 @@
 # Changelog
+- 2026-03-16 12:18 f1cec61d **step: update packages**
+## 2026-03-16 12:18 
+- 2026-03-16 12:15 96856b2e **refactor: use sse registry limit decorator**
+- 2026-03-16 12:08 1b927263 **refactor: adjust env**
+- 2026-03-16 11:50 ecf09848 **step: update packages**
+- 2026-03-15 22:47 54381ac4 **step: use event store with logger**
+- 2026-03-15 22:41 d9031bb8 **step: update packages**
+- 2026-03-15 22:37 d14b4d1f **refactor: simplify revision assigner**
+- 2026-03-15 22:37 3ced3340 **step: update packages**
+- 2026-03-15 22:02 a1cf53f0 **refactor: regenerate migrations**
+- 2026-03-15 21:35 2785619d **refactor: simplify tests**
+- 2026-03-15 21:24 0839d3f2 **refactor: make event store env dependent**
+- 2026-03-15 21:23 8ab586d7 **fix: separate supported languages to fix drizzle errors**
+- 2026-03-15 20:39 0b68201d **refactor: remove event store type**
+- 2026-03-15 20:37 71c079a0 **step: update packages**
+- 2026-03-15 20:21 df864b0c **refactor: adjust repository adapters**
+- 2026-03-15 20:14 ba99bc2b **refactor: replace event store like with event store port**
+- 2026-03-15 20:13 894a1255 **refactor: event store**
+- 2026-03-15 15:18 106aae76 **step: update packages**
 - 2026-03-13 19:48 4a9bca95 **step: bump bgord/scripts**
-## 2026-03-13 19:48 
 - 2026-03-13 19:45 5213b86e **step: bump bgord/scripts**
 - 2026-03-13 19:42 9ec3e9bf **step: bump bgord/scripts**
 - 2026-03-13 19:37 3bce0894 **step: restore better-sqlite3**
 - 2026-03-13 19:37 1e279dbc **step: update packages**
 - 2026-03-13 19:36 789b4561 **step: bump bgord/scripts**
+- 2026-03-13 18:48 0888d21b **docs: generate CHANGELOG**
 - 2026-03-13 18:46 7ef9f480 **docs: generate CHANGELOG**
 - 2026-03-13 18:42 69e0cbdc **docs: generate CHANGELOG**
 - 2026-03-13 18:38 3dd7348e **docs: generate CHANGELOG**
