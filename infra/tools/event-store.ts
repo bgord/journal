@@ -42,7 +42,7 @@ export type AcceptedEvent =
   | typeof bg.History.Events.HistoryPopulatedEvent
   | typeof bg.Preferences.Events.UserLanguageSetEvent;
 
-export type AcceptedEventType = z.infer<AcceptedEvent>;
+type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export function createEventStore(
   Env: EnvironmentResultType,
