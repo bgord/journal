@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import type hono from "hono";
 import { HTTPException } from "hono/http-exception";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import z from "zod/v4";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
@@ -69,7 +69,7 @@ export class ErrorHandler {
       return c.json({ message: "invalid.date.range", _known: true }, 400);
     }
 
-    if (error instanceof z.ZodError) {
+    if (error instanceof v.ValiError) {
       const validationError = error.issues.find((issue) => validationErrors.includes(issue.message));
 
       if (validationError) {
