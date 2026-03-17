@@ -39,7 +39,8 @@ export function HomeEntryHistory() {
       <ul data-gap="2" data-mt="5" data-stack="y">
         {history.map((item) => (
           <li data-color="neutral-300" data-main="between" data-stack="x" key={item.id}>
-            <div>- {t(item.operation, item.payload)}</div>
+            {/* TODO */}
+            <div>- {t(item.operation, item.payload as any)}</div>
             <div data-color="neutral-500" data-fs="xs" data-transform="font-variant-numeric">
               {item.createdAt}
             </div>

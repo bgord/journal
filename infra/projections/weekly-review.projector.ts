@@ -1,13 +1,13 @@
 import type * as bg from "@bgord/bun";
 import { eq } from "drizzle-orm";
-import type * as z from "zod/v4";
+import type * as v from "valibot";
 import * as Emotions from "+emotions";
 import type { WeeklyReviewEvent } from "+emotions/aggregates";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 type Dependencies = {
-  EventBus: bg.EventBusPort<z.infer<WeeklyReviewEvent>>;
+  EventBus: bg.EventBusPort<v.InferOutput<WeeklyReviewEvent>>;
   EventHandler: bg.EventHandlerStrategy;
 };
 

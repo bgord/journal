@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 
 export enum AiClientAdapter {
   anthropic = "anthropic",
@@ -8,47 +8,52 @@ export enum AiClientAdapter {
   noop = "noop",
 }
 
-const OPEN_AI_API_KEY = z.string().min(1).max(256).trim().brand("OPEN_AI_API_KEY");
-export type OpenAiApiKeyType = z.infer<typeof OPEN_AI_API_KEY>;
+const OPEN_AI_API_KEY = v.pipe(
+  v.string(),
+  v.minLength(1),
+  v.maxLength(256),
+  v.trim(),
+  v.brand("OPEN_AI_API_KEY"),
+);
+export type OpenAiApiKeyType = v.InferOutput<typeof OPEN_AI_API_KEY>;
 
-const ANTHROPIC_AI_API_KEY = z.string().min(1).max(256).trim().brand("ANTHROPIC_AI_API_KEY");
-export type AnthropicAiApiKey = z.infer<typeof ANTHROPIC_AI_API_KEY>;
+const ANTHROPIC_AI_API_KEY = v.pipe(
+  v.string(),
+  v.minLength(1),
+  v.maxLength(256),
+  v.trim(),
+  v.brand("ANTHROPIC_AI_API_KEY"),
+);
+export type AnthropicAiApiKey = v.InferOutput<typeof ANTHROPIC_AI_API_KEY>;
 
-export const Environment = z
-  .object({
-    PORT: bg.Port,
-    LOGS_LEVEL: z.enum(bg.LogLevelEnum),
-    SMTP_HOST: bg.SmtpHost,
-    SMTP_PORT: bg.SmtpPort,
-    SMTP_USER: bg.SmtpUser,
-    SMTP_PASS: bg.SmtpPass,
-    EMAIL_FROM: tools.Email,
-    TZ: z.literal("UTC"),
-    BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
-    BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
-    OPEN_AI_API_KEY,
-    ANTHROPIC_AI_API_KEY,
-    AI_CLIENT_ADAPTER: z.enum(AiClientAdapter),
-    BETTER_AUTH_SECRET: z.string().length(32).trim(),
-    BETTER_AUTH_URL: tools.UrlWithoutSlash,
-    HCAPTCHA_SECRET_KEY: bg.HCaptchaSecretKey,
-    SIGNUP_ENABLED: tools.FeatureFlagValue,
-  })
-  .strip();
+export const EnvironmentSchema = v.object({
+  PORT: bg.Port,
+  LOGS_LEVEL: v.enum(bg.LogLevelEnum),
+  SMTP_HOST: bg.SmtpHost,
+  SMTP_PORT: bg.SmtpPort,
+  SMTP_USER: bg.SmtpUser,
+  SMTP_PASS: bg.SmtpPass,
+  EMAIL_FROM: tools.Email,
+  TZ: v.literal("UTC"),
+  BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
+  BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
+  OPEN_AI_API_KEY,
+  ANTHROPIC_AI_API_KEY,
+  AI_CLIENT_ADAPTER: v.enum(AiClientAdapter),
+  BETTER_AUTH_SECRET: v.pipe(v.string(), v.length(32), v.trim()),
+  BETTER_AUTH_URL: tools.UrlWithoutSlash,
+  HCAPTCHA_SECRET_KEY: bg.HCaptchaSecretKey,
+  SIGNUP_ENABLED: tools.FeatureFlagValue,
+});
 
-type EnvironmentType = z.infer<typeof Environment>;
+type EnvironmentType = v.InferOutput<typeof EnvironmentSchema>;
 export type EnvironmentResultType = bg.EnvironmentResultType<EnvironmentType>;
 
 export const MasterKeyPath = tools.FilePathAbsolute.fromString("/etc/bgord/journal/master.key");
 export const SecretsPath = tools.FilePathAbsolute.fromString("/var/www/journal/secrets.enc");
 
 export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPort<EnvironmentType>> {
-  const type = bg.NodeEnvironment.parse(process.env.NODE_ENV);
-
-  const EnvironmentSchema: bg.EnvironmentSchemaPort<EnvironmentType> = {
-    parse: (data: unknown) => Environment.parse(data),
-  };
-
+  const type = v.parse(v.enum(bg.NodeEnvironmentEnum), process.env.NODE_ENV);
   const config = { type, EnvironmentSchema };
 
   const FileInspection = new bg.FileInspectionAdapter();
@@ -69,7 +74,6 @@ export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPor
 
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
   const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
-
   const HashContent = new bg.HashContentSha256Strategy();
 
   const EnvironmentLoaderProcessSafe = new bg.EnvironmentLoaderProcessSafeAdapter(process.env, config, {

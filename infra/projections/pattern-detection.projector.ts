@@ -1,12 +1,12 @@
 import type * as bg from "@bgord/bun";
-import type * as z from "zod/v4";
+import type * as v from "valibot";
 import * as Emotions from "+emotions";
 import type { PatternDetectionEvent } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 type Dependencies = {
-  EventBus: bg.EventBusPort<z.infer<PatternDetectionEvent>>;
+  EventBus: bg.EventBusPort<v.InferOutput<PatternDetectionEvent>>;
   EventHandler: bg.EventHandlerStrategy;
 };
 

@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
-import type * as z from "zod/v4";
+import type * as v from "valibot";
 import type { AiQuotaExceededEvent, AiRequestRegisteredEvent } from "+ai/events";
 import type { AccountCreatedEvent, AccountDeletedEvent } from "+auth/events";
 import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
@@ -42,7 +42,7 @@ export type AcceptedEvent =
   | typeof bg.History.Events.HistoryPopulatedEvent
   | typeof bg.Preferences.Events.UserLanguageSetEvent;
 
-type AcceptedEventType = z.infer<AcceptedEvent>;
+type AcceptedEventType = v.InferOutput<AcceptedEvent>;
 
 export function createEventStore(
   Env: EnvironmentResultType,
