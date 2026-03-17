@@ -42,12 +42,10 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
         Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent,
         this.getStream(),
         {
-          payload: {
-            userId: this.userId,
-            weekIsoId: this.week.toIsoId(),
-            entryIds: matches.map((entry) => entry.id),
-            name: this.name,
-          },
+          userId: this.userId,
+          weekIsoId: this.week.toIsoId(),
+          entryIds: matches.map((entry) => entry.id),
+          name: this.name,
         },
         this.deps,
       );

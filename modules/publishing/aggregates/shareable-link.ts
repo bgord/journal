@@ -64,15 +64,13 @@ export class ShareableLink {
       Events.ShareableLinkCreatedEvent,
       ShareableLink.getStream(id),
       {
-        payload: {
-          shareableLinkId: id,
-          ownerId: requesterId,
-          dateRangeStart: dateRange.getStart().ms,
-          dateRangeEnd: dateRange.getEnd().ms,
-          publicationSpecification,
-          durationMs,
-          createdAt: deps.Clock.now().ms,
-        },
+        shareableLinkId: id,
+        ownerId: requesterId,
+        dateRangeStart: dateRange.getStart().ms,
+        dateRangeEnd: dateRange.getEnd().ms,
+        publicationSpecification,
+        durationMs,
+        createdAt: deps.Clock.now().ms,
       },
       deps,
     );
@@ -93,7 +91,7 @@ export class ShareableLink {
     const event = wip.event(
       Events.ShareableLinkExpiredEvent,
       ShareableLink.getStream(this.id),
-      { payload: { shareableLinkId: this.id } },
+      { shareableLinkId: this.id },
       this.deps,
     );
 
@@ -107,7 +105,7 @@ export class ShareableLink {
     const event = wip.event(
       Events.ShareableLinkRevokedEvent,
       ShareableLink.getStream(this.id),
-      { payload: { shareableLinkId: this.id } },
+      { shareableLinkId: this.id },
       this.deps,
     );
 

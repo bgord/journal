@@ -41,7 +41,7 @@ export const handleUpdateProfileAvatarCommand =
     const event = wip.event(
       Preferences.Events.ProfileAvatarUpdatedEvent,
       `preferences_${command.payload.userId}`,
-      { payload: { userId: command.payload.userId, key, etag: object.etag.get() } },
+      { userId: command.payload.userId, key, etag: object.etag.get() },
       deps,
     );
 

@@ -60,7 +60,10 @@ export class Alarm {
       Events.AlarmGeneratedEvent,
       Alarm.getStream(id),
       {
-        payload: { alarmId: id, alarmName: detection.name, trigger: detection.trigger, userId: requesterId },
+        alarmId: id,
+        alarmName: detection.name,
+        trigger: detection.trigger,
+        userId: requesterId,
       },
       deps,
     );
@@ -76,7 +79,7 @@ export class Alarm {
     const event = wip.event(
       Events.AlarmAdviceSavedEvent,
       Alarm.getStream(this.id),
-      { payload: { alarmId: this.id, advice: advice.get(), userId: this.userId! } },
+      { alarmId: this.id, advice: advice.get(), userId: this.userId! },
       this.deps,
     );
 
@@ -90,13 +93,11 @@ export class Alarm {
       Events.AlarmNotificationRequestedEvent,
       Alarm.getStream(this.id),
       {
-        payload: {
-          alarmId: this.id,
-          alarmName: this.detection?.name as VO.AlarmNameType,
-          trigger: this.detection?.trigger as VO.AlarmTriggerType,
-          userId: this.userId as Auth.VO.UserIdType,
-          advice: this.advice?.get() as AI.AdviceType,
-        },
+        alarmId: this.id,
+        alarmName: this.detection?.name as VO.AlarmNameType,
+        trigger: this.detection?.trigger as VO.AlarmTriggerType,
+        userId: this.userId as Auth.VO.UserIdType,
+        advice: this.advice?.get() as AI.AdviceType,
       },
       this.deps,
     );
@@ -110,7 +111,7 @@ export class Alarm {
     const event = wip.event(
       Events.AlarmNotificationSentEvent,
       Alarm.getStream(this.id),
-      { payload: { alarmId: this.id } },
+      { alarmId: this.id },
       this.deps,
     );
 
@@ -123,7 +124,7 @@ export class Alarm {
     const event = wip.event(
       Events.AlarmCancelledEvent,
       Alarm.getStream(this.id),
-      { payload: { alarmId: this.id, userId: this.userId! } },
+      { alarmId: this.id, userId: this.userId! },
       this.deps,
     );
 

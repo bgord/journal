@@ -69,13 +69,11 @@ export class Entry {
       Emotions.Events.SituationLoggedEvent,
       Entry.getStream(id),
       {
-        payload: {
-          entryId: id,
-          description: situation.description.get(),
-          kind: situation.kind.get(),
-          userId: requesterId,
-          origin,
-        },
+        entryId: id,
+        description: situation.description.get(),
+        kind: situation.kind.get(),
+        userId: requesterId,
+        origin,
       },
       deps,
     );
@@ -86,12 +84,10 @@ export class Entry {
       Emotions.Events.EmotionLoggedEvent,
       Entry.getStream(id),
       {
-        payload: {
-          entryId: id,
-          label: emotion.label.get(),
-          intensity: emotion.intensity.get(),
-          userId: requesterId,
-        },
+        entryId: id,
+        label: emotion.label.get(),
+        intensity: emotion.intensity.get(),
+        userId: requesterId,
       },
       deps,
     );
@@ -102,13 +98,11 @@ export class Entry {
       Emotions.Events.ReactionLoggedEvent,
       Entry.getStream(id),
       {
-        payload: {
-          entryId: id,
-          description: reaction.description.get(),
-          type: reaction.type.get(),
-          effectiveness: reaction.effectiveness.get(),
-          userId: requesterId,
-        },
+        entryId: id,
+        description: reaction.description.get(),
+        type: reaction.type.get(),
+        effectiveness: reaction.effectiveness.get(),
+        userId: requesterId,
       },
       deps,
     );
@@ -128,12 +122,10 @@ export class Entry {
       Emotions.Events.EmotionReappraisedEvent,
       Entry.getStream(this.id),
       {
-        payload: {
-          entryId: this.id,
-          newLabel: newEmotion.label.get(),
-          newIntensity: newEmotion.intensity.get(),
-          userId: requesterId,
-        },
+        entryId: this.id,
+        newLabel: newEmotion.label.get(),
+        newIntensity: newEmotion.intensity.get(),
+        userId: requesterId,
       },
       this.deps,
     );
@@ -154,13 +146,11 @@ export class Entry {
       Emotions.Events.ReactionEvaluatedEvent,
       Entry.getStream(this.id),
       {
-        payload: {
-          entryId: this.id,
-          description: newReaction.description.get(),
-          type: newReaction.type.get(),
-          effectiveness: newReaction.effectiveness.get(),
-          userId: requesterId,
-        },
+        entryId: this.id,
+        description: newReaction.description.get(),
+        type: newReaction.type.get(),
+        effectiveness: newReaction.effectiveness.get(),
+        userId: requesterId,
       },
       this.deps,
     );
@@ -175,7 +165,7 @@ export class Entry {
     const event = wip.event(
       Emotions.Events.EntryDeletedEvent,
       Entry.getStream(this.id),
-      { payload: { entryId: this.id, userId: requesterId } },
+      { entryId: this.id, userId: requesterId },
       this.deps,
     );
 

@@ -32,12 +32,10 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
         Events.MaladaptiveReactionsPatternDetectedEvent,
         this.getStream(),
         {
-          payload: {
-            userId: this.userId,
-            weekIsoId: this.week.toIsoId(),
-            entryIds: matches.map((entry) => entry.id),
-            name: this.name,
-          },
+          userId: this.userId,
+          weekIsoId: this.week.toIsoId(),
+          entryIds: matches.map((entry) => entry.id),
+          name: this.name,
         },
         this.deps,
       );

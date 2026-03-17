@@ -44,7 +44,7 @@ export class AiGateway implements Ports.AiGatewayPort {
       const event = wip.event(
         Events.AiQuotaExceededEvent,
         `user_ai_usage_${context.userId}`,
-        { payload: { userId: context.userId, timestamp: context.timestamp } },
+        { userId: context.userId, timestamp: context.timestamp },
         this.deps,
       );
 
@@ -58,7 +58,7 @@ export class AiGateway implements Ports.AiGatewayPort {
     const event = wip.event(
       Events.AiRequestRegisteredEvent,
       `user_ai_usage_${context.userId}`,
-      { payload: context },
+      context,
       this.deps,
     );
 

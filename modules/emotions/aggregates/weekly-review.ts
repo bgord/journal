@@ -62,7 +62,7 @@ export class WeeklyReview {
     const event = wip.event(
       Events.WeeklyReviewRequestedEvent,
       WeeklyReview.getStream(id),
-      { payload: { weeklyReviewId: id, weekIsoId: week.toIsoId(), userId: requesterId } },
+      { weeklyReviewId: id, weekIsoId: week.toIsoId(), userId: requesterId },
       deps,
     );
 
@@ -78,12 +78,10 @@ export class WeeklyReview {
       Events.WeeklyReviewCompletedEvent,
       WeeklyReview.getStream(this.id),
       {
-        payload: {
-          weeklyReviewId: this.id,
-          weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
-          insights: insights.get(),
-          userId: this.userId as Auth.VO.UserIdType,
-        },
+        weeklyReviewId: this.id,
+        weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
+        insights: insights.get(),
+        userId: this.userId as Auth.VO.UserIdType,
       },
       this.deps,
     );
@@ -98,11 +96,9 @@ export class WeeklyReview {
       Events.WeeklyReviewFailedEvent,
       WeeklyReview.getStream(this.id),
       {
-        payload: {
-          weeklyReviewId: this.id,
-          weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
-          userId: this.userId as Auth.VO.UserIdType,
-        },
+        weeklyReviewId: this.id,
+        weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
+        userId: this.userId as Auth.VO.UserIdType,
       },
       this.deps,
     );

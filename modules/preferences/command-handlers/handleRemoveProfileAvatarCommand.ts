@@ -20,7 +20,7 @@ export const handleRemoveProfileAvatarCommand =
     const event = wip.event(
       Preferences.Events.ProfileAvatarRemovedEvent,
       `preferences_${command.payload.userId}`,
-      { payload: { userId: command.payload.userId } },
+      { userId: command.payload.userId },
       deps,
     );
 

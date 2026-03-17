@@ -130,7 +130,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         const event = wip.event(
           Auth.Events.AccountCreatedEvent,
           `account_${result.user.id}`,
-          { payload: { userId: result.user.id, timestamp: now.ms } },
+          { userId: result.user.id, timestamp: now.ms },
           di.Adapters.System,
         );
 

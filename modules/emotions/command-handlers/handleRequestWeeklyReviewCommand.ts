@@ -28,7 +28,7 @@ export const handleRequestWeeklyReviewCommand =
       const event = wip.event(
         Emotions.Events.WeeklyReviewSkippedEvent,
         "weekly_review_skipped",
-        { payload: { weekIsoId: command.payload.week.toIsoId(), userId: command.payload.userId } },
+        { weekIsoId: command.payload.week.toIsoId(), userId: command.payload.userId },
         deps,
       );
 

@@ -39,7 +39,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
           const event = wip.event(
             Auth.Events.AccountDeletedEvent,
             `account_${user.id}`,
-            { payload: { userId: user.id, timestamp: deps.Clock.now().ms } },
+            { userId: user.id, timestamp: deps.Clock.now().ms },
             deps,
           );
 
@@ -80,7 +80,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
         const event = wip.event(
           Auth.Events.AccountCreatedEvent,
           `account_${user.id}`,
-          { payload: { userId: user.id, timestamp: deps.Clock.now().ms } },
+          { userId: user.id, timestamp: deps.Clock.now().ms },
           deps,
         );
 

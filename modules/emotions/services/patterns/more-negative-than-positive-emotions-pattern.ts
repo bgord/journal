@@ -35,7 +35,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
       return wip.event(
         Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
         this.getStream(),
-        { payload: { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name } },
+        { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name },
         this.deps,
       );
     }

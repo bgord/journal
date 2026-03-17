@@ -67,12 +67,10 @@ export class WeeklyReviewExportByEmail {
           Emotions.Events.WeeklyReviewExportByEmailFailedEvent,
           `weekly_review_export_by_email_${event.payload.weeklyReviewExportId}`,
           {
-            payload: {
-              weeklyReviewId: event.payload.weeklyReviewId,
-              userId: event.payload.userId,
-              weeklyReviewExportId: event.payload.weeklyReviewExportId,
-              attempt: event.payload.attempt,
-            },
+            weeklyReviewId: event.payload.weeklyReviewId,
+            userId: event.payload.userId,
+            weeklyReviewExportId: event.payload.weeklyReviewExportId,
+            attempt: event.payload.attempt,
           },
           this.deps,
         ),
@@ -91,12 +89,10 @@ export class WeeklyReviewExportByEmail {
         Emotions.Events.WeeklyReviewExportByEmailRequestedEvent,
         event.stream,
         {
-          payload: {
-            weeklyReviewId: event.payload.weeklyReviewId,
-            userId: event.payload.userId,
-            weeklyReviewExportId: event.payload.weeklyReviewExportId,
-            attempt: tools.Int.positive(event.payload.attempt + 1),
-          },
+          weeklyReviewId: event.payload.weeklyReviewId,
+          userId: event.payload.userId,
+          weeklyReviewExportId: event.payload.weeklyReviewExportId,
+          attempt: tools.Int.positive(event.payload.attempt + 1),
         },
         this.deps,
       ),

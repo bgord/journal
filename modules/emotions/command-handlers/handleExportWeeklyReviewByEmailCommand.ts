@@ -31,12 +31,10 @@ export const handleExportWeeklyReviewByEmailCommand =
       Emotions.Events.WeeklyReviewExportByEmailRequestedEvent,
       `weekly_review_export_by_email_${weeklyReviewExportId}`,
       {
-        payload: {
-          weeklyReviewId: command.payload.weeklyReviewId,
-          userId: command.payload.userId,
-          weeklyReviewExportId,
-          attempt: tools.Int.positive(1),
-        },
+        weeklyReviewId: command.payload.weeklyReviewId,
+        userId: command.payload.userId,
+        weeklyReviewExportId,
+        attempt: tools.Int.positive(1),
       },
       deps,
     );

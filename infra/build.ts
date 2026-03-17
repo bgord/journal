@@ -18,12 +18,12 @@ export function command<Schema extends v.ObjectSchema<any, any>>(
 export function event<Schema extends v.ObjectSchema<any, any>>(
   schema: Schema,
   stream: bg.EventStreamType,
-  fields: Omit<v.InferOutput<Schema>, "id" | "correlationId" | "createdAt" | "stream" | "version" | "name">,
+  payload: v.InferOutput<Schema>["payload"],
   deps: EnvelopeDeps,
 ): v.InferOutput<Schema> {
   return v.parse(schema, {
     ...bg.createEventEnvelope(stream, deps),
     name: (schema.entries as { name: { literal: string } }).name.literal,
-    ...fields,
+    payload,
   });
 }

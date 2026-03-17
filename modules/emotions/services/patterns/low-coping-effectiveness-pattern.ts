@@ -39,7 +39,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
       return wip.event(
         Events.LowCopingEffectivenessPatternDetectedEvent,
         this.getStream(),
-        { payload: { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name } },
+        { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name },
         this.deps,
       );
     }

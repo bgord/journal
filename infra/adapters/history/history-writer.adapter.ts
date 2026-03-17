@@ -18,7 +18,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
     const event = wip.event(
       bg.History.Events.HistoryPopulatedEvent,
       `history_${history.subject}`,
-      { payload: { ...history, id: this.deps.IdProvider.generate() } },
+      { ...history, id: this.deps.IdProvider.generate() },
       this.deps,
     );
 
@@ -30,7 +30,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
     const event = wip.event(
       bg.History.Events.HistoryClearedEvent,
       `history_${subject}`,
-      { payload: { subject } },
+      { subject },
       this.deps,
     );
 

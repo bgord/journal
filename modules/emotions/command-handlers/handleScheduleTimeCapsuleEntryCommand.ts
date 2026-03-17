@@ -21,25 +21,23 @@ export const handleScheduleTimeCapsuleEntryCommand =
       Emotions.Events.TimeCapsuleEntryScheduledEvent,
       Emotions.Aggregates.Entry.getStream(command.payload.entryId),
       {
-        payload: {
-          entryId: command.payload.entryId,
-          situation: {
-            description: command.payload.situation.description.get(),
-            kind: command.payload.situation.kind.get(),
-          },
-          emotion: {
-            label: command.payload.emotion.label.get(),
-            intensity: command.payload.emotion.intensity.get(),
-          },
-          reaction: {
-            type: command.payload.reaction.type.get(),
-            effectiveness: command.payload.reaction.effectiveness.get(),
-            description: command.payload.reaction.description.get(),
-          },
-          userId: command.payload.userId,
-          scheduledAt: command.payload.scheduledAt,
-          scheduledFor: command.payload.scheduledFor,
+        entryId: command.payload.entryId,
+        situation: {
+          description: command.payload.situation.description.get(),
+          kind: command.payload.situation.kind.get(),
         },
+        emotion: {
+          label: command.payload.emotion.label.get(),
+          intensity: command.payload.emotion.intensity.get(),
+        },
+        reaction: {
+          type: command.payload.reaction.type.get(),
+          effectiveness: command.payload.reaction.effectiveness.get(),
+          description: command.payload.reaction.description.get(),
+        },
+        userId: command.payload.userId,
+        scheduledAt: command.payload.scheduledAt,
+        scheduledFor: command.payload.scheduledFor,
       },
       deps,
     );

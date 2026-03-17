@@ -30,15 +30,13 @@ export class ShareableLinkAccessAuditorAdapter implements Publishing.Ports.Share
       Publishing.Events.ShareableLinkAccessedEvent,
       `shareable_link_${input.linkId}`,
       {
-        payload: {
-          shareableLinkId: input.linkId,
-          ownerId: input.ownerId,
-          publicationSpecification: input.publicationSpecification,
-          validity: input.validity,
-          reason: input.reason,
-          visitorId: input.context.visitorId.get(),
-          timestamp: input.context.timestamp,
-        },
+        shareableLinkId: input.linkId,
+        ownerId: input.ownerId,
+        publicationSpecification: input.publicationSpecification,
+        validity: input.validity,
+        reason: input.reason,
+        visitorId: input.context.visitorId.get(),
+        timestamp: input.context.timestamp,
       },
       this.deps,
     );
