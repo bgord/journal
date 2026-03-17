@@ -119,7 +119,7 @@ class WeeklyReviewExportQueryDrizzle implements Emotions.Queries.WeeklyReviewExp
       })),
       alarms: result.alarms.map((alarm) => ({
         ...alarm,
-        inactivityDays: alarm.inactivityDays ? v.parse(tools.IntegerPositive, alarm.inactivityDays) : null,
+        inactivityDays: alarm.inactivityDays ? tools.Int.positive(alarm.inactivityDays) : null,
         name: alarm.name as VO.AlarmNameOption,
         advice: alarm.advice as VO.AlarmSnapshot["advice"],
         generatedAt: v.parse(tools.TimestampValue, alarm.generatedAt),

@@ -1,7 +1,6 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -128,7 +127,7 @@ describe(`POST ${url}`, async () => {
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(
       spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({
-        count: v.parse(tools.IntegerNonNegative, 3),
+        count: tools.Int.nonNegative(3),
       }),
     );
 
@@ -160,7 +159,7 @@ describe(`POST ${url}`, async () => {
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
     spies.use(
       spyOn(di.Adapters.Publishing.ShareableLinksQuotaQuery, "execute").mockResolvedValue({
-        count: v.parse(tools.IntegerNonNegative, 0),
+        count: tools.Int.nonNegative(0),
       }),
     );
 

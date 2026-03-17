@@ -143,7 +143,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
 
     return response.map((emotion) => ({
       ...emotion,
-      hits: v.parse(tools.IntegerNonNegative, emotion.hits),
+      hits: tools.Int.nonNegative(emotion.hits),
       emotionLabel: v.parse(Emotions.VO.EmotionLabelSchema, emotion.label),
     }));
   }
@@ -154,10 +154,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
     await getTopEmotionsSince(allTime),
   ]);
 
-  const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(
-    userId,
-    v.parse(tools.IntegerPositive, 5),
-  );
+  const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, tools.Int.positive(5));
 
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {
@@ -174,7 +171,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
         ...alarm,
         advice: alarm.advice as AI.AdviceType,
         generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
-        inactivityDays: alarm.inactivityDays ? v.parse(tools.IntegerPositive, alarm.inactivityDays) : null,
+        inactivityDays: alarm.inactivityDays ? tools.Int.positive(alarm.inactivityDays) : null,
       })),
       entry: entryAlarmsResponse.map((alarm) => ({
         ...alarm,
@@ -186,9 +183,9 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
     },
     entries: {
       counts: {
-        today: v.parse(tools.IntegerNonNegative, entryCountToday),
-        lastWeek: v.parse(tools.IntegerNonNegative, entryCountLastWeek),
-        allTime: v.parse(tools.IntegerNonNegative, entryCountAllTime),
+        today: tools.Int.nonNegative(entryCountToday),
+        lastWeek: tools.Int.nonNegative(entryCountLastWeek),
+        allTime: tools.Int.nonNegative(entryCountAllTime),
       },
       top: {
         reactions: topReactionsResponse.map((entry) => ({

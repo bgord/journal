@@ -1,6 +1,5 @@
 import * as tools from "@bgord/tools";
 import { inArray } from "drizzle-orm";
-import * as v from "valibot";
 import type { BucketCounterPort } from "+ai/ports/bucket-counter";
 import type * as VO from "+ai/value-objects";
 import { db } from "+infra/db";
@@ -16,11 +15,10 @@ class BucketCounterDrizzle implements BucketCounterPort {
       .where(inArray(Schema.aiUsageCounters.bucket, buckets));
 
     const usage: Record<VO.QuotaBucketType, VO.QuotaUsageType> = Object.fromEntries(
-      buckets.map((bucket) => [bucket, v.parse(tools.IntegerNonNegative, 0)]),
+      buckets.map((bucket) => [bucket, tools.Int.nonNegative(0)]),
     );
 
-    for (const row of rows) usage[row.bucket] = v.parse(tools.IntegerNonNegative, row.count);
-
+    for (const row of rows) usage[row.bucket] = tools.Int.nonNegative(row.count);
     return usage;
   }
 }

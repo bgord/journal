@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
 import type { AlarmEventType } from "+emotions/aggregates";
 
 type Dependencies = { Logger: bg.LoggerPort };
@@ -14,8 +13,5 @@ export function createSseRegistry(deps: Dependencies): bg.SseRegistryPort<Accept
     ...deps,
   });
 
-  return new bg.SseRegistryWithLimitAdapter({
-    inner: SseRegistryWithLogger,
-    limit: v.parse(tools.IntegerPositive, 3),
-  });
+  return new bg.SseRegistryWithLimitAdapter({ inner: SseRegistryWithLogger, limit: tools.Int.positive(3) });
 }

@@ -1,7 +1,6 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
@@ -27,7 +26,7 @@ describe("WeeklyReviewScheduler", async () => {
     );
     spies.use(
       spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(
-        v.parse(tools.IntegerNonNegative, 1),
+        tools.Int.nonNegative(1),
       ),
     );
     spies.use(spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week));
@@ -79,7 +78,7 @@ describe("WeeklyReviewScheduler", async () => {
     );
     spies.use(
       spyOn(di.Adapters.Emotions.EntriesPerWeekCountQuery, "execute").mockResolvedValue(
-        v.parse(tools.IntegerNonNegative, 0),
+        tools.Int.nonNegative(0),
       ),
     );
     spies.use(spyOn(tools.Week, "fromTimestampValue").mockReturnValue(mocks.week));

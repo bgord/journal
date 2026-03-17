@@ -6,7 +6,7 @@ import * as VO from "+ai/value-objects";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
-const noUsage = v.parse(tools.IntegerNonNegative, 0);
+const noUsage = tools.Int.nonNegative(0);
 
 describe("QuotaSpecification", async () => {
   const di = await bootstrap();
@@ -26,7 +26,7 @@ describe("QuotaSpecification", async () => {
   });
 
   test("EmotionsAlarmEntryContext - USER_DAILY violations", async () => {
-    const used = v.parse(tools.IntegerNonNegative, 10);
+    const used = tools.Int.nonNegative(10);
     using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsAlarmEntryBucket]: noUsage,
@@ -40,7 +40,7 @@ describe("QuotaSpecification", async () => {
   });
 
   test("EmotionsAlarmEntryContext - EMOTIONS_ALARM_ENTRY violations", async () => {
-    const used = v.parse(tools.IntegerNonNegative, 2);
+    const used = tools.Int.nonNegative(2);
     using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsAlarmEntryBucket]: used,
@@ -68,7 +68,7 @@ describe("QuotaSpecification", async () => {
   });
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
-    const used = v.parse(tools.IntegerNonNegative, 10);
+    const used = tools.Int.nonNegative(10);
     using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: noUsage,
@@ -82,7 +82,7 @@ describe("QuotaSpecification", async () => {
   });
 
   test("EmotionsWeeklyReviewInsightContext - USER_DAILY violations", async () => {
-    const used = v.parse(tools.IntegerNonNegative, 1);
+    const used = tools.Int.nonNegative(1);
     using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsWeeklyReviewInsightWeeklyBucket]: used,
@@ -112,7 +112,7 @@ describe("QuotaSpecification", async () => {
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
-    const used = v.parse(tools.IntegerNonNegative, 10);
+    const used = tools.Int.nonNegative(10);
     using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: noUsage,
@@ -126,7 +126,7 @@ describe("QuotaSpecification", async () => {
   });
 
   test("EmotionsAlarmInactivityWeeklyContext - USER_DAILY violations", async () => {
-    const used = v.parse(tools.IntegerNonNegative, 1);
+    const used = tools.Int.nonNegative(1);
     using _ = spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
       [mocks.userDailyBucket]: used,
       [mocks.emotionsAlarmInactivityWeeklyBucket]: used,

@@ -31,7 +31,7 @@ export function createPrerequisites(Env: EnvironmentResultType, deps: Dependenci
   );
   const withRetry = bg.PrerequisiteDecorator.withRetry(
     {
-      max: v.parse(tools.IntegerPositive, 2),
+      max: tools.Int.positive(2),
       backoff: new bg.RetryBackoffLinearStrategy(tools.Duration.Ms(300)),
     },
     deps,

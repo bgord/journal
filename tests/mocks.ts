@@ -76,7 +76,7 @@ export const entryDetection = new Emotions.VO.AlarmDetection(
 
 export const inactivityTrigger = {
   type: Emotions.VO.AlarmTriggerEnum.inactivity,
-  inactivityDays: v.parse(tools.IntegerPositive, 7),
+  inactivityDays: tools.Int.positive(7),
   lastEntryTimestamp: T0.ms,
 } as const;
 
@@ -145,8 +145,8 @@ export const ruleInspection = {
   id: AI.USER_DAILY_RULE.id,
   consumed: false,
   limit: AI.USER_DAILY_RULE.limit,
-  count: v.parse(tools.IntegerNonNegative, 3),
-  remaining: v.parse(tools.IntegerNonNegative, 7),
+  count: tools.Int.nonNegative(3),
+  remaining: tools.Int.nonNegative(7),
   resetsInMs: v.parse(tools.DurationMs, 0),
   resetsInHours: 0,
 };
@@ -538,14 +538,14 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent = {
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT",
-  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: v.parse(tools.IntegerPositive, 1) },
+  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: tools.Int.positive(1) },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
 export const GenericWeeklyReviewExportByEmailRequestedEvent2nd = {
   ...GenericWeeklyReviewExportByEmailRequestedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailRequestedEvent.payload,
-    attempt: v.parse(tools.IntegerPositive, 2),
+    attempt: tools.Int.positive(2),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -553,7 +553,7 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent3rd = {
   ...GenericWeeklyReviewExportByEmailRequestedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailRequestedEvent.payload,
-    attempt: v.parse(tools.IntegerPositive, 3),
+    attempt: tools.Int.positive(3),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -561,7 +561,7 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent4th = {
   ...GenericWeeklyReviewExportByEmailRequestedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailRequestedEvent.payload,
-    attempt: v.parse(tools.IntegerPositive, 4),
+    attempt: tools.Int.positive(4),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -572,14 +572,14 @@ export const GenericWeeklyReviewExportByEmailFailedEvent = {
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT",
-  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: v.parse(tools.IntegerPositive, 1) },
+  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: tools.Int.positive(1) },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
 export const GenericWeeklyReviewExportByEmailFailedEvent2nd = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailFailedEvent.payload,
-    attempt: v.parse(tools.IntegerPositive, 2),
+    attempt: tools.Int.positive(2),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
@@ -587,7 +587,7 @@ export const GenericWeeklyReviewExportByEmailFailedEvent3rd = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailFailedEvent.payload,
-    attempt: v.parse(tools.IntegerPositive, 3),
+    attempt: tools.Int.positive(3),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
@@ -595,7 +595,7 @@ export const GenericWeeklyReviewExportByEmailFailedEvent4th = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailFailedEvent.payload,
-    attempt: v.parse(tools.IntegerPositive, 4),
+    attempt: tools.Int.positive(4),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
@@ -1114,8 +1114,8 @@ export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
   dateRangeStart: tools.DateFormatters.datetime(T0.ms),
   dateRangeEnd: tools.DateFormatters.datetime(T0.ms),
   expiresAt: tools.DateFormatters.datetime(T0.ms),
-  hits: v.parse(tools.IntegerNonNegative, 1),
-  uniqueVisitors: v.parse(tools.IntegerNonNegative, 1),
+  hits: tools.Int.nonNegative(1),
+  uniqueVisitors: tools.Int.nonNegative(1),
 };
 
 export const user: User = {

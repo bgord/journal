@@ -1,6 +1,5 @@
 import * as tools from "@bgord/tools";
 import { and, eq, gte, lte } from "drizzle-orm";
-import * as v from "valibot";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
@@ -17,7 +16,7 @@ class EntriesPerWeekCountQueryDrizzle implements Emotions.Queries.EntriesPerWeek
       ),
     );
 
-    return v.parse(tools.IntegerNonNegative, result);
+    return tools.Int.nonNegative(result);
   }
 }
 

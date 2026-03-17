@@ -40,7 +40,7 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
 
       result.push({
         ...ShareableLinkSnapshotDrizzle.format(shareableLink, timeZoneOffsetMs),
-        hits: v.parse(tools.IntegerNonNegative, hits),
+        hits: tools.Int.nonNegative(hits),
         uniqueVisitors: v.parse(tools.IntegerNonNegative, uniqueVisitors),
       });
     }

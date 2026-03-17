@@ -1,6 +1,5 @@
 import * as tools from "@bgord/tools";
 import { and, eq } from "drizzle-orm";
-import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Publishing from "+publishing";
 import { db } from "+infra/db";
@@ -16,7 +15,7 @@ class ShareableLinksQuotaQueryDrizzle implements Publishing.Queries.ShareableLin
       ),
     );
 
-    return { count: v.parse(tools.IntegerNonNegative, count) };
+    return { count: tools.Int.nonNegative(count) };
   }
 }
 

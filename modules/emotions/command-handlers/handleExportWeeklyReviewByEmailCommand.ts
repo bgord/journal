@@ -35,7 +35,7 @@ export const handleExportWeeklyReviewByEmailCommand =
           weeklyReviewId: command.payload.weeklyReviewId,
           userId: command.payload.userId,
           weeklyReviewExportId,
-          attempt: v.parse(tools.IntegerPositive, 1),
+          attempt: tools.Int.positive(1),
         },
       } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType),
     ]);
