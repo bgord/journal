@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as Entities from "+emotions/entities";
 import * as VO from "+emotions/value-objects";
@@ -8,17 +8,17 @@ import * as VO from "+emotions/value-objects";
 export const LOG_ENTRY_COMMAND = "LOG_ENTRY_COMMAND";
 // Stryker restore all
 
-export const LogEntryCommand = z.object({
+export const LogEntryCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(LOG_ENTRY_COMMAND),
-  payload: z.object({
+  name: v.literal(LOG_ENTRY_COMMAND),
+  payload: v.object({
     entryId: VO.EntryId,
-    situation: z.instanceof(Entities.Situation),
-    emotion: z.instanceof(Entities.Emotion),
-    reaction: z.instanceof(Entities.Reaction),
+    situation: v.instance(Entities.Situation),
+    emotion: v.instance(Entities.Emotion),
+    reaction: v.instance(Entities.Reaction),
     userId: Auth.VO.UserId,
     origin: VO.EntryOrigin,
   }),
 });
 
-export type LogEntryCommandType = z.infer<typeof LogEntryCommand>;
+export type LogEntryCommandType = v.InferOutput<typeof LogEntryCommand>;

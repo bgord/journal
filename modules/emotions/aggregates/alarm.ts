@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import type * as z from "zod/v4";
+import * as v from "valibot";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
@@ -7,7 +7,7 @@ import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
 
 export type AlarmEvent = (typeof Alarm)["events"][number];
-export type AlarmEventType = z.infer<AlarmEvent>;
+export type AlarmEventType = v.InferOutput<AlarmEvent>;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
@@ -54,7 +54,7 @@ export class Alarm {
   ) {
     const alarm = new Alarm(id, deps);
 
-    const event = Events.AlarmGeneratedEvent.parse({
+    const event = v.parse(Events.AlarmGeneratedEvent, {
       ...bg.createEventEnvelope(Alarm.getStream(id), deps),
       name: Events.ALARM_GENERATED_EVENT,
       payload: { alarmId: id, alarmName: detection.name, trigger: detection.trigger, userId: requesterId },
@@ -68,7 +68,7 @@ export class Alarm {
   saveAdvice(advice: AI.Advice) {
     Invariants.AlarmAlreadyGenerated.enforce({ status: this.status });
 
-    const event = Events.AlarmAdviceSavedEvent.parse({
+    const event = v.parse(Events.AlarmAdviceSavedEvent, {
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
       name: Events.ALARM_ADVICE_SAVED_EVENT,
       payload: { alarmId: this.id, advice: advice.get(), userId: this.userId as Auth.VO.UserIdType },
@@ -80,7 +80,7 @@ export class Alarm {
   notify() {
     Invariants.AlarmAdviceAvailable.enforce({ status: this.status });
 
-    const event = Events.AlarmNotificationRequestedEvent.parse({
+    const event = v.parse(Events.AlarmNotificationRequestedEvent, {
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
       name: Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
       payload: {
@@ -98,7 +98,7 @@ export class Alarm {
   complete() {
     Invariants.AlarmNotificationRequested.enforce({ status: this.status });
 
-    const event = Events.AlarmNotificationSentEvent.parse({
+    const event = v.parse(Events.AlarmNotificationSentEvent, {
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
       name: Events.ALARM_NOTIFICATION_SENT_EVENT,
       payload: { alarmId: this.id },
@@ -110,7 +110,7 @@ export class Alarm {
   cancel() {
     Invariants.AlarmIsCancellable.enforce({ status: this.status });
 
-    const event = Events.AlarmCancelledEvent.parse({
+    const event = v.parse(Events.AlarmCancelledEvent, {
       ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
       name: Events.ALARM_CANCELLED_EVENT,
       payload: { alarmId: this.id, userId: this.userId as Auth.VO.UserIdType },

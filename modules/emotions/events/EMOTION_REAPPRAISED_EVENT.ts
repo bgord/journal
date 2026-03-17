@@ -1,14 +1,14 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
 export const EMOTION_REAPPRAISED_EVENT = "EMOTION_REAPPRAISED_EVENT";
 
-export const EmotionReappraisedEvent = z.object({
+export const EmotionReappraisedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(EMOTION_REAPPRAISED_EVENT),
-  payload: z.object({
+  name: v.literal(EMOTION_REAPPRAISED_EVENT),
+  payload: v.object({
     entryId: VO.EntryId,
     newLabel: VO.EmotionLabelSchema,
     newIntensity: VO.EmotionIntensitySchema,
@@ -16,4 +16,4 @@ export const EmotionReappraisedEvent = z.object({
   }),
 });
 
-export type EmotionReappraisedEventType = z.infer<typeof EmotionReappraisedEvent>;
+export type EmotionReappraisedEventType = v.InferOutput<typeof EmotionReappraisedEvent>;

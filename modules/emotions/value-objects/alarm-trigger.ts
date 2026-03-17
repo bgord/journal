@@ -1,5 +1,5 @@
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { EntryId } from "./entry-id";
 
 export enum AlarmTriggerEnum {
@@ -7,18 +7,18 @@ export enum AlarmTriggerEnum {
   inactivity = "inactivity",
 }
 
-export const EntryAlarmTrigger = z.object({
-  type: z.literal(AlarmTriggerEnum.entry),
+export const EntryAlarmTrigger = v.object({
+  type: v.literal(AlarmTriggerEnum.entry),
   entryId: EntryId,
 });
-export type EntryAlarmTriggerType = z.infer<typeof EntryAlarmTrigger>;
+export type EntryAlarmTriggerType = v.InferOutput<typeof EntryAlarmTrigger>;
 
-const InactivityAlarmTrigger = z.object({
-  type: z.literal(AlarmTriggerEnum.inactivity),
+const InactivityAlarmTrigger = v.object({
+  type: v.literal(AlarmTriggerEnum.inactivity),
   inactivityDays: tools.IntegerPositive,
   lastEntryTimestamp: tools.TimestampValue,
 });
-export type InactivityAlarmTriggerType = z.infer<typeof InactivityAlarmTrigger>;
+export type InactivityAlarmTriggerType = v.InferOutput<typeof InactivityAlarmTrigger>;
 
-export const AlarmTrigger = z.discriminatedUnion("type", [EntryAlarmTrigger, InactivityAlarmTrigger]);
-export type AlarmTriggerType = z.infer<typeof AlarmTrigger>;
+export const AlarmTrigger = v.variant("type", [EntryAlarmTrigger, InactivityAlarmTrigger]);
+export type AlarmTriggerType = v.InferOutput<typeof AlarmTrigger>;

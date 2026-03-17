@@ -1,15 +1,15 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 
 // Stryker disable all
 export const DETECT_WEEKLY_PATTERNS_COMMAND = "DETECT_WEEKLY_PATTERNS_COMMAND";
 // Stryker restore all
 
-export const DetectWeeklyPatternsCommand = z.object({
+export const DetectWeeklyPatternsCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(DETECT_WEEKLY_PATTERNS_COMMAND),
-  payload: z.object({ userId: Auth.VO.UserId, week: z.instanceof(tools.Week) }),
+  name: v.literal(DETECT_WEEKLY_PATTERNS_COMMAND),
+  payload: v.object({ userId: Auth.VO.UserId, week: v.instance(tools.Week) }),
 });
-export type DetectWeeklyPatternsCommandType = z.infer<typeof DetectWeeklyPatternsCommand>;
+export type DetectWeeklyPatternsCommandType = v.InferOutput<typeof DetectWeeklyPatternsCommand>;

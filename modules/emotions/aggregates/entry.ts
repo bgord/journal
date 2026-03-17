@@ -1,11 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type * as z from "zod/v4";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 
 export type EntryEvent = (typeof Entry)["events"][number];
-export type EntryEventType = z.infer<EntryEvent>;
+export type EntryEventType = v.InferOutput<EntryEvent>;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
@@ -61,7 +61,7 @@ export class Entry {
   ) {
     const entry = new Entry(id, deps);
 
-    const SituationLoggedEvent = Emotions.Events.SituationLoggedEvent.parse({
+    const SituationLoggedEvent = v.parse(Emotions.Events.SituationLoggedEvent, {
       ...bg.createEventEnvelope(Entry.getStream(id), deps),
       name: Emotions.Events.SITUATION_LOGGED_EVENT,
       payload: {
@@ -75,7 +75,7 @@ export class Entry {
 
     entry.record(SituationLoggedEvent);
 
-    const EmotionLoggedEvent = Emotions.Events.EmotionLoggedEvent.parse({
+    const EmotionLoggedEvent = v.parse(Emotions.Events.EmotionLoggedEvent, {
       ...bg.createEventEnvelope(Entry.getStream(id), deps),
       name: Emotions.Events.EMOTION_LOGGED_EVENT,
       payload: {
@@ -88,7 +88,7 @@ export class Entry {
 
     entry.record(EmotionLoggedEvent);
 
-    const ReactionLoggedEvent = Emotions.Events.ReactionLoggedEvent.parse({
+    const ReactionLoggedEvent = v.parse(Emotions.Events.ReactionLoggedEvent, {
       ...bg.createEventEnvelope(Entry.getStream(id), deps),
       name: Emotions.Events.REACTION_LOGGED_EVENT,
       payload: {
@@ -111,7 +111,7 @@ export class Entry {
     Emotions.Invariants.EmotionForReappraisalExists.enforce({ emotion: this.emotion });
     Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
-    const event = Emotions.Events.EmotionReappraisedEvent.parse({
+    const event = v.parse(Emotions.Events.EmotionReappraisedEvent, {
       ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
       name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
       payload: {
@@ -134,7 +134,7 @@ export class Entry {
     Emotions.Invariants.ReactionForEvaluationExists.enforce({ reaction: this.reaction });
     Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
-    const event = Emotions.Events.ReactionEvaluatedEvent.parse({
+    const event = v.parse(Emotions.Events.ReactionEvaluatedEvent, {
       ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
       name: Emotions.Events.REACTION_EVALUATED_EVENT,
       payload: {
@@ -153,7 +153,7 @@ export class Entry {
     Emotions.Invariants.EntryHasBenStarted.enforce({ situation: this.situation });
     Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
-    const event = Emotions.Events.EntryDeletedEvent.parse({
+    const event = v.parse(Emotions.Events.EntryDeletedEvent, {
       ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
       name: Emotions.Events.ENTRY_DELETED_EVENT,
       payload: { entryId: this.id, userId: requesterId },

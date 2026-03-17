@@ -1,17 +1,18 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 
 const AdviceErrors = { Invalid: "emotional.advice.invalid" };
 
 const AdviceMin = 1;
 const AdviceMax = 1024;
 
-export const AdviceSchema = z
-  .string(AdviceErrors.Invalid)
-  .trim()
-  .min(AdviceMin, AdviceErrors.Invalid)
-  .max(AdviceMax, AdviceErrors.Invalid);
+export const AdviceSchema = v.pipe(
+  v.string(AdviceErrors.Invalid),
+  v.trim(),
+  v.minLength(AdviceMin, AdviceErrors.Invalid),
+  v.maxLength(AdviceMax, AdviceErrors.Invalid),
+);
 
-export type AdviceType = z.infer<typeof AdviceSchema>;
+export type AdviceType = v.InferOutput<typeof AdviceSchema>;
 
 export class Advice {
   static readonly Errors = AdviceErrors;
@@ -21,7 +22,7 @@ export class Advice {
   private readonly value: AdviceType;
 
   constructor(value: AdviceType) {
-    this.value = AdviceSchema.parse(value);
+    this.value = v.parse(AdviceSchema, value);
   }
 
   get(): AdviceType {

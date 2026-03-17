@@ -1,14 +1,12 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { SituationKindOptions } from "./situation-kind-options";
 
 const SituationKindErrors = { Invalid: "situation.kind.invalid" };
 
-export const SituationKindSchema = z.enum(SituationKindOptions, {
-  message: SituationKindErrors.Invalid,
-});
+export const SituationKindSchema = v.enum(SituationKindOptions, SituationKindErrors.Invalid);
 
 /** @public */
-export type SituationKindType = z.infer<typeof SituationKindSchema>;
+export type SituationKindType = v.InferOutput<typeof SituationKindSchema>;
 
 export class SituationKind {
   static readonly Errors = SituationKindErrors;
@@ -16,7 +14,7 @@ export class SituationKind {
   private readonly value: SituationKindType;
 
   constructor(value: SituationKindType) {
-    this.value = SituationKindSchema.parse(value);
+    this.value = v.parse(SituationKindSchema, value);
   }
 
   get(): SituationKindType {

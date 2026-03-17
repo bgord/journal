@@ -1,15 +1,17 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { EmotionIntensityMax, EmotionIntensityMin } from "./emotion-intensity.validation";
 
 const EmotionIntensityErrors = { min_max: "emotion.intensity.min.max" };
 
-export const EmotionIntensitySchema = z
-  .int(EmotionIntensityErrors.min_max)
-  .gte(EmotionIntensityMin, EmotionIntensityErrors.min_max)
-  .lte(EmotionIntensityMax, EmotionIntensityErrors.min_max);
+export const EmotionIntensitySchema = v.pipe(
+  v.number(EmotionIntensityErrors.min_max),
+  v.integer(EmotionIntensityErrors.min_max),
+  v.minValue(EmotionIntensityMax, EmotionIntensityErrors.min_max),
+  v.maxValue(EmotionIntensityMin, EmotionIntensityErrors.min_max),
+);
 
 /** @public */
-export type EmotionIntensityType = z.infer<typeof EmotionIntensitySchema>;
+export type EmotionIntensityType = v.InferOutput<typeof EmotionIntensitySchema>;
 
 export class EmotionIntensity {
   static readonly Errors = EmotionIntensityErrors;
@@ -19,7 +21,7 @@ export class EmotionIntensity {
   private readonly value: EmotionIntensityType;
 
   constructor(value: EmotionIntensityType) {
-    this.value = EmotionIntensitySchema.parse(value);
+    this.value = v.parse(EmotionIntensitySchema, value);
   }
 
   get(): EmotionIntensityType {

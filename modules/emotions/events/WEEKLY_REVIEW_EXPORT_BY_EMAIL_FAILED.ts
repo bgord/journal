@@ -1,15 +1,15 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
 export const WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT = "WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT";
 
-export const WeeklyReviewExportByEmailFailedEvent = z.object({
+export const WeeklyReviewExportByEmailFailedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT),
-  payload: z.object({
+  name: v.literal(WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT),
+  payload: v.object({
     attempt: tools.IntegerPositive,
     userId: Auth.VO.UserId,
     weeklyReviewExportId: VO.WeeklyReviewExportId,
@@ -17,4 +17,6 @@ export const WeeklyReviewExportByEmailFailedEvent = z.object({
   }),
 });
 
-export type WeeklyReviewExportByEmailFailedEventType = z.infer<typeof WeeklyReviewExportByEmailFailedEvent>;
+export type WeeklyReviewExportByEmailFailedEventType = v.InferOutput<
+  typeof WeeklyReviewExportByEmailFailedEvent
+>;

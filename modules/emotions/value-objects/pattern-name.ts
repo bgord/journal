@@ -1,4 +1,4 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { PatternNameOption } from "./pattern-name-option";
 
-export const PatternName = z.enum(PatternNameOption);
+export const PatternName = v.enum(PatternNameOption);

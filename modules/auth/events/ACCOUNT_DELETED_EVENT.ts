@@ -1,14 +1,14 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as VO from "+auth/value-objects";
 
 export const ACCOUNT_DELETED_EVENT = "ACCOUNT_DELETED_EVENT";
 
-export const AccountDeletedEvent = z.object({
+export const AccountDeletedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(ACCOUNT_DELETED_EVENT),
-  payload: z.object({ userId: VO.UserId, timestamp: tools.TimestampValue }),
+  name: v.literal(ACCOUNT_DELETED_EVENT),
+  payload: v.object({ userId: VO.UserId, timestamp: tools.TimestampValue }),
 });
 
-export type AccountDeletedEventType = z.infer<typeof AccountDeletedEvent>;
+export type AccountDeletedEventType = v.InferOutput<typeof AccountDeletedEvent>;

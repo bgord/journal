@@ -1,13 +1,13 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type * as z from "zod/v4";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Events from "+publishing/events";
 import * as Invariants from "+publishing/invariants";
 import * as VO from "+publishing/value-objects";
 
 export type ShareableLinkEvent = (typeof ShareableLink)["events"][number];
-export type ShareableLinkEventType = z.infer<ShareableLinkEvent>;
+export type ShareableLinkEventType = v.InferOutput<ShareableLinkEvent>;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
@@ -60,7 +60,7 @@ export class ShareableLink {
   ) {
     const shareableLink = new ShareableLink(id, deps);
 
-    const event = Events.ShareableLinkCreatedEvent.parse({
+    const event = v.parse(Events.ShareableLinkCreatedEvent, {
       ...bg.createEventEnvelope(ShareableLink.getStream(id), deps),
       name: Events.SHAREABLE_LINK_CREATED_EVENT,
       payload: {
@@ -87,7 +87,7 @@ export class ShareableLink {
       createdAt: this.createdAt,
     });
 
-    const event = Events.ShareableLinkExpiredEvent.parse({
+    const event = v.parse(Events.ShareableLinkExpiredEvent, {
       ...bg.createEventEnvelope(ShareableLink.getStream(this.id), this.deps),
       name: Events.SHAREABLE_LINK_EXPIRED_EVENT,
       payload: { shareableLinkId: this.id },
@@ -100,7 +100,7 @@ export class ShareableLink {
     Invariants.ShareableLinkIsActive.enforce({ status: this.status });
     Invariants.RequesterOwnsShareableLink.enforce({ requesterId, ownerId: this.ownerId });
 
-    const event = Events.ShareableLinkRevokedEvent.parse({
+    const event = v.parse(Events.ShareableLinkRevokedEvent, {
       ...bg.createEventEnvelope(ShareableLink.getStream(this.id), this.deps),
       name: Events.SHAREABLE_LINK_REVOKED_EVENT,
       payload: { shareableLinkId: this.id },

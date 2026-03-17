@@ -1,14 +1,14 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
 export const SITUATION_LOGGED_EVENT = "SITUATION_LOGGED_EVENT";
 
-export const SituationLoggedEvent = z.object({
+export const SituationLoggedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(SITUATION_LOGGED_EVENT),
-  payload: z.object({
+  name: v.literal(SITUATION_LOGGED_EVENT),
+  payload: v.object({
     entryId: VO.EntryId,
     description: VO.SituationDescriptionSchema,
     kind: VO.SituationKindSchema,
@@ -17,4 +17,4 @@ export const SituationLoggedEvent = z.object({
   }),
 });
 
-export type SituationLoggedEventType = z.infer<typeof SituationLoggedEvent>;
+export type SituationLoggedEventType = v.InferOutput<typeof SituationLoggedEvent>;

@@ -1,14 +1,14 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 
 export const PROFILE_AVATAR_UPDATED_EVENT = "PROFILE_AVATAR_UPDATED_EVENT";
 
-export const ProfileAvatarUpdatedEvent = z.object({
+export const ProfileAvatarUpdatedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(PROFILE_AVATAR_UPDATED_EVENT),
-  payload: z.object({ userId: Auth.VO.UserId, key: tools.ObjectKey, etag: bg.HashValue }),
+  name: v.literal(PROFILE_AVATAR_UPDATED_EVENT),
+  payload: v.object({ userId: Auth.VO.UserId, key: tools.ObjectKey, etag: bg.HashValue }),
 });
 
-export type ProfileAvatarUpdatedEventType = z.infer<typeof ProfileAvatarUpdatedEvent>;
+export type ProfileAvatarUpdatedEventType = v.InferOutput<typeof ProfileAvatarUpdatedEvent>;

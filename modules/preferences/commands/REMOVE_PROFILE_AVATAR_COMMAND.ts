@@ -1,14 +1,14 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 
 // Stryker disable all
 export const REMOVE_PROFILE_AVATAR_COMMAND = "REMOVE_PROFILE_AVATAR_COMMAND";
 // Stryker restore all
 
-export const RemoveProfileAvatarCommand = z.object({
+export const RemoveProfileAvatarCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(REMOVE_PROFILE_AVATAR_COMMAND),
-  payload: z.object({ userId: bg.UUID }),
+  name: v.literal(REMOVE_PROFILE_AVATAR_COMMAND),
+  payload: v.object({ userId: bg.UUID }),
 });
 
-export type RemoveProfileAvatarCommandType = z.infer<typeof RemoveProfileAvatarCommand>;
+export type RemoveProfileAvatarCommandType = v.InferOutput<typeof RemoveProfileAvatarCommand>;

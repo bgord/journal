@@ -1,6 +1,9 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { EntryListFilterOptions } from "./entry-list-filter-options";
 
-export const EntryListFilter = z.enum(EntryListFilterOptions).default(EntryListFilterOptions.last_week);
+export const EntryListFilter = v.optional(
+  v.picklist(Object.values(EntryListFilterOptions)),
+  EntryListFilterOptions.last_week,
+);
 
-export type EntryListFilterType = z.infer<typeof EntryListFilter>;
+export type EntryListFilterType = v.InferOutput<typeof EntryListFilter>;

@@ -1,14 +1,12 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { GrossEmotionRegulationStrategy } from "./gross-emotion-regulation-strategy.enum";
 
 const ReactionTypeErrors = { Invalid: "reaction.type.invalid" };
 
-export const ReactionTypeSchema = z.enum(GrossEmotionRegulationStrategy, {
-  message: ReactionTypeErrors.Invalid,
-});
+export const ReactionTypeSchema = v.enum(GrossEmotionRegulationStrategy, ReactionTypeErrors.Invalid);
 
 /** @public */
-export type ReactionTypeType = z.infer<typeof ReactionTypeSchema>;
+export type ReactionTypeType = v.InferOutput<typeof ReactionTypeSchema>;
 
 export class ReactionType {
   static readonly Errors = ReactionTypeErrors;
@@ -16,7 +14,7 @@ export class ReactionType {
   private readonly value: ReactionTypeType;
 
   constructor(value: ReactionTypeType) {
-    this.value = ReactionTypeSchema.parse(value);
+    this.value = v.parse(ReactionTypeSchema, value);
   }
 
   get(): ReactionTypeType {

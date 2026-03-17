@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
@@ -7,10 +7,10 @@ import * as VO from "+emotions/value-objects";
 export const GENERATE_ALARM_COMMAND = "GENERATE_ALARM_COMMAND";
 // Stryker restore all
 
-export const GenerateAlarmCommand = z.object({
+export const GenerateAlarmCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(GENERATE_ALARM_COMMAND),
-  payload: z.object({ detection: z.instanceof(VO.AlarmDetection), userId: Auth.VO.UserId }),
+  name: v.literal(GENERATE_ALARM_COMMAND),
+  payload: v.object({ detection: v.instance(VO.AlarmDetection), userId: Auth.VO.UserId }),
 });
 
-export type GenerateAlarmCommandType = z.infer<typeof GenerateAlarmCommand>;
+export type GenerateAlarmCommandType = v.InferOutput<typeof GenerateAlarmCommand>;

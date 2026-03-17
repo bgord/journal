@@ -1,15 +1,15 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as VO from "+emotions/value-objects";
 
 // Stryker disable all
 export const REQUEST_ALARM_NOTIFICATION_COMMAND = "REQUEST_ALARM_NOTIFICATION_COMMAND";
 // Stryker restore all
 
-export const RequestAlarmNotificationCommand = z.object({
+export const RequestAlarmNotificationCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(REQUEST_ALARM_NOTIFICATION_COMMAND),
-  payload: z.object({ alarmId: VO.AlarmId }),
+  name: v.literal(REQUEST_ALARM_NOTIFICATION_COMMAND),
+  payload: v.object({ alarmId: VO.AlarmId }),
 });
 
-export type RequestAlarmNotificationCommandType = z.infer<typeof RequestAlarmNotificationCommand>;
+export type RequestAlarmNotificationCommandType = v.InferOutput<typeof RequestAlarmNotificationCommand>;

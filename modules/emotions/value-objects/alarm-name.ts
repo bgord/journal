@@ -1,6 +1,6 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { AlarmNameOption } from "./alarm-name-option";
 
-export const AlarmName = z.enum(AlarmNameOption);
+export const AlarmName = v.enum(AlarmNameOption);
 
-export type AlarmNameType = z.infer<typeof AlarmName>;
+export type AlarmNameType = v.InferOutput<typeof AlarmName>;

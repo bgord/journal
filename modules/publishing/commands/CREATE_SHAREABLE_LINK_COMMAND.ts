@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+publishing/value-objects";
 
@@ -8,16 +8,16 @@ import * as VO from "+publishing/value-objects";
 export const CREATE_SHAREABLE_LINK_COMMAND = "CREATE_SHAREABLE_LINK_COMMAND";
 // Stryker restore all
 
-export const CreateShareableLinkCommand = z.object({
+export const CreateShareableLinkCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(CREATE_SHAREABLE_LINK_COMMAND),
-  payload: z.object({
+  name: v.literal(CREATE_SHAREABLE_LINK_COMMAND),
+  payload: v.object({
     shareableLinkId: VO.ShareableLinkId,
     requesterId: Auth.VO.UserId,
     publicationSpecification: VO.PublicationSpecification,
-    dateRange: z.instanceof(tools.DateRange),
+    dateRange: v.instance(tools.DateRange),
     durationMs: tools.DurationMs,
   }),
 });
 
-export type CreateShareableLinkCommandType = z.infer<typeof CreateShareableLinkCommand>;
+export type CreateShareableLinkCommandType = v.InferOutput<typeof CreateShareableLinkCommand>;

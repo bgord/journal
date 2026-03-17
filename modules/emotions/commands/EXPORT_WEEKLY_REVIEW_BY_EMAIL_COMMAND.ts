@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
@@ -7,10 +7,10 @@ import * as VO from "+emotions/value-objects";
 export const EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND = "SEND_WEEKLY_REVIEW_BY_EMAIL_COMMAND";
 // Stryker restore all
 
-export const ExportWeeklyReviewByEmailCommand = z.object({
+export const ExportWeeklyReviewByEmailCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND),
-  payload: z.object({ weeklyReviewId: VO.WeeklyReviewId, userId: Auth.VO.UserId }),
+  name: v.literal(EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND),
+  payload: v.object({ weeklyReviewId: VO.WeeklyReviewId, userId: Auth.VO.UserId }),
 });
 
-export type ExportWeeklyReviewByEmailCommandType = z.infer<typeof ExportWeeklyReviewByEmailCommand>;
+export type ExportWeeklyReviewByEmailCommandType = v.InferOutput<typeof ExportWeeklyReviewByEmailCommand>;

@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as Entities from "+emotions/entities";
 import * as VO from "+emotions/value-objects";
@@ -9,15 +9,15 @@ import * as VO from "+emotions/value-objects";
 export const EVALUATE_REACTION_COMMAND = "EVALUATE_REACTION_COMMAND";
 // Stryker restore all
 
-export const EvaluateReactionCommand = z.object({
+export const EvaluateReactionCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(EVALUATE_REACTION_COMMAND),
-  revision: z.instanceof(tools.Revision),
-  payload: z.object({
+  name: v.literal(EVALUATE_REACTION_COMMAND),
+  revision: v.instance(tools.Revision),
+  payload: v.object({
     entryId: VO.EntryId,
-    newReaction: z.instanceof(Entities.Reaction),
+    newReaction: v.instance(Entities.Reaction),
     userId: Auth.VO.UserId,
   }),
 });
 
-export type EvaluateReactionCommandType = z.infer<typeof EvaluateReactionCommand>;
+export type EvaluateReactionCommandType = v.InferOutput<typeof EvaluateReactionCommand>;

@@ -1,16 +1,17 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { SituationDescriptionMax, SituationDescriptionMin } from "./situation-description.validation";
 
 const SituationDescriptionErrors = { Invalid: "situation.description.invalid" };
 
-export const SituationDescriptionSchema = z
-  .string(SituationDescriptionErrors.Invalid)
-  .trim()
-  .min(SituationDescriptionMin, SituationDescriptionErrors.Invalid)
-  .max(SituationDescriptionMax, SituationDescriptionErrors.Invalid);
+export const SituationDescriptionSchema = v.pipe(
+  v.string(SituationDescriptionErrors.Invalid),
+  v.trim(),
+  v.minLength(SituationDescriptionMin, SituationDescriptionErrors.Invalid),
+  v.maxLength(SituationDescriptionMax, SituationDescriptionErrors.Invalid),
+);
 
 /** @public */
-export type SituationDescriptionType = z.infer<typeof SituationDescriptionSchema>;
+export type SituationDescriptionType = v.InferOutput<typeof SituationDescriptionSchema>;
 
 export class SituationDescription {
   static readonly Errors = SituationDescriptionErrors;
@@ -20,7 +21,7 @@ export class SituationDescription {
   private readonly value: SituationDescriptionType;
 
   constructor(value: SituationDescriptionType) {
-    this.value = SituationDescriptionSchema.parse(value);
+    this.value = v.parse(SituationDescriptionSchema, value);
   }
 
   get(): SituationDescriptionType {

@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
@@ -8,14 +8,14 @@ import * as VO from "+emotions/value-objects";
 export const COMPLETE_WEEKLY_REVIEW_COMMAND = "COMPLETE_WEEKLY_REVIEW_COMMAND";
 // Stryker restore all
 
-export const CompleteWeeklyReviewCommand = z.object({
+export const CompleteWeeklyReviewCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(COMPLETE_WEEKLY_REVIEW_COMMAND),
-  payload: z.object({
+  name: v.literal(COMPLETE_WEEKLY_REVIEW_COMMAND),
+  payload: v.object({
     weeklyReviewId: VO.WeeklyReviewId,
-    insights: z.instanceof(AI.Advice),
+    insights: v.instance(AI.Advice),
     userId: Auth.VO.UserId,
   }),
 });
 
-export type CompleteWeeklyReviewCommandType = z.infer<typeof CompleteWeeklyReviewCommand>;
+export type CompleteWeeklyReviewCommandType = v.InferOutput<typeof CompleteWeeklyReviewCommand>;

@@ -1,14 +1,14 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 
 // Stryker disable all
 export const UPDATE_PROFILE_AVATAR_COMMAND = "UPDATE_PROFILE_AVATAR_COMMAND";
 // Stryker restore all
 
-export const UpdateProfileAvatarCommand = z.object({
+export const UpdateProfileAvatarCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(UPDATE_PROFILE_AVATAR_COMMAND),
-  payload: z.object({ userId: bg.UUID, absoluteFilePath: z.string().min(1) }),
+  name: v.literal(UPDATE_PROFILE_AVATAR_COMMAND),
+  payload: v.object({ userId: bg.UUID, absoluteFilePath: v.pipe(v.string(), v.minLength(1)) }),
 });
 
-export type UpdateProfileAvatarCommandType = z.infer<typeof UpdateProfileAvatarCommand>;
+export type UpdateProfileAvatarCommandType = v.InferOutput<typeof UpdateProfileAvatarCommand>;

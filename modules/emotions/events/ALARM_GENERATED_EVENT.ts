@@ -1,14 +1,14 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
 export const ALARM_GENERATED_EVENT = "ALARM_GENERATED_EVENT";
 
-export const AlarmGeneratedEvent = z.object({
+export const AlarmGeneratedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(ALARM_GENERATED_EVENT),
-  payload: z.object({
+  name: v.literal(ALARM_GENERATED_EVENT),
+  payload: v.object({
     alarmId: VO.AlarmId,
     alarmName: VO.AlarmName,
     trigger: VO.AlarmTrigger,
@@ -16,4 +16,4 @@ export const AlarmGeneratedEvent = z.object({
   }),
 });
 
-export type AlarmGeneratedEventType = z.infer<typeof AlarmGeneratedEvent>;
+export type AlarmGeneratedEventType = v.InferOutput<typeof AlarmGeneratedEvent>;

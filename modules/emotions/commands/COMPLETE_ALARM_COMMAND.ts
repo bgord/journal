@@ -1,15 +1,15 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as VO from "+emotions/value-objects";
 
 // Stryker disable all
 export const COMPLETE_ALARM_COMMAND = "COMPLETE_ALARM_COMMAND";
 // Stryker restore all
 
-export const CompleteAlarmCommand = z.object({
+export const CompleteAlarmCommand = v.object({
   ...bg.CommandEnvelopeSchema,
-  name: z.literal(COMPLETE_ALARM_COMMAND),
-  payload: z.object({ alarmId: VO.AlarmId }),
+  name: v.literal(COMPLETE_ALARM_COMMAND),
+  payload: v.object({ alarmId: VO.AlarmId }),
 });
 
-export type CompleteAlarmCommandType = z.infer<typeof CompleteAlarmCommand>;
+export type CompleteAlarmCommandType = v.InferOutput<typeof CompleteAlarmCommand>;

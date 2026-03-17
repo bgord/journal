@@ -1,16 +1,17 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { ReactionDescriptionMax, ReactionDescriptionMin } from "./reaction-description.validation";
 
 const ReactionDescriptionErrors = { invalid: "reaction.description.invalid" };
 
-export const ReactionDescriptionSchema = z
-  .string(ReactionDescriptionErrors.invalid)
-  .trim()
-  .min(ReactionDescriptionMin, ReactionDescriptionErrors.invalid)
-  .max(ReactionDescriptionMax, ReactionDescriptionErrors.invalid);
+export const ReactionDescriptionSchema = v.pipe(
+  v.string(ReactionDescriptionErrors.invalid),
+  v.trim(),
+  v.minLength(ReactionDescriptionMin, ReactionDescriptionErrors.invalid),
+  v.maxLength(ReactionDescriptionMax, ReactionDescriptionErrors.invalid),
+);
 
 /** @public */
-export type ReactionDescriptionType = z.infer<typeof ReactionDescriptionSchema>;
+export type ReactionDescriptionType = v.InferOutput<typeof ReactionDescriptionSchema>;
 
 export class ReactionDescription {
   static readonly Errors = ReactionDescriptionErrors;
@@ -20,7 +21,7 @@ export class ReactionDescription {
   private readonly value: ReactionDescriptionType;
 
   constructor(value: ReactionDescriptionType) {
-    this.value = ReactionDescriptionSchema.parse(value);
+    this.value = v.parse(ReactionDescriptionSchema, value);
   }
 
   get(): ReactionDescriptionType {

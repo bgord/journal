@@ -1,16 +1,16 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as AI from "+ai";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
 export const WEEKLY_REVIEW_COMPLETED_EVENT = "WEEKLY_REVIEW_COMPLETED_EVENT";
 
-export const WeeklyReviewCompletedEvent = z.object({
+export const WeeklyReviewCompletedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(WEEKLY_REVIEW_COMPLETED_EVENT),
-  payload: z.object({
+  name: v.literal(WEEKLY_REVIEW_COMPLETED_EVENT),
+  payload: v.object({
     weeklyReviewId: VO.WeeklyReviewId,
     weekIsoId: tools.WeekIsoId,
     insights: AI.AdviceSchema,
@@ -18,4 +18,4 @@ export const WeeklyReviewCompletedEvent = z.object({
   }),
 });
 
-export type WeeklyReviewCompletedEventType = z.infer<typeof WeeklyReviewCompletedEvent>;
+export type WeeklyReviewCompletedEventType = v.InferOutput<typeof WeeklyReviewCompletedEvent>;

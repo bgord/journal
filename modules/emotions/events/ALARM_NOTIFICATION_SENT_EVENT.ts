@@ -1,13 +1,13 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as VO from "+emotions/value-objects";
 
 export const ALARM_NOTIFICATION_SENT_EVENT = "ALARM_NOTIFICATION_SENT_EVENT";
 
-export const AlarmNotificationSentEvent = z.object({
+export const AlarmNotificationSentEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(ALARM_NOTIFICATION_SENT_EVENT),
-  payload: z.object({ alarmId: VO.AlarmId }),
+  name: v.literal(ALARM_NOTIFICATION_SENT_EVENT),
+  payload: v.object({ alarmId: VO.AlarmId }),
 });
 
-export type AlarmNotificationSentEventType = z.infer<typeof AlarmNotificationSentEvent>;
+export type AlarmNotificationSentEventType = v.InferOutput<typeof AlarmNotificationSentEvent>;

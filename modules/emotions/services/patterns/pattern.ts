@@ -1,6 +1,6 @@
 import type * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
-import type * as z from "zod/v4";
+import type * as v from "valibot";
 import type * as Auth from "+auth";
 import type * as Events from "+emotions/events";
 import type * as VO from "+emotions/value-objects";
@@ -11,7 +11,7 @@ export type PatternDetectionEvent =
   | typeof Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent
   | typeof Events.LowCopingEffectivenessPatternDetectedEvent;
 
-export type PatternDetectionEventType = z.infer<PatternDetectionEvent>;
+export type PatternDetectionEventType = v.InferOutput<PatternDetectionEvent>;
 
 export enum PatternKindOptions {
   /** @public */

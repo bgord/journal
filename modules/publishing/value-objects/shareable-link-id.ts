@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import type * as z from "zod/v4";
+import type * as v from "valibot";
 
 export const ShareableLinkId = bg.UUID;
-export type ShareableLinkIdType = z.infer<typeof ShareableLinkId>;
+export type ShareableLinkIdType = v.InferOutput<typeof ShareableLinkId>;

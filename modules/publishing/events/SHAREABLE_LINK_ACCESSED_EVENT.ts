@@ -1,23 +1,23 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+publishing/value-objects";
 
 export const SHAREABLE_LINK_ACCESSED_EVENT = "SHAREABLE_LINK_ACCESSED_EVENT";
 
-export const ShareableLinkAccessedEvent = z.object({
+export const ShareableLinkAccessedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(SHAREABLE_LINK_ACCESSED_EVENT),
-  payload: z.object({
+  name: v.literal(SHAREABLE_LINK_ACCESSED_EVENT),
+  payload: v.object({
     shareableLinkId: VO.ShareableLinkId,
     ownerId: Auth.VO.UserId,
     publicationSpecification: VO.PublicationSpecification,
-    validity: z.enum(VO.AccessValidity),
+    validity: v.enum(VO.AccessValidity),
     visitorId: bg.HashValue,
     timestamp: tools.TimestampValue,
-    reason: z.string(),
+    reason: v.string(),
   }),
 });
 
-export type ShareableLinkAccessedEventType = z.infer<typeof ShareableLinkAccessedEvent>;
+export type ShareableLinkAccessedEventType = v.InferOutput<typeof ShareableLinkAccessedEvent>;

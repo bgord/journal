@@ -1,5 +1,5 @@
-import * as z from "zod/v4";
+import * as bg from "@bgord/bun";
+import type * as v from "valibot";
 
-export const UserId = z.uuid();
-
-export type UserIdType = z.infer<typeof UserId>;
+export const UserId = bg.UUID;
+export type UserIdType = v.InferOutput<typeof UserId>;

@@ -1,14 +1,14 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
 export const ENTRY_DELETED_EVENT = "ENTRY_DELETED_EVENT";
 
-export const EntryDeletedEvent = z.object({
+export const EntryDeletedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(ENTRY_DELETED_EVENT),
-  payload: z.object({ entryId: VO.EntryId, userId: Auth.VO.UserId }),
+  name: v.literal(ENTRY_DELETED_EVENT),
+  payload: v.object({ entryId: VO.EntryId, userId: Auth.VO.UserId }),
 });
 
-export type EntryDeletedEventType = z.infer<typeof EntryDeletedEvent>;
+export type EntryDeletedEventType = v.InferOutput<typeof EntryDeletedEvent>;

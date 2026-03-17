@@ -1,6 +1,12 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 
 // Stryker disable all
-export const QuotaLimit = z.int().positive().max(1000).brand("quota-limit");
+export const QuotaLimit = v.pipe(
+  v.number(),
+  v.integer(),
+  v.minValue(1),
+  v.maxValue(1000),
+  v.brand("quota-limit"),
+);
 // Stryker restore all
-export type QuotaLimitType = z.infer<typeof QuotaLimit>;
+export type QuotaLimitType = v.InferOutput<typeof QuotaLimit>;

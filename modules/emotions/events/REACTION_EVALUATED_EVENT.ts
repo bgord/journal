@@ -1,14 +1,14 @@
 import * as bg from "@bgord/bun";
-import * as z from "zod/v4";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
 export const REACTION_EVALUATED_EVENT = "REACTION_EVALUATED_EVENT";
 
-export const ReactionEvaluatedEvent = z.object({
+export const ReactionEvaluatedEvent = v.object({
   ...bg.EventEnvelopeSchema,
-  name: z.literal(REACTION_EVALUATED_EVENT),
-  payload: z.object({
+  name: v.literal(REACTION_EVALUATED_EVENT),
+  payload: v.object({
     entryId: VO.EntryId,
     type: VO.ReactionTypeSchema,
     effectiveness: VO.ReactionEffectivenessSchema,
@@ -17,4 +17,4 @@ export const ReactionEvaluatedEvent = z.object({
   }),
 });
 
-export type ReactionEvaluatedEventType = z.infer<typeof ReactionEvaluatedEvent>;
+export type ReactionEvaluatedEventType = v.InferOutput<typeof ReactionEvaluatedEvent>;

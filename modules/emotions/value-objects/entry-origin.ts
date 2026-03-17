@@ -1,4 +1,4 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { EntryOriginOption } from "./entry-origin-option";
 
-export const EntryOrigin = z.enum(EntryOriginOption);
+export const EntryOrigin = v.enum(EntryOriginOption);

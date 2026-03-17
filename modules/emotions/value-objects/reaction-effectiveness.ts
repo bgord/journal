@@ -1,15 +1,17 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { ReactionEffectivenessMax, ReactionEffectivenessMin } from "./reaction-effectiveness.validation";
 
 const ReactionEffectivenessErrors = { min_max: "reaction.effectiveness.min.max" };
 
-export const ReactionEffectivenessSchema = z
-  .int(ReactionEffectivenessErrors.min_max)
-  .gte(ReactionEffectivenessMin, ReactionEffectivenessErrors.min_max)
-  .lte(ReactionEffectivenessMax, ReactionEffectivenessErrors.min_max);
+export const ReactionEffectivenessSchema = v.pipe(
+  v.number(ReactionEffectivenessErrors.min_max),
+  v.integer(ReactionEffectivenessErrors.min_max),
+  v.minValue(ReactionEffectivenessMin, ReactionEffectivenessErrors.min_max),
+  v.maxValue(ReactionEffectivenessMax, ReactionEffectivenessErrors.min_max),
+);
 
 /** @public */
-export type ReactionEffectivenessType = z.infer<typeof ReactionEffectivenessSchema>;
+export type ReactionEffectivenessType = v.InferOutput<typeof ReactionEffectivenessSchema>;
 
 export class ReactionEffectiveness {
   static readonly Errors = ReactionEffectivenessErrors;
@@ -19,7 +21,7 @@ export class ReactionEffectiveness {
   private readonly value: ReactionEffectivenessType;
 
   constructor(value: ReactionEffectivenessType) {
-    this.value = ReactionEffectivenessSchema.parse(value);
+    this.value = v.parse(ReactionEffectivenessSchema, value);
   }
 
   get(): ReactionEffectivenessType {

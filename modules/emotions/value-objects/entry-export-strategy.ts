@@ -1,8 +1,9 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { EntryExportStrategyOptions } from "./entry-export-strategy-options";
 
-export const EntryExportStrategy = z
-  .enum(EntryExportStrategyOptions)
-  .default(EntryExportStrategyOptions.text);
+export const EntryExportStrategy = v.optional(
+  v.picklist(Object.values(EntryExportStrategyOptions)),
+  EntryExportStrategyOptions.text,
+);
 
-export type EntryExportStrategyType = z.infer<typeof EntryExportStrategy>;
+export type EntryExportStrategyType = v.InferOutput<typeof EntryExportStrategy>;

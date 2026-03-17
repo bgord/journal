@@ -1,14 +1,12 @@
-import * as z from "zod/v4";
+import * as v from "valibot";
 import { GenevaWheelEmotion, NegativeEmotions, PositiveEmotions } from "./geneva-wheel-emotion.enum";
 
 const EmotionLabelErrors = { Invalid: "emotion.label.invalid" };
 
-export const EmotionLabelSchema = z.enum(GenevaWheelEmotion, {
-  error: EmotionLabelErrors.Invalid,
-});
+export const EmotionLabelSchema = v.enum(GenevaWheelEmotion, EmotionLabelErrors.Invalid);
 
 /** @public */
-export type EmotionLabelType = z.infer<typeof EmotionLabelSchema>;
+export type EmotionLabelType = v.InferOutput<typeof EmotionLabelSchema>;
 
 export class EmotionLabel {
   static readonly Errors = EmotionLabelErrors;
@@ -16,7 +14,7 @@ export class EmotionLabel {
   private readonly value: EmotionLabelType;
 
   constructor(value: EmotionLabelType) {
-    this.value = EmotionLabelSchema.parse(value);
+    this.value = v.parse(EmotionLabelSchema, value);
   }
 
   get(): EmotionLabelType {
