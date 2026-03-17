@@ -127,11 +127,12 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
         await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
 
-        const event = v.parse(Auth.Events.AccountCreatedEvent, {
-          ...bg.createEventEnvelope(`account_${result.user.id}`, di.Adapters.System),
-          name: Auth.Events.ACCOUNT_CREATED_EVENT,
-          payload: { userId: result.user.id, timestamp: now.ms },
-        } satisfies Auth.Events.AccountCreatedEventType);
+        const event = wip.event(
+          Auth.Events.AccountCreatedEvent,
+          `account_${result.user.id}`,
+          { payload: { userId: result.user.id, timestamp: now.ms } },
+          di.Adapters.System,
+        );
 
         await di.Tools.EventStore.save([event]);
 

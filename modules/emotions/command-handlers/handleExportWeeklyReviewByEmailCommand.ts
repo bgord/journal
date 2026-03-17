@@ -1,7 +1,7 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
 import * as Emotions from "+emotions";
+import * as wip from "+infra/build";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -27,16 +27,19 @@ export const handleExportWeeklyReviewByEmailCommand =
 
     const weeklyReviewExportId = deps.IdProvider.generate();
 
-    await deps.EventStore.save([
-      v.parse(Emotions.Events.WeeklyReviewExportByEmailRequestedEvent, {
-        ...bg.createEventEnvelope(`weekly_review_export_by_email_${weeklyReviewExportId}`, deps),
-        name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
+    const event = wip.event(
+      Emotions.Events.WeeklyReviewExportByEmailRequestedEvent,
+      `weekly_review_export_by_email_${weeklyReviewExportId}`,
+      {
         payload: {
           weeklyReviewId: command.payload.weeklyReviewId,
           userId: command.payload.userId,
           weeklyReviewExportId,
           attempt: tools.Int.positive(1),
         },
-      } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType),
-    ]);
+      },
+      deps,
+    );
+
+    await deps.EventStore.save([event]);
   };

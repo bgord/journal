@@ -1,9 +1,9 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { LanguagesType } from "+languages";
+import * as wip from "+infra/build";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewExportByEmailRequestedEventType
@@ -63,19 +63,19 @@ export class WeeklyReviewExportByEmail {
       await this.deps.Mailer.send(new bg.MailerTemplate(config, message, [attachment]));
     } catch {
       await this.deps.EventStore.save([
-        v.parse(Emotions.Events.WeeklyReviewExportByEmailFailedEvent, {
-          ...bg.createEventEnvelope(
-            `weekly_review_export_by_email_${event.payload.weeklyReviewExportId}`,
-            this.deps,
-          ),
-          name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
-          payload: {
-            weeklyReviewId: event.payload.weeklyReviewId,
-            userId: event.payload.userId,
-            weeklyReviewExportId: event.payload.weeklyReviewExportId,
-            attempt: event.payload.attempt,
+        wip.event(
+          Emotions.Events.WeeklyReviewExportByEmailFailedEvent,
+          `weekly_review_export_by_email_${event.payload.weeklyReviewExportId}`,
+          {
+            payload: {
+              weeklyReviewId: event.payload.weeklyReviewId,
+              userId: event.payload.userId,
+              weeklyReviewExportId: event.payload.weeklyReviewExportId,
+              attempt: event.payload.attempt,
+            },
           },
-        } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType),
+          this.deps,
+        ),
       ]);
     }
   }
@@ -87,16 +87,19 @@ export class WeeklyReviewExportByEmail {
 
     await this.deps.Sleeper.wait(this.deps.RetryBackoffStrategy.next(event.payload.attempt));
     await this.deps.EventStore.save([
-      v.parse(Emotions.Events.WeeklyReviewExportByEmailRequestedEvent, {
-        ...bg.createEventEnvelope(event.stream, this.deps),
-        name: Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
-        payload: {
-          weeklyReviewId: event.payload.weeklyReviewId,
-          userId: event.payload.userId,
-          weeklyReviewExportId: event.payload.weeklyReviewExportId,
-          attempt: tools.Int.positive(event.payload.attempt + 1),
+      wip.event(
+        Emotions.Events.WeeklyReviewExportByEmailRequestedEvent,
+        event.stream,
+        {
+          payload: {
+            weeklyReviewId: event.payload.weeklyReviewId,
+            userId: event.payload.userId,
+            weeklyReviewExportId: event.payload.weeklyReviewExportId,
+            attempt: tools.Int.positive(event.payload.attempt + 1),
+          },
         },
-      } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType),
+        this.deps,
+      ),
     ]);
   }
 }

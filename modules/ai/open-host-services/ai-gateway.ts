@@ -1,9 +1,9 @@
-import * as bg from "@bgord/bun";
-import * as v from "valibot";
+import type * as bg from "@bgord/bun";
 import * as Events from "+ai/events";
 import type * as Ports from "+ai/ports";
 import * as Specs from "+ai/specifications";
 import type * as VO from "+ai/value-objects";
+import * as wip from "+infra/build";
 
 /** @public */
 export class AiQuotaExceededError extends Error {
@@ -41,11 +41,12 @@ export class AiGateway implements Ports.AiGatewayPort {
     const verification = await this.check(context);
 
     if (verification.violations.length) {
-      const event = v.parse(Events.AiQuotaExceededEvent, {
-        ...bg.createEventEnvelope(`user_ai_usage_${context.userId}`, this.deps),
-        name: Events.AI_QUOTA_EXCEEDED_EVENT,
-        payload: { userId: context.userId, timestamp: context.timestamp },
-      } satisfies Events.AiQuotaExceededEventType);
+      const event = wip.event(
+        Events.AiQuotaExceededEvent,
+        `user_ai_usage_${context.userId}`,
+        { payload: { userId: context.userId, timestamp: context.timestamp } },
+        this.deps,
+      );
 
       await this.deps.Publisher.publish([event]);
 
@@ -54,11 +55,12 @@ export class AiGateway implements Ports.AiGatewayPort {
 
     const advice = await this.deps.AiClient.request(prompt);
 
-    const event = v.parse(Events.AiRequestRegisteredEvent, {
-      ...bg.createEventEnvelope(`user_ai_usage_${context.userId}`, this.deps),
-      name: Events.AI_REQUEST_REGISTERED_EVENT,
-      payload: context,
-    } satisfies Events.AiRequestRegisteredEventType);
+    const event = wip.event(
+      Events.AiRequestRegisteredEvent,
+      `user_ai_usage_${context.userId}`,
+      { payload: context },
+      this.deps,
+    );
 
     await this.deps.Publisher.publish([event]);
 

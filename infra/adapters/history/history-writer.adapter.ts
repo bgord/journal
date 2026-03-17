@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
+import * as wip from "+infra/build";
 
 type AcceptedEvent = bg.History.Events.HistoryPopulatedEventType | bg.History.Events.HistoryClearedEventType;
 
@@ -15,22 +15,24 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   constructor(private readonly deps: Dependencies) {}
 
   async populate(history: Omit<bg.History.VO.HistoryType, "id">) {
-    const event = v.parse(bg.History.Events.HistoryPopulatedEvent, {
-      ...bg.createEventEnvelope(`history_${history.subject}`, this.deps),
-      name: bg.History.Events.HISTORY_POPULATED_EVENT,
-      payload: { ...history, id: this.deps.IdProvider.generate() },
-    } satisfies bg.History.Events.HistoryPopulatedEventType);
+    const event = wip.event(
+      bg.History.Events.HistoryPopulatedEvent,
+      `history_${history.subject}`,
+      { payload: { ...history, id: this.deps.IdProvider.generate() } },
+      this.deps,
+    );
 
     await this.deps.Sleeper.wait(tools.Duration.Ms(10));
     await this.deps.EventStore.save([event]);
   }
 
   async clear(subject: bg.History.VO.HistorySubjectType) {
-    const event = v.parse(bg.History.Events.HistoryClearedEvent, {
-      ...bg.createEventEnvelope(`history_${subject}`, this.deps),
-      name: bg.History.Events.HISTORY_CLEARED_EVENT,
-      payload: { subject },
-    } satisfies bg.History.Events.HistoryClearedEventType);
+    const event = wip.event(
+      bg.History.Events.HistoryClearedEvent,
+      `history_${subject}`,
+      { payload: { subject } },
+      this.deps,
+    );
 
     await this.deps.Sleeper.wait(tools.Duration.Ms(10));
     await this.deps.EventStore.save([event]);

@@ -1,9 +1,9 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Events from "+emotions/events";
+import * as wip from "+infra/build";
 
 export type EntryEventType =
   | Events.SituationLoggedEventType
@@ -65,44 +65,53 @@ export class Entry {
   ) {
     const entry = new Entry(id, deps);
 
-    const SituationLoggedEvent = v.parse(Emotions.Events.SituationLoggedEvent, {
-      ...bg.createEventEnvelope(Entry.getStream(id), deps),
-      name: Emotions.Events.SITUATION_LOGGED_EVENT,
-      payload: {
-        entryId: id,
-        description: situation.description.get(),
-        kind: situation.kind.get(),
-        userId: requesterId,
-        origin,
+    const SituationLoggedEvent = wip.event(
+      Emotions.Events.SituationLoggedEvent,
+      Entry.getStream(id),
+      {
+        payload: {
+          entryId: id,
+          description: situation.description.get(),
+          kind: situation.kind.get(),
+          userId: requesterId,
+          origin,
+        },
       },
-    } satisfies Emotions.Events.SituationLoggedEventType);
+      deps,
+    );
 
     entry.record(SituationLoggedEvent);
 
-    const EmotionLoggedEvent = v.parse(Emotions.Events.EmotionLoggedEvent, {
-      ...bg.createEventEnvelope(Entry.getStream(id), deps),
-      name: Emotions.Events.EMOTION_LOGGED_EVENT,
-      payload: {
-        entryId: id,
-        label: emotion.label.get(),
-        intensity: emotion.intensity.get(),
-        userId: requesterId,
+    const EmotionLoggedEvent = wip.event(
+      Emotions.Events.EmotionLoggedEvent,
+      Entry.getStream(id),
+      {
+        payload: {
+          entryId: id,
+          label: emotion.label.get(),
+          intensity: emotion.intensity.get(),
+          userId: requesterId,
+        },
       },
-    } satisfies Emotions.Events.EmotionLoggedEventType);
+      deps,
+    );
 
     entry.record(EmotionLoggedEvent);
 
-    const ReactionLoggedEvent = v.parse(Emotions.Events.ReactionLoggedEvent, {
-      ...bg.createEventEnvelope(Entry.getStream(id), deps),
-      name: Emotions.Events.REACTION_LOGGED_EVENT,
-      payload: {
-        entryId: id,
-        description: reaction.description.get(),
-        type: reaction.type.get(),
-        effectiveness: reaction.effectiveness.get(),
-        userId: requesterId,
+    const ReactionLoggedEvent = wip.event(
+      Emotions.Events.ReactionLoggedEvent,
+      Entry.getStream(id),
+      {
+        payload: {
+          entryId: id,
+          description: reaction.description.get(),
+          type: reaction.type.get(),
+          effectiveness: reaction.effectiveness.get(),
+          userId: requesterId,
+        },
       },
-    } satisfies Emotions.Events.ReactionLoggedEventType);
+      deps,
+    );
 
     entry.record(ReactionLoggedEvent);
 
@@ -115,16 +124,19 @@ export class Entry {
     Emotions.Invariants.EmotionForReappraisalExists.enforce({ emotion: this.emotion });
     Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
-    const event = v.parse(Emotions.Events.EmotionReappraisedEvent, {
-      ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
-      name: Emotions.Events.EMOTION_REAPPRAISED_EVENT,
-      payload: {
-        entryId: this.id,
-        newLabel: newEmotion.label.get(),
-        newIntensity: newEmotion.intensity.get(),
-        userId: requesterId,
+    const event = wip.event(
+      Emotions.Events.EmotionReappraisedEvent,
+      Entry.getStream(this.id),
+      {
+        payload: {
+          entryId: this.id,
+          newLabel: newEmotion.label.get(),
+          newIntensity: newEmotion.intensity.get(),
+          userId: requesterId,
+        },
       },
-    } satisfies Emotions.Events.EmotionReappraisedEventType);
+      this.deps,
+    );
 
     this.record(event);
   }
@@ -138,17 +150,20 @@ export class Entry {
     Emotions.Invariants.ReactionForEvaluationExists.enforce({ reaction: this.reaction });
     Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
-    const event = v.parse(Emotions.Events.ReactionEvaluatedEvent, {
-      ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
-      name: Emotions.Events.REACTION_EVALUATED_EVENT,
-      payload: {
-        entryId: this.id,
-        description: newReaction.description.get(),
-        type: newReaction.type.get(),
-        effectiveness: newReaction.effectiveness.get(),
-        userId: requesterId,
+    const event = wip.event(
+      Emotions.Events.ReactionEvaluatedEvent,
+      Entry.getStream(this.id),
+      {
+        payload: {
+          entryId: this.id,
+          description: newReaction.description.get(),
+          type: newReaction.type.get(),
+          effectiveness: newReaction.effectiveness.get(),
+          userId: requesterId,
+        },
       },
-    } satisfies Emotions.Events.ReactionEvaluatedEventType);
+      this.deps,
+    );
 
     this.record(event);
   }
@@ -157,11 +172,12 @@ export class Entry {
     Emotions.Invariants.EntryHasBenStarted.enforce({ situation: this.situation });
     Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
-    const event = v.parse(Emotions.Events.EntryDeletedEvent, {
-      ...bg.createEventEnvelope(Entry.getStream(this.id), this.deps),
-      name: Emotions.Events.ENTRY_DELETED_EVENT,
-      payload: { entryId: this.id, userId: requesterId },
-    } satisfies Emotions.Events.EntryDeletedEventType);
+    const event = wip.event(
+      Emotions.Events.EntryDeletedEvent,
+      Entry.getStream(this.id),
+      { payload: { entryId: this.id, userId: requesterId } },
+      this.deps,
+    );
 
     this.record(event);
   }

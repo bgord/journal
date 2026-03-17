@@ -1,6 +1,6 @@
-import * as bg from "@bgord/bun";
-import * as v from "valibot";
+import type * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
+import * as wip from "+infra/build";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewSkippedEventType;
 
@@ -25,13 +25,14 @@ export const handleRequestWeeklyReviewCommand =
         userId: command.payload.userId,
       })
     ) {
-      await deps.EventStore.save([
-        v.parse(Emotions.Events.WeeklyReviewSkippedEvent, {
-          ...bg.createEventEnvelope("weekly_review_skipped", deps),
-          name: Emotions.Events.WEEKLY_REVIEW_SKIPPED_EVENT,
-          payload: { weekIsoId: command.payload.week.toIsoId(), userId: command.payload.userId },
-        } satisfies Emotions.Events.WeeklyReviewSkippedEventType),
-      ]);
+      const event = wip.event(
+        Emotions.Events.WeeklyReviewSkippedEvent,
+        "weekly_review_skipped",
+        { payload: { weekIsoId: command.payload.week.toIsoId(), userId: command.payload.userId } },
+        deps,
+      );
+
+      await deps.EventStore.save([event]);
 
       return;
     }

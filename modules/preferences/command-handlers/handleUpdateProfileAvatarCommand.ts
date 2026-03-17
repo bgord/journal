@@ -1,7 +1,8 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import * as Preferences from "+preferences";
+import * as wip from "+infra/build";
 
 type AcceptedEvent = Preferences.Events.ProfileAvatarUpdatedEventType;
 
@@ -37,11 +38,12 @@ export const handleUpdateProfileAvatarCommand =
     const key = Preferences.VO.ProfileAvatarKeyFactory.stable(command.payload.userId);
     const object = await deps.RemoteFileStorage.putFromPath({ key, path: final });
 
-    const event = v.parse(Preferences.Events.ProfileAvatarUpdatedEvent, {
-      ...bg.createEventEnvelope(`preferences_${command.payload.userId}`, deps),
-      name: Preferences.Events.PROFILE_AVATAR_UPDATED_EVENT,
-      payload: { userId: command.payload.userId, key, etag: object.etag.get() },
-    } satisfies Preferences.Events.ProfileAvatarUpdatedEventType);
+    const event = wip.event(
+      Preferences.Events.ProfileAvatarUpdatedEvent,
+      `preferences_${command.payload.userId}`,
+      { payload: { userId: command.payload.userId, key, etag: object.etag.get() } },
+      deps,
+    );
 
     await deps.EventStore.save([event]);
   };

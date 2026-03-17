@@ -1,10 +1,10 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
-import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
 import * as VO from "+emotions/value-objects";
+import * as wip from "+infra/build";
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
@@ -28,16 +28,19 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
     );
 
     if (matches.length >= 3) {
-      return v.parse(Events.MaladaptiveReactionsPatternDetectedEvent, {
-        ...bg.createEventEnvelope(this.getStream(), this.deps),
-        name: Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
-        payload: {
-          userId: this.userId,
-          weekIsoId: this.week.toIsoId(),
-          entryIds: matches.map((entry) => entry.id),
-          name: this.name,
+      return wip.event(
+        Events.MaladaptiveReactionsPatternDetectedEvent,
+        this.getStream(),
+        {
+          payload: {
+            userId: this.userId,
+            weekIsoId: this.week.toIsoId(),
+            entryIds: matches.map((entry) => entry.id),
+            name: this.name,
+          },
         },
-      } satisfies Events.MaladaptiveReactionsPatternDetectedEventType);
+        this.deps,
+      );
     }
     return null;
   }

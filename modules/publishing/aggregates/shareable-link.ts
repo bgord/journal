@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
 import type * as Auth from "+auth";
+import * as wip from "+infra/build";
 import * as Events from "+publishing/events";
 import * as Invariants from "+publishing/invariants";
 import * as VO from "+publishing/value-objects";
@@ -60,19 +60,22 @@ export class ShareableLink {
   ) {
     const shareableLink = new ShareableLink(id, deps);
 
-    const event = v.parse(Events.ShareableLinkCreatedEvent, {
-      ...bg.createEventEnvelope(ShareableLink.getStream(id), deps),
-      name: Events.SHAREABLE_LINK_CREATED_EVENT,
-      payload: {
-        shareableLinkId: id,
-        ownerId: requesterId,
-        dateRangeStart: dateRange.getStart().ms,
-        dateRangeEnd: dateRange.getEnd().ms,
-        publicationSpecification,
-        durationMs,
-        createdAt: deps.Clock.now().ms,
+    const event = wip.event(
+      Events.ShareableLinkCreatedEvent,
+      ShareableLink.getStream(id),
+      {
+        payload: {
+          shareableLinkId: id,
+          ownerId: requesterId,
+          dateRangeStart: dateRange.getStart().ms,
+          dateRangeEnd: dateRange.getEnd().ms,
+          publicationSpecification,
+          durationMs,
+          createdAt: deps.Clock.now().ms,
+        },
       },
-    } satisfies Events.ShareableLinkCreatedEventType);
+      deps,
+    );
 
     shareableLink.record(event);
 
@@ -87,11 +90,12 @@ export class ShareableLink {
       createdAt: this.createdAt,
     });
 
-    const event = v.parse(Events.ShareableLinkExpiredEvent, {
-      ...bg.createEventEnvelope(ShareableLink.getStream(this.id), this.deps),
-      name: Events.SHAREABLE_LINK_EXPIRED_EVENT,
-      payload: { shareableLinkId: this.id },
-    } satisfies Events.ShareableLinkExpiredEventType);
+    const event = wip.event(
+      Events.ShareableLinkExpiredEvent,
+      ShareableLink.getStream(this.id),
+      { payload: { shareableLinkId: this.id } },
+      this.deps,
+    );
 
     this.record(event);
   }
@@ -100,11 +104,12 @@ export class ShareableLink {
     Invariants.ShareableLinkIsActive.enforce({ status: this.status });
     Invariants.RequesterOwnsShareableLink.enforce({ requesterId, ownerId: this.ownerId });
 
-    const event = v.parse(Events.ShareableLinkRevokedEvent, {
-      ...bg.createEventEnvelope(ShareableLink.getStream(this.id), this.deps),
-      name: Events.SHAREABLE_LINK_REVOKED_EVENT,
-      payload: { shareableLinkId: this.id },
-    } satisfies Events.ShareableLinkRevokedEventType);
+    const event = wip.event(
+      Events.ShareableLinkRevokedEvent,
+      ShareableLink.getStream(this.id),
+      { payload: { shareableLinkId: this.id } },
+      this.deps,
+    );
 
     this.record(event);
   }

@@ -1,11 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
+import * as wip from "+infra/build";
 
 export type WeeklyReviewEventType =
   | Events.WeeklyReviewRequestedEventType
@@ -59,11 +59,12 @@ export class WeeklyReview {
   ) {
     const weeklyReview = new WeeklyReview(id, deps);
 
-    const event = v.parse(Events.WeeklyReviewRequestedEvent, {
-      ...bg.createEventEnvelope(WeeklyReview.getStream(id), deps),
-      name: Events.WEEKLY_REVIEW_REQUESTED_EVENT,
-      payload: { weeklyReviewId: id, weekIsoId: week.toIsoId(), userId: requesterId },
-    } satisfies Events.WeeklyReviewRequestedEventType);
+    const event = wip.event(
+      Events.WeeklyReviewRequestedEvent,
+      WeeklyReview.getStream(id),
+      { payload: { weeklyReviewId: id, weekIsoId: week.toIsoId(), userId: requesterId } },
+      deps,
+    );
 
     weeklyReview.record(event);
 
@@ -73,16 +74,19 @@ export class WeeklyReview {
   complete(insights: AI.Advice) {
     Invariants.WeeklyReviewCompletedOnce.enforce({ status: this.status });
 
-    const event = v.parse(Events.WeeklyReviewCompletedEvent, {
-      ...bg.createEventEnvelope(WeeklyReview.getStream(this.id), this.deps),
-      name: Events.WEEKLY_REVIEW_COMPLETED_EVENT,
-      payload: {
-        weeklyReviewId: this.id,
-        weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
-        insights: insights.get(),
-        userId: this.userId as Auth.VO.UserIdType,
+    const event = wip.event(
+      Events.WeeklyReviewCompletedEvent,
+      WeeklyReview.getStream(this.id),
+      {
+        payload: {
+          weeklyReviewId: this.id,
+          weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
+          insights: insights.get(),
+          userId: this.userId as Auth.VO.UserIdType,
+        },
       },
-    } satisfies Events.WeeklyReviewCompletedEventType);
+      this.deps,
+    );
 
     this.record(event);
   }
@@ -90,15 +94,18 @@ export class WeeklyReview {
   fail() {
     Invariants.WeeklyReviewCompletedOnce.enforce({ status: this.status });
 
-    const event = v.parse(Events.WeeklyReviewFailedEvent, {
-      ...bg.createEventEnvelope(WeeklyReview.getStream(this.id), this.deps),
-      name: Events.WEEKLY_REVIEW_FAILED_EVENT,
-      payload: {
-        weeklyReviewId: this.id,
-        weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
-        userId: this.userId as Auth.VO.UserIdType,
+    const event = wip.event(
+      Events.WeeklyReviewFailedEvent,
+      WeeklyReview.getStream(this.id),
+      {
+        payload: {
+          weeklyReviewId: this.id,
+          weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
+          userId: this.userId as Auth.VO.UserIdType,
+        },
       },
-    } satisfies Events.WeeklyReviewFailedEventType);
+      this.deps,
+    );
 
     this.record(event);
   }

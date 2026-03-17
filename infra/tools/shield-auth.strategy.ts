@@ -5,6 +5,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { haveIBeenPwned } from "better-auth/plugins/haveibeenpwned";
 import * as v from "valibot";
 import * as Auth from "+auth";
+import * as wip from "+infra/build";
 import { db } from "+infra/db";
 import type { EnvironmentResultType } from "+infra/env";
 
@@ -35,11 +36,12 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
       deleteUser: {
         enabled: true,
         async afterDelete(user) {
-          const event = v.parse(Auth.Events.AccountDeletedEvent, {
-            ...bg.createEventEnvelope(`account_${user.id}`, deps),
-            name: Auth.Events.ACCOUNT_DELETED_EVENT,
-            payload: { userId: user.id, timestamp: deps.Clock.now().ms },
-          } satisfies Auth.Events.AccountDeletedEventType);
+          const event = wip.event(
+            Auth.Events.AccountDeletedEvent,
+            `account_${user.id}`,
+            { payload: { userId: user.id, timestamp: deps.Clock.now().ms } },
+            deps,
+          );
 
           await deps.EventStore.save([event]);
         },
@@ -75,11 +77,12 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
       autoSignInAfterVerification: false,
       expiresIn: tools.Duration.Hours(1).seconds,
       async afterEmailVerification(user) {
-        const event = v.parse(Auth.Events.AccountCreatedEvent, {
-          ...bg.createEventEnvelope(`account_${user.id}`, deps),
-          name: Auth.Events.ACCOUNT_CREATED_EVENT,
-          payload: { userId: user.id, timestamp: deps.Clock.now().ms },
-        } satisfies Auth.Events.AccountCreatedEventType);
+        const event = wip.event(
+          Auth.Events.AccountCreatedEvent,
+          `account_${user.id}`,
+          { payload: { userId: user.id, timestamp: deps.Clock.now().ms } },
+          deps,
+        );
 
         await deps.EventStore.save([event]);
       },

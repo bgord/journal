@@ -1,10 +1,10 @@
 import * as bg from "@bgord/bun";
-import * as v from "valibot";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
+import * as wip from "+infra/build";
 
 export type AlarmEventType =
   | Events.AlarmGeneratedEventType
@@ -56,11 +56,14 @@ export class Alarm {
   ) {
     const alarm = new Alarm(id, deps);
 
-    const event = v.parse(Events.AlarmGeneratedEvent, {
-      ...bg.createEventEnvelope(Alarm.getStream(id), deps),
-      name: Events.ALARM_GENERATED_EVENT,
-      payload: { alarmId: id, alarmName: detection.name, trigger: detection.trigger, userId: requesterId },
-    } satisfies Events.AlarmGeneratedEventType);
+    const event = wip.event(
+      Events.AlarmGeneratedEvent,
+      Alarm.getStream(id),
+      {
+        payload: { alarmId: id, alarmName: detection.name, trigger: detection.trigger, userId: requesterId },
+      },
+      deps,
+    );
 
     alarm.record(event);
 
@@ -70,11 +73,12 @@ export class Alarm {
   saveAdvice(advice: AI.Advice) {
     Invariants.AlarmAlreadyGenerated.enforce({ status: this.status });
 
-    const event = v.parse(Events.AlarmAdviceSavedEvent, {
-      ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
-      name: Events.ALARM_ADVICE_SAVED_EVENT,
-      payload: { alarmId: this.id, advice: advice.get(), userId: this.userId as Auth.VO.UserIdType },
-    } satisfies Events.AlarmAdviceSavedEventType);
+    const event = wip.event(
+      Events.AlarmAdviceSavedEvent,
+      Alarm.getStream(this.id),
+      { payload: { alarmId: this.id, advice: advice.get(), userId: this.userId! } },
+      this.deps,
+    );
 
     this.record(event);
   }
@@ -82,17 +86,20 @@ export class Alarm {
   notify() {
     Invariants.AlarmAdviceAvailable.enforce({ status: this.status });
 
-    const event = v.parse(Events.AlarmNotificationRequestedEvent, {
-      ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
-      name: Events.ALARM_NOTIFICATION_REQUESTED_EVENT,
-      payload: {
-        alarmId: this.id,
-        alarmName: this.detection?.name as VO.AlarmNameType,
-        trigger: this.detection?.trigger as VO.AlarmTriggerType,
-        userId: this.userId as Auth.VO.UserIdType,
-        advice: this.advice?.get() as AI.AdviceType,
+    const event = wip.event(
+      Events.AlarmNotificationRequestedEvent,
+      Alarm.getStream(this.id),
+      {
+        payload: {
+          alarmId: this.id,
+          alarmName: this.detection?.name as VO.AlarmNameType,
+          trigger: this.detection?.trigger as VO.AlarmTriggerType,
+          userId: this.userId as Auth.VO.UserIdType,
+          advice: this.advice?.get() as AI.AdviceType,
+        },
       },
-    } satisfies Events.AlarmNotificationRequestedEventType);
+      this.deps,
+    );
 
     this.record(event);
   }
@@ -100,11 +107,12 @@ export class Alarm {
   complete() {
     Invariants.AlarmNotificationRequested.enforce({ status: this.status });
 
-    const event = v.parse(Events.AlarmNotificationSentEvent, {
-      ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
-      name: Events.ALARM_NOTIFICATION_SENT_EVENT,
-      payload: { alarmId: this.id },
-    } satisfies Events.AlarmNotificationSentEventType);
+    const event = wip.event(
+      Events.AlarmNotificationSentEvent,
+      Alarm.getStream(this.id),
+      { payload: { alarmId: this.id } },
+      this.deps,
+    );
 
     this.record(event);
   }
@@ -112,11 +120,12 @@ export class Alarm {
   cancel() {
     Invariants.AlarmIsCancellable.enforce({ status: this.status });
 
-    const event = v.parse(Events.AlarmCancelledEvent, {
-      ...bg.createEventEnvelope(Alarm.getStream(this.id), this.deps),
-      name: Events.ALARM_CANCELLED_EVENT,
-      payload: { alarmId: this.id, userId: this.userId as Auth.VO.UserIdType },
-    } satisfies Events.AlarmCancelledEventType);
+    const event = wip.event(
+      Events.AlarmCancelledEvent,
+      Alarm.getStream(this.id),
+      { payload: { alarmId: this.id, userId: this.userId! } },
+      this.deps,
+    );
 
     this.record(event);
   }
