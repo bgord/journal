@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import * as VO from "+auth/value-objects";
 
-export const ACCOUNT_DELETED_EVENT = "ACCOUNT_DELETED_EVENT";
+const ACCOUNT_DELETED_EVENT = "ACCOUNT_DELETED_EVENT";
 
 export const AccountDeletedEvent = v.object({
   ...bg.EventEnvelopeSchema,

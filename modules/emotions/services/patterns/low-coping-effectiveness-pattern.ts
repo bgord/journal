@@ -1,10 +1,9 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns/pattern";
 import * as VO from "+emotions/value-objects";
-import * as wip from "+infra/build";
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
@@ -36,7 +35,7 @@ export class LowCopingEffectivenessPattern extends Patterns.Pattern {
     const mean = tools.Mean.calculate(effectivenessScores);
 
     if (mean < 3) {
-      return wip.event(
+      return bg.event(
         Events.LowCopingEffectivenessPatternDetectedEvent,
         this.getStream(),
         { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name },

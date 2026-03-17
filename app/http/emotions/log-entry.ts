@@ -1,8 +1,7 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type hono from "hono";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import * as wip from "+infra/build";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -32,7 +31,7 @@ export const LogEntry = (deps: Dependencies) => async (c: hono.Context<infra.Con
     new Emotions.VO.ReactionEffectiveness(body.reactionEffectiveness),
   );
 
-  const command = wip.command(
+  const command = bg.command(
     Emotions.Commands.LogEntryCommand,
     { payload: { entryId, situation, emotion, reaction, userId, origin: Emotions.VO.EntryOriginOption.web } },
     deps,

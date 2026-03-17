@@ -1,6 +1,5 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as Preferences from "+preferences";
-import * as wip from "+infra/build";
 
 type AcceptedEvent = Preferences.Events.ProfileAvatarRemovedEventType;
 
@@ -17,7 +16,7 @@ export const handleRemoveProfileAvatarCommand =
 
     await deps.RemoteFileStorage.delete(key);
 
-    const event = wip.event(
+    const event = bg.event(
       Preferences.Events.ProfileAvatarRemovedEvent,
       `preferences_${command.payload.userId}`,
       { userId: command.payload.userId },

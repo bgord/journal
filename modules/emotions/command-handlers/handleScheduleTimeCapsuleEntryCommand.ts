@@ -1,6 +1,5 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import * as wip from "+infra/build";
 
 type AcceptedEvent = Emotions.Events.TimeCapsuleEntryScheduledEventType;
 
@@ -17,7 +16,7 @@ export const handleScheduleTimeCapsuleEntryCommand =
       scheduledFor: command.payload.scheduledFor,
     });
 
-    const event = wip.event(
+    const event = bg.event(
       Emotions.Events.TimeCapsuleEntryScheduledEvent,
       Emotions.Aggregates.Entry.getStream(command.payload.entryId),
       {

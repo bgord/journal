@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as wip from "+infra/build";
 
 type AcceptedEvent = bg.History.Events.HistoryPopulatedEventType | bg.History.Events.HistoryClearedEventType;
 
@@ -15,7 +14,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   constructor(private readonly deps: Dependencies) {}
 
   async populate(history: Omit<bg.History.VO.HistoryType, "id">) {
-    const event = wip.event(
+    const event = bg.event(
       bg.History.Events.HistoryPopulatedEvent,
       `history_${history.subject}`,
       { ...history, id: this.deps.IdProvider.generate() },
@@ -27,7 +26,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   }
 
   async clear(subject: bg.History.VO.HistorySubjectType) {
-    const event = wip.event(
+    const event = bg.event(
       bg.History.Events.HistoryClearedEvent,
       `history_${subject}`,
       { subject },

@@ -3,7 +3,6 @@ import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { LanguagesType } from "+languages";
-import * as wip from "+infra/build";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewExportByEmailRequestedEventType
@@ -63,7 +62,7 @@ export class WeeklyReviewExportByEmail {
       await this.deps.Mailer.send(new bg.MailerTemplate(config, message, [attachment]));
     } catch {
       await this.deps.EventStore.save([
-        wip.event(
+        bg.event(
           Emotions.Events.WeeklyReviewExportByEmailFailedEvent,
           `weekly_review_export_by_email_${event.payload.weeklyReviewExportId}`,
           {
@@ -85,7 +84,7 @@ export class WeeklyReviewExportByEmail {
 
     await this.deps.Sleeper.wait(this.deps.RetryBackoffStrategy.next(event.payload.attempt));
     await this.deps.EventStore.save([
-      wip.event(
+      bg.event(
         Emotions.Events.WeeklyReviewExportByEmailRequestedEvent,
         event.stream,
         {

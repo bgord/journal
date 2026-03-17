@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import * as Auth from "+auth";
-import * as wip from "+infra/build";
 
 type Dependencies = {
   EventBus: bg.EventBusPort<Auth.Events.AccountCreatedEventType>;
@@ -25,7 +24,7 @@ export class SetDefaultUserLanguage<L extends ReadonlyArray<tools.LanguageType>>
   // Stryker restore all
 
   async onAccountCreatedEvent(event: Auth.Events.AccountCreatedEventType) {
-    const command = wip.command(
+    const command = bg.command(
       bg.Preferences.Commands.SetUserLanguageCommand,
       { payload: { userId: event.payload.userId, language: this.systemDefaultLanguage } },
       this.deps,

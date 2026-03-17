@@ -3,7 +3,6 @@ import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Events from "+emotions/events";
-import * as wip from "+infra/build";
 
 export type EntryEventType =
   | Events.SituationLoggedEventType
@@ -65,7 +64,7 @@ export class Entry {
   ) {
     const entry = new Entry(id, deps);
 
-    const SituationLoggedEvent = wip.event(
+    const SituationLoggedEvent = bg.event(
       Emotions.Events.SituationLoggedEvent,
       Entry.getStream(id),
       {
@@ -80,7 +79,7 @@ export class Entry {
 
     entry.record(SituationLoggedEvent);
 
-    const EmotionLoggedEvent = wip.event(
+    const EmotionLoggedEvent = bg.event(
       Emotions.Events.EmotionLoggedEvent,
       Entry.getStream(id),
       {
@@ -94,7 +93,7 @@ export class Entry {
 
     entry.record(EmotionLoggedEvent);
 
-    const ReactionLoggedEvent = wip.event(
+    const ReactionLoggedEvent = bg.event(
       Emotions.Events.ReactionLoggedEvent,
       Entry.getStream(id),
       {
@@ -118,7 +117,7 @@ export class Entry {
     Emotions.Invariants.EmotionForReappraisalExists.enforce({ emotion: this.emotion });
     Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
-    const event = wip.event(
+    const event = bg.event(
       Emotions.Events.EmotionReappraisedEvent,
       Entry.getStream(this.id),
       {
@@ -142,7 +141,7 @@ export class Entry {
     Emotions.Invariants.ReactionForEvaluationExists.enforce({ reaction: this.reaction });
     Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
-    const event = wip.event(
+    const event = bg.event(
       Emotions.Events.ReactionEvaluatedEvent,
       Entry.getStream(this.id),
       {
@@ -162,7 +161,7 @@ export class Entry {
     Emotions.Invariants.EntryHasBenStarted.enforce({ situation: this.situation });
     Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
-    const event = wip.event(
+    const event = bg.event(
       Emotions.Events.EntryDeletedEvent,
       Entry.getStream(this.id),
       { entryId: this.id, userId: requesterId },

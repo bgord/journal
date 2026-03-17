@@ -1,6 +1,5 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import * as wip from "+infra/build";
 
 type AcceptedEvent = Emotions.Events.EmotionLoggedEventType | Emotions.Events.EmotionReappraisedEventType;
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
@@ -32,7 +31,7 @@ export class EntryAlarmDetector {
 
     if (!detection) return;
 
-    const command = wip.command(
+    const command = bg.command(
       Emotions.Commands.GenerateAlarmCommand,
       { payload: { detection, userId: event.payload.userId } },
       this.deps,

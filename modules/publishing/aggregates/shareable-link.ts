@@ -1,7 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import * as wip from "+infra/build";
 import * as Events from "+publishing/events";
 import * as Invariants from "+publishing/invariants";
 import * as VO from "+publishing/value-objects";
@@ -60,7 +59,7 @@ export class ShareableLink {
   ) {
     const shareableLink = new ShareableLink(id, deps);
 
-    const event = wip.event(
+    const event = bg.event(
       Events.ShareableLinkCreatedEvent,
       ShareableLink.getStream(id),
       {
@@ -88,7 +87,7 @@ export class ShareableLink {
       createdAt: this.createdAt,
     });
 
-    const event = wip.event(
+    const event = bg.event(
       Events.ShareableLinkExpiredEvent,
       ShareableLink.getStream(this.id),
       { shareableLinkId: this.id },
@@ -102,7 +101,7 @@ export class ShareableLink {
     Invariants.ShareableLinkIsActive.enforce({ status: this.status });
     Invariants.RequesterOwnsShareableLink.enforce({ requesterId, ownerId: this.ownerId });
 
-    const event = wip.event(
+    const event = bg.event(
       Events.ShareableLinkRevokedEvent,
       ShareableLink.getStream(this.id),
       { shareableLinkId: this.id },

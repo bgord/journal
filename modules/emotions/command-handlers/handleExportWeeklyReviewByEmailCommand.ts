@@ -1,7 +1,6 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as Emotions from "+emotions";
-import * as wip from "+infra/build";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -27,7 +26,7 @@ export const handleExportWeeklyReviewByEmailCommand =
 
     const weeklyReviewExportId = deps.IdProvider.generate();
 
-    const event = wip.event(
+    const event = bg.event(
       Emotions.Events.WeeklyReviewExportByEmailRequestedEvent,
       `weekly_review_export_by_email_${weeklyReviewExportId}`,
       {

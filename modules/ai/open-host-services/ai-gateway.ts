@@ -1,9 +1,8 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as Events from "+ai/events";
 import type * as Ports from "+ai/ports";
 import * as Specs from "+ai/specifications";
 import type * as VO from "+ai/value-objects";
-import * as wip from "+infra/build";
 
 /** @public */
 export class AiQuotaExceededError extends Error {
@@ -41,7 +40,7 @@ export class AiGateway implements Ports.AiGatewayPort {
     const verification = await this.check(context);
 
     if (verification.violations.length) {
-      const event = wip.event(
+      const event = bg.event(
         Events.AiQuotaExceededEvent,
         `user_ai_usage_${context.userId}`,
         { userId: context.userId, timestamp: context.timestamp },
@@ -55,7 +54,7 @@ export class AiGateway implements Ports.AiGatewayPort {
 
     const advice = await this.deps.AiClient.request(prompt);
 
-    const event = wip.event(
+    const event = bg.event(
       Events.AiRequestRegisteredEvent,
       `user_ai_usage_${context.userId}`,
       context,

@@ -5,7 +5,6 @@ import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
-import * as wip from "+infra/build";
 
 export type WeeklyReviewEventType =
   | Events.WeeklyReviewRequestedEventType
@@ -59,7 +58,7 @@ export class WeeklyReview {
   ) {
     const weeklyReview = new WeeklyReview(id, deps);
 
-    const event = wip.event(
+    const event = bg.event(
       Events.WeeklyReviewRequestedEvent,
       WeeklyReview.getStream(id),
       { weeklyReviewId: id, weekIsoId: week.toIsoId(), userId: requesterId },
@@ -74,7 +73,7 @@ export class WeeklyReview {
   complete(insights: AI.Advice) {
     Invariants.WeeklyReviewCompletedOnce.enforce({ status: this.status });
 
-    const event = wip.event(
+    const event = bg.event(
       Events.WeeklyReviewCompletedEvent,
       WeeklyReview.getStream(this.id),
       {
@@ -92,7 +91,7 @@ export class WeeklyReview {
   fail() {
     Invariants.WeeklyReviewCompletedOnce.enforce({ status: this.status });
 
-    const event = wip.event(
+    const event = bg.event(
       Events.WeeklyReviewFailedEvent,
       WeeklyReview.getStream(this.id),
       {

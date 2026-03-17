@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as wip from "+infra/build";
 import * as Commands from "+publishing/commands";
 import type * as Ports from "+publishing/ports";
 
@@ -32,7 +31,7 @@ export class ShareableLinksExpirer {
       const shareableLinks = await this.deps.ExpiringShareableLinks.listDue(event.payload.timestamp);
 
       for (const shareableLink of shareableLinks) {
-        const command = wip.command(
+        const command = bg.command(
           Commands.ExpireShareableLinkCommand,
           {
             revision: new tools.Revision(shareableLink.revision),

@@ -1,10 +1,9 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
 import * as VO from "+emotions/value-objects";
-import * as wip from "+infra/build";
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
@@ -38,7 +37,7 @@ export class PositiveEmotionWithMaladaptiveReactionPattern extends Patterns.Patt
       .filter((entry) => entry.reactionType.isMaladaptive());
 
     if (matches.length >= 3) {
-      return wip.event(
+      return bg.event(
         Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent,
         this.getStream(),
         {

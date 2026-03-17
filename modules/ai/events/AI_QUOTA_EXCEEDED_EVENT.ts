@@ -3,7 +3,7 @@ import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import * as Auth from "+auth";
 
-export const AI_QUOTA_EXCEEDED_EVENT = "AI_QUOTA_EXCEEDED_EVENT";
+const AI_QUOTA_EXCEEDED_EVENT = "AI_QUOTA_EXCEEDED_EVENT";
 
 export const AiQuotaExceededEvent = v.object({
   ...bg.EventEnvelopeSchema,

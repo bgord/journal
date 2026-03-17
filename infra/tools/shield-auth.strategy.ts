@@ -5,7 +5,6 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { haveIBeenPwned } from "better-auth/plugins/haveibeenpwned";
 import * as v from "valibot";
 import * as Auth from "+auth";
-import * as wip from "+infra/build";
 import { db } from "+infra/db";
 import type { EnvironmentResultType } from "+infra/env";
 
@@ -36,7 +35,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
       deleteUser: {
         enabled: true,
         async afterDelete(user) {
-          const event = wip.event(
+          const event = bg.event(
             Auth.Events.AccountDeletedEvent,
             `account_${user.id}`,
             { userId: user.id, timestamp: deps.Clock.now().ms },
@@ -77,7 +76,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
       autoSignInAfterVerification: false,
       expiresIn: tools.Duration.Hours(1).seconds,
       async afterEmailVerification(user) {
-        const event = wip.event(
+        const event = bg.event(
           Auth.Events.AccountCreatedEvent,
           `account_${user.id}`,
           { userId: user.id, timestamp: deps.Clock.now().ms },

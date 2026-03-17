@@ -9,7 +9,6 @@ import * as Events from "+emotions/events";
 import type * as Ports from "+emotions/ports";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
-import * as wip from "+infra/build";
 
 type AcceptedEvent =
   | Events.AlarmGeneratedEventType
@@ -58,7 +57,7 @@ export class AlarmOrchestrator {
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
-    const cancel = wip.command(
+    const cancel = bg.command(
       Commands.CancelAlarmCommand,
       { payload: { alarmId: event.payload.alarmId } },
       this.deps,
@@ -89,7 +88,7 @@ export class AlarmOrchestrator {
       );
       const advice = await this.deps.AiGateway.query(prompt, context);
 
-      const command = wip.command(
+      const command = bg.command(
         Commands.SaveAlarmAdviceCommand,
         { payload: { alarmId: event.payload.alarmId, advice } },
         this.deps,
@@ -102,7 +101,7 @@ export class AlarmOrchestrator {
   }
 
   async onAlarmAdviceSavedEvent(event: Events.AlarmAdviceSavedEventType) {
-    const command = wip.command(
+    const command = bg.command(
       Commands.RequestAlarmNotificationCommand,
       { payload: { alarmId: event.payload.alarmId } },
       this.deps,
@@ -112,7 +111,7 @@ export class AlarmOrchestrator {
   }
 
   async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
-    const cancel = wip.command(
+    const cancel = bg.command(
       Commands.CancelAlarmCommand,
       { payload: { alarmId: event.payload.alarmId } },
       this.deps,
@@ -147,7 +146,7 @@ export class AlarmOrchestrator {
 
       await this.deps.Mailer.send(new bg.MailerTemplate(config, message));
 
-      const complete = wip.command(
+      const complete = bg.command(
         Commands.CompleteAlarmCommand,
         { payload: { alarmId: event.payload.alarmId } },
         this.deps,
@@ -163,7 +162,7 @@ export class AlarmOrchestrator {
     );
 
     for (const alarmId of cancellableAlarmIds) {
-      const command = wip.command(Commands.CancelAlarmCommand, { payload: { alarmId } }, this.deps);
+      const command = bg.command(Commands.CancelAlarmCommand, { payload: { alarmId } }, this.deps);
 
       await this.deps.CommandBus.emit(command);
     }

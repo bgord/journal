@@ -1,7 +1,6 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type * as Auth from "+auth";
 import * as Publishing from "+publishing";
-import * as wip from "+infra/build";
 
 export type ShareableLinkAccessAuditorInput = {
   linkId: Publishing.VO.ShareableLinkIdType;
@@ -26,7 +25,7 @@ export class ShareableLinkAccessAuditorAdapter implements Publishing.Ports.Share
   constructor(private readonly deps: Dependencies) {}
 
   async record(input: Publishing.Ports.ShareableLinkAccessAuditorInput) {
-    const event = wip.event(
+    const event = bg.event(
       Publishing.Events.ShareableLinkAccessedEvent,
       `shareable_link_${input.linkId}`,
       {

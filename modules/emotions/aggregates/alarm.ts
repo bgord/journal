@@ -4,7 +4,6 @@ import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
-import * as wip from "+infra/build";
 
 export type AlarmEventType =
   | Events.AlarmGeneratedEventType
@@ -56,7 +55,7 @@ export class Alarm {
   ) {
     const alarm = new Alarm(id, deps);
 
-    const event = wip.event(
+    const event = bg.event(
       Events.AlarmGeneratedEvent,
       Alarm.getStream(id),
       {
@@ -76,7 +75,7 @@ export class Alarm {
   saveAdvice(advice: AI.Advice) {
     Invariants.AlarmAlreadyGenerated.enforce({ status: this.status });
 
-    const event = wip.event(
+    const event = bg.event(
       Events.AlarmAdviceSavedEvent,
       Alarm.getStream(this.id),
       { alarmId: this.id, advice: advice.get(), userId: this.userId! },
@@ -89,7 +88,7 @@ export class Alarm {
   notify() {
     Invariants.AlarmAdviceAvailable.enforce({ status: this.status });
 
-    const event = wip.event(
+    const event = bg.event(
       Events.AlarmNotificationRequestedEvent,
       Alarm.getStream(this.id),
       {
@@ -108,7 +107,7 @@ export class Alarm {
   complete() {
     Invariants.AlarmNotificationRequested.enforce({ status: this.status });
 
-    const event = wip.event(
+    const event = bg.event(
       Events.AlarmNotificationSentEvent,
       Alarm.getStream(this.id),
       { alarmId: this.id },
@@ -121,7 +120,7 @@ export class Alarm {
   cancel() {
     Invariants.AlarmIsCancellable.enforce({ status: this.status });
 
-    const event = wip.event(
+    const event = bg.event(
       Events.AlarmCancelledEvent,
       Alarm.getStream(this.id),
       { alarmId: this.id, userId: this.userId! },

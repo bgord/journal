@@ -2,7 +2,6 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import * as wip from "+infra/build";
 
 type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.RequestWeeklyReviewCommandType;
@@ -34,7 +33,7 @@ export class WeeklyReviewScheduler {
     const userIds = await this.deps.UserDirectoryOHQ.listActiveUserIds();
 
     for (const userId of userIds) {
-      const command = wip.command(
+      const command = bg.command(
         Emotions.Commands.RequestWeeklyReviewCommand,
         { payload: { week, userId } },
         this.deps,

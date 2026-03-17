@@ -1,8 +1,7 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type hono from "hono";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
-import * as wip from "+infra/build";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -13,7 +12,7 @@ type Dependencies = {
 export const RemoveProfileAvatar = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
-  const command = wip.command(Preferences.Commands.RemoveProfileAvatarCommand, { payload: { userId } }, deps);
+  const command = bg.command(Preferences.Commands.RemoveProfileAvatarCommand, { payload: { userId } }, deps);
 
   await deps.CommandBus.emit(command);
 

@@ -1,10 +1,9 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
 import * as VO from "+emotions/value-objects";
-import * as wip from "+infra/build";
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
@@ -32,7 +31,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
     ).length;
 
     if (negativeEmotionsCounter > positiveEmotionsCounter) {
-      return wip.event(
+      return bg.event(
         Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
         this.getStream(),
         { userId: this.userId, weekIsoId: this.week.toIsoId(), name: this.name },

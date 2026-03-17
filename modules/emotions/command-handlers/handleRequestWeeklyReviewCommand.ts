@@ -1,6 +1,5 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
-import * as wip from "+infra/build";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewSkippedEventType;
 
@@ -25,7 +24,7 @@ export const handleRequestWeeklyReviewCommand =
         userId: command.payload.userId,
       })
     ) {
-      const event = wip.event(
+      const event = bg.event(
         Emotions.Events.WeeklyReviewSkippedEvent,
         "weekly_review_skipped",
         { weekIsoId: command.payload.week.toIsoId(), userId: command.payload.userId },

@@ -4,7 +4,6 @@ import type * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import type { LanguagesType } from "+languages";
-import * as wip from "+infra/build";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewSkippedEventType
@@ -91,7 +90,7 @@ export class WeeklyReviewProcessing {
         Emotions.ACL.createWeeklyReviewInsightRequestContext(this.deps, event.payload.userId),
       );
 
-      const detectWeeklyPatterns = wip.command(
+      const detectWeeklyPatterns = bg.command(
         Emotions.Commands.DetectWeeklyPatternsCommand,
         { payload: { userId: event.payload.userId, week } },
         this.deps,
@@ -99,7 +98,7 @@ export class WeeklyReviewProcessing {
 
       await this.deps.CommandBus.emit(detectWeeklyPatterns);
 
-      const completeWeeklyReview = wip.command(
+      const completeWeeklyReview = bg.command(
         Emotions.Commands.CompleteWeeklyReviewCommand,
         { payload: { weeklyReviewId: event.payload.weeklyReviewId, insights, userId: event.payload.userId } },
         this.deps,
@@ -107,7 +106,7 @@ export class WeeklyReviewProcessing {
 
       await this.deps.CommandBus.emit(completeWeeklyReview);
     } catch (_error) {
-      const command = wip.command(
+      const command = bg.command(
         Emotions.Commands.MarkWeeklyReviewAsFailedCommand,
         { payload: { weeklyReviewId: event.payload.weeklyReviewId, userId: event.payload.userId } },
         this.deps,
@@ -118,7 +117,7 @@ export class WeeklyReviewProcessing {
   }
 
   async onWeeklyReviewCompletedEvent(event: Emotions.Events.WeeklyReviewCompletedEventType) {
-    const command = wip.command(
+    const command = bg.command(
       Emotions.Commands.ExportWeeklyReviewByEmailCommand,
       { payload: { userId: event.payload.userId, weeklyReviewId: event.payload.weeklyReviewId } },
       this.deps,

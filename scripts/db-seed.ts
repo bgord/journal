@@ -6,7 +6,6 @@ import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
 import { bootstrap } from "+infra/bootstrap";
-import * as wip from "+infra/build";
 import { db } from "+infra/db";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -127,7 +126,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
         await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
 
-        const event = wip.event(
+        const event = bg.event(
           Auth.Events.AccountCreatedEvent,
           `account_${result.user.id}`,
           { userId: result.user.id, timestamp: now.ms },
@@ -209,7 +208,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       console.log(`[✓] Entry ${counter + 1} created`);
     }
 
-    const ScheduleTimeCapsuleEntryCommand = wip.command(
+    const ScheduleTimeCapsuleEntryCommand = bg.command(
       Emotions.Commands.ScheduleTimeCapsuleEntryCommand,
       {
         payload: {
