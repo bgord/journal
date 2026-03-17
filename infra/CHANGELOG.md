@@ -1,7 +1,16 @@
 # Changelog
+- 2026-03-17 21:36 522e6fa8 **refactor: use bg.command and event**
+## 2026-03-17 21:36 
+- 2026-03-17 21:29 662e0a21 **step: update packages**
+- 2026-03-17 18:50 881d9fd1 **refactor: simplify event payload**
+- 2026-03-17 18:46 bece9c87 **refactor: events**
+- 2026-03-17 18:12 26cc56e2 **refactor: use bg.command**
+- 2026-03-17 17:29 f4798b9b **refactor: use Int**
+- 2026-03-17 17:19 3bec0db9 **refactor: remove ok**
+- 2026-03-17 17:18 9b8e5e1a **step: update packages**
 - 2026-03-17 13:40 7207356d **fix: emotion intensity**
-## 2026-03-17 13:40 
 - 2026-03-17 13:26 0bad333e **refactor: registries**
+- 2026-03-17 12:47 9d0b3b0c **docs: generate CHANGELOG**
 - 2026-03-17 12:43 c6e4c3a5 **refactor: parsing**
 - 2026-03-17 12:27 e8dabf8b **refactor: tests**
 - 2026-03-17 12:22 153ee912 **refactor: infra**
