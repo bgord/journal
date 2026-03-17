@@ -1,9 +1,10 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+import * as wip from "+infra/build";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -23,12 +24,11 @@ export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<i
     new Emotions.VO.ReactionEffectiveness(body.effectiveness),
   );
 
-  const command = v.parse(Emotions.Commands.EvaluateReactionCommand, {
-    ...bg.createCommandEnvelope(deps),
-    name: Emotions.Commands.EVALUATE_REACTION_COMMAND,
-    revision,
-    payload: { entryId, newReaction, userId },
-  } satisfies Emotions.Commands.EvaluateReactionCommandType);
+  const command = wip.command(
+    Emotions.Commands.EvaluateReactionCommand,
+    { revision, payload: { entryId, newReaction, userId } },
+    deps,
+  );
 
   await deps.CommandBus.emit(command);
 

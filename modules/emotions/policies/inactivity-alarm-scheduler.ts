@@ -3,6 +3,7 @@ import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
+import * as wip from "+infra/build";
 
 type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
@@ -53,11 +54,11 @@ export class InactivityAlarmScheduler {
 
       const detection = new Emotions.VO.AlarmDetection(trigger, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM);
 
-      const command = v.parse(Emotions.Commands.GenerateAlarmCommand, {
-        ...bg.createCommandEnvelope(this.deps),
-        name: Emotions.Commands.GENERATE_ALARM_COMMAND,
-        payload: { detection, userId },
-      } satisfies Emotions.Commands.GenerateAlarmCommandType);
+      const command = wip.command(
+        Emotions.Commands.GenerateAlarmCommand,
+        { payload: { detection, userId } },
+        this.deps,
+      );
 
       await this.deps.CommandBus.emit(command);
     }

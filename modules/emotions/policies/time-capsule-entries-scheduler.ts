@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
-import * as v from "valibot";
 import * as Emotions from "+emotions";
+import * as wip from "+infra/build";
 
 type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.LogEntryCommandType;
@@ -34,28 +34,30 @@ export class TimeCapsuleEntriesScheduler {
 
       if (!Emotions.Invariants.TimeCapsuleEntryIsPublishable.passes(config)) continue;
 
-      const command = v.parse(Emotions.Commands.LogEntryCommand, {
-        ...bg.createCommandEnvelope(this.deps),
-        name: Emotions.Commands.LOG_ENTRY_COMMAND,
-        payload: {
-          entryId: entry.id,
-          situation: new Emotions.Entities.Situation(
-            new Emotions.VO.SituationDescription(entry.situationDescription),
-            new Emotions.VO.SituationKind(entry.situationKind),
-          ),
-          emotion: new Emotions.Entities.Emotion(
-            new Emotions.VO.EmotionLabel(entry.emotionLabel),
-            new Emotions.VO.EmotionIntensity(entry.emotionIntensity),
-          ),
-          reaction: new Emotions.Entities.Reaction(
-            new Emotions.VO.ReactionDescription(entry.reactionDescription),
-            new Emotions.VO.ReactionType(entry.reactionType),
-            new Emotions.VO.ReactionEffectiveness(entry.reactionEffectiveness),
-          ),
-          userId: entry.userId,
-          origin: Emotions.VO.EntryOriginOption.time_capsule,
+      const command = wip.command(
+        Emotions.Commands.LogEntryCommand,
+        {
+          payload: {
+            entryId: entry.id,
+            situation: new Emotions.Entities.Situation(
+              new Emotions.VO.SituationDescription(entry.situationDescription),
+              new Emotions.VO.SituationKind(entry.situationKind),
+            ),
+            emotion: new Emotions.Entities.Emotion(
+              new Emotions.VO.EmotionLabel(entry.emotionLabel),
+              new Emotions.VO.EmotionIntensity(entry.emotionIntensity),
+            ),
+            reaction: new Emotions.Entities.Reaction(
+              new Emotions.VO.ReactionDescription(entry.reactionDescription),
+              new Emotions.VO.ReactionType(entry.reactionType),
+              new Emotions.VO.ReactionEffectiveness(entry.reactionEffectiveness),
+            ),
+            userId: entry.userId,
+            origin: Emotions.VO.EntryOriginOption.time_capsule,
+          },
         },
-      } satisfies Emotions.Commands.LogEntryCommandType);
+        this.deps,
+      );
 
       await this.deps.CommandBus.emit(command);
     }

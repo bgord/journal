@@ -1,6 +1,6 @@
-import * as bg from "@bgord/bun";
-import * as v from "valibot";
+import type * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
+import * as wip from "+infra/build";
 
 type AcceptedEvent = Emotions.Events.EmotionLoggedEventType | Emotions.Events.EmotionReappraisedEventType;
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
@@ -32,11 +32,11 @@ export class EntryAlarmDetector {
 
     if (!detection) return;
 
-    const command = v.parse(Emotions.Commands.GenerateAlarmCommand, {
-      ...bg.createCommandEnvelope(this.deps),
-      name: Emotions.Commands.GENERATE_ALARM_COMMAND,
-      payload: { detection, userId: event.payload.userId },
-    } satisfies Emotions.Commands.GenerateAlarmCommandType);
+    const command = wip.command(
+      Emotions.Commands.GenerateAlarmCommand,
+      { payload: { detection, userId: event.payload.userId } },
+      this.deps,
+    );
 
     await this.deps.CommandBus.emit(command);
   }

@@ -1,9 +1,10 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as v from "valibot";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
+import * as wip from "+infra/build";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -16,12 +17,11 @@ export const RevokeShareableLink = (deps: Dependencies) => async (c: hono.Contex
   const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, c.req.param("shareableLinkId"));
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
 
-  const command = v.parse(Publishing.Commands.RevokeShareableLinkCommand, {
-    ...bg.createCommandEnvelope(deps),
-    name: Publishing.Commands.REVOKE_SHAREABLE_LINK_COMMAND,
-    revision,
-    payload: { shareableLinkId, requesterId },
-  } satisfies Publishing.Commands.RevokeShareableLinkCommandType);
+  const command = wip.command(
+    Publishing.Commands.RevokeShareableLinkCommand,
+    { revision, payload: { shareableLinkId, requesterId } },
+    deps,
+  );
 
   await deps.CommandBus.emit(command);
 

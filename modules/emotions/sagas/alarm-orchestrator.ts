@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
-import * as v from "valibot";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import type { LanguagesType } from "+languages";
@@ -10,6 +9,7 @@ import * as Events from "+emotions/events";
 import type * as Ports from "+emotions/ports";
 import * as Services from "+emotions/services";
 import * as VO from "+emotions/value-objects";
+import * as wip from "+infra/build";
 
 type AcceptedEvent =
   | Events.AlarmGeneratedEventType
@@ -58,11 +58,11 @@ export class AlarmOrchestrator {
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
-    const cancel = v.parse(Commands.CancelAlarmCommand, {
-      ...bg.createCommandEnvelope(this.deps),
-      name: Commands.CANCEL_ALARM_COMMAND,
-      payload: { alarmId: event.payload.alarmId },
-    } satisfies Commands.CancelAlarmCommandType);
+    const cancel = wip.command(
+      Commands.CancelAlarmCommand,
+      { payload: { alarmId: event.payload.alarmId } },
+      this.deps,
+    );
 
     try {
       const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
@@ -89,11 +89,11 @@ export class AlarmOrchestrator {
       );
       const advice = await this.deps.AiGateway.query(prompt, context);
 
-      const command = v.parse(Commands.SaveAlarmAdviceCommand, {
-        ...bg.createCommandEnvelope(this.deps),
-        name: Commands.SAVE_ALARM_ADVICE_COMMAND,
-        payload: { alarmId: event.payload.alarmId, advice },
-      } satisfies Commands.SaveAlarmAdviceCommandType);
+      const command = wip.command(
+        Commands.SaveAlarmAdviceCommand,
+        { payload: { alarmId: event.payload.alarmId, advice } },
+        this.deps,
+      );
 
       await this.deps.CommandBus.emit(command);
     } catch (_error) {
@@ -102,21 +102,21 @@ export class AlarmOrchestrator {
   }
 
   async onAlarmAdviceSavedEvent(event: Events.AlarmAdviceSavedEventType) {
-    const command = v.parse(Commands.RequestAlarmNotificationCommand, {
-      ...bg.createCommandEnvelope(this.deps),
-      name: Commands.REQUEST_ALARM_NOTIFICATION_COMMAND,
-      payload: { alarmId: event.payload.alarmId },
-    } satisfies Commands.RequestAlarmNotificationCommandType);
+    const command = wip.command(
+      Commands.RequestAlarmNotificationCommand,
+      { payload: { alarmId: event.payload.alarmId } },
+      this.deps,
+    );
 
     await this.deps.CommandBus.emit(command);
   }
 
   async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
-    const cancel = v.parse(Commands.CancelAlarmCommand, {
-      ...bg.createCommandEnvelope(this.deps),
-      name: Commands.CANCEL_ALARM_COMMAND,
-      payload: { alarmId: event.payload.alarmId },
-    } satisfies Commands.CancelAlarmCommandType);
+    const cancel = wip.command(
+      Commands.CancelAlarmCommand,
+      { payload: { alarmId: event.payload.alarmId } },
+      this.deps,
+    );
 
     const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
     if (!contact?.address) return this.deps.CommandBus.emit(cancel);
@@ -147,11 +147,11 @@ export class AlarmOrchestrator {
 
       await this.deps.Mailer.send(new bg.MailerTemplate(config, message));
 
-      const complete = v.parse(Commands.CompleteAlarmCommand, {
-        ...bg.createCommandEnvelope(this.deps),
-        name: Commands.COMPLETE_ALARM_COMMAND,
-        payload: { alarmId: event.payload.alarmId },
-      } satisfies Commands.CompleteAlarmCommandType);
+      const complete = wip.command(
+        Commands.CompleteAlarmCommand,
+        { payload: { alarmId: event.payload.alarmId } },
+        this.deps,
+      );
 
       await this.deps.CommandBus.emit(complete);
     } catch {}
@@ -163,11 +163,7 @@ export class AlarmOrchestrator {
     );
 
     for (const alarmId of cancellableAlarmIds) {
-      const command = v.parse(Commands.CancelAlarmCommand, {
-        ...bg.createCommandEnvelope(this.deps),
-        name: Commands.CANCEL_ALARM_COMMAND,
-        payload: { alarmId },
-      } satisfies Commands.CancelAlarmCommandType);
+      const command = wip.command(Commands.CancelAlarmCommand, { payload: { alarmId } }, this.deps);
 
       await this.deps.CommandBus.emit(command);
     }

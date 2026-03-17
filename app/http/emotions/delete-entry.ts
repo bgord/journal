@@ -1,9 +1,10 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+import * as wip from "+infra/build";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -16,12 +17,11 @@ export const DeleteEntry = (deps: Dependencies) => async (c: hono.Context<infra.
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
   const entryId = v.parse(Emotions.VO.EntryId, c.req.param("entryId"));
 
-  const command = v.parse(Emotions.Commands.DeleteEntryCommand, {
-    ...bg.createCommandEnvelope(deps),
-    name: Emotions.Commands.DELETE_ENTRY_COMMAND,
-    revision,
-    payload: { entryId, userId },
-  } satisfies Emotions.Commands.DeleteEntryCommandType);
+  const command = wip.command(
+    Emotions.Commands.DeleteEntryCommand,
+    { revision, payload: { entryId, userId } },
+    deps,
+  );
 
   await deps.CommandBus.emit(command);
 

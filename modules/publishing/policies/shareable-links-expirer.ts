@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
+import * as wip from "+infra/build";
 import * as Commands from "+publishing/commands";
 import type * as Ports from "+publishing/ports";
 
@@ -32,12 +32,14 @@ export class ShareableLinksExpirer {
       const shareableLinks = await this.deps.ExpiringShareableLinks.listDue(event.payload.timestamp);
 
       for (const shareableLink of shareableLinks) {
-        const command = v.parse(Commands.ExpireShareableLinkCommand, {
-          ...bg.createCommandEnvelope(this.deps),
-          name: Commands.EXPIRE_SHAREABLE_LINK_COMMAND,
-          revision: new tools.Revision(shareableLink.revision),
-          payload: { shareableLinkId: shareableLink.id },
-        } satisfies Commands.ExpireShareableLinkCommandType);
+        const command = wip.command(
+          Commands.ExpireShareableLinkCommand,
+          {
+            revision: new tools.Revision(shareableLink.revision),
+            payload: { shareableLinkId: shareableLink.id },
+          },
+          this.deps,
+        );
 
         await this.deps.CommandBus.emit(command);
       }

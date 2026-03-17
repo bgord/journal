@@ -1,9 +1,10 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as v from "valibot";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
+import * as wip from "+infra/build";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -22,11 +23,11 @@ export const UpdateProfileAvatar = (deps: Dependencies) => async (c: hono.Contex
 
   const temporary = await deps.TemporaryFile.write(filename, file);
 
-  const command = v.parse(Preferences.Commands.UpdateProfileAvatarCommand, {
-    ...bg.createCommandEnvelope(deps),
-    name: Preferences.Commands.UPDATE_PROFILE_AVATAR_COMMAND,
-    payload: { userId, absoluteFilePath: temporary.get() },
-  } satisfies Preferences.Commands.UpdateProfileAvatarCommandType);
+  const command = wip.command(
+    Preferences.Commands.UpdateProfileAvatarCommand,
+    { payload: { userId, absoluteFilePath: temporary.get() } },
+    deps,
+  );
 
   await deps.CommandBus.emit(command);
 

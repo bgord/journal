@@ -1,8 +1,8 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
+import * as wip from "+infra/build";
 
 type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.RequestWeeklyReviewCommandType;
@@ -34,11 +34,11 @@ export class WeeklyReviewScheduler {
     const userIds = await this.deps.UserDirectoryOHQ.listActiveUserIds();
 
     for (const userId of userIds) {
-      const command = v.parse(Emotions.Commands.RequestWeeklyReviewCommand, {
-        ...bg.createCommandEnvelope(this.deps),
-        name: Emotions.Commands.REQUEST_WEEKLY_REVIEW_COMMAND,
-        payload: { week, userId },
-      } satisfies Emotions.Commands.RequestWeeklyReviewCommandType);
+      const command = wip.command(
+        Emotions.Commands.RequestWeeklyReviewCommand,
+        { payload: { week, userId } },
+        this.deps,
+      );
 
       await this.deps.CommandBus.emit(command);
     }

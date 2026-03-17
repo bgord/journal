@@ -1,8 +1,8 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import type hono from "hono";
-import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+import * as wip from "+infra/build";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -32,11 +32,11 @@ export const LogEntry = (deps: Dependencies) => async (c: hono.Context<infra.Con
     new Emotions.VO.ReactionEffectiveness(body.reactionEffectiveness),
   );
 
-  const command = v.parse(Emotions.Commands.LogEntryCommand, {
-    ...bg.createCommandEnvelope(deps),
-    name: Emotions.Commands.LOG_ENTRY_COMMAND,
-    payload: { entryId, situation, emotion, reaction, userId, origin: Emotions.VO.EntryOriginOption.web },
-  } satisfies Emotions.Commands.LogEntryCommandType);
+  const command = wip.command(
+    Emotions.Commands.LogEntryCommand,
+    { payload: { entryId, situation, emotion, reaction, userId, origin: Emotions.VO.EntryOriginOption.web } },
+    deps,
+  );
 
   await deps.CommandBus.emit(command);
 

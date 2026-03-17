@@ -1,9 +1,9 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
-import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+import * as wip from "+infra/build";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -34,17 +34,17 @@ export const ScheduleTimeCapsuleEntry = (deps: Dependencies) => async (c: hono.C
     new Emotions.VO.ReactionEffectiveness(body.reactionEffectiveness),
   );
 
-  const now = deps.Clock.now().ms;
+  const scheduledAt = deps.Clock.now().ms;
   const scheduledFor = tools.Day.fromIsoId(body.scheduledFor)
     .getStart()
     .add(timeZoneOffset)
     .add(tools.Duration.Hours(tools.Hour.fromValueSafe(body.scheduledForHour).get())).ms;
 
-  const command = v.parse(Emotions.Commands.ScheduleTimeCapsuleEntryCommand, {
-    ...bg.createCommandEnvelope(deps),
-    name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
-    payload: { entryId, situation, emotion, reaction, userId, scheduledAt: now, scheduledFor },
-  } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
+  const command = wip.command(
+    Emotions.Commands.ScheduleTimeCapsuleEntryCommand,
+    { payload: { entryId, situation, emotion, reaction, userId, scheduledAt, scheduledFor } },
+    deps,
+  );
 
   await deps.CommandBus.emit(command);
 

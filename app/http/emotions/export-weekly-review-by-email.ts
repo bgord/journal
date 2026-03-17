@@ -1,8 +1,9 @@
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import type hono from "hono";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+import * as wip from "+infra/build";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -14,11 +15,11 @@ export const ExportWeeklyReviewByEmail = (deps: Dependencies) => async (c: hono.
   const userId = c.get("user").id;
   const weeklyReviewId = v.parse(Emotions.VO.WeeklyReviewId, c.req.param("weeklyReviewId"));
 
-  const command = v.parse(Emotions.Commands.ExportWeeklyReviewByEmailCommand, {
-    ...bg.createCommandEnvelope(deps),
-    name: Emotions.Commands.EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND,
-    payload: { userId, weeklyReviewId },
-  } satisfies Emotions.Commands.ExportWeeklyReviewByEmailCommandType);
+  const command = wip.command(
+    Emotions.Commands.ExportWeeklyReviewByEmailCommand,
+    { payload: { userId, weeklyReviewId } },
+    deps,
+  );
 
   await deps.CommandBus.emit(command);
 

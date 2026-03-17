@@ -6,6 +6,7 @@ import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
 import { bootstrap } from "+infra/bootstrap";
+import * as wip from "+infra/build";
 import { db } from "+infra/db";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -207,29 +208,31 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       console.log(`[✓] Entry ${counter + 1} created`);
     }
 
-    const ScheduleTimeCapsuleEntryCommand = v.parse(Emotions.Commands.ScheduleTimeCapsuleEntryCommand, {
-      ...bg.createCommandEnvelope(di.Adapters.System),
-      name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
-      payload: {
-        entryId: di.Adapters.System.IdProvider.generate(),
-        situation: new Emotions.Entities.Situation(
-          new Emotions.VO.SituationDescription(situationDescriptions[0] as string),
-          new Emotions.VO.SituationKind(situationKinds[0] as Emotions.VO.SituationKindOptions),
-        ),
-        emotion: new Emotions.Entities.Emotion(
-          new Emotions.VO.EmotionLabel(emotionLabels[0] as Emotions.VO.GenevaWheelEmotion),
-          new Emotions.VO.EmotionIntensity(1),
-        ),
-        reaction: new Emotions.Entities.Reaction(
-          new Emotions.VO.ReactionDescription(reactionDescriptions[0] as string),
-          new Emotions.VO.ReactionType(reactionTypes[0] as Emotions.VO.GrossEmotionRegulationStrategy),
-          new Emotions.VO.ReactionEffectiveness(1),
-        ),
-        userId: users[0]?.user.id as Auth.VO.UserIdType,
-        scheduledAt: now.ms,
-        scheduledFor: now.add(tools.Duration.Minutes(5)).ms,
+    const ScheduleTimeCapsuleEntryCommand = wip.command(
+      Emotions.Commands.ScheduleTimeCapsuleEntryCommand,
+      {
+        payload: {
+          entryId: di.Adapters.System.IdProvider.generate(),
+          situation: new Emotions.Entities.Situation(
+            new Emotions.VO.SituationDescription(situationDescriptions[0] as string),
+            new Emotions.VO.SituationKind(situationKinds[0] as Emotions.VO.SituationKindOptions),
+          ),
+          emotion: new Emotions.Entities.Emotion(
+            new Emotions.VO.EmotionLabel(emotionLabels[0] as Emotions.VO.GenevaWheelEmotion),
+            new Emotions.VO.EmotionIntensity(1),
+          ),
+          reaction: new Emotions.Entities.Reaction(
+            new Emotions.VO.ReactionDescription(reactionDescriptions[0] as string),
+            new Emotions.VO.ReactionType(reactionTypes[0] as Emotions.VO.GrossEmotionRegulationStrategy),
+            new Emotions.VO.ReactionEffectiveness(1),
+          ),
+          userId: users[0]?.user.id as Auth.VO.UserIdType,
+          scheduledAt: now.ms,
+          scheduledFor: now.add(tools.Duration.Minutes(5)).ms,
+        },
       },
-    } satisfies Emotions.Commands.ScheduleTimeCapsuleEntryCommandType);
+      di.Adapters.System,
+    );
 
     await di.Tools.CommandBus.emit(ScheduleTimeCapsuleEntryCommand);
 
