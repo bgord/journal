@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import { languages } from "+languages";
 import * as mocks from "./mocks";
@@ -10,8 +11,8 @@ describe("WeeklyReviewExportNotificationComposer", () => {
     const notification = composer.compose(mocks.week, languages.supported.en);
 
     expect(notification).toEqual({
-      subject: bg.MailerSubject.parse(`JOURNAL - weekly review ${mocks.weekStart} - ${mocks.weekEnd}`),
-      html: bg.MailerContentHtml.parse("Find the file attached"),
+      subject: v.parse(bg.MailerSubject, `JOURNAL - weekly review ${mocks.weekStart} - ${mocks.weekEnd}`),
+      html: v.parse(bg.MailerContentHtml, "Find the file attached"),
     });
   });
 
@@ -20,8 +21,8 @@ describe("WeeklyReviewExportNotificationComposer", () => {
     const notification = composer.compose(mocks.week, languages.supported.pl);
 
     expect(notification).toEqual({
-      subject: bg.MailerSubject.parse(`JOURNAL - przegląd tygodnia ${mocks.weekStart} - ${mocks.weekEnd}`),
-      html: bg.MailerContentHtml.parse("Plik w załączniku"),
+      subject: v.parse(bg.MailerSubject, `JOURNAL - przegląd tygodnia ${mocks.weekStart} - ${mocks.weekEnd}`),
+      html: v.parse(bg.MailerContentHtml, "Plik w załączniku"),
     });
   });
 });

@@ -1,6 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
@@ -38,9 +39,9 @@ describe("EntryAlarmDetector", async () => {
         violations: [
           {
             bucket: mocks.userDailyBucket,
-            limit: AI.QuotaLimit.parse(10),
+            limit: v.parse(AI.QuotaLimit, 10),
             id: "USER_DAILY",
-            used: tools.IntegerNonNegative.parse(10),
+            used: v.parse(tools.IntegerNonNegative, 10),
           },
         ],
       }),
@@ -63,9 +64,9 @@ describe("EntryAlarmDetector", async () => {
         violations: [
           {
             bucket: mocks.emotionsAlarmEntryBucket,
-            limit: AI.QuotaLimit.parse(2),
+            limit: v.parse(AI.QuotaLimit, 2),
             id: "EMOTIONS_ALARM_ENTRY",
-            used: tools.IntegerNonNegative.parse(2),
+            used: v.parse(tools.IntegerNonNegative, 2),
           },
         ],
       }),
@@ -103,9 +104,9 @@ describe("EntryAlarmDetector", async () => {
         violations: [
           {
             bucket: mocks.userDailyBucket,
-            limit: AI.QuotaLimit.parse(10),
+            limit: v.parse(AI.QuotaLimit, 10),
             id: "USER_DAILY",
-            used: tools.IntegerNonNegative.parse(10),
+            used: v.parse(tools.IntegerNonNegative, 10),
           },
         ],
       }),
@@ -128,9 +129,9 @@ describe("EntryAlarmDetector", async () => {
         violations: [
           {
             bucket: mocks.emotionsAlarmEntryBucket,
-            limit: AI.QuotaLimit.parse(2),
+            limit: v.parse(AI.QuotaLimit, 2),
             id: "EMOTIONS_ALARM_ENTRY",
-            used: tools.IntegerNonNegative.parse(2),
+            used: v.parse(tools.IntegerNonNegative, 2),
           },
         ],
       }),

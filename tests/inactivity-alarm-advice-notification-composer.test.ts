@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import { languages } from "+languages";
 import * as mocks from "./mocks";
@@ -14,8 +15,9 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual({
-      subject: bg.MailerSubject.parse("JOURNAL - inactivity advice"),
-      html: bg.MailerContentHtml.parse(
+      subject: v.parse(bg.MailerSubject, "JOURNAL - inactivity advice"),
+      html: v.parse(
+        bg.MailerContentHtml,
         `Inactive for ${mocks.inactivityTrigger.inactivityDays} days, advice: ${mocks.advice.get()}`,
       ),
     });
@@ -30,8 +32,9 @@ describe("InactivityAlarmAdviceNotificationComposer", () => {
     const notification = inactivityAlarmAdviceNotificationComposer.compose(mocks.advice);
 
     expect(notification).toEqual({
-      subject: bg.MailerSubject.parse("JOURNAL - porada dla braku aktywności"),
-      html: bg.MailerContentHtml.parse(
+      subject: v.parse(bg.MailerSubject, "JOURNAL - porada dla braku aktywności"),
+      html: v.parse(
+        bg.MailerContentHtml,
         `Brak aktywności przez ${mocks.inactivityTrigger.inactivityDays} dni, porada: ${mocks.advice.get()}`,
       ),
     });

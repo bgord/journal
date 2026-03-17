@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import { languages } from "+languages";
 
@@ -10,8 +11,8 @@ describe("TimeCapsuleEntryNotificationComposer", () => {
     );
 
     expect(entryAlarmAdviceNotificationComposer.compose()).toEqual({
-      subject: bg.MailerSubject.parse("JOURNAL - time capsule entry"),
-      html: bg.MailerContentHtml.parse("Go to the homepage"),
+      subject: v.parse(bg.MailerSubject, "JOURNAL - time capsule entry"),
+      html: v.parse(bg.MailerContentHtml, "Go to the homepage"),
     });
   });
 
@@ -21,8 +22,8 @@ describe("TimeCapsuleEntryNotificationComposer", () => {
     );
 
     expect(entryAlarmAdviceNotificationComposer.compose()).toEqual({
-      subject: bg.MailerSubject.parse("JOURNAL - wpis z przeszłości"),
-      html: bg.MailerContentHtml.parse("Odwiedź stronę główną"),
+      subject: v.parse(bg.MailerSubject, "JOURNAL - wpis z przeszłości"),
+      html: v.parse(bg.MailerContentHtml, "Odwiedź stronę główną"),
     });
   });
 });

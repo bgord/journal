@@ -1,6 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
@@ -58,9 +59,9 @@ describe("InactivityAlarmScheduler", async () => {
         violations: [
           {
             bucket: mocks.userDailyBucket,
-            limit: AI.QuotaLimit.parse(10),
+            limit: v.parse(AI.QuotaLimit, 10),
             id: "USER_DAILY",
-            used: tools.IntegerNonNegative.parse(10),
+            used: v.parse(tools.IntegerNonNegative, 10),
           },
         ],
       }),
@@ -91,9 +92,9 @@ describe("InactivityAlarmScheduler", async () => {
         violations: [
           {
             bucket: mocks.emotionsAlarmInactivityWeeklyBucket,
-            limit: AI.QuotaLimit.parse(1),
+            limit: v.parse(AI.QuotaLimit, 1),
             id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
-            used: tools.IntegerNonNegative.parse(1),
+            used: v.parse(tools.IntegerNonNegative, 1),
           },
         ],
       }),

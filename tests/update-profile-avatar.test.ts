@@ -1,6 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
 import { registerEventHandlers } from "+infra/register-event-handlers";
@@ -41,8 +42,8 @@ describe(`POST ${url}`, async () => {
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-        width: tools.ImageWidth.parse(4100),
-        height: tools.ImageHeight.parse(100),
+        width: v.parse(tools.ImageWidth, 4100),
+        height: v.parse(tools.ImageHeight, 100),
         mime: tools.Mimes.png.mime,
         size: tools.Size.fromKb(100),
       }),
@@ -62,8 +63,8 @@ describe(`POST ${url}`, async () => {
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-        width: tools.ImageWidth.parse(100),
-        height: tools.ImageHeight.parse(4100),
+        width: v.parse(tools.ImageWidth, 100),
+        height: v.parse(tools.ImageHeight, 4100),
         mime: tools.Mimes.png.mime,
         size: tools.Size.fromKb(100),
       }),
@@ -83,8 +84,8 @@ describe(`POST ${url}`, async () => {
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-        width: tools.ImageWidth.parse(100),
-        height: tools.ImageHeight.parse(100),
+        width: v.parse(tools.ImageWidth, 100),
+        height: v.parse(tools.ImageHeight, 100),
         mime: tools.Mimes.png.mime,
         size: tools.Size.fromMB(100),
       }),
@@ -104,8 +105,8 @@ describe(`POST ${url}`, async () => {
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-        width: tools.ImageWidth.parse(100),
-        height: tools.ImageHeight.parse(100),
+        width: v.parse(tools.ImageWidth, 100),
+        height: v.parse(tools.ImageHeight, 100),
         mime: tools.Mimes.text.mime,
         size: tools.Size.fromKb(100),
       }),
@@ -126,8 +127,8 @@ describe(`POST ${url}`, async () => {
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-        width: tools.ImageWidth.parse(4000),
-        height: tools.ImageHeight.parse(4000),
+        width: v.parse(tools.ImageWidth, 4000),
+        height: v.parse(tools.ImageHeight, 4000),
         mime: tools.Mimes.png.mime,
         size: tools.Size.fromKb(100),
       }),
@@ -161,8 +162,8 @@ describe(`POST ${url}`, async () => {
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-        width: tools.ImageWidth.parse(100),
-        height: tools.ImageHeight.parse(100),
+        width: v.parse(tools.ImageWidth, 100),
+        height: v.parse(tools.ImageHeight, 100),
         mime: tools.Mimes.jpg.mime,
         size: tools.Size.fromKb(100),
       }),
@@ -184,8 +185,8 @@ describe(`POST ${url}`, async () => {
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
-        width: tools.ImageWidth.parse(100),
-        height: tools.ImageHeight.parse(100),
+        width: v.parse(tools.ImageWidth, 100),
+        height: v.parse(tools.ImageHeight, 100),
         mime: tools.Mimes.webp.mime,
         size: tools.Size.fromKb(100),
       }),

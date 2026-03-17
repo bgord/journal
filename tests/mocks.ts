@@ -1,9 +1,11 @@
 // cspell:disable
+
 import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { Session, User } from "better-auth";
 import { format } from "date-fns";
+import * as v from "valibot";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
@@ -16,15 +18,15 @@ import type * as Schema from "+infra/schema";
 // IDs
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
-export const entryId = bg.UUID.parse("e3799aaf-da3d-491b-b408-9c642cc3c312");
-export const alarmId = bg.UUID.parse("de578009-c9a7-4a59-8fb7-5223f82ef9ef");
-export const userId = bg.UUID.parse("60aac9b2-2c16-4e94-b024-0951723e0bed");
-export const anotherUserId = bg.UUID.parse("cd74d060-d5de-4a81-8ffb-b2dc46cd4451");
-export const weeklyReviewId = bg.UUID.parse("e212142f-0ac0-4641-a417-117a2909afa0");
-export const weeklyReviewExportId = bg.UUID.parse("4d4964cf-1429-4861-b7f7-b255c0072990");
-export const shareableLinkId = bg.UUID.parse("2e469d5a-8317-459a-a0b9-b9a019acca19");
-export const historyId = bg.UUID.parse("8d79bd87-1709-4c15-b40c-cd0fafaa0113");
-const patternDetectionId = bg.UUID.parse("d2ca7a35-76a0-42de-8a2c-32d8b14fdfab");
+export const entryId = v.parse(bg.UUID, "e3799aaf-da3d-491b-b408-9c642cc3c312");
+export const alarmId = v.parse(bg.UUID, "de578009-c9a7-4a59-8fb7-5223f82ef9ef");
+export const userId = v.parse(bg.UUID, "60aac9b2-2c16-4e94-b024-0951723e0bed");
+export const anotherUserId = v.parse(bg.UUID, "cd74d060-d5de-4a81-8ffb-b2dc46cd4451");
+export const weeklyReviewId = v.parse(bg.UUID, "e212142f-0ac0-4641-a417-117a2909afa0");
+export const weeklyReviewExportId = v.parse(bg.UUID, "4d4964cf-1429-4861-b7f7-b255c0072990");
+export const shareableLinkId = v.parse(bg.UUID, "2e469d5a-8317-459a-a0b9-b9a019acca19");
+export const historyId = v.parse(bg.UUID, "8d79bd87-1709-4c15-b40c-cd0fafaa0113");
+const patternDetectionId = v.parse(bg.UUID, "d2ca7a35-76a0-42de-8a2c-32d8b14fdfab");
 
 // Timestamps
 export const T0 = tools.Timestamp.fromNumber(Date.UTC(2025, 0, 1, 0, 0, 0));
@@ -43,7 +45,7 @@ export const expectAnyId = expect.stringMatching(
 
 export const ip = { server: { requestIP: () => ({ address: "127.0.0.1" }) } };
 
-export const email = tools.Email.parse("user@example.com");
+export const email = v.parse(tools.Email, "user@example.com");
 export const contact = { type: "email", address: email } as const;
 export const anotherEmail = "another@example.com";
 
@@ -74,7 +76,7 @@ export const entryDetection = new Emotions.VO.AlarmDetection(
 
 export const inactivityTrigger = {
   type: Emotions.VO.AlarmTriggerEnum.inactivity,
-  inactivityDays: tools.IntegerPositive.parse(7),
+  inactivityDays: v.parse(tools.IntegerPositive, 7),
   lastEntryTimestamp: T0.ms,
 } as const;
 
@@ -94,7 +96,8 @@ export const dateRange = new tools.DateRange(T0, T0.add(tools.Duration.Days(1)).
 
 export const durationMs = tools.Duration.Seconds(1).ms;
 
-export const visitorIdRaw = bg.HashValue.parse(
+export const visitorIdRaw = v.parse(
+  bg.HashValue,
   "cbc46a7ff4f622abbcfe90e895993db309e4e32280fc1b6347b90be4b19270ca",
 );
 const visitorId = bg.Hash.fromValue(visitorIdRaw);
@@ -142,9 +145,9 @@ export const ruleInspection = {
   id: AI.USER_DAILY_RULE.id,
   consumed: false,
   limit: AI.USER_DAILY_RULE.limit,
-  count: tools.IntegerNonNegative.parse(3),
-  remaining: tools.IntegerNonNegative.parse(7),
-  resetsInMs: tools.DurationMs.parse(0),
+  count: v.parse(tools.IntegerNonNegative, 3),
+  remaining: v.parse(tools.IntegerNonNegative, 7),
+  resetsInMs: v.parse(tools.DurationMs, 0),
   resetsInHours: 0,
 };
 
@@ -158,7 +161,7 @@ export const head = {
   mime: tools.Mimes.webp.mime,
 };
 
-export const objectKey = tools.ObjectKey.parse(`users/${userId}/avatar.webp`);
+export const objectKey = v.parse(tools.ObjectKey, `users/${userId}/avatar.webp`);
 
 export const GenericSituationLoggedEvent = {
   id: expectAnyId,
@@ -535,14 +538,14 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent = {
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT",
-  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: tools.IntegerPositive.parse(1) },
+  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: v.parse(tools.IntegerPositive, 1) },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
 export const GenericWeeklyReviewExportByEmailRequestedEvent2nd = {
   ...GenericWeeklyReviewExportByEmailRequestedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailRequestedEvent.payload,
-    attempt: tools.IntegerPositive.parse(2),
+    attempt: v.parse(tools.IntegerPositive, 2),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -550,7 +553,7 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent3rd = {
   ...GenericWeeklyReviewExportByEmailRequestedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailRequestedEvent.payload,
-    attempt: tools.IntegerPositive.parse(3),
+    attempt: v.parse(tools.IntegerPositive, 3),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -558,7 +561,7 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent4th = {
   ...GenericWeeklyReviewExportByEmailRequestedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailRequestedEvent.payload,
-    attempt: tools.IntegerPositive.parse(4),
+    attempt: v.parse(tools.IntegerPositive, 4),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -569,14 +572,14 @@ export const GenericWeeklyReviewExportByEmailFailedEvent = {
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT",
-  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: tools.IntegerPositive.parse(1) },
+  payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: v.parse(tools.IntegerPositive, 1) },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
 export const GenericWeeklyReviewExportByEmailFailedEvent2nd = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailFailedEvent.payload,
-    attempt: tools.IntegerPositive.parse(2),
+    attempt: v.parse(tools.IntegerPositive, 2),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
@@ -584,7 +587,7 @@ export const GenericWeeklyReviewExportByEmailFailedEvent3rd = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailFailedEvent.payload,
-    attempt: tools.IntegerPositive.parse(3),
+    attempt: v.parse(tools.IntegerPositive, 3),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
@@ -592,7 +595,7 @@ export const GenericWeeklyReviewExportByEmailFailedEvent4th = {
   ...GenericWeeklyReviewExportByEmailFailedEvent,
   payload: {
     ...GenericWeeklyReviewExportByEmailFailedEvent.payload,
-    attempt: tools.IntegerPositive.parse(4),
+    attempt: v.parse(tools.IntegerPositive, 4),
   },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
 
@@ -1111,8 +1114,8 @@ export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
   dateRangeStart: tools.DateFormatters.datetime(T0.ms),
   dateRangeEnd: tools.DateFormatters.datetime(T0.ms),
   expiresAt: tools.DateFormatters.datetime(T0.ms),
-  hits: tools.IntegerNonNegative.parse(1),
-  uniqueVisitors: tools.IntegerNonNegative.parse(1),
+  hits: v.parse(tools.IntegerNonNegative, 1),
+  uniqueVisitors: v.parse(tools.IntegerNonNegative, 1),
 };
 
 export const user: User = {

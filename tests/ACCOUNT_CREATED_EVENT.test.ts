@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as mocks from "./mocks";
 
@@ -14,11 +15,12 @@ describe("ACCOUNT_CREATED_EVENT", () => {
       version: 1,
     } as const;
 
-    const event = Auth.Events.AccountCreatedEvent.safeParse(
+    const event = v.safeParse(
+      Auth.Events.AccountCreatedEvent,
       input satisfies Auth.Events.AccountCreatedEventType,
     );
 
     expect(event.success).toEqual(true);
-    expect(event.data).toEqual(input);
+    expect(event.output).toEqual(input);
   });
 });

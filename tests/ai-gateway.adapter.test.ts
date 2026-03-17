@@ -1,6 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import { AiGateway, AiQuotaExceededError } from "+ai/open-host-services";
 import * as VO from "+ai/value-objects";
 import { bootstrap } from "+infra/bootstrap";
@@ -24,8 +25,8 @@ describe("AiGateway", async () => {
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-        [mocks.userDailyBucket]: tools.IntegerNonNegative.parse(0),
-        [mocks.emotionsAlarmEntryBucket]: tools.IntegerNonNegative.parse(0),
+        [mocks.userDailyBucket]: v.parse(tools.IntegerNonNegative, 0),
+        [mocks.emotionsAlarmEntryBucket]: v.parse(tools.IntegerNonNegative, 0),
       }),
     );
     spies.use(spyOn(di.Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice));
@@ -44,8 +45,8 @@ describe("AiGateway", async () => {
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.AI.BucketCounter, "getMany").mockResolvedValue({
-        [mocks.userDailyBucket]: tools.IntegerNonNegative.parse(11),
-        [mocks.emotionsAlarmEntryBucket]: tools.IntegerNonNegative.parse(3),
+        [mocks.userDailyBucket]: v.parse(tools.IntegerNonNegative, 11),
+        [mocks.emotionsAlarmEntryBucket]: v.parse(tools.IntegerNonNegative, 3),
       }),
     );
     spies.use(spyOn(di.Adapters.AI.AiClient, "request").mockResolvedValue(mocks.advice));
