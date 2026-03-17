@@ -6,8 +6,8 @@ const EmotionIntensityErrors = { min_max: "emotion.intensity.min.max" };
 export const EmotionIntensitySchema = v.pipe(
   v.number(EmotionIntensityErrors.min_max),
   v.integer(EmotionIntensityErrors.min_max),
-  v.minValue(EmotionIntensityMax, EmotionIntensityErrors.min_max),
-  v.maxValue(EmotionIntensityMin, EmotionIntensityErrors.min_max),
+  v.minValue(EmotionIntensityMin, EmotionIntensityErrors.min_max),
+  v.maxValue(EmotionIntensityMax, EmotionIntensityErrors.min_max),
 );
 
 /** @public */
