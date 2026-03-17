@@ -1,9 +1,20 @@
 # Changelog
+- 2026-03-17 13:40 7207356d **fix: emotion intensity**
+## 2026-03-17 13:40 
+- 2026-03-17 13:26 0bad333e **refactor: registries**
+- 2026-03-17 12:43 c6e4c3a5 **refactor: parsing**
+- 2026-03-17 12:27 e8dabf8b **refactor: tests**
+- 2026-03-17 12:22 153ee912 **refactor: infra**
+- 2026-03-17 12:19 a2f5a1e2 **refactor: error handler**
+- 2026-03-17 12:18 36baf40c **refactor: domain vos**
+- 2026-03-17 11:37 bcc74cdd **step: remove zod**
+- 2026-03-17 11:37 27156367 **step: update packages**
 - 2026-03-16 12:18 f1cec61d **step: update packages**
-## 2026-03-16 12:18 
 - 2026-03-16 12:15 96856b2e **refactor: use sse registry limit decorator**
 - 2026-03-16 12:08 1b927263 **refactor: adjust env**
 - 2026-03-16 11:50 ecf09848 **step: update packages**
+- 2026-03-16 11:20 cb97c918 **docs: generate readme**
+- 2026-03-16 11:20 32ef6d07 **docs: generate CHANGELOG**
 - 2026-03-15 22:47 54381ac4 **step: use event store with logger**
 - 2026-03-15 22:41 d9031bb8 **step: update packages**
 - 2026-03-15 22:37 d14b4d1f **refactor: simplify revision assigner**
