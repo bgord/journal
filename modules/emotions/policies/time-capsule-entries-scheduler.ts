@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 
 type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
@@ -33,7 +34,7 @@ export class TimeCapsuleEntriesScheduler {
 
       if (!Emotions.Invariants.TimeCapsuleEntryIsPublishable.passes(config)) continue;
 
-      const command = Emotions.Commands.LogEntryCommand.parse({
+      const command = v.parse(Emotions.Commands.LogEntryCommand, {
         ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.LOG_ENTRY_COMMAND,
         payload: {

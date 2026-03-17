@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns";
@@ -27,7 +28,7 @@ export class MaladaptiveReactionsPattern extends Patterns.Pattern {
     );
 
     if (matches.length >= 3) {
-      return Events.MaladaptiveReactionsPatternDetectedEvent.parse({
+      return v.parse(Events.MaladaptiveReactionsPatternDetectedEvent, {
         ...bg.createEventEnvelope(this.getStream(), this.deps),
         name: Events.MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT,
         payload: {

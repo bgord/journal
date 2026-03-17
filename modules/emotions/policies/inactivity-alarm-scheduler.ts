@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 
@@ -46,13 +47,13 @@ export class InactivityAlarmScheduler {
 
       const trigger = {
         type: Emotions.VO.AlarmTriggerEnum.inactivity,
-        inactivityDays: tools.IntegerPositive.parse(7),
-        lastEntryTimestamp: tools.TimestampValue.parse(lastEntryTimestamp),
+        inactivityDays: v.parse(tools.IntegerPositive, 7),
+        lastEntryTimestamp: v.parse(tools.TimestampValue, lastEntryTimestamp),
       } as const;
 
       const detection = new Emotions.VO.AlarmDetection(trigger, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM);
 
-      const command = Emotions.Commands.GenerateAlarmCommand.parse({
+      const command = v.parse(Emotions.Commands.GenerateAlarmCommand, {
         ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.GENERATE_ALARM_COMMAND,
         payload: { detection, userId },

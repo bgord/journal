@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import * as Events from "+ai/events";
 import type * as Ports from "+ai/ports";
 import * as Specs from "+ai/specifications";
@@ -40,7 +41,7 @@ export class AiGateway implements Ports.AiGatewayPort {
     const verification = await this.check(context);
 
     if (verification.violations.length) {
-      const event = Events.AiQuotaExceededEvent.parse({
+      const event = v.parse(Events.AiQuotaExceededEvent, {
         ...bg.createEventEnvelope(`user_ai_usage_${context.userId}`, this.deps),
         name: Events.AI_QUOTA_EXCEEDED_EVENT,
         payload: { userId: context.userId, timestamp: context.timestamp },
@@ -53,7 +54,7 @@ export class AiGateway implements Ports.AiGatewayPort {
 
     const advice = await this.deps.AiClient.request(prompt);
 
-    const event = Events.AiRequestRegisteredEvent.parse({
+    const event = v.parse(Events.AiRequestRegisteredEvent, {
       ...bg.createEventEnvelope(`user_ai_usage_${context.userId}`, this.deps),
       name: Events.AI_REQUEST_REGISTERED_EVENT,
       payload: context,

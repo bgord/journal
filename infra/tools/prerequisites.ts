@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import { languages } from "+languages";
 import { sqlite } from "+infra/db";
 import { type EnvironmentResultType, MasterKeyPath, SecretsPath } from "+infra/env";
@@ -30,7 +31,7 @@ export function createPrerequisites(Env: EnvironmentResultType, deps: Dependenci
   );
   const withRetry = bg.PrerequisiteDecorator.withRetry(
     {
-      max: tools.IntegerPositive.parse(2),
+      max: v.parse(tools.IntegerPositive, 2),
       backoff: new bg.RetryBackoffLinearStrategy(tools.Duration.Ms(300)),
     },
     deps,
@@ -40,7 +41,7 @@ export function createPrerequisites(Env: EnvironmentResultType, deps: Dependenci
     new bg.Prerequisite("port", new bg.PrerequisiteVerifierPortAdapter({ port: Env.PORT })),
     new bg.Prerequisite(
       "timezone",
-      new bg.PrerequisiteVerifierTimezoneUtcAdapter({ timezone: tools.Timezone.parse(Env.TZ) }),
+      new bg.PrerequisiteVerifierTimezoneUtcAdapter({ timezone: v.parse(tools.Timezone, Env.TZ) }),
     ),
     new bg.Prerequisite("ram", new bg.PrerequisiteVerifierRamAdapter({ minimum: tools.Size.fromMB(128) }), {
       enabled: production,
@@ -112,20 +113,22 @@ export function createPrerequisites(Env: EnvironmentResultType, deps: Dependenci
     new bg.Prerequisite("os", new bg.PrerequisiteVerifierOsAdapter({ accepted: ["Darwin", "Linux"] })),
     new bg.Prerequisite(
       "httpie",
-      new bg.PrerequisiteVerifierBinaryAdapter({ binary: bg.Binary.parse("http") }),
+      new bg.PrerequisiteVerifierBinaryAdapter({ binary: v.parse(bg.Binary, "http") }),
       { enabled: production },
     ),
     new bg.Prerequisite(
       "sqlite3",
-      new bg.PrerequisiteVerifierBinaryAdapter({ binary: bg.Binary.parse("sqlite3") }),
+      new bg.PrerequisiteVerifierBinaryAdapter({ binary: v.parse(bg.Binary, "sqlite3") }),
       { enabled: production },
     ),
-    new bg.Prerequisite("tar", new bg.PrerequisiteVerifierBinaryAdapter({ binary: bg.Binary.parse("tar") }), {
-      enabled: production,
-    }),
+    new bg.Prerequisite(
+      "tar",
+      new bg.PrerequisiteVerifierBinaryAdapter({ binary: v.parse(bg.Binary, "tar") }),
+      { enabled: production },
+    ),
     new bg.Prerequisite(
       "gitleaks",
-      new bg.PrerequisiteVerifierBinaryAdapter({ binary: bg.Binary.parse("gitleaks") }),
+      new bg.PrerequisiteVerifierBinaryAdapter({ binary: v.parse(bg.Binary, "gitleaks") }),
       { enabled: local },
     ),
     new bg.Prerequisite(

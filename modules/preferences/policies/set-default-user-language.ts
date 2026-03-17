@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
+import * as v from "valibot";
 import * as Auth from "+auth";
 
 type Dependencies = {
@@ -24,7 +25,7 @@ export class SetDefaultUserLanguage<L extends ReadonlyArray<tools.LanguageType>>
   // Stryker restore all
 
   async onAccountCreatedEvent(event: Auth.Events.AccountCreatedEventType) {
-    const command = bg.Preferences.Commands.SetUserLanguageCommand.parse({
+    const command = v.parse(bg.Preferences.Commands.SetUserLanguageCommand, {
       ...bg.createCommandEnvelope({ IdProvider: this.deps.IdProvider, Clock: this.deps.Clock }),
       name: bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
       payload: { userId: event.payload.userId, language: this.systemDefaultLanguage },

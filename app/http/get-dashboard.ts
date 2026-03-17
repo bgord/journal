@@ -3,6 +3,7 @@ import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, count, desc, eq, gte, isNotNull, not, sql } from "drizzle-orm";
 import type hono from "hono";
+import * as v from "valibot";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
@@ -142,8 +143,8 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
 
     return response.map((emotion) => ({
       ...emotion,
-      hits: tools.IntegerNonNegative.parse(emotion.hits),
-      emotionLabel: Emotions.VO.EmotionLabelSchema.parse(emotion.label),
+      hits: v.parse(tools.IntegerNonNegative, emotion.hits),
+      emotionLabel: v.parse(Emotions.VO.EmotionLabelSchema, emotion.label),
     }));
   }
 
@@ -153,7 +154,10 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
     await getTopEmotionsSince(allTime),
   ]);
 
-  const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, tools.IntegerPositive.parse(5));
+  const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(
+    userId,
+    v.parse(tools.IntegerPositive, 5),
+  );
 
   const result: DashboardDataType = {
     heatmap: heatmapResponse.map((row) => {
@@ -170,21 +174,21 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
         ...alarm,
         advice: alarm.advice as AI.AdviceType,
         generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
-        inactivityDays: alarm.inactivityDays ? tools.IntegerPositive.parse(alarm.inactivityDays) : null,
+        inactivityDays: alarm.inactivityDays ? v.parse(tools.IntegerPositive, alarm.inactivityDays) : null,
       })),
       entry: entryAlarmsResponse.map((alarm) => ({
         ...alarm,
         advice: alarm.advice as AI.AdviceType,
-        name: Emotions.VO.AlarmName.parse(alarm.name),
-        emotionLabel: Emotions.VO.EmotionLabelSchema.parse(alarm.emotionLabel),
+        name: v.parse(Emotions.VO.AlarmName, alarm.name),
+        emotionLabel: v.parse(Emotions.VO.EmotionLabelSchema, alarm.emotionLabel),
         generatedAt: tools.DateFormatters.datetime(alarm.generatedAt),
       })),
     },
     entries: {
       counts: {
-        today: tools.IntegerNonNegative.parse(entryCountToday),
-        lastWeek: tools.IntegerNonNegative.parse(entryCountLastWeek),
-        allTime: tools.IntegerNonNegative.parse(entryCountAllTime),
+        today: v.parse(tools.IntegerNonNegative, entryCountToday),
+        lastWeek: v.parse(tools.IntegerNonNegative, entryCountLastWeek),
+        allTime: v.parse(tools.IntegerNonNegative, entryCountAllTime),
       },
       top: {
         reactions: topReactionsResponse.map((entry) => ({

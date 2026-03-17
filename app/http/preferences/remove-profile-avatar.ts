@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import type hono from "hono";
+import * as v from "valibot";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
 
@@ -12,7 +13,7 @@ type Dependencies = {
 export const RemoveProfileAvatar = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
-  const command = Preferences.Commands.RemoveProfileAvatarCommand.parse({
+  const command = v.parse(Preferences.Commands.RemoveProfileAvatarCommand, {
     ...bg.createCommandEnvelope(deps),
     name: Preferences.Commands.REMOVE_PROFILE_AVATAR_COMMAND,
     payload: { userId },

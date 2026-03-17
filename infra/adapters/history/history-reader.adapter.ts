@@ -1,6 +1,7 @@
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { desc, eq } from "drizzle-orm";
+import * as v from "valibot";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
@@ -17,7 +18,7 @@ class HistoryReaderDrizzle implements bg.History.Ports.HistoryReaderPort {
 
     return result.map((entry) => ({
       ...entry,
-      createdAt: tools.TimestampValue.parse(entry.createdAt),
+      createdAt: v.parse(tools.TimestampValue, entry.createdAt),
       payload: entry.payload ? JSON.parse(entry.payload) : {},
     }));
   }

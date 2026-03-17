@@ -3,6 +3,7 @@ import * as tools from "@bgord/tools";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { haveIBeenPwned } from "better-auth/plugins/haveibeenpwned";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import { db } from "+infra/db";
 import type { EnvironmentResultType } from "+infra/env";
@@ -34,7 +35,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
       deleteUser: {
         enabled: true,
         async afterDelete(user) {
-          const event = Auth.Events.AccountDeletedEvent.parse({
+          const event = v.parse(Auth.Events.AccountDeletedEvent, {
             ...bg.createEventEnvelope(`account_${user.id}`, deps),
             name: Auth.Events.ACCOUNT_DELETED_EVENT,
             payload: { userId: user.id, timestamp: deps.Clock.now().ms },
@@ -52,9 +53,9 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
       maxPasswordLength: Auth.VO.Password.MaximumLength,
       requireEmailVerification: true,
       async sendResetPassword({ user, url }) {
-        const config = { to: tools.Email.parse(user.email), from: Env.EMAIL_FROM };
+        const config = { to: v.parse(tools.Email, user.email), from: Env.EMAIL_FROM };
         const message = new Auth.Services.PasswordResetNotificationComposer().compose(
-          tools.UrlWithoutSlash.parse(url),
+          v.parse(tools.UrlWithoutSlash, url),
         );
 
         await deps.Mailer.send(new bg.MailerTemplate(config, message));
@@ -62,9 +63,9 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
     },
     emailVerification: {
       async sendVerificationEmail({ user, url }) {
-        const config = { to: tools.Email.parse(user.email), from: Env.EMAIL_FROM };
+        const config = { to: v.parse(tools.Email, user.email), from: Env.EMAIL_FROM };
         const message = new Auth.Services.EmailVerificationNotificationComposer(Env.BETTER_AUTH_URL).compose(
-          tools.UrlWithoutSlash.parse(url),
+          v.parse(tools.UrlWithoutSlash, url),
         );
 
         await deps.Mailer.send(new bg.MailerTemplate(config, message));
@@ -74,7 +75,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
       autoSignInAfterVerification: false,
       expiresIn: tools.Duration.Hours(1).seconds,
       async afterEmailVerification(user) {
-        const event = Auth.Events.AccountCreatedEvent.parse({
+        const event = v.parse(Auth.Events.AccountCreatedEvent, {
           ...bg.createEventEnvelope(`account_${user.id}`, deps),
           name: Auth.Events.ACCOUNT_CREATED_EVENT,
           payload: { userId: user.id, timestamp: deps.Clock.now().ms },

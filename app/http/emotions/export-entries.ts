@@ -1,6 +1,7 @@
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 
@@ -16,12 +17,12 @@ export const ExportEntries = (deps: Dependencies) => async (c: hono.Context<infr
   const userId = c.get("user").id;
   const timeZoneOffset = c.get("timeZoneOffset");
 
-  const start = tools.Day.fromIsoId(tools.DayIsoId.parse(c.req.query("dateRangeStart"))).getStart();
-  const end = tools.Day.fromIsoId(tools.DayIsoId.parse(c.req.query("dateRangeEnd"))).getEnd();
+  const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, c.req.query("dateRangeStart"))).getStart();
+  const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, c.req.query("dateRangeEnd"))).getEnd();
 
   const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
 
-  const strategy = Emotions.VO.EntryExportStrategy.parse(c.req.query("strategy"));
+  const strategy = v.parse(Emotions.VO.EntryExportStrategy, c.req.query("strategy"));
 
   const entries = await deps.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
 

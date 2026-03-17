@@ -1,14 +1,15 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import type { LanguagesType } from "+languages";
 
 const notification: Record<LanguagesType, () => bg.MailerTemplateMessage> = {
   en: () => ({
-    subject: bg.MailerSubject.parse("JOURNAL - time capsule entry"),
-    html: bg.MailerContentHtml.parse("Go to the homepage"),
+    subject: v.parse(bg.MailerSubject, "JOURNAL - time capsule entry"),
+    html: v.parse(bg.MailerContentHtml, "Go to the homepage"),
   }),
   pl: () => ({
-    subject: bg.MailerSubject.parse("JOURNAL - wpis z przeszłości"),
-    html: bg.MailerContentHtml.parse("Odwiedź stronę główną"),
+    subject: v.parse(bg.MailerSubject, "JOURNAL - wpis z przeszłości"),
+    html: v.parse(bg.MailerContentHtml, "Odwiedź stronę główną"),
   }),
 };
 

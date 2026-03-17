@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import type hono from "hono";
+import * as v from "valibot";
 import type * as infra from "+infra";
 
 type Dependencies = {
@@ -12,7 +13,7 @@ export const UpdateUserLanguage = (deps: Dependencies) => async (c: hono.Context
   const userId = c.get("user").id;
   const body = await c.req.json();
 
-  const command = bg.Preferences.Commands.SetUserLanguageCommand.parse({
+  const command = v.parse(bg.Preferences.Commands.SetUserLanguageCommand, {
     ...bg.createCommandEnvelope(deps),
     name: bg.Preferences.Commands.SET_USER_LANGUAGE_COMMAND,
     payload: { userId, language: body.language },

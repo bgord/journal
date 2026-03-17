@@ -1,5 +1,6 @@
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
@@ -12,7 +13,7 @@ class UserContactOHQDrizzle implements Auth.OHQ.UserContactOHQ {
     });
 
     if (!user?.email) return undefined;
-    return { type: "email", address: tools.Email.parse(user.email) } as const;
+    return { type: "email", address: v.parse(tools.Email, user.email) } as const;
   }
 }
 

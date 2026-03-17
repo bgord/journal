@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import type hono from "hono";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 
@@ -31,7 +32,7 @@ export const LogEntry = (deps: Dependencies) => async (c: hono.Context<infra.Con
     new Emotions.VO.ReactionEffectiveness(body.reactionEffectiveness),
   );
 
-  const command = Emotions.Commands.LogEntryCommand.parse({
+  const command = v.parse(Emotions.Commands.LogEntryCommand, {
     ...bg.createCommandEnvelope(deps),
     name: Emotions.Commands.LOG_ENTRY_COMMAND,
     payload: { entryId, situation, emotion, reaction, userId, origin: Emotions.VO.EntryOriginOption.web },

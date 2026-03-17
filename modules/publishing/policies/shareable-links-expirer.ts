@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import * as Commands from "+publishing/commands";
 import type * as Ports from "+publishing/ports";
 
@@ -31,7 +32,7 @@ export class ShareableLinksExpirer {
       const shareableLinks = await this.deps.ExpiringShareableLinks.listDue(event.payload.timestamp);
 
       for (const shareableLink of shareableLinks) {
-        const command = Commands.ExpireShareableLinkCommand.parse({
+        const command = v.parse(Commands.ExpireShareableLinkCommand, {
           ...bg.createCommandEnvelope(this.deps),
           name: Commands.EXPIRE_SHAREABLE_LINK_COMMAND,
           revision: new tools.Revision(shareableLink.revision),

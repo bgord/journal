@@ -1,6 +1,7 @@
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
@@ -26,7 +27,7 @@ class EntriesSharingOHQDrizzle implements Emotions.OHQ.EntriesSharingPort {
       emotionLabel: entry.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
       reactionType: entry.reactionType as Emotions.VO.GrossEmotionRegulationStrategy | null,
       origin: entry.origin as Emotions.VO.EntryOriginOption,
-      weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
+      weekIsoId: v.parse(tools.WeekIsoId, entry.weekIsoId),
       alarms: entry.alarms.map((alarm) => ({
         ...alarm,
         entryId: alarm.entryId as bg.UUIDType,
@@ -36,8 +37,8 @@ class EntriesSharingOHQDrizzle implements Emotions.OHQ.EntriesSharingPort {
         generatedAt: alarm.generatedAt as tools.TimestampValueType,
         lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
         emotionLabel: alarm.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
-        weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
-        inactivityDays: alarm.inactivityDays ? tools.IntegerPositive.parse(alarm.inactivityDays) : null,
+        weekIsoId: v.parse(tools.WeekIsoId, alarm.weekIsoId),
+        inactivityDays: alarm.inactivityDays ? v.parse(tools.IntegerPositive, alarm.inactivityDays) : null,
       })),
     }));
   }

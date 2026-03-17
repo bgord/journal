@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = { Clock: bg.ClockPort };
@@ -8,15 +9,15 @@ export function createLogger(Env: EnvironmentResultType, deps: Dependencies) {
   const app = "journal";
 
   const redactor = new bg.RedactorComposite([
-    new bg.RedactorMetadataCompactArray({ maxItems: tools.IntegerPositive.parse(3) }),
+    new bg.RedactorMetadataCompactArray({ maxItems: v.parse(tools.IntegerPositive, 3) }),
     new bg.RedactorMask(bg.RedactorMask.DEFAULT_KEYS),
   ]);
 
   const sampling = new bg.WoodchopperSamplingComposite([
     new bg.WoodchopperSamplingPassLevel([bg.LogLevelEnum.error, bg.LogLevelEnum.warn, bg.LogLevelEnum.info]),
     new bg.WoodchopperSamplingPassComponent(["infra", "security"]),
-    new bg.WoodchoperSamplingCorrelationId({ everyNth: tools.IntegerPositive.parse(10) }),
-    new bg.WoodchopperSamplingEveryNth({ n: tools.IntegerPositive.parse(10) }),
+    new bg.WoodchoperSamplingCorrelationId({ everyNth: v.parse(tools.IntegerPositive, 10) }),
+    new bg.WoodchopperSamplingEveryNth({ n: v.parse(tools.IntegerPositive, 10) }),
   ]);
 
   return {

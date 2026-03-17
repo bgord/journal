@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
+import * as v from "valibot";
 import * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import * as Publishing from "+publishing";
@@ -125,7 +126,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
         await db.update(Schema.users).set({ emailVerified: true }).where(eq(Schema.users.email, user.email));
 
-        const event = Auth.Events.AccountCreatedEvent.parse({
+        const event = v.parse(Auth.Events.AccountCreatedEvent, {
           ...bg.createEventEnvelope(`account_${result.user.id}`, di.Adapters.System),
           name: Auth.Events.ACCOUNT_CREATED_EVENT,
           payload: { userId: result.user.id, timestamp: now.ms },
@@ -141,7 +142,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
     const inactivityDetections = [
       new Emotions.VO.AlarmDetection(
-        Emotions.VO.AlarmTrigger.parse({
+        v.parse(Emotions.VO.AlarmTrigger, {
           type: Emotions.VO.AlarmTriggerEnum.inactivity,
           inactivityDays: 7,
           lastEntryTimestamp: now.subtract(tools.Duration.Days(10)).ms,
@@ -206,7 +207,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       console.log(`[✓] Entry ${counter + 1} created`);
     }
 
-    const ScheduleTimeCapsuleEntryCommand = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
+    const ScheduleTimeCapsuleEntryCommand = v.parse(Emotions.Commands.ScheduleTimeCapsuleEntryCommand, {
       ...bg.createCommandEnvelope(di.Adapters.System),
       name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
       payload: {

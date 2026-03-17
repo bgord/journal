@@ -1,6 +1,7 @@
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, desc, eq } from "drizzle-orm";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
 import type * as VO from "+emotions/value-objects";
@@ -24,11 +25,11 @@ export class AlarmDirectoryDrizzle implements Emotions.Ports.AlarmDirectoryPort 
       status: alarm.status as VO.AlarmStatusEnum,
       name: alarm.name as VO.AlarmNameOption,
       advice: alarm.advice as VO.AlarmSnapshot["advice"],
-      generatedAt: tools.TimestampValue.parse(alarm.generatedAt),
+      generatedAt: v.parse(tools.TimestampValue, alarm.generatedAt),
       lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
       emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
-      weekIsoId: tools.WeekIsoId.parse(alarm.weekIsoId),
-      inactivityDays: alarm.inactivityDays ? tools.IntegerPositive.parse(alarm.inactivityDays) : null,
+      weekIsoId: v.parse(tools.WeekIsoId, alarm.weekIsoId),
+      inactivityDays: alarm.inactivityDays ? v.parse(tools.IntegerPositive, alarm.inactivityDays) : null,
     };
   }
 }

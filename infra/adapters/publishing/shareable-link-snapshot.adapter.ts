@@ -1,5 +1,6 @@
 import * as tools from "@bgord/tools";
 import { and, desc, eq, sql } from "drizzle-orm";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Publishing from "+publishing";
 import { db } from "+infra/db";
@@ -39,8 +40,8 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
 
       result.push({
         ...ShareableLinkSnapshotDrizzle.format(shareableLink, timeZoneOffsetMs),
-        hits: tools.IntegerNonNegative.parse(hits),
-        uniqueVisitors: tools.IntegerNonNegative.parse(uniqueVisitors),
+        hits: v.parse(tools.IntegerNonNegative, hits),
+        uniqueVisitors: v.parse(tools.IntegerNonNegative, uniqueVisitors),
       });
     }
 

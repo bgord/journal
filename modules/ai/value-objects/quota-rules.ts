@@ -1,4 +1,5 @@
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import { QuotaLimit } from "./quota-limit";
 import type { QuotaRule } from "./quota-rule";
 import { QuotaWindow, QuotaWindowEnum } from "./quota-window";
@@ -8,7 +9,7 @@ import { UsageCategory } from "./usage-category";
 export const USER_DAILY_RULE: QuotaRule = {
   id: "USER_DAILY",
   window: new QuotaWindow(QuotaWindowEnum.DAY),
-  limit: QuotaLimit.parse(10),
+  limit: v.parse(QuotaLimit, 10),
   bucket: (context) =>
     `user:${context.userId}:day:${tools.Day.fromTimestampValue(context.timestamp).toIsoId()}`,
   appliesTo: (_category) => true,
@@ -18,7 +19,7 @@ export const USER_DAILY_RULE: QuotaRule = {
 export const EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY_RULE: QuotaRule = {
   id: "EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY",
   window: new QuotaWindow(QuotaWindowEnum.WEEK),
-  limit: QuotaLimit.parse(1),
+  limit: v.parse(QuotaLimit, 1),
   bucket: (context) =>
     `user:${context.userId}:week:${tools.Week.fromTimestampValue(context.timestamp).toIsoId()}:${UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT}`,
   appliesTo: (category) => category === UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
@@ -28,7 +29,7 @@ export const EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY_RULE: QuotaRule = {
 export const EMOTIONS_ALARM_INACTIVITY_WEEKLY_RULE: QuotaRule = {
   id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
   window: new QuotaWindow(QuotaWindowEnum.WEEK),
-  limit: QuotaLimit.parse(1),
+  limit: v.parse(QuotaLimit, 1),
   bucket: (context) =>
     `user:${context.userId}:week:${tools.Week.fromTimestampValue(context.timestamp).toIsoId()}:${UsageCategory.EMOTIONS_ALARM_INACTIVITY}`,
   appliesTo: (category) => category === UsageCategory.EMOTIONS_ALARM_INACTIVITY,
@@ -38,7 +39,7 @@ export const EMOTIONS_ALARM_INACTIVITY_WEEKLY_RULE: QuotaRule = {
 export const EMOTIONS_ALARM_ENTRY_RULE: QuotaRule = {
   id: "EMOTIONS_ALARM_ENTRY",
   window: new QuotaWindow(QuotaWindowEnum.ALL_TIME),
-  limit: QuotaLimit.parse(2),
+  limit: v.parse(QuotaLimit, 2),
   bucket: (context) => `user:${context.userId}:entry:${context.dimensions.entryId}:alarms`,
   appliesTo: (category) => category === UsageCategory.EMOTIONS_ALARM_ENTRY,
 };

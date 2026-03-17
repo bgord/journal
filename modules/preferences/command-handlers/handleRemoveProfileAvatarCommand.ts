@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import * as Preferences from "+preferences";
 
 type AcceptedEvent = Preferences.Events.ProfileAvatarRemovedEventType;
@@ -16,7 +17,7 @@ export const handleRemoveProfileAvatarCommand =
 
     await deps.RemoteFileStorage.delete(key);
 
-    const event = Preferences.Events.ProfileAvatarRemovedEvent.parse({
+    const event = v.parse(Preferences.Events.ProfileAvatarRemovedEvent, {
       ...bg.createEventEnvelope(`preferences_${command.payload.userId}`, deps),
       name: Preferences.Events.PROFILE_AVATAR_REMOVED_EVENT,
       payload: { userId: command.payload.userId },

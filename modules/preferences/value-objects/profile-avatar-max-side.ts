@@ -1,3 +1,4 @@
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 
-export const ProfileAvatarMaxSide = tools.ImageWidth.parse(4000);
+export const ProfileAvatarMaxSide = v.parse(tools.ImageWidth, 4000);

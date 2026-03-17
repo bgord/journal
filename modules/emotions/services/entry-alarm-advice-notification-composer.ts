@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import type * as AI from "+ai";
 import type { LanguagesType } from "+languages";
 import type * as VO from "+emotions/value-objects";
@@ -8,12 +9,12 @@ const notification: Record<
   (entry: VO.EntrySnapshot, advice: AI.Advice) => bg.MailerTemplateMessage
 > = {
   en: (entry: VO.EntrySnapshot, advice: AI.Advice) => ({
-    subject: bg.MailerSubject.parse("JOURNAL - emotional advice"),
-    html: bg.MailerContentHtml.parse(`Advice for emotion entry: ${entry.emotionLabel}: ${advice.get()}`),
+    subject: v.parse(bg.MailerSubject, "JOURNAL - emotional advice"),
+    html: v.parse(bg.MailerContentHtml, `Advice for emotion entry: ${entry.emotionLabel}: ${advice.get()}`),
   }),
   pl: (entry: VO.EntrySnapshot, advice: AI.Advice) => ({
-    subject: bg.MailerSubject.parse("JOURNAL - porada emocjonalna"),
-    html: bg.MailerContentHtml.parse(`Porada dla emocji: ${entry.emotionLabel}: ${advice.get()}`),
+    subject: v.parse(bg.MailerSubject, "JOURNAL - porada emocjonalna"),
+    html: v.parse(bg.MailerContentHtml, `Porada dla emocji: ${entry.emotionLabel}: ${advice.get()}`),
   }),
 };
 

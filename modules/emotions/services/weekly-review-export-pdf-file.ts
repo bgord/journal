@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type * as Emotions from "+emotions";
 
 type Dependencies = { PdfGenerator: bg.PdfGeneratorPort };
@@ -10,8 +11,8 @@ export class WeeklyReviewExportPdfFile extends bg.FileDraft {
     private readonly deps: Dependencies,
   ) {
     super(
-      tools.Basename.parse(`weekly-review-export-${data.weekIsoId}`),
-      tools.Extension.parse("pdf"),
+      v.parse(tools.Basename, `weekly-review-export-${data.weekIsoId}`),
+      v.parse(tools.Extension, "pdf"),
       tools.Mimes.pdf.mime,
     );
   }

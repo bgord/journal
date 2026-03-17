@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 
@@ -14,7 +15,7 @@ export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<i
   const userId = c.get("user").id;
   const body = await c.req.json();
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
-  const entryId = Emotions.VO.EntryId.parse(c.req.param("entryId"));
+  const entryId = v.parse(Emotions.VO.EntryId, c.req.param("entryId"));
 
   const newReaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(body.description),
@@ -22,7 +23,7 @@ export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<i
     new Emotions.VO.ReactionEffectiveness(body.effectiveness),
   );
 
-  const command = Emotions.Commands.EvaluateReactionCommand.parse({
+  const command = v.parse(Emotions.Commands.EvaluateReactionCommand, {
     ...bg.createCommandEnvelope(deps),
     name: Emotions.Commands.EVALUATE_REACTION_COMMAND,
     revision,

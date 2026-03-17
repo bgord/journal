@@ -1,3 +1,4 @@
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 
 /** @public */
@@ -7,7 +8,7 @@ export class NegativeEmotionExtremeIntensityAlarm extends Emotions.Services.Emot
   check(event: Emotions.Services.AlarmEventToBeChecked): Emotions.VO.AlarmDetection | null {
     switch (event.name) {
       case Emotions.Events.EMOTION_LOGGED_EVENT: {
-        const trigger = Emotions.VO.EntryAlarmTrigger.parse({
+        const trigger = v.parse(Emotions.VO.EntryAlarmTrigger, {
           type: Emotions.VO.AlarmTriggerEnum.entry,
           entryId: event.payload.entryId,
         } satisfies Emotions.VO.EntryAlarmTriggerType);
@@ -22,7 +23,7 @@ export class NegativeEmotionExtremeIntensityAlarm extends Emotions.Services.Emot
         return new Emotions.VO.AlarmDetection(trigger, this.name);
       }
       case Emotions.Events.EMOTION_REAPPRAISED_EVENT: {
-        const trigger = Emotions.VO.EntryAlarmTrigger.parse({
+        const trigger = v.parse(Emotions.VO.EntryAlarmTrigger, {
           type: Emotions.VO.AlarmTriggerEnum.entry,
           entryId: event.payload.entryId,
         } satisfies Emotions.VO.EntryAlarmTriggerType);

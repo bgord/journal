@@ -1,6 +1,7 @@
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import type { EntrySnapshotFormatted } from "+emotions/ports";
@@ -14,7 +15,7 @@ type Dependencies = {
 export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
-  const filter = Emotions.VO.EntryListFilter.parse(c.req.query("filter"));
+  const filter = v.parse(Emotions.VO.EntryListFilter, c.req.query("filter"));
   const query = c.req.query("query") ?? "";
   const options = Emotions.VO.EntryListFilterOptions;
 

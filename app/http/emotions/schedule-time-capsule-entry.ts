@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 
@@ -39,7 +40,7 @@ export const ScheduleTimeCapsuleEntry = (deps: Dependencies) => async (c: hono.C
     .add(timeZoneOffset)
     .add(tools.Duration.Hours(tools.Hour.fromValueSafe(body.scheduledForHour).get())).ms;
 
-  const command = Emotions.Commands.ScheduleTimeCapsuleEntryCommand.parse({
+  const command = v.parse(Emotions.Commands.ScheduleTimeCapsuleEntryCommand, {
     ...bg.createCommandEnvelope(deps),
     name: Emotions.Commands.SCHEDULE_TIME_CAPSULE_ENTRY_COMMAND,
     payload: { entryId, situation, emotion, reaction, userId, scheduledAt: now, scheduledFor },

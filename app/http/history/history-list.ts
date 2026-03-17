@@ -1,12 +1,13 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import * as v from "valibot";
 import type * as infra from "+infra";
 
 type Dependencies = { HistoryReader: bg.History.Ports.HistoryReaderPort };
 
 export const HistoryList = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const subject = bg.History.VO.HistorySubject.parse(c.req.param("subject"));
+  const subject = v.parse(bg.History.VO.HistorySubject, c.req.param("subject"));
 
   const list = await deps.HistoryReader.read(subject);
 

@@ -1,4 +1,5 @@
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type * as Ports from "+ai/ports";
 import * as Services from "+ai/services";
 import * as VO from "+ai/value-objects";
@@ -25,7 +26,7 @@ export class QuotaSpecification {
       .map((rule) => ({
         id: rule.id,
         bucket: rule.bucket,
-        used: counts[rule.bucket] ?? tools.IntegerNonNegative.parse(0),
+        used: counts[rule.bucket] ?? v.parse(tools.IntegerNonNegative, 0),
         limit: rule.limit,
       }))
       .filter((rule) => rule.used >= rule.limit);

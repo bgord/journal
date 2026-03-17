@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Publishing from "+publishing";
 
@@ -25,7 +26,7 @@ export class ShareableLinkAccessAuditorAdapter implements Publishing.Ports.Share
   constructor(private readonly deps: Dependencies) {}
 
   async record(input: Publishing.Ports.ShareableLinkAccessAuditorInput) {
-    const event = Publishing.Events.ShareableLinkAccessedEvent.parse({
+    const event = v.parse(Publishing.Events.ShareableLinkAccessedEvent, {
       ...bg.createEventEnvelope(`shareable_link_${input.linkId}`, this.deps),
       name: Publishing.Events.SHAREABLE_LINK_ACCESSED_EVENT,
       payload: {

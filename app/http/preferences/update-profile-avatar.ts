@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import * as v from "valibot";
 import type * as infra from "+infra";
 import * as Preferences from "+preferences";
 
@@ -17,11 +18,11 @@ export const UpdateProfileAvatar = (deps: Dependencies) => async (c: hono.Contex
   const file = body.get("file") as File;
 
   const uploaded = tools.Filename.fromString(file.name);
-  const filename = uploaded.withBasename(tools.Basename.parse(userId));
+  const filename = uploaded.withBasename(v.parse(tools.Basename, userId));
 
   const temporary = await deps.TemporaryFile.write(filename, file);
 
-  const command = Preferences.Commands.UpdateProfileAvatarCommand.parse({
+  const command = v.parse(Preferences.Commands.UpdateProfileAvatarCommand, {
     ...bg.createCommandEnvelope(deps),
     name: Preferences.Commands.UPDATE_PROFILE_AVATAR_COMMAND,
     payload: { userId, absoluteFilePath: temporary.get() },

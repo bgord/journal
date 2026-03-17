@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import * as v from "valibot";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
 
@@ -15,20 +16,21 @@ export const CreateShareableLink = (deps: Dependencies) => async (c: hono.Contex
   const body = await c.req.json();
   const timeZoneOffset = c.get("timeZoneOffset");
 
-  const publicationSpecification = Publishing.VO.PublicationSpecification.parse(
+  const publicationSpecification = v.parse(
+    Publishing.VO.PublicationSpecification,
     body.publicationSpecification,
   );
 
   const duration = tools.Duration.Ms(body.durationMs);
 
-  const start = tools.Day.fromIsoId(tools.DayIsoId.parse(body.dateRangeStart)).getStart();
-  const end = tools.Day.fromIsoId(tools.DayIsoId.parse(body.dateRangeEnd)).getEnd();
+  const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body.dateRangeStart)).getStart();
+  const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body.dateRangeEnd)).getEnd();
 
   const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
 
   const shareableLinkId = deps.IdProvider.generate();
 
-  const command = Publishing.Commands.CreateShareableLinkCommand.parse({
+  const command = v.parse(Publishing.Commands.CreateShareableLinkCommand, {
     ...bg.createCommandEnvelope(deps),
     name: Publishing.Commands.CREATE_SHAREABLE_LINK_COMMAND,
     payload: { shareableLinkId, requesterId, durationMs: duration.ms, publicationSpecification, dateRange },

@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = {
@@ -11,7 +12,7 @@ type Dependencies = {
 };
 
 export function createRemoteFileStorage(Env: EnvironmentResultType, deps: Dependencies) {
-  const config = { root: tools.DirectoryPathAbsoluteSchema.parse("/tmp") };
+  const config = { root: v.parse(tools.DirectoryPathAbsoluteSchema, "/tmp") };
 
   const FileCopier = new bg.FileCopierAdapter();
   const DirectoryEnsurer = new bg.DirectoryEnsurerAdapter();
@@ -27,7 +28,7 @@ export function createRemoteFileStorage(Env: EnvironmentResultType, deps: Depend
     [bg.NodeEnvironmentEnum.test]: new bg.RemoteFileStorageNoopAdapter(config, deps),
     [bg.NodeEnvironmentEnum.staging]: RemoteFileStorageTmp,
     [bg.NodeEnvironmentEnum.production]: new bg.RemoteFileStorageDiskAdapter(
-      { root: tools.DirectoryPathAbsoluteSchema.parse("/var/www/journal/infra/avatars") },
+      { root: v.parse(tools.DirectoryPathAbsoluteSchema, "/var/www/journal/infra/avatars") },
       { ...deps, FileCopier, DirectoryEnsurer },
     ),
   }[Env.type];

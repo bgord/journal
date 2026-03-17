@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 
 type AcceptedEvent = Emotions.Events.TimeCapsuleEntryScheduledEventType;
@@ -16,7 +17,7 @@ export const handleScheduleTimeCapsuleEntryCommand =
       scheduledFor: command.payload.scheduledFor,
     });
 
-    const event = Emotions.Events.TimeCapsuleEntryScheduledEvent.parse({
+    const event = v.parse(Emotions.Events.TimeCapsuleEntryScheduledEvent, {
       ...bg.createEventEnvelope(Emotions.Aggregates.Entry.getStream(command.payload.entryId), deps),
       name: Emotions.Events.TIME_CAPSULE_ENTRY_SCHEDULED_EVENT,
       payload: {

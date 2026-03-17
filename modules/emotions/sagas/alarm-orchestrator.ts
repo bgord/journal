@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
+import * as v from "valibot";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import type { LanguagesType } from "+languages";
@@ -57,7 +58,7 @@ export class AlarmOrchestrator {
   async onAlarmGeneratedEvent(event: Events.AlarmGeneratedEventType) {
     const detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
 
-    const cancel = Commands.CancelAlarmCommand.parse({
+    const cancel = v.parse(Commands.CancelAlarmCommand, {
       ...bg.createCommandEnvelope(this.deps),
       name: Commands.CANCEL_ALARM_COMMAND,
       payload: { alarmId: event.payload.alarmId },
@@ -88,7 +89,7 @@ export class AlarmOrchestrator {
       );
       const advice = await this.deps.AiGateway.query(prompt, context);
 
-      const command = Commands.SaveAlarmAdviceCommand.parse({
+      const command = v.parse(Commands.SaveAlarmAdviceCommand, {
         ...bg.createCommandEnvelope(this.deps),
         name: Commands.SAVE_ALARM_ADVICE_COMMAND,
         payload: { alarmId: event.payload.alarmId, advice },
@@ -101,7 +102,7 @@ export class AlarmOrchestrator {
   }
 
   async onAlarmAdviceSavedEvent(event: Events.AlarmAdviceSavedEventType) {
-    const command = Commands.RequestAlarmNotificationCommand.parse({
+    const command = v.parse(Commands.RequestAlarmNotificationCommand, {
       ...bg.createCommandEnvelope(this.deps),
       name: Commands.REQUEST_ALARM_NOTIFICATION_COMMAND,
       payload: { alarmId: event.payload.alarmId },
@@ -111,7 +112,7 @@ export class AlarmOrchestrator {
   }
 
   async onAlarmNotificationRequestedEvent(event: Events.AlarmNotificationRequestedEventType) {
-    const cancel = Commands.CancelAlarmCommand.parse({
+    const cancel = v.parse(Commands.CancelAlarmCommand, {
       ...bg.createCommandEnvelope(this.deps),
       name: Commands.CANCEL_ALARM_COMMAND,
       payload: { alarmId: event.payload.alarmId },
@@ -146,7 +147,7 @@ export class AlarmOrchestrator {
 
       await this.deps.Mailer.send(new bg.MailerTemplate(config, message));
 
-      const complete = Commands.CompleteAlarmCommand.parse({
+      const complete = v.parse(Commands.CompleteAlarmCommand, {
         ...bg.createCommandEnvelope(this.deps),
         name: Commands.COMPLETE_ALARM_COMMAND,
         payload: { alarmId: event.payload.alarmId },
@@ -162,7 +163,7 @@ export class AlarmOrchestrator {
     );
 
     for (const alarmId of cancellableAlarmIds) {
-      const command = Commands.CancelAlarmCommand.parse({
+      const command = v.parse(Commands.CancelAlarmCommand, {
         ...bg.createCommandEnvelope(this.deps),
         name: Commands.CANCEL_ALARM_COMMAND,
         payload: { alarmId },

@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
+import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 
@@ -19,7 +20,7 @@ export const ExportData = (deps: Dependencies) => async (c: hono.Context<infra.C
 
   const timestamp = deps.Clock.now().ms;
 
-  const zip = await bg.FileDraftZip.build(tools.Basename.parse(`export-${timestamp}`), [
+  const zip = await bg.FileDraftZip.build(v.parse(tools.Basename, `export-${timestamp}`), [
     new Emotions.Services.EntryExportFileCsv(entries, deps),
     new Emotions.Services.AlarmExportFileCsv(alarms, deps),
   ]);

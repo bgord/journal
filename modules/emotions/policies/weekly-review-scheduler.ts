@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 
@@ -33,7 +34,7 @@ export class WeeklyReviewScheduler {
     const userIds = await this.deps.UserDirectoryOHQ.listActiveUserIds();
 
     for (const userId of userIds) {
-      const command = Emotions.Commands.RequestWeeklyReviewCommand.parse({
+      const command = v.parse(Emotions.Commands.RequestWeeklyReviewCommand, {
         ...bg.createCommandEnvelope(this.deps),
         name: Emotions.Commands.REQUEST_WEEKLY_REVIEW_COMMAND,
         payload: { week, userId },

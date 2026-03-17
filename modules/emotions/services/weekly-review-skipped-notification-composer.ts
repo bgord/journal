@@ -1,19 +1,22 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type { LanguagesType } from "+languages";
 
 const notification: Record<LanguagesType, (week: tools.Week) => bg.MailerTemplateMessage> = {
   en: (week: tools.Week) => ({
-    subject: bg.MailerSubject.parse(
+    subject: v.parse(
+      bg.MailerSubject,
       `JOURNAL - weekly review ${tools.DateFormatters.date(week.getStart().ms)} - ${tools.DateFormatters.date(week.getEnd().ms)}`,
     ),
-    html: bg.MailerContentHtml.parse("Come back and journal"),
+    html: v.parse(bg.MailerContentHtml, "Come back and journal"),
   }),
   pl: (week: tools.Week) => ({
-    subject: bg.MailerSubject.parse(
+    subject: v.parse(
+      bg.MailerSubject,
       `JOURNAL - przegląd tygodnia ${tools.DateFormatters.date(week.getStart().ms)} - ${tools.DateFormatters.date(week.getEnd().ms)}`,
     ),
-    html: bg.MailerContentHtml.parse("Wróć do nas"),
+    html: v.parse(bg.MailerContentHtml, "Wróć do nas"),
   }),
 };
 

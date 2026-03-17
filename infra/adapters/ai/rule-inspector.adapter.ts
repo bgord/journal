@@ -1,6 +1,7 @@
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
+import * as v from "valibot";
 import type { RuleInspectorPort } from "+ai/ports";
 import type * as VO from "+ai/value-objects";
 import { db } from "+infra/db";
@@ -17,14 +18,14 @@ class RuleInspectorDrizzle implements RuleInspectorPort {
       where: eq(Schema.aiUsageCounters.bucket, rule.bucket(context)),
     });
 
-    const count = tools.IntegerNonNegative.parse(result?.count ?? 0);
+    const count = v.parse(tools.IntegerNonNegative, result?.count ?? 0);
 
     return {
       id: rule.id,
       consumed: count >= rule.limit,
       limit: rule.limit,
       count,
-      remaining: tools.IntegerNonNegative.parse(rule.limit - count),
+      remaining: v.parse(tools.IntegerNonNegative, rule.limit - count),
       resetsInMs: rule.window.resetsIn(this.deps.Clock).ms,
     };
   }
