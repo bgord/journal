@@ -6,19 +6,19 @@ import * as Events from "+publishing/events";
 import * as Invariants from "+publishing/invariants";
 import * as VO from "+publishing/value-objects";
 
-export type ShareableLinkEvent = (typeof ShareableLink)["events"][number];
-export type ShareableLinkEventType = v.InferOutput<ShareableLinkEvent>;
+export type ShareableLinkEventType =
+  | Events.ShareableLinkCreatedEventType
+  | Events.ShareableLinkExpiredEventType
+  | Events.ShareableLinkRevokedEventType;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class ShareableLink {
-  // Stryker disable all
-  static readonly events = [
-    Events.ShareableLinkCreatedEvent,
-    Events.ShareableLinkExpiredEvent,
-    Events.ShareableLinkRevokedEvent,
-  ];
-  // Stryker restore all
+  static readonly registry = new bg.EventValidatorRegistryAdapter<ShareableLinkEventType>({
+    [Events.SHAREABLE_LINK_CREATED_EVENT]: Events.ShareableLinkCreatedEvent,
+    [Events.SHAREABLE_LINK_EXPIRED_EVENT]: Events.ShareableLinkExpiredEvent,
+    [Events.SHAREABLE_LINK_REVOKED_EVENT]: Events.ShareableLinkRevokedEvent,
+  });
 
   readonly id: VO.ShareableLinkIdType;
   private ownerId?: Auth.VO.UserIdType;

@@ -1,13 +1,12 @@
 import type * as bg from "@bgord/bun";
 import { eq } from "drizzle-orm";
-import type * as v from "valibot";
 import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { ShareableLinkEvent } from "+publishing/aggregates";
+import type { ShareableLinkEventType } from "+publishing/aggregates";
 
 type Dependencies = {
-  EventBus: bg.EventBusPort<v.InferOutput<ShareableLinkEvent>>;
+  EventBus: bg.EventBusPort<ShareableLinkEventType>;
   EventHandler: bg.EventHandlerStrategy;
 };
 

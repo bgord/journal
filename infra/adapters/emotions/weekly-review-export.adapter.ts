@@ -1,5 +1,6 @@
 import * as tools from "@bgord/tools";
 import { desc, eq } from "drizzle-orm";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
 import type * as VO from "+emotions/value-objects";
@@ -102,12 +103,12 @@ class WeeklyReviewExportQueryDrizzle implements Emotions.Queries.WeeklyReviewExp
   static format(result: WeeklyReviewExportDrizzleResultType) {
     return {
       ...result,
-      createdAt: tools.TimestampValue.parse(result.createdAt),
+      createdAt: v.parse(tools.TimestampValue, result.createdAt),
       status: result.status as VO.WeeklyReviewStatusEnum,
-      weekIsoId: tools.WeekIsoId.parse(result.weekIsoId),
+      weekIsoId: v.parse(tools.WeekIsoId, result.weekIsoId),
       entries: result.entries.map((entry) => ({
         ...entry,
-        startedAt: tools.TimestampValue.parse(entry.startedAt),
+        startedAt: v.parse(tools.TimestampValue, entry.startedAt),
         situationKind: entry.situationKind as VO.SituationKindOptions,
         emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
         reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
@@ -118,10 +119,10 @@ class WeeklyReviewExportQueryDrizzle implements Emotions.Queries.WeeklyReviewExp
       })),
       alarms: result.alarms.map((alarm) => ({
         ...alarm,
-        inactivityDays: alarm.inactivityDays ? tools.IntegerPositive.parse(alarm.inactivityDays) : null,
+        inactivityDays: alarm.inactivityDays ? v.parse(tools.IntegerPositive, alarm.inactivityDays) : null,
         name: alarm.name as VO.AlarmNameOption,
         advice: alarm.advice as VO.AlarmSnapshot["advice"],
-        generatedAt: tools.TimestampValue.parse(alarm.generatedAt),
+        generatedAt: v.parse(tools.TimestampValue, alarm.generatedAt),
         lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
         emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
       })),

@@ -1,17 +1,14 @@
 import type * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
-import type * as v from "valibot";
 import type * as Auth from "+auth";
 import type * as Events from "+emotions/events";
 import type * as VO from "+emotions/value-objects";
 
-export type PatternDetectionEvent =
-  | typeof Events.MoreNegativeThanPositiveEmotionsPatternDetectedEvent
-  | typeof Events.MaladaptiveReactionsPatternDetectedEvent
-  | typeof Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent
-  | typeof Events.LowCopingEffectivenessPatternDetectedEvent;
-
-export type PatternDetectionEventType = v.InferOutput<PatternDetectionEvent>;
+export type PatternDetectionEventType =
+  | Events.MoreNegativeThanPositiveEmotionsPatternDetectedEventType
+  | Events.MaladaptiveReactionsPatternDetectedEventType
+  | Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType
+  | Events.LowCopingEffectivenessPatternDetectedEventType;
 
 export enum PatternKindOptions {
   /** @public */

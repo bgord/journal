@@ -5,7 +5,7 @@ import type * as PublishingCommands from "+publishing/commands";
 
 type Dependencies = { Logger: bg.LoggerPort };
 
-type AcceptedCommand =
+type AcceptedCommandType =
   | EmotionCommands.CancelAlarmCommandType
   | EmotionCommands.DeleteEntryCommandType
   | EmotionCommands.EvaluateReactionCommandType
@@ -28,8 +28,8 @@ type AcceptedCommand =
   | PreferencesCommands.UpdateProfileAvatarCommandType
   | PreferencesCommands.RemoveProfileAvatarCommandType;
 
-export function createCommandBus(deps: Dependencies): bg.CommandBusPort<AcceptedCommand> {
-  const inner = new bg.CommandBusEmitteryAdapter<AcceptedCommand>();
+export function createCommandBus(deps: Dependencies): bg.CommandBusPort<AcceptedCommandType> {
+  const inner = new bg.CommandBusEmitteryAdapter<AcceptedCommandType>();
 
-  return new bg.CommandBusWithLoggerAdapter<AcceptedCommand>({ ...deps, inner });
+  return new bg.CommandBusWithLoggerAdapter<AcceptedCommandType>({ ...deps, inner });
 }

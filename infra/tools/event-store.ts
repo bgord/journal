@@ -1,48 +1,45 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
-import type * as v from "valibot";
-import type { AiQuotaExceededEvent, AiRequestRegisteredEvent } from "+ai/events";
-import type { AccountCreatedEvent, AccountDeletedEvent } from "+auth/events";
-import type { AlarmEvent, EntryEvent, WeeklyReviewEvent } from "+emotions/aggregates";
+import type { AiQuotaExceededEventType, AiRequestRegisteredEventType } from "+ai/events";
+import type { AccountCreatedEventType, AccountDeletedEventType } from "+auth/events";
+import type { AlarmEventType, EntryEventType, WeeklyReviewEventType } from "+emotions/aggregates";
 import type {
-  TimeCapsuleEntryScheduledEvent,
-  WeeklyReviewExportByEmailFailedEvent,
-  WeeklyReviewExportByEmailRequestedEvent,
+  TimeCapsuleEntryScheduledEventType,
+  WeeklyReviewExportByEmailFailedEventType,
+  WeeklyReviewExportByEmailRequestedEventType,
 } from "+emotions/events";
-import type { PatternDetectionEvent } from "+emotions/services/patterns";
+import type { PatternDetectionEventType } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import type { EnvironmentResultType } from "+infra/env";
 import * as schema from "+infra/schema";
-import type { ProfileAvatarRemovedEvent, ProfileAvatarUpdatedEvent } from "+preferences/events";
-import type { ShareableLinkEvent } from "+publishing/aggregates";
-import type { ShareableLinkAccessedEvent } from "+publishing/events";
+import type { ProfileAvatarRemovedEventType, ProfileAvatarUpdatedEventType } from "+preferences/events";
+import type { ShareableLinkEventType } from "+publishing/aggregates";
+import type { ShareableLinkAccessedEventType } from "+publishing/events";
 
 type Dependencies = { EventBus: bg.EventBusPort<AcceptedEventType>; Logger: bg.LoggerPort };
 
-export type AcceptedEvent =
-  | EntryEvent
-  | PatternDetectionEvent
-  | AlarmEvent
-  | WeeklyReviewEvent
-  | ShareableLinkEvent
-  | typeof AccountCreatedEvent
-  | typeof AccountDeletedEvent
-  | typeof AiQuotaExceededEvent
-  | typeof AiRequestRegisteredEvent
-  | typeof ProfileAvatarRemovedEvent
-  | typeof ProfileAvatarUpdatedEvent
-  | typeof ShareableLinkAccessedEvent
-  | typeof TimeCapsuleEntryScheduledEvent
-  | typeof WeeklyReviewExportByEmailFailedEvent
-  | typeof WeeklyReviewExportByEmailRequestedEvent
-  | typeof bg.System.Events.HourHasPassedEvent
-  | typeof bg.System.Events.SecurityViolationDetectedEvent
-  | typeof bg.History.Events.HistoryClearedEvent
-  | typeof bg.History.Events.HistoryPopulatedEvent
-  | typeof bg.Preferences.Events.UserLanguageSetEvent;
-
-type AcceptedEventType = v.InferOutput<AcceptedEvent>;
+export type AcceptedEventType =
+  | EntryEventType
+  | PatternDetectionEventType
+  | AlarmEventType
+  | WeeklyReviewEventType
+  | ShareableLinkEventType
+  | AccountCreatedEventType
+  | AccountDeletedEventType
+  | AiQuotaExceededEventType
+  | AiRequestRegisteredEventType
+  | ProfileAvatarRemovedEventType
+  | ProfileAvatarUpdatedEventType
+  | ShareableLinkAccessedEventType
+  | TimeCapsuleEntryScheduledEventType
+  | WeeklyReviewExportByEmailFailedEventType
+  | WeeklyReviewExportByEmailRequestedEventType
+  | bg.System.Events.HourHasPassedEventType
+  | bg.System.Events.SecurityViolationDetectedEventType
+  | bg.History.Events.HistoryClearedEventType
+  | bg.History.Events.HistoryPopulatedEventType
+  | bg.Preferences.Events.UserLanguageSetEventType;
 
 export function createEventStore(
   Env: EnvironmentResultType,

@@ -1,15 +1,14 @@
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
-import type * as v from "valibot";
 import * as Emotions from "+emotions";
-import type { EntryEvent } from "+emotions/aggregates";
+import type { EntryEventType } from "+emotions/aggregates";
 import type { TimeCapsuleEntryScheduledEventType } from "+emotions/events";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 type Dependencies = {
-  EventBus: bg.EventBusPort<v.InferOutput<EntryEvent> | TimeCapsuleEntryScheduledEventType>;
+  EventBus: bg.EventBusPort<EntryEventType | TimeCapsuleEntryScheduledEventType>;
   EventHandler: bg.EventHandlerStrategy;
 };
 

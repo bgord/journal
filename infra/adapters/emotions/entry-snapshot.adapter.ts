@@ -1,5 +1,6 @@
 import * as tools from "@bgord/tools";
 import { and, desc, eq, gte, like, lte, or, type SQL } from "drizzle-orm";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
@@ -16,8 +17,8 @@ class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
 
     return {
       ...entry,
-      weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
-      startedAt: tools.TimestampValue.parse(entry.startedAt),
+      weekIsoId: v.parse(tools.WeekIsoId, entry.weekIsoId),
+      startedAt: v.parse(tools.TimestampValue, entry.startedAt),
       status: entry.status as Emotions.VO.EntryStatusEnum,
       situationKind: entry.situationKind as Emotions.VO.SituationKindOptions,
       emotionLabel: entry.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
@@ -101,13 +102,13 @@ class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
   static format(entry: Schema.SelectEntries) {
     return {
       ...entry,
-      startedAt: tools.TimestampValue.parse(entry.startedAt),
+      startedAt: v.parse(tools.TimestampValue, entry.startedAt),
       status: entry.status as Emotions.VO.EntryStatusEnum,
       situationKind: entry.situationKind as Emotions.VO.SituationKindOptions,
       emotionLabel: entry.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
       reactionType: entry.reactionType as Emotions.VO.GrossEmotionRegulationStrategy | null,
       origin: entry.origin as Emotions.VO.EntryOriginOption,
-      weekIsoId: tools.WeekIsoId.parse(entry.weekIsoId),
+      weekIsoId: v.parse(tools.WeekIsoId, entry.weekIsoId),
     };
   }
 }

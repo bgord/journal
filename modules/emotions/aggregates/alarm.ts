@@ -6,21 +6,23 @@ import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
 
-export type AlarmEvent = (typeof Alarm)["events"][number];
-export type AlarmEventType = v.InferOutput<AlarmEvent>;
+export type AlarmEventType =
+  | Events.AlarmGeneratedEventType
+  | Events.AlarmAdviceSavedEventType
+  | Events.AlarmNotificationRequestedEventType
+  | Events.AlarmNotificationSentEventType
+  | Events.AlarmCancelledEventType;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class Alarm {
-  // Stryker disable all
-  static readonly events = [
-    Events.AlarmGeneratedEvent,
-    Events.AlarmAdviceSavedEvent,
-    Events.AlarmNotificationRequestedEvent,
-    Events.AlarmNotificationSentEvent,
-    Events.AlarmCancelledEvent,
-  ];
-  // Stryker restore all
+  static readonly registry = new bg.EventValidatorRegistryAdapter<AlarmEventType>({
+    [Events.ALARM_GENERATED_EVENT]: Events.AlarmGeneratedEvent,
+    [Events.ALARM_ADVICE_SAVED_EVENT]: Events.AlarmAdviceSavedEvent,
+    [Events.ALARM_NOTIFICATION_REQUESTED_EVENT]: Events.AlarmNotificationRequestedEvent,
+    [Events.ALARM_NOTIFICATION_SENT_EVENT]: Events.AlarmNotificationSentEvent,
+    [Events.ALARM_CANCELLED_EVENT]: Events.AlarmCancelledEvent,
+  });
 
   readonly id: VO.AlarmIdType;
   private userId?: Auth.VO.UserIdType;

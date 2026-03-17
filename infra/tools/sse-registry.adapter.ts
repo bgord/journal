@@ -1,15 +1,15 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as v from "valibot";
-import type { AlarmEvent } from "+emotions/aggregates";
+import type { AlarmEventType } from "+emotions/aggregates";
 
 type Dependencies = { Logger: bg.LoggerPort };
 
-type AcceptedEvent = AlarmEvent;
+type AcceptedEvent = AlarmEventType;
 
-export function createSseRegistry(deps: Dependencies): bg.SseRegistryPort<v.InferOutput<AcceptedEvent>> {
-  const SseRegistry = new bg.SseRegistryAdapter<v.InferOutput<AcceptedEvent>>();
-  const SseRegistryWithLogger = new bg.SseRegistryWithLoggerAdapter<v.InferOutput<AcceptedEvent>>({
+export function createSseRegistry(deps: Dependencies): bg.SseRegistryPort<AcceptedEvent> {
+  const SseRegistry = new bg.SseRegistryAdapter<AcceptedEvent>();
+  const SseRegistryWithLogger = new bg.SseRegistryWithLoggerAdapter<AcceptedEvent>({
     inner: SseRegistry,
     ...deps,
   });

@@ -3,23 +3,27 @@ import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
+import * as Events from "+emotions/events";
 
-export type EntryEvent = (typeof Entry)["events"][number];
-export type EntryEventType = v.InferOutput<EntryEvent>;
+export type EntryEventType =
+  | Events.SituationLoggedEventType
+  | Events.EmotionLoggedEventType
+  | Events.ReactionLoggedEventType
+  | Events.EmotionReappraisedEventType
+  | Events.ReactionEvaluatedEventType
+  | Events.EntryDeletedEventType;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class Entry {
-  // Stryker disable all
-  static readonly events = [
-    Emotions.Events.SituationLoggedEvent,
-    Emotions.Events.EmotionLoggedEvent,
-    Emotions.Events.ReactionLoggedEvent,
-    Emotions.Events.EmotionReappraisedEvent,
-    Emotions.Events.ReactionEvaluatedEvent,
-    Emotions.Events.EntryDeletedEvent,
-  ];
-  // Stryker restore all
+  static readonly registry = new bg.EventValidatorRegistryAdapter<EntryEventType>({
+    [Events.SITUATION_LOGGED_EVENT]: Events.SituationLoggedEvent,
+    [Events.EMOTION_LOGGED_EVENT]: Events.EmotionLoggedEvent,
+    [Events.REACTION_LOGGED_EVENT]: Events.ReactionLoggedEvent,
+    [Events.EMOTION_REAPPRAISED_EVENT]: Events.EmotionReappraisedEvent,
+    [Events.REACTION_EVALUATED_EVENT]: Events.ReactionEvaluatedEvent,
+    [Events.ENTRY_DELETED_EVENT]: Events.EntryDeletedEvent,
+  });
 
   readonly id: Emotions.VO.EntryIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);

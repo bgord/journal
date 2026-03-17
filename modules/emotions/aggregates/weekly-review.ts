@@ -7,20 +7,21 @@ import * as Events from "+emotions/events";
 import * as Invariants from "+emotions/invariants";
 import * as VO from "+emotions/value-objects";
 
-export type WeeklyReviewEvent = (typeof WeeklyReview)["events"][number];
-export type WeeklyReviewEventType = v.InferOutput<WeeklyReviewEvent>;
+export type WeeklyReviewEventType =
+  | Events.WeeklyReviewRequestedEventType
+  | Events.WeeklyReviewSkippedEventType
+  | Events.WeeklyReviewCompletedEventType
+  | Events.WeeklyReviewFailedEventType;
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class WeeklyReview {
-  // Stryker disable all
-  static readonly events = [
-    Events.WeeklyReviewRequestedEvent,
-    Events.WeeklyReviewSkippedEvent,
-    Events.WeeklyReviewCompletedEvent,
-    Events.WeeklyReviewFailedEvent,
-  ];
-  // Stryker restore all
+  static readonly registry = new bg.EventValidatorRegistryAdapter<WeeklyReviewEventType>({
+    [Events.WEEKLY_REVIEW_REQUESTED_EVENT]: Events.WeeklyReviewRequestedEvent,
+    [Events.WEEKLY_REVIEW_SKIPPED_EVENT]: Events.WeeklyReviewSkippedEvent,
+    [Events.WEEKLY_REVIEW_COMPLETED_EVENT]: Events.WeeklyReviewCompletedEvent,
+    [Events.WEEKLY_REVIEW_FAILED_EVENT]: Events.WeeklyReviewFailedEvent,
+  });
 
   readonly id: VO.WeeklyReviewIdType;
   private userId?: Auth.VO.UserIdType;
