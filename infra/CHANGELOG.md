@@ -1,7 +1,10 @@
 # Changelog
+- 2026-03-18 12:55 e2bb7963 **refactor: use mailer builder**
+## 2026-03-18 12:55 
+- 2026-03-18 12:46 62417d22 **step: update packages**
 - 2026-03-17 21:36 522e6fa8 **refactor: use bg.command and event**
-## 2026-03-17 21:36 
 - 2026-03-17 21:29 662e0a21 **step: update packages**
+- 2026-03-17 20:39 b4ad9201 **docs: generate CHANGELOG**
 - 2026-03-17 18:50 881d9fd1 **refactor: simplify event payload**
 - 2026-03-17 18:46 bece9c87 **refactor: events**
 - 2026-03-17 18:12 26cc56e2 **refactor: use bg.command**
