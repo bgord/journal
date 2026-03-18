@@ -1,0 +1,5 @@
+infra/tools/event-bus.ts
+infra/adapters/system/mailer.adapter.ts
+infra/adapters/emotions/pdf-generator.adapter.ts
+scripts/db-seed.ts
+public/entry-client.js
