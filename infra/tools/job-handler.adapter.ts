@@ -5,8 +5,8 @@ type Dependencies = { Logger: bg.LoggerPort; IdProvider: bg.IdProviderPort; Cloc
 
 export function createJobHandler(Env: EnvironmentResultType, deps: Dependencies): bg.JobHandlerStrategy {
   return {
-    [bg.NodeEnvironmentEnum.local]: new bg.JobHandlerNoopStrategy(),
-    [bg.NodeEnvironmentEnum.test]: new bg.JobHandlerWithLoggerStrategy(deps),
+    [bg.NodeEnvironmentEnum.local]: new bg.JobHandlerWithLoggerStrategy(deps),
+    [bg.NodeEnvironmentEnum.test]: new bg.JobHandlerNoopStrategy(),
     [bg.NodeEnvironmentEnum.staging]: new bg.JobHandlerWithLoggerStrategy(deps),
     [bg.NodeEnvironmentEnum.production]: new bg.JobHandlerWithLoggerStrategy(deps),
   }[Env.type];
