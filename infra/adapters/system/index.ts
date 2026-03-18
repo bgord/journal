@@ -26,7 +26,9 @@ export async function createSystemAdapters(Env: EnvironmentResultType) {
   const Logger = createLogger(Env, { Clock });
   const FileCleaner = createFileCleaner(Env);
   const FileRenamer = createFileRenamer(Env);
-  const Mailer = await createMailer(Env, { Logger, Clock });
+  const Sleeper = createSleeper(Env);
+  const TimeoutRunner = createTimeoutRunner(Env);
+  const Mailer = await createMailer(Env, { Logger, Clock, Sleeper, TimeoutRunner });
   const Timekeeper = createTimekeeper(Env, { Clock });
   const FileInspection = createFileInspection(Env);
   const HashFile = createHashFile({ FileInspection });
@@ -48,8 +50,8 @@ export async function createSystemAdapters(Env: EnvironmentResultType) {
     ImageInfo: await createImageInfo({ FileInspection }),
     HashFile,
     ImageProcessor: await createImageProcessor(Env, { FileCleaner, FileRenamer, FileReaderJson }),
-    Sleeper: createSleeper(Env),
-    TimeoutRunner: createTimeoutRunner(Env),
+    Sleeper,
+    TimeoutRunner,
     RemoteFileStorage: createRemoteFileStorage(Env, { HashFile, FileCleaner, FileRenamer, Logger, Clock }),
     FileInspection,
   };
