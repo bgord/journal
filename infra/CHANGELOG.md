@@ -1,7 +1,13 @@
 # Changelog
+- 2026-03-20 14:57 96c2055d **step: update prereqs**
+## 2026-03-20 14:57 
+- 2026-03-20 14:56 b7f7f853 **step: update packages**
+- 2026-03-20 14:56 078ead51 **step: bump bgord/scripts**
+- 2026-03-18 15:55 90d8eeb8 **step: bump bgord/scripts**
+- 2026-03-18 13:45 531394cb **fix: local and test job handlers**
 - 2026-03-18 12:55 e2bb7963 **refactor: use mailer builder**
-## 2026-03-18 12:55 
 - 2026-03-18 12:46 62417d22 **step: update packages**
+- 2026-03-18 11:56 9105e30f **docs: generate CHANGELOG**
 - 2026-03-17 21:36 522e6fa8 **refactor: use bg.command and event**
 - 2026-03-17 21:29 662e0a21 **step: update packages**
 - 2026-03-17 20:39 b4ad9201 **docs: generate CHANGELOG**
