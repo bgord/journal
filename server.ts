@@ -38,19 +38,23 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     )
     .use(Tools.ShieldSecurity.handle());
 
-  // Healthcheck =================
+  // Probes =================
+  server.get("/liveness", ...new bg.LivenessHonoHandler().handle());
+  server.get(
+    "/readiness",
+    Tools.ShieldTimeout.handle(),
+    ...new bg.ReadinessHonoHandler({ prerequisites: Tools.Prerequisites.readiness }).handle(),
+  );
   server.get(
     "/healthcheck",
     Tools.ShieldRateLimit.handle(),
     Tools.ShieldTimeout.handle(),
     Tools.ShieldBasicAuth.handle(),
     ...new bg.HealthcheckHonoHandler(
-      { Env: Env.type, prerequisites: Tools.Prerequisites },
+      { Env: Env.type, prerequisites: Tools.Prerequisites.healthcheck },
       { ...Adapters.System, ...Tools, LoggerStatsProvider: Adapters.System.Logger },
     ).handle(),
   );
-
-  server.get("/ping", ...new bg.PingHonoHandler().handle());
   // =============================
 
   // SSE
