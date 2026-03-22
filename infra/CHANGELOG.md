@@ -1,8 +1,10 @@
 # Changelog
+- 2026-03-22 18:47 0c708e08 **step: update packages**
+## 2026-03-22 18:47 
 - 2026-03-20 14:57 96c2055d **step: update prereqs**
-## 2026-03-20 14:57 
 - 2026-03-20 14:56 b7f7f853 **step: update packages**
 - 2026-03-20 14:56 078ead51 **step: bump bgord/scripts**
+- 2026-03-20 14:02 deec8630 **docs: generate CHANGELOG**
 - 2026-03-18 15:55 90d8eeb8 **step: bump bgord/scripts**
 - 2026-03-18 13:45 531394cb **fix: local and test job handlers**
 - 2026-03-18 12:55 e2bb7963 **refactor: use mailer builder**
