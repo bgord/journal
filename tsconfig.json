@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "incremental": true,
     "jsx": "react-jsx",
@@ -10,7 +12,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "module": "preserve",
     "paths": {
       "+infra": ["./infra/index"],
       "+infra/*": ["./infra/*"],
@@ -30,7 +31,7 @@
       "+preferences": ["./modules/preferences/index"],
       "+preferences/*": ["./modules/preferences/*"]
     },
-    "types": ["./node_modules/@bgord/design/dist/index.d.ts", "@types/bun"]
+    "types": ["./node_modules/@bgord/design/dist/index.d.ts", "bun"]
   },
   "exclude": ["bgord-scripts"]
 }
