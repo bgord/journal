@@ -148,7 +148,7 @@ export function createPrerequisites(
       new bg.Prerequisite(
         "build-info-file",
         new bg.PrerequisiteVerifierFileAdapter(
-          { file: bg.BUILD_INFO_REPOSITORY_FILE_PATH, permissions: { read: true } },
+          { file: bg.BUILD_INFO_FILE_PATH, permissions: { read: true } },
           deps,
         ),
         { enabled: production },
