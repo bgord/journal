@@ -472,7 +472,7 @@ infra/
 ├── register-sse-handlers.ts
 ├── schema.ts
 ├── tools
-│   ├── build-info-repository.strategy.ts
+│   ├── build-info-config.adapter.ts
 │   ├── cache-response.ts
 │   ├── command-bus.ts
 │   ├── event-bus.ts
