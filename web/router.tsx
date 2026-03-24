@@ -39,10 +39,10 @@ export const homeRoute = createRoute({
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/home"), "Home"),
   validateSearch: (value) => ({
-    filter: HomeEntryListForm.Form.filter.options.includes(value.filter as string)
-      ? (value.filter as HomeEntryListForm.types.EntryListFilterType)
+    filter: HomeEntryListForm.Form.filter.options.includes(value["filter"] as string)
+      ? (value["filter"] as HomeEntryListForm.types.EntryListFilterType)
       : HomeEntryListForm.Form.default.filter,
-    query: typeof value.query === "string" ? value.query : HomeEntryListForm.Form.default.query,
+    query: typeof value["query"] === "string" ? value["query"] : HomeEntryListForm.Form.default.query,
   }),
   loaderDeps: ({ search }) => search,
   loader: async ({ context, deps }) => ({ entries: await API.Entry.getList(context.request, deps) }),
