@@ -1,6 +1,13 @@
 # Changelog
+- 2026-03-26 17:17 f4c42204 **step: update packages**
+## 2026-03-26 17:17 
+- 2026-03-26 16:16 4d25703f **refactor: improve tests**
+- 2026-03-26 15:31 4204833d **fix: remove ok**
+- 2026-03-26 15:26 d15a9321 **step: bump bgord/scripts**
+- 2026-03-26 15:26 2e035ed7 **step: update packages**
+- 2026-03-26 10:57 26a767ce **step: update packages**
 - 2026-03-25 16:54 732d38bd **step: update packages**
-## 2026-03-25 16:54 
+- 2026-03-25 15:55 891a1399 **docs: generate CHANGELOG**
 - 2026-03-24 11:59 1d2411d4 **refactor: types**
 - 2026-03-24 11:58 9fa3e885 **refactor: tsconfig**
 - 2026-03-24 11:56 d1d48b65 **step: module**
