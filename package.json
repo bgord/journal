@@ -25,7 +25,7 @@
     "dependency-cruiser": "17.3.9",
     "drizzle-kit": "0.31.10",
     "gzip-cli": "1.2.0",
-    "knip": "6.0.5",
+    "knip": "6.0.6",
     "lefthook": "2.1.4",
     "lockfile-lint": "5.0.0",
     "only-allow": "1.2.2",
@@ -34,7 +34,7 @@
     "shellcheck": "4.1.0",
     "terser": "5.46.1",
     "typescript": "6.0.2",
-    "vite": "8.0.2"
+    "vite": "8.0.3"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.80.0",
@@ -42,7 +42,7 @@
     "@bgord/bun": "1.16.1",
     "@bgord/design": "1.6.10",
     "@bgord/ui": "0.8.29",
-    "@tanstack/react-router": "1.168.3",
+    "@tanstack/react-router": "1.168.4",
     "better-auth": "1.5.6",
     "better-sqlite3": "12.8.0",
     "croner": "10.0.1",
@@ -50,7 +50,7 @@
     "drizzle-orm": "0.45.1",
     "iconoir-react": "7.11.0",
     "nodemailer": "8.0.4",
-    "openai": "6.32.0",
+    "openai": "6.33.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "sharp": "0.34.5",
