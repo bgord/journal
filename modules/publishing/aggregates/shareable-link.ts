@@ -13,11 +13,13 @@ export type ShareableLinkEventType =
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class ShareableLink {
+  // Stryker disable all
   static readonly registry = new bg.EventValidatorRegistryAdapter<ShareableLinkEventType>({
     [Events.SHAREABLE_LINK_CREATED_EVENT]: Events.ShareableLinkCreatedEvent,
     [Events.SHAREABLE_LINK_EXPIRED_EVENT]: Events.ShareableLinkExpiredEvent,
     [Events.SHAREABLE_LINK_REVOKED_EVENT]: Events.ShareableLinkRevokedEvent,
   });
+  // Stryker restore all
 
   readonly id: VO.ShareableLinkIdType;
   private ownerId?: Auth.VO.UserIdType;

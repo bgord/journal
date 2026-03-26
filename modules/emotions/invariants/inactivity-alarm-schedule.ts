@@ -1,14 +1,12 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-// Stryker disable all
 class InactivityAlarmScheduleError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, InactivityAlarmScheduleError.prototype);
   }
 }
-// Stryker restore all
 
 type InactivityAlarmScheduleConfigType = { timestamp: tools.TimestampValueType };
 

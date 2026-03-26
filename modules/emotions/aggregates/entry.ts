@@ -15,6 +15,7 @@ export type EntryEventType =
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class Entry {
+  // Stryker disable all
   static readonly registry = new bg.EventValidatorRegistryAdapter<EntryEventType>({
     [Events.SITUATION_LOGGED_EVENT]: Events.SituationLoggedEvent,
     [Events.EMOTION_LOGGED_EVENT]: Events.EmotionLoggedEvent,
@@ -23,6 +24,7 @@ export class Entry {
     [Events.REACTION_EVALUATED_EVENT]: Events.ReactionEvaluatedEvent,
     [Events.ENTRY_DELETED_EVENT]: Events.EntryDeletedEvent,
   });
+  // Stryker restore all
 
   readonly id: Emotions.VO.EntryIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);

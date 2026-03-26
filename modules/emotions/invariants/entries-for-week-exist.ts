@@ -2,14 +2,12 @@ import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 
-// Stryker disable all
 class EntriesForWeekExistError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, EntriesForWeekExistError.prototype);
   }
 }
-// Stryker restore all
 
 type EntriesForWeekExistConfigType = { count: tools.IntegerNonNegativeType; userId: Auth.VO.UserIdType };
 

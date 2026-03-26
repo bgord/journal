@@ -37,10 +37,8 @@ export class NegativeEmotionExtremeIntensityAlarm extends Emotions.Services.Emot
 
         return new Emotions.VO.AlarmDetection(trigger, this.name);
       }
-      // Stryker disable all
       default:
         return null;
-      // Stryker restore all
     }
   }
 }

@@ -15,16 +15,16 @@ describe("ReactionEffectiveness", () => {
   });
 
   test("constructor - rejects less than minimum emotion intensity", () => {
-    expect(() => new ReactionEffectiveness(0)).toThrow(ReactionEffectiveness.Errors.min_max);
+    expect(() => new ReactionEffectiveness(0)).toThrow("reaction.effectiveness.min.max");
   });
 
   test("constructor - rejects more than minimum emotion intensity", () => {
-    expect(() => new ReactionEffectiveness(6)).toThrow(ReactionEffectiveness.Errors.min_max);
+    expect(() => new ReactionEffectiveness(6)).toThrow("reaction.effectiveness.min.max");
   });
 
   test("constructor - rejects non-integer emotion intensity", () => {
     // @ts-expect-error
-    expect(() => new ReactionEffectiveness("123")).toThrow(ReactionEffectiveness.Errors.min_max);
+    expect(() => new ReactionEffectiveness("123")).toThrow("reaction.effectiveness.min.max");
   });
 
   test("isEffective - false", () => {

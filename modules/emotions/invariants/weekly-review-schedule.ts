@@ -1,14 +1,12 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-// Stryker disable all
 class WeeklyReviewScheduleError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, WeeklyReviewScheduleError.prototype);
   }
 }
-// Stryker restore all
 
 type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampValueType };
 

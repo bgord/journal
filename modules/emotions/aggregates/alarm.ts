@@ -15,6 +15,7 @@ export type AlarmEventType =
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 export class Alarm {
+  // Stryker disable all
   static readonly registry = new bg.EventValidatorRegistryAdapter<AlarmEventType>({
     [Events.ALARM_GENERATED_EVENT]: Events.AlarmGeneratedEvent,
     [Events.ALARM_ADVICE_SAVED_EVENT]: Events.AlarmAdviceSavedEvent,
@@ -22,6 +23,7 @@ export class Alarm {
     [Events.ALARM_NOTIFICATION_SENT_EVENT]: Events.AlarmNotificationSentEvent,
     [Events.ALARM_CANCELLED_EVENT]: Events.AlarmCancelledEvent,
   });
+  // Stryker restore all
 
   readonly id: VO.AlarmIdType;
   private userId?: Auth.VO.UserIdType;

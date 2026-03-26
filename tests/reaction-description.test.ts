@@ -15,17 +15,17 @@ describe("ReactionDescription", () => {
   });
 
   test("constructor - rejects under the limit", () => {
-    expect(() => new ReactionDescription("")).toThrow(ReactionDescription.Errors.invalid);
+    expect(() => new ReactionDescription("")).toThrow("reaction.description.invalid");
   });
 
   test("constructor - rejects over the limit", () => {
     expect(() => new ReactionDescription("a".repeat(ReactionDescription.MaximumLength + 1))).toThrow(
-      ReactionDescription.Errors.invalid,
+      "reaction.description.invalid",
     );
   });
 
   test("constructor - rejects empty input", () => {
-    expect(() => new ReactionDescription("    ")).toThrow(ReactionDescription.Errors.invalid);
+    expect(() => new ReactionDescription("    ")).toThrow("reaction.description.invalid");
   });
 
   test("equals - true", () => {

@@ -11,9 +11,7 @@ export const GetProfileAvatar = (deps: Dependencies) => async (c: hono.Context<i
   const key = Preferences.VO.ProfileAvatarKeyFactory.stable(user.id);
 
   const head = await deps.RemoteFileStorage.head(key);
-  // Stryker disable all
   if (!head.exists) return c.notFound();
-  // Stryker restore all
 
   const ifNoneMatchHeader = c.req.header("if-none-match");
 

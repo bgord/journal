@@ -2,14 +2,12 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { GetLatestEntryTimestampForUser } from "+emotions/queries";
 
-// Stryker disable all
 class NoEntriesInTheLastWeekError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, NoEntriesInTheLastWeekError.prototype);
   }
 }
-// Stryker restore all
 
 type NoEntriesInTheLastWeekConfigType = {
   lastEntryTimestamp: Awaited<ReturnType<GetLatestEntryTimestampForUser["execute"]>>;
@@ -18,10 +16,7 @@ type NoEntriesInTheLastWeekConfigType = {
 
 class NoEntriesInTheLastWeekFactory extends bg.Invariant<NoEntriesInTheLastWeekConfigType> {
   passes(config: NoEntriesInTheLastWeekConfigType) {
-    // Stryker disable all
     if (!config.lastEntryTimestamp) return false;
-    // Stryker restore all
-
     return tools.Timestamp.fromValue(config.lastEntryTimestamp).isBeforeOrEqual(
       tools.Timestamp.fromValue(config.now).subtract(tools.Duration.Days(7)),
     );

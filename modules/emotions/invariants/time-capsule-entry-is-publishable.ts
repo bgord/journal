@@ -2,14 +2,12 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as VO from "+emotions/value-objects";
 
-// Stryker disable all
 class TimeCapsuleEntryIsPublishableError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, TimeCapsuleEntryIsPublishableError.prototype);
   }
 }
-// Stryker restore all
 
 type TimeCapsuleEntryIsPublishableConfigType = {
   status: VO.TimeCapsuleEntryStatusEnum;
