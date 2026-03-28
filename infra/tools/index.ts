@@ -4,12 +4,10 @@ import { createBuildInfoConfig } from "./build-info-config.adapter";
 import { createCacheResponse } from "./cache-response";
 import { createCommandBus } from "./command-bus";
 import { createCronScheduler } from "./cron-scheduler.adapter";
-import { createCronTaskHandler } from "./cron-task-handler.strategy";
 import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
 import { createEventStore } from "./event-store";
 import { HashContent } from "./hash-content.strategy";
-import { createJobs } from "./jobs";
 import { createPrerequisites } from "./prerequisites";
 import { createShieldAuth } from "./shield-auth.strategy";
 import { createShieldBasicAuth } from "./shield-basic-auth.strategy";
@@ -35,18 +33,16 @@ type Dependencies = {
   FileInspection: bg.FileInspectionPort;
 };
 
-export function createTools(Env: EnvironmentResultType, deps: Dependencies) {
+export async function createTools(Env: EnvironmentResultType, deps: Dependencies) {
   const EventBus = createEventBus(deps);
   const EventStore = createEventStore(Env, { ...deps, EventBus });
-  const CronTaskHandler = createCronTaskHandler(Env, deps);
-  const CronScheduler = createCronScheduler(Env);
-  const Jobs = createJobs({ ...deps, EventStore, CronTaskHandler });
+  const CronScheduler = await createCronScheduler(Env);
 
   return {
     Auth: createShieldAuth(Env, { ...deps, EventStore }),
     CacheResponse: createCacheResponse({ HashContent }),
-    Jobs,
-    Prerequisites: createPrerequisites(Env, { ...deps, Jobs }),
+    CronScheduler,
+    Prerequisites: createPrerequisites(Env, { ...deps, CronScheduler }),
     ShieldBasicAuth: createShieldBasicAuth(Env),
     ShieldCaptcha: createShieldCaptcha(Env),
     ShieldRateLimit: createShieldRateLimit(Env, { ...deps, HashContent }),

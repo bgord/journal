@@ -4,6 +4,7 @@ import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { bootstrap } from "+infra/bootstrap";
 import { db } from "+infra/db";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
+import { registerCronTasks } from "+infra/register-cron-tasks";
 import { registerEventHandlers } from "+infra/register-event-handlers";
 import { registerSseHandlers } from "+infra/register-sse-handlers";
 import { createServer } from "./server";
@@ -20,6 +21,7 @@ import { handler } from "./web/entry-server";
   registerEventHandlers(di);
   registerCommandHandlers(di);
   registerSseHandlers(di);
+  registerCronTasks(di);
 
   const app = Bun.serve({
     port: di.Env.PORT,

@@ -13,7 +13,7 @@ export async function bootstrap() {
   const Env = await EnvironmentLoader.load();
 
   const System = await createSystemAdapters(Env);
-  const Tools = createTools(Env, System);
+  const Tools = await createTools(Env, System);
   const deps = { ...System, ...Tools };
 
   const AI = createAuthAdapter(Env, deps);

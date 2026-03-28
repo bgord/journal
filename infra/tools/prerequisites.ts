@@ -11,7 +11,7 @@ type Dependencies = {
   Mailer: bg.MailerPort;
   CertificateInspector: bg.CertificateInspectorPort;
   Timekeeper: bg.TimekeeperPort;
-  Jobs: bg.MultipleJobsType;
+  CronScheduler: bg.CronSchedulerPort;
   TemporaryFile: bg.TemporaryFilePort;
   RemoteFileStorage: bg.RemoteFileStoragePort;
   FileReaderJson: bg.FileReaderJsonPort;
@@ -85,7 +85,7 @@ export function createPrerequisites(
         new bg.PrerequisiteVerifierDirectoryAdapter({ directory: deps.RemoteFileStorage.root }, deps),
         { enabled: production },
       ),
-      new bg.Prerequisite("jobs", new bg.PrerequisiteVerifierJobsAdapter(deps)),
+      new bg.Prerequisite("cron-scheduler", new bg.PrerequisiteVerifierCronSchedulerAdapter(deps)),
       new bg.Prerequisite("translations", new bg.PrerequisiteVerifierTranslationsAdapter(languages, deps)),
       new bg.Prerequisite("mailer", new bg.PrerequisiteVerifierMailerAdapter(deps), {
         enabled: production,
