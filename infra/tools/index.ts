@@ -3,6 +3,7 @@ import type { EnvironmentResultType } from "+infra/env";
 import { createBuildInfoConfig } from "./build-info-config.adapter";
 import { createCacheResponse } from "./cache-response";
 import { createCommandBus } from "./command-bus";
+import { createCronScheduler } from "./cron-scheduler.adapter";
 import { createCronTaskHandler } from "./cron-task-handler.strategy";
 import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
@@ -38,6 +39,7 @@ export function createTools(Env: EnvironmentResultType, deps: Dependencies) {
   const EventBus = createEventBus(deps);
   const EventStore = createEventStore(Env, { ...deps, EventBus });
   const CronTaskHandler = createCronTaskHandler(Env, deps);
+  const CronScheduler = createCronScheduler(Env);
   const Jobs = createJobs({ ...deps, EventStore, CronTaskHandler });
 
   return {
