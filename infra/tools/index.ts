@@ -3,11 +3,11 @@ import type { EnvironmentResultType } from "+infra/env";
 import { createBuildInfoConfig } from "./build-info-config.adapter";
 import { createCacheResponse } from "./cache-response";
 import { createCommandBus } from "./command-bus";
+import { createCronTaskHandler } from "./cron-task-handler.strategy";
 import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
 import { createEventStore } from "./event-store";
 import { HashContent } from "./hash-content.strategy";
-import { createJobHandler } from "./job-handler.adapter";
 import { createJobs } from "./jobs";
 import { createPrerequisites } from "./prerequisites";
 import { createShieldAuth } from "./shield-auth.strategy";
@@ -37,8 +37,8 @@ type Dependencies = {
 export function createTools(Env: EnvironmentResultType, deps: Dependencies) {
   const EventBus = createEventBus(deps);
   const EventStore = createEventStore(Env, { ...deps, EventBus });
-  const JobHandler = createJobHandler(Env, deps);
-  const Jobs = createJobs({ ...deps, EventStore, JobHandler });
+  const CronTaskHandler = createCronTaskHandler(Env, deps);
+  const Jobs = createJobs({ ...deps, EventStore, CronTaskHandler });
 
   return {
     Auth: createShieldAuth(Env, { ...deps, EventStore }),

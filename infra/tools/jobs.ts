@@ -6,7 +6,7 @@ type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   EventStore: bg.EventStorePort<bg.System.Events.HourHasPassedEventType>;
-  JobHandler: bg.JobHandlerStrategy;
+  CronTaskHandler: bg.CronTaskHandlerStrategy;
 };
 
 export function createJobs(deps: Dependencies) {
