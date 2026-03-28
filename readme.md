@@ -468,6 +468,7 @@ infra/
 │   ├── shareable-link.projector.ts
 │   └── weekly-review.projector.ts
 ├── register-command-handlers.ts
+├── register-cron-tasks.ts
 ├── register-event-handlers.ts
 ├── register-sse-handlers.ts
 ├── schema.ts
@@ -475,12 +476,11 @@ infra/
 │   ├── build-info-config.adapter.ts
 │   ├── cache-response.ts
 │   ├── command-bus.ts
+│   ├── cron-scheduler.adapter.ts
 │   ├── event-bus.ts
 │   ├── event-handler.ts
 │   ├── event-store.ts
 │   ├── hash-content.strategy.ts
-│   ├── job-handler.adapter.ts
-│   ├── jobs.ts
 │   ├── prerequisites.ts
 │   ├── shield-auth.strategy.ts
 │   ├── shield-basic-auth.strategy.ts
