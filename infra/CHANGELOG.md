@@ -1,6 +1,13 @@
 # Changelog
+- 2026-03-28 10:36 c2b59b6e **step: update packages**
+## 2026-03-28 10:36 
+- 2026-03-28 10:28 3543637b **refactor: register cron tasks**
+- 2026-03-28 10:11 cbb5180d **step: define cron scheduler adapter**
+- 2026-03-28 10:02 80538bd1 **refactor: cron task handler**
+- 2026-03-28 09:58 db1bb14b **step: update packages**
+- 2026-03-27 20:27 e4a34492 **step: update packages**
 - 2026-03-26 17:17 f4c42204 **step: update packages**
-## 2026-03-26 17:17 
+- 2026-03-26 16:18 e6101aff **docs: generate CHANGELOG**
 - 2026-03-26 16:16 4d25703f **refactor: improve tests**
 - 2026-03-26 15:31 4204833d **fix: remove ok**
 - 2026-03-26 15:26 d15a9321 **step: bump bgord/scripts**
