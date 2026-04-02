@@ -1,8 +1,6 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
-import { registerCommandHandlers } from "+infra/register-command-handlers";
-import { registerEventHandlers } from "+infra/register-event-handlers";
 import { registerSseHandlers } from "+infra/register-sse-handlers";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
@@ -11,8 +9,6 @@ const url = "/api/sse";
 
 describe(`GET ${url}`, async () => {
   const di = await bootstrap();
-  registerEventHandlers(di);
-  registerCommandHandlers(di);
   registerSseHandlers(di);
   const server = createServer(di);
 
