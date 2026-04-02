@@ -46,7 +46,7 @@ export function createEventStore(
   deps: Dependencies,
 ): bg.EventStorePort<AcceptedEventType> {
   const revision = new bg.EventRevisionAssignerAdapter();
-  const serializer = new bg.EventSerializerJsonAdapter();
+  const serializer = new bg.PayloadSerializerJsonAdapter();
 
   const finder: bg.EventFinderPort = {
     find: async (stream, names) =>

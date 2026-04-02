@@ -42,20 +42,14 @@ export class ErrorHandler {
 
     if (error instanceof HTTPException) {
       if (error.message === bg.ShieldTimeoutStrategyError.Rejected) {
-        return c.json(
-          { message: bg.ShieldTimeoutStrategyError.Rejected, _known: true },
-          bg.ShieldTimeoutError.status,
-        );
+        return c.json({ message: bg.ShieldTimeoutStrategyError.Rejected, _known: true }, 408);
       }
 
-      if (error.message === bg.ShieldAuthError.message)
-        return c.json({ message: bg.ShieldAuthError.message, _known: true }, bg.ShieldAuthError.status);
+      if (error.message === bg.ShieldAuthStrategyError.Rejected)
+        return c.json({ message: bg.ShieldAuthStrategyError.Rejected, _known: true }, 403);
 
-      if (error.message === bg.ShieldRateLimitError.message) {
-        return c.json(
-          { message: bg.ShieldRateLimitError.message, _known: true },
-          bg.ShieldRateLimitError.status,
-        );
+      if (error.message === bg.ShieldRateLimitStrategyError.Rejected) {
+        return c.json({ message: bg.ShieldRateLimitStrategyError.Rejected, _known: true }, 429);
       }
 
       return error.getResponse();

@@ -15,7 +15,7 @@ export function createLogger(Env: EnvironmentResultType, deps: Dependencies) {
   const sampling = new bg.WoodchopperSamplingComposite([
     new bg.WoodchopperSamplingPassLevel([bg.LogLevelEnum.error, bg.LogLevelEnum.warn, bg.LogLevelEnum.info]),
     new bg.WoodchopperSamplingPassComponent(["infra", "security"]),
-    new bg.WoodchoperSamplingCorrelationId({ everyNth: tools.Int.positive(10) }),
+    new bg.WoodchopperSamplingCorrelationId({ everyNth: tools.Int.positive(10) }),
     new bg.WoodchopperSamplingEveryNth({ n: tools.Int.positive(10) }),
   ]);
 

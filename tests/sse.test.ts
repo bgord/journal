@@ -21,7 +21,7 @@ describe(`GET ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.ShieldAuthError.message, _known: true });
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected, _known: true });
   });
 
   test("happy path - SseRegistry receives ALARM_GENERATED_EVENT from EventBus", async () => {

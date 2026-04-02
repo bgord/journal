@@ -12,7 +12,7 @@ export function createBuildInfoConfig(
   const noop = new bg.ReactiveConfigNoopAdapter<bg.BuildInfoType>(bg.BuildInfo, {
     timestamp: tools.Timestamp.fromNumber(1767775662000).ms,
     version: v.parse(tools.PackageVersionSchema, "v1.0.0"),
-    sha: bg.CommitSha.fromString("a".repeat(40)).toString(),
+    sha: bg.CommitSha.fromString("a".repeat(40)).value,
     size: tools.Size.fromBytes(0).toBytes(),
   });
 

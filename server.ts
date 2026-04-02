@@ -180,6 +180,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.ShieldCaptcha.handle(),
     Tools.Auth.ShieldAuth.verify,
     new bg.FileUploaderHonoMiddleware({
+      field: "file",
       MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
       maxSize: Preferences.VO.ProfileAvatarMaxSize,
     }).handle(),
