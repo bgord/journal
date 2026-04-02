@@ -36,7 +36,7 @@ type Dependencies = {
 export async function createTools(Env: EnvironmentResultType, deps: Dependencies) {
   const EventBus = createEventBus(deps);
   const EventStore = createEventStore(Env, { ...deps, EventBus });
-  const CronScheduler = await createCronScheduler(Env);
+  const CronScheduler = await createCronScheduler(Env, deps);
 
   return {
     Auth: createShieldAuth(Env, { ...deps, EventStore }),

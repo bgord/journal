@@ -1,8 +1,14 @@
 import * as bg from "@bgord/bun";
 import type { EnvironmentResultType } from "+infra/env";
 
-export async function createCronScheduler(Env: EnvironmentResultType): Promise<bg.CronSchedulerPort> {
-  const CronScheduler = await bg.CronSchedulerCronerAdapter.build();
+type Dependencies = { Logger: bg.LoggerPort };
+
+export async function createCronScheduler(
+  Env: EnvironmentResultType,
+  deps: Dependencies,
+): Promise<bg.CronSchedulerPort> {
+  const inner = await bg.CronSchedulerCronerAdapter.build();
+  const CronScheduler = new bg.CronSchedulerWithLoggerAdapter({ inner, ...deps });
 
   return {
     [bg.NodeEnvironmentEnum.local]: CronScheduler,
