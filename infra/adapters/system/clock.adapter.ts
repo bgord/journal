@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { EnvironmentResultType } from "+infra/env";
 
-const T0 = tools.Timestamp.fromNumber(Date.UTC(2025, 0, 1, 0, 0, 0));
+const T0 = tools.Timestamp.fromNumber(1700000000000);
 
 export function createClock(Env: EnvironmentResultType): bg.ClockPort {
   return {
