@@ -342,9 +342,11 @@ export const users = sqliteTable("users", {
     .notNull(),
   image: text("image"),
   createdAt: integer("created_at", { mode: "timestamp" })
+    // biome-ignore lint: lint/style/noRestrictedGlobals
     .$defaultFn(() => new Date())
     .notNull(),
   updatedAt: integer("updated_at", { mode: "timestamp" })
+    // biome-ignore lint: lint/style/noRestrictedGlobals
     .$defaultFn(() => new Date())
     .notNull(),
 });
@@ -403,7 +405,9 @@ export const verifications = sqliteTable("verifications", {
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
