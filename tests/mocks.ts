@@ -3,7 +3,6 @@ import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { Session, User } from "better-auth";
-import { format } from "date-fns";
 import * as v from "valibot";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
@@ -34,9 +33,9 @@ export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
 export const timeCapsuleEntryScheduledAt = T0;
 export const timeCapsuleEntryScheduledFor = T0.add(tools.Duration.Days(2));
-export const timeCapsuleEntryScheduledForDate = format(timeCapsuleEntryScheduledFor.ms, "yyyy-MM-dd");
+export const timeCapsuleEntryScheduledForDate = `${timeCapsuleEntryScheduledFor.toInstant().toZonedDateTimeISO("UTC").year}-${timeCapsuleEntryScheduledFor.toInstant().toZonedDateTimeISO("UTC").month.toString().padStart(2, "0")}-${timeCapsuleEntryScheduledFor.toInstant().toZonedDateTimeISO("UTC").day.toString().padStart(2, "0")}`;
 export const timeCapsuleEntryScheduledForPast = T0.subtract(tools.Duration.Days(1));
-export const timeCapsuleEntryScheduledForPastDate = format(timeCapsuleEntryScheduledForPast.ms, "yyyy-MM-dd");
+export const timeCapsuleEntryScheduledForPastDate = `${timeCapsuleEntryScheduledForPast.toInstant().toZonedDateTimeISO("UTC").year}-${timeCapsuleEntryScheduledForPast.toInstant().toZonedDateTimeISO("UTC").month.toString().padStart(2, "0")}-${timeCapsuleEntryScheduledForPast.toInstant().toZonedDateTimeISO("UTC").day.toString().padStart(2, "0")}`;
 
 export const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
@@ -1123,9 +1122,9 @@ export const user: User = {
   emailVerified: false,
   image: null,
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  createdAt: new Date(T0.ms),
+  createdAt: new Date(),
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  updatedAt: new Date(T0.ms),
+  updatedAt: new Date(),
   id: userId,
 };
 
@@ -1135,20 +1134,20 @@ export const anotherUser: User = {
   emailVerified: false,
   image: null,
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  createdAt: new Date(T0.ms),
+  createdAt: new Date(),
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  updatedAt: new Date(T0.ms),
+  updatedAt: new Date(),
   id: anotherUserId,
 };
 
 export const session: Session = {
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  expiresAt: new Date(T0.ms),
+  expiresAt: new Date(),
   token: "wyNm82TTSvBtxXSh1mb7lZJ4WF557tv4",
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  createdAt: new Date(T0.ms),
+  createdAt: new Date(),
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  updatedAt: new Date(T0.ms),
+  updatedAt: new Date(),
   ipAddress: "",
   userAgent: "Mozilla/5.0",
   userId,
@@ -1157,12 +1156,12 @@ export const session: Session = {
 
 export const anotherSession: Session = {
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  expiresAt: new Date(T0.ms),
+  expiresAt: new Date(),
   token: "XFgejTtN28QI8cDEmE9Yb09yxRwQuGj0",
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  createdAt: new Date(T0.ms),
+  createdAt: new Date(),
   // biome-ignore lint: lint/style/noRestrictedGlobals
-  updatedAt: new Date(T0.ms),
+  updatedAt: new Date(),
   ipAddress: "",
   userAgent: "Mozilla/5.0",
   userId,
