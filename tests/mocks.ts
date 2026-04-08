@@ -1,5 +1,4 @@
 // cspell:disable
-
 import { expect } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
@@ -1123,7 +1122,9 @@ export const user: User = {
   email: email,
   emailVerified: false,
   image: null,
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   createdAt: new Date(T0.ms),
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   updatedAt: new Date(T0.ms),
   id: userId,
 };
@@ -1133,15 +1134,20 @@ export const anotherUser: User = {
   email: anotherEmail,
   emailVerified: false,
   image: null,
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   createdAt: new Date(T0.ms),
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   updatedAt: new Date(T0.ms),
   id: anotherUserId,
 };
 
 export const session: Session = {
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   expiresAt: new Date(T0.ms),
   token: "wyNm82TTSvBtxXSh1mb7lZJ4WF557tv4",
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   createdAt: new Date(T0.ms),
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   updatedAt: new Date(T0.ms),
   ipAddress: "",
   userAgent: "Mozilla/5.0",
@@ -1150,9 +1156,12 @@ export const session: Session = {
 };
 
 export const anotherSession: Session = {
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   expiresAt: new Date(T0.ms),
   token: "XFgejTtN28QI8cDEmE9Yb09yxRwQuGj0",
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   createdAt: new Date(T0.ms),
+  // biome-ignore lint: lint/style/noRestrictedGlobals
   updatedAt: new Date(T0.ms),
   ipAddress: "",
   userAgent: "Mozilla/5.0",
