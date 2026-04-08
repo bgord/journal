@@ -7,7 +7,7 @@
       "dependencies": {
         "@anthropic-ai/sdk": "0.85.0",
         "@better-auth/drizzle-adapter": "1.6.0",
-        "@bgord/bun": "1.17.1",
+        "@bgord/bun": "1.17.2",
         "@bgord/design": "1.6.10",
         "@bgord/ui": "0.8.29",
         "@tanstack/react-router": "1.168.10",
@@ -142,11 +142,11 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.21", "", {}, "sha512-/ImESw0sskqlVR94jB+5+Pxjf+xBwDZF/N5+y2/q4EqD7IARUTSpPfIo8uf39SYpCxyOCtbyYpUrZ3F/k0zT4A=="],
 
-    "@bgord/bun": ["@bgord/bun@1.17.1", "", { "dependencies": { "@bgord/tools": "1.5.0", "emittery": "2.0.0", "hono": "4.12.12", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.0", "croner": "10.0.1", "csv": "6.5.1", "nodemailer": "8.0.5", "resend": "6.10.0", "sharp": "0.34.5", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "croner", "csv", "nodemailer", "resend", "sharp", "yazl"] }, "sha512-hkIoWpDyEV4wHiGJMJGlnwl/3dLOo27FmVuDKF1xoCxTwPixr4yaslJLdFRhndtPbFjaN3KMz2a1gX0DRnKbJg=="],
+    "@bgord/bun": ["@bgord/bun@1.17.2", "", { "dependencies": { "@bgord/tools": "1.5.1", "emittery": "2.0.0", "hono": "4.12.12", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.0", "croner": "10.0.1", "csv": "6.5.1", "nodemailer": "8.0.5", "resend": "6.10.0", "sharp": "0.34.5", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "croner", "csv", "nodemailer", "resend", "sharp", "yazl"] }, "sha512-78Zx+IvAGsdO12lSga8jnleqmIpwMoN0k3Mb5+6pk0hijjOqYLurmgsZ52o5GSVBFOkTzO7hGSd1/HQ5VW7h4Q=="],
 
     "@bgord/design": ["@bgord/design@1.6.10", "", {}, "sha512-uJpW3aaLtXEF0oOlWVs/Vj6cM/ayMvBmDsQA/Uj/IwnMvmFQ2BpUiPbmgO/z5GMJ2SVuKIpXW8fFb1HyLS3IVQ=="],
 
-    "@bgord/tools": ["@bgord/tools@1.5.0", "", { "dependencies": { "temporal-polyfill": "0.3.2", "valibot": "1.3.1" } }, "sha512-sTVR9NR4Sxa+KjY7VVr9xNLobZH/jhbECXA4Ls90r3TMm0JqnkIbsHv3MfRJUw402SkniAfNKApwtEyI9Tzh4g=="],
+    "@bgord/tools": ["@bgord/tools@1.5.1", "", { "dependencies": { "temporal-polyfill": "0.3.2", "valibot": "1.3.1" } }, "sha512-B22JggJ8XpO7WfGHXoSC+W+mK9Wmod0ulHpHcsGExzt+/AODu9+Vd8vyxyUp2vKvx9TizWo6mtVOYkKpdShfow=="],
 
     "@bgord/ui": ["@bgord/ui@0.8.29", "", { "dependencies": { "js-cookie": "3.0.5", "polish-plurals": "1.1.0", "tinykeys": "3.0.0" }, "peerDependencies": { "react": "19.2.4", "react-dom": "19.2.4" } }, "sha512-x3g4FKg+fHE/WLKNIlselZig7nh8dwSd/hAO1Algbrtnf4eYz3QgZO1bdeGG0hd6rpsYT8VXz2O5HpW8SXJcIw=="],
 
