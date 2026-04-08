@@ -739,14 +739,14 @@ export const GenericHourHasPassedMondayUtc12Event = {
   payload: { timestamp: tools.Timestamp.fromNumber(1754308800000).ms },
 } satisfies bg.System.Events.HourHasPassedEventType;
 
-export function getNextMonday1800UTC(now: Date = new Date()): number {
-  const daysUntilMonday = (8 - now.getUTCDay()) % 7;
+function getNextMonday1800UTC(): tools.Temporal.Instant {
+  const plain = tools.Temporal.Now.instant().toZonedDateTimeISO("UTC").toPlainDate();
+  const daysUntilMonday = (8 - plain.dayOfWeek) % 7;
+  const nextMonday = plain.add({ days: daysUntilMonday });
 
-  const y = now.getUTCFullYear();
-  const m = now.getUTCMonth();
-  const d = now.getUTCDate() + daysUntilMonday;
-
-  return Date.UTC(y, m, d, 18, 0, 0, 0);
+  return tools.Temporal.PlainDate.from(nextMonday)
+    .toZonedDateTime({ timeZone: "UTC", plainTime: tools.Temporal.PlainTime.from({ hour: 18 }) })
+    .toInstant();
 }
 
 export const HourHasPassedNextMondayUtc18Event = {
@@ -756,7 +756,7 @@ export const HourHasPassedNextMondayUtc18Event = {
   stream: "passage_of_time",
   version: 1,
   name: "HOUR_HAS_PASSED_EVENT",
-  payload: { timestamp: tools.Timestamp.fromNumber(getNextMonday1800UTC()).ms },
+  payload: { timestamp: tools.Timestamp.fromInstant(getNextMonday1800UTC()).ms },
 } satisfies bg.System.Events.HourHasPassedEventType;
 
 export const GenericHourHasPassedWednesdayUtc18Event = {

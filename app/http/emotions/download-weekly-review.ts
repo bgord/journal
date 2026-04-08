@@ -16,8 +16,11 @@ export const DownloadWeeklyReview = (deps: Dependencies) => async (c: hono.Conte
   const weeklyReview = await deps.WeeklyReviewExportQuery.getFull(weeklyReviewId);
 
   Emotions.Invariants.WeeklyReviewExists.enforce({ weeklyReview });
+  // biome-ignore lint: lint/style/noNonNullAssertion
   Emotions.Invariants.WeeklyReviewIsCompleted.enforce({ status: weeklyReview!.status });
+  // biome-ignore lint: lint/style/noNonNullAssertion
   Emotions.Invariants.RequesterOwnsWeeklyReview.enforce({ requesterId, ownerId: weeklyReview!.userId });
 
+  // biome-ignore lint: lint/style/noNonNullAssertion
   return new Emotions.Services.WeeklyReviewExportPdfFile(weeklyReview!, deps).toResponse();
 };

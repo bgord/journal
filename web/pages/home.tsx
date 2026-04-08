@@ -13,6 +13,7 @@ export function Home() {
   const exportEntries = useToggle({ name: "entry-export" });
   const notify = useNotify();
 
+  // biome-ignore lint: lint/correctness/useExhaustiveDependencies
   useEffect(() => {
     const source = new EventSource("/api/sse");
 

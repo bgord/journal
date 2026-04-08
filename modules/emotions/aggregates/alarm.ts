@@ -80,6 +80,7 @@ export class Alarm {
     const event = bg.event(
       Events.AlarmAdviceSavedEvent,
       Alarm.getStream(this.id),
+      // biome-ignore lint: lint/style/noNonNullAssertion
       { alarmId: this.id, advice: advice.get(), userId: this.userId! },
       this.deps,
     );
@@ -125,6 +126,7 @@ export class Alarm {
     const event = bg.event(
       Events.AlarmCancelledEvent,
       Alarm.getStream(this.id),
+      // biome-ignore lint: lint/style/noNonNullAssertion
       { alarmId: this.id, userId: this.userId! },
       this.deps,
     );
