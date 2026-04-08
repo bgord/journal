@@ -9,7 +9,6 @@ import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import { DateFormatter } from "../../df";
 
 type Dependencies = { Clock: bg.ClockPort; WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport };
 
@@ -171,7 +170,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
       inactivity: inactivityAlarmsResponse.map((alarm) => ({
         ...alarm,
         advice: alarm.advice as AI.AdviceType,
-        generatedAt: DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
+        generatedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
         inactivityDays: alarm.inactivityDays ? tools.Int.positive(alarm.inactivityDays) : null,
       })),
       entry: entryAlarmsResponse.map((alarm) => ({
@@ -179,7 +178,7 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
         advice: alarm.advice as AI.AdviceType,
         name: v.parse(Emotions.VO.AlarmName, alarm.name),
         emotionLabel: v.parse(Emotions.VO.EmotionLabelSchema, alarm.emotionLabel),
-        generatedAt: DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
+        generatedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
       })),
     },
     entries: {
@@ -200,8 +199,8 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
     },
     weeklyReviews: weeklyReviews.map((review) => ({
       ...review,
-      weekStart: DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getStart()),
-      weekEnd: DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getEnd()),
+      weekStart: tools.DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getStart()),
+      weekEnd: tools.DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getEnd()),
     })),
   };
 

@@ -6,7 +6,6 @@ import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import { DateFormatter } from "../../../df";
 
 class EntriesSharingOHQDrizzle implements Emotions.OHQ.EntriesSharingPort {
   async listForOwnerInRange(ownerId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
@@ -22,7 +21,7 @@ class EntriesSharingOHQDrizzle implements Emotions.OHQ.EntriesSharingPort {
 
     return result.map((entry) => ({
       ...entry,
-      startedAt: DateFormatter.datetime(tools.Timestamp.fromNumber(entry.startedAt)),
+      startedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(entry.startedAt)),
       status: entry.status as Emotions.VO.EntryStatusEnum,
       situationKind: entry.situationKind as Emotions.VO.SituationKindOptions,
       emotionLabel: entry.emotionLabel as Emotions.VO.GenevaWheelEmotion | null,
