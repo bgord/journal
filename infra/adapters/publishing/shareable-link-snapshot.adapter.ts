@@ -5,11 +5,12 @@ import type * as Auth from "+auth";
 import * as Publishing from "+publishing";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
+import { DateFormatter } from "../../../df";
 
 class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnapshotPort {
   async getByUserId(
     userId: Auth.VO.UserIdType,
-    timeZoneOffsetMs: tools.DurationMsType,
+    timeZoneOffset: tools.Duration,
   ): Promise<Array<Publishing.VO.ShareableLinkSnapshot>> {
     const result: Array<Publishing.VO.ShareableLinkSnapshot> = [];
 
@@ -39,7 +40,7 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
       const uniqueVisitors = uniqueVisitorsResult[0]?.count ?? 0;
 
       result.push({
-        ...ShareableLinkSnapshotDrizzle.format(shareableLink, timeZoneOffsetMs),
+        ...ShareableLinkSnapshotDrizzle.format(shareableLink, timeZoneOffset),
         hits: tools.Int.nonNegative(hits),
         uniqueVisitors: v.parse(tools.IntegerNonNegative, uniqueVisitors),
       });
@@ -48,14 +49,20 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
     return result;
   }
 
-  static format(shareableLink: Schema.SelectShareableLinks, timeZoneOffsetMs: tools.DurationMsType) {
+  static format(shareableLink: Schema.SelectShareableLinks, timeZoneOffset: tools.Duration) {
     return {
       ...shareableLink,
       status: shareableLink.status as Publishing.VO.ShareableLinkStatusEnum,
-      dateRangeStart: tools.DateFormatters.datetime(shareableLink.dateRangeStart + timeZoneOffsetMs),
-      dateRangeEnd: tools.DateFormatters.datetime(shareableLink.dateRangeEnd + timeZoneOffsetMs),
-      expiresAt: tools.DateFormatters.datetime(shareableLink.expiresAt + timeZoneOffsetMs),
-      updatedAt: tools.DateFormatters.datetime(shareableLink.updatedAt + timeZoneOffsetMs),
+      dateRangeStart: DateFormatter.datetime(
+        tools.Timestamp.fromNumber(shareableLink.dateRangeStart),
+        timeZoneOffset,
+      ),
+      dateRangeEnd: DateFormatter.datetime(
+        tools.Timestamp.fromNumber(shareableLink.dateRangeEnd),
+        timeZoneOffset,
+      ),
+      expiresAt: DateFormatter.datetime(tools.Timestamp.fromNumber(shareableLink.expiresAt), timeZoneOffset),
+      updatedAt: DateFormatter.datetime(tools.Timestamp.fromNumber(shareableLink.updatedAt), timeZoneOffset),
     };
   }
 }

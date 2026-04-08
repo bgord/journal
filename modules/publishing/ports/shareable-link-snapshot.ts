@@ -4,6 +4,6 @@ import type * as VO from "+publishing/value-objects";
 export interface ShareableLinkSnapshotPort {
   getByUserId(
     id: VO.ShareableLinkIdType,
-    timeZoneOffsetMs: tools.DurationMsType,
+    timeZoneOffset: tools.Duration,
   ): Promise<ReadonlyArray<VO.ShareableLinkSnapshot>>;
 }

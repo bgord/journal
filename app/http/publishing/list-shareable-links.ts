@@ -11,9 +11,9 @@ type Dependencies = {
 
 export const ListShareableLinks = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
-  const timeZoneOffsetMs = c.get("timeZoneOffset").ms;
+  const timeZoneOffset = c.get("timeZoneOffset");
 
-  const shareableLinks = await deps.ShareableLinkSnapshot.getByUserId(userId, timeZoneOffsetMs);
+  const shareableLinks = await deps.ShareableLinkSnapshot.getByUserId(userId, timeZoneOffset);
 
   return c.json(shareableLinks);
 };
