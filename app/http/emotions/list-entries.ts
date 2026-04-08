@@ -5,6 +5,7 @@ import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 import type { EntrySnapshotFormatted } from "+emotions/ports";
+import { DateFormatter } from "../../../df";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -34,7 +35,7 @@ export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.
 
   const result: ReadonlyArray<EntrySnapshotFormatted> = entries.map((entry) => ({
     ...entry,
-    startedAt: tools.DateFormatters.datetime(entry.startedAt),
+    startedAt: DateFormatter.datetime(tools.Timestamp.fromNumber(entry.startedAt)),
   }));
 
   return c.json(result);
