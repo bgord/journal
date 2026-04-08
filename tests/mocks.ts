@@ -13,6 +13,7 @@ import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type { EntrySnapshotFormatted } from "+app/http/emotions/list-entries";
 import type * as Schema from "+infra/schema";
+import { DateFormatter } from "../df";
 
 // IDs
 export const correlationId = "00000000-0000-0000-0000-000000000000";
@@ -987,7 +988,7 @@ export const fullEntryWithAlarms: Emotions.Ports.EntrySnapshotWithAlarms = {
 export const fullEntryWithAlarmsFormatted: EntrySnapshotFormatted = {
   ...fullEntry,
   alarms: [] as ReadonlyArray<Emotions.VO.AlarmSnapshot>,
-  startedAt: tools.DateFormatters.datetime(fullEntry.startedAt),
+  startedAt: DateFormatter.datetime(tools.Timestamp.fromValue(fullEntry.startedAt)),
 };
 
 export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
@@ -1106,13 +1107,13 @@ export const shareableLink: Schema.SelectShareableLinks = {
 
 export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
   id: shareableLinkId,
-  updatedAt: tools.DateFormatters.datetime(T0.ms),
+  updatedAt: DateFormatter.datetime(T0),
   status: Publishing.VO.ShareableLinkStatusEnum.active,
   revision: 0,
   publicationSpecification: "entries",
-  dateRangeStart: tools.DateFormatters.datetime(T0.ms),
-  dateRangeEnd: tools.DateFormatters.datetime(T0.ms),
-  expiresAt: tools.DateFormatters.datetime(T0.ms),
+  dateRangeStart: DateFormatter.datetime(T0),
+  dateRangeEnd: DateFormatter.datetime(T0),
+  expiresAt: DateFormatter.datetime(T0),
   hits: tools.Int.nonNegative(1),
   uniqueVisitors: tools.Int.nonNegative(1),
 };
