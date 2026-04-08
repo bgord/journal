@@ -29,7 +29,7 @@ export const historyId = v.parse(bg.UUID, "8d79bd87-1709-4c15-b40c-cd0fafaa0113"
 const patternDetectionId = v.parse(bg.UUID, "d2ca7a35-76a0-42de-8a2c-32d8b14fdfab");
 
 // Timestamps
-export const T0 = tools.Timestamp.fromNumber(1700000000000);
+export const T0 = tools.Timestamp.fromNumber(Date.UTC(2025, 0, 1, 0, 0, 0));
 
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
