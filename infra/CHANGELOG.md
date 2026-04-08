@@ -1,6 +1,32 @@
 # Changelog
+- 2026-04-08 13:52 ca2db6f2 **step: update packages**
+## 2026-04-08 13:52 
+- 2026-04-08 13:50 6bcfef67 **refactor: use date formatter from tools**
+- 2026-04-08 13:49 aa20ea1f **step: update packages**
+- 2026-04-08 13:49 0d56155b **step: bump bgord/scripts**
+- 2026-04-08 12:51 92e21914 **step: suppress biome warnings**
+- 2026-04-08 12:46 fb3ad1bc **step: update packages**
+- 2026-04-08 12:46 b106e9c3 **fix: get profile avatar test**
+- 2026-04-08 12:25 c2823e8c **refactor: adjust clock**
+- 2026-04-08 12:24 516bdbc0 **Revert "refactor: adjust clock"**
+- 2026-04-08 12:21 5a05f03d **step: suppress date errors in schema**
+- 2026-04-08 12:20 b62846e5 **refactor: adjust clock**
+- 2026-04-08 12:17 1320d70d **refactor: use new date formatter**
+- 2026-04-08 12:16 5beb3217 **refactor: shareable link snapshot**
+- 2026-04-08 12:12 39731b8c **refactor: use new date formatter**
+- 2026-04-08 12:09 9c67e5b4 **step: add tmp date formatter**
+- 2026-04-08 12:08 dc6319bc **step: adjust date formatting in mocks**
+- 2026-04-08 11:58 e40c82d8 **step: ignore new date in db mocks**
+- 2026-04-08 11:58 cbc4fe21 **step: update packages**
+- 2026-04-08 11:55 08141e53 **step: bump bgord/scripts**
+- 2026-04-06 09:44 66560706 **step: update packages**
+- 2026-04-03 17:56 f980df20 **step: update packages**
+- 2026-04-02 14:32 76b366cd **step: add cron scheduler with logger**
+- 2026-04-02 14:30 26496339 **fix: sse test**
+- 2026-04-02 14:24 49d8a07a **refactor: update configs**
+- 2026-04-02 14:22 3a1096a7 **step: update packages**
 - 2026-03-29 10:41 c91ceafa **step: update packages**
-## 2026-03-29 10:41 
+- 2026-03-29 08:41 086d533c **docs: generate CHANGELOG**
 - 2026-03-28 10:36 c2b59b6e **step: update packages**
 - 2026-03-28 10:28 3543637b **refactor: register cron tasks**
 - 2026-03-28 10:11 cbb5180d **step: define cron scheduler adapter**
