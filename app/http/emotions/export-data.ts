@@ -15,7 +15,7 @@ type Dependencies = {
 export const ExportData = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
-  const entries = await deps.EntrySnapshot.getAllForuser(userId);
+  const entries = await deps.EntrySnapshot.getAllForUser(userId);
   const alarms = await deps.AlarmDirectory.listForUser(userId);
 
   const timestamp = deps.Clock.now().ms;

@@ -14,7 +14,7 @@ export interface EntrySnapshotPort {
 
   getByWeekForUser(week: tools.Week, userId: Auth.VO.UserIdType): Promise<ReadonlyArray<VO.EntrySnapshot>>;
 
-  getAllForuser(userId: Auth.VO.UserIdType): Promise<ReadonlyArray<VO.EntrySnapshot>>;
+  getAllForUser(userId: Auth.VO.UserIdType): Promise<ReadonlyArray<VO.EntrySnapshot>>;
 
   getByDateRangeForUser(
     userId: Auth.VO.UserIdType,

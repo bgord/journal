@@ -10,7 +10,7 @@ type Dependencies = {
 class WeeklyReviewRepositoryInternal implements Emotions.Ports.WeeklyReviewRepositoryPort {
   constructor(private readonly deps: Dependencies) {}
 
-  async load(id: Emotions.VO.WeeklyReviewIdType) {
+  async load(id: Emotions.VO.WeeklyReviewIdType): Promise<Emotions.Aggregates.WeeklyReview> {
     const history = await this.deps.EventStore.find(
       Emotions.Aggregates.WeeklyReview.registry,
       Emotions.Aggregates.WeeklyReview.getStream(id),
@@ -19,7 +19,7 @@ class WeeklyReviewRepositoryInternal implements Emotions.Ports.WeeklyReviewRepos
     return Emotions.Aggregates.WeeklyReview.build(id, history, this.deps);
   }
 
-  async save(aggregate: Emotions.Aggregates.WeeklyReview) {
+  async save(aggregate: Emotions.Aggregates.WeeklyReview): Promise<void> {
     await this.deps.EventStore.save(aggregate.pullEvents());
   }
 }

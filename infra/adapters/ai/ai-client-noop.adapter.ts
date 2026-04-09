@@ -6,7 +6,7 @@ type Dependencies = { Logger: bg.LoggerPort };
 export class AiClientNoopAdapter implements AI.AiClientPort {
   constructor(private readonly deps: Dependencies) {}
 
-  async request(prompt: AI.Prompt) {
+  async request(prompt: AI.Prompt): Promise<AI.Advice> {
     this.deps.Logger.info({
       message: "[NOOP] AI Client adapter",
       component: "infra",

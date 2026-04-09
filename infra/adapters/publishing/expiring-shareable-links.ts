@@ -5,7 +5,9 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class ExpiringShareableLinksDrizzle implements Publishing.Ports.ExpiringShareableLinksPort {
-  async listDue(now: tools.TimestampValueType) {
+  async listDue(
+    now: tools.TimestampValueType,
+  ): Promise<ReadonlyArray<Publishing.Ports.ExpiringShareableLink>> {
     const rows = await db
       .select({ id: Schema.shareableLinks.id, revision: Schema.shareableLinks.revision })
       .from(Schema.shareableLinks)

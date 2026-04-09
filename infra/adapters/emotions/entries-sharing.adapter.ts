@@ -8,7 +8,10 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class EntriesSharingOHQDrizzle implements Emotions.OHQ.EntriesSharingPort {
-  async listForOwnerInRange(ownerId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
+  async listForOwnerInRange(
+    ownerId: Auth.VO.UserIdType,
+    dateRange: tools.DateRange,
+  ): Promise<ReadonlyArray<Emotions.OHQ.SharedEntryDto>> {
     const result = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
       where: and(

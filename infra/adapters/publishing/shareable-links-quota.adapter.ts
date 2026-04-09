@@ -6,7 +6,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class ShareableLinksQuotaQueryDrizzle implements Publishing.Queries.ShareableLinksQuotaQuery {
-  async execute(ownerId: Auth.VO.UserIdType) {
+  async execute(ownerId: Auth.VO.UserIdType): Promise<{ count: tools.IntegerNonNegativeType }> {
     const count = await db.$count(
       Schema.shareableLinks,
       and(

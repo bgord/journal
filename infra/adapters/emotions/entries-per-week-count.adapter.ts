@@ -6,7 +6,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class EntriesPerWeekCountQueryDrizzle implements Emotions.Queries.EntriesPerWeekCountQuery {
-  async execute(userId: Auth.VO.UserIdType, week: tools.Week) {
+  async execute(userId: Auth.VO.UserIdType, week: tools.Week): Promise<tools.IntegerNonNegativeType> {
     const result = await db.$count(
       Schema.entries,
       and(

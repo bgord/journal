@@ -9,7 +9,7 @@ export class AiClientOpenAiAdapter implements AI.AiClientPort {
     this.OpenAI = new OAI({ apiKey: OPEN_AI_API_KEY });
   }
 
-  async request(prompt: AI.Prompt) {
+  async request(prompt: AI.Prompt): Promise<AI.Advice> {
     const response = await this.OpenAI.responses.create({
       model: "gpt-4o",
       instructions: prompt.read()[0].content,

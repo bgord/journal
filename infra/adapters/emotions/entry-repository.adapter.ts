@@ -10,7 +10,7 @@ type Dependencies = {
 class EntryRepositoryInternal implements Emotions.Ports.EntryRepositoryPort {
   constructor(private readonly deps: Dependencies) {}
 
-  async load(id: Emotions.VO.EntryIdType) {
+  async load(id: Emotions.VO.EntryIdType): Promise<Emotions.Aggregates.Entry> {
     const history = await this.deps.EventStore.find(
       Emotions.Aggregates.Entry.registry,
       Emotions.Aggregates.Entry.getStream(id),
@@ -19,7 +19,7 @@ class EntryRepositoryInternal implements Emotions.Ports.EntryRepositoryPort {
     return Emotions.Aggregates.Entry.build(id, history, this.deps);
   }
 
-  async save(aggregate: Emotions.Aggregates.Entry) {
+  async save(aggregate: Emotions.Aggregates.Entry): Promise<void> {
     await this.deps.EventStore.save(aggregate.pullEvents());
   }
 }

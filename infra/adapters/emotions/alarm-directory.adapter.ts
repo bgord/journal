@@ -9,7 +9,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 export class AlarmDirectoryDrizzle implements Emotions.Ports.AlarmDirectoryPort {
-  async listForUser(userId: Auth.VO.UserIdType) {
+  async listForUser(userId: Auth.VO.UserIdType): Promise<ReadonlyArray<VO.AlarmSnapshot>> {
     const alarms = await db.query.alarms.findMany({
       where: and(eq(Schema.alarms.userId, userId)),
       orderBy: desc(Schema.alarms.generatedAt),

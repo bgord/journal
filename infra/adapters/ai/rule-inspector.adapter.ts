@@ -11,7 +11,7 @@ type Dependencies = { Clock: bg.ClockPort };
 class RuleInspectorDrizzle implements RuleInspectorPort {
   constructor(private readonly deps: Dependencies) {}
 
-  async inspect(rule: VO.QuotaRule, context: VO.RequestContext) {
+  async inspect(rule: VO.QuotaRule, context: VO.RequestContext): Promise<VO.QuotaRuleInspectionType> {
     const result = await db.query.aiUsageCounters.findFirst({
       columns: { count: true },
       where: eq(Schema.aiUsageCounters.bucket, rule.bucket(context)),

@@ -13,7 +13,7 @@ type Dependencies = {
 class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
   constructor(private readonly deps: Dependencies) {}
 
-  async populate(history: Omit<bg.History.VO.HistoryType, "id">) {
+  async populate(history: Omit<bg.History.VO.HistoryType, "id">): Promise<void> {
     const event = bg.event(
       bg.History.Events.HistoryPopulatedEvent,
       `history_${history.subject}`,
@@ -25,7 +25,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
     await this.deps.EventStore.save([event]);
   }
 
-  async clear(subject: bg.History.VO.HistorySubjectType) {
+  async clear(subject: bg.History.VO.HistorySubjectType): Promise<void> {
     const event = bg.event(
       bg.History.Events.HistoryClearedEvent,
       `history_${subject}`,

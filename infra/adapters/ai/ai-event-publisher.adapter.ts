@@ -6,7 +6,7 @@ type Dependencies = { EventStore: bg.EventStorePort<AIEvents> };
 class AiEventStorePublisherInternal implements AiEventPublisherPort {
   constructor(private readonly deps: Dependencies) {}
 
-  async publish(events: ReadonlyArray<AIEvents>) {
+  async publish(events: ReadonlyArray<AIEvents>): Promise<void> {
     await this.deps.EventStore.save(events);
   }
 }

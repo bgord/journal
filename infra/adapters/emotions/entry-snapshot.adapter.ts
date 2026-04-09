@@ -8,7 +8,7 @@ import * as Schema from "+infra/schema";
 import { AlarmDirectoryDrizzle } from "./alarm-directory.adapter";
 
 class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
-  async getById(entryId: Emotions.VO.EntryIdType) {
+  async getById(entryId: Emotions.VO.EntryIdType): Promise<Emotions.VO.EntrySnapshot | undefined> {
     const entry = await db.query.entries.findFirst({
       where: eq(Schema.entries.id, entryId),
     });
@@ -27,7 +27,10 @@ class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
     };
   }
 
-  async getByWeekForUser(week: tools.Week, userId: Auth.VO.UserIdType) {
+  async getByWeekForUser(
+    week: tools.Week,
+    userId: Auth.VO.UserIdType,
+  ): Promise<ReadonlyArray<Emotions.VO.EntrySnapshot>> {
     const entries = await db
       .select()
       .from(Schema.entries)
@@ -42,7 +45,7 @@ class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
     return entries.map(EntrySnapshotDrizzle.format);
   }
 
-  async getAllForuser(userId: Auth.VO.UserIdType) {
+  async getAllForUser(userId: Auth.VO.UserIdType): Promise<ReadonlyArray<Emotions.VO.EntrySnapshot>> {
     const entries = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
       where: eq(Schema.entries.userId, userId),
@@ -51,7 +54,10 @@ class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
     return entries.map(EntrySnapshotDrizzle.format);
   }
 
-  async getByDateRangeForUser(userId: Auth.VO.UserIdType, dateRange: tools.DateRange) {
+  async getByDateRangeForUser(
+    userId: Auth.VO.UserIdType,
+    dateRange: tools.DateRange,
+  ): Promise<ReadonlyArray<Emotions.VO.EntrySnapshot>> {
     const entries = await db.query.entries.findMany({
       orderBy: desc(Schema.entries.startedAt),
       where: and(

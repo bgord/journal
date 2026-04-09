@@ -10,7 +10,7 @@ type Dependencies = {
 class AlarmRepositoryInternal implements Emotions.Ports.AlarmRepositoryPort {
   constructor(private readonly deps: Dependencies) {}
 
-  async load(id: Emotions.VO.AlarmIdType) {
+  async load(id: Emotions.VO.AlarmIdType): Promise<Emotions.Aggregates.Alarm> {
     const history = await this.deps.EventStore.find(
       Emotions.Aggregates.Alarm.registry,
       Emotions.Aggregates.Alarm.getStream(id),
@@ -19,7 +19,7 @@ class AlarmRepositoryInternal implements Emotions.Ports.AlarmRepositoryPort {
     return Emotions.Aggregates.Alarm.build(id, history, this.deps);
   }
 
-  async save(aggregate: Emotions.Aggregates.Alarm) {
+  async save(aggregate: Emotions.Aggregates.Alarm): Promise<void> {
     await this.deps.EventStore.save(aggregate.pullEvents());
   }
 }

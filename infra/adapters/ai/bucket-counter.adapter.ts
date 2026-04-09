@@ -6,7 +6,9 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class BucketCounterDrizzle implements BucketCounterPort {
-  async getMany(buckets: ReadonlyArray<VO.QuotaBucketType>) {
+  async getMany(
+    buckets: ReadonlyArray<VO.QuotaBucketType>,
+  ): Promise<Record<VO.QuotaBucketType, VO.QuotaUsageType>> {
     if (buckets.length === 0) return {};
 
     const rows = await db

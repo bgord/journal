@@ -4,7 +4,7 @@ import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 class AlarmCancellationLookupDrizzle implements Emotions.Ports.AlarmCancellationLookupPort {
-  async listIdsForEntry(entryId: Emotions.VO.EntryIdType) {
+  async listIdsForEntry(entryId: Emotions.VO.EntryIdType): Promise<ReadonlyArray<Emotions.VO.AlarmIdType>> {
     const rows = await db
       .select({ id: Schema.alarms.id })
       .from(Schema.alarms)
