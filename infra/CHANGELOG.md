@@ -1,6 +1,7 @@
 # Changelog
+- 2026-04-09 12:37 661e97dc **step: update packages**
+## 2026-04-09 12:37 
 - 2026-04-08 13:52 ca2db6f2 **step: update packages**
-## 2026-04-08 13:52 
 - 2026-04-08 13:50 6bcfef67 **refactor: use date formatter from tools**
 - 2026-04-08 13:49 aa20ea1f **step: update packages**
 - 2026-04-08 13:49 0d56155b **step: bump bgord/scripts**
@@ -18,6 +19,7 @@
 - 2026-04-08 12:08 dc6319bc **step: adjust date formatting in mocks**
 - 2026-04-08 11:58 e40c82d8 **step: ignore new date in db mocks**
 - 2026-04-08 11:58 cbc4fe21 **step: update packages**
+- 2026-04-08 11:56 5502fb39 **docs: generate CHANGELOG**
 - 2026-04-08 11:55 08141e53 **step: bump bgord/scripts**
 - 2026-04-06 09:44 66560706 **step: update packages**
 - 2026-04-03 17:56 f980df20 **step: update packages**
