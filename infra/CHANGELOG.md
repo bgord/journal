@@ -1,6 +1,12 @@
 # Changelog
+- 2026-04-10 13:12 8198e80a **step: update packages**
+## 2026-04-10 13:12 
+- 2026-04-10 12:23 57ecaf4a **refactor: simplify seed**
+- 2026-04-09 20:10 d4f1a54e **step: add missing infra adapter method types**
+- 2026-04-09 19:51 366db1e2 **step: cleanup gitignore**
+- 2026-04-09 19:16 38ac5574 **step: add journal mode wal**
 - 2026-04-09 12:37 661e97dc **step: update packages**
-## 2026-04-09 12:37 
+- 2026-04-09 10:38 3bed8f4c **docs: generate CHANGELOG**
 - 2026-04-08 13:52 ca2db6f2 **step: update packages**
 - 2026-04-08 13:50 6bcfef67 **refactor: use date formatter from tools**
 - 2026-04-08 13:49 aa20ea1f **step: update packages**
