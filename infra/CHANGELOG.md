@@ -1,7 +1,10 @@
 # Changelog
+- 2026-04-10 21:38 8fa94114 **step: update bun**
+- 2026-04-10 21:38 203e9ec1 **step: bump bgord/scripts**
+## 2026-04-10 21:38 
 - 2026-04-10 13:12 8198e80a **step: update packages**
-## 2026-04-10 13:12 
 - 2026-04-10 12:23 57ecaf4a **refactor: simplify seed**
+- 2026-04-10 11:13 e2d12143 **docs: generate CHANGELOG**
 - 2026-04-09 20:10 d4f1a54e **step: add missing infra adapter method types**
 - 2026-04-09 19:51 366db1e2 **step: cleanup gitignore**
 - 2026-04-09 19:16 38ac5574 **step: add journal mode wal**
