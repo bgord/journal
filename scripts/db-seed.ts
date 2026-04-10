@@ -12,6 +12,23 @@ import { registerEventHandlers } from "+infra/register-event-handlers";
 import * as Schema from "+infra/schema";
 import * as mocks from "../tests/mocks";
 
+const tables = [
+  Schema.events,
+  Schema.alarms,
+  Schema.entries,
+  Schema.patternDetections,
+  Schema.weeklyReviews,
+  Schema.shareableLinks,
+  Schema.timeCapsuleEntries,
+  Schema.aiUsageCounters,
+  Schema.history,
+  Schema.userPreferences,
+  Schema.accounts,
+  Schema.users,
+  Schema.sessions,
+  Schema.verifications,
+];
+
 const situationDescriptions = [
   "I missed an important appointment because I confused the time zones while traveling, which made me feel embarrassed and deeply irresponsible",
   "Caught in traffic swearing about other drivers",
@@ -64,6 +81,8 @@ const reactionDescriptions = [
 const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
 (async function main() {
+  for (const table of tables) await db.delete(table);
+
   const di = await bootstrap();
 
   registerEventHandlers(di);
@@ -73,48 +92,6 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
   const correlationId = di.Adapters.System.IdProvider.generate();
 
   await bg.CorrelationStorage.run(correlationId, async () => {
-    await db.delete(Schema.events);
-    console.log("[x] Cleared events");
-
-    await db.delete(Schema.alarms);
-    console.log("[x] Cleared alarms");
-
-    await db.delete(Schema.entries);
-    console.log("[x] Cleared entries");
-
-    await db.delete(Schema.patternDetections);
-    console.log("[x] Cleared patternDetections");
-
-    await db.delete(Schema.weeklyReviews);
-    console.log("[x] Cleared weeklyReviews");
-
-    await db.delete(Schema.shareableLinks);
-    console.log("[x] Cleared shareableLinks");
-
-    await db.delete(Schema.timeCapsuleEntries);
-    console.log("[x] Cleared timeCapsuleEntries");
-
-    await db.delete(Schema.aiUsageCounters);
-    console.log("[x] Cleared aiUsageCounters");
-
-    await db.delete(Schema.history);
-    console.log("[x] Cleared history");
-
-    await db.delete(Schema.userPreferences);
-    console.log("[x] Cleared userPreferences");
-
-    await db.delete(Schema.accounts);
-    console.log("[x] Cleared accounts");
-
-    await db.delete(Schema.users);
-    console.log("[x] Cleared users");
-
-    await db.delete(Schema.sessions);
-    console.log("[x] Cleared sessions");
-
-    await db.delete(Schema.verifications);
-    console.log("[x] Cleared verifications");
-
     const users = await Promise.all(
       [
         { email: "admin@example.com", password: "1234567890" },
