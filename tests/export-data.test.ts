@@ -22,7 +22,7 @@ describe("GET /entry/export-data", async () => {
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(
-      spyOn(di.Adapters.Emotions.EntrySnapshot, "getAllForuser").mockResolvedValue([mocks.fullEntry]),
+      spyOn(di.Adapters.Emotions.EntrySnapshot, "getAllForUser").mockResolvedValue([mocks.fullEntry]),
     );
     spies.use(spyOn(di.Adapters.Emotions.AlarmDirectory, "listForUser").mockResolvedValue([mocks.alarm]));
 

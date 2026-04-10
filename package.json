@@ -10,7 +10,7 @@
   "author": "Bartosz Gordon",
   "license": "ISC",
   "devDependencies": {
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.11",
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
     "@fullhuman/postcss-purgecss": "8.0.0",
@@ -38,13 +38,13 @@
     "vite": "8.0.8"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.86.1",
-    "@better-auth/drizzle-adapter": "1.6.1",
+    "@anthropic-ai/sdk": "0.87.0",
+    "@better-auth/drizzle-adapter": "1.6.2",
     "@bgord/bun": "1.17.4",
     "@bgord/design": "1.6.10",
     "@bgord/ui": "0.8.29",
     "@tanstack/react-router": "1.168.10",
-    "better-auth": "1.6.1",
+    "better-auth": "1.6.2",
     "better-sqlite3": "12.8.0",
     "croner": "10.0.1",
     "csv": "6.5.1",
