@@ -1,9 +1,14 @@
 # Changelog
+- 2026-04-11 18:09 d34033b5 **step: pass sse subject resolver explicitly**
+## 2026-04-11 18:09 
+- 2026-04-11 18:08 e845d53e **step: update packages**
+- 2026-04-11 15:44 49ebf7c6 **step: cleanup temporary file**
+- 2026-04-11 15:39 3a4296f4 **step: remove unused infra profile avatars**
 - 2026-04-10 21:53 f562b30b **step: remove croner adapter**
-## 2026-04-10 21:53 
 - 2026-04-10 21:52 b8c53f80 **step: update packages**
 - 2026-04-10 21:38 8fa94114 **step: update bun**
 - 2026-04-10 21:38 203e9ec1 **step: bump bgord/scripts**
+- 2026-04-10 19:55 d73ed795 **docs: generate CHANGELOG**
 - 2026-04-10 19:39 f32cc09d **docs: generate CHANGELOG**
 - 2026-04-10 13:12 8198e80a **step: update packages**
 - 2026-04-10 12:23 57ecaf4a **refactor: simplify seed**
