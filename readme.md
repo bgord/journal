@@ -455,7 +455,6 @@ infra/
 ├── e2e
 │   └── home.spec.ts
 ├── env.ts
-├── profile-avatars
 ├── projections
 │   ├── ai-usage-counter.projector.ts
 │   ├── alarm.projector.ts
