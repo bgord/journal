@@ -6,8 +6,6 @@
 .stryker-tmp
 infra/adapters/system/profile-avatars/
 infra/build-info.json
-infra/profile-avatars/*
-!infra/profile-avatars/.gitkeep
 meta.json
 node_modules/
 output/
