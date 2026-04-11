@@ -124,6 +124,7 @@ describe(`POST ${url}`, async () => {
     using imageProcessorProcess = spyOn(di.Adapters.System.ImageProcessor, "process");
     using remoteFileStoragePutFromPath = spyOn(di.Adapters.System.RemoteFileStorage, "putFromPath");
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
+    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -155,10 +156,12 @@ describe(`POST ${url}`, async () => {
       // @ts-expect-error
       path: expect.any(tools.FilePathAbsolute),
     });
+    expect(temporaryFileCleanup.mock.calls[0]?.[0].get()).toEqual(expect.stringContaining(".webp"));
   });
 
   test("happy path - jpeg", async () => {
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
+    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
     using spies = new DisposableStack();
     spies.use(
       spyOn(di.Adapters.System.ImageInfo, "inspect").mockResolvedValue({
@@ -178,9 +181,11 @@ describe(`POST ${url}`, async () => {
 
     expect(response.status);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericProfileAvatarUpdatedEvent]);
+    expect(temporaryFileCleanup.mock.calls[0]?.[0].get()).toEqual(expect.stringContaining(".webp"));
   });
 
   test("happy path - webp", async () => {
+    using temporaryFileCleanup = spyOn(di.Adapters.System.TemporaryFile, "cleanup");
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(
@@ -201,5 +206,6 @@ describe(`POST ${url}`, async () => {
 
     expect(response.status);
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericProfileAvatarUpdatedEvent]);
+    expect(temporaryFileCleanup.mock.calls[0]?.[0].get()).toEqual(expect.stringContaining(".webp"));
   });
 });

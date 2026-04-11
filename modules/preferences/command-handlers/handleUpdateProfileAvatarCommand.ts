@@ -36,6 +36,7 @@ export const handleUpdateProfileAvatarCommand =
 
     const key = Preferences.VO.ProfileAvatarKeyFactory.stable(command.payload.userId);
     const object = await deps.RemoteFileStorage.putFromPath({ key, path: final });
+    await deps.TemporaryFile.cleanup(final.getFilename());
 
     const event = bg.event(
       Preferences.Events.ProfileAvatarUpdatedEvent,
