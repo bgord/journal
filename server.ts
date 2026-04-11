@@ -64,7 +64,11 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.Auth.ShieldAuth.verify,
     ...new bg.SseHonoHandler(
       { keepalive: tools.Duration.Seconds(5) },
-      { registry: Tools.SseRegistry, HashContent: Tools.HashContent },
+      {
+        resolver: new bg.SubjectRequestResolver([new bg.SubjectSegmentUserStrategy()], deps),
+        registry: Tools.SseRegistry,
+        HashContent: Tools.HashContent,
+      },
     ).handle(),
   );
 
