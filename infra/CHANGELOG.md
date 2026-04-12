@@ -1,7 +1,11 @@
 # Changelog
+- 2026-04-12 21:53 a2ee2c59 **step: update packages**
+## 2026-04-12 21:53 
+- 2026-04-12 13:38 7cb862aa **fix: register page**
 - 2026-04-11 18:09 d34033b5 **step: pass sse subject resolver explicitly**
-## 2026-04-11 18:09 
 - 2026-04-11 18:08 e845d53e **step: update packages**
+- 2026-04-11 16:09 fc420117 **docs: generate CHANGELOG**
+- 2026-04-11 16:09 ae070a54 **docs: generate readme**
 - 2026-04-11 15:44 49ebf7c6 **step: cleanup temporary file**
 - 2026-04-11 15:39 3a4296f4 **step: remove unused infra profile avatars**
 - 2026-04-10 21:53 f562b30b **step: remove croner adapter**
