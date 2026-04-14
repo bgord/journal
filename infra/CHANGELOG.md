@@ -1,6 +1,9 @@
 # Changelog
+- 2026-04-14 10:14 45fee119 **step: update packages**
+## 2026-04-14 10:14 
+- 2026-04-12 21:54 89cae8a0 **step: update packages**
 - 2026-04-12 21:53 a2ee2c59 **step: update packages**
-## 2026-04-12 21:53 
+- 2026-04-12 19:53 4fcfa032 **docs: generate CHANGELOG**
 - 2026-04-12 13:38 7cb862aa **fix: register page**
 - 2026-04-11 18:09 d34033b5 **step: pass sse subject resolver explicitly**
 - 2026-04-11 18:08 e845d53e **step: update packages**
