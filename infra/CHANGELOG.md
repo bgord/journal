@@ -1,6 +1,10 @@
 # Changelog
+- 2026-04-16 15:31 fc0296f9 **step: update event store**
+## 2026-04-16 15:31 
+- 2026-04-16 15:24 2dfe7410 **step: update packages**
+- 2026-04-16 11:27 cc5904c9 **step: update packages**
 - 2026-04-14 10:14 45fee119 **step: update packages**
-## 2026-04-14 10:14 
+- 2026-04-14 08:14 89fec03e **docs: generate CHANGELOG**
 - 2026-04-12 21:54 89cae8a0 **step: update packages**
 - 2026-04-12 21:53 a2ee2c59 **step: update packages**
 - 2026-04-12 19:53 4fcfa032 **docs: generate CHANGELOG**
