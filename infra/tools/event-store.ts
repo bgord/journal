@@ -1,6 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { and, asc, eq, inArray, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import type { AiQuotaExceededEventType, AiRequestRegisteredEventType } from "+ai/events";
 import type { AccountCreatedEventType, AccountDeletedEventType } from "+auth/events";
 import type { AlarmEventType, EntryEventType, WeeklyReviewEventType } from "+emotions/aggregates";
@@ -49,12 +49,30 @@ export function createEventStore(
   const serializer = new bg.PayloadSerializerJsonAdapter();
 
   const finder: bg.EventFinderPort = {
-    find: async (stream, names) =>
-      db
+    find: async (stream, names, config) => {
+      const conditions = [eq(schema.events.stream, stream), inArray(schema.events.name, names)];
+
+      if (config?.fromRevision) conditions.push(gte(schema.events.revision, config.fromRevision));
+
+      return db
         .select()
         .from(schema.events)
-        .orderBy(asc(schema.events.revision))
-        .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, names))),
+        .where(and(...conditions))
+        .orderBy(asc(schema.events.revision));
+    },
+  };
+
+  const finderLast: bg.EventFinderLastPort = {
+    findLast: async (stream, names) => {
+      const result = await db
+        .select()
+        .from(schema.events)
+        .where(and(eq(schema.events.stream, stream), inArray(schema.events.name, names)))
+        .orderBy(desc(schema.events.revision))
+        .limit(1);
+
+      return result[0] ?? null;
+    },
   };
 
   const inserter: bg.EventInserterPort = {
@@ -81,7 +99,12 @@ export function createEventStore(
     },
   };
 
-  const EventStore = new bg.EventStoreAdapter<AcceptedEventType>({ finder, inserter, serializer });
+  const EventStore = new bg.EventStoreAdapter<AcceptedEventType>({
+    finder,
+    finderLast,
+    inserter,
+    serializer,
+  });
 
   const EventStoreDispatching = new bg.EventStoreDispatchingAdapter<AcceptedEventType>({
     inner: EventStore,
@@ -97,6 +120,7 @@ export function createEventStore(
     [bg.NodeEnvironmentEnum.local]: EventStoreWithLogger,
     [bg.NodeEnvironmentEnum.test]: new bg.EventStoreAdapter<AcceptedEventType>({
       finder,
+      finderLast,
       inserter: new bg.EventInserterNoopAdapter(),
       serializer,
     }),
