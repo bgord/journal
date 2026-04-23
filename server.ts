@@ -10,6 +10,9 @@ import type { BootstrapType } from "+infra/bootstrap";
 export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const deps = { ...Adapters.System, ...Tools };
 
+  const WeakETagExtractor = new bg.WeakETagExtractorHonoMiddleware({
+    strategy: new bg.WeakETagExtractorHeaderStrategy(),
+  });
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
   const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
 
@@ -35,6 +38,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
         },
         { ...Adapters.System, ...Tools, CacheResolver },
       ),
+      WeakETagExtractor.handle(),
     )
     .use(Tools.ShieldSecurity.handle());
 
