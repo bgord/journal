@@ -28,8 +28,7 @@ export class WeeklyReview {
   private userId?: Auth.VO.UserIdType;
   private week?: tools.Week;
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
-  // @ts-expect-error
-  private insights?: VO.Advice;
+  private insights?: AI.Advice;
 
   private readonly pending: Array<WeeklyReviewEventType> = [];
 
