@@ -7,9 +7,9 @@
       "dependencies": {
         "@anthropic-ai/sdk": "0.91.1",
         "@better-auth/drizzle-adapter": "1.6.9",
-        "@bgord/bun": "1.18.6",
-        "@bgord/design": "1.6.11",
-        "@bgord/ui": "0.8.32",
+        "@bgord/bun": "1.18.7",
+        "@bgord/design": "1.6.12",
+        "@bgord/ui": "0.8.33",
         "@tanstack/react-router": "1.168.25",
         "better-auth": "1.6.9",
         "better-sqlite3": "12.9.0",
@@ -142,13 +142,13 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.21", "", {}, "sha512-/ImESw0sskqlVR94jB+5+Pxjf+xBwDZF/N5+y2/q4EqD7IARUTSpPfIo8uf39SYpCxyOCtbyYpUrZ3F/k0zT4A=="],
 
-    "@bgord/bun": ["@bgord/bun@1.18.6", "", { "dependencies": { "@bgord/tools": "1.5.5", "emittery": "2.0.0", "hono": "4.12.15", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.9", "croner": "10.0.1", "csv": "6.5.1", "nodemailer": "8.0.7", "resend": "6.12.2", "sharp": "0.34.5", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "croner", "csv", "nodemailer", "resend", "sharp", "yazl"] }, "sha512-oifyS3qpRBmp3cRanw9ydVnwjATzxY9TCdpzedSqRQkkZSD3smUJVhvmwzhUexl3EwDuuT98aM7MLawPh/593w=="],
+    "@bgord/bun": ["@bgord/bun@1.18.7", "", { "dependencies": { "@bgord/tools": "1.5.6", "emittery": "2.0.0", "hono": "4.12.15", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.9", "croner": "10.0.1", "csv": "6.5.1", "nodemailer": "8.0.7", "resend": "6.12.2", "sharp": "0.34.5", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "croner", "csv", "nodemailer", "resend", "sharp", "yazl"] }, "sha512-O4X4F9sFGEDT+BNSCorEQp/B/JymoBb4vSJVTm7/u8alLN/kwNZoYMaR36xng4N5q2WG9SFkWl/bqVLs7i/aPQ=="],
 
-    "@bgord/design": ["@bgord/design@1.6.11", "", {}, "sha512-OaFETR33Uu06JhNvrwwpX2Od21KqOqrtbBOAu/kAJnJznb8t8500Z1uos8sLaHXzJafGFflPcjK5Um24ulvwqg=="],
+    "@bgord/design": ["@bgord/design@1.6.12", "", {}, "sha512-KkFnqa91/G3eAZMCNiRes7v6rPq8v5zVEABLkt87kKJR+L235UtdDLphFoSTRJ2G9yRpwW6/aEXoaQ/VB1y9pw=="],
 
-    "@bgord/tools": ["@bgord/tools@1.5.5", "", { "dependencies": { "temporal-polyfill": "0.3.2", "valibot": "1.3.1" } }, "sha512-AY2t56q6Bu1UCoS6LIEGxXht0MD/bkpgHLsT+TMWI0y8ZBV6ChnQdGFD/utdTXe9C7bzfJNAOjLOw+1GKEfyYw=="],
+    "@bgord/tools": ["@bgord/tools@1.5.6", "", { "dependencies": { "temporal-polyfill": "0.3.2", "valibot": "1.3.1" } }, "sha512-gualAJSz6y0B0N3a8a781Y6GuJQLsOeNF6G7JT+XJ9zMuRmj08LTd8rS8Dv0P/SxG1VOzyLi+odC2jYB4vbfKw=="],
 
-    "@bgord/ui": ["@bgord/ui@0.8.32", "", { "dependencies": { "js-cookie": "3.0.5", "polish-plurals": "1.1.0", "tinykeys": "3.0.0" }, "peerDependencies": { "react": "19.2.5", "react-dom": "19.2.5" } }, "sha512-OEl3aN0yQ2JKDt+H8xAdIix+Ad50/CPTXMWTrKZPgc659QvBwSryF/2fREIAIUlqcsU6uZ/DhbGCKkFU6rp5qw=="],
+    "@bgord/ui": ["@bgord/ui@0.8.33", "", { "dependencies": { "js-cookie": "3.0.5", "polish-plurals": "1.1.0", "tinykeys": "3.0.0" }, "peerDependencies": { "react": "19.2.5", "react-dom": "19.2.5" } }, "sha512-ft0vw39fazuMIufExWRpZjsGKgnMbUVr4ckSZKLy+Y2j7Hz8Yd2+00O004GvFmkbmSulF0fR0hIfQoRdGokIxg=="],
 
     "@biomejs/biome": ["@biomejs/biome@2.4.13", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "2.4.13", "@biomejs/cli-darwin-x64": "2.4.13", "@biomejs/cli-linux-arm64": "2.4.13", "@biomejs/cli-linux-arm64-musl": "2.4.13", "@biomejs/cli-linux-x64": "2.4.13", "@biomejs/cli-linux-x64-musl": "2.4.13", "@biomejs/cli-win32-arm64": "2.4.13", "@biomejs/cli-win32-x64": "2.4.13" }, "bin": { "biome": "bin/biome" } }, "sha512-gLXOwkOBBg0tr7bDsqlkIh4uFeKuMjxvqsrb1Tukww1iDmHcfr4Uu8MoQxp0Rcte+69+osRNWXwHsu/zxT6XqA=="],
 
