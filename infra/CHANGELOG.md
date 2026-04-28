@@ -1,8 +1,11 @@
 # Changelog
+- 2026-04-28 11:31 480b818b **step: update packages**
+## 2026-04-28 11:31 
+- 2026-04-28 10:06 1eb9e010 **step: update packages**
 - 2026-04-23 20:23 59a314b8 **step: define explicit weak etag extractor**
-## 2026-04-23 20:23 
 - 2026-04-23 20:20 eb744ae3 **step: update packages**
 - 2026-04-23 18:45 b94d826f **step: update packages**
+- 2026-04-23 18:23 062a5f9c **docs: generate CHANGELOG**
 - 2026-04-19 13:21 e2b130db **step: update packages**
 - 2026-04-19 11:21 7e4e64cc **docs: generate CHANGELOG**
 - 2026-04-16 15:31 fc0296f9 **step: update event store**
