@@ -1,9 +1,13 @@
 # Changelog
+- 2026-04-28 12:17 7e7c7668 **step: update packages**
+## 2026-04-28 12:17 
+- 2026-04-28 12:16 dc285708 **step: switch to tsgo**
+- 2026-04-28 12:16 20466643 **step: bump bgord/scripts**
 - 2026-04-28 11:35 a97a00e1 **step: bump bgord/scripts**
 - 2026-04-28 11:35 1ff45341 **step: update bun**
-## 2026-04-28 11:35 
 - 2026-04-28 11:31 480b818b **step: update packages**
 - 2026-04-28 10:06 1eb9e010 **step: update packages**
+- 2026-04-28 09:35 0b00d5e7 **docs: generate CHANGELOG**
 - 2026-04-28 09:31 95c4fa1d **docs: generate CHANGELOG**
 - 2026-04-23 20:23 59a314b8 **step: define explicit weak etag extractor**
 - 2026-04-23 20:20 eb744ae3 **step: update packages**
