@@ -47,7 +47,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
       },
     },
     emailAndPassword: {
-      disableSignUp: tools.FeatureFlag.isDisabled(Env.SIGNUP_ENABLED),
+      disableSignUp: tools.FeatureFlag.from(Env.SIGNUP_ENABLED).isDisabled(),
       autoSignIn: false,
       enabled: true,
       minPasswordLength: Auth.VO.Password.MinimumLength,
