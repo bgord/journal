@@ -2,9 +2,8 @@ import * as bg from "@bgord/bun";
 import * as v from "valibot";
 import * as VO from "+emotions/value-objects";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const REQUEST_ALARM_NOTIFICATION_COMMAND = "REQUEST_ALARM_NOTIFICATION_COMMAND";
-// Stryker restore all
 
 export const RequestAlarmNotificationCommand = v.object({
   ...bg.CommandEnvelopeSchema,

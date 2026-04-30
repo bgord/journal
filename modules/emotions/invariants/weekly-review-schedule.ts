@@ -20,9 +20,8 @@ class WeeklyReviewScheduleFactory extends bg.Invariant<WeeklyReviewScheduleConfi
     return hour.equals(sixPM);
   }
 
-  // Stryker disable all
+  // Stryker disable next-line StringLiteral
   message = "weekly.review.schedule";
-  // Stryker restore all
   error = WeeklyReviewScheduleError;
   kind = bg.InvariantFailureKind.forbidden;
 }

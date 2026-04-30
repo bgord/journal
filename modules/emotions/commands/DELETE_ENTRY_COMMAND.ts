@@ -4,9 +4,8 @@ import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const DELETE_ENTRY_COMMAND = "DELETE_ENTRY_COMMAND";
-// Stryker restore all
 
 export const DeleteEntryCommand = v.object({
   ...bg.CommandEnvelopeSchema,

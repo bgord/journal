@@ -22,9 +22,8 @@ class NoEntriesInTheLastWeekFactory extends bg.Invariant<NoEntriesInTheLastWeekC
     );
   }
 
-  // Stryker disable all
+  // Stryker disable next-line StringLiteral
   message = "no.entries.in.the.last.week";
-  // Stryker restore all
   error = NoEntriesInTheLastWeekError;
   kind = bg.InvariantFailureKind.forbidden;
 }

@@ -15,9 +15,8 @@ class AlarmIsCancellableFactory extends bg.Invariant<AlarmIsCancellableConfigTyp
     return config.status !== Emotions.VO.AlarmStatusEnum.cancelled;
   }
 
-  // Stryker disable all
+  // Stryker disable next-line StringLiteral
   message = "alarm.is.cancellable";
-  // Stryker restore all
   error = AlarmIsCancellableError;
   kind = bg.InvariantFailureKind.forbidden;
 }

@@ -20,9 +20,8 @@ class InactivityAlarmScheduleFactory extends bg.Invariant<InactivityAlarmSchedul
     return hour.equals(sixPM);
   }
 
-  // Stryker disable all
+  // Stryker disable next-line StringLiteral
   message = "inactivity.alarm.schedule";
-  // Stryker restore all
   error = InactivityAlarmScheduleError;
   kind = bg.InvariantFailureKind.forbidden;
 }

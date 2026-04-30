@@ -3,9 +3,8 @@ import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import * as VO from "+publishing/value-objects";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const EXPIRE_SHAREABLE_LINK_COMMAND = "EXPIRE_SHAREABLE_LINK_COMMAND";
-// Stryker restore all
 
 export const ExpireShareableLinkCommand = v.object({
   ...bg.CommandEnvelopeSchema,

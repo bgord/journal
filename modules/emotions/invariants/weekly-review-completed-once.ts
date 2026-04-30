@@ -15,10 +15,8 @@ class WeeklyReviewCompletedOnceFactory extends bg.Invariant<WeeklyReviewComplete
     return config.status === Emotions.VO.WeeklyReviewStatusEnum.requested;
   }
 
-  // Stryker disable all
+  // Stryker disable next-line StringLiteral
   message = "weekly.review.completed.once";
-  // Stryker restore all
-
   error = WeeklyReviewCompletedOnceError;
   kind = bg.InvariantFailureKind.forbidden;
 }

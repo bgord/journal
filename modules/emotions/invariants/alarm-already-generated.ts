@@ -15,9 +15,8 @@ class AlarmAlreadyGeneratedFactory extends bg.Invariant<AlarmAlreadyGeneratedCon
     return config.status === Emotions.VO.AlarmStatusEnum.generated;
   }
 
-  // Stryker disable all
+  // Stryker disable next-line StringLiteral
   message = "alarm.already.generated";
-  // Stryker restore all
   error = AlarmAlreadyGeneratedError;
   kind = bg.InvariantFailureKind.forbidden;
 }

@@ -3,9 +3,8 @@ import * as v from "valibot";
 import * as AI from "+ai";
 import * as VO from "+emotions/value-objects";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const SAVE_ALARM_ADVICE_COMMAND = "SAVE_ALARM_ADVICE_COMMAND";
-// Stryker restore all
 
 export const SaveAlarmAdviceCommand = v.object({
   ...bg.CommandEnvelopeSchema,

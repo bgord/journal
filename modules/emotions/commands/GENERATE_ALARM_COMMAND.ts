@@ -3,9 +3,8 @@ import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const GENERATE_ALARM_COMMAND = "GENERATE_ALARM_COMMAND";
-// Stryker restore all
 
 export const GenerateAlarmCommand = v.object({
   ...bg.CommandEnvelopeSchema,

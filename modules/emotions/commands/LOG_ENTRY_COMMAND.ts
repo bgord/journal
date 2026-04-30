@@ -4,9 +4,8 @@ import * as Auth from "+auth";
 import * as Entities from "+emotions/entities";
 import * as VO from "+emotions/value-objects";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const LOG_ENTRY_COMMAND = "LOG_ENTRY_COMMAND";
-// Stryker restore all
 
 export const LogEntryCommand = v.object({
   ...bg.CommandEnvelopeSchema,

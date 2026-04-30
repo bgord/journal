@@ -21,9 +21,8 @@ class TimeCapsuleEntryIsPublishableFactory extends bg.Invariant<TimeCapsuleEntry
     return config.now.isAfterOrEqual(tools.Timestamp.fromValue(config.scheduledFor));
   }
 
-  // Stryker disable all
+  // Stryker disable next-line StringLiteral
   message = "time.capsule.entry.is.publishable";
-  // Stryker restore all
   error = TimeCapsuleEntryIsPublishableError;
   kind = bg.InvariantFailureKind.forbidden;
 }

@@ -3,9 +3,8 @@ import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+emotions/value-objects";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const EXPORT_WEEKLY_REVIEW_BY_EMAIL_COMMAND = "SEND_WEEKLY_REVIEW_BY_EMAIL_COMMAND";
-// Stryker restore all
 
 export const ExportWeeklyReviewByEmailCommand = v.object({
   ...bg.CommandEnvelopeSchema,

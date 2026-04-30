@@ -25,9 +25,8 @@ class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLin
       .isBefore(config.now);
   }
 
-  // Stryker disable all
+  // Stryker disable next-line StringLiteral
   message = "shareable.link.expiration.time.passed";
-  // Stryker restore all
   error = ShareableLinkExpirationTimePassedError;
   kind = bg.InvariantFailureKind.forbidden;
 }

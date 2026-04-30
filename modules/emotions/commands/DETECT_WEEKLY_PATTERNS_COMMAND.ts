@@ -3,9 +3,8 @@ import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import * as Auth from "+auth";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const DETECT_WEEKLY_PATTERNS_COMMAND = "DETECT_WEEKLY_PATTERNS_COMMAND";
-// Stryker restore all
 
 export const DetectWeeklyPatternsCommand = v.object({
   ...bg.CommandEnvelopeSchema,

@@ -2,9 +2,8 @@ import * as bg from "@bgord/bun";
 import * as v from "valibot";
 import * as VO from "+emotions/value-objects";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const CANCEL_ALARM_COMMAND = "CANCEL_ALARM_COMMAND";
-// Stryker restore all
 
 export const CancelAlarmCommand = v.object({
   ...bg.CommandEnvelopeSchema,

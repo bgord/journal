@@ -1,9 +1,8 @@
 import * as bg from "@bgord/bun";
 import * as v from "valibot";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const UPDATE_PROFILE_AVATAR_COMMAND = "UPDATE_PROFILE_AVATAR_COMMAND";
-// Stryker restore all
 
 export const UpdateProfileAvatarCommand = v.object({
   ...bg.CommandEnvelopeSchema,

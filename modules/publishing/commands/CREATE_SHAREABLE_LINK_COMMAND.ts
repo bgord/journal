@@ -4,9 +4,8 @@ import * as v from "valibot";
 import * as Auth from "+auth";
 import * as VO from "+publishing/value-objects";
 
-// Stryker disable all
+// Stryker disable next-line StringLiteral
 export const CREATE_SHAREABLE_LINK_COMMAND = "CREATE_SHAREABLE_LINK_COMMAND";
-// Stryker restore all
 
 export const CreateShareableLinkCommand = v.object({
   ...bg.CommandEnvelopeSchema,
