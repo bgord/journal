@@ -42,7 +42,6 @@ export const EnvironmentSchema = v.object({
   AI_CLIENT_ADAPTER: v.enum(AiClientAdapter),
   BETTER_AUTH_SECRET: v.pipe(v.string(), v.length(32), v.trim()),
   BETTER_AUTH_URL: tools.UrlWithoutSlash,
-  HCAPTCHA_SECRET_KEY: bg.HCaptchaSecretKey,
   SIGNUP_ENABLED: tools.FeatureFlagValue,
 });
 
