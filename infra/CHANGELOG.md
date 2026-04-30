@@ -1,9 +1,13 @@
 # Changelog
+- 2026-05-01 00:28 9cefa859 **step: update packages**
+## 2026-05-01 00:28 
+- 2026-05-01 00:15 d3343114 **fix: e2e spec**
+- 2026-04-30 23:50 c4fca9b4 **step: update depcruiser**
 - 2026-04-30 11:07 de26121a **step: remove hcaptcha secret key from env**
-## 2026-04-30 11:07 
 - 2026-04-30 11:06 59e0e306 **fix: feature flag**
 - 2026-04-30 11:05 75190884 **step: update packages**
 - 2026-04-30 10:54 45603906 **step: improve mutants**
+- 2026-04-30 09:08 da7576cf **docs: generate CHANGELOG**
 - 2026-04-29 12:48 a52db09e **step: update packages**
 - 2026-04-29 10:49 0952c712 **docs: generate CHANGELOG**
 - 2026-04-29 00:25 5b40340c **step: remove unnecessary ts-expect-error**
