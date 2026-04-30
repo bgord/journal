@@ -1,6 +1,11 @@
 # Changelog
+- 2026-04-30 11:07 de26121a **step: remove hcaptcha secret key from env**
+## 2026-04-30 11:07 
+- 2026-04-30 11:06 59e0e306 **fix: feature flag**
+- 2026-04-30 11:05 75190884 **step: update packages**
+- 2026-04-30 10:54 45603906 **step: improve mutants**
 - 2026-04-29 12:48 a52db09e **step: update packages**
-## 2026-04-29 12:48 
+- 2026-04-29 10:49 0952c712 **docs: generate CHANGELOG**
 - 2026-04-29 00:25 5b40340c **step: remove unnecessary ts-expect-error**
 - 2026-04-28 12:53 655b2551 **step: update packages**
 - 2026-04-28 12:17 7e7c7668 **step: update packages**
