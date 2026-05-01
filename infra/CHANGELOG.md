@@ -1,8 +1,10 @@
 # Changelog
+- 2026-05-01 11:00 39454adb **step: update packages**
+## 2026-05-01 11:00 
 - 2026-05-01 00:28 9cefa859 **step: update packages**
-## 2026-05-01 00:28 
 - 2026-05-01 00:15 d3343114 **fix: e2e spec**
 - 2026-04-30 23:50 c4fca9b4 **step: update depcruiser**
+- 2026-04-30 22:28 371fe870 **docs: generate CHANGELOG**
 - 2026-04-30 11:07 de26121a **step: remove hcaptcha secret key from env**
 - 2026-04-30 11:06 59e0e306 **fix: feature flag**
 - 2026-04-30 11:05 75190884 **step: update packages**
