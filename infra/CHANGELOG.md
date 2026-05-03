@@ -1,7 +1,9 @@
 # Changelog
+- 2026-05-03 09:44 a1164c66 **step: update packages**
+## 2026-05-03 09:44 
 - 2026-05-01 11:16 359f4389 **step: update packages**
-## 2026-05-01 11:16 
 - 2026-05-01 11:00 39454adb **step: update packages**
+- 2026-05-01 09:16 805c59ec **docs: generate CHANGELOG**
 - 2026-05-01 09:01 1f27cd8d **docs: generate CHANGELOG**
 - 2026-05-01 00:28 9cefa859 **step: update packages**
 - 2026-05-01 00:15 d3343114 **fix: e2e spec**
