@@ -1,7 +1,10 @@
 # Changelog
+- 2026-05-13 22:01 c13e7adf **step: remove sharp**
+## 2026-05-13 22:01 
+- 2026-05-13 22:00 b9aaf034 **step: update image adapters**
+- 2026-05-13 21:59 4403ed03 **step: update packages**
 - 2026-05-13 14:59 ae8330bc **step: bump bgord/scripts**
 - 2026-05-13 14:59 97d06116 **step: update healthcheck**
-## 2026-05-13 14:59 
 - 2026-05-13 14:52 8e18c1ce **step: update deploy server**
 - 2026-05-13 14:52 13fedf73 **step: bump bgord/scripts**
 - 2026-05-13 13:44 50d7155b **step: update docs app**
@@ -12,6 +15,7 @@
 - 2026-05-13 13:31 dfb505ee **step: update packages**
 - 2026-05-13 13:31 471a3e27 **step: bump bgord/scripts**
 - 2026-05-13 13:19 ea68520d **step: add zizmor prereq**
+- 2026-05-13 13:00 9f714b75 **docs: generate CHANGELOG**
 - 2026-05-08 18:10 54b3edb6 **step: update packages**
 - 2026-05-08 16:11 4eadadbb **docs: generate CHANGELOG**
 - 2026-05-03 09:44 a1164c66 **step: update packages**
