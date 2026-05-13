@@ -1,6 +1,19 @@
 # Changelog
+- 2026-05-13 14:59 ae8330bc **step: bump bgord/scripts**
+- 2026-05-13 14:59 97d06116 **step: update healthcheck**
+## 2026-05-13 14:59 
+- 2026-05-13 14:52 8e18c1ce **step: update deploy server**
+- 2026-05-13 14:52 13fedf73 **step: bump bgord/scripts**
+- 2026-05-13 13:44 50d7155b **step: update docs app**
+- 2026-05-13 13:44 12a44638 **step: bump bgord/scripts**
+- 2026-05-13 13:33 dbab242b **step: add bunfig**
+- 2026-05-13 13:32 9c2836c0 **step: update packages**
+- 2026-05-13 13:32 47f29e07 **step: update bun**
+- 2026-05-13 13:31 dfb505ee **step: update packages**
+- 2026-05-13 13:31 471a3e27 **step: bump bgord/scripts**
+- 2026-05-13 13:19 ea68520d **step: add zizmor prereq**
 - 2026-05-08 18:10 54b3edb6 **step: update packages**
-## 2026-05-08 18:10 
+- 2026-05-08 16:11 4eadadbb **docs: generate CHANGELOG**
 - 2026-05-03 09:44 a1164c66 **step: update packages**
 - 2026-05-03 07:44 37dce7ea **docs: generate CHANGELOG**
 - 2026-05-01 11:16 359f4389 **step: update packages**
