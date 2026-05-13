@@ -136,6 +136,11 @@ export function createPrerequisites(
         { enabled: local },
       ),
       new bg.Prerequisite(
+        "zizmor",
+        new bg.PrerequisiteVerifierBinaryAdapter({ binary: v.parse(bg.Binary, "zizmor") }),
+        { enabled: local },
+      ),
+      new bg.Prerequisite(
         "master-key",
         new bg.PrerequisiteVerifierFileAdapter({ file: MasterKeyPath, permissions: { read: true } }, deps),
         { enabled: production },
