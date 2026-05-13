@@ -5,13 +5,11 @@ type Dependencies = {
   FileCleaner: bg.FileCleanerPort;
   FileRenamer: bg.FileRenamerPort;
   FileReaderJson: bg.FileReaderJsonPort;
+  FileWriter: bg.FileWriterPort;
 };
 
-export async function createImageProcessor(
-  Env: EnvironmentResultType,
-  deps: Dependencies,
-): Promise<bg.ImageProcessorPort> {
-  const ImageProcessorSharp = await bg.ImageProcessorSharpAdapter.build(deps);
+export function createImageProcessor(Env: EnvironmentResultType, deps: Dependencies): bg.ImageProcessorPort {
+  const ImageProcessorSharp = new bg.ImageProcessorAdapter(deps);
 
   return {
     [bg.NodeEnvironmentEnum.local]: ImageProcessorSharp,
