@@ -9,12 +9,12 @@ type Dependencies = {
 };
 
 export function createImageProcessor(Env: EnvironmentResultType, deps: Dependencies): bg.ImageProcessorPort {
-  const ImageProcessorSharp = new bg.ImageProcessorAdapter(deps);
+  const ImageProcessor = new bg.ImageProcessorAdapter(deps);
 
   return {
-    [bg.NodeEnvironmentEnum.local]: ImageProcessorSharp,
+    [bg.NodeEnvironmentEnum.local]: ImageProcessor,
     [bg.NodeEnvironmentEnum.test]: new bg.ImageProcessorNoopAdapter(),
-    [bg.NodeEnvironmentEnum.staging]: ImageProcessorSharp,
-    [bg.NodeEnvironmentEnum.production]: ImageProcessorSharp,
+    [bg.NodeEnvironmentEnum.staging]: ImageProcessor,
+    [bg.NodeEnvironmentEnum.production]: ImageProcessor,
   }[Env.type];
 }
