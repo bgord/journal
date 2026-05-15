@@ -7,7 +7,7 @@
       "dependencies": {
         "@anthropic-ai/sdk": "0.95.2",
         "@better-auth/drizzle-adapter": "1.6.11",
-        "@bgord/bun": "1.19.0",
+        "@bgord/bun": "1.19.1",
         "@bgord/design": "1.6.14",
         "@bgord/ui": "0.8.37",
         "@tanstack/react-router": "1.169.2",
@@ -141,11 +141,11 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.21", "", {}, "sha512-/ImESw0sskqlVR94jB+5+Pxjf+xBwDZF/N5+y2/q4EqD7IARUTSpPfIo8uf39SYpCxyOCtbyYpUrZ3F/k0zT4A=="],
 
-    "@bgord/bun": ["@bgord/bun@1.19.0", "", { "dependencies": { "@bgord/tools": "1.5.9", "emittery": "2.0.0", "hono": "4.12.18", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.11", "croner": "10.0.1", "csv": "6.5.1", "nodemailer": "8.0.7", "resend": "6.12.3", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "croner", "csv", "nodemailer", "resend", "yazl"] }, "sha512-DU7sEa1FIzt4EnzPrdfq7CyDzZhxX2qPOKZhvktAddNna3LQnykLjEmd/5fKaHvB4EeYjWq+NaTUQnnYQ7v8oQ=="],
+    "@bgord/bun": ["@bgord/bun@1.19.1", "", { "dependencies": { "@bgord/tools": "1.5.10", "emittery": "2.0.0", "hono": "4.12.18", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.11", "croner": "10.0.1", "csv": "6.5.1", "nodemailer": "8.0.7", "resend": "6.12.3", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "croner", "csv", "nodemailer", "resend", "yazl"] }, "sha512-ryO41VAY3Zgw/uLEKy3wcfAqvK4vMEQpUfoUvAv4wvMLMQvndLwOrN/bFWKq1mqs4SkZXGWRgot2laM57PZJIQ=="],
 
     "@bgord/design": ["@bgord/design@1.6.14", "", {}, "sha512-2IcstCceqUXjt11eAiiYo6AnHUEjP6+nZxzwm14ytFLyq1/evNF5fkeMGq38avV1J9q9UdIneL0ViSNlrg/pvA=="],
 
-    "@bgord/tools": ["@bgord/tools@1.5.9", "", { "dependencies": { "temporal-polyfill": "0.3.2", "valibot": "1.4.0" } }, "sha512-tkIlDGVGPFV5ERcldRoIPYVElZHOCS5i743R7uRCHsbTL0kXJ7W/FN+msDbMl1+dlgSphZnMgbUBOehgb2708g=="],
+    "@bgord/tools": ["@bgord/tools@1.5.10", "", { "dependencies": { "temporal-polyfill": "0.3.2", "valibot": "1.4.0" } }, "sha512-o3eyUdpHOAngnzytGv6HkFdrd6OvNOEE592PvgQ9mnndiX+kB4UsGvmOzWOd2b1n4sHH2U0l8/p/PwRxr0sQkA=="],
 
     "@bgord/ui": ["@bgord/ui@0.8.37", "", { "dependencies": { "js-cookie": "3.0.5", "polish-plurals": "1.1.0", "tinykeys": "3.0.0" }, "peerDependencies": { "react": "19.2.6", "react-dom": "19.2.6" } }, "sha512-8lRuyKoRi9ieunpPnsPXZXLzIQd5Vf/rAwTa9YbKTiCBaNoytUBKxMCp+RX3M/te/lsMBDcaYlzPOvrnA5z+yQ=="],
 
