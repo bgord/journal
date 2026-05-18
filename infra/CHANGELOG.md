@@ -1,6 +1,8 @@
 # Changelog
+- 2026-05-18 16:09 63c4e6c7 **step: update packages**
+## 2026-05-18 16:09 
 - 2026-05-15 19:32 bb4a5219 **step: update packages**
-## 2026-05-15 19:32 
+- 2026-05-15 17:32 fc27286a **docs: generate CHANGELOG**
 - 2026-05-15 15:16 626586ea **step: update packages**
 - 2026-05-15 13:16 b0c3d869 **docs: generate CHANGELOG**
 - 2026-05-15 11:30 f1398f60 **refactor: remove sharp name**
