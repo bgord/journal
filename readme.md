@@ -136,7 +136,7 @@ modules/
 │   │   ├── REQUEST_ALARM_NOTIFICATION_COMMAND.ts
 │   │   ├── REQUEST_WEEKLY_REVIEW_COMMAND.ts
 │   │   ├── SAVE_ALARM_ADVICE_COMMAND.ts
-│   │   ├── SCHEDULE_TIME_CAPSULE_ENTRY.ts
+│   │   └── SCHEDULE_TIME_CAPSULE_ENTRY.ts
 │   ├── entities
 │   │   ├── emotion.ts
 │   │   ├── reaction.ts
@@ -163,7 +163,7 @@ modules/
 │   │   ├── WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED.ts
 │   │   ├── WEEKLY_REVIEW_FAILED_EVENT.ts
 │   │   ├── WEEKLY_REVIEW_REQUESTED_EVENT.ts
-│   │   ├── WEEKLY_REVIEW_SKIPPED_EVENT.ts
+│   │   └── WEEKLY_REVIEW_SKIPPED_EVENT.ts
 │   ├── invariants
 │   │   ├── alarm-advice-available.ts
 │   │   ├── alarm-already-generated.ts
@@ -284,10 +284,10 @@ modules/
 │   │   ├── handleUpdateProfileAvatarCommand.ts
 │   ├── commands
 │   │   ├── REMOVE_PROFILE_AVATAR_COMMAND.ts
-│   │   ├── UPDATE_PROFILE_AVATAR_COMMAND.ts
+│   │   └── UPDATE_PROFILE_AVATAR_COMMAND.ts
 │   ├── events
 │   │   ├── PROFILE_AVATAR_REMOVED_EVENT.ts
-│   │   ├── PROFILE_AVATAR_UPDATED_EVENT.ts
+│   │   └── PROFILE_AVATAR_UPDATED_EVENT.ts
 │   ├── invariants
 │   │   └── profile-avatar-constraints.ts
 │   ├── policies
@@ -308,12 +308,12 @@ modules/
 │   ├── commands
 │   │   ├── CREATE_SHAREABLE_LINK_COMMAND.ts
 │   │   ├── EXPIRE_SHAREABLE_LINK_COMMAND.ts
-│   │   ├── REVOKE_SHAREABLE_LINK_COMMAND.ts
+│   │   └── REVOKE_SHAREABLE_LINK_COMMAND.ts
 │   ├── events
 │   │   ├── SHAREABLE_LINK_ACCESSED_EVENT.ts
 │   │   ├── SHAREABLE_LINK_CREATED_EVENT.ts
 │   │   ├── SHAREABLE_LINK_EXPIRED_EVENT.ts
-│   │   ├── SHAREABLE_LINK_REVOKED_EVENT.ts
+│   │   └── SHAREABLE_LINK_REVOKED_EVENT.ts
 │   ├── invariants
 │   │   ├── requester-owns-shareable-link.ts
 │   │   ├── shareable-link-expiration-time-passed.ts
@@ -444,6 +444,8 @@ infra/
 │       ├── logger.adapter.ts
 │       ├── mailer.adapter.ts
 │       ├── nonce-provider.adapter.ts
+│       ├── profile-avatars
+│       │   └── 6369b955-f400-495d-a04f-15a05b7ff633.webp
 │       ├── remote-file-storage.adapter.ts
 │       ├── sleeper.adapter.ts
 │       ├── temporary-file.adapter.ts
