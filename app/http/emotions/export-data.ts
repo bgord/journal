@@ -1,3 +1,4 @@
+// cspell:ignore Stringifier
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";

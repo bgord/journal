@@ -1,3 +1,4 @@
+// cspell:ignore stringifier
 import * as bg from "@bgord/bun";
 
 export async function createCsvStringifier(): Promise<bg.CsvStringifierPort> {

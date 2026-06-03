@@ -1,4 +1,3 @@
-/* depcruise.webpack.cjs */
 const path = require("node:path");
 
 module.exports = {

@@ -301,6 +301,7 @@ export const userPreferences = sqliteTable(
     updatedAt: integer("updatedAt", { mode: "number" }).notNull(),
   },
   (table) => [
+    // cspell:disable-next-line
     uniqueIndex("user_preferences_userId_preference_uidx").on(table.userId, table.preference),
     index("user_preferences_userId_idx").on(table.userId),
     index("user_preferences_preference_idx").on(table.preference),

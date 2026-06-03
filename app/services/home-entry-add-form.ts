@@ -8,7 +8,7 @@ import * as SituationDescription from "../../modules/emotions/value-objects/situ
 import * as SituationKind from "../../modules/emotions/value-objects/situation-kind-options";
 
 export const Form = {
-  schedueldFor: { field: { name: "scheduledFor", defaultValue: form.date.min.tomorrow() } },
+  scheduledFor: { field: { name: "scheduledFor", defaultValue: form.date.min.tomorrow() } },
   scheduledForHour: {
     field: { name: "scheduledForHour", defaultValue: "0" },
     options: Array.from({ length: 24 }).map((_, index) => ({

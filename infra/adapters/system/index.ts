@@ -1,3 +1,4 @@
+// cspell:ignore stringifier
 import type { EnvironmentResultType } from "+infra/env";
 import { createCertificateInspector } from "./certificate-inspector.adapter";
 import { createClock } from "./clock.adapter";

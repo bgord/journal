@@ -1,3 +1,4 @@
+// cspell:ignore tinypdf
 import type * as bg from "@bgord/bun";
 import { pdf } from "tinypdf";
 

@@ -17,7 +17,7 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
   const query = useTextField({ name: HomeEntryListForm.Form.query.field.name, defaultValue: search.query });
 
   return (
-    <div data-stacky="y" data-width="100%">
+    <div data-stack="y" data-width="100%">
       <div data-gap="3" data-md-gap="1" data-md-wrap="nowrap" data-stack="x">
         <input
           className="c-input"

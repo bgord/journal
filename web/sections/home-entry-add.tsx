@@ -27,7 +27,7 @@ export function HomeEntryAdd() {
   const dialog = useToggle({ name: "dialog" });
 
   const timeCapsuleMode = useToggle({ name: "timeCapsuleMode" });
-  const scheduledFor = useDateField(Form.schedueldFor.field);
+  const scheduledFor = useDateField(Form.scheduledFor.field);
   const scheduledForHour = useTextField(Form.scheduledForHour.field);
 
   const situationDescription = useTextField(Form.situationDescription.field);

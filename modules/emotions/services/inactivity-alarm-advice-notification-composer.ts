@@ -1,3 +1,4 @@
+/* cSpell:disable */
 import * as bg from "@bgord/bun";
 import * as v from "valibot";
 import type * as AI from "+ai";

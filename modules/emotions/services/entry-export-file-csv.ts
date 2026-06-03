@@ -3,6 +3,7 @@ import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import type * as VO from "+emotions/value-objects";
 
+// cspell:ignore Stringifier
 type Dependencies = { CsvStringifier: bg.CsvStringifierPort; Clock: bg.ClockPort };
 
 export class EntryExportFileCsv extends bg.FileDraft {

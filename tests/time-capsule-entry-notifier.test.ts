@@ -1,3 +1,4 @@
+/* cSpell:disable */
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as Emotions from "+emotions";
@@ -21,7 +22,7 @@ describe("TimeCapsuleEntryNotifier", async () => {
     using userContactOhqGet = spyOn(di.Adapters.Preferences.UserLanguageOHQ, "get").mockResolvedValue(
       languages.supported.en,
     );
-    using userContaxtOhqGetPrimary = spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(
+    using userContactOhqGetPrimary = spyOn(di.Adapters.Auth.UserContactOHQ, "getPrimary").mockResolvedValue(
       undefined,
     );
     using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
@@ -31,7 +32,7 @@ describe("TimeCapsuleEntryNotifier", async () => {
     );
 
     expect(userContactOhqGet).not.toHaveBeenCalled();
-    expect(userContaxtOhqGetPrimary).not.toHaveBeenCalled();
+    expect(userContactOhqGetPrimary).not.toHaveBeenCalled();
     expect(mailerSend).not.toHaveBeenCalled();
   });
 

@@ -1,3 +1,4 @@
+// cspell:ignore tinypdf
 import * as bg from "@bgord/bun";
 import type { EnvironmentResultType } from "+infra/env";
 import { PdfGeneratorTinypdfAdapter } from "./pdf-generator-tinypdf.adapter";
