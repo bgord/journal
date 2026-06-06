@@ -11,8 +11,6 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "2.4.16",
-    "@commitlint/cli": "21.0.2",
-    "@commitlint/config-conventional": "21.0.2",
     "@fullhuman/postcss-purgecss": "8.0.0",
     "@playwright/test": "1.60.0",
     "@stryker-mutator/core": "9.6.1",
