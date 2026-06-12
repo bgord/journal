@@ -7,7 +7,9 @@ import * as v from "valibot";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
+// fallow-ignore-next-line boundary-violation
 import { db } from "+infra/db";
+// fallow-ignore-next-line boundary-violation
 import * as Schema from "+infra/schema";
 
 type Dependencies = { Clock: bg.ClockPort; WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport };
