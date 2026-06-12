@@ -5,7 +5,6 @@ const SituationKindErrors = { Invalid: "situation.kind.invalid" };
 
 export const SituationKindSchema = v.enum(SituationKindOptions, SituationKindErrors.Invalid);
 
-/** @public */
 export type SituationKindType = v.InferOutput<typeof SituationKindSchema>;
 
 export class SituationKind {

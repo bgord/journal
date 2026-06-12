@@ -12,7 +12,6 @@ export type ShareableLinkAccessValidType = {
   };
 };
 
-/** @public */
 export type ShareableLinkAccessInvalidType = { valid: false };
 
 export interface ShareableLinkAccessPort {

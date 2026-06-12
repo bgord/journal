@@ -61,7 +61,6 @@ export const entries = sqliteTable("entries", {
     .references(() => users.id, { onDelete: "cascade" }),
 });
 
-/** @public */
 export const entriesRelations = relations(entries, ({ one, many }) => ({
   /* every entry belongs to exactly one user */
   user: one(users, {
@@ -118,7 +117,6 @@ export const alarms = sqliteTable("alarms", {
   weekIsoId: text("weekIsoId").notNull(),
 });
 
-/** @public */
 export const alarmsRelations = relations(alarms, ({ one }) => ({
   /** the entry that triggered this alarm (nullable) */
   entry: one(entries, {
@@ -141,7 +139,6 @@ export const alarmsRelations = relations(alarms, ({ one }) => ({
   }),
 }));
 
-/** @public */
 export const patternDetections = sqliteTable("patternDetections", {
   id,
   createdAt: integer("createdAt").notNull(),
@@ -151,8 +148,6 @@ export const patternDetections = sqliteTable("patternDetections", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
 });
-
-/** @public */
 
 export const patternDetectionsRelations = relations(patternDetections, ({ one }) => ({
   /** the user who owns the detection */
@@ -169,7 +164,6 @@ export const patternDetectionsRelations = relations(patternDetections, ({ one })
   }),
 }));
 
-/** @public */
 export const weeklyReviews = sqliteTable("weeklyReviews", {
   id,
   createdAt: integer("createdAt").notNull(),
@@ -181,7 +175,6 @@ export const weeklyReviews = sqliteTable("weeklyReviews", {
   status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull(),
 });
 
-/** @public */
 export const weeklyReviewsRelations = relations(weeklyReviews, ({ one, many }) => ({
   /** owner of the review */
   user: one(users, {
@@ -202,7 +195,6 @@ export const weeklyReviewsRelations = relations(weeklyReviews, ({ one, many }) =
   alarms: many(alarms, { relationName: "week" }),
 }));
 
-/** @public */
 export const shareableLinks = sqliteTable("shareableLinks", {
   id,
   createdAt: integer("createdAt").notNull(),
@@ -231,7 +223,6 @@ export const shareableLinksRelations = relations(shareableLinks, ({ one, many })
   hits: many(shareableLinkHits),
 }));
 
-/** @public */
 export const aiUsageCounters = sqliteTable("ai_usage_counters", {
   bucket: text("bucket").primaryKey(),
   ruleId: text("ruleId").notNull(),
@@ -275,7 +266,6 @@ export const shareableLinkHits = sqliteTable("shareable_link_hits", {
   timestamp: integer("timestamp", { mode: "number" }).notNull(),
 });
 
-/** @public */
 export const shareableLinkHitsRelations = relations(shareableLinkHits, ({ one }) => ({
   link: one(shareableLinks, {
     fields: [shareableLinkHits.shareableLinkId],
@@ -333,7 +323,6 @@ export const userProfileAvatarsRelations = relations(userProfileAvatars, ({ one 
   user: one(users, { fields: [userProfileAvatars.userId], references: [users.id] }),
 }));
 
-/** @public */
 export const users = sqliteTable("users", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -352,8 +341,6 @@ export const users = sqliteTable("users", {
     .notNull(),
 });
 
-/** @public */
-
 export const usersRelations = relations(users, ({ many }) => ({
   /* --- core aggregates a user owns ------------------------------------ */
   entries: many(entries),
@@ -367,7 +354,6 @@ export const usersRelations = relations(users, ({ many }) => ({
   patternDetections: many(patternDetections),
 }));
 
-/** @public */
 export const sessions = sqliteTable("sessions", {
   id: text("id").primaryKey(),
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
@@ -381,7 +367,6 @@ export const sessions = sqliteTable("sessions", {
     .references(() => users.id, { onDelete: "cascade" }),
 });
 
-/** @public */
 export const accounts = sqliteTable("accounts", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
@@ -400,7 +385,6 @@ export const accounts = sqliteTable("accounts", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });
 
-/** @public */
 export const verifications = sqliteTable("verifications", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
@@ -412,15 +396,9 @@ export const verifications = sqliteTable("verifications", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
-/** @public */
 export type SelectEntries = typeof entries.$inferSelect;
-/** @public */
 export type SelectEntriesWithAlarms = SelectEntries & { alarms: ReadonlyArray<SelectAlarms> };
-/** @public */
 export type SelectAlarms = typeof alarms.$inferSelect;
-/** @public */
 export type SelectShareableLinks = typeof shareableLinks.$inferSelect;
-/** @public */
 export type SelectWeeklyReviews = typeof weeklyReviews.$inferSelect;
-/** @public */
 export type SelectPatternDetections = typeof patternDetections.$inferSelect;

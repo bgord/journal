@@ -10,7 +10,6 @@ export const SituationDescriptionSchema = v.pipe(
   v.maxLength(SituationDescriptionMax, SituationDescriptionErrors.Invalid),
 );
 
-/** @public */
 export type SituationDescriptionType = v.InferOutput<typeof SituationDescriptionSchema>;
 
 export class SituationDescription {

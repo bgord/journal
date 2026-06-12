@@ -2,7 +2,6 @@ import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import type * as VO from "+emotions/value-objects";
 
-/** @public */
 export type EntrySnapshotWithAlarms = VO.EntrySnapshot & { alarms: ReadonlyArray<VO.AlarmSnapshot> };
 
 export type EntrySnapshotFormatted = Omit<EntrySnapshotWithAlarms, "startedAt"> & {

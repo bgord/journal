@@ -7,7 +7,6 @@ import { Pattern, type PatternDetectionEventType, PatternKindOptions } from "./p
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
-/** @public */
 export class MoreNegativeThanPositiveEmotionsPattern extends Pattern {
   name = VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern;
 

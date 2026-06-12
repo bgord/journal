@@ -1,3 +1,4 @@
+// fallow-ignore-file unused-export
 import { useTranslations } from "@bgord/ui";
 import { Alarm, Calendar, Notes } from "iconoir-react";
 import { DashboardColumnHeader, DashboardSection } from "../components";
@@ -11,7 +12,6 @@ import {
   DashboardWeeklyReviewList,
 } from "../sections";
 
-/** @public */
 export function Dashboard() {
   const t = useTranslations();
 

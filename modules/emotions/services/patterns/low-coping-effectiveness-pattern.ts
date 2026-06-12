@@ -7,7 +7,6 @@ import * as VO from "+emotions/value-objects";
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
-/** @public */
 export class LowCopingEffectivenessPattern extends Patterns.Pattern {
   name = VO.PatternNameOption.LowCopingEffectivenessPattern;
 

@@ -13,7 +13,6 @@ type PatternDetectorConfigType = {
   week: tools.Week;
 };
 
-/** @public */
 export class PatternDetector {
   constructor(private readonly deps: Dependencies) {}
 

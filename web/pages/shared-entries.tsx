@@ -1,8 +1,8 @@
+// fallow-ignore-file unused-export
 import { EntryListEmpty, LanguageSelector, Logo } from "../components";
 import { sharedEntries } from "../router";
 import { SharedEntry } from "../sections/shared-entry";
 
-/** @public */
 export function SharedEntries() {
   const { entries } = sharedEntries.useLoaderData();
 

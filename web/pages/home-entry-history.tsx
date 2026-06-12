@@ -1,3 +1,4 @@
+// fallow-ignore-file unused-export
 import { Dialog, Rhythm, useToggle, useTranslations } from "@bgord/ui";
 import { useNavigate } from "@tanstack/react-router";
 import { List } from "iconoir-react";
@@ -5,7 +6,6 @@ import { Form } from "../../app/services/home-entry-list-form";
 import { ButtonClose, ListEmpty } from "../components";
 import { homeEntryHistoryRoute, homeRoute } from "../router";
 
-/** @public */
 export function HomeEntryHistory() {
   const t = useTranslations();
   const navigate = useNavigate();

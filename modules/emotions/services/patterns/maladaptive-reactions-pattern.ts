@@ -7,7 +7,6 @@ import { Pattern, type PatternDetectionEventType, PatternKindOptions } from "./p
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
-/** @public */
 export class MaladaptiveReactionsPattern extends Pattern {
   name = VO.PatternNameOption.MaladaptiveReactionsPattern;
 

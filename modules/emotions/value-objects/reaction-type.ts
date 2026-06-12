@@ -5,7 +5,6 @@ const ReactionTypeErrors = { Invalid: "reaction.type.invalid" };
 
 export const ReactionTypeSchema = v.enum(GrossEmotionRegulationStrategy, ReactionTypeErrors.Invalid);
 
-/** @public */
 export type ReactionTypeType = v.InferOutput<typeof ReactionTypeSchema>;
 
 export class ReactionType {

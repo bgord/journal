@@ -10,7 +10,6 @@ export const ReactionDescriptionSchema = v.pipe(
   v.maxLength(ReactionDescriptionMax, ReactionDescriptionErrors.invalid),
 );
 
-/** @public */
 export type ReactionDescriptionType = v.InferOutput<typeof ReactionDescriptionSchema>;
 
 export class ReactionDescription {

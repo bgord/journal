@@ -10,7 +10,6 @@ export const EmotionIntensitySchema = v.pipe(
   v.maxValue(EmotionIntensityMax, EmotionIntensityErrors.min_max),
 );
 
-/** @public */
 export type EmotionIntensityType = v.InferOutput<typeof EmotionIntensitySchema>;
 
 export class EmotionIntensity {

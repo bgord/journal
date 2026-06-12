@@ -4,7 +4,6 @@ import type * as Ports from "+ai/ports";
 import * as Specs from "+ai/specifications";
 import type * as VO from "+ai/value-objects";
 
-/** @public */
 export class AiQuotaExceededError extends Error {
   constructor() {
     super();

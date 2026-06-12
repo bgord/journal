@@ -1,3 +1,4 @@
+// fallow-ignore-file unused-export
 import { useNotify, usePluralize, useToggle, useTranslations } from "@bgord/ui";
 import { Outlet } from "@tanstack/react-router";
 import { MoreHoriz } from "iconoir-react";
@@ -5,7 +6,6 @@ import { useEffect } from "react";
 import { homeRoute } from "../router";
 import { HomeEntryAdd, HomeEntryExport, HomeEntryList } from "../sections";
 
-/** @public */
 export function Home() {
   const { entries } = homeRoute.useLoaderData();
   const t = useTranslations();

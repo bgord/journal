@@ -1,4 +1,3 @@
-/** @public */
 export enum SituationKindOptions {
   conflict = "conflict",
   achievement = "achievement",

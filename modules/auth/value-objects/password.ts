@@ -1,4 +1,3 @@
-/** @public */
 export type PasswordType = string;
 
 export class Password {

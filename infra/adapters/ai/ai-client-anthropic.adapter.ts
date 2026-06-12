@@ -2,7 +2,6 @@ import Anthropic from "@anthropic-ai/sdk";
 import * as AI from "+ai";
 import type { AnthropicAiApiKey } from "+infra/env";
 
-/** @public */
 export class AiClientAnthropicAdapter implements AI.AiClientPort {
   readonly Anthropic: Anthropic;
 

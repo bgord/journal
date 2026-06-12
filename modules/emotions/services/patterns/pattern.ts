@@ -11,7 +11,6 @@ export type PatternDetectionEventType =
   | Events.LowCopingEffectivenessPatternDetectedEventType;
 
 export enum PatternKindOptions {
-  /** @public */
   positive = "positive",
   negative = "negative",
 }

@@ -9,7 +9,6 @@ import { AlarmTriggerEnum, EntryAlarmTrigger } from "../value-objects/alarm-trig
 import { EmotionIntensity } from "../value-objects/emotion-intensity";
 import { EmotionLabel } from "../value-objects/emotion-label";
 
-/** @public */
 export class NegativeEmotionExtremeIntensityAlarm extends EmotionAlarmTemplate {
   name = AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM;
 

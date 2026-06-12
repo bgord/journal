@@ -5,7 +5,6 @@ import type { QuotaRule } from "./quota-rule";
 import { QuotaWindow, QuotaWindowEnum } from "./quota-window";
 import { UsageCategory } from "./usage-category";
 
-/** @public */
 export const USER_DAILY_RULE: QuotaRule = {
   id: "USER_DAILY",
   window: new QuotaWindow(QuotaWindowEnum.DAY),
@@ -15,7 +14,6 @@ export const USER_DAILY_RULE: QuotaRule = {
   appliesTo: (_category) => true,
 };
 
-/** @public */
 export const EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY_RULE: QuotaRule = {
   id: "EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY",
   window: new QuotaWindow(QuotaWindowEnum.WEEK),
@@ -25,7 +23,6 @@ export const EMOTIONS_WEEKLY_REVIEW_INSIGHT_WEEKLY_RULE: QuotaRule = {
   appliesTo: (category) => category === UsageCategory.EMOTIONS_WEEKLY_REVIEW_INSIGHT,
 };
 
-/** @public */
 export const EMOTIONS_ALARM_INACTIVITY_WEEKLY_RULE: QuotaRule = {
   id: "EMOTIONS_ALARM_INACTIVITY_WEEKLY",
   window: new QuotaWindow(QuotaWindowEnum.WEEK),
@@ -35,7 +32,6 @@ export const EMOTIONS_ALARM_INACTIVITY_WEEKLY_RULE: QuotaRule = {
   appliesTo: (category) => category === UsageCategory.EMOTIONS_ALARM_INACTIVITY,
 };
 
-/** @public */
 export const EMOTIONS_ALARM_ENTRY_RULE: QuotaRule = {
   id: "EMOTIONS_ALARM_ENTRY",
   window: new QuotaWindow(QuotaWindowEnum.ALL_TIME),

@@ -5,7 +5,6 @@ const EmotionLabelErrors = { Invalid: "emotion.label.invalid" };
 
 export const EmotionLabelSchema = v.enum(GenevaWheelEmotion, EmotionLabelErrors.Invalid);
 
-/** @public */
 export type EmotionLabelType = v.InferOutput<typeof EmotionLabelSchema>;
 
 export class EmotionLabel {

@@ -10,7 +10,6 @@ export const ReactionEffectivenessSchema = v.pipe(
   v.maxValue(ReactionEffectivenessMax, ReactionEffectivenessErrors.min_max),
 );
 
-/** @public */
 export type ReactionEffectivenessType = v.InferOutput<typeof ReactionEffectivenessSchema>;
 
 export class ReactionEffectiveness {

@@ -1,3 +1,4 @@
+// fallow-ignore-file unused-export
 import { useTranslations } from "@bgord/ui";
 import { Separator } from "../components";
 import { rootRoute } from "../router";
@@ -11,7 +12,6 @@ import {
   ProfileShareableLinkList,
 } from "../sections";
 
-/** @public */
 export function Profile() {
   const t = useTranslations();
   const { session } = rootRoute.useLoaderData();
