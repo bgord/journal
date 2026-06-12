@@ -1,3 +1,4 @@
+// fallow-ignore-file unused-class-member
 // cspell:ignore tinypdf
 import type * as bg from "@bgord/bun";
 import { pdf } from "tinypdf";
