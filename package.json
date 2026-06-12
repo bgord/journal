@@ -22,7 +22,6 @@
     "@typescript/native-preview": "7.0.0-dev.20260606.1",
     "@vitejs/plugin-react": "6.0.2",
     "cspell": "10.0.1",
-    "dependency-cruiser": "17.4.3",
     "drizzle-kit": "0.31.10",
     "fallow": "2.95.0",
     "gzip-cli": "1.2.0",
