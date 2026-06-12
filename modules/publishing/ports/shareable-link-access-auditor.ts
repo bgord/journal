@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import type * as Auth from "+auth";
-import * as Publishing from "+publishing";
+import type * as Publishing from "+publishing";
+import { ShareableLinkAccessedEvent } from "../events/SHAREABLE_LINK_ACCESSED_EVENT";
 
 export type ShareableLinkAccessAuditorInput = {
   linkId: Publishing.VO.ShareableLinkIdType;
@@ -26,7 +27,7 @@ export class ShareableLinkAccessAuditorAdapter implements Publishing.Ports.Share
 
   async record(input: Publishing.Ports.ShareableLinkAccessAuditorInput) {
     const event = bg.event(
-      Publishing.Events.ShareableLinkAccessedEvent,
+      ShareableLinkAccessedEvent,
       `shareable_link_${input.linkId}`,
       {
         shareableLinkId: input.linkId,

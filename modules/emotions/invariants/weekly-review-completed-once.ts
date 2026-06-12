@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { WeeklyReviewStatusEnum } from "../value-objects/weekly-review-status";
 
 class WeeklyReviewCompletedOnceError extends Error {
   constructor() {
@@ -12,7 +13,7 @@ type WeeklyReviewCompletedOnceConfigType = { status: Emotions.VO.WeeklyReviewSta
 
 class WeeklyReviewCompletedOnceFactory extends bg.Invariant<WeeklyReviewCompletedOnceConfigType> {
   passes(config: WeeklyReviewCompletedOnceConfigType) {
-    return config.status === Emotions.VO.WeeklyReviewStatusEnum.requested;
+    return config.status === WeeklyReviewStatusEnum.requested;
   }
 
   // Stryker disable next-line StringLiteral

@@ -2,7 +2,13 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import type * as Auth from "+auth";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { GenerateAlarmCommand } from "../commands/GENERATE_ALARM_COMMAND";
+import { InactivityAlarmSchedule } from "../invariants/inactivity-alarm-schedule";
+import { NoEntriesInTheLastWeek } from "../invariants/no-entries-in-the-last-week";
+import { AlarmDetection } from "../value-objects/alarm-detection";
+import { AlarmNameOption } from "../value-objects/alarm-name-option";
+import { AlarmTriggerEnum } from "../value-objects/alarm-trigger";
 
 type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.GenerateAlarmCommandType;
@@ -29,7 +35,7 @@ export class InactivityAlarmScheduler {
 
   async onHourHasPassedEvent(event: bg.System.Events.HourHasPassedEventType) {
     // Stryker disable all
-    if (!Emotions.Invariants.InactivityAlarmSchedule.passes({ timestamp: event.payload.timestamp })) return;
+    if (!InactivityAlarmSchedule.passes({ timestamp: event.payload.timestamp })) return;
     // Stryker restore all
 
     const userIds = await this.deps.UserDirectoryOHQ.listActiveUserIds();
@@ -38,7 +44,7 @@ export class InactivityAlarmScheduler {
       const lastEntryTimestamp = await this.deps.GetLatestEntryTimestampForUserQuery.execute(userId);
 
       if (
-        !Emotions.Invariants.NoEntriesInTheLastWeek.passes({
+        !NoEntriesInTheLastWeek.passes({
           lastEntryTimestamp,
           now: event.payload.timestamp,
         })
@@ -46,18 +52,14 @@ export class InactivityAlarmScheduler {
         continue;
 
       const trigger = {
-        type: Emotions.VO.AlarmTriggerEnum.inactivity,
+        type: AlarmTriggerEnum.inactivity,
         inactivityDays: tools.Int.positive(7),
         lastEntryTimestamp: v.parse(tools.TimestampValue, lastEntryTimestamp),
       } as const;
 
-      const detection = new Emotions.VO.AlarmDetection(trigger, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM);
+      const detection = new AlarmDetection(trigger, AlarmNameOption.INACTIVITY_ALARM);
 
-      const command = bg.command(
-        Emotions.Commands.GenerateAlarmCommand,
-        { payload: { detection, userId } },
-        this.deps,
-      );
+      const command = bg.command(GenerateAlarmCommand, { payload: { detection, userId } }, this.deps);
 
       await this.deps.CommandBus.emit(command);
     }

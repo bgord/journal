@@ -1,5 +1,8 @@
 import * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { Entry } from "../aggregates/entry";
+import { TimeCapsuleEntryScheduledEvent } from "../events/TIME_CAPSULE_ENTRY_SCHEDULED_EVENT";
+import { TimeCapsuleEntryScheduledInFuture } from "../invariants/time-capsule-entry-scheduled-in-future";
 
 type AcceptedEvent = Emotions.Events.TimeCapsuleEntryScheduledEventType;
 
@@ -11,14 +14,14 @@ type Dependencies = {
 
 export const handleScheduleTimeCapsuleEntryCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.ScheduleTimeCapsuleEntryCommandType) => {
-    Emotions.Invariants.TimeCapsuleEntryScheduledInFuture.enforce({
+    TimeCapsuleEntryScheduledInFuture.enforce({
       now: deps.Clock.now(),
       scheduledFor: command.payload.scheduledFor,
     });
 
     const event = bg.event(
-      Emotions.Events.TimeCapsuleEntryScheduledEvent,
-      Emotions.Aggregates.Entry.getStream(command.payload.entryId),
+      TimeCapsuleEntryScheduledEvent,
+      Entry.getStream(command.payload.entryId),
       {
         entryId: command.payload.entryId,
         situation: {

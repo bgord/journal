@@ -1,7 +1,10 @@
 import type * as bg from "@bgord/bun";
 import type * as AI from "+ai";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 import type { LanguagesType } from "+languages";
+import { EntryAlarmAdviceNotificationComposer } from "../services/entry-alarm-advice-notification-composer";
+import { InactivityAlarmAdviceNotificationComposer } from "../services/inactivity-alarm-advice-notification-composer";
+import { AlarmTriggerEnum } from "../value-objects/alarm-trigger";
 
 const AlarmNotificationFactoryError = {
   UnknownTrigger: "alarm.notification.factory.error.unknown.trigger",
@@ -18,21 +21,18 @@ export class AlarmNotificationFactory {
     advice: AI.Advice,
   ): Promise<bg.MailerTemplateMessage | null> {
     switch (detection.trigger.type) {
-      case Emotions.VO.AlarmTriggerEnum.entry: {
+      case AlarmTriggerEnum.entry: {
         const entry = await this.entrySnapshot.getById(detection.trigger.entryId);
 
         if (!entry) return null;
 
-        const composer = new Emotions.Services.EntryAlarmAdviceNotificationComposer(entry, this.language);
+        const composer = new EntryAlarmAdviceNotificationComposer(entry, this.language);
 
         return composer.compose(advice);
       }
 
-      case Emotions.VO.AlarmTriggerEnum.inactivity: {
-        const composer = new Emotions.Services.InactivityAlarmAdviceNotificationComposer(
-          detection.trigger,
-          this.language,
-        );
+      case AlarmTriggerEnum.inactivity: {
+        const composer = new InactivityAlarmAdviceNotificationComposer(detection.trigger, this.language);
 
         return composer.compose(advice);
       }

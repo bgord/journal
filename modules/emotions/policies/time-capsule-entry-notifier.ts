@@ -1,8 +1,11 @@
 import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 import type { LanguagesType } from "+languages";
+import { SITUATION_LOGGED_EVENT } from "../events/SITUATION_LOGGED_EVENT";
+import { TimeCapsuleEntryNotificationComposer } from "../services/time-capsule-entry-notification-composer";
+import { EntryOriginOption } from "../value-objects/entry-origin-option";
 
 type AcceptedEvent = Emotions.Events.SituationLoggedEventType;
 
@@ -19,14 +22,14 @@ export class TimeCapsuleEntryNotifier {
   // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
-      Emotions.Events.SITUATION_LOGGED_EVENT,
+      SITUATION_LOGGED_EVENT,
       deps.EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
     );
   }
   // Stryker restore all
 
   async onSituationLoggedEvent(event: Emotions.Events.SituationLoggedEventType) {
-    if (event.payload.origin !== Emotions.VO.EntryOriginOption.time_capsule) return;
+    if (event.payload.origin !== EntryOriginOption.time_capsule) return;
 
     const contact = await this.deps.UserContactOHQ.getPrimary(event.payload.userId);
     if (!contact?.address) return;
@@ -34,7 +37,7 @@ export class TimeCapsuleEntryNotifier {
     const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
 
     const config = { to: contact.address, from: this.deps.EMAIL_FROM };
-    const message = new Emotions.Services.TimeCapsuleEntryNotificationComposer(language).compose();
+    const message = new TimeCapsuleEntryNotificationComposer(language).compose();
 
     await this.deps.Mailer.send(new bg.MailerTemplate(config, message));
   }

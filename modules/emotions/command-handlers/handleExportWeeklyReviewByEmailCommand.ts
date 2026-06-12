@@ -1,6 +1,10 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { WeeklyReviewExportByEmailRequestedEvent } from "../events/WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT";
+import { RequesterOwnsWeeklyReview } from "../invariants/requester-owns-weekly-review";
+import { WeeklyReviewExists } from "../invariants/weekly-review-exists";
+import { WeeklyReviewIsCompleted } from "../invariants/weekly-review-is-completed";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -15,9 +19,9 @@ export const handleExportWeeklyReviewByEmailCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.ExportWeeklyReviewByEmailCommandType) => {
     const weeklyReview = await deps.WeeklyReviewSnapshot.getById(command.payload.weeklyReviewId);
 
-    Emotions.Invariants.WeeklyReviewExists.enforce({ weeklyReview });
-    Emotions.Invariants.WeeklyReviewIsCompleted.enforce({ status: weeklyReview?.status });
-    Emotions.Invariants.RequesterOwnsWeeklyReview.enforce({
+    WeeklyReviewExists.enforce({ weeklyReview });
+    WeeklyReviewIsCompleted.enforce({ status: weeklyReview?.status });
+    RequesterOwnsWeeklyReview.enforce({
       requesterId: command.payload.userId,
       ownerId: weeklyReview?.userId,
     });
@@ -25,7 +29,7 @@ export const handleExportWeeklyReviewByEmailCommand =
     const weeklyReviewExportId = deps.IdProvider.generate();
 
     const event = bg.event(
-      Emotions.Events.WeeklyReviewExportByEmailRequestedEvent,
+      WeeklyReviewExportByEmailRequestedEvent,
       `weekly_review_export_by_email_${weeklyReviewExportId}`,
       {
         weeklyReviewId: command.payload.weeklyReviewId,

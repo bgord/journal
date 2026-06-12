@@ -1,5 +1,18 @@
 import * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { LogEntryCommand } from "../commands/LOG_ENTRY_COMMAND";
+import { Emotion } from "../entities/emotion";
+import { Reaction } from "../entities/reaction";
+import { Situation } from "../entities/situation";
+import { TimeCapsuleEntryIsPublishable } from "../invariants/time-capsule-entry-is-publishable";
+import { EmotionIntensity } from "../value-objects/emotion-intensity";
+import { EmotionLabel } from "../value-objects/emotion-label";
+import { EntryOriginOption } from "../value-objects/entry-origin-option";
+import { ReactionDescription } from "../value-objects/reaction-description";
+import { ReactionEffectiveness } from "../value-objects/reaction-effectiveness";
+import { ReactionType } from "../value-objects/reaction-type";
+import { SituationDescription } from "../value-objects/situation-description";
+import { SituationKind } from "../value-objects/situation-kind";
 
 type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.LogEntryCommandType;
@@ -31,28 +44,28 @@ export class TimeCapsuleEntriesScheduler {
     for (const entry of dueEntries) {
       const config = { status: entry.status, now, scheduledFor: entry.scheduledFor };
 
-      if (!Emotions.Invariants.TimeCapsuleEntryIsPublishable.passes(config)) continue;
+      if (!TimeCapsuleEntryIsPublishable.passes(config)) continue;
 
       const command = bg.command(
-        Emotions.Commands.LogEntryCommand,
+        LogEntryCommand,
         {
           payload: {
             entryId: entry.id,
-            situation: new Emotions.Entities.Situation(
-              new Emotions.VO.SituationDescription(entry.situationDescription),
-              new Emotions.VO.SituationKind(entry.situationKind),
+            situation: new Situation(
+              new SituationDescription(entry.situationDescription),
+              new SituationKind(entry.situationKind),
             ),
-            emotion: new Emotions.Entities.Emotion(
-              new Emotions.VO.EmotionLabel(entry.emotionLabel),
-              new Emotions.VO.EmotionIntensity(entry.emotionIntensity),
+            emotion: new Emotion(
+              new EmotionLabel(entry.emotionLabel),
+              new EmotionIntensity(entry.emotionIntensity),
             ),
-            reaction: new Emotions.Entities.Reaction(
-              new Emotions.VO.ReactionDescription(entry.reactionDescription),
-              new Emotions.VO.ReactionType(entry.reactionType),
-              new Emotions.VO.ReactionEffectiveness(entry.reactionEffectiveness),
+            reaction: new Reaction(
+              new ReactionDescription(entry.reactionDescription),
+              new ReactionType(entry.reactionType),
+              new ReactionEffectiveness(entry.reactionEffectiveness),
             ),
             userId: entry.userId,
-            origin: Emotions.VO.EntryOriginOption.time_capsule,
+            origin: EntryOriginOption.time_capsule,
           },
         },
         this.deps,

@@ -1,6 +1,8 @@
 import type * as bg from "@bgord/bun";
 import type * as AI from "+ai";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { createAlarmRequestContext } from "../acl/ai-request-creator";
+import { Alarm } from "../aggregates/alarm";
 
 type Dependencies = {
   repo: Emotions.Ports.AlarmRepositoryPort;
@@ -11,7 +13,7 @@ type Dependencies = {
 
 export const handleGenerateAlarmCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.GenerateAlarmCommandType) => {
-    const context = Emotions.ACL.createAlarmRequestContext(
+    const context = createAlarmRequestContext(
       deps,
       command.payload.userId,
       // @ts-expect-error
@@ -22,7 +24,7 @@ export const handleGenerateAlarmCommand =
 
     if (check.violations.length > 0) return;
 
-    const alarm = Emotions.Aggregates.Alarm.generate(
+    const alarm = Alarm.generate(
       deps.IdProvider.generate(),
       command.payload.detection,
       command.payload.userId,

@@ -1,7 +1,9 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { RequestWeeklyReviewCommand } from "../commands/REQUEST_WEEKLY_REVIEW_COMMAND";
+import { WeeklyReviewSchedule } from "../invariants/weekly-review-schedule";
 
 type AcceptedEvent = bg.System.Events.HourHasPassedEventType;
 type AcceptedCommand = Emotions.Commands.RequestWeeklyReviewCommandType;
@@ -26,18 +28,14 @@ export class WeeklyReviewScheduler {
   // Stryker restore all
 
   async onHourHasPassedEvent(event: bg.System.Events.HourHasPassedEventType) {
-    if (!Emotions.Invariants.WeeklyReviewSchedule.passes({ timestamp: event.payload.timestamp })) return;
+    if (!WeeklyReviewSchedule.passes({ timestamp: event.payload.timestamp })) return;
 
     const week = tools.Week.fromTimestampValue(event.payload.timestamp).previous();
 
     const userIds = await this.deps.UserDirectoryOHQ.listActiveUserIds();
 
     for (const userId of userIds) {
-      const command = bg.command(
-        Emotions.Commands.RequestWeeklyReviewCommand,
-        { payload: { week, userId } },
-        this.deps,
-      );
+      const command = bg.command(RequestWeeklyReviewCommand, { payload: { week, userId } }, this.deps);
 
       await this.deps.CommandBus.emit(command);
     }

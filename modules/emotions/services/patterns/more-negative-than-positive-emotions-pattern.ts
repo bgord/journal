@@ -2,16 +2,16 @@ import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
-import * as Patterns from "+emotions/services/patterns";
 import * as VO from "+emotions/value-objects";
+import { Pattern, type PatternDetectionEventType, PatternKindOptions } from "./pattern";
 
 type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
 
 /** @public */
-export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
+export class MoreNegativeThanPositiveEmotionsPattern extends Pattern {
   name = VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern;
 
-  kind = Patterns.PatternKindOptions.negative;
+  kind = PatternKindOptions.negative;
 
   constructor(
     public week: tools.Week,
@@ -21,7 +21,7 @@ export class MoreNegativeThanPositiveEmotionsPattern extends Patterns.Pattern {
     super();
   }
 
-  check(entries: ReadonlyArray<VO.EntrySnapshot>): Patterns.PatternDetectionEventType | null {
+  check(entries: ReadonlyArray<VO.EntrySnapshot>): PatternDetectionEventType | null {
     const positiveEmotionsCounter = entries.filter(
       (entry) => entry.emotionLabel && new VO.EmotionLabel(entry.emotionLabel).isPositive(),
     ).length;

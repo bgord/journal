@@ -1,5 +1,7 @@
 import type * as bg from "@bgord/bun";
-import * as Publishing from "+publishing";
+import type * as Publishing from "+publishing";
+import { ShareableLink } from "../aggregates/shareable-link";
+import { ShareableLinksPerOwnerLimit } from "../invariants/shareable-links-per-owner-limit";
 
 type Dependencies = {
   repo: Publishing.Ports.ShareableLinkRepositoryPort;
@@ -14,9 +16,9 @@ export const handleCreateShareableLinkCommand =
       command.payload.requesterId,
     );
 
-    Publishing.Invariants.ShareableLinksPerOwnerLimit.enforce(shareableActiveLinksPerOwnerCount);
+    ShareableLinksPerOwnerLimit.enforce(shareableActiveLinksPerOwnerCount);
 
-    const shareableLink = Publishing.Aggregates.ShareableLink.create(
+    const shareableLink = ShareableLink.create(
       command.payload.shareableLinkId,
       command.payload.publicationSpecification,
       command.payload.dateRange,

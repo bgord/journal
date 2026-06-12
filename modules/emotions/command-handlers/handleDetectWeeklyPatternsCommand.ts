@@ -1,5 +1,7 @@
 import type * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { PatternDetector } from "../services/pattern-detector";
+import * as Patterns from "../services/patterns";
 
 type AcceptedEvent =
   | Emotions.Events.PositiveEmotionWithMaladaptiveReactionPatternDetectedEventType
@@ -18,15 +20,15 @@ export const handleDetectWeeklyPatternsCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.DetectWeeklyPatternsCommandType) => {
     const entries = await deps.EntrySnapshot.getByWeekForUser(command.payload.week, command.payload.userId);
 
-    const patterns = new Emotions.Services.PatternDetector(deps).detect({
+    const patterns = new PatternDetector(deps).detect({
       entries,
       week: command.payload.week,
       userId: command.payload.userId,
       patterns: [
-        Emotions.Services.Patterns.LowCopingEffectivenessPattern,
-        Emotions.Services.Patterns.MoreNegativeThanPositiveEmotionsPattern,
-        Emotions.Services.Patterns.MaladaptiveReactionsPattern,
-        Emotions.Services.Patterns.PositiveEmotionWithMaladaptiveReactionPattern,
+        Patterns.LowCopingEffectivenessPattern,
+        Patterns.MoreNegativeThanPositiveEmotionsPattern,
+        Patterns.MaladaptiveReactionsPattern,
+        Patterns.PositiveEmotionWithMaladaptiveReactionPattern,
       ],
     });
 

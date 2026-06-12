@@ -1,7 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as v from "valibot";
-import * as Preferences from "+preferences";
+import type * as Preferences from "+preferences";
+import { ProfileAvatarUpdatedEvent } from "../events/PROFILE_AVATAR_UPDATED_EVENT";
+import { ProfileAvatarConstraints } from "../invariants/profile-avatar-constraints";
+import { ProfileAvatarKeyFactory } from "../value-objects/profile-avatar-key";
+import { ProfileAvatarSide } from "../value-objects/profile-avatar-side";
 
 type AcceptedEvent = Preferences.Events.ProfileAvatarUpdatedEventType;
 
@@ -22,24 +26,24 @@ export const handleUpdateProfileAvatarCommand =
 
     const info = await deps.ImageInfo.inspect(temporary);
 
-    if (!Preferences.Invariants.ProfileAvatarConstraints.passes(info)) {
+    if (!ProfileAvatarConstraints.passes(info)) {
       await deps.TemporaryFile.cleanup(temporary.getFilename());
-      throw new Preferences.Invariants.ProfileAvatarConstraints.error();
+      throw new ProfileAvatarConstraints.error();
     }
 
     const final = await deps.ImageProcessor.process({
       strategy: "in_place",
       input: temporary,
       to: extension,
-      maxSide: Preferences.VO.ProfileAvatarSide,
+      maxSide: ProfileAvatarSide,
     });
 
-    const key = Preferences.VO.ProfileAvatarKeyFactory.stable(command.payload.userId);
+    const key = ProfileAvatarKeyFactory.stable(command.payload.userId);
     const object = await deps.RemoteFileStorage.putFromPath({ key, path: final });
     await deps.TemporaryFile.cleanup(final.getFilename());
 
     const event = bg.event(
-      Preferences.Events.ProfileAvatarUpdatedEvent,
+      ProfileAvatarUpdatedEvent,
       `preferences_${command.payload.userId}`,
       { userId: command.payload.userId, key, etag: object.etag.get() },
       deps,

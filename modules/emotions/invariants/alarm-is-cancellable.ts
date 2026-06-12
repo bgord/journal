@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { AlarmStatusEnum } from "../value-objects/alarm-status";
 
 class AlarmIsCancellableError extends Error {
   constructor() {
@@ -12,7 +13,7 @@ type AlarmIsCancellableConfigType = { status: Emotions.VO.AlarmStatusEnum };
 
 class AlarmIsCancellableFactory extends bg.Invariant<AlarmIsCancellableConfigType> {
   passes(config: AlarmIsCancellableConfigType) {
-    return config.status !== Emotions.VO.AlarmStatusEnum.cancelled;
+    return config.status !== AlarmStatusEnum.cancelled;
   }
 
   // Stryker disable next-line StringLiteral

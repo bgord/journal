@@ -1,5 +1,10 @@
 import type * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { EMOTION_LOGGED_EVENT } from "../events/EMOTION_LOGGED_EVENT";
+import { EMOTION_REAPPRAISED_EVENT } from "../events/EMOTION_REAPPRAISED_EVENT";
+import { REACTION_EVALUATED_EVENT } from "../events/REACTION_EVALUATED_EVENT";
+import { REACTION_LOGGED_EVENT } from "../events/REACTION_LOGGED_EVENT";
+import { SITUATION_LOGGED_EVENT } from "../events/SITUATION_LOGGED_EVENT";
 
 type AcceptedEvent =
   | Emotions.Events.SituationLoggedEventType
@@ -19,23 +24,17 @@ export class EntryHistoryPublisher {
   // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
-      Emotions.Events.SITUATION_LOGGED_EVENT,
+      SITUATION_LOGGED_EVENT,
       deps.EventHandler.handle(this.onSituationLoggedEvent.bind(this)),
     );
+    deps.EventBus.on(EMOTION_LOGGED_EVENT, deps.EventHandler.handle(this.onEmotionLoggedEvent.bind(this)));
+    deps.EventBus.on(REACTION_LOGGED_EVENT, deps.EventHandler.handle(this.onReactionLoggedEvent.bind(this)));
     deps.EventBus.on(
-      Emotions.Events.EMOTION_LOGGED_EVENT,
-      deps.EventHandler.handle(this.onEmotionLoggedEvent.bind(this)),
-    );
-    deps.EventBus.on(
-      Emotions.Events.REACTION_LOGGED_EVENT,
-      deps.EventHandler.handle(this.onReactionLoggedEvent.bind(this)),
-    );
-    deps.EventBus.on(
-      Emotions.Events.EMOTION_REAPPRAISED_EVENT,
+      EMOTION_REAPPRAISED_EVENT,
       deps.EventHandler.handle(this.onEmotionReappraisedEvent.bind(this)),
     );
     deps.EventBus.on(
-      Emotions.Events.REACTION_EVALUATED_EVENT,
+      REACTION_EVALUATED_EVENT,
       deps.EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
     );
   }

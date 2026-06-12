@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { EntryStatusEnum } from "../value-objects/entry-status";
 
 class EntryIsActionableError extends Error {
   constructor() {
@@ -12,7 +13,7 @@ type EntryIsActionableConfigType = { status: Emotions.VO.EntryStatusEnum };
 
 class EntryIsActionableFactory extends bg.Invariant<EntryIsActionableConfigType> {
   passes(config: EntryIsActionableConfigType) {
-    return config.status === Emotions.VO.EntryStatusEnum.actionable;
+    return config.status === EntryStatusEnum.actionable;
   }
 
   message = "entry.is.actionable.error";

@@ -1,8 +1,18 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 import type { LanguagesType } from "+languages";
+import {
+  WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
+  WeeklyReviewExportByEmailFailedEvent,
+} from "../events/WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT";
+import {
+  WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
+  WeeklyReviewExportByEmailRequestedEvent,
+} from "../events/WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT";
+import { WeeklyReviewExportNotificationComposer } from "../services/weekly-review-export-notification-composer";
+import { WeeklyReviewExportPdfFile } from "../services/weekly-review-export-pdf-file";
 
 type AcceptedEvent =
   | Emotions.Events.WeeklyReviewExportByEmailRequestedEventType
@@ -28,11 +38,11 @@ export class WeeklyReviewExportByEmail {
   // Stryker disable all
   constructor(private readonly deps: Dependencies) {
     deps.EventBus.on(
-      Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
+      WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT,
       deps.EventHandler.handle(this.onWeeklyReviewExportByEmailRequestedEvent.bind(this)),
     );
     deps.EventBus.on(
-      Emotions.Events.WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
+      WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT,
       deps.EventHandler.handle(this.onWeeklyReviewExportByEmailFailedEvent.bind(this)),
     );
   }
@@ -51,10 +61,10 @@ export class WeeklyReviewExportByEmail {
 
       const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
 
-      const pdf = new Emotions.Services.WeeklyReviewExportPdfFile(weeklyReview, this.deps);
+      const pdf = new WeeklyReviewExportPdfFile(weeklyReview, this.deps);
       const attachment = await pdf.toAttachment();
 
-      const composer = new Emotions.Services.WeeklyReviewExportNotificationComposer();
+      const composer = new WeeklyReviewExportNotificationComposer();
 
       const config = { to: contact.address, from: this.deps.EMAIL_FROM };
       const message = composer.compose(week, language);
@@ -63,7 +73,7 @@ export class WeeklyReviewExportByEmail {
     } catch {
       await this.deps.EventStore.save([
         bg.event(
-          Emotions.Events.WeeklyReviewExportByEmailFailedEvent,
+          WeeklyReviewExportByEmailFailedEvent,
           `weekly_review_export_by_email_${event.payload.weeklyReviewExportId}`,
           {
             weeklyReviewId: event.payload.weeklyReviewId,
@@ -85,7 +95,7 @@ export class WeeklyReviewExportByEmail {
     await this.deps.Sleeper.wait(this.deps.RetryBackoffStrategy.next(event.payload.attempt));
     await this.deps.EventStore.save([
       bg.event(
-        Emotions.Events.WeeklyReviewExportByEmailRequestedEvent,
+        WeeklyReviewExportByEmailRequestedEvent,
         event.stream,
         {
           weeklyReviewId: event.payload.weeklyReviewId,

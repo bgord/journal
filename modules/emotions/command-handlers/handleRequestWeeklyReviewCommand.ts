@@ -1,5 +1,8 @@
 import * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { WeeklyReview } from "../aggregates/weekly-review";
+import { WeeklyReviewSkippedEvent } from "../events/WEEKLY_REVIEW_SKIPPED_EVENT";
+import { EntriesForWeekExist } from "../invariants/entries-for-week-exist";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewSkippedEventType;
 
@@ -19,13 +22,13 @@ export const handleRequestWeeklyReviewCommand =
     );
 
     if (
-      !Emotions.Invariants.EntriesForWeekExist.passes({
+      !EntriesForWeekExist.passes({
         count: entriesPerWeekForUserCount,
         userId: command.payload.userId,
       })
     ) {
       const event = bg.event(
-        Emotions.Events.WeeklyReviewSkippedEvent,
+        WeeklyReviewSkippedEvent,
         "weekly_review_skipped",
         { weekIsoId: command.payload.week.toIsoId(), userId: command.payload.userId },
         deps,
@@ -36,7 +39,7 @@ export const handleRequestWeeklyReviewCommand =
       return;
     }
 
-    const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
+    const weeklyReview = WeeklyReview.request(
       deps.IdProvider.generate(),
       command.payload.week,
       command.payload.userId,

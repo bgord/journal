@@ -1,8 +1,10 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import * as Emotions from "+emotions";
+import * as Entities from "+emotions/entities";
 import * as Events from "+emotions/events";
+import * as Invariants from "+emotions/invariants";
+import * as VO from "+emotions/value-objects";
 
 export type EntryEventType =
   | Events.SituationLoggedEventType
@@ -26,28 +28,24 @@ export class Entry {
   });
   // Stryker restore all
 
-  readonly id: Emotions.VO.EntryIdType;
+  readonly id: VO.EntryIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);
   private userId?: Auth.VO.UserIdType;
-  private situation?: Emotions.Entities.Situation;
-  private emotion?: Emotions.Entities.Emotion;
-  private reaction?: Emotions.Entities.Reaction;
-  private status: Emotions.VO.EntryStatusEnum = Emotions.VO.EntryStatusEnum.actionable;
+  private situation?: Entities.Situation;
+  private emotion?: Entities.Emotion;
+  private reaction?: Entities.Reaction;
+  private status: VO.EntryStatusEnum = VO.EntryStatusEnum.actionable;
 
   private readonly pending: Array<EntryEventType> = [];
 
   private constructor(
-    id: Emotions.VO.EntryIdType,
+    id: VO.EntryIdType,
     private readonly deps: Dependencies,
   ) {
     this.id = id;
   }
 
-  static build(
-    id: Emotions.VO.EntryIdType,
-    events: ReadonlyArray<EntryEventType>,
-    deps: Dependencies,
-  ): Entry {
+  static build(id: VO.EntryIdType, events: ReadonlyArray<EntryEventType>, deps: Dependencies): Entry {
     const entry = new Entry(id, deps);
 
     events.forEach((event) => entry.apply(event));
@@ -56,18 +54,18 @@ export class Entry {
   }
 
   static log(
-    id: Emotions.VO.EntryIdType,
-    situation: Emotions.Entities.Situation,
-    emotion: Emotions.Entities.Emotion,
-    reaction: Emotions.Entities.Reaction,
+    id: VO.EntryIdType,
+    situation: Entities.Situation,
+    emotion: Entities.Emotion,
+    reaction: Entities.Reaction,
     requesterId: Auth.VO.UserIdType,
-    origin: Emotions.VO.EntryOriginOption,
+    origin: VO.EntryOriginOption,
     deps: Dependencies,
   ) {
     const entry = new Entry(id, deps);
 
     const SituationLoggedEvent = bg.event(
-      Emotions.Events.SituationLoggedEvent,
+      Events.SituationLoggedEvent,
       Entry.getStream(id),
       {
         entryId: id,
@@ -82,7 +80,7 @@ export class Entry {
     entry.record(SituationLoggedEvent);
 
     const EmotionLoggedEvent = bg.event(
-      Emotions.Events.EmotionLoggedEvent,
+      Events.EmotionLoggedEvent,
       Entry.getStream(id),
       {
         entryId: id,
@@ -96,7 +94,7 @@ export class Entry {
     entry.record(EmotionLoggedEvent);
 
     const ReactionLoggedEvent = bg.event(
-      Emotions.Events.ReactionLoggedEvent,
+      Events.ReactionLoggedEvent,
       Entry.getStream(id),
       {
         entryId: id,
@@ -113,14 +111,14 @@ export class Entry {
     return entry;
   }
 
-  reappraiseEmotion(newEmotion: Emotions.Entities.Emotion, requesterId: Auth.VO.UserIdType) {
-    Emotions.Invariants.EntryIsActionable.enforce({ status: this.status });
-    Emotions.Invariants.EmotionCorrespondsToSituation.enforce({ situation: this.situation });
-    Emotions.Invariants.EmotionForReappraisalExists.enforce({ emotion: this.emotion });
-    Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
+  reappraiseEmotion(newEmotion: Entities.Emotion, requesterId: Auth.VO.UserIdType) {
+    Invariants.EntryIsActionable.enforce({ status: this.status });
+    Invariants.EmotionCorrespondsToSituation.enforce({ situation: this.situation });
+    Invariants.EmotionForReappraisalExists.enforce({ emotion: this.emotion });
+    Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
     const event = bg.event(
-      Emotions.Events.EmotionReappraisedEvent,
+      Events.EmotionReappraisedEvent,
       Entry.getStream(this.id),
       {
         entryId: this.id,
@@ -134,17 +132,17 @@ export class Entry {
     this.record(event);
   }
 
-  evaluateReaction(newReaction: Emotions.Entities.Reaction, requesterId: Auth.VO.UserIdType) {
-    Emotions.Invariants.EntryIsActionable.enforce({ status: this.status });
-    Emotions.Invariants.ReactionCorrespondsToSituationAndEmotion.enforce({
+  evaluateReaction(newReaction: Entities.Reaction, requesterId: Auth.VO.UserIdType) {
+    Invariants.EntryIsActionable.enforce({ status: this.status });
+    Invariants.ReactionCorrespondsToSituationAndEmotion.enforce({
       situation: this.situation,
       emotion: this.emotion,
     });
-    Emotions.Invariants.ReactionForEvaluationExists.enforce({ reaction: this.reaction });
-    Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
+    Invariants.ReactionForEvaluationExists.enforce({ reaction: this.reaction });
+    Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
     const event = bg.event(
-      Emotions.Events.ReactionEvaluatedEvent,
+      Events.ReactionEvaluatedEvent,
       Entry.getStream(this.id),
       {
         entryId: this.id,
@@ -160,11 +158,11 @@ export class Entry {
   }
 
   delete(requesterId: Auth.VO.UserIdType) {
-    Emotions.Invariants.EntryHasBenStarted.enforce({ situation: this.situation });
-    Emotions.Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
+    Invariants.EntryHasBenStarted.enforce({ situation: this.situation });
+    Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
     const event = bg.event(
-      Emotions.Events.EntryDeletedEvent,
+      Events.EntryDeletedEvent,
       Entry.getStream(this.id),
       { entryId: this.id, userId: requesterId },
       this.deps,
@@ -200,57 +198,57 @@ export class Entry {
 
   private apply(event: EntryEventType): void {
     switch (event.name) {
-      case Emotions.Events.SITUATION_LOGGED_EVENT: {
+      case Events.SITUATION_LOGGED_EVENT: {
         this.userId = event.payload.userId;
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.situation = new Emotions.Entities.Situation(
-          new Emotions.VO.SituationDescription(event.payload.description),
-          new Emotions.VO.SituationKind(event.payload.kind),
+        this.situation = new Entities.Situation(
+          new VO.SituationDescription(event.payload.description),
+          new VO.SituationKind(event.payload.kind),
         );
         break;
       }
 
-      case Emotions.Events.EMOTION_LOGGED_EVENT: {
+      case Events.EMOTION_LOGGED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.emotion = new Emotions.Entities.Emotion(
-          new Emotions.VO.EmotionLabel(event.payload.label),
-          new Emotions.VO.EmotionIntensity(event.payload.intensity),
+        this.emotion = new Entities.Emotion(
+          new VO.EmotionLabel(event.payload.label),
+          new VO.EmotionIntensity(event.payload.intensity),
         );
         break;
       }
 
-      case Emotions.Events.REACTION_LOGGED_EVENT: {
+      case Events.REACTION_LOGGED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.reaction = new Emotions.Entities.Reaction(
-          new Emotions.VO.ReactionDescription(event.payload.description),
-          new Emotions.VO.ReactionType(event.payload.type),
-          new Emotions.VO.ReactionEffectiveness(event.payload.effectiveness),
+        this.reaction = new Entities.Reaction(
+          new VO.ReactionDescription(event.payload.description),
+          new VO.ReactionType(event.payload.type),
+          new VO.ReactionEffectiveness(event.payload.effectiveness),
         );
         break;
       }
 
-      case Emotions.Events.EMOTION_REAPPRAISED_EVENT: {
+      case Events.EMOTION_REAPPRAISED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.emotion = new Emotions.Entities.Emotion(
-          new Emotions.VO.EmotionLabel(event.payload.newLabel),
-          new Emotions.VO.EmotionIntensity(event.payload.newIntensity),
+        this.emotion = new Entities.Emotion(
+          new VO.EmotionLabel(event.payload.newLabel),
+          new VO.EmotionIntensity(event.payload.newIntensity),
         );
         break;
       }
 
-      case Emotions.Events.REACTION_EVALUATED_EVENT: {
+      case Events.REACTION_EVALUATED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.reaction = new Emotions.Entities.Reaction(
-          new Emotions.VO.ReactionDescription(event.payload.description),
-          new Emotions.VO.ReactionType(event.payload.type),
-          new Emotions.VO.ReactionEffectiveness(event.payload.effectiveness),
+        this.reaction = new Entities.Reaction(
+          new VO.ReactionDescription(event.payload.description),
+          new VO.ReactionType(event.payload.type),
+          new VO.ReactionEffectiveness(event.payload.effectiveness),
         );
         break;
       }
 
-      case Emotions.Events.ENTRY_DELETED_EVENT: {
+      case Events.ENTRY_DELETED_EVENT: {
         this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
-        this.status = Emotions.VO.EntryStatusEnum.deleted;
+        this.status = VO.EntryStatusEnum.deleted;
 
         this.situation = undefined;
         this.emotion = undefined;
@@ -260,7 +258,7 @@ export class Entry {
     }
   }
 
-  static getStream(id: Emotions.VO.EntryIdType) {
+  static getStream(id: VO.EntryIdType) {
     return `entry_${id}`;
   }
 }

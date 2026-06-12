@@ -159,8 +159,8 @@ modules/
 │   │   ├── SITUATION_LOGGED_EVENT.ts
 │   │   ├── TIME_CAPSULE_ENTRY_SCHEDULED_EVENT.ts
 │   │   ├── WEEKLY_REVIEW_COMPLETED_EVENT.ts
-│   │   ├── WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED.ts
-│   │   ├── WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED.ts
+│   │   ├── WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT.ts
+│   │   ├── WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT.ts
 │   │   ├── WEEKLY_REVIEW_FAILED_EVENT.ts
 │   │   ├── WEEKLY_REVIEW_REQUESTED_EVENT.ts
 │   │   └── WEEKLY_REVIEW_SKIPPED_EVENT.ts

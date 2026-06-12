@@ -1,5 +1,6 @@
 import type * as bg from "@bgord/bun";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
+import { Entry } from "../aggregates/entry";
 
 type Dependencies = {
   repo: Emotions.Ports.EntryRepositoryPort;
@@ -9,7 +10,7 @@ type Dependencies = {
 
 export const handleLogEntryCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.LogEntryCommandType) => {
-    const entry = Emotions.Aggregates.Entry.log(
+    const entry = Entry.log(
       command.payload.entryId,
       command.payload.situation,
       command.payload.emotion,

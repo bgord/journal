@@ -1,6 +1,7 @@
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import * as Publishing from "+publishing";
+import type * as Publishing from "+publishing";
+import { AccessValidity } from "../value-objects/access-validity";
 
 export type ShareableLinkAccessValidType = {
   valid: true;
@@ -52,7 +53,7 @@ export class ShareableLinkAccessAdapter implements Publishing.OHQ.ShareableLinkA
       linkId: id,
       ownerId: summary.ownerId,
       publicationSpecification,
-      validity: valid ? Publishing.VO.AccessValidity.accepted : Publishing.VO.AccessValidity.rejected,
+      validity: valid ? AccessValidity.accepted : AccessValidity.rejected,
       reason,
       context,
     });
