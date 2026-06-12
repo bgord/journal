@@ -24,7 +24,7 @@
     "cspell": "10.0.1",
     "dependency-cruiser": "17.4.3",
     "drizzle-kit": "0.31.10",
-    "fallow": "2.89.0",
+    "fallow": "2.95.0",
     "gzip-cli": "1.2.0",
     "lefthook": "2.1.9",
     "lockfile-lint": "5.0.0",
