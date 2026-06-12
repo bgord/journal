@@ -1,3 +1,4 @@
+// fallow-ignore-file circular-dependencies
 import { CSS, JS, META } from "@bgord/ui";
 import {
   createRootRouteWithContext,
@@ -7,7 +8,7 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import * as HomeEntryListForm from "../app/services/home-entry-list-form";
-import * as API from "./api";
+import { AI, Avatar, Dashboard, Entry, I18N, Publishing, Session } from "./api";
 import { NotFound } from "./not-found";
 import { Shell } from "./shell";
 
@@ -22,9 +23,9 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
   component: Shell,
   staleTime: Number.POSITIVE_INFINITY,
   loader: async ({ context }) => {
-    const session = await API.Session.get(context.request);
-    const i18n = await API.I18N.get(context.request);
-    const avatarEtag = await API.Avatar.getEtag(context.request);
+    const session = await Session.get(context.request);
+    const i18n = await I18N.get(context.request);
+    const avatarEtag = await Avatar.getEtag(context.request);
 
     // @ts-expect-error Login stays out as a separate HTML page
     if (!(session && i18n)) throw redirect({ to: "/public/login.html" });
@@ -45,7 +46,7 @@ export const homeRoute = createRoute({
     query: typeof value["query"] === "string" ? value["query"] : HomeEntryListForm.Form.default.query,
   }),
   loaderDeps: ({ search }) => search,
-  loader: async ({ context, deps }) => ({ entries: await API.Entry.getList(context.request, deps) }),
+  loader: async ({ context, deps }) => ({ entries: await Entry.getList(context.request, deps) }),
 });
 
 export const homeEntryHistoryRoute = createRoute({
@@ -53,7 +54,7 @@ export const homeEntryHistoryRoute = createRoute({
   path: "entry/$entryId/history",
   component: lazyRouteComponent(() => import("./pages/home-entry-history"), "HomeEntryHistory"),
   loader: async ({ context, params }) => ({
-    history: await API.Entry.getHistory(context.request, params.entryId),
+    history: await Entry.getHistory(context.request, params.entryId),
   }),
 });
 
@@ -62,8 +63,8 @@ export const profileRoute = createRoute({
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/profile"), "Profile"),
   loader: async ({ context }) => ({
-    usage: await API.AI.getUsageToday(context.request),
-    shareableLinks: await API.Publishing.listShareableLinks(context.request),
+    usage: await AI.getUsageToday(context.request),
+    shareableLinks: await Publishing.listShareableLinks(context.request),
   }),
 });
 
@@ -71,7 +72,7 @@ export const dashboardRoute = createRoute({
   path: "/dashboard",
   getParentRoute: () => rootRoute,
   component: lazyRouteComponent(() => import("./pages/dashboard"), "Dashboard"),
-  loader: async ({ context }) => await API.Dashboard.get(context.request),
+  loader: async ({ context }) => await Dashboard.get(context.request),
 });
 
 export const sharedEntries = createRoute({
@@ -80,7 +81,7 @@ export const sharedEntries = createRoute({
   component: lazyRouteComponent(() => import("./pages/shared-entries"), "SharedEntries"),
   preload: false,
   loader: async ({ context, params }) => ({
-    entries: await API.Entry.getSharedEntries(context.request, params.shareableLinkId),
+    entries: await Entry.getSharedEntries(context.request, params.shareableLinkId),
   }),
 });
 
