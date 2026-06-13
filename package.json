@@ -36,13 +36,13 @@
     "vite": "8.0.16"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.101.0",
-    "@better-auth/drizzle-adapter": "1.6.15",
+    "@anthropic-ai/sdk": "0.104.1",
+    "@better-auth/drizzle-adapter": "1.6.16",
     "@bgord/bun": "1.19.5",
     "@bgord/design": "1.6.16",
     "@bgord/ui": "0.8.39",
     "@tanstack/react-router": "1.170.15",
-    "better-auth": "1.6.15",
+    "better-auth": "1.6.16",
     "better-sqlite3": "12.10.0",
     "csv": "6.5.1",
     "drizzle-orm": "0.45.2",
