@@ -30,13 +30,13 @@ cp .env.example .env.test
 Start the app
 
 ```
-./bgord-scripts/local-server-start.sh
+./bgord-scripts/server-start-local.sh
 ```
 
 Run the tests
 
 ```
-./bgord-scripts/test-run.sh
+./bgord-scripts/test.sh
 ```
 
 Generate production master key
