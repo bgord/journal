@@ -3,9 +3,7 @@ import type hono from "hono";
 import * as v from "valibot";
 import type * as infra from "+infra";
 import * as Publishing from "+publishing";
-// fallow-ignore-next-line boundary-violation
 import { db } from "+infra/db";
-// fallow-ignore-next-line boundary-violation
 import * as Schema from "+infra/schema";
 
 export const HideShareableLink = () => async (c: hono.Context<infra.Config>) => {

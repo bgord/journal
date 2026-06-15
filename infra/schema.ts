@@ -212,7 +212,6 @@ export const shareableLinks = sqliteTable("shareableLinks", {
   hidden: integer("hidden", { mode: "boolean" }).default(false),
 });
 
-/** @public */
 export const shareableLinksRelations = relations(shareableLinks, ({ one, many }) => ({
   owner: one(users, {
     fields: [shareableLinks.ownerId],
