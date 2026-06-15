@@ -1,6 +1,7 @@
 import type * as bg from "@bgord/bun";
 import type * as Publishing from "+publishing";
 import { ExpiringShareableLinks } from "./expiring-shareable-links";
+import { HideShareableLink } from "./hide-shareable-link.adapter";
 import { createShareableLinkAccessOHQ } from "./shareable-link-access.adapter";
 import { createShareableLinkAccessAuditor } from "./shareable-link-access-auditor.adapter";
 import { createShareableLinkRepository } from "./shareable-link-repository.adapter";
@@ -19,6 +20,7 @@ export function createPublishingAdapters(deps: Dependencies) {
 
   return {
     ExpiringShareableLinks,
+    HideShareableLink,
     ShareableLinkAccessOHQ: createShareableLinkAccessOHQ({
       ShareableLinkAccessAuditor,
       ShareableLinkRepository,

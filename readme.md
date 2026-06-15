@@ -326,11 +326,11 @@ modules/
 │   │   └── shareable-links-expirer.ts
 │   ├── ports
 │   │   ├── expiring-shareable-links.ts
+│   │   ├── hide-shareable-link.ts
 │   │   ├── shareable-link-access-auditor.ts
 │   │   ├── shareable-link-repository.ts
 │   │   └── shareable-link-snapshot.ts
 │   ├── queries
-│   │   ├── hide-shareable-link.ts
 │   │   └── shareable-links-quota.ts
 │   └── value-objects
 │       ├── access-context.ts

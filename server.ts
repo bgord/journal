@@ -161,7 +161,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   publishing.post(
     "/link/:shareableLinkId/hide",
     Tools.ShieldCaptcha.handle(),
-    HTTP.Publishing.HideShareableLink(),
+    HTTP.Publishing.HideShareableLink(Adapters.Publishing),
   );
   server.route("/publishing", publishing);
   // =============================
