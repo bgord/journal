@@ -4,6 +4,7 @@ import type { EnvironmentResultType } from "+infra/env";
 import { AlarmCancellationLookup } from "./alarm-cancellation-lookup.adapter";
 import { AlarmDirectory } from "./alarm-directory.adapter";
 import { createAlarmRepository } from "./alarm-repository.adapter";
+import { DashboardQuery } from "./dashboard.adapter";
 import { EntriesPerWeekCountQuery } from "./entries-per-week-count.adapter";
 import { EntriesSharingOHQ } from "./entries-sharing.adapter";
 import { createEntryRepository } from "./entry-repository.adapter";
@@ -36,6 +37,7 @@ export function createEmotionsAdapters(Env: EnvironmentResultType, deps: Depende
     AlarmCancellationLookup,
     AlarmDirectory,
     AlarmRepository,
+    DashboardQuery,
     EntriesPerWeekCountQuery,
     EntriesSharingOHQ,
     EntryRepository,

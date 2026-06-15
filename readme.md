@@ -205,6 +205,7 @@ modules/
 │   │   ├── weekly-review-repository.ts
 │   │   └── weekly-review-snapshot.ts
 │   ├── queries
+│   │   ├── dashboard.ts
 │   │   ├── entries-per-week-count.ts
 │   │   ├── get-latest-entry-timestamp-for-user.ts
 │   │   └── weekly-review-export.ts
@@ -329,6 +330,7 @@ modules/
 │   │   ├── shareable-link-repository.ts
 │   │   └── shareable-link-snapshot.ts
 │   ├── queries
+│   │   ├── hide-shareable-link.ts
 │   │   └── shareable-links-quota.ts
 │   └── value-objects
 │       ├── access-context.ts
@@ -402,6 +404,7 @@ infra/
 │   │   ├── alarm-cancellation-lookup.adapter.ts
 │   │   ├── alarm-directory.adapter.ts
 │   │   ├── alarm-repository.adapter.ts
+│   │   ├── dashboard.adapter.ts
 │   │   ├── entries-per-week-count.adapter.ts
 │   │   ├── entries-sharing.adapter.ts
 │   │   ├── entry-repository.adapter.ts
@@ -422,6 +425,7 @@ infra/
 │   │   └── user-language-query.adapter.ts
 │   ├── publishing
 │   │   ├── expiring-shareable-links.ts
+│   │   ├── hide-shareable-link.adapter.ts
 │   │   ├── shareable-link-access-auditor.adapter.ts
 │   │   ├── shareable-link-access.adapter.ts
 │   │   ├── shareable-link-repository.adapter.ts

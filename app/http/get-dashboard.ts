@@ -1,16 +1,17 @@
 // Stryker disable all
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { and, count, desc, eq, gte, isNotNull, not, sql } from "drizzle-orm";
 import type hono from "hono";
 import * as v from "valibot";
 import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
-import { db } from "+infra/db";
-import * as Schema from "+infra/schema";
 
-type Dependencies = { Clock: bg.ClockPort; WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport };
+type Dependencies = {
+  Clock: bg.ClockPort;
+  WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport;
+  DashboardQuery: Emotions.Queries.Dashboard;
+};
 
 type DashboardAlarmInactivityType = Pick<Emotions.VO.AlarmSnapshot, "id" | "advice" | "inactivityDays"> & {
   generatedAt: string;
@@ -61,105 +62,13 @@ export type DashboardDataType = {
 export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const userId = c.get("user").id;
 
-  const today = tools.Day.fromNow(deps.Clock.now()).getStart();
-  const lastWeek = tools.Day.fromNow(deps.Clock.now()).getStart().subtract(tools.Duration.Weeks(1));
-  const allTime = tools.Timestamp.fromNumber(0);
-
-  const heatmapResponse = await db
-    .select({ label: Schema.entries.emotionLabel, intensity: Schema.entries.emotionIntensity })
-    .from(Schema.entries)
-    .where(eq(Schema.entries.userId, userId))
-    .orderBy(desc(Schema.entries.startedAt));
-
-  const inactivityAlarmsResponse = await db.query.alarms.findMany({
-    where: and(
-      eq(Schema.alarms.userId, userId),
-      eq(Schema.alarms.name, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM),
-      not(eq(Schema.alarms.status, "cancelled")),
-      isNotNull(Schema.alarms.advice),
-    ),
-    orderBy: desc(Schema.alarms.generatedAt),
-    limit: 5,
-    columns: { id: true, generatedAt: true, advice: true, inactivityDays: true },
-  });
-
-  const entryAlarmsResponse = await db.query.alarms.findMany({
-    where: and(
-      eq(Schema.alarms.userId, userId),
-      eq(Schema.alarms.name, Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM),
-      not(eq(Schema.alarms.status, "cancelled")),
-      isNotNull(Schema.alarms.advice),
-      isNotNull(Schema.alarms.emotionLabel),
-    ),
-    orderBy: desc(Schema.alarms.generatedAt),
-    limit: 5,
-    columns: { id: true, generatedAt: true, advice: true, emotionLabel: true, name: true },
-  });
-
-  async function getEntryCountSince(start: tools.Timestamp) {
-    return db.$count(
-      Schema.entries,
-      and(gte(Schema.entries.startedAt, start.ms), eq(Schema.entries.userId, userId)),
-    );
-  }
-
-  const [entryCountToday, entryCountLastWeek, entryCountAllTime] = await Promise.all([
-    await getEntryCountSince(today),
-    await getEntryCountSince(lastWeek),
-    await getEntryCountSince(allTime),
-  ]);
-
-  const topReactionsResponse = await db
-    .select({
-      id: Schema.entries.id,
-      reactionDescription: Schema.entries.reactionDescription,
-      reactionType: Schema.entries.reactionType,
-      reactionEffectiveness: Schema.entries.reactionEffectiveness,
-    })
-    .from(Schema.entries)
-    .where(
-      and(
-        eq(Schema.entries.userId, userId),
-        isNotNull(Schema.entries.reactionDescription),
-        isNotNull(Schema.entries.reactionType),
-        isNotNull(Schema.entries.reactionEffectiveness),
-      ),
-    )
-    .orderBy(desc(Schema.entries.reactionEffectiveness))
-    .limit(5);
-
-  async function getTopEmotionsSince(start: tools.Timestamp) {
-    const response = await db
-      .select({
-        id: Schema.entries.id,
-        label: Schema.entries.emotionLabel,
-        hits: count(Schema.entries.id).mapWith(Number),
-      })
-      .from(Schema.entries)
-      .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, start.ms)))
-      .groupBy(Schema.entries.emotionLabel)
-      .orderBy(sql`count(${Schema.entries.id}) DESC`)
-      .limit(3);
-
-    return response.map((emotion) => ({
-      ...emotion,
-      hits: tools.Int.nonNegative(emotion.hits),
-      emotionLabel: v.parse(Emotions.VO.EmotionLabelSchema, emotion.label),
-    }));
-  }
-
-  const [topEmotionsToday, topEmotionsLastWeek, topEmotionsAllTime] = await Promise.all([
-    await getTopEmotionsSince(today),
-    await getTopEmotionsSince(lastWeek),
-    await getTopEmotionsSince(allTime),
-  ]);
-
+  const dashboard = await deps.DashboardQuery.get(userId, deps.Clock.now());
   const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, tools.Int.positive(5));
 
   const result: DashboardDataType = {
-    heatmap: heatmapResponse.map((row) => {
-      const label = new Emotions.VO.EmotionLabel(row.label as Emotions.VO.EmotionLabelType);
-      const intensity = new Emotions.VO.EmotionIntensity(row.intensity as Emotions.VO.EmotionIntensityType);
+    heatmap: dashboard.heatmap.map((row) => {
+      const label = new Emotions.VO.EmotionLabel(row.emotionLabel);
+      const intensity = new Emotions.VO.EmotionIntensity(row.emotionIntensity);
 
       return {
         t: label.isPositive() ? 1 : 0,
@@ -167,13 +76,13 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
       };
     }),
     alarms: {
-      inactivity: inactivityAlarmsResponse.map((alarm) => ({
+      inactivity: dashboard.alarms.inactivity.map((alarm) => ({
         ...alarm,
         advice: alarm.advice as AI.AdviceType,
         generatedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
         inactivityDays: alarm.inactivityDays ? tools.Int.positive(alarm.inactivityDays) : null,
       })),
-      entry: entryAlarmsResponse.map((alarm) => ({
+      entry: dashboard.alarms.entry.map((alarm) => ({
         ...alarm,
         advice: alarm.advice as AI.AdviceType,
         name: v.parse(Emotions.VO.AlarmName, alarm.name),
@@ -182,19 +91,15 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
       })),
     },
     entries: {
-      counts: {
-        today: tools.Int.nonNegative(entryCountToday),
-        lastWeek: tools.Int.nonNegative(entryCountLastWeek),
-        allTime: tools.Int.nonNegative(entryCountAllTime),
-      },
+      counts: dashboard.entries.counts,
       top: {
-        reactions: topReactionsResponse.map((entry) => ({
+        reactions: dashboard.entries.top.reactions.map((entry) => ({
           id: entry.id,
           reactionDescription: entry.reactionDescription as Emotions.VO.ReactionDescriptionType,
           reactionType: entry.reactionType as Emotions.VO.ReactionTypeType,
           reactionEffectiveness: entry.reactionEffectiveness as Emotions.VO.ReactionEffectivenessType,
         })),
-        emotions: { today: topEmotionsToday, lastWeek: topEmotionsLastWeek, allTime: topEmotionsAllTime },
+        emotions: dashboard.entries.top.emotions,
       },
     },
     weeklyReviews: weeklyReviews.map((review) => ({
