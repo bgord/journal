@@ -42,7 +42,7 @@ describe("InactivityAlarmScheduler", async () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericInactivityAlarmGeneratedEvent]);
   });
 
-  test.todo("USER_DAILY", async () => {
+  test("USER_DAILY", async () => {
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
@@ -69,13 +69,13 @@ describe("InactivityAlarmScheduler", async () => {
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
+      await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
-  test.todo("EMOTIONS_ALARM_INACTIVITY_WEEKLY", async () => {
+  test("EMOTIONS_ALARM_INACTIVITY_WEEKLY", async () => {
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     const ids = new bg.IdProviderDeterministicAdapter([mocks.alarmId]);
     using spies = new DisposableStack();
@@ -102,7 +102,7 @@ describe("InactivityAlarmScheduler", async () => {
     spies.use(spyOn(di.Adapters.System.IdProvider, "generate").mockReturnValue(ids.generate()));
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
+      await policy.onHourHasPassedEvent(mocks.GenericHourHasPassedWednesdayUtc18Event);
     });
 
     expect(eventStoreSave).not.toHaveBeenCalled();
