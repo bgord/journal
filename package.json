@@ -1,11 +1,8 @@
 {
   "name": "journal",
   "version": "2.0.0",
-  "description": "",
   "private": true,
-  "keywords": [],
   "author": "Bartosz Gordon",
-  "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "2.5.0",
     "@fullhuman/postcss-purgecss": "8.0.0",
