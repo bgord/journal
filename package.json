@@ -45,5 +45,15 @@
     "react-dom": "19.2.7",
     "tinypdf": "0.3.1",
     "yazl": "3.3.1"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "bun",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "bun",
+      "onFail": "error"
+    }
   }
 }
