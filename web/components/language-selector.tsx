@@ -1,6 +1,5 @@
-import { useLanguage, useSupportedLanguages, useTranslations } from "@bgord/ui";
+import { Cookies, useLanguage, useSupportedLanguages, useTranslations } from "@bgord/ui";
 import { useRouter } from "@tanstack/react-router";
-import Cookie from "js-cookie";
 import { rootRoute } from "../router";
 import { Select } from "./select";
 
@@ -14,7 +13,7 @@ export function LanguageSelector() {
     <Select
       defaultValue={language}
       onChange={async (event) => {
-        Cookie.set("language", event.target.value);
+        Cookies.set("language", event.target.value);
         await router.invalidate({ filter: (r) => r.routeId === rootRoute.id, sync: true });
       }}
     >
