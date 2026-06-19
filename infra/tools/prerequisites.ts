@@ -14,7 +14,7 @@ type Dependencies = {
   CronScheduler: bg.CronSchedulerPort;
   TemporaryFile: bg.TemporaryFilePort;
   RemoteFileStorage: bg.RemoteFileStoragePort;
-  FileReaderJson: bg.FileReaderJsonPort;
+  TranslationsProvider: bg.TranslationsProviderPort;
   Clock: bg.ClockPort;
   Sleeper: bg.SleeperPort;
   TimeoutRunner: bg.TimeoutRunnerPort;
