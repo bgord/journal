@@ -16,6 +16,7 @@ import { createShieldRateLimit } from "./shield-rate-limit.strategy";
 import { createShieldSecurity } from "./shield-security.strategy";
 import { ShieldTimeout } from "./shield-timeout.strategy";
 import { createSseRegistry } from "./sse-registry.adapter";
+import { createTranslationsProvider } from "./translations-provider.adapter";
 
 type Dependencies = {
   Clock: bg.ClockPort;
@@ -37,12 +38,13 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
   const EventBus = createEventBus(deps);
   const EventStore = createEventStore(Env, { ...deps, EventBus });
   const CronScheduler = await createCronScheduler(Env, deps);
+  const TranslationsProvider = createTranslationsProvider(deps);
 
   return {
     Auth: createShieldAuth(Env, { ...deps, EventStore }),
     CacheResponse: createCacheResponse({ HashContent }),
     CronScheduler,
-    Prerequisites: createPrerequisites(Env, { ...deps, CronScheduler }),
+    Prerequisites: createPrerequisites(Env, { ...deps, TranslationsProvider, CronScheduler }),
     ShieldBasicAuth: createShieldBasicAuth(Env),
     ShieldCaptcha: createShieldCaptcha(Env),
     ShieldRateLimit: createShieldRateLimit(Env, { ...deps, HashContent }),
@@ -55,5 +57,6 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
     BuildInfoConfig: createBuildInfoConfig(Env, deps),
     SseRegistry: createSseRegistry(deps),
     HashContent,
+    TranslationsProvider,
   };
 }

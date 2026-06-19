@@ -170,7 +170,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   server.get(
     "/translations",
     Tools.CacheResponse.handle(),
-    ...new bg.TranslationsHonoHandler(languages, Adapters.System).handle(),
+    ...new bg.TranslationsHonoHandler(languages, Tools).handle(),
   );
   // =============================
 

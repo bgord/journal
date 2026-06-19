@@ -492,7 +492,8 @@ infra/
 │   ├── shield-rate-limit.strategy.ts
 │   ├── shield-security.strategy.ts
 │   ├── shield-timeout.strategy.ts
-│   └── sse-registry.adapter.ts
+│   ├── sse-registry.adapter.ts
+│   └── translations-provider.adapter.ts
 └── translations
     ├── en.json
     └── pl.json
