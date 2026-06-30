@@ -10,7 +10,7 @@ export default defineConfig({
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: [
     {
-      command: "bash bgord-scripts/test-server-start.sh",
+      command: "bash bgord-scripts/server-start-test.sh",
       stdout: "pipe",
       stderr: "pipe",
       port: 3000,
