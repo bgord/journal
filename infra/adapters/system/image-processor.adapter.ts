@@ -6,6 +6,7 @@ type Dependencies = {
   FileRenamer: bg.FileRenamerPort;
   FileReaderJson: bg.FileReaderJsonPort;
   FileWriter: bg.FileWriterPort;
+  NonceProvider: bg.NonceProviderPort;
 };
 
 export function createImageProcessor(Env: EnvironmentResultType, deps: Dependencies): bg.ImageProcessorPort {
