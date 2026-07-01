@@ -7,9 +7,9 @@
       "dependencies": {
         "@anthropic-ai/sdk": "0.106.0",
         "@better-auth/drizzle-adapter": "1.6.22",
-        "@bgord/bun": "1.19.13",
-        "@bgord/design": "1.6.19",
-        "@bgord/ui": "0.9.3",
+        "@bgord/bun": "1.19.14",
+        "@bgord/design": "1.6.20",
+        "@bgord/ui": "0.9.4",
         "@tanstack/react-router": "1.170.16",
         "better-auth": "1.6.22",
         "better-sqlite3": "12.11.1",
@@ -135,13 +135,13 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.3.1", "", {}, "sha512-ABkD1WhyfPZprKRQI3bhATjeiFuNWC9PXhfGWqL+sg/gKrM977oFrYkdb4msM3hgUGonr7KlOsOFT5TU2rht9g=="],
 
-    "@bgord/bun": ["@bgord/bun@1.19.13", "", { "dependencies": { "@bgord/tools": "1.5.18", "emittery": "2.0.0", "hono": "4.12.25", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.19", "croner": "10.0.1", "csv": "6.6.0", "nodemailer": "9.0.1", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "croner", "csv", "nodemailer", "yazl"] }, "sha512-Ksffi5qFuTkLSIh26XZJD4yM3BkIZF0t3/pxyZsFtJRFVeE65H55n5kK7hoTTlX7qrHJVQv8NByBKC0UNE/FDQ=="],
+    "@bgord/bun": ["@bgord/bun@1.19.14", "", { "dependencies": { "@bgord/tools": "1.5.19", "emittery": "2.0.0", "hono": "4.12.27", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.22", "croner": "10.0.1", "csv": "6.6.0", "nodemailer": "9.0.1", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "croner", "csv", "nodemailer", "yazl"] }, "sha512-OKH467wiE37La2R118622J1pm4x5r20gmY/xDdUo3tplU4d4ap49EMZk+1EcctvK9FONs6iFVTUlSqRg9Ay+4w=="],
 
-    "@bgord/design": ["@bgord/design@1.6.19", "", {}, "sha512-1V86QNoA5PPX9FfrceGjCpGRqwx6trzK7Ot5qCZIHbQ1gdftpw4EpLiPWi6T3qwRqyW5G2D/nSGYfQjZEB9yAg=="],
+    "@bgord/design": ["@bgord/design@1.6.20", "", {}, "sha512-rLJoQTuVCnLaWAR654XnYPgDIuuS4myRjRNwE0V6ePYjtgwsIz7Xf5sh8IRthjCTeA0r9YgkrbyG9cMDa1s0bA=="],
 
-    "@bgord/tools": ["@bgord/tools@1.5.18", "", { "dependencies": { "temporal-polyfill": "1.0.1", "valibot": "1.4.1" } }, "sha512-2ZHuI1z24r4Z5+Wfr0C9g1pKc5mU1di92s/IZkAcfHldoRYNcV/TQEepQa8c3uverMcKq7oy8m091CSfmQ9mlg=="],
+    "@bgord/tools": ["@bgord/tools@1.5.19", "", { "dependencies": { "temporal-polyfill": "1.0.1", "valibot": "1.4.1" } }, "sha512-+r0olKwmfsK9PbhxknIFk62vq18VS5uKacz6ohiFJqmFvREYDhxV85oHegOLs7XgySIlpHSE6pPbefYwLlg59w=="],
 
-    "@bgord/ui": ["@bgord/ui@0.9.3", "", { "dependencies": { "polish-plurals": "1.1.0", "tinykeys": "4.0.0" }, "peerDependencies": { "react": "19.2.7", "react-dom": "19.2.7" } }, "sha512-LsAO1GGdRDaOC4fZqVrEEw0ok6URzfbhdjgC81DrMiVzUlZXBAEG5pSAiPflGqTt4PPV/yU3ht3eRl+oRyy7EQ=="],
+    "@bgord/ui": ["@bgord/ui@0.9.4", "", { "dependencies": { "polish-plurals": "1.1.0", "tinykeys": "4.0.0" }, "peerDependencies": { "react": "19.2.7", "react-dom": "19.2.7" } }, "sha512-ymjuT5ijVD9DPy1iUyGFZwaTXRKZ0yW5mriytWhgJKSmp4skA74CzYSM7NgCsUdpZQ7JIamMNZVl2VsYdpT8Jw=="],
 
     "@biomejs/biome": ["@biomejs/biome@2.5.1", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "2.5.1", "@biomejs/cli-darwin-x64": "2.5.1", "@biomejs/cli-linux-arm64": "2.5.1", "@biomejs/cli-linux-arm64-musl": "2.5.1", "@biomejs/cli-linux-x64": "2.5.1", "@biomejs/cli-linux-x64-musl": "2.5.1", "@biomejs/cli-win32-arm64": "2.5.1", "@biomejs/cli-win32-x64": "2.5.1" }, "bin": { "biome": "bin/biome" } }, "sha512-IXWLCxKmae+rI7LOHS1B3EbVisQ6GRAWbhN9msa6KjNCyFWrvKZWR4oUdinaNssrV852OrSHuSPa95h1GPJc7Q=="],
 
@@ -889,7 +889,7 @@
 
     "hasown": ["hasown@2.0.4", "", { "dependencies": { "function-bind": "^1.1.2" } }, "sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A=="],
 
-    "hono": ["hono@4.12.25", "", {}, "sha512-2NFaIyNVgJmBs/ecmtGzlmluTFs5cHEWGTdu0t1HBwYzoGXOL5nUQBRMXsXWla5i4KkG//QMzVP88m1+I3fdAQ=="],
+    "hono": ["hono@4.12.27", "", {}, "sha512-1yrb/+w6HWQJrUCLkJ2IF5jNIPvvFkblV5RNOYl6bV+OA6p9GLcMpHFFGTosSvHvcAUibuUukRqhlYI4z32C7Q=="],
 
     "human-signals": ["human-signals@8.0.1", "", {}, "sha512-eKCa6bwnJhvxj14kZk5NCPc6Hb6BdsU9DZcOnmQKSnO1VKrfV0zCvtttPZUsBvjmNDn8rpcJfpwSYnHBjc95MQ=="],
 
