@@ -10,3 +10,5 @@ export type Config = {
     AuthVariables &
     bg.CorrelationVariables;
 };
+
+export * as config from "./config";

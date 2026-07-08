@@ -456,6 +456,7 @@ infra/
 │       ├── timekeeper.adapter.ts
 │       └── timeout-runner.adapter.ts
 ├── bootstrap.ts
+├── config.ts
 ├── db.ts
 ├── e2e
 │   └── home.spec.ts

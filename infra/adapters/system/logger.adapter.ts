@@ -1,12 +1,11 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { name } from "+infra/config";
 import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = { Clock: bg.ClockPort };
 
 export function createLogger(Env: EnvironmentResultType, deps: Dependencies) {
-  const app = "journal";
-
   const redactor = new bg.RedactorComposite([
     new bg.RedactorMetadataCompactArray({ maxItems: tools.Int.positive(3) }),
     new bg.RedactorMask(bg.RedactorMask.DEFAULT_KEYS),
@@ -22,7 +21,7 @@ export function createLogger(Env: EnvironmentResultType, deps: Dependencies) {
   return {
     [bg.NodeEnvironmentEnum.local]: new bg.Woodchopper(
       {
-        app,
+        app: name,
         environment: Env.type,
         level: Env.LOGS_LEVEL,
         redactor,
@@ -35,7 +34,7 @@ export function createLogger(Env: EnvironmentResultType, deps: Dependencies) {
     [bg.NodeEnvironmentEnum.staging]: new bg.LoggerNoopAdapter(),
     [bg.NodeEnvironmentEnum.production]: new bg.Woodchopper(
       {
-        app,
+        app: name,
         environment: Env.type,
         level: Env.LOGS_LEVEL,
         redactor,

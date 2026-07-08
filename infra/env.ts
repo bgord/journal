@@ -1,6 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as v from "valibot";
+import { name } from "+infra/config";
 
 export enum AiClientAdapter {
   anthropic = "anthropic",
@@ -48,8 +49,8 @@ export const EnvironmentSchema = v.object({
 type EnvironmentType = v.InferOutput<typeof EnvironmentSchema>;
 export type EnvironmentResultType = bg.EnvironmentResultType<EnvironmentType>;
 
-export const MasterKeyPath = tools.FilePathAbsolute.fromString("/etc/bgord/journal/master.key");
-export const SecretsPath = tools.FilePathAbsolute.fromString("/var/www/journal/secrets.enc");
+export const MasterKeyPath = tools.FilePathAbsolute.fromString(`/etc/bgord/${name}/master.key`);
+export const SecretsPath = tools.FilePathAbsolute.fromString(`/var/www/${name}/secrets.enc`);
 
 export async function createEnvironmentLoader(): Promise<bg.EnvironmentLoaderPort<EnvironmentType>> {
   const type = v.parse(v.enum(bg.NodeEnvironmentEnum), process.env.NODE_ENV);
