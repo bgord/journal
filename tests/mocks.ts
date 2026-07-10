@@ -1116,7 +1116,7 @@ export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
   uniqueVisitors: tools.Int.nonNegative(1),
 };
 
-export const user: User = {
+export const user = {
   name: email,
   email: email,
   emailVerified: false,
@@ -1126,9 +1126,9 @@ export const user: User = {
   // biome-ignore lint: lint/style/noRestrictedGlobals
   updatedAt: new Date(),
   id: userId,
-};
+} satisfies User;
 
-export const anotherUser: User = {
+export const anotherUser = {
   name: anotherEmail,
   email: anotherEmail,
   emailVerified: false,
@@ -1138,7 +1138,7 @@ export const anotherUser: User = {
   // biome-ignore lint: lint/style/noRestrictedGlobals
   updatedAt: new Date(),
   id: anotherUserId,
-};
+} satisfies User;
 
 export const session: Session = {
   // biome-ignore lint: lint/style/noRestrictedGlobals
