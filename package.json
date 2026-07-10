@@ -29,9 +29,9 @@
   "dependencies": {
     "@anthropic-ai/sdk": "0.110.0",
     "@better-auth/drizzle-adapter": "1.6.23",
-    "@bgord/bun": "1.19.14",
-    "@bgord/design": "1.6.20",
-    "@bgord/ui": "0.9.4",
+    "@bgord/bun": "1.20.0",
+    "@bgord/design": "1.7.0",
+    "@bgord/ui": "0.10.0",
     "@tanstack/react-router": "1.170.17",
     "better-auth": "1.6.23",
     "better-sqlite3": "12.11.1",
