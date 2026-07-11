@@ -130,7 +130,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     ];
 
     for (const [index, detection] of Object.entries(inactivityDetections)) {
-      const alarmId = di.Adapters.System.IdProvider.generate();
+      const alarmId = v.parse(Emotions.VO.AlarmId, di.Adapters.System.IdProvider.generate());
+
       const alarm = Emotions.Aggregates.Alarm.generate(
         alarmId,
         detection,

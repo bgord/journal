@@ -17,10 +17,10 @@ import type * as Schema from "+infra/schema";
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
 export const entryId = v.parse(bg.UUID, "e3799aaf-da3d-491b-b408-9c642cc3c312");
-export const alarmId = v.parse(bg.UUID, "de578009-c9a7-4a59-8fb7-5223f82ef9ef");
+export const alarmId = v.parse(Emotions.VO.AlarmId, "de578009-c9a7-4a59-8fb7-5223f82ef9ef");
 export const userId = v.parse(bg.UUID, "60aac9b2-2c16-4e94-b024-0951723e0bed");
 export const anotherUserId = v.parse(bg.UUID, "cd74d060-d5de-4a81-8ffb-b2dc46cd4451");
-export const weeklyReviewId = v.parse(bg.UUID, "e212142f-0ac0-4641-a417-117a2909afa0");
+export const weeklyReviewId = v.parse(Emotions.VO.WeeklyReviewId, "e212142f-0ac0-4641-a417-117a2909afa0");
 export const weeklyReviewExportId = v.parse(bg.UUID, "4d4964cf-1429-4861-b7f7-b255c0072990");
 export const shareableLinkId = v.parse(bg.UUID, "2e469d5a-8317-459a-a0b9-b9a019acca19");
 export const historyId = v.parse(bg.UUID, "8d79bd87-1709-4c15-b40c-cd0fafaa0113");

@@ -1,5 +1,5 @@
 import * as bg from "@bgord/bun";
-import type * as v from "valibot";
+import * as v from "valibot";
 
-export const WeeklyReviewId = bg.UUID;
+export const WeeklyReviewId = v.pipe(bg.UUID, v.brand("WeeklyReviewId"));
 export type WeeklyReviewIdType = v.InferOutput<typeof WeeklyReviewId>;

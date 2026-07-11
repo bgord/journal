@@ -1,8 +1,10 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import type * as Emotions from "+emotions";
 import { WeeklyReview } from "../aggregates/weekly-review";
 import { WeeklyReviewSkippedEvent } from "../events/WEEKLY_REVIEW_SKIPPED_EVENT";
 import { EntriesForWeekExist } from "../invariants/entries-for-week-exist";
+import { WeeklyReviewId } from "../value-objects/weekly-review-id";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewSkippedEventType;
 
@@ -16,6 +18,8 @@ type Dependencies = {
 
 export const handleRequestWeeklyReviewCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.RequestWeeklyReviewCommandType) => {
+    const id = v.parse(WeeklyReviewId, deps.IdProvider.generate());
+
     const entriesPerWeekForUserCount = await deps.EntriesPerWeekCountQuery.execute(
       command.payload.userId,
       command.payload.week,
@@ -39,12 +43,7 @@ export const handleRequestWeeklyReviewCommand =
       return;
     }
 
-    const weeklyReview = WeeklyReview.request(
-      deps.IdProvider.generate(),
-      command.payload.week,
-      command.payload.userId,
-      deps,
-    );
+    const weeklyReview = WeeklyReview.request(id, command.payload.week, command.payload.userId, deps);
 
     await deps.repo.save(weeklyReview);
   };
