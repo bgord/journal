@@ -10,7 +10,7 @@ import * as testcases from "./testcases";
 
 const url = `/api/publishing/link/${mocks.shareableLinkId}/revoke`;
 
-describe(`POST ${url}`, async () => {
+describe("POST /api/publishing/link/:shareableLinkId/revoke", async () => {
   const di = await bootstrap();
   registerEventHandlers(di);
   registerCommandHandlers(di);

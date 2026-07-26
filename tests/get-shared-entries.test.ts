@@ -6,7 +6,7 @@ import * as mocks from "./mocks";
 
 const url = `/api/shared/entries/${mocks.shareableLinkId}`;
 
-describe(`GET ${url}`, async () => {
+describe("GET /api/shared/entries/:shareableLinkId", async () => {
   const di = await bootstrap();
   const server = createServer(di);
 

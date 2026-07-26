@@ -7,7 +7,7 @@ import * as mocks from "./mocks";
 
 const url = `/api/publishing/link/${mocks.shareableLinkId}/hide`;
 
-describe(`POST ${url}`, async () => {
+describe("POST /api/publishing/link/:shareableLinkId/hide", async () => {
   const di = await bootstrap();
   const server = createServer(di);
 

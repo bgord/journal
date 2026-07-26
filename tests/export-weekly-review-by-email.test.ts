@@ -9,7 +9,7 @@ import * as testcases from "./testcases";
 
 const url = `/api/weekly-review/${mocks.weeklyReviewId}/export/email`;
 
-describe(`POST ${url}`, async () => {
+describe("POST /api/weekly-review/:weeklyReviewId/export/email", async () => {
   const di = await bootstrap();
   registerEventHandlers(di);
   registerCommandHandlers(di);

@@ -11,7 +11,7 @@ import * as testcases from "./testcases";
 
 const url = `/api/entry/${mocks.entryId}/reappraise-emotion`;
 
-describe(`POST ${url}`, async () => {
+describe("POST /api/entry/:entryId/reappraise-emotion", async () => {
   const di = await bootstrap();
   registerEventHandlers(di);
   registerCommandHandlers(di);

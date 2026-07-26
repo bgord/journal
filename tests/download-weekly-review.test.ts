@@ -7,7 +7,7 @@ import * as testcases from "./testcases";
 
 const url = `/api/weekly-review/${mocks.weeklyReviewId}/export/download`;
 
-describe(`GET ${url}`, async () => {
+describe("GET /api/weekly-review/:weeklyReviewId/export/download", async () => {
   const di = await bootstrap();
   const server = createServer(di);
 
