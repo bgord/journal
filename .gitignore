@@ -17,3 +17,4 @@ sqlite.db*
 test-results/
 tmp/
 tsconfig.tsbuildinfo
+fallow-viz.html
