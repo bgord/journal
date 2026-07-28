@@ -25,6 +25,7 @@ type Dependencies = {
     | Emotions.Aggregates.WeeklyReviewEventType
   >;
   Logger: bg.LoggerPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
 };
 
 export function createEmotionsAdapters(Env: EnvironmentResultType, deps: Dependencies) {

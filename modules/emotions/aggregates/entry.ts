@@ -14,7 +14,11 @@ export type EntryEventType =
   | Events.ReactionEvaluatedEventType
   | Events.EntryDeletedEventType;
 
-type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
+};
 
 export class Entry {
   // Stryker disable all

@@ -6,7 +6,8 @@ import * as mocks from "./mocks";
 
 describe("PatternDetector", async () => {
   const di = await bootstrap();
-  const detector = new Emotions.Services.PatternDetector(di.Adapters.System);
+  const deps = { ...di.Adapters.System, ...di.Tools };
+  const detector = new Emotions.Services.PatternDetector(deps);
 
   test("detects multiple patterns", () => {
     bg.CorrelationStorage.run(mocks.correlationId, () => {

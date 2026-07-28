@@ -16,6 +16,7 @@ export type AuthVariables = {
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
   Logger: bg.LoggerPort;
   EventStore: bg.EventStorePort<Auth.Events.AccountCreatedEventType | Auth.Events.AccountDeletedEventType>;
   Mailer: bg.MailerPort;

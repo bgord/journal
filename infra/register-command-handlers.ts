@@ -27,6 +27,7 @@ export function registerCommandHandlers({ Adapters, Tools }: BootstrapType) {
     EmotionCommands.GENERATE_ALARM_COMMAND,
     EmotionCommandHandlers.handleGenerateAlarmCommand({
       ...Adapters.System,
+      ...Tools,
       repo: Adapters.Emotions.AlarmRepository,
       AiGateway: Adapters.AI.AiGateway,
     }),
@@ -35,6 +36,7 @@ export function registerCommandHandlers({ Adapters, Tools }: BootstrapType) {
     EmotionCommands.LOG_ENTRY_COMMAND,
     EmotionCommandHandlers.handleLogEntryCommand({
       ...Adapters.System,
+      ...Tools,
       repo: Adapters.Emotions.EntryRepository,
     }),
   );
@@ -87,6 +89,7 @@ export function registerCommandHandlers({ Adapters, Tools }: BootstrapType) {
     PublishingCommands.CREATE_SHAREABLE_LINK_COMMAND,
     PublishingCommandHandlers.handleCreateShareableLinkCommand({
       ...Adapters.System,
+      ...Tools,
       repo: Adapters.Publishing.ShareableLinkRepository,
       ShareableLinksQuotaQuery: Adapters.Publishing.ShareableLinksQuotaQuery,
     }),

@@ -8,6 +8,7 @@ type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
   Sleeper: bg.SleeperPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
 };
 
 class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {

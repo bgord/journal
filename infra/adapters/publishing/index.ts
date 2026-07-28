@@ -11,6 +11,7 @@ import { ShareableLinksQuotaQuery } from "./shareable-links-quota.adapter";
 type Dependencies = {
   Clock: bg.ClockPort;
   IdProvider: bg.IdProviderPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
   EventStore: bg.EventStorePort<Publishing.Aggregates.ShareableLinkEventType>;
 };
 

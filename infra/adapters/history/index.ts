@@ -10,6 +10,7 @@ type Dependencies = {
   >;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
 };
 
 export function createHistoryAdapters(deps: Dependencies) {

@@ -8,9 +8,10 @@ import * as mocks from "./mocks";
 
 describe("WeeklyReview", async () => {
   const di = await bootstrap();
+  const deps = { ...di.Adapters.System, ...di.Tools };
 
   test("build new aggregate", () => {
-    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [], di.Adapters.System);
+    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [], deps);
 
     expect(weeklyReview.pullEvents()).toEqual([]);
   });
@@ -21,7 +22,7 @@ describe("WeeklyReview", async () => {
         mocks.weeklyReviewId,
         mocks.previousWeek,
         mocks.userId,
-        di.Adapters.System,
+        deps,
       );
 
       expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewRequestedEvent]);
@@ -40,7 +41,7 @@ describe("WeeklyReview", async () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(
       mocks.weeklyReviewId,
       [mocks.GenericWeeklyReviewRequestedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => weeklyReview.complete(mocks.insights));
@@ -59,7 +60,7 @@ describe("WeeklyReview", async () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(
       mocks.weeklyReviewId,
       [mocks.GenericWeeklyReviewRequestedEvent, mocks.GenericWeeklyReviewCompletedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -74,7 +75,7 @@ describe("WeeklyReview", async () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(
       mocks.weeklyReviewId,
       [mocks.GenericWeeklyReviewRequestedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => weeklyReview.fail());
@@ -93,7 +94,7 @@ describe("WeeklyReview", async () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(
       mocks.weeklyReviewId,
       [mocks.GenericWeeklyReviewRequestedEvent, mocks.GenericWeeklyReviewFailedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {

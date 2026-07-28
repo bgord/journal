@@ -6,6 +6,7 @@ type Dependencies = {
   repo: Emotions.Ports.EntryRepositoryPort;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
 };
 
 export const handleLogEntryCommand =

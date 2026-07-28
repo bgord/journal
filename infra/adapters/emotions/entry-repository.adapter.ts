@@ -4,6 +4,7 @@ import * as Emotions from "+emotions";
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
   EventStore: bg.EventStorePort<Emotions.Aggregates.EntryEventType>;
 };
 

@@ -5,7 +5,11 @@ import * as Events from "+emotions/events";
 import * as VO from "+emotions/value-objects";
 import { Pattern, type PatternDetectionEventType, PatternKindOptions } from "./pattern";
 
-type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
+};
 
 export class MaladaptiveReactionsPattern extends Pattern {
   name = VO.PatternNameOption.MaladaptiveReactionsPattern;

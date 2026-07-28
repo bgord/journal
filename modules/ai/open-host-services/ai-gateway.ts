@@ -16,6 +16,7 @@ type Dependencies = {
   AiClient: Ports.AiClientPort;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
   BucketCounter: Ports.BucketCounterPort;
 };
 

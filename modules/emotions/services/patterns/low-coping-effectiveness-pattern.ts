@@ -5,7 +5,11 @@ import * as Events from "+emotions/events";
 import * as Patterns from "+emotions/services/patterns/pattern";
 import * as VO from "+emotions/value-objects";
 
-type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
+};
 
 export class LowCopingEffectivenessPattern extends Patterns.Pattern {
   name = VO.PatternNameOption.LowCopingEffectivenessPattern;

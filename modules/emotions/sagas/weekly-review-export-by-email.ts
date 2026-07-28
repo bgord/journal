@@ -24,6 +24,7 @@ type Dependencies = {
   EventStore: bg.EventStorePort<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
   Mailer: bg.MailerPort;
   PdfGenerator: bg.PdfGeneratorPort;
   Sleeper: bg.SleeperPort;

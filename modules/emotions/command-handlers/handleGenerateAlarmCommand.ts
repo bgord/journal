@@ -11,6 +11,7 @@ type Dependencies = {
   AiGateway: AI.Ports.AiGatewayPort;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
 };
 
 export const handleGenerateAlarmCommand =

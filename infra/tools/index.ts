@@ -43,7 +43,7 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
   const CommitConfig = new bg.StaticConfigAdapter<bg.CommitShaValueType>((await BuildInfoConfig.get()).sha);
 
   return {
-    Auth: createShieldAuth(Env, { ...deps, EventStore }),
+    Auth: createShieldAuth(Env, { ...deps, EventStore, CommitConfig }),
     CacheResponse: createCacheResponse({ HashContent }),
     CronScheduler,
     Prerequisites: createPrerequisites(Env, { ...deps, TranslationsProvider, CronScheduler }),

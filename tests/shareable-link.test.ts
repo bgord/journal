@@ -7,24 +7,21 @@ import * as mocks from "./mocks";
 
 describe("ShareableLink", async () => {
   const di = await bootstrap();
+  const deps = { ...di.Adapters.System, ...di.Tools };
 
   test("build new aggregate", () => {
-    expect(
-      Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], di.Adapters.System).pullEvents(),
-    ).toEqual([]);
+    expect(Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], deps).pullEvents()).toEqual([]);
   });
 
   test("isEmpty - true", () => {
-    expect(
-      Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], di.Adapters.System).isEmpty(),
-    ).toEqual(true);
+    expect(Publishing.Aggregates.ShareableLink.build(mocks.alarmId, [], deps).isEmpty()).toEqual(true);
   });
 
   test("isEmpty - true", () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(shareableLink.isEmpty()).toEqual(false);
@@ -40,7 +37,7 @@ describe("ShareableLink", async () => {
         mocks.dateRange,
         mocks.durationMs,
         mocks.userId,
-        di.Adapters.System,
+        deps,
       );
 
       expect(shareableLink.pullEvents()).toEqual([mocks.GenericShareableLinkCreatedEvent]);
@@ -56,7 +53,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.shareableLinkId,
       [mocks.GenericShareableLinkCreatedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -70,7 +67,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent, mocks.GenericShareableLinkExpiredEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(async () => shareableLink.expire()).toThrow(Publishing.Invariants.ShareableLinkIsActive.error);
@@ -85,7 +82,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(async () => shareableLink.expire()).toThrow(
@@ -99,7 +96,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.shareableLinkId,
       [mocks.GenericShareableLinkCreatedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () => {
@@ -113,7 +110,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent, mocks.GenericShareableLinkRevokedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(async () => shareableLink.revoke(mocks.userId)).toThrow(
@@ -126,7 +123,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent, mocks.GenericShareableLinkExpiredEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(async () => shareableLink.revoke(mocks.userId)).toThrow(
@@ -139,7 +136,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(async () => shareableLink.revoke(mocks.anotherUserId)).toThrow(
@@ -152,7 +149,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(shareableLink.isValid("entries")).toEqual(true);
@@ -162,7 +159,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent, mocks.GenericShareableLinkExpiredEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(shareableLink.isValid("entries")).toEqual(false);
@@ -172,7 +169,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent, mocks.GenericShareableLinkRevokedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(shareableLink.isValid("entries")).toEqual(false);
@@ -182,7 +179,7 @@ describe("ShareableLink", async () => {
     const shareableLink = Publishing.Aggregates.ShareableLink.build(
       mocks.alarmId,
       [mocks.GenericShareableLinkCreatedEvent, mocks.GenericShareableLinkRevokedEvent],
-      di.Adapters.System,
+      deps,
     );
 
     expect(shareableLink.isValid("other")).toEqual(false);

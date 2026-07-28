@@ -12,7 +12,11 @@ export type WeeklyReviewEventType =
   | Events.WeeklyReviewCompletedEventType
   | Events.WeeklyReviewFailedEventType;
 
-type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
+};
 
 export class WeeklyReview {
   // Stryker disable all

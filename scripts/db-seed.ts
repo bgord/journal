@@ -88,6 +88,8 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
   registerEventHandlers(di);
   registerCommandHandlers(di);
 
+  const deps = { ...di.Adapters.System, ...di.Tools };
+
   const now = di.Adapters.System.Clock.now();
   const correlationId = di.Adapters.System.IdProvider.generate();
 
@@ -107,7 +109,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
           Auth.Events.AccountCreatedEvent,
           `account_${result.user.id}`,
           { userId: result.user.id, timestamp: now.ms },
-          di.Adapters.System,
+          deps,
         );
 
         await di.Tools.EventStore.save([event]);
@@ -136,7 +138,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         alarmId,
         detection,
         users[0]?.user.id as Auth.VO.UserIdType,
-        di.Adapters.System,
+        deps,
       );
 
       await di.Tools.EventStore.save(alarm.pullEvents());
@@ -178,7 +180,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         reaction,
         users[0]?.user.id as Auth.VO.UserIdType,
         Emotions.VO.EntryOriginOption.web,
-        di.Adapters.System,
+        deps,
       );
 
       await di.Tools.EventStore.save(entry.pullEvents());
@@ -230,7 +232,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       new tools.DateRange(now.subtract(tools.Duration.Days(7)), now),
       tools.Duration.Days(3).ms,
       users[0]?.user.id as Auth.VO.UserIdType,
-      di.Adapters.System,
+      { ...di.Adapters.System, ...di.Tools },
     );
 
     await di.Tools.EventStore.save(shareableLink.pullEvents());

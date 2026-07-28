@@ -12,6 +12,7 @@ type AcceptedEvent = Preferences.Events.ProfileAvatarUpdatedEventType;
 type Dependencies = {
   EventStore: bg.EventStorePort<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
   Clock: bg.ClockPort;
   ImageInfo: bg.ImageInfoPort;
   ImageProcessor: bg.ImageProcessorPort;

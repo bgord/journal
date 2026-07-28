@@ -17,6 +17,7 @@ describe("AiGateway", async () => {
     IdProvider: di.Adapters.System.IdProvider,
     Clock: di.Adapters.System.Clock,
     BucketCounter: di.Adapters.AI.BucketCounter,
+    CommitConfig: di.Tools.CommitConfig,
   });
 
   test("happy path", async () => {

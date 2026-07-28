@@ -4,6 +4,7 @@ import * as Publishing from "+publishing";
 type Dependencies = {
   Clock: bg.ClockPort;
   IdProvider: bg.IdProviderPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
   EventStore: bg.EventStorePort<Publishing.Events.ShareableLinkAccessedEventType>;
 };
 

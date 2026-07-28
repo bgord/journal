@@ -10,6 +10,7 @@ type Dependencies = {
   EventStore: bg.EventStorePort<AcceptedEvent>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
 };
 
 export const handleScheduleTimeCapsuleEntryCommand =

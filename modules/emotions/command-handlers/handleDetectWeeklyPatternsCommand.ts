@@ -13,6 +13,7 @@ type Dependencies = {
   EventStore: bg.EventStorePort<AcceptedEvent>;
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
   IdProvider: bg.IdProviderPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
   Clock: bg.ClockPort;
 };
 

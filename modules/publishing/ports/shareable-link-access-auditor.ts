@@ -20,6 +20,7 @@ type Dependencies = {
   EventStore: bg.EventStorePort<Publishing.Events.ShareableLinkAccessedEventType>;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
 };
 
 export class ShareableLinkAccessAuditorAdapter implements Publishing.Ports.ShareableLinkAccessAuditorPort {

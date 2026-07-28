@@ -7,6 +7,7 @@ type Dependencies = {
   repo: Publishing.Ports.ShareableLinkRepositoryPort;
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
   ShareableLinksQuotaQuery: Publishing.Queries.ShareableLinksQuotaQuery;
 };
 

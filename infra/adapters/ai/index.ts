@@ -12,6 +12,7 @@ type Dependencies = {
   Clock: bg.ClockPort;
   IdProvider: bg.IdProviderPort;
   Logger: bg.LoggerPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
 };
 
 export function createAuthAdapter(Env: EnvironmentResultType, deps: Dependencies) {

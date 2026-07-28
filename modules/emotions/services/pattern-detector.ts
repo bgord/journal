@@ -4,7 +4,11 @@ import type * as Auth from "+auth";
 import type * as Patterns from "+emotions/services/patterns";
 import type * as VO from "+emotions/value-objects";
 
-type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
+};
 
 type PatternDetectorConfigType = {
   userId: Auth.VO.UserIdType;

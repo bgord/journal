@@ -12,7 +12,11 @@ export type AlarmEventType =
   | Events.AlarmNotificationSentEventType
   | Events.AlarmCancelledEventType;
 
-type Dependencies = { IdProvider: bg.IdProviderPort; Clock: bg.ClockPort };
+type Dependencies = {
+  IdProvider: bg.IdProviderPort;
+  Clock: bg.ClockPort;
+  CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
+};
 
 export class Alarm {
   // Stryker disable all
