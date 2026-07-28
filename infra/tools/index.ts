@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type { EnvironmentResultType } from "+infra/env";
 import { createBuildInfoConfig } from "./build-info-config.adapter";
 import { createCacheResponse } from "./cache-response";
@@ -39,6 +39,8 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
   const EventStore = createEventStore(Env, { ...deps, EventBus });
   const CronScheduler = await createCronScheduler(Env, deps);
   const TranslationsProvider = createTranslationsProvider(deps);
+  const BuildInfoConfig = createBuildInfoConfig(Env, deps);
+  const CommitConfig = new bg.StaticConfigAdapter<bg.CommitShaValueType>((await BuildInfoConfig.get()).sha);
 
   return {
     Auth: createShieldAuth(Env, { ...deps, EventStore }),
@@ -54,7 +56,8 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
     EventBus,
     EventStore,
     ShieldSecurity: createShieldSecurity(Env, { ...deps, HashContent }),
-    BuildInfoConfig: createBuildInfoConfig(Env, deps),
+    BuildInfoConfig,
+    CommitConfig,
     SseRegistry: createSseRegistry(deps),
     HashContent,
     TranslationsProvider,
