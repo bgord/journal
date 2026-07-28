@@ -13,6 +13,7 @@ describe("ACCOUNT_DELETED_EVENT", () => {
       createdAt: mocks.T0.ms,
       stream: `user_${mocks.userId}`,
       version: 1,
+      commit: mocks.commit,
     } as const;
 
     const event = v.safeParse(

@@ -16,6 +16,8 @@ import type * as Schema from "+infra/schema";
 // IDs
 export const correlationId = "00000000-0000-0000-0000-000000000000";
 
+export const commit = bg.CommitSha.fromString("a".repeat(40)).value;
+
 export const entryId = v.parse(bg.UUID, "e3799aaf-da3d-491b-b408-9c642cc3c312");
 export const alarmId = v.parse(Emotions.VO.AlarmId, "de578009-c9a7-4a59-8fb7-5223f82ef9ef");
 export const userId = v.parse(bg.UUID, "60aac9b2-2c16-4e94-b024-0951723e0bed");
@@ -167,6 +169,7 @@ export const GenericSituationLoggedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "SITUATION_LOGGED_EVENT",
   payload: {
     entryId,
@@ -191,6 +194,7 @@ export const GenericEmotionLoggedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "EMOTION_LOGGED_EVENT",
   payload: {
     entryId,
@@ -206,6 +210,7 @@ export const GenericReactionLoggedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "REACTION_LOGGED_EVENT",
   payload: {
     entryId,
@@ -222,6 +227,7 @@ export const GenericEmotionReappraisedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "EMOTION_REAPPRAISED_EVENT",
   payload: {
     entryId,
@@ -237,6 +243,7 @@ export const GenericReactionEvaluatedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "REACTION_EVALUATED_EVENT",
   payload: {
     entryId,
@@ -253,6 +260,7 @@ export const NegativeEmotionExtremeIntensityLoggedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "EMOTION_LOGGED_EVENT",
   payload: {
     entryId,
@@ -268,6 +276,7 @@ export const NegativeEmotionLoggedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "EMOTION_LOGGED_EVENT",
   payload: {
     entryId,
@@ -283,6 +292,7 @@ export const NegativeEmotionExtremeIntensityReappraisedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "EMOTION_REAPPRAISED_EVENT",
   payload: {
     entryId,
@@ -298,6 +308,7 @@ export const NegativeEmotionReappraisedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "EMOTION_REAPPRAISED_EVENT",
   payload: {
     entryId,
@@ -313,6 +324,7 @@ export const GenericEntryDeletedEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "ENTRY_DELETED_EVENT",
   payload: { entryId, userId },
 } satisfies Emotions.Events.EntryDeletedEventType;
@@ -323,6 +335,7 @@ export const GenericTimeCapsuleEntryScheduledEvent = {
   createdAt: T0.ms,
   stream: Emotions.Aggregates.Entry.getStream(entryId),
   version: 1,
+  commit,
   name: "TIME_CAPSULE_ENTRY_SCHEDULED_EVENT",
   payload: {
     entryId,
@@ -345,6 +358,7 @@ export const PositiveEmotionWithMaladaptiveReactionPatternDetectedEvent = {
   createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   version: 1,
+  commit,
   name: "POSITIVE_EMOTION_WITH_MALADAPTIVE_REACTION_PATTERN_DETECTED_EVENT",
   payload: {
     userId,
@@ -360,6 +374,7 @@ export const MoreNegativeThanPositiveEmotionsPatternDetectedEvent = {
   createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${previousWeek.toIsoId()}`,
   version: 1,
+  commit,
   name: "MORE_NEGATIVE_THAN_POSITIVE_EMOTIONS_PATTERN_DETECTED_EVENT",
   payload: {
     userId,
@@ -374,6 +389,7 @@ export const MaladaptiveReactionsPatternDetectedEvent = {
   createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   version: 1,
+  commit,
   name: "MALADAPTIVE_REACTIONS_PATTERN_DETECTED_EVENT",
   payload: {
     userId,
@@ -389,6 +405,7 @@ export const LowCopingEffectivenessPatternDetectedEvent = {
   createdAt: T0.ms,
   stream: `weekly_pattern_detection_${userId}_${week.toIsoId()}`,
   version: 1,
+  commit,
   name: "LOW_COPING_EFFECTIVENESS_PATTERN_DETECTED_EVENT",
   payload: {
     userId,
@@ -403,6 +420,7 @@ export const GenericAlarmGeneratedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "ALARM_GENERATED_EVENT",
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM,
@@ -418,6 +436,7 @@ export const GenericInactivityAlarmGeneratedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "ALARM_GENERATED_EVENT",
   payload: {
     alarmName: Emotions.VO.AlarmNameOption.INACTIVITY_ALARM,
@@ -433,6 +452,7 @@ export const GenericAlarmAdviceSavedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "ALARM_ADVICE_SAVED_EVENT",
   payload: { advice: advice.get(), alarmId, userId },
 } satisfies Emotions.Events.AlarmAdviceSavedEventType;
@@ -443,6 +463,7 @@ export const GenericAlarmNotificationRequestedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "ALARM_NOTIFICATION_REQUESTED_EVENT",
   payload: {
     alarmId,
@@ -459,6 +480,7 @@ export const GenericInactivityAlarmNotificationRequestedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "ALARM_NOTIFICATION_REQUESTED_EVENT",
   payload: {
     alarmId,
@@ -475,6 +497,7 @@ export const GenericAlarmNotificationSentEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "ALARM_NOTIFICATION_SENT_EVENT",
   payload: { alarmId },
 } satisfies Emotions.Events.AlarmNotificationSentEventType;
@@ -485,6 +508,7 @@ export const GenericAlarmCancelledEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "ALARM_CANCELLED_EVENT",
   payload: { alarmId, userId },
 } satisfies Emotions.Events.AlarmCancelledEventType;
@@ -495,6 +519,7 @@ export const GenericWeeklyReviewRequestedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "WEEKLY_REVIEW_REQUESTED_EVENT",
   payload: { weekIsoId: previousWeek.toIsoId(), weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewRequestedEventType;
@@ -505,6 +530,7 @@ export const GenericWeeklyReviewSkippedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "WEEKLY_REVIEW_SKIPPED_EVENT",
   payload: { weekIsoId: previousWeek.toIsoId(), userId },
 } satisfies Emotions.Events.WeeklyReviewSkippedEventType;
@@ -515,6 +541,7 @@ export const GenericWeeklyReviewCompletedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "WEEKLY_REVIEW_COMPLETED_EVENT",
   payload: { insights: insights.get(), weeklyReviewId, weekIsoId: previousWeek.toIsoId(), userId },
 } satisfies Emotions.Events.WeeklyReviewCompletedEventType;
@@ -525,6 +552,7 @@ export const GenericWeeklyReviewFailedEvent = {
   createdAt: T0.ms,
   stream: expect.any(String),
   version: 1,
+  commit,
   name: "WEEKLY_REVIEW_FAILED_EVENT",
   payload: { weekIsoId: previousWeek.toIsoId(), weeklyReviewId, userId },
 } satisfies Emotions.Events.WeeklyReviewFailedEventType;
@@ -535,6 +563,7 @@ export const GenericWeeklyReviewExportByEmailRequestedEvent = {
   createdAt: T0.ms,
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
+  commit,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT",
   payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: tools.Int.positive(1) },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
@@ -569,6 +598,7 @@ export const GenericWeeklyReviewExportByEmailFailedEvent = {
   createdAt: T0.ms,
   stream: `weekly_review_export_by_email_${weeklyReviewExportId}`,
   version: 1,
+  commit,
   name: "WEEKLY_REVIEW_EXPORT_BY_EMAIL_FAILED_EVENT",
   payload: { weeklyReviewId, userId, weeklyReviewExportId, attempt: tools.Int.positive(1) },
 } satisfies Emotions.Events.WeeklyReviewExportByEmailFailedEventType;
@@ -603,6 +633,7 @@ export const GenericShareableLinkCreatedEvent = {
   createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
+  commit,
   name: "SHAREABLE_LINK_CREATED_EVENT",
   payload: {
     shareableLinkId,
@@ -621,6 +652,7 @@ export const GenericShareableLinkExpiredEvent = {
   createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
+  commit,
   name: "SHAREABLE_LINK_EXPIRED_EVENT",
   payload: { shareableLinkId },
 } satisfies Publishing.Events.ShareableLinkExpiredEventType;
@@ -631,6 +663,7 @@ export const GenericShareableLinkRevokedEvent = {
   createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
+  commit,
   name: "SHAREABLE_LINK_REVOKED_EVENT",
   payload: { shareableLinkId },
 } satisfies Publishing.Events.ShareableLinkRevokedEventType;
@@ -641,6 +674,7 @@ export const GenericShareableLinkAccessedAcceptedEvent = {
   createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
+  commit,
   name: "SHAREABLE_LINK_ACCESSED_EVENT",
   payload: {
     shareableLinkId,
@@ -659,6 +693,7 @@ export const GenericShareableLinkAccessedExpiredEvent = {
   createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
+  commit,
   name: "SHAREABLE_LINK_ACCESSED_EVENT",
   payload: {
     shareableLinkId,
@@ -677,6 +712,7 @@ export const GenericShareableLinkAccessedRevokedEvent = {
   createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
+  commit,
   name: "SHAREABLE_LINK_ACCESSED_EVENT",
   payload: {
     shareableLinkId,
@@ -695,6 +731,7 @@ export const GenericShareableLinkAccessedWrongSpecEvent = {
   createdAt: T0.ms,
   stream: `shareable_link_${shareableLinkId}`,
   version: 1,
+  commit,
   name: "SHAREABLE_LINK_ACCESSED_EVENT",
   payload: {
     shareableLinkId,
@@ -713,6 +750,7 @@ export const GenericHourHasPassedEvent = {
   createdAt: T0.ms,
   stream: "passage_of_time",
   version: 1,
+  commit,
   name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: hourHasPassedTimestamp.ms },
 } satisfies bg.System.Events.HourHasPassedEventType;
@@ -723,6 +761,7 @@ export const GenericHourHasPassedMondayUtc18Event = {
   createdAt: T0.ms,
   stream: "passage_of_time",
   version: 1,
+  commit,
   name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: tools.Timestamp.fromNumber(1754330400000).ms },
 } satisfies bg.System.Events.HourHasPassedEventType;
@@ -733,6 +772,7 @@ export const GenericHourHasPassedMondayUtc12Event = {
   createdAt: T0.ms,
   stream: "passage_of_time",
   version: 1,
+  commit,
   name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: tools.Timestamp.fromNumber(1754308800000).ms },
 } satisfies bg.System.Events.HourHasPassedEventType;
@@ -753,6 +793,7 @@ export const HourHasPassedNextMondayUtc18Event = {
   createdAt: T0.ms,
   stream: "passage_of_time",
   version: 1,
+  commit,
   name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: tools.Timestamp.fromInstant(getNextMonday1800UTC()).ms },
 } satisfies bg.System.Events.HourHasPassedEventType;
@@ -763,6 +804,7 @@ export const GenericHourHasPassedWednesdayUtc18Event = {
   createdAt: T0.ms,
   stream: "passage_of_time",
   version: 1,
+  commit,
   name: "HOUR_HAS_PASSED_EVENT",
   payload: { timestamp: tools.Timestamp.fromNumber(1754503200000).ms },
 } satisfies bg.System.Events.HourHasPassedEventType;
@@ -773,6 +815,7 @@ export const GenericAiRequestRegisteredEmotionsAlarmEntryEvent = {
   createdAt: T0.ms,
   stream: `user_ai_usage_${userId}`,
   version: 1,
+  commit,
   name: "AI_REQUEST_REGISTERED_EVENT",
   payload: {
     category: AI.UsageCategory.EMOTIONS_ALARM_ENTRY,
@@ -788,6 +831,7 @@ export const GenericAiQuotaExceededEvent = {
   createdAt: T0.ms,
   stream: `user_ai_usage_${userId}`,
   version: 1,
+  commit,
   name: "AI_QUOTA_EXCEEDED_EVENT",
   payload: { userId, timestamp: aiRequestRegisteredTimestamp.ms },
 } satisfies AI.Events.AiQuotaExceededEventType;
@@ -798,6 +842,7 @@ export const GenericEntryHistorySituationLoggedEvent = {
   createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
+  commit,
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
@@ -816,6 +861,7 @@ export const GenericEntryHistoryEmotionLoggedEvent = {
   createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
+  commit,
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
@@ -834,6 +880,7 @@ export const GenericEntryHistoryReactionLoggedEvent = {
   createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
+  commit,
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
@@ -853,6 +900,7 @@ export const GenericEntryHistoryEmotionReappraisedEvent = {
   createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
+  commit,
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
@@ -871,6 +919,7 @@ export const GenericEntryHistoryReactionEvaluatedEvent = {
   createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
+  commit,
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
@@ -890,6 +939,7 @@ export const GenericEntryHistoryClearedEvent = {
   createdAt: T0.ms,
   stream: `history_${entryId}`,
   version: 1,
+  commit,
   name: "HISTORY_CLEARED_EVENT",
   payload: { subject: entryId },
 } satisfies bg.History.Events.HistoryClearedEventType;
@@ -900,6 +950,7 @@ export const GenericAccountCreatedEvent = {
   createdAt: T0.ms,
   stream: `account_${userId}`,
   version: 1,
+  commit,
   name: "ACCOUNT_CREATED_EVENT",
   payload: { userId, timestamp: T0.ms },
 } satisfies Auth.Events.AccountCreatedEventType;
@@ -910,6 +961,7 @@ export const GenericUserLanguageSetEvent = {
   createdAt: T0.ms,
   stream: `preferences_${userId}`,
   version: 1,
+  commit,
   name: "USER_LANGUAGE_SET_EVENT",
   payload: { userId, language: languages.supported.en },
 } satisfies bg.Preferences.Events.UserLanguageSetEventType;
@@ -920,6 +972,7 @@ export const GenericUserLanguageSetPLEvent = {
   createdAt: T0.ms,
   stream: `preferences_${userId}`,
   version: 1,
+  commit,
   name: "USER_LANGUAGE_SET_EVENT",
   payload: { userId, language: languages.supported.pl },
 } satisfies bg.Preferences.Events.UserLanguageSetEventType;
@@ -930,6 +983,7 @@ export const GenericProfileAvatarUpdatedEvent = {
   createdAt: T0.ms,
   stream: `preferences_${userId}`,
   version: 1,
+  commit,
   name: "PROFILE_AVATAR_UPDATED_EVENT",
   payload: { userId, key: objectKey, etag: etag.get() },
 } satisfies Preferences.Events.ProfileAvatarUpdatedEventType;
@@ -940,6 +994,7 @@ export const GenericProfileAvatarRemovedEvent = {
   createdAt: T0.ms,
   stream: `preferences_${userId}`,
   version: 1,
+  commit,
   name: "PROFILE_AVATAR_REMOVED_EVENT",
   payload: { userId },
 } satisfies Preferences.Events.ProfileAvatarRemovedEventType;
