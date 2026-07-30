@@ -16,7 +16,7 @@ export const CreateShareableLink = (deps: Dependencies) => async (c: hono.Contex
   const body = await context.request.json();
 
   const requesterId = context.identity.userId() as string;
-  const timeZoneOffset = c.get("timeZoneOffset");
+  const timeZoneOffset = context.middleware.timeZoneOffset();
   const publicationSpecification = v.parse(
     Publishing.VO.PublicationSpecification,
     body["publicationSpecification"],

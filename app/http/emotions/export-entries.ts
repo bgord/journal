@@ -19,7 +19,7 @@ export const ExportEntries = (deps: Dependencies) => async (c: hono.Context<infr
   const query = context.request.query();
 
   const userId = context.identity.userId() as string;
-  const timeZoneOffset = c.get("timeZoneOffset");
+  const timeZoneOffset = context.middleware.timeZoneOffset();
   const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeStart"])).getStart();
   const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeEnd"])).getEnd();
   const strategy = v.parse(Emotions.VO.EntryExportStrategy, query["strategy"]);

@@ -13,7 +13,7 @@ export const ListShareableLinks = (deps: Dependencies) => async (c: hono.Context
   const context = new bg.RequestContextHonoAdapter(c);
 
   const userId = context.identity.userId() as string;
-  const timeZoneOffset = c.get("timeZoneOffset");
+  const timeZoneOffset = context.middleware.timeZoneOffset();
 
   const shareableLinks = await deps.ShareableLinkSnapshot.getByUserId(userId, timeZoneOffset);
 

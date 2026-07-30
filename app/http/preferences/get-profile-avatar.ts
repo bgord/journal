@@ -9,12 +9,12 @@ export const GetProfileAvatar = (deps: Dependencies) => async (c: hono.Context<i
   const context = new bg.RequestContextHonoAdapter(c);
   const headers = context.request.headers();
 
-  const user = c.get("user");
+  const userId = context.identity.userId() as string;
 
-  const key = Preferences.VO.ProfileAvatarKeyFactory.stable(user.id);
+  const key = Preferences.VO.ProfileAvatarKeyFactory.stable(userId);
 
   const head = await deps.RemoteFileStorage.head(key);
-  if (!head.exists) return c.notFound();
+  if (!head.exists) return new Response(null, { status: 404 });
 
   const ifNoneMatchHeader = headers.get("if-none-match");
 
@@ -23,7 +23,7 @@ export const GetProfileAvatar = (deps: Dependencies) => async (c: hono.Context<i
   }
 
   const stream = await deps.RemoteFileStorage.getStream(key);
-  if (!stream) return c.notFound();
+  if (!stream) return new Response(null, { status: 404 });
 
   return new Response(stream, { headers: bg.CacheFileMustRevalidate.fresh(head) });
 };
