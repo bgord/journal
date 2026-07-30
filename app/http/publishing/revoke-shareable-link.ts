@@ -1,5 +1,4 @@
 import * as bg from "@bgord/bun";
-import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as v from "valibot";
 import type * as infra from "+infra";
@@ -17,11 +16,10 @@ export const RevokeShareableLink = (deps: Dependencies) => async (c: hono.Contex
 
   const requesterId = context.identity.userId() as string;
   const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, params["shareableLinkId"]);
-  const revision = tools.Revision.fromWeakETag(context.middleware.weakETag());
 
   const command = bg.command(
     Publishing.Commands.RevokeShareableLinkCommand,
-    { revision, payload: { shareableLinkId, requesterId } },
+    { revision: context.middleware.revision.fromWeakETag(), payload: { shareableLinkId, requesterId } },
     deps,
   );
 
