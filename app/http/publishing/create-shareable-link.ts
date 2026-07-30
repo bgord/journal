@@ -12,19 +12,18 @@ type Dependencies = {
 };
 
 export const CreateShareableLink = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const requesterId = c.get("user").id;
-  const body = await c.req.json();
-  const timeZoneOffset = c.get("timeZoneOffset");
+  const context = new bg.RequestContextHonoAdapter(c);
+  const body = await context.request.json();
 
+  const requesterId = context.identity.userId() as string;
+  const timeZoneOffset = c.get("timeZoneOffset");
   const publicationSpecification = v.parse(
     Publishing.VO.PublicationSpecification,
-    body.publicationSpecification,
+    body["publicationSpecification"],
   );
-
-  const duration = tools.Duration.Ms(body.durationMs);
-
-  const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body.dateRangeStart)).getStart();
-  const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body.dateRangeEnd)).getEnd();
+  const duration = tools.Duration.Ms(body["durationMs"] as number);
+  const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body["dateRangeStart"])).getStart();
+  const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body["dateRangeEnd"])).getEnd();
 
   const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
 

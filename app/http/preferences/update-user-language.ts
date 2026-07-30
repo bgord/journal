@@ -1,5 +1,7 @@
 import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import type hono from "hono";
+import * as v from "valibot";
 import type * as infra from "+infra";
 
 type Dependencies = {
@@ -9,12 +11,15 @@ type Dependencies = {
 };
 
 export const UpdateUserLanguage = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const userId = c.get("user").id;
-  const body = await c.req.json();
+  const context = new bg.RequestContextHonoAdapter(c);
+  const body = await context.request.json();
+
+  const userId = context.identity.userId() as string;
+  const language = v.parse(tools.Language, body["language"]);
 
   const command = bg.command(
     bg.Preferences.Commands.SetUserLanguageCommand,
-    { payload: { userId, language: body.language } },
+    { payload: { userId, language } },
     deps,
   );
 

@@ -14,7 +14,9 @@ type Dependencies = {
 };
 
 export const ExportData = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const userId = c.get("user").id;
+  const context = new bg.RequestContextHonoAdapter(c);
+
+  const userId = context.identity.userId() as string;
 
   const entries = await deps.EntrySnapshot.getAllForUser(userId);
   const alarms = await deps.AlarmDirectory.listForUser(userId);

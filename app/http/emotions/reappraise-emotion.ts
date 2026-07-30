@@ -12,14 +12,19 @@ type Dependencies = {
 };
 
 export const ReappraiseEmotion = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const userId = c.get("user").id;
-  const body = await c.req.json();
+  const context = new bg.RequestContextHonoAdapter(c);
+  const params = context.request.params();
+  const body = await context.request.json();
+
+  const userId = context.identity.userId() as string;
+  const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
+  const label = v.parse(Emotions.VO.EmotionLabelSchema, body["label"]);
+  const intensity = v.parse(Emotions.VO.EmotionIntensitySchema, body["intensity"]);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
-  const entryId = v.parse(Emotions.VO.EntryId, c.req.param("entryId"));
 
   const newEmotion = new Emotions.Entities.Emotion(
-    new Emotions.VO.EmotionLabel(body.label),
-    new Emotions.VO.EmotionIntensity(body.intensity),
+    new Emotions.VO.EmotionLabel(label),
+    new Emotions.VO.EmotionIntensity(intensity),
   );
 
   const command = bg.command(

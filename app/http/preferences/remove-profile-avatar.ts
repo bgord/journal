@@ -10,7 +10,9 @@ type Dependencies = {
 };
 
 export const RemoveProfileAvatar = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const userId = c.get("user").id;
+  const context = new bg.RequestContextHonoAdapter(c);
+
+  const userId = context.identity.userId() as string as string;
 
   const command = bg.command(Preferences.Commands.RemoveProfileAvatarCommand, { payload: { userId } }, deps);
 

@@ -7,7 +7,10 @@ import type * as infra from "+infra";
 type Dependencies = { HistoryReader: bg.History.Ports.HistoryReaderPort };
 
 export const HistoryList = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const subject = v.parse(bg.History.VO.HistorySubject, c.req.param("subject"));
+  const context = new bg.RequestContextHonoAdapter(c);
+  const params = context.request.params();
+
+  const subject = v.parse(bg.History.VO.HistorySubject, params["subject"]);
 
   const list = await deps.HistoryReader.read(subject);
 

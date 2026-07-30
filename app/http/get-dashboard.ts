@@ -1,5 +1,5 @@
 // Stryker disable all
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as v from "valibot";
@@ -60,7 +60,9 @@ export type DashboardDataType = {
 };
 
 export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const userId = c.get("user").id;
+  const context = new bg.RequestContextHonoAdapter(c);
+
+  const userId = context.identity.userId() as string;
 
   const dashboard = await deps.DashboardQuery.get(userId, deps.Clock.now());
   const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, tools.Int.positive(5));

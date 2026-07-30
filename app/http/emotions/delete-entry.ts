@@ -12,9 +12,12 @@ type Dependencies = {
 };
 
 export const DeleteEntry = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const userId = c.get("user").id;
+  const context = new bg.RequestContextHonoAdapter(c);
+  const params = context.request.params();
+
+  const userId = context.identity.userId() as string;
+  const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
-  const entryId = v.parse(Emotions.VO.EntryId, c.req.param("entryId"));
 
   const command = bg.command(
     Emotions.Commands.DeleteEntryCommand,

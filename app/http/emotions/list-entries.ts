@@ -1,4 +1,4 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as v from "valibot";
@@ -13,13 +13,14 @@ type Dependencies = {
 };
 
 export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const userId = c.get("user").id;
+  const context = new bg.RequestContextHonoAdapter(c);
+  const query = context.request.query();
 
-  const filter = v.parse(Emotions.VO.EntryListFilter, c.req.query("filter"));
-  const query = c.req.query("query") ?? "";
-  const options = Emotions.VO.EntryListFilterOptions;
+  const userId = context.identity.userId() as string;
+  const filter = v.parse(Emotions.VO.EntryListFilter, query["filter"]);
 
   const today = tools.Day.fromNow(deps.Clock.now());
+  const options = Emotions.VO.EntryListFilterOptions;
 
   const range: Record<Emotions.VO.EntryListFilterOptions, (today: tools.Day) => tools.DateRange> = {
     [options.today]: (today) => today,
@@ -30,7 +31,7 @@ export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.
     [options.all_time]: (today) => new tools.DateRange(tools.Timestamp.fromNumber(0), today.getEnd()),
   };
 
-  const entries = await deps.EntrySnapshot.getFormatted(userId, range[filter](today), query);
+  const entries = await deps.EntrySnapshot.getFormatted(userId, range[filter](today), query["query"] ?? "");
 
   const result: ReadonlyArray<EntrySnapshotFormatted> = entries.map((entry) => ({
     ...entry,

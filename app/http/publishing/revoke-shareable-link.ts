@@ -12,8 +12,11 @@ type Dependencies = {
 };
 
 export const RevokeShareableLink = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const requesterId = c.get("user").id;
-  const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, c.req.param("shareableLinkId"));
+  const context = new bg.RequestContextHonoAdapter(c);
+  const params = context.request.params();
+
+  const requesterId = context.identity.userId() as string;
+  const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, params["shareableLinkId"]);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
 
   const command = bg.command(

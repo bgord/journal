@@ -12,15 +12,21 @@ type Dependencies = {
 };
 
 export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const userId = c.get("user").id;
-  const body = await c.req.json();
+  const context = new bg.RequestContextHonoAdapter(c);
+  const params = context.request.params();
+  const body = await context.request.json();
+
+  const userId = context.identity.userId() as string;
+  const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
+  const description = v.parse(Emotions.VO.ReactionDescriptionSchema, body["description"]);
+  const type = v.parse(Emotions.VO.ReactionTypeSchema, body["type"]);
+  const effectiveness = v.parse(Emotions.VO.ReactionEffectivenessSchema, body["effectiveness"]);
   const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
-  const entryId = v.parse(Emotions.VO.EntryId, c.req.param("entryId"));
 
   const newReaction = new Emotions.Entities.Reaction(
-    new Emotions.VO.ReactionDescription(body.description),
-    new Emotions.VO.ReactionType(body.type),
-    new Emotions.VO.ReactionEffectiveness(body.effectiveness),
+    new Emotions.VO.ReactionDescription(description),
+    new Emotions.VO.ReactionType(type),
+    new Emotions.VO.ReactionEffectiveness(effectiveness),
   );
 
   const command = bg.command(

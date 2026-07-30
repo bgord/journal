@@ -1,5 +1,5 @@
 // cspell:ignore Stringifier
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as v from "valibot";
@@ -15,15 +15,16 @@ type Dependencies = {
 };
 
 export const ExportEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const userId = c.get("user").id;
-  const timeZoneOffset = c.get("timeZoneOffset");
+  const context = new bg.RequestContextHonoAdapter(c);
+  const query = context.request.query();
 
-  const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, c.req.query("dateRangeStart"))).getStart();
-  const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, c.req.query("dateRangeEnd"))).getEnd();
+  const userId = context.identity.userId() as string;
+  const timeZoneOffset = c.get("timeZoneOffset");
+  const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeStart"])).getStart();
+  const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeEnd"])).getEnd();
+  const strategy = v.parse(Emotions.VO.EntryExportStrategy, query["strategy"]);
 
   const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
-
-  const strategy = v.parse(Emotions.VO.EntryExportStrategy, c.req.query("strategy"));
 
   const entries = await deps.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
 

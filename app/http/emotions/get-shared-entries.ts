@@ -13,17 +13,16 @@ type Dependencies = {
 };
 
 export const GetSharedEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, c.req.param("shareableLinkId"));
+  const context = new bg.RequestContextHonoAdapter(c);
+  const params = context.request.params();
 
-  const request = new bg.RequestContextHonoAdapter(c);
-  const client = bg.Client.fromParts(request.identity.ip(), request.identity.ua());
+  const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, params["shareableLinkId"]);
+  const client = bg.Client.fromParts(context.identity.ip(), context.identity.ua());
 
-  const context = {
+  const shareableLinkAccess = await deps.ShareableLinkAccessOHQ.check(shareableLinkId, "entries", {
     timestamp: deps.Clock.now().ms,
     visitorId: await new bg.VisitorIdClientStrategy(client, deps).get(),
-  };
-
-  const shareableLinkAccess = await deps.ShareableLinkAccessOHQ.check(shareableLinkId, "entries", context);
+  });
 
   if (!shareableLinkAccess.valid) return c.json({ _known: true, message: "shareable_link_invalid" }, 403);
 
