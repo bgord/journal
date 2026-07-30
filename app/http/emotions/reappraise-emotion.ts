@@ -20,7 +20,7 @@ export const ReappraiseEmotion = (deps: Dependencies) => async (c: hono.Context<
   const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
   const label = v.parse(Emotions.VO.EmotionLabelSchema, body["label"]);
   const intensity = v.parse(Emotions.VO.EmotionIntensitySchema, body["intensity"]);
-  const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
+  const revision = tools.Revision.fromWeakETag(context.middleware.weakETag());
 
   const newEmotion = new Emotions.Entities.Emotion(
     new Emotions.VO.EmotionLabel(label),

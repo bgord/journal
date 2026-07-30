@@ -17,7 +17,7 @@ export const RevokeShareableLink = (deps: Dependencies) => async (c: hono.Contex
 
   const requesterId = context.identity.userId() as string;
   const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, params["shareableLinkId"]);
-  const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
+  const revision = tools.Revision.fromWeakETag(context.middleware.weakETag());
 
   const command = bg.command(
     Publishing.Commands.RevokeShareableLinkCommand,

@@ -17,7 +17,7 @@ export const DeleteEntry = (deps: Dependencies) => async (c: hono.Context<infra.
 
   const userId = context.identity.userId() as string;
   const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
-  const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
+  const revision = tools.Revision.fromWeakETag(context.middleware.weakETag());
 
   const command = bg.command(
     Emotions.Commands.DeleteEntryCommand,

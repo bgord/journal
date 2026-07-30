@@ -21,7 +21,7 @@ export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<i
   const description = v.parse(Emotions.VO.ReactionDescriptionSchema, body["description"]);
   const type = v.parse(Emotions.VO.ReactionTypeSchema, body["type"]);
   const effectiveness = v.parse(Emotions.VO.ReactionEffectivenessSchema, body["effectiveness"]);
-  const revision = tools.Revision.fromWeakETag(c.get("WeakETag"));
+  const revision = tools.Revision.fromWeakETag(context.middleware.weakETag());
 
   const newReaction = new Emotions.Entities.Reaction(
     new Emotions.VO.ReactionDescription(description),
