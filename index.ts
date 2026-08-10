@@ -14,7 +14,6 @@ import { handler } from "./web/entry-server";
   const di = await bootstrap();
   const server = createServer(di);
 
-  await new bg.PrerequisiteRunnerStartup(di.Adapters.System).check(di.Tools.Prerequisites.healthcheck);
   bg.EventLoopLag.start();
   migrate(db, { migrationsFolder: "infra/drizzle" });
 
@@ -22,6 +21,8 @@ import { handler } from "./web/entry-server";
   registerCommandHandlers(di);
   registerSseHandlers(di);
   registerCronTasks(di);
+
+  await new bg.PrerequisiteRunnerStartup(di.Adapters.System).check(di.Tools.Prerequisites.healthcheck);
 
   const app = Bun.serve({
     port: di.Env.PORT,
