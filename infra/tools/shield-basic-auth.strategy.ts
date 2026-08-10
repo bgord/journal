@@ -5,5 +5,6 @@ export function createShieldBasicAuth(Env: EnvironmentResultType): bg.Middleware
   return new bg.ShieldBasicAuthHonoStrategy({
     username: Env.BASIC_AUTH_USERNAME,
     password: Env.BASIC_AUTH_PASSWORD,
+    realm: "bgord",
   });
 }

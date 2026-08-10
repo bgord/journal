@@ -63,7 +63,7 @@ describe(`GET ${url}`, async () => {
     expect(response.headers.get("Content-Type")).toEqual("image/webp");
     expect(response.headers.get("ETag")).toEqual(mocks.head.etag.get());
     expect(response.headers.get("Content-Length")).toEqual(mocks.head.size.toBytes().toString());
-    expect(response.headers.get("Last-Modified")).toEqual(mocks.head.lastModified.toInstant().toString());
+    expect(response.headers.get("Last-Modified")).toEqual(mocks.T0Date);
     expect(response.headers.get("Cache-Control")).toEqual("private, max-age=0, must-revalidate");
 
     const buffer = await response.arrayBuffer();

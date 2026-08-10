@@ -19,7 +19,7 @@ export function createShieldRateLimit(Env: EnvironmentResultType, deps: Dependen
         ],
         deps,
       ),
-      window: ttl,
+      interval: ttl,
     },
     { CacheResolver, ...deps },
   );

@@ -63,6 +63,7 @@ export async function createSystemAdapters(Env: EnvironmentResultType) {
       HashFile,
       FileCleaner,
       FileRenamer,
+      FileInspection,
       NonceProvider,
       Logger,
       Clock,

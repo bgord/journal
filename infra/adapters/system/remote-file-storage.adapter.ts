@@ -8,6 +8,7 @@ type Dependencies = {
   HashFile: bg.HashFilePort;
   FileCleaner: bg.FileCleanerPort;
   FileRenamer: bg.FileRenamerPort;
+  FileInspection: bg.FileInspectionPort;
   NonceProvider: bg.NonceProviderPort;
   Logger: bg.LoggerPort;
   Clock: bg.ClockPort;

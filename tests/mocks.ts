@@ -30,6 +30,7 @@ const patternDetectionId = v.parse(bg.UUID, "d2ca7a35-76a0-42de-8a2c-32d8b14fdfa
 
 // Timestamps
 export const T0 = tools.Timestamp.fromInstant(tools.Temporal.Instant.from("2025-01-01T00:00:00Z"));
+export const T0Date = "Wed, 01 Jan 2025 00:00:00 GMT";
 
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
