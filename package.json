@@ -27,12 +27,12 @@
     "vite": "8.2.1"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.115.0",
+    "@anthropic-ai/sdk": "0.116.0",
     "@better-auth/drizzle-adapter": "1.6.26",
     "@bgord/bun": "1.21.1",
     "@bgord/design": "1.7.1",
     "@bgord/ui": "0.10.1",
-    "@tanstack/react-router": "1.170.22",
+    "@tanstack/react-router": "1.170.23",
     "better-auth": "1.6.26",
     "better-sqlite3": "13.0.3",
     "csv": "6.6.3",
