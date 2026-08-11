@@ -9,12 +9,17 @@ export class Entry {
     request: Request | null,
     deps: { filter: types.EntryListFilterType; query: string },
   ): Promise<ReadonlyArray<EntrySnapshotFormatted>> {
-    const BASE = `/api/entry/list?filter=${deps.filter}&query=${deps.query ?? ""}`;
+    const BASE = "/api/entry/list";
 
     const url = absoluteUrl(BASE, request);
     const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
 
-    const response = await fetch(url, { headers, credentials: "include" });
+    const response = await fetch(url, {
+      method: "QUERY",
+      body: JSON.stringify({ filter: deps.filter, query: deps.query ?? "" }),
+      headers,
+      credentials: "include",
+    });
 
     if (!response?.ok) return [];
     return response.json().catch();

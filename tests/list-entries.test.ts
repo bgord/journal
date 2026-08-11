@@ -15,12 +15,12 @@ const lastMonth = new tools.DateRange(lastMonthStart, today.getEnd());
 const allTime = new tools.DateRange(tools.Timestamp.fromNumber(0), today.getEnd());
 const emptyQuery = "";
 
-describe(`GET ${url}`, async () => {
+describe(`QUERY ${url}`, async () => {
   const di = await bootstrap();
   const server = createServer(di);
 
   test("validation - AccessDeniedAuthShieldError", async () => {
-    const response = await server.request(url, { method: "GET" }, mocks.ip);
+    const response = await server.request(url, { method: "QUERY", body: JSON.stringify({}) }, mocks.ip);
     const json = await response.json();
 
     expect(response.status).toEqual(403);
@@ -33,7 +33,7 @@ describe(`GET ${url}`, async () => {
       mocks.fullEntryWithAlarms,
     ]);
 
-    const response = await server.request(url, { method: "GET" }, mocks.ip);
+    const response = await server.request(url, { method: "QUERY", body: JSON.stringify({}) }, mocks.ip);
     const json = await response.json();
 
     expect(response.status).toEqual(200);
@@ -48,8 +48,11 @@ describe(`GET ${url}`, async () => {
     ]);
 
     const response = await server.request(
-      `${url}?filter=${Emotions.VO.EntryListFilterOptions.today}`,
-      { method: "GET" },
+      url,
+      {
+        method: "QUERY",
+        body: JSON.stringify({ filter: Emotions.VO.EntryListFilterOptions.today }),
+      },
       mocks.ip,
     );
     const json = await response.json();
@@ -66,8 +69,11 @@ describe(`GET ${url}`, async () => {
     ]);
 
     const response = await server.request(
-      `${url}?filter=${Emotions.VO.EntryListFilterOptions.last_month}`,
-      { method: "GET" },
+      url,
+      {
+        method: "QUERY",
+        body: JSON.stringify({ filter: Emotions.VO.EntryListFilterOptions.last_month }),
+      },
       mocks.ip,
     );
     const json = await response.json();
@@ -84,8 +90,11 @@ describe(`GET ${url}`, async () => {
     ]);
 
     const response = await server.request(
-      `${url}?filter=${Emotions.VO.EntryListFilterOptions.all_time}&query=abc`,
-      { method: "GET" },
+      url,
+      {
+        method: "QUERY",
+        body: JSON.stringify({ filter: Emotions.VO.EntryListFilterOptions.all_time, query: "abc" }),
+      },
       mocks.ip,
     );
     const json = await response.json();

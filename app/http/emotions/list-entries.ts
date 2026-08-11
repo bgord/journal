@@ -14,10 +14,11 @@ type Dependencies = {
 
 export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const context = new bg.RequestContextHonoAdapter(c);
-  const query = context.request.query();
+  const json = await context.request.json();
 
   const userId = context.identity.userId() as string;
-  const filter = v.parse(Emotions.VO.EntryListFilter, query["filter"]);
+  const filter = v.parse(Emotions.VO.EntryListFilter, json["filter"]);
+  const query = v.parse(v.optional(v.string(), ""), json["query"]);
 
   const today = tools.Day.fromNow(deps.Clock.now());
   const options = Emotions.VO.EntryListFilterOptions;
@@ -31,7 +32,7 @@ export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.
     [options.all_time]: (today) => new tools.DateRange(tools.Timestamp.fromNumber(0), today.getEnd()),
   };
 
-  const entries = await deps.EntrySnapshot.getFormatted(userId, range[filter](today), query["query"] ?? "");
+  const entries = await deps.EntrySnapshot.getFormatted(userId, range[filter](today), query);
 
   const result: ReadonlyArray<EntrySnapshotFormatted> = entries.map((entry) => ({
     ...entry,

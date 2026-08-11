@@ -108,7 +108,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.ShieldRateLimit.handle(),
     HTTP.Emotions.ExportEntries({ ...deps, ...Adapters.Emotions }),
   );
-  entry.get("/list", HTTP.Emotions.ListEntries({ ...deps, ...Adapters.Emotions }));
+  entry.query("/list", HTTP.Emotions.ListEntries({ ...deps, ...Adapters.Emotions }));
   server.route("/entry", entry);
   // =============================
 
