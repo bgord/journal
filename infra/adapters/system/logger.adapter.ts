@@ -25,7 +25,9 @@ export function createLogger(Env: EnvironmentResultType, deps: Dependencies) {
         environment: Env.type,
         level: Env.LOGS_LEVEL,
         redactor,
-        dispatcher: new bg.WoodchopperDispatcherAsync(new bg.WoodchopperSinkStdoutHuman()),
+        dispatcher: new bg.WoodchopperDispatcherSync(
+          new bg.WoodchopperSinkBufferedStdout(new bg.WoodchopperFormatterHuman()),
+        ),
         diagnostics: new bg.WoodchopperDiagnosticsConsoleError(),
       },
       deps,
@@ -39,7 +41,9 @@ export function createLogger(Env: EnvironmentResultType, deps: Dependencies) {
         level: Env.LOGS_LEVEL,
         redactor,
         dispatcher: new bg.WoodchopperDispatcherSampling(
-          new bg.WoodchopperDispatcherAsync(new bg.WoodchopperSinkStdout()),
+          new bg.WoodchopperDispatcherSync(
+            new bg.WoodchopperSinkBufferedStdout(new bg.WoodchopperFormatterJson()),
+          ),
           sampling,
         ),
         diagnostics: new bg.WoodchopperDiagnosticsConsoleError(redactor),
