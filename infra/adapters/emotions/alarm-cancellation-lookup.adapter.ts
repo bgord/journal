@@ -1,5 +1,4 @@
 import { and, eq, notInArray } from "drizzle-orm";
-import * as v from "valibot";
 import * as Emotions from "+emotions";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
@@ -19,7 +18,7 @@ class AlarmCancellationLookupDrizzle implements Emotions.Ports.AlarmCancellation
         ),
       );
 
-    return rows.map((row) => v.parse(Emotions.VO.AlarmId, row.id));
+    return rows.map((row) => row.id);
   }
 }
 

@@ -1,6 +1,5 @@
-import * as tools from "@bgord/tools";
+import type * as tools from "@bgord/tools";
 import { desc, eq } from "drizzle-orm";
-import * as v from "valibot";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
 import type * as VO from "+emotions/value-objects";
@@ -101,32 +100,7 @@ class WeeklyReviewExportQueryDrizzle implements Emotions.Queries.WeeklyReviewExp
   }
 
   static format(result: WeeklyReviewExportDrizzleResultType) {
-    return {
-      ...result,
-      createdAt: v.parse(tools.TimestampValue, result.createdAt),
-      status: result.status as VO.WeeklyReviewStatusEnum,
-      weekIsoId: v.parse(tools.WeekIsoId, result.weekIsoId),
-      entries: result.entries.map((entry) => ({
-        ...entry,
-        startedAt: v.parse(tools.TimestampValue, entry.startedAt),
-        situationKind: entry.situationKind as VO.SituationKindOptions,
-        emotionLabel: entry.emotionLabel as VO.GenevaWheelEmotion | null,
-        reactionType: entry.reactionType as VO.GrossEmotionRegulationStrategy | null,
-      })),
-      patternDetections: result.patternDetections.map((pattern) => ({
-        id: pattern.id,
-        name: pattern.name as VO.PatternNameOption,
-      })),
-      alarms: result.alarms.map((alarm) => ({
-        ...alarm,
-        inactivityDays: alarm.inactivityDays ? tools.Int.positive(alarm.inactivityDays) : null,
-        name: alarm.name as VO.AlarmNameOption,
-        advice: alarm.advice as VO.AlarmSnapshot["advice"],
-        generatedAt: v.parse(tools.TimestampValue, alarm.generatedAt),
-        lastEntryTimestamp: alarm.lastEntryTimestamp as tools.TimestampValueType | null,
-        emotionLabel: alarm.emotionLabel as VO.GenevaWheelEmotion | null,
-      })),
-    };
+    return result;
   }
 }
 

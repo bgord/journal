@@ -12,14 +12,14 @@ import type { GenevaWheelEmotion } from "./geneva-wheel-emotion.enum";
 export type AlarmSnapshot = {
   id: bg.UUIDType;
   name: AlarmNameOption;
-  advice: AI.AdviceType;
+  advice: AI.AdviceType | null;
   generatedAt: tools.TimestampValueType;
   inactivityDays: InactivityAlarmTriggerType["inactivityDays"] | null;
   lastEntryTimestamp: InactivityAlarmTriggerType["lastEntryTimestamp"] | null;
   emotionLabel: GenevaWheelEmotion | null;
   emotionIntensity: EmotionIntensityType | null;
   status: AlarmStatusEnum;
-  entryId: EntryIdType;
+  entryId: EntryIdType | null;
   userId: Auth.UserIdType;
   weekIsoId: tools.WeekIsoIdType;
 };

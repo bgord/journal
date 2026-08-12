@@ -7,20 +7,21 @@ export type DashboardHeatmapDto = ReadonlyArray<{
   emotionIntensity: VO.EmotionIntensityType;
 }>;
 
-export type DashboardAlarmInactivityDto = Pick<
-  VO.AlarmSnapshot,
-  "id" | "generatedAt" | "advice" | "inactivityDays"
->;
+/* advice/emotionLabel are non-null here: the queries filter them out in SQL */
+export type DashboardAlarmInactivityDto = Pick<VO.AlarmSnapshot, "id" | "generatedAt" | "inactivityDays"> & {
+  advice: NonNullable<VO.AlarmSnapshot["advice"]>;
+};
 
-export type DashboardAlarmEntryDto = Pick<
-  VO.AlarmSnapshot,
-  "id" | "generatedAt" | "advice" | "emotionLabel" | "name"
->;
+export type DashboardAlarmEntryDto = Pick<VO.AlarmSnapshot, "id" | "generatedAt" | "name"> & {
+  advice: NonNullable<VO.AlarmSnapshot["advice"]>;
+  emotionLabel: NonNullable<VO.AlarmSnapshot["emotionLabel"]>;
+};
 
-export type DashboardTopReactionDto = Pick<
-  VO.EntrySnapshot,
-  "id" | "reactionDescription" | "reactionType" | "reactionEffectiveness"
->;
+export type DashboardTopReactionDto = Pick<VO.EntrySnapshot, "id"> & {
+  reactionDescription: NonNullable<VO.EntrySnapshot["reactionDescription"]>;
+  reactionType: NonNullable<VO.EntrySnapshot["reactionType"]>;
+  reactionEffectiveness: NonNullable<VO.EntrySnapshot["reactionEffectiveness"]>;
+};
 
 export type DashboardTopEmotionDto = {
   id: VO.EntryIdType;

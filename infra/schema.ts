@@ -1,9 +1,13 @@
 import type * as bg from "@bgord/bun";
+import type * as tools from "@bgord/tools";
 import { desc, relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+import type { AdviceType } from "../modules/ai/value-objects/advice";
+import type { AlarmIdType } from "../modules/emotions/value-objects/alarm-id";
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
 import { AlarmStatusEnum } from "../modules/emotions/value-objects/alarm-status";
+import type { EntryIdType } from "../modules/emotions/value-objects/entry-id";
 import { EntryOriginOption } from "../modules/emotions/value-objects/entry-origin-option";
 import { EntryStatusEnum } from "../modules/emotions/value-objects/entry-status";
 import { GenevaWheelEmotion } from "../modules/emotions/value-objects/geneva-wheel-emotion.enum";
@@ -11,8 +15,10 @@ import { GrossEmotionRegulationStrategy } from "../modules/emotions/value-object
 import { PatternNameOption } from "../modules/emotions/value-objects/pattern-name-option";
 import { SituationKindOptions } from "../modules/emotions/value-objects/situation-kind-options";
 import { TimeCapsuleEntryStatusEnum } from "../modules/emotions/value-objects/time-capsule-entry-status";
+import type { WeeklyReviewIdType } from "../modules/emotions/value-objects/weekly-review-id";
 import { WeeklyReviewStatusEnum } from "../modules/emotions/value-objects/weekly-review-status";
 import { AccessValidity } from "../modules/publishing/value-objects/access-validity";
+import type { ShareableLinkIdType } from "../modules/publishing/value-objects/shareable-link-id";
 import { ShareableLinkStatusEnum } from "../modules/publishing/value-objects/shareable-link-status";
 import { SupportedLanguages } from "../modules/supported-languages";
 
@@ -23,6 +29,14 @@ const toEnumList = (value: Record<string, string>) => ({
 const id = text("id", { length: 36 })
   .primaryKey()
   .$defaultFn(() => crypto.randomUUID());
+
+const identifier = <T extends string>() =>
+  text("id", { length: 36 })
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID())
+    .$type<T>();
+
+const timestamp = (name: string) => integer(name, { mode: "number" }).$type<tools.TimestampValueType>();
 
 export const events = sqliteTable(
   "events",
@@ -44,19 +58,24 @@ export const events = sqliteTable(
 );
 
 export const entries = sqliteTable("entries", {
-  id,
+  id: identifier<EntryIdType>(),
   revision: integer("revision").notNull().default(0),
-  startedAt: integer("startedAt").notNull(),
+  startedAt: timestamp("startedAt").notNull(),
   situationDescription: text("situationDescription").notNull(),
-  situationKind: text("situationKind", toEnumList(SituationKindOptions)).notNull(),
-  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)),
+  situationKind: text("situationKind", toEnumList(SituationKindOptions))
+    .notNull()
+    .$type<SituationKindOptions>(),
+  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).$type<GenevaWheelEmotion>(),
   emotionIntensity: integer("emotionIntensity"),
   reactionDescription: text("reactionDescription"),
-  reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)),
+  reactionType: text(
+    "reactionType",
+    toEnumList(GrossEmotionRegulationStrategy),
+  ).$type<GrossEmotionRegulationStrategy>(),
   reactionEffectiveness: integer("reactionEffectiveness"),
-  status: text("status", toEnumList(EntryStatusEnum)).notNull(),
-  weekIsoId: text("weekIsoId").notNull(),
-  origin: text("origin", toEnumList(EntryOriginOption)).notNull(),
+  status: text("status", toEnumList(EntryStatusEnum)).notNull().$type<EntryStatusEnum>(),
+  weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
+  origin: text("origin", toEnumList(EntryOriginOption)).notNull().$type<EntryOriginOption>(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
@@ -83,39 +102,45 @@ export const entriesRelations = relations(entries, ({ one, many }) => ({
 }));
 
 export const timeCapsuleEntries = sqliteTable("timeCapsuleEntries", {
-  id,
-  scheduledAt: integer("scheduledAt").notNull(),
-  scheduledFor: integer("scheduledFor").notNull(),
+  id: identifier<EntryIdType>(),
+  scheduledAt: timestamp("scheduledAt").notNull(),
+  scheduledFor: timestamp("scheduledFor").notNull(),
   situationDescription: text("situationDescription").notNull(),
-  situationKind: text("situationKind", toEnumList(SituationKindOptions)).notNull(),
-  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).notNull(),
+  situationKind: text("situationKind", toEnumList(SituationKindOptions))
+    .notNull()
+    .$type<SituationKindOptions>(),
+  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).notNull().$type<GenevaWheelEmotion>(),
   emotionIntensity: integer("emotionIntensity").notNull(),
   reactionDescription: text("reactionDescription").notNull(),
-  reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy)).notNull(),
+  reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy))
+    .notNull()
+    .$type<GrossEmotionRegulationStrategy>(),
   reactionEffectiveness: integer("reactionEffectiveness").notNull(),
-  status: text("status", toEnumList(TimeCapsuleEntryStatusEnum)).notNull(),
+  status: text("status", toEnumList(TimeCapsuleEntryStatusEnum))
+    .notNull()
+    .$type<TimeCapsuleEntryStatusEnum>(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
 });
 
 export const alarms = sqliteTable("alarms", {
-  id,
-  generatedAt: integer("generatedAt").notNull(),
+  id: identifier<AlarmIdType>(),
+  generatedAt: timestamp("generatedAt").notNull(),
   entryId: text("entryId", { length: 36 }).references(() => entries.id, { onDelete: "cascade" }),
   userId: text("userId", { length: 36 })
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  status: text("status", toEnumList(AlarmStatusEnum)).notNull(),
-  name: text("name", toEnumList(AlarmNameOption)).notNull(),
-  advice: text("advice"),
+  status: text("status", toEnumList(AlarmStatusEnum)).notNull().$type<AlarmStatusEnum>(),
+  name: text("name", toEnumList(AlarmNameOption)).notNull().$type<AlarmNameOption>(),
+  advice: text("advice").$type<AdviceType>(),
 
-  inactivityDays: integer("inactivityDays"),
-  lastEntryTimestamp: integer("lastEntryTimestamp"),
-  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)),
+  inactivityDays: integer("inactivityDays").$type<tools.IntegerPositiveType>(),
+  lastEntryTimestamp: timestamp("lastEntryTimestamp"),
+  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).$type<GenevaWheelEmotion>(),
   emotionIntensity: integer("emotionIntensity"),
 
-  weekIsoId: text("weekIsoId").notNull(),
+  weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
 });
 
 export const alarmsRelations = relations(alarms, ({ one }) => ({
@@ -142,9 +167,9 @@ export const alarmsRelations = relations(alarms, ({ one }) => ({
 
 export const patternDetections = sqliteTable("patternDetections", {
   id,
-  createdAt: integer("createdAt").notNull(),
-  name: text("name", toEnumList(PatternNameOption)).notNull(),
-  weekIsoId: text("weekIsoId").notNull(),
+  createdAt: timestamp("createdAt").notNull(),
+  name: text("name", toEnumList(PatternNameOption)).notNull().$type<PatternNameOption>(),
+  weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
   userId: text("userId", { length: 36 })
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
@@ -166,14 +191,14 @@ export const patternDetectionsRelations = relations(patternDetections, ({ one })
 }));
 
 export const weeklyReviews = sqliteTable("weeklyReviews", {
-  id,
-  createdAt: integer("createdAt").notNull(),
-  weekIsoId: text("weekIsoId").notNull(),
+  id: identifier<WeeklyReviewIdType>(),
+  createdAt: timestamp("createdAt").notNull(),
+  weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
   userId: text("userId", { length: 36 })
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  insights: text("insights"),
-  status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull(),
+  insights: text("insights").$type<AdviceType>(),
+  status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull().$type<WeeklyReviewStatusEnum>(),
 });
 
 export const weeklyReviewsRelations = relations(weeklyReviews, ({ one, many }) => ({
@@ -197,19 +222,19 @@ export const weeklyReviewsRelations = relations(weeklyReviews, ({ one, many }) =
 }));
 
 export const shareableLinks = sqliteTable("shareableLinks", {
-  id,
-  createdAt: integer("createdAt").notNull(),
-  updatedAt: integer("updatedAt").notNull(),
-  status: text("status", toEnumList(ShareableLinkStatusEnum)).notNull(),
+  id: identifier<ShareableLinkIdType>(),
+  createdAt: timestamp("createdAt").notNull(),
+  updatedAt: timestamp("updatedAt").notNull(),
+  status: text("status", toEnumList(ShareableLinkStatusEnum)).notNull().$type<ShareableLinkStatusEnum>(),
   revision: integer("revision").notNull().default(0),
   ownerId: text("ownerId", { length: 36 })
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   publicationSpecification: text("publicationSpecification").notNull(),
-  dateRangeStart: integer("dateRangeStart").notNull(),
-  dateRangeEnd: integer("dateRangeEnd").notNull(),
+  dateRangeStart: timestamp("dateRangeStart").notNull(),
+  dateRangeEnd: timestamp("dateRangeEnd").notNull(),
   durationMs: integer("durationMs").notNull(),
-  expiresAt: integer("expiresAt").notNull(),
+  expiresAt: timestamp("expiresAt").notNull(),
   hidden: integer("hidden", { mode: "boolean" }).default(false),
 });
 
@@ -231,15 +256,15 @@ export const aiUsageCounters = sqliteTable("ai_usage_counters", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   count: integer("count", { mode: "number" }).notNull().default(0),
-  firstEventAt: integer("firstEventAt", { mode: "number" }),
-  lastEventAt: integer("lastEventAt", { mode: "number" }),
+  firstEventAt: timestamp("firstEventAt"),
+  lastEventAt: timestamp("lastEventAt"),
 });
 
 export const history = sqliteTable(
   "history",
   {
     id,
-    createdAt: integer("createdAt", { mode: "number" }).notNull(),
+    createdAt: timestamp("createdAt").notNull(),
     subject: text("subject").notNull(),
     operation: text("operation").notNull(),
     payload: text("payload"),
@@ -260,10 +285,10 @@ export const shareableLinkHits = sqliteTable("shareable_link_hits", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   publicationSpecification: text("publicationSpecification").notNull(),
-  validity: text("validity", toEnumList(AccessValidity)).notNull(),
+  validity: text("validity", toEnumList(AccessValidity)).notNull().$type<AccessValidity>(),
   reason: text("reason").notNull(),
   visitorId: text("visitorId").notNull(),
-  timestamp: integer("timestamp", { mode: "number" }).notNull(),
+  timestamp: timestamp("timestamp").notNull(),
 });
 
 export const shareableLinkHitsRelations = relations(shareableLinkHits, ({ one }) => ({
@@ -287,8 +312,8 @@ export const userPreferences = sqliteTable(
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     preference: text("preference", SupportedLanguages).notNull(),
-    value: text("value").notNull(),
-    updatedAt: integer("updatedAt", { mode: "number" }).notNull(),
+    value: text("value").notNull().$type<tools.LanguageType>(),
+    updatedAt: timestamp("updatedAt").notNull(),
   },
   (table) => [
     // cspell:disable-next-line
@@ -311,7 +336,7 @@ export const userProfileAvatars = sqliteTable(
       .references(() => users.id, { onDelete: "cascade" }),
     key: text("key").notNull(),
     etag: text("etag").notNull(),
-    createdAt: integer("createdAt", { mode: "number" }).notNull(),
+    createdAt: timestamp("createdAt").notNull(),
   },
   (table) => [
     index("user_profile_avatars_userId_idx").on(table.userId),

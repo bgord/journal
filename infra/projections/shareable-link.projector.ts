@@ -1,4 +1,5 @@
 import type * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
 import { eq } from "drizzle-orm";
 import * as Publishing from "+publishing";
 import { db } from "+infra/db";
@@ -38,7 +39,9 @@ export class ShareableLinkProjector {
       dateRangeStart: event.payload.dateRangeStart,
       dateRangeEnd: event.payload.dateRangeEnd,
       durationMs: event.payload.durationMs,
-      expiresAt: event.payload.createdAt + event.payload.durationMs,
+      expiresAt: tools.Timestamp.fromValueSafe(event.payload.createdAt).add(
+        tools.Duration.Ms(event.payload.durationMs),
+      ).ms,
     });
   }
 

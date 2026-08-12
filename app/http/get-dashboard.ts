@@ -2,8 +2,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
-import * as v from "valibot";
-import type * as AI from "+ai";
 import * as Emotions from "+emotions";
 import type * as infra from "+infra";
 
@@ -13,22 +11,17 @@ type Dependencies = {
   DashboardQuery: Emotions.Queries.Dashboard;
 };
 
-type DashboardAlarmInactivityType = Pick<Emotions.VO.AlarmSnapshot, "id" | "advice" | "inactivityDays"> & {
+type DashboardAlarmInactivityType = Omit<Emotions.Queries.DashboardAlarmInactivityDto, "generatedAt"> & {
   generatedAt: string;
 };
 
-type DashboardAlarmEntryType = Pick<Emotions.VO.AlarmSnapshot, "id" | "advice" | "name" | "emotionLabel"> & {
+type DashboardAlarmEntryType = Omit<Emotions.Queries.DashboardAlarmEntryDto, "generatedAt"> & {
   generatedAt: string;
 };
 
-type DashboardTopReactionType = Pick<
-  Emotions.VO.EntrySnapshot,
-  "id" | "reactionDescription" | "reactionType" | "reactionEffectiveness"
->;
+type DashboardTopReactionType = Emotions.Queries.DashboardTopReactionDto;
 
-type DashboardTopEmotionType = Pick<Emotions.VO.EntrySnapshot, "id" | "emotionLabel"> & {
-  hits: tools.IntegerNonNegativeType;
-};
+type DashboardTopEmotionType = Emotions.Queries.DashboardTopEmotionDto;
 
 type DashboardWeeklyReviewType = Emotions.Queries.WeeklyReviewExportDto & {
   weekStart: string;
@@ -80,27 +73,17 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
     alarms: {
       inactivity: dashboard.alarms.inactivity.map((alarm) => ({
         ...alarm,
-        advice: alarm.advice as AI.AdviceType,
         generatedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
-        inactivityDays: alarm.inactivityDays ? tools.Int.positive(alarm.inactivityDays) : null,
       })),
       entry: dashboard.alarms.entry.map((alarm) => ({
         ...alarm,
-        advice: alarm.advice as AI.AdviceType,
-        name: v.parse(Emotions.VO.AlarmName, alarm.name),
-        emotionLabel: v.parse(Emotions.VO.EmotionLabelSchema, alarm.emotionLabel),
         generatedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
       })),
     },
     entries: {
       counts: dashboard.entries.counts,
       top: {
-        reactions: dashboard.entries.top.reactions.map((entry) => ({
-          id: entry.id,
-          reactionDescription: entry.reactionDescription as Emotions.VO.ReactionDescriptionType,
-          reactionType: entry.reactionType as Emotions.VO.ReactionTypeType,
-          reactionEffectiveness: entry.reactionEffectiveness as Emotions.VO.ReactionEffectivenessType,
-        })),
+        reactions: dashboard.entries.top.reactions,
         emotions: dashboard.entries.top.emotions,
       },
     },

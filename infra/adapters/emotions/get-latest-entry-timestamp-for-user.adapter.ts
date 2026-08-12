@@ -1,6 +1,5 @@
-import * as tools from "@bgord/tools";
-import { eq, sql } from "drizzle-orm";
-import * as v from "valibot";
+import type * as tools from "@bgord/tools";
+import { eq, max } from "drizzle-orm";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
@@ -9,13 +8,11 @@ import * as Schema from "+infra/schema";
 class GetLatestEntryTimestampForUserQueryDrizzle implements Emotions.Queries.GetLatestEntryTimestampForUser {
   async execute(userId: Auth.VO.UserIdType): Promise<tools.TimestampValueType | undefined> {
     const result = await db
-      .select({ max: sql`max(${Schema.entries.startedAt})` })
+      .select({ max: max(Schema.entries.startedAt) })
       .from(Schema.entries)
       .where(eq(Schema.entries.userId, userId));
 
-    if (!result[0]?.max) return undefined;
-
-    return v.parse(tools.TimestampValue, result[0].max);
+    return result[0]?.max ?? undefined;
   }
 }
 

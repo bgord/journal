@@ -1,6 +1,5 @@
 import * as tools from "@bgord/tools";
-import { and, desc, eq, sql } from "drizzle-orm";
-import * as v from "valibot";
+import { and, countDistinct, desc, eq, sql } from "drizzle-orm";
 import type * as Auth from "+auth";
 import * as Publishing from "+publishing";
 import { db } from "+infra/db";
@@ -32,7 +31,7 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
       );
 
       const uniqueVisitorsResult = await db
-        .select({ count: sql`count(distinct ${Schema.shareableLinkHits.visitorId})` })
+        .select({ count: countDistinct(Schema.shareableLinkHits.visitorId) })
         .from(Schema.shareableLinkHits)
         .where(eq(Schema.shareableLinkHits.shareableLinkId, shareableLink.id));
 
@@ -41,7 +40,7 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
       result.push({
         ...ShareableLinkSnapshotDrizzle.format(shareableLink, timeZoneOffset),
         hits: tools.Int.nonNegative(hits),
-        uniqueVisitors: v.parse(tools.IntegerNonNegative, uniqueVisitors),
+        uniqueVisitors: tools.Int.nonNegative(uniqueVisitors),
       });
     }
 
@@ -51,7 +50,6 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
   static format(shareableLink: Schema.SelectShareableLinks, timeZoneOffset: tools.Duration) {
     return {
       ...shareableLink,
-      status: shareableLink.status as Publishing.VO.ShareableLinkStatusEnum,
       dateRangeStart: tools.DateFormatter.datetime(
         tools.Timestamp.fromNumber(shareableLink.dateRangeStart),
         timeZoneOffset,

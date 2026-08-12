@@ -1,6 +1,5 @@
 import * as tools from "@bgord/tools";
 import { and, count, desc, eq, gte, isNotNull, not, sql } from "drizzle-orm";
-import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
 import { db } from "+infra/db";
@@ -15,14 +14,20 @@ class DashboardQueryDrizzle implements Emotions.Queries.Dashboard {
     const heatmapResponse = await db
       .select({ label: Schema.entries.emotionLabel, intensity: Schema.entries.emotionIntensity })
       .from(Schema.entries)
-      .where(eq(Schema.entries.userId, userId))
+      .where(
+        and(
+          eq(Schema.entries.userId, userId),
+          isNotNull(Schema.entries.emotionLabel),
+          isNotNull(Schema.entries.emotionIntensity),
+        ),
+      )
       .orderBy(desc(Schema.entries.startedAt));
 
     const inactivityAlarmsResponse = await db.query.alarms.findMany({
       where: and(
         eq(Schema.alarms.userId, userId),
         eq(Schema.alarms.name, Emotions.VO.AlarmNameOption.INACTIVITY_ALARM),
-        not(eq(Schema.alarms.status, "cancelled")),
+        not(eq(Schema.alarms.status, Emotions.VO.AlarmStatusEnum.cancelled)),
         isNotNull(Schema.alarms.advice),
       ),
       orderBy: desc(Schema.alarms.generatedAt),
@@ -34,7 +39,7 @@ class DashboardQueryDrizzle implements Emotions.Queries.Dashboard {
       where: and(
         eq(Schema.alarms.userId, userId),
         eq(Schema.alarms.name, Emotions.VO.AlarmNameOption.NEGATIVE_EMOTION_EXTREME_INTENSITY_ALARM),
-        not(eq(Schema.alarms.status, "cancelled")),
+        not(eq(Schema.alarms.status, Emotions.VO.AlarmStatusEnum.cancelled)),
         isNotNull(Schema.alarms.advice),
         isNotNull(Schema.alarms.emotionLabel),
       ),
@@ -83,16 +88,22 @@ class DashboardQueryDrizzle implements Emotions.Queries.Dashboard {
           hits: count(Schema.entries.id).mapWith(Number),
         })
         .from(Schema.entries)
-        .where(and(eq(Schema.entries.userId, userId), gte(Schema.entries.startedAt, start.ms)))
+        .where(
+          and(
+            eq(Schema.entries.userId, userId),
+            gte(Schema.entries.startedAt, start.ms),
+            isNotNull(Schema.entries.emotionLabel),
+          ),
+        )
         .groupBy(Schema.entries.emotionLabel)
         .orderBy(sql`count(${Schema.entries.id}) DESC`)
         .limit(3);
 
-      return response.map((emotion) => ({
-        ...emotion,
-        hits: tools.Int.nonNegative(emotion.hits),
-        emotionLabel: emotion.label as Emotions.VO.GenevaWheelEmotion,
-      }));
+      return response.flatMap((emotion) =>
+        emotion.label === null
+          ? []
+          : [{ ...emotion, hits: tools.Int.nonNegative(emotion.hits), emotionLabel: emotion.label }],
+      );
     }
 
     const [topEmotionsToday, topEmotionsLastWeek, topEmotionsAllTime] = await Promise.all([
@@ -102,24 +113,20 @@ class DashboardQueryDrizzle implements Emotions.Queries.Dashboard {
     ]);
 
     return {
-      heatmap: heatmapResponse.map((row) => ({
-        emotionLabel: row.label as Emotions.VO.GenevaWheelEmotion,
-        emotionIntensity: row.intensity as Emotions.VO.EmotionIntensityType,
-      })),
+      heatmap: heatmapResponse.flatMap((row) =>
+        row.label === null || row.intensity === null
+          ? []
+          : [{ emotionLabel: row.label, emotionIntensity: row.intensity }],
+      ),
       alarms: {
-        inactivity: inactivityAlarmsResponse.map((alarm) => ({
-          ...alarm,
-          generatedAt: v.parse(tools.TimestampValue, alarm.generatedAt),
-          inactivityDays: alarm.inactivityDays ? tools.Int.positive(alarm.inactivityDays) : null,
-          advice: alarm.advice as Emotions.VO.AlarmSnapshot["advice"],
-        })),
-        entry: entryAlarmsResponse.map((alarm) => ({
-          ...alarm,
-          generatedAt: v.parse(tools.TimestampValue, alarm.generatedAt),
-          emotionLabel: alarm.emotionLabel as Emotions.VO.GenevaWheelEmotion,
-          name: alarm.name as Emotions.VO.AlarmNameOption,
-          advice: alarm.advice as Emotions.VO.AlarmSnapshot["advice"],
-        })),
+        inactivity: inactivityAlarmsResponse.flatMap((alarm) =>
+          alarm.advice === null ? [] : [{ ...alarm, advice: alarm.advice }],
+        ),
+        entry: entryAlarmsResponse.flatMap((alarm) =>
+          alarm.advice === null || alarm.emotionLabel === null
+            ? []
+            : [{ ...alarm, advice: alarm.advice, emotionLabel: alarm.emotionLabel }],
+        ),
       },
       entries: {
         counts: {
@@ -128,12 +135,20 @@ class DashboardQueryDrizzle implements Emotions.Queries.Dashboard {
           allTime: tools.Int.nonNegative(entryCountAllTime),
         },
         top: {
-          reactions: topReactionsResponse.map((entry) => ({
-            id: entry.id,
-            reactionDescription: entry.reactionDescription as Emotions.VO.ReactionDescriptionType,
-            reactionType: entry.reactionType as Emotions.VO.ReactionTypeType,
-            reactionEffectiveness: entry.reactionEffectiveness as Emotions.VO.ReactionEffectivenessType,
-          })),
+          reactions: topReactionsResponse.flatMap((entry) =>
+            entry.reactionDescription === null ||
+            entry.reactionType === null ||
+            entry.reactionEffectiveness === null
+              ? []
+              : [
+                  {
+                    id: entry.id,
+                    reactionDescription: entry.reactionDescription,
+                    reactionType: entry.reactionType,
+                    reactionEffectiveness: entry.reactionEffectiveness,
+                  },
+                ],
+          ),
           emotions: {
             today: topEmotionsToday,
             lastWeek: topEmotionsLastWeek,

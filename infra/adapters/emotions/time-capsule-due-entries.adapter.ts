@@ -6,15 +6,13 @@ import * as Schema from "+infra/schema";
 
 class TimeCapsuleDueEntriesDrizzle implements Emotions.Ports.TimeCapsuleDueEntriesPort {
   async listDue(now: tools.Timestamp): Promise<ReadonlyArray<Emotions.Ports.TimeCapsuleEntrySnapshot>> {
-    const rows = await db.query.timeCapsuleEntries.findMany({
+    return db.query.timeCapsuleEntries.findMany({
       where: and(
         lte(Schema.timeCapsuleEntries.scheduledFor, now.ms),
         eq(Schema.timeCapsuleEntries.status, Emotions.VO.TimeCapsuleEntryStatusEnum.scheduled),
       ),
       limit: 10,
     });
-
-    return rows as unknown as ReadonlyArray<Emotions.Ports.TimeCapsuleEntrySnapshot>;
   }
 }
 
