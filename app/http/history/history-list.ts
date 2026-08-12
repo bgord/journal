@@ -17,7 +17,7 @@ export const HistoryList = (deps: Dependencies) => async (c: hono.Context<infra.
   return c.json(
     list.map((item) => ({
       ...item,
-      createdAt: tools.DateFormatter.datetime(tools.Timestamp.fromValue(item.createdAt)),
+      createdAt: tools.DateFormatter.datetime(tools.Timestamp.fromValueSafe(item.createdAt)),
     })),
   );
 };

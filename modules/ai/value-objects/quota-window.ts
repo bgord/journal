@@ -14,13 +14,13 @@ export class QuotaWindow {
     return {
       DAY: () => {
         const now = clock.now();
-        const day = tools.Day.fromNow(now);
+        const day = tools.Day.fromTimestamp(now);
 
         return day.getEnd().difference(now);
       },
       WEEK: () => {
         const now = clock.now();
-        const week = tools.Week.fromNow(now);
+        const week = tools.Week.fromTimestamp(now);
 
         return week.getEnd().difference(now);
       },

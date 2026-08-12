@@ -74,7 +74,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "day.iso.id.invalid.date", _known: true });
+    expect(json).toEqual({ message: "day.iso.id.invalid", _known: true });
   });
 
   test("validation - dateRangeEnd", async () => {

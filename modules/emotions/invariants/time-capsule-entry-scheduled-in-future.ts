@@ -15,7 +15,7 @@ type TimeCapsuleEntryScheduledInFutureConfigType = {
 
 class TimeCapsuleEntryScheduledInFutureFactory extends bg.Invariant<TimeCapsuleEntryScheduledInFutureConfigType> {
   passes(config: TimeCapsuleEntryScheduledInFutureConfigType) {
-    return config.now.isBefore(tools.Timestamp.fromValue(config.scheduledFor));
+    return config.now.isBefore(tools.Timestamp.fromValueSafe(config.scheduledFor));
   }
 
   message = "time.capsule.entry.scheduled.in.future";

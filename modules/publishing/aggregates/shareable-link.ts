@@ -159,8 +159,8 @@ export class ShareableLink {
         this.ownerId = event.payload.ownerId;
         this.status = VO.ShareableLinkStatusEnum.active;
         this.dateRange = new tools.DateRange(
-          tools.Timestamp.fromValue(event.payload.dateRangeStart),
-          tools.Timestamp.fromValue(event.payload.dateRangeEnd),
+          tools.Timestamp.fromValueSafe(event.payload.dateRangeStart),
+          tools.Timestamp.fromValueSafe(event.payload.dateRangeEnd),
         );
         this.publicationSpecification = event.payload.publicationSpecification;
         break;

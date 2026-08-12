@@ -8,8 +8,8 @@ import * as Schema from "+infra/schema";
 
 class DashboardQueryDrizzle implements Emotions.Queries.Dashboard {
   async get(userId: Auth.VO.UserIdType, now: tools.Timestamp): Promise<Emotions.Queries.DashboardDto> {
-    const today = tools.Day.fromNow(now).getStart();
-    const lastWeek = tools.Day.fromNow(now).getStart().subtract(tools.Duration.Weeks(1));
+    const today = tools.Day.fromTimestamp(now).getStart();
+    const lastWeek = tools.Day.fromTimestamp(now).getStart().subtract(tools.Duration.Weeks(1));
     const allTime = tools.Timestamp.fromNumber(0);
 
     const heatmapResponse = await db

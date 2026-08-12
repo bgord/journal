@@ -14,7 +14,7 @@ const validationErrors = [
   bg.UUIDError.Type,
   bg.History.VO.HistorySubjectError.TooLong,
   tools.DurationMsError.Invalid,
-  tools.DayIsoIdError.InvalidDate,
+  tools.DayIsoIdError.Invalid,
   tools.DayIsoIdError.Type,
   tools.LanguageError.Type,
   Emotions.VO.SituationDescription.Errors.Invalid,

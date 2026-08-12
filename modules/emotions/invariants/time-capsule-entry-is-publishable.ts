@@ -18,7 +18,7 @@ type TimeCapsuleEntryIsPublishableConfigType = {
 class TimeCapsuleEntryIsPublishableFactory extends bg.Invariant<TimeCapsuleEntryIsPublishableConfigType> {
   passes(config: TimeCapsuleEntryIsPublishableConfigType) {
     if (config.status !== VO.TimeCapsuleEntryStatusEnum.scheduled) return false;
-    return config.now.isAfterOrEqual(tools.Timestamp.fromValue(config.scheduledFor));
+    return config.now.isAfterOrEqual(tools.Timestamp.fromValueSafe(config.scheduledFor));
   }
 
   // Stryker disable next-line StringLiteral

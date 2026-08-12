@@ -20,7 +20,7 @@ class ShareableLinkExpirationTimePassedFactory extends bg.Invariant<ShareableLin
     if (!config.createdAt) return false;
     if (!config.durationMs) return false;
     // Stryker restore all
-    return tools.Timestamp.fromValue(config.createdAt)
+    return tools.Timestamp.fromValueSafe(config.createdAt)
       .add(tools.Duration.Ms(config.durationMs))
       .isBefore(config.now);
   }

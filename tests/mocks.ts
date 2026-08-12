@@ -50,12 +50,12 @@ export const email = v.parse(tools.Email, "user@example.com");
 export const contact = { type: "email", address: email } as const;
 export const anotherEmail = "another@example.com";
 
-export const week = tools.Week.fromNow(T0);
+export const week = tools.Week.fromTimestamp(T0);
 export const weekStart = "2024/12/30";
 export const weekEnd = "2025/01/05";
 
 export const previousWeek = week.previous();
-export const day = tools.Day.fromNow(T0);
+export const day = tools.Day.fromTimestamp(T0);
 
 export const insights = new AI.Advice("Good job");
 
@@ -137,7 +137,7 @@ export const EmotionsAlarmInactivityWeeklyContext: AI.RequestContext<AI.UsageCat
     dimensions: {},
   };
 
-export const userDailyBucket = `user:${userId}:day:${tools.Day.fromNow(T0).toIsoId()}`;
+export const userDailyBucket = `user:${userId}:day:${tools.Day.fromTimestamp(T0).toIsoId()}`;
 export const emotionsAlarmEntryBucket = `user:${userId}:entry:${entryId}:alarms`;
 export const emotionsWeeklyReviewInsightWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(T0).toIsoId()}:emotions_weekly_review_insight`;
 export const emotionsAlarmInactivityWeeklyBucket = `user:${userId}:week:${tools.Week.fromTimestamp(T0).toIsoId()}:emotions_alarm_inactivity`;
@@ -1042,7 +1042,7 @@ export const fullEntryWithAlarms: Emotions.Ports.EntrySnapshotWithAlarms = {
 export const fullEntryWithAlarmsFormatted: EntrySnapshotFormatted = {
   ...fullEntry,
   alarms: [] as ReadonlyArray<Emotions.VO.AlarmSnapshot>,
-  startedAt: tools.DateFormatter.datetime(tools.Timestamp.fromValue(fullEntry.startedAt)),
+  startedAt: tools.DateFormatter.datetime(tools.Timestamp.fromValueSafe(fullEntry.startedAt)),
 };
 
 export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {

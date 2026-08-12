@@ -20,7 +20,7 @@ export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.
   const filter = v.parse(Emotions.VO.EntryListFilter, json["filter"]);
   const query = v.parse(v.optional(v.string(), ""), json["query"]);
 
-  const today = tools.Day.fromNow(deps.Clock.now());
+  const today = tools.Day.fromTimestamp(deps.Clock.now());
   const options = Emotions.VO.EntryListFilterOptions;
 
   const range: Record<Emotions.VO.EntryListFilterOptions, (today: tools.Day) => tools.DateRange> = {

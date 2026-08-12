@@ -14,7 +14,7 @@ class InactivityAlarmScheduleFactory extends bg.Invariant<InactivityAlarmSchedul
   passes(config: InactivityAlarmScheduleConfigType) {
     if (!tools.Weekday.fromTimestampValue(config.timestamp).isWednesday()) return false;
 
-    const sixPM = tools.Hour.fromValue(18);
+    const sixPM = tools.Hour.fromNumber(18);
     const hour = tools.Hour.fromTimestampValue(config.timestamp);
 
     return hour.equals(sixPM);
