@@ -91,7 +91,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
   const deps = { ...di.Adapters.System, ...di.Tools };
 
   const now = di.Adapters.System.Clock.now();
-  const correlationId = di.Adapters.System.IdProvider.generate();
+  const correlationId = v.parse(bg.CorrelationId, di.Adapters.System.IdProvider.generate());
 
   await bg.CorrelationStorage.run(correlationId, async () => {
     const users = await Promise.all(

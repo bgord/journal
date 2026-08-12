@@ -14,7 +14,7 @@ import type { EntrySnapshotFormatted } from "+app/http/emotions/list-entries";
 import type * as Schema from "+infra/schema";
 
 // IDs
-export const correlationId = "00000000-0000-0000-0000-000000000000";
+export const correlationId = v.parse(bg.CorrelationId, "00000000-0000-0000-0000-000000000000");
 
 export const commit = bg.CommitSha.fromString("a".repeat(40)).value;
 

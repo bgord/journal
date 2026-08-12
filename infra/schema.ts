@@ -1,3 +1,4 @@
+import type * as bg from "@bgord/bun";
 import { desc, relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
@@ -27,7 +28,7 @@ export const events = sqliteTable(
   "events",
   {
     id,
-    correlationId: text("correlationId").notNull(),
+    correlationId: text("correlationId").notNull().$type<bg.CorrelationIdType>(),
     createdAt: integer("createdAt").default(sql`now`).notNull(),
     name: text("name").notNull(),
     stream: text("stream").notNull(),
