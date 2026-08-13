@@ -47,7 +47,7 @@ export const events = sqliteTable(
     name: text("name").notNull(),
     stream: text("stream").notNull(),
     version: integer("version").notNull(),
-    revision: integer("revision").notNull().default(0),
+    revision: integer("revision").notNull().default(0).$type<tools.RevisionValueType>(),
     payload: text("payload").notNull(),
   },
   (table) => [
@@ -59,7 +59,7 @@ export const events = sqliteTable(
 
 export const entries = sqliteTable("entries", {
   id: identifier<EntryIdType>(),
-  revision: integer("revision").notNull().default(0),
+  revision: integer("revision").notNull().default(0).$type<tools.RevisionValueType>(),
   startedAt: timestamp("startedAt").notNull(),
   situationDescription: text("situationDescription").notNull(),
   situationKind: text("situationKind", toEnumList(SituationKindOptions))
@@ -226,7 +226,7 @@ export const shareableLinks = sqliteTable("shareableLinks", {
   createdAt: timestamp("createdAt").notNull(),
   updatedAt: timestamp("updatedAt").notNull(),
   status: text("status", toEnumList(ShareableLinkStatusEnum)).notNull().$type<ShareableLinkStatusEnum>(),
-  revision: integer("revision").notNull().default(0),
+  revision: integer("revision").notNull().default(0).$type<tools.RevisionValueType>(),
   ownerId: text("ownerId", { length: 36 })
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),

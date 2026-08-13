@@ -17,6 +17,7 @@ import type * as Schema from "+infra/schema";
 export const correlationId = v.parse(bg.CorrelationId, "00000000-0000-0000-0000-000000000000");
 
 export const commit = bg.CommitSha.fromString("a".repeat(40)).value;
+export const revision = new tools.Revision(0);
 
 export const entryId = v.parse(bg.UUID, "e3799aaf-da3d-491b-b408-9c642cc3c312");
 export const alarmId = v.parse(Emotions.VO.AlarmId, "de578009-c9a7-4a59-8fb7-5223f82ef9ef");
@@ -59,12 +60,12 @@ export const day = tools.Day.fromTimestamp(T0);
 
 export const insights = new AI.Advice("Good job");
 
-export const revision = new tools.Revision(0);
-
-export const revisionHeaders = (revision: tools.RevisionValueType = 0) => ({ "if-match": `W/${revision}` });
+export const revisionHeaders = (revision = 0) => ({
+  "if-match": `W/${v.parse(tools.RevisionValue, revision)}`,
+});
 export const correlationIdHeaders = { "correlation-id": correlationId };
-export const correlationIdAndRevisionHeaders = (revision: tools.RevisionValueType = 0) => ({
-  "if-match": `W/${revision}`,
+export const correlationIdAndRevisionHeaders = (revision = 0) => ({
+  "if-match": `W/${v.parse(tools.RevisionValue, revision)}`,
   "correlation-id": correlationId,
 });
 
@@ -1001,7 +1002,7 @@ export const GenericProfileAvatarRemovedEvent = {
 } satisfies Preferences.Events.ProfileAvatarRemovedEventType;
 
 export const partialEntry: Emotions.VO.EntrySnapshot = {
-  revision: 0,
+  revision: revision.value,
   startedAt: T0.ms,
   status: Emotions.VO.EntryStatusEnum.actionable,
   id: entryId,
@@ -1018,7 +1019,7 @@ export const partialEntry: Emotions.VO.EntrySnapshot = {
 };
 
 export const fullEntry: Emotions.VO.EntrySnapshot = {
-  revision: 0,
+  revision: revision.value,
   startedAt: T0.ms,
   status: Emotions.VO.EntryStatusEnum.actionable,
   id: entryId,
@@ -1149,7 +1150,7 @@ export const shareableLink: Schema.SelectShareableLinks = {
   createdAt: T0.ms,
   updatedAt: T0.ms,
   status: Publishing.VO.ShareableLinkStatusEnum.active,
-  revision: 0,
+  revision: revision.value,
   ownerId: userId,
   publicationSpecification: "entries",
   dateRangeStart: T0.ms,
@@ -1163,7 +1164,7 @@ export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
   id: shareableLinkId,
   updatedAt: tools.DateFormatter.datetime(T0),
   status: Publishing.VO.ShareableLinkStatusEnum.active,
-  revision: 0,
+  revision: revision.value,
   publicationSpecification: "entries",
   dateRangeStart: tools.DateFormatter.datetime(T0),
   dateRangeEnd: tools.DateFormatter.datetime(T0),
