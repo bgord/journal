@@ -1,4 +1,5 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import * as Events from "+emotions/events";
@@ -193,7 +194,7 @@ export class Alarm {
     }
   }
 
-  static getStream(id: VO.AlarmIdType) {
-    return `alarm_${id}`;
+  static getStream(id: VO.AlarmIdType): bg.EventStreamType {
+    return v.parse(bg.EventStream, `alarm_${id}`);
   }
 }

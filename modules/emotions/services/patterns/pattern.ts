@@ -1,5 +1,6 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import type * as Events from "+emotions/events";
 import type * as VO from "+emotions/value-objects";
@@ -27,6 +28,6 @@ export abstract class Pattern {
   abstract check(entries: ReadonlyArray<VO.EntrySnapshot>): PatternDetectionEventType | null;
 
   getStream(): bg.EventStreamType {
-    return `weekly_pattern_detection_${this.userId}_${this.week.toIsoId()}`;
+    return v.parse(bg.EventStream, `weekly_pattern_detection_${this.userId}_${this.week.toIsoId()}`);
   }
 }

@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 import type * as Auth from "+auth";
 import * as Events from "+publishing/events";
 import * as Invariants from "+publishing/invariants";
@@ -180,7 +181,7 @@ export class ShareableLink {
     }
   }
 
-  static getStream(id: VO.ShareableLinkIdType) {
-    return `shareable_link_${id}`;
+  static getStream(id: VO.ShareableLinkIdType): bg.EventStreamType {
+    return v.parse(bg.EventStream, `shareable_link_${id}`);
   }
 }
