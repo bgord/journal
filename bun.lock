@@ -7,7 +7,7 @@
       "dependencies": {
         "@anthropic-ai/sdk": "0.116.0",
         "@better-auth/drizzle-adapter": "1.6.26",
-        "@bgord/bun": "1.21.4",
+        "@bgord/bun": "1.21.5",
         "@bgord/design": "1.7.1",
         "@bgord/ui": "0.10.1",
         "@tanstack/react-router": "1.170.24",
@@ -136,11 +136,11 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.3.1", "", {}, "sha512-ABkD1WhyfPZprKRQI3bhATjeiFuNWC9PXhfGWqL+sg/gKrM977oFrYkdb4msM3hgUGonr7KlOsOFT5TU2rht9g=="],
 
-    "@bgord/bun": ["@bgord/bun@1.21.4", "", { "dependencies": { "@bgord/tools": "1.6.4", "emittery": "2.0.0", "hono": "4.13.1", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.26", "csv": "6.6.3", "nodemailer": "9.0.5", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "csv", "nodemailer", "yazl"] }, "sha512-6nqqrW6i84bZjfpdPu7Odd3AGTBsv33N+rNsyhWqph3nhNK0pLfNiQYmbN7JLm00U1LAFAFCXqkRverdytOl2Q=="],
+    "@bgord/bun": ["@bgord/bun@1.21.5", "", { "dependencies": { "@bgord/tools": "1.6.5", "emittery": "2.0.0", "hono": "4.13.1", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.6.26", "csv": "6.6.3", "nodemailer": "9.0.5", "yazl": "3.3.1" }, "optionalPeers": ["better-auth", "csv", "nodemailer", "yazl"] }, "sha512-NewEAG3we7+72RDCkhAQdsHeErrYqY6hXj2nY4kuH9ip5Gntb1I1w0eD5VPaqNS3NkIF9c9vbwAoQInKMrOYhA=="],
 
     "@bgord/design": ["@bgord/design@1.7.1", "", {}, "sha512-pxWjk013YJUgb2tvBwofOILe1qGWUaBJLltJZ5igV294OTxdtZDSbdEQvcEdZAznRCcjGmJ7ln0la0YXTZFiFQ=="],
 
-    "@bgord/tools": ["@bgord/tools@1.6.4", "", { "dependencies": { "temporal-polyfill": "1.0.3", "valibot": "1.4.2" } }, "sha512-B6FXHaAXBoSs0M+NregmMudWNJZBdudMuRt+NzUuH4GnfbPD0abVw4AWWFLZpLz1MnJJ8+xi+2I1fn/dH60oIg=="],
+    "@bgord/tools": ["@bgord/tools@1.6.5", "", { "dependencies": { "temporal-polyfill": "1.0.3", "valibot": "1.4.2" } }, "sha512-3qxJW208qZji0mkOyLMvmxXRJretTUIdqJs8rEFGwSoyd4o9x9ISt4CPi8pXLaYJlj+LmhULhegaWyeYA6WW7w=="],
 
     "@bgord/ui": ["@bgord/ui@0.10.1", "", { "dependencies": { "polish-plurals": "1.1.0", "tinykeys": "4.0.0" }, "peerDependencies": { "react": "19.2.8", "react-dom": "19.2.8" } }, "sha512-iWLvAm1RXCryOiZGB4AEJd/ypMXJ7JjYnXSNVBcsJe1nvUjbiSSNktL8VOlZTOqc0FFKugtjC2G0oZD4jNVZWQ=="],
 

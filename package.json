@@ -30,7 +30,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "0.116.0",
     "@better-auth/drizzle-adapter": "1.6.26",
-    "@bgord/bun": "1.21.4",
+    "@bgord/bun": "1.21.5",
     "@bgord/design": "1.7.1",
     "@bgord/ui": "0.10.1",
     "@tanstack/react-router": "1.170.24",
