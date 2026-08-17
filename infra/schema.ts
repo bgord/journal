@@ -3,6 +3,7 @@ import type * as tools from "@bgord/tools";
 import { desc, relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 import type { AdviceType } from "../modules/ai/value-objects/advice";
+import type { UserIdType } from "../modules/auth/value-objects/user-id";
 import type { AlarmIdType } from "../modules/emotions/value-objects/alarm-id";
 // Imported separately because of Drizzle error in bgord-scripts/drizzle-generate.sh
 import { AlarmNameOption } from "../modules/emotions/value-objects/alarm-name-option";
@@ -41,7 +42,7 @@ const timestamp = (name: string) => integer(name, { mode: "number" }).$type<tool
 export const events = sqliteTable(
   "events",
   {
-    id,
+    id: identifier<bg.UUIDType>(),
     correlationId: text("correlationId").notNull().$type<bg.CorrelationIdType>(),
     createdAt: integer("createdAt").default(sql`now`).notNull(),
     name: text("name").notNull(),
@@ -78,7 +79,8 @@ export const entries = sqliteTable("entries", {
   origin: text("origin", toEnumList(EntryOriginOption)).notNull().$type<EntryOriginOption>(),
   userId: text("userId")
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: "cascade" })
+    .$type<UserIdType>(),
 });
 
 export const entriesRelations = relations(entries, ({ one, many }) => ({
@@ -121,16 +123,20 @@ export const timeCapsuleEntries = sqliteTable("timeCapsuleEntries", {
     .$type<TimeCapsuleEntryStatusEnum>(),
   userId: text("userId")
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: "cascade" })
+    .$type<UserIdType>(),
 });
 
 export const alarms = sqliteTable("alarms", {
   id: identifier<AlarmIdType>(),
   generatedAt: timestamp("generatedAt").notNull(),
-  entryId: text("entryId", { length: 36 }).references(() => entries.id, { onDelete: "cascade" }),
+  entryId: text("entryId", { length: 36 })
+    .references(() => entries.id, { onDelete: "cascade" })
+    .$type<EntryIdType>(),
   userId: text("userId", { length: 36 })
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: "cascade" })
+    .$type<UserIdType>(),
   status: text("status", toEnumList(AlarmStatusEnum)).notNull().$type<AlarmStatusEnum>(),
   name: text("name", toEnumList(AlarmNameOption)).notNull().$type<AlarmNameOption>(),
   advice: text("advice").$type<AdviceType>(),
@@ -166,7 +172,7 @@ export const alarmsRelations = relations(alarms, ({ one }) => ({
 }));
 
 export const patternDetections = sqliteTable("patternDetections", {
-  id,
+  id: identifier<bg.UUIDType>(),
   createdAt: timestamp("createdAt").notNull(),
   name: text("name", toEnumList(PatternNameOption)).notNull().$type<PatternNameOption>(),
   weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
@@ -196,7 +202,8 @@ export const weeklyReviews = sqliteTable("weeklyReviews", {
   weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
   userId: text("userId", { length: 36 })
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: "cascade" })
+    .$type<UserIdType>(),
   insights: text("insights").$type<AdviceType>(),
   status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull().$type<WeeklyReviewStatusEnum>(),
 });
@@ -263,11 +270,11 @@ export const aiUsageCounters = sqliteTable("ai_usage_counters", {
 export const history = sqliteTable(
   "history",
   {
-    id,
+    id: identifier<bg.History.VO.HistoryIdType>(),
     createdAt: timestamp("createdAt").notNull(),
-    subject: text("subject").notNull(),
-    operation: text("operation").notNull(),
-    payload: text("payload"),
+    subject: text("subject").notNull().$type<bg.History.VO.HistorySubjectType>(),
+    operation: text("operation").notNull().$type<bg.History.VO.HistoryOperationType>(),
+    payload: text("payload").$type<bg.History.VO.HistoryPayloadParsedType>(),
   },
   (table) => [
     index("history_subject_createdAt").on(table.subject, desc(table.createdAt)),
@@ -349,7 +356,7 @@ export const userProfileAvatarsRelations = relations(userProfileAvatars, ({ one 
 }));
 
 export const users = sqliteTable("users", {
-  id: text("id").primaryKey(),
+  id: text("id").primaryKey().$type<UserIdType>(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: integer("email_verified", { mode: "boolean" })

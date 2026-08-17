@@ -15,7 +15,7 @@ export const CreateShareableLink = (deps: Dependencies) => async (c: hono.Contex
   const context = new bg.RequestContextHonoAdapter(c);
   const body = await context.request.json();
 
-  const requesterId = context.identity.userId() as string;
+  const requesterId = context.identity.userId() as bg.UUIDType;
   const timeZoneOffset = context.middleware.timeZoneOffset();
   const publicationSpecification = v.parse(
     Publishing.VO.PublicationSpecification,
@@ -27,7 +27,7 @@ export const CreateShareableLink = (deps: Dependencies) => async (c: hono.Contex
 
   const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
 
-  const shareableLinkId = deps.IdProvider.generate();
+  const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, deps.IdProvider.generate());
 
   const command = bg.command(
     Publishing.Commands.CreateShareableLinkCommand,

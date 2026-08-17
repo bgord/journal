@@ -18,7 +18,7 @@ export const ExportEntries = (deps: Dependencies) => async (c: hono.Context<infr
   const context = new bg.RequestContextHonoAdapter(c);
   const query = context.request.query();
 
-  const userId = context.identity.userId() as string;
+  const userId = context.identity.userId() as bg.UUIDType;
   const timeZoneOffset = context.middleware.timeZoneOffset();
   const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeStart"])).getStart();
   const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeEnd"])).getEnd();

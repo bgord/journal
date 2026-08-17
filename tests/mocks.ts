@@ -19,14 +19,17 @@ export const correlationId = v.parse(bg.CorrelationId, "00000000-0000-0000-0000-
 export const commit = bg.CommitSha.fromString("a".repeat(40)).value;
 export const revision = new tools.Revision(0);
 
-export const entryId = v.parse(bg.UUID, "e3799aaf-da3d-491b-b408-9c642cc3c312");
+export const entryId = v.parse(Emotions.VO.EntryId, "e3799aaf-da3d-491b-b408-9c642cc3c312");
 export const alarmId = v.parse(Emotions.VO.AlarmId, "de578009-c9a7-4a59-8fb7-5223f82ef9ef");
 export const userId = v.parse(bg.UUID, "60aac9b2-2c16-4e94-b024-0951723e0bed");
 export const anotherUserId = v.parse(bg.UUID, "cd74d060-d5de-4a81-8ffb-b2dc46cd4451");
 export const weeklyReviewId = v.parse(Emotions.VO.WeeklyReviewId, "e212142f-0ac0-4641-a417-117a2909afa0");
-export const weeklyReviewExportId = v.parse(bg.UUID, "4d4964cf-1429-4861-b7f7-b255c0072990");
-export const shareableLinkId = v.parse(bg.UUID, "2e469d5a-8317-459a-a0b9-b9a019acca19");
-export const historyId = v.parse(bg.UUID, "8d79bd87-1709-4c15-b40c-cd0fafaa0113");
+export const weeklyReviewExportId = v.parse(
+  Emotions.VO.WeeklyReviewExportId,
+  "4d4964cf-1429-4861-b7f7-b255c0072990",
+);
+export const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, "2e469d5a-8317-459a-a0b9-b9a019acca19");
+export const historyId = v.parse(bg.History.VO.HistoryId, "8d79bd87-1709-4c15-b40c-cd0fafaa0113");
 const patternDetectionId = v.parse(bg.UUID, "d2ca7a35-76a0-42de-8a2c-32d8b14fdfab");
 
 // Timestamps
@@ -848,12 +851,12 @@ export const GenericEntryHistorySituationLoggedEvent = {
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
-    operation: "entry.situation.logged",
-    subject: entryId,
-    payload: {
+    operation: v.parse(bg.History.VO.HistoryOperation, "entry.situation.logged"),
+    subject: v.parse(bg.History.VO.HistorySubject, entryId),
+    payload: v.parse(bg.History.VO.HistoryPayload, {
       description: "I finished a project",
       kind: Emotions.VO.SituationKindOptions.achievement,
-    },
+    }),
   },
 } satisfies bg.History.Events.HistoryPopulatedEventType;
 
@@ -867,12 +870,12 @@ export const GenericEntryHistoryEmotionLoggedEvent = {
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
-    operation: "entry.emotion.logged",
-    subject: entryId,
-    payload: {
+    operation: v.parse(bg.History.VO.HistoryOperation, "entry.emotion.logged"),
+    subject: v.parse(bg.History.VO.HistorySubject, entryId),
+    payload: v.parse(bg.History.VO.HistoryPayload, {
       label: Emotions.VO.GenevaWheelEmotion.gratitude,
       intensity: 3,
-    },
+    }),
   },
 } satisfies bg.History.Events.HistoryPopulatedEventType;
 
@@ -886,13 +889,13 @@ export const GenericEntryHistoryReactionLoggedEvent = {
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
-    operation: "entry.reaction.logged",
-    subject: entryId,
-    payload: {
+    operation: v.parse(bg.History.VO.HistoryOperation, "entry.reaction.logged"),
+    subject: v.parse(bg.History.VO.HistorySubject, entryId),
+    payload: v.parse(bg.History.VO.HistoryPayload, {
       description: "Got drunk",
       type: Emotions.VO.GrossEmotionRegulationStrategy.distraction,
       effectiveness: 1,
-    },
+    }),
   },
 } satisfies bg.History.Events.HistoryPopulatedEventType;
 
@@ -906,12 +909,12 @@ export const GenericEntryHistoryEmotionReappraisedEvent = {
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
-    operation: "entry.emotion.reappraised",
-    subject: entryId,
-    payload: {
+    operation: v.parse(bg.History.VO.HistoryOperation, "entry.emotion.reappraised"),
+    subject: v.parse(bg.History.VO.HistorySubject, entryId),
+    payload: v.parse(bg.History.VO.HistoryPayload, {
       label: Emotions.VO.GenevaWheelEmotion.joy,
       intensity: 3,
-    },
+    }),
   },
 } satisfies bg.History.Events.HistoryPopulatedEventType;
 
@@ -925,13 +928,13 @@ export const GenericEntryHistoryReactionEvaluatedEvent = {
   name: "HISTORY_POPULATED_EVENT",
   payload: {
     id: historyId,
-    operation: "entry.reaction.evaluated",
-    subject: entryId,
-    payload: {
+    operation: v.parse(bg.History.VO.HistoryOperation, "entry.reaction.evaluated"),
+    subject: v.parse(bg.History.VO.HistorySubject, entryId),
+    payload: v.parse(bg.History.VO.HistoryPayload, {
       description: "Went to bed",
       type: Emotions.VO.GrossEmotionRegulationStrategy.avoidance,
       effectiveness: 2,
-    },
+    }),
   },
 } satisfies bg.History.Events.HistoryPopulatedEventType;
 
@@ -943,7 +946,7 @@ export const GenericEntryHistoryClearedEvent = {
   version: 1,
   commit,
   name: "HISTORY_CLEARED_EVENT",
-  payload: { subject: entryId },
+  payload: { subject: v.parse(bg.History.VO.HistorySubject, entryId) },
 } satisfies bg.History.Events.HistoryClearedEventType;
 
 export const GenericAccountCreatedEvent = {
@@ -1249,10 +1252,10 @@ const PLACEHOLDER_PDF_BASE64 =
 export const PDF = Uint8Array.fromBase64(PLACEHOLDER_PDF_BASE64).buffer;
 
 export const historyItem = {
-  id: correlationId,
-  operation: "entry.situation.logged",
-  subject: entryId,
-  payload: {},
+  id: v.parse(bg.History.VO.HistoryId, correlationId),
+  operation: v.parse(bg.History.VO.HistoryOperation, "entry.situation.logged"),
+  subject: v.parse(bg.History.VO.HistorySubject, entryId),
+  payload: v.parse(bg.History.VO.HistoryPayload, {}),
   createdAt: T0.ms,
 };
 

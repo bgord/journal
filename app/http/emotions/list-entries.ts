@@ -16,7 +16,7 @@ export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.
   const context = new bg.RequestContextHonoAdapter(c);
   const json = await context.request.json();
 
-  const userId = context.identity.userId() as string;
+  const userId = context.identity.userId() as bg.UUIDType;
   const filter = v.parse(Emotions.VO.EntryListFilter, json["filter"]);
   const query = v.parse(v.optional(v.string(), ""), json["query"]);
 

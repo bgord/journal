@@ -1,3 +1,4 @@
 import * as bg from "@bgord/bun";
+import * as v from "valibot";
 
-export const WeeklyReviewExportId = bg.UUID;
+export const WeeklyReviewExportId = v.pipe(bg.UUID, v.brand("WeeklyReviewExportId"));

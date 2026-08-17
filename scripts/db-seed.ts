@@ -108,7 +108,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         const event = bg.event(
           Auth.Events.AccountCreatedEvent,
           `account_${result.user.id}`,
-          { userId: result.user.id, timestamp: now.ms },
+          { userId: v.parse(Auth.VO.UserId, result.user.id), timestamp: now.ms },
           deps,
         );
 
@@ -174,7 +174,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       );
 
       const entry = Emotions.Aggregates.Entry.log(
-        di.Adapters.System.IdProvider.generate(),
+        v.parse(Emotions.VO.EntryId, di.Adapters.System.IdProvider.generate()),
         situation,
         emotion,
         reaction,
@@ -192,7 +192,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       Emotions.Commands.ScheduleTimeCapsuleEntryCommand,
       {
         payload: {
-          entryId: di.Adapters.System.IdProvider.generate(),
+          entryId: v.parse(Emotions.VO.EntryId, di.Adapters.System.IdProvider.generate()),
           situation: new Emotions.Entities.Situation(
             new Emotions.VO.SituationDescription(situationDescriptions[0] as string),
             new Emotions.VO.SituationKind(situationKinds[0] as Emotions.VO.SituationKindOptions),
@@ -227,7 +227,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
     console.log("[✓] Weekly review scheduled");
 
     const shareableLink = Publishing.Aggregates.ShareableLink.create(
-      di.Adapters.System.IdProvider.generate(),
+      v.parse(Publishing.VO.ShareableLinkId, di.Adapters.System.IdProvider.generate()),
       "entries",
       new tools.DateRange(now.subtract(tools.Duration.Days(7)), now),
       tools.Duration.Days(3).ms,

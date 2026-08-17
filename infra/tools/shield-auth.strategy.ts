@@ -39,7 +39,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
           const event = bg.event(
             Auth.Events.AccountDeletedEvent,
             `account_${user.id}`,
-            { userId: user.id, timestamp: deps.Clock.now().ms },
+            { userId: v.parse(Auth.VO.UserId, user.id), timestamp: deps.Clock.now().ms },
             deps,
           );
 
@@ -80,7 +80,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
         const event = bg.event(
           Auth.Events.AccountCreatedEvent,
           `account_${user.id}`,
-          { userId: user.id, timestamp: deps.Clock.now().ms },
+          { userId: v.parse(Auth.VO.UserId, user.id), timestamp: deps.Clock.now().ms },
           deps,
         );
 

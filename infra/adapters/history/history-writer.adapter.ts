@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as v from "valibot";
 
 type AcceptedEvent = bg.History.Events.HistoryPopulatedEventType | bg.History.Events.HistoryClearedEventType;
 
@@ -18,7 +19,7 @@ class HistoryWriterEventStore implements bg.History.Ports.HistoryWriterPort {
     const event = bg.event(
       bg.History.Events.HistoryPopulatedEvent,
       `history_${history.subject}`,
-      { ...history, id: this.deps.IdProvider.generate() },
+      { ...history, id: v.parse(bg.History.VO.HistoryId, this.deps.IdProvider.generate()) },
       this.deps,
     );
 

@@ -14,7 +14,7 @@ export const RevokeShareableLink = (deps: Dependencies) => async (c: hono.Contex
   const context = new bg.RequestContextHonoAdapter(c);
   const params = context.request.params();
 
-  const requesterId = context.identity.userId() as string;
+  const requesterId = context.identity.userId() as bg.UUIDType;
   const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, params["shareableLinkId"]);
 
   const command = bg.command(

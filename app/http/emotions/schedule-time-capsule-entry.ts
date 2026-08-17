@@ -15,9 +15,9 @@ export const ScheduleTimeCapsuleEntry = (deps: Dependencies) => async (c: hono.C
   const context = new bg.RequestContextHonoAdapter(c);
   const body = await context.request.json();
 
-  const userId = context.identity.userId() as string;
+  const userId = context.identity.userId() as bg.UUIDType;
   const timeZoneOffset = context.middleware.timeZoneOffset();
-  const entryId = deps.IdProvider.generate();
+  const entryId = v.parse(Emotions.VO.EntryId, deps.IdProvider.generate());
   const situationDescription = v.parse(Emotions.VO.SituationDescriptionSchema, body["situationDescription"]);
   const situationKind = v.parse(Emotions.VO.SituationKindSchema, body["situationKind"]);
   const emotionLabel = v.parse(Emotions.VO.EmotionLabelSchema, body["emotionLabel"]);

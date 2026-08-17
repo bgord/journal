@@ -1,4 +1,5 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
+import * as v from "valibot";
 import type * as Emotions from "+emotions";
 import { EMOTION_LOGGED_EVENT } from "../events/EMOTION_LOGGED_EVENT";
 import { EMOTION_REAPPRAISED_EVENT } from "../events/EMOTION_REAPPRAISED_EVENT";
@@ -42,58 +43,67 @@ export class EntryHistoryPublisher {
 
   async onSituationLoggedEvent(event: Emotions.Events.SituationLoggedEventType) {
     await this.deps.HistoryWriter.populate({
-      operation: "entry.situation.logged",
-      subject: event.payload.entryId,
-      payload: { kind: event.payload.kind, description: event.payload.description },
+      operation: v.parse(bg.History.VO.HistoryOperation, "entry.situation.logged"),
+      subject: v.parse(bg.History.VO.HistorySubject, event.payload.entryId),
+      payload: v.parse(bg.History.VO.HistoryPayload, {
+        kind: event.payload.kind,
+        description: event.payload.description,
+      }),
       createdAt: this.deps.Clock.now().ms,
     });
   }
 
   async onEmotionLoggedEvent(event: Emotions.Events.EmotionLoggedEventType) {
     await this.deps.HistoryWriter.populate({
-      operation: "entry.emotion.logged",
-      subject: event.payload.entryId,
-      payload: { label: event.payload.label, intensity: event.payload.intensity },
+      operation: v.parse(bg.History.VO.HistoryOperation, "entry.emotion.logged"),
+      subject: v.parse(bg.History.VO.HistorySubject, event.payload.entryId),
+      payload: v.parse(bg.History.VO.HistoryPayload, {
+        label: event.payload.label,
+        intensity: event.payload.intensity,
+      }),
       createdAt: this.deps.Clock.now().ms,
     });
   }
 
   async onReactionLoggedEvent(event: Emotions.Events.ReactionLoggedEventType) {
     await this.deps.HistoryWriter.populate({
-      operation: "entry.reaction.logged",
-      subject: event.payload.entryId,
-      payload: {
+      operation: v.parse(bg.History.VO.HistoryOperation, "entry.reaction.logged"),
+      subject: v.parse(bg.History.VO.HistorySubject, event.payload.entryId),
+      payload: v.parse(bg.History.VO.HistoryPayload, {
         description: event.payload.description,
         type: event.payload.type,
         effectiveness: event.payload.effectiveness,
-      },
+      }),
       createdAt: this.deps.Clock.now().ms,
     });
   }
 
   async onEmotionReappraisedEvent(event: Emotions.Events.EmotionReappraisedEventType) {
     await this.deps.HistoryWriter.populate({
-      operation: "entry.emotion.reappraised",
-      subject: event.payload.entryId,
-      payload: { label: event.payload.newLabel, intensity: event.payload.newIntensity },
+      operation: v.parse(bg.History.VO.HistoryOperation, "entry.emotion.reappraised"),
+      subject: v.parse(bg.History.VO.HistorySubject, event.payload.entryId),
+      payload: v.parse(bg.History.VO.HistoryPayload, {
+        label: event.payload.newLabel,
+        intensity: event.payload.newIntensity,
+      }),
       createdAt: this.deps.Clock.now().ms,
     });
   }
 
   async onReactionEvaluatedEvent(event: Emotions.Events.ReactionEvaluatedEventType) {
     await this.deps.HistoryWriter.populate({
-      operation: "entry.reaction.evaluated",
-      subject: event.payload.entryId,
-      payload: {
+      operation: v.parse(bg.History.VO.HistoryOperation, "entry.reaction.evaluated"),
+      subject: v.parse(bg.History.VO.HistorySubject, event.payload.entryId),
+      payload: v.parse(bg.History.VO.HistoryPayload, {
         description: event.payload.description,
         type: event.payload.type,
         effectiveness: event.payload.effectiveness,
-      },
+      }),
       createdAt: this.deps.Clock.now().ms,
     });
   }
 
   async onEntryDeletedEvent(event: Emotions.Events.EntryDeletedEventType) {
-    await this.deps.HistoryWriter.clear(event.payload.entryId);
+    await this.deps.HistoryWriter.clear(v.parse(bg.History.VO.HistorySubject, event.payload.entryId));
   }
 }

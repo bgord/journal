@@ -14,8 +14,8 @@ export const LogEntry = (deps: Dependencies) => async (c: hono.Context<infra.Con
   const context = new bg.RequestContextHonoAdapter(c);
   const body = await context.request.json();
 
-  const userId = context.identity.userId() as string;
-  const entryId = deps.IdProvider.generate();
+  const userId = context.identity.userId() as bg.UUIDType;
+  const entryId = v.parse(Emotions.VO.EntryId, deps.IdProvider.generate());
   const situationDescription = v.parse(Emotions.VO.SituationDescriptionSchema, body["situationDescription"]);
   const situationKind = v.parse(Emotions.VO.SituationKindSchema, body["situationKind"]);
   const emotionLabel = v.parse(Emotions.VO.EmotionLabelSchema, body["emotionLabel"]);

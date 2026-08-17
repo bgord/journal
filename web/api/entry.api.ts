@@ -2,7 +2,6 @@ import { absoluteUrl, Cookies } from "@bgord/ui";
 import type { HistoryType } from "../../app/http/history";
 import type { types } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotFormatted } from "../../modules/emotions/ports";
-import type { ShareableLinkIdType } from "../../modules/publishing/value-objects/";
 
 export class Entry {
   static async getList(
@@ -27,7 +26,7 @@ export class Entry {
 
   static async getSharedEntries(
     request: Request | null,
-    shareableLinkId: ShareableLinkIdType,
+    shareableLinkId: string,
   ): Promise<Promise<ReadonlyArray<EntrySnapshotFormatted>>> {
     const BASE = `/api/shared/entries/${shareableLinkId}`;
 
@@ -40,10 +39,7 @@ export class Entry {
     return response.json().catch();
   }
 
-  static async getHistory(
-    request: Request | null,
-    entryId: EntrySnapshotFormatted["id"],
-  ): Promise<ReadonlyArray<HistoryType>> {
+  static async getHistory(request: Request | null, entryId: string): Promise<ReadonlyArray<HistoryType>> {
     const BASE = `/api/history/${entryId}/list`;
 
     const url = absoluteUrl(BASE, request);

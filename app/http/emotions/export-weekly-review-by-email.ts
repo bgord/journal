@@ -14,7 +14,7 @@ export const ExportWeeklyReviewByEmail = (deps: Dependencies) => async (c: hono.
   const context = new bg.RequestContextHonoAdapter(c);
   const params = context.request.params();
 
-  const userId = context.identity.userId() as string;
+  const userId = context.identity.userId() as bg.UUIDType;
   const weeklyReviewId = v.parse(Emotions.VO.WeeklyReviewId, params["weeklyReviewId"]);
 
   const command = bg.command(
