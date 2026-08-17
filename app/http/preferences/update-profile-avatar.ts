@@ -10,24 +10,26 @@ type Dependencies = {
   TemporaryFile: bg.TemporaryFilePort;
 };
 
-export const UpdateProfileAvatar = (deps: Dependencies):bg.EndpointPort => async (context) => {
-  const form = await context.request.form();
+export const UpdateProfileAvatar =
+  (deps: Dependencies): bg.EndpointPort =>
+  async (context) => {
+    const form = await context.request.form();
 
-  const userId = context.identity.authenticatedUserId();
-  const file = v.parse(v.instance(File), form.get("file"));
+    const userId = context.identity.authenticatedUserId();
+    const file = v.parse(v.instance(File), form.get("file"));
 
-  const uploaded = tools.Filename.fromString(file.name);
-  const filename = uploaded.withBasename(v.parse(tools.Basename, userId));
+    const uploaded = tools.Filename.fromString(file.name);
+    const filename = uploaded.withBasename(v.parse(tools.Basename, userId));
 
-  const temporary = await deps.TemporaryFile.write(filename, file);
+    const temporary = await deps.TemporaryFile.write(filename, file);
 
-  const command = bg.command(
-    Preferences.Commands.UpdateProfileAvatarCommand,
-    { payload: { userId, absoluteFilePath: temporary.get() } },
-    deps,
-  );
+    const command = bg.command(
+      Preferences.Commands.UpdateProfileAvatarCommand,
+      { payload: { userId, absoluteFilePath: temporary.get() } },
+      deps,
+    );
 
-  await deps.CommandBus.emit(command);
+    await deps.CommandBus.emit(command);
 
-  return new Response();
-};
+    return new Response();
+  };

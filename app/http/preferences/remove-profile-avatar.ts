@@ -7,13 +7,18 @@ type Dependencies = {
   CommandBus: bg.CommandBusPort<Preferences.Commands.RemoveProfileAvatarCommandType>;
 };
 
-export const RemoveProfileAvatar = (deps: Dependencies):bg.EndpointPort => async (context) => {
+export const RemoveProfileAvatar =
+  (deps: Dependencies): bg.EndpointPort =>
+  async (context) => {
+    const userId = context.identity.authenticatedUserId();
 
-  const userId = context.identity.authenticatedUserId();
+    const command = bg.command(
+      Preferences.Commands.RemoveProfileAvatarCommand,
+      { payload: { userId } },
+      deps,
+    );
 
-  const command = bg.command(Preferences.Commands.RemoveProfileAvatarCommand, { payload: { userId } }, deps);
+    await deps.CommandBus.emit(command);
 
-  await deps.CommandBus.emit(command);
-
-  return new Response(null, { status: 202 });
-};
+    return new Response(null, { status: 202 });
+  };

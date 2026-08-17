@@ -8,19 +8,21 @@ type Dependencies = {
   CommandBus: bg.CommandBusPort<Emotions.Commands.DeleteEntryCommandType>;
 };
 
-export const DeleteEntry = (deps: Dependencies):bg.EndpointPort => async (context) => {
-  const params = context.request.params();
+export const DeleteEntry =
+  (deps: Dependencies): bg.EndpointPort =>
+  async (context) => {
+    const params = context.request.params();
 
-  const userId = context.identity.authenticatedUserId();
-  const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
+    const userId = context.identity.authenticatedUserId();
+    const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
 
-  const command = bg.command(
-    Emotions.Commands.DeleteEntryCommand,
-    { revision: context.middleware.revision.fromWeakETag(), payload: { entryId, userId } },
-    deps,
-  );
+    const command = bg.command(
+      Emotions.Commands.DeleteEntryCommand,
+      { revision: context.middleware.revision.fromWeakETag(), payload: { entryId, userId } },
+      deps,
+    );
 
-  await deps.CommandBus.emit(command);
+    await deps.CommandBus.emit(command);
 
-  return new Response();
-};
+    return new Response();
+  };

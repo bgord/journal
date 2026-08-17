@@ -1,5 +1,5 @@
 // cspell:ignore Stringifier
-import * as bg from "@bgord/bun";
+import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
@@ -12,23 +12,25 @@ type Dependencies = {
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
 };
 
-export const ExportEntries = (deps: Dependencies):bg.EndpointPort => async (context) => {
-  const query = context.request.query();
+export const ExportEntries =
+  (deps: Dependencies): bg.EndpointPort =>
+  async (context) => {
+    const query = context.request.query();
 
-  const userId = context.identity.userId() as bg.UUIDType;
-  const timeZoneOffset = context.middleware.timeZoneOffset();
-  const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeStart"])).getStart();
-  const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeEnd"])).getEnd();
-  const strategy = v.parse(Emotions.VO.EntryExportStrategy, query["strategy"]);
+    const userId = context.identity.userId() as bg.UUIDType;
+    const timeZoneOffset = context.middleware.timeZoneOffset();
+    const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeStart"])).getStart();
+    const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, query["dateRangeEnd"])).getEnd();
+    const strategy = v.parse(Emotions.VO.EntryExportStrategy, query["strategy"]);
 
-  const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
+    const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
 
-  const entries = await deps.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
+    const entries = await deps.EntrySnapshot.getByDateRangeForUser(userId, dateRange);
 
-  return {
-    csv: new Emotions.Services.EntryExportFileCsv(entries, deps),
-    text: new Emotions.Services.EntryExportFileText(entries, deps),
-    markdown: new Emotions.Services.EntryExportFileMarkdown(entries, deps),
-    pdf: new Emotions.Services.EntryExportFilePdf(entries, deps),
-  }[strategy].toResponse();
-};
+    return {
+      csv: new Emotions.Services.EntryExportFileCsv(entries, deps),
+      text: new Emotions.Services.EntryExportFileText(entries, deps),
+      markdown: new Emotions.Services.EntryExportFileMarkdown(entries, deps),
+      pdf: new Emotions.Services.EntryExportFilePdf(entries, deps),
+    }[strategy].toResponse();
+  };

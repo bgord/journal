@@ -9,32 +9,40 @@ type Dependencies = {
   CommandBus: bg.CommandBusPort<Publishing.Commands.CreateShareableLinkCommandType>;
 };
 
-export const CreateShareableLink = (deps: Dependencies):bg.EndpointPort => async (context) => {
-  const body = await context.request.json();
+export const CreateShareableLink =
+  (deps: Dependencies): bg.EndpointPort =>
+  async (context) => {
+    const body = await context.request.json();
 
-  const requesterId = context.identity.authenticatedUserId();
-  const timeZoneOffset = context.middleware.timeZoneOffset();
-  const publicationSpecification = v.parse(
-    Publishing.VO.PublicationSpecification,
-    body["publicationSpecification"],
-  );
-  const duration = tools.Duration.Ms(v.parse(tools.DurationMs, body["durationMs"]));
-  const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body["dateRangeStart"])).getStart();
-  const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body["dateRangeEnd"])).getEnd();
+    const requesterId = context.identity.authenticatedUserId();
+    const timeZoneOffset = context.middleware.timeZoneOffset();
+    const publicationSpecification = v.parse(
+      Publishing.VO.PublicationSpecification,
+      body["publicationSpecification"],
+    );
+    const duration = tools.Duration.Ms(v.parse(tools.DurationMs, body["durationMs"]));
+    const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body["dateRangeStart"])).getStart();
+    const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body["dateRangeEnd"])).getEnd();
 
-  const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
+    const dateRange = new tools.DateRange(start.add(timeZoneOffset), end.add(timeZoneOffset));
 
-  const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, deps.IdProvider.generate());
+    const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, deps.IdProvider.generate());
 
-  const command = bg.command(
-    Publishing.Commands.CreateShareableLinkCommand,
-    {
-      payload: { shareableLinkId, requesterId, durationMs: duration.ms, publicationSpecification, dateRange },
-    },
-    deps,
-  );
+    const command = bg.command(
+      Publishing.Commands.CreateShareableLinkCommand,
+      {
+        payload: {
+          shareableLinkId,
+          requesterId,
+          durationMs: duration.ms,
+          publicationSpecification,
+          dateRange,
+        },
+      },
+      deps,
+    );
 
-  await deps.CommandBus.emit(command);
+    await deps.CommandBus.emit(command);
 
-  return new Response();
-};
+    return new Response();
+  };

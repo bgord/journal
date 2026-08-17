@@ -8,19 +8,21 @@ type Dependencies = {
   CommandBus: bg.CommandBusPort<Emotions.Commands.ExportWeeklyReviewByEmailCommandType>;
 };
 
-export const ExportWeeklyReviewByEmail = (deps: Dependencies):bg.EndpointPort => async (context) => {
-  const params = context.request.params();
+export const ExportWeeklyReviewByEmail =
+  (deps: Dependencies): bg.EndpointPort =>
+  async (context) => {
+    const params = context.request.params();
 
-  const userId = context.identity.userId() as bg.UUIDType;
-  const weeklyReviewId = v.parse(Emotions.VO.WeeklyReviewId, params["weeklyReviewId"]);
+    const userId = context.identity.userId() as bg.UUIDType;
+    const weeklyReviewId = v.parse(Emotions.VO.WeeklyReviewId, params["weeklyReviewId"]);
 
-  const command = bg.command(
-    Emotions.Commands.ExportWeeklyReviewByEmailCommand,
-    { payload: { userId, weeklyReviewId } },
-    deps,
-  );
+    const command = bg.command(
+      Emotions.Commands.ExportWeeklyReviewByEmailCommand,
+      { payload: { userId, weeklyReviewId } },
+      deps,
+    );
 
-  await deps.CommandBus.emit(command);
+    await deps.CommandBus.emit(command);
 
-  return new Response();
-};
+    return new Response();
+  };

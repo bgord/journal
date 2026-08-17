@@ -11,19 +11,20 @@ type Dependencies = {
   AlarmDirectory: Emotions.Ports.AlarmDirectoryPort;
 };
 
-export const ExportData = (deps: Dependencies):bg.EndpointPort => async (context) => {
+export const ExportData =
+  (deps: Dependencies): bg.EndpointPort =>
+  async (context) => {
+    const userId = context.identity.userId() as bg.UUIDType;
 
-  const userId = context.identity.userId() as bg.UUIDType;
+    const entries = await deps.EntrySnapshot.getAllForUser(userId);
+    const alarms = await deps.AlarmDirectory.listForUser(userId);
 
-  const entries = await deps.EntrySnapshot.getAllForUser(userId);
-  const alarms = await deps.AlarmDirectory.listForUser(userId);
+    const timestamp = deps.Clock.now().ms;
 
-  const timestamp = deps.Clock.now().ms;
+    const zip = await bg.FileDraftZip.build(v.parse(tools.Basename, `export-${timestamp}`), [
+      new Emotions.Services.EntryExportFileCsv(entries, deps),
+      new Emotions.Services.AlarmExportFileCsv(alarms, deps),
+    ]);
 
-  const zip = await bg.FileDraftZip.build(v.parse(tools.Basename, `export-${timestamp}`), [
-    new Emotions.Services.EntryExportFileCsv(entries, deps),
-    new Emotions.Services.AlarmExportFileCsv(alarms, deps),
-  ]);
-
-  return zip.toResponse();
-};
+    return zip.toResponse();
+  };
