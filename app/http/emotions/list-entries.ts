@@ -1,9 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type hono from "hono";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
-import type * as infra from "+infra";
 import type { EntrySnapshotFormatted } from "+emotions/ports";
 
 type Dependencies = {
@@ -12,8 +10,7 @@ type Dependencies = {
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
 };
 
-export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const ListEntries = (deps: Dependencies):bg.EndpointPort => async (context) => {
   const json = await context.request.json();
 
   const userId = context.identity.authenticatedUserId();

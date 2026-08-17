@@ -1,7 +1,5 @@
 import * as bg from "@bgord/bun";
-import type hono from "hono";
 import * as v from "valibot";
-import type * as infra from "+infra";
 import * as Publishing from "+publishing";
 
 type Dependencies = {
@@ -10,8 +8,7 @@ type Dependencies = {
   CommandBus: bg.CommandBusPort<Publishing.Commands.RevokeShareableLinkCommandType>;
 };
 
-export const RevokeShareableLink = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const RevokeShareableLink = (deps: Dependencies):bg.EndpointPort => async (context) => {
   const params = context.request.params();
 
   const requesterId = context.identity.authenticatedUserId();

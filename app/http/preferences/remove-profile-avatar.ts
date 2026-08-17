@@ -1,6 +1,4 @@
 import * as bg from "@bgord/bun";
-import type hono from "hono";
-import type * as infra from "+infra";
 import * as Preferences from "+preferences";
 
 type Dependencies = {
@@ -9,8 +7,7 @@ type Dependencies = {
   CommandBus: bg.CommandBusPort<Preferences.Commands.RemoveProfileAvatarCommandType>;
 };
 
-export const RemoveProfileAvatar = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const RemoveProfileAvatar = (deps: Dependencies):bg.EndpointPort => async (context) => {
 
   const userId = context.identity.authenticatedUserId();
 

@@ -1,6 +1,4 @@
 import * as bg from "@bgord/bun";
-import type hono from "hono";
-import type * as infra from "+infra";
 import type * as Publishing from "+publishing";
 
 type Dependencies = {
@@ -9,8 +7,7 @@ type Dependencies = {
   ShareableLinkSnapshot: Publishing.Ports.ShareableLinkSnapshotPort;
 };
 
-export const ListShareableLinks = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const ListShareableLinks = (deps: Dependencies):bg.EndpointPort => async (context) => {
 
   const userId = context.identity.authenticatedUserId();
   const timeZoneOffset = context.middleware.timeZoneOffset();

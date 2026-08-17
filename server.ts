@@ -81,45 +81,58 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const entry = new Hono();
 
   entry.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
-  entry.post("/log", Tools.ShieldCaptcha.handle(), HTTP.Emotions.LogEntry(deps));
+  entry.post(
+    "/log",
+    Tools.ShieldCaptcha.handle(),
+    bg.EndpointHonoAdapter.adapt(HTTP.Emotions.LogEntry(deps)),
+  );
   entry.post(
     "/time-capsule-entry/schedule",
     Tools.ShieldCaptcha.handle(),
-    HTTP.Emotions.ScheduleTimeCapsuleEntry(deps),
+    bg.EndpointHonoAdapter.adapt(HTTP.Emotions.ScheduleTimeCapsuleEntry(deps)),
   );
   entry.post(
     "/:entryId/reappraise-emotion",
     Tools.ShieldCaptcha.handle(),
-    HTTP.Emotions.ReappraiseEmotion(deps),
+    bg.EndpointHonoAdapter.adapt(HTTP.Emotions.ReappraiseEmotion(deps)),
   );
   entry.post(
     "/:entryId/evaluate-reaction",
     Tools.ShieldCaptcha.handle(),
-    HTTP.Emotions.EvaluateReaction(deps),
+    bg.EndpointHonoAdapter.adapt(HTTP.Emotions.EvaluateReaction(deps)),
   );
-  entry.delete("/:entryId/delete", Tools.ShieldCaptcha.handle(), HTTP.Emotions.DeleteEntry(deps));
+  entry.delete(
+    "/:entryId/delete",
+    Tools.ShieldCaptcha.handle(),
+    bg.EndpointHonoAdapter.adapt(HTTP.Emotions.DeleteEntry(deps)),
+  );
   entry.get(
     "/export-data",
     Tools.ShieldRateLimit.handle(),
-    HTTP.Emotions.ExportData({ ...deps, ...Adapters.Emotions }),
+    bg.EndpointHonoAdapter.adapt(HTTP.Emotions.ExportData({ ...deps, ...Adapters.Emotions })),
   );
   entry.get(
     "/export-entries",
     Tools.ShieldRateLimit.handle(),
-    HTTP.Emotions.ExportEntries({ ...deps, ...Adapters.Emotions }),
+    bg.EndpointHonoAdapter.adapt(HTTP.Emotions.ExportEntries({ ...deps, ...Adapters.Emotions })),
   );
-  entry.query("/list", HTTP.Emotions.ListEntries({ ...deps, ...Adapters.Emotions }));
+  entry.query(
+    "/list",
+    bg.EndpointHonoAdapter.adapt(HTTP.Emotions.ListEntries({ ...deps, ...Adapters.Emotions })),
+  );
   server.route("/entry", entry);
   // =============================
 
   // Shared ======================
   server.get(
     "/shared/entries/:shareableLinkId",
-    HTTP.Emotions.GetSharedEntries({
-      ...deps,
-      ShareableLinkAccessOHQ: Adapters.Publishing.ShareableLinkAccessOHQ,
-      EntriesSharing: Adapters.Emotions.EntriesSharingOHQ,
-    }),
+    bg.EndpointHonoAdapter.adapt(
+      HTTP.Emotions.GetSharedEntries({
+        ...deps,
+        ShareableLinkAccessOHQ: Adapters.Publishing.ShareableLinkAccessOHQ,
+        EntriesSharing: Adapters.Emotions.EntriesSharingOHQ,
+      }),
+    ),
   );
 
   // Weekly review ===============
@@ -130,12 +143,14 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/:weeklyReviewId/export/email",
     Tools.ShieldCaptcha.handle(),
     Tools.ShieldRateLimit.handle(),
-    HTTP.Emotions.ExportWeeklyReviewByEmail(deps),
+    bg.EndpointHonoAdapter.adapt(HTTP.Emotions.ExportWeeklyReviewByEmail(deps)),
   );
   weeklyReview.get(
     "/:weeklyReviewId/export/download",
     Tools.ShieldRateLimit.handle(),
-    HTTP.Emotions.DownloadWeeklyReview({ ...Adapters.System, ...Adapters.Emotions }),
+    bg.EndpointHonoAdapter.adapt(
+      HTTP.Emotions.DownloadWeeklyReview({ ...Adapters.System, ...Adapters.Emotions }),
+    ),
   );
   server.route("/weekly-review", weeklyReview);
   // =============================
@@ -146,23 +161,25 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   publishing.use("*", Tools.Auth.ShieldAuth.attach, Tools.Auth.ShieldAuth.verify);
   publishing.get(
     "/links/list",
-    HTTP.Publishing.ListShareableLinks({ ...Adapters.System, ...Adapters.Publishing }),
+    bg.EndpointHonoAdapter.adapt(
+      HTTP.Publishing.ListShareableLinks({ ...Adapters.System, ...Adapters.Publishing }),
+    ),
   );
   publishing.post(
     "/link/create",
     Tools.ShieldCaptcha.handle(),
     Tools.ShieldRateLimit.handle(),
-    HTTP.Publishing.CreateShareableLink(deps),
+    bg.EndpointHonoAdapter.adapt(HTTP.Publishing.CreateShareableLink(deps)),
   );
   publishing.post(
     "/link/:shareableLinkId/revoke",
     Tools.ShieldCaptcha.handle(),
-    HTTP.Publishing.RevokeShareableLink(deps),
+    bg.EndpointHonoAdapter.adapt(HTTP.Publishing.RevokeShareableLink(deps)),
   );
   publishing.post(
     "/link/:shareableLinkId/hide",
     Tools.ShieldCaptcha.handle(),
-    HTTP.Publishing.HideShareableLink(Adapters.Publishing),
+    bg.EndpointHonoAdapter.adapt(HTTP.Publishing.HideShareableLink(Adapters.Publishing)),
   );
   server.route("/publishing", publishing);
   // =============================
@@ -181,7 +198,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.Auth.ShieldAuth.attach,
     Tools.ShieldCaptcha.handle(),
     Tools.Auth.ShieldAuth.verify,
-    HTTP.Preferences.UpdateUserLanguage(deps),
+    bg.EndpointHonoAdapter.adapt(HTTP.Preferences.UpdateUserLanguage(deps)),
   );
   server.post(
     "/preferences/profile-avatar/update",
@@ -193,20 +210,20 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
       MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
       maxSize: Preferences.VO.ProfileAvatarMaxSize,
     }).handle(),
-    HTTP.Preferences.UpdateProfileAvatar(deps),
+    bg.EndpointHonoAdapter.adapt(HTTP.Preferences.UpdateProfileAvatar(deps)),
   );
   server.get(
     "/profile-avatar/get",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
-    HTTP.Preferences.GetProfileAvatar(Adapters.System),
+    bg.EndpointHonoAdapter.adapt(HTTP.Preferences.GetProfileAvatar(Adapters.System)),
   );
   server.delete(
     "/preferences/profile-avatar",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
     Tools.ShieldCaptcha.handle(),
-    HTTP.Preferences.RemoveProfileAvatar(deps),
+    bg.EndpointHonoAdapter.adapt(HTTP.Preferences.RemoveProfileAvatar(deps)),
   );
   // =============================
 
@@ -215,7 +232,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/ai-usage-today/get",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
-    HTTP.AI.GetAiUsageToday({ ...Adapters.System, ...Adapters.AI }),
+    bg.EndpointHonoAdapter.adapt(HTTP.AI.GetAiUsageToday({ ...Adapters.System, ...Adapters.AI })),
   );
   // =============================
 
@@ -224,7 +241,9 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/history/:subject/list",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
-    HTTP.History.HistoryList({ ...Adapters.System, HistoryReader: Adapters.History.HistoryReader }),
+    bg.EndpointHonoAdapter.adapt(
+      HTTP.History.HistoryList({ ...Adapters.System, HistoryReader: Adapters.History.HistoryReader }),
+    ),
   );
   // =============================
 
@@ -233,7 +252,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     "/dashboard/get",
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
-    HTTP.GetDashboard({ ...Adapters.System, ...Adapters.Emotions }),
+    bg.EndpointHonoAdapter.adapt(HTTP.GetDashboard({ ...Adapters.System, ...Adapters.Emotions })),
   );
   // =============================
 

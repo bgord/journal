@@ -1,9 +1,7 @@
 // Stryker disable all
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type hono from "hono";
 import * as Emotions from "+emotions";
-import type * as infra from "+infra";
 
 type Dependencies = {
   Clock: bg.ClockPort;
@@ -52,48 +50,48 @@ export type DashboardDataType = {
   weeklyReviews: ReadonlyArray<DashboardWeeklyReviewType>;
 };
 
-export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const GetDashboard =
+  (deps: Dependencies): bg.EndpointPort =>
+  async (context) => {
+    const userId = context.identity.authenticatedUserId();
 
-  const userId = context.identity.authenticatedUserId();
+    const dashboard = await deps.DashboardQuery.get(userId, deps.Clock.now());
+    const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, tools.Int.positive(5));
 
-  const dashboard = await deps.DashboardQuery.get(userId, deps.Clock.now());
-  const weeklyReviews = await deps.WeeklyReviewExportQuery.listFull(userId, tools.Int.positive(5));
+    const result: DashboardDataType = {
+      heatmap: dashboard.heatmap.map((row) => {
+        const label = new Emotions.VO.EmotionLabel(row.emotionLabel);
+        const intensity = new Emotions.VO.EmotionIntensity(row.emotionIntensity);
 
-  const result: DashboardDataType = {
-    heatmap: dashboard.heatmap.map((row) => {
-      const label = new Emotions.VO.EmotionLabel(row.emotionLabel);
-      const intensity = new Emotions.VO.EmotionIntensity(row.emotionIntensity);
-
-      return {
-        t: label.isPositive() ? 1 : 0,
-        c: intensity.isExtreme() ? "600" : intensity.isIntensive() ? "400" : "200",
-      };
-    }),
-    alarms: {
-      inactivity: dashboard.alarms.inactivity.map((alarm) => ({
-        ...alarm,
-        generatedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
-      })),
-      entry: dashboard.alarms.entry.map((alarm) => ({
-        ...alarm,
-        generatedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
-      })),
-    },
-    entries: {
-      counts: dashboard.entries.counts,
-      top: {
-        reactions: dashboard.entries.top.reactions,
-        emotions: dashboard.entries.top.emotions,
+        return {
+          t: label.isPositive() ? 1 : 0,
+          c: intensity.isExtreme() ? "600" : intensity.isIntensive() ? "400" : "200",
+        };
+      }),
+      alarms: {
+        inactivity: dashboard.alarms.inactivity.map((alarm) => ({
+          ...alarm,
+          generatedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
+        })),
+        entry: dashboard.alarms.entry.map((alarm) => ({
+          ...alarm,
+          generatedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(alarm.generatedAt)),
+        })),
       },
-    },
-    weeklyReviews: weeklyReviews.map((review) => ({
-      ...review,
-      weekStart: tools.DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getStart()),
-      weekEnd: tools.DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getEnd()),
-    })),
-  };
+      entries: {
+        counts: dashboard.entries.counts,
+        top: {
+          reactions: dashboard.entries.top.reactions,
+          emotions: dashboard.entries.top.emotions,
+        },
+      },
+      weeklyReviews: weeklyReviews.map((review) => ({
+        ...review,
+        weekStart: tools.DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getStart()),
+        weekEnd: tools.DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getEnd()),
+      })),
+    };
 
-  return Response.json(result);
-};
+    return Response.json(result);
+  };
 // Stryker restore all

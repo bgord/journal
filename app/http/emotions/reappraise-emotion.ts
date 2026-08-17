@@ -1,8 +1,6 @@
 import * as bg from "@bgord/bun";
-import type hono from "hono";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
-import type * as infra from "+infra";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -10,8 +8,7 @@ type Dependencies = {
   CommandBus: bg.CommandBusPort<Emotions.Commands.ReappraiseEmotionCommandType>;
 };
 
-export const ReappraiseEmotion = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const ReappraiseEmotion = (deps: Dependencies):bg.EndpointPort => async (context) => {
   const params = context.request.params();
   const body = await context.request.json();
 

@@ -1,16 +1,13 @@
 import * as bg from "@bgord/bun";
-import type hono from "hono";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
-import type * as infra from "+infra";
 
 type Dependencies = {
   WeeklyReviewExportQuery: Emotions.Queries.WeeklyReviewExport;
   PdfGenerator: bg.PdfGeneratorPort;
 };
 
-export const DownloadWeeklyReview = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const DownloadWeeklyReview = (deps: Dependencies):bg.EndpointPort => async (context) => {
   const params = context.request.params();
 
   const requesterId = context.identity.authenticatedUserId();

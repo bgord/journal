@@ -1,8 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type hono from "hono";
 import * as v from "valibot";
-import type * as infra from "+infra";
 import * as Preferences from "+preferences";
 
 type Dependencies = {
@@ -12,8 +10,7 @@ type Dependencies = {
   TemporaryFile: bg.TemporaryFilePort;
 };
 
-export const UpdateProfileAvatar = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const UpdateProfileAvatar = (deps: Dependencies):bg.EndpointPort => async (context) => {
   const form = await context.request.form();
 
   const userId = context.identity.authenticatedUserId();

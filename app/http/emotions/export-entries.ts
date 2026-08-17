@@ -1,10 +1,8 @@
 // cspell:ignore Stringifier
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type hono from "hono";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
-import type * as infra from "+infra";
 
 type Dependencies = {
   Clock: bg.ClockPort;
@@ -14,8 +12,7 @@ type Dependencies = {
   EntrySnapshot: Emotions.Ports.EntrySnapshotPort;
 };
 
-export const ExportEntries = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const ExportEntries = (deps: Dependencies):bg.EndpointPort => async (context) => {
   const query = context.request.query();
 
   const userId = context.identity.userId() as bg.UUIDType;

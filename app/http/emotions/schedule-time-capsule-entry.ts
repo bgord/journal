@@ -1,9 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import type hono from "hono";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
-import type * as infra from "+infra";
 
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
@@ -11,8 +9,7 @@ type Dependencies = {
   CommandBus: bg.CommandBusPort<Emotions.Commands.ScheduleTimeCapsuleEntryCommandType>;
 };
 
-export const ScheduleTimeCapsuleEntry = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const ScheduleTimeCapsuleEntry = (deps: Dependencies):bg.EndpointPort => async (context) => {
   const body = await context.request.json();
 
   const userId = context.identity.authenticatedUserId();

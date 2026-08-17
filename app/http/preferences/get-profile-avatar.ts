@@ -1,12 +1,9 @@
 import * as bg from "@bgord/bun";
-import type hono from "hono";
-import type * as infra from "+infra";
 import * as Preferences from "+preferences";
 
 type Dependencies = { RemoteFileStorage: bg.RemoteFileStoragePort };
 
-export const GetProfileAvatar = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
-  const context = new bg.RequestContextHonoAdapter(c);
+export const GetProfileAvatar = (deps: Dependencies):bg.EndpointPort => async (context) => {
   const headers = context.request.headers();
 
   const userId = context.identity.authenticatedUserId();
