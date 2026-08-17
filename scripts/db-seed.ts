@@ -137,7 +137,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       const alarm = Emotions.Aggregates.Alarm.generate(
         alarmId,
         detection,
-        users[0]?.user.id as Auth.VO.UserIdType,
+        v.parse(Auth.VO.UserId, users[0]?.user.id),
         deps,
       );
 
@@ -178,7 +178,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
         situation,
         emotion,
         reaction,
-        users[0]?.user.id as Auth.VO.UserIdType,
+        v.parse(Auth.VO.UserId, users[0]?.user.id),
         Emotions.VO.EntryOriginOption.web,
         deps,
       );
@@ -206,7 +206,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
             new Emotions.VO.ReactionType(reactionTypes[0] as Emotions.VO.GrossEmotionRegulationStrategy),
             new Emotions.VO.ReactionEffectiveness(1),
           ),
-          userId: users[0]?.user.id as Auth.VO.UserIdType,
+          userId: v.parse(Auth.VO.UserId, users[0]?.user.id),
           scheduledAt: now.ms,
           scheduledFor: now.add(tools.Duration.Minutes(5)).ms,
         },
@@ -231,7 +231,7 @@ const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
       "entries",
       new tools.DateRange(now.subtract(tools.Duration.Days(7)), now),
       tools.Duration.Days(3).ms,
-      users[0]?.user.id as Auth.VO.UserIdType,
+      v.parse(Auth.VO.UserId, users[0]?.user.id),
       { ...di.Adapters.System, ...di.Tools },
     );
 

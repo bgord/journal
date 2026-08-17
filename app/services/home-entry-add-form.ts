@@ -24,7 +24,7 @@ export const Form = {
     field: { name: "situationDescription" },
   },
   situationKind: {
-    options: Object.keys(SituationKind.SituationKindOptions),
+    options: Object.values(SituationKind.SituationKindOptions),
     field: { name: "situationKind" },
   },
   emotionIntensity: {
@@ -34,7 +34,7 @@ export const Form = {
   emotionLabel: {
     positive: EmotionLabel.PositiveEmotions,
     negative: EmotionLabel.NegativeEmotions,
-    options: Object.keys(EmotionLabel.GenevaWheelEmotion),
+    options: Object.values(EmotionLabel.GenevaWheelEmotion),
     field: { name: "emotionLabel" },
   },
   reactionDescription: {
@@ -45,7 +45,7 @@ export const Form = {
     field: { name: "reactionDescription" },
   },
   reactionType: {
-    options: Object.keys(ReactionType.GrossEmotionRegulationStrategy),
+    options: Object.values(ReactionType.GrossEmotionRegulationStrategy),
     field: { name: "reactionType" },
   },
   reactionEffectiveness: {

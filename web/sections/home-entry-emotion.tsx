@@ -23,12 +23,12 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
   const emotionLabelEdit = useToggle({ name: "emotion-label" });
   const emotionLabel = useTextField<types.EmotionLabelType>({
     ...Form.emotionLabel.field,
-    defaultValue: props.emotionLabel as types.EmotionLabelType,
+    defaultValue: props.emotionLabel ?? undefined,
   });
 
   const emotionIntensity = useNumberField<types.EmotionIntensityType>({
     ...Form.emotionIntensity.field,
-    defaultValue: props.emotionIntensity as types.EmotionIntensityType,
+    defaultValue: props.emotionIntensity ?? undefined,
   });
 
   const mutation = useMutation({

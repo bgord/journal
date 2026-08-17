@@ -34,18 +34,18 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
   const reactionDescriptionEdit = useToggle({ name: "reaction-description" });
   const reactionDescription = useTextField<types.ReactionDescriptionType>({
     ...Form.reactionDescription.field,
-    defaultValue: props.reactionDescription as types.ReactionDescriptionType,
+    defaultValue: props.reactionDescription ?? undefined,
   });
 
   const reactionType = useTextField<types.ReactionTypeType>({
     ...Form.reactionDescription.field,
-    defaultValue: props.reactionType as types.ReactionTypeType,
+    defaultValue: props.reactionType ?? undefined,
   });
   const reactionTypeEdit = useToggle({ name: "reaction-type" });
 
   const reactionEffectiveness = useNumberField<types.ReactionEffectivenessType>({
     ...Form.reactionDescription.field,
-    defaultValue: props.reactionEffectiveness as types.ReactionEffectivenessType,
+    defaultValue: props.reactionEffectiveness ?? undefined,
   });
 
   const mutation = useMutation({
@@ -78,7 +78,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
             data-cursor="pointer"
             data-focus-ring="neutral"
             onClick={reactionTypeEdit.enable}
-            reactionType={reactionType.value as EntrySnapshotFormatted["reactionType"]}
+            reactionType={reactionType.value ?? null}
             {...reactionTypeEdit.props.controller}
           />
         )}

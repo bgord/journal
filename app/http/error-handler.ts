@@ -2,7 +2,6 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import { HTTPException } from "hono/http-exception";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import * as v from "valibot";
 import * as Emotions from "+emotions";
 import * as Preferences from "+preferences";
@@ -104,7 +103,7 @@ export class ErrorHandler {
 
       const [message, code] = bg.InvariantErrorHandler.respond(invariantError);
 
-      return c.json(message, code as ContentfulStatusCode);
+      return Response.json(message, { status: code });
     }
 
     deps.Logger.error({

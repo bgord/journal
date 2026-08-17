@@ -21,7 +21,7 @@ export const CreateShareableLink = (deps: Dependencies) => async (c: hono.Contex
     Publishing.VO.PublicationSpecification,
     body["publicationSpecification"],
   );
-  const duration = tools.Duration.Ms(body["durationMs"] as number);
+  const duration = tools.Duration.Ms(v.parse(tools.DurationMs, body["durationMs"]));
   const start = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body["dateRangeStart"])).getStart();
   const end = tools.Day.fromIsoId(v.parse(tools.DayIsoId, body["dateRangeEnd"])).getEnd();
 

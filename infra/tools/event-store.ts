@@ -77,7 +77,11 @@ export function createEventStore(
 
   const inserter: bg.EventInserterPort = {
     insert: async (incoming) => {
-      const { stream } = incoming[0] as { stream: bg.EventStreamType };
+      const first = incoming[0];
+
+      if (!first) return [];
+
+      const stream = first.stream;
 
       return db.transaction(async (tx) => {
         const current = await tx

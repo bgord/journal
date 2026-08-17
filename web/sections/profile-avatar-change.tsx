@@ -13,7 +13,7 @@ export function ProfileAvatarChange() {
   const mutation = useMutation({
     perform: () => {
       const form = new FormData();
-      form.append("file", avatar.data as File);
+      if (avatar.data) form.append("file", avatar.data);
 
       return fetch("/api/preferences/profile-avatar/update", {
         method: "POST",

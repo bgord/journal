@@ -23,9 +23,13 @@ import type { ShareableLinkIdType } from "../modules/publishing/value-objects/sh
 import { ShareableLinkStatusEnum } from "../modules/publishing/value-objects/shareable-link-status";
 import { SupportedLanguages } from "../modules/supported-languages";
 
-const toEnumList = (value: Record<string, string>) => ({
-  enum: Object.keys(value) as [string, ...ReadonlyArray<string>],
-});
+const toEnumList = (value: Record<string, string>) => {
+  const [first, ...rest] = Object.keys(value);
+
+  if (first === undefined) throw new Error("Enum list cannot be empty");
+
+  return { enum: [first, ...rest] satisfies [string, ...ReadonlyArray<string>] };
+};
 
 const id = text("id", { length: 36 })
   .primaryKey()

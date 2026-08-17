@@ -13,11 +13,11 @@ export enum ShareableLinkDuration {
 export const Form = {
   specification: {
     field: { name: "specification", defaultValue: ShareableLinkSpecification.entries },
-    options: Object.keys(ShareableLinkSpecification),
+    options: Object.values(ShareableLinkSpecification),
   },
   duration: {
     field: { name: "duration", defaultValue: ShareableLinkDuration.one_day },
-    options: Object.keys(ShareableLinkDuration),
+    options: Object.values(ShareableLinkDuration),
     map: { one_day: 86_400_000, one_week: 604_800_000, one_month: 2_592_000_000 },
   },
   dateRangeStart: { field: { name: "dateRangeStart", defaultValue: form.date.min.yesterday() } },

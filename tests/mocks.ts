@@ -1040,12 +1040,12 @@ export const fullEntry: Emotions.VO.EntrySnapshot = {
 
 export const fullEntryWithAlarms: Emotions.Ports.EntrySnapshotWithAlarms = {
   ...fullEntry,
-  alarms: [] as ReadonlyArray<Emotions.VO.AlarmSnapshot>,
+  alarms: [],
 };
 
 export const fullEntryWithAlarmsFormatted: EntrySnapshotFormatted = {
   ...fullEntry,
-  alarms: [] as ReadonlyArray<Emotions.VO.AlarmSnapshot>,
+  alarms: [],
   startedAt: tools.DateFormatter.datetime(tools.Timestamp.fromValueSafe(fullEntry.startedAt)),
 };
 
@@ -1228,13 +1228,13 @@ export const anotherSession: Session = {
   id: "xXHd0LUChE6NiYnQXc8mwij7jjp5kUhs",
 };
 
-export const auth = { user, session, path: "/get-session", options: {} as any } as const;
+export const auth = { user, session, path: "/get-session", options: {} } as const;
 
 export const anotherAuth = {
   user: anotherUser,
   session: anotherSession,
   path: "/get-session",
-  options: {} as any,
+  options: {},
 } as const;
 
 export const entryCsv = ["id,situationDescription", `${fullEntry.id},${fullEntry.situationDescription}`].join(

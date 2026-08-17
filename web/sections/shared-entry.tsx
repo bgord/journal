@@ -43,7 +43,7 @@ export function SharedEntry(props: EntrySnapshotFormatted) {
 
         <div data-cross="center" data-gap="5" data-mt="2" data-stack="x">
           <EntryEmotionLabel emotionLabel={props.emotionLabel} />
-          <RatingPills rating={props.emotionIntensity as number} total={Form.emotionIntensity.pattern.max} />
+          <RatingPills rating={props.emotionIntensity ?? 0} total={Form.emotionIntensity.pattern.max} />
         </div>
       </section>
 
@@ -53,7 +53,7 @@ export function SharedEntry(props: EntrySnapshotFormatted) {
 
           <EntryReactionType reactionType={props.reactionType} />
           <RatingPills
-            rating={props.reactionEffectiveness as number}
+            rating={props.reactionEffectiveness ?? 0}
             total={Form.reactionEffectiveness.pattern.max}
           />
         </div>
