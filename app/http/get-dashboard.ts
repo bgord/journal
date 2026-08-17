@@ -94,6 +94,6 @@ export const GetDashboard = (deps: Dependencies) => async (c: hono.Context<infra
     })),
   };
 
-  return c.json(result);
+  return Response.json(result);
 };
 // Stryker restore all

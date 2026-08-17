@@ -18,7 +18,7 @@ export const GetAiUsageToday = (deps: Dependencies) => async (c: hono.Context<in
     dimensions: {},
   });
 
-  return c.json({
+  return Response.json({
     ...inspection,
     resetsInHours: new tools.RoundingToNearestStrategy().round(
       tools.Duration.Ms(inspection.resetsInMs).hours,

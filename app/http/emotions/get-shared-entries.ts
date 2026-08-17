@@ -24,12 +24,14 @@ export const GetSharedEntries = (deps: Dependencies) => async (c: hono.Context<i
     visitorId: await new bg.VisitorIdClientStrategy(client, deps).get(),
   });
 
-  if (!shareableLinkAccess.valid) return c.json({ _known: true, message: "shareable_link_invalid" }, 403);
+  if (!shareableLinkAccess.valid) {
+    return Response.json({ _known: true, message: "shareable_link_invalid" }, { status: 403 });
+  }
 
   const entries = await deps.EntriesSharing.listForOwnerInRange(
     shareableLinkAccess.details.ownerId,
     shareableLinkAccess.details.dateRange,
   );
 
-  return c.json(entries);
+  return Response.json(entries);
 };

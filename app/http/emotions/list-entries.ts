@@ -39,7 +39,7 @@ export const ListEntries = (deps: Dependencies) => async (c: hono.Context<infra.
     startedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(entry.startedAt)),
   }));
 
-  return c.json(result);
+  return Response.json(result);
 };
 
 export type { EntrySnapshotFormatted } from "+emotions/ports";

@@ -17,5 +17,5 @@ export const ListShareableLinks = (deps: Dependencies) => async (c: hono.Context
 
   const shareableLinks = await deps.ShareableLinkSnapshot.getByUserId(userId, timeZoneOffset);
 
-  return c.json(shareableLinks);
+  return Response.json(shareableLinks);
 };

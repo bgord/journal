@@ -41,25 +41,32 @@ export class ErrorHandler {
 
     if (error instanceof HTTPException) {
       if (error.message === bg.ShieldTimeoutStrategyError.Rejected) {
-        return c.json({ message: bg.ShieldTimeoutStrategyError.Rejected, _known: true }, 408);
+        return Response.json(
+          { message: bg.ShieldTimeoutStrategyError.Rejected, _known: true },
+          { status: 408 },
+        );
       }
 
-      if (error.message === bg.ShieldAuthStrategyError.Rejected)
-        return c.json({ message: bg.ShieldAuthStrategyError.Rejected, _known: true }, 403);
+      if (error.message === bg.ShieldAuthStrategyError.Rejected) {
+        return Response.json({ message: bg.ShieldAuthStrategyError.Rejected, _known: true }, { status: 403 });
+      }
 
       if (error.message === bg.ShieldRateLimitStrategyError.Rejected) {
-        return c.json({ message: bg.ShieldRateLimitStrategyError.Rejected, _known: true }, 429);
+        return Response.json(
+          { message: bg.ShieldRateLimitStrategyError.Rejected, _known: true },
+          { status: 429 },
+        );
       }
 
       return error.getResponse();
     }
 
     if (error.message === bg.Preferences.CommandHandlers.HandleSetUserLanguageCommandError.Missing) {
-      return c.json({ message: "unsupported.language", _known: true }, 400);
+      return Response.json({ message: "unsupported.language", _known: true }, { status: 400 });
     }
 
     if (error.message === tools.DateRangeError.Invalid) {
-      return c.json({ message: "invalid.date.range", _known: true }, 400);
+      return Response.json({ message: "invalid.date.range", _known: true }, { status: 400 });
     }
 
     if (error instanceof v.ValiError) {
@@ -75,7 +82,7 @@ export class ErrorHandler {
           error,
         });
 
-        return c.json({ message: validationError.message, _known: true }, 400);
+        return Response.json({ message: validationError.message, _known: true }, { status: 400 });
       }
 
       deps.Logger.error({
@@ -87,7 +94,7 @@ export class ErrorHandler {
         error,
       });
 
-      return c.json({ message: "payload.invalid.error", _known: true }, 400);
+      return Response.json({ message: "payload.invalid.error", _known: true }, { status: 400 });
     }
 
     const invariantError = bg.InvariantErrorHandler.detect(invariants, error);
@@ -114,7 +121,7 @@ export class ErrorHandler {
       error,
     });
 
-    return c.json({ message: "general.unknown" }, 500);
+    return Response.json({ message: "general.unknown" }, { status: 500 });
   };
 }
 // Stryker restore all
