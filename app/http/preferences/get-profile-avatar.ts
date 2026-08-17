@@ -9,7 +9,7 @@ export const GetProfileAvatar = (deps: Dependencies) => async (c: hono.Context<i
   const context = new bg.RequestContextHonoAdapter(c);
   const headers = context.request.headers();
 
-  const userId = context.identity.userId() as bg.UUIDType;
+  const userId = context.identity.authenticatedUserId();
 
   const key = Preferences.VO.ProfileAvatarKeyFactory.stable(userId);
 

@@ -14,7 +14,7 @@ export const DeleteEntry = (deps: Dependencies) => async (c: hono.Context<infra.
   const context = new bg.RequestContextHonoAdapter(c);
   const params = context.request.params();
 
-  const userId = context.identity.userId() as bg.UUIDType;
+  const userId = context.identity.authenticatedUserId();
   const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
 
   const command = bg.command(

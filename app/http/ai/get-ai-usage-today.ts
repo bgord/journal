@@ -9,7 +9,7 @@ type Dependencies = { Clock: bg.ClockPort; RuleInspector: AI.Ports.RuleInspector
 export const GetAiUsageToday = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const context = new bg.RequestContextHonoAdapter(c);
 
-  const userId = context.identity.userId() as bg.UUIDType;
+  const userId = context.identity.authenticatedUserId();
 
   const inspection = await deps.RuleInspector.inspect(AI.USER_DAILY_RULE, {
     userId,

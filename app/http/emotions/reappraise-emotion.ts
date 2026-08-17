@@ -15,7 +15,7 @@ export const ReappraiseEmotion = (deps: Dependencies) => async (c: hono.Context<
   const params = context.request.params();
   const body = await context.request.json();
 
-  const userId = context.identity.userId() as bg.UUIDType;
+  const userId = context.identity.authenticatedUserId();
   const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
   const label = v.parse(Emotions.VO.EmotionLabelSchema, body["label"]);
   const intensity = v.parse(Emotions.VO.EmotionIntensitySchema, body["intensity"]);

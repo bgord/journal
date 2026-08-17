@@ -10,7 +10,7 @@ export const HideShareableLink = (deps: Dependencies) => async (c: hono.Context<
   const context = new bg.RequestContextHonoAdapter(c);
   const params = context.request.params();
 
-  const userId = context.identity.userId() as bg.UUIDType;
+  const userId = context.identity.authenticatedUserId();
   const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, params["shareableLinkId"]);
 
   await deps.HideShareableLink.hide(shareableLinkId, userId);

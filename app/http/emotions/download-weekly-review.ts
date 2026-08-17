@@ -13,7 +13,7 @@ export const DownloadWeeklyReview = (deps: Dependencies) => async (c: hono.Conte
   const context = new bg.RequestContextHonoAdapter(c);
   const params = context.request.params();
 
-  const requesterId = context.identity.userId() as bg.UUIDType;
+  const requesterId = context.identity.authenticatedUserId();
   const weeklyReviewId = v.parse(Emotions.VO.WeeklyReviewId, params["weeklyReviewId"]);
 
   const weeklyReview = await deps.WeeklyReviewExportQuery.getFull(weeklyReviewId);

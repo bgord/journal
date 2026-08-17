@@ -15,7 +15,7 @@ export const EvaluateReaction = (deps: Dependencies) => async (c: hono.Context<i
   const params = context.request.params();
   const body = await context.request.json();
 
-  const userId = context.identity.userId() as bg.UUIDType;
+  const userId = context.identity.authenticatedUserId();
   const entryId = v.parse(Emotions.VO.EntryId, params["entryId"]);
   const description = v.parse(Emotions.VO.ReactionDescriptionSchema, body["description"]);
   const type = v.parse(Emotions.VO.ReactionTypeSchema, body["type"]);

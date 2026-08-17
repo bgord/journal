@@ -16,7 +16,7 @@ export const UpdateProfileAvatar = (deps: Dependencies) => async (c: hono.Contex
   const context = new bg.RequestContextHonoAdapter(c);
   const form = await context.request.form();
 
-  const userId = context.identity.userId() as bg.UUIDType;
+  const userId = context.identity.authenticatedUserId();
   const file = v.parse(v.instance(File), form.get("file"));
 
   const uploaded = tools.Filename.fromString(file.name);

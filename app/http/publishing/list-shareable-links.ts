@@ -12,7 +12,7 @@ type Dependencies = {
 export const ListShareableLinks = (deps: Dependencies) => async (c: hono.Context<infra.Config>) => {
   const context = new bg.RequestContextHonoAdapter(c);
 
-  const userId = context.identity.userId() as bg.UUIDType;
+  const userId = context.identity.authenticatedUserId();
   const timeZoneOffset = context.middleware.timeZoneOffset();
 
   const shareableLinks = await deps.ShareableLinkSnapshot.getByUserId(userId, timeZoneOffset);
