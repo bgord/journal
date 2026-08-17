@@ -23,7 +23,6 @@
     "postcss": "8.5.26",
     "postcss-cli": "11.0.1",
     "shellcheck": "4.1.0",
-    "terser": "5.50.0",
     "typescript": "7.0.2",
     "vite": "8.2.1"
   },
