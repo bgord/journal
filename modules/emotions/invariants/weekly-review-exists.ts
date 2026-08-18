@@ -1,11 +1,6 @@
 import * as bg from "@bgord/bun";
 
-class WeeklyReviewExistsError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, WeeklyReviewExistsError.prototype);
-  }
-}
+class WeeklyReviewExistsError extends Error {}
 
 type WeeklyReviewExistsConfigType = { weeklyReview: any | null | undefined };
 

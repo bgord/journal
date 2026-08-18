@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as VO from "+preferences/value-objects";
 
-class ProfileAvatarConstraintsError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, ProfileAvatarConstraintsError.prototype);
-  }
-}
+class ProfileAvatarConstraintsError extends Error {}
 
 type ProfileAvatarConstraintsConfigType = bg.ImageInfoType;
 

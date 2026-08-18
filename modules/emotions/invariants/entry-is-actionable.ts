@@ -2,12 +2,7 @@ import * as bg from "@bgord/bun";
 import type * as Emotions from "+emotions";
 import { EntryStatusEnum } from "../value-objects/entry-status";
 
-class EntryIsActionableError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, EntryIsActionableError.prototype);
-  }
-}
+class EntryIsActionableError extends Error {}
 
 type EntryIsActionableConfigType = { status: Emotions.VO.EntryStatusEnum };
 

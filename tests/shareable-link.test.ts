@@ -107,6 +107,9 @@ describe("ShareableLink", async () => {
       shareableLink.revoke(mocks.userId);
 
       expect(shareableLink.pullEvents()).toEqual([mocks.GenericShareableLinkRevokedEvent]);
+      expect(() => shareableLink.revoke(mocks.userId)).toThrow(
+        Publishing.Invariants.ShareableLinkIsActive.error,
+      );
     });
   });
 

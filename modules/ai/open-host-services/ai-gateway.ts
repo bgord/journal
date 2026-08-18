@@ -4,12 +4,7 @@ import type * as Ports from "+ai/ports";
 import * as Specs from "+ai/specifications";
 import type * as VO from "+ai/value-objects";
 
-export class AiQuotaExceededError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, AiQuotaExceededError.prototype);
-  }
-}
+export class AiQuotaExceededError extends Error {}
 
 type Dependencies = {
   Publisher: Ports.AiEventPublisherPort;

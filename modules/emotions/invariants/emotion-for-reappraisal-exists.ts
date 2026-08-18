@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import type * as Emotions from "+emotions";
 
-class EmotionForReappraisalExistsError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, EmotionForReappraisalExistsError.prototype);
-  }
-}
+class EmotionForReappraisalExistsError extends Error {}
 
 type EmotionForReappraisalExistsConfigType = { emotion?: Emotions.Entities.Emotion };
 

@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as VO from "+publishing/value-objects";
 
-class ShareableLinkIsActiveError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, ShareableLinkIsActiveError.prototype);
-  }
-}
+class ShareableLinkIsActiveError extends Error {}
 
 type ShareableLinkIsActiveConfigType = { status?: VO.ShareableLinkStatusEnum };
 

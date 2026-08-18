@@ -2,12 +2,7 @@ import * as bg from "@bgord/bun";
 import type * as Emotions from "+emotions";
 import { AlarmStatusEnum } from "../value-objects/alarm-status";
 
-class AlarmIsCancellableError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, AlarmIsCancellableError.prototype);
-  }
-}
+class AlarmIsCancellableError extends Error {}
 
 type AlarmIsCancellableConfigType = { status: Emotions.VO.AlarmStatusEnum };
 

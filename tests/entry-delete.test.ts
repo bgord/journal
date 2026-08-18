@@ -67,6 +67,21 @@ describe("DELETE /api/entry/:entryId/delete", async () => {
     await testcases.assertInvariantError(response, 403, "requester.owns.entry.error");
   });
 
+  test(" revision mismatch", async () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]));
+    spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
+
+    const response = await server.request(
+      url,
+      { method: "DELETE", headers: mocks.revisionHeaders(1) },
+      mocks.ip,
+    );
+
+    await testcases.assertInvariantError(response, 412, "revision.mismatch");
+  });
+
   test("happy path - after situation", async () => {
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();

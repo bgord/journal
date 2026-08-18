@@ -239,6 +239,31 @@ describe("POST /api/entry/:entryId/evaluate-reaction", async () => {
     await testcases.assertInvariantError(response, 403, "requester.owns.entry.error");
   });
 
+  test("revision mismatch", async () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(
+      spyOn(di.Tools.EventStore, "find").mockResolvedValue([
+        mocks.GenericSituationLoggedEvent,
+        mocks.GenericEmotionLoggedEvent,
+        mocks.GenericReactionLoggedEvent,
+      ]),
+    );
+    const payload = {
+      description: mocks.GenericReactionEvaluatedEvent.payload.description,
+      type: mocks.GenericReactionEvaluatedEvent.payload.type,
+      effectiveness: mocks.GenericReactionEvaluatedEvent.payload.effectiveness,
+    };
+
+    const response = await server.request(
+      url,
+      { method: "POST", body: JSON.stringify(payload), headers: mocks.revisionHeaders(99) },
+      mocks.ip,
+    );
+
+    await testcases.assertInvariantError(response, 412, "revision.mismatch");
+  });
+
   test("happy path", async () => {
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();

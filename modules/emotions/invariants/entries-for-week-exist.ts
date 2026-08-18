@@ -2,12 +2,7 @@ import * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 
-class EntriesForWeekExistError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, EntriesForWeekExistError.prototype);
-  }
-}
+class EntriesForWeekExistError extends Error {}
 
 type EntriesForWeekExistConfigType = { count: tools.IntegerNonNegativeType; userId: Auth.VO.UserIdType };
 

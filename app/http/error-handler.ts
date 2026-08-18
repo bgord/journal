@@ -69,6 +69,10 @@ export class ErrorHandler {
       return Response.json({ message: "invalid.date.range", _known: true }, { status: 400 });
     }
 
+    if (error.message === tools.RevisionError.Mismatch) {
+      return Response.json({ message: "revision.mismatch", _known: true }, { status: 412 });
+    }
+
     if (error instanceof v.ValiError) {
       const validationError = error.issues.find((issue) => validationErrors.includes(issue.message));
 

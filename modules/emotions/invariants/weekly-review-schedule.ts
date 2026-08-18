@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-class WeeklyReviewScheduleError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, WeeklyReviewScheduleError.prototype);
-  }
-}
+class WeeklyReviewScheduleError extends Error {}
 
 type WeeklyReviewScheduleConfigType = { timestamp: tools.TimestampValueType };
 

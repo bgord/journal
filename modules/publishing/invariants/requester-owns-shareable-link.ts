@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import type * as Auth from "+auth";
 
-class RequesterOwnsShareableLinkError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, RequesterOwnsShareableLinkError.prototype);
-  }
-}
+class RequesterOwnsShareableLinkError extends Error {}
 
 type RequesterOwnsShareableLinkConfigType = { requesterId: Auth.VO.UserIdType; ownerId?: Auth.VO.UserIdType };
 

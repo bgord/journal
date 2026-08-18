@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import type * as Emotions from "+emotions";
 
-class ReactionForEvaluationExistsError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, ReactionForEvaluationExistsError.prototype);
-  }
-}
+class ReactionForEvaluationExistsError extends Error {}
 
 type ReactionForEvaluationExistsConfigType = { reaction?: Emotions.Entities.Reaction };
 

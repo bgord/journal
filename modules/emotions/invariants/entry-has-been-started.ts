@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import type * as Emotions from "+emotions";
 
-class EntryHasBenStartedError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, EntryHasBenStartedError.prototype);
-  }
-}
+class EntryHasBenStartedError extends Error {}
 
 type EntryHasBenStartedConfigType = { situation?: Emotions.Entities.Situation };
 

@@ -174,6 +174,29 @@ describe("POST /api/entry/:entryId/reappraise-emotion", async () => {
     await testcases.assertInvariantError(response, 403, "requester.owns.entry.error");
   });
 
+  test("revision mismatch", async () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(
+      spyOn(di.Tools.EventStore, "find").mockResolvedValue([
+        mocks.GenericSituationLoggedEvent,
+        mocks.GenericEmotionLoggedEvent,
+      ]),
+    );
+    const payload = {
+      label: mocks.GenericEmotionReappraisedEvent.payload.newLabel,
+      intensity: mocks.GenericEmotionReappraisedEvent.payload.newIntensity,
+    };
+
+    const response = await server.request(
+      url,
+      { method: "POST", body: JSON.stringify(payload), headers: mocks.revisionHeaders(99) },
+      mocks.ip,
+    );
+
+    await testcases.assertInvariantError(response, 412, "revision.mismatch");
+  });
+
   test("happy path", async () => {
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();

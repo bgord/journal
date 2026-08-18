@@ -2,12 +2,7 @@ import * as bg from "@bgord/bun";
 import type * as Emotions from "+emotions";
 import { WeeklyReviewStatusEnum } from "../value-objects/weekly-review-status";
 
-class WeeklyReviewCompletedOnceError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, WeeklyReviewCompletedOnceError.prototype);
-  }
-}
+class WeeklyReviewCompletedOnceError extends Error {}
 
 type WeeklyReviewCompletedOnceConfigType = { status: Emotions.VO.WeeklyReviewStatusEnum };
 

@@ -2,12 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { GetLatestEntryTimestampForUser } from "+emotions/queries";
 
-class NoEntriesInTheLastWeekError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, NoEntriesInTheLastWeekError.prototype);
-  }
-}
+class NoEntriesInTheLastWeekError extends Error {}
 
 type NoEntriesInTheLastWeekConfigType = {
   lastEntryTimestamp: Awaited<ReturnType<GetLatestEntryTimestampForUser["execute"]>>;

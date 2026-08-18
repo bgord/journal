@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-class ShareableLinkExpirationTimePassedError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, ShareableLinkExpirationTimePassedError.prototype);
-  }
-}
+class ShareableLinkExpirationTimePassedError extends Error {}
 
 type ShareableLinkExpirationTimePassedConfigType = {
   now: tools.Timestamp;

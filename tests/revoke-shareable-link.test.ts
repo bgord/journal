@@ -90,6 +90,20 @@ describe("POST /api/publishing/link/:shareableLinkId/revoke", async () => {
     await testcases.assertInvariantError(response, 403, "requester.owns.shareable.link");
   });
 
+  test("revision mismatch", async () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]));
+
+    const response = await server.request(
+      url,
+      { method: "POST", headers: mocks.revisionHeaders(99) },
+      mocks.ip,
+    );
+
+    await testcases.assertInvariantError(response, 412, "revision.mismatch");
+  });
+
   test("happy path", async () => {
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();

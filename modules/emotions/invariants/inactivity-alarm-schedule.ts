@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-class InactivityAlarmScheduleError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, InactivityAlarmScheduleError.prototype);
-  }
-}
+class InactivityAlarmScheduleError extends Error {}
 
 type InactivityAlarmScheduleConfigType = { timestamp: tools.TimestampValueType };
 

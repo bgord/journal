@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import type * as Auth from "+auth";
 
-class RequesterOwnsWeeklyReviewError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, RequesterOwnsWeeklyReviewError.prototype);
-  }
-}
+class RequesterOwnsWeeklyReviewError extends Error {}
 
 type RequesterOwnsWeeklyReviewConfigType = { requesterId: Auth.VO.UserIdType; ownerId?: Auth.VO.UserIdType };
 

@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import type * as Emotions from "+emotions";
 
-class EmotionCorrespondsToSituationError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, EmotionCorrespondsToSituationError.prototype);
-  }
-}
+class EmotionCorrespondsToSituationError extends Error {}
 
 type EmotionCorrespondsToSituationConfigType = { situation?: Emotions.Entities.Situation };
 

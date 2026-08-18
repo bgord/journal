@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import type { ShareableLinksQuotaQuery } from "+publishing/queries";
 
-class ShareableLinksPerOwnerLimitError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, ShareableLinksPerOwnerLimitError.prototype);
-  }
-}
+class ShareableLinksPerOwnerLimitError extends Error {}
 
 type ShareableLinksPerOwnerLimitConfigType = Awaited<ReturnType<ShareableLinksQuotaQuery["execute"]>>;
 

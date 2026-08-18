@@ -1,12 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 
-class TimeCapsuleEntryScheduledInFutureError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, TimeCapsuleEntryScheduledInFutureError.prototype);
-  }
-}
+class TimeCapsuleEntryScheduledInFutureError extends Error {}
 
 type TimeCapsuleEntryScheduledInFutureConfigType = {
   now: tools.Timestamp;
