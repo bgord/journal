@@ -1,11 +1,12 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as v from "valibot";
-import * as Emotions from "+emotions";
+import type * as Emotions from "+emotions";
 import { WeeklyReviewExportByEmailRequestedEvent } from "../events/WEEKLY_REVIEW_EXPORT_BY_EMAIL_REQUESTED_EVENT";
 import { RequesterOwnsWeeklyReview } from "../invariants/requester-owns-weekly-review";
 import { WeeklyReviewExists } from "../invariants/weekly-review-exists";
 import { WeeklyReviewIsCompleted } from "../invariants/weekly-review-is-completed";
+import { WeeklyReviewExportId } from "../value-objects/weekly-review-export-id";
 
 type AcceptedEvent = Emotions.Events.WeeklyReviewExportByEmailRequestedEventType;
 
@@ -28,7 +29,7 @@ export const handleExportWeeklyReviewByEmailCommand =
       ownerId: weeklyReview?.userId,
     });
 
-    const weeklyReviewExportId = v.parse(Emotions.VO.WeeklyReviewExportId, deps.IdProvider.generate());
+    const weeklyReviewExportId = v.parse(WeeklyReviewExportId, deps.IdProvider.generate());
 
     const event = bg.event(
       WeeklyReviewExportByEmailRequestedEvent,
