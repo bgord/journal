@@ -115,7 +115,7 @@ describe("ShareableLinksExpirer", async () => {
   });
 
   test("correct path", async () => {
-    // Link created at T0, duration 1s, should be expired at T0 + 1 hour
+    // Link created at T0 - 1 hour, duration 1s, should be expired at T0
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
@@ -124,11 +124,16 @@ describe("ShareableLinksExpirer", async () => {
         mocks.shareableLink,
       ]),
     );
-    spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]));
     spies.use(
-      spyOn(di.Adapters.System.Clock, "now")
-        .mockReturnValueOnce(mocks.T0)
-        .mockReturnValueOnce(mocks.T0.add(tools.Duration.Hours(1))),
+      spyOn(di.Tools.EventStore, "find").mockResolvedValue([
+        {
+          ...mocks.GenericShareableLinkCreatedEvent,
+          payload: {
+            ...mocks.GenericShareableLinkCreatedEvent.payload,
+            createdAt: mocks.T0.subtract(tools.Duration.Hours(1)).ms,
+          },
+        },
+      ]),
     );
 
     await bg.CorrelationStorage.run(mocks.correlationId, async () =>

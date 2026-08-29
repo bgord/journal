@@ -172,7 +172,7 @@ describe("AlarmOrchestrator", async () => {
 
     expect(mailerSend).not.toHaveBeenCalled();
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
-    expect(loggerInfo).toHaveBeenCalledTimes(1);
+    expect(loggerInfo).toHaveBeenCalledTimes(2);
   });
 
   test("onAlarmNotificationRequestedEvent - missing notification", async () => {

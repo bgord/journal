@@ -10,7 +10,7 @@ export function createTranslationsProvider(
 ): bg.TranslationsProviderPort {
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({
     type: "finite",
-    ttl: tools.Duration.Minutes(1),
+    ttl: tools.Duration.Minutes(10),
   });
   const CacheResolver = new bg.CacheResolverReadThroughStrategy({ CacheRepository });
   const adapter = new bg.TranslationsProviderJsonAdapter(deps);
