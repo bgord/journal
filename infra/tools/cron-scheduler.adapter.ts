@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import type { EnvironmentResultType } from "+infra/env";
 
-type Dependencies = { Logger: bg.LoggerPort };
+type Dependencies = { Logger: bg.LoggerPort; Clock: bg.ClockPort };
 
 export async function createCronScheduler(
   Env: EnvironmentResultType,

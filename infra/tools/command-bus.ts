@@ -3,7 +3,7 @@ import type * as EmotionCommands from "+emotions/commands";
 import type * as PreferencesCommands from "+preferences/commands";
 import type * as PublishingCommands from "+publishing/commands";
 
-type Dependencies = { Logger: bg.LoggerPort };
+type Dependencies = { Logger: bg.LoggerPort; Clock: bg.ClockPort };
 
 type AcceptedCommandType =
   | EmotionCommands.CancelAlarmCommandType

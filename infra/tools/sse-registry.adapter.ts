@@ -2,7 +2,7 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type { AlarmEventType } from "+emotions/aggregates";
 
-type Dependencies = { Logger: bg.LoggerPort };
+type Dependencies = { Logger: bg.LoggerPort; Clock: bg.ClockPort };
 
 type AcceptedEvent = AlarmEventType;
 

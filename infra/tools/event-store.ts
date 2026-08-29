@@ -17,7 +17,11 @@ import type { ProfileAvatarRemovedEventType, ProfileAvatarUpdatedEventType } fro
 import type { ShareableLinkEventType } from "+publishing/aggregates";
 import type { ShareableLinkAccessedEventType } from "+publishing/events";
 
-type Dependencies = { EventBus: bg.EventBusPort<AcceptedEventType>; Logger: bg.LoggerPort };
+type Dependencies = {
+  EventBus: bg.EventBusPort<AcceptedEventType>;
+  Logger: bg.LoggerPort;
+  Clock: bg.ClockPort;
+};
 
 export type AcceptedEventType =
   | EntryEventType
