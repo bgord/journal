@@ -37,7 +37,7 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
   const EventBus = createEventBus(deps);
   const EventStore = createEventStore(Env, { ...deps, EventBus });
   const CronScheduler = await createCronScheduler(Env, deps);
-  const TranslationsProvider = createTranslationsProvider(deps);
+  const TranslationsProvider = createTranslationsProvider(Env, { ...deps, HashContent });
   const BuildInfoConfig = createBuildInfoConfig(Env, deps);
   const CommitConfig = new bg.StaticConfigAdapter<bg.CommitShaValueType>((await BuildInfoConfig.get()).sha);
 

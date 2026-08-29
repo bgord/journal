@@ -185,11 +185,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   // =============================
 
   //Translations =================
-  server.get(
-    "/translations",
-    Tools.CacheResponse.handle(),
-    ...new bg.TranslationsHonoHandler(languages, Tools).handle(),
-  );
+  server.get("/translations", ...new bg.TranslationsHonoHandler(languages, Tools).handle());
   // =============================
 
   //Preferences =================
