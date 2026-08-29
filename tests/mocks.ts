@@ -33,7 +33,7 @@ export const historyId = v.parse(bg.History.VO.HistoryId, "8d79bd87-1709-4c15-b4
 const patternDetectionId = v.parse(bg.UUID, "d2ca7a35-76a0-42de-8a2c-32d8b14fdfab");
 
 // Timestamps
-export const T0 = tools.Timestamp.fromInstant(tools.Temporal.Instant.from("2025-01-01T00:00:00Z"));
+export const T0 = tools.Timestamp.fromInstant(Temporal.Instant.from("2025-01-01T00:00:00Z"));
 export const T0Date = "Wed, 01 Jan 2025 00:00:00 GMT";
 
 export const shareableLinkCreatedAt = T0;
@@ -782,13 +782,13 @@ export const GenericHourHasPassedMondayUtc12Event = {
   payload: { timestamp: tools.Timestamp.fromNumber(1754308800000).ms },
 } satisfies bg.System.Events.HourHasPassedEventType;
 
-function getNextMonday1800UTC(): tools.Temporal.Instant {
-  const plain = tools.Temporal.Now.instant().toZonedDateTimeISO("UTC").toPlainDate();
+function getNextMonday1800UTC(): Temporal.Instant {
+  const plain = Temporal.Now.instant().toZonedDateTimeISO("UTC").toPlainDate();
   const daysUntilMonday = (8 - plain.dayOfWeek) % 7;
   const nextMonday = plain.add({ days: daysUntilMonday });
 
-  return tools.Temporal.PlainDate.from(nextMonday)
-    .toZonedDateTime({ timeZone: "UTC", plainTime: tools.Temporal.PlainTime.from({ hour: 18 }) })
+  return Temporal.PlainDate.from(nextMonday)
+    .toZonedDateTime({ timeZone: "UTC", plainTime: Temporal.PlainTime.from({ hour: 18 }) })
     .toInstant();
 }
 
