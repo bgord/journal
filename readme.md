@@ -479,7 +479,6 @@ infra/
 ├── schema.ts
 ├── tools
 │   ├── build-info-config.adapter.ts
-│   ├── cache-response.ts
 │   ├── command-bus.ts
 │   ├── cron-scheduler.adapter.ts
 │   ├── event-bus.ts

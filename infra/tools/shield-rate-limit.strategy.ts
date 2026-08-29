@@ -7,7 +7,6 @@ type Dependencies = { Clock: bg.ClockPort; HashContent: bg.HashContentStrategy }
 export function createShieldRateLimit(Env: EnvironmentResultType, deps: Dependencies): bg.MiddlewareHonoPort {
   const ttl = tools.Duration.Seconds(30);
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "finite", ttl });
-  const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
 
   const ShieldRateLimit = new bg.ShieldRateLimitHonoStrategy(
     {
@@ -21,7 +20,7 @@ export function createShieldRateLimit(Env: EnvironmentResultType, deps: Dependen
       ),
       interval: ttl,
     },
-    { CacheResolver, ...deps },
+    { CacheRepository, ...deps },
   );
 
   return {

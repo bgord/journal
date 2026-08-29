@@ -15,7 +15,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     strategy: new bg.WeakETagExtractorHeaderStrategy(),
   });
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
-  const CacheResolver = new bg.CacheResolverSimpleStrategy({ CacheRepository });
+  const CacheResolver = new bg.CacheResolverReadThroughStrategy({ CacheRepository });
 
   const origin = [localhost, host];
 
