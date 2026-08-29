@@ -21,7 +21,7 @@ export const ExportData =
 
     const timestamp = deps.Clock.now().ms;
 
-    const zip = await bg.FileDraftZip.build(v.parse(tools.Basename, `export-${timestamp}`), [
+    const zip = new bg.FileDraftTarGz(v.parse(tools.Basename, `export-${timestamp}`), [
       new Emotions.Services.EntryExportFileCsv(entries, deps),
       new Emotions.Services.AlarmExportFileCsv(alarms, deps),
     ]);

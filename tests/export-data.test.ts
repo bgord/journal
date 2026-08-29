@@ -29,15 +29,15 @@ describe(`GET ${url}`, async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     expect(response.status).toEqual(200);
-    expect(response.headers.get("content-type")).toEqual("application/zip");
+    expect(response.headers.get("content-type")).toEqual("application/gzip");
     expect(response.headers.get("content-disposition")).toEqual(
-      `attachment; filename="export-${mocks.T0}.zip"`,
+      `attachment; filename="export-${mocks.T0}.tar"`,
     );
 
     const bytes = new Uint8Array(await response.arrayBuffer());
-    const zip = new TextDecoder().decode(bytes);
+    const tar = new TextDecoder().decode(Bun.gunzipSync(bytes));
 
-    expect(zip).toContain(`entry-export-${mocks.T0}.csv`);
-    expect(zip).toContain(`alarm-export-${mocks.T0}.csv`);
+    expect(tar).toContain(`entry-export-${mocks.T0}.csv`);
+    expect(tar).toContain(`alarm-export-${mocks.T0}.csv`);
   });
 });
