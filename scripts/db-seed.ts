@@ -80,7 +80,7 @@ const reactionDescriptions = [
 
 const reactionTypes = Object.keys(Emotions.VO.GrossEmotionRegulationStrategy);
 
-(async function main() {
+void (async function main() {
   for (const table of tables) await db.delete(table);
 
   const di = await bootstrap();

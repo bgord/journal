@@ -21,8 +21,8 @@ export function ProfileAvatarChange() {
         credentials: "include",
       });
     },
-    onSuccess: () => {
-      router.invalidate({ filter: () => true, sync: true });
+    onSuccess: async () => {
+      await router.invalidate({ filter: () => true, sync: true });
       avatar.actions.clearFile();
     },
   });

@@ -65,7 +65,7 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
 
   // biome-ignore lint: lint/correctness/useExhaustiveDependencies
   useEffect(() => {
-    if (reactionEffectiveness.changed || reactionType.changed) mutation.mutate();
+    if (reactionEffectiveness.changed || reactionType.changed) void mutation.mutate();
   }, [reactionEffectiveness.changed, reactionType.changed]);
 
   return (

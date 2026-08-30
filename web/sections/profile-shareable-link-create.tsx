@@ -42,8 +42,8 @@ export function ProfileShareableLinkCreate() {
           dateRangeEnd: dateRangeEnd.value,
         }),
       }),
-    onSuccess: (_, context) => {
-      router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true });
+    onSuccess: async (_, context) => {
+      await router.invalidate({ filter: (r) => r.id === profileRoute.id, sync: true });
       Fields.clearAll([specification, duration, dateRangeStart, dateRangeEnd]);
       context.form?.reset();
 

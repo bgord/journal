@@ -44,7 +44,7 @@ export function EntryEmotion(props: EntrySnapshotFormatted) {
 
   // biome-ignore lint: lint/correctness/useExhaustiveDependencies
   useEffect(() => {
-    if (emotionIntensity.changed || emotionLabel.changed) mutation.mutate();
+    if (emotionIntensity.changed || emotionLabel.changed) void mutation.mutate();
   }, [emotionIntensity.changed, emotionLabel.changed]);
 
   return (

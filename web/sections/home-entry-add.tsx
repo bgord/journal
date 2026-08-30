@@ -68,8 +68,8 @@ export function HomeEntryAdd() {
         headers: TimeZoneOffset.get(),
       });
     },
-    onSuccess: (_, context) => {
-      router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
+    onSuccess: async (_, context) => {
+      await router.invalidate({ filter: (r) => r.id === homeRoute.id, sync: true });
       context.form?.reset();
       Fields.clearAll([
         scheduledFor,

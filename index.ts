@@ -10,7 +10,7 @@ import { registerSseHandlers } from "+infra/register-sse-handlers";
 import { createServer } from "./server";
 import { handler } from "./web/entry-server";
 
-(async function main() {
+void (async function main() {
   const di = await bootstrap();
   const server = createServer(di);
 
