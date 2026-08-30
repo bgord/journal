@@ -5,7 +5,6 @@
   "author": "Bartosz Gordon",
   "devDependencies": {
     "@biomejs/biome": "2.5.10",
-    "@fullhuman/postcss-purgecss": "8.0.0",
     "@playwright/test": "1.62.1",
     "@stryker-mutator/core": "10.0.0",
     "@stryker-mutator/typescript-checker": "10.0.0",
@@ -20,8 +19,6 @@
     "gzip-cli": "1.2.0",
     "lefthook": "2.1.10",
     "lockfile-lint": "5.0.1",
-    "postcss": "8.5.26",
-    "postcss-cli": "11.0.1",
     "shellcheck": "4.1.0",
     "typescript": "7.0.2"
   },
