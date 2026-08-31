@@ -14,8 +14,8 @@ describe("GET /api/history/:entryId/list", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
 
-    expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected, _known: true });
+    expect(response.status).toEqual(401);
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected });
   });
 
   test("validation - incorrect id", async () => {
@@ -29,7 +29,7 @@ describe("GET /api/history/:entryId/list", async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "history.subject.too.long", _known: true });
+    expect(json).toEqual({ message: "history.subject.too.long" });
   });
 
   test("happy path", async () => {

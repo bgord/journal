@@ -15,12 +15,13 @@ describe("GET /api/weekly-review/:weeklyReviewId/export/download", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
     const json = await response.json();
 
-    expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected, _known: true });
+    expect(response.status).toEqual(401);
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected });
   });
 
   test("validation - incorrect id", async () => {
     using _ = spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth);
+    using loggerError = spyOn(di.Adapters.System.Logger, "error");
 
     const response = await server.request(
       "/api/weekly-review/id/export/download",
@@ -30,17 +31,20 @@ describe("GET /api/weekly-review/:weeklyReviewId/export/download", async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "uuid.type", _known: true });
+    expect(json).toEqual({ message: "uuid.type" });
+    expect(loggerError).toHaveBeenCalledWith(expect.objectContaining({ operation: "validation" }));
   });
 
   test("validation - WeeklyReviewExists - no weekly review", async () => {
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(spyOn(di.Adapters.Emotions.WeeklyReviewExportQuery, "getFull").mockResolvedValue(undefined));
+    using loggerError = spyOn(di.Adapters.System.Logger, "error");
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     await testcases.assertInvariantError(response, 404, "weekly.review.exists.error");
+    expect(loggerError).toHaveBeenCalledWith(expect.objectContaining({ operation: "domain_error" }));
   });
 
   test("validation - WeeklyReviewExists - repo failure", async () => {
@@ -51,10 +55,12 @@ describe("GET /api/weekly-review/:weeklyReviewId/export/download", async () => {
         mocks.throwIntentionalErrorAsync,
       ),
     );
+    using loggerError = spyOn(di.Adapters.System.Logger, "error");
 
     const response = await server.request(url, { method: "GET" }, mocks.ip);
 
     expect(response.status).toEqual(500);
+    expect(loggerError).toHaveBeenCalledWith(expect.objectContaining({ operation: "unknown_error" }));
   });
 
   test("validation - WeeklyReviewIsCompleted", async () => {

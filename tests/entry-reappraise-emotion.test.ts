@@ -21,8 +21,8 @@ describe("POST /api/entry/:entryId/reappraise-emotion", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
 
-    expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected, _known: true });
+    expect(response.status).toEqual(401);
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected });
   });
 
   test("validation - empty payload", async () => {
@@ -36,7 +36,7 @@ describe("POST /api/entry/:entryId/reappraise-emotion", async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "emotion.label.invalid", _known: true });
+    expect(json).toEqual({ message: "emotion.label.invalid" });
   });
 
   test("validation - missing intensity", async () => {
@@ -56,7 +56,6 @@ describe("POST /api/entry/:entryId/reappraise-emotion", async () => {
     expect(response.status).toEqual(400);
     expect(json).toEqual({
       message: Emotions.VO.EmotionIntensity.Errors.MinMax,
-      _known: true,
     });
   });
 
@@ -75,7 +74,7 @@ describe("POST /api/entry/:entryId/reappraise-emotion", async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "uuid.type", _known: true });
+    expect(json).toEqual({ message: "uuid.type" });
   });
 
   test("validation - EntryIsActionable", async () => {

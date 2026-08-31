@@ -24,8 +24,8 @@ describe(`POST ${url}`, async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
     const json = await response.json();
 
-    expect(response.status).toEqual(403);
-    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected, _known: true });
+    expect(response.status).toEqual(401);
+    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected });
   });
 
   test("ProfileAvatarConstraints - maxSide - width", async () => {

@@ -38,7 +38,6 @@ describe(`POST ${url}`, async () => {
     expect(response.status).toEqual(400);
     expect(json).toEqual({
       message: Emotions.VO.SituationDescription.Errors.Invalid,
-      _known: true,
     });
   });
 
@@ -56,7 +55,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "situation.kind.invalid", _known: true });
+    expect(json).toEqual({ message: "situation.kind.invalid" });
   });
 
   test("emotion - validation - empty payload", async () => {
@@ -70,7 +69,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "emotion.label.invalid", _known: true });
+    expect(json).toEqual({ message: "emotion.label.invalid" });
   });
 
   test("emotion - validation - missing intensity", async () => {
@@ -87,7 +86,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: Emotions.VO.EmotionIntensity.Errors.MinMax, _known: true });
+    expect(json).toEqual({ message: Emotions.VO.EmotionIntensity.Errors.MinMax });
   });
 
   test("reaction - validation - empty payload", async () => {
@@ -101,7 +100,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: Emotions.VO.ReactionDescription.Errors.Invalid, _known: true });
+    expect(json).toEqual({ message: Emotions.VO.ReactionDescription.Errors.Invalid });
   });
 
   test("reaction - validation - missing type", async () => {
@@ -118,7 +117,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "reaction.type.invalid", _known: true });
+    expect(json).toEqual({ message: "reaction.type.invalid" });
   });
 
   test("reaction - validation - missing effectiveness", async () => {
@@ -140,7 +139,7 @@ describe(`POST ${url}`, async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.MinMax, _known: true });
+    expect(json).toEqual({ message: Emotions.VO.ReactionEffectiveness.Errors.MinMax });
   });
 
   test("happy path", async () => {

@@ -19,7 +19,7 @@ describe("GET /api/shared/entries/:shareableLinkId", async () => {
     const json = await response.json();
 
     expect(response.status).toEqual(400);
-    expect(json).toEqual({ message: "uuid.type", _known: true });
+    expect(json).toEqual({ message: "uuid.type" });
   });
 
   test("validation - expired", async () => {
