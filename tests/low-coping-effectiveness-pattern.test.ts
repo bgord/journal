@@ -9,8 +9,8 @@ describe("LowCopingEffectivenessPattern", async () => {
   const deps = { ...di.Adapters.System, ...di.Tools };
   const detector = new Emotions.Services.PatternDetector(deps);
 
-  test("true - mean 1", () => {
-    bg.CorrelationStorage.run(mocks.correlationId, () => {
+  test("true - mean 1", async () => {
+    await bg.CorrelationStorage.run(mocks.correlationId, () => {
       const result = detector.detect({
         entries: [
           mocks.positiveMaladaptiveEntry,
@@ -26,8 +26,8 @@ describe("LowCopingEffectivenessPattern", async () => {
     });
   });
 
-  test("true - mean 1 - with partial entries", () => {
-    bg.CorrelationStorage.run(mocks.correlationId, () => {
+  test("true - mean 1 - with partial entries", async () => {
+    await bg.CorrelationStorage.run(mocks.correlationId, () => {
       const result = detector.detect({
         entries: [
           mocks.positiveMaladaptiveEntry,
@@ -67,8 +67,8 @@ describe("LowCopingEffectivenessPattern", async () => {
     expect(result).toEqual([]);
   });
 
-  test("false - mean 3", () => {
-    bg.CorrelationStorage.run(mocks.correlationId, () => {
+  test("false - mean 3", async () => {
+    await bg.CorrelationStorage.run(mocks.correlationId, () => {
       const three = { ...mocks.positiveMaladaptiveEntry, reactionEffectiveness: 3 };
 
       const result = detector.detect({

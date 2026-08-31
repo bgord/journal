@@ -9,8 +9,8 @@ describe("MaladaptiveReactionsInWeekPattern", async () => {
   const deps = { ...di.Adapters.System, ...di.Tools };
   const detector = new Emotions.Services.PatternDetector(deps);
 
-  test("true", () => {
-    bg.CorrelationStorage.run(mocks.correlationId, () => {
+  test("true", async () => {
+    await bg.CorrelationStorage.run(mocks.correlationId, () => {
       const result = detector.detect({
         entries: [
           mocks.positiveMaladaptiveEntry,

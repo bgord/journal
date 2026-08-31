@@ -9,8 +9,8 @@ describe("PatternDetector", async () => {
   const deps = { ...di.Adapters.System, ...di.Tools };
   const detector = new Emotions.Services.PatternDetector(deps);
 
-  test("detects multiple patterns", () => {
-    bg.CorrelationStorage.run(mocks.correlationId, () => {
+  test("detects multiple patterns", async () => {
+    await bg.CorrelationStorage.run(mocks.correlationId, () => {
       const result = detector.detect({
         entries: [
           mocks.positiveMaladaptiveEntry,
