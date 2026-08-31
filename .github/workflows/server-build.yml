@@ -1,4 +1,4 @@
-name: Deploy
+name: Build
 on:
   push:
     branches: [master]
@@ -9,13 +9,13 @@ on:
         type: boolean
         default: false
 concurrency:
-  group: ci-deploy-${{ github.ref }}
+  group: ci-build-${{ github.ref }}
   cancel-in-progress: true
 permissions:
   contents: read
 jobs:
-  deploy:
-    name: Deploy server
+  build:
+    name: Build server
     runs-on: ubuntu-26.04
     env:
       GITLEAKS_VERSION: 8.30.0
@@ -159,34 +159,14 @@ jobs:
         if: ${{ env.SKIP_CHECKS != 'true' }}
         run: ./bgord-scripts/server-inspect-production.sh "${PROJECT_NAME}"
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/production.key
-          chmod 600 ~/.ssh/production.key
-          cat >>~/.ssh/config <<END
-          Host production
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/production.key
-            StrictHostKeyChecking no
-          END
-        env:
-          SSH_USER: ${{ secrets.USER }}
-          SSH_KEY: ${{ secrets.PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.HOSTNAME }}
+      - name: Package build output
+        run: tar -czf build.tar.gz -C output .
 
-      - name: Sync source code
-        env:
-          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
-        run: rsync -azP output/ "production:/var/www/${PROJECT_NAME}"
-
-      - name: Restart server
-        env:
-          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
-        run: ssh production sudo systemctl restart "${PROJECT_NAME}.service"
-
-      - name: Clean stale public assets
-        env:
-          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
-        run: if [ -d "output/public" ]; then rsync -azP --delete output/public/ "production:/var/www/${PROJECT_NAME}/public/"; fi
+      - name: Upload build artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: build
+          path: build.tar.gz
+          compression-level: 0
+          retention-days: 90
+          if-no-files-found: error
