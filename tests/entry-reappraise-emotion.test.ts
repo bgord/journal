@@ -55,7 +55,7 @@ describe("POST /api/entry/:entryId/reappraise-emotion", async () => {
 
     expect(response.status).toEqual(400);
     expect(json).toEqual({
-      message: Emotions.VO.EmotionIntensity.Errors.min_max,
+      message: Emotions.VO.EmotionIntensity.Errors.MinMax,
       _known: true,
     });
   });

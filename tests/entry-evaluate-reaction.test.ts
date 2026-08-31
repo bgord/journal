@@ -36,7 +36,7 @@ describe("POST /api/entry/:entryId/evaluate-reaction", async () => {
 
     expect(response.status).toEqual(400);
     expect(json).toEqual({
-      message: Emotions.VO.ReactionDescription.Errors.invalid,
+      message: Emotions.VO.ReactionDescription.Errors.Invalid,
       _known: true,
     });
   });
@@ -78,7 +78,7 @@ describe("POST /api/entry/:entryId/evaluate-reaction", async () => {
 
     expect(response.status).toEqual(400);
     expect(json).toEqual({
-      message: Emotions.VO.ReactionEffectiveness.Errors.min_max,
+      message: Emotions.VO.ReactionEffectiveness.Errors.MinMax,
       _known: true,
     });
   });

@@ -1,13 +1,13 @@
 import * as v from "valibot";
 import { ReactionDescriptionMax, ReactionDescriptionMin } from "./reaction-description.validation";
 
-const ReactionDescriptionErrors = { invalid: "reaction.description.invalid" };
+const ReactionDescriptionErrors = { Invalid: "reaction.description.invalid" };
 
 export const ReactionDescriptionSchema = v.pipe(
-  v.string(ReactionDescriptionErrors.invalid),
+  v.string(ReactionDescriptionErrors.Invalid),
   v.trim(),
-  v.minLength(ReactionDescriptionMin, ReactionDescriptionErrors.invalid),
-  v.maxLength(ReactionDescriptionMax, ReactionDescriptionErrors.invalid),
+  v.minLength(ReactionDescriptionMin, ReactionDescriptionErrors.Invalid),
+  v.maxLength(ReactionDescriptionMax, ReactionDescriptionErrors.Invalid),
 );
 
 export type ReactionDescriptionType = v.InferOutput<typeof ReactionDescriptionSchema>;

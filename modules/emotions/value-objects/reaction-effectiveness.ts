@@ -1,13 +1,13 @@
 import * as v from "valibot";
 import { ReactionEffectivenessMax, ReactionEffectivenessMin } from "./reaction-effectiveness.validation";
 
-const ReactionEffectivenessErrors = { min_max: "reaction.effectiveness.min.max" };
+const ReactionEffectivenessErrors = { MinMax: "reaction.effectiveness.min.max" };
 
 export const ReactionEffectivenessSchema = v.pipe(
-  v.number(ReactionEffectivenessErrors.min_max),
-  v.integer(ReactionEffectivenessErrors.min_max),
-  v.minValue(ReactionEffectivenessMin, ReactionEffectivenessErrors.min_max),
-  v.maxValue(ReactionEffectivenessMax, ReactionEffectivenessErrors.min_max),
+  v.number(ReactionEffectivenessErrors.MinMax),
+  v.integer(ReactionEffectivenessErrors.MinMax),
+  v.minValue(ReactionEffectivenessMin, ReactionEffectivenessErrors.MinMax),
+  v.maxValue(ReactionEffectivenessMax, ReactionEffectivenessErrors.MinMax),
 );
 
 export type ReactionEffectivenessType = v.InferOutput<typeof ReactionEffectivenessSchema>;

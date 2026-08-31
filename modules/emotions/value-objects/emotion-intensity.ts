@@ -1,13 +1,13 @@
 import * as v from "valibot";
 import { EmotionIntensityMax, EmotionIntensityMin } from "./emotion-intensity.validation";
 
-const EmotionIntensityErrors = { min_max: "emotion.intensity.min.max" };
+const EmotionIntensityErrors = { MinMax: "emotion.intensity.min.max" };
 
 export const EmotionIntensitySchema = v.pipe(
-  v.number(EmotionIntensityErrors.min_max),
-  v.integer(EmotionIntensityErrors.min_max),
-  v.minValue(EmotionIntensityMin, EmotionIntensityErrors.min_max),
-  v.maxValue(EmotionIntensityMax, EmotionIntensityErrors.min_max),
+  v.number(EmotionIntensityErrors.MinMax),
+  v.integer(EmotionIntensityErrors.MinMax),
+  v.minValue(EmotionIntensityMin, EmotionIntensityErrors.MinMax),
+  v.maxValue(EmotionIntensityMax, EmotionIntensityErrors.MinMax),
 );
 
 export type EmotionIntensityType = v.InferOutput<typeof EmotionIntensitySchema>;

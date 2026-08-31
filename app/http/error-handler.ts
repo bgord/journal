@@ -19,10 +19,10 @@ const validationErrors = [
   Emotions.VO.SituationDescription.Errors.Invalid,
   Emotions.VO.SituationKind.Errors.Invalid,
   Emotions.VO.EmotionLabel.Errors.Invalid,
-  Emotions.VO.EmotionIntensity.Errors.min_max,
-  Emotions.VO.ReactionDescription.Errors.invalid,
+  Emotions.VO.EmotionIntensity.Errors.MinMax,
+  Emotions.VO.ReactionDescription.Errors.Invalid,
   Emotions.VO.ReactionType.Errors.Invalid,
-  Emotions.VO.ReactionEffectiveness.Errors.min_max,
+  Emotions.VO.ReactionEffectiveness.Errors.MinMax,
   Publishing.VO.PublicationSpecificationErrors.Invalid,
 ];
 
