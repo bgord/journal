@@ -23,7 +23,6 @@ const validation = new bg.ErrorClassifierValidationStrategy([
   bg.History.VO.HistorySubjectError,
   tools.DurationMsError,
   tools.DayIsoIdError,
-  tools.DayIsoIdError,
   tools.LanguageError,
   Emotions.VO.SituationDescription.Errors,
   Emotions.VO.SituationKind.Errors,
