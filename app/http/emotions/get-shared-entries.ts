@@ -24,7 +24,7 @@ export const GetSharedEntries =
     });
 
     if (!shareableLinkAccess.valid) {
-      return Response.json({ _known: true, message: "shareable_link_invalid" }, { status: 403 });
+      return Response.json({ message: "shareable_link_invalid" }, { status: 403 });
     }
 
     const entries = await deps.EntriesSharing.listForOwnerInRange(
