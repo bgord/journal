@@ -16,54 +16,36 @@ const messages = new bg.ErrorClassifierMessageMapStrategy({
   [tools.RevisionError.Mismatch]: { message: "revision.mismatch", status: 412 },
 });
 
-const http = new bg.ErrorClassifierHttpExceptionHonoStrategy({
-  known: [
-    bg.ShieldAuthStrategyError.Rejected,
-    bg.ShieldTimeoutStrategyError.Rejected,
-    bg.ShieldRateLimitStrategyError.Rejected,
-    bg.ShieldCsrfStrategyError.Rejected,
-    bg.ShieldBasicAuthStrategyError.Rejected,
-    bg.FileUploaderError.MissingFile,
-    bg.FileUploaderError.EmptyFile,
-    bg.FileUploaderError.InvalidMime,
-    bg.FileUploaderError.SizeLimit,
-  ],
-});
+const http = new bg.ErrorClassifierHttpExceptionHonoStrategy([bg.HttpExceptionErrors]);
 
-const validation = new bg.ErrorClassifierValidationStrategy({
-  validationErrors: [
-    bg.UUIDError.Type,
-    bg.History.VO.HistorySubjectError.TooLong,
-    tools.DurationMsError.Invalid,
-    tools.DayIsoIdError.Invalid,
-    tools.DayIsoIdError.Type,
-    tools.LanguageError.Type,
-    Emotions.VO.SituationDescription.Errors.Invalid,
-    Emotions.VO.SituationKind.Errors.Invalid,
-    Emotions.VO.EmotionLabel.Errors.Invalid,
-    Emotions.VO.EmotionIntensity.Errors.MinMax,
-    Emotions.VO.ReactionDescription.Errors.Invalid,
-    Emotions.VO.ReactionType.Errors.Invalid,
-    Emotions.VO.ReactionEffectiveness.Errors.MinMax,
-    Publishing.VO.PublicationSpecificationErrors.Invalid,
-  ],
-});
+const validation = new bg.ErrorClassifierValidationStrategy([
+  bg.UUIDError,
+  bg.History.VO.HistorySubjectError,
+  tools.DurationMsError,
+  tools.DayIsoIdError,
+  tools.DayIsoIdError,
+  tools.LanguageError,
+  Emotions.VO.SituationDescription.Errors,
+  Emotions.VO.SituationKind.Errors,
+  Emotions.VO.EmotionLabel.Errors,
+  Emotions.VO.EmotionIntensity.Errors,
+  Emotions.VO.ReactionDescription.Errors,
+  Emotions.VO.ReactionType.Errors,
+  Emotions.VO.ReactionEffectiveness.Errors,
+  Publishing.VO.PublicationSpecificationErrors,
+]);
 
-const invariants = new bg.ErrorClassifierInvariantStrategy({
-  invariants: Object.values({
-    ...Emotions.Invariants,
-    ...Publishing.Invariants,
-    ...bg.Preferences.Invariants,
-    ...Preferences.Invariants,
-  }),
-});
-
-const unknown = new bg.ErrorClassifierUnknownStrategy();
+const invariants = new bg.ErrorClassifierInvariantStrategy([
+  Emotions.Invariants,
+  Publishing.Invariants,
+  bg.Preferences.Invariants,
+  Preferences.Invariants,
+]);
 
 export class ErrorHandler {
   static handle: (deps: Dependencies) => hono.ErrorHandler = (deps) =>
-    new bg.ErrorHonoHandler({
-      classifiers: [
+    new bg.ErrorHonoHandler(
+      [
         messages,
         http,
         new bg.ErrorClassifierWithLoggerStrategy({ operation: "validation" }, { inner: validation, ...deps }),
@@ -72,9 +54,6 @@ export class ErrorHandler {
           { inner: invariants, ...deps },
         ),
       ],
-      fallback: new bg.ErrorClassifierWithLoggerStrategy(
-        { operation: "unknown_error" },
-        { inner: unknown, ...deps },
-      ),
-    }).handle();
+      deps,
+    ).handle();
 }
