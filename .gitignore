@@ -4,6 +4,7 @@
 .env.staging
 .env.test
 .stryker-tmp
+fallow-viz.html
 infra/adapters/system/profile-avatars/
 infra/build-info.json
 meta.json
@@ -17,4 +18,3 @@ sqlite.db*
 test-results/
 tmp/
 tsconfig.tsbuildinfo
-fallow-viz.html
