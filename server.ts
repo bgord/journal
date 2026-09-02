@@ -17,6 +17,8 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
   const CacheResolver = new bg.CacheResolverReadThroughStrategy({ CacheRepository });
 
+  const redactor = new bg.RedactorMask(bg.RedactorMask.DEFAULT_KEYS);
+
   const origin = [localhost, host];
 
   const server = new Hono<infra.Config>()
@@ -48,7 +50,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   server.get(
     "/readiness",
     Tools.ShieldTimeout.handle(),
-    ...new bg.ReadinessHonoHandler({ prerequisites: Tools.Prerequisites.readiness }).handle(),
+    ...new bg.ReadinessHonoHandler({ prerequisites: Tools.Prerequisites.readiness, redactor }).handle(),
   );
   server.get(
     "/healthcheck",
@@ -56,7 +58,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.ShieldTimeout.handle(),
     Tools.ShieldBasicAuth.handle(),
     ...new bg.HealthcheckHonoHandler(
-      { Env: Env.type, prerequisites: Tools.Prerequisites.healthcheck },
+      { Env: Env.type, prerequisites: Tools.Prerequisites.healthcheck, redactor },
       { ...Adapters.System, ...Tools, LoggerStatsProvider: Adapters.System.Logger },
     ).handle(),
   );
@@ -201,11 +203,14 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.Auth.ShieldAuth.attach,
     Tools.ShieldCaptcha.handle(),
     Tools.Auth.ShieldAuth.verify,
-    new bg.FileUploaderHonoMiddleware({
-      field: "file",
-      MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
-      maxSize: Preferences.VO.ProfileAvatarMaxSize,
-    }).handle(),
+    new bg.FileUploaderHonoMiddleware(
+      {
+        field: "file",
+        MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
+        maxSize: Preferences.VO.ProfileAvatarMaxSize,
+      },
+      { FileTypeDetector: new bg.FileTypeDetectorMagicBytesStrategy() },
+    ).handle(),
     bg.EndpointHonoAdapter.adapt(HTTP.Preferences.UpdateProfileAvatar(deps)),
   );
   server.get(

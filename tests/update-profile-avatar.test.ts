@@ -12,7 +12,7 @@ import * as testcases from "./testcases";
 const url = "/api/preferences/profile-avatar/update";
 
 const form = new FormData();
-form.append("file", new File(["image"], "image.png"));
+form.append("file", mocks.png);
 
 describe(`POST ${url}`, async () => {
   const di = await bootstrap();
