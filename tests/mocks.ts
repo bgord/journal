@@ -960,6 +960,17 @@ export const GenericAccountCreatedEvent = {
   payload: { userId, timestamp: T0.ms },
 } satisfies Auth.Events.AccountCreatedEventType;
 
+export const GenericAccountDeletedEvent = {
+  id: expectAnyId,
+  correlationId,
+  createdAt: T0.ms,
+  stream: v.parse(bg.EventStream, `account_${userId}`),
+  version: 1,
+  commit,
+  name: "ACCOUNT_DELETED_EVENT",
+  payload: { userId, timestamp: T0.ms },
+} satisfies Auth.Events.AccountDeletedEventType;
+
 export const GenericUserLanguageSetEvent = {
   id: expectAnyId,
   correlationId,
