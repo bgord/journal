@@ -19,26 +19,26 @@ const messages = new bg.ErrorClassifierMessageMapStrategy({
 const http = new bg.ErrorClassifierHttpExceptionHonoStrategy([bg.HttpExceptionErrors]);
 
 const validation = new bg.ErrorClassifierValidationStrategy([
-  bg.UUIDError,
-  bg.History.VO.HistorySubjectError,
-  tools.DurationMsError,
-  tools.DayIsoIdError,
-  tools.LanguageError,
+  Emotions.VO.EmotionIntensity.Errors,
+  Emotions.VO.EmotionLabel.Errors,
+  Emotions.VO.ReactionDescription.Errors,
+  Emotions.VO.ReactionEffectiveness.Errors,
+  Emotions.VO.ReactionType.Errors,
   Emotions.VO.SituationDescription.Errors,
   Emotions.VO.SituationKind.Errors,
-  Emotions.VO.EmotionLabel.Errors,
-  Emotions.VO.EmotionIntensity.Errors,
-  Emotions.VO.ReactionDescription.Errors,
-  Emotions.VO.ReactionType.Errors,
-  Emotions.VO.ReactionEffectiveness.Errors,
   Publishing.VO.PublicationSpecificationErrors,
+  bg.History.VO.HistorySubjectError,
+  bg.UUIDError,
+  tools.DayIsoIdError,
+  tools.DurationMsError,
+  tools.LanguageError,
 ]);
 
 const invariants = new bg.ErrorClassifierInvariantStrategy([
   Emotions.Invariants,
+  Preferences.Invariants,
   Publishing.Invariants,
   bg.Preferences.Invariants,
-  Preferences.Invariants,
 ]);
 
 export class ErrorHandler {
