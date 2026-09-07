@@ -7,7 +7,7 @@
       "dependencies": {
         "@anthropic-ai/sdk": "0.124.0",
         "@bgord/bun": "1.23.4",
-        "@bgord/design": "2.0.0",
+        "@bgord/design": "2.0.1",
         "@bgord/ui": "0.10.3",
         "@tanstack/react-router": "1.170.32",
         "better-auth": "1.7.3",
@@ -140,7 +140,7 @@
 
     "@bgord/bun": ["@bgord/bun@1.23.4", "", { "dependencies": { "@bgord/tools": "1.6.10", "emittery": "2.0.0", "hono": "4.13.7", "node-cache": "5.1.2" }, "peerDependencies": { "better-auth": "1.7.3", "nodemailer": "10.0.0" }, "optionalPeers": ["better-auth", "nodemailer"] }, "sha512-uaVTRuAMYqm4RM8YtfDgj1IEUZs3sR1tWTFeMGJUrN4K0evhzGcp9+m13ef3b1SqB7UdFoctCl2L4CMTWHlm5w=="],
 
-    "@bgord/design": ["@bgord/design@2.0.0", "", { "bin": { "bgord-css-purge": "dist/css-purge.js" } }, "sha512-fOJaMY2QEtMaGWQDs7T0rZ87IinO0yUm7jVGt85DYNuOzIclbdHHYIlWtyIGvbFfZaBGk0L/W3VyrsjDRrz2+g=="],
+    "@bgord/design": ["@bgord/design@2.0.1", "", { "bin": { "bgord-css-purge": "dist/css-purge.js" } }, "sha512-6CYsPFXpG3379h9MtfKvZV+M29NLo4/azB0hRjH9Ncp6fV7hXJNMPHWRUQoFJkzLQJNMTTBP8WDCPMuabo8hSg=="],
 
     "@bgord/tools": ["@bgord/tools@1.6.10", "", { "dependencies": { "valibot": "1.4.2" } }, "sha512-Dnw9wnQC8f1s1P0HjwVXIj7l/3mdWMpGdX5H8pelc6JNpmTLXlHXqAbkwFn4jmiZcOWjCD33tOzzoS8ogMbNpg=="],
 
