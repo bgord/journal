@@ -67,7 +67,7 @@ export function createPrerequisites(
       new bg.Prerequisite(
         "bun",
         new bg.PrerequisiteVerifierBunAdapter({
-          version: tools.PackageVersion.fromString("1.3.14"),
+          version: tools.PackageVersion.fromString("1.4.2"),
           current: Bun.version,
         }),
       ),
