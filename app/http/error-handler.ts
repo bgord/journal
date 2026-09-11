@@ -14,6 +14,7 @@ const messages = new bg.ErrorClassifierMessageMapStrategy({
   },
   [tools.DateRangeError.Invalid]: { message: "invalid.date.range", status: 400 },
   [tools.RevisionError.Mismatch]: { message: "revision.mismatch", status: 412 },
+  [tools.RevisionError.Missing]: { message: "revision.missing", status: 428 },
 });
 
 const http = new bg.ErrorClassifierHttpExceptionHonoStrategy([bg.HttpExceptionErrors]);
