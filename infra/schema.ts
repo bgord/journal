@@ -409,7 +409,6 @@ export const accounts = sqliteTable(
   "accounts",
   {
     id: text("id").primaryKey(),
-    issuer: text("issuer").notNull(),
     accountId: text("account_id").notNull(),
     providerId: text("provider_id").notNull(),
     userId: text("user_id")
@@ -426,7 +425,7 @@ export const accounts = sqliteTable(
     updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
   },
   (table) => [
-    uniqueIndex("accounts_issuer_accountId_uidx").on(table.issuer, table.accountId),
+    uniqueIndex("accounts_providerId_accountId_uidx").on(table.providerId, table.accountId),
     index("accounts_userId_idx").on(table.userId),
   ],
 );
