@@ -4,6 +4,7 @@ import { bootstrap } from "+infra/bootstrap";
 import { registerSseHandlers } from "+infra/register-sse-handlers";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
+import * as testcases from "./testcases";
 
 const url = "/api/sse";
 
@@ -14,10 +15,7 @@ describe(`GET ${url}`, async () => {
 
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "GET" }, mocks.ip);
-    const json = await response.json();
-
-    expect(response.status).toEqual(401);
-    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected });
+    await testcases.assertAuthResponse(response);
   });
 
   test("happy path - SseRegistry receives ALARM_GENERATED_EVENT from EventBus", async () => {

@@ -1,9 +1,9 @@
 import { describe, expect, jest, spyOn, test } from "bun:test";
-import * as bg from "@bgord/bun";
 import { bootstrap } from "+infra/bootstrap";
 import { db } from "+infra/db";
 import { createServer } from "../server";
 import * as mocks from "./mocks";
+import * as testcases from "./testcases";
 
 const url = `/api/publishing/link/${mocks.shareableLinkId}/hide`;
 
@@ -13,10 +13,7 @@ describe("POST /api/publishing/link/:shareableLinkId/hide", async () => {
 
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "POST" }, mocks.ip);
-    const json = await response.json();
-
-    expect(response.status).toEqual(401);
-    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected });
+    await testcases.assertAuthResponse(response);
   });
 
   test("validation - incorrect id", async () => {

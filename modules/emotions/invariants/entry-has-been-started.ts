@@ -1,19 +1,19 @@
 import * as bg from "@bgord/bun";
 import type * as Emotions from "+emotions";
 
-class EntryHasBenStartedError extends Error {}
+class EntryHasBeenStartedError extends Error {}
 
-type EntryHasBenStartedConfigType = { situation?: Emotions.Entities.Situation };
+type EntryHasBeenStartedConfigType = { situation?: Emotions.Entities.Situation };
 
-class EntryHasBenStartedFactory extends bg.Invariant<EntryHasBenStartedConfigType> {
-  passes(config: EntryHasBenStartedConfigType) {
+class EntryHasBeenStartedFactory extends bg.Invariant<EntryHasBeenStartedConfigType> {
+  passes(config: EntryHasBeenStartedConfigType) {
     if (config.situation === undefined) return false;
     return true;
   }
 
   message = "entry.has.been.started";
-  error = EntryHasBenStartedError;
+  error = EntryHasBeenStartedError;
   kind = bg.InvariantFailureKind.forbidden;
 }
 
-export const EntryHasBenStarted = new EntryHasBenStartedFactory();
+export const EntryHasBeenStarted = new EntryHasBeenStartedFactory();

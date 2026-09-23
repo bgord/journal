@@ -1,5 +1,4 @@
 import { describe, expect, spyOn, test } from "bun:test";
-import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import { bootstrap } from "+infra/bootstrap";
 import { registerCommandHandlers } from "+infra/register-command-handlers";
@@ -18,10 +17,7 @@ describe("DELETE /api/entry/:entryId/delete", async () => {
 
   test("validation - AccessDeniedAuthShieldError", async () => {
     const response = await server.request(url, { method: "DELETE" }, mocks.ip);
-    const json = await response.json();
-
-    expect(response.status).toEqual(401);
-    expect(json).toEqual({ message: bg.ShieldAuthStrategyError.Rejected });
+    await testcases.assertAuthResponse(response);
   });
 
   test("validation - incorrect id", async () => {
@@ -52,7 +48,7 @@ describe("DELETE /api/entry/:entryId/delete", async () => {
     await testcases.assertInvariantError(response, 403, "entry.has.been.started");
   });
 
-  test("validation -  RequesterOwnsEntry", async () => {
+  test("validation - RequesterOwnsEntry", async () => {
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth));
     spies.use(spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision));
@@ -67,7 +63,7 @@ describe("DELETE /api/entry/:entryId/delete", async () => {
     await testcases.assertInvariantError(response, 403, "requester.owns.entry.error");
   });
 
-  test(" revision mismatch", async () => {
+  test("revision mismatch", async () => {
     using spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
     spies.use(spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericSituationLoggedEvent]));

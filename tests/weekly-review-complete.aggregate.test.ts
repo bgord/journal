@@ -6,37 +6,11 @@ import * as Emotions from "+emotions";
 import { bootstrap } from "+infra/bootstrap";
 import * as mocks from "./mocks";
 
-describe("WeeklyReview", async () => {
+describe("WeeklyReview.complete", async () => {
   const di = await bootstrap();
   const deps = { ...di.Adapters.System, ...di.Tools };
 
-  test("build new aggregate", () => {
-    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(mocks.weeklyReviewId, [], deps);
-
-    expect(weeklyReview.pullEvents()).toEqual([]);
-  });
-
-  test("request - correct path", async () => {
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => {
-      const weeklyReview = Emotions.Aggregates.WeeklyReview.request(
-        mocks.weeklyReviewId,
-        mocks.previousWeek,
-        mocks.userId,
-        deps,
-      );
-
-      expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewRequestedEvent]);
-      expect(weeklyReview.toSnapshot()).toEqual({
-        id: mocks.GenericWeeklyReviewRequestedEvent.payload.weeklyReviewId,
-        userId: mocks.GenericWeeklyReviewRequestedEvent.payload.userId,
-        status: Emotions.VO.WeeklyReviewStatusEnum.requested,
-        week: tools.Week.fromIsoId(mocks.GenericWeeklyReviewRequestedEvent.payload.weekIsoId),
-        insights: undefined,
-      });
-    });
-  });
-
-  test("complete - correct path", async () => {
+  test("happy path", async () => {
     using _ = spyOn(tools.Revision.prototype, "next").mockImplementation(() => mocks.revision);
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(
       mocks.weeklyReviewId,
@@ -56,7 +30,7 @@ describe("WeeklyReview", async () => {
     });
   });
 
-  test("complete - WeeklyReviewCompletedOnce", async () => {
+  test("WeeklyReviewCompletedOnce - already completed", async () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(
       mocks.weeklyReviewId,
       [mocks.GenericWeeklyReviewRequestedEvent, mocks.GenericWeeklyReviewCompletedEvent],
@@ -71,26 +45,7 @@ describe("WeeklyReview", async () => {
     expect(weeklyReview.pullEvents()).toEqual([]);
   });
 
-  test("fail - correct path", async () => {
-    const weeklyReview = Emotions.Aggregates.WeeklyReview.build(
-      mocks.weeklyReviewId,
-      [mocks.GenericWeeklyReviewRequestedEvent],
-      deps,
-    );
-
-    await bg.CorrelationStorage.run(mocks.correlationId, async () => weeklyReview.fail());
-
-    expect(weeklyReview.pullEvents()).toEqual([mocks.GenericWeeklyReviewFailedEvent]);
-    expect(weeklyReview.toSnapshot()).toEqual({
-      id: mocks.GenericWeeklyReviewRequestedEvent.payload.weeklyReviewId,
-      userId: mocks.GenericWeeklyReviewRequestedEvent.payload.userId,
-      status: Emotions.VO.WeeklyReviewStatusEnum.failed,
-      week: tools.Week.fromIsoId(mocks.GenericWeeklyReviewRequestedEvent.payload.weekIsoId),
-      insights: undefined,
-    });
-  });
-
-  test("fail - WeeklyReviewCompletedOnce", async () => {
+  test("WeeklyReviewCompletedOnce - already failed", async () => {
     const weeklyReview = Emotions.Aggregates.WeeklyReview.build(
       mocks.weeklyReviewId,
       [mocks.GenericWeeklyReviewRequestedEvent, mocks.GenericWeeklyReviewFailedEvent],

@@ -163,7 +163,7 @@ export class Entry {
   }
 
   delete(requesterId: Auth.VO.UserIdType) {
-    Invariants.EntryHasBenStarted.enforce({ situation: this.situation });
+    Invariants.EntryHasBeenStarted.enforce({ situation: this.situation });
     Invariants.RequesterOwnsEntry.enforce({ requesterId, ownerId: this.userId });
 
     const event = bg.event(
