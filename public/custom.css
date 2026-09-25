@@ -27,3 +27,14 @@ body {
 [data-status="error"] [data-when~="error"] {
   display: initial;
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 120ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

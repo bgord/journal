@@ -1,31 +1,35 @@
 // fallow-ignore-file circular-dependencies
-import { CSS, JS, META } from "@bgord/ui";
-import {
-  createRootRouteWithContext,
-  createRoute,
-  lazyRouteComponent,
-  Router,
-  redirect,
-} from "@tanstack/react-router";
+import * as bg from "@bgord/ui";
+import { createRootRouteWithContext, createRoute, Router, redirect } from "@tanstack/react-router";
 import * as HomeEntryListForm from "../app/services/home-entry-list-form";
 import { AI, Avatar, Dashboard, Entry, I18N, Publishing, Session } from "./api";
 import { NotFound } from "./not-found";
+import { Dashboard as DashboardPage } from "./pages/dashboard";
+import { Home as HomePage } from "./pages/home";
+import { HomeEntryHistory as HomeEntryHistoryPage } from "./pages/home-entry-history";
+import { Profile as ProfilePage } from "./pages/profile";
+import { SharedEntries as SharedEntriesPage } from "./pages/shared-entries";
 import { Shell } from "./shell";
 
-type RouterContext = { request: Request | null; nonce: string };
+type RouterContext = { request: Request | null; nonce: string; assetVersion: string };
 
 export const rootRoute = createRootRouteWithContext<RouterContext>()({
-  head: () => ({
-    meta: [...META, { title: "Journal" }],
-    links: [...CSS("/public/main.min.css"), ...CSS("/public/custom.css")],
-    scripts: [JS("/public/entry-client.js")],
+  head: ({ match }: { match: { context: RouterContext } }) => ({
+    meta: [...bg.META, { title: "Journal" }],
+    links: [
+      ...bg.CSS(bg.AssetVersion.url("/public/main.min.css", match.context.assetVersion)),
+      ...bg.CSS(bg.AssetVersion.url("/public/custom.css", match.context.assetVersion)),
+    ],
+    scripts: [bg.JS(bg.AssetVersion.url("/public/entry-client.js", match.context.assetVersion))],
   }),
   component: Shell,
   staleTime: Number.POSITIVE_INFINITY,
   loader: async ({ context }) => {
-    const session = await Session.get(context.request);
-    const i18n = await I18N.get(context.request);
-    const avatarEtag = await Avatar.getEtag(context.request);
+    const [session, i18n, avatarEtag] = await Promise.all([
+      Session.get(context.request),
+      I18N.get(context.request),
+      Avatar.getEtag(context.request),
+    ]);
 
     // @ts-expect-error Login stays out as a separate HTML page
     if (!(session && i18n)) throw redirect({ to: "/public/login.html" });
@@ -38,7 +42,7 @@ export const rootRoute = createRootRouteWithContext<RouterContext>()({
 export const homeRoute = createRoute({
   path: "/",
   getParentRoute: () => rootRoute,
-  component: lazyRouteComponent(() => import("./pages/home"), "Home"),
+  component: HomePage,
   validateSearch: (value) => ({
     filter: HomeEntryListForm.Form.filter.is(value["filter"])
       ? value["filter"]
@@ -52,7 +56,7 @@ export const homeRoute = createRoute({
 export const homeEntryHistoryRoute = createRoute({
   getParentRoute: () => homeRoute,
   path: "entry/$entryId/history",
-  component: lazyRouteComponent(() => import("./pages/home-entry-history"), "HomeEntryHistory"),
+  component: HomeEntryHistoryPage,
   loader: async ({ context, params }) => ({
     history: await Entry.getHistory(context.request, params.entryId),
   }),
@@ -61,24 +65,28 @@ export const homeEntryHistoryRoute = createRoute({
 export const profileRoute = createRoute({
   path: "/profile",
   getParentRoute: () => rootRoute,
-  component: lazyRouteComponent(() => import("./pages/profile"), "Profile"),
-  loader: async ({ context }) => ({
-    usage: await AI.getUsageToday(context.request),
-    shareableLinks: await Publishing.listShareableLinks(context.request),
-  }),
+  component: ProfilePage,
+  loader: async ({ context }) => {
+    const [usage, shareableLinks] = await Promise.all([
+      AI.getUsageToday(context.request),
+      Publishing.listShareableLinks(context.request),
+    ]);
+
+    return { usage, shareableLinks };
+  },
 });
 
 export const dashboardRoute = createRoute({
   path: "/dashboard",
   getParentRoute: () => rootRoute,
-  component: lazyRouteComponent(() => import("./pages/dashboard"), "Dashboard"),
+  component: DashboardPage,
   loader: async ({ context }) => await Dashboard.get(context.request),
 });
 
 export const sharedEntries = createRoute({
   path: "/shared-entries/$shareableLinkId",
   getParentRoute: () => rootRoute,
-  component: lazyRouteComponent(() => import("./pages/shared-entries"), "SharedEntries"),
+  component: SharedEntriesPage,
   preload: false,
   loader: async ({ context, params }) => ({
     entries: await Entry.getSharedEntries(context.request, params.shareableLinkId),
@@ -99,6 +107,10 @@ export function createRouter(context: RouterContext) {
     defaultPreload: "intent",
     defaultViewTransition: true,
     ssr: { nonce: context.nonce },
+    dehydrate: () => ({ assetVersion: context.assetVersion }),
+    hydrate: (dehydrated) => {
+      context.assetVersion = dehydrated.assetVersion;
+    },
   });
 }
 

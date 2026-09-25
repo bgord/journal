@@ -1,4 +1,4 @@
-import { absoluteUrl, Cookies } from "@bgord/ui";
+import * as bg from "@bgord/ui";
 import type { HistoryType } from "../../app/http/history";
 import type { types } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotFormatted } from "../../modules/emotions/ports";
@@ -8,47 +8,25 @@ export class Entry {
     request: Request | null,
     deps: { filter: types.EntryListFilterType; query: string },
   ): Promise<ReadonlyArray<EntrySnapshotFormatted>> {
-    const BASE = "/api/entry/list";
-
-    const url = absoluteUrl(BASE, request);
-    const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
-
-    const response = await fetch(url, {
+    return bg.ApiClient.json<ReadonlyArray<EntrySnapshotFormatted>>("/api/entry/list", request, [], {
       method: "QUERY",
       body: JSON.stringify({ filter: deps.filter, query: deps.query ?? "" }),
-      headers,
-      credentials: "include",
     });
-
-    if (!response?.ok) return [];
-    return response.json().catch();
   }
 
   static async getSharedEntries(
     request: Request | null,
     shareableLinkId: string,
-  ): Promise<Promise<ReadonlyArray<EntrySnapshotFormatted>>> {
-    const BASE = `/api/shared/entries/${shareableLinkId}`;
-
-    const url = absoluteUrl(BASE, request);
-    const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
-
-    const response = await fetch(url, { headers, credentials: "include" });
-
-    if (!response?.ok) return [];
-    return response.json().catch();
+  ): Promise<ReadonlyArray<EntrySnapshotFormatted>> {
+    return bg.ApiClient.json<ReadonlyArray<EntrySnapshotFormatted>>(
+      `/api/shared/entries/${shareableLinkId}`,
+      request,
+      [],
+    );
   }
 
   static async getHistory(request: Request | null, entryId: string): Promise<ReadonlyArray<HistoryType>> {
-    const BASE = `/api/history/${entryId}/list`;
-
-    const url = absoluteUrl(BASE, request);
-    const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
-
-    const response = await fetch(url, { headers, credentials: "include" });
-
-    if (!response?.ok) return [];
-    return response.json().catch(() => {});
+    return bg.ApiClient.json<ReadonlyArray<HistoryType>>(`/api/history/${entryId}/list`, request, []);
   }
 }
 

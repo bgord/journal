@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import { ApiClient } from "@bgord/ui";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { bootstrap } from "+infra/bootstrap";
 import { db } from "+infra/db";
@@ -34,13 +35,20 @@ void (async function main() {
       ...bg.StaticFilesHono.handle(
         "/public/*",
         di.Env.type === bg.NodeEnvironmentEnum.production
-          ? bg.StaticFileStrategyMustRevalidate(tools.Duration.Minutes(5))
-          : bg.StaticFileStrategyNoop,
+          ? new bg.CacheControlImmutableStrategy(
+              new bg.CacheControlMustRevalidateStrategy(tools.Duration.Minutes(5)),
+            )
+          : new bg.CacheControlNoopStrategy(),
       ),
       "/api/*": server.fetch,
-      "/*": bg.SSRBun.essentials(handler, di.Adapters.System),
+      "/*": bg.SSRBun.essentials(
+        (request, nonce) => handler(request, nonce, String(di.Tools.CommitConfig.get())),
+        di.Adapters.System,
+      ),
     },
   });
+
+  ApiClient.useServer((request) => server.fetch(request, app));
 
   new bg.GracefulShutdown(di.Adapters.System).applyTo(app);
 

@@ -1,17 +1,9 @@
-import { absoluteUrl, Cookies } from "@bgord/ui";
+import * as bg from "@bgord/ui";
 import type { ShareableLinkSnapshot } from "../../modules/publishing/value-objects";
 
 export class Publishing {
-  private static readonly BASE = "/api/publishing/links/list";
-
   static async listShareableLinks(request: Request | null): Promise<ReadonlyArray<ShareableLinkSnapshot>> {
-    const url = absoluteUrl(Publishing.BASE, request);
-    const headers = request ? { cookie: Cookies.extractFrom(request) } : undefined;
-
-    const response = await fetch(url, { headers, credentials: "include" });
-
-    if (!response?.ok) return [];
-    return response.json().catch();
+    return bg.ApiClient.json<ReadonlyArray<ShareableLinkSnapshot>>("/api/publishing/links/list", request, []);
   }
 }
 
