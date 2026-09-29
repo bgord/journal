@@ -54,9 +54,9 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   );
   server.get(
     "/healthcheck",
+    Tools.ShieldBasicAuth.handle(),
     Tools.ShieldRateLimit.handle(),
     Tools.ShieldTimeout.handle(),
-    Tools.ShieldBasicAuth.handle(),
     ...new bg.HealthcheckHonoHandler(
       { Env: Env.type, prerequisites: Tools.Prerequisites.healthcheck, redactor },
       { ...Adapters.System, ...Tools, LoggerStatsProvider: Adapters.System.Logger },
