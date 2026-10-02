@@ -5,9 +5,11 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: Boolean(process.env["CI"]),
   retries: 0,
-  workers: 1,
-  use: { baseURL: "http://127.0.0.1:3000", trace: "on-first-retry" },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  workers: 4,
+  timeout: 10_000,
+  reporter: process.env["CI"] ? [["github"], ["list"], ["html", { open: "never" }]] : "list",
+  use: { baseURL: "http://localhost:3000", trace: "retain-on-failure" },
+  projects: [{ name: "desktop", use: { ...devices["Desktop Chrome"] } }],
   webServer: [
     {
       command: "bash bgord-scripts/server-start-test.sh",
@@ -15,7 +17,7 @@ export default defineConfig({
       stderr: "pipe",
       port: 3000,
       name: "bun-backend",
-      timeout: 20_000,
+      timeout: process.env["CI"] ? 60_000 : 20_000,
       gracefulShutdown: { signal: "SIGTERM", timeout: 1_000 },
     },
   ],
