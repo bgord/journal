@@ -1,5 +1,6 @@
 // cspell:ignore stringifier
 import type { EnvironmentResultType } from "+infra/env";
+import { createAtomicFileWriter } from "./atomic-file-writer.adapter";
 import { createCertificateInspector } from "./certificate-inspector.adapter";
 import { createClock } from "./clock.adapter";
 import { CsvStringifier } from "./csv-stringifier.adapter";
@@ -27,6 +28,7 @@ export async function createSystemAdapters(Env: EnvironmentResultType) {
   const Logger = createLogger(Env, { Clock });
   const FileCleaner = createFileCleaner(Env);
   const FileRenamer = createFileRenamer(Env);
+  const AtomicFileWriter = createAtomicFileWriter({ FileCleaner, FileRenamer, FileWriter, NonceProvider });
   const Sleeper = createSleeper(Env);
   const TimeoutRunner = createTimeoutRunner(Env);
   const Mailer = await createMailer(Env, { Logger, Clock, Sleeper, TimeoutRunner });
@@ -46,25 +48,22 @@ export async function createSystemAdapters(Env: EnvironmentResultType) {
     Timekeeper,
     FileCleaner,
     FileRenamer,
-    TemporaryFile: createTemporaryFile(Env, { FileCleaner, FileRenamer, FileWriter, NonceProvider }),
+    TemporaryFile: createTemporaryFile(Env, { AtomicFileWriter, FileCleaner }),
     CsvStringifier,
     ImageInfo: createImageInfo({ FileInspection }),
     HashFile,
     ImageProcessor: createImageProcessor(Env, {
+      AtomicFileWriter,
       FileCleaner,
-      FileRenamer,
       FileReaderJson,
-      FileWriter,
-      NonceProvider,
     }),
     Sleeper,
     TimeoutRunner,
     RemoteFileStorage: createRemoteFileStorage(Env, {
+      AtomicFileWriter,
       HashFile,
       FileCleaner,
-      FileRenamer,
       FileInspection,
-      NonceProvider,
       Logger,
       Clock,
     }),

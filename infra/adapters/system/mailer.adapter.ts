@@ -22,7 +22,6 @@ export async function createMailer(Env: EnvironmentResultType, deps: Dependencie
   const local = bg.MailerBuilder.of(MailerNoop).withLogger(deps).build();
 
   const production = bg.MailerBuilder.of(MailerSmtp)
-    .withTimeout({ timeout: tools.Duration.Seconds(5) }, deps)
     .withRetry(
       {
         retry: {
@@ -32,6 +31,7 @@ export async function createMailer(Env: EnvironmentResultType, deps: Dependencie
       },
       deps,
     )
+    .withTimeout({ timeout: tools.Duration.Seconds(5) }, deps)
     .withLogger(deps)
     .build();
 

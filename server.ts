@@ -49,6 +49,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   server.get("/liveness", ...new bg.LivenessHonoHandler().handle());
   server.get(
     "/readiness",
+    Tools.ShieldRateLimit.handle(),
     Tools.ShieldTimeout.handle(),
     ...new bg.ReadinessHonoHandler({ prerequisites: Tools.Prerequisites.readiness, redactor }).handle(),
   );
@@ -59,7 +60,12 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.ShieldTimeout.handle(),
     ...new bg.HealthcheckHonoHandler(
       { Env: Env.type, prerequisites: Tools.Prerequisites.healthcheck, redactor },
-      { ...Adapters.System, ...Tools, LoggerStatsProvider: Adapters.System.Logger },
+      {
+        ...Adapters.System,
+        ...Tools,
+        LoggerStatsProvider: Adapters.System.Logger,
+        RuntimeStatsProvider: new bg.RuntimeStatsProviderSystemAdapter(Adapters.System),
+      },
     ).handle(),
   );
   // =============================

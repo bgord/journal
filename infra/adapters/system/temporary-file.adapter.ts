@@ -5,10 +5,8 @@ import { name } from "+infra/config";
 import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = {
+  AtomicFileWriter: bg.AtomicFileWriterPort;
   FileCleaner: bg.FileCleanerPort;
-  FileRenamer: bg.FileRenamerPort;
-  FileWriter: bg.FileWriterPort;
-  NonceProvider: bg.NonceProviderPort;
 };
 
 export function createTemporaryFile(Env: EnvironmentResultType, deps: Dependencies): bg.TemporaryFilePort {

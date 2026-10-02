@@ -433,6 +433,7 @@ infra/
 │   │   ├── shareable-link-snapshot.adapter.ts
 │   │   └── shareable-links-quota.adapter.ts
 │   └── system
+│       ├── atomic-file-writer.adapter.ts
 │       ├── certificate-inspector.adapter.ts
 │       ├── clock.adapter.ts
 │       ├── csv-stringifier.adapter.ts

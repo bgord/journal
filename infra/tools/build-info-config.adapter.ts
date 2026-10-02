@@ -13,7 +13,10 @@ export function createBuildInfoConfig(
     timestamp: tools.Timestamp.fromNumber(1767775662000).ms,
     version: v.parse(tools.PackageVersionSchema, "v1.0.0"),
     sha: bg.CommitSha.fromString("a".repeat(40)).value,
-    size: tools.Size.fromBytes(0).toBytes(),
+    sizes: {
+      server: tools.Size.fromBytes(0).toBytes(),
+      web: { js: tools.Size.fromBytes(0).toBytes(), css: tools.Size.fromBytes(0).toBytes() },
+    },
   });
 
   return {

@@ -2,11 +2,9 @@ import * as bg from "@bgord/bun";
 import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = {
+  AtomicFileWriter: bg.AtomicFileWriterPort;
   FileCleaner: bg.FileCleanerPort;
-  FileRenamer: bg.FileRenamerPort;
   FileReaderJson: bg.FileReaderJsonPort;
-  FileWriter: bg.FileWriterPort;
-  NonceProvider: bg.NonceProviderPort;
 };
 
 export function createImageProcessor(Env: EnvironmentResultType, deps: Dependencies): bg.ImageProcessorPort {
