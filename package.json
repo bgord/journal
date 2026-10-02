@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.125.0",
-    "@bgord/bun": "1.23.10",
+    "@bgord/bun": "1.24.0",
     "@bgord/design": "1.8.0",
     "@bgord/ui": "0.10.8",
     "@tanstack/react-router": "1.170.38",
