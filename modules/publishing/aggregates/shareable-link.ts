@@ -152,9 +152,10 @@ export class ShareableLink {
   }
 
   private apply(event: ShareableLinkEventType): void {
+    this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
+
     switch (event.name) {
       case Events.SHAREABLE_LINK_CREATED_EVENT: {
-        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.durationMs = event.payload.durationMs;
         this.createdAt = event.payload.createdAt;
         this.ownerId = event.payload.ownerId;
@@ -168,13 +169,11 @@ export class ShareableLink {
       }
 
       case Events.SHAREABLE_LINK_EXPIRED_EVENT: {
-        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.status = VO.ShareableLinkStatusEnum.expired;
         break;
       }
 
       case Events.SHAREABLE_LINK_REVOKED_EVENT: {
-        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.status = VO.ShareableLinkStatusEnum.revoked;
         break;
       }

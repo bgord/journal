@@ -202,10 +202,11 @@ export class Entry {
   }
 
   private apply(event: EntryEventType): void {
+    this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
+
     switch (event.name) {
       case Events.SITUATION_LOGGED_EVENT: {
         this.userId = event.payload.userId;
-        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.situation = new Entities.Situation(
           new VO.SituationDescription(event.payload.description),
           new VO.SituationKind(event.payload.kind),
@@ -214,7 +215,6 @@ export class Entry {
       }
 
       case Events.EMOTION_LOGGED_EVENT: {
-        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.emotion = new Entities.Emotion(
           new VO.EmotionLabel(event.payload.label),
           new VO.EmotionIntensity(event.payload.intensity),
@@ -223,7 +223,6 @@ export class Entry {
       }
 
       case Events.REACTION_LOGGED_EVENT: {
-        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.reaction = new Entities.Reaction(
           new VO.ReactionDescription(event.payload.description),
           new VO.ReactionType(event.payload.type),
@@ -233,7 +232,6 @@ export class Entry {
       }
 
       case Events.EMOTION_REAPPRAISED_EVENT: {
-        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.emotion = new Entities.Emotion(
           new VO.EmotionLabel(event.payload.newLabel),
           new VO.EmotionIntensity(event.payload.newIntensity),
@@ -242,7 +240,6 @@ export class Entry {
       }
 
       case Events.REACTION_EVALUATED_EVENT: {
-        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.reaction = new Entities.Reaction(
           new VO.ReactionDescription(event.payload.description),
           new VO.ReactionType(event.payload.type),
@@ -252,7 +249,6 @@ export class Entry {
       }
 
       case Events.ENTRY_DELETED_EVENT: {
-        this.revision = new tools.Revision(event.revision ?? this.revision.next().value);
         this.status = VO.EntryStatusEnum.deleted;
 
         this.situation = undefined;
