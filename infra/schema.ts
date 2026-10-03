@@ -64,30 +64,34 @@ export const events = sqliteTable(
   ],
 );
 
-export const entries = sqliteTable("entries", {
-  id: identifier<EntryIdType>(),
-  revision: integer("revision").notNull().default(0).$type<tools.RevisionValueType>(),
-  startedAt: timestamp("startedAt").notNull(),
-  situationDescription: text("situationDescription").notNull(),
-  situationKind: text("situationKind", toEnumList(SituationKindOptions))
-    .notNull()
-    .$type<SituationKindOptions>(),
-  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).$type<GenevaWheelEmotion>(),
-  emotionIntensity: integer("emotionIntensity"),
-  reactionDescription: text("reactionDescription"),
-  reactionType: text(
-    "reactionType",
-    toEnumList(GrossEmotionRegulationStrategy),
-  ).$type<GrossEmotionRegulationStrategy>(),
-  reactionEffectiveness: integer("reactionEffectiveness"),
-  status: text("status", toEnumList(EntryStatusEnum)).notNull().$type<EntryStatusEnum>(),
-  weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
-  origin: text("origin", toEnumList(EntryOriginOption)).notNull().$type<EntryOriginOption>(),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" })
-    .$type<UserIdType>(),
-});
+export const entries = sqliteTable(
+  "entries",
+  {
+    id: identifier<EntryIdType>(),
+    revision: integer("revision").notNull().default(0).$type<tools.RevisionValueType>(),
+    startedAt: timestamp("startedAt").notNull(),
+    situationDescription: text("situationDescription").notNull(),
+    situationKind: text("situationKind", toEnumList(SituationKindOptions))
+      .notNull()
+      .$type<SituationKindOptions>(),
+    emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).$type<GenevaWheelEmotion>(),
+    emotionIntensity: integer("emotionIntensity"),
+    reactionDescription: text("reactionDescription"),
+    reactionType: text(
+      "reactionType",
+      toEnumList(GrossEmotionRegulationStrategy),
+    ).$type<GrossEmotionRegulationStrategy>(),
+    reactionEffectiveness: integer("reactionEffectiveness"),
+    status: text("status", toEnumList(EntryStatusEnum)).notNull().$type<EntryStatusEnum>(),
+    weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
+    origin: text("origin", toEnumList(EntryOriginOption)).notNull().$type<EntryOriginOption>(),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" })
+      .$type<UserIdType>(),
+  },
+  (table) => [index("entries_userId_weekIsoId_idx").on(table.userId, table.weekIsoId)],
+);
 
 export const entriesRelations = relations(entries, ({ one, many }) => ({
   /* every entry belongs to exactly one user */
@@ -109,51 +113,62 @@ export const entriesRelations = relations(entries, ({ one, many }) => ({
   }),
 }));
 
-export const timeCapsuleEntries = sqliteTable("timeCapsuleEntries", {
-  id: identifier<EntryIdType>(),
-  scheduledAt: timestamp("scheduledAt").notNull(),
-  scheduledFor: timestamp("scheduledFor").notNull(),
-  situationDescription: text("situationDescription").notNull(),
-  situationKind: text("situationKind", toEnumList(SituationKindOptions))
-    .notNull()
-    .$type<SituationKindOptions>(),
-  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).notNull().$type<GenevaWheelEmotion>(),
-  emotionIntensity: integer("emotionIntensity").notNull(),
-  reactionDescription: text("reactionDescription").notNull(),
-  reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy))
-    .notNull()
-    .$type<GrossEmotionRegulationStrategy>(),
-  reactionEffectiveness: integer("reactionEffectiveness").notNull(),
-  status: text("status", toEnumList(TimeCapsuleEntryStatusEnum))
-    .notNull()
-    .$type<TimeCapsuleEntryStatusEnum>(),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" })
-    .$type<UserIdType>(),
-});
+export const timeCapsuleEntries = sqliteTable(
+  "timeCapsuleEntries",
+  {
+    id: identifier<EntryIdType>(),
+    scheduledAt: timestamp("scheduledAt").notNull(),
+    scheduledFor: timestamp("scheduledFor").notNull(),
+    situationDescription: text("situationDescription").notNull(),
+    situationKind: text("situationKind", toEnumList(SituationKindOptions))
+      .notNull()
+      .$type<SituationKindOptions>(),
+    emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).notNull().$type<GenevaWheelEmotion>(),
+    emotionIntensity: integer("emotionIntensity").notNull(),
+    reactionDescription: text("reactionDescription").notNull(),
+    reactionType: text("reactionType", toEnumList(GrossEmotionRegulationStrategy))
+      .notNull()
+      .$type<GrossEmotionRegulationStrategy>(),
+    reactionEffectiveness: integer("reactionEffectiveness").notNull(),
+    status: text("status", toEnumList(TimeCapsuleEntryStatusEnum))
+      .notNull()
+      .$type<TimeCapsuleEntryStatusEnum>(),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" })
+      .$type<UserIdType>(),
+  },
+  (table) => [index("timeCapsuleEntries_userId_idx").on(table.userId)],
+);
 
-export const alarms = sqliteTable("alarms", {
-  id: identifier<AlarmIdType>(),
-  generatedAt: timestamp("generatedAt").notNull(),
-  entryId: text("entryId", { length: 36 })
-    .references(() => entries.id, { onDelete: "cascade" })
-    .$type<EntryIdType>(),
-  userId: text("userId", { length: 36 })
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" })
-    .$type<UserIdType>(),
-  status: text("status", toEnumList(AlarmStatusEnum)).notNull().$type<AlarmStatusEnum>(),
-  name: text("name", toEnumList(AlarmNameOption)).notNull().$type<AlarmNameOption>(),
-  advice: text("advice").$type<AdviceType>(),
+export const alarms = sqliteTable(
+  "alarms",
+  {
+    id: identifier<AlarmIdType>(),
+    generatedAt: timestamp("generatedAt").notNull(),
+    entryId: text("entryId", { length: 36 })
+      .references(() => entries.id, { onDelete: "cascade" })
+      .$type<EntryIdType>(),
+    userId: text("userId", { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" })
+      .$type<UserIdType>(),
+    status: text("status", toEnumList(AlarmStatusEnum)).notNull().$type<AlarmStatusEnum>(),
+    name: text("name", toEnumList(AlarmNameOption)).notNull().$type<AlarmNameOption>(),
+    advice: text("advice").$type<AdviceType>(),
 
-  inactivityDays: integer("inactivityDays").$type<tools.IntegerPositiveType>(),
-  lastEntryTimestamp: timestamp("lastEntryTimestamp"),
-  emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).$type<GenevaWheelEmotion>(),
-  emotionIntensity: integer("emotionIntensity"),
+    inactivityDays: integer("inactivityDays").$type<tools.IntegerPositiveType>(),
+    lastEntryTimestamp: timestamp("lastEntryTimestamp"),
+    emotionLabel: text("emotionLabel", toEnumList(GenevaWheelEmotion)).$type<GenevaWheelEmotion>(),
+    emotionIntensity: integer("emotionIntensity"),
 
-  weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
-});
+    weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
+  },
+  (table) => [
+    index("alarms_entryId_idx").on(table.entryId),
+    index("alarms_userId_weekIsoId_idx").on(table.userId, table.weekIsoId),
+  ],
+);
 
 export const alarmsRelations = relations(alarms, ({ one }) => ({
   /** the entry that triggered this alarm (nullable) */
@@ -177,15 +192,19 @@ export const alarmsRelations = relations(alarms, ({ one }) => ({
   }),
 }));
 
-export const patternDetections = sqliteTable("patternDetections", {
-  id: identifier<bg.UUIDType>(),
-  createdAt: timestamp("createdAt").notNull(),
-  name: text("name", toEnumList(PatternNameOption)).notNull().$type<PatternNameOption>(),
-  weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
-  userId: text("userId", { length: 36 })
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-});
+export const patternDetections = sqliteTable(
+  "patternDetections",
+  {
+    id: identifier<bg.UUIDType>(),
+    createdAt: timestamp("createdAt").notNull(),
+    name: text("name", toEnumList(PatternNameOption)).notNull().$type<PatternNameOption>(),
+    weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
+    userId: text("userId", { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+  },
+  (table) => [index("patternDetections_userId_weekIsoId_idx").on(table.userId, table.weekIsoId)],
+);
 
 export const patternDetectionsRelations = relations(patternDetections, ({ one }) => ({
   /** the user who owns the detection */
@@ -202,17 +221,21 @@ export const patternDetectionsRelations = relations(patternDetections, ({ one })
   }),
 }));
 
-export const weeklyReviews = sqliteTable("weeklyReviews", {
-  id: identifier<WeeklyReviewIdType>(),
-  createdAt: timestamp("createdAt").notNull(),
-  weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
-  userId: text("userId", { length: 36 })
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" })
-    .$type<UserIdType>(),
-  insights: text("insights").$type<AdviceType>(),
-  status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull().$type<WeeklyReviewStatusEnum>(),
-});
+export const weeklyReviews = sqliteTable(
+  "weeklyReviews",
+  {
+    id: identifier<WeeklyReviewIdType>(),
+    createdAt: timestamp("createdAt").notNull(),
+    weekIsoId: text("weekIsoId").notNull().$type<tools.WeekIsoIdType>(),
+    userId: text("userId", { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" })
+      .$type<UserIdType>(),
+    insights: text("insights").$type<AdviceType>(),
+    status: text("status", toEnumList(WeeklyReviewStatusEnum)).notNull().$type<WeeklyReviewStatusEnum>(),
+  },
+  (table) => [index("weeklyReviews_userId_weekIsoId_idx").on(table.userId, table.weekIsoId)],
+);
 
 export const weeklyReviewsRelations = relations(weeklyReviews, ({ one, many }) => ({
   /** owner of the review */
@@ -234,22 +257,26 @@ export const weeklyReviewsRelations = relations(weeklyReviews, ({ one, many }) =
   alarms: many(alarms, { relationName: "week" }),
 }));
 
-export const shareableLinks = sqliteTable("shareableLinks", {
-  id: identifier<ShareableLinkIdType>(),
-  createdAt: timestamp("createdAt").notNull(),
-  updatedAt: timestamp("updatedAt").notNull(),
-  status: text("status", toEnumList(ShareableLinkStatusEnum)).notNull().$type<ShareableLinkStatusEnum>(),
-  revision: integer("revision").notNull().default(0).$type<tools.RevisionValueType>(),
-  ownerId: text("ownerId", { length: 36 })
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  publicationSpecification: text("publicationSpecification").notNull(),
-  dateRangeStart: timestamp("dateRangeStart").notNull(),
-  dateRangeEnd: timestamp("dateRangeEnd").notNull(),
-  durationMs: integer("durationMs").notNull(),
-  expiresAt: timestamp("expiresAt").notNull(),
-  hidden: integer("hidden", { mode: "boolean" }).default(false),
-});
+export const shareableLinks = sqliteTable(
+  "shareableLinks",
+  {
+    id: identifier<ShareableLinkIdType>(),
+    createdAt: timestamp("createdAt").notNull(),
+    updatedAt: timestamp("updatedAt").notNull(),
+    status: text("status", toEnumList(ShareableLinkStatusEnum)).notNull().$type<ShareableLinkStatusEnum>(),
+    revision: integer("revision").notNull().default(0).$type<tools.RevisionValueType>(),
+    ownerId: text("ownerId", { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    publicationSpecification: text("publicationSpecification").notNull(),
+    dateRangeStart: timestamp("dateRangeStart").notNull(),
+    dateRangeEnd: timestamp("dateRangeEnd").notNull(),
+    durationMs: integer("durationMs").notNull(),
+    expiresAt: timestamp("expiresAt").notNull(),
+    hidden: integer("hidden", { mode: "boolean" }).default(false),
+  },
+  (table) => [index("shareableLinks_ownerId_idx").on(table.ownerId)],
+);
 
 export const shareableLinksRelations = relations(shareableLinks, ({ one, many }) => ({
   owner: one(users, {
@@ -261,17 +288,21 @@ export const shareableLinksRelations = relations(shareableLinks, ({ one, many })
   hits: many(shareableLinkHits),
 }));
 
-export const aiUsageCounters = sqliteTable("ai_usage_counters", {
-  bucket: text("bucket").primaryKey(),
-  ruleId: text("ruleId").notNull(),
-  window: text("window").notNull(),
-  userId: text("userId", { length: 36 })
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  count: integer("count", { mode: "number" }).notNull().default(0),
-  firstEventAt: timestamp("firstEventAt"),
-  lastEventAt: timestamp("lastEventAt"),
-});
+export const aiUsageCounters = sqliteTable(
+  "ai_usage_counters",
+  {
+    bucket: text("bucket").primaryKey(),
+    ruleId: text("ruleId").notNull(),
+    window: text("window").notNull(),
+    userId: text("userId", { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    count: integer("count", { mode: "number" }).notNull().default(0),
+    firstEventAt: timestamp("firstEventAt"),
+    lastEventAt: timestamp("lastEventAt"),
+  },
+  (table) => [index("ai_usage_counters_userId_idx").on(table.userId)],
+);
 
 export const history = sqliteTable(
   "history",
@@ -289,20 +320,27 @@ export const history = sqliteTable(
   ],
 );
 
-export const shareableLinkHits = sqliteTable("shareable_link_hits", {
-  id,
-  shareableLinkId: text("shareableLinkId", { length: 36 })
-    .notNull()
-    .references(() => shareableLinks.id, { onDelete: "cascade" }),
-  ownerId: text("ownerId", { length: 36 })
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  publicationSpecification: text("publicationSpecification").notNull(),
-  validity: text("validity", toEnumList(AccessValidity)).notNull().$type<AccessValidity>(),
-  reason: text("reason").notNull(),
-  visitorId: text("visitorId").notNull(),
-  timestamp: timestamp("timestamp").notNull(),
-});
+export const shareableLinkHits = sqliteTable(
+  "shareable_link_hits",
+  {
+    id,
+    shareableLinkId: text("shareableLinkId", { length: 36 })
+      .notNull()
+      .references(() => shareableLinks.id, { onDelete: "cascade" }),
+    ownerId: text("ownerId", { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    publicationSpecification: text("publicationSpecification").notNull(),
+    validity: text("validity", toEnumList(AccessValidity)).notNull().$type<AccessValidity>(),
+    reason: text("reason").notNull(),
+    visitorId: text("visitorId").notNull(),
+    timestamp: timestamp("timestamp").notNull(),
+  },
+  (table) => [
+    index("shareable_link_hits_shareableLinkId_idx").on(table.shareableLinkId),
+    index("shareable_link_hits_ownerId_idx").on(table.ownerId),
+  ],
+);
 
 export const shareableLinkHitsRelations = relations(shareableLinkHits, ({ one }) => ({
   link: one(shareableLinks, {
