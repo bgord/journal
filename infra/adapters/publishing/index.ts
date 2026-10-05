@@ -1,10 +1,9 @@
-import type * as bg from "@bgord/bun";
-import type * as Publishing from "+publishing";
+import * as bg from "@bgord/bun";
+import * as Publishing from "+publishing";
 import { ExpiringShareableLinks } from "./expiring-shareable-links";
 import { HideShareableLink } from "./hide-shareable-link.adapter";
 import { createShareableLinkAccessOHQ } from "./shareable-link-access.adapter";
 import { createShareableLinkAccessAuditor } from "./shareable-link-access-auditor.adapter";
-import { createShareableLinkRepository } from "./shareable-link-repository.adapter";
 import { ShareableLinkSnapshot } from "./shareable-link-snapshot.adapter";
 import { ShareableLinksQuotaQuery } from "./shareable-links-quota.adapter";
 
@@ -17,7 +16,10 @@ type Dependencies = {
 
 export function createPublishingAdapters(deps: Dependencies) {
   const ShareableLinkAccessAuditor = createShareableLinkAccessAuditor(deps);
-  const ShareableLinkRepository = createShareableLinkRepository(deps);
+  const ShareableLinkRepository = new bg.EventSourcedRepositoryAdapter(
+    { aggregate: Publishing.Aggregates.ShareableLink },
+    deps,
+  );
 
   return {
     ExpiringShareableLinks,

@@ -404,18 +404,15 @@ infra/
 │   ├── emotions
 │   │   ├── alarm-cancellation-lookup.adapter.ts
 │   │   ├── alarm-directory.adapter.ts
-│   │   ├── alarm-repository.adapter.ts
 │   │   ├── dashboard.adapter.ts
 │   │   ├── entries-per-week-count.adapter.ts
 │   │   ├── entries-sharing.adapter.ts
-│   │   ├── entry-repository.adapter.ts
 │   │   ├── entry-snapshot.adapter.ts
 │   │   ├── get-latest-entry-timestamp-for-user.adapter.ts
 │   │   ├── pdf-generator-tinypdf.adapter.tsx
 │   │   ├── pdf-generator.adapter.ts
 │   │   ├── time-capsule-due-entries.adapter.ts
 │   │   ├── weekly-review-export.adapter.ts
-│   │   ├── weekly-review-repository.adapter.ts
 │   │   └── weekly-review-snapshot.adapter.ts
 │   ├── history
 │   │   ├── history-projection.adapter.ts
@@ -429,7 +426,6 @@ infra/
 │   │   ├── hide-shareable-link.adapter.ts
 │   │   ├── shareable-link-access-auditor.adapter.ts
 │   │   ├── shareable-link-access.adapter.ts
-│   │   ├── shareable-link-repository.adapter.ts
 │   │   ├── shareable-link-snapshot.adapter.ts
 │   │   └── shareable-links-quota.adapter.ts
 │   └── system
