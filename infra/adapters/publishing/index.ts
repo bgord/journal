@@ -11,7 +11,9 @@ type Dependencies = {
   Clock: bg.ClockPort;
   IdProvider: bg.IdProviderPort;
   CommitConfig: bg.StaticConfigPort<bg.CommitShaValueType>;
-  EventStore: bg.EventStorePort<Publishing.Aggregates.ShareableLinkEventType>;
+  EventStore: bg.EventStorePort<
+    Publishing.Aggregates.ShareableLinkEventType | Publishing.Events.ShareableLinkAccessedEventType
+  >;
 };
 
 export function createPublishingAdapters(deps: Dependencies) {
