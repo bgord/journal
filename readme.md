@@ -473,6 +473,7 @@ infra/
 ├── register-command-handlers.ts
 ├── register-cron-tasks.ts
 ├── register-event-handlers.ts
+├── register-projectors.ts
 ├── register-sse-handlers.ts
 ├── schema.ts
 ├── tools

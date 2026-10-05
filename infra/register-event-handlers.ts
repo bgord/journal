@@ -5,23 +5,14 @@ import * as Preferences from "+preferences";
 import * as EmotionsPolicies from "+emotions/policies";
 import * as EmotionsSagas from "+emotions/sagas";
 import type { BootstrapType } from "+infra/bootstrap";
-import * as Projections from "+infra/projections";
+import { registerProjectors } from "+infra/register-projectors";
 import * as PublishingPolicies from "+publishing/policies";
 
 export function registerEventHandlers({ Adapters, Env, Tools }: BootstrapType) {
   const deps = { ...Adapters.System, ...Tools };
 
   // Projections
-  new Projections.EntryProjector(deps);
-  new Projections.AlarmProjector(deps);
-  new Projections.PatternDetectionProjector(deps);
-  new Projections.WeeklyReviewProjector(deps);
-  new Projections.ShareableLinkProjector(deps);
-  new Projections.AiUsageCounterProjector(deps);
-  new Projections.HistoryProjector({ ...deps, ...Adapters.History });
-  new Projections.ShareableLinkHitProjector(deps);
-  new Projections.PreferencesProjector(deps);
-  new Projections.ProfileAvatarsProjector(deps);
+  registerProjectors({ Adapters, Tools });
 
   // Policies
   new PublishingPolicies.ShareableLinksExpirer({ ...deps, ...Adapters.Publishing });
