@@ -457,7 +457,8 @@ infra/
 ├── config.ts
 ├── db.ts
 ├── e2e
-│   └── home.spec.ts
+│   ├── home.spec.ts
+│   └── playwright.config.ts
 ├── env.ts
 ├── projections
 │   ├── ai-usage-counter.projector.ts
