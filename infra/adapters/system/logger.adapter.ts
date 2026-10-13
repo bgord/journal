@@ -9,6 +9,7 @@ export function createLogger(Env: EnvironmentResultType, deps: Dependencies) {
   const redactor = new bg.RedactorComposite([
     new bg.RedactorMetadataCompactArray({ maxItems: tools.Int.positive(3) }),
     new bg.RedactorMask(bg.RedactorMask.DEFAULT_KEYS),
+    new bg.RedactorUrlQuery(),
   ]);
 
   const sampling = new bg.WoodchopperSamplingComposite([
