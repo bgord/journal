@@ -4,10 +4,9 @@ import * as Preferences from "+preferences";
 type Dependencies = { FileInspection: bg.FileInspectionPort };
 
 export function createHashFile(deps: Dependencies) {
-  return new bg.HashFileSha256Adapter({
+  return new bg.HashFileMetadataAdapter({
     MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
-    FileReaderRaw: new bg.FileReaderRawAdapter(),
-    HashBytes: new bg.HashBytesSha256Strategy(),
+    HashContent: new bg.HashContentSha256Strategy(),
     ...deps,
   });
 }
