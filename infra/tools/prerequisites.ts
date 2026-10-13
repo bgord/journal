@@ -173,7 +173,7 @@ export function createPrerequisites(
         new bg.PrerequisiteVerifierMemoryAdapter({ maximum: tools.Size.fromMB(300) }),
       ),
       new bg.Prerequisite("ram", new bg.PrerequisiteVerifierRamAdapter({ minimum: tools.Size.fromMB(128) })),
-      new bg.Prerequisite("sqlite", new bg.PrerequisiteVerifierSQLiteAdapter({ sqlite })),
+      new bg.Prerequisite("sqlite", new bg.PrerequisiteVerifierSQLiteConnectionAdapter({ sqlite })),
     ],
   };
 }
