@@ -30,8 +30,7 @@ export class WeeklyReview {
   // Stryker restore all
 
   readonly id: VO.WeeklyReviewIdType;
-  private userId?: Auth.VO.UserIdType;
-  private week?: tools.Week;
+  private state?: { userId: Auth.VO.UserIdType; week: tools.Week };
   private status: VO.WeeklyReviewStatusEnum = VO.WeeklyReviewStatusEnum.initial;
   private insights?: AI.Advice;
 
@@ -78,15 +77,16 @@ export class WeeklyReview {
 
   complete(insights: AI.Advice) {
     Invariants.WeeklyReviewCompletedOnce.enforce({ status: this.status });
+    const { weeklyReview } = Invariants.WeeklyReviewExists.enforce({ weeklyReview: this.state });
 
     const event = bg.event(
       Events.WeeklyReviewCompletedEvent,
       WeeklyReview.getStream(this.id),
       {
         weeklyReviewId: this.id,
-        weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
+        weekIsoId: weeklyReview.week.toIsoId(),
         insights: insights.get(),
-        userId: this.userId as Auth.VO.UserIdType,
+        userId: weeklyReview.userId,
       },
       this.deps,
     );
@@ -96,14 +96,15 @@ export class WeeklyReview {
 
   fail() {
     Invariants.WeeklyReviewCompletedOnce.enforce({ status: this.status });
+    const { weeklyReview } = Invariants.WeeklyReviewExists.enforce({ weeklyReview: this.state });
 
     const event = bg.event(
       Events.WeeklyReviewFailedEvent,
       WeeklyReview.getStream(this.id),
       {
         weeklyReviewId: this.id,
-        weekIsoId: this.week?.toIsoId() as tools.WeekIsoIdType,
-        userId: this.userId as Auth.VO.UserIdType,
+        weekIsoId: weeklyReview.week.toIsoId(),
+        userId: weeklyReview.userId,
       },
       this.deps,
     );
@@ -114,8 +115,8 @@ export class WeeklyReview {
   toSnapshot() {
     return {
       id: this.id,
-      userId: this.userId,
-      week: this.week,
+      userId: this.state?.userId,
+      week: this.state?.week,
       status: this.status,
       insights: this.insights,
     };
@@ -137,9 +138,8 @@ export class WeeklyReview {
   private apply(event: WeeklyReviewEventType): void {
     switch (event.name) {
       case Events.WEEKLY_REVIEW_REQUESTED_EVENT: {
-        this.week = tools.Week.fromIsoId(event.payload.weekIsoId);
+        this.state = { userId: event.payload.userId, week: tools.Week.fromIsoId(event.payload.weekIsoId) };
         this.status = VO.WeeklyReviewStatusEnum.requested;
-        this.userId = event.payload.userId;
         break;
       }
 

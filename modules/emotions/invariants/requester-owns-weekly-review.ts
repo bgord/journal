@@ -3,7 +3,7 @@ import type * as Auth from "+auth";
 
 class RequesterOwnsWeeklyReviewError extends Error {}
 
-type RequesterOwnsWeeklyReviewConfigType = { requesterId: Auth.VO.UserIdType; ownerId?: Auth.VO.UserIdType };
+type RequesterOwnsWeeklyReviewConfigType = { requesterId: Auth.VO.UserIdType; ownerId: Auth.VO.UserIdType };
 
 class RequesterOwnsWeeklyReviewFactory extends bg.Invariant<RequesterOwnsWeeklyReviewConfigType> {
   passes(config: RequesterOwnsWeeklyReviewConfigType) {

@@ -167,6 +167,7 @@ modules/
 │   ├── invariants
 │   │   ├── alarm-advice-available.ts
 │   │   ├── alarm-already-generated.ts
+│   │   ├── alarm-exists.ts
 │   │   ├── alarm-is-cancellable.ts
 │   │   ├── alarm-notification-requested.ts
 │   │   ├── emotion-corresponds-to-situation.ts

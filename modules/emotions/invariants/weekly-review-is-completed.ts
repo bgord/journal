@@ -3,7 +3,7 @@ import * as VO from "+emotions/value-objects";
 
 class WeeklyReviewIsCompletedError extends Error {}
 
-type WeeklyReviewIsCompletedConfigType = { status?: VO.WeeklyReviewStatusEnum };
+type WeeklyReviewIsCompletedConfigType = { status: VO.WeeklyReviewStatusEnum };
 
 class WeeklyReviewIsCompletedFactory extends bg.Invariant<WeeklyReviewIsCompletedConfigType> {
   passes(config: WeeklyReviewIsCompletedConfigType) {

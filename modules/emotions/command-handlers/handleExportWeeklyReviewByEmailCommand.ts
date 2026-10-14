@@ -20,13 +20,14 @@ type Dependencies = {
 
 export const handleExportWeeklyReviewByEmailCommand =
   (deps: Dependencies) => async (command: Emotions.Commands.ExportWeeklyReviewByEmailCommandType) => {
-    const weeklyReview = await deps.WeeklyReviewSnapshot.getById(command.payload.weeklyReviewId);
+    const { weeklyReview } = WeeklyReviewExists.enforce({
+      weeklyReview: await deps.WeeklyReviewSnapshot.getById(command.payload.weeklyReviewId),
+    });
 
-    WeeklyReviewExists.enforce({ weeklyReview });
-    WeeklyReviewIsCompleted.enforce({ status: weeklyReview?.status });
+    WeeklyReviewIsCompleted.enforce({ status: weeklyReview.status });
     RequesterOwnsWeeklyReview.enforce({
       requesterId: command.payload.userId,
-      ownerId: weeklyReview?.userId,
+      ownerId: weeklyReview.userId,
     });
 
     const weeklyReviewExportId = v.parse(WeeklyReviewExportId, deps.IdProvider.generate());

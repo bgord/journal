@@ -2,11 +2,15 @@ import * as bg from "@bgord/bun";
 
 class WeeklyReviewExistsError extends Error {}
 
-type WeeklyReviewExistsConfigType = { weeklyReview: any | null | undefined };
+type WeeklyReviewExistsConfigType = { weeklyReview: object | null | undefined };
+type WeeklyReviewExistsPassedConfigType = { weeklyReview: object };
 
-class WeeklyReviewExistsFactory extends bg.Invariant<WeeklyReviewExistsConfigType> {
+class WeeklyReviewExistsFactory extends bg.Invariant<
+  WeeklyReviewExistsConfigType,
+  WeeklyReviewExistsPassedConfigType
+> {
   passes(config: WeeklyReviewExistsConfigType) {
-    return config.weeklyReview;
+    return Boolean(config.weeklyReview);
   }
 
   message = "weekly.review.exists.error";

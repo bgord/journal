@@ -48,4 +48,11 @@ describe("Alarm.cancel", async () => {
     expect(async () => alarm.cancel()).toThrow(Emotions.Invariants.AlarmIsCancellable.error);
     expect(alarm.pullEvents()).toEqual([]);
   });
+
+  test("AlarmExists", async () => {
+    const alarm = Emotions.Aggregates.Alarm.build(mocks.alarmId, [], deps);
+
+    expect(async () => alarm.cancel()).toThrow(Emotions.Invariants.AlarmExists.error);
+    expect(alarm.pullEvents()).toEqual([]);
+  });
 });

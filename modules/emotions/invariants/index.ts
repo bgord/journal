@@ -1,5 +1,6 @@
 export * from "./alarm-advice-available";
 export * from "./alarm-already-generated";
+export * from "./alarm-exists";
 export * from "./alarm-is-cancellable";
 export * from "./alarm-notification-requested";
 export * from "./emotion-corresponds-to-situation";

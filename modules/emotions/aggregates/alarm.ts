@@ -31,10 +31,9 @@ export class Alarm {
   // Stryker restore all
 
   readonly id: VO.AlarmIdType;
-  private userId?: Auth.VO.UserIdType;
   private status: VO.AlarmStatusEnum = VO.AlarmStatusEnum.started;
 
-  private detection?: VO.AlarmDetection;
+  private state?: { userId: Auth.VO.UserIdType; detection: VO.AlarmDetection };
   private advice?: AI.Advice;
 
   private readonly pending: Array<AlarmEventType> = [];
@@ -81,12 +80,12 @@ export class Alarm {
 
   saveAdvice(advice: AI.Advice) {
     Invariants.AlarmAlreadyGenerated.enforce({ status: this.status });
+    const { alarm } = Invariants.AlarmExists.enforce({ alarm: this.state });
 
     const event = bg.event(
       Events.AlarmAdviceSavedEvent,
       Alarm.getStream(this.id),
-      // biome-ignore lint: lint/style/noNonNullAssertion
-      { alarmId: this.id, advice: advice.get(), userId: this.userId! },
+      { alarmId: this.id, advice: advice.get(), userId: alarm.userId },
       this.deps,
     );
 
@@ -94,17 +93,18 @@ export class Alarm {
   }
 
   notify() {
-    Invariants.AlarmAdviceAvailable.enforce({ status: this.status });
+    const { advice } = Invariants.AlarmAdviceAvailable.enforce({ status: this.status, advice: this.advice });
+    const { alarm } = Invariants.AlarmExists.enforce({ alarm: this.state });
 
     const event = bg.event(
       Events.AlarmNotificationRequestedEvent,
       Alarm.getStream(this.id),
       {
         alarmId: this.id,
-        alarmName: this.detection?.name as VO.AlarmNameType,
-        trigger: this.detection?.trigger as VO.AlarmTriggerType,
-        userId: this.userId as Auth.VO.UserIdType,
-        advice: this.advice?.get() as AI.AdviceType,
+        alarmName: alarm.detection.name,
+        trigger: alarm.detection.trigger,
+        userId: alarm.userId,
+        advice: advice.get(),
       },
       this.deps,
     );
@@ -127,12 +127,12 @@ export class Alarm {
 
   cancel() {
     Invariants.AlarmIsCancellable.enforce({ status: this.status });
+    const { alarm } = Invariants.AlarmExists.enforce({ alarm: this.state });
 
     const event = bg.event(
       Events.AlarmCancelledEvent,
       Alarm.getStream(this.id),
-      // biome-ignore lint: lint/style/noNonNullAssertion
-      { alarmId: this.id, userId: this.userId! },
+      { alarmId: this.id, userId: alarm.userId },
       this.deps,
     );
 
@@ -142,9 +142,9 @@ export class Alarm {
   toSnapshot() {
     return {
       id: this.id,
-      userId: this.userId,
+      userId: this.state?.userId,
       status: this.status,
-      detection: this.detection,
+      detection: this.state?.detection,
       advice: this.advice,
     };
   }
@@ -165,8 +165,10 @@ export class Alarm {
   private apply(event: AlarmEventType): void {
     switch (event.name) {
       case Events.ALARM_GENERATED_EVENT: {
-        this.detection = new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName);
-        this.userId = event.payload.userId;
+        this.state = {
+          userId: event.payload.userId,
+          detection: new VO.AlarmDetection(event.payload.trigger, event.payload.alarmName),
+        };
         this.status = VO.AlarmStatusEnum.generated;
         break;
       }

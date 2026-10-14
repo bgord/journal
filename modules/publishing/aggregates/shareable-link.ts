@@ -27,13 +27,15 @@ export class ShareableLink {
   // Stryker restore all
 
   readonly id: VO.ShareableLinkIdType;
-  private ownerId?: Auth.VO.UserIdType;
   public revision: tools.Revision = new tools.Revision(tools.Revision.INITIAL);
   private status?: VO.ShareableLinkStatusEnum = VO.ShareableLinkStatusEnum.active;
-  private createdAt?: tools.TimestampValueType;
-  private durationMs?: tools.DurationMsType;
-  private dateRange?: tools.DateRange;
-  private publicationSpecification?: VO.PublicationSpecificationType;
+  private state?: {
+    ownerId: Auth.VO.UserIdType;
+    createdAt: tools.TimestampValueType;
+    durationMs: tools.DurationMsType;
+    dateRange: tools.DateRange;
+    publicationSpecification: VO.PublicationSpecificationType;
+  };
 
   private readonly pending: Array<ShareableLinkEventType> = [];
 
@@ -89,9 +91,9 @@ export class ShareableLink {
   expire() {
     Invariants.ShareableLinkIsActive.enforce({ status: this.status });
     Invariants.ShareableLinkExpirationTimePassed.enforce({
-      durationMs: this.durationMs,
+      durationMs: this.state?.durationMs,
       now: this.deps.Clock.now(),
-      createdAt: this.createdAt,
+      createdAt: this.state?.createdAt,
     });
 
     const event = bg.event(
@@ -106,7 +108,7 @@ export class ShareableLink {
 
   revoke(requesterId: Auth.VO.UserIdType) {
     Invariants.ShareableLinkIsActive.enforce({ status: this.status });
-    Invariants.RequesterOwnsShareableLink.enforce({ requesterId, ownerId: this.ownerId });
+    Invariants.RequesterOwnsShareableLink.enforce({ requesterId, ownerId: this.state?.ownerId });
 
     const event = bg.event(
       Events.ShareableLinkRevokedEvent,
@@ -121,19 +123,21 @@ export class ShareableLink {
   isValid(publicationSpecification: VO.PublicationSpecificationType): boolean {
     return (
       Invariants.ShareableLinkIsActive.passes({ status: this.status }) &&
-      publicationSpecification === this.publicationSpecification
+      publicationSpecification === this.state?.publicationSpecification
     );
   }
 
   isEmpty(): boolean {
-    return !this.createdAt;
+    return this.state === undefined;
   }
 
   summarize() {
+    const { shareableLink } = Invariants.ShareableLinkExists.enforce({ shareableLink: this.state });
+
     return {
-      ownerId: this.ownerId as Auth.VO.UserIdType,
-      dateRange: this.dateRange as tools.DateRange,
-      publicationSpecification: this.publicationSpecification as VO.PublicationSpecificationType,
+      ownerId: shareableLink.ownerId,
+      dateRange: shareableLink.dateRange,
+      publicationSpecification: shareableLink.publicationSpecification,
       status: this.status,
     } as const;
   }
@@ -156,15 +160,17 @@ export class ShareableLink {
 
     switch (event.name) {
       case Events.SHAREABLE_LINK_CREATED_EVENT: {
-        this.durationMs = event.payload.durationMs;
-        this.createdAt = event.payload.createdAt;
-        this.ownerId = event.payload.ownerId;
+        this.state = {
+          ownerId: event.payload.ownerId,
+          createdAt: event.payload.createdAt,
+          durationMs: event.payload.durationMs,
+          dateRange: new tools.DateRange(
+            tools.Timestamp.fromValueSafe(event.payload.dateRangeStart),
+            tools.Timestamp.fromValueSafe(event.payload.dateRangeEnd),
+          ),
+          publicationSpecification: event.payload.publicationSpecification,
+        };
         this.status = VO.ShareableLinkStatusEnum.active;
-        this.dateRange = new tools.DateRange(
-          tools.Timestamp.fromValueSafe(event.payload.dateRangeStart),
-          tools.Timestamp.fromValueSafe(event.payload.dateRangeEnd),
-        );
-        this.publicationSpecification = event.payload.publicationSpecification;
         break;
       }
 
