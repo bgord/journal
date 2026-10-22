@@ -1,8 +1,7 @@
 import type * as Emotions from "+emotions";
 
 export type AlarmEventToBeChecked =
-  | Emotions.Events.EmotionLoggedEventType
-  | Emotions.Events.EmotionReappraisedEventType;
+  Emotions.Events.EmotionLoggedEventType | Emotions.Events.EmotionReappraisedEventType;
 
 export abstract class EmotionAlarmTemplate {
   abstract name: Emotions.VO.AlarmNameOption;

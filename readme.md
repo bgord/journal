@@ -392,9 +392,7 @@ app/
 infra/
 ├── adapters
 │   ├── ai
-│   │   ├── ai-client-anthropic.adapter.ts
 │   │   ├── ai-client-noop.adapter.ts
-│   │   ├── ai-client-open-ai.adapter.ts
 │   │   ├── ai-client.adapter.ts
 │   │   ├── ai-event-publisher.adapter.ts
 │   │   ├── ai-gateway.adapter.ts
