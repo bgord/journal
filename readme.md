@@ -319,6 +319,7 @@ modules/
 │   │   └── SHAREABLE_LINK_REVOKED_EVENT.ts
 │   ├── invariants
 │   │   ├── requester-owns-shareable-link.ts
+│   │   ├── shareable-link-exists.ts
 │   │   ├── shareable-link-expiration-time-passed.ts
 │   │   ├── shareable-link-is-active.ts
 │   │   └── shareable-links-per-owner-limit.ts

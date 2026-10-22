@@ -26,7 +26,7 @@
     "@anthropic-ai/sdk": "0.133.0",
     "@bgord/bun": "1.24.6",
     "@bgord/design": "1.8.0",
-    "@bgord/ui": "0.10.14",
+    "@bgord/ui": "0.10.15",
     "@tanstack/react-router": "1.170.41",
     "better-auth": "1.7.7",
     "csv": "6.6.4",
