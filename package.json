@@ -23,7 +23,6 @@
     "typescript": "7.0.2"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.133.0",
     "@bgord/bun": "1.24.6",
     "@bgord/design": "1.8.0",
     "@bgord/ui": "0.10.15",
@@ -33,7 +32,6 @@
     "drizzle-orm": "0.45.4",
     "iconoir-react": "7.12.1",
     "nodemailer": "10.1.0",
-    "openai": "7.32.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "tinypdf": "0.4.1"

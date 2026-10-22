@@ -4,8 +4,6 @@ import * as v from "valibot";
 import { name } from "+infra/config";
 
 export enum AiClientAdapter {
-  anthropic = "anthropic",
-  open_ai = "open_ai",
   noop = "noop",
 }
 
