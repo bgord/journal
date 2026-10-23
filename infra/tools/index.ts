@@ -7,6 +7,7 @@ import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
 import { createEventStore } from "./event-store";
 import { HashContent } from "./hash-content.strategy";
+import { createJobQueue } from "./job-queue.adapter";
 import { createPrerequisites } from "./prerequisites";
 import { createShieldAuth } from "./shield-auth.strategy";
 import { createShieldBasicAuth } from "./shield-basic-auth.strategy";
@@ -34,6 +35,7 @@ type Dependencies = {
 };
 
 export async function createTools(Env: EnvironmentResultType, deps: Dependencies) {
+  const { JobQueue, JobDispatcher, JobQueueStatsProvider, JobPruner } = await createJobQueue(Env, deps);
   const EventBus = createEventBus(deps);
   const EventStore = createEventStore(Env, { ...deps, EventBus });
   const CronScheduler = await createCronScheduler(Env, deps);
@@ -42,7 +44,7 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
   const CommitConfig = new bg.StaticConfigAdapter<bg.CommitShaValueType>((await BuildInfoConfig.get()).sha);
 
   return {
-    Auth: createShieldAuth(Env, { ...deps, EventStore, CommitConfig }),
+    Auth: createShieldAuth(Env, { ...deps, EventStore, CommitConfig, JobDispatcher }),
     CronScheduler,
     Prerequisites: createPrerequisites(Env, { ...deps, TranslationsProvider, CronScheduler }),
     ShieldBasicAuth: createShieldBasicAuth(Env),
@@ -58,6 +60,10 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
     CommitConfig,
     SseRegistry: createSseRegistry(deps),
     HashContent,
+    JobQueue,
+    JobDispatcher,
+    JobQueueStatsProvider,
+    JobPruner,
     TranslationsProvider,
   };
 }

@@ -18,3 +18,4 @@ sqlite.db*
 sqlite.e2e.db*
 tmp/
 tsconfig.tsbuildinfo
+jobs.db*

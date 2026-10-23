@@ -65,6 +65,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
         ...Tools,
         LoggerStatsProvider: Adapters.System.Logger,
         RuntimeStatsProvider: new bg.RuntimeStatsProviderSystemAdapter(Adapters.System),
+        JobQueueStatsProvider: Tools.JobQueueStatsProvider,
       },
     ).handle(),
   );

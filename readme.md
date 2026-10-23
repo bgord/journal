@@ -485,6 +485,7 @@ infra/
 │   ├── event-handler.ts
 │   ├── event-store.ts
 │   ├── hash-content.strategy.ts
+│   ├── job-queue.adapter.ts
 │   ├── prerequisites.ts
 │   ├── shield-auth.strategy.ts
 │   ├── shield-basic-auth.strategy.ts
