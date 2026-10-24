@@ -1,6 +1,5 @@
 import * as bg from "@bgord/bun";
 import type * as EmotionCommands from "+emotions/commands";
-import type * as PreferencesCommands from "+preferences/commands";
 import type * as PublishingCommands from "+publishing/commands";
 
 type Dependencies = { Logger: bg.LoggerPort; Clock: bg.ClockPort };
@@ -25,8 +24,8 @@ type AcceptedCommandType =
   | PublishingCommands.ExpireShareableLinkCommandType
   | PublishingCommands.RevokeShareableLinkCommandType
   | bg.Preferences.Commands.SetUserLanguageCommandType
-  | PreferencesCommands.UpdateProfileAvatarCommandType
-  | PreferencesCommands.RemoveProfileAvatarCommandType;
+  | bg.Preferences.Commands.UpdateProfileAvatarCommandType
+  | bg.Preferences.Commands.RemoveProfileAvatarCommandType;
 
 export function createCommandBus(deps: Dependencies): bg.CommandBusPort<AcceptedCommandType> {
   const emittery = new bg.CommandBusEmitteryAdapter<AcceptedCommandType>();

@@ -36,8 +36,8 @@ export function registerEventHandlers({ Adapters, Env, Tools }: BootstrapType) {
     EMAIL_FROM: Env.EMAIL_FROM,
   });
   new EmotionsPolicies.EntryHistoryPublisher({ ...deps, ...Adapters.History });
-  new Preferences.Policies.SetDefaultUserLanguage(languages.fallback, deps);
-  new Preferences.Policies.ProfileAvatarEraser(deps);
+  new bg.Preferences.Policies.SetDefaultUserLanguage(languages.fallback, deps);
+  new bg.Preferences.Policies.ProfileAvatarEraser(Preferences.VO.ProfileAvatar, deps);
 
   // Sagas
   new EmotionsSagas.AlarmOrchestrator({

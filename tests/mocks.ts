@@ -5,10 +5,7 @@ import * as tools from "@bgord/tools";
 import type { Session, User } from "better-auth";
 import * as v from "valibot";
 import * as AI from "+ai";
-import type * as Auth from "+auth";
 import * as Emotions from "+emotions";
-import { languages } from "+languages";
-import type * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 import type { EntrySnapshotFormatted } from "+app/http/emotions/list-entries";
 import type * as Schema from "+infra/schema";
@@ -34,7 +31,6 @@ const patternDetectionId = v.parse(bg.UUID, "d2ca7a35-76a0-42de-8a2c-32d8b14fdfa
 
 // Timestamps
 export const T0 = tools.Timestamp.fromInstant(Temporal.Instant.from("2025-01-01T00:00:00Z"));
-export const T0Date = "Wed, 01 Jan 2025 00:00:00 GMT";
 
 export const shareableLinkCreatedAt = T0;
 export const hourHasPassedTimestamp = T0;
@@ -154,16 +150,6 @@ export const ruleInspection = {
   remaining: tools.Int.nonNegative(7),
   resetsInMs: v.parse(tools.DurationMs, 0),
   resetsInHours: 0,
-};
-
-const etag = bg.Hash.fromString("0000000000000000000000000000000000000000000000000000000000000000");
-
-export const head = {
-  exists: true,
-  etag,
-  size: tools.Size.fromBytes(1234),
-  lastModified: T0,
-  mime: tools.Mimes.webp.mime,
 };
 
 export const objectKey = v.parse(tools.ObjectKey, `users/${userId}/avatar.webp`);
@@ -949,72 +935,6 @@ export const GenericEntryHistoryClearedEvent = {
   payload: { subject: v.parse(bg.History.VO.HistorySubject, entryId) },
 } satisfies bg.History.Events.HistoryClearedEventType;
 
-export const GenericAccountCreatedEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: T0.ms,
-  stream: v.parse(bg.EventStream, `account_${userId}`),
-  version: 1,
-  commit,
-  name: "ACCOUNT_CREATED_EVENT",
-  payload: { userId, timestamp: T0.ms },
-} satisfies Auth.Events.AccountCreatedEventType;
-
-export const GenericAccountDeletedEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: T0.ms,
-  stream: v.parse(bg.EventStream, `account_${userId}`),
-  version: 1,
-  commit,
-  name: "ACCOUNT_DELETED_EVENT",
-  payload: { userId, timestamp: T0.ms },
-} satisfies Auth.Events.AccountDeletedEventType;
-
-export const GenericUserLanguageSetEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: T0.ms,
-  stream: v.parse(bg.EventStream, `preferences_${userId}`),
-  version: 1,
-  commit,
-  name: "USER_LANGUAGE_SET_EVENT",
-  payload: { userId, language: languages.supported.en },
-} satisfies bg.Preferences.Events.UserLanguageSetEventType;
-
-export const GenericUserLanguageSetPLEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: T0.ms,
-  stream: v.parse(bg.EventStream, `preferences_${userId}`),
-  version: 1,
-  commit,
-  name: "USER_LANGUAGE_SET_EVENT",
-  payload: { userId, language: languages.supported.pl },
-} satisfies bg.Preferences.Events.UserLanguageSetEventType;
-
-export const GenericProfileAvatarUpdatedEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: T0.ms,
-  stream: v.parse(bg.EventStream, `preferences_${userId}`),
-  version: 1,
-  commit,
-  name: "PROFILE_AVATAR_UPDATED_EVENT",
-  payload: { userId, key: objectKey, etag: etag.get() },
-} satisfies Preferences.Events.ProfileAvatarUpdatedEventType;
-
-export const GenericProfileAvatarRemovedEvent = {
-  id: expectAnyId,
-  correlationId,
-  createdAt: T0.ms,
-  stream: v.parse(bg.EventStream, `preferences_${userId}`),
-  version: 1,
-  commit,
-  name: "PROFILE_AVATAR_REMOVED_EVENT",
-  payload: { userId },
-} satisfies Preferences.Events.ProfileAvatarRemovedEventType;
-
 export const partialEntry: Emotions.VO.EntrySnapshot = {
   revision: revision.value,
   startedAt: T0.ms,
@@ -1277,15 +1197,3 @@ export const throwIntentionalError = () => {
 export const throwIntentionalErrorAsync = async () => {
   throw new Error(IntentionalError);
 };
-
-export const png = new File([new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])], "image.png");
-
-export const pngWithSpaces = new File(
-  [new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])],
-  "My Photo.png",
-);
-
-export const fileWithoutExtension = new File(
-  [new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])],
-  "image",
-);

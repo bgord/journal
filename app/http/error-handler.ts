@@ -2,7 +2,6 @@ import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import type hono from "hono";
 import * as Emotions from "+emotions";
-import * as Preferences from "+preferences";
 import * as Publishing from "+publishing";
 
 type Dependencies = { Logger: bg.LoggerPort };
@@ -38,7 +37,6 @@ const validation = new bg.ErrorClassifierValidationStrategy([
 
 const invariants = new bg.ErrorClassifierInvariantStrategy([
   Emotions.Invariants,
-  Preferences.Invariants,
   Publishing.Invariants,
   bg.Preferences.Invariants,
 ]);

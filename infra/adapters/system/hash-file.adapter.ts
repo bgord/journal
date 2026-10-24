@@ -5,7 +5,7 @@ type Dependencies = { FileInspection: bg.FileInspectionPort };
 
 export function createHashFile(deps: Dependencies) {
   return new bg.HashFileMetadataAdapter({
-    MimeRegistry: Preferences.VO.ProfileAvatarMimeRegistry,
+    MimeRegistry: Preferences.VO.ProfileAvatar.MimeRegistry,
     HashContent: new bg.HashContentSha256Strategy(),
     ...deps,
   });

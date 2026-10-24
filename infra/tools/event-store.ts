@@ -13,7 +13,6 @@ import type { PatternDetectionEventType } from "+emotions/services/patterns";
 import { db } from "+infra/db";
 import type { EnvironmentResultType } from "+infra/env";
 import * as schema from "+infra/schema";
-import type { ProfileAvatarRemovedEventType, ProfileAvatarUpdatedEventType } from "+preferences/events";
 import type { ShareableLinkEventType } from "+publishing/aggregates";
 import type { ShareableLinkAccessedEventType } from "+publishing/events";
 
@@ -33,8 +32,8 @@ export type AcceptedEventType =
   | AccountDeletedEventType
   | AiQuotaExceededEventType
   | AiRequestRegisteredEventType
-  | ProfileAvatarRemovedEventType
-  | ProfileAvatarUpdatedEventType
+  | bg.Preferences.Events.ProfileAvatarRemovedEventType
+  | bg.Preferences.Events.ProfileAvatarUpdatedEventType
   | ShareableLinkAccessedEventType
   | TimeCapsuleEntryScheduledEventType
   | WeeklyReviewExportByEmailFailedEventType

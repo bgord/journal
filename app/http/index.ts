@@ -3,5 +3,4 @@ export * as Emotions from "./emotions";
 export * from "./error-handler";
 export * from "./get-dashboard";
 export * as History from "./history";
-export * as Preferences from "./preferences";
 export * as Publishing from "./publishing";

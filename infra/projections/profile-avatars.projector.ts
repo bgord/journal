@@ -1,28 +1,29 @@
-import type * as bg from "@bgord/bun";
+import * as bg from "@bgord/bun";
 import { eq } from "drizzle-orm";
-import * as Preferences from "+preferences";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
-import type { ProfileAvatarRemovedEventType, ProfileAvatarUpdatedEventType } from "+preferences/events";
+
+type AcceptedEvent =
+  bg.Preferences.Events.ProfileAvatarRemovedEventType | bg.Preferences.Events.ProfileAvatarUpdatedEventType;
 
 type Dependencies = {
-  EventBus: bg.EventBusPort<ProfileAvatarRemovedEventType | ProfileAvatarUpdatedEventType>;
+  EventBus: bg.EventBusPort<AcceptedEvent>;
   EventHandler: bg.EventHandlerStrategy;
 };
 
 export class ProfileAvatarsProjector {
   constructor(deps: Dependencies) {
     deps.EventBus.on(
-      Preferences.Events.PROFILE_AVATAR_UPDATED_EVENT,
+      bg.Preferences.Events.PROFILE_AVATAR_UPDATED_EVENT,
       deps.EventHandler.handle(this.onProfileAvatarUpdatedEvent.bind(this)),
     );
     deps.EventBus.on(
-      Preferences.Events.PROFILE_AVATAR_REMOVED_EVENT,
+      bg.Preferences.Events.PROFILE_AVATAR_REMOVED_EVENT,
       deps.EventHandler.handle(this.onProfileAvatarRemovedEvent.bind(this)),
     );
   }
 
-  async onProfileAvatarUpdatedEvent(event: Preferences.Events.ProfileAvatarUpdatedEventType) {
+  async onProfileAvatarUpdatedEvent(event: bg.Preferences.Events.ProfileAvatarUpdatedEventType) {
     await db
       .insert(Schema.userProfileAvatars)
       .values({ ...event.payload, createdAt: event.createdAt })
@@ -32,7 +33,7 @@ export class ProfileAvatarsProjector {
       });
   }
 
-  async onProfileAvatarRemovedEvent(event: Preferences.Events.ProfileAvatarRemovedEventType) {
+  async onProfileAvatarRemovedEvent(event: bg.Preferences.Events.ProfileAvatarRemovedEventType) {
     await db
       .delete(Schema.userProfileAvatars)
       .where(eq(Schema.userProfileAvatars.userId, event.payload.userId));

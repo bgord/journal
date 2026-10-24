@@ -277,26 +277,8 @@ modules/
 │       └── weekly-review-status.ts
 ├── languages.ts
 ├── preferences
-│   ├── command-handlers
-│   │   ├── handleRemoveProfileAvatarCommand.ts
-│   │   ├── handleUpdateProfileAvatarCommand.ts
-│   ├── commands
-│   │   ├── REMOVE_PROFILE_AVATAR_COMMAND.ts
-│   │   └── UPDATE_PROFILE_AVATAR_COMMAND.ts
-│   ├── events
-│   │   ├── PROFILE_AVATAR_REMOVED_EVENT.ts
-│   │   └── PROFILE_AVATAR_UPDATED_EVENT.ts
-│   ├── invariants
-│   │   └── profile-avatar-constraints.ts
-│   ├── policies
-│   │   ├── profile-avatar-eraser.ts
-│   │   └── set-default-user-language.ts
 │   └── value-objects
-│       ├── profile-avatar-key.ts
-│       ├── profile-avatar-max-side.ts
-│       ├── profile-avatar-max-size.ts
-│       ├── profile-avatar-mime-registry.ts
-│       └── profile-avatar-side.ts
+│       └── profile-avatar.ts
 ├── publishing
 │   ├── aggregates
 │   │   └── shareable-link.ts
@@ -364,11 +346,6 @@ app/
 │   ├── get-dashboard.ts
 │   ├── history
 │   │   ├── history-list.ts
-│   ├── preferences
-│   │   ├── get-profile-avatar.ts
-│   │   ├── remove-profile-avatar.ts
-│   │   ├── update-profile-avatar.ts
-│   │   └── update-user-language.ts
 │   └── publishing
 │       ├── create-shareable-link.ts
 │       ├── hide-shareable-link.ts

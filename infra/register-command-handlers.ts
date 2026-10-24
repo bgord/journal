@@ -1,10 +1,9 @@
 import * as bg from "@bgord/bun";
 import { languages } from "+languages";
+import * as Preferences from "+preferences";
 import * as EmotionCommandHandlers from "+emotions/command-handlers";
 import * as EmotionCommands from "+emotions/commands";
 import type { BootstrapType } from "+infra/bootstrap";
-import * as PreferencesCommandHandlers from "+preferences/command-handlers";
-import * as PreferencesCommands from "+preferences/commands";
 import * as PublishingCommandHandlers from "+publishing/command-handlers";
 import * as PublishingCommands from "+publishing/commands";
 
@@ -114,12 +113,12 @@ export function registerCommandHandlers({ Adapters, Tools }: BootstrapType) {
   );
 
   Tools.CommandBus.on(
-    PreferencesCommands.UPDATE_PROFILE_AVATAR_COMMAND,
-    PreferencesCommandHandlers.handleUpdateProfileAvatarCommand(deps),
+    bg.Preferences.Commands.UPDATE_PROFILE_AVATAR_COMMAND,
+    bg.Preferences.CommandHandlers.handleUpdateProfileAvatarCommand(Preferences.VO.ProfileAvatar, deps),
   );
 
   Tools.CommandBus.on(
-    PreferencesCommands.REMOVE_PROFILE_AVATAR_COMMAND,
-    PreferencesCommandHandlers.handleRemoveProfileAvatarCommand(deps),
+    bg.Preferences.Commands.REMOVE_PROFILE_AVATAR_COMMAND,
+    bg.Preferences.CommandHandlers.handleRemoveProfileAvatarCommand(Preferences.VO.ProfileAvatar, deps),
   );
 }

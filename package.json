@@ -23,7 +23,7 @@
     "typescript": "7.0.2"
   },
   "dependencies": {
-    "@bgord/bun": "1.24.7",
+    "@bgord/bun": "1.24.8",
     "@bgord/design": "1.8.0",
     "@bgord/ui": "0.10.15",
     "@tanstack/react-router": "1.170.41",
