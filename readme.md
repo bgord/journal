@@ -82,11 +82,7 @@ modules/
 │       └── usage-category.ts
 ├── auth
 │   ├── events
-│   │   ├── ACCOUNT_CREATED_EVENT.ts
-│   │   ├── ACCOUNT_DELETED_EVENT.ts
 │   ├── open-host-queries
-│   │   ├── user-contact.ts
-│   │   └── user-directory.ts
 │   ├── services
 │   │   ├── email-verification-notification-composer.ts
 │   │   └── password-reset-notification-composer.ts
