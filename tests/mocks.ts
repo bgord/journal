@@ -27,20 +27,19 @@ export const weeklyReviewExportId = v.parse(
 );
 export const shareableLinkId = v.parse(Publishing.VO.ShareableLinkId, "2e469d5a-8317-459a-a0b9-b9a019acca19");
 export const historyId = v.parse(bg.History.VO.HistoryId, "8d79bd87-1709-4c15-b40c-cd0fafaa0113");
-const patternDetectionId = v.parse(bg.UUID, "d2ca7a35-76a0-42de-8a2c-32d8b14fdfab");
 
 // Timestamps
 export const T0 = tools.Timestamp.fromInstant(Temporal.Instant.from("2025-01-01T00:00:00Z"));
 
-export const shareableLinkCreatedAt = T0;
-export const hourHasPassedTimestamp = T0;
-export const timeCapsuleEntryScheduledAt = T0;
+const shareableLinkCreatedAt = T0;
+const hourHasPassedTimestamp = T0;
+const timeCapsuleEntryScheduledAt = T0;
 export const timeCapsuleEntryScheduledFor = T0.add(tools.Duration.Days(2));
 export const timeCapsuleEntryScheduledForDate = `${timeCapsuleEntryScheduledFor.toInstant().toZonedDateTimeISO("UTC").year}-${timeCapsuleEntryScheduledFor.toInstant().toZonedDateTimeISO("UTC").month.toString().padStart(2, "0")}-${timeCapsuleEntryScheduledFor.toInstant().toZonedDateTimeISO("UTC").day.toString().padStart(2, "0")}`;
-export const timeCapsuleEntryScheduledForPast = T0.subtract(tools.Duration.Days(1));
+const timeCapsuleEntryScheduledForPast = T0.subtract(tools.Duration.Days(1));
 export const timeCapsuleEntryScheduledForPastDate = `${timeCapsuleEntryScheduledForPast.toInstant().toZonedDateTimeISO("UTC").year}-${timeCapsuleEntryScheduledForPast.toInstant().toZonedDateTimeISO("UTC").month.toString().padStart(2, "0")}-${timeCapsuleEntryScheduledForPast.toInstant().toZonedDateTimeISO("UTC").day.toString().padStart(2, "0")}`;
 
-export const expectAnyId = expect.stringMatching(
+const expectAnyId = expect.stringMatching(
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
 );
 
@@ -48,14 +47,13 @@ export const ip = { server: { requestIP: () => ({ address: "127.0.0.1" }) } };
 
 export const email = v.parse(tools.Email, "user@example.com");
 export const contact = { type: "email", address: email } as const;
-export const anotherEmail = "another@example.com";
+const anotherEmail = "another@example.com";
 
 export const week = tools.Week.fromTimestamp(T0);
 export const weekStart = "2024/12/30";
 export const weekEnd = "2025/01/05";
 
 export const previousWeek = week.previous();
-export const day = tools.Day.fromTimestamp(T0);
 
 export const insights = new AI.Advice("Good job");
 
@@ -68,7 +66,7 @@ export const correlationIdAndRevisionHeaders = (revision = 0) => ({
   "correlation-id": correlationId,
 });
 
-export const entryTrigger = { type: Emotions.VO.AlarmTriggerEnum.entry, entryId } as const;
+const entryTrigger = { type: Emotions.VO.AlarmTriggerEnum.entry, entryId } as const;
 
 export const entryDetection = new Emotions.VO.AlarmDetection(
   entryTrigger,
@@ -97,7 +95,7 @@ export const dateRange = new tools.DateRange(T0, T0.add(tools.Duration.Days(1)).
 
 export const durationMs = tools.Duration.Seconds(1).ms;
 
-export const visitorIdRaw = v.parse(
+const visitorIdRaw = v.parse(
   bg.HashValue,
   "cbc46a7ff4f622abbcfe90e895993db309e4e32280fc1b6347b90be4b19270ca",
 );
@@ -1071,14 +1069,6 @@ export const alarm: Emotions.VO.AlarmSnapshot = {
   weekIsoId: week.toIsoId(),
 };
 
-export const patternDetection: Emotions.VO.PatternDetectionSnapshot = {
-  id: patternDetectionId,
-  createdAt: T0.ms,
-  name: Emotions.VO.PatternNameOption.MoreNegativeThanPositiveEmotionsPattern,
-  weekIsoId: week.toIsoId(),
-  userId,
-};
-
 export const shareableLink: Schema.SelectShareableLinks = {
   id: shareableLinkId,
   createdAt: T0.ms,
@@ -1119,7 +1109,7 @@ export const user = {
   id: userId,
 } satisfies User;
 
-export const anotherUser = {
+const anotherUser = {
   name: anotherEmail,
   email: anotherEmail,
   emailVerified: false,
@@ -1131,7 +1121,7 @@ export const anotherUser = {
   id: anotherUserId,
 } satisfies User;
 
-export const session: Session = {
+const session: Session = {
   // biome-ignore lint: lint/style/noRestrictedGlobals
   expiresAt: new Date(),
   token: "wyNm82TTSvBtxXSh1mb7lZJ4WF557tv4",
@@ -1145,7 +1135,7 @@ export const session: Session = {
   id: "JUFCrqCBwFT3MCJV0mAVYSXtLJOkNBVN",
 };
 
-export const anotherSession: Session = {
+const anotherSession: Session = {
   // biome-ignore lint: lint/style/noRestrictedGlobals
   expiresAt: new Date(),
   token: "XFgejTtN28QI8cDEmE9Yb09yxRwQuGj0",
@@ -1190,10 +1180,7 @@ export const historyItem = {
   createdAt: T0.ms,
 };
 
-export const IntentionalError = "intentional.error" as const;
-export const throwIntentionalError = () => {
-  throw new Error(IntentionalError);
-};
+const IntentionalError = "intentional.error" as const;
 export const throwIntentionalErrorAsync = async () => {
   throw new Error(IntentionalError);
 };
