@@ -4,6 +4,11 @@ import * as v from "valibot";
 import * as Emotions from "+emotions";
 import type { EntrySnapshotFormatted } from "+emotions/ports";
 
+export type EntryListResponse = {
+  data: bg.Page<EntrySnapshotFormatted, Emotions.VO.EntryListCursorType>;
+  count: tools.IntegerNonNegativeType;
+};
+
 type Dependencies = {
   IdProvider: bg.IdProviderPort;
   Clock: bg.ClockPort;
@@ -18,6 +23,7 @@ export const ListEntries =
     const userId = context.identity.authenticatedUserId();
     const filter = v.parse(Emotions.VO.EntryListFilter, json["filter"]);
     const query = v.parse(v.optional(v.string(), ""), json["query"]);
+    const cursor = v.parse(v.optional(Emotions.VO.EntryListCursor), json["cursor"]);
 
     const today = tools.Day.fromTimestamp(deps.Clock.now());
     const options = Emotions.VO.EntryListFilterOptions;
@@ -31,12 +37,21 @@ export const ListEntries =
       [options.all_time]: (today) => new tools.DateRange(tools.Timestamp.fromNumber(0), today.getEnd()),
     };
 
-    const entries = await deps.EntrySnapshot.getFormatted(userId, range[filter](today), query);
+    const entries = await deps.EntrySnapshot.getFormatted(userId, range[filter](today), query, {
+      cursor,
+      limit: Emotions.VO.EntryListPageLimit,
+    });
 
-    const result: ReadonlyArray<EntrySnapshotFormatted> = entries.map((entry) => ({
-      ...entry,
-      startedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(entry.startedAt)),
-    }));
+    const result: EntryListResponse = {
+      data: {
+        ...entries.data,
+        entries: entries.data.entries.map((entry) => ({
+          ...entry,
+          startedAt: tools.DateFormatter.datetime(tools.Timestamp.fromNumber(entry.startedAt)),
+        })),
+      },
+      count: entries.count,
+    };
 
     return Response.json(result);
   };

@@ -23,9 +23,9 @@
     "typescript": "7.0.2"
   },
   "dependencies": {
-    "@bgord/bun": "1.24.13",
+    "@bgord/bun": "1.24.14",
     "@bgord/design": "1.8.0",
-    "@bgord/ui": "0.10.16",
+    "@bgord/ui": "0.10.18",
     "@tanstack/react-router": "1.170.46",
     "better-auth": "1.7.12",
     "csv": "6.6.4",

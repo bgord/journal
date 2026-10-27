@@ -21,6 +21,7 @@ const http = new bg.ErrorClassifierHttpExceptionHonoStrategy([bg.HttpExceptionEr
 const validation = new bg.ErrorClassifierValidationStrategy([
   Emotions.VO.EmotionIntensity.Errors,
   Emotions.VO.EmotionLabel.Errors,
+  Emotions.VO.EntryListCursorError,
   Emotions.VO.ReactionDescription.Errors,
   Emotions.VO.ReactionEffectiveness.Errors,
   Emotions.VO.ReactionType.Errors,
@@ -34,6 +35,7 @@ const validation = new bg.ErrorClassifierValidationStrategy([
   tools.ExtensionError,
   tools.FilenameFromStringError,
   tools.LanguageError,
+  tools.TimestampValueError,
 ]);
 
 const invariants = new bg.ErrorClassifierInvariantStrategy([

@@ -192,6 +192,8 @@
   "entry.situation.kind.value.work": "praca",
   "entry.situation.logged": "Dodano sytuację",
   "entry.situation.value": "SYTUACJA",
+  "list.more.cta": "Wczytaj więcej",
+  "list.more.error": "Nie udało się wczytać kolejnych wpisów",
   "pattern.LowCopingEffectivenessPattern.name": "Niska skuteczność radzenia sobie",
   "pattern.MaladaptiveReactionsPattern.name": "Nieadaptacyjne reakcje",
   "pattern.MoreNegativeThanPositiveEmotionsPattern.name": "Więcej negatywnych niż pozytywnych emocji",

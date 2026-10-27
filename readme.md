@@ -249,8 +249,10 @@ modules/
 │       ├── entry-export-strategy.ts
 │       ├── entry-finished-at.ts
 │       ├── entry-id.ts
+│       ├── entry-list-cursor.ts
 │       ├── entry-list-filter-options.ts
 │       ├── entry-list-filter.ts
+│       ├── entry-list-page-limit.ts
 │       ├── entry-origin-option.ts
 │       ├── entry-origin.ts
 │       ├── entry-snapshot.ts

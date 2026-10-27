@@ -978,6 +978,16 @@ export const fullEntryWithAlarmsFormatted: EntrySnapshotFormatted = {
   startedAt: tools.DateFormatter.datetime(tools.Timestamp.fromValueSafe(fullEntry.startedAt)),
 };
 
+export const entryListCursor = v.parse(Emotions.VO.EntryListCursor, {
+  startedAt: fullEntry.startedAt,
+  id: entryId,
+});
+
+export const entryList: Emotions.Ports.EntryList = {
+  data: { entries: [fullEntryWithAlarms], next: null },
+  count: tools.Int.nonNegative(1),
+};
+
 export const timeCapsuleEntry: Emotions.Ports.TimeCapsuleEntrySnapshot = {
   scheduledFor: timeCapsuleEntryScheduledFor.ms,
   id: entryId,

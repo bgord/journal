@@ -1,6 +1,7 @@
-import { Rhythm, useTextField, useTranslations } from "@bgord/ui";
+import { Rhythm, useLoadMore, useTextField, useTranslations } from "@bgord/ui";
+import type { EntryListResponse } from "../../app/http/emotions/list-entries";
 import * as HomeEntryListForm from "../../app/services/home-entry-list-form";
-import { ButtonClear, EntryListEmpty, Select } from "../components";
+import { ButtonClear, EntryListEmpty, LoadMore, Select } from "../components";
 import { homeRoute } from "../router";
 import { HomeEntry } from "./home-entry";
 
@@ -15,6 +16,24 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
     defaultValue: search.filter as HomeEntryListForm.types.EntryListFilterType,
   });
   const query = useTextField({ name: HomeEntryListForm.Form.query.field.name, defaultValue: search.query });
+
+  const list = useLoadMore({
+    key: search,
+    first: entries.data,
+    load: async (cursor) => {
+      const response = await fetch("/api/entry/list", {
+        method: "QUERY",
+        credentials: "include",
+        body: JSON.stringify({ filter: search.filter, query: search.query ?? "", cursor }),
+      });
+
+      if (!response.ok) return null;
+
+      const page: EntryListResponse = await response.json();
+
+      return page.data;
+    },
+  });
 
   return (
     <div data-stack="y" data-width="100%">
@@ -50,15 +69,17 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
 
       {props.children}
 
-      {!entries[0] && <EntryListEmpty />}
+      {!list.entries[0] && <EntryListEmpty />}
 
-      {entries[0] && (
+      {list.entries[0] && (
         <ul data-gap="5" data-mt="8" data-stack="y">
-          {entries.map((entry) => (
+          {list.entries.map((entry) => (
             <HomeEntry key={entry.id} {...entry} />
           ))}
         </ul>
       )}
+
+      <LoadMore list={list} />
     </div>
   );
 }

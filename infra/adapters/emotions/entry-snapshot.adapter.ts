@@ -1,5 +1,6 @@
-import type * as tools from "@bgord/tools";
-import { and, desc, eq, gte, like, lte, or, type SQL } from "drizzle-orm";
+import * as bg from "@bgord/bun";
+import * as tools from "@bgord/tools";
+import { and, desc, eq, gte, like, lte, or, type SQL, sql } from "drizzle-orm";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
 import { db } from "+infra/db";
@@ -55,7 +56,8 @@ class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
     userId: Auth.VO.UserIdType,
     dateRange: tools.DateRange,
     query: string,
-  ): Promise<ReadonlyArray<Emotions.Ports.EntrySnapshotWithAlarms>> {
+    config: Emotions.Ports.EntryListPageConfig,
+  ): Promise<Emotions.Ports.EntryList> {
     const where = [
       eq(Schema.entries.userId, userId),
       gte(Schema.entries.startedAt, dateRange.getStart().ms),
@@ -76,11 +78,25 @@ class EntrySnapshotDrizzle implements Emotions.Ports.EntrySnapshotPort {
       if (clause) where.push(clause);
     }
 
-    return db.query.entries.findMany({
-      orderBy: desc(Schema.entries.startedAt),
-      where: and(...where),
+    const entries = await db.query.entries.findMany({
+      orderBy: [desc(Schema.entries.startedAt), desc(Schema.entries.id)],
+      where: and(
+        ...where,
+        config.cursor
+          ? sql`(${Schema.entries.startedAt}, ${Schema.entries.id})
+              < (${config.cursor.startedAt}, ${config.cursor.id})`
+          : undefined,
+      ),
       with: { alarms: true },
+      limit: bg.Page.take(config.limit),
     });
+
+    const count = await db.$count(Schema.entries, and(...where));
+
+    return {
+      data: bg.Page.of(entries, config.limit, (entry) => ({ startedAt: entry.startedAt, id: entry.id })),
+      count: tools.Int.nonNegative(count),
+    };
   }
 }
 

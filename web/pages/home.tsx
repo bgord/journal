@@ -29,11 +29,11 @@ export function Home() {
       <div data-gap="3" data-stack="x">
         <div data-color="neutral-400" data-cross="center" data-gap="2" data-stack="x">
           <div className="c-badge" data-p="1" data-px="2" data-variant="primary">
-            {entries.length}
+            {entries.count}
           </div>
           <div data-fs="sm">
             {pluralize({
-              value: entries.length,
+              value: entries.count,
               singular: t("app.entry.singular"),
               plural: t("app.entry.plural"),
               genitive: t("app.entry.genitive"),

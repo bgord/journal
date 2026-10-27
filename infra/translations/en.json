@@ -192,6 +192,8 @@
   "entry.situation.kind.value.work": "work",
   "entry.situation.logged": "Situation logged",
   "entry.situation.value": "SITUATION",
+  "list.more.cta": "Load more",
+  "list.more.error": "Could not load more entries",
   "pattern.LowCopingEffectivenessPattern.name": "Low coping effectiveness",
   "pattern.MaladaptiveReactionsPattern.name": "Maladaptive reactions",
   "pattern.MoreNegativeThanPositiveEmotionsPattern.name": "More negative than positive emotions",
