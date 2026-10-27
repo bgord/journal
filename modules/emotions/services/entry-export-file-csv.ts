@@ -13,7 +13,7 @@ export class EntryExportFileCsv extends bg.FileDraft {
   ) {
     super(
       v.parse(tools.Basename, `entry-export-${deps.Clock.now().ms}`),
-      v.parse(tools.Extension, "csv"),
+      tools.Mimes.csv.extension,
       tools.Mimes.csv.mime,
     );
   }

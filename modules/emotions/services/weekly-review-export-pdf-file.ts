@@ -12,7 +12,7 @@ export class WeeklyReviewExportPdfFile extends bg.FileDraft {
   ) {
     super(
       v.parse(tools.Basename, `weekly-review-export-${data.weekIsoId}`),
-      v.parse(tools.Extension, "pdf"),
+      tools.Mimes.pdf.extension,
       tools.Mimes.pdf.mime,
     );
   }

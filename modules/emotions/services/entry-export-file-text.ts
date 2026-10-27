@@ -12,7 +12,7 @@ export class EntryExportFileText extends bg.FileDraft {
   ) {
     super(
       v.parse(tools.Basename, `entry-export-${deps.Clock.now().ms}`),
-      v.parse(tools.Extension, "txt"),
+      tools.Mimes.text.extension,
       tools.Mimes.text.mime,
     );
   }

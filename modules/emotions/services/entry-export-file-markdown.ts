@@ -12,7 +12,7 @@ export class EntryExportFileMarkdown extends bg.FileDraft {
   ) {
     super(
       v.parse(tools.Basename, `entry-export-${deps.Clock.now().ms}`),
-      v.parse(tools.Extension, "md"),
+      tools.Mimes.markdown.extension,
       tools.Mimes.markdown.mime,
     );
   }

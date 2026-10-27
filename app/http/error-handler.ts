@@ -32,6 +32,7 @@ const validation = new bg.ErrorClassifierValidationStrategy([
   tools.DayIsoIdError,
   tools.DurationMsError,
   tools.ExtensionError,
+  tools.FilenameFromStringError,
   tools.LanguageError,
 ]);
 

@@ -12,7 +12,7 @@ export class EntryExportFilePdf extends bg.FileDraft {
   ) {
     super(
       v.parse(tools.Basename, `entry-export-${deps.Clock.now().ms}`),
-      v.parse(tools.Extension, "pdf"),
+      tools.Mimes.pdf.extension,
       tools.Mimes.pdf.mime,
     );
   }
