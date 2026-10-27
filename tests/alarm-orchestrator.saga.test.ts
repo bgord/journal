@@ -150,7 +150,7 @@ describe("AlarmOrchestrator", async () => {
   });
 
   test("onAlarmNotificationRequestedEvent - missing contact", async () => {
-    using loggerInfo = spyOn(di.Adapters.System.Logger, "info");
+    using loggerDebug = spyOn(di.Adapters.System.Logger, "debug");
     using mailerSend = spyOn(di.Adapters.System.Mailer, "send");
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
     using spies = new DisposableStack();
@@ -172,7 +172,7 @@ describe("AlarmOrchestrator", async () => {
 
     expect(mailerSend).not.toHaveBeenCalled();
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericAlarmCancelledEvent]);
-    expect(loggerInfo).toHaveBeenCalledTimes(2);
+    expect(loggerDebug).toHaveBeenCalledTimes(2);
   });
 
   test("onAlarmNotificationRequestedEvent - missing notification", async () => {
