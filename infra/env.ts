@@ -7,24 +7,6 @@ export enum AiClientAdapter {
   noop = "noop",
 }
 
-const OPEN_AI_API_KEY = v.pipe(
-  v.string(),
-  v.minLength(1),
-  v.maxLength(256),
-  v.trim(),
-  v.brand("OPEN_AI_API_KEY"),
-);
-export type OpenAiApiKeyType = v.InferOutput<typeof OPEN_AI_API_KEY>;
-
-const ANTHROPIC_AI_API_KEY = v.pipe(
-  v.string(),
-  v.minLength(1),
-  v.maxLength(256),
-  v.trim(),
-  v.brand("ANTHROPIC_AI_API_KEY"),
-);
-export type AnthropicAiApiKey = v.InferOutput<typeof ANTHROPIC_AI_API_KEY>;
-
 export const EnvironmentSchema = v.object({
   PORT: bg.Port,
   LOGS_LEVEL: v.enum(bg.LogLevelEnum),
@@ -36,8 +18,6 @@ export const EnvironmentSchema = v.object({
   TZ: v.literal("UTC"),
   BASIC_AUTH_USERNAME: bg.BasicAuthUsername,
   BASIC_AUTH_PASSWORD: bg.BasicAuthPassword,
-  OPEN_AI_API_KEY,
-  ANTHROPIC_AI_API_KEY,
   AI_CLIENT_ADAPTER: v.enum(AiClientAdapter),
   BETTER_AUTH_SECRET: v.pipe(v.string(), v.length(32), v.trim()),
   BETTER_AUTH_URL: tools.UrlWithoutSlash,
