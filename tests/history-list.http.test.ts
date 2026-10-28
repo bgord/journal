@@ -29,9 +29,30 @@ describe("GET /api/history/:entryId/list", async () => {
     expect(json).toEqual({ message: "history.subject.too.long" });
   });
 
+  test("validation - RequesterOwnsEntry", async () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.anotherAuth));
+    spies.use(spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.fullEntry));
+
+    const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
+
+    await testcases.assertInvariantError(response, 403, "requester.owns.entry.error");
+  });
+
+  test("validation - RequesterOwnsEntry - missing entry", async () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(undefined));
+
+    const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
+
+    await testcases.assertInvariantError(response, 403, "requester.owns.entry.error");
+  });
+
   test("happy path", async () => {
     const spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.fullEntry));
     spies.use(spyOn(di.Adapters.History.HistoryReader, "read").mockResolvedValue([mocks.historyItem]));
 
     const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);
@@ -44,6 +65,7 @@ describe("GET /api/history/:entryId/list", async () => {
   test("happy path - empty", async () => {
     const spies = new DisposableStack();
     spies.use(spyOn(di.Tools.Auth.config.api, "getSession").mockResolvedValue(mocks.auth));
+    spies.use(spyOn(di.Adapters.Emotions.EntrySnapshot, "getById").mockResolvedValue(mocks.fullEntry));
     spies.use(spyOn(di.Adapters.History.HistoryReader, "read").mockResolvedValue([]));
 
     const response = await server.request(url, { method: "GET", headers: mocks.revisionHeaders() }, mocks.ip);

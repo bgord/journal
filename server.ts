@@ -252,7 +252,11 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.Auth.ShieldAuth.attach,
     Tools.Auth.ShieldAuth.verify,
     bg.EndpointHonoAdapter.adapt(
-      HTTP.History.HistoryList({ ...Adapters.System, HistoryReader: Adapters.History.HistoryReader }),
+      HTTP.History.HistoryList({
+        ...Adapters.System,
+        HistoryReader: Adapters.History.HistoryReader,
+        EntrySnapshot: Adapters.Emotions.EntrySnapshot,
+      }),
     ),
   );
   // =============================
