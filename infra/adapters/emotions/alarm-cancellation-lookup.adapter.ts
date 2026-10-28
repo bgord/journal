@@ -14,6 +14,7 @@ class AlarmCancellationLookupDrizzle implements Emotions.Ports.AlarmCancellation
           notInArray(Schema.alarms.status, [
             Emotions.VO.AlarmStatusEnum.cancelled,
             Emotions.VO.AlarmStatusEnum.notification_requested,
+            Emotions.VO.AlarmStatusEnum.completed,
           ]),
         ),
       );

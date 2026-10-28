@@ -8,7 +8,7 @@ type AlarmIsCancellableConfigType = { status: Emotions.VO.AlarmStatusEnum };
 
 class AlarmIsCancellableFactory extends bg.Invariant<AlarmIsCancellableConfigType> {
   passes(config: AlarmIsCancellableConfigType) {
-    return config.status !== AlarmStatusEnum.cancelled;
+    return ![AlarmStatusEnum.cancelled, AlarmStatusEnum.completed].includes(config.status);
   }
 
   // Stryker disable next-line StringLiteral
