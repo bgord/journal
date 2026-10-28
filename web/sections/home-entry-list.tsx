@@ -1,5 +1,6 @@
 import { Rhythm, useLoadMore, useTextField, useTranslations } from "@bgord/ui";
 import * as HomeEntryListForm from "../../app/services/home-entry-list-form";
+import { EntryListFilterOptions } from "../../modules/emotions/value-objects/entry-list-filter-options";
 import { Entry } from "../api";
 import { ButtonClear, EntryListEmpty, LoadMore, Select } from "../components";
 import { homeRoute } from "../router";
@@ -13,7 +14,7 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
 
   const filter = useTextField<HomeEntryListForm.types.EntryListFilterType>({
     name: HomeEntryListForm.Form.filter.field.name,
-    defaultValue: search.filter as HomeEntryListForm.types.EntryListFilterType,
+    defaultValue: search.filter ?? EntryListFilterOptions.last_week,
   });
   const query = useTextField({ name: HomeEntryListForm.Form.query.field.name, defaultValue: search.query });
 
@@ -34,7 +35,7 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
           className="c-input"
           data-md-grow="1"
           onChange={(event) =>
-            navigate({ to: "/", search: { query: event.currentTarget.value, filter: filter.value } })
+            navigate({ to: "/", search: { ...search, query: event.currentTarget.value || undefined } })
           }
           placeholder={t("entry.list.search.placeholder")}
           value={query.input.props.value}
@@ -42,7 +43,7 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
         />
         <Select
           onChange={(event) =>
-            navigate({ to: "/", search: { filter: event.currentTarget.value, query: query.value } })
+            navigate({ to: "/", search: { ...search, filter: event.currentTarget.value } })
           }
           value={filter.input.props.value}
         >
@@ -55,7 +56,7 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
 
         <ButtonClear
           disabled={HomeEntryListForm.Form.isDefault(search)}
-          onClick={() => navigate({ to: "/", params: HomeEntryListForm.Form.default })}
+          onClick={() => navigate({ to: "/", search: HomeEntryListForm.Form.default })}
         />
       </div>
 

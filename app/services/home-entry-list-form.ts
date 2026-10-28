@@ -1,16 +1,13 @@
+import * as bg from "@bgord/ui";
 import { EntryListFilterOptions } from "../../modules/emotions/value-objects/entry-list-filter-options";
 
 export const Form = {
-  filter: {
-    options: Object.values(EntryListFilterOptions),
-    field: { name: "filter" },
-    is: (value: unknown): value is EntryListFilterOptions =>
-      typeof value === "string" && Object.keys(EntryListFilterOptions).includes(value),
-  },
+  filter: { options: Object.values(EntryListFilterOptions), field: { name: "filter" } },
   query: { field: { name: "query" } },
-  default: { filter: EntryListFilterOptions.last_week, query: "" },
-  isDefault: (search: { filter: string; query: string }): boolean =>
-    search.filter === EntryListFilterOptions.last_week && search.query === "",
+  ...bg.SearchParam.form({
+    filter: bg.SearchParam.oneOf(Object.values(EntryListFilterOptions)),
+    query: bg.SearchParam.text(),
+  }),
 };
 
 export type * as types from "../../modules/emotions/value-objects";

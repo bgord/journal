@@ -43,12 +43,7 @@ export const homeRoute = createRoute({
   path: "/",
   getParentRoute: () => rootRoute,
   component: HomePage,
-  validateSearch: (value) => ({
-    filter: HomeEntryListForm.Form.filter.is(value["filter"])
-      ? value["filter"]
-      : HomeEntryListForm.Form.default.filter,
-    query: typeof value["query"] === "string" ? value["query"] : HomeEntryListForm.Form.default.query,
-  }),
+  validateSearch: HomeEntryListForm.Form.validate,
   loaderDeps: ({ search }) => search,
   loader: async ({ context, deps }) => ({ entries: await Entry.getList(context.request, deps) }),
 });

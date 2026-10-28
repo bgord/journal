@@ -9,23 +9,23 @@ import type { EntryListCursorType } from "../../modules/emotions/value-objects/e
 export class Entry {
   static async getList(
     request: Request | null,
-    deps: { filter: types.EntryListFilterType; query: string },
+    deps: { filter?: types.EntryListFilterType; query?: string },
   ): Promise<EntryListResponse> {
     return bg.ApiClient.json<EntryListResponse>(
       "/api/entry/list",
       request,
       { data: { entries: [], next: null }, count: 0 as tools.IntegerNonNegativeType },
-      { method: "QUERY", body: JSON.stringify({ filter: deps.filter, query: deps.query ?? "" }) },
+      { method: "QUERY", body: JSON.stringify({ filter: deps.filter, query: deps.query }) },
     );
   }
 
   static async getListPage(
     request: Request | null,
-    deps: { filter: types.EntryListFilterType; query: string; cursor?: EntryListCursorType },
+    deps: { filter?: types.EntryListFilterType; query?: string; cursor?: EntryListCursorType },
   ): Promise<EntryListResponse | null> {
     return bg.ApiClient.json<EntryListResponse | null>("/api/entry/list", request, null, {
       method: "QUERY",
-      body: JSON.stringify({ filter: deps.filter, query: deps.query ?? "", cursor: deps.cursor }),
+      body: JSON.stringify({ filter: deps.filter, query: deps.query, cursor: deps.cursor }),
     });
   }
 
