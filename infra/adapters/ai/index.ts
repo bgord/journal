@@ -1,11 +1,10 @@
 import type * as bg from "@bgord/bun";
-import type * as AI from "+ai";
+import * as AI from "+ai";
 import type { EnvironmentResultType } from "+infra/env";
 import { createAiClient } from "./ai-client.adapter";
 import { createAiEventPublisher } from "./ai-event-publisher.adapter";
 import { createAiGateway } from "./ai-gateway.adapter";
 import { BucketCounter } from "./bucket-counter.adapter";
-import { createRuleInspector } from "./rule-inspector.adapter";
 
 type Dependencies = {
   EventStore: bg.EventStorePort<AI.Ports.AIEvents>;
@@ -18,7 +17,7 @@ type Dependencies = {
 export function createAuthAdapter(Env: EnvironmentResultType, deps: Dependencies) {
   const AiClient = createAiClient(Env, deps);
   const AiEventPublisher = createAiEventPublisher(deps);
-  const RuleInspector = createRuleInspector(deps);
+  const RuleInspector = new AI.RuleInspector({ ...deps, BucketCounter });
 
   return {
     AiClient,

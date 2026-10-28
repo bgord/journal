@@ -73,9 +73,9 @@ modules/
 │   │   ├── ai-event-publisher.ts
 │   │   ├── ai-gateway.ts
 │   │   ├── bucket-counter.ts
-│   │   └── rule-inspector.ts
 │   ├── services
-│   │   └── quota-rule-selector.ts
+│   │   ├── quota-rule-selector.ts
+│   │   └── rule-inspector.ts
 │   ├── specifications
 │   │   └── quota-specification.ts
 │   └── value-objects
@@ -384,7 +384,6 @@ infra/
 │   │   ├── ai-event-publisher.adapter.ts
 │   │   ├── ai-gateway.adapter.ts
 │   │   ├── bucket-counter.adapter.ts
-│   │   └── rule-inspector.adapter.ts
 │   ├── auth
 │   │   ├── user-contact.adapter.ts
 │   │   └── user-directory.adapter.ts

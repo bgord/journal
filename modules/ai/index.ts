@@ -4,6 +4,7 @@ export * as Ports from "./ports";
 export { AiClientPort } from "./ports/ai-client";
 export type { AiGatewayPort } from "./ports/ai-gateway";
 export { QuotaRuleSelector } from "./services/quota-rule-selector";
+export { RuleInspector } from "./services/rule-inspector";
 export type { AdviceType } from "./value-objects/advice";
 export { Advice, AdviceSchema } from "./value-objects/advice";
 export { Prompt } from "./value-objects/prompt";

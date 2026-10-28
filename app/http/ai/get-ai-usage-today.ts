@@ -2,7 +2,7 @@ import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
 
-type Dependencies = { Clock: bg.ClockPort; RuleInspector: AI.Ports.RuleInspectorPort };
+type Dependencies = { Clock: bg.ClockPort; RuleInspector: AI.RuleInspector };
 
 export const GetAiUsageToday =
   (deps: Dependencies): bg.EndpointPort =>
