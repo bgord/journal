@@ -1,8 +1,11 @@
 import type * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as AI from "+ai";
+import type { QuotaRuleInspectionType } from "+ai/value-objects";
 
 type Dependencies = { Clock: bg.ClockPort; RuleInspector: AI.RuleInspector };
+
+export type AiUsageTodayType = QuotaRuleInspectionType & { resetsInHours: number };
 
 export const GetAiUsageToday =
   (deps: Dependencies): bg.EndpointPort =>
@@ -16,10 +19,12 @@ export const GetAiUsageToday =
       dimensions: {},
     });
 
-    return Response.json({
+    const result: AiUsageTodayType = {
       ...inspection,
       resetsInHours: new tools.RoundingToNearestStrategy().round(
         tools.Duration.Ms(inspection.resetsInMs).hours,
       ),
-    });
+    };
+
+    return Response.json(result);
   };

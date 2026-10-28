@@ -1,14 +1,8 @@
 import * as bg from "@bgord/ui";
-import type { QuotaRuleInspectionType } from "../../modules/ai/value-objects";
+import type { AiUsageTodayType } from "../../app/http/ai";
 
 export class AI {
-  static async getUsageToday(
-    request: Request | null,
-  ): Promise<(QuotaRuleInspectionType & { resetsInHours: number }) | null> {
-    return bg.ApiClient.json<(QuotaRuleInspectionType & { resetsInHours: number }) | null>(
-      "/api/ai-usage-today/get",
-      request,
-      null,
-    );
+  static async getUsageToday(request: Request | null): Promise<AiUsageTodayType | null> {
+    return bg.ApiClient.json<AiUsageTodayType | null>("/api/ai-usage-today/get", request, null);
   }
 }
