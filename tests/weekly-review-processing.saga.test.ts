@@ -170,7 +170,10 @@ describe("WeeklyReviewProcessing", async () => {
       saga.onWeeklyReviewRequestedEvent(mocks.GenericWeeklyReviewRequestedEvent),
     );
 
-    expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericWeeklyReviewFailedEvent]);
+    expect(eventStoreSave).toHaveBeenNthCalledWith(1, [
+      mocks.MoreNegativeThanPositiveEmotionsPatternDetectedEvent,
+    ]);
+    expect(eventStoreSave).toHaveBeenNthCalledWith(2, [mocks.GenericWeeklyReviewFailedEvent]);
   });
 
   test("onWeeklyReviewCompletedEvent", async () => {

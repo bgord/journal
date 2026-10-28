@@ -94,19 +94,19 @@ export class WeeklyReviewProcessing {
     const language = await this.deps.UserLanguageOHQ.get(event.payload.userId);
     const prompt = new WeeklyReviewInsightsPromptBuilder(entries, language).generate();
 
+    const detectWeeklyPatterns = bg.command(
+      DetectWeeklyPatternsCommand,
+      { payload: { userId: event.payload.userId, week } },
+      this.deps,
+    );
+
+    await this.deps.CommandBus.emit(detectWeeklyPatterns);
+
     try {
       const insights = await this.deps.AiGateway.query(
         prompt,
         createWeeklyReviewInsightRequestContext(this.deps, event.payload.userId),
       );
-
-      const detectWeeklyPatterns = bg.command(
-        DetectWeeklyPatternsCommand,
-        { payload: { userId: event.payload.userId, week } },
-        this.deps,
-      );
-
-      await this.deps.CommandBus.emit(detectWeeklyPatterns);
 
       const completeWeeklyReview = bg.command(
         CompleteWeeklyReviewCommand,
