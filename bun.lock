@@ -7,7 +7,7 @@
       "dependencies": {
         "@bgord/bun": "1.24.15",
         "@bgord/design": "1.8.0",
-        "@bgord/ui": "0.10.21",
+        "@bgord/ui": "0.10.22",
         "@tanstack/react-router": "1.170.46",
         "better-auth": "1.7.12",
         "csv": "6.6.4",
@@ -138,7 +138,7 @@
 
     "@bgord/tools": ["@bgord/tools@1.6.17", "", { "dependencies": { "valibot": "1.5.0" } }, "sha512-ADiQhzAgBQni9vlVJ1HKJ7+/37gCsDr+L6846cnWB/5fPco9PhzQB1OPnXVk/mhKChG2iwAn+Fnpp3tBJUewOQ=="],
 
-    "@bgord/ui": ["@bgord/ui@0.10.21", "", { "dependencies": { "polish-plurals": "1.1.0", "tinykeys": "4.0.1" }, "peerDependencies": { "react": "19.3.1", "react-dom": "19.3.1" } }, "sha512-t9wH/GqFixSeS2fEAn1bQrjVfGBpUCXWlXQBg0ZLpMync4nBEzUVrgzE5tweIlMRDAlsheIppXSTmBEmrBbK3w=="],
+    "@bgord/ui": ["@bgord/ui@0.10.22", "", { "dependencies": { "polish-plurals": "1.1.0", "tinykeys": "4.0.1" }, "peerDependencies": { "react": "19.3.1", "react-dom": "19.3.1" } }, "sha512-rsl0cmRM75XOZuf/wZAgC6mB+7bP6NuW7yqwf1gS8W7irmPW1rgS+7B+SHY0t2dpCCEYOYpG0jQu1gwxTsV9Ag=="],
 
     "@biomejs/biome": ["@biomejs/biome@2.6.3", "", { "optionalDependencies": { "@biomejs/cli-android-arm64": "2.6.3", "@biomejs/cli-android-x64": "2.6.3", "@biomejs/cli-darwin-arm64": "2.6.3", "@biomejs/cli-darwin-x64": "2.6.3", "@biomejs/cli-linux-arm64": "2.6.3", "@biomejs/cli-linux-arm64-musl": "2.6.3", "@biomejs/cli-linux-x64": "2.6.3", "@biomejs/cli-linux-x64-musl": "2.6.3", "@biomejs/cli-win32-arm64": "2.6.3", "@biomejs/cli-win32-x64": "2.6.3" }, "bin": { "biome": "bin/biome" } }, "sha512-va/0xPku7wnfzv+D8Zpdm5uKiGJWiV8neqoEPnRjvNQQwhl4tVXS4fETs4H0CCB2rGeqJ4cu9y4iOZOnOYKAUA=="],
 
