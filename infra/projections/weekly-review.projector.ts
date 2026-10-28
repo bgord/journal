@@ -2,11 +2,12 @@ import type * as bg from "@bgord/bun";
 import { eq } from "drizzle-orm";
 import * as Emotions from "+emotions";
 import type { WeeklyReviewEventType } from "+emotions/aggregates";
+import type { WeeklyReviewSkippedEventType } from "+emotions/events";
 import { db } from "+infra/db";
 import * as Schema from "+infra/schema";
 
 type Dependencies = {
-  EventBus: bg.EventBusPort<WeeklyReviewEventType>;
+  EventBus: bg.EventBusPort<WeeklyReviewEventType | WeeklyReviewSkippedEventType>;
   EventHandler: bg.EventHandlerStrategy;
 };
 

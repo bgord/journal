@@ -8,6 +8,7 @@ import type {
   TimeCapsuleEntryScheduledEventType,
   WeeklyReviewExportByEmailFailedEventType,
   WeeklyReviewExportByEmailRequestedEventType,
+  WeeklyReviewSkippedEventType,
 } from "+emotions/events";
 import type { PatternDetectionEventType } from "+emotions/services/patterns";
 import { db } from "+infra/db";
@@ -38,6 +39,7 @@ export type AcceptedEventType =
   | TimeCapsuleEntryScheduledEventType
   | WeeklyReviewExportByEmailFailedEventType
   | WeeklyReviewExportByEmailRequestedEventType
+  | WeeklyReviewSkippedEventType
   | bg.System.Events.HourHasPassedEventType
   | bg.System.Events.SecurityViolationDetectedEventType
   | bg.History.Events.HistoryClearedEventType

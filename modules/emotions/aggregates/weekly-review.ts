@@ -9,7 +9,6 @@ import * as VO from "+emotions/value-objects";
 
 export type WeeklyReviewEventType =
   | Events.WeeklyReviewRequestedEventType
-  | Events.WeeklyReviewSkippedEventType
   | Events.WeeklyReviewCompletedEventType
   | Events.WeeklyReviewFailedEventType;
 
@@ -23,7 +22,6 @@ export class WeeklyReview {
   // Stryker disable all
   static readonly registry = new bg.EventValidatorRegistryAdapter<WeeklyReviewEventType>({
     [Events.WEEKLY_REVIEW_REQUESTED_EVENT]: Events.WeeklyReviewRequestedEvent,
-    [Events.WEEKLY_REVIEW_SKIPPED_EVENT]: Events.WeeklyReviewSkippedEvent,
     [Events.WEEKLY_REVIEW_COMPLETED_EVENT]: Events.WeeklyReviewCompletedEvent,
     [Events.WEEKLY_REVIEW_FAILED_EVENT]: Events.WeeklyReviewFailedEvent,
   });
