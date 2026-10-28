@@ -14,4 +14,5 @@ export type ShareableLinkSnapshot = {
   revision: tools.RevisionValueType;
   hits: tools.IntegerNonNegativeType;
   uniqueVisitors: tools.IntegerNonNegativeType;
+  actions: { revoke: boolean; hide: boolean };
 };

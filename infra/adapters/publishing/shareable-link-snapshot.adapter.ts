@@ -48,6 +48,8 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
   }
 
   static format(shareableLink: Schema.SelectShareableLinks, timeZoneOffset: tools.Duration) {
+    const revoke = Publishing.Invariants.ShareableLinkIsActive.passes({ status: shareableLink.status });
+
     return {
       ...shareableLink,
       dateRangeStart: tools.DateFormatter.datetime(
@@ -66,6 +68,7 @@ class ShareableLinkSnapshotDrizzle implements Publishing.Ports.ShareableLinkSnap
         tools.Timestamp.fromNumber(shareableLink.updatedAt),
         timeZoneOffset,
       ),
+      actions: { revoke, hide: !revoke },
     };
   }
 }

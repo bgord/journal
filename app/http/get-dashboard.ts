@@ -24,6 +24,7 @@ type DashboardTopEmotionType = Emotions.Queries.DashboardTopEmotionDto;
 type DashboardWeeklyReviewType = Emotions.Queries.WeeklyReviewExportDto & {
   weekStart: string;
   weekEnd: string;
+  actions: { export: boolean };
 };
 
 export type DashboardDataType = {
@@ -89,6 +90,7 @@ export const GetDashboard =
         ...review,
         weekStart: tools.DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getStart()),
         weekEnd: tools.DateFormatter.date(tools.Week.fromIsoId(review.weekIsoId).getEnd()),
+        actions: { export: Emotions.Invariants.WeeklyReviewIsCompleted.passes({ status: review.status }) },
       })),
     };
 

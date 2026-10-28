@@ -1105,6 +1105,7 @@ export const shareableLinkSnapshot: Publishing.VO.ShareableLinkSnapshot = {
   expiresAt: tools.DateFormatter.datetime(T0),
   hits: tools.Int.nonNegative(1),
   uniqueVisitors: tools.Int.nonNegative(1),
+  actions: { revoke: true, hide: false },
 };
 
 export const user = {

@@ -119,7 +119,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
           </div>
         )}
 
-        {props.status === ShareableLinkStatusEnum.active && (
+        {props.actions.revoke && (
           <div data-gap="3" data-stack="x">
             <Link
               params={{ shareableLinkId: props.id }}
@@ -137,7 +137,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
           </div>
         )}
 
-        {[ShareableLinkStatusEnum.revoked, ShareableLinkStatusEnum.expired].includes(props.status) && (
+        {props.actions.hide && (
           <div data-gap="3" data-stack="x">
             <button
               className="c-button"

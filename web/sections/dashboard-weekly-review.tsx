@@ -15,7 +15,7 @@ export function DashboardWeeklyReview(props: DashboardDataType["weeklyReviews"][
           {props.weekStart} - {props.weekEnd}
         </DashboardDate>
 
-        {props.status === WeeklyReviewStatusEnum.completed && (
+        {props.actions.export && (
           <>
             <DashboardWeeklyReviewDownload {...props} />
             <DashboardWeeklyReviewEmailSend {...props} />
