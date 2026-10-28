@@ -4,6 +4,7 @@ import type { EntryListResponse } from "../../app/http/emotions/list-entries";
 import type { HistoryType } from "../../app/http/history";
 import type { types } from "../../app/services/home-entry-list-form";
 import type { EntrySnapshotFormatted } from "../../modules/emotions/ports";
+import type { EntryListCursorType } from "../../modules/emotions/value-objects/entry-list-cursor";
 
 export class Entry {
   static async getList(
@@ -16,6 +17,16 @@ export class Entry {
       { data: { entries: [], next: null }, count: 0 as tools.IntegerNonNegativeType },
       { method: "QUERY", body: JSON.stringify({ filter: deps.filter, query: deps.query ?? "" }) },
     );
+  }
+
+  static async getListPage(
+    request: Request | null,
+    deps: { filter: types.EntryListFilterType; query: string; cursor?: EntryListCursorType },
+  ): Promise<EntryListResponse | null> {
+    return bg.ApiClient.json<EntryListResponse | null>("/api/entry/list", request, null, {
+      method: "QUERY",
+      body: JSON.stringify({ filter: deps.filter, query: deps.query ?? "", cursor: deps.cursor }),
+    });
   }
 
   static async getSharedEntries(

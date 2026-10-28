@@ -38,13 +38,13 @@ export function HomeEntryReaction(props: EntrySnapshotFormatted) {
   });
 
   const reactionType = useTextField<types.ReactionTypeType>({
-    ...Form.reactionDescription.field,
+    ...Form.reactionType.field,
     defaultValue: props.reactionType ?? undefined,
   });
   const reactionTypeEdit = useToggle({ name: "reaction-type" });
 
   const reactionEffectiveness = useNumberField<types.ReactionEffectivenessType>({
-    ...Form.reactionDescription.field,
+    ...Form.reactionEffectiveness.field,
     defaultValue: props.reactionEffectiveness ?? undefined,
   });
 

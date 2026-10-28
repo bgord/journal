@@ -1,6 +1,6 @@
 import { Rhythm, useLoadMore, useTextField, useTranslations } from "@bgord/ui";
-import type { EntryListResponse } from "../../app/http/emotions/list-entries";
 import * as HomeEntryListForm from "../../app/services/home-entry-list-form";
+import { Entry } from "../api";
 import { ButtonClear, EntryListEmpty, LoadMore, Select } from "../components";
 import { homeRoute } from "../router";
 import { HomeEntry } from "./home-entry";
@@ -21,17 +21,9 @@ export function HomeEntryList(props: React.JSX.IntrinsicElements["div"]) {
     key: search,
     first: entries.data,
     load: async (cursor) => {
-      const response = await fetch("/api/entry/list", {
-        method: "QUERY",
-        credentials: "include",
-        body: JSON.stringify({ filter: search.filter, query: search.query ?? "", cursor }),
-      });
+      const page = await Entry.getListPage(null, { ...search, cursor });
 
-      if (!response.ok) return null;
-
-      const page: EntryListResponse = await response.json();
-
-      return page.data;
+      return page?.data ?? null;
     },
   });
 
