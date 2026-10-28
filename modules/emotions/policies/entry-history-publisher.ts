@@ -3,6 +3,7 @@ import * as v from "valibot";
 import type * as Emotions from "+emotions";
 import { EMOTION_LOGGED_EVENT } from "../events/EMOTION_LOGGED_EVENT";
 import { EMOTION_REAPPRAISED_EVENT } from "../events/EMOTION_REAPPRAISED_EVENT";
+import { ENTRY_DELETED_EVENT } from "../events/ENTRY_DELETED_EVENT";
 import { REACTION_EVALUATED_EVENT } from "../events/REACTION_EVALUATED_EVENT";
 import { REACTION_LOGGED_EVENT } from "../events/REACTION_LOGGED_EVENT";
 import { SITUATION_LOGGED_EVENT } from "../events/SITUATION_LOGGED_EVENT";
@@ -12,7 +13,8 @@ type AcceptedEvent =
   | Emotions.Events.EmotionLoggedEventType
   | Emotions.Events.ReactionLoggedEventType
   | Emotions.Events.EmotionReappraisedEventType
-  | Emotions.Events.ReactionEvaluatedEventType;
+  | Emotions.Events.ReactionEvaluatedEventType
+  | Emotions.Events.EntryDeletedEventType;
 
 type Dependencies = {
   EventBus: bg.EventBusPort<AcceptedEvent>;
@@ -38,6 +40,7 @@ export class EntryHistoryPublisher {
       REACTION_EVALUATED_EVENT,
       deps.EventHandler.handle(this.onReactionEvaluatedEvent.bind(this)),
     );
+    deps.EventBus.on(ENTRY_DELETED_EVENT, deps.EventHandler.handle(this.onEntryDeletedEvent.bind(this)));
   }
   // Stryker restore all
 

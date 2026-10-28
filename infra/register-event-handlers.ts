@@ -23,11 +23,6 @@ export function registerEventHandlers({ Adapters, Env, Tools }: BootstrapType) {
     UserDirectoryOHQ: Adapters.Auth.UserDirectoryOHQ,
     GetLatestEntryTimestampForUserQuery: Adapters.Emotions.GetLatestEntryTimestampForUserQuery,
   });
-  new EmotionsPolicies.InactivityAlarmScheduler({
-    ...deps,
-    UserDirectoryOHQ: Adapters.Auth.UserDirectoryOHQ,
-    GetLatestEntryTimestampForUserQuery: Adapters.Emotions.GetLatestEntryTimestampForUserQuery,
-  });
   new EmotionsPolicies.TimeCapsuleEntriesScheduler({ ...deps, ...Adapters.Emotions });
   new EmotionsPolicies.TimeCapsuleEntryNotifier({
     ...deps,

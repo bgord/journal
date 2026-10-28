@@ -1,14 +1,10 @@
 import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
-import type * as VO from "+emotions/value-objects";
-
-export type SharedEntryDto = Omit<VO.EntrySnapshot, "startedAt"> & { startedAt: string } & {
-  alarms: ReadonlyArray<VO.AlarmSnapshot>;
-};
+import type { EntrySnapshotFormatted } from "+emotions/ports";
 
 export interface EntriesSharingPort {
   listForOwnerInRange(
     ownerId: Auth.VO.UserIdType,
     dateRange: tools.DateRange,
-  ): Promise<ReadonlyArray<SharedEntryDto>>;
+  ): Promise<ReadonlyArray<EntrySnapshotFormatted>>;
 }
