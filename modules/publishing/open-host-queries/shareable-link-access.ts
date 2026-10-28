@@ -2,6 +2,7 @@ import type * as tools from "@bgord/tools";
 import type * as Auth from "+auth";
 import type * as Publishing from "+publishing";
 import { AccessValidity } from "../value-objects/access-validity";
+import { ShareableLinkAccessReason } from "../value-objects/shareable-link-access-reason";
 
 export type ShareableLinkAccessValidType = {
   valid: true;
@@ -37,16 +38,9 @@ export class ShareableLinkAccessAdapter implements Publishing.OHQ.ShareableLinkA
 
     if (shareableLink.isEmpty()) return { valid: false };
 
-    const valid = shareableLink.isValid(publicationSpecification);
+    const reason = shareableLink.access(publicationSpecification);
+    const valid = reason === ShareableLinkAccessReason.active;
     const summary = shareableLink.summarize();
-
-    const reason = valid
-      ? "active"
-      : summary.status === "expired"
-        ? "expired"
-        : summary.status === "revoked"
-          ? "revoked"
-          : "wrong_specification_publication";
 
     await this.auditor.record({
       linkId: id,
@@ -59,6 +53,6 @@ export class ShareableLinkAccessAdapter implements Publishing.OHQ.ShareableLinkA
 
     if (!valid) return { valid: false };
 
-    return { valid: true, details: shareableLink.summarize() };
+    return { valid: true, details: summary };
   }
 }

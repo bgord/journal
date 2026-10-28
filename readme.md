@@ -330,6 +330,7 @@ modules/
 │       ├── access-context.ts
 │       ├── access-validity.ts
 │       ├── publication-specification.ts
+│       ├── shareable-link-access-reason.ts
 │       ├── shareable-link-id.ts
 │       ├── shareable-link-snapshot.ts
 │       └── shareable-link-status.ts

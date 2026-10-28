@@ -120,11 +120,21 @@ export class ShareableLink {
     this.record(event);
   }
 
-  isValid(publicationSpecification: VO.PublicationSpecificationType): boolean {
-    return (
-      Invariants.ShareableLinkIsActive.passes({ status: this.status }) &&
-      publicationSpecification === this.state?.publicationSpecification
-    );
+  access(publicationSpecification: VO.PublicationSpecificationType): VO.ShareableLinkAccessReason {
+    const expirationTimePassed = Invariants.ShareableLinkExpirationTimePassed.passes({
+      durationMs: this.state?.durationMs,
+      now: this.deps.Clock.now(),
+      createdAt: this.state?.createdAt,
+    });
+
+    if (this.status === VO.ShareableLinkStatusEnum.expired || expirationTimePassed) {
+      return VO.ShareableLinkAccessReason.expired;
+    }
+    if (this.status === VO.ShareableLinkStatusEnum.revoked) return VO.ShareableLinkAccessReason.revoked;
+    if (publicationSpecification !== this.state?.publicationSpecification) {
+      return VO.ShareableLinkAccessReason.wrong_specification_publication;
+    }
+    return VO.ShareableLinkAccessReason.active;
   }
 
   isEmpty(): boolean {

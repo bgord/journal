@@ -41,7 +41,7 @@ describe("ShareableLinkAccess", async () => {
     expect(eventStoreSave).not.toHaveBeenCalled();
   });
 
-  test("isValid - false - expired", async () => {
+  test("false - expired", async () => {
     using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkExpiredEvent,
@@ -63,7 +63,7 @@ describe("ShareableLinkAccess", async () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedExpiredEvent]);
   });
 
-  test("isValid - false - revoked", async () => {
+  test("false - revoked", async () => {
     using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([
       mocks.GenericShareableLinkCreatedEvent,
       mocks.GenericShareableLinkRevokedEvent,
@@ -85,7 +85,7 @@ describe("ShareableLinkAccess", async () => {
     expect(eventStoreSave).toHaveBeenCalledWith([mocks.GenericShareableLinkAccessedRevokedEvent]);
   });
 
-  test("isValid - false - specification", async () => {
+  test("false - specification", async () => {
     using _ = spyOn(di.Tools.EventStore, "find").mockResolvedValue([mocks.GenericShareableLinkCreatedEvent]);
     using eventStoreSave = spyOn(di.Tools.EventStore, "save");
 
