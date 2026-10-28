@@ -80,12 +80,7 @@ export class AlarmOrchestrator {
         return this.deps.CommandBus.emit(cancel);
       }
 
-      const context = ACL.createAlarmRequestContext(
-        this.deps,
-        event.payload.userId,
-        // @ts-expect-error
-        event.payload.trigger.entryId,
-      );
+      const context = ACL.createAlarmRequestContext(this.deps, event.payload.userId, detection.trigger);
       const advice = await this.deps.AiGateway.query(prompt, context);
 
       const command = bg.command(

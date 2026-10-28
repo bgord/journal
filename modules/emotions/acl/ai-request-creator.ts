@@ -2,6 +2,7 @@ import type * as bg from "@bgord/bun";
 import * as AI from "+ai";
 import type * as Auth from "+auth";
 import type * as Emotions from "+emotions";
+import { AlarmTriggerEnum } from "../value-objects/alarm-trigger";
 
 type Dependencies = { Clock: bg.ClockPort };
 
@@ -45,10 +46,14 @@ const createEmotionsAlarmInactivityRequestContext = (
 export const createAlarmRequestContext = (
   deps: Dependencies,
   userId: Auth.VO.UserIdType,
-  entryId?: Emotions.VO.EntryIdType,
+  trigger: Emotions.VO.AlarmTriggerType,
 ):
   | AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_ENTRY>
   | AI.RequestContext<AI.UsageCategory.EMOTIONS_ALARM_INACTIVITY> => {
-  if (entryId) return createEmotionsAlarmEntryRequestContext(deps, userId, entryId);
-  return createEmotionsAlarmInactivityRequestContext(deps, userId);
+  switch (trigger.type) {
+    case AlarmTriggerEnum.entry:
+      return createEmotionsAlarmEntryRequestContext(deps, userId, trigger.entryId);
+    case AlarmTriggerEnum.inactivity:
+      return createEmotionsAlarmInactivityRequestContext(deps, userId);
+  }
 };

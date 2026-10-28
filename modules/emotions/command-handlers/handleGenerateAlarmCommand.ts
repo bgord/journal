@@ -21,8 +21,7 @@ export const handleGenerateAlarmCommand =
     const context = createAlarmRequestContext(
       deps,
       command.payload.userId,
-      // @ts-expect-error
-      command.payload.detection.trigger.entryId,
+      command.payload.detection.trigger,
     );
 
     const check = await deps.AiGateway.check(context);
