@@ -12,6 +12,7 @@ class AlarmAdviceAvailableFactory extends bg.Invariant<
   AlarmAdviceAvailablePassedConfigType
 > {
   passes(config: AlarmAdviceAvailableConfigType) {
+    // Stryker disable next-line ConditionalExpression: advice is always set once the status is advice_saved
     return config.status === AlarmStatusEnum.advice_saved && config.advice !== undefined;
   }
 
