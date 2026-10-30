@@ -1,4 +1,4 @@
-import { useExitAction, useMutation, usePluralize, useTranslations } from "@bgord/ui";
+import { useExitAction, useMutation, useTranslations } from "@bgord/ui";
 import { Link, useRouter } from "@tanstack/react-router";
 import { Clock, OpenInWindow } from "iconoir-react";
 import { ShareableLinkStatusEnum } from "../../app/services/create-shareable-link-form";
@@ -9,7 +9,6 @@ import { ProfileShareableLinkRevoke } from "./profile-shareable-link-revoke";
 
 export function ProfileShareableLink(props: ShareableLinkSnapshot) {
   const t = useTranslations();
-  const pluralize = usePluralize();
   const router = useRouter();
 
   const copyURL = (id: string) => {
@@ -78,22 +77,7 @@ export function ProfileShareableLink(props: ShareableLinkSnapshot) {
 
         {props.hits > 0 && props.uniqueVisitors > 0 && (
           <div data-color="neutral-500" data-fs="xs">
-            {t("profile.shareable_links.hits", {
-              totalHits: props.hits,
-              hits: pluralize({
-                value: props.hits,
-                singular: t("app.hit.singular"),
-                plural: t("app.hit.plural"),
-                genitive: t("app.hit.genitive"),
-              }),
-              visitors: pluralize({
-                value: props.uniqueVisitors,
-                singular: t("app.visitor.singular"),
-                plural: t("app.visitor.plural"),
-                genitive: t("app.visitor.genitive"),
-              }),
-              uniqueVisitors: props.uniqueVisitors,
-            })}
+            {t("profile.shareable_links.hits", { hits: props.hits, uniqueVisitors: props.uniqueVisitors })}
           </div>
         )}
       </div>

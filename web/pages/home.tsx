@@ -1,5 +1,5 @@
 // fallow-ignore-file unused-export
-import { useNotify, usePluralize, useToggle, useTranslations } from "@bgord/ui";
+import { useNotify, useToggle, useTranslations } from "@bgord/ui";
 import { Outlet } from "@tanstack/react-router";
 import { MoreHoriz } from "iconoir-react";
 import { useEffect } from "react";
@@ -9,7 +9,6 @@ import { HomeEntryAdd, HomeEntryExport, HomeEntryList } from "../sections";
 export function Home() {
   const { entries } = homeRoute.useLoaderData();
   const t = useTranslations();
-  const pluralize = usePluralize();
   const exportEntries = useToggle({ name: "entry-export" });
   const notify = useNotify();
 
@@ -31,14 +30,7 @@ export function Home() {
           <div className="c-badge" data-p="1" data-px="2" data-variant="primary">
             {entries.count}
           </div>
-          <div data-fs="sm">
-            {pluralize({
-              value: entries.count,
-              singular: t("app.entry.singular"),
-              plural: t("app.entry.plural"),
-              genitive: t("app.entry.genitive"),
-            })}
-          </div>
+          <div data-fs="sm">{t("app.entry.label", { count: entries.count })}</div>
         </div>
 
         <button

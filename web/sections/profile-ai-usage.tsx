@@ -1,11 +1,10 @@
-import { usePluralize, useTranslations } from "@bgord/ui";
+import { useTranslations } from "@bgord/ui";
 import { CheckSquare, EnergyUsageWindow, InfoCircle } from "iconoir-react";
 import { ListEmpty } from "../components";
 import { profileRoute } from "../router";
 
 export function ProfileAiUsage() {
   const t = useTranslations();
-  const pluralize = usePluralize();
   const { usage } = profileRoute.useLoaderData();
 
   return (
@@ -17,17 +16,7 @@ export function ProfileAiUsage() {
         <div data-cross="center" data-gap="2" data-ml="auto" data-stack="x">
           <InfoCircle data-size="sm" />
           {usage && (
-            <span data-fs="xs">
-              {t("profile.ai_limits.resets_in", {
-                count: usage.resetsInHours,
-                noun: pluralize({
-                  value: usage.resetsInHours,
-                  singular: t("app.hour.singular"),
-                  plural: t("app.hour.plural"),
-                  genitive: t("app.hour.genitive"),
-                }),
-              })}
-            </span>
+            <span data-fs="xs">{t("profile.ai_limits.resets_in", { count: usage.resetsInHours })}</span>
           )}
         </div>
       </div>
@@ -39,16 +28,7 @@ export function ProfileAiUsage() {
           {!usage.consumed && <CheckSquare data-color="positive-400" data-size="md" />}
           {usage.consumed && <CheckSquare data-color="danger-400" data-size="md" />}
 
-          {t("profile.ai_limits.usage", {
-            count: usage.count,
-            limit: usage.limit,
-            noun: pluralize({
-              value: usage.count,
-              singular: t("app.prompt.singular"),
-              plural: t("app.prompt.plural"),
-              genitive: t("app.prompt.genitive"),
-            }),
-          })}
+          {t("profile.ai_limits.usage", { count: usage.count, limit: usage.limit })}
         </div>
       )}
     </div>
