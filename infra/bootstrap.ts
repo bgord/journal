@@ -7,6 +7,7 @@ import { createPublishingAdapters } from "+infra/adapters/publishing";
 import { createSystemAdapters } from "+infra/adapters/system";
 import { createEnvironmentLoader } from "+infra/env";
 import { createTools } from "+infra/tools";
+import { createPrerequisites } from "+infra/tools/prerequisites";
 
 export async function bootstrap() {
   const EnvironmentLoader = await createEnvironmentLoader();
@@ -26,7 +27,7 @@ export async function bootstrap() {
   return {
     Env,
     Adapters: { AI, Auth, Emotions, History, Preferences, Publishing, System },
-    Tools,
+    Tools: { ...Tools, Prerequisites: createPrerequisites(Env, { ...System, ...Tools }) },
   };
 }
 

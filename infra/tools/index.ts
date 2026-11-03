@@ -9,7 +9,6 @@ import { createEventStore } from "./event-store";
 import { createEventStreamEraser } from "./event-stream-eraser";
 import { HashContent } from "./hash-content.strategy";
 import { createJobQueue } from "./job-queue.adapter";
-import { createPrerequisites } from "./prerequisites";
 import { createShieldAuth } from "./shield-auth.strategy";
 import { createShieldBasicAuth } from "./shield-basic-auth.strategy";
 import { createShieldCaptcha } from "./shield-captcha.strategy";
@@ -21,18 +20,11 @@ import { createTranslationsProvider } from "./translations-provider.adapter";
 
 type Dependencies = {
   Clock: bg.ClockPort;
-  DiskSpaceChecker: bg.DiskSpaceCheckerPort;
   Logger: bg.LoggerPort;
   Mailer: bg.MailerPort;
-  CertificateInspector: bg.CertificateInspectorPort;
-  Timekeeper: bg.TimekeeperPort;
-  TemporaryFile: bg.TemporaryFilePort;
   FileReaderJson: bg.FileReaderJsonPort;
   IdProvider: bg.IdProviderPort;
-  RemoteFileStorage: bg.RemoteFileStoragePort;
   Sleeper: bg.SleeperPort;
-  TimeoutRunner: bg.TimeoutRunnerPort;
-  FileInspection: bg.FileInspectionPort;
 };
 
 export async function createTools(Env: EnvironmentResultType, deps: Dependencies) {
@@ -47,7 +39,6 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
   return {
     Auth: createShieldAuth(Env, { ...deps, EventStore, CommitConfig, JobDispatcher }),
     CronScheduler,
-    Prerequisites: createPrerequisites(Env, { ...deps, TranslationsProvider, CronScheduler }),
     ShieldBasicAuth: createShieldBasicAuth(Env),
     ShieldCaptcha: createShieldCaptcha(Env),
     ShieldRateLimit: createShieldRateLimit(Env, { ...deps, HashContent }),

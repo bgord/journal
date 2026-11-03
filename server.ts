@@ -59,7 +59,11 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
     Tools.ShieldRateLimit.handle(),
     Tools.ShieldTimeout.handle(),
     ...new bg.HealthcheckHonoHandler(
-      { Env: Env.type, prerequisites: Tools.Prerequisites.healthcheck, redactor },
+      {
+        Env: Env.type,
+        prerequisites: [...Tools.Prerequisites.healthcheck, ...Tools.Prerequisites.runtime],
+        redactor,
+      },
       {
         ...Adapters.System,
         ...Tools,
