@@ -6,6 +6,7 @@ import { createCronScheduler } from "./cron-scheduler.adapter";
 import { createEventBus } from "./event-bus";
 import { createEventHandler } from "./event-handler";
 import { createEventStore } from "./event-store";
+import { createEventStreamEraser } from "./event-stream-eraser";
 import { HashContent } from "./hash-content.strategy";
 import { createJobQueue } from "./job-queue.adapter";
 import { createPrerequisites } from "./prerequisites";
@@ -55,6 +56,7 @@ export async function createTools(Env: EnvironmentResultType, deps: Dependencies
     CommandBus: createCommandBus(deps),
     EventBus,
     EventStore,
+    EventStreamEraser: createEventStreamEraser(Env),
     ShieldSecurity: createShieldSecurity(Env, { ...deps, HashContent }),
     BuildInfoConfig,
     CommitConfig,

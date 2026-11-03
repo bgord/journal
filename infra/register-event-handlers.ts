@@ -32,6 +32,7 @@ export function registerEventHandlers({ Adapters, Env, Tools }: BootstrapType) {
   });
   new EmotionsPolicies.EntryHistoryPublisher({ ...deps, ...Adapters.History });
   new bg.Preferences.Policies.SetDefaultUserLanguage(languages.fallback, deps);
+  new bg.Auth.Policies.EventStreamEraser(deps);
   new bg.Preferences.Policies.ProfileAvatarEraser(Preferences.VO.ProfileAvatar, deps);
 
   // Sagas

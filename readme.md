@@ -470,6 +470,7 @@ infra/
 │   ├── event-bus.ts
 │   ├── event-handler.ts
 │   ├── event-store.ts
+│   ├── event-stream-eraser.ts
 │   ├── hash-content.strategy.ts
 │   ├── job-queue.adapter.ts
 │   ├── prerequisites.ts
