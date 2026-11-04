@@ -54,6 +54,7 @@ export function createShieldAuth(Env: EnvironmentResultType, deps: Dependencies)
       minPasswordLength: Auth.VO.Password.MinimumLength,
       maxPasswordLength: Auth.VO.Password.MaximumLength,
       requireEmailVerification: true,
+      revokeSessionsOnPasswordReset: true,
       async sendResetPassword({ user, url }) {
         const message = new Auth.Services.PasswordResetNotificationComposer().compose(
           v.parse(tools.UrlWithoutSlash, url),
