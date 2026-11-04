@@ -57,6 +57,13 @@
       "when": 1791009397484,
       "tag": "0007_glossy_stephen_strange",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1793784869663,
+      "tag": "0008_aspiring_hydra",
+      "breakpoints": true
     }
   ]
 }

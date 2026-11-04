@@ -1,0 +1,1 @@
+DROP INDEX `stream_idx`;

@@ -60,7 +60,6 @@ export const events = sqliteTable(
     payload: text("payload").notNull(),
   },
   (table) => [
-    index("stream_idx").on(table.stream),
     // cspell:disable-next-line
     uniqueIndex("stream_revision_uidx").on(table.stream, table.revision),
   ],
