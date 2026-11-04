@@ -101,7 +101,7 @@ export function createPrerequisites(
         enabled: production,
         decorators: [withFailSafe, withRetry, withTimeout],
       }),
-      new bg.Prerequisite("user", new bg.PrerequisiteVerifierRunningUserAdapter({ username: "bgord" }), {
+      new bg.Prerequisite("user", new bg.PrerequisiteVerifierRunningUserAdapter({ username: "journal" }), {
         enabled: production,
       }),
       new bg.Prerequisite("sqlite", new bg.PrerequisiteVerifierSQLiteAdapter({ sqlite }), {
