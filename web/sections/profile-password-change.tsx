@@ -13,7 +13,7 @@ export function ProfilePasswordChange() {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: session.user.email, redirectTo: "/reset-password" }),
+        body: JSON.stringify({ email: session.user.email, redirectTo: "/public/reset-password.html" }),
       }),
     autoResetDelayMs: 5000,
   });
