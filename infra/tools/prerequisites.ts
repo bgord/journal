@@ -4,7 +4,7 @@ import * as v from "valibot";
 import { languages } from "+languages";
 import { hostname } from "+infra/config";
 import { sqlite } from "+infra/db";
-import { type EnvironmentResultType, MasterKeyPath, SecretsPath } from "+infra/env";
+import { BackupLastSuccessPath, type EnvironmentResultType, MasterKeyPath, SecretsPath } from "+infra/env";
 
 type Dependencies = {
   DiskSpaceChecker: bg.DiskSpaceCheckerPort;
@@ -107,14 +107,6 @@ export function createPrerequisites(
       new bg.Prerequisite("sqlite", new bg.PrerequisiteVerifierSQLiteAdapter({ sqlite }), {
         enabled: production,
       }),
-      new bg.Prerequisite(
-        "ssl",
-        new bg.PrerequisiteVerifierSSLCertificateExpiryAdapter(
-          { hostname, minimum: tools.Duration.Days(7) },
-          deps,
-        ),
-        { enabled: production, decorators: [withFailSafe, withRetry, withTimeout] },
-      ),
       new bg.Prerequisite("dns", new bg.PrerequisiteVerifierDnsAdapter({ hostname }), {
         enabled: production,
       }),
@@ -177,13 +169,31 @@ export function createPrerequisites(
         "memory-consumption",
         new bg.PrerequisiteVerifierMemoryAdapter({ maximum: tools.Size.fromMB(300) }),
       ),
-      new bg.Prerequisite("ram", new bg.PrerequisiteVerifierRamAdapter({ minimum: tools.Size.fromMB(128) })),
+      new bg.Prerequisite("ram", new bg.PrerequisiteVerifierRamAdapter({ minimum: tools.Size.fromMB(128) }), {
+        enabled: production,
+      }),
       new bg.Prerequisite("sqlite", new bg.PrerequisiteVerifierSQLiteConnectionAdapter({ sqlite })),
     ],
     runtime: [
       new bg.Prerequisite(
         "job-queue-lag",
         new bg.PrerequisiteVerifierJobQueueLagAdapter({ maximum: tools.Duration.Minutes(15) }, deps),
+      ),
+      new bg.Prerequisite(
+        "backup",
+        new bg.PrerequisiteVerifierBackupAdapter(
+          { file: BackupLastSuccessPath, maximum: tools.Duration.Hours(26) },
+          deps,
+        ),
+        { enabled: production },
+      ),
+      new bg.Prerequisite(
+        "ssl",
+        new bg.PrerequisiteVerifierSSLCertificateExpiryAdapter(
+          { hostname, minimum: tools.Duration.Days(7) },
+          deps,
+        ),
+        { enabled: production, decorators: [withRetry, withTimeout] },
       ),
     ],
   };
