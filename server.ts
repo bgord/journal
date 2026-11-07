@@ -14,7 +14,7 @@ export function createServer({ Env, Adapters, Tools }: BootstrapType) {
   const WeakETagExtractor = new bg.WeakETagExtractorHonoMiddleware({
     strategy: new bg.WeakETagExtractorHeaderStrategy(),
   });
-  const CacheRepository = new bg.CacheRepositoryNodeCacheAdapter({ type: "infinite" });
+  const CacheRepository = new bg.CacheRepositoryInMemoryAdapter({ type: "infinite" }, deps);
   const CacheResolver = new bg.CacheResolverReadThroughStrategy({ CacheRepository });
 
   const redactor = new bg.RedactorMask(bg.RedactorMask.DEFAULT_KEYS);
