@@ -28,8 +28,8 @@ type AcceptedCommandType =
   | bg.Preferences.Commands.RemoveProfileAvatarCommandType;
 
 export function createCommandBus(deps: Dependencies): bg.CommandBusPort<AcceptedCommandType> {
-  const emittery = new bg.CommandBusEmitteryAdapter<AcceptedCommandType>();
-  const inner = new bg.CommandBusStrictAdapter<AcceptedCommandType>({ inner: emittery });
+  const inMemory = new bg.CommandBusInMemoryAdapter<AcceptedCommandType>();
+  const inner = new bg.CommandBusStrictAdapter<AcceptedCommandType>({ inner: inMemory });
 
   return new bg.CommandBusWithLoggerAdapter<AcceptedCommandType>({ ...deps, inner });
 }
