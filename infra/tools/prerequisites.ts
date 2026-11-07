@@ -1,3 +1,4 @@
+// cspell:ignore shellcheck
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as v from "valibot";
@@ -134,6 +135,11 @@ export function createPrerequisites(
       new bg.Prerequisite(
         "gitleaks",
         new bg.PrerequisiteVerifierBinaryAdapter({ binary: v.parse(bg.Binary, "gitleaks") }),
+        { enabled: local },
+      ),
+      new bg.Prerequisite(
+        "shellcheck",
+        new bg.PrerequisiteVerifierBinaryAdapter({ binary: v.parse(bg.Binary, "shellcheck") }),
         { enabled: local },
       ),
       new bg.Prerequisite(
