@@ -11,7 +11,7 @@
         "@tanstack/react-router": "1.170.46",
         "better-auth": "1.7.14",
         "drizzle-orm": "0.45.4",
-        "iconoir-react": "7.12.1",
+        "iconoir-react": "7.12.2",
         "nodemailer": "10.2.1",
         "react": "19.3.1",
         "react-dom": "19.3.1",
@@ -683,7 +683,7 @@
 
     "human-signals": ["human-signals@8.0.1", "", {}, "sha512-eKCa6bwnJhvxj14kZk5NCPc6Hb6BdsU9DZcOnmQKSnO1VKrfV0zCvtttPZUsBvjmNDn8rpcJfpwSYnHBjc95MQ=="],
 
-    "iconoir-react": ["iconoir-react@7.12.1", "", { "peerDependencies": { "react": "18 || 19" } }, "sha512-e+Lwgqr10ruCwrCrFjG5RD0axwENFxPzLP1cESiQPEMH9UC/W6dk6u0MYwLoG0MBVsmBYAhVBb5GqO1aSljeGQ=="],
+    "iconoir-react": ["iconoir-react@7.12.2", "", { "peerDependencies": { "react": "18 || 19" } }, "sha512-BDOIt6qcGY4pgJ+5et2ZjuWEbVKwnpRyTLq7viN3bF+BzpxVWCNDBkMd8iVeHx+QglqciiS8ftgU5Ddvz0Rn6A=="],
 
     "iconv-lite": ["iconv-lite@0.7.3", "", { "dependencies": { "safer-buffer": ">= 2.1.2 < 3.0.0" } }, "sha512-IKXpvIzjnC9XTAUbVBcMfGS0EPaIXtW6v+zr+RRp+hqULEpo0owZax6wyRwPOJbWbzjYspQwusTsfVr0ifh4uQ=="],
 
