@@ -4,7 +4,7 @@
   "private": true,
   "author": "Bartosz Gordon",
   "devDependencies": {
-    "@biomejs/biome": "2.6.4",
+    "@biomejs/biome": "2.6.6",
     "@playwright/test": "1.65.0",
     "@stryker-mutator/core": "10.1.1",
     "@stryker-mutator/typescript-checker": "10.1.1",
@@ -13,7 +13,7 @@
     "@types/react-dom": "19.3.0",
     "actions-up": "2.0.0",
     "better-sqlite3": "13.0.3",
-    "cspell": "10.4.0",
+    "cspell": "10.4.1",
     "drizzle-kit": "0.31.11",
     "fallow": "3.36.0",
     "lefthook": "2.2.2",
