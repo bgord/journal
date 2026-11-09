@@ -56,9 +56,9 @@ class DashboardQueryDrizzle implements Emotions.Queries.Dashboard {
     }
 
     const [entryCountToday, entryCountLastWeek, entryCountAllTime] = await Promise.all([
-      await getEntryCountSince(today),
-      await getEntryCountSince(lastWeek),
-      await getEntryCountSince(allTime),
+      getEntryCountSince(today),
+      getEntryCountSince(lastWeek),
+      getEntryCountSince(allTime),
     ]);
 
     const topReactionsResponse = await db
@@ -107,9 +107,9 @@ class DashboardQueryDrizzle implements Emotions.Queries.Dashboard {
     }
 
     const [topEmotionsToday, topEmotionsLastWeek, topEmotionsAllTime] = await Promise.all([
-      await getTopEmotionsSince(today),
-      await getTopEmotionsSince(lastWeek),
-      await getTopEmotionsSince(allTime),
+      getTopEmotionsSince(today),
+      getTopEmotionsSince(lastWeek),
+      getTopEmotionsSince(allTime),
     ]);
 
     return {
