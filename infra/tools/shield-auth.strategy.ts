@@ -1,7 +1,7 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
-import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { betterAuth } from "better-auth/minimal";
 import { haveIBeenPwned } from "better-auth/plugins/haveibeenpwned";
 import * as v from "valibot";
 import * as Auth from "+auth";
