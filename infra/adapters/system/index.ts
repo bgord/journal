@@ -31,7 +31,7 @@ export async function createSystemAdapters(Env: EnvironmentResultType) {
   const AtomicFileWriter = createAtomicFileWriter({ FileCleaner, FileRenamer, FileWriter, NonceProvider });
   const Sleeper = createSleeper(Env);
   const TimeoutRunner = createTimeoutRunner(Env);
-  const Mailer = await createMailer(Env, { Logger, Clock, Sleeper, TimeoutRunner });
+  const Mailer = createMailer(Env, { Logger, Clock, Sleeper, TimeoutRunner });
   const Timekeeper = createTimekeeper(Env, { Clock });
   const FileInspection = createFileInspection(Env);
   const HashFile = createHashFile({ FileInspection });

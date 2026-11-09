@@ -1,5 +1,6 @@
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
+import * as Nodemailer from "nodemailer";
 import type { EnvironmentResultType } from "+infra/env";
 
 type Dependencies = {
@@ -9,15 +10,18 @@ type Dependencies = {
   TimeoutRunner: bg.TimeoutRunnerPort;
 };
 
-export async function createMailer(Env: EnvironmentResultType, deps: Dependencies): Promise<bg.MailerPort> {
+export function createMailer(Env: EnvironmentResultType, deps: Dependencies): bg.MailerPort {
   const MailerNoop = new bg.MailerNoopAdapter();
 
-  const MailerSmtp = await bg.MailerSmtpAdapter.build({
-    SMTP_HOST: Env.SMTP_HOST,
-    SMTP_PORT: Env.SMTP_PORT,
-    SMTP_USER: Env.SMTP_USER,
-    SMTP_PASS: Env.SMTP_PASS,
-  });
+  const MailerSmtp = bg.MailerSmtpAdapter.build(
+    {
+      SMTP_HOST: Env.SMTP_HOST,
+      SMTP_PORT: Env.SMTP_PORT,
+      SMTP_USER: Env.SMTP_USER,
+      SMTP_PASS: Env.SMTP_PASS,
+    },
+    { Nodemailer },
+  );
 
   const local = bg.MailerBuilder.of(MailerNoop).withLogger(deps).build();
 
