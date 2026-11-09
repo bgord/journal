@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       fasttrack:
-        description: "Skip build verify"
+        description: "Skip checks"
         type: boolean
         default: false
 concurrency:
@@ -207,10 +207,6 @@ jobs:
         env:
           SHA: ${{ github.sha }}
         run: ./bgord-scripts/build-info-generate.sh "${SHA}"
-
-      - name: Inspect app size
-        if: ${{ env.SKIP_CHECKS != 'true' && env.IS_PULL_REQUEST != 'true' }}
-        run: ./bgord-scripts/server-inspect-production.sh
 
       - name: Bundle secrets encryptor
         if: ${{ env.IS_PULL_REQUEST != 'true' }}
