@@ -22,6 +22,7 @@ type Dependencies = {
   TimeoutRunner: bg.TimeoutRunnerPort;
   FileInspection: bg.FileInspectionPort;
   JobQueueStatsProvider: bg.JobQueueStatsProviderPort;
+  HashContent: bg.HashContentStrategy;
 };
 
 export function createPrerequisites(
@@ -46,6 +47,18 @@ export function createPrerequisites(
     },
     deps,
   );
+  const LongCacheResolver = new bg.CacheResolverReadThroughStrategy({
+    CacheRepository: new bg.CacheRepositoryInMemoryAdapter(
+      { type: "finite", ttl: tools.Duration.Minutes(10) },
+      deps,
+    ),
+  });
+  const ShortCacheResolver = new bg.CacheResolverReadThroughStrategy({
+    CacheRepository: new bg.CacheRepositoryInMemoryAdapter(
+      { type: "finite", ttl: tools.Duration.Minutes(5) },
+      deps,
+    ),
+  });
 
   return {
     healthcheck: [
@@ -89,11 +102,11 @@ export function createPrerequisites(
       new bg.Prerequisite("translations", new bg.PrerequisiteVerifierTranslationsAdapter(languages, deps)),
       new bg.Prerequisite("mailer", new bg.PrerequisiteVerifierMailerAdapter(deps), {
         enabled: production,
-        decorators: [withRetry, withTimeout],
+        decorators: [bg.PrerequisiteDecorator.withCache("mailer", { CacheResolver: LongCacheResolver, ...deps }), withRetry, withTimeout],
       }),
       new bg.Prerequisite("outside-connectivity", new bg.PrerequisiteVerifierOutsideConnectivityAdapter(), {
         enabled: production,
-        decorators: [withFailSafe, withRetry, withTimeout],
+        decorators: [bg.PrerequisiteDecorator.withCache("outside-connectivity", { CacheResolver: ShortCacheResolver, ...deps }), withFailSafe, withRetry, withTimeout],
       }),
       new bg.Prerequisite("user", new bg.PrerequisiteVerifierRunningUserAdapter({ username: "journal" }), {
         enabled: production,
@@ -103,6 +116,7 @@ export function createPrerequisites(
       }),
       new bg.Prerequisite("dns", new bg.PrerequisiteVerifierDnsAdapter({ hostname }), {
         enabled: production,
+        decorators: [bg.PrerequisiteDecorator.withCache("dns", { CacheResolver: ShortCacheResolver, ...deps })],
       }),
       new bg.Prerequisite(
         "clock-drift",
@@ -192,7 +206,7 @@ export function createPrerequisites(
           { hostname, minimum: tools.Duration.Days(7) },
           deps,
         ),
-        { enabled: production, decorators: [withRetry, withTimeout] },
+        { enabled: production, decorators: [bg.PrerequisiteDecorator.withCache("ssl", { CacheResolver: LongCacheResolver, ...deps }), withRetry, withTimeout] },
       ),
     ],
   };
