@@ -79,7 +79,7 @@ export function createPrerequisites(
       new bg.Prerequisite(
         "bun",
         new bg.PrerequisiteVerifierBunAdapter({
-          version: tools.PackageVersion.fromString("1.4.4"),
+          version: tools.PackageVersion.fromVersionString("1.4.4"),
           current: Bun.version,
         }),
       ),
@@ -102,11 +102,23 @@ export function createPrerequisites(
       new bg.Prerequisite("translations", new bg.PrerequisiteVerifierTranslationsAdapter(languages, deps)),
       new bg.Prerequisite("mailer", new bg.PrerequisiteVerifierMailerAdapter(deps), {
         enabled: production,
-        decorators: [bg.PrerequisiteDecorator.withCache("mailer", { CacheResolver: LongCacheResolver, ...deps }), withRetry, withTimeout],
+        decorators: [
+          bg.PrerequisiteDecorator.withCache("mailer", { CacheResolver: LongCacheResolver, ...deps }),
+          withRetry,
+          withTimeout,
+        ],
       }),
       new bg.Prerequisite("outside-connectivity", new bg.PrerequisiteVerifierOutsideConnectivityAdapter(), {
         enabled: production,
-        decorators: [bg.PrerequisiteDecorator.withCache("outside-connectivity", { CacheResolver: ShortCacheResolver, ...deps }), withFailSafe, withRetry, withTimeout],
+        decorators: [
+          bg.PrerequisiteDecorator.withCache("outside-connectivity", {
+            CacheResolver: ShortCacheResolver,
+            ...deps,
+          }),
+          withFailSafe,
+          withRetry,
+          withTimeout,
+        ],
       }),
       new bg.Prerequisite("user", new bg.PrerequisiteVerifierRunningUserAdapter({ username: "journal" }), {
         enabled: production,
@@ -116,7 +128,9 @@ export function createPrerequisites(
       }),
       new bg.Prerequisite("dns", new bg.PrerequisiteVerifierDnsAdapter({ hostname }), {
         enabled: production,
-        decorators: [bg.PrerequisiteDecorator.withCache("dns", { CacheResolver: ShortCacheResolver, ...deps })],
+        decorators: [
+          bg.PrerequisiteDecorator.withCache("dns", { CacheResolver: ShortCacheResolver, ...deps }),
+        ],
       }),
       new bg.Prerequisite(
         "clock-drift",
@@ -206,7 +220,14 @@ export function createPrerequisites(
           { hostname, minimum: tools.Duration.Days(7) },
           deps,
         ),
-        { enabled: production, decorators: [bg.PrerequisiteDecorator.withCache("ssl", { CacheResolver: LongCacheResolver, ...deps }), withRetry, withTimeout] },
+        {
+          enabled: production,
+          decorators: [
+            bg.PrerequisiteDecorator.withCache("ssl", { CacheResolver: LongCacheResolver, ...deps }),
+            withRetry,
+            withTimeout,
+          ],
+        },
       ),
     ],
   };
