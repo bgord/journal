@@ -24,7 +24,6 @@ type AcceptedCommand =
   | Emotions.Commands.DetectWeeklyPatternsCommandType
   | Emotions.Commands.CompleteWeeklyReviewCommandType
   | Emotions.Commands.ExportWeeklyReviewByEmailCommandType
-  | Emotions.Commands.ExportWeeklyReviewByEmailCommandType
   | Emotions.Commands.MarkWeeklyReviewAsFailedCommandType;
 
 type Dependencies = {
