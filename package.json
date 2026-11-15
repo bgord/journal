@@ -21,9 +21,9 @@
     "typescript": "7.0.2"
   },
   "dependencies": {
-    "@bgord/bun": "1.24.29",
+    "@bgord/bun": "1.24.30",
     "@bgord/design": "1.8.0",
-    "@bgord/ui": "0.10.24",
+    "@bgord/ui": "0.10.25",
     "@tanstack/react-router": "1.170.46",
     "better-auth": "1.7.18",
     "drizzle-orm": "0.45.4",
