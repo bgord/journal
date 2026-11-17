@@ -63,10 +63,7 @@ export function createPrerequisites(
   return {
     healthcheck: [
       new bg.Prerequisite("port", new bg.PrerequisiteVerifierPortAdapter({ port: Env.PORT })),
-      new bg.Prerequisite(
-        "timezone",
-        new bg.PrerequisiteVerifierTimezoneUtcAdapter({ timezone: v.parse(tools.Timezone, Env.TZ) }),
-      ),
+      new bg.Prerequisite("timezone", new bg.PrerequisiteVerifierTimezoneUtcAdapter()),
       new bg.Prerequisite("ram", new bg.PrerequisiteVerifierRamAdapter({ minimum: tools.Size.fromMB(128) }), {
         enabled: production,
         decorators: [withRetry],
