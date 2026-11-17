@@ -7,7 +7,6 @@ type Dependencies = {
   Logger: bg.LoggerPort;
   Clock: bg.ClockPort;
   Sleeper: bg.SleeperPort;
-  TimeoutRunner: bg.TimeoutRunnerPort;
 };
 
 export function createMailer(Env: EnvironmentResultType, deps: Dependencies): bg.MailerPort {
@@ -35,7 +34,6 @@ export function createMailer(Env: EnvironmentResultType, deps: Dependencies): bg
       },
       deps,
     )
-    .withTimeout({ timeout: tools.Duration.Seconds(5) }, deps)
     .withLogger(deps)
     .build();
 
