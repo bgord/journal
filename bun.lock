@@ -7,7 +7,7 @@
       "dependencies": {
         "@bgord/bun": "1.24.31",
         "@bgord/design": "1.8.0",
-        "@bgord/ui": "0.10.25",
+        "@bgord/ui": "0.10.27",
         "@tanstack/react-router": "1.170.46",
         "better-auth": "1.7.18",
         "drizzle-orm": "0.45.4",
@@ -135,7 +135,7 @@
 
     "@bgord/tools": ["@bgord/tools@1.7.1", "", { "dependencies": { "valibot": "1.5.0" } }, "sha512-p/zvtIG3/dUPT4C5GEVGEhoSgL2lBGEC4OhBsJXDzYX9z8NFuj0DpUvWlfewOO+Xzu9R15aXl0tYGthZBgLEIw=="],
 
-    "@bgord/ui": ["@bgord/ui@0.10.25", "", { "dependencies": { "tinykeys": "4.0.1" }, "peerDependencies": { "react": "19.3.1", "react-dom": "19.3.1" } }, "sha512-GQAeyLBBn5SJpMLJGWncaCnVttZV3um4Y2qFd2itBrfuXaGt7QVV4X0UOu6907DLgN28xt80qH9MZEAV4W1Hjw=="],
+    "@bgord/ui": ["@bgord/ui@0.10.27", "", { "dependencies": { "tinykeys": "4.0.1" }, "peerDependencies": { "react": "19.3.1", "react-dom": "19.3.1" } }, "sha512-Wx18AS026RySKbzkvijmKt1Pk5niR72g2yK94XE+7uSgINMWO9co4TrzAFVG1+N9xh+Ko9EYV1OLAeVkx3USaw=="],
 
     "@biomejs/biome": ["@biomejs/biome@2.6.7", "", { "optionalDependencies": { "@biomejs/cli-android-arm64": "2.6.7", "@biomejs/cli-android-x64": "2.6.7", "@biomejs/cli-darwin-arm64": "2.6.7", "@biomejs/cli-darwin-x64": "2.6.7", "@biomejs/cli-linux-arm64": "2.6.7", "@biomejs/cli-linux-arm64-musl": "2.6.7", "@biomejs/cli-linux-x64": "2.6.7", "@biomejs/cli-linux-x64-musl": "2.6.7", "@biomejs/cli-win32-arm64": "2.6.7", "@biomejs/cli-win32-x64": "2.6.7" }, "bin": { "biome": "bin/biome" } }, "sha512-2bT1FE6FvZZgPLFw4BjcDyRwG8Ry9zYla4X+Lw8oj2SxvqiXHiYkkEpjcrsWQrik6iYHygAa/D67YxLbVz9P1Q=="],
 
