@@ -1,4 +1,3 @@
-/* cSpell:disable */
 import { describe, expect, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as v from "valibot";

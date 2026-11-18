@@ -1,4 +1,3 @@
-// cspell:ignore shellcheck
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";
 import * as v from "valibot";

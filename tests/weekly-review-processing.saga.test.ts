@@ -1,4 +1,3 @@
-/* cSpell:disable */
 import { describe, expect, spyOn, test } from "bun:test";
 import * as bg from "@bgord/bun";
 import * as tools from "@bgord/tools";

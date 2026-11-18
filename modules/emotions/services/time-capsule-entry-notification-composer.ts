@@ -1,4 +1,3 @@
-/* cSpell:disable */
 import * as bg from "@bgord/bun";
 import * as v from "valibot";
 import type { LanguagesType } from "+languages";

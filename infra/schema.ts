@@ -1,4 +1,3 @@
-// /* cSpell:ignore uidx */
 import type * as bg from "@bgord/bun";
 import type * as tools from "@bgord/tools";
 import { desc, relations, sql } from "drizzle-orm";
@@ -59,10 +58,7 @@ export const events = sqliteTable(
     commit: text("commit").notNull().$type<bg.CommitShaValueType>(),
     payload: text("payload").notNull(),
   },
-  (table) => [
-    // cspell:disable-next-line
-    uniqueIndex("stream_revision_uidx").on(table.stream, table.revision),
-  ],
+  (table) => [uniqueIndex("stream_revision_uidx").on(table.stream, table.revision)],
 );
 
 export const entries = sqliteTable(
@@ -368,7 +364,6 @@ export const userPreferences = sqliteTable(
     updatedAt: timestamp("updatedAt").notNull(),
   },
   (table) => [
-    // cspell:disable-next-line
     uniqueIndex("user_preferences_userId_preference_uidx").on(table.userId, table.preference),
     index("user_preferences_userId_idx").on(table.userId),
     index("user_preferences_preference_idx").on(table.preference),

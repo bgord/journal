@@ -1,4 +1,3 @@
-// cspell:disable
 import * as AI from "+ai";
 import type * as Emotions from "+emotions";
 import type { LanguagesType } from "+languages";

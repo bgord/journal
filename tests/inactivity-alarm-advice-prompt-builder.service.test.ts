@@ -1,4 +1,3 @@
-// cspell:disable
 import { describe, expect, test } from "bun:test";
 import * as AI from "+ai";
 import * as Emotions from "+emotions";
